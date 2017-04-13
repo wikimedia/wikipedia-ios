@@ -5,7 +5,6 @@ import TUSafariActivity
 
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
-    @IBOutlet weak var filterSelectorView: UIView!
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
@@ -14,6 +13,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
+    @IBOutlet weak var filterSelectorView: PlaceSearchFilterSelectorView!
     @IBOutlet weak var filterDropDownContainerView: UIView!
     @IBOutlet weak var filterDropDownTableView: UITableView!
 
@@ -74,8 +74,55 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     private var extendedNavBarHeightOrig: CGFloat?
     
-    private var currentSearchFilter: PlaceFilterType = .top // TODO: remember last setting?
-    
+    private var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
+        didSet {
+            updateSearchFilterTitle()
+        }
+    }
+
+    fileprivate func updateSearchFilterTitle() {
+        
+        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
+            return
+            
+        }
+
+        let title: String
+        let image: UIImage
+
+        if (isSearchFilterDropDownShowing) {
+            title = "Search filters"
+            image = #imageLiteral(resourceName: "chevron-up")
+            
+        } else {
+            image = #imageLiteral(resourceName: "chevron-down")
+            
+            switch currentSearchFilter {
+            case .top:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+            case .saved:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            }
+        }
+        
+        let attributedTitle = NSMutableAttributedString(string: title + " ")
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = image
+        
+        let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
+        imageAttachment.setImageHeight(6, font: font)
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        attributedTitle.append(imageString)
+        
+        let fullRange = NSMakeRange(0, attributedTitle.length)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
+        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+
+        self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
+    }
+
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
     
     // MARK: - View Lifecycle
@@ -1042,6 +1089,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } else {
                 hideSearchFilterDropdown()
             }
+            
+            updateSearchFilterTitle()
         }
     }
     
@@ -2436,3 +2485,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 }
 
+class PlaceSearchFilterSelectorView: UIView {
+    
+    @IBOutlet weak var button: UIButton!
+}

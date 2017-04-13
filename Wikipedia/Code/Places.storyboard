@@ -484,11 +484,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="VAs-ZO-0gF">
+                <view contentMode="scaleToFill" id="VAs-ZO-0gF" customClass="PlaceSearchFilterSelectorView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lk-Yo-wUm">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lk-Yo-wUm" userLabel="Top articles ∨">
                             <rect key="frame" x="105" y="4" width="115" height="33"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <state key="normal" title="Top articles ∨ ">
@@ -503,6 +503,9 @@
                         <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerX" secondItem="VAs-ZO-0gF" secondAttribute="centerX" id="1nB-WB-9yN"/>
                         <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerY" secondItem="VAs-ZO-0gF" secondAttribute="centerY" id="fH7-Y1-W5K"/>
                     </constraints>
+                    <connections>
+                        <outlet property="button" destination="1lk-Yo-wUm" id="30L-I3-lIm"/>
+                    </connections>
                 </view>
             </objects>
             <point key="canvasLocation" x="1518.75" y="-168.75"/>
