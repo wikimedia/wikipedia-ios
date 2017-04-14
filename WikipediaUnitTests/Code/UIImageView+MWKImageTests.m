@@ -179,7 +179,7 @@
             [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-            self.image = download.image;
+            self.image = download.image.staticImage;
             [expectation fulfill];
         }];
 
@@ -223,7 +223,7 @@
             [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-            self.image = download.image;
+            self.image = download.image.staticImage;
             [expectation fulfill];
         }];
 
@@ -266,7 +266,7 @@
             [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-            self.image = download.image;
+            self.image = download.image.staticImage;
             [expectation fulfill];
         }];
 
@@ -310,7 +310,7 @@
             [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-            self.image = download.image;
+            self.image = download.image.staticImage;
             [expectation fulfill];
         }];
 
