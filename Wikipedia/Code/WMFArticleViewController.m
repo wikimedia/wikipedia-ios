@@ -95,13 +95,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
 
     NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
-
+    
     if (url) {
-        NSString *urlAsString = url.absoluteString;
-        if([urlAsString hasSuffix:@"!"]) {
-            urlAsString = [urlAsString stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
-        }
-        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", urlAsString, @"wprov=sfsi1"]]];
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName: @"wprov" value: @"sfsi1"];
+        components.queryItems = @[queryItem];
+
+        [items addObject:components.URL];
     }
 
     MKMapItem *mapItem = [self mapItem];
