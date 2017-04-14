@@ -1,6 +1,8 @@
 
 const transformer = require('../transformer');
 
+var saveClickHandler = null;
+
 class WMFPage {
     constructor(title, thumbnail, terms, extract) {
         this.title = title;
@@ -16,8 +18,10 @@ class WMFPageFragment {
         pageContainer.id = index;
         pageContainer.className = 'footer_readmore_page';
 
+        const titleWithoutSpaces = wmfPage.title.replace(/ /g, '_');
+        
         var containerAnchor = document.createElement('a');
-        containerAnchor.href = '/wiki/' + wmfPage.title.replace(/ /g, '_');
+        containerAnchor.href = '/wiki/' + titleWithoutSpaces;
         pageContainer.appendChild(containerAnchor);
 
         var bottomActions = document.createElement('div');
@@ -62,7 +66,11 @@ class WMFPageFragment {
         saveAnchor.id = index;
         saveAnchor.innerText = 'Save for later';
         saveAnchor.className = 'footer_readmore_page_action_save';
-        saveAnchor.href = '/wiki/Dog';
+
+        saveAnchor.addEventListener('click', function(){
+          saveClickHandler(titleWithoutSpaces);
+        }, false);
+
         bottomActions.appendChild(saveAnchor);
         
         return document.createDocumentFragment().appendChild(pageContainer);
@@ -126,13 +134,16 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
         }
       }
     };
+    /*
     xhr.onerror = (e) => {
       console.log(`${e}`);
       // console.error(xhr.statusText);
     };
+    */
     xhr.send(null);
 };
 
-transformer.register('addReadMoreFooter', function(baseURL, title) {
+transformer.register('addReadMoreFooter', function(baseURL, title, saveButtonClickHandler) {
+  saveClickHandler = saveButtonClickHandler;
   fetchReadMore(baseURL, title, showReadMore);
 });
