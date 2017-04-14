@@ -10,7 +10,8 @@ typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
     WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
     WMFWKScriptMessageLateJavascriptTransform,
     WMFWKScriptMessageArticleState,
-    WMFWKScriptMessageFindInPageMatchesFound
+    WMFWKScriptMessageFindInPageMatchesFound,
+    WMFWKScriptMessageReadMoreFooterSaveClicked
 };
 
 @interface WKScriptMessage (WMFScriptMessage)

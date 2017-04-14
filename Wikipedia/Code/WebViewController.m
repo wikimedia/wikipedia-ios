@@ -143,6 +143,9 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
+        case WMFWKScriptMessageReadMoreFooterSaveClicked:
+            NSLog(@"safeMessageBody = %@", safeMessageBody);
+            break;
     }
 }
 
@@ -521,6 +524,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
+
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"readMoreFooterSaveClicked"];
 
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
