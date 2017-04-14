@@ -14,7 +14,10 @@ static int const kMinimumTextSelectionLength = 2;
 - (void)wmf_addReadMoreFooterForArticle:(MWKArticle *)article {
     NSURL *proxyURL = [[WMFProxyServer sharedProxyServer] proxyURLForWikipediaAPIHost:article.url.host];
     NSString *readMoreTransform =
-    [NSString stringWithFormat:@"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@');", proxyURL, article.url.wmf_title];
+    [NSString stringWithFormat:
+     @"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@', function(title){"
+        "window.webkit.messageHandlers.readMoreFooterSaveClicked.postMessage({'title': title})"
+     "});", proxyURL, article.url.wmf_title];
     [self evaluateJavaScript:readMoreTransform completionHandler:nil];
 }
 
