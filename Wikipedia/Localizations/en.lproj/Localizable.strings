@@ -542,6 +542,7 @@
 "explore-randomizer" = "Randomizer";
 
 "find-in-page-no-matches" = "0 matches";
+"find-in-page-no-matches-numeric" = "0 / 0";
 "find-in-page-button-label" = "Find in page";
 "find-in-page-popover-description" = "Search text in articles";
 
