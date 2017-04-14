@@ -1,4 +1,5 @@
 import Foundation
+import FLAnimatedImage
 
 public enum ImageOrigin: Int {
     case network = 0
@@ -29,7 +30,16 @@ public protocol ImageOriginConvertible {
 
 public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-@objc(WMFImageDownload) open class ImageDownload: NSObject {
+@objc(WMFImage) public class Image: NSObject {
+    open var staticImage: UIImage
+    open var animatedImage: FLAnimatedImage?
+    public init(staticImage: UIImage, animatedImage: FLAnimatedImage?) {
+        self.staticImage = staticImage
+        self.animatedImage = animatedImage
+    }
+}
+
+@objc(WMFImageDownload) public class ImageDownload: NSObject {
     // Exposing enums as string constants for ObjC compatibility
     open static let imageOriginNetwork = ImageOrigin.network.rawValue
     open static let imageOriginDisk = ImageOrigin.disk.rawValue
@@ -37,21 +47,18 @@ public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { re
     open static let imageOriginUnknown = ImageOrigin.unknown.rawValue
     
     open var url: URL
-    open var image: UIImage
+    open var image: Image
     open var origin: ImageOrigin
-    open var data: Data?
     
-    public init(url: URL, image: UIImage, origin: ImageOrigin, data: Data?) {
+    public init(url: URL, image: Image, origin: ImageOrigin) {
         self.url = url
         self.image = image
         self.origin = origin
-        self.data = data
     }
 
-    public init(url: URL, image: UIImage, originRawValue: Int, data: Data?) {
+    public init(url: URL, image: Image, originRawValue: Int) {
         self.url = url
         self.image = image
         self.origin = ImageOrigin(rawValue: originRawValue)!
-        self.data = data
     }
 }
