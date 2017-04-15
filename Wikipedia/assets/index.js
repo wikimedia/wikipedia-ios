@@ -581,7 +581,7 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
       ns: 'ppprop',
       pilimit: pageCountToFetch,
       piprop: 'thumbnail',
-      pithumbsize: 320,
+      pithumbsize: 640,
       prop: 'pageterms|pageimages|pageprops|revisions|extracts',
       rrvlimit: 1,
       rvprop: 'ids',
