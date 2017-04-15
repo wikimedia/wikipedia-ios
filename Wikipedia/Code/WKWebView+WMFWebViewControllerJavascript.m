@@ -13,11 +13,23 @@ static int const kMinimumTextSelectionLength = 2;
 
 - (void)wmf_addReadMoreFooterForArticle:(MWKArticle *)article {
     NSURL *proxyURL = [[WMFProxyServer sharedProxyServer] proxyURLForWikipediaAPIHost:article.url.host];
-    NSString *readMoreTransform =
-    [NSString stringWithFormat:
-     @"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@', function(title){"
-        "window.webkit.messageHandlers.readMoreFooterSaveClicked.postMessage({'title': title})"
-     "});", proxyURL, article.url.wmf_title];
+    
+    NSString *saveForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-save-for-later" article:article];
+    NSString *savedForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-saved-for-later" article:article];
+    NSString *headerString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"article-read-more-title" article:article];
+    
+    NSString *saveButtonTapHandler = @""
+    "function(title){"
+    "  window.webkit.messageHandlers.readMoreFooterSaveClicked.postMessage({'title': title})"
+    "}";
+
+    NSString *titlesShownHandler = @""
+    "function(titles){"
+    "  window.webkit.messageHandlers.readMoreFooterTitlesShown.postMessage(titles)"
+    "}";
+    
+    NSString *readMoreTransform = [NSString stringWithFormat:@"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@', '%@', '%@', '%@', %@, %@ );", proxyURL, article.url.wmf_title, headerString, saveForLaterString, savedForLaterString, saveButtonTapHandler, titlesShownHandler];
+    
     [self evaluateJavaScript:readMoreTransform completionHandler:nil];
 }
 
@@ -42,7 +54,7 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (NSString *)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key article:(MWKArticle *)article {
-    return [MWSiteLocalizedString(article.url, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+    return [MWSiteLocalizedString(article.url, key, nil) wmf_stringByReplacingApostrophesWithBackslashApostrophes];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {

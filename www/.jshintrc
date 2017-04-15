@@ -11,5 +11,6 @@
 
 	// Environment
 	"browser": true,
-	"browserify": true
+	"browserify": true,
+	"devel": true
 }

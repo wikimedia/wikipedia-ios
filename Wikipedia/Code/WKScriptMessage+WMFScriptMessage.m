@@ -23,6 +23,8 @@
         return WMFWKScriptMessageFindInPageMatchesFound;
     } else if ([name isEqualToString:@"readMoreFooterSaveClicked"]) {
         return WMFWKScriptMessageReadMoreFooterSaveClicked;
+    } else if ([name isEqualToString:@"readMoreFooterTitlesShown"]) {
+        return WMFWKScriptMessageReadMoreFooterTitlesShown;
     } else {
         return WMFWKScriptMessageUnknown;
     }
@@ -62,6 +64,9 @@
             break;
         case WMFWKScriptMessageReadMoreFooterSaveClicked:
             return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageReadMoreFooterTitlesShown:
+            return [NSArray class];
             break;
     }
 }

@@ -1,7 +1,13 @@
 
 const transformer = require('../transformer');
 
-var saveClickHandler = null;
+var _saveButtonClickHandler = null;
+var _titlesShownHandler = null;
+var _saveForLaterString = null;
+var _savedForLaterString = null;
+var _saveButtonIDPrefix = 'readmore:save:';
+
+var shownTitles = [];
 
 class WMFPage {
     constructor(title, thumbnail, terms, extract) {
@@ -18,10 +24,8 @@ class WMFPageFragment {
         pageContainer.id = index;
         pageContainer.className = 'footer_readmore_page';
 
-        const titleWithoutSpaces = wmfPage.title.replace(/ /g, '_');
-        
         var containerAnchor = document.createElement('a');
-        containerAnchor.href = '/wiki/' + titleWithoutSpaces;
+        containerAnchor.href = '/wiki/' + wmfPage.title;
         pageContainer.appendChild(containerAnchor);
 
         var bottomActions = document.createElement('div');
@@ -33,7 +37,7 @@ class WMFPageFragment {
             var title = document.createElement('h3');
             title.id = index;
             title.className = 'footer_readmore_page_title';
-            title.innerHTML = wmfPage.title;
+            title.innerHTML = wmfPage.title.replace(/_/g, ' ');
             containerAnchor.appendChild(title);
         }
 
@@ -63,12 +67,12 @@ class WMFPageFragment {
         }
 
         var saveAnchor = document.createElement('a');
-        saveAnchor.id = index;
+        saveAnchor.id = `${_saveButtonIDPrefix}${wmfPage.title}`;
         saveAnchor.innerText = 'Save for later';
         saveAnchor.className = 'footer_readmore_page_action_save';
 
         saveAnchor.addEventListener('click', function(){
-          saveClickHandler(titleWithoutSpaces);
+          _saveButtonClickHandler(wmfPage.title);
         }, false);
 
         bottomActions.appendChild(saveAnchor);
@@ -79,11 +83,20 @@ class WMFPageFragment {
 
 const showReadMore = (pages) => {
   const app_footer_readmore = document.getElementById('app_footer_readmore');
+  
+  shownTitles.length = 0;
+  
   pages.forEach((page, index) => {
-    const pageModel = new WMFPage(page.title, page.thumbnail, page.terms, page.extract);
+
+    const title = page.title.replace(/ /g, '_');
+    shownTitles.push(title);
+
+    const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
     const pageFragment = new WMFPageFragment(pageModel, index);
     app_footer_readmore.appendChild(pageFragment);
   });
+  
+  _titlesShownHandler(shownTitles);
 };
 
 // Leave 'baseURL' null if you don't need to deal with proxying.
@@ -143,7 +156,19 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
     xhr.send(null);
 };
 
-transformer.register('addReadMoreFooter', function(baseURL, title, saveButtonClickHandler) {
-  saveClickHandler = saveButtonClickHandler;
+function setTitleIsSaved(title, isSaved){
+  document.getElementById(`${_saveButtonIDPrefix}${title}`).innerText = isSaved ? _savedForLaterString : _saveForLaterString;
+}
+
+transformer.register('addReadMoreFooter', function(baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+  _saveButtonClickHandler = saveButtonClickHandler;
+  _titlesShownHandler = titlesShownHandler;  
+  _saveForLaterString = saveForLaterString;
+  _savedForLaterString = savedForLaterString;
+
+  document.getElementById('app_footer_readmore_title').innerText = headerString;
+  
   fetchReadMore(baseURL, title, showReadMore);
 });
+
+exports.setTitleIsSaved = setTitleIsSaved;

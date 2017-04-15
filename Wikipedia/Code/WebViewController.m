@@ -9,6 +9,7 @@
 #import "MWKArticle.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
+#import "MWKDataStore.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -140,13 +141,38 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         case WMFWKScriptMessageFindInPageMatchesFound:
             [self handleFindInPageMatchesFoundMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageReadMoreFooterTitlesShown:
+            [self handleReadMoreFooterTitlesShownScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageReadMoreFooterSaveClicked:
+            [self handleReadMoreFooterSaveClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
-        case WMFWKScriptMessageReadMoreFooterSaveClicked:
-            NSLog(@"safeMessageBody = %@", safeMessageBody);
-            break;
     }
+}
+
+- (void)handleReadMoreFooterTitlesShownScriptMessage:(NSArray *)messageArray {
+    for (NSString* title in messageArray) {
+        [self updateReadMoreSaveButtonIsSavedStateForTitle:title];
+    }
+}
+
+- (void)handleReadMoreFooterSaveClickedScriptMessage:(NSDictionary *)messageDict {
+    [self toggleReadMoreSaveButtonIsSavedStateForTitle:messageDict[@"title"]];
+}
+
+- (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
+    BOOL isSaved = [self.article.dataStore.savedPageList isSaved:[self.article.url wmf_URLWithTitle:title]];
+    title = [title wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.addReadMoreFooter.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+}
+
+- (void)toggleReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
+    BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:[self.article.url wmf_URLWithTitle:title]];
+    title = [title wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.addReadMoreFooter.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
 }
 
 - (void)handleMessageConsoleScriptMessage:(NSDictionary *)messageDict {
@@ -470,7 +496,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 #pragma FindInPageKeyboardBarDelegate
 
 - (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
-    term = [term stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+    term = [term wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
                        [self scrollToAndFocusOnFirstMatch];
@@ -526,6 +552,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"readMoreFooterSaveClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"readMoreFooterTitlesShown"];
 
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
