@@ -30,16 +30,16 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
      */
-//    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-//    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
-//        @"CurrentArticleDomain": defaultLanguage,
-//        @"Domain": defaultLanguage,
-//        WMFZeroWarnWhenLeaving: @YES,
-//        WMFZeroOnDialogShownOnce: @NO,
-//        @"LastHousekeepingDate": [NSDate date],
-//        @"SendUsageReports": @NO,
-//        @"AccessSavedPagesMessageShown": @NO
-//    }];
+    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
+        @"CurrentArticleDomain": defaultLanguage,
+        @"Domain": defaultLanguage,
+        WMFZeroWarnWhenLeaving: @YES,
+        WMFZeroOnDialogShownOnce: @NO,
+        @"LastHousekeepingDate": [NSDate date],
+        @"SendUsageReports": @NO,
+        @"AccessSavedPagesMessageShown": @NO
+    }];
 }
 
 #pragma mark - Accessors

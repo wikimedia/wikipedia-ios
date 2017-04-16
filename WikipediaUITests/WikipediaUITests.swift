@@ -25,18 +25,20 @@ class WikipediaUITests: XCTestCase {
 //        app.launchArguments = [
 //            "-inUITest",
 //            "-AppleLanguages",
-//            "(de)",
+//            "(fr)",
 //            "-AppleLocale",
-//            "de-DE"
+//            "fr-FR"
 //        ]
 
-        
+        print("bastien")
+        print(app.launchArguments)
         setupSnapshot(app)
-        
+        print("bastien")
+        print(app.launchArguments)
         args = app.launchArguments
         
         app.launch()
-        print(app.launchArguments)
+        
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
@@ -76,7 +78,7 @@ class WikipediaUITests: XCTestCase {
         
         let tablesQuery = app.tables
         
-        let steveJobsLink = tablesQuery.links["Steve Jobs\nAmerican entrepreneur and co-founder of Apple Inc.\n"]
+        let steveJobsLink = tablesQuery.links.element(boundBy: 0)
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -84,7 +86,7 @@ class WikipediaUITests: XCTestCase {
         
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
         
-        tablesQuery.links["Steve Jobs\nAmerican entrepreneur and co-founder of Apple Inc.\n"].tap()
+        steveJobsLink.tap()
         
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -120,14 +122,16 @@ class WikipediaUITests: XCTestCase {
         
         let tablesQuery = app.tables
         
-        let steveJobsLink = tablesQuery.links["Steve Jobs\nEntrepreneur et inventeur américain\n"]
+        let steveJobsLink = tablesQuery.links.element(boundBy: 0)
+//        tablesQuery.links.element(boundBy: 0)
+        
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
         let steveJobsElement = app.staticTexts["Steve Jobs"]
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
         
-        tablesQuery.links["Steve Jobs\nEntrepreneur et inventeur américain\n"].tap()
+        steveJobsLink.tap()
         
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -168,7 +172,7 @@ class WikipediaUITests: XCTestCase {
         
         let tablesQuery = app.tables
         
-        let steveJobsLink = tablesQuery.links["Steve Jobs\nUS-amerikanischer Unternehmer, Mitbegründer von Apple Computer\n"]
+        let steveJobsLink = tablesQuery.links.element(boundBy: 0)
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -176,7 +180,7 @@ class WikipediaUITests: XCTestCase {
         
         expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
         
-        tablesQuery.links["Steve Jobs\nUS-amerikanischer Unternehmer, Mitbegründer von Apple Computer\n"].tap()
+        steveJobsLink.tap()
         
         waitForExpectations(timeout: 5, handler: nil)
         
@@ -186,13 +190,10 @@ class WikipediaUITests: XCTestCase {
     
     func testExample() {
         
-        
-        
-        
         let locales = args.filter { (locale) -> Bool in
-            return locale == "de-DE"
-            || locale == "en-US"
-            || locale == "fr-FR"
+            return locale.contains("de-DE")
+            || locale.contains("en-US")
+            || locale.contains("fr-FR")
         }
         print(args)
         let locale = locales.first
@@ -200,9 +201,15 @@ class WikipediaUITests: XCTestCase {
 
         if let locale = locale {
             switch locale {
-                case "de-DE": deDE()
-                case "fr-FR": frFR()
-                case "en-US": enUS()
+            case locale where locale.contains("de-DE"):
+                deDE()
+                break;
+            case locale where locale.contains("fr-FR"):
+                frFR()
+                break;
+            case locale where locale.contains("en-US"):
+                enUS()
+                break;
             default:
                 break
             }

@@ -26,36 +26,38 @@ func snapshot(_ name: String, waitForLoadingIndicator: Bool = true) {
 }
 
 open class Snapshot: NSObject {
-
+    
     open class func setupSnapshot(_ app: XCUIApplication) {
         setLanguage(app)
         setLocale(app)
         setLaunchArguments(app)
     }
-
+    
     class func setLanguage(_ app: XCUIApplication) {
         guard let prefix = pathPrefix() else {
             return
         }
-
+        
         let path = prefix.appendingPathComponent("language.txt")
-
+        
         do {
             let trimCharacterSet = CharacterSet.whitespacesAndNewlines
             deviceLanguage = try String(contentsOf: path, encoding: .utf8).trimmingCharacters(in: trimCharacterSet)
             app.launchArguments += ["-AppleLanguages", "(\(deviceLanguage))"]
-        } catch {
+        } catch (let error){
+            print(path)
+            print(error.localizedDescription)
             print("Couldn't detect/set language...")
         }
     }
-
+    
     class func setLocale(_ app: XCUIApplication) {
         guard let prefix = pathPrefix() else {
             return
         }
-
+        
         let path = prefix.appendingPathComponent("locale.txt")
-
+        
         do {
             let trimCharacterSet = CharacterSet.whitespacesAndNewlines
             locale = try String(contentsOf: path, encoding: .utf8).trimmingCharacters(in: trimCharacterSet)
@@ -67,15 +69,15 @@ open class Snapshot: NSObject {
         }
         app.launchArguments += ["-AppleLocale", "\"\(locale)\""]
     }
-
+    
     class func setLaunchArguments(_ app: XCUIApplication) {
         guard let prefix = pathPrefix() else {
             return
         }
-
+        
         let path = prefix.appendingPathComponent("snapshot-launch_arguments.txt")
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-ui_testing"]
-
+        
         do {
             let launchArguments = try String(contentsOf: path, encoding: String.Encoding.utf8)
             let regex = try NSRegularExpression(pattern: "(\\\".+?\\\"|\\S+)", options: [])
@@ -88,16 +90,16 @@ open class Snapshot: NSObject {
             print("Couldn't detect/set launch_arguments...")
         }
     }
-
+    
     open class func snapshot(_ name: String, waitForLoadingIndicator: Bool = true) {
         if waitForLoadingIndicator {
             waitForLoadingIndicatorToDisappear()
         }
-
+        
         print("snapshot: \(name)") // more information about this, check out https://github.com/fastlane/fastlane/tree/master/snapshot#how-does-it-work
-
+        
         sleep(1) // Waiting for the animation to be finished (kind of)
-
+        
         #if os(tvOS)
             XCUIApplication().childrenMatchingType(.Browser).count
         #elseif os(OSX)
@@ -106,20 +108,20 @@ open class Snapshot: NSObject {
             XCUIDevice.shared().orientation = .unknown
         #endif
     }
-
+    
     class func waitForLoadingIndicatorToDisappear() {
         #if os(tvOS)
             return
         #endif
-
+        
         let query = XCUIApplication().statusBars.children(matching: .other).element(boundBy: 1).children(matching: .other)
-
+        
         while (0..<query.count).map({ query.element(boundBy: $0) }).contains(where: { $0.isLoadingIndicator }) {
             sleep(1)
             print("Waiting for loading indicator to disappear...")
         }
     }
-
+    
     class func pathPrefix() -> URL? {
         let homeDir: URL
         //on OSX config is stored in /Users/<username>/Library
@@ -129,12 +131,12 @@ open class Snapshot: NSObject {
                 print("Couldn't find Snapshot configuration files - can't detect current user ")
                 return nil
             }
-
+            
             guard let usersDir =  FileManager.default.urls(for: .userDirectory, in: .localDomainMask).first else {
                 print("Couldn't find Snapshot configuration files - can't detect `Users` dir")
                 return nil
             }
-
+            
             homeDir = usersDir.appendingPathComponent(user)
         #else
             guard let simulatorHostHome = ProcessInfo().environment["SIMULATOR_HOST_HOME"] else {
@@ -145,7 +147,8 @@ open class Snapshot: NSObject {
                 print("Can't prepare environment. Simulator home location is inaccessible. Does \(simulatorHostHome) exist?")
                 return nil
             }
-            homeDir = homeDirUrl
+//            homeDir = homeDirUrl
+            homeDir = URL(fileURLWithPath: homeDirUrl.path)
         #endif
         return homeDir.appendingPathComponent("Library/Caches/tools.fastlane")
     }
