@@ -22,17 +22,17 @@ class WikipediaUITests: XCTestCase {
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
 //        let app = XCUIApplication()
 
-//        app.launchArguments = [
-//            "-inUITest",
-//            "-AppleLanguages",
-//            "(fr)",
-//            "-AppleLocale",
-//            "fr-FR"
-//        ]
+        app.launchArguments = [
+            "-inUITest",
+            "-AppleLanguages",
+            "(fr)",
+            "-AppleLocale",
+            "fr-FR"
+        ]
 
         print("bastien")
         print(app.launchArguments)
-        setupSnapshot(app)
+//        setupSnapshot(app)
         print("bastien")
         print(app.launchArguments)
         args = app.launchArguments
@@ -88,7 +88,7 @@ class WikipediaUITests: XCTestCase {
         
         steveJobsLink.tap()
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         
         
         
@@ -123,17 +123,25 @@ class WikipediaUITests: XCTestCase {
         let tablesQuery = app.tables
         
         let steveJobsLink = tablesQuery.links.element(boundBy: 0)
-//        tablesQuery.links.element(boundBy: 0)
         
         expectation(for: existsPredicate, evaluatedWith: steveJobsLink, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+//        XCUIApplication().toolbars.buttons["Table of contents"].tap()
+        
+        
         
         let steveJobsElement = app.staticTexts["Steve Jobs"]
-        expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
-        
         steveJobsLink.tap()
         
-        waitForExpectations(timeout: 5, handler: nil)
+//        let tableOfContent = app.toolbars.buttons["Table of contents"]
+//        let enabledPredicate = NSPredicate(format: "exists == true ")
+        
+        expectation(for: existsPredicate, evaluatedWith: steveJobsElement, handler: nil)
+        
+//        print(app.debugDescription)
+        
+
+        waitForExpectations(timeout: 10, handler: nil)
         
         
         snapshot("Steve Jobs Page")
@@ -182,7 +190,7 @@ class WikipediaUITests: XCTestCase {
         
         steveJobsLink.tap()
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         
         snapshot("Steve Jobs Page")
     }
