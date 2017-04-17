@@ -64,16 +64,11 @@
 }
 
 - (void)textFieldDidChange:(NSNotification *)notification {
-    [self updateDoneButtonState];
     [self updatePlaceholderLabelState];
 }
 
 - (void)updatePlaceholderLabelState {
     self.placeholderLabel.hidden = ([self.summaryTextField.text length] == 0) ? NO : YES;
-}
-
-- (void)updateDoneButtonState {
-    self.buttonDone.enabled = (self.summaryTextField.text.length > 0) ? YES : NO;
 }
 
 // From: http://stackoverflow.com/a/1773257
@@ -91,7 +86,6 @@
     [super viewWillAppear:animated];
     self.summaryTextField.text = self.summaryText;
 
-    [self updateDoneButtonState];
     [self updatePlaceholderLabelState];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:@"UITextFieldTextDidChangeNotification" object:self.summaryTextField];

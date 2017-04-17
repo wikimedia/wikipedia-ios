@@ -46,6 +46,7 @@
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
+#import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -76,7 +77,9 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeExplore = 0,
+#if WMF_PLACES_ENABLED
     WMFAppTabTypePlaces,
+#endif
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -790,12 +793,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypePlaces: {
+#if WMF_PLACES_ENABLED
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
                 [[self placesViewController] showArticleURL:articleURL];
             }
+#endif
         } break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
@@ -842,7 +847,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [self.exploreViewController showSettings];
             break;
         case WMFUserActivityTypeGenericLink:
-            [self wmf_openExternalUrl:activity.webpageURL];
+            [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
         default:
             done();
@@ -960,7 +965,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (PlacesViewController *)placesViewController {
+#if WMF_PLACES_ENABLED
     return (PlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
+#else
+    return nil;
+#endif
 }
 
 #pragma mark - UIViewController
@@ -1342,5 +1351,32 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }];
     });
 }
+
+
+#pragma mark - Perma Random Mode
+
+#if WMF_TWEAKS_ENABLED
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
+        return;
+    }
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
+    
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore previewStore:self.previewStore];
+    vc.permaRandomMode = YES;
+    [exploreNavController pushViewController:vc animated:YES];
+}
+#endif
 
 @end

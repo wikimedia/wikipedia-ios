@@ -49,6 +49,9 @@
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore previewStore:self.previewStore];
+#if WMF_TWEAKS_ENABLED
+            randomArticleVC.permaRandomMode = self.isPermaRandomMode;
+#endif
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
             [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
             [self.navigationController setViewControllers:viewControllers];

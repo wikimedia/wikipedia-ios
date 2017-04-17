@@ -3,9 +3,6 @@
 #import "WMFZeroConfigurationFetcher.h"
 #import "MWKLanguageLinkController.h"
 #import <WMF/WMF-Swift.h>
-//#if WMF_TWEAKS_ENABLED
-//#import <Tweaks/FBTweakInline.h>
-//#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,10 +29,6 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 
 + (void)load {
     [super load];
-    //    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-    //        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:WMFZeroOnDialogShownOnce];
-    //        [[NSUserDefaults wmf_userDefaults] synchronize];
-    //    });
 }
 
 - (WMFZeroConfigurationFetcher *)zeroConfigurationFetcher {

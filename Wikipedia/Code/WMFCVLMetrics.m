@@ -1,7 +1,4 @@
 #import "WMFCVLMetrics.h"
-#if WMF_TWEAKS_ENABLED
-#import <Tweaks/FBTweakInline.h>
-#endif
 
 @interface WMFCVLMetrics ()
 @property (nonatomic) CGSize boundsSize;

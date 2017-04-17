@@ -6,6 +6,8 @@
 @class WMFContentGroupDataStore;
 @class WMFArticleDataStore;
 
+extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreViewController : UICollectionViewController <WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding>
