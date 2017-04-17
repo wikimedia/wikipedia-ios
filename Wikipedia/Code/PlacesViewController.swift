@@ -879,6 +879,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchBarLeftPadding: CGFloat = 7.5
         let searchBarRightPadding: CGFloat = 2.5
         
+        searchBar = titleViewSearchBar
+        
         filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32)
         filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -899,6 +901,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
         filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
+        
+        searchBar = listAndSearchOverlaySearchBar
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
