@@ -209,8 +209,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
         
-        searchBar = titleViewSearchBar
-        
         viewMode = .map
         
         self.view.layoutIfNeeded()
