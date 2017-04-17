@@ -283,8 +283,12 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #pragma mark - Clear Cache
 
 - (void)showClearCacheActionSheet {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:MWLocalizedString(@"settings-clear-cache-are-you-sure", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache", nil)
+    NSString *message = MWLocalizedString(@"settings-clear-cache-are-you-sure-message", nil);
+    NSString *bytesString = [NSByteCountFormatter stringFromByteCount:[NSURLCache sharedURLCache].currentDiskUsage countStyle:NSByteCountFormatterCountStyleFile];
+    message = [message stringByReplacingOccurrencesOfString:@"$1" withString:bytesString];
+    
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"settings-clear-cache-are-you-sure-title", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache-ok", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [[WMFImageController sharedInstance] deleteTemporaryCache];
@@ -396,6 +400,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;
     section.footer = nil;
@@ -430,8 +435,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About]
         ]];
     section.header = nil;
     section.footer = nil;
