@@ -59,6 +59,7 @@ struct PlaceSearch {
         get {
             var dictionary: [String: NSCoding] = [:]
             dictionary["type"] = NSNumber(value: type.rawValue)
+            dictionary["filter"] = NSNumber(value: filter.rawValue)
             dictionary["sortStyle"] = NSNumber(value: sortStyle.rawValue)
             if let string = string {
                 dictionary["string"] = string as NSString
