@@ -176,6 +176,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "UIColor+WMFHexColor.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "UIView+WMFDefaultNib.h"
+#import "FLAnimatedImage+SafeForSwift.h"
 
 //Deprecated
 #import "MWKHistoryEntry.h"
