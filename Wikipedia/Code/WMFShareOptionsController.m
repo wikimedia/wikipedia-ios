@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);
-            [self showShareOptionsWithImage:download.image];
+            [self showShareOptionsWithImage:download.image.staticImage];
         }];
 }
 

@@ -4,14 +4,12 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     let story: WMFFeedNewsStory
     let dataStore: MWKDataStore
-    let previewStore: WMFArticleDataStore
     
     @IBOutlet weak var tableView: UITableView!
     
-    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticleDataStore) {
+    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore) {
         self.story = story
         self.dataStore = dataStore
-        self.previewStore = previewStore
         super.init(nibName: "InTheNewsViewController", bundle: nil)
         title = localizedStringForKeyFallingBackOnEnglish("in-the-news-title")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("back"), style: .plain, target:nil, action:nil)
@@ -156,6 +154,6 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         let articlePreview = articlePreviews[index]
         let articleURL = articlePreview.articleURL
         
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }

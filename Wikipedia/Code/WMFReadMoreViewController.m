@@ -6,7 +6,6 @@
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFSaveButtonController.h"
-#import "WMFArticleDataStore.h"
 
 @interface WMFReadMoreViewController () <WMFAnalyticsContentTypeProviding>
 
@@ -19,15 +18,13 @@
 
 @implementation WMFReadMoreViewController
 
-- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore previewStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithURL:(NSURL *)url userStore:(MWKDataStore *)userDataStore {
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(userDataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
         self.articleURL = url;
         self.userDataStore = userDataStore;
-        self.previewStore = previewStore;
         self.relatedSearchFetcher = [[WMFRelatedSearchFetcher alloc] init];
     }
     return self;

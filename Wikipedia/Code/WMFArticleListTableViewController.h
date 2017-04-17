@@ -3,7 +3,6 @@
 #import "WMFAnalyticsLogging.h"
 #import "WMFTableViewUpdater.h"
 
-@class WMFArticleDataStore;
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
 
@@ -22,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFTableViewUpdaterDelegate>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
-@property (nonatomic, strong) WMFArticleDataStore *previewStore;
 
 /**
  *  Optional delegate which will is informed of selection.
