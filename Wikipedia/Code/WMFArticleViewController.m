@@ -101,8 +101,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         
         NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName: @"wprov" value: @"sfsi1"];
         components.queryItems = @[queryItem];
-
-        [items addObject:components.URL];
+        
+        NSURL *componentsURL = components.URL;
+        if (componentsURL) {
+            [items addObject:components.URL];
+        }
     }
 
     MKMapItem *mapItem = [self mapItem];
