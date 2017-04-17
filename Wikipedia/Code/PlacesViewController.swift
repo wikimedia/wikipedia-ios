@@ -2178,8 +2178,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let searchText = searchBar?.text
         if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             performDefaultSearch(withRegion: nil)
-        } else {
-            searchBar?.text = currentSearch?.localizedDescription
         }
     }
     
@@ -2335,7 +2333,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
-        searchBar?.endEditing(true)
+        searchBar?.text = search.string ?? search.localizedDescription
+        closeSearch(controller)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
