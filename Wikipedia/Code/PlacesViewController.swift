@@ -205,9 +205,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
+        titleViewSearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
         
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
+        listAndSearchOverlaySearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
         
         viewMode = .map
         
@@ -577,7 +579,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
-            searchBar?.text = search.localizedDescription
             performSearch(search)
             
             switch search.type {
