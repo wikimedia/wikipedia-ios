@@ -28,7 +28,7 @@ static int const kMinimumTextSelectionLength = 2;
     "  window.webkit.messageHandlers.readMoreFooterTitlesShown.postMessage(titles)"
     "}";
     
-    NSString *readMoreTransform = [NSString stringWithFormat:@"window.wmf.transformer.transform( 'addReadMoreFooter', '%@', '%@', '%@', '%@', '%@', %@, %@ );", proxyURL, article.url.wmf_title, headerString, saveForLaterString, savedForLaterString, saveButtonTapHandler, titlesShownHandler];
+    NSString *readMoreTransform = [NSString stringWithFormat:@"window.wmf.readMoreFooter.add( '%@', '%@', '%@', '%@', '%@', %@, %@ );", proxyURL, article.url.wmf_title, headerString, saveForLaterString, savedForLaterString, saveButtonTapHandler, titlesShownHandler];
     
     [self evaluateJavaScript:readMoreTransform completionHandler:nil];
 }

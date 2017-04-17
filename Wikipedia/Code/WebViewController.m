@@ -166,7 +166,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:[self.article.url wmf_URLWithTitle:title]];
     title = [title wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.addReadMoreFooter.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.readMoreFooter.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
 }
 
 - (void)toggleReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {

@@ -1,6 +1,4 @@
 
-const transformer = require('../transformer');
-
 var _saveButtonClickHandler = null;
 var _titlesShownHandler = null;
 var _saveForLaterString = null;
@@ -164,7 +162,7 @@ function setTitleIsSaved(title, isSaved){
   document.getElementById(`${_saveButtonIDPrefix}${title}`).innerText = isSaved ? _savedForLaterString : _saveForLaterString;
 }
 
-transformer.register('addReadMoreFooter', function(baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  
   _saveForLaterString = saveForLaterString;
@@ -173,6 +171,7 @@ transformer.register('addReadMoreFooter', function(baseURL, title, headerString,
   document.getElementById('app_footer_readmore_title').innerText = headerString;
   
   fetchReadMore(baseURL, title, showReadMore);
-});
+}
 
 exports.setTitleIsSaved = setTitleIsSaved;
+exports.add = add;
