@@ -7,6 +7,18 @@ var _saveButtonIDPrefix = 'readmore:save:';
 
 var shownTitles = [];
 
+const removeParenthesizedContent = (string) => {
+  const regex = new RegExp('[(][^()]+[)]', 'g');
+  var previousString = null;
+  var counter = 0;
+  do {
+    previousString = string;
+    string = string.replace(regex, '');
+    counter++;
+  } while (previousString !== string && counter < 30);
+  return string;
+};
+
 class WMFPage {
     constructor(title, thumbnail, terms, extract) {
         this.title = title;
@@ -56,7 +68,7 @@ img.classList.add('wideImageOverride');
         if(wmfPage.terms){
           description = wmfPage.terms.description;
         }else if(wmfPage.extract){
-          description = wmfPage.extract;
+          description = removeParenthesizedContent(wmfPage.extract);
         }
 
         if(description){
