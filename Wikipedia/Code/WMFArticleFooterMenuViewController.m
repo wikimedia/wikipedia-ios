@@ -25,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
-
 @property (nonatomic, strong) WMFArticleFooterMenuDataSource *footerDataSource;
 
 @property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView *tableView;
@@ -37,14 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate {
     NSParameterAssert(article);
     NSParameterAssert(delegate);
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
-        self.previewStore = previewStore;
         self.dataStore = dataStore;
         self.footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
         self.similarPagesDelegate = delegate;
@@ -123,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showDisambiguationItems {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore previewStore:self.previewStore];
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
     articleListVC.delegate = self.similarPagesDelegate;
     articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
@@ -154,8 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
                              completion:^{
                                  WMFArticleViewController *articleContainerVC =
                                      [[WMFArticleViewController alloc] initWithArticleURL:language.articleURL
-                                                                                dataStore:self.dataStore
-                                                                             previewStore:self.previewStore];
+                                                                                dataStore:self.dataStore];
                                  [self.navigationController pushViewController:articleContainerVC animated:YES];
                              }];
 }

@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFFeedContentFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 @property (nonatomic, strong) AFHTTPSessionManager *unserializedOperationManager;
+@property (nonatomic, strong) dispatch_queue_t serialQueue;
 @end
 
 @implementation WMFFeedContentFetcher
@@ -22,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
         AFHTTPSessionManager *unserializedOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.unserializedOperationManager = unserializedOperationManager;
+        NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.feedcontentfetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
+        self.serialQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -124,32 +127,34 @@ NS_ASSUME_NONNULL_BEGIN
         parameters:nil
         progress:NULL
         success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
-            NSArray *items = responseObject[@"items"];
-            if (![items isKindOfClass:[NSArray class]]) {
-                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                          userInfo:nil]);
-                return;
-            }
-
-            NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:[items count]];
-            for (id item in items) {
-                if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]] && [item[@"timestamp"] isKindOfClass:[NSString class]]) {
-                    NSDate *date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayHourFormatter] dateFromString:item[@"timestamp"]];
-                    results[date] = item[@"views"];
+            dispatch_async(self.serialQueue, ^{
+                NSArray *items = responseObject[@"items"];
+                if (![items isKindOfClass:[NSArray class]]) {
+                    failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                              userInfo:nil]);
+                    return;
                 }
-            }
 
-            NSDate *date = startDate;
-
-            while ([date compare:endDate] == NSOrderedAscending) {
-                if (results[date]) {
-                    break;
+                NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:[items count]];
+                for (id item in items) {
+                    if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]] && [item[@"timestamp"] isKindOfClass:[NSString class]]) {
+                        NSDate *date = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayHourFormatter] dateFromString:item[@"timestamp"]];
+                        results[date] = item[@"views"];
+                    }
                 }
-                results[date] = @(0);
-                date = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:NSCalendarMatchStrictly];
-            }
 
-            success([results copy]);
+                NSDate *date = startDate;
+
+                while ([date compare:endDate] == NSOrderedAscending) {
+                    if (results[date]) {
+                        break;
+                    }
+                    results[date] = @(0);
+                    date = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:NSCalendarMatchStrictly];
+                }
+
+                success([results copy]);
+            });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
             failure(error);

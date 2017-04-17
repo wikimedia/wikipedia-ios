@@ -1,12 +1,11 @@
 #import <UIKit/UIKit.h>
 
-@class MWKDataStore, WMFArticleDataStore;
+@class MWKDataStore;
 
 @interface WMFSettingsViewController : UIViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticleDataStore *)previewStore;
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
 @end

@@ -8,7 +8,6 @@
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleBaseFetcher_Testing.h"
-#import "WMFArticleDataStore.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFAsyncTestCase.h"
 
@@ -18,7 +17,6 @@
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore *tempDataStore;
-@property (strong, nonatomic) WMFArticleDataStore *previewStore;
 @property (strong, nonatomic) WMFArticleFetcher *articleFetcher;
 
 @end
@@ -28,9 +26,8 @@
 - (void)setUp {
     [super setUp];
     self.tempDataStore = [MWKDataStore temporaryDataStore];
-    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.tempDataStore];
 
-    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore previewStore:self.previewStore];
+    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
     [[LSNocilla sharedInstance] start];
 }
 
