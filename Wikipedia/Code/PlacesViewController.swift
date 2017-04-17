@@ -600,7 +600,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
-        currentSearch = PlaceSearch(filter: .top, type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
     var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
@@ -814,7 +814,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: search.origin, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
     // MARK: - Display Actions
@@ -1133,6 +1133,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             if oldValue == .search && viewMode != .search {
                 // navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true) // TODO:
+                navigationItem.setRightBarButton(nil, animated: true)
             } else if oldValue != .search && viewMode == .search {
                 navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
             }
@@ -1221,6 +1222,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - Search History
     
     func saveToHistory(search: PlaceSearch) {
+        guard search.origin == .user else {
+            DDLogDebug("not saving system search to history")
+            return
+        }
+        
         do {
             let moc = dataStore.viewContext
             if let keyValue = keyValue(forPlaceSearch: search, inManagedObjectContext: moc) {
@@ -2070,7 +2076,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchString)
-        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
+        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -2087,7 +2093,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             set.insert(key)
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
         updateSearchSuggestions(withCompletions: completions)
         return completions
@@ -2104,7 +2110,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
         }
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
     }
     
     private func searchForFirstSearchSuggestion() {

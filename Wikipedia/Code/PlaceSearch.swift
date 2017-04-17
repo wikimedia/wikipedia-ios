@@ -10,6 +10,11 @@ enum PlaceFilterType: UInt {
     case saved
 }
 
+enum PlaceSearchOrigin: UInt {
+    case user
+    case system
+}
+
 enum PlaceSearchError: Error {
     case deserialization(object: NSObject?)
 }
@@ -23,22 +28,26 @@ extension MKCoordinateRegion {
 struct PlaceSearch {
     let filter: PlaceFilterType
     let type: PlaceSearchType
+    let origin: PlaceSearchOrigin
     let sortStyle: WMFLocationSearchSortStyle
     let string: String?
     var region: MKCoordinateRegion?
     let localizedDescription: String?
     let searchResult: MWKSearchResult?
     var needsWikidataQuery: Bool = true
-    
-    init(filter: PlaceFilterType, type: PlaceSearchType, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
+
+
+    init(filter: PlaceFilterType, type: PlaceSearchType, origin: PlaceSearchOrigin, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
         self.filter = filter
         self.type = type
+        self.origin = origin
         self.sortStyle = sortStyle
         self.string = string
         self.region = region
         self.localizedDescription = localizedDescription
         self.searchResult = searchResult
     }
+    
     
     var key: String {
         get {
@@ -60,6 +69,7 @@ struct PlaceSearch {
             var dictionary: [String: NSCoding] = [:]
             dictionary["type"] = NSNumber(value: type.rawValue)
             dictionary["filter"] = NSNumber(value: filter.rawValue)
+            dictionary["origin"] = NSNumber(value: origin.rawValue)
             dictionary["sortStyle"] = NSNumber(value: sortStyle.rawValue)
             if let string = string {
                 dictionary["string"] = string as NSString
@@ -85,11 +95,14 @@ struct PlaceSearch {
             let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
             let typeNumber = dictionary["type"] as? NSNumber,
             let type = PlaceSearchType(rawValue: typeNumber.uintValue),
+            let originNumber = dictionary["origin"] as? NSNumber,
+            let origin = PlaceSearchOrigin(rawValue: originNumber.uintValue),
             let sortStyleNumber = dictionary["sortStyle"] as? NSNumber else {
                 return nil
         }
         self.filter = filter
         self.type = type
+        self.origin = origin
         let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
         self.sortStyle = sortStyle
         
@@ -114,11 +127,14 @@ struct PlaceSearch {
             let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
             let typeNumber = object.value(forKey: "type") as? NSNumber,
             let type = PlaceSearchType(rawValue: typeNumber.uintValue),
+            let originNumber = object.value(forKey: "origin") as? NSNumber,
+            let origin = PlaceSearchOrigin(rawValue: originNumber.uintValue),
             let sortStyleNumber = object.value(forKey: "sortStyle") as? NSNumber else {
                 return nil
         }
         self.filter = filter
         self.type = type
+        self.origin = origin
         let sortStyle = WMFLocationSearchSortStyle(rawValue: sortStyleNumber.uintValue) ?? .none
         self.sortStyle = sortStyle
         
