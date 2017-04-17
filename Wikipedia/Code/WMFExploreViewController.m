@@ -6,9 +6,7 @@
 
 #import "PiwikTracker+WMFExtensions.h"
 
-#import "WMFContentGroupDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKLanguageLinkController.h"
 
 #import "WMFLocationManager.h"
@@ -57,12 +55,12 @@
 
 #import "WMFCVLAttributes.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
-static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 @interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
@@ -76,8 +74,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property (nonatomic, strong) WMFContentGroupDataStore *internalContentStore;
-
 @property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
@@ -86,14 +82,16 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
 
-@property (nonatomic, strong, nullable) WMFTaskGroup *feedUpdateTaskGroup;
-@property (nonatomic, strong, nullable) WMFTaskGroup *relatedUpdatedTaskGroup;
-@property (nonatomic, strong, nullable) WMFTaskGroup *nearbyUpdateTaskGroup;
-
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
+
+@property (nonatomic) CGFloat topInsetBeforeHeader;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
+@property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 
 @end
 
@@ -108,6 +106,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
     self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
 }
 
 - (void)dealloc {
@@ -165,13 +164,6 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (WMFContentGroupDataStore *)internalContentStore {
-    if (_internalContentStore == nil) {
-        _internalContentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.userStore];
-    }
-    return _internalContentStore;
-}
-
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -214,132 +206,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 - (void)showSettings {
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore
-                                                                                              previewStore:self.previewStore]];
+                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
-}
-
-#pragma mark - Feed Sources
-
-- (void)updateRelatedPages {
-    WMFAssertMainThread(@"updateRelatedPages must be called on the main thread");
-    if (self.relatedUpdatedTaskGroup) {
-        return;
-    }
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.relatedUpdatedTaskGroup = group;
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj isKindOfClass:[WMFRelatedPagesContentSource class]]) {
-            [group enter];
-            [obj loadNewContentForce:NO
-                          completion:^{
-                              [group leave];
-                          }];
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.relatedUpdatedTaskGroup = nil;
-                            }];
-}
-
-- (void)updateNearby:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateNearby: must be called on the main thread");
-    if (self.nearbyUpdateTaskGroup || self.feedUpdateTaskGroup) {
-        return;
-    }
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.nearbyUpdateTaskGroup = group;
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
-            [group enter];
-            [obj loadNewContentForce:NO
-                          completion:^{
-                              [group leave];
-                          }];
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.nearbyUpdateTaskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-                            }];
-}
-
-- (void)updateFeedSources:(nullable dispatch_block_t)completion {
-    [self updateFeedSourcesWithDate:nil completion:completion];
-}
-
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
-    if (self.feedUpdateTaskGroup) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    if (!self.refreshControl.isRefreshing) {
-        [self.refreshControl beginRefreshing];
-    }
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    self.feedUpdateTaskGroup = group;
-#if DEBUG
-    NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
-#endif
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [group enter];
-#if DEBUG
-        NSString *classString = NSStringFromClass([obj class]);
-        [entered addObject:classString];
-#endif
-        dispatch_block_t contentSourceCompletion = ^{
-#if DEBUG
-            assert([entered containsObject:classString]);
-            [entered removeObject:classString];
-#endif
-            [group leave];
-        };
-
-        if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
-            id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
-            [dateBased loadContentForDate:date force:NO completion:contentSourceCompletion];
-        } else if (!date) {
-            [obj loadNewContentForce:NO completion:contentSourceCompletion];
-        } else {
-            contentSourceCompletion();
-        }
-    }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                            completion:^{
-                                NSError *saveError = nil;
-                                if (![self.userStore save:&saveError]) {
-                                    DDLogError(@"Error saving: %@", saveError);
-                                }
-                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
-                                [self resetRefreshControl];
-                                [self startMonitoringReachabilityIfNeeded];
-                                [self showOfflineEmptyViewIfNeeded];
-                                [self showHideNotificationIfNeccesary];
-                                self.feedUpdateTaskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-
-#if DEBUG
-                                if ([entered count] > 0) {
-                                    DDLogError(@"Didn't leave: %@", entered);
-                                }
-#endif
-                            }];
 }
 
 #pragma mark - Section Access
@@ -420,7 +290,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     if (url == nil) {
         return nil;
     }
-    return [self.userStore fetchArticleForURL:url];
+    return [self.userStore fetchArticleWithURL:url];
 }
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
@@ -484,6 +354,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [header layoutIfNeeded];
 
     UIEdgeInsets insets = self.collectionView.contentInset;
+    self.topInsetBeforeHeader = insets.top;
     insets.top = f.size.height;
     self.collectionView.contentInset = insets;
 }
@@ -545,7 +416,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                 animations:^{
 
                     UIEdgeInsets insets = self.collectionView.contentInset;
-                    insets.top = 0.0;
+                    insets.top = self.topInsetBeforeHeader;
                     self.collectionView.contentInset = insets;
 
                     self.notificationHeader.alpha = 0.0;
@@ -600,8 +471,29 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                                                   }];
 }
 
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
+    [self.userStore.feedContentController updateFeedSourcesWithDate:date
+                                                         completion:^{
+                                                             WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
+                                                             [self resetRefreshControl];
+                                                             if (date == nil) { //only hide on a new content update
+                                                                 [self showHideNotificationIfNeccesary];
+                                                             }
+                                                             if (completion) {
+                                                                 completion();
+                                                             }
+                                                         }];
+}
+
+- (void)updateFeedSources {
+    if (!self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
+    }
+    [self updateFeedSourcesWithDate:nil completion:nil];
+}
+
 - (void)refreshControlActivated {
-    [self updateFeedSources:NULL];
+    [self updateFeedSources];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -614,10 +506,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSParameterAssert(self.contentStore);
     NSParameterAssert(self.userStore);
-    NSParameterAssert(self.contentSources);
-    NSParameterAssert(self.internalContentStore);
     [super viewDidAppear:animated];
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
@@ -631,7 +520,12 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     [self stopMonitoringReachability];
 }
 
+- (void)resetLayoutCache {
+    [self.cachedHeights removeAllObjects];
+}
+
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
@@ -644,6 +538,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 }
 
 - (void)didReceiveMemoryWarning {
+    [self resetLayoutCache];
     [super didReceiveMemoryWarning];
 }
 
@@ -666,7 +561,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSources:NULL];
+                        [self updateFeedSources];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -802,6 +697,14 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
         } break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
+            NSString *key = article.key;
+            NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli", key, (long long)columnWidth];
+            NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
+            if (cachedValue) {
+                estimate.height = [cachedValue doubleValue];
+                estimate.precalculated = YES;
+                break;
+            }
             CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
@@ -812,6 +715,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
+            [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
             estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
@@ -1000,8 +904,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
-                                                        [self.userStore setIsExcludedFromFeed:YES forArticleURL:url];
-                                                        [self.contentStore removeContentGroup:section];
+                                                        [self.userStore setIsExcludedFromFeed:YES withArticleURL:url];
+                                                        [self.userStore.viewContext removeContentGroup:section];
                                                     }]];
             [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
@@ -1280,7 +1184,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     switch ([group headerActionType]) {
         case WMFFeedHeaderActionTypeOpenHeaderContent: {
             NSURL *url = [group headerContentURL];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore previewStore:self.previewStore animated:YES];
+            [self wmf_pushArticleWithURL:url dataStore:self.userStore animated:YES];
         } break;
         case WMFFeedHeaderActionTypeOpenFirstItem: {
             [self selectItem:0 inSection:section];
@@ -1306,22 +1210,22 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     switch (group.moreType) {
         case WMFFeedMoreTypePageList: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypeNormal;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithPreview: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypePreview;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithLocation: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore previewStore:self.previewStore];
+            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypeLocation;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
-            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore previewStore:self.previewStore];
+            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
             [self.navigationController pushViewController:vc animated:animated];
         } break;
 
@@ -1344,12 +1248,12 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
             return vc;
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore previewStore:self.previewStore];
+            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
             return vc;
         } break;
         case WMFFeedDetailTypeGallery: {
@@ -1418,7 +1322,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
 - (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
     [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
-    [self updateNearby:NULL];
+    [self.userStore.feedContentController updateNearby:NULL];
 }
 
 #pragma mark - Previewing
@@ -1519,7 +1423,7 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 #pragma mark - In The News
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
-    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore previewStore:self.previewStore];
+    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
     NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
@@ -1656,6 +1560,9 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
+
+    [self startMonitoringReachabilityIfNeeded];
+    [self showOfflineEmptyViewIfNeeded];
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
@@ -1714,11 +1621,10 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
     return [self analyticsContext];
 }
 
-#if WMF_TWEAKS_ENABLED
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.feedUpdateTaskGroup) {
+    if (self.isLoadingOlderContent) {
         return;
     }
     CGFloat ratio = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height);
@@ -1749,13 +1655,12 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 
     NSDate *nextOldestDate = [[calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:lastGroupMidnightUTC options:NSCalendarMatchStrictly] wmf_midnightLocalDateForEquivalentUTCDate];
 
+    self.loadingOlderContent = YES;
     [self updateFeedSourcesWithDate:nextOldestDate
                          completion:^{
-
+                             self.loadingOlderContent = NO;
                          }];
 }
-
-#endif
 
 @end
 

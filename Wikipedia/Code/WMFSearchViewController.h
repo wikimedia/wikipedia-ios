@@ -1,16 +1,15 @@
 #import <UIKit/UIKit.h>
 #import "WMFAnalyticsLogging.h"
 
-@class MWKDataStore, WMFArticleDataStore;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore;
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore;
 
 - (void)setSearchTerm:(NSString *)searchTerm;
 

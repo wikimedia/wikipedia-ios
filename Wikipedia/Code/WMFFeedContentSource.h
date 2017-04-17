@@ -1,7 +1,5 @@
 #import "WMFContentSource.h"
 
-@class WMFContentGroupDataStore;
-@class WMFArticleDataStore;
 @class WMFNotificationsController;
 @class MWKDataStore;
 @class WMFFeedNewsStory;
@@ -20,10 +18,7 @@ extern NSInteger const WMFFeedNotificationMaxPerDay;
 
 @property (nonatomic, getter=isNotificationSchedulingEnabled) BOOL notificationSchedulingEnabled;
 
-@property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readonly, nonatomic, strong) WMFArticleDataStore *previewStore;
-
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
 
 - (instancetype)init NS_UNAVAILABLE;
 

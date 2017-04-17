@@ -2,7 +2,6 @@
 #import "WMFRandomArticleFetcher.h"
 #import "Wikipedia-Swift.h"
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "SessionSingleton.h"
 #import "MWKSearchResult.h"
 #import "WMFRandomArticleViewController.h"
@@ -14,12 +13,11 @@
 
 @implementation WMFFirstRandomViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore previewStore:(nonnull WMFArticleDataStore *)previewStore {
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.siteURL = siteURL;
         self.dataStore = dataStore;
-        self.previewStore = previewStore;
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -32,7 +30,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSParameterAssert(self.previewStore);
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.siteURL);
     [super viewWillAppear:animated];
@@ -48,7 +45,7 @@
         }
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore previewStore:self.previewStore];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = self.isPermaRandomMode;
 #endif

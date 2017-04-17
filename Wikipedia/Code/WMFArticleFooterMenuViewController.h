@@ -2,7 +2,6 @@
 #import "WMFArticleListTableViewController.h"
 
 @class MWKDataStore;
-@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,13 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
-
 @property (nonatomic, strong, readwrite) MWKArticle *article;
 
 @property (nonatomic, weak, readonly) id<WMFArticleListTableViewControllerDelegate> similarPagesDelegate;
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate;
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate;
 
 @end
 
