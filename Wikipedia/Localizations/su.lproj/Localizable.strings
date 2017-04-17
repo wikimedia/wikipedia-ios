@@ -122,7 +122,7 @@
 "search-cancel" = "Bolay";
 "search-titles" = "Judul";
 "search-within-articles" = "Dina artikel";
-"search-did-you-mean" = "Maksud anjeun ''%s'' lain?";
+"search-did-you-mean" = "Maksud anjeun ''$1'' lain?";
 "search-recent-title" = "Pamaluruhan kiwari";
 "search-recent-clear-confirmation-heading" = "Pupus sakabéh pamaluruhan kiwari?";
 "search-recent-clear-confirmation-sub-heading" = "Ieu tarékah teu bisa dibolaykeun!";
