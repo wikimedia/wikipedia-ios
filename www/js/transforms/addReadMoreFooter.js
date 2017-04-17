@@ -45,6 +45,10 @@ class WMFPageFragment {
             var img = document.createElement('img');
             img.id = index;
             img.className = 'footer_readmore_page_thumbnail';
+            
+//TODO: inject this class name
+img.classList.add('wideImageOverride');
+  
             img.src = wmfPage.thumbnail.source;
             img.width = 120;
             containerAnchor.appendChild(img);
