@@ -731,7 +731,9 @@ img.classList.add('wideImageOverride');
         var description = null;
         if(wmfPage.terms){
           description = wmfPage.terms.description;
-        }else if(wmfPage.extract){
+        }
+        
+        if((description === null || description.length < 10) && wmfPage.extract){
           description = removeParenthesizedContent(wmfPage.extract);
         }
 
