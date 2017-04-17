@@ -104,7 +104,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         
         NSURL *componentsURL = components.URL;
         if (componentsURL) {
-            [items addObject:components.URL];
+            [items addObject:componentsURL];
         }
     }
 
