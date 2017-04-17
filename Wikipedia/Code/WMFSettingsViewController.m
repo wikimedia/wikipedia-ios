@@ -1,7 +1,6 @@
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSUserActivity+WMFExtensions.h"
-#import "WMFArticleDataStore.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -49,7 +48,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -60,12 +58,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store previewStore:(WMFArticleDataStore *)previewStore {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store {
     NSParameterAssert(store);
-    NSParameterAssert(previewStore);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
-    vc.previewStore = previewStore;
     return vc;
 }
 
@@ -212,7 +208,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
-            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore previewStore:self.previewStore];
+            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About:

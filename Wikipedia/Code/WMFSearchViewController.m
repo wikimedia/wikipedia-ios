@@ -37,7 +37,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
@@ -81,12 +80,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
     WMFSearchViewController *searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.dataStore = dataStore;
-    searchVC.previewStore = previewStore;
     searchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     searchVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     return searchVC;
@@ -154,7 +151,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)configureArticleList {
     self.resultsListController.userDataStore = self.dataStore;
-    self.resultsListController.previewStore = self.previewStore;
     self.resultsListController.delegate = self;
 }
 
@@ -552,12 +548,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     UIViewController *presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore previewStore:self.previewStore animated:YES];
+                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
                              }];
 }
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     return vc;
 }
 

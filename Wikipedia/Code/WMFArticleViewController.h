@@ -8,7 +8,6 @@
 
 @class WMFShareFunnel;
 @class WMFArticleViewController;
-@class WMFArticleDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,12 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticleDataStore *)previewStore;
+                         dataStore:(MWKDataStore *)dataStore;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong, readonly) WMFArticleDataStore *previewStore;
 
 @property (nonatomic, strong, nullable) dispatch_block_t articleLoadCompletion;
 
