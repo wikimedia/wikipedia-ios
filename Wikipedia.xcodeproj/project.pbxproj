@@ -549,6 +549,8 @@
 		D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
 		D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */; };
+		D80ACD281EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */ = {isa = PBXBuildFile; fileRef = D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */; };
 		D81446001E7094240078D71E /* UITextField+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07715211E69401800D393FE /* UITextField+WMFAuth.swift */; };
@@ -3748,6 +3750,8 @@
 		D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchSuggestionController.swift; sourceTree = "<group>"; };
 		D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearch.swift; sourceTree = "<group>"; };
 		D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Dimensions.swift"; sourceTree = "<group>"; };
+		D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FLAnimatedImage+SafeForSwift.h"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.h"; sourceTree = SOURCE_ROOT; };
+		D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FLAnimatedImage+SafeForSwift.m"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.m"; sourceTree = SOURCE_ROOT; };
 		D80C24B61D673DC300816503 /* WMFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTabBarController.h; sourceTree = "<group>"; };
 		D80C24B71D673DC300816503 /* WMFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTabBarController.m; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
@@ -4753,6 +4757,8 @@
 			children = (
 				D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */,
 				D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */,
+				D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */,
+				D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */,
 				B0E805C41C0CE5250065EBC0 /* ImageController.swift */,
 				D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */,
 				B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */,
@@ -7599,6 +7605,7 @@
 				0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */,
 				D844D98D1D6CB58E0042D692 /* MWKSectionList.h in Headers */,
 				D844D9B01D6CB7770042D692 /* MWKSavedPageEntry.h in Headers */,
+				D80ACD281EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h in Headers */,
 				0E728D3C1DAEEADB0074EB4B /* WMFLocationSearchFetcher.h in Headers */,
 				0E728D1C1DAEE2B50074EB4B /* WMFFeedTopReadResponse.h in Headers */,
 				D8FA19041E1BDA66009675C3 /* UIImageView+WMFPlaceholder.h in Headers */,
@@ -9455,6 +9462,7 @@
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
 				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
+				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
 				0E728D401DAEEC380074EB4B /* WMFRelatedSearchFetcher.m in Sources */,
