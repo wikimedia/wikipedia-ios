@@ -33,7 +33,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
     
-    public var articleStore: WMFArticleDataStore!
     public var dataStore: MWKDataStore!
 
     private let locationSearchFetcher = WMFLocationSearchFetcher()
@@ -770,7 +769,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
                 let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
-                let article = self.articleStore?.addPreview(with: articleURL, updatedWith: result),
+                let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
                     continue
@@ -784,7 +783,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         if !foundKey, let keyToFetch = articleKeyToSelect, let URL = URL(string: keyToFetch), let searchResult = currentSearch?.searchResult {
-            articleStore.addPreview(with: URL, updatedWith: searchResult)
+            dataStore.viewContext.fetchOrCreateArticle(with: URL, updatedWith: searchResult)
             keysToFetch.append(keyToFetch)
         }
         
@@ -1355,7 +1354,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                                 let result = resultsByKey[key] else {
                                     continue
                             }
-                            self.articleStore.updatePreview(articleToUpdate, with: result)
+                            
+                            articleToUpdate.update(with: result)
                             allArticlesWithLocation.append(articleToUpdate)
                         }
                         try moc.save()
@@ -1850,7 +1850,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         switch action {
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
-            wmf_pushArticle(with: url, dataStore: dataStore, previewStore: articleStore, animated: true)
+            wmf_pushArticle(with: url, dataStore: dataStore, animated: true)
             if navigationController?.isNavigationBarHidden ?? false {
                 navigationController?.setNavigationBarHidden(false, animated: true)
             }
@@ -2094,7 +2094,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @objc public func showArticleURL(_ articleURL: URL) {
-        guard let article = articleStore.item(for: articleURL), let title = (articleURL as NSURL).wmf_title,
+        guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
             let _ = view else { // force view instantiation
             return
         }

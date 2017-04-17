@@ -11,9 +11,7 @@
 // Utility
 #import "NSUserActivity+WMFExtensions.h"
 
-#import "WMFArticleDataStore.h"
 #import "MWKDataStore.h"
-#import "WMFContentGroupDataStore.h"
 
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -23,15 +21,6 @@
 // Model
 #import "MWKSearchResult.h"
 #import "MWKLanguageLinkController.h"
-
-//Content Sources
-#import "WMFRelatedPagesContentSource.h"
-#import "WMFMainPageContentSource.h"
-#import "WMFNearbyContentSource.h"
-#import "WMFContinueReadingContentSource.h"
-#import "WMFFeedContentSource.h"
-#import "WMFRandomContentSource.h"
-#import "WMFAnnouncementsContentSource.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -96,8 +85,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
-static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
-
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
@@ -113,12 +100,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic, strong) WMFArticleDataStore *previewStore;
-@property (nonatomic, strong) WMFContentGroupDataStore *contentStore;
 
 @property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
-
-@property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -210,7 +193,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
     [[self class] wmf_setSearchButtonDataStore:self.dataStore];
-    [[self class] wmf_setSearchButtonPreviewStore:self.previewStore];
 }
 
 - (void)configureTabController {
@@ -224,19 +206,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)configureExploreViewController {
     [self.exploreViewController setUserStore:self.dataStore];
-    [self.exploreViewController setPreviewStore:self.previewStore];
-    [self.exploreViewController setContentStore:self.contentStore];
-    [self.exploreViewController setContentSources:self.contentSources];
 }
 
 - (void)configurePlacesViewController {
-    self.placesViewController.articleStore = self.previewStore;
     self.placesViewController.dataStore = self.dataStore;
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
     controller.userDataStore = self.dataStore;
-    controller.previewStore = self.previewStore;
 }
 
 #pragma mark - Notifications
@@ -244,24 +221,28 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp:^{}];
+    [self resumeApp:^{
+    }];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    self.notificationsController.applicationActive = YES;
+
     if (![self uiIsLoaded]) {
         return;
     }
-    self.notificationsController.applicationActive = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
-        [self debugSendRandomInTheNewsNotification];
+        [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
     }
 #endif
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
+    self.notificationsController.applicationActive = NO;
+
     if (![self uiIsLoaded]) {
         return;
     }
@@ -271,7 +252,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         DDLogError(@"Error saving dataStore: %@", saveError);
     }
 
-    self.notificationsController.applicationActive = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
@@ -283,7 +263,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     dispatch_async(dispatch_get_main_queue(), ^{
 #if WMF_TWEAKS_ENABLED
         if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
-            [self debugSendRandomInTheNewsNotification];
+            [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
         }
 #endif
         [self pauseApp];
@@ -291,20 +271,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
-    if ([_contentSources count] == 0) {
-        return;
-    }
-    [self stopContentSources];
-    self.contentSources = nil;
+    self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
-    [self startContentSources];
-    [self updateFeedSourcesWithCompletion:NULL];
 }
 
 #pragma mark - Background Fetch
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
-    [self updateBackgroundSourcesWithCompletion:^{
+    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
         completion(UIBackgroundFetchResultNewData);
     }];
 }
@@ -404,9 +378,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.dataStore];
-    self.contentStore = [[WMFContentGroupDataStore alloc] initWithDataStore:self.dataStore];
-
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
         completion();
     } else {
@@ -508,7 +479,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
         }];
 
-    [self startContentSources];
+    [self.dataStore.feedContentController startContentSources];
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
@@ -517,9 +488,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self updateFeedSourcesWithCompletion:NULL];
+        [self.dataStore.feedContentController updateFeedSources:NULL];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.exploreViewController updateNearby:NULL];
+        [self.dataStore.feedContentController updateNearby:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
@@ -548,7 +519,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 
     [self.savedArticlesFetcher stop];
-    [self stopContentSources];
+    [self.dataStore.feedContentController stopContentSources];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
@@ -589,99 +560,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
     }
     return _statsFunnel;
-}
-
-#pragma mark - Content Sources
-
-- (void)updateFeedSourcesWithCompletion:(nullable dispatch_block_t)completion {
-    [self.exploreViewController updateFeedSources:completion];
-}
-
-- (void)startContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
-            [(id<WMFAutoUpdatingContentSource>)obj startUpdating];
-        }
-    }];
-}
-
-- (void)stopContentSources {
-    [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        if ([obj conformsToProtocol:@protocol(WMFAutoUpdatingContentSource)]) {
-            [(id<WMFAutoUpdatingContentSource>)obj stopUpdating];
-        }
-    }];
-}
-
-- (void)updateBackgroundSourcesWithCompletion:(dispatch_block_t)completion {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-
-    [group enter];
-    [[self feedContentSource] loadNewContentForce:NO
-                                       completion:^{
-                                           [group leave];
-                                       }];
-
-    [group enter];
-    [[self randomContentSource] loadNewContentForce:NO
-                                         completion:^{
-                                             [group leave];
-                                         }];
-
-    [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:completion];
-}
-
-- (WMFFeedContentSource *)feedContentSource {
-    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
-        return [obj isKindOfClass:[WMFFeedContentSource class]];
-    }];
-}
-
-- (WMFRandomContentSource *)randomContentSource {
-    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
-        return [obj isKindOfClass:[WMFRandomContentSource class]];
-    }];
-}
-- (WMFNearbyContentSource *)nearbyContentSource {
-    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
-        return [obj isKindOfClass:[WMFNearbyContentSource class]];
-    }];
-}
-
-- (NSArray<id<WMFContentSource>> *)contentSources {
-    NSParameterAssert(self.contentStore);
-    NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.previewStore);
-    NSParameterAssert([self siteURL]);
-    if (!_contentSources) {
-        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                                                          contentGroupDataStore:self.contentStore
-                                                                        articlePreviewDataStore:self.previewStore
-                                                                                  userDataStore:self.dataStore
-                                                                        notificationsController:self.notificationsController];
-        feedContentSource.notificationSchedulingEnabled = YES;
-        _contentSources = @[
-            [[WMFRelatedPagesContentSource alloc] initWithContentGroupDataStore:self.contentStore
-                                                                  userDataStore:self.dataStore
-                                                        articlePreviewDataStore:self.previewStore],
-            [[WMFMainPageContentSource alloc] initWithSiteURL:[self siteURL]
-                                        contentGroupDataStore:self.contentStore
-                                      articlePreviewDataStore:self.previewStore],
-            [[WMFContinueReadingContentSource alloc] initWithContentGroupDataStore:self.contentStore
-                                                                     userDataStore:self.dataStore
-                                                           articlePreviewDataStore:self.previewStore],
-            [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
-                                      contentGroupDataStore:self.contentStore
-                                    articlePreviewDataStore:self.previewStore],
-            feedContentSource,
-            [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]
-                                      contentGroupDataStore:self.contentStore
-                                    articlePreviewDataStore:self.previewStore],
-            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]
-                                             contentGroupDataStore:self.contentStore]
-        ];
-    }
-    return _contentSources;
 }
 
 #pragma mark - Shortcut
@@ -804,7 +682,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
             [navController popToRootViewControllerAnimated:NO];
             NSURL *url = [activity wmf_contentURL];
-            WMFContentGroup *group = [self.contentStore contentGroupForURL:url];
+            WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
 
         } break;
@@ -883,7 +761,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return visibleArticleViewController;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore previewStore:self.previewStore restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -928,7 +806,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
-                                               previewStore:self.previewStore
+
                                               savedPageList:[self.dataStore savedPageList]];
     }
     return _savedArticlesFetcher;
@@ -1111,7 +989,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore previewStore:self.previewStore];
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     [exploreNavController pushViewController:vc animated:animated];
 }
 
@@ -1122,20 +1000,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [[self nearbyContentSource] loadNewContentForce:NO
-                                         completion:^{
-                                             WMFContentGroup *nearby = [self.contentStore firstGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date]];
-                                             if (!nearby) {
-                                                 //TODO: show an error?
-                                                 return;
-                                             }
-
-                                             NSArray *urls = nearby.content;
-
-                                             WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore previewStore:self.previewStore];
-                                             vc.cellType = WMFMorePageListCellTypeLocation;
-                                             [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
-                                         }];
 }
 
 #pragma mark - Download Assets
@@ -1320,31 +1184,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
 }
 
-- (void)debugSendRandomInTheNewsNotification {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-        [self.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
-            if (!granted) {
-                return;
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                WMFContentGroup *newsContentGroup = [self.contentStore firstGroupOfKind:WMFContentGroupKindNews];
-                if (newsContentGroup) {
-                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
-                    if (stories.count > 0) {
-                        NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
-                        WMFFeedNewsStory *randomStory = stories[randomIndex];
-                        WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
-                        WMFArticle *preview = [self.previewStore itemForURL:feedPreview.articleURL];
-                        [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
-                    }
-                }
-            });
-        }];
-    });
-}
-
-
 #pragma mark - Perma Random Mode
 
 #if WMF_TWEAKS_ENABLED
@@ -1364,8 +1203,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore previewStore:self.previewStore];
+
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }

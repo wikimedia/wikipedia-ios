@@ -8,12 +8,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Update now. If force is YES, you should violate any internal business rules and run your update logic immediately.
  *
  */
-- (void)loadNewContentForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 /**
  * Remove all content from the DB
  */
-- (void)removeAllContent;
+- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc;
 
 @end
 
@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Load old content into the DB if possible
  */
-- (void)preloadContentForNumberOfDays:(NSInteger)days force:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)preloadContentForNumberOfDays:(NSInteger)days inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 /**
  * Load content for a specific date into the DB
  */
-- (void)loadContentForDate:(NSDate *)date force:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 @end
 

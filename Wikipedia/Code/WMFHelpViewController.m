@@ -1,6 +1,5 @@
 #import "WMFHelpViewController.h"
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
@@ -23,9 +22,9 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @implementation WMFHelpViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
-    self = [super initWithArticleURL:faqURL dataStore:dataStore previewStore:previewStore];
+    self = [super initWithArticleURL:faqURL dataStore:dataStore];
     self.savingOpenArticleTitleEnabled = NO;
     self.addingArticleToHistoryListEnabled = NO;
     self.peekingAllowed = NO;
@@ -43,7 +42,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 

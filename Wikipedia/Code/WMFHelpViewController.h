@@ -1,12 +1,12 @@
 #import "WMFArticleViewController.h"
 
-@class MWKDataStore, WMFArticleDataStore;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHelpViewController : WMFArticleViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 @end
 
