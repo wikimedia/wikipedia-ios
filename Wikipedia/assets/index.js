@@ -716,20 +716,19 @@ img.classList.add('wideImageOverride');
             containerAnchor.appendChild(img);
         }
 
+        var description = null;
         if(wmfPage.terms){
-            var description = document.createElement('h4');
-            description.id = index;
-            description.className = 'footer_readmore_page_description';
-            description.innerHTML = wmfPage.terms.description;
-            containerAnchor.appendChild(description);
+          description = wmfPage.terms.description;
+        }else if(wmfPage.extract){
+          description = wmfPage.extract;
         }
 
-        if(wmfPage.extract){
-            var extract = document.createElement('div');
-            extract.id = index;
-            extract.className = 'footer_readmore_page_extract';
-            extract.innerHTML = wmfPage.extract;
-            containerAnchor.appendChild(extract);
+        if(description){
+            var descriptionEl = document.createElement('h4');
+            descriptionEl.id = index;
+            descriptionEl.className = 'footer_readmore_page_description';
+            descriptionEl.innerHTML = description;
+            containerAnchor.appendChild(descriptionEl);
         }
 
         var saveAnchor = document.createElement('a');
