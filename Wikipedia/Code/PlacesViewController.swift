@@ -2028,16 +2028,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
-            
-            var suggestedSearches = [topNearbySuggestion]
+//            let topNearbySuggestion = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+//            
+//            var suggestedSearches = [topNearbySuggestion]
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
-                if try moc.count(for: fetchRequestForSavedArticles) > 0 {
-                    let saved = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .none, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
-                    suggestedSearches.append(saved)
-                }
+//                if try moc.count(for: fetchRequestForSavedArticles) > 0 {
+//                    let saved = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .none, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+//                    suggestedSearches.append(saved)
+//                }
                 
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
@@ -2060,7 +2060,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [suggestedSearches, recentSearches, [], []]
+            searchSuggestionController.searches = [/*suggestedSearches,*/[], recentSearches, [], []]
             return
         }
         
@@ -2186,7 +2186,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[PlaceSearchSuggestionController.suggestionSection])
+//        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[PlaceSearchSuggestionController.suggestionSection])
+        updateSearchSuggestions(withCompletions: [])
+
         isWaitingForSearchSuggestionUpdate = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)

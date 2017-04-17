@@ -7,10 +7,10 @@ protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
 class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
     static let cellReuseIdentifier = "org.wikimedia.places"
     static let headerReuseIdentifier = "org.wikimedia.places.header"
-    static let suggestionSection = 0
-    static let recentSection = 1
-    static let currentStringSection = 2
-    static let completionSection = 3
+    //static let suggestionSection = 0
+    static let recentSection = 0
+    static let currentStringSection = 1
+    static let completionSection = 2
     
     var tableView: UITableView = UITableView() {
         didSet {
@@ -70,8 +70,8 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         header.contentView.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
-        case PlaceSearchSuggestionController.suggestionSection:
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
+//        case PlaceSearchSuggestionController.suggestionSection:
+//            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
         case PlaceSearchSuggestionController.recentSection:
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
