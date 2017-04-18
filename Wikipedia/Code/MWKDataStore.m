@@ -152,6 +152,7 @@ static uint64_t bundleHash() {
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
+        [self setupHistoryAndSavedPageLists];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
@@ -708,25 +709,21 @@ static uint64_t bundleHash() {
 
 #pragma - Accessors
 
-- (MWKHistoryList *)historyList {
-    if (!_historyList) {
-        _historyList = [[MWKHistoryList alloc] initWithDataStore:self];
-    }
-    return _historyList;
-}
-
-- (MWKSavedPageList *)savedPageList {
-    if (!_savedPageList) {
-        _savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
-    }
-    return _savedPageList;
-}
-
 - (MWKRecentSearchList *)recentSearchList {
     if (!_recentSearchList) {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
     }
     return _recentSearchList;
+}
+
+#pragma mark - History and Saved Page List
+
+- (void)setupHistoryAndSavedPageLists {
+    WMFAssertMainThread(@"History and saved page lists must be setup on the main thread");
+    self.historyList = [[MWKHistoryList alloc] initWithDataStore:self];
+    [self.historyList migrateLegacyDataIfNeeded];
+    self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
+    [self.savedPageList migrateLegacyDataIfNeeded];
 }
 
 #pragma mark - Legacy DataStore
@@ -1291,7 +1288,6 @@ static uint64_t bundleHash() {
     return [self.viewContext save:error];
 }
 
-
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
 }
@@ -1372,6 +1368,5 @@ static uint64_t bundleHash() {
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
     return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
 }
-
 
 @end
