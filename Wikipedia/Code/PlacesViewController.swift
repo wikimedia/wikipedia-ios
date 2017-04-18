@@ -2095,7 +2095,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [[suggestion], recentSearches, [], []]
+            searchSuggestionController.searches = [[/*suggestion*/], recentSearches, [], []]
             return
         }
         
