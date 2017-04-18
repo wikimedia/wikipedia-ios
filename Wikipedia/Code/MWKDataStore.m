@@ -163,7 +163,7 @@ static uint64_t bundleHash() {
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveMemoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -710,7 +710,7 @@ static uint64_t bundleHash() {
 
 #pragma mark - Memory
 
-- (void)didRecieveMemoryWarningWithNotifcation:(NSNotification *)note {
+- (void)didReceiveMemoryWarningWithNotification:(NSNotification *)note {
     [self clearMemoryCache];
 }
 
