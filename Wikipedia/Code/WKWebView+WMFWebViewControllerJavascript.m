@@ -16,7 +16,7 @@ static int const kMinimumTextSelectionLength = 2;
     
     NSString *saveForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-save-for-later" article:article];
     NSString *savedForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-saved-for-later" article:article];
-    NSString *headerString = [[self apostropheEscapedArticleLanguageLocalizedStringForKey:@"article-read-more-title" article:article] uppercaseStringWithLocale:[NSLocale currentLocale]];;
+    NSString *headerString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"article-read-more-title" article:article];
     
     NSString *saveButtonTapHandler = @""
     "function(title){"
