@@ -671,15 +671,22 @@ var _saveButtonIDPrefix = 'readmore:save:';
 
 var shownTitles = [];
 
-const removeParenthesizedContent = (string) => {
-  const regex = new RegExp('[(][^()]+[)]', 'g');
+const safelyRemoveEnclosures = (string, opener, closer) => {
+  const enclosureRegex = new RegExp(`[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
   var previousString = null;
   var counter = 0;
+  const safeMaxTries = 30;
   do {
     previousString = string;
-    string = string.replace(regex, '');
+    string = string.replace(enclosureRegex, '');
     counter++;
-  } while (previousString !== string && counter < 30);
+  } while (previousString !== string && counter < safeMaxTries);
+  return string;
+};
+
+const cleanExtract = (string) => {
+  string = safelyRemoveEnclosures(string, '(', ')');
+  string = safelyRemoveEnclosures(string, '/', '/');
   return string;
 };
 
@@ -734,7 +741,7 @@ img.classList.add('wideImageOverride');
         }
         
         if((description === null || description.length < 10) && wmfPage.extract){
-          description = removeParenthesizedContent(wmfPage.extract);
+          description = cleanExtract(wmfPage.extract);
         }
 
         if(description){
