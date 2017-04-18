@@ -745,7 +745,7 @@ img.classList.add('wideImageOverride');
         }
 
         if(description){
-            var descriptionEl = document.createElement('h4');
+            var descriptionEl = document.createElement('div');
             descriptionEl.id = index;
             descriptionEl.className = 'footer_readmore_page_description';
             descriptionEl.innerHTML = description;
