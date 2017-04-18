@@ -316,8 +316,7 @@
 "onboarding-wikipedia" = "維基百科";
 "onboarding-free-encyclopedia" = "自由的百科全書";
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "允許維基媒體收集有關您如何使用該應用程式使應用程式更好的資訊";
+"preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用該應用程式使應用程式更好的資訊";
 "page-protected-autoconfirmed" = "此頁面已受半保護。";
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-protected-other" = "此頁面已受到以下層級的保護：$1";
@@ -378,10 +377,8 @@
 "image-gallery-fetch-image-info-error-title" = "無法下載圖片";
 "image-gallery-fetch-image-info-error-message" = "無法下載此條目的圖片。請重新整理條目後再試一次。";
 "image-gallery-fetch-image-info-error-ok" = "確定";
-// Fuzzy
-"hockeyapp-alert-question" = "您想把錯誤報告傳送至 $1，讓維基媒體瞭解您發生的問題嗎？";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "您想把錯誤報告傳送至 $1，讓維基媒體瞭解您發生的問題嗎？ 請描述錯誤時發生什麼事：";
+"hockeyapp-alert-question" = "您想把錯誤報告傳送至 $1，讓維基媒體基金會瞭解您發生的問題嗎？";
+"hockeyapp-alert-question-with-response-field" = "您想把錯誤報告傳送至 $1，讓維基媒體基金會瞭解您發生的問題嗎？ 請描述錯誤時發生什麼事：";
 "hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
 "hockeyapp-alert-send-report" = "傳送報告";
 "hockeyapp-alert-always-send" = "總是傳送";
@@ -444,8 +441,7 @@
 "welcome-volunteer-continue-button" = "繼續";
 "welcome-volunteer-thanks" = "$1 謝謝您!";
 "welcome-send-data-title" = "寄送匿名資料";
-// Fuzzy
-"welcome-send-data-sub-title" = "為了幫助維基媒體將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。";
+"welcome-send-data-sub-title" = "為了幫助維基媒體基金會將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。";
 "empty-no-feed-title" = "無網路連線";
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
 "empty-no-feed-action-message" = "與此同時，您仍然可以閱讀儲存的條目";

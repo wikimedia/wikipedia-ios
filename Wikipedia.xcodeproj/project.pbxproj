@@ -3746,6 +3746,7 @@
 		D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Dimensions.swift"; sourceTree = "<group>"; };
 		D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FLAnimatedImage+SafeForSwift.h"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.h"; sourceTree = SOURCE_ROOT; };
 		D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FLAnimatedImage+SafeForSwift.m"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.m"; sourceTree = SOURCE_ROOT; };
+		D80ACD2A1EA531DF00DC3F20 /* su */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = su; path = su.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D80C24B61D673DC300816503 /* WMFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTabBarController.h; sourceTree = "<group>"; };
 		D80C24B71D673DC300816503 /* WMFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTabBarController.m; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
@@ -4018,6 +4019,7 @@
 		D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8EC3FB61E9BDAAB006712EB /* Wikipedia Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia Beta-Info.plist"; sourceTree = "<group>"; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
+		D8ED44C21EA53BDF00998B66 /* su */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = su; path = su.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAppModalProgressViewController.swift; sourceTree = "<group>"; };
 		D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFAppModalProgressViewController.xib; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
@@ -8114,6 +8116,7 @@
 				my,
 				bs,
 				cy,
+				su,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -10698,6 +10701,7 @@
 				B083371C1DAD77D7002860D2 /* lv */,
 				D805E2561E5F0DA100DCD378 /* bs */,
 				B07B04351E787F1F00C4789B /* cy */,
+				D8ED44C21EA53BDF00998B66 /* su */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -10788,6 +10792,7 @@
 				B0CBBE811E2E8D6700F574E3 /* my */,
 				D876C28D1E5F0D1300FCA00A /* bs */,
 				B07B04341E787F1F00C4789B /* cy */,
+				D80ACD2A1EA531DF00DC3F20 /* su */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
