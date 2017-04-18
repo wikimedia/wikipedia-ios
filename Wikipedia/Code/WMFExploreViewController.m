@@ -476,6 +476,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          completion:^{
                                                              WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
+
                                                              if (date == nil) { //only hide on a new content update
                                                                  [self showHideNotificationIfNeccesary];
                                                              }
@@ -488,6 +489,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)updateFeedSources {
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
+        if (self.numberOfSectionsInExploreFeed == 0) {
+            self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
+        }
     }
     [self updateFeedSourcesWithDate:nil completion:nil];
 }
