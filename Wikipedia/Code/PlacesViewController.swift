@@ -72,18 +72,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var searchFilterListController: PlaceSearchFilterListController!
     
     private var extendedNavBarHeightOrig: CGFloat?
-    
-    private var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
-        didSet {
-            updateSearchFilterTitle()
-        }
-    }
+
 
     fileprivate func updateSearchFilterTitle() {
         
-        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
-            return
-            
+        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing,
+              let currentSearch = self.currentSearch else {
+                return
         }
 
         let title: String
@@ -93,7 +88,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
             image = #imageLiteral(resourceName: "chevron-up")
         } else {
-            switch currentSearchFilter {
+            switch currentSearch.filter {
             case .top:
                 title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             case .saved:
@@ -572,12 +567,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Searching
     
+    var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
+        didSet {
+            guard oldValue != currentSearchFilter else {
+                return
+            }
+            
+            updateSearchFilterTitle()
+            
+            if let currentSearch = self.currentSearch {
+                self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: currentSearch.origin, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+            }
+        }
+    }
+    
     var currentSearch: PlaceSearch? {
         didSet {
             guard let search = currentSearch else {
                 return
             }
             
+            updateSearchFilterTitle()
             performSearch(search)
             
             switch search.type {
@@ -653,7 +663,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
-        
+
         switch search.type {
 //        case .saved:
 //            showSavedArticles()
@@ -674,35 +684,41 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             searchTerm = search.string
         }
         
-        let center = region.center
-        let halfLatitudeDelta = region.span.latitudeDelta * 0.5
-        let halfLongitudeDelta = region.span.longitudeDelta * 0.5
-        let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
-        let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
-        let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
-        let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
-        let height = top.distance(from: bottom)
-        let width = right.distance(from: left)
-        
-        let radius = round(0.5*max(width, height))
-        let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
-        
-        let done = {
-            self.searching = false
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
-        }
-        isProgressHidden = false
-        progressView.setProgress(0, animated: false)
-        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
-        locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-            self.updatePlaces(withSearchResults: searchResults.results)
-            done()
-        }) { (error) in
-            WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            done()
+        switch search.filter {
+        case .saved:
+            showSavedArticles()
+        case .top:
+            let center = region.center
+            let halfLatitudeDelta = region.span.latitudeDelta * 0.5
+            let halfLongitudeDelta = region.span.longitudeDelta * 0.5
+            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
+            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
+            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
+            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
+            let height = top.distance(from: bottom)
+            let width = right.distance(from: left)
+            
+            let radius = round(0.5*max(width, height))
+            let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
+            
+            let done = {
+                self.searching = false
+                self.progressView.setProgress(1.0, animated: true)
+                self.isProgressHidden = true
+            }
+            isProgressHidden = false
+            progressView.setProgress(0, animated: false)
+            perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
+            locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
+                self.updatePlaces(withSearchResults: searchResults.results)
+                done()
+            }) { (error) in
+                WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                done()
+            }
         }
     }
+
     
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
