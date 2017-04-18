@@ -87,9 +87,9 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param article    The article to save.
  **/
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article;
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk;
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion;
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Cancel the asynchronous save for the @c article.
@@ -140,11 +140,17 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 /**
  *  Saves the article to the store
- *  This is a non-op if the article is a main page
  *
  *  @param article the article to save
  */
 - (void)saveArticle:(MWKArticle *)article;
+
+/**
+ *  Adds the article to the memory cache
+ *
+ *  @param article the article to add to the memory cache
+ */
+- (void)addArticleToMemoryCache:(MWKArticle *)article;
 
 /**
  *  Saves the section to the store

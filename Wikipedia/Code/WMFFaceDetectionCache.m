@@ -68,7 +68,6 @@
                            failure:failure
                            success:^(NSArray *faceBounds) {
                                imageMetadata.allNormalizedFaceBounds = faceBounds;
-                               [imageMetadata save];
                                success([faceBounds firstObject]);
                            }];
     }

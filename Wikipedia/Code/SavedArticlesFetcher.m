@@ -112,6 +112,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                 completion:^{
                                 }];
             if (article.isDownloaded) {
+                [self.dataStore removeArticlesWithURLsFromCache:@[articleURL]];
                 [self removeCachedImagesForArticleURL:articleURL
                                            completion:^{
                                            }];
@@ -248,6 +249,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     } else {
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
+                saveToDisk:YES
                 progress:NULL
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(self.accessQueue, ^{
