@@ -4,6 +4,6 @@
 
 @property (nonatomic, strong, readonly) MWKArticle *article;
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore;
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore;
 
 @end

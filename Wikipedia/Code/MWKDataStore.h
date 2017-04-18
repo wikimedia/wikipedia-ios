@@ -8,6 +8,7 @@
 @class MWKImageInfo;
 @class MWKImageList;
 @class WMFArticle;
+@class WMFExploreFeedContentController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +38,6 @@ extern NSString *const MWKTeardownDataSourcesNotification;
  */
 extern NSString *const WMFArticleUpdatedNotification;
 
-
 @interface MWKDataStore : NSObject
 
 /**
@@ -59,13 +59,24 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+@property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
-- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL;
-- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key;
-- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL;
+- (void)teardownFeedImportContext;
 
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key; //uses the view context
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
+
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL;
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL;
 
 - (BOOL)save:(NSError **)error;
 

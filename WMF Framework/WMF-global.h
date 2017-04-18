@@ -43,7 +43,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 
 #import "MWKDataStore.h"
-#import "WMFContentGroupDataStore.h"
 
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
@@ -169,4 +168,8 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "PiwikTracker+WMFExtensions.h"
+
+#import "WMFContentGroup+Extensions.h"
+#import "WMFArticle+Extensions.h"
+
 #endif /* WMF_global_h */
