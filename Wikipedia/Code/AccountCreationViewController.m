@@ -247,8 +247,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self enableProgressiveButton:NO];
 
-    [[WMFAlertManager sharedInstance] dismissAlert];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:self.captchaViewController.captchaTextBox];
