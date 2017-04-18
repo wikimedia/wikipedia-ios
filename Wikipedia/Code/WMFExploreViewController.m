@@ -471,8 +471,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                   }];
 }
 
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
-    [self.userStore.feedContentController updateFeedSourcesWithDate:date
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
+    [self.userStore.feedContentController updateFeedSourcesWithDate:date userInitiated:wasUserInitiated
                                                          completion:^{
                                                              WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
@@ -486,18 +486,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          }];
 }
 
-- (void)updateFeedSources {
+- (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated {
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
         if (self.numberOfSectionsInExploreFeed == 0) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
         }
     }
-    [self updateFeedSourcesWithDate:nil completion:nil];
+    [self updateFeedSourcesWithDate:nil userInitiated:wasUserInitiated completion:nil];
 }
 
 - (void)refreshControlActivated {
-    [self updateFeedSources];
+    [self updateFeedSourcesUserInititated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -565,7 +565,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSources];
+                        [self updateFeedSourcesUserInititated:NO];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -1661,6 +1661,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     self.loadingOlderContent = YES;
     [self updateFeedSourcesWithDate:nextOldestDate
+                      userInitiated:NO
                          completion:^{
                              self.loadingOlderContent = NO;
                          }];

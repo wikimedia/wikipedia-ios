@@ -41,4 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@protocol WMFOptionalNewContentSource <NSObject>
+
+/**
+ * Load content for a specific date into the DB
+ */
+- (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion;
+
+@end
+
 NS_ASSUME_NONNULL_END
