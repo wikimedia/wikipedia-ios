@@ -1239,7 +1239,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
-        forceDownload:force
+        forceDownload:force saveToDisk:NO
         progress:^(CGFloat progress) {
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
         }

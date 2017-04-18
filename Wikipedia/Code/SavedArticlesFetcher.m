@@ -248,7 +248,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     } else {
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
-                progress:NULL
+                                         saveToDisk:YES
+                                           progress:NULL
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(self.accessQueue, ^{
                         [self didFetchArticle:nil url:articleURL error:error];
