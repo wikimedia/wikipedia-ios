@@ -167,6 +167,7 @@
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-notifications-system-off" = "Ilmoitukset ovat tällä hetkellä pois käytöstä Wikipedia-sovelluksessa. Mene laitteesi Asetukset-valikkoon ottaaksesi käyttöön ilmoitukset";
 "settings-notifications-system-turn-on" = "Ota ilmoitukset käyttöön";
+"settings-notifications-info" = "Saat ilmoituksia luetuimmista ja nousussa olevista Wikipedian artikkeleista push-ilmoituksilla. Kaikki tarjotut ilmoitukset perustuvat ajantasaiseen dataan ja kunnioittavat yksityisyyttäsi-";
 "settings-notifications-learn-more" = "Lue lisää ilmoituksista";
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-notifications-push-notifications" = "Push-ilmoitukset";
@@ -311,8 +312,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Vapaa tietosanakirja";
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Salli Wikimedian kerätä tietoja siitä, miten käytät sovellusta, jotta sovellusta voidaan parantaa";
+"preference-summary-eventlogging-opt-in" = "Salli Wikimedia Foundationin kerätä sovelluksen parantamiseksi tietoja siitä, miten käytät sovellusta.";
 "page-protected-autoconfirmed" = "Tämä sivu on osittain suojattu.";
 "page-protected-sysop" = "Tämä sivu on täysin suojattu.";
 "page-protected-other" = "Sivun suojaustaso on: $1";
@@ -373,10 +373,8 @@
 "image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
 "image-gallery-fetch-image-info-error-message" = "Kuvien lataaminen tähän artikkeliin ei onnistu. Päivitä artikkeli ja yritä uudelleen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-// Fuzzy
-"hockeyapp-alert-question" = "Haluaisitko lähettää kaatumisraportin $1:lle niin Wikimedia voi tarkastaa kaatumisen?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Haluatko lähettää kaatumisilmoituksen $1:lle jotta Wikimedia voi tarkistaa kaatumisen? Ole hyvä ja kuvaile mitä tapahtui kun kaatuminen sattui:";
+"hockeyapp-alert-question" = "Haluatko lähettää kaatumisilmoituksen $1:lle, jotta Wikimedia Foundation voi korjata ongelman?";
+"hockeyapp-alert-question-with-response-field" = "Haluatko lähettää kaatumisilmoituksen $1:lle, jotta Wikimedia Foundationin kehittäjät voivat korjata ongelman? Kirjoita englanniksi mitä olit tekemässä, kun sovellus kaatui:";
 "hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "hockeyapp-alert-send-report" = "Lähetä raportti";
 "hockeyapp-alert-always-send" = "Lähetä aina";
@@ -438,8 +436,7 @@
 "welcome-volunteer-continue-button" = "Jatka";
 "welcome-volunteer-thanks" = "$1 Kiitos!";
 "welcome-send-data-title" = "Lähetä anonyymiä dataa";
-// Fuzzy
-"welcome-send-data-sub-title" = "Auta Wikimediaa tekemään sovelluksesta parempi kertomalla meille miten käytät sovellusta. Kerätyt tiedot ovat anonyymejä.";
+"welcome-send-data-sub-title" = "Auta Wikimedia Foundationia tekemään sovelluksesta parempi lähettämällä dataa siitä, miten käytät sovellusta. Kerätyt tiedot ovat anonyymejä.";
 "empty-no-feed-title" = "Ei Internet-yhteyttä";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
 "empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
@@ -513,6 +510,7 @@
 "places-search-saved-articles" = "Tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-recently-searched-header" = "Äskettäin haetut";
+"places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-unknown-distance" = "tuntematon etäisyys";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
 "places-accessibility-group" = "$1 artikkelia";
