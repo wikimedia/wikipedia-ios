@@ -306,7 +306,7 @@
                                     </constraint>
                                     <constraint firstAttribute="trailingMargin" secondItem="l8n-jw-YsR" secondAttribute="trailing" id="Vbp-hj-bD5"/>
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="height" secondItem="BGl-w8-FTx" secondAttribute="height" id="Yvu-dH-xmj"/>
-                                    <constraint firstItem="l8n-jw-YsR" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" constant="7.5" id="dj2-Qs-aTQ"/>
+                                    <constraint firstItem="l8n-jw-YsR" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" id="dj2-Qs-aTQ"/>
                                     <constraint firstItem="HrB-BE-o86" firstAttribute="centerY" secondItem="qzd-3E-mH2" secondAttribute="centerY" id="nMy-90-K3x"/>
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="top" secondItem="BGl-w8-FTx" secondAttribute="top" id="pNV-aG-5U0"/>
                                     <constraint firstAttribute="trailing" secondItem="HrB-BE-o86" secondAttribute="trailing" constant="15" id="wTw-8k-zE2"/>
