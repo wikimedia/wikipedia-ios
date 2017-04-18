@@ -178,8 +178,20 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
     xhr.send(null);
 };
 
+function updateSaveButtonText(button, title, isSaved){
+  button.innerText = isSaved ? _savedForLaterString : _saveForLaterString;
+}
+
+function updateSaveButtonBookmarkIcon(button, title, isSaved){
+  button.classList.remove('footer_readmore_bookmark_unfilled');
+  button.classList.remove('footer_readmore_bookmark_filled');  
+  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled');
+}
+
 function setTitleIsSaved(title, isSaved){
-  document.getElementById(`${_saveButtonIDPrefix}${title}`).innerText = isSaved ? _savedForLaterString : _saveForLaterString;
+  const saveButton = document.getElementById(`${_saveButtonIDPrefix}${title}`);
+  updateSaveButtonText(saveButton, title, isSaved);
+  updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
 function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
