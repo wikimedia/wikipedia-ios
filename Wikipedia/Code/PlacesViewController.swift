@@ -665,12 +665,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentSearchRegion = region
 
         switch search.type {
-//        case .saved:
-//            showSavedArticles()
-//            return
-//        case .top:
-//            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-//            break
         case .location:
             guard search.needsWikidataQuery else {
                 tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
@@ -688,6 +682,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .saved:
             showSavedArticles()
         case .top:
+            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             let center = region.center
             let halfLatitudeDelta = region.span.latitudeDelta * 0.5
             let halfLongitudeDelta = region.span.longitudeDelta * 0.5
@@ -1318,7 +1313,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         progressView.setProgress(0, animated: false)
         let done = { (articlesToShow: [WMFArticle]) -> Void in
             let request = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            request.predicate = basePredicate
+            if let searchString = self.currentSearch?.string {
+                let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
+                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+            }
             request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
             self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
             if articlesToShow.count > 0 {
