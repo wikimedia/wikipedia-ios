@@ -94,13 +94,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
 
     NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
-    
+
     if (url) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName: @"wprov" value: @"sfsi1"];
+
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
         components.queryItems = @[queryItem];
-        
+
         NSURL *componentsURL = components.URL;
         if (componentsURL) {
             [items addObject:componentsURL];
@@ -1239,6 +1239,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
         forceDownload:force
+        saveToDisk:NO
         progress:^(CGFloat progress) {
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
         }
@@ -1533,11 +1534,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
-    NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
-    if (!self.article.isCached) {
-        return;
-    }
-
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
