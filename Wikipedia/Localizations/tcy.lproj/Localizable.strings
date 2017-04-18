@@ -101,7 +101,7 @@
 "search-recent-clear-confirmation-heading" = "ಇಂಚಿಪಾ ನಾಡ್ನ್ ನೆನ್ ಮಾಜಾವೊಡಾ?";
 "search-recent-clear-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "search-recent-clear-delete-all" = "ಮಾಂತಾ ಮಾಜಾಲೆ";
-"search-result-redirected-from" = "%s ರ್ದ್ ಪಿರ ನಿರ್ದೇಸನೊ";
+"search-result-redirected-from" = "$1 ರ್ದ್ ಪಿರ ನಿರ್ದೇಸನೊ";
 "settings-title" = "ಸಂಯೋಜನೆಲು";
 "settings-language" = "ವಿಕಿಪೀಡಿಯಾ ಬಾಸೆ";
 "settings-support" = "ವಿಕಿಪೀಡಿಯತಾ ಬೆಂಬಲಾ";
@@ -235,7 +235,7 @@
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
 "home-nearby-check-again" = "ನನೋರಾ ತೂಲೆ";
 "home-main-page-heading" = "ವಿಕಿಪೀಡಿಯಾಡ್ ಇನಿ";
-"home-last-update-label" = "ಕಡೇತಾ ಪರಿಷ್ಕರಣೆ ಮಾಂತುನಾ: %s";
+"home-last-update-label" = "ಕಡೇತಾ ಪರಿಷ್ಕರಣೆ ಮಾಂತುನಾ: $1";
 "home-last-update-never-label" = "ಕಡೆತಾ ಪರಿಷ್ಕರಣೆ: ಮಾಲ್ತಿಜ್ಜಿ";
 "home-hide-suggestion-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "home-button-accessibility-label" = "ಮುಖ್ಯಪುಟ";
