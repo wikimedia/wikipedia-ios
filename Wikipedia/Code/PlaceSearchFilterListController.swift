@@ -1,9 +1,9 @@
 protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
-    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController,
                                           didSelectFilterType filterType: PlaceFilterType) -> Void
     
-    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int
     
 }
 
@@ -49,7 +49,7 @@ class PlaceSearchFilterListController: UITableViewController {
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placesSearchFilterListController(self, countForFilterType: .top)))
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .top)))
             
             if (currentFilterType == .top) {
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
@@ -59,7 +59,7 @@ class PlaceSearchFilterListController: UITableViewController {
 
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placesSearchFilterListController(self, countForFilterType: .saved)))
+            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .saved)))
             
             if (currentFilterType == .saved) {
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
@@ -77,9 +77,9 @@ class PlaceSearchFilterListController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if (indexPath.row == 0) {
-            delegate.placesSearchFilterListController(self, didSelectFilterType: .top)
+            delegate.placeSearchFilterListController(self, didSelectFilterType: .top)
         } else if (indexPath.row == 1) {
-            delegate.placesSearchFilterListController(self, didSelectFilterType: .saved)
+            delegate.placeSearchFilterListController(self, didSelectFilterType: .saved)
         }
     }
 }

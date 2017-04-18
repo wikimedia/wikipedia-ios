@@ -2506,12 +2506,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return shouldReceive
     }
     
+    // MARK: - TouchOutsideOverlayDelegate
+    
     func touchOutside(_ overlayView: TouchOutsideOverlayView) {
         
         toggleSearchFilterDropDown(overlayView)
     }
     
-    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
+    // MARK: - PlaceSearchFilterListDelegate
+    
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
         switch (countForFilterType) {
         case .top:
             return 0
@@ -2527,7 +2531,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController,
                                           didSelectFilterType filterType: PlaceFilterType) {
         currentSearchFilter = filterType
         isSearchFilterDropDownShowing = false
