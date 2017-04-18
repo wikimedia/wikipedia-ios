@@ -163,7 +163,7 @@ static uint64_t bundleHash() {
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
         self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveMemoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -710,7 +710,7 @@ static uint64_t bundleHash() {
 
 #pragma mark - Memory
 
-- (void)didRecievememoryWarningWithNotifcation:(NSNotification *)note {
+- (void)didRecieveMemoryWarningWithNotifcation:(NSNotification *)note {
     [self clearMemoryCache];
 }
 
@@ -977,7 +977,7 @@ static uint64_t bundleHash() {
     if (!key || !article) {
         return;
     }
-    @synchronized (self.articleCache) {
+    @synchronized(self.articleCache) {
         [self.articleCache setObject:article forKey:key];
     }
 }
@@ -999,7 +999,7 @@ static uint64_t bundleHash() {
 - (nullable MWKArticle *)existingArticleWithURL:(NSURL *)url {
     NSString *key = [url wmf_articleDatabaseKey];
     MWKArticle *existingArticle =
-    [self memoryCachedArticleWithKey:key] ?: [self articleFromDiskWithURL:url];
+        [self memoryCachedArticleWithKey:key] ?: [self articleFromDiskWithURL:url];
     if (existingArticle) {
         [self addArticleToMemoryCache:existingArticle forKey:key];
     }
@@ -1120,27 +1120,27 @@ static uint64_t bundleHash() {
         NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
         allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
         allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
-        
+
         NSError *fetchError = nil;
         NSArray *arrayOfAllValidArticles = [moc executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
-        
+
         if (fetchError) {
             failure(fetchError);
             return;
         }
-        
+
         dispatch_block_t deleteEverythingAndSucceed = ^{
             dispatch_async(self.cacheRemovalQueue, ^{
                 [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
                 dispatch_async(dispatch_get_main_queue(), success);
             });
         };
-        
+
         if (arrayOfAllValidArticles.count == 0) {
             deleteEverythingAndSucceed();
             return;
         }
-        
+
         NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
         for (WMFArticle *article in arrayOfAllValidArticles) {
             NSString *key = article.key;
@@ -1149,12 +1149,12 @@ static uint64_t bundleHash() {
             }
             [allValidArticleKeys addObject:key];
         }
-        
+
         if (allValidArticleKeys.count == 0) {
             deleteEverythingAndSucceed();
             return;
         }
-        
+
         dispatch_async(self.cacheRemovalQueue, ^{
             NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
             [self iterateOverArticleURLs:^(NSURL *articleURL) {
@@ -1165,14 +1165,13 @@ static uint64_t bundleHash() {
                 if ([allValidArticleKeys containsObject:key]) {
                     return;
                 }
-                
+
                 [articleURLsToRemove addObject:articleURL];
             }];
             [self removeArticlesWithURLsFromCache:articleURLsToRemove];
             dispatch_async(dispatch_get_main_queue(), success);
         });
     }];
-    
 }
 
 - (void)iterateOverArticleURLs:(void (^)(NSURL *))block {
@@ -1299,7 +1298,7 @@ static uint64_t bundleHash() {
 #pragma mark - Cache
 
 - (void)clearMemoryCache {
-    @synchronized (self.articleCache) {
+    @synchronized(self.articleCache) {
         [self.articleCache removeAllObjects];
     }
     [self.articlePreviewCache removeAllObjects];
