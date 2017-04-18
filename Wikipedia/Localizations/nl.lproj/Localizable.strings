@@ -371,8 +371,7 @@
 "image-gallery-fetch-image-info-error-ok" = "OK";
 // Fuzzy
 "hockeyapp-alert-question" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
+"hockeyapp-alert-question-with-response-field" = "Wilt u het crashrapport naar $1 verzenden, zodat de Wikimedia Foundation het kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "hockeyapp-alert-send-report" = "Rapport verzenden";
 "hockeyapp-alert-always-send" = "Altijd verzenden";
