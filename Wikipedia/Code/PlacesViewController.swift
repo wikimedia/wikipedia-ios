@@ -16,6 +16,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var filterSelectorView: PlaceSearchFilterSelectorView!
     @IBOutlet weak var filterDropDownContainerView: UIView!
     @IBOutlet weak var filterDropDownTableView: UITableView!
+    @IBOutlet weak var closeSearchButton: UIButton!
+    @IBOutlet weak var searchBarToMapListToggleTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarToCloseTrailingConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     
@@ -53,7 +56,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    private var closeBarButtonItem: UIBarButtonItem!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
     private let searchHistoryGroup = "PlaceSearch"
     private var selectedArticlePopover: ArticlePopoverViewController?
@@ -175,9 +177,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
         mapListToggle.tintColor = .wmf_blueTint
         
-        let closeImage = #imageLiteral(resourceName: "close")
-        closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
-        closeBarButtonItem.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
+        // Setup close search button
+        closeSearchButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
+        
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
 
@@ -1147,10 +1149,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             if oldValue == .search && viewMode != .search {
-                // navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true) // TODO:
-                navigationItem.setRightBarButton(nil, animated: true)
+                searchBarToCloseTrailingConstraint.isActive = false
+                closeSearchButton.isHidden = true
+                searchBarToMapListToggleTrailingConstraint.isActive = true
+                mapListToggle.isHidden = false
+ 
             } else if oldValue != .search && viewMode == .search {
-                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
+                searchBarToMapListToggleTrailingConstraint.isActive = false
+                mapListToggle.isHidden = true
+                searchBarToCloseTrailingConstraint.isActive = true
+                closeSearchButton.isHidden = false
             }
             switch traitBasedViewMode {
             case .listOverlay:
