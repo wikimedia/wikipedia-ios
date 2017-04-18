@@ -94,13 +94,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
 
     NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
-    
+
     if (url) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName: @"wprov" value: @"sfsi1"];
+
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
         components.queryItems = @[queryItem];
-        
+
         NSURL *componentsURL = components.URL;
         if (componentsURL) {
             [items addObject:componentsURL];
@@ -201,8 +201,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore{
-    
+                         dataStore:(MWKDataStore *)dataStore {
+
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
 
@@ -366,8 +366,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (WMFReadMoreViewController *)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore
-                                                                       ];
+                                                                           userStore:self.dataStore];
         _readMoreListViewController.delegate = self;
         _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
     }
@@ -1753,7 +1752,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      }
                                  }];
 
-    WMFArticle *wmfarticle = [self.previewStore itemForURL:self.articleURL];
+    WMFArticle *wmfarticle = [self.dataStore fetchArticleWithURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
@@ -1803,8 +1802,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                   dataStore:self.dataStore
-                                               ];
+                                                   dataStore:self.dataStore];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
@@ -1827,8 +1825,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
     return [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                      dataStore:self.dataStore
-                                                  ];
+                                                      dataStore:self.dataStore];
 }
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
