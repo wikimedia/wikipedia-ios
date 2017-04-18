@@ -8,8 +8,9 @@
 - (void)startContentSources;
 - (void)stopContentSources;
 
-- (void)updateFeedSources:(nullable dispatch_block_t)completion;
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion;
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
+
 - (void)updateNearby:(nullable dispatch_block_t)completion;
 - (void)updateBackgroundSourcesWithCompletion:(nullable dispatch_block_t)completion;
 

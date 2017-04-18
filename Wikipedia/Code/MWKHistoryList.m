@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        [self migrateLegacyDataIfNeeded];
     }
     return self;
 }
@@ -180,24 +179,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting fragment and scroll position: %@", error);
-    }
-}
-
-- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs {
-    for (NSURL *URL in articleURLs) {
-        if ([URL wmf_isNonStandardURL]) {
-            continue;
-        }
-        if ([URL.wmf_title length] == 0) {
-            continue;
-        }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
-        article.newsNotificationDate = date;
-    }
-
-    NSError *error = nil;
-    if (![self.dataStore save:&error]) {
-        DDLogError(@"Error setting in the news notification date: %@", error);
     }
 }
 
