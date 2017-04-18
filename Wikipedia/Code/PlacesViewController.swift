@@ -609,6 +609,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         performDefaultSearch(withRegion: region)
     }
     
+    func isDefaultSearch(_ placeSearch: PlaceSearch) -> Bool {
+        return placeSearch.type == .location && placeSearch.string == nil && placeSearch.searchResult == nil && placeSearch.origin == .system
+    }
+    
     func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
@@ -2050,17 +2054,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-//            let topNearbySuggestion = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
-//            
-//            var suggestedSearches = [topNearbySuggestion]
+            
+            let suggestion: PlaceSearch
+            switch (currentSearchFilter) {
+            case .top:
+                suggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+            case .saved:
+                suggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+            }
+            
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
-//                if try moc.count(for: fetchRequestForSavedArticles) > 0 {
-//                    let saved = PlaceSearch(filter: currentSearchFilter, type: .location, sortStyle: .none, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
-//                    suggestedSearches.append(saved)
-//                }
-                
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -2082,7 +2087,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [/*suggestedSearches,*/[], recentSearches, [], []]
+            searchSuggestionController.searches = [[suggestion], recentSearches, [], []]
             return
         }
         
@@ -2349,7 +2354,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
-        searchBar?.text = search.string ?? search.localizedDescription
+        if (isDefaultSearch(search)) {
+            searchBar?.text = nil
+        } else {
+            searchBar?.text = search.string ?? search.localizedDescription
+        }
         closeSearch(controller)
     }
     
@@ -2503,7 +2512,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
-        return 1
+        switch (countForFilterType) {
+        case .top:
+            return 0
+        case .saved:
+            do {
+                let moc = dataStore.viewContext
+                return try moc.count(for: fetchRequestForSavedArticlesWithLocation)
+            } catch let error {
+                DDLogError("Error fetching saved article count: \(error)")
+                return 0
+                
+            }
+        }
     }
     
     func placesSearchFilterListController(_ placesSearchFilterListController: PlaceSearchFilterListController,

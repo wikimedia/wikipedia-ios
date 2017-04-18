@@ -7,10 +7,10 @@ protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
 class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
     static let cellReuseIdentifier = "org.wikimedia.places"
     static let headerReuseIdentifier = "org.wikimedia.places.header"
-    //static let suggestionSection = 0
-    static let recentSection = 0
-    static let currentStringSection = 1
-    static let completionSection = 2
+    static let suggestionSection = 0
+    static let recentSection = 1
+    static let currentStringSection = 2
+    static let completionSection = 3
     
     var tableView: UITableView = UITableView() {
         didSet {
