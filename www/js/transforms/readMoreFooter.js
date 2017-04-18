@@ -8,7 +8,7 @@ var _saveButtonIDPrefix = 'readmore:save:';
 var shownTitles = [];
 
 const safelyRemoveEnclosures = (string, opener, closer) => {
-  const enclosureRegex = new RegExp(`[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
+  const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
   var previousString = null;
   var counter = 0;
   const safeMaxTries = 30;
