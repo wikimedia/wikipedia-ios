@@ -104,7 +104,7 @@ img.classList.add('wideImageOverride');
 }
 
 const showReadMore = (pages) => {
-  const app_footer_readmore = document.getElementById('app_footer_readmore');
+  const footer_readmore_container = document.getElementById('footer_readmore_container');
   
   shownTitles.length = 0;
   
@@ -115,7 +115,7 @@ const showReadMore = (pages) => {
 
     const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
     const pageFragment = new WMFPageFragment(pageModel, index);
-    app_footer_readmore.appendChild(pageFragment);
+    footer_readmore_container.appendChild(pageFragment);
   });
   
   _titlesShownHandler(shownTitles);
@@ -200,7 +200,7 @@ function add(baseURL, title, headerString, saveForLaterString, savedForLaterStri
   _saveForLaterString = saveForLaterString;
   _savedForLaterString = savedForLaterString;
 
-  document.getElementById('app_footer_readmore_title').innerText = headerString;
+  document.getElementById('footer_readmore_title').innerText = headerString;
   
   fetchReadMore(baseURL, title, showReadMore);
 }
