@@ -21,10 +21,10 @@
         return WMFWKScriptMessageConsoleMessage;
     } else if ([name isEqualToString:@"findInPageMatchesFound"]) {
         return WMFWKScriptMessageFindInPageMatchesFound;
-    } else if ([name isEqualToString:@"readMoreFooterSaveClicked"]) {
-        return WMFWKScriptMessageReadMoreFooterSaveClicked;
-    } else if ([name isEqualToString:@"readMoreFooterTitlesShown"]) {
-        return WMFWKScriptMessageReadMoreFooterTitlesShown;
+    } else if ([name isEqualToString:@"footerReadMoreSaveClicked"]) {
+        return WMFWKScriptMessageFooterReadMoreSaveClicked;
+    } else if ([name isEqualToString:@"footerReadMoreTitlesShown"]) {
+        return WMFWKScriptMessageFooterReadMoreTitlesShown;
     } else {
         return WMFWKScriptMessageUnknown;
     }
@@ -62,10 +62,10 @@
         case WMFWKScriptMessageUnknown:
             return [NSNull class];
             break;
-        case WMFWKScriptMessageReadMoreFooterSaveClicked:
+        case WMFWKScriptMessageFooterReadMoreSaveClicked:
             return [NSDictionary class];
             break;
-        case WMFWKScriptMessageReadMoreFooterTitlesShown:
+        case WMFWKScriptMessageFooterReadMoreTitlesShown:
             return [NSArray class];
             break;
     }

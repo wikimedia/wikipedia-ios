@@ -141,11 +141,11 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         case WMFWKScriptMessageFindInPageMatchesFound:
             [self handleFindInPageMatchesFoundMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageReadMoreFooterTitlesShown:
-            [self handleReadMoreFooterTitlesShownScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageFooterReadMoreTitlesShown:
+            [self handleFooterReadMoreTitlesShownScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageReadMoreFooterSaveClicked:
-            [self handleReadMoreFooterSaveClickedScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageFooterReadMoreSaveClicked:
+            [self handleFooterReadMoreSaveClickedScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
@@ -153,20 +153,20 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     }
 }
 
-- (void)handleReadMoreFooterTitlesShownScriptMessage:(NSArray *)messageArray {
+- (void)handleFooterReadMoreTitlesShownScriptMessage:(NSArray *)messageArray {
     for (NSString* title in messageArray) {
         [self updateReadMoreSaveButtonIsSavedStateForTitle:title];
     }
 }
 
-- (void)handleReadMoreFooterSaveClickedScriptMessage:(NSDictionary *)messageDict {
+- (void)handleFooterReadMoreSaveClickedScriptMessage:(NSDictionary *)messageDict {
     [self toggleReadMoreSaveButtonIsSavedStateForTitle:messageDict[@"title"]];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:[self.article.url wmf_URLWithTitle:title]];
     title = [title wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.readMoreFooter.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
 }
 
 - (void)toggleReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
@@ -294,8 +294,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
     } else if ([messageString isEqualToString:@"setPageProtected"] && !self.article.editable) {
         [self.webView wmf_setPageProtected];
-    } else if ([messageString isEqualToString:@"addReadMoreFooter"]) {
-        [self.webView wmf_addReadMoreFooterForArticle:self.article];
+    } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
+        [self.webView wmf_addFooterReadMoreForArticle:self.article];
     }
 }
 
@@ -533,7 +533,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addReadMoreFooter');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterReadMore');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
     
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
 
@@ -550,8 +550,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
 
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"readMoreFooterSaveClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"readMoreFooterTitlesShown"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreSaveClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreTitlesShown"];
 
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"

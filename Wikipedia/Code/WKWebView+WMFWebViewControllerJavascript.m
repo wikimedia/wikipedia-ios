@@ -11,7 +11,7 @@ static int const kMinimumTextSelectionLength = 2;
 
 @implementation WKWebView (WMFWebViewControllerJavascript)
 
-- (void)wmf_addReadMoreFooterForArticle:(MWKArticle *)article {
+- (void)wmf_addFooterReadMoreForArticle:(MWKArticle *)article {
     NSURL *proxyURL = [[WMFProxyServer sharedProxyServer] proxyURLForWikipediaAPIHost:article.url.host];
     
     NSString *saveForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-save-for-later" article:article];
@@ -20,15 +20,15 @@ static int const kMinimumTextSelectionLength = 2;
     
     NSString *saveButtonTapHandler = @""
     "function(title){"
-    "  window.webkit.messageHandlers.readMoreFooterSaveClicked.postMessage({'title': title})"
+    "  window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})"
     "}";
 
     NSString *titlesShownHandler = @""
     "function(titles){"
-    "  window.webkit.messageHandlers.readMoreFooterTitlesShown.postMessage(titles)"
+    "  window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)"
     "}";
     
-    NSString *readMoreTransform = [NSString stringWithFormat:@"window.wmf.readMoreFooter.add( '%@', '%@', '%@', '%@', '%@', %@, %@ );", proxyURL, article.url.wmf_title, headerString, saveForLaterString, savedForLaterString, saveButtonTapHandler, titlesShownHandler];
+    NSString *readMoreTransform = [NSString stringWithFormat:@"window.wmf.footerReadMore.add( '%@', '%@', '%@', '%@', '%@', %@, %@ );", proxyURL, article.url.wmf_title, headerString, saveForLaterString, savedForLaterString, saveButtonTapHandler, titlesShownHandler];
     
     [self evaluateJavaScript:readMoreTransform completionHandler:nil];
 }

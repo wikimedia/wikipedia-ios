@@ -5,10 +5,10 @@ wmf.elementLocation = require("./js/elementLocation");
 wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
-wmf.readMoreFooter = require("./js/transforms/readMoreFooter");
+wmf.footerReadMore = require("./js/transforms/footerReadMore");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/readMoreFooter":10,"./js/utilities":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerReadMore":9,"./js/utilities":13}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -651,17 +651,6 @@ transformer.register( "disableFilePageEdit", function( content ) {
 } );
 
 },{"../transformer":6}],9:[function(require,module,exports){
-var transformer = require("../transformer");
-
-transformer.register( "hideRedlinks", function( content ) {
-	var redLinks = content.querySelectorAll( 'a.new' );
-	for ( var i = 0; i < redLinks.length; i++ ) {
-		var redLink = redLinks[i];
-        redLink.style.color = 'inherit';
-	}
-} );
-
-},{"../transformer":6}],10:[function(require,module,exports){
 
 var _saveButtonClickHandler = null;
 var _titlesShownHandler = null;
@@ -872,7 +861,18 @@ function add(baseURL, title, headerString, saveForLaterString, savedForLaterStri
 exports.setTitleIsSaved = setTitleIsSaved;
 exports.add = add;
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( "hideRedlinks", function( content ) {
+	var redLinks = content.querySelectorAll( 'a.new' );
+	for ( var i = 0; i < redLinks.length; i++ ) {
+		var redLink = redLinks[i];
+        redLink.style.color = 'inherit';
+	}
+} );
+
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
