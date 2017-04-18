@@ -314,8 +314,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Den fria encyklopedin";
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
+"preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "page-protected-autoconfirmed" = "Denna sida är halvskyddad.";
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-protected-other" = "Denna sida har skyddats för följande nivåer: $1";
@@ -376,10 +375,8 @@
 "image-gallery-fetch-image-info-error-title" = "Kunde inte ladda ned bilder";
 "image-gallery-fetch-image-info-error-message" = "Kunde inte ladda ned bilder för denna artikel. Uppdatera artikeln och försök igen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-// Fuzzy
-"hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia kan undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
+"hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia Foundation kan undersöka din krasch?";
+"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia Foundation kan undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
 "hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
 "hockeyapp-alert-send-report" = "Skicka rapporten";
 "hockeyapp-alert-always-send" = "Skicka alltid";
@@ -442,8 +439,7 @@
 "welcome-volunteer-continue-button" = "Fortsätt";
 "welcome-volunteer-thanks" = "$1 Tack!";
 "welcome-send-data-title" = "Skicka anonym data";
-// Fuzzy
-"welcome-send-data-sub-title" = "Hjälp Wikimedia göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym.";
+"welcome-send-data-sub-title" = "Hjälp Wikimedia Foundation göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym.";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";

@@ -7,6 +7,7 @@
 // Author: Debeet
 // Author: Devwebtel
 // Author: Jacenty359
+// Author: Krottyianock
 // Author: Nemo bis
 // Author: Pawel Niemczuk
 // Author: Peter Bowman
@@ -349,8 +350,7 @@
 "image-gallery-fetch-image-info-error-title" = "Nie można pobrać obrazów";
 "image-gallery-fetch-image-info-error-message" = "Nie można załadować zdjęć do tego artykułu. Proszę zaktualizować artykuł i spróbować ponownie.";
 "image-gallery-fetch-image-info-error-ok" = "Ok";
-// Fuzzy
-"hockeyapp-alert-question" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać Twój błąd?";
+"hockeyapp-alert-question" = "Czy chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać Twój błąd?";
 "hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
 "hockeyapp-alert-send-report" = "Wyślij raport";
