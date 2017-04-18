@@ -533,6 +533,7 @@
 "places-filter-saved-articles" = "Title of places saerch filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-list-title" = "Title shown above list of search filters that can be selected";
+"places-search-default-text" = "Placeholder text that displays where is there no current place search";
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
