@@ -6,9 +6,10 @@ wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 wmf.footerReadMore = require("./js/transforms/footerReadMore");
+wmf.footerMenu = require("./js/transforms/footerMenu");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerReadMore":9,"./js/utilities":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/utilities":14}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -282,7 +283,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":13}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":7,"./utilities":14}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -624,7 +625,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":13}],8:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -651,6 +652,86 @@ transformer.register( "disableFilePageEdit", function( content ) {
 } );
 
 },{"../transformer":6}],9:[function(require,module,exports){
+
+// https://stijndewitt.com/2014/01/26/enums-in-javascript/
+// var thisType = IconTypeEnum.LANGUAGES;
+// var iconClass = IconTypeEnum.properties[thisType].iconClass; 
+//     iconClass == 'footer_menu_icon_languages'
+var IconTypeEnum = {
+  LANGUAGES: 0,
+  LASTEDITED: 1,
+  PAGEISSUES: 2,
+  DISAMBIGUATION: 3,
+  COORDINATE: 4,
+  properties: {
+    0: {iconClass: "footer_menu_icon_languages"},
+    1: {iconClass: "footer_menu_icon_last_edited"},
+    2: {iconClass: "footer_menu_icon_page_issues"},
+    3: {iconClass: "footer_menu_icon_disambiguation"},
+    4: {iconClass: "footer_menu_icon_coordinate"}
+  }
+};
+
+class WMFMenuItem {
+    constructor(title, subtitle, iconType, clickHandler) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.iconType = iconType;
+        this.clickHandler = clickHandler;
+    }
+}
+
+class WMFMenuItemFragment {
+    constructor(wmfMenuItem) {
+        var itemContainer = document.createElement('div');
+        itemContainer.className = 'footer_menu_item_container';
+
+        var containerAnchor = document.createElement('a');
+        containerAnchor.addEventListener('click', function(){
+          wmfMenuItem.clickHandler();
+        }, false);
+                
+        itemContainer.appendChild(containerAnchor);
+
+        if(wmfMenuItem.title){
+            var title = document.createElement('div');
+            title.className = 'footer_menu_item_title';
+            title.innerText = wmfMenuItem.title;
+            containerAnchor.appendChild(title);
+        }
+
+        if(wmfMenuItem.subtitle){
+            var subtitle = document.createElement('div');
+            subtitle.className = 'footer_menu_item_subtitle';
+            subtitle.innerText = wmfMenuItem.subtitle;
+            containerAnchor.appendChild(subtitle);
+        }
+
+        if(wmfMenuItem.iconType){
+            var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
+            containerAnchor.classList.add(iconClass);
+        }
+
+        return document.createDocumentFragment().appendChild(itemContainer);
+    }
+}
+
+//addItem('some title', 'some subtitle', IconTypeEnum.PAGEISSUES, function(){'click handler stuff'}) 
+function addItem(title, subtitle, iconType, clickHandler) {
+  const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
+  const itemFragment = new WMFMenuItemFragment(itemModel);
+  document.getElementById('footer_menu_container').appendChild(itemFragment);
+}
+
+function setHeading(string) {
+  document.getElementById('footer_menu_title').innerText = string;
+}
+
+exports.IconTypeEnum = IconTypeEnum;
+exports.setHeading = setHeading;
+exports.addItem = addItem;
+
+},{}],10:[function(require,module,exports){
 
 var _saveButtonClickHandler = null;
 var _titlesShownHandler = null;
@@ -695,7 +776,7 @@ class WMFPageFragment {
         pageContainer.className = 'footer_readmore_page';
 
         var containerAnchor = document.createElement('a');
-        containerAnchor.href = '/wiki/' + wmfPage.title;
+        containerAnchor.href = '/wiki/' + encodeURI(wmfPage.title);
         pageContainer.appendChild(containerAnchor);
 
         var bottomActions = document.createElement('div');
@@ -861,7 +942,7 @@ function add(baseURL, title, headerString, saveForLaterString, savedForLaterStri
 exports.setTitleIsSaved = setTitleIsSaved;
 exports.add = add;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -872,7 +953,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -953,7 +1034,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 
 const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
@@ -970,7 +1051,7 @@ transformer.register('widenImages', function(content) {
     .forEach(maybeWidenImage);
 });
 
-},{"../transformer":6,"applib":14}],13:[function(require,module,exports){
+},{"../transformer":6,"applib":15}],14:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -1023,7 +1104,7 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1222,4 +1303,4 @@ var index = {
 module.exports = index;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
