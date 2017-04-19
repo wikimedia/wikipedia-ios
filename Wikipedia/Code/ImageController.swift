@@ -234,7 +234,7 @@ open class ImageController : NSObject {
         let variant = self.variantForURL(url)
         let identifier = self.identifierForKey(key, variant: variant)
         let completion = ImageControllerPermanentCacheCompletion(success: success, failure: failure)
-        guard permanentCacheCompletionManager.add(completion, forIdentifier: identifier) else {
+        guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier) else {
             return
         }
         let moc = self.managedObjectContext
@@ -461,7 +461,7 @@ open class ImageController : NSObject {
         }
         let identifier = identifierForURL(url)
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        guard dataCompletionManager.add(completion, forIdentifier: identifier) else {
+        guard dataCompletionManager.add(completion, priority: priority, forIdentifier: identifier) else {
             return
         }
         let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
