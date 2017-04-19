@@ -100,15 +100,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
-    NSURL *siteURL = articleURL.wmf_siteURL;
-    NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
-    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:!useDeskTopURL];
-
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
     __block id summaryResponse = nil;
     [taskGroup enter];
+    NSURL *pageSummaryURL = [articleURL wmf_summaryEndpointURL];
     [self.pageSummarySessionManager GET:pageSummaryURL.absoluteString
         parameters:nil
         progress:nil
@@ -159,9 +156,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
                                                   WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
-                                                  article.imageURLString = summaryResponse[@"originalimage"][@"source"];
-                                                  article.imageWidth = summaryResponse[@"originalimage"][@"width"];
-                                                  article.imageHeight = summaryResponse[@"originalimage"][@"height"];
+                                                  if (summaryResponse) {
+                                                      [article updateWithSummary:summaryResponse];
+                                                  }
                                                   success(mwkArticle);
                                               });
                                           } else {

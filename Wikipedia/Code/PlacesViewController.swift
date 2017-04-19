@@ -27,7 +27,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     private let locationSearchFetcher = WMFLocationSearchFetcher()
     private let searchFetcher = WMFSearchFetcher()
-    private let previewFetcher = WMFArticlePreviewFetcher()
     private let wikidataFetcher = WikidataFetcher()
     private let locationManager = WMFLocationManager.fine()
     private let animationDuration = 0.6
@@ -1152,49 +1151,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                     return article.url
                 })
-                
-                previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
-                    var resultsByKey: [String: MWKSearchResult] = [:]
-                    for searchResult in searchResults {
-                        guard let title = searchResult.displayTitle, searchResult.location != nil else {
-                            continue
-                        }
-                        guard let url = (self.siteURL as NSURL).wmf_URL(withTitle: title)  else {
-                            continue
-                        }
-                        guard let key = (url as NSURL).wmf_articleDatabaseKey else {
-                            continue
-                        }
-                        resultsByKey[key] = searchResult
-                    }
-                    guard resultsByKey.count > 0 else {
-                        done(savedPagesWithLocation)
-                        return
-                    }
-                    let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
-                    articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(resultsByKey.keys))
-                    do {
-                        var allArticlesWithLocation = savedPagesWithLocation
-                        let articlesToUpdate = try moc.fetch(articlesToUpdateFetchRequest)
-                        for articleToUpdate in articlesToUpdate {
-                            guard let key = articleToUpdate.key,
-                                let result = resultsByKey[key] else {
-                                    continue
-                            }
-                            
-                            articleToUpdate.update(with: result)
-                            allArticlesWithLocation.append(articleToUpdate)
-                        }
-                        try moc.save()
-                        done(allArticlesWithLocation)
-                    } catch let error {
-                        DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                        done(savedPagesWithLocation)
-                    }
-                }, failure: { (error) in
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                    done(savedPagesWithLocation)
-                })
+                dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
+                    var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
+                    allArticlesWithLocation.append(contentsOf: articles)
+                    done(allArticlesWithLocation)
+                }
                 return
             }
         } catch let error {
