@@ -127,6 +127,8 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"page1-%@.jpg", sizeVariantLastPathComponent];
         } else if ([lowerCasePathExtension isEqualToString:@"tif"] || [lowerCasePathExtension isEqualToString:@"tiff"]) {
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"lossy-page1-%@.jpg", sizeVariantLastPathComponent];
+        } else if ([lowerCasePathExtension isEqualToString:@"svg"]) {
+            sizeVariantLastPathComponent = [NSString stringWithFormat:@"%@.png", sizeVariantLastPathComponent];
         }
 
         NSString *urlWithSizeVariantLastPathComponent = [[sourceURL stringByAppendingString:@"/"] stringByAppendingString:sizeVariantLastPathComponent];

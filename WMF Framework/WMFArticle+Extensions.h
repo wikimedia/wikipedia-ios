@@ -33,7 +33,9 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
-@property (nonatomic, nullable) NSURL *thumbnailURL;
+@property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
+
+- (nullable NSURL *)imageURLForWidth:(NSInteger)width;
 
 @property (nonatomic, readonly, nullable) NSArray<NSNumber *> *pageViewsSortedByDate;
 

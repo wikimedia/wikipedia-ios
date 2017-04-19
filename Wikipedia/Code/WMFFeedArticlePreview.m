@@ -7,6 +7,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageHeight): @"originalimage.height",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, snippet): @"extract",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, language): @"lang",
