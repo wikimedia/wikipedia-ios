@@ -529,10 +529,18 @@ open class ImageController : NSObject {
             completion()
             return
         }
-        fetchImage(withURL: url, priority: 0, failure: { (error) in
-            
-        }) { (download) in
-            
+        fetchData(withURL: url, priority: 0, failure: { (error) in
+            completion()
+        }) { (data, response) in
+            defer {
+                completion()
+            }
+            guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.addToMemoryCache(image, url: url)
+            }
         }
     }
     
