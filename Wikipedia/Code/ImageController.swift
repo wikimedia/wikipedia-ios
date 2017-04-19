@@ -229,7 +229,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func permanentlyCache(url: URL, groupKey: String, priority: Float = 0, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
+    public func permanentlyCache(url: URL, groupKey: String, priority: Float = URLSessionTask.lowPriority, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let key = self.cacheKeyForURL(url)
         let variant = self.variantForURL(url)
         let identifier = self.identifierForKey(key, variant: variant)
@@ -483,7 +483,7 @@ open class ImageController : NSObject {
     }
     
     public func fetchData(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        fetchData(withURL: url, priority: 0.5, failure: failure, success: success)
+        fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
     
@@ -509,7 +509,7 @@ open class ImageController : NSObject {
     }
     
     public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        fetchImage(withURL: url, priority: 0.5, failure: failure, success: success)
+        fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
     public func cancelFetch(withURL url: URL?) {
@@ -525,7 +525,7 @@ open class ImageController : NSObject {
     }
     
     public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        fetchImage(withURL: url, priority: 0, failure: { (error) in }) { (download) in }
+        fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
     public func deleteTemporaryCache() {
