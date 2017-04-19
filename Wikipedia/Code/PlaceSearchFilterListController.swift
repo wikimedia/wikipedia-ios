@@ -54,7 +54,7 @@ class PlaceSearchFilterListController: UITableViewController {
             if (currentFilterType == .top) {
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
             } else {
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-top-disabled")
             }
 
         } else if (indexPath.row == 1) {

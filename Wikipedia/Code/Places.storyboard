@@ -556,7 +556,7 @@
     </scenes>
     <resources>
         <image name="close" width="18" height="18"/>
-        <image name="places-filter-saved-disabled" width="60" height="60"/>
+        <image name="places-filter-saved-disabled" width="30" height="30"/>
         <image name="places-location-arrow" width="18" height="18"/>
         <image name="places-slider" width="50" height="6"/>
         <image name="tabbar-nearby" width="20" height="24"/>
