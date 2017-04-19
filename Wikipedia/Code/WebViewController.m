@@ -296,6 +296,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         [self.webView wmf_setPageProtected];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
+    } else if ([messageString isEqualToString:@"addFooterMenu"]) {
+        [self.webView wmf_addFooterMenuForArticle:self.article];
     }
 }
 
@@ -534,6 +536,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterReadMore');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterMenu');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
     
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
 
