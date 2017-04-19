@@ -43,3 +43,17 @@
 - (NSInteger)wmf_articleImageWidthForScale;
 
 @end
+
+
+@interface UITraitCollection (WMFImageWidth)
+
+@property (nonatomic, readonly) NSInteger wmf_listThumbnailWidth;
+@property (nonatomic, readonly) NSInteger wmf_nearbyThumbnailWidth;
+@property (nonatomic, readonly) NSInteger wmf_leadImageWidth;
+@property (nonatomic, readonly) NSInteger wmf_potdImageWidth;
+@property (nonatomic, readonly) NSInteger wmf_galleryImageWidth;
+@property (nonatomic, readonly) NSInteger wmf_articleImageWidth;
+
+@end
+
+
