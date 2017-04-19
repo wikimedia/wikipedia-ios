@@ -290,17 +290,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSURL *articleURL = nil;
     NSInteger width = 0;
     if ([section contentType] == WMFContentTypeTopReadPreview) {
-        
+
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
-        
+
         if (indexPath.row >= [content count]) {
             articleURL = nil;
         }
-        
+
         articleURL = [content[indexPath.row] articleURL];
         width = self.traitCollection.wmf_listThumbnailWidth;
     } else if ([section contentType] == WMFContentTypeURL) {
-        
+
         NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
             articleURL = nil;
@@ -317,7 +317,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 width = self.traitCollection.wmf_listThumbnailWidth;
                 break;
         }
-        
+
     } else if ([section contentType] == WMFContentTypeStory) {
         NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
         if (indexPath.row >= [content count]) {
@@ -332,11 +332,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     WMFArticle *article = [self.userStore fetchArticleWithURL:articleURL];
-    NSURL *imageURL = [article imageURLForWidth:width];
-    if (!imageURL) {
-        NSLog(@"%@ %@", article.thumbnailURLString, article.imageURLString);
-    }
-    return imageURL;
+    return [article imageURLForWidth:width];
 }
 
 - (nullable WMFArticle *)articleForIndexPath:(NSIndexPath *)indexPath {
@@ -526,7 +522,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
-    [self.userStore.feedContentController updateFeedSourcesWithDate:date userInitiated:wasUserInitiated
+    [self.userStore.feedContentController updateFeedSourcesWithDate:date
+                                                      userInitiated:wasUserInitiated
                                                          completion:^{
                                                              WMFAssertMainThread(@"Completion is assumed to be called on the main thread.");
                                                              [self resetRefreshControl];
@@ -1167,7 +1164,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     WMFFeedNewsStory *story = stories[indexPath.item];
     cell.bodyHTML = story.storyHTML;
-    
+
     cell.imageURL = [article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth];
 }
 
