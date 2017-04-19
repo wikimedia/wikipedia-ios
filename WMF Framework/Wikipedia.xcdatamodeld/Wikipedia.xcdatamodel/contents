@@ -4,6 +4,9 @@
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
@@ -82,7 +85,7 @@
         </compoundIndexes>
     </entity>
     <elements>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="360"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="255"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>

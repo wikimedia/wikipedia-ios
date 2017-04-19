@@ -15,14 +15,21 @@ internal class ImageControllerCompletionManager<T> {
     var tasks: [String: [String:URLSessionTask]] = [:]
     let queue = DispatchQueue(label: "ImageControllerCompletionManager-" + UUID().uuidString)
     
-    func add(_ completion: T, forIdentifier identifier: String) -> Bool {
+    func add(_ completion: T, priority: Float, forGroup group: String, identifier: String) -> Bool {
         return queue.sync {
             var completionsForKey = completions[identifier] ?? []
             let isFirst = completionsForKey.count == 0
+            if !isFirst {
+                self.tasks[group]?[identifier]?.priority = priority
+            }
             completionsForKey.append(completion)
             completions[identifier] = completionsForKey
             return isFirst
         }
+    }
+    
+    func add(_ completion: T, priority: Float, forIdentifier identifier: String) -> Bool {
+        return add(completion, priority: priority, forGroup: "", identifier: identifier)
     }
     
     func add(_ task: URLSessionTask, forGroup group: String, identifier: String) {
