@@ -42,7 +42,7 @@ class WMFPageFragment {
         pageContainer.className = 'footer_readmore_page';
 
         var containerAnchor = document.createElement('a');
-        containerAnchor.href = '/wiki/' + wmfPage.title;
+        containerAnchor.href = '/wiki/' + encodeURI(wmfPage.title);
         pageContainer.appendChild(containerAnchor);
 
         var bottomActions = document.createElement('div');
