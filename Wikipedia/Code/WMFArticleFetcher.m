@@ -162,9 +162,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   article.imageURLString = summaryResponse[@"originalimage"][@"source"];
                                                   article.imageWidth = summaryResponse[@"originalimage"][@"width"];
                                                   article.imageHeight = summaryResponse[@"originalimage"][@"height"];
-                                                  if (!article.thumbnailURLString) {
-                                                      article.thumbnailURLString = summaryResponse[@"thumbnail"][@"source"];
-                                                  }
                                                   success(mwkArticle);
                                               });
                                           } else {
