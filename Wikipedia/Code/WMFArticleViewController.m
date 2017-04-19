@@ -1747,8 +1747,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
-#if WMF_PLACES_ENABLED
-    WMFArticle *wmfarticle = [self.previewStore itemForURL:self.articleURL];
+
+    WMFArticle *wmfarticle = [self.dataStore fetchArticleWithURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
@@ -1768,9 +1768,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         return @[readAction, saveAction, shareAction];
     }
-#else
-    return @[readAction, saveAction, shareAction];
-#endif
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
