@@ -27,6 +27,8 @@
         return WMFWKScriptMessageFooterReadMoreTitlesShown;
     } else if ([name isEqualToString:@"footerMenuItemClicked"]) {
         return WMFWKScriptMessageFooterMenuItemClicked;
+    } else if ([name isEqualToString:@"footerLegalLicenseLinkClicked"]) {
+        return WMFWKScriptMessageFooterLegalLicenseLinkClicked;
     } else {
         return WMFWKScriptMessageUnknown;
     }
@@ -71,6 +73,9 @@
             return [NSArray class];
             break;
         case WMFWKScriptMessageFooterMenuItemClicked:
+            return [NSString class];
+            break;
+        case WMFWKScriptMessageFooterLegalLicenseLinkClicked:
             return [NSString class];
             break;
     }

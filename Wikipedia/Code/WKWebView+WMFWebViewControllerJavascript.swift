@@ -83,9 +83,8 @@ import Foundation
         }
         
         let itemSelectionHandler =
-            "function(){" +
-                "console.log('\(footerMenuJSTransformEnumString)');" +
-                "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
+        "function(){" +
+            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
         "}"
         
         return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), \(itemSelectionHandler));"
@@ -108,5 +107,15 @@ extension WKWebView {
         
         evaluateJavaScript("window.wmf.footerMenu.setHeading( '\(header)' ); \(itemsJS.joined(separator: ""))", completionHandler: nil)
     }
-    
+
+    public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
+        let licenseString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("license-footer-text")
+        let licenseSubstitutionString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("license-footer-name")
+        let licenseLinkClickHandler =
+        "function(){" +
+            "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
+        "}"
+        evaluateJavaScript("window.wmf.footerLegal.add( '\(licenseString)', '\(licenseSubstitutionString)', \(licenseLinkClickHandler) );", completionHandler: nil)
+    }
+
 }

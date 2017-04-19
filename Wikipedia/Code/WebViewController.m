@@ -150,6 +150,9 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         case WMFWKScriptMessageFooterMenuItemClicked:
             [self handleFooterMenuItemClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFooterLegalLicenseLinkClicked:
+            [self handleFooterLegalLicenseLinkClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -183,6 +186,10 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         return;
     }
     [self.delegate webViewController:self didTapFooterMenuItem:item];
+}
+
+- (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
+    [self showLicenseButtonPressed];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
@@ -320,6 +327,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
+    } else if ([messageString isEqualToString:@"addFooterLegal"]) {
+        [self.webView wmf_addFooterLegalForArticle:self.article];
     }
 }
 
@@ -560,7 +569,9 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterReadMore');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterMenu');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-    
+
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterLegal');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
@@ -581,6 +592,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerMenuItemClicked"];
 
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerLegalLicenseLinkClicked"];
+    
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                            "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
