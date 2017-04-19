@@ -285,6 +285,60 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+- (nullable NSURL *)imageURLForIndexPath:(NSIndexPath *)indexPath {
+    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
+    NSURL *articleURL = nil;
+    NSInteger width = 0;
+    if ([section contentType] == WMFContentTypeTopReadPreview) {
+        
+        NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
+        
+        if (indexPath.row >= [content count]) {
+            articleURL = nil;
+        }
+        
+        articleURL = [content[indexPath.row] articleURL];
+        width = self.traitCollection.wmf_listThumbnailWidth;
+    } else if ([section contentType] == WMFContentTypeURL) {
+        
+        NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            articleURL = nil;
+        }
+        articleURL = content[indexPath.row];
+        switch (section.contentGroupKind) {
+            case WMFContentGroupKindRelatedPages:
+            case WMFContentGroupKindPictureOfTheDay:
+            case WMFContentGroupKindRandom:
+            case WMFContentGroupKindFeaturedArticle:
+                width = self.traitCollection.wmf_leadImageWidth;
+                break;
+            default:
+                width = self.traitCollection.wmf_listThumbnailWidth;
+                break;
+        }
+        
+    } else if ([section contentType] == WMFContentTypeStory) {
+        NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            articleURL = nil;
+        }
+        articleURL = [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        width = self.traitCollection.wmf_nearbyThumbnailWidth;
+    } else {
+        return nil;
+    }
+    if (!articleURL || width <= 0) {
+        return nil;
+    }
+    WMFArticle *article = [self.userStore fetchArticleWithURL:articleURL];
+    NSURL *imageURL = [article imageURLForWidth:width];
+    if (!imageURL) {
+        NSLog(@"%@ %@", article.thumbnailURLString, article.imageURLString);
+    }
+    return imageURL;
+}
+
 - (nullable WMFArticle *)articleForIndexPath:(NSIndexPath *)indexPath {
     NSURL *url = [self contentURLForIndexPath:indexPath];
     if (url == nil) {
@@ -709,7 +763,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 estimate.precalculated = YES;
                 break;
             }
-            CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:article.thumbnailURL != nil];
+            NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
+            CGFloat estimatedHeight = [WMFArticlePreviewCollectionViewCell estimatedRowHeightWithImage:imageURL != nil];
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticlePreviewCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];
             cell.frame = frameToFit;
@@ -874,8 +929,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         if (self.prefetchURLsByIndexPath[indexPath]) {
             continue;
         }
-        WMFArticle *article = [self articleForIndexPath:indexPath];
-        NSURL *imageURL = article.thumbnailURL;
+        NSURL *imageURL = [self imageURLForIndexPath:indexPath];
         if (!imageURL) {
             continue;
         }
@@ -1066,21 +1120,23 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
     cell.titleLabel.accessibilityLanguage = article.URL.wmf_language;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
-    [cell setImageURL:article.thumbnailURL];
+    NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_listThumbnailWidth];
+    [cell setImageURL:imageURL];
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = article.snippet;
+    NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
     if (layoutOnly) {
-        if (article.thumbnailURL) {
+        if (imageURL) {
             [cell restoreImageToFullHeight];
         } else {
             [cell collapseImageHeightToZero];
         }
     } else {
-        [cell setImageURL:article.thumbnailURL];
+        [cell setImageURL:imageURL];
         [cell setSaveableURL:article.URL savedPageList:self.userStore.savedPageList];
         cell.saveButtonController.analyticsContext = [self analyticsContext];
         cell.saveButtonController.analyticsContentType = [section analyticsContentType];
@@ -1090,7 +1146,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
-    [cell setImageURL:article.thumbnailURL];
+    [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
     [self updateLocationCell:cell location:article.location];
 }
 
@@ -1111,7 +1167,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     WMFFeedNewsStory *story = stories[indexPath.item];
     cell.bodyHTML = story.storyHTML;
-    cell.imageURL = article.thumbnailURL;
+    
+    cell.imageURL = [article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth];
 }
 
 - (void)configureAnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withSection:(WMFContentGroup *)section atIndexPath:(NSIndexPath *)indexPath {

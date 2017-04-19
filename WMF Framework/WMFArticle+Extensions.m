@@ -14,12 +14,16 @@
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
-        return [self thumbnailURLForWidth:240]; //hardcoded to not rely on UIScreen in a model object
+        return [self imageURLForWidth:240]; //hardcoded to not rely on UIScreen in a model object
     }
     return [NSURL URLWithString:thumbnailURLString];
 }
 
-- (nullable NSURL *)thumbnailURLForWidth:(NSInteger)width {
+- (nullable NSURL *)imageURLForWidth:(NSInteger)width {
+    NSAssert(width > 0, @"Width must be > 0");
+    if (width <= 0) {
+        return nil;
+    }
     NSString *imageURLString = self.imageURLString;
     NSNumber *imageWidth = self.imageWidth;
     if (!imageURLString || !imageWidth) {
@@ -181,7 +185,15 @@
             preview.pageViews = [preview.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
         }
     }
-    
+    if (feedPreview.imageURLString != nil) {
+        preview.imageURLString = feedPreview.imageURLString;
+    }
+    if (feedPreview.imageWidth != nil) {
+        preview.imageWidth = feedPreview.imageWidth;
+    }
+    if (feedPreview.imageHeight != nil) {
+        preview.imageHeight = feedPreview.imageHeight;
+    }
     return preview;
 }
 

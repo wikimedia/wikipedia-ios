@@ -56,3 +56,36 @@ typedef NS_ENUM(NSInteger, WMFImageWidth) {
 }
 
 @end
+
+@implementation UITraitCollection (WMFImageWidth)
+
+- (NSInteger)wmf_maxScale {
+    NSUInteger scaleMultiplierCeiling = 2;
+    return MIN((NSUInteger)self.displayScale, scaleMultiplierCeiling);
+}
+
+- (NSInteger)wmf_listThumbnailWidth {
+    return self.wmf_maxScale * WMFImageWidthExtraSmall;
+}
+
+- (NSInteger)wmf_nearbyThumbnailWidth {
+    return self.wmf_maxScale * WMFImageWidthSmall;
+}
+
+- (NSInteger)wmf_leadImageWidth {
+    return self.wmf_maxScale * WMFImageWidthMedium;
+}
+
+- (NSInteger)wmf_potdImageWidth {
+    return self.wmf_maxScale * WMFImageWidthMedium;
+}
+
+- (NSInteger)wmf_galleryImageWidth {
+    return self.wmf_maxScale * WMFImageWidthLarge;
+}
+
+- (NSInteger)wmf_articleImageWidth {
+    return self.wmf_maxScale * WMFImageWidthMedium;
+}
+
+@end
