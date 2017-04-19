@@ -495,8 +495,10 @@ open class ImageController : NSObject {
                 failure(ImageControllerError.invalidResponse)
                 return
             }
-            self.addToMemoryCache(image, url: url)
-            success(ImageDownload(url: url, image: image, origin: .unknown))
+            DispatchQueue.main.async {
+                self.addToMemoryCache(image, url: url)
+                success(ImageDownload(url: url, image: image, origin: .unknown))
+            }
         }
     }
     
@@ -521,16 +523,10 @@ open class ImageController : NSObject {
             completion()
             return
         }
-        fetchData(withURL: url, priority: 0, failure: { (error) in
-            completion()
-        }) { (data, response) in
-            defer {
-                completion()
-            }
-            guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
-                return
-            }
-            self.addToMemoryCache(image, url: url)
+        fetchImage(withURL: url, priority: 0, failure: { (error) in
+            
+        }) { (download) in
+            
         }
     }
     
