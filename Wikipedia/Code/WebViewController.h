@@ -3,7 +3,7 @@
 
 @class MWKSection, MWKArticle, WMFPeekHTMLElement;
 
-typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem2);
+typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -51,24 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) UIView *headerView;
 
-/**
- *  An array of view controllers which will be displayed above the receiver's @c UIWebView content from top to bottom.
- *
- *  Setting this property with an array containing the same view controllers in the same order has no effect.
- */
-@property (nonatomic, strong, nullable) NSArray<UIViewController *> *footerViewControllers;
-
-- (nullable UIView *)footerAtIndex:(NSInteger)index;
-- (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated;
-- (void)accessibilityCursorToFooterAtIndex:(NSInteger)index;
-
-- (NSInteger)visibleFooterIndex;
-
 @end
 
 @protocol WMFWebViewControllerDelegate <NSObject>
-
-- (nullable NSString *)webViewController:(WebViewController *)controller titleForFooterViewController:(UIViewController *)footerViewController;
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article;
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section;
@@ -78,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem2)item;
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item;
 
 @end
 

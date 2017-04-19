@@ -6,11 +6,6 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         webViewController.getCurrentVisibleSectionCompletion { (section, error) in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-            } else {
-                let footerIndex = self.webViewController.visibleFooterIndex()
-                if footerIndex != NSNotFound {
-                    self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: footerIndex, animated: false)
-                }
             }
         }
     }
@@ -23,22 +18,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             if let section = item as? MWKSection {
                 self.currentSection = section
                 self.sectionToRestoreScrollOffset = section
-                self.currentFooterIndex = NSNotFound
-                self.footerIndexToRestoreScrollOffset = NSNotFound
                 self.webViewController.scroll(to: section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursor(to: section)
                 }
-            } else if let footerItem = item as? TableOfContentsFooterItem {
-                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
-                dispatchOnMainQueueAfterDelayInSeconds(1) {
-                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
-                }
-                self.currentSection = nil
-                self.sectionToRestoreScrollOffset = nil
-                self.currentFooterIndex = footerIndex
-                self.footerIndexToRestoreScrollOffset = footerIndex
             }
         case .modal:
             fallthrough
@@ -47,7 +30,6 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             var dismissVCCompletionHandler: (() -> Void)?
             if let section = item as? MWKSection {
                 self.currentSection = section
-                self.currentFooterIndex = NSNotFound
                 // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
                 self.webViewController.scroll(to: section, animated: true)
                 dismissVCCompletionHandler = {
@@ -56,15 +38,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                         self.webViewController.accessibilityCursor(to: section)
                     }
                 }
-            } else if let footerItem = item as? TableOfContentsFooterItem {
-                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
-                dismissVCCompletionHandler = {
-                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
-                }
-                self.currentSection = nil
-                self.currentFooterIndex = footerIndex
             } else {
+                
+//TODO: hook up TOC scrolling to "About this article" and "Read more" now that they're not native overlay
+                
                 assertionFailure("Unsupported selection of TOC item \(item)")
             }
             

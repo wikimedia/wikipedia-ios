@@ -48,21 +48,13 @@ NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 static const NSString *kvo_WebViewController_webView_scrollView = nil;
-static const NSString *kvo_WebViewController_webViewScrollView_contentSize = nil;
-static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
-@property (nonatomic, strong, nullable) UIView *footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
-@property (nonatomic, strong) WMFArticleFooterView *footerLicenseView;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) NSNumber *fontSizeMultiplier;
-
-@property (strong, nonatomic) MASConstraint *footerContainerViewTopConstraint;
-@property (strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
-@property (strong, nonatomic) MASConstraint *footerContainerViewRightMarginConstraint;
 
 @property (nonatomic) CGFloat marginWidth;
 
@@ -82,7 +74,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     //explicitly nil these values out to remove KVO observers
     self.webViewScrollView = nil;
     self.webView = nil;
-    self.footerContainerView = nil;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -170,17 +161,17 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 }
 
 - (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
-    WMFArticleFooterMenuItem2 item;
+    WMFArticleFooterMenuItem item;
     if ([messageString isEqualToString:@"languages"]){
-        item = WMFArticleFooterMenuItem2Languages;
+        item = WMFArticleFooterMenuItemLanguages;
     }else if ([messageString isEqualToString:@"lastEdited"]){
-        item = WMFArticleFooterMenuItem2LastEdited;
+        item = WMFArticleFooterMenuItemLastEdited;
     }else if ([messageString isEqualToString:@"pageIssues"]){
-        item = WMFArticleFooterMenuItem2PageIssues;
+        item = WMFArticleFooterMenuItemPageIssues;
     }else if ([messageString isEqualToString:@"disambiguation"]){
-        item = WMFArticleFooterMenuItem2Disambiguation;
+        item = WMFArticleFooterMenuItemDisambiguation;
     }else if ([messageString isEqualToString:@"coordinate"]){
-        item = WMFArticleFooterMenuItem2Coordinate;
+        item = WMFArticleFooterMenuItemCoordinate;
     }else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
@@ -343,11 +334,9 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              self.headerView.alpha = 1.f;
-                             self.footerContainerView.alpha = 1.f;
                          }
                          completion:^(BOOL done){
                          }];
-        [self forceUpdateWebviewPaddingForFooters];
     }
 }
 
@@ -417,15 +406,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
-- (void)updateFooterMarginForSize:(CGSize)size {
-    CGFloat marginWidth = [self marginWidthForSize:size];
-    self.footerContainerViewLeftMarginConstraint.offset = marginWidth;
-    self.footerContainerViewRightMarginConstraint.offset = 0 - marginWidth;
-
-    BOOL hasMargins = marginWidth > 0;
-    self.footerContainerView.backgroundColor = hasMargins ? [UIColor whiteColor] : [UIColor wmf_articleBackground];
-}
-
 - (void)updateWebContentMarginForSize:(CGSize)size {
     CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
     if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
@@ -441,7 +421,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self updateWebContentMarginForSize:self.view.bounds.size];
-    [self updateFooterMarginForSize:self.view.bounds.size];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -630,26 +609,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     if (webViewScrollView == _webViewScrollView) {
         return;
     }
-    if (_webViewScrollView) {
-        [_webViewScrollView removeObserver:self forKeyPath:@"contentSize"];
-    }
     _webViewScrollView = webViewScrollView;
-    if (_webViewScrollView) {
-        [_webViewScrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_webViewScrollView_contentSize];
-    }
-}
-
-- (void)setFooterContainerView:(UIView *)footerContainerView {
-    if (footerContainerView == _footerContainerView) {
-        return;
-    }
-    if (_footerContainerView) {
-        [_footerContainerView removeObserver:self forKeyPath:@"bounds"];
-    }
-    _footerContainerView = footerContainerView;
-    if (_footerContainerView) {
-        [_footerContainerView addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_footerContainerView_bounds];
-    }
 }
 
 #pragma mark - UIViewController
@@ -666,9 +626,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [self addFooterContainerView];
     [self addHeaderView];
-    [self addFooterView];
 
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -723,10 +681,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     return NO;
 }
 
-- (void)setTopOfFooterContainerViewForContentSize:(CGSize)contentSize {
-    self.footerContainerViewTopConstraint.offset = contentSize.height - self.footerContainerView.bounds.size.height;
-}
-
 #pragma mark - UIScrollViewDelegate
 
 /**
@@ -759,47 +713,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
-#pragma mark - Headers & Footers
-
-- (nullable UIView *)footerAtIndex:(NSInteger)index {
-    UIView *footerView = (UIView *)[[self.footerViewControllers wmf_safeObjectAtIndex:index] view];
-    UIView *footerViewHeader = self.footerViewHeadersByIndex[@(index)];
-    return footerViewHeader ?: footerView;
-}
-
-- (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated {
-    UIView *viewToScrollTo = [self footerAtIndex:index];
-    if (viewToScrollTo) {
-        CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
-                                                                fromView:self.footerContainerView];
-        footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
-        [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
-    }
-}
-
-- (void)accessibilityCursorToFooterAtIndex:(NSInteger)index {
-    UIView *viewToScrollTo = [self footerAtIndex:index];
-    if (viewToScrollTo) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
-    }
-}
-
-- (NSInteger)visibleFooterIndex {
-    CGRect const scrollViewContentFrame = self.webView.scrollView.wmf_contentFrame;
-    if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
-        return NSNotFound;
-    }
-
-    return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController *_Nonnull vc, NSUInteger idx, BOOL *_Nonnull stop) {
-        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
-                                                                     fromView:self.footerContainerView];
-        if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-}
+#pragma mark - Header
 
 - (void)addHeaderView {
     if (!self.headerView) {
@@ -815,109 +729,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     }];
 }
 
-- (WMFArticleFooterView *)footerLicenseView {
-    if (!_footerLicenseView) {
-        _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
-        [_footerLicenseView.showLicenseButton addTarget:self action:@selector(showLicenseButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _footerLicenseView;
-}
-
 - (void)showLicenseButtonPressed {
     [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
-}
-
-- (void)addFooterView {
-    if (!self.article) {
-        return;
-    }
-    if ([self.article.url wmf_isNonStandardURL]) {
-        return;
-    }
-    self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
-    [self addFooterContentViews];
-    [self.footerContainerView wmf_recursivelyDisableScrollsToTop];
-}
-
-- (void)addFooterContainerView {
-    self.footerContainerView = [UIView new];
-    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackground];
-    self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.webView.scrollView addSubview:self.footerContainerView];
-    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        // lead/trail must be constained to webview, the scrollview doesn't define a width
-        self.footerContainerViewLeftMarginConstraint = make.leading.equalTo(self.webView);
-        self.footerContainerViewRightMarginConstraint = make.trailing.equalTo(self.webView);
-        [self updateFooterMarginForSize:self.view.bounds.size];
-        // Note: Can't constrain bottom to webView's WKContentView bottom
-        // because its bottom constraint doesnt' seem to always track with
-        // the actual bottom of the page. This was causing the footer to
-        // *sometimes* not be at the bottom - was flakey on large pages.
-        self.footerContainerViewTopConstraint = make.top.equalTo(self.webView.scrollView);
-    }];
-}
-
-- (void)addFooterContentViews {
-    if ([self.article.url wmf_isNonStandardURL]) {
-        return;
-    }
-    NSParameterAssert(self.isViewLoaded);
-    MASViewAttribute *lastAnchor = [self.footerViewControllers wmf_reduce:self.footerContainerView.mas_top
-                                                                withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
-                                                                                              UIViewController *childVC) {
-                                                                    NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
-                                                                    if (footerTitle) {
-                                                                        WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
-                                                                        self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
-                                                                        header.headerLabel.text = footerTitle;
-                                                                        header.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                        [self.footerContainerView addSubview:header];
-                                                                        [header mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                                                            make.leading.and.trailing.equalTo(self.footerContainerView);
-                                                                            make.top.equalTo(topAnchor);
-                                                                        }];
-                                                                        topAnchor = header.mas_bottom;
-                                                                    }
-
-                                                                    childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                    [self.footerContainerView addSubview:childVC.view];
-                                                                    [self updateFooterMarginForSize:self.view.bounds.size];
-                                                                    [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                                                        make.leading.and.trailing.equalTo(self.footerContainerView);
-                                                                        make.top.equalTo(topAnchor);
-                                                                    }];
-                                                                    [childVC didMoveToParentViewController:self];
-                                                                    return childVC.view.mas_bottom;
-                                                                }];
-
-    if (!lastAnchor) {
-        lastAnchor = self.footerContainerView.mas_top;
-    }
-
-    self.footerLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.footerContainerView addSubview:self.footerLicenseView];
-    [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lastAnchor);
-        make.leading.and.trailing.equalTo(self.footerContainerView);
-        make.bottom.equalTo(self.footerContainerView);
-    }];
-}
-
-- (void)setFooterViewControllers:(NSArray<UIViewController *> *)footerViewControllers {
-    if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
-        return;
-    }
-    for (UIViewController *childVC in _footerViewControllers) {
-        [childVC willMoveToParentViewController:nil];
-        [childVC.view removeFromSuperview];
-        [childVC removeFromParentViewController];
-    }
-    _footerViewControllers = [footerViewControllers copy];
-    for (UIViewController *childVC in _footerViewControllers) {
-        [self addChildViewController:childVC];
-        // didMoveToParent is called when they are added to the view
-    }
-    [self addFooterView];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
@@ -932,10 +745,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     } else {
         return 210;
     }
-}
-
-- (void)forceUpdateWebviewPaddingForFooters {
-    self.footerContainerView.bounds = self.footerContainerView.bounds;
 }
 
 #pragma mark - Scrolling
@@ -1025,7 +834,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     }
 
     self.headerView.alpha = 0.f;
-    self.footerContainerView.alpha = 0.f;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
@@ -1034,8 +842,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
-
-    [self.footerLicenseView setLicenseTextForURL:self.article.url];
 }
 
 #pragma mark Bottom menu bar
@@ -1242,7 +1048,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size];
-        [self updateFooterMarginForSize:self.view.bounds.size];
     }
 }
 
@@ -1251,10 +1056,6 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
     if (context == &kvo_WebViewController_webView_scrollView) {
         self.webViewScrollView = self.webView.scrollView;
-    } else if (context == &kvo_WebViewController_webViewScrollView_contentSize) {
-        [self setTopOfFooterContainerViewForContentSize:self.webViewScrollView.contentSize];
-    } else if (context == &kvo_WebViewController_footerContainerView_bounds) {
-        [self.webView wmf_setBottomPadding:(NSInteger)(ceil(self.footerContainerView.bounds.size.height))];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

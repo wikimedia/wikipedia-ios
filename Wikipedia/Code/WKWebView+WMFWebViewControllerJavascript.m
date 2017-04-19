@@ -62,11 +62,6 @@ static int const kMinimumTextSelectionLength = 2;
     [self evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
 }
 
-- (void)wmf_setBottomPadding:(NSInteger)bottomPadding {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';", (long)bottomPadding]
-           completionHandler:nil];
-}
-
 - (void)wmf_scrollToFragment:(NSString *)fragment {
     [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.scrollToFragment('%@')", fragment] completionHandler:nil];
 }

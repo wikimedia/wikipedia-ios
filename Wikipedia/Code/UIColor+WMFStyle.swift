@@ -1,8 +1,6 @@
 
 public extension UIColor {
 
-    public static let wmf_licenseText: UIColor = .wmf_color(withHex: 0x565656, alpha: 1.0)
-    public static let wmf_licenseLink: UIColor = .wmf_blueTint
     public static let wmf_lightGray: UIColor = .wmf_color(withHex: 0xdddddd, alpha: 1.0)
     public static let wmf_placeholderLightGray: UIColor = .wmf_color(withHex: 0xf8f8f8, alpha: 1.0)
     public static let wmf_placeholderImageTint: UIColor = .wmf_color(withHex: 0xb2b2b2, alpha: 1.0)

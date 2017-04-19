@@ -1,7 +1,7 @@
 
 import Foundation
 
-@objc enum WMFArticleFooterMenuItem2: Int {
+@objc enum WMFArticleFooterMenuItem: Int {
 
     case languages, lastEdited, pageIssues, disambiguation, coordinate
     
@@ -97,11 +97,11 @@ extension WKWebView {
         let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title")
 
         let itemsJS = [
-            WMFArticleFooterMenuItem2.languages,
-            WMFArticleFooterMenuItem2.coordinate,
-            WMFArticleFooterMenuItem2.lastEdited,
-            WMFArticleFooterMenuItem2.pageIssues,
-            WMFArticleFooterMenuItem2.disambiguation
+            WMFArticleFooterMenuItem.languages,
+            WMFArticleFooterMenuItem.coordinate,
+            WMFArticleFooterMenuItem.lastEdited,
+            WMFArticleFooterMenuItem.pageIssues,
+            WMFArticleFooterMenuItem.disambiguation
             ].filter{$0.shouldAddItem(with: article)}
              .map{$0.itemAdditionJavascriptString(with: article)}
         

@@ -8,16 +8,17 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFReadMoreViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
-#import "WMFArticleFooterMenuViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
 #import "UIViewController+WMFSearch.h"
+#import "WMFDisambiguationPagesViewController.h"
+#import "PageHistoryViewController.h"
+#import "WMFPageIssuesViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -157,10 +158,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
-// Children
-@property (nonatomic, strong) WMFReadMoreViewController *readMoreListViewController;
-@property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
-
 // Views
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
@@ -210,7 +207,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self) {
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
-        self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
@@ -224,13 +220,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 #pragma mark - Accessors
-
-- (WMFArticleFooterMenuViewController *)footerMenuViewController {
-    if (!_footerMenuViewController && [self hasAboutThisArticle]) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article dataStore:self.dataStore similarPagesListDelegate:self];
-    }
-    return _footerMenuViewController;
-}
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleURL];
@@ -248,7 +237,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
-    self.footerMenuViewController.article = _article;
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
@@ -269,7 +257,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateToolbar];
     [self setupTableOfContentsViewController];
-    [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
 
     if (_article && self.shouldShareArticleOnLoad) {
@@ -361,16 +348,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [_headerImageView addGestureRecognizer:tap];
     }
     return _headerImageView;
-}
-
-- (WMFReadMoreViewController *)readMoreListViewController {
-    if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore];
-        _readMoreListViewController.delegate = self;
-        _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
-    }
-    return _readMoreListViewController;
 }
 
 - (WMFArticleFetcher *)articleFetcher {
@@ -658,31 +635,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+    BOOL includeReadMore = [self hasReadMore];
 
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
-}
-
-- (void)updateWebviewFootersIfNeeded {
-    if ([self.articleURL wmf_isNonStandardURL]) {
-        return;
-    }
-
-    NSMutableArray *footerVCs = [NSMutableArray arrayWithCapacity:2];
-    [footerVCs wmf_safeAddObject:self.footerMenuViewController];
-
-    /*
-       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
-     */
-
-    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
-    if (includeReadMore) {
-        [footerVCs addObject:self.readMoreListViewController];
-    }
-
-    [self.webViewController setFooterViewControllers:footerVCs];
-
-    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 }
 
 #pragma mark - Progress
@@ -1008,9 +963,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 
-    self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
-    self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
-
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
@@ -1047,8 +999,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [self layoutForSize:self.view.bounds.size];
                 if (self.sectionToRestoreScrollOffset) {
                     [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else if (self.footerIndexToRestoreScrollOffset != NSNotFound) {
-                    [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
                 } else {
                     scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
                 }
@@ -1304,28 +1254,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self fetchArticleForce:NO];
 }
 
-- (void)fetchReadMoreIfNeeded {
-    if (![self hasReadMore]) {
-        return;
-    }
-
-    @weakify(self);
-    [self.readMoreListViewController fetchIfNeededWithCompletionBlock:^(WMFRelatedSearchResults *results) {
-        @strongify(self);
-        if (!self) {
-            return;
-        }
-        // update footers to include read more if there are results
-        [self updateWebviewFootersIfNeeded];
-        [self updateTableOfContentsForFootersIfNeeded];
-
-    }
-        failureBlock:^(NSError *error) {
-            DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
-        }];
-}
-
 #pragma mark - Share
 
 - (void)shareAFactWithTextSnippet:(nullable NSString *)text {
@@ -1456,7 +1384,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
-    [self fetchReadMoreIfNeeded];
 
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
@@ -1488,31 +1415,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self shareAFactWithTextSnippet:text];
 }
 
-- (nullable NSString *)webViewController:(WebViewController *)controller titleForFooterViewController:(UIViewController *)footerViewController {
-    if (footerViewController == self.readMoreListViewController) {
-        return [MWSiteLocalizedString(self.articleURL, @"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    } else if (footerViewController == self.footerMenuViewController) {
-        return [MWSiteLocalizedString(self.articleURL, @"article-about-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    return nil;
-}
-
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
-    self.currentFooterIndex = NSNotFound;
     self.sectionToRestoreScrollOffset = nil;
-    self.footerIndexToRestoreScrollOffset = NSNotFound;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
         if (section) {
             self.currentSection = section;
-            self.currentFooterIndex = NSNotFound;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        } else {
-            NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
-            if (visibleFooterIndex != NSNotFound) {
-                [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
-                self.currentFooterIndex = visibleFooterIndex;
-                self.currentSection = nil;
-            }
         }
     }];
 
@@ -1531,9 +1439,57 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem2)item {
-// TODO: rename 'footerMenuViewController' once native view parts are stripped
-    [self.footerMenuViewController footerMenuItemTapped:item];
+#pragma mark - Footer menu
+
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item {
+    switch (item) {
+        case WMFArticleFooterMenuItemLanguages:
+            [self showLanguages];
+            break;
+        case WMFArticleFooterMenuItemLastEdited:
+            [self showEditHistory];
+            break;
+        case WMFArticleFooterMenuItemPageIssues:
+            [self showPageIssues];
+            break;
+        case WMFArticleFooterMenuItemDisambiguation:
+            [self showDisambiguationItems];
+            break;
+        case WMFArticleFooterMenuItemCoordinate:
+            [self showLocation];
+            break;
+    }
+}
+
+- (void)showLocation {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
+}
+
+- (void)showDisambiguationItems {
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    articleListVC.delegate = self;
+    articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)showEditHistory {
+    PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
+    editHistoryVC.article = self.article;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
+}
+
+- (void)showLanguages {
+    WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
+    languagesVC.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+}
+
+- (void)showPageIssues {
+    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
 }
 
 #pragma mark - Header Tap Gesture

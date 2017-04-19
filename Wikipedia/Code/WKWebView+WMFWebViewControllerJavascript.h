@@ -14,8 +14,6 @@
 
 - (void)wmf_setPageProtected;
 
-- (void)wmf_setBottomPadding:(NSInteger)bottomPadding;
-
 - (void)wmf_scrollToFragment:(NSString *)fragment;
 
 - (void)wmf_accessibilityCursorToFragment:(NSString *)fragment;
