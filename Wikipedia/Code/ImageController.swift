@@ -381,11 +381,13 @@ open class ImageController : NSObject {
     }
     
     public func memoryCachedImage(withURL url: URL) -> Image? {
+        assert(Thread.isMainThread)
         let identifier = identifierForURL(url) as NSString
         return memoryCache.object(forKey: identifier)
     }
     
     public func addToMemoryCache(_ image: Image, url: URL) {
+        assert(Thread.isMainThread)
         let identifier = identifierForURL(url) as NSString
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
@@ -416,7 +418,9 @@ open class ImageController : NSObject {
         guard let image = createImage(data: data, mimeType: typedDiskData.MIMEType) else {
             return nil
         }
-        addToMemoryCache(image, url: url)
+        DispatchQueue.main.async {
+            self.addToMemoryCache(image, url: url)
+        }
         return image
     }
     
@@ -433,7 +437,9 @@ open class ImageController : NSObject {
         guard let image = createImage(data: data, mimeType:typedData.MIMEType) else {
             return nil
         }
-        addToMemoryCache(image, url: url)
+        DispatchQueue.main.async {
+            self.addToMemoryCache(image, url: url)
+        }
         return image
     }
     
