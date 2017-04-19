@@ -827,7 +827,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: search.origin, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
     // MARK: - Display Actions
@@ -1237,7 +1237,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 updateSearchSuggestions(withCompletions: [])
             default:
                 if let currentSearch = self.currentSearch {
-                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: currentSearch.origin, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
                 }
             }
         }
