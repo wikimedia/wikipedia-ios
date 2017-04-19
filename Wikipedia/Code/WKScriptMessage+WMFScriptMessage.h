@@ -12,7 +12,8 @@ typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
     WMFWKScriptMessageArticleState,
     WMFWKScriptMessageFindInPageMatchesFound,
     WMFWKScriptMessageFooterReadMoreSaveClicked,
-    WMFWKScriptMessageFooterReadMoreTitlesShown
+    WMFWKScriptMessageFooterReadMoreTitlesShown,
+    WMFWKScriptMessageFooterMenuItemClicked
 };
 
 @interface WKScriptMessage (WMFScriptMessage)

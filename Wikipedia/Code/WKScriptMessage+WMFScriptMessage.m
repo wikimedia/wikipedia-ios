@@ -25,6 +25,8 @@
         return WMFWKScriptMessageFooterReadMoreSaveClicked;
     } else if ([name isEqualToString:@"footerReadMoreTitlesShown"]) {
         return WMFWKScriptMessageFooterReadMoreTitlesShown;
+    } else if ([name isEqualToString:@"footerMenuItemClicked"]) {
+        return WMFWKScriptMessageFooterMenuItemClicked;
     } else {
         return WMFWKScriptMessageUnknown;
     }
@@ -67,6 +69,9 @@
             break;
         case WMFWKScriptMessageFooterReadMoreTitlesShown:
             return [NSArray class];
+            break;
+        case WMFWKScriptMessageFooterMenuItemClicked:
+            return [NSString class];
             break;
     }
 }

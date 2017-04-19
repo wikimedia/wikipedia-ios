@@ -147,6 +147,9 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
         case WMFWKScriptMessageFooterReadMoreSaveClicked:
             [self handleFooterReadMoreSaveClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFooterMenuItemClicked:
+            [self handleFooterMenuItemClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -161,6 +164,10 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
 - (void)handleFooterReadMoreSaveClickedScriptMessage:(NSDictionary *)messageDict {
     [self toggleReadMoreSaveButtonIsSavedStateForTitle:messageDict[@"title"]];
+}
+
+- (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
+    NSLog(@"messageString = %@", messageString);
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
@@ -556,6 +563,8 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreSaveClicked"];
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreTitlesShown"];
+
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerMenuItemClicked"];
 
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
