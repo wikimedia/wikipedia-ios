@@ -32,7 +32,7 @@
             return nil;
         }
         NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(thumbnailURLString);
-        if (width >= sizePrefix) {
+        if (sizePrefix == NSNotFound || width >= sizePrefix) {
             return [NSURL URLWithString:thumbnailURLString];
         }
         return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
