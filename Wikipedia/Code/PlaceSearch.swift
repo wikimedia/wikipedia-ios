@@ -8,6 +8,13 @@ enum PlaceSearchType: UInt {
 enum PlaceFilterType: UInt {
     case top
     case saved
+    
+    var stringValue : String {
+        switch self {
+        case .top: return "top";
+        case .saved: return "saved";
+        }
+    }
 }
 
 enum PlaceSearchOrigin: UInt {

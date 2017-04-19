@@ -57,7 +57,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
-    private let searchHistoryGroup = "PlaceSearch"
+
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
@@ -74,12 +74,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var searchFilterListController: PlaceSearchFilterListController!
     
     private var extendedNavBarHeightOrig: CGFloat?
+    
+    private func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
+        let searchHistoryGroup = "PlaceSearch"
+        return "\(searchHistoryGroup).\(forFilter.stringValue)"
+    }
+    
+    private func currentSearchHistoryGroup() -> String {
+        return searchHistoryGroup(forFilter: currentSearchFilter)
+    }
 
 
     fileprivate func updateSearchFilterTitle() {
         
-        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing,
-              let currentSearch = self.currentSearch else {
+        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
                 return
         }
 
@@ -90,7 +98,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
             image = #imageLiteral(resourceName: "chevron-up")
         } else {
-            switch currentSearch.filter {
+            switch currentSearchFilter {
             case .top:
                 title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             case .saved:
@@ -569,19 +577,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Searching
     
-    var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
-        didSet {
-            guard oldValue != currentSearchFilter else {
-                return
-            }
-            
-            updateSearchFilterTitle()
-            
-            if let currentSearch = self.currentSearch {
-                self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: currentSearch.origin, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
-            }
-        }
-    }
+
     
     var currentSearch: PlaceSearch? {
         didSet {
@@ -1227,6 +1223,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
+    
+    var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
+        didSet {
+            guard oldValue != currentSearchFilter else {
+                return
+            }
+            
+            updateSearchFilterTitle()
+            
+            switch viewMode {
+            case .search:
+                updateSearchSuggestions(withCompletions: [])
+            default:
+                if let currentSearch = self.currentSearch {
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: currentSearch.origin, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                }
+            }
+        }
+    }
+    
 
     func updateViewModeFromSegmentedControl() {
         switch mapListToggle.selectedSegmentIndex {
@@ -1257,7 +1273,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } else if let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: moc) {
                 let keyValue =  WMFKeyValue(entity: entity, insertInto: moc)
                 keyValue.key = search.key
-                keyValue.group = searchHistoryGroup
+                keyValue.group = currentSearchHistoryGroup()
                 keyValue.date = Date()
                 keyValue.value = search.dictionaryValue as NSObject
             }
@@ -1271,7 +1287,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         do {
             let moc = dataStore.viewContext
             let request = WMFKeyValue.fetchRequest()
-            request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+            request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
             request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             let results = try moc.fetch(request)
             for result in results {
@@ -1288,7 +1304,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         do {
             let key = placeSearch.key
             let request = WMFKeyValue.fetchRequest()
-            request.predicate = NSPredicate(format: "key == %@ && group == %@", key, searchHistoryGroup)
+            request.predicate = NSPredicate(format: "key == %@ && group == %@", key, currentSearchHistoryGroup())
             request.fetchLimit = 1
             let results = try moc.fetch(request)
             keyValue = results.first
@@ -2075,7 +2091,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             do {
                 let moc = dataStore.viewContext
                 let request = WMFKeyValue.fetchRequest()
-                request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+                request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let results = try moc.fetch(request)
                 let count = results.count
@@ -2095,7 +2111,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [[/*suggestion*/], recentSearches, [], []]
+            //searchSuggestionController.searches = [[/*suggestion*/], recentSearches, [], []]
+            searchSuggestionController.searches = [[suggestion], recentSearches, [], []]
+
             return
         }
         
@@ -2104,7 +2122,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchString)
+
+        let currentSearchScopeName: String
+        switch (currentSearchFilter) {
+        case .top:
+            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+        case .saved:
+            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+        }
+
+        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchScopeName)
+            .replacingOccurrences(of: "$2", with: currentSearchString)
         let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
@@ -2162,6 +2190,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func updateSearchCompletionsFromSearchBarText() {
+
+        
+        switch (currentSearchFilter) {
+        case .top:
+            updateSearchCompletionsFromSearchBarTextForTopArticles()
+        case .saved:
+            break
+        }
+    }
+    
+    func updateSearchCompletionsFromSearchBarTextForTopArticles()
+    {
         guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
             self.isWaitingForSearchSuggestionUpdate = false
@@ -2205,7 +2245,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
         if let currentSearch = self.currentSearch, !isDefaultSearch(currentSearch) {
-            searchBar?.text = currentSearch.localizedDescription
+            searchBar?.text = currentSearch.string ?? currentSearch.localizedDescription
         } else {
             searchBar?.text = nil
         }
