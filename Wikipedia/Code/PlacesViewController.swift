@@ -35,6 +35,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
+    @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
     public var dataStore: MWKDataStore!
 
@@ -2594,4 +2595,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 class PlaceSearchFilterSelectorView: UIView {
     
     @IBOutlet weak var button: UIButton!
+}
+
+class PlaceSearchEmptySearchOverlayView: UIView {
+    
+    @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    
 }

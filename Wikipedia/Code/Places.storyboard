@@ -397,6 +397,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="closeSearchButton" destination="l8n-jw-YsR" id="i5R-Ws-6Bl"/>
+                        <outlet property="emptySearchOverlayView" destination="Mkb-GI-RvY" id="2xk-Oh-VdE"/>
                         <outlet property="extendedNavBarView" destination="qzd-3E-mH2" id="jG5-i0-4B5"/>
                         <outlet property="extendedNavBarViewHeightContraint" destination="Rb6-54-TnS" id="Vcg-Xk-pkX"/>
                         <outlet property="filterDropDownContainerView" destination="M3d-ly-fMq" id="bx8-Ah-3Dm"/>
@@ -427,6 +428,54 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcf-lJ-9D0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Mkb-GI-RvY" customClass="PlaceSearchEmptySearchOverlayView" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="400"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3Ik-kL-6c1">
+                            <rect key="frame" x="8" y="85" width="344" height="230"/>
+                            <subviews>
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
+                                    <rect key="frame" x="88" y="0.0" width="168" height="139"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="168" id="2zR-9B-2on"/>
+                                        <constraint firstAttribute="width" secondItem="g1Q-tu-jmG" secondAttribute="height" multiplier="169:140" id="eJu-g2-fF6"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Wikipedia articles with geographic locations" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYN-g3-07L">
+                                    <rect key="frame" x="44" y="147" width="256" height="41"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="256" id="Afq-ug-Qfe"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore cities, countries, continents, natural landmarks, historical events, buildings and more." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vm1-d9-7Ne">
+                                    <rect key="frame" x="0.0" y="196" width="344" height="34"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="344" id="nXn-dK-utf"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="344" id="djX-TI-FBp"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerX" secondItem="Mkb-GI-RvY" secondAttribute="centerX" id="I8g-iA-aXe"/>
+                        <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerY" secondItem="Mkb-GI-RvY" secondAttribute="centerY" id="j1d-oJ-r8H"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="detailLabel" destination="Vm1-d9-7Ne" id="Lhm-aa-mUu"/>
+                        <outlet property="mainLabel" destination="oYN-g3-07L" id="zKg-IX-gVB"/>
+                    </connections>
+                </view>
                 <view contentMode="scaleToFill" id="M3d-ly-fMq">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,37 +557,6 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" id="3Ik-kL-6c1">
-                    <rect key="frame" x="0.0" y="0.0" width="344" height="230"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
-                            <rect key="frame" x="88" y="0.0" width="168" height="139"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="168" id="2zR-9B-2on"/>
-                                <constraint firstAttribute="width" secondItem="g1Q-tu-jmG" secondAttribute="height" multiplier="169:140" id="eJu-g2-fF6"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Wikipedia articles with geographic locations" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYN-g3-07L">
-                            <rect key="frame" x="44" y="147" width="256" height="41"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="256" id="Afq-ug-Qfe"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore cities, countries, continents, natural landmarks, historical events, buildings and more." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vm1-d9-7Ne">
-                            <rect key="frame" x="0.0" y="196" width="344" height="34"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="344" id="nXn-dK-utf"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                </stackView>
                 <view contentMode="scaleToFill" id="VAs-ZO-0gF" customClass="PlaceSearchFilterSelectorView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
