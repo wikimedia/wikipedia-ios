@@ -7,9 +7,10 @@ wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 wmf.footerReadMore = require("./js/transforms/footerReadMore");
 wmf.footerMenu = require("./js/transforms/footerMenu");
+wmf.footerLegal = require("./js/transforms/footerLegal");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/utilities":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/utilities":15}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -283,7 +284,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":14}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":7,"./utilities":15}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -625,7 +626,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":14}],8:[function(require,module,exports){
+},{"../transformer":6,"../utilities":15}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -652,6 +653,39 @@ transformer.register( "disableFilePageEdit", function( content ) {
 } );
 
 },{"../transformer":6}],9:[function(require,module,exports){
+
+function add(licenseString, licenseSubstitutionString, licenceLinkClickHandler) {
+  var container = document.getElementById('footer_legal_container');
+
+  var contents = document.createElement('div');
+  contents.className = 'footer_legal_contents';
+
+  var licenseStringHalves = licenseString.split('$1');
+
+  var licenseEl = document.createElement('span');
+  licenseEl.className = 'footer_legal_licence';
+
+  var firstHalf = document.createTextNode(licenseStringHalves[0]);
+  licenseEl.appendChild(firstHalf);
+
+  var licenseLinkEl = document.createElement('span');
+  licenseLinkEl.className = 'footer_legal_licence_link';
+  licenseLinkEl.innerText = licenseSubstitutionString;
+  licenseLinkEl.addEventListener('click', function(){
+    licenceLinkClickHandler();
+  }, false);
+  licenseEl.appendChild(licenseLinkEl);
+
+  var secondHalf = document.createTextNode(licenseStringHalves[1]);
+  licenseEl.appendChild(secondHalf);
+
+  contents.appendChild(licenseEl);
+  container.appendChild(contents);
+}
+
+exports.add = add;
+
+},{}],10:[function(require,module,exports){
 
 // var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
@@ -729,7 +763,7 @@ exports.IconTypeEnum = IconTypeEnum;
 exports.setHeading = setHeading;
 exports.addItem = addItem;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 var _saveButtonClickHandler = null;
 var _titlesShownHandler = null;
@@ -940,7 +974,7 @@ function add(baseURL, title, headerString, saveForLaterString, savedForLaterStri
 exports.setTitleIsSaved = setTitleIsSaved;
 exports.add = add;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -951,7 +985,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -1032,7 +1066,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],13:[function(require,module,exports){
+},{"../transformer":6}],14:[function(require,module,exports){
 
 const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
@@ -1049,7 +1083,7 @@ transformer.register('widenImages', function(content) {
     .forEach(maybeWidenImage);
 });
 
-},{"../transformer":6,"applib":15}],14:[function(require,module,exports){
+},{"../transformer":6,"applib":16}],15:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -1102,7 +1136,7 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1301,4 +1335,4 @@ var index = {
 module.exports = index;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
