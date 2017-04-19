@@ -525,23 +525,7 @@ open class ImageController : NSObject {
     }
     
     public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        guard let url = url, memoryCachedImage(withURL: url) == nil else {
-            completion()
-            return
-        }
-        fetchData(withURL: url, priority: 0, failure: { (error) in
-            completion()
-        }) { (data, response) in
-            defer {
-                completion()
-            }
-            guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.addToMemoryCache(image, url: url)
-            }
-        }
+        fetchImage(withURL: url, priority: 0, failure: { (error) in }) { (download) in }
     }
     
     public func deleteTemporaryCache() {

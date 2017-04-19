@@ -944,7 +944,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         if (!imageURL) {
             continue;
         }
-        [[WMFImageController sharedInstance] cancelFetchWithURL:imageURL];
         [self.prefetchURLsByIndexPath removeObjectForKey:indexPath];
     }
 }
