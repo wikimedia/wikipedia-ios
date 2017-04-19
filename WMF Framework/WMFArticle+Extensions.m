@@ -37,7 +37,8 @@
         }
         return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
     }
-    if (width >= [imageWidth integerValue]) {
+    NSString *lowercasePathExtension = [[imageURLString pathExtension] lowercaseString];
+    if (width >= [imageWidth integerValue] && ![lowercasePathExtension isEqualToString:@"svg"] && ![lowercasePathExtension isEqualToString:@"pdf"]) {
         return [NSURL URLWithString:imageURLString];
     }
     return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(imageURLString, width)];
