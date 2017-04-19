@@ -61,7 +61,11 @@ typedef NS_ENUM(NSInteger, WMFImageWidth) {
 
 - (NSInteger)wmf_maxScale {
     NSUInteger scaleMultiplierCeiling = 2;
-    return MIN((NSUInteger)self.displayScale, scaleMultiplierCeiling);
+    NSInteger scale = MIN((NSUInteger)self.displayScale, scaleMultiplierCeiling);
+    if (scale == 0) {
+        scale = 2;
+    }
+    return scale;
 }
 
 - (NSInteger)wmf_listThumbnailWidth {
