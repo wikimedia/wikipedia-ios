@@ -594,8 +594,11 @@ open class ImageController : NSObject {
     public func removeLegacyCache() {
         do {
             try fileManager.removeItem(at: legacyCacheFolderURL)
-        } catch let error {
-            DDLogError("Error migrating from legacy cache \(error)")
+        } catch let error as NSError {
+            guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
+                return
+            }
+            DDLogError("Error removing legacy cache \(error)")
         }
     }
 }

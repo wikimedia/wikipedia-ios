@@ -293,6 +293,11 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [[WMFImageController sharedInstance] deleteTemporaryCache];
                                                 [[WMFImageController sharedInstance] removeLegacyCache];
+                                                [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
+                                                    DDLogError(@"Error removing unreferenced articles: %@", error);
+                                                } success:^{
+                                                    DDLogDebug(@"Successfully removed unreferenced articles");
+                                                }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     
