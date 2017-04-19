@@ -508,6 +508,37 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" id="3Ik-kL-6c1">
+                    <rect key="frame" x="0.0" y="0.0" width="344" height="230"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
+                            <rect key="frame" x="88" y="0.0" width="168" height="139"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="168" id="2zR-9B-2on"/>
+                                <constraint firstAttribute="width" secondItem="g1Q-tu-jmG" secondAttribute="height" multiplier="169:140" id="eJu-g2-fF6"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for Wikipedia articles with geographic locations" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYN-g3-07L">
+                            <rect key="frame" x="44" y="147" width="256" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="256" id="Afq-ug-Qfe"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore cities, countries, continents, natural landmarks, historical events, buildings and more." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vm1-d9-7Ne">
+                            <rect key="frame" x="0.0" y="196" width="344" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="344" id="nXn-dK-utf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
                 <view contentMode="scaleToFill" id="VAs-ZO-0gF" customClass="PlaceSearchFilterSelectorView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -558,6 +589,7 @@
         <image name="close" width="18" height="18"/>
         <image name="places-filter-saved-disabled" width="30" height="30"/>
         <image name="places-location-arrow" width="18" height="18"/>
+        <image name="places-search-empty-state-overlay" width="336" height="272"/>
         <image name="places-slider" width="50" height="6"/>
         <image name="tabbar-nearby" width="20" height="24"/>
         <image name="tabbar-nearby-selected" width="20" height="24"/>
