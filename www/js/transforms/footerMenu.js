@@ -3,17 +3,17 @@
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
 //     iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
-  languages: 0,
-  lastEdited: 1,
-  pageIssues: 2,
-  disambiguation: 3,
-  coordinate: 4,
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5,
   properties: {
-    0: {iconClass: "footer_menu_icon_languages"},
-    1: {iconClass: "footer_menu_icon_last_edited"},
-    2: {iconClass: "footer_menu_icon_page_issues"},
-    3: {iconClass: "footer_menu_icon_disambiguation"},
-    4: {iconClass: "footer_menu_icon_coordinate"}
+    1: {iconClass: "footer_menu_icon_languages"},
+    2: {iconClass: "footer_menu_icon_last_edited"},
+    3: {iconClass: "footer_menu_icon_page_issues"},
+    4: {iconClass: "footer_menu_icon_disambiguation"},
+    5: {iconClass: "footer_menu_icon_coordinate"}
   }
 };
 
@@ -54,7 +54,7 @@ class WMFMenuItemFragment {
 
         if(wmfMenuItem.iconType){
             var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
-            containerAnchor.classList.add(iconClass);
+            itemContainer.classList.add(iconClass);
         }
 
         return document.createDocumentFragment().appendChild(itemContainer);

@@ -653,22 +653,21 @@ transformer.register( "disableFilePageEdit", function( content ) {
 
 },{"../transformer":6}],9:[function(require,module,exports){
 
-// https://stijndewitt.com/2014/01/26/enums-in-javascript/
-// var thisType = IconTypeEnum.LANGUAGES;
+// var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
-//     iconClass == 'footer_menu_icon_languages'
+//     iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
-  LANGUAGES: 0,
-  LASTEDITED: 1,
-  PAGEISSUES: 2,
-  DISAMBIGUATION: 3,
-  COORDINATE: 4,
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5,
   properties: {
-    0: {iconClass: "footer_menu_icon_languages"},
-    1: {iconClass: "footer_menu_icon_last_edited"},
-    2: {iconClass: "footer_menu_icon_page_issues"},
-    3: {iconClass: "footer_menu_icon_disambiguation"},
-    4: {iconClass: "footer_menu_icon_coordinate"}
+    1: {iconClass: "footer_menu_icon_languages"},
+    2: {iconClass: "footer_menu_icon_last_edited"},
+    3: {iconClass: "footer_menu_icon_page_issues"},
+    4: {iconClass: "footer_menu_icon_disambiguation"},
+    5: {iconClass: "footer_menu_icon_coordinate"}
   }
 };
 
@@ -709,14 +708,13 @@ class WMFMenuItemFragment {
 
         if(wmfMenuItem.iconType){
             var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
-            containerAnchor.classList.add(iconClass);
+            itemContainer.classList.add(iconClass);
         }
 
         return document.createDocumentFragment().appendChild(itemContainer);
     }
 }
 
-//addItem('some title', 'some subtitle', IconTypeEnum.PAGEISSUES, function(){'click handler stuff'}) 
 function addItem(title, subtitle, iconType, clickHandler) {
   const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
   const itemFragment = new WMFMenuItemFragment(itemModel);
