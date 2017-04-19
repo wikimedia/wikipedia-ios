@@ -89,17 +89,17 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 
 #pragma mark - Updating
 
-- (void)updateFeedSources:(nullable dispatch_block_t)completion {
-    [self updateFeedSourcesWithDate:nil completion:completion];
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
+    [self updateFeedSourcesWithDate:nil userInitiated:wasUserInitiated completion:completion];
 }
 
-- (void)updateFeedSourcesWithDate:(nullable NSDate *)date completion:(nullable dispatch_block_t)completion {
+- (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateFeedSources: must be called on the main thread");
     if (self.taskGroup) {
         @weakify(self);
         [self.queue addObject:^{
             @strongify(self);
-            [self updateFeedSourcesWithDate:date completion:completion];
+            [self updateFeedSourcesWithDate:date userInitiated:wasUserInitiated completion:completion];
         }];
         return;
     }
@@ -124,7 +124,11 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
             [group leave];
         };
         
-        if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
+        if ([obj conformsToProtocol:@protocol(WMFOptionalNewContentSource)]) {
+            NSDate *optionalDate = date ? date : [NSDate date];
+            id<WMFOptionalNewContentSource> optional = (id<WMFOptionalNewContentSource>)obj;
+            [optional loadContentForDate:optionalDate inManagedObjectContext:moc force:NO addNewContent:wasUserInitiated completion:contentSourceCompletion];
+        } else if (date && [obj conformsToProtocol:@protocol(WMFDateBasedContentSource)]) {
             id<WMFDateBasedContentSource> dateBased = (id<WMFDateBasedContentSource>)obj;
             [dateBased loadContentForDate:date inManagedObjectContext:moc force:NO completion:contentSourceCompletion];
         } else if (!date) {
@@ -255,7 +259,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [self stopContentSources];
     self.contentSources = nil;
     [self startContentSources];
-    [self updateFeedSources:NULL];
+    [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
 #pragma mark - Debug
@@ -276,7 +280,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                         WMFFeedNewsStory *randomStory = stories[randomIndex];
                         WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
                         WMFArticle *preview = [self.dataStore fetchArticleWithURL:feedPreview.articleURL];
-                        [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview force:YES];
+                        [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview inManagedObjectContext:self.dataStore.viewContext force:YES];
                     }
                 }
             });
