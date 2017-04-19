@@ -154,12 +154,15 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
                                                   articleResponse = mutableArticleResponse;
                                               }
-                                              MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
-                                              
+                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
+
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore asynchronouslyCacheArticle:article toDisk:saveToDisk];
-                                                  [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:article];
-                                                  success(article);
+                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
+                                                  WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
+                                                  if (!article.thumbnailURLString) {
+                                                      article.thumbnailURLString = summaryResponse[@"thumbnail"][@"source"];
+                                                  }
+                                                  success(mwkArticle);
                                               });
                                           } else {
                                               if (!articleError) {
