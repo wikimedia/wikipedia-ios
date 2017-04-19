@@ -14,9 +14,9 @@ static int const kMinimumTextSelectionLength = 2;
 - (void)wmf_addFooterReadMoreForArticle:(MWKArticle *)article {
     NSURL *proxyURL = [[WMFProxyServer sharedProxyServer] proxyURLForWikipediaAPIHost:article.url.host];
     
-    NSString *saveForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-save-for-later" article:article];
-    NSString *savedForLaterString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-saved-for-later" article:article];
-    NSString *headerString = [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"article-read-more-title" article:article];
+    NSString *saveForLaterString = [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-save-for-later"];
+    NSString *savedForLaterString = [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"button-saved-for-later"];
+    NSString *headerString = [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"article-read-more-title"];
     
     NSString *saveButtonTapHandler = @""
     "function(title){"
@@ -45,16 +45,9 @@ static int const kMinimumTextSelectionLength = 2;
     return
         [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
                                    article.isMain,
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"
-                                                                                       article:article]];
-}
-
-- (NSString *)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key article:(MWKArticle *)article {
-    return [MWSiteLocalizedString(article.url, key, nil) wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {
