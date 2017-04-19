@@ -670,6 +670,8 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
+		D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */; };
+		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 		D81082F81D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
@@ -1998,6 +2000,9 @@
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D4C16A6519709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMFLinkParsing.h"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
+		D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMFLinkParsing.m"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
+		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
 		D81083051D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKProcessPool+WMFSharedProcessPool.h"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.h"; sourceTree = SOURCE_ROOT; };
@@ -3540,6 +3545,8 @@
 				B0E804AF1C0CE0B40065EBC0 /* NSURL+WMFExtras.m */,
 				B0E804B01C0CE0B40065EBC0 /* NSURL+WMFLinkParsing.h */,
 				B0E804B11C0CE0B40065EBC0 /* NSURL+WMFLinkParsing.m */,
+				D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */,
+				D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */,
 				B0E8072B1C0CED810065EBC0 /* NSString+WMFPageUtilities.h */,
 				B0E8072C1C0CED810065EBC0 /* NSString+WMFPageUtilities.m */,
 				B0E807321C0CED810065EBC0 /* WMFImageURLParsing.h */,
@@ -4808,6 +4815,7 @@
 				B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */,
 				B0E8090A1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m */,
 				B0E8090C1C0D18E70065EBC0 /* WMFImageURLParsingTests.m */,
+				D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */,
 				B0E8090E1C0D18F30065EBC0 /* WMFMathTests.m */,
 				B0E809101C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m */,
 				B0E809121C0D19090065EBC0 /* WMFDateFormatterTests.m */,
@@ -5614,6 +5622,7 @@
 				B0E809431C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */,
+				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				B0E808821C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m in Sources */,
@@ -6048,6 +6057,7 @@
 				B0E806F41C0CEBB60065EBC0 /* ReferenceGradientView.m in Sources */,
 				B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */,
 				B0E806371C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m in Sources */,
+				D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */,
 				B0E804D11C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m in Sources */,
 				B0E8044F1C0CDFDA0065EBC0 /* WMFURLCache.m in Sources */,
 				B0E806C41C0CEB380065EBC0 /* WMFSettingsViewController.m in Sources */,

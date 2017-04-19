@@ -278,6 +278,12 @@ NS_ASSUME_NONNULL_BEGIN
                                              selector:@selector(applicationWillEnterForegroundWithNotification:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackgroundWithNotification:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tweaksDidChangeWithNotification:)
                                                  name:FBTweakShakeViewControllerDidDismissNotification
@@ -357,6 +363,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [self.sectionControllerCache removeAllObjects];
+}
+
 #pragma mark - Notifications
 
 - (void)applicationWillEnterForegroundWithNotification:(NSNotification*)note {
@@ -377,6 +388,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self sendWillDisplayToVisibleSectionControllers];
+}
+
+- (void)applicationDidEnterBackgroundWithNotification:(NSNotification *)note {
+    [self.sectionControllerCache removeAllObjects];
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {

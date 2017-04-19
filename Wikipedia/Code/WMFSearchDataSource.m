@@ -26,7 +26,7 @@
 
 - (NSArray*)titles {
     return [[self.searchResults results] bk_map:^id (MWKSearchResult* obj) {
-        return [self.searchSite titleWithString:obj.displayTitle];
+        return [self.searchSite titleWithNormalizedTitle:obj.displayTitle];
     }];
 }
 
@@ -41,7 +41,7 @@
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.searchSite titleWithString:result.displayTitle];
+    return [self.searchSite titleWithNormalizedTitle:result.displayTitle];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

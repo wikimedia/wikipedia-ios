@@ -27,6 +27,7 @@
 #import "WMFGCDHelpers.h"
 
 #import "NSURL+WMFExtras.h"
+#import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WMFRangeUtils.h"

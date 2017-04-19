@@ -3,6 +3,7 @@
 
 #import "MediaWikiKit.h"
 #import "NSObjectUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
 
 NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
@@ -14,51 +15,29 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 @interface MWKSite ()
 
-@property (readwrite, copy, nonatomic) NSString* domain;
-@property (readwrite, copy, nonatomic) NSString* language;
+@property (nonatomic, copy) NSURL* URL;
 
 @end
 
 @implementation MWKSite
 
-- (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
-    NSParameterAssert(domain.length);
+- (instancetype)initWithURL:(NSURL*)url {
     self = [super init];
     if (self) {
-        self.domain   = domain;
-        self.language = language;
+        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.path     = nil;
+        components.fragment = nil;
+        self.URL            = [components URL];
     }
     return self;
 }
 
-- (instancetype)initWithLanguage:(NSString*)language {
-    return [self initWithDomain:WMFDefaultSiteDomain language:language];
+- (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
+    return [self initWithURL:[NSURL wmf_URLWithDomain:domain language:language]];
 }
 
-- (MWKSite* __nullable)initWithURL:(NSURL* __nonnull)url {
-    NSMutableArray* hostComponents = [[url.host componentsSeparatedByString:@"."] mutableCopy];
-    if (hostComponents.count < 3) {
-        DDLogError(@"Can't form site from incomplete URL: %@", url);
-        return nil;
-    }
-
-    if ([url.host containsString:@"mediawiki"]) {
-        NSRange range    = NSMakeRange(hostComponents.count - 2, hostComponents.count - 1);
-        NSString* domain = [[hostComponents subarrayWithRange:range] componentsJoinedByString:@"."];
-        return [self initWithDomain:domain language:nil];
-    } else {
-        NSString* language = [hostComponents firstObject];
-        if (!language.length) {
-            DDLogError(@"Can't form site empty language URL component: %@", url);
-            return nil;
-        }
-        //strip mobile domain
-        [hostComponents removeObject:@"m"];
-
-        NSString* domain =
-            [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
-        return [self initWithDomain:domain language:language];
-    }
+- (instancetype)initWithLanguage:(NSString*)language {
+    return [self initWithDomain:WMFDefaultSiteDomain language:language];
 }
 
 + (instancetype)siteWithLanguage:(NSString*)language {
@@ -77,17 +56,47 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self siteWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
 }
 
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (!self.URL) {
+            NSString* domain   = [self decodeValueForKey:@"domain" withCoder:coder modelVersion:0];
+            NSString* language = [self decodeValueForKey:@"language" withCoder:coder modelVersion:0];
+            if (domain) {
+                self.URL = [NSURL wmf_URLWithDomain:domain language:language];
+            }
+        }
+    }
+    return self;
+}
+
 #pragma mark - Title Helpers
 
 - (MWKTitle*)titleWithString:(NSString*)string {
-    return [MWKTitle titleWithString:string site:self];
+    return [MWKTitle titleWithUnescapedString:string site:self];
+}
+
+- (MWKTitle*)titleWithUnescapedString:(NSString*)string {
+    return [MWKTitle titleWithUnescapedString:string site:self];
 }
 
 - (MWKTitle*)titleWithInternalLink:(NSString*)path {
     return [[MWKTitle alloc] initWithInternalLink:path site:self];
 }
 
+- (MWKTitle*)titleWithNormalizedTitle:(NSString*)normalizedTitle {
+    return [[MWKTitle alloc] initWithSite:self normalizedTitle:normalizedTitle fragment:nil];
+}
+
 #pragma mark - Computed Properties
+
+- (NSString*)domain {
+    return self.URL.wmf_domain;
+}
+
+- (NSString*)language {
+    return self.URL.wmf_language;
+}
 
 - (NSURL*)mobileApiEndpoint {
     return [self apiEndpoint:YES];
@@ -97,64 +106,24 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self apiEndpoint:NO];
 }
 
-- (NSURLComponents*)URLComponents:(BOOL)isMobile {
-    NSURLComponents* siteURLComponents = [[NSURLComponents alloc] init];
-    siteURLComponents.scheme = @"https";
-    NSMutableArray* hostComponents = [NSMutableArray array];
-    if (self.language) {
-        [hostComponents addObject:self.language];
-    }
-    if (isMobile) {
-        [hostComponents addObject:@"m"];
-    }
-    [hostComponents addObject:self.domain];
-    siteURLComponents.host = [hostComponents componentsJoinedByString:@"."];
-    return siteURLComponents;
-}
-
 - (NSString*)urlDomainWithLanguage {
-    NSMutableArray* hostComponents = [NSMutableArray array];
-    if (self.language) {
-        [hostComponents addObject:self.language];
-    }
-    [hostComponents addObject:self.domain];
-    return [hostComponents componentsJoinedByString:@"."];
-}
-
-- (NSURL*)URL {
-    return [self URL:NO];
+    return self.URL.host;
 }
 
 - (NSURL*)mobileURL {
-    return [self URL:YES];
-}
-
-- (NSURL*)URL:(BOOL)isMobile {
-    return [[self URLComponents:NO] URL];
+    return self.URL.wmf_mobileURL;
 }
 
 - (NSURL*)apiEndpoint:(BOOL)isMobile {
-    NSURLComponents* apiEndpointComponents = [self URLComponents:isMobile];
-    apiEndpointComponents.path = @"/w/api.php";
-    return [apiEndpointComponents URL];
+    return [self.URL wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
 - (UIUserInterfaceLayoutDirection)layoutDirection {
-    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.language)) {
-        case kCFLocaleLanguageDirectionRightToLeft:
-            return UIUserInterfaceLayoutDirectionRightToLeft;
-        default:
-            return UIUserInterfaceLayoutDirectionLeftToRight;
-    }
+    return self.URL.wmf_layoutDirection;
 }
 
 - (NSTextAlignment)textAlignment {
-    switch (self.layoutDirection) {
-        case UIUserInterfaceLayoutDirectionRightToLeft:
-            return NSTextAlignmentRight;
-        case UIUserInterfaceLayoutDirectionLeftToRight:
-            return NSTextAlignmentLeft;
-    }
+    return self.URL.wmf_textAlignment;
 }
 
 - (BOOL)isEqualToSite:(MWKSite*)other {
@@ -164,10 +133,14 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 #pragma mark - MTLModel
 
++ (NSUInteger)modelVersion {
+    return 1;
+}
+
 // Need to specify storage properties since domain & language are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKSite new], key)]
-    if (IS_MWKSITE_KEY(domain) || IS_MWKSITE_KEY(language)) {
+#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKSite new], key)]
+    if (IS_MWKSITE_KEY(URL)) {
         return MTLPropertyStoragePermanent;
     } else {
         // all other properties are computed from domain and/or language

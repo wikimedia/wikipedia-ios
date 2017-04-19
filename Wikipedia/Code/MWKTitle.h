@@ -22,6 +22,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initialization
 
+
+/**
+ * Initialize a new title with a URL, using its path and and host as the title's `text` and `site`.
+ *
+ * @param url URL pointing to a Wikipedia page (i.e. an internal link).
+ *
+ * @return A new title with properties parsed from the given URL, or `nil` if an error occurred.
+ */
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Initialize a new title with a coder.
+ *
+ * @param coder for a MWKTitle.
+ */
+- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+
 /**
  * Initializes a new title belonging to @c site with an optional fragment.
  *
@@ -29,13 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param site      The site to which this title belongs.
  * @param text      The text which makes up the title.
- * @param fragment  An optional fragment, e.g. @"#section".
+ * @param fragment  An optional fragment, for example if the URL contains `#section`, the fragment is `section`.
  *
  * @return A new title.
  */
 - (instancetype)initWithSite:(MWKSite*)site
              normalizedTitle:(NSString*)text
-                    fragment:(NSString* __nullable)fragment NS_DESIGNATED_INITIALIZER;
+                    fragment:(NSString* __nullable)fragment;
 
 /**
  * Initialize a new title from the given string, parsing & escaping the title and fragment.
@@ -48,17 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize a new title with `relativeInternalLink`, which is parsed after removing the `/wiki/` prefix.
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site;
 
-/**
- * Initialize a new title with a URL, using its path and and host as the title's `text` and `site`.
- *
- * @param url URL pointing to a Wikipedia page (i.e. an internal link).
- *
- * @return A new title with properties parsed from the given URL, or `nil` if an error occurred.
- */
-- (MWKTitle* __nullable)initWithURL:(NSURL*)url;
-
 /// Convenience factory method wrapping `initWithString:site:`.
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site;
+
++ (MWKTitle*)titleWithUnescapedString:(NSString*)str site:(MWKSite*)site;
 
 #pragma mark - Comparison
 
@@ -71,14 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Text with spaces removed
 @property (readonly, copy, nonatomic) NSString* dataBaseKey;
 
-/// Text with spaces removed and special characters escaped for a URL
-@property (readonly, copy, nonatomic) NSString* escapedURLText;
-
 /// Fragment passed in designated initializer.
 @property (readonly, copy, nonatomic, nullable) NSString* fragment;
-
-/// Percent-escaped fragment, prefixed with @c #, or an empty string if absent.
-@property (readonly, copy, nonatomic) NSString* escapedFragment;
 
 /// Absolute URL to mobile view of this article
 @property (readonly, copy, nonatomic) NSURL* mobileURL;

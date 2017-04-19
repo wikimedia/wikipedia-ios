@@ -13,6 +13,8 @@ extern NSString* const WMFDefaultSiteDomain;
 /// Represents a mediawiki instance dedicated to a specific language.
 @interface MWKSite : MTLModel <NSCopying>
 
+@property (nonatomic, copy, readonly) NSURL* URL;
+
 /// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
 @property (nonatomic, copy, readonly) NSString* domain;
 
@@ -24,19 +26,28 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Initialization
 ///
 
-- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language NS_DESIGNATED_INITIALIZER;
-
-/// Create a site using @c language and the default domain.
-- (instancetype)initWithLanguage:(NSString*)language;
 
 /**
- * Initialize a site with components of a URL.
+ * Initialize a site with a URL.
  *
  * @param url URL pointing to a Wikipedia site (e.g. https://en.wikipedia.org).
  *
  * @return A site with properties parsed from the given URL, or `nil` if parsing failed.
  */
-- (MWKSite* __nullable)initWithURL:(NSURL*)url;
+
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Initialize a new site with a coder.
+ *
+ * @param coder for a MWKSite.
+ */
+- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language;
+
+/// Create a site using @c language and the default domain.
+- (instancetype)initWithLanguage:(NSString*)language;
 
 + (instancetype)siteWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
@@ -56,7 +67,6 @@ extern NSString* const WMFDefaultSiteDomain;
 
 - (NSString*)urlDomainWithLanguage;
 
-- (NSURL*)URL;
 
 - (NSURL*)mobileURL;
 
@@ -85,9 +95,21 @@ extern NSString* const WMFDefaultSiteDomain;
 
 /**
  * @return A title initialized with the receiver as its @c site.
+ * @see -[MWKTitle initWithUnescapedString:site:]
+ */
+- (MWKTitle*)titleWithUnescapedString:(NSString*)string;
+
+/**
+ * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithString:site:]
  */
 - (MWKTitle*)titleWithInternalLink:(NSString*)path;
+
+/**
+ * @return A title initialized with the receiver as its @c site.
+ * @see -[MWKTitle initWithSite:normalizedTitle:fragment:]
+ */
+- (MWKTitle*)titleWithNormalizedTitle:(NSString*)normalizedTitle;
 
 @end
 

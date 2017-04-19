@@ -48,7 +48,6 @@
     MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
     XCTAssertEqualObjects(title.text, @"Simple", @"Text form is full");
     XCTAssertNil(title.fragment, @"Fragment is nil");
-    XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
 }
 
 - (void)testUnderscoresAndSpaces {
@@ -57,7 +56,6 @@
     for (MWKTitle* title in inputs) {
         XCTAssertEqualObjects(title.text, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertNil(title.fragment, @"Fragment is nil");
-        XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
     }
 }
 
@@ -65,7 +63,6 @@
     MWKTitle* title = [MWKTitle titleWithString:@"Éclair" site:site];
     XCTAssertEqualObjects(title.text, @"Éclair", @"Text form has unicode");
     XCTAssertNil(title.fragment, @"Fragment is nil");
-    XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
 }
 
 - (void)testFragment {

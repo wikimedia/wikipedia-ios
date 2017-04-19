@@ -41,7 +41,17 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (instancetype)initWithBasePath:(NSString*)basePath {
     self = [super init];
     if (self) {
-        self.basePath                = basePath;
+        self.basePath = basePath;
+        NSString* pathToExclude         = [self pathForSites];
+        NSError* directoryCreationError = nil;
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:pathToExclude withIntermediateDirectories:YES attributes:nil error:&directoryCreationError]) {
+            DDLogError(@"Error creating MWKDataStore path: %@", directoryCreationError);
+        }
+        NSURL* directoryURL         = [NSURL fileURLWithPath:pathToExclude isDirectory:YES];
+        NSError* excludeBackupError = nil;
+        if (![directoryURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&excludeBackupError]) {
+            DDLogError(@"Error excluding MWKDataStore path from backup: %@", excludeBackupError);
+        }
         self.articleCache            = [[NSCache alloc] init];
         self.articleCache.countLimit = 50;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
@@ -119,7 +129,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title {
     NSString* imagesPath = [self pathForImagesWithTitle:title];
     NSString* encURL     = [self safeFilenameWithImageURL:url];
-    return encURL ? [imagesPath stringByAppendingPathComponent : encURL] : nil;
+    return encURL ? [imagesPath stringByAppendingPathComponent:encURL] : nil;
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
@@ -501,6 +511,12 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
+
+#pragma mark - Cache
+
+- (void)clearMemoryCache {
+    [self.articleCache removeAllObjects];
 }
 
 @end
