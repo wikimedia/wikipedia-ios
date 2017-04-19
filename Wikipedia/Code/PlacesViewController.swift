@@ -2080,12 +2080,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
             
-            let suggestion: PlaceSearch
+            let defaultSuggestion: PlaceSearch
             switch (currentSearchFilter) {
             case .top:
-                suggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+                defaultSuggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
             case .saved:
-                suggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+                defaultSuggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
             }
             
             var recentSearches: [PlaceSearch] = []
@@ -2112,17 +2112,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            //searchSuggestionController.searches = [[/*suggestion*/], recentSearches, [], []]
-            searchSuggestionController.searches = [[suggestion], recentSearches, [], []]
+            searchSuggestionController.searches = [[defaultSuggestion], recentSearches, [], []]
+            
+            if (recentSearches.count == 0) {
+                setupEmptySearchOverlayView()
+                emptySearchOverlayView.frame = searchSuggestionView.bounds
+                searchSuggestionView.addSubview(emptySearchOverlayView)
+            } else {
+                emptySearchOverlayView.removeFromSuperview()
+            }
 
             return
         }
+        
+        emptySearchOverlayView.removeFromSuperview()
         
         guard currentSearchString != "" else {
             searchSuggestionController.searches = [[], [], [], completions]
             return
         }
-        
 
         let currentSearchScopeName: String
         switch (currentSearchFilter) {
@@ -2589,6 +2597,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                                           didSelectFilterType filterType: PlaceFilterType) {
         currentSearchFilter = filterType
         isSearchFilterDropDownShowing = false
+    }
+    
+    func setupEmptySearchOverlayView() {
+        emptySearchOverlayView.mainLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-title")
+        emptySearchOverlayView.detailLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-description")
     }
 }
 

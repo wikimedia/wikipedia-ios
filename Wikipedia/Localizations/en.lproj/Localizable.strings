@@ -609,6 +609,8 @@
 "places-filter-saved-articles-count" = "$1 places found";
 "places-filter-list-title" = "Search filters";
 "places-search-default-text" = "Search for articles or locations";
+"places-empty-search-title" = "Search for Wikipedia articles with geographic locations";
+"places-empty-search-description" = "Explore cities, countries, continents, natural landmarks, historical events, buildings and more.";
 
 "action-share" = "Share";
 "action-save" = "Save";
