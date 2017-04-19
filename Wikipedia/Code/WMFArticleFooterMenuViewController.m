@@ -111,6 +111,21 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+// TODO: REFACTOR THIS TEMP METHOD:
+- (void)footerMenuItemTapped:(NSString*)item {
+    if ([item isEqualToString:@"languages"]){
+        [self showLanguages];
+    }else if ([item isEqualToString:@"lastEdited"]){
+        [self showEditHistory];
+    }else if ([item isEqualToString:@"pageIssues"]){
+        [self showPageIssues];
+    }else if ([item isEqualToString:@"disambiguation"]){
+        [self showDisambiguationItems];
+    }else if ([item isEqualToString:@"coordinate"]){
+        [self showLocation];
+    }
+}
+
 #pragma mark - Subview Actions
 
 - (void)showLocation {

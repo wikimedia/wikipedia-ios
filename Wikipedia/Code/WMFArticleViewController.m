@@ -1530,6 +1530,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(NSString *)item {
+// TODO: rename 'footerMenuViewController' once native view parts are stripped
+    [self.footerMenuViewController footerMenuItemTapped:item];
+}
+
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer *)tap {

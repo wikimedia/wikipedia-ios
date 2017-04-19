@@ -167,7 +167,7 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 }
 
 - (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
-    NSLog(@"messageString = %@", messageString);
+    [self.delegate webViewController:self didTapFooterMenuItem:messageString];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {

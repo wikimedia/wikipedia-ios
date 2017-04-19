@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate;
 
+// TODO: REFACTOR THIS TEMP METHOD:
+- (void)footerMenuItemTapped:(NSString*)item;
+
 @end
 
 NS_ASSUME_NONNULL_END
