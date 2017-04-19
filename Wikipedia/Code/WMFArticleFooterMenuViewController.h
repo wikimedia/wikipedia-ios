@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleListTableViewController.h"
+#import "Wikipedia-Swift.h"
 
 @class MWKDataStore;
 
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore similarPagesListDelegate:(id<WMFArticleListTableViewControllerDelegate>)delegate;
 
 // TODO: REFACTOR THIS TEMP METHOD:
-- (void)footerMenuItemTapped:(NSString*)item;
+- (void)footerMenuItemTapped:(WMFArticleFooterMenuItem2)item;
 
 @end
 

@@ -167,7 +167,22 @@ static const NSString *kvo_WebViewController_footerContainerView_bounds = nil;
 }
 
 - (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
-    [self.delegate webViewController:self didTapFooterMenuItem:messageString];
+    WMFArticleFooterMenuItem2 item;
+    if ([messageString isEqualToString:@"languages"]){
+        item = WMFArticleFooterMenuItem2Languages;
+    }else if ([messageString isEqualToString:@"lastEdited"]){
+        item = WMFArticleFooterMenuItem2LastEdited;
+    }else if ([messageString isEqualToString:@"pageIssues"]){
+        item = WMFArticleFooterMenuItem2PageIssues;
+    }else if ([messageString isEqualToString:@"disambiguation"]){
+        item = WMFArticleFooterMenuItem2Disambiguation;
+    }else if ([messageString isEqualToString:@"coordinate"]){
+        item = WMFArticleFooterMenuItem2Coordinate;
+    }else {
+        NSAssert(false, @"Unhandled footer item type encountered");
+        return;
+    }
+    [self.delegate webViewController:self didTapFooterMenuItem:item];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {

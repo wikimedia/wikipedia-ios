@@ -1530,7 +1530,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(NSString *)item {
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem2)item {
 // TODO: rename 'footerMenuViewController' once native view parts are stripped
     [self.footerMenuViewController footerMenuItemTapped:item];
 }

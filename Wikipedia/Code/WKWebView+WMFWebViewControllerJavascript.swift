@@ -1,13 +1,19 @@
 
 import Foundation
 
-enum WMFArticleFooterMenuItem2: String {
+@objc enum WMFArticleFooterMenuItem2: Int {
 
-    // Reminder: These are the strings used by the footerMenu JS transform:
     case languages, lastEdited, pageIssues, disambiguation, coordinate
     
+    // Reminder: These are the strings used by the footerMenu JS transform:
     private var footerMenuJSTransformEnumString: String {
-        return self.rawValue
+        switch self {
+        case .languages: return "languages"
+        case .lastEdited: return "lastEdited"
+        case .pageIssues: return "pageIssues"
+        case .disambiguation: return "disambiguation"
+        case .coordinate: return "coordinate"
+        }
     }
     
     private var footerMenuTransformJSEnumPath: String {

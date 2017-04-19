@@ -112,17 +112,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 // TODO: REFACTOR THIS TEMP METHOD:
-- (void)footerMenuItemTapped:(NSString*)item {
-    if ([item isEqualToString:@"languages"]){
-        [self showLanguages];
-    }else if ([item isEqualToString:@"lastEdited"]){
-        [self showEditHistory];
-    }else if ([item isEqualToString:@"pageIssues"]){
-        [self showPageIssues];
-    }else if ([item isEqualToString:@"disambiguation"]){
-        [self showDisambiguationItems];
-    }else if ([item isEqualToString:@"coordinate"]){
-        [self showLocation];
+- (void)footerMenuItemTapped:(WMFArticleFooterMenuItem2)item {
+    switch (item) {
+        case WMFArticleFooterMenuItem2Languages:
+            [self showLanguages];
+            break;
+        case WMFArticleFooterMenuItem2LastEdited:
+            [self showEditHistory];
+            break;
+        case WMFArticleFooterMenuItem2PageIssues:
+            [self showPageIssues];
+            break;
+        case WMFArticleFooterMenuItem2Disambiguation:
+            [self showDisambiguationItems];
+            break;
+        case WMFArticleFooterMenuItem2Coordinate:
+            [self showLocation];
+            break;
     }
 }
 

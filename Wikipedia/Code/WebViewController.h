@@ -3,6 +3,8 @@
 
 @class MWKSection, MWKArticle, WMFPeekHTMLElement;
 
+typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem2);
+
 @protocol WMFWebViewControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -76,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(NSString *)item;
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem2)item;
 
 @end
 
