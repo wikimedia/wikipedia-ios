@@ -109,10 +109,9 @@
 
 - (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticle *entry = [self objectAtIndexPath:indexPath];
-    MWKArticle *article = [[self userDataStore] articleWithURL:entry.URL];
-    cell.titleText = article.url.wmf_title;
-    cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-    [cell setImage:[article bestThumbnailImage]];
+    cell.titleText = [entry.displayTitle wmf_stringByRemovingHTML];
+    cell.descriptionText = [entry.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    [cell setImageURL:entry.thumbnailURL];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
