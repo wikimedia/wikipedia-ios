@@ -616,7 +616,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
-        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
     var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
@@ -2204,6 +2204,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
+        if let currentSearch = self.currentSearch, !isDefaultSearch(currentSearch) {
+            searchBar?.text = currentSearch.localizedDescription
+        } else {
+            searchBar?.text = nil
+        }
         let searchText = searchBar?.text
         if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             performDefaultSearch(withRegion: nil)
