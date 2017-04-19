@@ -14,9 +14,29 @@
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
-        return nil;
+        return [self thumbnailURLForWidth:240]; //hardcoded to not rely on UIScreen in a model object
     }
     return [NSURL URLWithString:thumbnailURLString];
+}
+
+- (nullable NSURL *)thumbnailURLForWidth:(NSInteger)width {
+    NSString *imageURLString = self.imageURLString;
+    NSNumber *imageWidth = self.imageWidth;
+    if (!imageURLString || !imageWidth) {
+        NSString *thumbnailURLString = self.thumbnailURLString;
+        if (!thumbnailURLString) {
+            return nil;
+        }
+        NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(thumbnailURLString);
+        if (width >= sizePrefix) {
+            return [NSURL URLWithString:thumbnailURLString];
+        }
+        return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
+    }
+    if (width >= [imageWidth integerValue]) {
+        return [NSURL URLWithString:imageURLString];
+    }
+    return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(imageURLString, width)];
 }
 
 - (void)setThumbnailURL:(NSURL *)thumbnailURL {

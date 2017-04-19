@@ -159,6 +159,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
                                                   WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
+                                                  article.imageURLString = summaryResponse[@"originalimage"][@"source"];
+                                                  article.imageWidth = summaryResponse[@"originalimage"][@"width"];
+                                                  article.imageHeight = summaryResponse[@"originalimage"][@"height"];
                                                   if (!article.thumbnailURLString) {
                                                       article.thumbnailURLString = summaryResponse[@"thumbnail"][@"source"];
                                                   }
