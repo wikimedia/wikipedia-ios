@@ -31,7 +31,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:loginString
                                                  iconName:@"settings-user"
-                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7) alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7)alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -158,13 +158,13 @@
         }
         case WMFSettingsMenuItemType_ClearCache: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"settings-clear-cache", nil)
-                                             iconName:@"settings-clear-cache"
-                                            iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_None
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-clear-cache", nil)
+                                                 iconName:@"settings-clear-cache"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFFBF02 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_DebugCrash: {
             return
