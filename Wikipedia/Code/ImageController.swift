@@ -87,7 +87,6 @@ open class ImageController : NSObject {
     fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
     fileprivate let fileManager: FileManager
     fileprivate let memoryCache: NSCache<NSString, Image>
-    fileprivate let memoryCacheQueue: DispatchQueue
     
     fileprivate var permanentCacheCompletionManager = ImageControllerCompletionManager<ImageControllerPermanentCacheCompletion>()
     fileprivate var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
@@ -99,7 +98,6 @@ open class ImageController : NSObject {
         self.permanentStorageDirectory = permanentStorageDirectory
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
-        memoryCacheQueue = DispatchQueue(label: "org.wikimedia.image_controller." + UUID().uuidString)
         let bundle = Bundle(identifier: "org.wikimedia.WMF")!
         let modelURL = bundle.url(forResource: "Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
@@ -383,17 +381,13 @@ open class ImageController : NSObject {
     }
     
     public func memoryCachedImage(withURL url: URL) -> Image? {
-       return memoryCacheQueue.sync {
-            let identifier = identifierForURL(url) as NSString
-            return memoryCache.object(forKey: identifier)
-        }
+        let identifier = identifierForURL(url) as NSString
+        return memoryCache.object(forKey: identifier)
     }
     
     public func addToMemoryCache(_ image: Image, url: URL) {
-        memoryCacheQueue.async {
-            let identifier = self.identifierForURL(url) as NSString
-            self.memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
-        }
+        let identifier = identifierForURL(url) as NSString
+        memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
     
     fileprivate func createImage(data: Data, mimeType: String?) -> Image? {
