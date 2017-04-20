@@ -4,14 +4,12 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
     
     let story: WMFFeedNewsStory
     let dataStore: MWKDataStore
-    let previewStore: WMFArticleDataStore
     
     @IBOutlet weak var tableView: UITableView!
     
-    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore, previewStore: WMFArticleDataStore) {
+    required init(story: WMFFeedNewsStory, dataStore: MWKDataStore) {
         self.story = story
         self.dataStore = dataStore
-        self.previewStore = previewStore
         super.init(nibName: "InTheNewsViewController", bundle: nil)
         title = localizedStringForKeyFallingBackOnEnglish("in-the-news-title")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: localizedStringForKeyFallingBackOnEnglish("back"), style: .plain, target:nil, action:nil)
@@ -84,13 +82,12 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
             }
             
             cell.fullSizeImageView.wmf_showPlaceholder()
-            
-            guard let thumbnailURL = mainArticlePreview.thumbnailURL  else {
+            guard let article = dataStore.fetchArticle(with: mainArticlePreview.articleURL), let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_leadImageWidth) else {
                 return cell
             }
             
             let detectFaces = UI_USER_INTERFACE_IDIOM() != .pad;
-            cell.fullSizeImageView.wmf_setImage(with: thumbnailURL, detectFaces: detectFaces, onGPU: true, failure: { (error) in cell.fullSizeImageView.wmf_showPlaceholder() }) {
+            cell.fullSizeImageView.wmf_setImage(with: imageURL, detectFaces: detectFaces, onGPU: true, failure: { (error) in cell.fullSizeImageView.wmf_showPlaceholder() }) {
             }
             
             return cell
@@ -156,6 +153,6 @@ class InTheNewsViewController: UIViewController, UITableViewDataSource, UITableV
         let articlePreview = articlePreviews[index]
         let articleURL = articlePreview.articleURL
         
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, previewStore: previewStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }

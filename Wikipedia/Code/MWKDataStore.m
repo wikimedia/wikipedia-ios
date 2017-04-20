@@ -29,6 +29,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
+@property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
+
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 @property (readwrite, strong, nonatomic) NSCache *articlePreviewCache;
@@ -42,6 +44,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong) NSManagedObjectContext *viewContext;
+@property (nonatomic, strong) NSManagedObjectContext *feedImportContext;
 
 @property (nonatomic, strong) NSString *crossProcessNotificationChannelName;
 @property (nonatomic) int crossProcessNotificationToken;
@@ -68,11 +71,18 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _articleSaveOperations;
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article {
-    [self asynchronouslyCacheArticle:article completion:nil];
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk {
+    [self asynchronouslyCacheArticle:article toDisk:toDisk completion:nil];
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion {
+    [self addArticleToMemoryCache:article];
+    if (!toDisk) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     NSOperationQueue *queue = [self articleSaveQueue];
     NSMutableDictionary *operations = [self articleSaveOperations];
     @synchronized(queue) {
@@ -149,7 +159,11 @@ static uint64_t bundleHash() {
         self.crossProcessNotificationChannelName = infoDictionary[@"CrossProcessNotificiationChannelName"];
         [self setupCrossProcessCoreDataNotifier];
         [self setupCoreDataStackWithContainerURL:containerURL];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        [self setupHistoryAndSavedPageLists];
+        self.feedContentController = [[WMFExploreFeedContentController alloc] init];
+        self.feedContentController.dataStore = self;
+        self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
     }
     return self;
@@ -433,7 +447,8 @@ static uint64_t bundleHash() {
     }];
 }
 
-#pragma mark - Background Context
+#pragma mark - Background Contexts
+
 - (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -447,6 +462,25 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    });
+}
+
+- (NSManagedObjectContext *)feedImportContext {
+    if (!_feedImportContext) {
+        _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _feedImportContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+    }
+    return _feedImportContext;
+}
+
+- (void)teardownFeedImportContext {
+    _feedImportContext = nil;
+}
+
+- (void)feedImportContextDidSave:(NSNotification *)note {
     dispatch_sync(dispatch_get_main_queue(), ^{
         [self.viewContext mergeChangesFromContextDidSaveNotification:note];
     });
@@ -676,31 +710,27 @@ static uint64_t bundleHash() {
 
 #pragma mark - Memory
 
-- (void)didRecievememoryWarningWithNotifcation:(NSNotification *)note {
-    [self.articleCache removeAllObjects];
+- (void)didReceiveMemoryWarningWithNotification:(NSNotification *)note {
+    [self clearMemoryCache];
 }
 
 #pragma - Accessors
-
-- (MWKHistoryList *)historyList {
-    if (!_historyList) {
-        _historyList = [[MWKHistoryList alloc] initWithDataStore:self];
-    }
-    return _historyList;
-}
-
-- (MWKSavedPageList *)savedPageList {
-    if (!_savedPageList) {
-        _savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
-    }
-    return _savedPageList;
-}
 
 - (MWKRecentSearchList *)recentSearchList {
     if (!_recentSearchList) {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
     }
     return _recentSearchList;
+}
+
+#pragma mark - History and Saved Page List
+
+- (void)setupHistoryAndSavedPageLists {
+    WMFAssertMainThread(@"History and saved page lists must be setup on the main thread");
+    self.historyList = [[MWKHistoryList alloc] initWithDataStore:self];
+    [self.historyList migrateLegacyDataIfNeeded];
+    self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
+    [self.savedPageList migrateLegacyDataIfNeeded];
 }
 
 #pragma mark - Legacy DataStore
@@ -898,11 +928,10 @@ static uint64_t bundleHash() {
     if (article.url.wmf_isNonStandardURL) {
         return;
     }
-
+    [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
-    [self.articleCache setObject:article forKey:article.url];
     dispatchOnMainQueue(^{
         [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
     });
@@ -944,17 +973,35 @@ static uint64_t bundleHash() {
                name:MWKImageInfoFilename];
 }
 
+- (void)addArticleToMemoryCache:(MWKArticle *)article forKey:(NSString *)key {
+    if (!key || !article) {
+        return;
+    }
+    @synchronized(self.articleCache) {
+        [self.articleCache setObject:article forKey:key];
+    }
+}
+
+- (void)addArticleToMemoryCache:(MWKArticle *)article {
+    [self addArticleToMemoryCache:article forKey:article.url.wmf_articleDatabaseKey];
+}
+
 #pragma mark - load methods
 
+- (MWKArticle *)memoryCachedArticleWithKey:(NSString *)key {
+    return [self.articleCache objectForKey:key];
+}
+
 - (MWKArticle *)memoryCachedArticleWithURL:(NSURL *)url {
-    return [self.articleCache objectForKey:url];
+    return [self memoryCachedArticleWithKey:url.wmf_articleDatabaseKey];
 }
 
 - (nullable MWKArticle *)existingArticleWithURL:(NSURL *)url {
+    NSString *key = [url wmf_articleDatabaseKey];
     MWKArticle *existingArticle =
-        [self memoryCachedArticleWithURL:url] ?: [self articleFromDiskWithURL:url];
+        [self memoryCachedArticleWithKey:key] ?: [self articleFromDiskWithURL:url];
     if (existingArticle) {
-        [self.articleCache setObject:existingArticle forKey:url];
+        [self addArticleToMemoryCache:existingArticle forKey:key];
     }
     return existingArticle;
 }
@@ -970,7 +1017,11 @@ static uint64_t bundleHash() {
 }
 
 - (MWKArticle *)articleWithURL:(NSURL *)url {
-    return [self existingArticleWithURL:url] ?: [[MWKArticle alloc] initWithURL:url dataStore:self];
+    MWKArticle *article = [self existingArticleWithURL:url];
+    if (!article) {
+        article = [[MWKArticle alloc] initWithURL:url dataStore:self];
+    }
+    return article;
 }
 
 - (MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article {
@@ -1065,60 +1116,62 @@ static uint64_t bundleHash() {
 #pragma mark - helper methods
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
-    allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL || savedDate != NULL"];
-    allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
+        allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
+        allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
 
-    NSError *fetchError = nil;
-    NSArray *arrayOfAllValidArticles = [self.viewContext executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
+        NSError *fetchError = nil;
+        NSArray *arrayOfAllValidArticles = [moc executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
 
-    if (fetchError) {
-        failure(fetchError);
-        return;
-    }
+        if (fetchError) {
+            failure(fetchError);
+            return;
+        }
 
-    dispatch_block_t deleteEverythingAndSucceed = ^{
+        dispatch_block_t deleteEverythingAndSucceed = ^{
+            dispatch_async(self.cacheRemovalQueue, ^{
+                [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+                dispatch_async(dispatch_get_main_queue(), success);
+            });
+        };
+
+        if (arrayOfAllValidArticles.count == 0) {
+            deleteEverythingAndSucceed();
+            return;
+        }
+
+        NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
+        for (WMFArticle *article in arrayOfAllValidArticles) {
+            NSString *key = article.key;
+            if (!key) {
+                continue;
+            }
+            [allValidArticleKeys addObject:key];
+        }
+
+        if (allValidArticleKeys.count == 0) {
+            deleteEverythingAndSucceed();
+            return;
+        }
+
         dispatch_async(self.cacheRemovalQueue, ^{
-            [[NSFileManager defaultManager] removeItemAtPath:[self pathForSites] error:nil];
+            NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
+            [self iterateOverArticleURLs:^(NSURL *articleURL) {
+                NSString *key = articleURL.wmf_articleDatabaseKey;
+                if (!key) {
+                    return;
+                }
+                if ([allValidArticleKeys containsObject:key]) {
+                    return;
+                }
+
+                [articleURLsToRemove addObject:articleURL];
+            }];
+            [self removeArticlesWithURLsFromCache:articleURLsToRemove];
             dispatch_async(dispatch_get_main_queue(), success);
         });
-    };
-
-    if (arrayOfAllValidArticles.count == 0) {
-        deleteEverythingAndSucceed();
-        return;
-    }
-
-    NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
-    for (WMFArticle *article in arrayOfAllValidArticles) {
-        NSString *key = article.key;
-        if (!key) {
-            continue;
-        }
-        [allValidArticleKeys addObject:key];
-    }
-
-    if (allValidArticleKeys.count == 0) {
-        deleteEverythingAndSucceed();
-        return;
-    }
-
-    dispatch_async(self.cacheRemovalQueue, ^{
-        NSMutableArray<NSURL *> *articleURLsToRemove = [NSMutableArray arrayWithCapacity:10];
-        [self iterateOverArticleURLs:^(NSURL *articleURL) {
-            NSString *key = articleURL.wmf_articleDatabaseKey;
-            if (!key) {
-                return;
-            }
-            if ([allValidArticleKeys containsObject:key]) {
-                return;
-            }
-
-            [articleURLsToRemove addObject:articleURL];
-        }];
-        [self removeArticlesWithURLsFromCache:articleURLsToRemove];
-        dispatch_async(dispatch_get_main_queue(), success);
-    });
+    }];
 }
 
 - (void)iterateOverArticleURLs:(void (^)(NSURL *))block {
@@ -1245,7 +1298,9 @@ static uint64_t bundleHash() {
 #pragma mark - Cache
 
 - (void)clearMemoryCache {
-    [self.articleCache removeAllObjects];
+    @synchronized(self.articleCache) {
+        [self.articleCache removeAllObjects];
+    }
     [self.articlePreviewCache removeAllObjects];
 }
 
@@ -1265,59 +1320,58 @@ static uint64_t bundleHash() {
     return [self.viewContext save:error];
 }
 
-- (nullable WMFArticle *)fetchArticleForURL:(NSURL *)URL {
-    return [self fetchArticleForKey:[URL wmf_articleDatabaseKey]];
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey] inManagedObjectContext:moc];
 }
 
-- (nullable WMFArticle *)fetchArticleForKey:(NSString *)key {
-    if (!key) {
-        return nil;
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    WMFArticle *article = nil;
+    if (moc == self.viewContext) {
+        article = [self.articlePreviewCache objectForKey:key];
+        if (article) {
+            return article;
+        }
     }
-
-    WMFArticle *article = [self.articlePreviewCache objectForKey:key];
-    if (article) {
-        return article;
-    }
-
-    NSManagedObjectContext *moc = self.viewContext;
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.fetchLimit = 1;
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-    article = [[moc executeFetchRequest:request error:nil] firstObject];
-
-    if (article) {
+    article = [moc fetchArticleWithKey:key];
+    if (article && moc == self.viewContext) {
         [self.articlePreviewCache setObject:article forKey:key];
     }
-
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleForURL:(NSURL *)URL {
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSString *language = URL.wmf_language;
     NSString *title = URL.wmf_title;
     NSString *key = [URL wmf_articleDatabaseKey];
     if (!language || !title || !key) {
         return nil;
     }
-    NSManagedObjectContext *moc = self.viewContext;
-    WMFArticle *article = [self fetchArticleForKey:key];
+    WMFArticle *article = [self fetchArticleWithKey:key inManagedObjectContext:moc];
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
-        [self.articlePreviewCache setObject:article forKey:key];
+        if (moc == self.viewContext) {
+            [self.articlePreviewCache setObject:article forKey:key];
+        }
     }
     return article;
 }
 
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
-    WMFArticle *article = [self fetchArticleForURL:articleURL];
-    if (!article) {
-        return NO;
-    }
-    return article.isExcludedFromFeed;
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
+    return [self fetchArticleWithKey:[URL wmf_articleDatabaseKey]];
 }
 
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed forArticleURL:(NSURL *)articleURL {
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {
+    WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
+    return [self fetchArticleWithKey:key inManagedObjectContext:self.viewContext];
+}
+
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL {
+    WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
+    return [self fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.viewContext];
+}
+
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(articleURL);
     if ([articleURL wmf_isNonStandardURL]) {
         return;
@@ -1326,9 +1380,25 @@ static uint64_t bundleHash() {
         return;
     }
 
-    WMFArticle *article = [self fetchOrCreateArticleForURL:articleURL];
+    WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL inManagedObjectContext:moc];
     article.isExcludedFromFeed = isExcludedFromFeed;
     [self save:nil];
+}
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
+    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
+    if (!article) {
+        return NO;
+    }
+    return article.isExcludedFromFeed;
+}
+
+- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL {
+    [self setIsExcludedFromFeed:isExcludedFromFeed withArticleURL:articleURL inManagedObjectContext:self.viewContext];
+}
+
+- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
+    return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
 }
 
 @end

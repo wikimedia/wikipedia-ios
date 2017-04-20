@@ -8,7 +8,6 @@
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleBaseFetcher_Testing.h"
-#import "WMFArticleDataStore.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFAsyncTestCase.h"
 
@@ -18,7 +17,6 @@
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore *tempDataStore;
-@property (strong, nonatomic) WMFArticleDataStore *previewStore;
 @property (strong, nonatomic) WMFArticleFetcher *articleFetcher;
 
 @end
@@ -28,9 +26,8 @@
 - (void)setUp {
     [super setUp];
     self.tempDataStore = [MWKDataStore temporaryDataStore];
-    self.previewStore = [[WMFArticleDataStore alloc] initWithDataStore:self.tempDataStore];
 
-    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore previewStore:self.previewStore];
+    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
     [[LSNocilla sharedInstance] start];
 }
 
@@ -83,6 +80,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 
     [fetcher fetchArticleForURL:dummyArticleURL
+      saveToDisk:YES
         progress:NULL
         failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
@@ -91,6 +89,7 @@
         success:^(MWKArticle *article) {
             firstFetchResult = article;
             [self.tempDataStore asynchronouslyCacheArticle:article
+                                                    toDisk:YES
                                                 completion:^{
                                                     savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
 
@@ -98,6 +97,7 @@
                                                 }];
 
             [fetcher fetchArticleForURL:dummyArticleURL
+                             saveToDisk:YES
                 progress:NULL
                 failure:^(NSError *erorr) {
                     XCTFail(@"Recieved error");
@@ -111,6 +111,7 @@
                     assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 
                     [self.tempDataStore asynchronouslyCacheArticle:article
+                                                            toDisk:YES
                                                         completion:^{
                                                             MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
                                                             assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());

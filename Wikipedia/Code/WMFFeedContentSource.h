@@ -1,7 +1,5 @@
 #import "WMFContentSource.h"
 
-@class WMFContentGroupDataStore;
-@class WMFArticleDataStore;
 @class WMFNotificationsController;
 @class MWKDataStore;
 @class WMFFeedNewsStory;
@@ -20,14 +18,11 @@ extern NSInteger const WMFFeedNotificationMaxPerDay;
 
 @property (nonatomic, getter=isNotificationSchedulingEnabled) BOOL notificationSchedulingEnabled;
 
-@property (readonly, nonatomic, strong) WMFContentGroupDataStore *contentStore;
-@property (readonly, nonatomic, strong) WMFArticleDataStore *previewStore;
-
-- (instancetype)initWithSiteURL:(NSURL *)siteURL contentGroupDataStore:(WMFContentGroupDataStore *)contentStore articlePreviewDataStore:(WMFArticleDataStore *)previewStore userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore notificationsController:(nullable WMFNotificationsController *)notificationsController;
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticle *)articlePreview force:(BOOL)force;
+- (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory articlePreview:(WMFArticle *)articlePreview inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force;
 
 //Use this method to fetch content directly. Using this will not persist the results
 - (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse *__nullable feedResponse, NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *__nullable pageViews))completion;

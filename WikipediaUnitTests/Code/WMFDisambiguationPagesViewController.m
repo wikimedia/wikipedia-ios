@@ -14,12 +14,11 @@
 
 @implementation WMFDisambiguationPagesViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore   {
     self = [super init];
     if (self) {
         self.article = article;
         self.userDataStore = dataStore;
-        self.previewStore = previewStore;
         self.dataSource =
             [[WMFArticlePreviewDataSource alloc] initWithArticleURLs:self.article.disambiguationURLs
                                                              siteURL:self.article.url

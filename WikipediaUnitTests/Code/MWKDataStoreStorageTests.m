@@ -15,11 +15,13 @@
     MWKArticle *article;
     article = [[MWKArticle alloc] initWithURL:self.articleURL dataStore:self.dataStore dict:self.json0[@"mobileview"]];
 
-    XCTAssertNoThrow([self.dataStore saveArticle:article]);
-
     MWKArticle *article2;
-    XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
-
+    XCTAssertNoThrow([self.dataStore saveArticle:article]);
+    XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
+    XCTAssertEqual(article, article2);
+    
+    XCTAssertNoThrow([self.dataStore addArticleToMemoryCache:article]);
+    XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
     XCTAssertEqualObjects(article, article2);
 }
 

@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)placeholderImage {
     NSURL *url = [self thumbnailImageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] cachedImageWithURL:url];
+        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)image {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] cachedImageWithURL:url];;
+        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -149,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)memoryCachedImage {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] sessionCachedImageWithURL:url];
+        return [[[WMFImageController sharedInstance] sessionCachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSData *)imageData {
     NSURL *URL = self.bestImageURL;
-    return [URL.absoluteString.lowercaseString containsString:@".gif"] ? [[WMFImageController sharedInstance] dataWithURL:URL] : nil;
+    return [URL.absoluteString.lowercaseString containsString:@".gif"] ? [[[WMFImageController sharedInstance] dataWithURL:URL] data] : nil;
 }
 
 - (nullable NSAttributedString *)attributedCaptionTitle {
@@ -604,7 +604,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)placeholderImage {
     NSURL *url = [self thumbnailImageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] cachedImageWithURL:url];
+        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -617,7 +617,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)image {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] cachedImageWithURL:url];
+        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }
@@ -626,7 +626,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage *)memoryCachedImage {
     NSURL *url = [self imageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] cachedImageWithURL:url];
+        return [[[WMFImageController sharedInstance] cachedImageWithURL:url] staticImage];
     } else {
         return nil;
     }

@@ -6,7 +6,6 @@
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
-#import "WMFArticleDataStore.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
@@ -39,7 +38,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
@@ -48,14 +46,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore previewStore:(WMFArticleDataStore *)previewStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
     self = [super init];
     if (self) {
 
         self.dataStore = dataStore;
-        self.previewStore = previewStore;
 
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
@@ -87,6 +83,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
                                     useDesktopURL:(BOOL)useDeskTopURL
+                                       saveToDisk:(BOOL)saveToDisk
                                          progress:(WMFProgressHandler __nullable)progress
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
@@ -157,11 +154,15 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
                                                   articleResponse = mutableArticleResponse;
                                               }
-                                              MWKArticle *article = [self serializedArticleWithURL:articleURL response:articleResponse];
-                                              [self.dataStore asynchronouslyCacheArticle:article];
+                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
+
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.previewStore addPreviewWithURL:articleURL updatedWithArticle:article];
-                                                  success(article);
+                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
+                                                  WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
+                                                  article.imageURLString = summaryResponse[@"originalimage"][@"source"];
+                                                  article.imageWidth = summaryResponse[@"originalimage"][@"width"];
+                                                  article.imageHeight = summaryResponse[@"originalimage"][@"height"];
+                                                  success(mwkArticle);
                                               });
                                           } else {
                                               if (!articleError) {
@@ -236,6 +237,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
                                                     forceDownload:(BOOL)forceDownload
+                                                       saveToDisk:(BOOL)saveToDisk
                                                          progress:(WMFProgressHandler __nullable)progress
                                                           failure:(WMFErrorHandler)failure
                                                           success:(WMFArticleHandler)success {
@@ -286,7 +288,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
-        task = [self fetchArticleForURL:url progress:progress failure:failure success:success];
+        task = [self fetchArticleForURL:url saveToDisk:saveToDisk progress:progress failure:failure success:success];
     } else {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
@@ -305,7 +307,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        success(cachedArticle);
                                                                        return;
                                                                    } else {
-                                                                       [self fetchArticleForURL:url progress:progress failure:failure success:success];
+                                                                       [self fetchArticleForURL:url saveToDisk:saveToDisk progress:progress failure:failure success:success];
                                                                        return;
                                                                    }
                                                                }];
@@ -315,17 +317,18 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 }
 
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
+                                                               saveToDisk:(BOOL)saveToDisk
                                                                  progress:(WMFProgressHandler __nullable)progress
                                                                   failure:(WMFErrorHandler)failure
                                                                   success:(WMFArticleHandler)success {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress failure:failure success:success];
+    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk progress:progress failure:failure success:success];
 }
 
-- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL saveToDisk:(BOOL)saveToDisk progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
-    return [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress failure:failure success:success];
+    return [self fetchArticleForURL:articleURL useDesktopURL:NO saveToDisk:saveToDisk progress:progress failure:failure success:success];
 }
 
 @end

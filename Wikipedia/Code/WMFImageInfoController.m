@@ -210,9 +210,6 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
             NSDictionary *indexedInfo = WMFIndexImageInfo(infoObjects);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.indexedImageInfo setValuesForKeysWithDictionary:indexedInfo];
-                // !!!: we should have already read any pre-existing image info from the data store
-                // HAX: we need to re-save the entire array every time, otherwise info will be "dropped"
-                [[self dataStore] saveImageInfo:self.indexedImageInfo.allValues forArticleURL:self.articleURL];
                 [self.delegate imageInfoController:self didFetchBatch:batch];
             });
         }

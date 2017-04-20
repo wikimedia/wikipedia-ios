@@ -26,7 +26,6 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "WMFArticleDataStore.h"
 #import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
@@ -97,7 +96,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
 
     if (url) {
-        [items addObject:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", url.absoluteString, @"wprov=sfsi1"]]];
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
+        components.queryItems = @[queryItem];
+
+        NSURL *componentsURL = components.URL;
+        if (componentsURL) {
+            [items addObject:componentsURL];
+        }
     }
 
     MKMapItem *mapItem = [self mapItem];
@@ -135,7 +142,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property (nonatomic, strong, readwrite) WMFArticleDataStore *previewStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
@@ -195,11 +201,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore
-                      previewStore:(WMFArticleDataStore *)previewStore {
+                         dataStore:(MWKDataStore *)dataStore {
+
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
-    NSParameterAssert(previewStore);
 
     self = [super init];
     if (self) {
@@ -208,7 +213,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
-        self.previewStore = previewStore;
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
@@ -223,7 +227,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFArticleFooterMenuViewController *)footerMenuViewController {
     if (!_footerMenuViewController && [self hasAboutThisArticle]) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article dataStore:self.dataStore previewStore:self.previewStore similarPagesListDelegate:self];
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article dataStore:self.dataStore similarPagesListDelegate:self];
     }
     return _footerMenuViewController;
 }
@@ -362,8 +366,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (WMFReadMoreViewController *)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore
-                                                                        previewStore:self.previewStore];
+                                                                           userStore:self.dataStore];
         _readMoreListViewController.delegate = self;
         _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
     }
@@ -372,7 +375,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (WMFArticleFetcher *)articleFetcher {
     if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore previewStore:self.previewStore];
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
 }
@@ -1236,6 +1239,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
         forceDownload:force
+        saveToDisk:NO
         progress:^(CGFloat progress) {
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
         }
@@ -1530,11 +1534,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
-    NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
-    if (!self.article.isCached) {
-        return;
-    }
-
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
@@ -1695,7 +1694,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
-            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore previewStore:self.previewStore];
+            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
@@ -1748,8 +1747,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
-#if WMF_PLACES_ENABLED
-    WMFArticle *wmfarticle = [self.previewStore itemForURL:self.articleURL];
+
+    WMFArticle *wmfarticle = [self.dataStore fetchArticleWithURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
@@ -1769,9 +1768,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         return @[readAction, saveAction, shareAction];
     }
-#else 
-    return @[readAction, saveAction, shareAction];
-#endif
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
@@ -1802,8 +1798,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                   dataStore:self.dataStore
-                                                previewStore:self.previewStore];
+                                                   dataStore:self.dataStore];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
@@ -1826,8 +1821,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
     return [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                      dataStore:self.dataStore
-                                                   previewStore:self.previewStore];
+                                                      dataStore:self.dataStore];
 }
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {

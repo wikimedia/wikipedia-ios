@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        [self migrateLegacyDataIfNeeded];
     }
     return self;
 }
@@ -50,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:obj.url];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:obj.url];
         article.viewedDate = obj.dateViewed;
         [article updateViewedDateWithoutTime];
         article.wasSignificantlyViewed = obj.titleWasSignificantlyViewed;
@@ -91,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleForKey:key];
+    WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
     if (article.viewedDate) {
         return article;
     } else {
@@ -127,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([URL.wmf_title length] == 0) {
             continue;
         }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+        WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
         article.viewedDate = now;
         [article updateViewedDateWithoutTime];
     }
@@ -154,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *now = [NSDate date];
 
-    WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
+    WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
     article.viewedDate = now;
     [article updateViewedDateWithoutTime];
 
@@ -173,31 +172,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.viewedFragment = fragment;
     article.viewedScrollPosition = scrollposition;
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
         DDLogError(@"Error setting fragment and scroll position: %@", error);
-    }
-}
-
-- (void)setInTheNewsNotificationDate:(NSDate *)date forArticlesWithURLs:(NSArray<NSURL *> *)articleURLs {
-    for (NSURL *URL in articleURLs) {
-        if ([URL wmf_isNonStandardURL]) {
-            continue;
-        }
-        if ([URL.wmf_title length] == 0) {
-            continue;
-        }
-        WMFArticle *article = [self.dataStore fetchOrCreateArticleForURL:URL];
-        article.newsNotificationDate = date;
-    }
-
-    NSError *error = nil;
-    if (![self.dataStore save:&error]) {
-        DDLogError(@"Error setting in the news notification date: %@", error);
     }
 }
 
@@ -210,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.wasSignificantlyViewed = YES;
 
     NSError *error = nil;
@@ -228,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticle *article = [self.dataStore fetchArticleForURL:URL];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
     article.viewedDate = nil;
     article.wasSignificantlyViewed = NO;
     [article updateViewedDateWithoutTime];
