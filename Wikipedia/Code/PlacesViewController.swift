@@ -108,21 +108,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             image = #imageLiteral(resourceName: "chevron-down")
         }
         
-        let attributedTitle = NSMutableAttributedString(string: title + " ")
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = image
+        let attributedTitle: NSMutableAttributedString
+        if (viewMode != .search) {
+            
+            attributedTitle = NSMutableAttributedString(string: title + " ")
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            
+            let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
+            imageAttachment.setImageHeight(6, font: font)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            attributedTitle.append(imageString)
+            
+            let fullRange = NSMakeRange(0, attributedTitle.length)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+        } else {
+            attributedTitle = NSMutableAttributedString(string: title)
+        }
         
-        let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
-        imageAttachment.setImageHeight(6, font: font)
-        let imageString = NSAttributedString(attachment: imageAttachment)
-        attributedTitle.append(imageString)
-        
-        let fullRange = NSMakeRange(0, attributedTitle.length)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
-        attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
-
         self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
     }
 
@@ -1176,6 +1182,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 isOverlaySearchButtonHidden = true
+                filterSelectorView.button.isEnabled = true
             case .list:
                 isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
@@ -1185,6 +1192,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = true
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
@@ -1195,12 +1203,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = false
             case .search:
                 isSearchBarInNavigationBar = true
                 mapView.isHidden = true
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = false
             case .map:
                 fallthrough
             default:
@@ -1209,9 +1219,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
+                filterSelectorView.button.isEnabled = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             redoSearchButton.isHidden = mapView.isHidden
+            updateSearchFilterTitle()
         }
     }
 
