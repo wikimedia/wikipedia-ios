@@ -429,7 +429,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3Ik-kL-6c1">
-                            <rect key="frame" x="8" y="85" width="344" height="230"/>
+                            <rect key="frame" x="8" y="50" width="344" height="230"/>
                             <subviews>
                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
                                     <rect key="frame" x="88" y="0.0" width="168" height="139"/>
@@ -465,8 +465,25 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerX" secondItem="Mkb-GI-RvY" secondAttribute="centerX" id="I8g-iA-aXe"/>
+                        <constraint firstItem="3Ik-kL-6c1" firstAttribute="top" secondItem="Mkb-GI-RvY" secondAttribute="top" constant="50" id="KOP-oX-WGC"/>
                         <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerY" secondItem="Mkb-GI-RvY" secondAttribute="centerY" id="j1d-oJ-r8H"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="KOP-oX-WGC"/>
+                            <exclude reference="j1d-oJ-r8H"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="KOP-oX-WGC"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="j1d-oJ-r8H"/>
+                        </mask>
+                    </variation>
                     <connections>
                         <outlet property="detailLabel" destination="Vm1-d9-7Ne" id="Lhm-aa-mUu"/>
                         <outlet property="mainLabel" destination="oYN-g3-07L" id="zKg-IX-gVB"/>
