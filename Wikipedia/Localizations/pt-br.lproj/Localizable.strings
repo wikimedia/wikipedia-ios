@@ -10,6 +10,7 @@
 // Author: Dianakc
 // Author: Eduardo Addad de Oliveira
 // Author: Fasouzafreitas
+// Author: Felipe L. Ewald
 // Author: Fúlvio
 // Author: HenriqueCrang
 // Author: Luckas
@@ -66,15 +67,28 @@
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
 "zero-warn-when-leaving" = "Avisar-me se sair de Zero";
 "zero-settings-devmode" = "Modo para desenvolvedor Zero";
+"account-creation-title" = "Criar uma nova conta";
 "account-creation-captcha-required" = "Verificasão de CAPTCHA necessária.";
+"account-creation-captcha-retry" = "Entrada incorreta. Por favor, tente novamente.";
 "account-creation-captcha-obtaining" = "Obtendo um novo CAPTCHA...";
+"account-creation-captcha-title" = "Verificação de segurança com CAPTCHA";
+"account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
+"account-creation-captcha-request-account" = "Solicitar uma conta.";
 "account-creation-logging-in" = "Autenticando...";
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
 "account-creation-login" = "Já tem uma conta? Entrar.";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
-// Fuzzy
-"two-factor-login-with-regular-code" = "Use código numérico pequeno";
+"account-creation-create-account" = "Crie sua conta";
+"account-creation-have-account" = "Já possui uma conta? $1";
+"account-creation-log-in" = "Entrar";
+"new-password-title" = "Defina sua senha";
+"new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
+"two-factor-login-title" = "Faça login na sua conta";
+"two-factor-login-instructions" = "Por favor, insira o código de verificação de dois fatores";
+"two-factor-login-continue" = "Continuar conectado";
+"two-factor-login-with-regular-code" = "Usar código de verificação";
+"two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "login-name-not-found" = "Nome de usuário necessário para entrar.";
 "login-name-illegal" = "Você forneceu um nome de usuário inválido.";
 "login-name-does-not-exist" = "O nome de usuário que você forneceu não existe.";
@@ -85,10 +99,40 @@
 "login-account-creation" = "Não possui uma conta? Junte-se a Wikipédia.";
 "login-username-placeholder-text" = "Nome de usuário";
 "login-password-placeholder-text" = "Senha";
-// Fuzzy
-"field-token-title" = "Código numérico";
-// Fuzzy
-"field-alert-token-invalid" = "Código inválido. Por favor, tente novamente.";
+"login-forgot-password" = "Esqueceu sua senha?";
+"login-title" = "Faça login na sua conta";
+"login-no-account" = "Não tem uma conta? $1";
+"login-join-wikipedia" = "Junte-se à Wikipédia.";
+"field-username-title" = "Nome de usuário";
+"field-username-placeholder" = "insira nome de usuário";
+"field-password-title" = "Senha";
+"field-password-placeholder" = "insira a senha";
+"field-password-confirm-title" = "Confirme a senha";
+"field-password-confirm-placeholder" = "re-insira a senha";
+"field-new-password-title" = "Nova senha";
+"field-new-password-placeholder" = "insira a nova senha";
+"field-new-password-confirm-title" = "Confirme a senha";
+"field-new-password-confirm-placeholder" = "re-insira a senha";
+"field-email-title" = "E-mail";
+"field-email-title-optional" = "E-mail (opcional)";
+"field-email-placeholder" = "exemplo@exemplo.org";
+"field-token-title" = "Código de verificação";
+"field-backup-token-title" = "Código de backup";
+"field-token-placeholder" = "insira o token";
+"field-captcha-title" = "Digite o texto que você vê acima.";
+"field-captcha-placeholder" = "Texto CAPTCHA";
+"field-alert-username-unavailable" = "Nome de usuário não disponível";
+"field-alert-password-invalid" = "Senha invalida";
+"field-alert-token-invalid" = "Código inválido";
+"field-alert-captcha-invalid" = "CAPTCHA invalido";
+"field-alert-password-confirm-mismatch" = "As senhas não são iguais";
+"forgot-password-title" = "Redefinir senha";
+"forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
+"forgot-password-username-prompt" = "Nome de usuário(a)";
+"forgot-password-email-prompt" = "E-mail (opcional)";
+"forgot-password-button-title" = "Redefinir";
+"forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";
+"forgot-password-username-or-email-title" = "ou";
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";
@@ -253,6 +297,8 @@
 "share-as-image" = "Compartilhar como imagem";
 "share-as-text" = "Compartilhar como texto";
 "share-cancel" = "Cancelar";
+"share-open-in-maps" = "Abrir no Maps";
+"share-get-directions-in-maps" = "Obter direções";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "%d minutos atrás";
 "timestamp-hours" = "%d horas atrás";
@@ -279,8 +325,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A Enciclopédia Livre";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
 "page-protected-autoconfirmed" = "Esta página foi semiprotegida.";
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
 "page-protected-other" = "Esta página está protegida para os seguintes níveis: $1";
@@ -341,10 +386,8 @@
 "image-gallery-fetch-image-info-error-title" = "Não é possível baixar imagens";
 "image-gallery-fetch-image-info-error-message" = "Não foi possível baixar as imagens para este artigo. Por favor, recarregue e tente de novo.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-// Fuzzy
-"hockeyapp-alert-question" = "Gostaria de enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Gostaria de enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema? Por favor, descreva o que ocorreu:";
+"hockeyapp-alert-question" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema?";
+"hockeyapp-alert-question-with-response-field" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema? Por favor, descreva o que ocorreu quando o erro aconteceu:";
 "hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "hockeyapp-alert-send-report" = "Enviar relatório";
 "hockeyapp-alert-always-send" = "Sempre enviar";
@@ -355,6 +398,7 @@
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";
+"page-location" = "Ver no mapa";
 "mwk-empty-title-error" = "Não se pode realizar a operação com o título vazio.";
 "home-title" = "explorar";
 "home-empty-section" = "Sem resultados";
@@ -406,8 +450,7 @@
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 Obrigado!";
 "welcome-send-data-title" = "Enviar dados anónimos";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ajude a Wikimedia a tornar o aplicativo melhor ao nos informar como você usa o aplicativo. Os dados coletados são anônimos";
+"welcome-send-data-sub-title" = "Ajude a Fundação Wikimedia a tornar o aplicativo melhor ao nos informar como você usa o aplicativo. Os dados coletados são anônimos";
 "empty-no-feed-title" = "Sem conexão com a internet";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
@@ -429,6 +472,11 @@
 "explore-continue-reading-heading" = "Continue lendo";
 "explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-sub-heading-your-location" = "Sua localização";
+"explore-nearby-placeholder-heading" = "Lugares";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipédia $1";
+"explore-nearby-placeholder-dismiss" = "Dispensar";
+"explore-nearby-placeholder-cancel" = "Cancelar";
 "explore-continue-related-heading" = "Porque você leu";
 "explore-main-page-heading" = "Hoje na Wikipédia";
 "explore-random-article-heading" = "Artigo aleatório";
@@ -473,3 +521,24 @@
 "status-saving-for-later" = "Salvar para mais tarde ...";
 "status-saved-for-later" = "Salvo para mais tarde";
 "announcements-dismiss" = "Não, obrigado";
+"places-search-top-articles" = "Artigos mais lidos";
+"places-search-this-area" = "Procurar nesta área";
+"places-search-saved-articles" = "Artigos salvos";
+"places-search-suggested-searches-header" = "Pesquisas sugeridas";
+"places-search-recently-searched-header" = "Procurado recentemente";
+"places-no-saved-articles-have-location" = "Nenhum dos seus artigos salvos tem informações de localização";
+"places-unknown-distance" = "distância desconhecida";
+"places-enable-location-title" = "Explore artigos perto da sua localização, ativando o acesso à sua localização";
+"places-enable-location-description" = "O acesso à sua localização está disponível apenas quando a aplicação ou uma das suas funcionalidades estiver visível na tela.";
+"places-enable-location-action-button-title" = "Ativar localização";
+"places-accessibility-group" = "$1 artigos";
+"places-accessibility-show-more" = "Mostrar mais artigos";
+"places-accessibility-show-as-map" = "Mostra como mapa";
+"places-accessibility-show-as-list" = "Mostrar como lista";
+"places-accessibility-recenter-map-on-user-location" = "Recentralizar sua localização";
+"places-accessibility-close-search" = "Fechar pesquisa";
+"places-accessibility-clear-recent-searches" = "Apagar pesquisas recentes";
+"action-share" = "Compartilhar";
+"action-save" = "Salvar";
+"action-read" = "Ler";
+"action-saved" = "Salvo";

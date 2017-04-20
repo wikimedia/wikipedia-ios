@@ -1,5 +1,6 @@
 // Messages for Burmese (မြန်မာဘာသာ)
 // Exported from translatewiki.net
+// Author: Dr Lotus Black
 // Author: Nemo bis
 // Author: Ninjastrikers
 
@@ -44,13 +45,27 @@
 "zero-wikipedia-zero-heading" = "ဝီကီပီးဒီးယားသုည";
 "zero-warn-when-leaving" = "သုညမှ ထွက်ခွာလျှင် သတိပေးပါ";
 "zero-settings-devmode" = "Zero devmode";
+"account-creation-title" = "အကောင့်အသစ်တစ်ခု ဖန်တီးပါ";
 "account-creation-captcha-required" = "CAPTCHA အတည်ပြုခြင်း လိုအပ်သည်။";
+"account-creation-captcha-retry" = "မှားယွင်းနေသည်၊ ထပ်မံကြိုးစားကြည့်ပါ။";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
+"account-creation-captcha-title" = "CAPTCHA လုံခြုံရေး စစ်ဆေးချက်";
+"account-creation-captcha-cannot-see-image" = "ပုံကို မမြင်ရပါသလား $1";
+"account-creation-captcha-request-account" = "အကောင့်တစ်ခု တောင်းဆိုရန်";
 "account-creation-logging-in" = "လော့ဂ်အင် ဝင်ရောက်နေသည်...";
 "account-creation-passwords-mismatched" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ။";
 "account-creation-saving" = "သိမ်းဆည်းနေသည်...";
 "account-creation-login" = "အကောင့် ရှိပြီးသားလား? လော့ဂ်အင်ဝင်ပါ။";
 "account-creation-missing-fields" = "အကောင့်တစ်ခု ဖန်တီးရန် အသုံးပြုသူအမည်၊ စကားဝှက်နှင့် အတည်ပြုစကားဝှက်များကို ထည့်သွင်းပေးရမည်။";
+"account-creation-create-account" = "သင်၏အကောင့်ကို ဖန်တီးရန်";
+"account-creation-have-account" = "အကောင့်တစ်ခု ရှိနေပြီးသားလား $1";
+"account-creation-log-in" = "အကောင့်ဝင်ရန်";
+"new-password-title" = "သင်၏ စကားဝှက်ကို ရိုက်ထည့်ပါ";
+"new-password-instructions" = "ယာယီစကားဝှက်ဖြင့် ဝင်ထားပါသည်၊ အပြီးသတ်ရန် စကားဝှက်အသစ်တစ်ခု ဆောင်ရွက်ပါ";
+"two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
+"two-factor-login-instructions" = "အတည်ပြုကုဒ်ကို ရိုက်ထည့်ပါ";
+"two-factor-login-continue" = "ဆက်လက် ဝင်ရောက်ပါ";
+"two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "login-name-not-found" = "လော့ဂ်အင်ဝင်ရန် အသုံးပြုသူအမည် လိုအပ်သည်။";
 "login-name-illegal" = "တရားမဝင်သော အသုံးပြုသူအမည် ထည့်သွင်းခဲ့သည်။";
 "login-name-does-not-exist" = "သင်ထည့်သွင်းသော အသုံးပြုသူအမည် မရှိပါ။";
@@ -61,6 +76,26 @@
 "login-account-creation" = "အကောင့် မရှိဘူးလား? ဝီကီပီဒီးယားနဲ့ ချိတ်ဆက်လိုက်ပါ။";
 "login-username-placeholder-text" = "အသုံးပြုသူအမည်";
 "login-password-placeholder-text" = "စကားဝှက်";
+"login-forgot-password" = "စကားဝှက် မေ့နေသလား?";
+"login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
+"login-no-account" = "အကောင့်မရှိဘဲ ဖြစ်နေပါသလား။ $1။";
+"login-join-wikipedia" = "ဝီကီပီဒီးယားသို့ ပူးပေါင်းပါ";
+"field-username-title" = "အသုံးပြုသူအမည်";
+"field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
+"field-password-title" = "စကားဝှက်";
+"field-password-placeholder" = "စကားဝှက် ရိုက်ထည့်ပါ";
+"field-password-confirm-title" = "စကားဝှက်ကို အတည်ပြုပါ";
+"field-password-confirm-placeholder" = "စကားဝှက်ကို ပြန်ရိုက်ထည့်ပါ";
+"field-new-password-title" = "စကားဝှက် အသစ် -";
+"field-new-password-placeholder" = "စကားဝှက်အသစ် ရိုက်ထည့်ပါ";
+"field-new-password-confirm-title" = "စကားဝှက်ကို အတည်ပြုပါ";
+"field-new-password-confirm-placeholder" = "စကားဝှက်အသစ်ကို ပြန်ရိုက်ထည့်ပါ";
+"field-email-title" = "အီးမေး";
+"field-email-title-optional" = "အီးမေးလ် (ရှိပါက)";
+"field-email-placeholder" = "example@wikipedia.org";
+"field-token-title" = "အတည်ပြုကုဒ်";
+"forgot-password-username-prompt" = "အသုံးပြုသူအမည်";
+"forgot-password-username-or-email-title" = "သို့မဟုတ်";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
 "wikitext-download-success" = "အကြောင်းအရာ ရယူပြီး။";
@@ -250,6 +285,7 @@
 "hockeyapp-alert-send-report" = "အစီရင်ခံချက် ပို့ရန်";
 "hockeyapp-alert-always-send" = "အမြဲတမ်းပို့ရန်";
 "hockeyapp-alert-do-not-send" = "မပို့ပါနှင့်";
+"hockeyapp-alert-privacy" = "$1 ပုဂ္ဂိုလ်ရေးလုံခြုံမှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
 "page-read-in-other-languages" = "အခြားဘာသာစကား $1 ခုဖြင့် ရရှိနိုင်သည်";
@@ -263,6 +299,8 @@
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
 "home-hide-suggestion-cancel" = "မလုပ်တော့ပါ";
 "home-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရှာဖွေ";
+"home-button-accessibility-label" = "ပင်မ";
+"welcome-explore-title" = "ရှာဖွေစူးစမ်းပါ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";
 "welcome-languages-title" = "ဘာသာစကားများ";
@@ -270,12 +308,24 @@
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
 "welcome-languages-continue-button" = "ဆက်လက်";
 "welcome-volunteer-title" = "စေတနာ့ဝန်ထမ်း";
+"welcome-volunteer-continue-button" = "ဆက်လက်";
+"welcome-volunteer-thanks" = "$1 ကျေးဇူးတင်ပါသည်";
+"empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
+"alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
+"icon-shortcut-search-title" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
+"icon-shortcut-continue-reading-title" = "ဆက်လက် ဖတ်ရှုရန်";
+"icon-shortcut-random-title" = "ကျပန်း ဆောင်းပါး";
+"icon-shortcut-nearby-title" = "အနီးအနား ဆောင်းပါးများ";
 "close-button-accessibility-label" = "ပိတ်ရန်";
 "back-button-accessibility-label" = "နောက်သို့";
 "explore-featured-article-heading" = "အထူးဆောင်းပါး";
 "explore-continue-reading-heading" = "ဆက်လက် ဖတ်ရှုရန်";
 "explore-nearby-heading" = "အနီးအနား နေရာများ";
 "explore-nearby-sub-heading-your-location" = "သင့်တည်နေရာ";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "$1 ဝီကီပီးဒီးယား";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
+"explore-nearby-placeholder-dismiss" = "ဖြုတ်ရန်";
+"explore-nearby-placeholder-cancel" = "မလုပ်တော့ပါ";
 "explore-continue-related-heading" = "သင်ဖတ်ရှုခဲ့သောကြောင့်";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
 "explore-random-article-heading" = "ကျပန်း ဆောင်းပါး";

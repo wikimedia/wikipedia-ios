@@ -478,7 +478,7 @@ static NSString *const WMFArticleReflistColumnSelector = @"/html/body/*[contains
                                                     }
                                                 }];
         if (!referenceListItems) {
-            DDLogWarn(@"Failed to parse reflist for %@ cached article: %@", self.isCached ? @"" : @"not", self);
+            DDLogWarn(@"Failed to parse reflist"); // Can't reference self here, causes infinite loop
             return nil;
         }
         _citations = [[referenceListItems wmf_map:^MWKCitation *(TFHppleElement *el) {

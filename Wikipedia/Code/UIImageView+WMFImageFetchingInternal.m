@@ -109,7 +109,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                     failure([NSError wmf_cancelledError]);
                                                 } else {
                                                     self.wmf_imageURLToCancel = nil;
-                                                    [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
+                                                    [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
                                                 }
                                             });
                                         }];

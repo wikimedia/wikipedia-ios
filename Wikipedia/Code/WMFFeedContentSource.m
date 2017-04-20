@@ -412,7 +412,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    if (![self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout force:NO]) {
+    if (![self scheduleNotificationForNewsStory:newsStory articlePreview:articlePreviewToNotifyAbout inManagedObjectContext:moc force:NO]) {
         done();
         return;
     }
@@ -424,6 +424,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (BOOL)scheduleNotificationForNewsStory:(WMFFeedNewsStory *)newsStory
                           articlePreview:(WMFArticle *)articlePreview
+                  inManagedObjectContext:(NSManagedObjectContext *)moc
                                    force:(BOOL)force {
     if (!newsStory.featuredArticlePreview) {
         NSString *articlePreviewKey = articlePreview.URL.wmf_articleDatabaseKey;
@@ -515,9 +516,12 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSArray<NSURL *> *articleURLs = [newsStory.articlePreviews wmf_mapAndRejectNil:^NSURL *_Nullable(WMFFeedArticlePreview *_Nonnull obj) {
         return obj.articleURL;
     }];
-
-    [self.userDataStore.historyList setInTheNewsNotificationDate:notificationDate forArticlesWithURLs:articleURLs];
-
+    
+    for (NSURL *URL in articleURLs) {
+        WMFArticle *article = [moc fetchOrCreateArticleWithURL:URL];
+        article.newsNotificationDate = notificationDate;
+    }
+    
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     if (notificationDate && mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {

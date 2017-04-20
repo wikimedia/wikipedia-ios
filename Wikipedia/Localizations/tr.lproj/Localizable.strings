@@ -323,8 +323,7 @@
 "onboarding-wikipedia" = "Vikipedi";
 "onboarding-free-encyclopedia" = "Özgür Ansiklopedi";
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
+"preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "page-protected-autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
 "page-protected-other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
@@ -385,10 +384,8 @@
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";
 "image-gallery-fetch-image-info-error-message" = "Bu maddedeki görseller indirilemedi. Lütfen maddeyi yenileyerek tekrar deneyin.";
 "image-gallery-fetch-image-info-error-ok" = "TAMAM";
-// Fuzzy
-"hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz? Lütfen çökme gerçekleştiği sırada ne olduğunu tanımlayabilir misiniz:";
+"hockeyapp-alert-question" = "Wikimedia Vakfı'nın kilitlenmenizi inceleyebilmesi için $1'e kilitlenme raporu göndermek ister misiniz?";
+"hockeyapp-alert-question-with-response-field" = "Wikimedia Vakfı'nın kilitlenmenizi inceleyebilmesi için $1'e kilitlenme raporu göndermek ister misiniz? Lütfen kilitlenme gerçekleştiği sırada ne olduğunu anlatın:";
 "hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
 "hockeyapp-alert-send-report" = "Rapor gönder";
 "hockeyapp-alert-always-send" = "Her zaman gönder";
@@ -451,8 +448,7 @@
 "welcome-volunteer-continue-button" = "Devam";
 "welcome-volunteer-thanks" = "$1 Teşekkürler!";
 "welcome-send-data-title" = "Anonim veri gönder";
-// Fuzzy
-"welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bilmemize izin vererek Wikimedia'nın uygulamayı iyileştirmesine yardım edin. Veriler anonim olarak toplanır";
+"welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bize bildirerek Wikimedia Vakfı'nın uygulamayı daha iyi hâle getirmesini sağlayın. Veriler anonim olarak toplanır";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
 "empty-no-feed-action-message" = "Hala kayıtlı sayfaları okuyabilirsiniz";
