@@ -40,6 +40,7 @@
 #import "WMFSearchFetcher.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "WMFProxyServer.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

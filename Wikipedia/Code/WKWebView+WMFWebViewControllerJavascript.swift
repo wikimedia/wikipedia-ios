@@ -118,4 +118,29 @@ extension WKWebView {
         evaluateJavaScript("window.wmf.footerLegal.add( '\(licenseString)', '\(licenseSubstitutionString)', \(licenseLinkClickHandler) );", completionHandler: nil)
     }
 
+    public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
+        guard
+            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: article.url.host),
+            let title = (article.url as NSURL).wmf_title
+        else {
+            assert(false, "Expected read more title and proxyURL")
+        }
+        
+        let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
+        let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
+        let headerString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title")
+
+        let saveButtonTapHandler =
+        "function(title){" +
+        "  window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})" +
+        "}"
+        
+        let titlesShownHandler =
+        "function(titles){" +
+        "  window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
+        "}";
+        
+        evaluateJavaScript("window.wmf.footerReadMore.add( '\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+    }
+    
 }
