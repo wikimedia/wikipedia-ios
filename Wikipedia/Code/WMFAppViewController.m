@@ -281,7 +281,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.launchMigrationsComplete) {
+        if (!self.areLaunchMigrationsComplete) {
             completion(UIBackgroundFetchResultNoData);
             return;
         }
