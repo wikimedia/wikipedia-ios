@@ -101,7 +101,10 @@
 "field-captcha-title" = "مٿين جيڪا لکت ڏسو پيا اھا داخل ڪريو";
 "field-captcha-placeholder" = "ڪيپچا لکت";
 "field-alert-username-unavailable" = "واھپنانءُ موجود ناھي";
+"field-alert-password-invalid" = "ناقابلِڪار ڳجھولفظ";
 "field-alert-token-invalid" = "اڻقبوليل ڪوڊ";
+"field-alert-captcha-invalid" = "ناقابلِڪار ڪيپچا";
+"field-alert-password-confirm-mismatch" = "ڳجھولفظ ھڪجھڙائي نٿو رکي";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
 "forgot-password-username-prompt" = "يوزرنانءُ";
 "forgot-password-email-prompt" = "برقٽپال (اختياري)";
@@ -436,6 +439,8 @@
 "explore-nearby-sub-heading-your-location" = "توھان جي مڪانيت";
 "explore-nearby-placeholder-heading" = "ماڳ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 وڪيپيڊيا تي";
+"explore-nearby-placeholder-dismiss" = "برخواست";
 "explore-nearby-placeholder-cancel" = "رد ڪيو";
 "explore-continue-related-heading" = "ڇو تہ توھان پڙھو ٿا";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
