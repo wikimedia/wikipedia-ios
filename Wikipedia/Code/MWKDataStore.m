@@ -465,6 +465,11 @@ static uint64_t bundleHash() {
 - (void)backgroundContextDidSave:(NSNotification *)note {
     dispatch_sync(dispatch_get_main_queue(), ^{
         [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+        NSError *mainContextSaveError = nil;
+        [self.viewContext save:&mainContextSaveError];
+        if (mainContextSaveError) {
+            DDLogError(@"Error saving main context: %@", mainContextSaveError);
+        }
     });
 }
 
@@ -1126,18 +1131,18 @@ static uint64_t bundleHash() {
         if (htmlFetchError) {
             DDLogError(@"Error fetching articles with HTML in the title: %@", htmlFetchError);
         }
-        
+
         for (WMFArticle *article in articlesWithHTMLInTheTitle) {
             article.displayTitle = [article.displayTitle wmf_stringByRemovingHTML];
             article.wikidataDescription = [article.wikidataDescription wmf_stringByRemovingHTML];
         }
-        
+
         NSError *saveError = nil;
         [moc save:&saveError];
         if (saveError) {
             DDLogError(@"Error saving after fixing articles with HTML in the title: %@", saveError);
         }
-        
+
         NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
         allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
         allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
