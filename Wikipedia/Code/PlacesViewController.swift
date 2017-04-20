@@ -1148,18 +1148,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard oldValue != traitBasedViewMode else {
                 return
             }
-//            if oldValue == .search && viewMode != .search {
-//                searchBarToCloseTrailingConstraint.isActive = false
-//                closeSearchButton.isHidden = true
-//                searchBarToMapListToggleTrailingConstraint.isActive = true
-//                mapListToggle.isHidden = false
-// 
-//            } else if oldValue != .search && viewMode == .search {
-//                searchBarToMapListToggleTrailingConstraint.isActive = false
-//                mapListToggle.isHidden = true
-//                searchBarToCloseTrailingConstraint.isActive = true
-//                closeSearchButton.isHidden = false
-//            }
+            if oldValue == .search && viewMode != .search {
+                searchBarToCloseTrailingConstraint.isActive = false
+                closeSearchButton.isHidden = true
+                searchBarToMapListToggleTrailingConstraint.isActive = true
+                mapListToggle.isHidden = false
+ 
+            } else if oldValue != .search && viewMode == .search {
+                searchBarToMapListToggleTrailingConstraint.isActive = false
+                mapListToggle.isHidden = true
+                searchBarToCloseTrailingConstraint.isActive = true
+                closeSearchButton.isHidden = false
+            }
             switch traitBasedViewMode {
             case .listOverlay:
                 isSearchBarInNavigationBar = false
