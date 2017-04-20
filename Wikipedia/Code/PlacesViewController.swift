@@ -1029,7 +1029,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    fileprivate func showSearchFilterDropdown() {
+    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
         guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
             // TODO: error
@@ -1062,23 +1062,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchFilterListController.currentFilterType = currentSearchFilter
         self.view.addSubview(filterDropDownContainerView)
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
                                                             y: self.filterDropDownContainerView.frame.origin.y,
                                                             width: self.filterDropDownContainerView.frame.size.width,
                                                             height: origHeight)
             
-        }, completion: { (done) in })
+        }, completion: { (done) in
+            completion(done)
+        })
     }
     
-    fileprivate func hideSearchFilterDropdown() {
+    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
         let origHeight = filterDropDownContainerView.bounds.height
         
         self.touchOutsideOverlayView.removeFromSuperview()
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+        UIView.commitAnimations()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
                                                             y: self.filterDropDownContainerView.frame.origin.y,
@@ -1087,6 +1091,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }, completion: { (done) in
             self.filterDropDownContainerView.removeFromSuperview()
             self.filterDropDownContainerView.frame.size.height = origHeight
+            completion(done)
         })
     }
     
@@ -1097,9 +1102,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
 
             if newValue {
-                showSearchFilterDropdown()
+                showSearchFilterDropdown(completion: { (done) in })
             } else {
-                hideSearchFilterDropdown()
+                hideSearchFilterDropdown(completion: { (done) in })
             }
             
             updateSearchFilterTitle()
