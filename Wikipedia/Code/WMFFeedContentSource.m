@@ -297,7 +297,18 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
             [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
-        story.featuredArticlePreview = story.articlePreviews.firstObject;
+
+        for (WMFFeedArticlePreview *preview in story.articlePreviews) {
+            if (preview.thumbnailURL == nil) {
+                continue;
+            }
+            story.featuredArticlePreview = preview;
+            break;
+        }
+
+        if (story.featuredArticlePreview == nil) {
+            story.featuredArticlePreview = story.articlePreviews.firstObject;
+        }
     }];
 }
 
