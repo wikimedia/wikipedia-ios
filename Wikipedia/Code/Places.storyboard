@@ -289,7 +289,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="UTC-Vw-z99"/>
                                         </constraints>
-                                        <color key="tintColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.33000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="closeSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="bLQ-2G-v1v"/>
