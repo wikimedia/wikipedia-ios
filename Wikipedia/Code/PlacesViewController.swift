@@ -2202,13 +2202,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func updateSearchCompletionsFromSearchBarText() {
-
-        
         switch (currentSearchFilter) {
         case .top:
             updateSearchCompletionsFromSearchBarTextForTopArticles()
         case .saved:
-            break
+            self.isWaitingForSearchSuggestionUpdate = false
         }
     }
     
