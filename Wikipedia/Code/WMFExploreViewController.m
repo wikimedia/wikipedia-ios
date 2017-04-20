@@ -433,10 +433,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [header.enableNotificationsButton addTarget:self action:@selector(enableNotificationsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
-    
-     if (self.collectionView.contentOffset.y <= 0) {
-         [self.collectionView setContentOffset:CGPointMake(0, 0 - header.frame.size.height) animated:YES];
-     }
+
+    if (self.collectionView.contentOffset.y <= 0) {
+        [self.collectionView setContentOffset:CGPointMake(0, 0 - header.frame.size.height) animated:YES];
+    }
 }
 
 - (void)enableNotificationsButtonPressed {
@@ -534,6 +534,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
                                                              if (date == nil) { //only hide on a new content update
                                                                  [self showHideNotificationIfNeccesary];
+                                                                 [self startMonitoringReachabilityIfNeeded];
+                                                                 [self showOfflineEmptyViewIfNeeded];
                                                              }
                                                              if (completion) {
                                                                  completion();
@@ -1621,9 +1623,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
-
-    [self startMonitoringReachabilityIfNeeded];
-    [self showOfflineEmptyViewIfNeeded];
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
