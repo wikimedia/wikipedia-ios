@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite, nullable) NSURL *thumbnailURL;
 
+@property (nonatomic, copy, readwrite, nullable) NSString *imageURLString;
+
+@property (nonatomic, copy, readwrite, nullable) NSNumber *imageWidth;
+
+@property (nonatomic, copy, readwrite, nullable) NSNumber *imageHeight;
+
 @property (nonatomic, copy, readwrite, nonnull) NSURL *articleURL;
 
 @end

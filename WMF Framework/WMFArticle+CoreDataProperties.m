@@ -20,6 +20,9 @@
 @dynamic wikidataDescription;
 @dynamic snippet;
 @dynamic thumbnailURLString;
+@dynamic imageURLString;
+@dynamic imageWidth;
+@dynamic imageHeight;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic pageViews;

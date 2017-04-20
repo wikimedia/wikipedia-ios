@@ -19,7 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *displayTitle;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
 @property (nullable, nonatomic, copy) NSString *snippet;
-@property (nullable, nonatomic, copy) NSString *thumbnailURLString;
+@property (nullable, nonatomic, copy) NSString *thumbnailURLString; // deprecated
+@property (nullable, nonatomic, copy) NSString *imageURLString; // original image URL
+@property (nullable, nonatomic, copy) NSNumber *imageWidth;
+@property (nullable, nonatomic, copy) NSNumber *imageHeight;
 @property (nullable, nonatomic, copy) NSDictionary *pageViews;
 @property (nullable, nonatomic, copy) NSNumber *signedQuadKey;
 @property (nullable, nonatomic, copy) NSNumber *geoDimensionNumber;
