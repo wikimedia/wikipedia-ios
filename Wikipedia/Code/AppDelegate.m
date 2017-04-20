@@ -80,7 +80,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
-    
+
 #if WMF_UX_STUDY_ENABLED
     if (WMFAppSeeAPIKey.length > 0) {
         [Appsee start:WMFAppSeeAPIKey];
@@ -95,8 +95,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
-    NSDictionary *userAcivityDictionary = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey];
-    self.appNeedsResume = userAcivityDictionary != nil;
+    self.appNeedsResume = YES;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
@@ -114,6 +113,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[NSUserDefaults wmf_userDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
+    [self resumeAppIfNecessary];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
