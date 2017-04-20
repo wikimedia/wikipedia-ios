@@ -176,6 +176,11 @@
 "settings-notifications-system-turn-on" = "Turn on Notifications";
 "settings-notifications-trending" = "Trending current events";
 "settings-notifications-push-notifications" = "Push notifications";
+"settings-clear-cache" = "Clear cached data";
+"settings-clear-cache-are-you-sure-title" = "Clear cached data?";
+"settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
+"settings-clear-cache-ok" = "Clear cache";
+"settings-clear-cache-cancel" = "Cancel";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";

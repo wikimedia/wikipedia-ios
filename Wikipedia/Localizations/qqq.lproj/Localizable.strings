@@ -173,6 +173,11 @@
 "settings-notifications-learn-more" = "A title for a button to learn more about notifications";
 "settings-notifications-trending" = "Title for the setting for trending notifications";
 "settings-notifications-push-notifications" = "A title for a list of Push notifications";
+"settings-clear-cache" = "Title for the 'Clear cached data' settings row";
+"settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
+"settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
+"settings-clear-cache-ok" = "Confirm action to clear cached data";
+"settings-clear-cache-cancel" = "Cancel action to clear cached data";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
