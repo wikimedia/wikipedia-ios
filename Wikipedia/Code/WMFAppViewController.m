@@ -277,14 +277,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configureExploreViewController];
 }
 
-#pragma mark - Background Fetch
-
-- (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
-    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
-        completion(UIBackgroundFetchResultNewData);
-    }];
-}
-
 #pragma mark - Background Tasks
 
 - (void)startBackgroundTask {

@@ -80,7 +80,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     NSLog(@"\n\nSimulator container directory:\n\t%@\n\n",
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
-    
+
 #if WMF_UX_STUDY_ENABLED
     if (WMFAppSeeAPIKey.length > 0) {
         [Appsee start:WMFAppSeeAPIKey];
@@ -195,8 +195,18 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 #pragma mark - Background Fetch
 
+- (SessionSingleton *)session {
+    return [SessionSingleton sharedInstance];
+}
+
+- (MWKDataStore *)dataStore {
+    return self.session.dataStore;
+}
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
+    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    }];
 }
 
 @end
