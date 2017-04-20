@@ -227,6 +227,12 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                           }];
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:^{
+        if ([moc hasChanges]) {
+            NSError *saveError = nil;
+            if (![moc save:&saveError]) {
+                DDLogError(@"Error saving background source update: %@", saveError);
+            }
+        }
         if (completion) {
             completion();
         }
