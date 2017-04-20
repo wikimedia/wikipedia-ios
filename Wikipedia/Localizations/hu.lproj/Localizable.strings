@@ -71,6 +71,7 @@
 "two-factor-login-instructions" = "Írd be a kétlépcsős azonosítás kódját";
 "two-factor-login-continue" = "Bejelentkezés folytatása";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
+"two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "login-name-not-found" = "A felhasználónév szükséges a belépéshez.";
 "login-name-illegal" = "Érvénytelen felhasználónevet adtál meg.";
 "login-name-does-not-exist" = "A megadott felhasználónév nem létezik.";
@@ -99,6 +100,7 @@
 "field-email-title-optional" = "E-mail (opcionális)";
 "field-email-placeholder" = "pelda@minta.hu";
 "field-token-title" = "Ellenőrző kód";
+"field-backup-token-title" = "Visszaállítási kód";
 "field-token-placeholder" = "add meg a tokent";
 "field-captcha-title" = "Írd be a fent látható szöveget";
 "field-captcha-placeholder" = "CAPTCHA-szöveg";
@@ -162,6 +164,7 @@
 "settings-notifications-system-off" = "A Wikipédia értesítései jelenleg ki vannak kapcsolva. Menj az eszközöd beállításaiba a bekapcsolásukhoz";
 "settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
 "settings-notifications-learn-more" = "További információ az értesítésekről";
+"settings-notifications-trending" = "Jelenlegi események";
 "settings-notifications-push-notifications" = "Push értesítések";
 "main-menu-title" = "Több";
 "main-menu-heading-about" = "Névjegy";
@@ -304,8 +307,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "A Szabad Enciklopédia";
 "preference-title-eventlogging-opt-in" = "Használati jelentés küldése";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "A Wikimédia adatokat gyűjthet arról, hogy hogyan használod az appot, hogy még jobbá tehessük.";
+"preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az appot, hogy még jobbá tehessük.";
 "page-protected-autoconfirmed" = "Ez az oldal félig védett.";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
 "page-protected-other" = "Az a lap az alábbi szinten védett: $1";
@@ -366,10 +368,8 @@
 "image-gallery-fetch-image-info-error-title" = "A képek letöltése sikertelen";
 "image-gallery-fetch-image-info-error-message" = "A szócikkben szereplő képek letöltése sikertelen. Frissítsd a cikket és próbáld újra.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-// Fuzzy
-"hockeyapp-alert-question" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa? Írd le, mi történt az összeomláskor:";
+"hockeyapp-alert-question" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia Alapítvány megvizsgálhassa?";
+"hockeyapp-alert-question-with-response-field" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia Alapítvány megvizsgálhassa? Írd le, mi történt az összeomláskor:";
 "hockeyapp-alert-title" = "Sajnáljuk, az alkalmazás összeomlott legutóbb";
 "hockeyapp-alert-send-report" = "Jelentés küldése";
 "hockeyapp-alert-always-send" = "Mindig küld";
@@ -432,8 +432,7 @@
 "welcome-volunteer-continue-button" = "Tovább";
 "welcome-volunteer-thanks" = "$1 Köszönjük!";
 "welcome-send-data-title" = "Névtelen adatok küldése";
-// Fuzzy
-"welcome-send-data-sub-title" = "Segíts a Wikimédiának az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
+"welcome-send-data-sub-title" = "Segíts a Wikimédia Alapítványnak az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
 "empty-no-feed-title" = "Nincs internetkapcsolat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
@@ -496,6 +495,7 @@
 "number-thousands" = "$1k";
 "number-millions" = "$1M";
 "number-billions" = "$1 Mrd";
+"feed-news-notification-text" = "Most már értesítve leszel a felkapott Wikipédia cikkekről.";
 "feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "back" = "Vissza";
 "save-action" = "Mentés";
@@ -503,6 +503,7 @@
 "status-saving-for-later" = "Mentés későbbre…";
 "status-saved-for-later" = "Mentve későbbre";
 "announcements-dismiss" = "Nem, köszönöm";
+"places-search-top-articles" = "Top cikkek";
 "places-search-this-area" = "Keresés ezen a területen";
 "places-search-saved-articles" = "Mentett szócikkek";
 "places-search-suggested-searches-header" = "Javasolt keresések";
