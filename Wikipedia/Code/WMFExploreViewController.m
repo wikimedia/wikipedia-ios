@@ -145,6 +145,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (UIRefreshControl *)refreshControl {
     WMFAssertMainThread(@"Refresh control can only be accessed from the main thread");
+    [self setupRefreshControl];
+    return _refreshControl;
+}
+
+- (void)setupRefreshControl {
     if (!_refreshControl) {
         _refreshControl = [[UIRefreshControl alloc] init];
         [_refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
@@ -155,7 +160,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self.collectionView addSubview:_refreshControl];
         }
     }
-    return _refreshControl;
 }
 
 - (UIBarButtonItem *)settingsBarButtonItem {
@@ -499,6 +503,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
+
+    [self setupRefreshControl];
 
     self.reachabilityManager = [AFNetworkReachabilityManager manager];
 
