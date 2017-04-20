@@ -216,6 +216,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                animated:YES
                              completion:nil];
             break;
+        case WMFSettingsMenuItemType_ClearCache:
+            [self showClearCacheActionSheet];
+            break;
         case WMFSettingsMenuItemType_DebugCrash:
             [[self class] generateTestCrash];
             break;
@@ -274,6 +277,30 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                                 }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
 
+    [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+#pragma mark - Clear Cache
+
+- (void)showClearCacheActionSheet {
+    NSString *message = MWLocalizedString(@"settings-clear-cache-are-you-sure-message", nil);
+    NSString *bytesString = [NSByteCountFormatter stringFromByteCount:[NSURLCache sharedURLCache].currentDiskUsage countStyle:NSByteCountFormatterCountStyleFile];
+    message = [message stringByReplacingOccurrencesOfString:@"$1" withString:bytesString];
+    
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"settings-clear-cache-are-you-sure-title", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache-ok", nil)
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [[WMFImageController sharedInstance] deleteTemporaryCache];
+                                                [[WMFImageController sharedInstance] removeLegacyCache];
+                                                [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
+                                                    DDLogError(@"Error removing unreferenced articles: %@", error);
+                                                } success:^{
+                                                    DDLogDebug(@"Successfully removed unreferenced articles");
+                                                }];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"settings-clear-cache-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    
     [self presentViewController:sheet animated:YES completion:NULL];
 }
 
@@ -378,6 +405,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;
     section.footer = nil;
@@ -412,7 +440,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About]
         ]];
     section.header = nil;
     section.footer = nil;
