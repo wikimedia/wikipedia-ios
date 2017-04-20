@@ -44,6 +44,8 @@
 "login-username-placeholder-text" = "Lietotājvārds";
 "login-password-placeholder-text" = "Parole";
 "field-username-title" = "Lietotājvārds";
+"field-password-title" = "Parole";
+"field-password-placeholder" = "ievadi paroli";
 "field-new-password-title" = "Jaunā parole";
 // Fuzzy
 "field-email-title" = "E-pasta adrese (nav obligāta)";
