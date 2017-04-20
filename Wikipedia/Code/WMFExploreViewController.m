@@ -197,6 +197,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return [content count] > 0;
 }
 
+- (BOOL)isScrolledToTop {
+    return self.collectionView.contentOffset.y <= 0;
+}
+
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem *)sender {
@@ -433,10 +437,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [header.enableNotificationsButton addTarget:self action:@selector(enableNotificationsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
-    
-     if (self.collectionView.contentOffset.y <= 0) {
-         [self.collectionView setContentOffset:CGPointMake(0, 0 - header.frame.size.height) animated:YES];
-     }
+
+    if (self.isScrolledToTop) {
+        [self.collectionView setContentOffset:CGPointMake(0, 0 - header.frame.size.height) animated:YES];
+    }
 }
 
 - (void)enableNotificationsButtonPressed {
@@ -544,7 +548,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated {
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
-        if (self.collectionView.contentOffset.y <= 0) {
+        if (self.isScrolledToTop) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
         }
     }
