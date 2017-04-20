@@ -92,6 +92,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
+@property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
 @end
 
@@ -142,12 +143,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Accessors
 
-- (void)setRefreshControl:(UIRefreshControl *)refreshControl {
-    [_refreshControl removeFromSuperview];
+- (UIRefreshControl *)refreshControl {
+    WMFAssertMainThread(@"Refresh control can only be accessed from the main thread");
+    [self setupRefreshControl];
+    return _refreshControl;
+}
 
-    _refreshControl = refreshControl;
-
-    if (_refreshControl) {
+- (void)setupRefreshControl {
+    if (!_refreshControl) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        [_refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
         _refreshControl.layer.zPosition = -100;
         if ([self.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
             self.collectionView.refreshControl = _refreshControl;
@@ -451,10 +456,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }];
     [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
-    [self showHideNotificationIfNeccesary];
+    [self showHideNotificationIfNeccesaryUserInitiated:YES];
 }
 
-- (void)showHideNotificationIfNeccesary {
+- (void)showHideNotificationIfNeccesaryUserInitiated:(BOOL)userInitiated {
     if (self.numberOfSectionsInExploreFeed == 0) {
         return;
     }
@@ -466,7 +471,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]) {
         [self showNotificationHeader];
 
-    } else {
+    } else if (userInitiated) {
 
         if (self.notificationHeader) {
 
@@ -503,11 +508,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchingEnabled = YES;
     }
 
-    self.reachabilityManager = [AFNetworkReachabilityManager manager];
+    [self setupRefreshControl];
 
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
-    [self resetRefreshControl];
+    self.reachabilityManager = [AFNetworkReachabilityManager manager];
 
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
@@ -537,7 +540,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                              [self resetRefreshControl];
 
                                                              if (date == nil) { //only hide on a new content update
-                                                                 [self showHideNotificationIfNeccesary];
+                                                                 [self showHideNotificationIfNeccesaryUserInitiated:wasUserInitiated];
+                                                                 [self startMonitoringReachabilityIfNeeded];
+                                                                 [self showOfflineEmptyViewIfNeeded];
                                                              }
                                                              if (completion) {
                                                                  completion();
@@ -546,13 +551,21 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated {
+    if (self.isLoadingNewContent) {
+        return;
+    }
+    self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
         if (self.isScrolledToTop) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
         }
     }
-    [self updateFeedSourcesWithDate:nil userInitiated:wasUserInitiated completion:nil];
+    [self updateFeedSourcesWithDate:nil
+                      userInitiated:wasUserInitiated
+                         completion:^{
+                             self.loadingNewContent = NO;
+                         }];
 }
 
 - (void)refreshControlActivated {
@@ -562,7 +575,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    [self showHideNotificationIfNeccesary];
+    [self showHideNotificationIfNeccesaryUserInitiated:NO];
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
@@ -1625,9 +1638,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self.objectChanges removeAllObjects];
     [self.sectionChanges removeAllObjects];
-
-    [self startMonitoringReachabilityIfNeeded];
-    [self showOfflineEmptyViewIfNeeded];
 }
 
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
