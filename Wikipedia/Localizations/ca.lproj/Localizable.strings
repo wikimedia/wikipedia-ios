@@ -315,8 +315,7 @@
 "onboarding-wikipedia" = "Viquipèdia";
 "onboarding-free-encyclopedia" = "L'enciclopèdia lliure";
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Permeteu a Wikimedia recollir informació sobre com utilitzeu l'aplicació, per poder-la millorar";
+"preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
 "page-protected-autoconfirmed" = "La pàgina ha estat semiprotegida.";
 "page-protected-sysop" = "La pàgina està protegida.";
 "page-protected-other" = "La pàgina ha estat protegida als nivells següents: $1";
@@ -377,10 +376,8 @@
 "image-gallery-fetch-image-info-error-title" = "No s'han pogut baixar les imatges";
 "image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu a provar-ho.";
 "image-gallery-fetch-image-info-error-ok" = "D'acord";
-// Fuzzy
-"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 perquè Wikimedia ho revisi?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Voleu enviar un informe de fallada a $1 perquè Wikimedia ho revisi? Descriviu què ha passat quan s'ha produït la fallada:";
+"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi?";
+"hockeyapp-alert-question-with-response-field" = "Voleu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi? Descriviu què ha passat quan s'ha produït la fallada:";
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "hockeyapp-alert-send-report" = "Envia l'informe";
 "hockeyapp-alert-always-send" = "Envia sempre";
@@ -443,8 +440,7 @@
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Gràcies!";
 "welcome-send-data-title" = "Enviament de dades anònimes";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ajudeu Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
+"welcome-send-data-sub-title" = "Ajudeu la Fundació Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";

@@ -69,10 +69,7 @@
                                                        withSiteURL:self.siteURL
                                                  associatedContent:@[obj]
                                                 customizationBlock:NULL];
-            //Make these visible immediately for previous users
-            if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] != nil) {
-                [group updateVisibility];
-            }
+            [group updateVisibility];
         }];
 
         if (completion) {
