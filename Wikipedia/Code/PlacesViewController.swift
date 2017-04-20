@@ -578,8 +578,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Searching
     
-
-    
     var currentSearch: PlaceSearch? {
         didSet {
             guard let search = currentSearch else {
@@ -1119,8 +1117,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didSet {
             let isHidden = isOverlaySearchButtonHidden
             let animations = {
-                self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = isHidden
-                self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = !isHidden
+                if (isHidden) { // always disable the old constraint before enabling the new one to avoid autolayout errors
+                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = false
+                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = true
+                } else {
+                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = false
+                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = true
+                }
             }
             if (isHidden)  {
                 animations()
@@ -1145,18 +1148,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard oldValue != traitBasedViewMode else {
                 return
             }
-            if oldValue == .search && viewMode != .search {
-                searchBarToCloseTrailingConstraint.isActive = false
-                closeSearchButton.isHidden = true
-                searchBarToMapListToggleTrailingConstraint.isActive = true
-                mapListToggle.isHidden = false
- 
-            } else if oldValue != .search && viewMode == .search {
-                searchBarToMapListToggleTrailingConstraint.isActive = false
-                mapListToggle.isHidden = true
-                searchBarToCloseTrailingConstraint.isActive = true
-                closeSearchButton.isHidden = false
-            }
+//            if oldValue == .search && viewMode != .search {
+//                searchBarToCloseTrailingConstraint.isActive = false
+//                closeSearchButton.isHidden = true
+//                searchBarToMapListToggleTrailingConstraint.isActive = true
+//                mapListToggle.isHidden = false
+// 
+//            } else if oldValue != .search && viewMode == .search {
+//                searchBarToMapListToggleTrailingConstraint.isActive = false
+//                mapListToggle.isHidden = true
+//                searchBarToCloseTrailingConstraint.isActive = true
+//                closeSearchButton.isHidden = false
+//            }
             switch traitBasedViewMode {
             case .listOverlay:
                 isSearchBarInNavigationBar = false
