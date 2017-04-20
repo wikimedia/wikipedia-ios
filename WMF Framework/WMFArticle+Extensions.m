@@ -88,15 +88,15 @@
 }
 
 - (void)updateWithMWKArticle:(MWKArticle *)article {
-    if (!self.displayTitle && [article.displaytitle length] > 0) {
+    if ([article.displaytitle length] > 0) {
         self.displayTitle = [article.displaytitle wmf_stringByRemovingHTML];
     }
     
-    if (!self.wikidataDescription && [article.entityDescription length] > 0) {
-        self.wikidataDescription = article.entityDescription;
+    if ([article.entityDescription length] > 0) {
+        self.wikidataDescription = [article.entityDescription wmf_stringByRemovingHTML];
     }
     
-    if (!self.snippet && [article.summary length] > 0) {
+    if ([article.summary length] > 0) {
         self.snippet = article.summary;
     }
     
@@ -196,9 +196,6 @@
     }
     if (feedPreview.imageHeight != nil) {
         preview.imageHeight = feedPreview.imageHeight;
-    }
-    if ([preview.displayTitle containsString:@"<i>"]) {
-        NSLog(@"jerk");
     }
     return preview;
 }
