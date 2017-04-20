@@ -11,7 +11,7 @@
 static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000;
 
 static const NSInteger WMFNearbyDaysBetweenForcedUpdates = 10;
-static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
+const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
 
 @interface WMFNearbyContentSource () <WMFLocationManagerDelegate>
 
@@ -98,11 +98,12 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
             };
             [self getGroupForLocation:self.currentLocationManager.location
                inManagedObjectContext:moc
+                                force:force
                            completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
                                if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
                                    NSDate *now = [NSDate date];
                                    NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
-                                   if (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates) {
+                                   if (force || (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates)) {
                                        group.date = now;
                                        group.midnightUTCDate = todayMidnightUTC;
                                    }
@@ -134,7 +135,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
-    WMFContentGroup *group = [moc firstGroupOfKind:WMFContentGroupKindLocationPlaceholder];
+    WMFContentGroup *group = [moc newestGroupOfKind:WMFContentGroupKindLocationPlaceholder];
 
     if (group && (group.wasDismissed || [group.midnightUTCDate isEqualToDate:date.wmf_midnightUTCDateFromLocalDate])) {
         completion();
@@ -178,7 +179,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     }
     self.isFetchingInitialLocation = NO;
     NSManagedObjectContext *moc = self.dataStore.viewContext;
-    [self getGroupForLocation:location inManagedObjectContext:moc
+    [self getGroupForLocation:location inManagedObjectContext:moc force:NO
         completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
             if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
                 if (self.completion) {
@@ -209,41 +210,23 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     self.completion = nil;
 }
 
-- (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc {
+- (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force {
     NSDate *todayMidnightUTC = [[NSDate date] wmf_midnightUTCDateFromLocalDate];
-    __block WMFContentGroup *locationContentGroup = nil;
-    __block NSDate *newestMidnightUTCDate = nil;
-    __block CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
+    __block CLLocationDistance distanceThreshold = force ? WMFNearbyUpdateDistanceThresholdInMeters : WMFNearbyForcedUpdateDistanceThresholdInMeters;
     __block NSInteger daysUntilForcedUpdate = [[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] ? NSIntegerMax : WMFNearbyDaysBetweenForcedUpdates;
-    [moc enumerateContentGroupsOfKind:WMFContentGroupKindLocation
-                                        sortedByKey:@"midnightUTCDate"
-                                          ascending:NO
-                                          withBlock:^(WMFContentGroup *_Nonnull currentGroup, BOOL *_Nonnull stop) {
-                                              if (!newestMidnightUTCDate) {
-                                                  newestMidnightUTCDate = currentGroup.midnightUTCDate;
-                                                  if ([[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:newestMidnightUTCDate toDate:todayMidnightUTC] >= daysUntilForcedUpdate) {
-                                                      distanceThreshold = WMFNearbyForcedUpdateDistanceThresholdInMeters;
-                                                  }
-                                              }
-                                              WMFContentGroup *potentiallyCloseLocationGroup = (WMFContentGroup *)currentGroup;
-                                              CLLocation *groupLocation = potentiallyCloseLocationGroup.location;
-                                              if (!groupLocation) {
-                                                  return;
-                                              }
-                                              CLLocationDistance distance = [groupLocation distanceFromLocation:location];
-                                              if (distance < distanceThreshold) {
-                                                  locationContentGroup = potentiallyCloseLocationGroup;
-                                                  *stop = YES;
-                                              }
-                                          }];
-
-    return locationContentGroup;
+    if (!force) {
+        WMFContentGroup *newestContentGroup = [moc newestGroupOfKind:WMFContentGroupKindLocation];
+        NSDate *newestMidnightUTCDate = newestContentGroup.midnightUTCDate;
+        if (newestMidnightUTCDate &&[[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:newestMidnightUTCDate toDate:todayMidnightUTC] >= daysUntilForcedUpdate) {
+            distanceThreshold = WMFNearbyForcedUpdateDistanceThresholdInMeters;
+        }
+    }
+    return [moc locationContentGroupWithinMeters:distanceThreshold ofLocation:location];
 }
 
 #pragma mark - Fetching
 
-- (void)getGroupForLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion
-                    failure:(void (^)(NSError *error))failure {
+- (void)getGroupForLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(void (^)(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark))completion failure:(void (^)(NSError *error))failure {
 
     if (self.isProcessingLocation || !location) {
         failure(nil);
@@ -252,7 +235,7 @@ static const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters =
     self.isProcessingLocation = YES;
     
     [moc performBlock:^{
-        WMFContentGroup *group = [self contentGroupCloseToLocation:location inManagedObjectContext:moc];
+        WMFContentGroup *group = [self contentGroupCloseToLocation:location inManagedObjectContext:moc force:force];
         if (group) {
             self.isProcessingLocation = NO;
             completion(group, group.location, group.placemark);

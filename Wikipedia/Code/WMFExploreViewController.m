@@ -1400,7 +1400,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
     [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
-    [self.userStore.feedContentController updateNearby:NULL];
+    [self.userStore.feedContentController updateNearbyForce:NO completion:NULL];
 }
 
 #pragma mark - Previewing

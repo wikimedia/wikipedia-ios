@@ -500,7 +500,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesUserInititated:NO];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.dataStore.feedContentController updateNearby:NULL];
+        [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
@@ -1026,9 +1026,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [self.dataStore.feedContentController updateNearby:^{
+    [self.dataStore.feedContentController updateNearbyForce:YES completion:^{
         WMFAssertMainThread(@"Completion assumed to be called on the main thread");
-        WMFContentGroup *nearby = [self.dataStore.viewContext firstGroupOfKind:WMFContentGroupKindLocation forDate:[NSDate date]];
+        WMFContentGroup *nearby = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindLocation];
         if (!nearby) {
             //TODO: show an error?
             return;

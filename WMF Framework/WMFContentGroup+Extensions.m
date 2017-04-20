@@ -434,10 +434,11 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind {
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
     fetchRequest.fetchLimit = 1;
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
@@ -447,7 +448,7 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
     fetchRequest.fetchLimit = 1;
@@ -460,7 +461,7 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)firstGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
+- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
     fetchRequest.fetchLimit = 1;
@@ -566,6 +567,23 @@
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
     NSArray *groups = [self contentGroupsOfKind:kind];
     [self removeContentGroups:groups];
+}
+
+- (nullable WMFContentGroup *)locationContentGroupWithinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
+    __block WMFContentGroup *locationContentGroup = nil;
+    [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
+                            withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                CLLocation *groupLocation = group.location;
+                                if (!groupLocation) {
+                                    return;
+                                }
+                                CLLocationDistance distance = [groupLocation distanceFromLocation:location];
+                                if (distance <= meters) {
+                                    locationContentGroup = group;
+                                    *stop = YES;
+                                }
+                            }];
+    return locationContentGroup;
 }
 
 @end
