@@ -151,13 +151,19 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
 }
 
 - (void)handleFooterReadMoreTitlesShownScriptMessage:(NSArray *)messageArray {
-    for (NSString* title in messageArray) {
-        [self updateReadMoreSaveButtonIsSavedStateForTitle:title];
+    NSArray *articleURLs = [messageArray wmf_mapAndRejectNil:^id(NSString *title) {
+        return [self.article.url wmf_URLWithTitle:title];
+    }];
+    for (NSURL *articleURL in articleURLs) {
+        [self updateReadMoreSaveButtonIsSavedStateForURL:articleURL];
     }
 }
 
 - (void)handleFooterReadMoreSaveClickedScriptMessage:(NSDictionary *)messageDict {
-    [self toggleReadMoreSaveButtonIsSavedStateForTitle:messageDict[@"title"]];
+    NSURL* articleURL = [self.article.url wmf_URLWithTitle:messageDict[@"title"]];
+    if(articleURL){
+        [self toggleReadMoreSaveButtonIsSavedStateForURL:articleURL];
+    }
 }
 
 - (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
@@ -183,15 +189,17 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
     [self showLicenseButtonPressed];
 }
 
-- (void)updateReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
-    BOOL isSaved = [self.article.dataStore.savedPageList isSaved:[self.article.url wmf_URLWithTitle:title]];
-    title = [title wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+- (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
+    BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
+    NSString *title = [url.absoluteString.lastPathComponent wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    if(title){
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+    }
 }
 
-- (void)toggleReadMoreSaveButtonIsSavedStateForTitle:(NSString*)title {
-    [self.article.dataStore.savedPageList toggleSavedPageForURL:[self.article.url wmf_URLWithTitle:title]];
-    [self updateReadMoreSaveButtonIsSavedStateForTitle:title];
+- (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
+    [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
+    [self updateReadMoreSaveButtonIsSavedStateForURL:url];
 }
 
 - (void)handleMessageConsoleScriptMessage:(NSDictionary *)messageDict {
@@ -667,6 +675,11 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
                                              selector:@selector(refererenceLinkTappedWithNotification:)
                                                  name:WMFReferenceLinkTappedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleUpdatedWithNotification:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -675,6 +688,19 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification *)notification {
+    if(notification.object){
+        if([notification.object isMemberOfClass:[WMFArticle class]]){
+            WMFArticle *article = (WMFArticle *)notification.object;
+            NSURL *articleURL = [NSURL URLWithString:article.key];
+            if(articleURL){
+                [self updateReadMoreSaveButtonIsSavedStateForURL:articleURL];
+            }
+        }
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
