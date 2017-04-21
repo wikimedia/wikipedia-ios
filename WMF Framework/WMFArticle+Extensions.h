@@ -57,6 +57,8 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
 
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key;
+
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL;

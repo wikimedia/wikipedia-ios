@@ -101,9 +101,7 @@
     }
     
     self.isExcludedFromFeed = article.ns != 0 || self.URL.wmf_isMainPage;
-    
-    [self updateWithScalarCoordinate:article.coordinate];
-    
+        
     self.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
 }
 
@@ -127,14 +125,19 @@
     return article;
 }
 
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+    WMFArticle *article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
+    article.key = key;
+    return article;
+}
+
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
     if (!key) {
         return nil;
     }
     WMFArticle *article = [self fetchArticleWithKey:key];
     if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
-        article.key = key;
+        article = [self createArticleWithKey:key];
     }
     return article;
 }
