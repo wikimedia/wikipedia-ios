@@ -6,9 +6,11 @@
 
 @import CoreData;
 
+// Emitted when article data hits the disk.
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 
+// Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 
 NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
