@@ -75,68 +75,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var searchFilterListController: PlaceSearchFilterListController!
     
     private var extendedNavBarHeightOrig: CGFloat?
+
     
-    private func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
-        let searchHistoryGroup = "PlaceSearch"
-        return "\(searchHistoryGroup).\(forFilter.stringValue)"
-    }
-    
-    private func currentSearchHistoryGroup() -> String {
-        return searchHistoryGroup(forFilter: currentSearchFilter)
-    }
-
-
-    fileprivate func updateSearchFilterTitle() {
-        
-        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
-                return
-        }
-
-        let title: String
-        let image: UIImage
-
-        if (isSearchFilterDropDownShowing) {
-            title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
-            image = #imageLiteral(resourceName: "chevron-up")
-        } else {
-            switch currentSearchFilter {
-            case .top:
-                title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            case .saved:
-                title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
-            }
-            image = #imageLiteral(resourceName: "chevron-down")
-        }
-        
-        let attributedTitle: NSMutableAttributedString
-        if (viewMode != .search) {
-            
-            attributedTitle = NSMutableAttributedString(string: title + " ")
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = image
-            
-            let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
-            imageAttachment.setImageHeight(6, font: font)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            attributedTitle.append(imageString)
-            
-            let fullRange = NSMakeRange(0, attributedTitle.length)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
-            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
-        } else {
-            attributedTitle = NSMutableAttributedString(string: title)
-        }
-        
-        self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
-    }
-
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
     
     // MARK: - View Lifecycle
     
-    fileprivate func addBottomShadow(view: UIView) {
+    private func addBottomShadow(view: UIView) {
         // Setup extended navigation bar
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
@@ -163,7 +108,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
         // config filter drop down
         addBottomShadow(view: filterDropDownContainerView)
-        isSearchFilterDropDownShowing = false
+        //isSearchFilterDropDownShowing = false
 
         navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -257,16 +202,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         tracker?.wmf_logView(self)
     }
-    
-    @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
-        
-        guard let isSearchFilterDropDownShowing = self.isSearchFilterDropDownShowing else {
-            // TODO: error?
-            return
-        }
-        
-        self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
-    }
+
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -1034,88 +970,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
-    
-    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        
-        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
-            // TODO: error
-            return
-        }
-        
-        let origHeight = filterDropDownContainerView.bounds.height
-        
-        let frame: CGRect
-        if (isSearchBarInNavigationBar) {
-            frame = CGRect(x: 0,
-                           y: extendedNavBarView.frame.minY,
-                           width: extendedNavBarView.bounds.width,
-                           height: 0)
-            
-        } else {
-            frame = self.view.convert(CGRect(x: 0,
-                                             y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-                                             width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                             height: 0),
-                                      from: listAndSearchOverlayContainerView)
-        }
-        
-        touchOutsideOverlayView.resetInsideRects()
-        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
-        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
-        self.view.addSubview(touchOutsideOverlayView)
-        
-        filterDropDownContainerView.frame = frame
-        searchFilterListController.currentFilterType = currentSearchFilter
-        self.view.addSubview(filterDropDownContainerView)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-            
-            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                            y: self.filterDropDownContainerView.frame.origin.y,
-                                                            width: self.filterDropDownContainerView.frame.size.width,
-                                                            height: origHeight)
-            
-        }, completion: { (done) in
-            completion(done)
-        })
-    }
-    
-    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        
-        let origHeight = filterDropDownContainerView.bounds.height
-        
-        self.touchOutsideOverlayView.removeFromSuperview()
-        
-        UIView.commitAnimations()
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-            
-            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                            y: self.filterDropDownContainerView.frame.origin.y,
-                                                            width: self.filterDropDownContainerView.frame.width,
-                                                            height: 0)
-        }, completion: { (done) in
-            self.filterDropDownContainerView.removeFromSuperview()
-            self.filterDropDownContainerView.frame.size.height = origHeight
-            completion(done)
-        })
-    }
-    
-    var isSearchFilterDropDownShowing: Bool? {
-        didSet {
-            guard let newValue = isSearchFilterDropDownShowing, oldValue != newValue else {
-                return
-            }
 
-            if newValue {
-                showSearchFilterDropdown(completion: { (done) in })
-            } else {
-                hideSearchFilterDropdown(completion: { (done) in })
-            }
-            
-            updateSearchFilterTitle()
-        }
-    }
     
     private func updateTraitBasedViewMode() {
         //forces an update
@@ -1280,6 +1135,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     // MARK: - Search History
+    
+    private func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
+        let searchHistoryGroup = "PlaceSearch"
+        return "\(searchHistoryGroup).\(forFilter.stringValue)"
+    }
+    
+    private func currentSearchHistoryGroup() -> String {
+        return searchHistoryGroup(forFilter: currentSearchFilter)
+    }
     
     func saveToHistory(search: PlaceSearch) {
         guard search.origin == .user else {
@@ -2095,6 +1959,142 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
+    // MARK: - Search Filter Dropdown
+    
+    var isSearchFilterDropDownShowing: Bool = false {
+        didSet {
+            guard oldValue != isSearchFilterDropDownShowing else {
+                return
+            }
+            
+            if isSearchFilterDropDownShowing {
+                showSearchFilterDropdown(completion: { (done) in })
+            } else {
+                hideSearchFilterDropdown(completion: { (done) in })
+            }
+            
+            updateSearchFilterTitle()
+        }
+    }
+    
+    private func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+        
+        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
+            // TODO: error
+            return
+        }
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        let frame: CGRect
+        if (isSearchBarInNavigationBar) {
+            frame = CGRect(x: 0,
+                           y: extendedNavBarView.frame.minY,
+                           width: extendedNavBarView.bounds.width,
+                           height: 0)
+            
+        } else {
+            frame = self.view.convert(CGRect(x: 0,
+                                             y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                             width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                             height: 0),
+                                      from: listAndSearchOverlayContainerView)
+        }
+        
+        touchOutsideOverlayView.resetInsideRects()
+        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
+        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
+        self.view.addSubview(touchOutsideOverlayView)
+        
+        filterDropDownContainerView.frame = frame
+        searchFilterListController.currentFilterType = currentSearchFilter
+        self.view.addSubview(filterDropDownContainerView)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.size.width,
+                                                            height: origHeight)
+            
+        }, completion: { (done) in
+            completion(done)
+        })
+    }
+    
+    private func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        self.touchOutsideOverlayView.removeFromSuperview()
+        
+        UIView.commitAnimations()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.width,
+                                                            height: 0)
+        }, completion: { (done) in
+            self.filterDropDownContainerView.removeFromSuperview()
+            self.filterDropDownContainerView.frame.size.height = origHeight
+            completion(done)
+        })
+    }
+
+    
+    private func updateSearchFilterTitle() {
+        
+        let title: String
+        let image: UIImage
+        
+        if (isSearchFilterDropDownShowing) {
+            title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
+            image = #imageLiteral(resourceName: "chevron-up")
+        } else {
+            switch currentSearchFilter {
+            case .top:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+            case .saved:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            }
+            image = #imageLiteral(resourceName: "chevron-down")
+        }
+        
+        let attributedTitle: NSMutableAttributedString
+        if (viewMode != .search) {
+            
+            attributedTitle = NSMutableAttributedString(string: title + " ")
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            
+            let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
+            imageAttachment.setImageHeight(6, font: font)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            attributedTitle.append(imageString)
+            
+            let fullRange = NSMakeRange(0, attributedTitle.length)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+        } else {
+            attributedTitle = NSMutableAttributedString(string: title)
+        }
+        
+        self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
+    }
+    
+    @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
+        self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
+    }
+    
+    func setupEmptySearchOverlayView() {
+        emptySearchOverlayView.mainLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-title")
+        emptySearchOverlayView.detailLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-description")
+    }
+    
     // MARK: - Search Suggestions & Completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
@@ -2292,7 +2292,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[PlaceSearchSuggestionController.suggestionSection])
         updateSearchSuggestions(withCompletions: [])
 
         isWaitingForSearchSuggestionUpdate = true
@@ -2590,7 +2589,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - TouchOutsideOverlayDelegate
     
     func touchOutside(_ overlayView: TouchOutsideOverlayView) {
-        
         toggleSearchFilterDropDown(overlayView)
     }
     
@@ -2617,17 +2615,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         currentSearchFilter = filterType
         isSearchFilterDropDownShowing = false
     }
-    
-    func setupEmptySearchOverlayView() {
-        emptySearchOverlayView.mainLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-title")
-        emptySearchOverlayView.detailLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-description")
-    }
 }
+
+// MARK: -
 
 class PlaceSearchFilterSelectorView: UIView {
     
     @IBOutlet weak var button: UIButton!
 }
+
+// MARK: -
 
 class PlaceSearchEmptySearchOverlayView: UIView {
     
