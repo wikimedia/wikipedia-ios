@@ -164,13 +164,13 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                             }];
 }
 
-- (void)updateNearby:(nullable dispatch_block_t)completion {
+- (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateNearby: must be called on the main thread");
     if (self.taskGroup) {
         @weakify(self);
         [self.queue addObject:^{
             @strongify(self);
-            [self updateNearby:completion];
+            [self updateNearbyForce:force completion:completion];
         }];
         return;
     }
@@ -181,7 +181,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
             [group enter];
             [obj loadNewContentInManagedObjectContext:moc
-                                                force:NO
+                                                force:force
                                            completion:^{
                                                [group leave];
                                            }];
@@ -278,7 +278,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                 return;
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                WMFContentGroup *newsContentGroup = [self.dataStore.viewContext firstGroupOfKind:WMFContentGroupKindNews];
+                WMFContentGroup *newsContentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindNews];
                 if (newsContentGroup) {
                     NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
                     if (stories.count > 0) {

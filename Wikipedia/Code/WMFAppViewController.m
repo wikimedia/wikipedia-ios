@@ -89,7 +89,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFLocationManagerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -118,6 +118,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=areLaunchMigrationsComplete) BOOL launchMigrationsComplete;
+
+@property (nonatomic, strong) WMFLocationManager *showNearbyLocationManager;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -498,7 +500,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesUserInititated:NO];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
-        [self.dataStore.feedContentController updateNearby:NULL];
+        [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
@@ -1008,12 +1010,44 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
+    if (![WMFLocationManager isAuthorized]) {
+        self.showNearbyLocationManager = [WMFLocationManager coarseLocationManager];
+        self.showNearbyLocationManager.delegate = self;
+        [self.showNearbyLocationManager startMonitoringLocation];
+        return;
+    }
+    [self _showNearbyListAnimated:animated];
+}
+
+- (void)_showNearbyListAnimated:(BOOL)animated {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+    [self.dataStore.feedContentController updateNearbyForce:YES completion:^{
+        WMFAssertMainThread(@"Completion assumed to be called on the main thread");
+        WMFContentGroup *nearby = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindLocation];
+        if (!nearby) {
+            //TODO: show an error?
+            return;
+        }
+
+        NSArray *urls = nearby.content;
+
+        WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore];
+        vc.cellType = WMFMorePageListCellTypeLocation;
+        [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
+    }];
+}
+
+- (void)locationManager:(WMFLocationManager *)locationManager didChangeEnabledState:(BOOL)enabled {
+    if (locationManager == self.showNearbyLocationManager && enabled) {
+        [self _showNearbyListAnimated:YES];
+        self.showNearbyLocationManager.delegate = nil;
+        [self.showNearbyLocationManager stopMonitoringLocation];
+    }
 }
 
 #pragma mark - Download Assets
