@@ -142,7 +142,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         
-        self.titleLabel.text = historyEntry.displayTitle?.wmf_stringByRemovingHTML()
+        self.titleLabel.text = historyEntry.displayTitle
         
         
         if #available(iOSApplicationExtension 10.0, *) {

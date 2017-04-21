@@ -347,7 +347,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> Bool {
-        if let topRead = self.userStore.viewContext.firstGroup(of: .topRead, for: date, siteURL: siteURL) {
+        if let topRead = self.userStore.viewContext.group(of: .topRead, for: date, siteURL: siteURL) {
             if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
                 self.group = topRead
                 self.results = content
