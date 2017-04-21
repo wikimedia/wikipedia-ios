@@ -1145,10 +1145,11 @@ static uint64_t bundleHash() {
 
         NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
         allValidArticleKeysFetchRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
+        allValidArticleKeysFetchRequest.resultType = NSDictionaryResultType;
         allValidArticleKeysFetchRequest.propertiesToFetch = @[@"key"];
 
         NSError *fetchError = nil;
-        NSArray *arrayOfAllValidArticles = [moc executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
+        NSArray *arrayOfAllValidArticleDictionaries = [moc executeFetchRequest:allValidArticleKeysFetchRequest error:&fetchError];
 
         if (fetchError) {
             failure(fetchError);
@@ -1162,14 +1163,14 @@ static uint64_t bundleHash() {
             });
         };
 
-        if (arrayOfAllValidArticles.count == 0) {
+        if (arrayOfAllValidArticleDictionaries.count == 0) {
             deleteEverythingAndSucceed();
             return;
         }
 
-        NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticles.count];
-        for (WMFArticle *article in arrayOfAllValidArticles) {
-            NSString *key = article.key;
+        NSMutableSet *allValidArticleKeys = [NSMutableSet setWithCapacity:arrayOfAllValidArticleDictionaries.count];
+        for (NSDictionary *article in arrayOfAllValidArticleDictionaries) {
+            NSString *key = article[@"key"];
             if (!key) {
                 continue;
             }

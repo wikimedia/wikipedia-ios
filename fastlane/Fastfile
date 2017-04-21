@@ -226,8 +226,7 @@ platform :ios do
       skip_waiting_for_build_processing: false,
       skip_submission: false,
       distribute_external: false,
-      app_identifier:  app_identifier,
-      changelog: ""
+      app_identifier:  app_identifier
     )
     
     tag(
