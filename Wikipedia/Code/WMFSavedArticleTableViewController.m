@@ -84,7 +84,7 @@
 
 - (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticle *entry = [self objectAtIndexPath:indexPath];
-    cell.titleText = [entry.displayTitle wmf_stringByRemovingHTML];
+    cell.titleText = entry.displayTitle;
     cell.descriptionText = [entry.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:entry.thumbnailURL];
 }
