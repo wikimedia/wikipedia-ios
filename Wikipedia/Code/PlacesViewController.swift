@@ -847,9 +847,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         extendedNavBarView.isHidden = false
         updateNavigationBar(removeUnderline: true)
-//        navigationController!.navigationBar.isTranslucent = false
-//        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-//        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
 
         let searchBarHeight: CGFloat = 32
         let searchBarLeftPadding: CGFloat = 7.5
@@ -871,9 +868,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         extendedNavBarView.isHidden = true
-//        navigationController!.navigationBar.isTranslucent = false
-//        navigationController!.navigationBar.shadowImage = nil
-//        navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         updateNavigationBar(removeUnderline: false)
         
         listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
