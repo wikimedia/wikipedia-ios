@@ -155,9 +155,16 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
-                                                  WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
+                                                  NSManagedObjectContext *moc = self.dataStore.viewContext;
+                                                  WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
+                                                  article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
+                                                  article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
                                                   if (summaryResponse) {
                                                       [article updateWithSummary:summaryResponse];
+                                                  }
+                                                  NSError *saveError = nil;
+                                                  if ([moc hasChanges] && ![moc save:&saveError]) {
+                                                      DDLogError(@"Error saving after updating article: %@", saveError);
                                                   }
                                                   success(mwkArticle);
                                               });

@@ -87,24 +87,6 @@
     }
 }
 
-- (void)updateWithMWKArticle:(MWKArticle *)article {
-    if ([article.displaytitle length] > 0) {
-        self.displayTitle = [article.displaytitle wmf_stringByRemovingHTML];
-    }
-    
-    if ([article.entityDescription length] > 0) {
-        self.wikidataDescription = [article.entityDescription wmf_stringByRemovingHTML];
-    }
-    
-    if ([article.summary length] > 0) {
-        self.snippet = article.summary;
-    }
-    
-    self.isExcludedFromFeed = article.ns != 0 || self.URL.wmf_isMainPage;
-        
-    self.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-}
-
 @end
 
 @implementation NSManagedObjectContext (WMFArticle)
@@ -152,17 +134,6 @@
     WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL];
     [article updateWithSearchResult:searchResult];
     return article;
-}
-
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithMWKArticle:(nullable MWKArticle *)article {
-    NSParameterAssert(articleURL);
-    if (!articleURL) {
-        return nil;
-    }
-    
-    WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
-    [preview updateWithMWKArticle:article];
-    return preview;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
