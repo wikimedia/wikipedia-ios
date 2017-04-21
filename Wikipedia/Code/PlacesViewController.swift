@@ -158,6 +158,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
+            updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
+        } else {
+            DDLogDebug("not updating navigation bar because search bar isn't set yet")
+        }
+        
         super.viewWillAppear(animated)
         
         let defaults = UserDefaults.wmf_userDefaults()
@@ -168,6 +175,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if isViewModeOverlay {
             navigationController?.setNavigationBarHidden(true, animated: animated)
         }
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -190,6 +198,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        updateNavigationBar(removeUnderline: false)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
@@ -205,6 +214,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         view.shadowRadius = 0
         view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         view.shadowOpacity = 0.25
+    }
+    
+    private func updateNavigationBar(removeUnderline: Bool) {
+        if (removeUnderline) {
+            navigationController!.navigationBar.isTranslucent = false
+            navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        } else {
+            navigationController!.navigationBar.isTranslucent = false
+            navigationController!.navigationBar.shadowImage = nil
+            navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
+        }
+        
+        // this little dance is to force the navigation bar to redraw. Without it, 
+        // the underline would not be removed until the view fully animated, instead of
+        // before
+        // http://stackoverflow.com/a/40948889
+        navigationController!.isNavigationBarHidden = true;
+        navigationController!.isNavigationBarHidden = false;
     }
     
     // MARK: - MKMapViewDelegate
@@ -818,9 +846,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func addSearchBarToNavigationBar(animated: Bool) {
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         extendedNavBarView.isHidden = false
-        navigationController!.navigationBar.isTranslucent = false
-        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        updateNavigationBar(removeUnderline: true)
+//        navigationController!.navigationBar.isTranslucent = false
+//        navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+//        navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
 
         let searchBarHeight: CGFloat = 32
         let searchBarLeftPadding: CGFloat = 7.5
@@ -842,9 +871,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         extendedNavBarView.isHidden = true
-        navigationController!.navigationBar.isTranslucent = false
-        navigationController!.navigationBar.shadowImage = nil
-        navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
+//        navigationController!.navigationBar.isTranslucent = false
+//        navigationController!.navigationBar.shadowImage = nil
+//        navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
+        updateNavigationBar(removeUnderline: false)
         
         listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
         filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
@@ -858,7 +888,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     var initialOverlayHeightForPan: CGFloat?
-    
     
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
