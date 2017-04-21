@@ -93,7 +93,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
         // config filter drop down
         addBottomShadow(view: filterDropDownContainerView)
-        //isSearchFilterDropDownShowing = false
 
         navigationController?.setNavigationBarHidden(false, animated: true)
         
