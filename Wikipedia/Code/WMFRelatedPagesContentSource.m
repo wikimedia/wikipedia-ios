@@ -93,7 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
     [moc performBlock:^{
         NSDate *midnightUTCDate = [date wmf_midnightUTCDateFromLocalDate];
         NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-        fetchRequest.propertiesToFetch = @[@"key"];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
         NSError *fetchError = nil;
         NSArray<WMFContentGroup *> *relatedPagesContentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
