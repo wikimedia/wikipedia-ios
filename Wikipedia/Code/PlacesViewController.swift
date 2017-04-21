@@ -2621,7 +2621,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
         switch (countForFilterType) {
         case .top:
-            return 0
+            return articleFetchedResultsController.fetchedObjects?.count ?? 0
         case .saved:
             do {
                 let moc = dataStore.viewContext
