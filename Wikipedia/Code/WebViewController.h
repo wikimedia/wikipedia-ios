@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated;
 
+- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated;
+
 - (void)accessibilityCursorToSection:(MWKSection *)section;
 
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion;

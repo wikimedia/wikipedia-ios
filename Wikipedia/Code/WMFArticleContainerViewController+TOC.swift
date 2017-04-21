@@ -39,10 +39,15 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                     }
                 }
             } else {
-                
-//TODO: hook up TOC scrolling to "About this article" and "Read more" now that they're not native overlay
-                
-                assertionFailure("Unsupported selection of TOC item \(item)")
+                switch item {
+                case is TableOfContentsAboutThisArticleItem:
+                    self.webViewController.scroll(toFragment: "footer_menu_container", animated: true)
+                case is TableOfContentsReadMoreItem:
+                    self.webViewController.scroll(toFragment: "footer_readmore_container", animated: true)
+                default:
+                    assertionFailure("Unsupported selection of TOC item \(item)")
+                    break
+                }
             }
             
             // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
