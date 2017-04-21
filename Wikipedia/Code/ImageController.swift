@@ -335,6 +335,7 @@ open class ImageController : NSObject {
         moc.perform {
             self.permanentCacheCompletionManager.cancel(group: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
+                completion()
                 return
             }
             for item in group.cacheItems ?? [] {
