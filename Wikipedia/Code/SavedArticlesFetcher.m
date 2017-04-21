@@ -302,7 +302,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
     NSString *group = article.url.wmf_articleDatabaseKey;
     if (!group || !legacyImageURLs.count) {
-        completion();
+        if (completion) {
+            completion();
+        }
+        return;
     }
     [imageController migrateLegacyImageURLs:legacyImageURLs intoGroup:group completion:completion];
 }

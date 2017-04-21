@@ -25,7 +25,6 @@ import Foundation
         }
         
         let allContentGroupFetchRequest = WMFContentGroup.fetchRequest()
-        allContentGroupFetchRequest.propertiesToFetch = ["key", "midnightUTCDate", "content", "articleURLString"]
         
         let allContentGroups = try moc.fetch(allContentGroupFetchRequest)
         var referencedArticleKeys = Set<String>(minimumCapacity: allContentGroups.count * 5 + 1)
@@ -104,7 +103,6 @@ import Foundation
         }
         
         articlesToDeleteFetchRequest.predicate = articlesToDeletePredicate
-        articlesToDeleteFetchRequest.propertiesToFetch = ["key"]
         
         let articlesToDelete = try moc.fetch(articlesToDeleteFetchRequest)
         

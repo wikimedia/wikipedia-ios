@@ -100,15 +100,12 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
-    NSURL *siteURL = articleURL.wmf_siteURL;
-    NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
-    NSURL *pageSummaryURL = [siteURL wmf_URLWithPath:path isMobile:!useDeskTopURL];
-
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
     __block id summaryResponse = nil;
     [taskGroup enter];
+    NSURL *pageSummaryURL = [articleURL wmf_summaryEndpointURL];
     [self.pageSummarySessionManager GET:pageSummaryURL.absoluteString
         parameters:nil
         progress:nil
@@ -158,10 +155,17 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
-                                                  WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:articleURL updatedWithMWKArticle:mwkArticle];
-                                                  article.imageURLString = summaryResponse[@"originalimage"][@"source"];
-                                                  article.imageWidth = summaryResponse[@"originalimage"][@"width"];
-                                                  article.imageHeight = summaryResponse[@"originalimage"][@"height"];
+                                                  NSManagedObjectContext *moc = self.dataStore.viewContext;
+                                                  WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
+                                                  article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
+                                                  article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                  if (summaryResponse) {
+                                                      [article updateWithSummary:summaryResponse];
+                                                  }
+                                                  NSError *saveError = nil;
+                                                  if ([moc hasChanges] && ![moc save:&saveError]) {
+                                                      DDLogError(@"Error saving after updating article: %@", saveError);
+                                                  }
                                                   success(mwkArticle);
                                               });
                                           } else {
