@@ -31,7 +31,12 @@
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
-
+    if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {

@@ -1134,7 +1134,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
-    cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
+    cell.titleText = article.displayTitle;
     cell.titleLabel.accessibilityLanguage = article.URL.wmf_language;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_listThumbnailWidth];
@@ -1142,7 +1142,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
-    cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
+    cell.titleText = article.displayTitle;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     cell.snippetText = article.snippet;
     NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
@@ -1161,7 +1161,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
-    cell.titleText = [article.displayTitle wmf_stringByRemovingHTML];
+    cell.titleText = article.displayTitle;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
     [self updateLocationCell:cell location:article.location];
@@ -1400,7 +1400,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)locationManager:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled {
     [[NSUserDefaults wmf_userDefaults] wmf_setLocationAuthorized:enabled];
-    [self.userStore.feedContentController updateNearby:NULL];
+    [self.userStore.feedContentController updateNearbyForce:NO completion:NULL];
 }
 
 #pragma mark - Previewing
