@@ -278,9 +278,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 #pragma mark - Background Fetch
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
-    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
-        completion(UIBackgroundFetchResultNewData);
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.areLaunchMigrationsComplete) {
+            completion(UIBackgroundFetchResultNoData);
+            return;
+        }
+        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
+            completion(UIBackgroundFetchResultNewData);
+        }];
+    });
 }
 
 #pragma mark - Background Tasks
@@ -488,7 +494,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.dataStore.feedContentController updateFeedSourcesUserInitiated:NO completion:NULL];
+        [self.exploreViewController updateFeedSourcesUserInititated:NO];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearby:NULL];
     }
