@@ -47,8 +47,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-static const NSString *kvo_WebViewController_webView_scrollView = nil;
-
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
@@ -72,7 +70,6 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     //explicitly nil these values out to remove KVO observers
-    self.webViewScrollView = nil;
     self.webView = nil;
 }
 
@@ -603,20 +600,7 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
     if (webView == _webView) {
         return;
     }
-    if (_webView) {
-        [_webView removeObserver:self forKeyPath:@"scrollView"];
-    }
     _webView = webView;
-    if (_webView) {
-        [_webView addObserver:self forKeyPath:@"scrollView" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&kvo_WebViewController_webView_scrollView];
-    }
-}
-
-- (void)setWebViewScrollView:(UIScrollView *)webViewScrollView {
-    if (webViewScrollView == _webViewScrollView) {
-        return;
-    }
-    _webViewScrollView = webViewScrollView;
 }
 
 #pragma mark - UIViewController
@@ -1073,16 +1057,6 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size];
-    }
-}
-
-#pragma mark - KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
-    if (context == &kvo_WebViewController_webView_scrollView) {
-        self.webViewScrollView = self.webView.scrollView;
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
