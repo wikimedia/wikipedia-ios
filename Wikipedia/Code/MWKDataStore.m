@@ -1249,17 +1249,20 @@ static uint64_t bundleHash() {
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
     if (urlsOfArticlesToRemove.count > 0) {
         NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        [self removeArticleWithURL:urlToRemove fromDiskWithCompletion:^{
-            dispatch_async(self.cacheRemovalQueue, ^{
-                [urlsOfArticlesToRemove removeObjectAtIndex:0];
-                NSError *error = nil;
-                if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-                    [self removeNextArticleFromCacheRemovalList];
-                } else {
-                    DDLogError(@"Error saving cache removal list: %@", error);
-                }
-            });
-        }];
+        [self removeArticleWithURL:urlToRemove
+            fromDiskWithCompletion:^{
+                dispatch_async(self.cacheRemovalQueue, ^{
+                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                    NSError *error = nil;
+                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                        dispatch_async(self.cacheRemovalQueue, ^{
+                            [self removeNextArticleFromCacheRemovalList];
+                        });
+                    } else {
+                        DDLogError(@"Error saving cache removal list: %@", error);
+                    }
+                });
+            }];
     }
 }
 
