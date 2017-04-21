@@ -853,7 +853,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         searchBar = titleViewSearchBar
         
-        filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32)
+        filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: searchBarHeight)
         filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
