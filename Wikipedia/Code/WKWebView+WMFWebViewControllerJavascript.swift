@@ -94,7 +94,7 @@ import Foundation
 extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
-        let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title")
+        let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -128,7 +128,7 @@ extension WKWebView {
         
         let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
         let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
-        let headerString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title")
+        let headerString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
 
         let saveButtonTapHandler =
         "function(title){" +
