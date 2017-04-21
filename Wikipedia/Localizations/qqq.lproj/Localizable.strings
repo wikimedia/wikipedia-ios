@@ -520,6 +520,7 @@
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
+"places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the filter ('Top articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
@@ -532,6 +533,15 @@
 "places-accessibility-recenter-map-on-user-location" = "Accessibility label for the recenter map on the user's location button";
 "places-accessibility-close-search" = "Accessibility label for the button to close search";
 "places-accessibility-clear-recent-searches" = "Accessibility label for the button to clear recent searches";
+"places-filter-top-articles" = "Title of places search filter that searches top articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-saved-articles" = "Title of places saerch filter that searches saved articles";
+"places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
+"places-filter-list-title" = "Title shown above list of search filters that can be selected";
+"places-search-default-text" = "Placeholder text that displays where is there no current place search";
+"places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
+"places-empty-search-description" = "Detail text shown on an overlay when there are no recent Places searches. Describes the kind of articles you can search for.";
+
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
