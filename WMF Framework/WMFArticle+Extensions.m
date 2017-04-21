@@ -89,11 +89,13 @@
 
 - (void)updateWithMWKArticle:(MWKArticle *)article {
     if ([article.displaytitle length] > 0) {
-        self.displayTitle = article.displaytitle;
+        self.displayTitle = [article.displaytitle wmf_stringByRemovingHTML];
     }
+    
     if ([article.entityDescription length] > 0) {
-        self.wikidataDescription = article.entityDescription;
+        self.wikidataDescription = [article.entityDescription wmf_stringByRemovingHTML];
     }
+    
     if ([article.summary length] > 0) {
         self.snippet = article.summary;
     }
