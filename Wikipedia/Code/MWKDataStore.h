@@ -179,7 +179,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 
-- (void)deleteArticle:(MWKArticle *)article;
+- (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion;
 
 /**
  * Save an array of image info objects which belong to the specified article.
