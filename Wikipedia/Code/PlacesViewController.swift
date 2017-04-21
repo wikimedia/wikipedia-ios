@@ -1142,7 +1142,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
                 savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
                 savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                savedPagesWithoutLocationRequest.propertiesToFetch = ["key"]
                 let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
                 guard savedPagesWithoutLocation.count > 0 else {
                     done(savedPagesWithLocation)
