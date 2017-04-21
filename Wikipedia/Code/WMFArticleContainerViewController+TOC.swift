@@ -22,6 +22,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursor(to: section)
                 }
+            } else {
+                scrollToFooterSection(for: item)
             }
         case .modal:
             fallthrough
@@ -39,25 +41,28 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                     }
                 }
             } else {
-                switch item {
-                case is TableOfContentsAboutThisArticleItem:
-                    self.webViewController.scroll(toFragment: "footer_menu_container", animated: true)
-                case is TableOfContentsReadMoreItem:
-                    self.webViewController.scroll(toFragment: "footer_readmore_container", animated: true)
-                default:
-                    assertionFailure("Unsupported selection of TOC item \(item)")
-                    break
-                }
+                scrollToFooterSection(for: item)
             }
             
             // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
             dispatchOnMainQueueAfterDelayInSeconds(0.25) {
                 self.dismiss(animated: true, completion: dismissVCCompletionHandler)
             }
-        }
-        
+        }        
     }
 
+    private func scrollToFooterSection(for item: TableOfContentsItem) {
+        switch item {
+        case is TableOfContentsAboutThisArticleItem:
+            self.webViewController.scroll(toFragment: "footer_menu_container", animated: true)
+        case is TableOfContentsReadMoreItem:
+            self.webViewController.scroll(toFragment: "footer_readmore_container", animated: true)
+        default:
+            assertionFailure("Unsupported selection of TOC item \(item)")
+            break
+        }
+    }
+    
     public func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController) {
         dismiss(animated: true, completion: nil)
     }
