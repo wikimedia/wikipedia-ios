@@ -19,9 +19,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     @IBOutlet weak var closeSearchButton: UIButton!
     @IBOutlet weak var searchBarToMapListToggleTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBarToCloseTrailingConstraint: NSLayoutConstraint!
-
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
-    
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
@@ -58,7 +56,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
-
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
@@ -73,23 +70,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let searchTrackerContext: AnalyticsContext = "Places_search"
     private let imageController = ImageController.shared
     private var searchFilterListController: PlaceSearchFilterListController!
-    
     private var extendedNavBarHeightOrig: CGFloat?
-
-    
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
     
     // MARK: - View Lifecycle
-    
-    private func addBottomShadow(view: UIView) {
-        // Setup extended navigation bar
-        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
-        view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
-        view.shadowRadius = 0
-        view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        view.shadowOpacity = 0.25
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -203,13 +188,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         tracker?.wmf_logView(self)
     }
 
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
         mapView.showsUserLocation = false
+    }
+    
+    // MARK: - Utility
+    
+    private func addBottomShadow(view: UIView) {
+        // Setup extended navigation bar
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
+        view.shadowRadius = 0
+        view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.shadowOpacity = 0.25
     }
     
     // MARK: - MKMapViewDelegate
