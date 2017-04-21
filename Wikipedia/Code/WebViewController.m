@@ -547,39 +547,38 @@ static const NSString *kvo_WebViewController_webView_scrollView = nil;
 - (WKWebViewConfiguration *)configuration {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    NSArray *lateTransformNames = @[
+                                    @"collapseTables",
+                                    @"setPageProtected",
+                                    @"setLanguage",
+                                    @"addFooterReadMore",
+                                    @"addFooterMenu",
+                                    @"addFooterLegal"
+                                    ];
+    for (NSString *transformName in lateTransformNames) {
+        NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
+        [userContentController addUserScript:[[WKUserScript alloc] initWithSource:transformJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    }
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setPageProtected');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterReadMore');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterMenu');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('addFooterLegal');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"linkClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"imageClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"referenceClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"editClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"nonAnchorTouchEndedWithoutDragging"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreSaveClicked"];
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerReadMoreTitlesShown"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerMenuItemClicked"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"footerLegalLicenseLinkClicked"];
+    NSArray *handlerNames = @[
+                              @"lateJavascriptTransform",
+                              @"peek",
+                              @"linkClicked",
+                              @"imageClicked",
+                              @"referenceClicked",
+                              @"editClicked",
+                              @"nonAnchorTouchEndedWithoutDragging",
+                              @"sendJavascriptConsoleLogMessageToXcodeConsole",
+                              @"articleState",
+                              @"findInPageMatchesFound",
+                              @"footerReadMoreSaveClicked",
+                              @"footerReadMoreTitlesShown",
+                              @"footerMenuItemClicked",
+                              @"footerLegalLicenseLinkClicked"
+                              ];
+    for (NSString *handlerName in handlerNames) {
+        [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];
+    }
     
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.transformer.transform( 'hideRedlinks', document );"
