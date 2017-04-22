@@ -287,9 +287,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
-            completion(UIBackgroundFetchResultNewData);
-        }];
+        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
     });
 }
 
