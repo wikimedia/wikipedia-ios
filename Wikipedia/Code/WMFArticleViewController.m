@@ -1417,10 +1417,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
     self.sectionToRestoreScrollOffset = nil;
+    @weakify(self);
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
+        @strongify(self);
         if (section) {
             self.currentSection = section;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+        }else{
+            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
+                @strongify(self);
+                if(index){
+                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
+                }
+            }];
         }
     }];
 

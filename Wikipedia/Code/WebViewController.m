@@ -805,6 +805,19 @@ NSString *const WMFCCBySALicenseURL =
                                               }];
 }
 
+- (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"footer_section_"
+                                                   count:2
+                                              completion:^(id obj, NSError *error) {
+                                                  if (error) {
+                                                      completion(nil, error);
+                                                  } else {
+                                                      NSNumber* indexOfFirstOnscreenSection = ((NSNumber *)obj);
+                                                      completion(indexOfFirstOnscreenSection.integerValue == -1 ? nil : indexOfFirstOnscreenSection, error);
+                                                  }
+                                              }];
+}
+
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
 }
