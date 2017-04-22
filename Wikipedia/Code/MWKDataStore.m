@@ -463,14 +463,13 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    NSManagedObjectContext *moc = self.viewContext;
+    [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        [self.viewContext save:&mainContextSaveError];
-        if (mainContextSaveError) {
+        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
-    });
+    }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
@@ -478,19 +477,12 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
         _feedImportContext.automaticallyMergesChangesFromParent = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
     _feedImportContext = nil;
-}
-
-- (void)feedImportContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
-    });
 }
 
 #pragma mark - Migrations
