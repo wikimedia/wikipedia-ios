@@ -6,6 +6,12 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         webViewController.getCurrentVisibleSectionCompletion { (section, error) in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
+            } else {
+                self.webViewController.getCurrentVisibleFooterIndexCompletion { (footerIndex, error) in
+                    if let index = footerIndex {
+                        self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: index.intValue, animated: false)
+                    }
+                }
             }
         }
     }
