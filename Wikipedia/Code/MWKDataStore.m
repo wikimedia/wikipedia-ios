@@ -6,8 +6,6 @@
 
 @import CoreData;
 
-// Emitted when article data hits the disk.
-NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
@@ -936,9 +934,6 @@ static uint64_t bundleHash() {
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
-    dispatchOnMainQueue(^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
-    });
 }
 
 - (void)saveSection:(MWKSection *)section {
