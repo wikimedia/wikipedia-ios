@@ -224,7 +224,7 @@ platform :ios do
     pilot(
       ipa: ipa_path,
       skip_waiting_for_build_processing: false,
-      skip_submission: false,
+      skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier
     )

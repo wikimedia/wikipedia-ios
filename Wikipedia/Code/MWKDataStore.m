@@ -241,6 +241,7 @@ static uint64_t bundleHash() {
     self.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
@@ -454,6 +455,7 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.parentContext = _viewContext;
     backgroundContext.automaticallyMergesChangesFromParent = YES;
+    backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     [backgroundContext performBlock:^{
@@ -463,14 +465,13 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    NSManagedObjectContext *moc = _viewContext;
+    [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        [self.viewContext save:&mainContextSaveError];
-        if (mainContextSaveError) {
+        if (![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
-    });
+    }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
@@ -478,19 +479,13 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
         _feedImportContext.automaticallyMergesChangesFromParent = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
     _feedImportContext = nil;
-}
-
-- (void)feedImportContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
-    });
 }
 
 #pragma mark - Migrations
@@ -1249,17 +1244,20 @@ static uint64_t bundleHash() {
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
     if (urlsOfArticlesToRemove.count > 0) {
         NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        MWKArticle *article = [self articleFromDiskWithURL:urlToRemove];
-        [article remove];
-        [urlsOfArticlesToRemove removeObjectAtIndex:0];
-        NSError *error = nil;
-        if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-            dispatch_async(self.cacheRemovalQueue, ^{
-                [self removeNextArticleFromCacheRemovalList];
-            });
-        } else {
-            DDLogError(@"Error saving cache removal list: %@", error);
-        }
+        [self removeArticleWithURL:urlToRemove
+            fromDiskWithCompletion:^{
+                dispatch_async(self.cacheRemovalQueue, ^{
+                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                    NSError *error = nil;
+                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                        dispatch_async(self.cacheRemovalQueue, ^{
+                            [self removeNextArticleFromCacheRemovalList];
+                        });
+                    } else {
+                        DDLogError(@"Error saving cache removal list: %@", error);
+                    }
+                });
+            }];
     }
 }
 
@@ -1308,18 +1306,36 @@ static uint64_t bundleHash() {
     return err;
 }
 
-- (void)deleteArticle:(MWKArticle *)article {
-    NSString *path = [self pathForArticle:article];
-
-    NSString *groupKey = article.url.wmf_articleDatabaseKey;
-    if (groupKey) {
-        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey
-                                                                            completion:^{
-                                                                            }];
+- (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion {
+    if (!articleURL) {
+        if (completion) {
+            completion();
+        }
+        return;
     }
-
-    // delete article metadata last
-    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSString *path = [self pathForArticleURL:articleURL];
+        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+        dispatch_block_t combinedCompletion = ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                WMFArticle *article = [self fetchArticleWithURL:articleURL];
+                article.isDownloaded = NO;
+                NSError *saveError = nil;
+                if (![self save:&saveError]) {
+                    DDLogError(@"Error saving after cache removal: %@", saveError);
+                }
+                if (completion) {
+                    completion();
+                }
+            });
+        };
+        NSString *groupKey = articleURL.wmf_articleDatabaseKey;
+        if (groupKey) {
+            [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:combinedCompletion];
+        } else {
+            combinedCompletion();
+        }
+    });
 }
 
 #pragma mark - Cache
