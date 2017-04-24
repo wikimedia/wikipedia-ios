@@ -26,7 +26,6 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
  * The article saved is in the userInfo under the `MWKArticleKey`
  * Notificaton is dispatched on the main thread
  */
-extern NSString *const MWKArticleSavedNotification;
 extern NSString *const MWKArticleKey;
 
 extern NSString *const MWKSetupDataSourcesNotification;
@@ -68,8 +67,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL; //uses the view context
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;

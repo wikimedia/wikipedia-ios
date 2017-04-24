@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Tear Down
 
 - (void)dealloc {
-    [self unobserveArticleUpdates];
     self.dataSource = nil;
 }
 
@@ -51,38 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateEmptyAndDeleteState];
 }
 
-#pragma mark - Stay Fresh... yo
-
-- (void)observeArticleUpdates {
-    [self unobserveArticleUpdates];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
-}
-
-- (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)articleUpdatedWithNotification:(NSNotification *)note {
-    MWKArticle *article = note.userInfo[MWKArticleKey];
-    [self updateEmptyAndDeleteState];
-    [self refreshAnyVisibleCellsWhichAreShowingArticleURL:article.url];
-}
-
-- (void)refreshAnyVisibleCellsWhichAreShowingArticleURL:(NSURL *)url {
-    NSArray *indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] wmf_select:^BOOL(NSIndexPath *indexPath) {
-        NSURL *otherURL = [self.dataSource urlForIndexPath:indexPath];
-        return [url isEqual:otherURL];
-    }];
-
-    [self.dataSource reloadCellsAtIndexPaths:indexPathsToRefresh];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataSource.tableView = self.tableView;
-    [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
