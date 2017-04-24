@@ -12,7 +12,7 @@
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
 
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
-- (void)updateBackgroundSourcesWithCompletion:(nullable dispatch_block_t)completion;
+- (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
 - (void)debugSendRandomInTheNewsNotification;
 
