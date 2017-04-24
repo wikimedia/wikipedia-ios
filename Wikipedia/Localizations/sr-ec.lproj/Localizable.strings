@@ -409,9 +409,7 @@
 "places-search-saved-articles" = "Сви сачувани чланци";
 "places-search-articles-that-match" = "$1 имају поклапање за „$2”";
 "places-filter-top-articles" = "Најчитанији чланци";
-"places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-filter-saved-articles" = "Сачувани чланци";
-"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|место пронађено|места пронађена|места пронађено}}";
 "places-filter-list-title" = "Филтери за претрагу";
 "places-search-default-text" = "Претражи чланке или локације";
 "places-empty-search-title" = "Претражи Википедијине чланке са географским локацијама";
