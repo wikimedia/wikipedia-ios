@@ -855,7 +855,7 @@ img.classList.add('wideImageOverride');
         }
 
         var saveAnchor = document.createElement('a');
-        saveAnchor.id = `${_saveButtonIDPrefix}${wmfPage.title}`;
+        saveAnchor.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
         saveAnchor.innerText = 'Save for later';
         saveAnchor.className = 'footer_readmore_page_action_save';
 
