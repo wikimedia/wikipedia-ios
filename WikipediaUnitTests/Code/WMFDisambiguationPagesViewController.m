@@ -14,7 +14,7 @@
 
 @implementation WMFDisambiguationPagesViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore   {
+- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
         self.article = article;
@@ -48,6 +48,10 @@
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
+}
+
+- (void)updateEmptyAndDeleteState {
+    //Empty override to prevent nil'ing of left bar button item (the x button) caused by the default implementation
 }
 
 @end
