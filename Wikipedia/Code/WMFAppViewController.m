@@ -287,9 +287,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:^{
-            completion(UIBackgroundFetchResultNewData);
-        }];
+        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
     });
 }
 
@@ -452,10 +450,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 
     dispatch_block_t done = ^{
-        [self finishResumingApp];
-        if (completion) {
-            completion();
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self finishResumingApp];
+            if (completion) {
+                completion();
+            }
+        });
     };
 
     if (self.unprocessedUserActivity) {
@@ -1026,20 +1026,21 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [self.dataStore.feedContentController updateNearbyForce:YES completion:^{
-        WMFAssertMainThread(@"Completion assumed to be called on the main thread");
-        WMFContentGroup *nearby = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindLocation];
-        if (!nearby) {
-            //TODO: show an error?
-            return;
-        }
+    [self.dataStore.feedContentController updateNearbyForce:YES
+                                                 completion:^{
+                                                     WMFAssertMainThread(@"Completion assumed to be called on the main thread");
+                                                     WMFContentGroup *nearby = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindLocation];
+                                                     if (!nearby) {
+                                                         //TODO: show an error?
+                                                         return;
+                                                     }
 
-        NSArray *urls = nearby.content;
+                                                     NSArray *urls = nearby.content;
 
-        WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore];
-        vc.cellType = WMFMorePageListCellTypeLocation;
-        [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
-    }];
+                                                     WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore];
+                                                     vc.cellType = WMFMorePageListCellTypeLocation;
+                                                     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
+                                                 }];
 }
 
 - (void)locationManager:(WMFLocationManager *)locationManager didChangeEnabledState:(BOOL)enabled {

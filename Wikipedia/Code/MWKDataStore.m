@@ -241,6 +241,7 @@ static uint64_t bundleHash() {
     self.persistentStoreCoordinator = persistentStoreCoordinator;
     self.viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.viewContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 }
@@ -454,6 +455,7 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.parentContext = _viewContext;
     backgroundContext.automaticallyMergesChangesFromParent = YES;
+    backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
     [backgroundContext performBlock:^{
@@ -463,14 +465,13 @@ static uint64_t bundleHash() {
 }
 
 - (void)backgroundContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
+    NSManagedObjectContext *moc = _viewContext;
+    [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        [self.viewContext save:&mainContextSaveError];
-        if (mainContextSaveError) {
+        if (![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
-    });
+    }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
@@ -478,19 +479,13 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
         _feedImportContext.automaticallyMergesChangesFromParent = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedImportContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
     _feedImportContext = nil;
-}
-
-- (void)feedImportContextDidSave:(NSNotification *)note {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.viewContext mergeChangesFromContextDidSaveNotification:note];
-    });
 }
 
 #pragma mark - Migrations
