@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRelatedPagesContentSource : NSObject <WMFContentSource, WMFDateBasedContentSource>
+@interface WMFRelatedPagesContentSource : NSObject <WMFContentSource, WMFDateBasedContentSource, WMFOptionalNewContentSource>
 
 @end
 

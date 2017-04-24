@@ -33,7 +33,9 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
-@property (nonatomic, nullable) NSURL *thumbnailURL;
+@property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
+
+- (nullable NSURL *)imageURLForWidth:(NSInteger)width;
 
 @property (nonatomic, readonly, nullable) NSArray<NSNumber *> *pageViewsSortedByDate;
 
@@ -45,8 +47,6 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (void)updateWithSearchResult:(nullable MWKSearchResult *)searchResult;
 
-- (void)updateWithMWKArticle:(nullable MWKArticle *)article;
-
 @end
 
 @interface NSManagedObjectContext (WMFArticle)
@@ -55,13 +55,13 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
 
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key;
+
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult;
-
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithMWKArticle:(nullable MWKArticle *)article;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
 

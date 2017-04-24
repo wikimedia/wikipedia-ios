@@ -14,9 +14,34 @@
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
-        return nil;
+        return [self imageURLForWidth:240]; //hardcoded to not rely on UIScreen in a model object
     }
     return [NSURL URLWithString:thumbnailURLString];
+}
+
+- (nullable NSURL *)imageURLForWidth:(NSInteger)width {
+    NSAssert(width > 0, @"Width must be > 0");
+    if (width <= 0) {
+        return nil;
+    }
+    NSString *imageURLString = self.imageURLString;
+    NSNumber *imageWidth = self.imageWidth;
+    if (!imageURLString || !imageWidth) {
+        NSString *thumbnailURLString = self.thumbnailURLString;
+        if (!thumbnailURLString) {
+            return nil;
+        }
+        NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(thumbnailURLString);
+        if (sizePrefix == NSNotFound || width >= sizePrefix) {
+            return [NSURL URLWithString:thumbnailURLString];
+        }
+        return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(thumbnailURLString, width)];
+    }
+    NSString *lowercasePathExtension = [[imageURLString pathExtension] lowercaseString];
+    if (width >= [imageWidth integerValue] && ![lowercasePathExtension isEqualToString:@"svg"] && ![lowercasePathExtension isEqualToString:@"pdf"]) {
+        return [NSURL URLWithString:imageURLString];
+    }
+    return [NSURL URLWithString:WMFChangeImageSourceURLSizePrefix(imageURLString, width)];
 }
 
 - (void)setThumbnailURL:(NSURL *)thumbnailURL {
@@ -62,31 +87,6 @@
     }
 }
 
-- (void)updateWithMWKArticle:(MWKArticle *)article {
-    if ([article.displaytitle length] > 0) {
-        self.displayTitle = article.displaytitle;
-    }
-    if ([article.entityDescription length] > 0) {
-        self.wikidataDescription = article.entityDescription;
-    }
-    if ([article.summary length] > 0) {
-        self.snippet = article.summary;
-    }
-    
-    //    This whole block is commented out due to the fact that articles are requested with @"pilicense": @"any" and we can't use those thumbs in previews. Uncomment this block of code when this issue is resolved: https://phabricator.wikimedia.org/T162474
-    //    //The thumb from the article is almost always worse, dont use it unless we have to
-    //    if (preview.thumbnailURL == nil && [article bestThumbnailImageURL] != nil) {
-    //        NSURL *thumb = [NSURL URLWithString:[article bestThumbnailImageURL]];
-    //        preview.thumbnailURL = thumb;
-    //    }
-    
-    self.isExcludedFromFeed = article.ns != 0 || self.URL.wmf_isMainPage;
-    
-    [self updateWithScalarCoordinate:article.coordinate];
-    
-    self.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-}
-
 @end
 
 @implementation NSManagedObjectContext (WMFArticle)
@@ -107,14 +107,19 @@
     return article;
 }
 
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+    WMFArticle *article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
+    article.key = key;
+    return article;
+}
+
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
     if (!key) {
         return nil;
     }
     WMFArticle *article = [self fetchArticleWithKey:key];
     if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
-        article.key = key;
+        article = [self createArticleWithKey:key];
     }
     return article;
 }
@@ -129,17 +134,6 @@
     WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL];
     [article updateWithSearchResult:searchResult];
     return article;
-}
-
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithMWKArticle:(nullable MWKArticle *)article {
-    NSParameterAssert(articleURL);
-    if (!articleURL) {
-        return nil;
-    }
-    
-    WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
-    [preview updateWithMWKArticle:article];
-    return preview;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {
@@ -168,7 +162,15 @@
             preview.pageViews = [preview.pageViews mtl_dictionaryByAddingEntriesFromDictionary:pageViews];
         }
     }
-    
+    if (feedPreview.imageURLString != nil) {
+        preview.imageURLString = feedPreview.imageURLString;
+    }
+    if (feedPreview.imageWidth != nil) {
+        preview.imageWidth = feedPreview.imageWidth;
+    }
+    if (feedPreview.imageHeight != nil) {
+        preview.imageHeight = feedPreview.imageHeight;
+    }
     return preview;
 }
 

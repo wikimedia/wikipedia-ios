@@ -1,5 +1,7 @@
 #import "WMFContentSource.h"
 
+extern const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters;
+
 @interface WMFNearbyContentSource : NSObject <WMFContentSource, WMFAutoUpdatingContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;

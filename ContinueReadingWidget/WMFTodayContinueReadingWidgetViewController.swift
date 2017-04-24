@@ -126,19 +126,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         let fragment = historyEntry.viewedFragment
         articleURL = (historyEntry.url as NSURL?)?.wmf_URL(withFragment: fragment)
         
-        guard let lastReadArticleURL = articleURL else {
-            emptyViewHidden = false
-            return false
-        }
-        
-        guard let article = session.dataStore.existingArticle(with: lastReadArticleURL) else {
-            emptyViewHidden = false
-            return false
-        }
-        
         emptyViewHidden = true
         
-        if let subtitle = article.summary ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
+        if let subtitle = historyEntry.snippet ?? historyEntry.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(){
             self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
@@ -152,11 +142,11 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         
-        self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
+        self.titleLabel.text = historyEntry.displayTitle
         
         
         if #available(iOSApplicationExtension 10.0, *) {
-            if let string = article.imageURL, let imageURL = URL(string: string) {
+            if let imageURL = historyEntry.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
                 self.collapseImageAndWidenLabels = false
                 self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.collapseImageAndWidenLabels = true

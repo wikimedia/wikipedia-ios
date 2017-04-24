@@ -28,7 +28,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-        [self migrateLegacyDataIfNeeded];
     }
     return self;
 }

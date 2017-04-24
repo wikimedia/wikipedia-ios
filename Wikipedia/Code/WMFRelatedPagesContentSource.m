@@ -77,6 +77,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+    [self loadContentForDate:date inManagedObjectContext:moc force:force addNewContent:YES completion:completion];
+}
+
+
+- (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
     NSParameterAssert(date);
     if (!date) {
         if (completion) {
@@ -88,7 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
     [moc performBlock:^{
         NSDate *midnightUTCDate = [date wmf_midnightUTCDateFromLocalDate];
         NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-        fetchRequest.propertiesToFetch = @[@"key"];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(WMFContentGroupKindRelatedPages)];
         NSError *fetchError = nil;
         NSArray<WMFContentGroup *> *relatedPagesContentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
@@ -145,7 +149,14 @@ NS_ASSUME_NONNULL_BEGIN
             }
             [moc removeContentGroup:group];
         }
-
+        
+        if (!shouldAddNewContent) {
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+        
         NSFetchRequest *relatedSeedRequest = [WMFArticle fetchRequest];
         relatedSeedRequest.predicate = [NSPredicate predicateWithFormat:@"isExcludedFromFeed == NO && (wasSignificantlyViewed == YES || savedDate != NULL) && !(key IN %@)", remainingKeys];
         relatedSeedRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];

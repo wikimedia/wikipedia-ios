@@ -176,6 +176,11 @@
 "settings-notifications-system-turn-on" = "Turn on Notifications";
 "settings-notifications-trending" = "Trending current events";
 "settings-notifications-push-notifications" = "Push notifications";
+"settings-clear-cache" = "Clear cached data";
+"settings-clear-cache-are-you-sure-title" = "Clear cached data?";
+"settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
+"settings-clear-cache-ok" = "Clear cache";
+"settings-clear-cache-cancel" = "Cancel";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -584,11 +589,12 @@
 
 "announcements-dismiss" = "No thanks";
 
-"places-search-top-articles" = "Top articles";
+"places-search-top-articles" = "All top articles";
 "places-search-this-area" = "Search this area";
-"places-search-saved-articles" = "Saved articles";
+"places-search-saved-articles" = "All saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-recently-searched-header" = "Recently searched";
+"places-search-articles-that-match" = "$1 matching \“$2\”";
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-unknown-distance" = "unknown distance";
 "places-enable-location-title" = "Explore articles near your location by enabling Location Access";
@@ -601,6 +607,15 @@
 "places-accessibility-recenter-map-on-user-location" = "Recenter on your location";
 "places-accessibility-close-search" = "Close search";
 "places-accessibility-clear-recent-searches" = "Clear recent searches";
+
+"places-filter-top-articles" = "Top articles";
+"places-filter-top-articles-count" = "$1 articles";
+"places-filter-saved-articles" = "Saved articles";
+"places-filter-saved-articles-count" = "$1 places found";
+"places-filter-list-title" = "Search filters";
+"places-search-default-text" = "Search for articles or locations";
+"places-empty-search-title" = "Search for Wikipedia articles with geographic locations";
+"places-empty-search-description" = "Explore cities, countries, continents, natural landmarks, historical events, buildings and more.";
 
 "action-share" = "Share";
 "action-save" = "Save";

@@ -72,14 +72,6 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             return;
         }
         
-        WMF_TECH_DEBT_TODO(Remove this in a later version.A preview will always be available)
-        WMFArticle *article = [moc fetchArticleWithURL:lastRead];
-        if (!article) {
-            MWKArticle *mwkArticle = [self.userDataStore articleWithURL:lastRead];
-            NSParameterAssert(mwkArticle);
-            [article updateWithMWKArticle:mwkArticle];
-        }
-        
         [moc fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:NULL];
         
         if (completion) {

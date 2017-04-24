@@ -136,6 +136,16 @@ NSString *const WMFAPIPath = @"/w/api.php";
     return components.URL;
 }
 
+- (NSURL *)wmf_summaryEndpointURL {
+    NSURL *siteURL = self.wmf_siteURL;
+    NSString *title = self.wmf_title;
+    if (!siteURL || !title) {
+        return nil;
+    }
+    NSString *path = [NSString pathWithComponents:@[@"/api", @"rest_v1", @"page", @"summary", title]];
+    return [siteURL wmf_URLWithPath:path isMobile:NO];
+}
+
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
