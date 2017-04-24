@@ -396,13 +396,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
-- (void)articleUpdatedWithNotification:(NSNotification *)note {
-    MWKArticle *article = note.userInfo[MWKArticleKey];
-    if ([self.articleURL isEqual:article.url]) {
-        self.article = article;
-    }
-}
-
 #pragma mark - Public
 
 - (BOOL)canRefresh {
