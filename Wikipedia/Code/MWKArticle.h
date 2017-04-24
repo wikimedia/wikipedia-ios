@@ -115,8 +115,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (void)save;
 
-- (void)remove;
-
 - (BOOL)isCached;
 
 /**

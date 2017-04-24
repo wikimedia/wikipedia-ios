@@ -1249,17 +1249,20 @@ static uint64_t bundleHash() {
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
     if (urlsOfArticlesToRemove.count > 0) {
         NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        MWKArticle *article = [self articleFromDiskWithURL:urlToRemove];
-        [article remove];
-        [urlsOfArticlesToRemove removeObjectAtIndex:0];
-        NSError *error = nil;
-        if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-            dispatch_async(self.cacheRemovalQueue, ^{
-                [self removeNextArticleFromCacheRemovalList];
-            });
-        } else {
-            DDLogError(@"Error saving cache removal list: %@", error);
-        }
+        [self removeArticleWithURL:urlToRemove
+            fromDiskWithCompletion:^{
+                dispatch_async(self.cacheRemovalQueue, ^{
+                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                    NSError *error = nil;
+                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                        dispatch_async(self.cacheRemovalQueue, ^{
+                            [self removeNextArticleFromCacheRemovalList];
+                        });
+                    } else {
+                        DDLogError(@"Error saving cache removal list: %@", error);
+                    }
+                });
+            }];
     }
 }
 
@@ -1308,18 +1311,36 @@ static uint64_t bundleHash() {
     return err;
 }
 
-- (void)deleteArticle:(MWKArticle *)article {
-    NSString *path = [self pathForArticle:article];
-
-    NSString *groupKey = article.url.wmf_articleDatabaseKey;
-    if (groupKey) {
-        [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey
-                                                                            completion:^{
-                                                                            }];
+- (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion {
+    if (!articleURL) {
+        if (completion) {
+            completion();
+        }
+        return;
     }
-
-    // delete article metadata last
-    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSString *path = [self pathForArticleURL:articleURL];
+        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+        dispatch_block_t combinedCompletion = ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                WMFArticle *article = [self fetchArticleWithURL:articleURL];
+                article.isDownloaded = NO;
+                NSError *saveError = nil;
+                if (![self save:&saveError]) {
+                    DDLogError(@"Error saving after cache removal: %@", saveError);
+                }
+                if (completion) {
+                    completion();
+                }
+            });
+        };
+        NSString *groupKey = articleURL.wmf_articleDatabaseKey;
+        if (groupKey) {
+            [[WMFImageController sharedInstance] removePermanentlyCachedImagesWithGroupKey:groupKey completion:combinedCompletion];
+        } else {
+            combinedCompletion();
+        }
+    });
 }
 
 #pragma mark - Cache
