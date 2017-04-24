@@ -274,14 +274,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.sections save];
 }
 
-#pragma mark - Remove
-
-- (void)remove {
-    [self.dataStore deleteArticle:self];
-    // reset ivars to prevent state from persisting in memory
-    self.sections = nil;
-}
-
 #pragma mark - Accessors
 
 - (MWKSectionList *)sections {
