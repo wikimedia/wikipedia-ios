@@ -1,6 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Alexandr Efremov
+// Author: Av6
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
@@ -521,9 +522,9 @@
 "status-saving-for-later" = "Экономия на потом...";
 "status-saved-for-later" = "Сохранено на потом";
 "announcements-dismiss" = "Нет, спасибо";
-"places-search-top-articles" = "Самые читаемые статьи";
+"places-search-top-articles" = "Все самые читаемые статьи";
 "places-search-this-area" = "Поиск в этой области";
-"places-search-saved-articles" = "Сохранённые статьи";
+"places-search-saved-articles" = "Все сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
@@ -538,6 +539,8 @@
 "places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";
 "places-accessibility-close-search" = "Закрыть поиск";
 "places-accessibility-clear-recent-searches" = "Очистить список последних поисковых запросов";
+"places-filter-top-articles" = "Самые читаемые статьи";
+"places-filter-saved-articles" = "Сохранённые статьи";
 "action-share" = "Поделиться";
 "action-save" = "Сохранить";
 "action-read" = "Читать";

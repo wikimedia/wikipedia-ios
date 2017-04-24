@@ -164,6 +164,11 @@
 "settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
 "settings-notifications-trending" = "Тековни настани";
 "settings-notifications-push-notifications" = "Доставни известувања";
+"settings-clear-cache" = "Исчисти меѓускладирани податоци";
+"settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
+"settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
+"settings-clear-cache-ok" = "Исчисти";
+"settings-clear-cache-cancel" = "Откажи";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За прилогот";
 "main-menu-language-title" = "Пребарување на Википедија на $1";
@@ -501,8 +506,10 @@
 "status-saving-for-later" = "Зачувувам за подоцна...";
 "status-saved-for-later" = "Зачувано за подоцна";
 "announcements-dismiss" = "Не, благодарам";
+// Fuzzy
 "places-search-top-articles" = "Најчитани статии";
 "places-search-this-area" = "Пребарај на ова подрачје";
+// Fuzzy
 "places-search-saved-articles" = "Зачувани статии";
 "places-search-suggested-searches-header" = "Предложени пребарувања";
 "places-search-recently-searched-header" = "Неодамна пребарано";

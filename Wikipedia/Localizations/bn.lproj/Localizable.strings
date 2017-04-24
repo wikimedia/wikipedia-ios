@@ -168,6 +168,7 @@
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-notifications-learn-more" = "বিজ্ঞপ্তি সম্পর্কে আরো জানুন";
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
+"settings-clear-cache-cancel" = "বাতিল";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -495,8 +496,10 @@
 "status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "announcements-dismiss" = "না ধন্যবাদ";
+// Fuzzy
 "places-search-top-articles" = "শীর্ষ নিবন্ধ";
 "places-search-this-area" = "এই এলাকায় অনুসন্ধান করুন";
+// Fuzzy
 "places-search-saved-articles" = "সংরক্ষিত নিবন্ধ";
 "places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";

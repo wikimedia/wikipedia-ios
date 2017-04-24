@@ -469,8 +469,10 @@
 "status-saving-for-later" = "Đang lưu để đọc sau…";
 "status-saved-for-later" = "Đã lưu để đọc sau";
 "announcements-dismiss" = "Thôi";
+// Fuzzy
 "places-search-top-articles" = "Đọc nhiều nhất";
 "places-search-this-area" = "Tìm trong khu vực này";
+// Fuzzy
 "places-search-saved-articles" = "Bài lưu";
 "places-search-suggested-searches-header" = "Tìm kiếm gợi ý";
 "places-search-recently-searched-header" = "Tìm kiếm gần đây";
