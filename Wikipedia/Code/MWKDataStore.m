@@ -6,7 +6,6 @@
 
 @import CoreData;
 
-NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
@@ -934,9 +933,6 @@ static uint64_t bundleHash() {
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
-    dispatchOnMainQueue(^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
-    });
 }
 
 - (void)saveSection:(MWKSection *)section {
