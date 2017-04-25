@@ -1,5 +1,5 @@
 
-function add(containerID, licenseString, licenseSubstitutionString, licenceLinkClickHandler) {
+function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
   var container = document.getElementById(containerID);
   var licenseStringHalves = licenseString.split('$1');
 

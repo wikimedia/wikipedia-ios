@@ -61,7 +61,7 @@ class WMFMenuItemFragment {
     }
 }
 
-function addItem(containerID, title, subtitle, iconType, clickHandler) {
+function addItem(title, subtitle, iconType, containerID, clickHandler) {
   const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
   const itemFragment = new WMFMenuItemFragment(itemModel);
   document.getElementById(containerID).appendChild(itemFragment);

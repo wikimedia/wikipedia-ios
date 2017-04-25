@@ -87,7 +87,7 @@ import Foundation
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('footer_menu_container', '\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_menu_container', \(itemSelectionHandler));"
     }
 }
 
@@ -105,7 +105,7 @@ extension WKWebView {
             ].filter{$0.shouldAddItem(with: article)}
              .map{$0.itemAdditionJavascriptString(with: article)}
         
-        evaluateJavaScript("window.wmf.footerMenu.setHeading( '\(header)' ); \(itemsJS.joined(separator: ""))", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)' ); \(itemsJS.joined(separator: ""))", completionHandler: nil)
     }
 
     public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
@@ -115,7 +115,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add( 'footer_legal_container', '\(licenseString)', '\(licenseSubstitutionString)', \(licenseLinkClickHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_legal_container', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
@@ -140,7 +140,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add( 'footer_readmore_container', '\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_readmore_container', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

@@ -654,7 +654,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
 
 },{"../transformer":6}],9:[function(require,module,exports){
 
-function add(containerID, licenseString, licenseSubstitutionString, licenceLinkClickHandler) {
+function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
   var container = document.getElementById(containerID);
   var licenseStringHalves = licenseString.split('$1');
 
@@ -741,7 +741,7 @@ class WMFMenuItemFragment {
     }
 }
 
-function addItem(containerID, title, subtitle, iconType, clickHandler) {
+function addItem(title, subtitle, iconType, containerID, clickHandler) {
   const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
   const itemFragment = new WMFMenuItemFragment(itemModel);
   document.getElementById(containerID).appendChild(itemFragment);
@@ -954,7 +954,7 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
-function add(containerID, baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID);
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  

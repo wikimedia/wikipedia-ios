@@ -196,7 +196,7 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
-function add(containerID, baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID);
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  
