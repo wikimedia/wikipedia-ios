@@ -289,11 +289,6 @@ static uint64_t bundleHash() {
         return;
     }
 
-    NSManagedObjectContext *feedImportContext = _feedImportContext;
-    [feedImportContext performBlockAndWait:^{
-         [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[feedImportContext]];
-    }];
-
     uint64_t state = bundleHash();
 
     NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
