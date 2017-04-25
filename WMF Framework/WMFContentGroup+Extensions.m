@@ -552,18 +552,6 @@
     }
 }
 
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
-    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
-    NSError *fetchError = nil;
-    NSArray<WMFContentGroup *> *groups = [self executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching content groups for deletion: %@", fetchError);
-        return;
-    }
-    [self removeContentGroups:groups];
-}
-
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {
     NSArray *groups = [self contentGroupsOfKind:kind];
     [self removeContentGroups:groups];
