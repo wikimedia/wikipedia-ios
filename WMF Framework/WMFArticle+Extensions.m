@@ -87,24 +87,6 @@
     }
 }
 
-- (void)updateWithMWKArticle:(MWKArticle *)article {
-    if ([article.displaytitle length] > 0) {
-        self.displayTitle = article.displaytitle;
-    }
-    if ([article.entityDescription length] > 0) {
-        self.wikidataDescription = article.entityDescription;
-    }
-    if ([article.summary length] > 0) {
-        self.snippet = article.summary;
-    }
-    
-    self.isExcludedFromFeed = article.ns != 0 || self.URL.wmf_isMainPage;
-    
-    [self updateWithScalarCoordinate:article.coordinate];
-    
-    self.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-}
-
 @end
 
 @implementation NSManagedObjectContext (WMFArticle)
@@ -125,14 +107,19 @@
     return article;
 }
 
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+    WMFArticle *article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
+    article.key = key;
+    return article;
+}
+
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
     if (!key) {
         return nil;
     }
     WMFArticle *article = [self fetchArticleWithKey:key];
     if (!article) {
-        article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
-        article.key = key;
+        article = [self createArticleWithKey:key];
     }
     return article;
 }
@@ -147,17 +134,6 @@
     WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL];
     [article updateWithSearchResult:searchResult];
     return article;
-}
-
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithMWKArticle:(nullable MWKArticle *)article {
-    NSParameterAssert(articleURL);
-    if (!articleURL) {
-        return nil;
-    }
-    
-    WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
-    [preview updateWithMWKArticle:article];
-    return preview;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews {

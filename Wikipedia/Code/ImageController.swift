@@ -335,6 +335,7 @@ open class ImageController : NSObject {
         moc.perform {
             self.permanentCacheCompletionManager.cancel(group: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
+                completion()
                 return
             }
             for item in group.cacheItems ?? [] {
@@ -381,13 +382,11 @@ open class ImageController : NSObject {
     }
     
     public func memoryCachedImage(withURL url: URL) -> Image? {
-        assert(Thread.isMainThread)
         let identifier = identifierForURL(url) as NSString
         return memoryCache.object(forKey: identifier)
     }
     
     public func addToMemoryCache(_ image: Image, url: URL) {
-        assert(Thread.isMainThread)
         let identifier = identifierForURL(url) as NSString
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
@@ -418,9 +417,7 @@ open class ImageController : NSObject {
         guard let image = createImage(data: data, mimeType: typedDiskData.MIMEType) else {
             return nil
         }
-        DispatchQueue.main.async {
-            self.addToMemoryCache(image, url: url)
-        }
+        self.addToMemoryCache(image, url: url)
         return image
     }
     
@@ -437,9 +434,7 @@ open class ImageController : NSObject {
         guard let image = createImage(data: data, mimeType:typedData.MIMEType) else {
             return nil
         }
-        DispatchQueue.main.async {
-            self.addToMemoryCache(image, url: url)
-        }
+        self.addToMemoryCache(image, url: url)
         return image
     }
     
@@ -501,8 +496,8 @@ open class ImageController : NSObject {
                 failure(ImageControllerError.invalidResponse)
                 return
             }
+            self.addToMemoryCache(image, url: url)
             DispatchQueue.main.async {
-                self.addToMemoryCache(image, url: url)
                 success(ImageDownload(url: url, image: image, origin: .unknown))
             }
         }
@@ -588,8 +583,11 @@ open class ImageController : NSObject {
     public func removeLegacyCache() {
         do {
             try fileManager.removeItem(at: legacyCacheFolderURL)
-        } catch let error {
-            DDLogError("Error migrating from legacy cache \(error)")
+        } catch let error as NSError {
+            guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
+                return
+            }
+            DDLogError("Error removing legacy cache \(error)")
         }
     }
 }

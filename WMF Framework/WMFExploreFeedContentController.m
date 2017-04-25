@@ -164,13 +164,13 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                             }];
 }
 
-- (void)updateNearby:(nullable dispatch_block_t)completion {
+- (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateNearby: must be called on the main thread");
     if (self.taskGroup) {
         @weakify(self);
         [self.queue addObject:^{
             @strongify(self);
-            [self updateNearby:completion];
+            [self updateNearbyForce:force completion:completion];
         }];
         return;
     }
@@ -181,7 +181,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         if ([obj isKindOfClass:[WMFNearbyContentSource class]]) {
             [group enter];
             [obj loadNewContentInManagedObjectContext:moc
-                                                force:NO
+                                                force:force
                                            completion:^{
                                                [group leave];
                                            }];
@@ -199,19 +199,21 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                             }];
 }
 
-- (void)updateBackgroundSourcesWithCompletion:(nullable dispatch_block_t)completion {
+- (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler {
     WMFAssertMainThread(@"updateBackgroundSourcesWithCompletion: must be called on the main thread");
     if (self.taskGroup) {
         @weakify(self);
         [self.queue addObject:^{
             @strongify(self);
-            [self updateBackgroundSourcesWithCompletion:completion];
+            [self updateBackgroundSourcesWithCompletion:completionHandler];
         }];
         return;
     }
     WMFTaskGroup *group = [WMFTaskGroup new];
     self.taskGroup = group;
     NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSFetchRequest *beforeFetchRequest = [WMFContentGroup fetchRequest];
+    NSInteger beforeCount = [moc countForFetchRequest:beforeFetchRequest error:nil];
     [group enter];
     [[self feedContentSource] loadNewContentInManagedObjectContext:moc
                                                              force:NO
@@ -227,8 +229,18 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                           }];
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:^{
-        if (completion) {
-            completion();
+        BOOL didUpdate = NO;
+        if ([moc hasChanges]) {
+            NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
+            NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
+            didUpdate = afterCount != beforeCount;
+            NSError *saveError = nil;
+            if (![moc save:&saveError]) {
+                DDLogError(@"Error saving background source update: %@", saveError);
+            }
+        }
+        if (completionHandler) {
+            completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
         }
         self.taskGroup = nil;
         [self popQueue];
@@ -272,7 +284,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                 return;
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                WMFContentGroup *newsContentGroup = [self.dataStore.viewContext firstGroupOfKind:WMFContentGroupKindNews];
+                WMFContentGroup *newsContentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindNews];
                 if (newsContentGroup) {
                     NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
                     if (stories.count > 0) {

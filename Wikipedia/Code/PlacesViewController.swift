@@ -3,31 +3,42 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
+    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
-    
-    @IBOutlet weak var listAndSearchOverlayContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchContainerView: RoundedCornerView!
+    @IBOutlet weak var titleViewSearchBar: UISearchBar!
+    @IBOutlet weak var mapListToggle: UISegmentedControl!
+    @IBOutlet weak var filterSelectorView: PlaceSearchFilterSelectorView!
+    @IBOutlet weak var filterDropDownContainerView: UIView!
+    @IBOutlet weak var filterDropDownTableView: UITableView!
+    @IBOutlet weak var closeSearchButton: UIButton!
+    @IBOutlet weak var searchBarToMapListToggleTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarToCloseTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySliderView: RoundedCornerView!
+    @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
     @IBOutlet weak var listView: UITableView!
     @IBOutlet weak var searchSuggestionView: UITableView!
+    @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
     public var dataStore: MWKDataStore!
 
     private let locationSearchFetcher = WMFLocationSearchFetcher()
     private let searchFetcher = WMFSearchFetcher()
-    private let previewFetcher = WMFArticlePreviewFetcher()
     private let wikidataFetcher = WikidataFetcher()
     private let locationManager = WMFLocationManager.fine()
     private let animationDuration = 0.6
@@ -35,7 +46,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let popoverFadeDuration = 0.25
     private let searchHistoryCountLimit = 15
     private var searchSuggestionController: PlaceSearchSuggestionController!
-    private var titleViewSearchBar: UISearchBar!
     private var searchBar: UISearchBar? {
         didSet {
             oldValue?.delegate = nil
@@ -44,11 +54,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    private var segmentedControl: UISegmentedControl!
-    private var segmentedControlBarButtonItem: UIBarButtonItem!
-    private var closeBarButtonItem: UIBarButtonItem!
     private var currentGroupingPrecision: QuadKeyPrecision = 1
-    private let searchHistoryGroup = "PlaceSearch"
     private var selectedArticlePopover: ArticlePopoverViewController?
     private var selectedArticleAnnotationView: MKAnnotationView?
     private var selectedArticleKey: String?
@@ -62,13 +68,32 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private let listTrackerContext: AnalyticsContext = "Places_list"
     private let searchTrackerContext: AnalyticsContext = "Places_search"
     private let imageController = ImageController.shared
+    private var searchFilterListController: PlaceSearchFilterListController!
+    private var extendedNavBarHeightOrig: CGFloat?
+    private var touchOutsideOverlayView: TouchOutsideOverlayView!
     
     // MARK: - View Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
+        
+        addBottomShadow(view: extendedNavBarView)
+        extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
+        
+        searchFilterListController = PlaceSearchFilterListController(delegate: self)
+        searchFilterListController.tableView = filterDropDownTableView
+        filterDropDownTableView.dataSource = searchFilterListController
+        filterDropDownTableView.delegate = searchFilterListController
+        
+        touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
+        touchOutsideOverlayView.delegate = self
+
+        // config filter drop down
+        addBottomShadow(view: filterDropDownContainerView)
+
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
         // Setup map view
         mapView.mapType = .standard
@@ -89,27 +114,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let list = #imageLiteral(resourceName: "places-list")
         map.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-map")
         list.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-list")
-        segmentedControl = UISegmentedControl(items: [map, list])
+        mapListToggle.setImage(map, forSegmentAt: 0)
+        mapListToggle.setImage(list, forSegmentAt: 1)
+        mapListToggle.selectedSegmentIndex = 0
+        mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
+        mapListToggle.tintColor = .wmf_blueTint
         
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        segmentedControl.tintColor = .wmf_blueTint
-        segmentedControlBarButtonItem = UIBarButtonItem(customView: segmentedControl)
-        navigationItem.rightBarButtonItem = segmentedControlBarButtonItem
+        // Setup close search button
+        closeSearchButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
         
-        let closeImage = #imageLiteral(resourceName: "close")
-        closeBarButtonItem = UIBarButtonItem(image:  closeImage, style: .plain, target: self, action: #selector(closeSearch))
-        closeBarButtonItem.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
-        
 
-        listAndSearchOverlaySearchContainerView.corners = [.topLeft, .topRight]
-        listAndSearchOverlaySearchContainerView.radius = 5
-        
-        listAndSearchOverlaySliderView.corners = [.bottomLeft, .bottomRight]
-        listAndSearchOverlaySliderView.radius = 5
-        
+        listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
+        listAndSearchOverlayContainerView.radius = 5
         
         // Setup list view
         listView.dataSource = self
@@ -123,32 +141,39 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.delegate = self
 
         // Setup search bar
-        let searchBarHeight: CGFloat = 32
-        let searchBarLeftPadding: CGFloat = 7.5
-        let searchBarRightPadding: CGFloat = 2.5
-        titleViewSearchBar = UISearchBar(frame: CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: 32))
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
-        titleView.addSubview(titleViewSearchBar)
-        navigationItem.titleView = titleView
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
+        titleViewSearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
         
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        
-        searchBar = titleViewSearchBar
+        listAndSearchOverlaySearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
         
         viewMode = .map
+        
+        self.view.layoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
+            updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
+        } else {
+            DDLogDebug("not updating navigation bar because search bar isn't set yet")
+        }
+        
         super.viewWillAppear(animated)
         
         let defaults = UserDefaults.wmf_userDefaults()
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
         }
+        
+        if isViewModeOverlay {
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -167,18 +192,45 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = true
         
         tracker?.wmf_logView(self)
-        
-        if isViewModeOverlay {
-            navigationController?.setNavigationBarHidden(true, animated: animated)
-        }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        updateNavigationBar(removeUnderline: false)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
         mapView.showsUserLocation = false
+    }
+    
+    // MARK: - Utility
+    
+    private func addBottomShadow(view: UIView) {
+        // Setup extended navigation bar
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
+        view.shadowRadius = 0
+        view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.shadowOpacity = 0.25
+    }
+    
+    private func updateNavigationBar(removeUnderline: Bool) {
+        if (removeUnderline) {
+            navigationController!.navigationBar.isTranslucent = false
+            navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+        } else {
+            navigationController!.navigationBar.isTranslucent = false
+            navigationController!.navigationBar.shadowImage = nil
+            navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
+        }
+        
+        // this little dance is to force the navigation bar to redraw. Without it, 
+        // the underline would not be removed until the view fully animated, instead of
+        // before
+        // http://stackoverflow.com/a/40948889
+        navigationController!.isNavigationBarHidden = true;
+        navigationController!.isNavigationBarHidden = false;
     }
     
     // MARK: - MKMapViewDelegate
@@ -495,15 +547,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
-            searchBar?.text = search.localizedDescription
+            updateSearchFilterTitle()
             performSearch(search)
             
-            
             switch search.type {
-            case .saved:
-                break
-            case .top:
-                break
             case .location:
                 guard !search.needsWikidataQuery else {
                     break
@@ -522,8 +569,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         performDefaultSearch(withRegion: region)
     }
     
+    func isDefaultSearch(_ placeSearch: PlaceSearch) -> Bool {
+        return placeSearch.type == .location && placeSearch.string == nil && placeSearch.searchResult == nil && placeSearch.origin == .system
+    }
+    
     func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
-        currentSearch = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
     }
     
     var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
@@ -544,7 +595,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.type != .saved else {
+        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.filter != .saved else {
             redoSearchButton.isHidden = true
             return
         }
@@ -576,14 +627,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
-        
+
         switch search.type {
-        case .saved:
-            showSavedArticles()
-            return
-        case .top:
-            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-            break
         case .location:
             guard search.needsWikidataQuery else {
                 tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
@@ -597,35 +642,42 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             searchTerm = search.string
         }
         
-        let center = region.center
-        let halfLatitudeDelta = region.span.latitudeDelta * 0.5
-        let halfLongitudeDelta = region.span.longitudeDelta * 0.5
-        let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
-        let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
-        let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
-        let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
-        let height = top.distance(from: bottom)
-        let width = right.distance(from: left)
-        
-        let radius = round(0.5*max(width, height))
-        let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
-        
-        let done = {
-            self.searching = false
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
-        }
-        isProgressHidden = false
-        progressView.setProgress(0, animated: false)
-        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
-        locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-            self.updatePlaces(withSearchResults: searchResults.results)
-            done()
-        }) { (error) in
-            WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            done()
+        switch search.filter {
+        case .saved:
+            showSavedArticles()
+        case .top:
+            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
+            let center = region.center
+            let halfLatitudeDelta = region.span.latitudeDelta * 0.5
+            let halfLongitudeDelta = region.span.longitudeDelta * 0.5
+            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
+            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
+            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
+            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
+            let height = top.distance(from: bottom)
+            let width = right.distance(from: left)
+            
+            let radius = round(0.5*max(width, height))
+            let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
+            
+            let done = {
+                self.searching = false
+                self.progressView.setProgress(1.0, animated: true)
+                self.isProgressHidden = true
+            }
+            isProgressHidden = false
+            progressView.setProgress(0, animated: false)
+            perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
+            locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
+                self.updatePlaces(withSearchResults: searchResults.results)
+                done()
+            }) { (error) in
+                WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                done()
+            }
         }
     }
+
     
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
@@ -663,7 +715,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
-        } else if currentSearch?.type == .top {
+        } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
                 let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
                 var minDistance = CLLocationDistance(Double.greatestFiniteMagnitude)
@@ -732,12 +784,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.isHidden = true
         
-        guard search.type != .location && search.type != .saved else {
+        guard search.type != .location && search.filter != .saved else {
             performDefaultSearch(withRegion: mapView.region)
             return
         }
         
-        currentSearch = PlaceSearch(type: search.type, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
     // MARK: - Display Actions
@@ -790,20 +842,36 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
-        titleViewSearchBar.isHidden = false
-        segmentedControl.isHidden = false
+        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+        extendedNavBarView.isHidden = false
+        updateNavigationBar(removeUnderline: true)
+
+        let searchBarHeight: CGFloat = 32
+        let searchBarLeftPadding: CGFloat = 7.5
+        let searchBarRightPadding: CGFloat = 2.5
+        
         searchBar = titleViewSearchBar
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: searchBarHeight)
+        filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
+        titleView.addSubview(filterSelectorView)
+        navigationItem.titleView = titleView
+        
         if let panGR = overlaySliderPanGestureRecognizer {
             view.removeGestureRecognizer(panGR)
         }
     }
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
-        titleViewSearchBar.isHidden = true
-        segmentedControl.isHidden = true
+        extendedNavBarView.isHidden = true
+        updateNavigationBar(removeUnderline: false)
+        
+        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
+        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
+        
         searchBar = listAndSearchOverlaySearchBar
-        navigationController?.setNavigationBarHidden(true, animated: animated)
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
@@ -813,11 +881,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     var initialOverlayHeightForPan: CGFloat?
     
-    
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
         get {
-            return listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+            return listAndSearchOverlayFilterSelectorContainerHeightConstraint.constant + listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
         }
     }
     var overlayMaxHeight: CGFloat {
@@ -919,7 +986,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
-    
+
     
     private func updateTraitBasedViewMode() {
         //forces an update
@@ -932,8 +999,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didSet {
             let isHidden = isOverlaySearchButtonHidden
             let animations = {
-                self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = isHidden
-                self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = !isHidden
+                if (isHidden) { // always disable the old constraint before enabling the new one to avoid autolayout errors
+                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = false
+                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = true
+                } else {
+                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = false
+                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = true
+                }
             }
             if (isHidden)  {
                 animations()
@@ -959,9 +1031,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             if oldValue == .search && viewMode != .search {
-                navigationItem.setRightBarButton(segmentedControlBarButtonItem, animated: true)
+                searchBarToCloseTrailingConstraint.isActive = false
+                closeSearchButton.isHidden = true
+                searchBarToMapListToggleTrailingConstraint.isActive = true
+                mapListToggle.isHidden = false
+ 
             } else if oldValue != .search && viewMode == .search {
-                navigationItem.setRightBarButton(closeBarButtonItem, animated: true)
+                searchBarToMapListToggleTrailingConstraint.isActive = false
+                mapListToggle.isHidden = true
+                searchBarToCloseTrailingConstraint.isActive = true
+                closeSearchButton.isHidden = false
             }
             switch traitBasedViewMode {
             case .listOverlay:
@@ -974,6 +1053,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 isOverlaySearchButtonHidden = true
+                filterSelectorView.button.isEnabled = true
             case .list:
                 isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
@@ -983,6 +1063,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = true
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
@@ -993,12 +1074,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = false
             case .search:
                 isSearchBarInNavigationBar = true
                 mapView.isHidden = true
                 listView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                filterSelectorView.button.isEnabled = false
             case .map:
                 fallthrough
             default:
@@ -1007,9 +1090,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 listView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
+                filterSelectorView.button.isEnabled = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             redoSearchButton.isHidden = mapView.isHidden
+            updateSearchFilterTitle()
         }
     }
 
@@ -1030,9 +1115,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
     }
+    
+    var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
+        didSet {
+            guard oldValue != currentSearchFilter else {
+                return
+            }
+            
+            updateSearchFilterTitle()
+            
+            switch viewMode {
+            case .search:
+                updateSearchSuggestions(withCompletions: [])
+            default:
+                if let currentSearch = self.currentSearch {
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                }
+            }
+        }
+    }
+    
 
     func updateViewModeFromSegmentedControl() {
-        switch segmentedControl.selectedSegmentIndex {
+        switch mapListToggle.selectedSegmentIndex {
         case 0:
             viewMode = .map
         default:
@@ -1047,7 +1152,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     // MARK: - Search History
     
+    private func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
+        let searchHistoryGroup = "PlaceSearch"
+        return "\(searchHistoryGroup).\(forFilter.stringValue)"
+    }
+    
+    private func currentSearchHistoryGroup() -> String {
+        return searchHistoryGroup(forFilter: currentSearchFilter)
+    }
+    
     func saveToHistory(search: PlaceSearch) {
+        guard search.origin == .user else {
+            DDLogDebug("not saving system search to history")
+            return
+        }
+        
         do {
             let moc = dataStore.viewContext
             if let keyValue = keyValue(forPlaceSearch: search, inManagedObjectContext: moc) {
@@ -1055,7 +1174,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } else if let entity = NSEntityDescription.entity(forEntityName: "WMFKeyValue", in: moc) {
                 let keyValue =  WMFKeyValue(entity: entity, insertInto: moc)
                 keyValue.key = search.key
-                keyValue.group = searchHistoryGroup
+                keyValue.group = currentSearchHistoryGroup()
                 keyValue.date = Date()
                 keyValue.value = search.dictionaryValue as NSObject
             }
@@ -1069,7 +1188,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         do {
             let moc = dataStore.viewContext
             let request = WMFKeyValue.fetchRequest()
-            request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+            request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
             request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             let results = try moc.fetch(request)
             for result in results {
@@ -1086,7 +1205,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         do {
             let key = placeSearch.key
             let request = WMFKeyValue.fetchRequest()
-            request.predicate = NSPredicate(format: "key == %@ && group == %@", key, searchHistoryGroup)
+            request.predicate = NSPredicate(format: "key == %@ && group == %@", key, currentSearchHistoryGroup())
             request.fetchLimit = 1
             let results = try moc.fetch(request)
             keyValue = results.first
@@ -1123,7 +1242,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         progressView.setProgress(0, animated: false)
         let done = { (articlesToShow: [WMFArticle]) -> Void in
             let request = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+            request.predicate = basePredicate
+            if let searchString = self.currentSearch?.string {
+                let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
+                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+            }
             request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
             self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
             if articlesToShow.count > 0 {
@@ -1143,7 +1267,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
                 savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
                 savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                savedPagesWithoutLocationRequest.propertiesToFetch = ["key"]
                 let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
                 guard savedPagesWithoutLocation.count > 0 else {
                     done(savedPagesWithLocation)
@@ -1152,49 +1275,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                     return article.url
                 })
-                
-                previewFetcher.fetchArticlePreviewResults(forArticleURLs: urls, siteURL: siteURL, completion: { (searchResults) in
-                    var resultsByKey: [String: MWKSearchResult] = [:]
-                    for searchResult in searchResults {
-                        guard let title = searchResult.displayTitle, searchResult.location != nil else {
-                            continue
-                        }
-                        guard let url = (self.siteURL as NSURL).wmf_URL(withTitle: title)  else {
-                            continue
-                        }
-                        guard let key = (url as NSURL).wmf_articleDatabaseKey else {
-                            continue
-                        }
-                        resultsByKey[key] = searchResult
-                    }
-                    guard resultsByKey.count > 0 else {
-                        done(savedPagesWithLocation)
-                        return
-                    }
-                    let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
-                    articlesToUpdateFetchRequest.predicate = NSPredicate(format: "key IN %@", Array(resultsByKey.keys))
-                    do {
-                        var allArticlesWithLocation = savedPagesWithLocation
-                        let articlesToUpdate = try moc.fetch(articlesToUpdateFetchRequest)
-                        for articleToUpdate in articlesToUpdate {
-                            guard let key = articleToUpdate.key,
-                                let result = resultsByKey[key] else {
-                                    continue
-                            }
-                            
-                            articleToUpdate.update(with: result)
-                            allArticlesWithLocation.append(articleToUpdate)
-                        }
-                        try moc.save()
-                        done(allArticlesWithLocation)
-                    } catch let error {
-                        DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                        done(savedPagesWithLocation)
-                    }
-                }, failure: { (error) in
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-                    done(savedPagesWithLocation)
-                })
+                dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
+                    var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
+                    allArticlesWithLocation.append(contentsOf: articles)
+                    done(allArticlesWithLocation)
+                }
                 return
             }
         } catch let error {
@@ -1851,23 +1936,160 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.frame = CGRect(origin: CGPoint(x: x, y: y), size: popoverSize)
     }
     
+    // MARK: - Search Filter Dropdown
+    
+    var isSearchFilterDropDownShowing: Bool = false {
+        didSet {
+            guard oldValue != isSearchFilterDropDownShowing else {
+                return
+            }
+            
+            if isSearchFilterDropDownShowing {
+                showSearchFilterDropdown(completion: { (done) in })
+            } else {
+                hideSearchFilterDropdown(completion: { (done) in })
+            }
+            
+            updateSearchFilterTitle()
+        }
+    }
+    
+    private func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+        
+        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
+            // TODO: error
+            return
+        }
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        let frame: CGRect
+        if (isSearchBarInNavigationBar) {
+            frame = CGRect(x: 0,
+                           y: extendedNavBarView.frame.minY,
+                           width: extendedNavBarView.bounds.width,
+                           height: 0)
+            
+        } else {
+            frame = self.view.convert(CGRect(x: 0,
+                                             y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
+                                             width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
+                                             height: 0),
+                                      from: listAndSearchOverlayContainerView)
+        }
+        
+        touchOutsideOverlayView.resetInsideRects()
+        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
+        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
+        self.view.addSubview(touchOutsideOverlayView)
+        
+        filterDropDownContainerView.frame = frame
+        searchFilterListController.currentFilterType = currentSearchFilter
+        self.view.addSubview(filterDropDownContainerView)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.size.width,
+                                                            height: origHeight)
+            
+        }, completion: { (done) in
+            completion(done)
+        })
+    }
+    
+    private func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+        
+        let origHeight = filterDropDownContainerView.bounds.height
+        
+        self.touchOutsideOverlayView.removeFromSuperview()
+        
+        UIView.commitAnimations()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            
+            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
+                                                            y: self.filterDropDownContainerView.frame.origin.y,
+                                                            width: self.filterDropDownContainerView.frame.width,
+                                                            height: 0)
+        }, completion: { (done) in
+            self.filterDropDownContainerView.removeFromSuperview()
+            self.filterDropDownContainerView.frame.size.height = origHeight
+            completion(done)
+        })
+    }
+
+    
+    private func updateSearchFilterTitle() {
+        
+        let title: String
+        let image: UIImage
+        
+        if (isSearchFilterDropDownShowing) {
+            title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
+            image = #imageLiteral(resourceName: "chevron-up")
+        } else {
+            switch currentSearchFilter {
+            case .top:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+            case .saved:
+                title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            }
+            image = #imageLiteral(resourceName: "chevron-down")
+        }
+        
+        let attributedTitle: NSMutableAttributedString
+        if (viewMode != .search) {
+            
+            attributedTitle = NSMutableAttributedString(string: title + " ")
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            
+            let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
+            imageAttachment.setImageHeight(6, font: font)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            attributedTitle.append(imageString)
+            
+            let fullRange = NSMakeRange(0, attributedTitle.length)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+        } else {
+            attributedTitle = NSMutableAttributedString(string: title)
+        }
+        
+        self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
+    }
+    
+    @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
+        self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
+    }
+    
+    func setupEmptySearchOverlayView() {
+        emptySearchOverlayView.mainLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-title")
+        emptySearchOverlayView.detailLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-description")
+    }
+    
     // MARK: - Search Suggestions & Completions
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
         guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
-            let topNearbySuggestion = PlaceSearch(type: .top, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
             
-            var suggestedSearches = [topNearbySuggestion]
+            let defaultSuggestion: PlaceSearch
+            switch (currentSearchFilter) {
+            case .top:
+                defaultSuggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+            case .saved:
+                defaultSuggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+            }
+            
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
-                if try moc.count(for: fetchRequestForSavedArticles) > 0 {
-                    let saved = PlaceSearch(type: .saved, sortStyle: .none, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
-                    suggestedSearches.append(saved)
-                }
-                
                 let request = WMFKeyValue.fetchRequest()
-                request.predicate = NSPredicate(format: "group == %@", searchHistoryGroup)
+                request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
                 request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
                 let results = try moc.fetch(request)
                 let count = results.count
@@ -1879,7 +2101,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let limit = min(count, searchHistoryCountLimit)
                 recentSearches = try results[0..<limit].map({ (kv) -> PlaceSearch in
                     guard let ps = PlaceSearch(object: kv.value) else {
-                            throw NSError()
+                            throw PlaceSearchError.deserialization(object: kv.value)
                     }
                     return ps
                 })
@@ -1887,16 +2109,37 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogError("Error fetching recent place searches: \(error)")
             }
             
-            searchSuggestionController.searches = [suggestedSearches, recentSearches, [], []]
+            searchSuggestionController.searches = [[defaultSuggestion], recentSearches, [], []]
+            
+            if (recentSearches.count == 0) {
+                setupEmptySearchOverlayView()
+                emptySearchOverlayView.frame = searchSuggestionView.bounds
+                searchSuggestionView.addSubview(emptySearchOverlayView)
+            } else {
+                emptySearchOverlayView.removeFromSuperview()
+            }
+
             return
         }
+        
+        emptySearchOverlayView.removeFromSuperview()
         
         guard currentSearchString != "" else {
             searchSuggestionController.searches = [[], [], [], completions]
             return
         }
-        
-        let currentStringSuggeston = PlaceSearch(type: .text, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchString, searchResult: nil)
+
+        let currentSearchScopeName: String
+        switch (currentSearchFilter) {
+        case .top:
+            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+        case .saved:
+            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+        }
+
+        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchScopeName)
+            .replacingOccurrences(of: "$2", with: currentSearchString)
+        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
     
@@ -1913,7 +2156,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             set.insert(key)
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
         updateSearchSuggestions(withCompletions: completions)
         return completions
@@ -1930,12 +2173,43 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
         }
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(type: .location, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+    }
+    
+    private func searchForFirstSearchSuggestion() {
+        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
+        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+            currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
+        }
+    }
+    
+    private var isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
+    
+    private var isWaitingForSearchSuggestionUpdate = false {
+        didSet {
+            if !isWaitingForSearchSuggestionUpdate && isGoingToSearchForFirstSearchSuggestionAfterUpdate {
+                isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
+                searchForFirstSearchSuggestion()
+            }
+        }
     }
 
     func updateSearchCompletionsFromSearchBarText() {
+        switch (currentSearchFilter) {
+        case .top:
+            updateSearchCompletionsFromSearchBarTextForTopArticles()
+        case .saved:
+            // TODO: add suggestions here?
+            self.isWaitingForSearchSuggestionUpdate = false
+        }
+    }
+    
+    func updateSearchCompletionsFromSearchBarTextForTopArticles()
+    {
         guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [])
+            self.isWaitingForSearchSuggestionUpdate = false
             return
         }
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
@@ -1943,12 +2217,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             self.updateSearchSuggestions(withCompletions: [])
+            self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
             guard text == self.searchBar?.text else {
                 return
             }
             
             let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
                 return
             }
@@ -1973,22 +2249,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        searchBar?.text = currentSearch?.localizedDescription
+        if let currentSearch = self.currentSearch, !isDefaultSearch(currentSearch) {
+            searchBar?.text = currentSearch.string ?? currentSearch.localizedDescription
+        } else {
+            searchBar?.text = nil
+        }
+        let searchText = searchBar?.text
+        if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            performDefaultSearch(withRegion: nil)
+        }
     }
     
     // MARK: - UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if let type = currentSearch?.type, type == .top || type == .saved {
-            searchBar.text = nil
-        }
         viewMode = .search
         updateSearchSuggestions(withCompletions: [])
         deselectAllAnnotations()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchSuggestions(withCompletions: searchSuggestionController.searches[3])
+        updateSearchSuggestions(withCompletions: [])
+
+        isWaitingForSearchSuggestionUpdate = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
     }
@@ -1998,8 +2281,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        currentSearch = PlaceSearch(type: .text, sortStyle: .links, string: searchBar.text, region: nil, localizedDescription: searchBar.text, searchResult: nil)
         searchBar.endEditing(true)
+        guard !isWaitingForSearchSuggestionUpdate else {
+            isGoingToSearchForFirstSearchSuggestionAfterUpdate = true
+            return
+        }
+        searchForFirstSearchSuggestion()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -2124,7 +2411,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
         currentSearch = search
-        searchBar?.endEditing(true)
+        if (isDefaultSearch(search)) {
+            searchBar?.text = nil
+        } else {
+            searchBar?.text = search.string ?? search.localizedDescription
+        }
+        closeSearch(controller)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
@@ -2240,7 +2532,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     public func analyticsName() -> String {
         return "Places"
     }
-
     
     // MARK: - ArticlePlaceGroupViewControllerDelegate
     
@@ -2271,5 +2562,50 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
     }
+    
+    // MARK: - TouchOutsideOverlayDelegate
+    
+    func touchOutside(_ overlayView: TouchOutsideOverlayView) {
+        toggleSearchFilterDropDown(overlayView)
+    }
+    
+    // MARK: - PlaceSearchFilterListDelegate
+    
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
+        switch (countForFilterType) {
+        case .top:
+            return articleFetchedResultsController.fetchedObjects?.count ?? 0
+        case .saved:
+            do {
+                let moc = dataStore.viewContext
+                return try moc.count(for: fetchRequestForSavedArticlesWithLocation)
+            } catch let error {
+                DDLogError("Error fetching saved article count: \(error)")
+                return 0
+                
+            }
+        }
+    }
+    
+    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController,
+                                          didSelectFilterType filterType: PlaceFilterType) {
+        currentSearchFilter = filterType
+        isSearchFilterDropDownShowing = false
+    }
 }
 
+// MARK: -
+
+class PlaceSearchFilterSelectorView: UIView {
+    
+    @IBOutlet weak var button: UIButton!
+}
+
+// MARK: -
+
+class PlaceSearchEmptySearchOverlayView: UIView {
+    
+    @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    
+}

@@ -112,10 +112,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                 completion:^{
                                 }];
             if (article.isDownloaded) {
-                [self.dataStore removeArticlesWithURLsFromCache:@[articleURL]];
-                [self removeCachedImagesForArticleURL:articleURL
-                                           completion:^{
-                                           }];
+                [self removeArticleWithURL:articleURL completion:^{ }];
                 [self.spotlightManager removeFromIndexWithUrl:articleURL];
             }
         }
@@ -192,10 +189,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 [group enter];
                 [self cancelFetchForArticleURL:articleURL
                                     completion:^{
-                                        [self removeCachedImagesForArticleURL:articleURL
-                                                                   completion:^{
-                                                                       [group leave];
-                                                                   }];
+                                        [self removeArticleWithURL:articleURL completion:^{
+                                            [group leave];
+                                        }];
                                     }];
             }
         }
@@ -302,7 +298,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSArray<NSURL *> *legacyImageURLs = [article imageURLsForSaving];
     NSString *group = article.url.wmf_articleDatabaseKey;
     if (!group || !legacyImageURLs.count) {
-        completion();
+        if (completion) {
+            completion();
+        }
+        return;
     }
     [imageController migrateLegacyImageURLs:legacyImageURLs intoGroup:group completion:completion];
 }
@@ -428,22 +427,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 }
 
-- (void)removeCachedImagesForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {
-    [self.imageController removePermanentlyCachedImagesWithGroupKey:URL.wmf_articleDatabaseKey
-                                                         completion:^{
-                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                 WMFArticle *article = [self.dataStore fetchArticleWithURL:URL];
-                                                                 article.isDownloaded = NO;
-                                                                 NSError *saveError = nil;
-                                                                 [self.dataStore save:&saveError];
-                                                                 if (saveError) {
-                                                                     DDLogError(@"Error saving after cache removal: %@", saveError);
-                                                                 }
-                                                                 if (completion) {
-                                                                     completion();
-                                                                 }
-                                                             });
-                                                         }];
+- (void)removeArticleWithURL:(NSURL *)URL completion:(dispatch_block_t)completion {
+    [self.dataStore removeArticleWithURL:URL fromDiskWithCompletion:completion];
 }
 
 - (void)cancelFetchForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {

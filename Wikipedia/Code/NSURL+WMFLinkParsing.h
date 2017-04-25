@@ -154,6 +154,13 @@ extern NSString *const WMFAPIPath;
 @property (nonatomic, copy, readonly, nullable) NSURL *wmf_wikipediaSchemeURL;
 
 /**
+ * Return a URL for the summary endpoint for a given article
+ *
+ * @return A new URL based on the URL you call this method on for the summary endpoint
+ **/
+@property (nonatomic, copy, readonly, nullable) NSURL *wmf_summaryEndpointURL;
+
+/**
  * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.
  *
  * @param title         A Wikimedia title. For exmaple: `Main Page`.

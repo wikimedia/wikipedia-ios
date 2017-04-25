@@ -297,27 +297,38 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
             [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
-        story.featuredArticlePreview = story.articlePreviews.firstObject;
+
+        for (WMFFeedArticlePreview *preview in story.articlePreviews) {
+            if (preview.thumbnailURL == nil) {
+                continue;
+            }
+            story.featuredArticlePreview = preview;
+            break;
+        }
+
+        if (story.featuredArticlePreview == nil) {
+            story.featuredArticlePreview = story.articlePreviews.firstObject;
+        }
     }];
 }
 
 #pragma mark - Find Groups
 
 - (nullable WMFContentGroup *)featuredForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    return (id)[moc firstGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date siteURL:self.siteURL];
+    return (id)[moc groupOfKind:WMFContentGroupKindFeaturedArticle forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)pictureOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     //NOTE: POTDs are the same across languages so we do not not want to constrain our search by site URL as this will cause duplicates
-    return (id)[moc firstGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
+    return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
 - (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    return (id)[moc firstGroupOfKind:WMFContentGroupKindTopRead forDate:date siteURL:self.siteURL];
+    return (id)[moc groupOfKind:WMFContentGroupKindTopRead forDate:date siteURL:self.siteURL];
 }
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    return (id)[moc firstGroupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
+    return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
 }
 
 #pragma mark - Notifications
