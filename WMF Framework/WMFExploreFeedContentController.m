@@ -285,6 +285,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
+#if DEBUG
 #pragma mark - Debug
 
 - (void)debugSendRandomInTheNewsNotification {
@@ -325,7 +326,29 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         request.fetchOffset = (NSUInteger) arc4random_uniform((uint32_t)(count - request.fetchLimit));
         NSArray *results = [moc executeFetchRequest:request error:nil];
         for (WMFContentGroup *group in results) {
-            [moc deleteObject:group];
+            uint32_t seed = arc4random_uniform(5);
+            int32_t random = (15 - (int32_t)arc4random_uniform(30));
+            switch (seed) {
+                case 0:
+                    group.dailySortPriority = group.dailySortPriority + random;
+                    break;
+                case 1:
+                    group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400*random];
+                    group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
+                    group.date = [group.date dateByAddingTimeInterval:86400*random];
+                    break;
+                case 2:
+                    [moc deleteObject:group];
+                default:
+                {
+                    [moc createGroupOfKind:group.contentGroupKind forDate:[group.date dateByAddingTimeInterval:86400*random] withSiteURL:group.siteURL associatedContent:group.content customizationBlock:^(WMFContentGroup * _Nonnull newGroup) {
+                        newGroup.location = group.location;
+                        newGroup.placemark = group.placemark;
+                        newGroup.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
+                    }];
+                }
+                    break;
+            }
         }
         NSError *saveError = nil;
         if ([moc hasChanges] && ![moc save:&saveError]) {
@@ -337,5 +360,5 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         });
     }];
 }
-
+#endif
 @end
