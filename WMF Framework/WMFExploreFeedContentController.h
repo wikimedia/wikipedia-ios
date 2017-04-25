@@ -14,6 +14,9 @@
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
+#if DEBUG
 - (void)debugSendRandomInTheNewsNotification;
+- (void)debugChaos;
+#endif
 
 @end

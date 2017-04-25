@@ -234,7 +234,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
         [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
@@ -253,8 +252,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {

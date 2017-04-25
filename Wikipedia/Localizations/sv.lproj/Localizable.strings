@@ -510,8 +510,10 @@
 "status-saving-for-later" = "Spara till senare...";
 "status-saved-for-later" = "Sparades till senare";
 "announcements-dismiss" = "Nej tack";
+// Fuzzy
 "places-search-top-articles" = "Populära artiklar";
 "places-search-this-area" = "Sök i detta område";
+// Fuzzy
 "places-search-saved-articles" = "Sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-recently-searched-header" = "Senaste sökningar";

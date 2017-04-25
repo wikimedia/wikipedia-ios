@@ -379,8 +379,10 @@
 "status-saving-for-later" = "خەزێنە دەکرێت بۆ دواتر...";
 "status-saved-for-later" = "خەزێنە کرا بۆ دواتر";
 "announcements-dismiss" = "نا سوپاس";
+// Fuzzy
 "places-search-top-articles" = "باشترین وتارەکان";
 "places-search-this-area" = "ئەم ناوچەیە بگەڕێ";
+// Fuzzy
 "places-search-saved-articles" = "وتارە خەزێنەکراوەکان";
 "places-search-suggested-searches-header" = "گەڕانە پێشنیارکراوەکان";
 "places-search-recently-searched-header" = "گەڕانە نوێکان";

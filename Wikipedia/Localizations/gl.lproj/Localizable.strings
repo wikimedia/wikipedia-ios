@@ -508,8 +508,10 @@
 "status-saving-for-later" = "Gardando para máis tarde...";
 "status-saved-for-later" = "Gardado para máis tarde";
 "announcements-dismiss" = "Non, grazas";
+// Fuzzy
 "places-search-top-articles" = "Mellores artigos";
 "places-search-this-area" = "Procura nesta área";
+// Fuzzy
 "places-search-saved-articles" = "Artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-recently-searched-header" = "Buscado recentemente";
