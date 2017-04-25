@@ -190,12 +190,19 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.taskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-                                [self popQueue];
+                                [moc performBlock:^{
+                                    NSError *saveError = nil;
+                                    if ([moc hasChanges] && ![moc save:&saveError]) {
+                                        DDLogError(@"Error saving: %@", saveError);
+                                    }
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        self.taskGroup = nil;
+                                        if (completion) {
+                                            completion();
+                                        }
+                                        [self popQueue];
+                                    });
+                                }];
                             }];
 }
 
@@ -229,21 +236,25 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                           }];
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:^{
-        BOOL didUpdate = NO;
-        if ([moc hasChanges]) {
-            NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
-            NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
-            didUpdate = afterCount != beforeCount;
-            NSError *saveError = nil;
-            if (![moc save:&saveError]) {
-                DDLogError(@"Error saving background source update: %@", saveError);
+        [moc performBlock:^{
+            BOOL didUpdate = NO;
+            if ([moc hasChanges]) {
+                NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
+                NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
+                didUpdate = afterCount != beforeCount;
+                NSError *saveError = nil;
+                if (![moc save:&saveError]) {
+                    DDLogError(@"Error saving background source update: %@", saveError);
+                }
             }
-        }
-        if (completionHandler) {
-            completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
-        }
-        self.taskGroup = nil;
-        [self popQueue];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completionHandler) {
+                    completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+                }
+                self.taskGroup = nil;
+                [self popQueue];
+            });
+        }];
     }];
 }
 
