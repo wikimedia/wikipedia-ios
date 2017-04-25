@@ -6,12 +6,7 @@
 
 @import CoreData;
 
-NSString *const MWKArticleKey = @"MWKArticleKey";
-
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
-
-NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
-NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -453,7 +448,6 @@ static uint64_t bundleHash() {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.parentContext = _viewContext;
-    backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
@@ -467,24 +461,29 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *moc = _viewContext;
     [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        if (![moc save:&mainContextSaveError]) {
+        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
     }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
+    WMFAssertMainThread(@"feedImportContext be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
-        _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
-    _feedImportContext = nil;
+    WMFAssertMainThread(@"feedImportContext must be torn down on the main thread");
+    if (_feedImportContext) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        _feedImportContext = nil;
+    }
 }
 
 #pragma mark - Migrations
