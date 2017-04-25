@@ -822,7 +822,6 @@ class WMFPageFragment {
             img.id = index;
             img.className = 'footer_readmore_page_thumbnail';
             img.src = wmfPage.thumbnail.source;
-            img.width = 120;
             containerAnchor.appendChild(img);
         }
 
