@@ -557,7 +557,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
-        if (self.isScrolledToTop) {
+        if (self.isScrolledToTop && self.numberOfSectionsInExploreFeed == 0) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
         }
     }
