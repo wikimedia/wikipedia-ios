@@ -144,7 +144,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_items', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

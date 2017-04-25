@@ -821,10 +821,6 @@ class WMFPageFragment {
             var img = document.createElement('img');
             img.id = index;
             img.className = 'footer_readmore_page_thumbnail';
-            
-//TODO: inject this class name
-img.classList.add('wideImageOverride');
-  
             img.src = wmfPage.thumbnail.source;
             img.width = 120;
             containerAnchor.appendChild(img);
@@ -905,7 +901,7 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
       ns: 'ppprop',
       pilimit: pageCountToFetch,
       piprop: 'thumbnail',
-      pithumbsize: 640,
+      pithumbsize: 120,
       prop: 'pageterms|pageimages|pageprops|revisions|extracts',
       rrvlimit: 1,
       rvprop: 'ids',
