@@ -6,12 +6,7 @@
 
 @import CoreData;
 
-NSString *const MWKArticleKey = @"MWKArticleKey";
-
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
-
-NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
-NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
