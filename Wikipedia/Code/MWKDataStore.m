@@ -466,7 +466,7 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *moc = _viewContext;
     [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        if (![moc save:&mainContextSaveError]) {
+        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
     }];
@@ -478,13 +478,17 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
     WMFAssertMainThread(@"feedImportContext must be torn down on the main thread");
-    _feedImportContext = nil;
+    if (_feedImportContext) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        _feedImportContext = nil;
+    }
 }
 
 #pragma mark - Migrations
