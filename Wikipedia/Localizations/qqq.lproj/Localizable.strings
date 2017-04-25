@@ -177,6 +177,7 @@
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
+"settings-clear-cache-cancel" = "Cancel action to clear cached data\n{{Identical|Cancel}}";
 "settings-clear-cache-cancel" = "Cancel action to clear cached data";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
@@ -210,7 +211,7 @@
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
-"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.\n{{Identical|Debug}}";
+"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}";
 "main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
 "main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
@@ -542,7 +543,6 @@
 "places-search-default-text" = "Placeholder text that displays where is there no current place search";
 "places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
 "places-empty-search-description" = "Detail text shown on an overlay when there are no recent Places searches. Describes the kind of articles you can search for.";
-
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";

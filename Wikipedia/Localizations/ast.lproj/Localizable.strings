@@ -504,8 +504,10 @@
 "status-saving-for-later" = "Guardando para dempués…";
 "status-saved-for-later" = "Guardao pa dempués";
 "announcements-dismiss" = "Non, gracies";
+// Fuzzy
 "places-search-top-articles" = "Artículos más lleíos";
 "places-search-this-area" = "Buscar nesta área";
+// Fuzzy
 "places-search-saved-articles" = "Artículos guardaos";
 "places-search-suggested-searches-header" = "Guetes suxeríes";
 "places-search-recently-searched-header" = "Guetao recién";

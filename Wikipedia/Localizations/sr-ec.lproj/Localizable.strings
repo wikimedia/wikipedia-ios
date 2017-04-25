@@ -4,6 +4,7 @@
 // Author: Fendo99
 // Author: Milicevic01
 // Author: Nemo bis
+// Author: Obsuser
 // Author: Rancher
 // Author: Сербијана
 
@@ -108,6 +109,11 @@
 "settings-help-and-feedback" = "Помоћ и повратне информације";
 "settings-primary-language" = "Примарни";
 "settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације. Ако га промените, променићете и дневни садржај (нпр. Изабрани чланак) који се приказује у одељку „Истражи“.";
+"settings-clear-cache" = "Очисти кеширане податке";
+"settings-clear-cache-are-you-sure-title" = "Очисти кеширане податке?";
+"settings-clear-cache-are-you-sure-message" = "Чишћењем кешираних података ће се ослободити око $1 простора. Ваше спремљење странице неће бити обрисане.";
+"settings-clear-cache-ok" = "Очисти кеш";
+"settings-clear-cache-cancel" = "Откажи";
 "main-menu-title" = "Више";
 "main-menu-heading-about" = "О апликацији";
 "main-menu-language-title" = "Претрага Википедије на $1";
@@ -244,8 +250,7 @@
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободна енциклопедија";
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Дозволите Викимедији да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
+"preference-summary-eventlogging-opt-in" = "Дозволите Фондацији Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
 "page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
@@ -305,10 +310,8 @@
 "image-gallery-fetch-image-info-error-title" = "Грешка при преузимању слика";
 "image-gallery-fetch-image-info-error-message" = "Не могу да преузмем слике за овај чланак. Освежите га па покушајте поново.";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
-// Fuzzy
-"hockeyapp-alert-question" = "Желите ли $1-у да пошаљете извештај о отказивању како би Викимедија могла да исправи проблем?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Желите ли $1-у да пошаљете извештај о отказивању како би Викимедија могла да исправи проблем? Опишите шта сте радили када је дошло до отказивања:";
+"hockeyapp-alert-question" = "Желите ли да $1-у пошаљете извештај о отказивању како би Фондација Викимедија могла да испита Ваш случај?";
+"hockeyapp-alert-question-with-response-field" = "Желите ли да $1-у пошаљете извештај о отказивању како би Фондација Викимедија могла да испита Ваш случај? Опишите шта се десило када је дошло до отказивања:";
 "hockeyapp-alert-title" = "Апликација је отказала прошли пут";
 "hockeyapp-alert-send-report" = "Пошаљи извештај";
 "hockeyapp-alert-always-send" = "Увек шаљи";
@@ -361,6 +364,7 @@
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
 "welcome-volunteer-continue-button" = "Настави";
 "welcome-volunteer-thanks" = "$1 Хвала!";
+"welcome-send-data-sub-title" = "Помозите Фондацији Викимедија да направи апликацију бољом тако што ћете рећи како користите апликацију. Прикупљени подаци су анонимни.";
 "empty-no-feed-title" = "Нема интернет везе";
 "empty-no-feed-message" = "Препоручене чланке ћете видети када се повежете са интернетом";
 "empty-no-feed-action-message" = "Ипак можете да читате сачуване странице";
@@ -401,3 +405,12 @@
 "in-the-news-notification-share-action-title" = "Дели...";
 "back" = "Назад";
 "save-action" = "Сачувај";
+"places-search-top-articles" = "Сви најчитанији чланци";
+"places-search-saved-articles" = "Сви сачувани чланци";
+"places-search-articles-that-match" = "$1 имају поклапање за „$2”";
+"places-filter-top-articles" = "Најчитанији чланци";
+"places-filter-saved-articles" = "Сачувани чланци";
+"places-filter-list-title" = "Филтери за претрагу";
+"places-search-default-text" = "Претражи чланке или локације";
+"places-empty-search-title" = "Претражи Википедијине чланке са географским локацијама";
+"places-empty-search-description" = "Истражи градове, државе, континенте, природне знаменитости, историјске догађаје, грађевине и друго.";

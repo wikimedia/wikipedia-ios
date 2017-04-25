@@ -156,6 +156,7 @@
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
+"settings-clear-cache-cancel" = "Ofbriechen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -488,8 +489,10 @@
 "status-saving-for-later" = "Fir spéider späicheren...";
 "status-saved-for-later" = "Fir spéider gespäichert";
 "announcements-dismiss" = "Nee, merci";
+// Fuzzy
 "places-search-top-articles" = "Beléiftst Artikelen";
 "places-search-this-area" = "An dësem  Beräich sichen";
+// Fuzzy
 "places-search-saved-articles" = "Gespäichert Artikelen";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-unknown-distance" = "onbekannt Distanz";
