@@ -318,7 +318,8 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         return;
     }
     self.taskGroup = [WMFTaskGroup new];
-    NSManagedObjectContext *moc = [self.dataStore feedImportContext];
+    BOOL needsTeardown = arc4random_uniform(2) > 0;
+    NSManagedObjectContext *moc = needsTeardown ? self.dataStore.feedImportContext : self.dataStore.viewContext;
     [moc performBlock:^{
         NSFetchRequest *request = [WMFContentGroup fetchRequest];
         NSInteger count = [moc countForFetchRequest:request error:nil];
@@ -355,8 +356,11 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
             DDLogError(@"chaos error: %@", saveError);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.dataStore teardownFeedImportContext];
+            if (needsTeardown) {
+                [self.dataStore teardownFeedImportContext];
+            }
             self.taskGroup = nil;
+            [self popQueue];
         });
     }];
 }
