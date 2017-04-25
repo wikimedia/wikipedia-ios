@@ -508,8 +508,10 @@
 "status-saving-for-later" = "Збереження на потім...";
 "status-saved-for-later" = "Збережено на потім";
 "announcements-dismiss" = "Ні, дякую";
+// Fuzzy
 "places-search-top-articles" = "Топ-статті";
 "places-search-this-area" = "Пошук у цій ділянці";
+// Fuzzy
 "places-search-saved-articles" = "Збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
 "places-search-recently-searched-header" = "Недавні пошукові запити";

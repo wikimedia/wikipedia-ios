@@ -173,6 +173,8 @@
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
+"settings-clear-cache-ok" = "Pulisci cache";
+"settings-clear-cache-cancel" = "Annulla";
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
@@ -502,7 +504,7 @@
 "status-saving-for-later" = "Salvataggio per dopo...";
 "status-saved-for-later" = "Salvato per dopo";
 "announcements-dismiss" = "No, grazie";
-"places-search-saved-articles" = "Voci salvate";
+"places-search-saved-articles" = "Tutte le voci salvate";
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-unknown-distance" = "distanza sconosciuta";
 "places-accessibility-group" = "$1 voci";
@@ -511,6 +513,9 @@
 "places-accessibility-show-as-list" = "Mostra come elenco";
 "places-accessibility-close-search" = "Chiudi la ricerca";
 "places-accessibility-clear-recent-searches" = "Pulisci le ricerche recenti";
+"places-filter-top-articles-count" = "$1 voci";
+"places-filter-saved-articles" = "Voci salvate";
+"places-filter-saved-articles-count" = "$1 luoghi trovati";
 "action-share" = "Condividi";
 "action-save" = "Salva";
 "action-read" = "Leggi";

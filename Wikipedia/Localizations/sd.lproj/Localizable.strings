@@ -486,8 +486,10 @@
 "status-saving-for-later" = "بعد لاءِ سانڍڻ...";
 "status-saved-for-later" = "بعد لاءِ سانڍيل";
 "announcements-dismiss" = "نہ مھرباني";
+// Fuzzy
 "places-search-top-articles" = "مٿيان مضمون";
 "places-search-this-area" = "ھي ايراضي ڳوليو";
+// Fuzzy
 "places-search-saved-articles" = "سانڍيل مضمون";
 "places-search-suggested-searches-header" = "مشورو ڏنل ڳولائون";
 "places-search-recently-searched-header" = "تازو ڳولھيل";

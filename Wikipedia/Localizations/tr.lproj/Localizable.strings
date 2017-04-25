@@ -182,6 +182,11 @@
 "settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-notifications-push-notifications" = "Anlık bildirimler";
+"settings-clear-cache" = "Önbellekteki verileri temizle";
+"settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
+"settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
+"settings-clear-cache-ok" = "Önbelleği temizle";
+"settings-clear-cache-cancel" = "İptal";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -418,7 +423,7 @@
 "home-hide-suggestion-cancel" = "Geri al";
 "home-accessibility-label" = "Vikipedi, Keşfet";
 "home-title-accessibility-label" = "Vikipedi, Keşfet'in başına git";
-"home-button-accessibility-label" = "Ana Sayfa";
+"home-button-accessibility-label" = "Anasayfa";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
 "home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
@@ -519,8 +524,10 @@
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "status-saved-for-later" = "Sonrası için kaydedildi";
 "announcements-dismiss" = "Hayır, teşekkürler";
+// Fuzzy
 "places-search-top-articles" = "Gündemdeki maddeler";
 "places-search-this-area" = "Bu bölgeyi ara";
+// Fuzzy
 "places-search-saved-articles" = "Kaydedilmiş maddeler";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-recently-searched-header" = "Son arananlar";
