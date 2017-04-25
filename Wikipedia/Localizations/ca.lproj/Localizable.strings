@@ -511,8 +511,10 @@
 "status-saving-for-later" = "Es desa per més endavant...";
 "status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
+// Fuzzy
 "places-search-top-articles" = "Millors articles";
 "places-search-this-area" = "Cerca en aquesta àrea";
+// Fuzzy
 "places-search-saved-articles" = "Articles desats";
 "places-search-suggested-searches-header" = "Cerques suggerides";
 "places-search-recently-searched-header" = "Cercat recentment";
