@@ -1,5 +1,6 @@
 
 var _saveButtonClickHandler = null;
+var _clickHandler = null;
 var _titlesShownHandler = null;
 var _saveForLaterString = null;
 var _savedForLaterString = null;
@@ -38,63 +39,70 @@ class WMFPage {
 
 class WMFPageFragment {
     constructor(wmfPage, index) {
+      
         var pageContainer = document.createElement('div');
         pageContainer.id = index;
-        pageContainer.className = 'footer_readmore_page';
-
-        var containerAnchor = document.createElement('a');
-        containerAnchor.href = '/wiki/' + encodeURI(wmfPage.title);
-        pageContainer.appendChild(containerAnchor);
-
-        var bottomActions = document.createElement('div');
-        bottomActions.id = index;
-        bottomActions.className = 'footer_readmore_page_actions';
-        pageContainer.appendChild(bottomActions);
+        pageContainer.className = 'footer_readmore_page';        
+      
+        const hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
+        if(hasImage){
+          pageContainer.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
+          pageContainer.classList.add('footer_readmore_page_with_image');
+        }
+        
+        pageContainer.addEventListener('click', function(){
+          _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`);
+        }, false);
 
         if(wmfPage.title){
             var title = document.createElement('h3');
             title.id = index;
             title.className = 'footer_readmore_page_title';
+            if(hasImage){
+              title.classList.add('footer_readmore_page_title_with_image');
+            }            
             title.innerHTML = wmfPage.title.replace(/_/g, ' ');
-            containerAnchor.appendChild(title);
-        }
-
-        if(wmfPage.thumbnail){
-            var img = document.createElement('img');
-            img.id = index;
-            img.className = 'footer_readmore_page_thumbnail';
-            img.src = wmfPage.thumbnail.source;
-            containerAnchor.appendChild(img);
+            pageContainer.appendChild(title);
         }
 
         var description = null;
         if(wmfPage.terms){
           description = wmfPage.terms.description;
-        }
-        
+        }        
         if((description === null || description.length < 10) && wmfPage.extract){
           description = cleanExtract(wmfPage.extract);
         }
-
         if(description){
             var descriptionEl = document.createElement('div');
             descriptionEl.id = index;
             descriptionEl.className = 'footer_readmore_page_description';
+            if(hasImage){
+              descriptionEl.classList.add('footer_readmore_page_description_with_image');
+            }            
             descriptionEl.innerHTML = description;
-            containerAnchor.appendChild(descriptionEl);
+            pageContainer.appendChild(descriptionEl);
         }
 
-        var saveAnchor = document.createElement('a');
-        saveAnchor.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
-        saveAnchor.innerText = 'Save for later';
-        saveAnchor.className = 'footer_readmore_page_action_save';
-
-        saveAnchor.addEventListener('click', function(){
+        var saveButton = document.createElement('div');
+        saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
+        saveButton.innerText = 'Save for later';
+        saveButton.className = 'footer_readmore_page_action_save';
+        saveButton.addEventListener('click', function(event){
           _saveButtonClickHandler(wmfPage.title);
+          event.stopPropagation();
+          event.preventDefault();
         }, false);
 
-        bottomActions.appendChild(saveAnchor);
+        var bottomActions = document.createElement('div');
+        bottomActions.id = index;
+        bottomActions.className = 'footer_readmore_page_actions';
+        if(hasImage){
+          bottomActions.classList.add('footer_readmore_page_actions_with_image');
+        }        
+        bottomActions.appendChild(saveButton);
         
+        pageContainer.appendChild(bottomActions);
+
         return document.createDocumentFragment().appendChild(pageContainer);
     }
 }
@@ -191,8 +199,9 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
-function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, clickHandler, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID);
+  _clickHandler = clickHandler;
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  
   _saveForLaterString = saveForLaterString;

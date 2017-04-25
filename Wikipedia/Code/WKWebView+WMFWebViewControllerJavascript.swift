@@ -134,6 +134,11 @@ extension WKWebView {
         let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
         let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
 
+        let tapHandler =
+            "function(href){" +
+                "window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })" +
+        "}"
+
         let saveButtonTapHandler =
         "function(title){" +
             "window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})" +
@@ -144,7 +149,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_items', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_items', \(tapHandler), \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }
