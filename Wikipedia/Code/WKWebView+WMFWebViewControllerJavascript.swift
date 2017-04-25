@@ -94,8 +94,8 @@ import Foundation
 extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
-        let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)', 'footer_container_menu_title');", completionHandler: nil)
+        let heading = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -128,8 +128,8 @@ extension WKWebView {
             assert(false, "Expected read more title and proxyURL")
         }
         
-        let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(header)', 'footer_container_readmore_title');", completionHandler: nil)
+        let heading = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
 
         let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
         let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
