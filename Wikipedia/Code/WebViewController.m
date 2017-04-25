@@ -27,7 +27,6 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
-#import "WKScriptMessage+WMFScriptMessage.h"
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
@@ -98,7 +97,7 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 
-    WMFWKScriptMessageType messageType = [WKScriptMessage wmf_typeForMessageName:message.name];
+    WMFWKScriptMessage messageType = [WKScriptMessage wmf_typeForMessageName:message.name];
     id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
