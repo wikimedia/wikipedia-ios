@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isAuthorized {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways;
 }
-    
+
 + (BOOL)isAuthorizationNotDetermined {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined;
 }
@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isAuthorizationDenied {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
 }
-    
+
 + (BOOL)isAuthorizationRestricted {
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
 }
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([WMFLocationManager isAuthorized]);
 
     self.updating = YES;
-    DDLogInfo(@"%@ starting monitoring location & heading updates.", self);
+    DDLogDebug(@"%@ starting monitoring location & heading updates.", self);
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopMonitoringLocation {
     if (self.isUpdating) {
         self.updating = NO;
-        DDLogInfo(@"%@ stopping location & heading updates.", self);
+        DDLogDebug(@"%@ stopping location & heading updates.", self);
         [self stopLocationUpdates];
         [self stopHeadingUpdates];
     }
