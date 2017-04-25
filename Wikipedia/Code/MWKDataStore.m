@@ -289,6 +289,11 @@ static uint64_t bundleHash() {
         return;
     }
 
+    NSManagedObjectContext *feedImportContext = _feedImportContext;
+    [feedImportContext performBlockAndWait:^{
+         [NSManagedObjectContext mergeChangesFromRemoteContextSave:userInfo intoContexts:@[feedImportContext]];
+    }];
+
     uint64_t state = bundleHash();
 
     NSDictionary *archiveableUserInfo = [self archivableNotificationUserInfoForUserInfo:userInfo];
@@ -453,7 +458,6 @@ static uint64_t bundleHash() {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.parentContext = _viewContext;
-    backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
@@ -474,16 +478,17 @@ static uint64_t bundleHash() {
 }
 
 - (NSManagedObjectContext *)feedImportContext {
+    WMFAssertMainThread(@"feedImportContext be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
-        _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
+    WMFAssertMainThread(@"feedImportContext must be torn down on the main thread");
     _feedImportContext = nil;
 }
 

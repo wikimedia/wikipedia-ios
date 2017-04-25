@@ -145,9 +145,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                     if ([moc hasChanges] && ![moc save:&saveError]) {
                                         DDLogError(@"Error saving: %@", saveError);
                                     }
-                                    [self.dataStore teardownFeedImportContext];
-                                    [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.dataStore teardownFeedImportContext];
+                                        [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                         self.taskGroup = nil;
                                         if (completion) {
                                             completion();
