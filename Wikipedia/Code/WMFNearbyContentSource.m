@@ -292,13 +292,12 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
                 WMFContentGroup *group = [moc createGroupOfKind:WMFContentGroupKindLocation
                                                         forDate:date
                                                     withSiteURL:self.siteURL
-                                              associatedContent:nil
+                                              associatedContent:orderedURLs
                                              customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                  group.location = location;
                                                  group.placemark = placemark;
                                              }];
                 [self removeSectionsForMidnightUTCDate:group.midnightUTCDate withKeyNotEqualToKey:group.key inManagedObjectContext:moc];
-                group.content = orderedURLs;
                 if (completion) {
                     completion();
                 }
