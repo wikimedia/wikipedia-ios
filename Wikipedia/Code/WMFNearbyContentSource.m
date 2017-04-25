@@ -73,19 +73,20 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
         if (![WMFLocationManager isAuthorized]) {
             [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
             if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
-                [self showAuthorizationPlaceholderInManagedObjectContext:moc completion:^{
-                    if (completion) {
-                        completion();
-                    }
-                }];
+                [self showAuthorizationPlaceholderInManagedObjectContext:moc
+                                                              completion:^{
+                                                                  if (completion) {
+                                                                      completion();
+                                                                  }
+                                                              }];
             } else if (completion) {
                 completion();
             }
             return;
         }
-        
+
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
-        
+
         if (self.currentLocationManager.location == nil) {
             self.isFetchingInitialLocation = YES;
             self.completion = completion;
@@ -97,31 +98,31 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
                 }
             };
             [self getGroupForLocation:self.currentLocationManager.location
-               inManagedObjectContext:moc
-                                force:force
-                           completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-                               if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
-                                   NSDate *now = [NSDate date];
-                                   NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
-                                   if (force || (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates)) {
-                                       group.date = now;
-                                       group.midnightUTCDate = todayMidnightUTC;
-                                   }
-                                   done();
-                                   return;
-                               }
-                               [self fetchResultsForLocation:location
-                                                   placemark:placemark
-                                      inManagedObjectContext:moc
-                                                  completion:^{
-                                                      done();
-                                                  }];
-                           }
-                              failure:^(NSError *error) {
-                                  done();
-                              }];
+                inManagedObjectContext:moc
+                force:force
+                completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+                    if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                        NSDate *now = [NSDate date];
+                        NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+                        if (force || (![[NSUserDefaults wmf_userDefaults] wmf_placesHasAppeared] && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:group.midnightUTCDate toDate:todayMidnightUTC] >= WMFNearbyDaysBetweenForcedUpdates)) {
+                            group.date = now;
+                            group.midnightUTCDate = todayMidnightUTC;
+                        }
+                        done();
+                        return;
+                    }
+                    [self fetchResultsForLocation:location
+                                        placemark:placemark
+                           inManagedObjectContext:moc
+                                       completion:^{
+                                           done();
+                                       }];
+                }
+                failure:^(NSError *error) {
+                    done();
+                }];
         }
-        
+
     }];
 }
 
@@ -179,7 +180,9 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
     }
     self.isFetchingInitialLocation = NO;
     NSManagedObjectContext *moc = self.dataStore.viewContext;
-    [self getGroupForLocation:location inManagedObjectContext:moc force:NO
+    [self getGroupForLocation:location
+        inManagedObjectContext:moc
+        force:NO
         completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
             if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
                 if (self.completion) {
@@ -217,7 +220,7 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
     if (!force) {
         WMFContentGroup *newestContentGroup = [moc newestGroupOfKind:WMFContentGroupKindLocation];
         NSDate *newestMidnightUTCDate = newestContentGroup.midnightUTCDate;
-        if (newestMidnightUTCDate &&[[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:newestMidnightUTCDate toDate:todayMidnightUTC] >= daysUntilForcedUpdate) {
+        if (newestMidnightUTCDate && [[NSCalendar wmf_utcGregorianCalendar] wmf_daysFromDate:newestMidnightUTCDate toDate:todayMidnightUTC] >= daysUntilForcedUpdate) {
             distanceThreshold = WMFNearbyForcedUpdateDistanceThresholdInMeters;
         }
     }
@@ -233,7 +236,7 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
         return;
     }
     self.isProcessingLocation = YES;
-    
+
     [moc performBlock:^{
         WMFContentGroup *group = [self contentGroupCloseToLocation:location inManagedObjectContext:moc force:force];
         if (group) {
@@ -241,16 +244,16 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
             completion(group, group.location, group.placemark);
             return;
         }
-        
+
         [self.currentLocationManager reverseGeocodeLocation:location
-                                                 completion:^(CLPlacemark *_Nonnull placemark) {
-                                                     completion(nil, location, placemark);
-                                                     self.isProcessingLocation = NO;
-                                                 }
-                                                    failure:^(NSError *_Nonnull error) {
-                                                        self.isProcessingLocation = NO;
-                                                        failure(error);
-                                                    }];
+            completion:^(CLPlacemark *_Nonnull placemark) {
+                completion(nil, location, placemark);
+                self.isProcessingLocation = NO;
+            }
+            failure:^(NSError *_Nonnull error) {
+                self.isProcessingLocation = NO;
+                failure(error);
+            }];
     }];
 }
 
@@ -271,31 +274,35 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
                 return;
             }
 
-            NSArray<NSURL *> *urls = [results.results wmf_map:^id(id obj) {
-                return [results urlForResult:obj];
-            }];
-            
+            NSArray<MWKLocationSearchResult *> *locationSearchResults = results.results;
+            NSMutableDictionary<NSURL *, MWKLocationSearchResult *> *resultsByURL = [NSMutableDictionary dictionaryWithCapacity:locationSearchResults.count];
+            NSMutableArray<NSURL *> *orderedURLs = [NSMutableArray arrayWithCapacity:locationSearchResults.count];
+            for (MWKLocationSearchResult *result in locationSearchResults) {
+                NSURL *articleURL = [results urlForResult:result];
+                if (articleURL) {
+                    resultsByURL[articleURL] = result;
+                    [orderedURLs addObject:articleURL];
+                }
+            }
+
             [moc performBlock:^{
-                [results.results enumerateObjectsUsingBlock:^(MWKLocationSearchResult *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                    [moc fetchOrCreateArticleWithURL:urls[idx] updatedWithSearchResult:obj];
+                [resultsByURL enumerateKeysAndObjectsUsingBlock:^(NSURL *_Nonnull articleURL, MWKLocationSearchResult *_Nonnull result, BOOL *_Nonnull stop) {
+                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
                 }];
-                
                 WMFContentGroup *group = [moc createGroupOfKind:WMFContentGroupKindLocation
-                                                                      forDate:date
-                                                                  withSiteURL:self.siteURL
-                                                            associatedContent:nil
-                                                           customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                                               group.location = location;
-                                                               group.placemark = placemark;
-                                                           }];
+                                                        forDate:date
+                                                    withSiteURL:self.siteURL
+                                              associatedContent:orderedURLs
+                                             customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                                 group.location = location;
+                                                 group.placemark = placemark;
+                                             }];
                 [self removeSectionsForMidnightUTCDate:group.midnightUTCDate withKeyNotEqualToKey:group.key inManagedObjectContext:moc];
-                group.content = urls;
                 if (completion) {
                     completion();
                 }
             }];
 
-            
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;

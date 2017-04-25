@@ -1738,6 +1738,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                          }];
 }
 
+#if DEBUG
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    [self.userStore.feedContentController debugChaos];
+}
+#endif
+
 @end
 
 NS_ASSUME_NONNULL_END
