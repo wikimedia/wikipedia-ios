@@ -7,7 +7,7 @@ var _saveButtonIDPrefix = 'readmore:save:';
 
 var shownTitles = [];
 
-const safelyRemoveEnclosures = (string, opener, closer) => {
+function safelyRemoveEnclosures(string, opener, closer) {
   const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
   var previousString = null;
   var counter = 0;
@@ -18,13 +18,13 @@ const safelyRemoveEnclosures = (string, opener, closer) => {
     counter++;
   } while (previousString !== string && counter < safeMaxTries);
   return string;
-};
+}
 
-const cleanExtract = (string) => {
+function cleanExtract(string){
   string = safelyRemoveEnclosures(string, '(', ')');
   string = safelyRemoveEnclosures(string, '/', '/');
   return string;
-};
+}
 
 class WMFPage {
     constructor(title, thumbnail, terms, extract) {
@@ -103,12 +103,12 @@ img.classList.add('wideImageOverride');
     }
 }
 
-const showReadMore = (pages) => {
+function showReadMore(pages){
   const footer_readmore_container = document.getElementById('footer_readmore_container');
   
   shownTitles.length = 0;
   
-  pages.forEach((page, index) => {
+  pages.forEach(function(page, index){
 
     const title = page.title.replace(/ /g, '_');
     shownTitles.push(title);
@@ -119,10 +119,10 @@ const showReadMore = (pages) => {
   });
   
   _titlesShownHandler(shownTitles);
-};
+}
 
 // Leave 'baseURL' null if you don't need to deal with proxying.
-const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
+function fetchReadMore(baseURL, title, showReadMoreHandler) {
     var xhr = new XMLHttpRequest();
     if (baseURL === null) {
       baseURL = '';
@@ -157,10 +157,13 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
     };
 
     const paramsString = Object.keys(params)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+      .map(function(key){
+        return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
+      })
+      .join('&');
     
     xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true);
-    xhr.onload = () => {
+    xhr.onload = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
             showReadMoreHandler(JSON.parse(xhr.responseText).query.pages);
@@ -170,13 +173,13 @@ const fetchReadMore = (baseURL, title, showReadMoreHandler) => {
       }
     };
     /*
-    xhr.onerror = (e) => {
+    xhr.onerror = function(e) {
       console.log(`${e}`);
       // console.error(xhr.statusText);
-    };
+    }
     */
     xhr.send(null);
-};
+}
 
 function updateSaveButtonText(button, title, isSaved){
   button.innerText = isSaved ? _savedForLaterString : _saveForLaterString;
