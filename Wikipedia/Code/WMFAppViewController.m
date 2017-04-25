@@ -225,8 +225,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp:^{
-    }];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
