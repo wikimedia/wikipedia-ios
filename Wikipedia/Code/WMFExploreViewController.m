@@ -1594,8 +1594,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                             if ([deletedSections containsIndex:change.fromIndexPath.row]) {
                                 [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
                             } else {
-                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                if (change.fromIndexPath.row == change.toIndexPath.row) {
+                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                } else {
+                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                }
                             }
                         } else {
                             NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
