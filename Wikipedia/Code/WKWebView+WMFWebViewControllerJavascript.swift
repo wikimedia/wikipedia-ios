@@ -87,7 +87,7 @@ import Foundation
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_menu_container', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu', \(itemSelectionHandler));"
     }
 }
 
@@ -95,7 +95,7 @@ extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)', 'footer_menu_title');", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)', 'footer_container_menu_title');", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -117,7 +117,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_legal_container', \(licenseLinkClickHandler));", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
@@ -129,7 +129,7 @@ extension WKWebView {
         }
         
         let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(header)', 'footer_readmore_title');", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(header)', 'footer_container_readmore_title');", completionHandler: nil)
 
         let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
         let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
@@ -144,7 +144,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_readmore_container', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

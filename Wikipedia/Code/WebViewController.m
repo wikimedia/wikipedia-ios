@@ -806,7 +806,7 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"footer_section_"
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"footer_container_section_"
                                                    count:2
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {

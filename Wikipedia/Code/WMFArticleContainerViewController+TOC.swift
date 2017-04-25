@@ -60,9 +60,9 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     private func scrollToFooterSection(for item: TableOfContentsItem) {
         switch item {
         case is TableOfContentsAboutThisArticleItem:
-            self.webViewController.scroll(toFragment: "footer_menu_container", animated: true)
+            self.webViewController.scroll(toFragment: "footer_container_menu", animated: true)
         case is TableOfContentsReadMoreItem:
-            self.webViewController.scroll(toFragment: "footer_readmore_container", animated: true)
+            self.webViewController.scroll(toFragment: "footer_container_readmore", animated: true)
         default:
             assertionFailure("Unsupported selection of TOC item \(item)")
             break
