@@ -311,4 +311,31 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     });
 }
 
+
+- (void)debugChaos {
+    if (self.taskGroup) {
+        return;
+    }
+    self.taskGroup = [WMFTaskGroup new];
+    NSManagedObjectContext *moc = [self.dataStore feedImportContext];
+    [moc performBlock:^{
+        NSFetchRequest *request = [WMFContentGroup fetchRequest];
+        NSInteger count = [moc countForFetchRequest:request error:nil];
+        request.fetchLimit = (NSUInteger) arc4random_uniform((uint32_t)count);
+        request.fetchOffset = (NSUInteger) arc4random_uniform((uint32_t)(count - request.fetchLimit));
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        for (WMFContentGroup *group in results) {
+            [moc deleteObject:group];
+        }
+        NSError *saveError = nil;
+        if ([moc hasChanges] && ![moc save:&saveError]) {
+            DDLogError(@"chaos error: %@", saveError);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.dataStore teardownFeedImportContext];
+            self.taskGroup = nil;
+        });
+    }];
+}
+
 @end

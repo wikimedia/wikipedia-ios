@@ -15,5 +15,6 @@
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
 - (void)debugSendRandomInTheNewsNotification;
+- (void)debugChaos;
 
 @end
