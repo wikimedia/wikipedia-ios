@@ -747,8 +747,8 @@ function addItem(title, subtitle, iconType, containerID, clickHandler) {
   document.getElementById(containerID).appendChild(itemFragment);
 }
 
-function setHeading(string) {
-  document.getElementById('footer_menu_title').innerText = string;
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
 }
 
 exports.IconTypeEnum = IconTypeEnum;
@@ -954,18 +954,21 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
-function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID);
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  
   _saveForLaterString = saveForLaterString;
   _savedForLaterString = savedForLaterString;
-
-  document.getElementById('footer_readmore_title').innerText = headerString;
   
   fetchReadMore(baseURL, title, showReadMore);
 }
 
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
+}
+
+exports.setHeading = setHeading;
 exports.setTitleIsSaved = setTitleIsSaved;
 exports.add = add;
 

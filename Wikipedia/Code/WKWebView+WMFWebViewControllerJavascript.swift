@@ -95,6 +95,7 @@ extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)', 'footer_menu_title');", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -104,8 +105,9 @@ extension WKWebView {
             WMFArticleFooterMenuItem.disambiguation
             ].filter{$0.shouldAddItem(with: article)}
              .map{$0.itemAdditionJavascriptString(with: article)}
+             .joined(separator: "")
         
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(header)' ); \(itemsJS.joined(separator: ""))", completionHandler: nil)
+        evaluateJavaScript(itemsJS, completionHandler: nil)
     }
 
     public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
@@ -126,9 +128,11 @@ extension WKWebView {
             assert(false, "Expected read more title and proxyURL")
         }
         
+        let header = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(header)', 'footer_readmore_title');", completionHandler: nil)
+
         let saveForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-save-for-later")
         let savedForLaterString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("button-saved-for-later")
-        let headerString = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
 
         let saveButtonTapHandler =
         "function(title){" +
@@ -140,7 +144,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_readmore_container', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_readmore_container', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

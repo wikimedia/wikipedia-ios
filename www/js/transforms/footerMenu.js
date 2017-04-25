@@ -67,8 +67,8 @@ function addItem(title, subtitle, iconType, containerID, clickHandler) {
   document.getElementById(containerID).appendChild(itemFragment);
 }
 
-function setHeading(string) {
-  document.getElementById('footer_menu_title').innerText = string;
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
 }
 
 exports.IconTypeEnum = IconTypeEnum;
