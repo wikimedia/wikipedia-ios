@@ -87,7 +87,7 @@ import Foundation
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.addItem('footer_menu_container', '\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), \(itemSelectionHandler));"
     }
 }
 
@@ -140,7 +140,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add( '\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add( 'footer_readmore_container', '\(proxyURL)', '\(title)', '\(headerString)', '\(saveForLaterString)', '\(savedForLaterString)', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

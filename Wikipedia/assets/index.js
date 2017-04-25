@@ -741,10 +741,10 @@ class WMFMenuItemFragment {
     }
 }
 
-function addItem(title, subtitle, iconType, clickHandler) {
+function addItem(containerID, title, subtitle, iconType, clickHandler) {
   const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
   const itemFragment = new WMFMenuItemFragment(itemModel);
-  document.getElementById('footer_menu_container').appendChild(itemFragment);
+  document.getElementById(containerID).appendChild(itemFragment);
 }
 
 function setHeading(string) {
@@ -762,6 +762,7 @@ var _titlesShownHandler = null;
 var _saveForLaterString = null;
 var _savedForLaterString = null;
 var _saveButtonIDPrefix = 'readmore:save:';
+var _readMoreContainer = null;
 
 var shownTitles = [];
 
@@ -861,9 +862,7 @@ img.classList.add('wideImageOverride');
     }
 }
 
-function showReadMore(pages){
-  const footer_readmore_container = document.getElementById('footer_readmore_container');
-  
+function showReadMore(pages){  
   shownTitles.length = 0;
   
   pages.forEach(function(page, index){
@@ -873,7 +872,7 @@ function showReadMore(pages){
 
     const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
     const pageFragment = new WMFPageFragment(pageModel, index);
-    footer_readmore_container.appendChild(pageFragment);
+    _readMoreContainer.appendChild(pageFragment);
   });
   
   _titlesShownHandler(shownTitles);
@@ -955,7 +954,8 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
 }
 
-function add(baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+function add(containerID, baseURL, title, headerString, saveForLaterString, savedForLaterString, saveButtonClickHandler, titlesShownHandler) {
+  _readMoreContainer = document.getElementById(containerID);
   _saveButtonClickHandler = saveButtonClickHandler;
   _titlesShownHandler = titlesShownHandler;  
   _saveForLaterString = saveForLaterString;

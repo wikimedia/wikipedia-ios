@@ -61,10 +61,10 @@ class WMFMenuItemFragment {
     }
 }
 
-function addItem(title, subtitle, iconType, clickHandler) {
+function addItem(containerID, title, subtitle, iconType, clickHandler) {
   const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
   const itemFragment = new WMFMenuItemFragment(itemModel);
-  document.getElementById('footer_menu_container').appendChild(itemFragment);
+  document.getElementById(containerID).appendChild(itemFragment);
 }
 
 function setHeading(string) {
