@@ -233,7 +233,7 @@
 
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
-    url = [url URLByAppendingPathComponent:[location description]];
+    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
     return url;
 }
     
