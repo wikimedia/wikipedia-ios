@@ -488,6 +488,7 @@
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small\n{{Identical|Match}}";
+"find-in-page-number-matches" = "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language.";
 "find-in-page-button-label" = "Accessibility label for the Find in Page button";
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
 "continue-reading-empty-title" = "No recently read articles";
