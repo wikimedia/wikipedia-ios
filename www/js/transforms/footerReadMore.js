@@ -44,7 +44,7 @@ class WMFPageFragment {
         pageContainer.id = index;
         pageContainer.className = 'footer_readmore_page';        
       
-        const hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
+        var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
         if(hasImage){
           pageContainer.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
           pageContainer.classList.add('footer_readmore_page_with_image');
