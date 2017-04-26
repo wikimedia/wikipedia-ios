@@ -233,7 +233,7 @@
 
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
-    url = [url URLByAppendingPathComponent:[location description]];
+    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
     return url;
 }
     
@@ -550,18 +550,6 @@
     for (WMFContentGroup *group in contentGroups) {
         [self deleteObject:group];
     }
-}
-
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys {
-    NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
-    NSError *fetchError = nil;
-    NSArray<WMFContentGroup *> *groups = [self executeFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error fetching content groups for deletion: %@", fetchError);
-        return;
-    }
-    [self removeContentGroups:groups];
 }
 
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind {

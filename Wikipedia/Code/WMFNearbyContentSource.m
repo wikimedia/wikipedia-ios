@@ -313,14 +313,12 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
 }
 
 - (void)removeSectionsForMidnightUTCDate:(NSDate *)midnightUTCDate withKeyNotEqualToKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSMutableArray *oldSectionKeys = [NSMutableArray array];
     [moc enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                             withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
                                 if ([section.midnightUTCDate isEqualToDate:midnightUTCDate] && ![section.key isEqualToString:key]) {
-                                    [oldSectionKeys addObject:key];
+                                    [moc deleteObject:section];
                                 }
                             }];
-    [moc removeContentGroupsWithKeys:oldSectionKeys];
 }
 
 @end
