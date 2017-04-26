@@ -226,7 +226,8 @@ platform :ios do
       skip_waiting_for_build_processing: false,
       skip_submission: true,
       distribute_external: false,
-      app_identifier:  app_identifier
+      app_identifier:  app_identifier,
+      beta_app_feedback_email: "ci-apps@wikimedia.org"
     )
     
     tag(
