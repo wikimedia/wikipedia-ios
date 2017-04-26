@@ -2,10 +2,10 @@
 @objc public enum WMFWKScriptMessage: Int {
     case unknown
     case consoleMessage
-    case clickLink
-    case clickImage
-    case clickReference
-    case clickEdit
+    case linkClicked
+    case imageClicked
+    case referenceClicked
+    case editClicked
     case nonAnchorTouchEndedWithoutDragging
     case lateJavascriptTransform
     case articleState
@@ -23,18 +23,18 @@ extension WKScriptMessage {
         case "nonAnchorTouchEndedWithoutDragging":
             return .nonAnchorTouchEndedWithoutDragging
         case "linkClicked":
-            return .clickLink
+            return .linkClicked
         case "imageClicked":
-            return .clickImage
+            return .imageClicked
         case "referenceClicked":
-            return .clickReference
+            return .referenceClicked
         case "editClicked":
-            return .clickEdit
+            return .editClicked
         case "lateJavascriptTransform":
             return .lateJavascriptTransform
         case "articleState":
             return .articleState
-        case "sendJavascriptConsoleLogMessageToXcodeConsole":
+        case "javascriptConsoleLog":
             return .consoleMessage
         case "findInPageMatchesFound":
             return .findInPageMatchesFound
@@ -54,10 +54,10 @@ extension WKScriptMessage {
     public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
         switch type {
         case .nonAnchorTouchEndedWithoutDragging,
-             .clickLink,
-             .clickImage,
-             .clickReference,
-             .clickEdit,
+             .linkClicked,
+             .imageClicked,
+             .referenceClicked,
+             .editClicked,
              .consoleMessage,
              .footerReadMoreSaveClicked:
             if body is Dictionary<String, Any>{

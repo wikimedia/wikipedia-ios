@@ -104,17 +104,17 @@ NSString *const WMFCCBySALicenseURL =
         case WMFWKScriptMessageConsoleMessage:
             [self handleMessageConsoleScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageClickLink:
-            [self handleClickLinkScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageLinkClicked:
+            [self handleLinkClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageClickImage:
-            [self handleClickImageScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageImageClicked:
+            [self handleImageClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageClickReference:
-            [self handleClickReferenceScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageReferenceClicked:
+            [self handleReferenceClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageClickEdit:
-            [self handleClickEditScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageEditClicked:
+            [self handleEditClickedScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
             [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
@@ -202,7 +202,7 @@ NSString *const WMFCCBySALicenseURL =
     DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
 }
 
-- (void)handleClickLinkScriptMessage:(NSDictionary *)messageDict {
+- (void)handleLinkClickedScriptMessage:(NSDictionary *)messageDict {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        [self hideFindInPageWithCompletion:^{
@@ -245,7 +245,7 @@ NSString *const WMFCCBySALicenseURL =
                                    }];
 }
 
-- (void)handleClickImageScriptMessage:(NSDictionary *)messageDict {
+- (void)handleImageClickedScriptMessage:(NSDictionary *)messageDict {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        WMFImageTag *imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
@@ -281,7 +281,7 @@ NSString *const WMFCCBySALicenseURL =
                                    }];
 }
 
-- (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
+- (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
         return [[WMFReference alloc] initWithScriptMessageDict:referenceDict];
@@ -292,7 +292,7 @@ NSString *const WMFCCBySALicenseURL =
     [self showReferenceFromLastClickedReferencesGroupAtIndex:selectedIndex.integerValue];
 }
 
-- (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
+- (void)handleEditClickedScriptMessage:(NSDictionary *)messageDict {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        [self hideFindInPageWithCompletion:^{
@@ -564,7 +564,7 @@ NSString *const WMFCCBySALicenseURL =
                               @"referenceClicked",
                               @"editClicked",
                               @"nonAnchorTouchEndedWithoutDragging",
-                              @"sendJavascriptConsoleLogMessageToXcodeConsole",
+                              @"javascriptConsoleLog",
                               @"articleState",
                               @"findInPageMatchesFound",
                               @"footerReadMoreSaveClicked",
@@ -582,7 +582,7 @@ NSString *const WMFCCBySALicenseURL =
                                            "window.wmf.transformer.transform( 'widenImages', document );"
                                            "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
-                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
+                                           "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
     [userContentController addUserScript:
                                [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
