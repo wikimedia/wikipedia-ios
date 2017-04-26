@@ -221,7 +221,6 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
  
     var href = hrefTarget.getAttribute( "href" );
-    var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
         window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
     } else if (href && refs.isCitation(href)) {
@@ -235,7 +234,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
         window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
-    } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
+    } else if (event.target.tagName === "IMG" && event.target.getAttribute( "data-image-gallery" ) === "true") {      
          window.webkit.messageHandlers.imageClicked.postMessage({
                                                           'src': event.target.getAttribute('src'),
                                                           'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
