@@ -50,21 +50,15 @@ class PlaceSearchFilterListController: UITableViewController {
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
             myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .top)))
-            
-            if (currentFilterType == .top) {
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
-            } else {
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-top-disabled")
-            }
-
+            myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .saved)))
-            
-            if (currentFilterType == .saved) {
+            let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
+            if (savedCount > 0) {
+                myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .saved)))
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
-                
             } else {
+                myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-no-saved-places")
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
             }
         }
