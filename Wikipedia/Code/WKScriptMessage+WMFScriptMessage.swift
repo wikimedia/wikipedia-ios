@@ -1,7 +1,7 @@
 
 @objc public enum WMFWKScriptMessage: Int {
     case unknown
-    case consoleMessage
+    case javascriptConsoleLog
     case linkClicked
     case imageClicked
     case referenceClicked
@@ -35,7 +35,7 @@ extension WKScriptMessage {
         case "articleState":
             return .articleState
         case "javascriptConsoleLog":
-            return .consoleMessage
+            return .javascriptConsoleLog
         case "findInPageMatchesFound":
             return .findInPageMatchesFound
         case "footerReadMoreSaveClicked":
@@ -58,7 +58,7 @@ extension WKScriptMessage {
              .imageClicked,
              .referenceClicked,
              .editClicked,
-             .consoleMessage,
+             .javascriptConsoleLog,
              .footerReadMoreSaveClicked:
             if body is Dictionary<String, Any>{
                 return (body as! NSDictionary).wmf_dictionaryByRemovingNullObjects()

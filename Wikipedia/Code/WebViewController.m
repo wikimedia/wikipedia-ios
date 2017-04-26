@@ -101,8 +101,8 @@ NSString *const WMFCCBySALicenseURL =
     id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
-        case WMFWKScriptMessageConsoleMessage:
-            [self handleMessageConsoleScriptMessage:safeMessageBody];
+        case WMFWKScriptMessageJavascriptConsoleLog:
+            [self handleJavascriptConsoleLogScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageLinkClicked:
             [self handleLinkClickedScriptMessage:safeMessageBody];
@@ -198,7 +198,7 @@ NSString *const WMFCCBySALicenseURL =
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
 }
 
-- (void)handleMessageConsoleScriptMessage:(NSDictionary *)messageDict {
+- (void)handleJavascriptConsoleLogScriptMessage:(NSDictionary *)messageDict {
     DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
 }
 
