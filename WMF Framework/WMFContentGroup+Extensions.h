@@ -75,8 +75,6 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 
 - (void)removeContentGroup:(WMFContentGroup *)group;
 
-- (void)removeContentGroupsWithKeys:(NSArray<NSString *> *)keys;
-
 - (void)removeAllContentGroupsOfKind:(WMFContentGroupKind)kind;
 
 - (nullable WMFContentGroup *)contentGroupForURL:(NSURL *)url;
