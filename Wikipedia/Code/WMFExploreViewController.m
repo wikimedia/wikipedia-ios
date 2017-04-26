@@ -1538,34 +1538,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.objectChanges addObject:objectChange];
 }
 
-- (void)updateSectionWithChange:(WMFObjectChange *)change inCollectionView:(UICollectionView *)collectionView withInsertedSections:(NSMutableIndexSet *)insertedSections previousSectionCounts:(NSArray *)previousSectionCounts currentSectionCounts:(NSArray *)sectionCounts {
-    NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
-    NSInteger sectionIndex = updatedIndexPath.row;
-    if ([insertedSections containsIndex:updatedIndexPath.row]) {
-        [collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-        return;
-    }
-
-    NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
-    NSInteger currentCount = [sectionCounts[sectionIndex] integerValue];
-    if (previousCount == currentCount) {
-        [collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-        return;
-    }
-
-    while (previousCount > currentCount) {
-        [collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
-        previousCount--;
-    }
-
-    while (previousCount < currentCount) {
-        [collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
-        previousCount++;
-    }
-
-    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-}
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 
     BOOL shouldReload = self.sectionChanges.count > 0;
@@ -1622,22 +1594,47 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                             if ([deletedSections containsIndex:change.fromIndexPath.row]) {
                                 [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
                             } else {
-                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                if (change.fromIndexPath.row == change.toIndexPath.row) {
+                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                } else {
+                                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                                }
                             }
-                            continue;
+                        } else {
+                            NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                            NSInteger sectionIndex = updatedIndexPath.row;
+                            if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            } else {
+                                NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                                NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                                if (previousCount == currentCount) {
+                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                    continue;
+                                }
+
+                                while (previousCount > currentCount) {
+                                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                    previousCount--;
+                                }
+
+                                while (previousCount < currentCount) {
+                                    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                    previousCount++;
+                                }
+
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                            }
                         }
-                        [self updateSectionWithChange:change inCollectionView:self.collectionView withInsertedSections:insertedSections previousSectionCounts:previousSectionCounts currentSectionCounts:self.sectionCounts];
                     } break;
                     case NSFetchedResultsChangeMove:
-                        if (change.toIndexPath && change.fromIndexPath && [change.toIndexPath isEqual:change.fromIndexPath]) {
-                            [self updateSectionWithChange:change inCollectionView:self.collectionView withInsertedSections:insertedSections previousSectionCounts:previousSectionCounts currentSectionCounts:self.sectionCounts];
-                            continue;
+                        if (change.fromIndexPath.row == change.toIndexPath.row) {
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        } else {
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
                         }
-
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
-
                         break;
                 }
             }
