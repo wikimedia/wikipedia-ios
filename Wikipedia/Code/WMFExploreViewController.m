@@ -657,7 +657,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)showOfflineEmptyViewIfNeeded {
-    if (!self.isViewLoaded) {
+    if (!self.isViewLoaded || !self.fetchedResultsController) {
         return;
     }
     if (self.numberOfSectionsInExploreFeed > 0) {
