@@ -5,6 +5,7 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
 
   container.innerHTML = 
   "<div class='footer_legal_contents'>" +
+    "<hr class='footer_legal_divider'>" +
     "<span class='footer_legal_licence'>" +
       licenseStringHalves[0] +
       "<a class='footer_legal_licence_link'>" +
