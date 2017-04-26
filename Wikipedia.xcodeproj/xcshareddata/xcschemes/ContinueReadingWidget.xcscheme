@@ -53,13 +53,23 @@
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D8DC4FF71EB0EED500B6C93E"
+               BuildableName = "WikipediaUITests.xctest"
+               BlueprintName = "WikipediaUITests"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "0E8380621D64989F0076EDE4"
+            BuildableName = "ContinueReadingWidget.appex"
+            BlueprintName = "ContinueReadingWidget"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

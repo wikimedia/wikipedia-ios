@@ -40,6 +40,19 @@ public extension UserDefaults {
 #endif
     }
     
+    public class func wmf_resetUserDefaults() {
+        let defaults = UserDefaults.wmf_userDefaults()
+#if WMF_NO_APP_GROUP
+        if let name = Bundle.main.bundleIdentifier {
+            return
+        }
+        defaults.removeSuite(named: name)
+#else
+        defaults.removeSuite(named: WMFApplicationGroupIdentifier)
+#endif
+        defaults.synchronize()
+    }
+    
     public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
         let newDefaults = self.wmf_userDefaults()
         let didMigrate = newDefaults.bool(forKey: WMFDidMigrateToGroupKey)

@@ -7,7 +7,6 @@
 
 #import "SessionSingleton.h"
 #import "QueuesSingleton+AllManagers.h"
-#import "NSUserDefaults+WMFReset.h"
 #import "ReadingActionFunnel.h"
 
 QuickSpecBegin(SessionSingletonTests)
@@ -15,7 +14,7 @@ QuickSpecBegin(SessionSingletonTests)
     __block SessionSingleton *testSession;
 
 configureTempDataStoreForEach(tempDataStore, ^{
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [NSUserDefaults wmf_resetUserDefaults];
 
     testSession = [[SessionSingleton alloc] initWithDataStore:tempDataStore];
     WMF_TECH_DEBT_TODO(refactor sendUsageReports to use a notification to make it easier to test)
@@ -29,7 +28,7 @@ configureTempDataStoreForEach(tempDataStore, ^{
 });
 
 afterSuite(^{
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [NSUserDefaults wmf_resetUserDefaults];
     [[QueuesSingleton sharedInstance] reset];
 });
 
@@ -96,7 +95,7 @@ QuickSpecEnd
         __block NSString *key;
 
         beforeEach(^{
-            [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+            [NSUserDefaults wmf_resetUserDefaults];
             NSDictionary *context = getContext();
             session = context[@"session"];
             value = context[@"value"];

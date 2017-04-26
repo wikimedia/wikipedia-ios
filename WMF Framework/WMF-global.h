@@ -21,7 +21,6 @@
 #import "NSURL+WMFExtras.h"
 #import "WMFGCDHelpers.h"
 #import "WMFLogging.h"
-#import "WMFDirectoryPaths.h"
 #import "WMFLocalization.h"
 #import "WMFMath.h"
 #import "NSError+WMFExtensions.h"
