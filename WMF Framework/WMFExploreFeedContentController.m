@@ -285,9 +285,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
-#if DEBUG
-#pragma mark - Debug
-
+#if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -311,7 +309,10 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         }];
     });
 }
+#endif
 
+#if DEBUG
+#pragma mark - Debug
 
 - (void)debugChaos {
     if (self.taskGroup) {
