@@ -109,10 +109,13 @@
         labelText = nil;
     } else if (count > 0 && index == -1) {
         labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
-    } else if (count == 0) {
-        labelText = [NSString stringWithFormat:MWLocalizedString(@"find-in-page-number-matches", nil), 0, 0];
     } else {
-        labelText = [NSString stringWithFormat:MWLocalizedString(@"find-in-page-number-matches", nil), (unsigned long)(index + 1), (unsigned long)count];
+        NSString *text = MWLocalizedString(@"find-in-page-number-matches", nil);
+        text = [text stringByReplacingOccurrencesOfString:@"$1" withString:[NSNumberFormatter localizedStringFromNumber:@(index + 1)
+                                                                                                            numberStyle:NSNumberFormatterDecimalStyle]];
+        text = [text stringByReplacingOccurrencesOfString:@"$2" withString:[NSNumberFormatter localizedStringFromNumber:@(count)
+                                                                                                            numberStyle:NSNumberFormatterDecimalStyle]];
+        labelText = text;
     }
     [self.currentMatchLabel setText:labelText];
 }
