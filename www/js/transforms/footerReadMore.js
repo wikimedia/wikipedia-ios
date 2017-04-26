@@ -55,7 +55,7 @@ class WMFPageFragment {
         }, false);
 
         if(wmfPage.title){
-            var title = document.createElement('h3');
+            var title = document.createElement('div');
             title.id = index;
             title.className = 'footer_readmore_page_title';
             if(hasImage){
