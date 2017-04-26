@@ -3,7 +3,7 @@
   background-color: white;
   padding: 10px;
   display: inline-block;
-  width: 280px;
+  width: 250px;
   overflow-x: hidden;
   margin-left: 10px;
   margin-right: 10px;
@@ -21,7 +21,7 @@
 .footer_readmore_page_description {
   color: #a2a9b1;
   display: block;
-  font-size: 0.9em;
+  font-size: 0.95em;
   text-overflow: ellipsis;
   height: 1.1em;
   line-height: 1.1;
@@ -53,6 +53,7 @@
   padding-right: 24px;
   background-size: 12px 18px;
   background-repeat: no-repeat;
+  font-size: .95em;
 }
 
 html[dir="rtl"] .footer_readmore_page_action_save {
@@ -76,14 +77,26 @@ html[dir="rtl"] .footer_readmore_page_with_image {
   background-position: right 10px center !important;  
 }
 
-.footer_readmore_page_title_with_image {
+html[dir="ltr"] .footer_readmore_page_title_with_image {
   margin-left: 80px !important;
 }
 
-.footer_readmore_page_description_with_image {
+html[dir="ltr"] .footer_readmore_page_description_with_image {
   margin-left: 80px !important;
 }
 
-.footer_readmore_page_actions_with_image {
+html[dir="ltr"] .footer_readmore_page_actions_with_image {
   margin-left: 80px !important;
+}
+
+html[dir="rtl"] .footer_readmore_page_title_with_image {
+  margin-right: 80px !important;
+}
+
+html[dir="rtl"] .footer_readmore_page_description_with_image {
+  margin-right: 80px !important;
+}
+
+html[dir="rtl"] .footer_readmore_page_actions_with_image {
+  margin-right: 80px !important;
 }
