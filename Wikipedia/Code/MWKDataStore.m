@@ -1238,6 +1238,10 @@ static uint64_t bundleHash() {
 }
 
 - (void)_stopCacheRemoval {
+    dispatch_block_t completion = self.cacheRemovalCompletion;
+    if (completion) {
+        completion();
+    }
     self.cacheRemovalActive = false;
     self.cacheRemovalCompletion = nil;
 }
@@ -1254,10 +1258,6 @@ static uint64_t bundleHash() {
     }
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
     if (urlsOfArticlesToRemove.count == 0) {
-        dispatch_block_t completion = self.cacheRemovalCompletion;
-        if (completion) {
-            completion();
-        }
         [self _stopCacheRemoval];
         return;
     }
