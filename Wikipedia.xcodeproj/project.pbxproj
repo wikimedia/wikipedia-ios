@@ -1314,6 +1314,8 @@
 		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
+		D8C1B8391EB2796800B506DA /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1B8381EB2796800B506DA /* Localization.swift */; };
+		D8C1B83B1EB2808600B506DA /* LocalizationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
 		D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
@@ -3973,6 +3975,8 @@
 		D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBlocksKitTests.m; sourceTree = "<group>"; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
+		D8C1B8381EB2796800B506DA /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalizationTest.swift; path = ../LocalizationTest.swift; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -6637,6 +6641,7 @@
 		BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */,
 				BC5BC4941BCEA6D600062619 /* MWKList */,
 				B0E808E41C0D17DC0065EBC0 /* MWKArticleStoreTestCase.h */,
 				B0E808E51C0D17E20065EBC0 /* MWKArticleStoreTestCase.m */,
@@ -7120,6 +7125,7 @@
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D844D9831D6CB3830042D692 /* WMF-global.h */,
 				D844D9841D6CB3900042D692 /* WMF-prefix.pch */,
+				D8C1B8381EB2796800B506DA /* Localization.swift */,
 				D8FB46A11E26BC6600F2620F /* QuadKey.swift */,
 				D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */,
 				D8D3650D1E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift */,
@@ -8909,6 +8915,7 @@
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
 				B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */,
 				BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */,
+				D8C1B83B1EB2808600B506DA /* LocalizationTest.swift in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
@@ -9480,6 +9487,7 @@
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
+				D8C1B8391EB2796800B506DA /* Localization.swift in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,

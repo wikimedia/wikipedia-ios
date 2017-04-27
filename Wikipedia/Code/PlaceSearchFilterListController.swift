@@ -49,7 +49,7 @@ class PlaceSearchFilterListController: UITableViewController {
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .top)))
+            myCell.subtitleLabel.text = localizedString("places-filter-top-articles-count", String(delegate.placeSearchFilterListController(self, countForFilterType: .top)))
             myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")

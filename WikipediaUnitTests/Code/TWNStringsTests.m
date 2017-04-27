@@ -107,18 +107,6 @@
     }
 }
 
-- (void)test_incoming_translation_string_for_bracket_substitutions {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
-            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-            for (NSString *key in stringsDict) {
-                NSString *localizedString = stringsDict[key];
-                assertThat(localizedString, isNot(stringContainsInOrder(@"{{", @"}}", nil)));
-            }
-        }
-    }
-}
-
 - (NSArray *)unbundledLprojFiles {
     NSMutableArray *files = [[self allLprogFiles] mutableCopy];
     [files removeObjectsInArray:[self bundledLprogFiles]];
