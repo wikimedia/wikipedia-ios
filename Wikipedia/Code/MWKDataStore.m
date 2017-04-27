@@ -765,9 +765,6 @@ static uint64_t bundleHash() {
     self.articlePreviewCache.countLimit = 100;
 
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-    });
 }
 
 #pragma mark - path methods
