@@ -689,10 +689,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     DDLogError("Error fetching saved articles: fetchRequest was nil")
                     return
                 }
-
+                
+                self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                
                 do {
                     let articlesToShow = try moc.fetch(request)
-                    self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                    self.articleKeyToSelect = articlesToShow.first?.key
                     if articlesToShow.count > 0 {
                         if (self.currentSearch?.region == nil) {
                             self.currentSearchRegion = self.regionThatFits(articles: articlesToShow)
@@ -857,11 +859,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         redoSearchButton.isHidden = true
-        
-        //        guard search.type != .location && search.filter != .saved else {
-        //            performDefaultSearch(withRegion: mapView.region)
-        //            return
-        //        }
         
         if (isDefaultSearch(search)) {
             performDefaultSearch(withRegion: mapView.region)
