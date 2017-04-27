@@ -3,8 +3,8 @@ import Foundation
 fileprivate var dictionaryRegex: NSRegularExpression? = {
     do {
         return try NSRegularExpression(pattern: "(?:[{][{])(:?[^{]*)(?:[}][}])", options: [])
-    } catch let error {
-        print(error)
+    } catch {
+        assertionFailure("Localization regex failed to compile")
     }
     return nil
 }()
@@ -21,36 +21,49 @@ public func localizedString(withFormat format: String, replacements: [String]) -
         return nil
     }
     let mutableFormat = NSMutableString(string: format)
+    var offset = 0
     dictionaryRegex.enumerateMatches(in: format, options: [], range: NSRange(location: 0, length: mutableFormat.length), using: { (result, flags, stop) in
         guard let result = result else {
             return
         }
-        let contents = dictionaryRegex.replacementString(for: result, in: format, offset: 0, template: "$1")
+        
+        let contents = dictionaryRegex.replacementString(for: result, in: mutableFormat as String, offset: offset, template: "$1")
+        let range = NSRange(location: result.range.location + offset, length: result.range.length)
+        let replaceMatchWith = { (string: String) in
+            offset += (string as NSString).length - result.range.length
+            mutableFormat.replaceCharacters(in: range, with: string)
+        }
+        
         let components = contents.components(separatedBy: "|")
         guard components.count > 1 else {
-            mutableFormat.replaceCharacters(in: result.range, with: "")
+            replaceMatchWith("")
             return
         }
+
         let firstComponent = components[0]
         guard firstComponent.hasPrefix("PLURAL:$") else {
-            mutableFormat.replaceCharacters(in: result.range, with: components[1])
+            replaceMatchWith(components[1])
             return
         }
+
         guard let i = Int(firstComponent.substring(from: firstComponent.index(firstComponent.startIndex, offsetBy: 8))), i > 0, i <= replacements.count else {
-            mutableFormat.replaceCharacters(in: result.range, with: components[1])
+            replaceMatchWith(components[1])
             return
         }
+        
         let replacement = replacements[i - 1]
         guard let replacementDouble = reverseDecimalFormatter.number(from: replacement)?.doubleValue else {
-            mutableFormat.replaceCharacters(in: result.range, with: components[1])
+            replaceMatchWith(components[1])
             return
         }
+        
         let index = replacementDouble == 1 ? 1 : 2
         guard index < components.count else {
-            mutableFormat.replaceCharacters(in: result.range, with: components[1])
+            replaceMatchWith(components[1])
             return
         }
-        mutableFormat.replaceCharacters(in: result.range, with: components[index])
+        
+        replaceMatchWith(components[index])
     })
     for (index, replacement) in replacements.enumerated() {
         mutableFormat.replaceOccurrences(of: "$\(index + 1)", with: replacement, options: [], range: NSRange(location: 0, length: mutableFormat.length))

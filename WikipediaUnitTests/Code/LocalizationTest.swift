@@ -49,4 +49,28 @@ class LocalizationTest: XCTestCase {
         let result = localizedString(withFormat: format, "12")
         XCTAssertEqual(result, "Box has 12 eggs.")
     }
+    
+    func testReallyUnsupportedSyntax() {
+        let format = "Box has {{sandwiches for everyone}}."
+        let result = localizedString(withFormat: format, "12")
+        XCTAssertEqual(result, "Box has .")
+    }
+    
+    func testReallyReallyUnsupportedSyntax() {
+        let format = "Box has {{}{{}{{{}}}."
+        let result = localizedString(withFormat: format, "12")
+        XCTAssertEqual(result, "Box has {{}{{}{.")
+    }
+    
+    func testMultiple() {
+        let format = "Box has {{PLURAL:$1|one egg|$1 eggs}} and {{PLURAL:$2|one sandwich|$2 sandwiches}}."
+        let result = localizedString(withFormat: format, "12", "2")
+        XCTAssertEqual(result, "Box has 12 eggs and 2 sandwiches.")
+    }
+    
+    func testMoreThanOneOfSameSubstitution() {
+        let format = "How many eggs does a box with {{PLURAL:$1|one egg|$1 eggs}} and {{PLURAL:$2|one sandwich|$2 sandwiches}} contain? {{PLURAL:$1|one egg|$1 eggs}}."
+        let result = localizedString(withFormat: format, "12", "1")
+        XCTAssertEqual(result, "How many eggs does a box with 12 eggs and one sandwich contain? 12 eggs.")
+    }
 }
