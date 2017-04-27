@@ -14,8 +14,10 @@
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
-#if DEBUG
+#if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
+#endif
+#if DEBUG
 - (void)debugChaos;
 #endif
 
