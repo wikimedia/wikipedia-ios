@@ -3,6 +3,8 @@
 #import "MWKArticle.h"
 #import "MWLanguageInfo.h"
 #import "Wikipedia-Swift.h"
+#import "WMFProxyServer.h"
+#import "NSURL+WMFLinkParsing.h"
 
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;
@@ -21,16 +23,9 @@ static int const kMinimumTextSelectionLength = 2;
     return
         [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
                                    article.isMain,
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"
-                                                                                       article:article]];
-}
-
-- (NSString *)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key article:(MWKArticle *)article {
-    return [MWSiteLocalizedString(article.url, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
+                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {
@@ -43,11 +38,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 - (void)wmf_setPageProtected {
     [self evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
-}
-
-- (void)wmf_setBottomPadding:(NSInteger)bottomPadding {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';", (long)bottomPadding]
-           completionHandler:nil];
 }
 
 - (void)wmf_scrollToFragment:(NSString *)fragment {
