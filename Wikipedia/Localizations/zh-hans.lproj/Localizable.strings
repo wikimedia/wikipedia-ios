@@ -487,6 +487,7 @@
 "explore-another-random" = "其他随机条目";
 "explore-randomizer" = "随机产生条目器";
 "find-in-page-no-matches" = "0个匹配";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "在页面中查找";
 "find-in-page-popover-description" = "搜索条目中的文本";
 "continue-reading-empty-title" = "没有最近阅读条目";
@@ -537,6 +538,7 @@
 "places-filter-top-articles-count" = "$1个条目";
 "places-filter-saved-articles" = "保存的条目";
 "places-filter-saved-articles-count" = "找到了$1个地点";
+"places-filter-no-saved-places" = "您没有已保存的地方";
 "places-filter-list-title" = "搜索过滤器";
 "places-search-default-text" = "搜索条目或位置";
 "places-empty-search-title" = "使用地理位置搜索维基百科条目";

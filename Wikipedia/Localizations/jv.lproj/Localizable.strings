@@ -12,7 +12,7 @@
 "article-read-more-title" = "Waca terusané";
 "article-about-title" = "Ngenani artikel iki";
 "article-unable-to-load-section" = "Tukang mbukak bagean iki. Coba sumilir artikel kanggo ndeleng yen iku mbecike masalah.";
-"article-unable-to-load-article" = "Tukang mbukak artikel.";
+"article-unable-to-load-article" = "Ora bisa ngamot artikel.";
 "article-related-articles-title" = "Artikel magepokan";
 "article-languages-yours" = "Basané panjenengan";
 "article-languages-others" = "Basa liyané";
@@ -23,13 +23,13 @@
 "history-clear-all" = "Busak";
 "history-label" = "Anyar";
 "history-section-today" = "Dina iki";
-"history-section-yesterday" = "Dina wingi";
-"history-section-lastweek" = "Minggu wingi";
+"history-section-yesterday" = "Wingi";
+"history-section-lastweek" = "Minggu kapungkur";
 "history-section-lastmonth" = "Wulan kapungkur";
 "history-clear-confirmation-heading" = "Apa panjenengan yakin arep mbusak kabeh item anyar?";
 "history-clear-confirmation-sub-heading" = "Tumindak ora bisa dibatalaké!";
-"history-clear-cancel" = "Batal";
-"history-clear-delete-all" = "Ya, mbusak kabeh";
+"history-clear-cancel" = "Wurung";
+"history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-description" = "Sampeyan mbokmenawa dibusak kabeh mau. Sabanjure sampeyan pindhah menyang kaca sing bisa bali menyang saka kene.";
 "history-none" = "Ora ana kaca sing anyar kene.";
 "zero-free-verbiage" = "Akses Wikipedia gratis saka operator ponsel (biaya data dibebaske)";

@@ -539,6 +539,7 @@
 "places-filter-top-articles-count" = "$1 個條目";
 "places-filter-saved-articles" = "已儲存條目";
 "places-filter-saved-articles-count" = "找到$1個位置";
+"places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-list-title" = "搜尋過濾器";
 "places-search-default-text" = "搜尋條目或位置";
 "places-empty-search-title" = "以地理位置來搜尋維基百科條目";

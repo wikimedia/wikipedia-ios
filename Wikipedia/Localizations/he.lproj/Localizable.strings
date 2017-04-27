@@ -534,6 +534,7 @@
 "places-filter-top-articles-count" = "$1 ערכים";
 "places-filter-saved-articles" = "ערכים שמורים";
 "places-filter-saved-articles-count" = "נמצאו $1 מקומות";
+"places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-list-title" = "מסנני חיפוש";
 "places-search-default-text" = "חיפוש קבצים או מקומות";
 "places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";

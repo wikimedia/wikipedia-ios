@@ -496,11 +496,9 @@
 "status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "announcements-dismiss" = "না ধন্যবাদ";
-// Fuzzy
-"places-search-top-articles" = "শীর্ষ নিবন্ধ";
+"places-search-top-articles" = "সব শীর্ষ নিবন্ধ";
 "places-search-this-area" = "এই এলাকায় অনুসন্ধান করুন";
-// Fuzzy
-"places-search-saved-articles" = "সংরক্ষিত নিবন্ধ";
+"places-search-saved-articles" = "সব সংরক্ষিত নিবন্ধ";
 "places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
@@ -512,6 +510,12 @@
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
 "places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";
 "places-accessibility-clear-recent-searches" = "সাম্প্রতিক অনুসন্ধানগুলি মুছে ফেলুন";
+"places-filter-top-articles" = "শীর্ষ নিবন্ধ";
+"places-filter-top-articles-count" = "$1টি নিবন্ধ";
+"places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
+"places-filter-saved-articles-count" = "$1টি স্থান পাওয়া গেছে";
+"places-filter-list-title" = "সন্ধানের ছাঁকনি";
+"places-search-default-text" = "নিবন্ধ বা অবস্থানের জন্য অনুসন্ধান করুন";
 "action-share" = "বণ্টন";
 "action-save" = "সংরক্ষণ";
 "action-read" = "পড়ুন";

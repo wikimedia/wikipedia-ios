@@ -528,6 +528,7 @@
 "places-filter-top-articles-count" = "$1 Artikel";
 "places-filter-saved-articles" = "Gespeicherte Artikel";
 "places-filter-saved-articles-count" = "$1 Orte gefunden";
+"places-filter-no-saved-places" = "Du hast keine gespeicherten Orte";
 "places-filter-list-title" = "Suchfilter";
 "places-search-default-text" = "Nach Artikeln oder Orten suchen";
 "places-empty-search-title" = "Nach Wikipedia-Artikeln mit geografischen Standorten suchen";

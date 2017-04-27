@@ -461,6 +461,7 @@
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-randomizer" = "Zoufallsgenerator";
 "find-in-page-no-matches" = "Näischt fonnt";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Op der Säit sichen";
 "find-in-page-popover-description" = "Text an den Artikele sichen";
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
@@ -489,11 +490,9 @@
 "status-saving-for-later" = "Fir spéider späicheren...";
 "status-saved-for-later" = "Fir spéider gespäichert";
 "announcements-dismiss" = "Nee, merci";
-// Fuzzy
-"places-search-top-articles" = "Beléiftst Artikelen";
+"places-search-top-articles" = "all déi beléift Artikelen";
 "places-search-this-area" = "An dësem  Beräich sichen";
-// Fuzzy
-"places-search-saved-articles" = "Gespäichert Artikelen";
+"places-search-saved-articles" = "All gespäichert Artikelen";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-unknown-distance" = "onbekannt Distanz";
 "places-accessibility-group" = "$1 Artikelen";
@@ -502,6 +501,11 @@
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
 "places-accessibility-clear-recent-searches" = "Rezent Ufroen, fir ze sichen, läschen";
+"places-filter-top-articles" = "Beléiftst Artikelen";
+"places-filter-top-articles-count" = "$1 Artikelen";
+"places-filter-saved-articles" = "Gespäichert Artikelen";
+"places-filter-saved-articles-count" = "$1 Plaze fonnt";
+"places-filter-list-title" = "Filtere fir d'Sichen";
 "action-share" = "Deelen";
 "action-save" = "Späicheren";
 "action-read" = "Liesen";

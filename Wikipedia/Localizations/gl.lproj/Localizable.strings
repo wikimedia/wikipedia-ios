@@ -167,6 +167,11 @@
 "settings-notifications-learn-more" = "Saber máis sobre as notificacións";
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-notifications-push-notifications" = "Notificacións tipo push";
+"settings-clear-cache" = "Borrar os datos da caché";
+"settings-clear-cache-are-you-sure-title" = "Borrar os datos da caché?";
+"settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
+"settings-clear-cache-ok" = "Borrar caché";
+"settings-clear-cache-cancel" = "Cancelar";
 "main-menu-title" = "Máis";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Procurar na Wikipedia en $1";
@@ -308,8 +313,7 @@
 "onboarding-wikipedia" = "Galipedia";
 "onboarding-free-encyclopedia" = "A enciclopedia libre";
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
+"preference-summary-eventlogging-opt-in" = "Permitir que a Fundación Wikimedia recompile información acerca de como utiliza a aplicación para facela mellor";
 "page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
 "page-protected-sysop" = "Esta páxina está totalmente protexida.";
 "page-protected-other" = "Esta páxina está protexida para os seguintes niveis: $1";
@@ -370,10 +374,8 @@
 "image-gallery-fetch-image-info-error-title" = "Imposible descargar as imaxes";
 "image-gallery-fetch-image-info-error-message" = "Imposible descargar as imaxes para este artigo. Por favor, refrescre o artigo e inténteo de novo.";
 "image-gallery-fetch-image-info-error-ok" = "Aceptar";
-// Fuzzy
-"hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
+"hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así a Fundación Wikimedia poida revisar o seu erro?";
+"hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así a Fundación Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
 "hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
 "hockeyapp-alert-send-report" = "Enviar informe";
 "hockeyapp-alert-always-send" = "Enviar sempre";
@@ -436,8 +438,7 @@
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 Grazas!";
 "welcome-send-data-title" = "Enviar datos anónimos";
-// Fuzzy
-"welcome-send-data-sub-title" = "Axude á Wikimedia a mellorar este aplicativo contándonos como o utiliza. Os datos recollidos son anónimos";
+"welcome-send-data-sub-title" = "Axude á Fundación Wikimedia a mellorar esta aplicación contándonos como o utiliza. Os datos recollidos son anónimos";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
 "empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
@@ -508,13 +509,12 @@
 "status-saving-for-later" = "Gardando para máis tarde...";
 "status-saved-for-later" = "Gardado para máis tarde";
 "announcements-dismiss" = "Non, grazas";
-// Fuzzy
-"places-search-top-articles" = "Mellores artigos";
+"places-search-top-articles" = "Todos os artigos mellores";
 "places-search-this-area" = "Procura nesta área";
-// Fuzzy
-"places-search-saved-articles" = "Artigos gardados";
+"places-search-saved-articles" = "Todos os artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-recently-searched-header" = "Buscado recentemente";
+"places-search-articles-that-match" = "$1 correspondente a “$2”";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-unknown-distance" = "distancia descoñecida";
 "places-enable-location-title" = "Explore artigos preto da súa localización activando Acceder á localización";
@@ -527,6 +527,14 @@
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
 "places-accessibility-close-search" = "Pechar a busca";
 "places-accessibility-clear-recent-searches" = "Limpar as buscas recentes";
+"places-filter-top-articles" = "Os mellores artigos";
+"places-filter-top-articles-count" = "$1 artigos";
+"places-filter-saved-articles" = "Artigos gardados";
+"places-filter-saved-articles-count" = "$1 lugares atopados";
+"places-filter-list-title" = "Filtros de procura";
+"places-search-default-text" = "Procurar artigos ou localizacións";
+"places-empty-search-title" = "Procurar artigos de Wikipedia con localizacións xeográficas";
+"places-empty-search-description" = "Explore cidades, países, continentes, monumentos naturais, eventos históricos, edificios e máis.";
 "action-share" = "Compartir";
 "action-save" = "Gardar";
 "action-read" = "Ler";

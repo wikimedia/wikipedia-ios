@@ -516,6 +516,7 @@
 "places-filter-top-articles-count" = "$1 voci";
 "places-filter-saved-articles" = "Voci salvate";
 "places-filter-saved-articles-count" = "$1 luoghi trovati";
+"places-filter-no-saved-places" = "Non hai luoghi salvati";
 "action-share" = "Condividi";
 "action-save" = "Salva";
 "action-read" = "Leggi";

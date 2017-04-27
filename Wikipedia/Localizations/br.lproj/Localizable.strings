@@ -530,6 +530,7 @@
 "places-filter-top-articles-count" = "$1 pennad";
 "places-filter-saved-articles" = "Pennadoù enrollet";
 "places-filter-saved-articles-count" = "$1 lec'h kavet";
+"places-filter-no-saved-places" = "N'ho peus lec'h savetaet ebet";
 "places-filter-list-title" = "Siloù enklask";
 "places-search-default-text" = "Enklask pennadoù pe lec'hioù";
 "places-empty-search-title" = "Enklask pennadoù Wikipedia gant lec'hioù douaroniel.";
