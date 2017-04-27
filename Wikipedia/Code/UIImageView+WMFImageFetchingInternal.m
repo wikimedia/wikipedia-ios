@@ -159,7 +159,6 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
     if (detectFaces) {
-
         BOOL isFaceBigEnough = NO;
         CGRect unitFaceBounds = [faceBoundsValue CGRectValue];
         CGRect faceBounds = CGRectZero;
@@ -171,14 +170,12 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
             // Reminder: "0.0178" of the area of a 640x640 image would be roughly 85x85.
             isFaceBigEnough = (faceProportionOfImage >= 0.0178);
         }
-        
         if (isFaceBigEnough) {
             [self wmf_cropContentsByVerticallyCenteringFrame:faceBounds
                                          insideBoundsOfImage:image];
         } else {
             [self wmf_topAlignContentsRect:image];
         }
-        
     } else {
         [self wmf_resetContentsRect];
     }
