@@ -125,7 +125,7 @@ class PlaceSearchService
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
 
-        defer {
+        let done = {
             if (result != nil) {
                 completion(result!)
             } else {
@@ -156,6 +156,7 @@ class PlaceSearchService
             result = PlaceSearchResult(locationResults: nil, getFetchRequest: { () -> NSFetchRequest<WMFArticle>? in
                 return self.fetchSavedArticles(searchString: search.string)
             })
+            done()
             
         case .top:
             //tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
@@ -176,8 +177,11 @@ class PlaceSearchService
                     result = PlaceSearchResult(locationResults: searchResults.results, getFetchRequest: {
                         return nil
                     })
+                    done()
                 }) { (error) in
                     WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    result = PlaceSearchResult(error: error)
+                    done()
                 }
         }
     }
