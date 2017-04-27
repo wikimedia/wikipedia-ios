@@ -147,7 +147,7 @@ class PlaceSearchService
 
     public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> () = {_ in }) {
         let moc = dataStore.viewContext
-        let done = { (articlesToShow: [WMFArticle]) in
+        let done = {
             let request = WMFArticle.fetchRequest()
             let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
             request.predicate = basePredicate
@@ -168,22 +168,22 @@ class PlaceSearchService
                 savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
                 let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
                 guard savedPagesWithoutLocation.count > 0 else {
-                    done(savedPagesWithLocation)
+                    done()
                     return
                 }
                 let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                     return article.url
                 })
-                var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
+                //var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
                 dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
-                    allArticlesWithLocation.append(contentsOf: articles)
-                    done(allArticlesWithLocation)
+                    //allArticlesWithLocation.append(contentsOf: articles)
+                    done()
                 }
                 return
             }
         } catch let error {
             DDLogError("Error fetching saved articles: \(error.localizedDescription)")
         }
-        done([])
+        done()
     }
 }
