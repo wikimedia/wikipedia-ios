@@ -495,10 +495,6 @@
 		B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
-		B3F21D141EB10B15000ED0BB /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D131EB10B15000ED0BB /* LazyBox.swift */; };
-		B3F21D151EB10B15000ED0BB /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D131EB10B15000ED0BB /* LazyBox.swift */; };
-		B3F21D161EB10B15000ED0BB /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D131EB10B15000ED0BB /* LazyBox.swift */; };
-		B3F21D171EB10B15000ED0BB /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D131EB10B15000ED0BB /* LazyBox.swift */; };
 		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
@@ -3469,7 +3465,6 @@
 		B39427421E71F79700D3146D /* NSSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetBlocksKitTest.m; sourceTree = "<group>"; };
 		B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchFilterListController.swift; sourceTree = "<group>"; };
 		B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
-		B3F21D131EB10B15000ED0BB /* LazyBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBox.swift; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
@@ -7385,7 +7380,6 @@
 				B0E807301C0CED810065EBC0 /* WMFGCDHelpers.h */,
 				0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */,
 				B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */,
-				B3F21D131EB10B15000ED0BB /* LazyBox.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -8952,7 +8946,6 @@
 				B0E803C31C0CDC4D0065EBC0 /* WMFArticlePreviewTableViewCell.m in Sources */,
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
-				B3F21D141EB10B15000ED0BB /* LazyBox.swift in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				B07715221E69401800D393FE /* UITextField+WMFAuth.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -9480,7 +9473,6 @@
 				D8A42A931E815A9C00D8E281 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				D8A42A941E815A9C00D8E281 /* WMFArticlePreviewTableViewCell.m in Sources */,
 				D8A42A951E815A9C00D8E281 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
-				B3F21D171EB10B15000ED0BB /* LazyBox.swift in Sources */,
 				D8A42A971E815A9C00D8E281 /* MWKTitleLanguageController.m in Sources */,
 				D8A42A981E815A9C00D8E281 /* UIView+WMFSnapshotting.m in Sources */,
 				D8A42A991E815A9C00D8E281 /* UITextField+WMFAuth.swift in Sources */,
@@ -10001,8 +9993,6 @@
 				D8CE25DD1E698E2400DAE2E0 /* WMFMorePageListViewController.m in Sources */,
 				D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8CE25DF1E698E2400DAE2E0 /* WMFFirstRandomViewController.m in Sources */,
-				B3F21D151EB10B15000ED0BB /* LazyBox.swift in Sources */,
-				D8CE25E01E698E2400DAE2E0 /* WMFIntrinsicSizeTableView.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
@@ -10331,8 +10321,6 @@
 				D8EC3EDB1E9BDA35006712EB /* WMFMorePageListViewController.m in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
-				B3F21D161EB10B15000ED0BB /* LazyBox.swift in Sources */,
-				D8EC3EDE1E9BDA35006712EB /* WMFIntrinsicSizeTableView.m in Sources */,
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,

@@ -5,53 +5,21 @@ import WMF
 struct PlaceSearchResult
 {
     let locationResults: [MWKLocationSearchResult]?
-    
-    var fetchRequest: NSFetchRequest<WMFArticle>? {
-        return _fetchRequest.value
-    }
-    
+    let fetchRequest: NSFetchRequest<WMFArticle>?
     let error: Error?
     
-    private let _fetchRequest: LazyBox<NSFetchRequest<WMFArticle>?>
-    
-    init(locationResults: [MWKLocationSearchResult]?, getFetchRequest: @escaping () -> NSFetchRequest<WMFArticle>?)
-    {
+    init(locationResults: [MWKLocationSearchResult]?, fetchRequest: NSFetchRequest<WMFArticle>?) {
         self.locationResults = locationResults
-        self._fetchRequest = LazyBox<NSFetchRequest<WMFArticle>?> {
-            return getFetchRequest()
-        }
+        self.fetchRequest = fetchRequest
         self.error = nil
     }
     
-    init(error: Error?) // TODO: make non-optional?
-    {
+    init(error: Error?) { // TODO: make non-optional?
         self.locationResults = nil
-        self._fetchRequest = LazyBox<NSFetchRequest<WMFArticle>?> {
-            return nil
-        }
+        self.fetchRequest = nil
         self.error = error
     }
 }
-
-
-struct TopPlacesSearchResult
-{
-    let locationResults: [MWKLocationSearchResult]?
-    let error: Error?
-    
-    init(locationResults: [MWKLocationSearchResult]?)
-    {
-        self.locationResults = locationResults
-        self.error = nil
-    }
-    
-    init(error: Error?) // TODO: make non-optional?
-    {
-        self.locationResults = nil
-        self.error = error
-    }
-}
-
 
 class PlaceSearchService
 {
@@ -102,9 +70,7 @@ class PlaceSearchService
         switch search.filter {
         case .saved:
             self.fetchSavedArticles(searchString: search.string, completion: { (request) in
-                result = PlaceSearchResult(locationResults: nil, getFetchRequest: { () -> NSFetchRequest<WMFArticle>? in
-                    return request
-                })
+                result = PlaceSearchResult(locationResults: nil, fetchRequest: request)
                 done()
             })
             
@@ -123,9 +89,7 @@ class PlaceSearchService
             let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
             
             locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-                    result = PlaceSearchResult(locationResults: searchResults.results, getFetchRequest: {
-                        return nil
-                    })
+                    result = PlaceSearchResult(locationResults: searchResults.results, fetchRequest: nil)
                     done()
                 }) { (error) in
 
