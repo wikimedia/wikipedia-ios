@@ -238,7 +238,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)titlesToRemove;
 
-- (void)startCacheRemoval;
+- (void)startCacheRemoval:(dispatch_block_t)completion;
 - (void)stopCacheRemoval;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;

@@ -32,6 +32,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
 @property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
@@ -765,9 +766,6 @@ static uint64_t bundleHash() {
     self.articlePreviewCache.countLimit = 100;
 
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-    });
 }
 
 #pragma mark - path methods
@@ -1220,16 +1218,38 @@ static uint64_t bundleHash() {
     }
 }
 
-- (void)startCacheRemoval {
+- (void)startCacheRemoval:(dispatch_block_t)completion {
     dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-        [self removeNextArticleFromCacheRemovalList];
+        if (!self.isCacheRemovalActive) {
+            self.cacheRemovalActive = true;
+            self.cacheRemovalCompletion = completion;
+            [self removeNextArticleFromCacheRemovalList];
+        } else {
+            dispatch_block_t existingCompletion = self.cacheRemovalCompletion;
+            self.cacheRemovalCompletion = ^{
+                if (existingCompletion) {
+                    existingCompletion();
+                }
+                if (completion) {
+                    completion();
+                }
+            };
+        }
     });
+}
+
+- (void)_stopCacheRemoval {
+    dispatch_block_t completion = self.cacheRemovalCompletion;
+    if (completion) {
+        completion();
+    }
+    self.cacheRemovalActive = false;
+    self.cacheRemovalCompletion = nil;
 }
 
 - (void)stopCacheRemoval {
     dispatch_sync(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = false;
+        [self _stopCacheRemoval];
     });
 }
 
@@ -1238,23 +1258,25 @@ static uint64_t bundleHash() {
         return;
     }
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-    if (urlsOfArticlesToRemove.count > 0) {
-        NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        [self removeArticleWithURL:urlToRemove
-            fromDiskWithCompletion:^{
-                dispatch_async(self.cacheRemovalQueue, ^{
-                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
-                    NSError *error = nil;
-                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-                        dispatch_async(self.cacheRemovalQueue, ^{
-                            [self removeNextArticleFromCacheRemovalList];
-                        });
-                    } else {
-                        DDLogError(@"Error saving cache removal list: %@", error);
-                    }
-                });
-            }];
+    if (urlsOfArticlesToRemove.count == 0) {
+        [self _stopCacheRemoval];
+        return;
     }
+    NSURL *urlToRemove = urlsOfArticlesToRemove[0];
+    [self removeArticleWithURL:urlToRemove
+        fromDiskWithCompletion:^{
+            dispatch_async(self.cacheRemovalQueue, ^{
+                [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                NSError *error = nil;
+                if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                    dispatch_async(self.cacheRemovalQueue, ^{
+                        [self removeNextArticleFromCacheRemovalList];
+                    });
+                } else {
+                    DDLogError(@"Error saving cache removal list: %@", error);
+                }
+            });
+        }];
 }
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
