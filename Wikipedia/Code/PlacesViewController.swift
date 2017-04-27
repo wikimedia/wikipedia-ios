@@ -622,11 +622,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
+        let done = {
+            self.searching = false
+            self.progressView.setProgress(1.0, animated: true)
+            self.isProgressHidden = true
+        }
+        
         searching = true
-        defer { self.searching = false }
-        
         redoSearchButton.isHidden = true
-        
         deselectAllAnnotations()
         
         let siteURL = self.siteURL
@@ -651,11 +654,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         isProgressHidden = false
         progressView.setProgress(0, animated: false)
-        defer {
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
-        }
-        
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3) // TODO: maybe not needed for saved articles
         
         switch search.filter {
@@ -664,6 +662,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             let moc = dataStore.viewContext
             placeSearchService.performSearch(search, region: region, completion: { (result) in
+                defer { done() }
+                
                 guard result.error == nil else {
                     DDLogError("Error fetching saved articles: \(result.error?.localizedDescription ?? "unknown error")")
                     return
@@ -691,43 +691,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
             placeSearchService.performSearch(search, region: region, completion: { (result) in
-                guard let locationResults = result.locationResults else {
-                    // TODO: error
+                defer { done() }
+                
+                guard result.error == nil else {
+                    WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     return
                 }
+                
+                guard let locationResults = result.locationResults else {
+                    assertionFailure("no error and missing location results")
+                    return
+                }
+                
                 self.updatePlaces(withSearchResults: locationResults)
             })
-            
-//            let center = region.center
-//            let halfLatitudeDelta = region.span.latitudeDelta * 0.5
-//            let halfLongitudeDelta = region.span.longitudeDelta * 0.5
-//            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
-//            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
-//            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
-//            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
-//            let height = top.distance(from: bottom)
-//            let width = right.distance(from: left)
-//            
-//            let radius = round(0.5*max(width, height))
-//            let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
-//            
-//            let done = {
-//                self.searching = false
-//                self.progressView.setProgress(1.0, animated: true)
-//                self.isProgressHidden = true
-//            }
-//            isProgressHidden = false
-//            progressView.setProgress(0, animated: false)
-//            perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
-//            locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-//                if (updatePlaces) {
-//                    self.updatePlaces(withSearchResults: searchResults.results)
-//                }
-//                done()
-//            }) { (error) in
-//                WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-//                done()
-//            }
         }
     }
 

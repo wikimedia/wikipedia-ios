@@ -179,7 +179,7 @@ class PlaceSearchService
                     })
                     done()
                 }) { (error) in
-                    WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+
                     result = PlaceSearchResult(error: error)
                     done()
                 }
