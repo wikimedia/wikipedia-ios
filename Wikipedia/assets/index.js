@@ -5,9 +5,12 @@ wmf.elementLocation = require("./js/elementLocation");
 wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
+wmf.footerReadMore = require("./js/transforms/footerReadMore");
+wmf.footerMenu = require("./js/transforms/footerMenu");
+wmf.footerLegal = require("./js/transforms/footerLegal");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/utilities":15}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -218,7 +221,6 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
  
     var href = hrefTarget.getAttribute( "href" );
-    var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
         window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
     } else if (href && refs.isCitation(href)) {
@@ -232,7 +234,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
         window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
-    } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
+    } else if (event.target.tagName === "IMG" && event.target.getAttribute( "data-image-gallery" ) === "true") {      
          window.webkit.messageHandlers.imageClicked.postMessage({
                                                           'src': event.target.getAttribute('src'),
                                                           'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -281,7 +283,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":12}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":7,"./utilities":15}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -623,7 +625,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":12}],8:[function(require,module,exports){
+},{"../transformer":6,"../utilities":15}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -650,6 +652,332 @@ transformer.register( "disableFilePageEdit", function( content ) {
 } );
 
 },{"../transformer":6}],9:[function(require,module,exports){
+
+function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
+  var container = document.getElementById(containerID);
+  var licenseStringHalves = licenseString.split('$1');
+
+
+  container.innerHTML = 
+  `<div class='footer_legal_contents'>
+    <hr class='footer_legal_divider'>
+    <span class='footer_legal_licence'>
+      ${licenseStringHalves[0]}
+      <a class='footer_legal_licence_link'>
+        ${licenseSubstitutionString}
+      </a>
+      ${licenseStringHalves[1]}
+    </span>
+  </div>`;
+
+  container.querySelector('.footer_legal_licence_link')
+           .addEventListener('click', function(){
+             licenceLinkClickHandler();
+           }, false);
+}
+
+exports.add = add;
+
+},{}],10:[function(require,module,exports){
+
+// var thisType = IconTypeEnum.languages;
+// var iconClass = IconTypeEnum.properties[thisType].iconClass; 
+//     iconClass is 'footer_menu_icon_languages'
+var IconTypeEnum = {
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5,
+  properties: {
+    1: {iconClass: "footer_menu_icon_languages"},
+    2: {iconClass: "footer_menu_icon_last_edited"},
+    3: {iconClass: "footer_menu_icon_page_issues"},
+    4: {iconClass: "footer_menu_icon_disambiguation"},
+    5: {iconClass: "footer_menu_icon_coordinate"}
+  }
+};
+
+class WMFMenuItem {
+    constructor(title, subtitle, iconType, clickHandler) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.iconType = iconType;
+        this.clickHandler = clickHandler;
+    }
+}
+
+class WMFMenuItemFragment {
+    constructor(wmfMenuItem) {
+        var itemContainer = document.createElement('div');
+        itemContainer.className = 'footer_menu_item_container';
+
+        var containerAnchor = document.createElement('a');
+        containerAnchor.addEventListener('click', function(){
+          wmfMenuItem.clickHandler();
+        }, false);
+                
+        itemContainer.appendChild(containerAnchor);
+
+        if(wmfMenuItem.title){
+            var title = document.createElement('div');
+            title.className = 'footer_menu_item_title';
+            title.innerText = wmfMenuItem.title;
+            containerAnchor.appendChild(title);
+        }
+
+        if(wmfMenuItem.subtitle){
+            var subtitle = document.createElement('div');
+            subtitle.className = 'footer_menu_item_subtitle';
+            subtitle.innerText = wmfMenuItem.subtitle;
+            containerAnchor.appendChild(subtitle);
+        }
+
+        if(wmfMenuItem.iconType){
+            var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
+            itemContainer.classList.add(iconClass);
+        }
+
+        return document.createDocumentFragment().appendChild(itemContainer);
+    }
+}
+
+function addItem(title, subtitle, iconType, containerID, clickHandler) {
+  const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
+  const itemFragment = new WMFMenuItemFragment(itemModel);
+  document.getElementById(containerID).appendChild(itemFragment);
+}
+
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
+}
+
+exports.IconTypeEnum = IconTypeEnum;
+exports.setHeading = setHeading;
+exports.addItem = addItem;
+
+},{}],11:[function(require,module,exports){
+
+var _saveButtonClickHandler = null;
+var _clickHandler = null;
+var _titlesShownHandler = null;
+var _saveForLaterString = null;
+var _savedForLaterString = null;
+var _saveButtonIDPrefix = 'readmore:save:';
+var _readMoreContainer = null;
+
+var shownTitles = [];
+
+function safelyRemoveEnclosures(string, opener, closer) {
+  const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
+  var previousString = null;
+  var counter = 0;
+  const safeMaxTries = 30;
+  do {
+    previousString = string;
+    string = string.replace(enclosureRegex, '');
+    counter++;
+  } while (previousString !== string && counter < safeMaxTries);
+  return string;
+}
+
+function cleanExtract(string){
+  string = safelyRemoveEnclosures(string, '(', ')');
+  string = safelyRemoveEnclosures(string, '/', '/');
+  return string;
+}
+
+class WMFPage {
+    constructor(title, thumbnail, terms, extract) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.terms = terms;
+        this.extract = extract;
+    }
+}
+
+class WMFPageFragment {
+    constructor(wmfPage, index) {
+      
+        var pageContainer = document.createElement('div');
+        pageContainer.id = index;
+        pageContainer.className = 'footer_readmore_page';        
+      
+        var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
+        if(hasImage){
+          pageContainer.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
+          pageContainer.classList.add('footer_readmore_page_with_image');
+        }
+        
+        pageContainer.addEventListener('click', function(){
+          _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`);
+        }, false);
+
+        if(wmfPage.title){
+            var title = document.createElement('div');
+            title.id = index;
+            title.className = 'footer_readmore_page_title';
+            if(hasImage){
+              title.classList.add('footer_readmore_page_title_with_image');
+            }            
+            title.innerHTML = wmfPage.title.replace(/_/g, ' ');
+            pageContainer.appendChild(title);
+        }
+
+        var description = null;
+        if(wmfPage.terms){
+          description = wmfPage.terms.description;
+        }        
+        if((description === null || description.length < 10) && wmfPage.extract){
+          description = cleanExtract(wmfPage.extract);
+        }
+        if(description){
+            var descriptionEl = document.createElement('div');
+            descriptionEl.id = index;
+            descriptionEl.className = 'footer_readmore_page_description';
+            if(hasImage){
+              descriptionEl.classList.add('footer_readmore_page_description_with_image');
+            }            
+            descriptionEl.innerHTML = description;
+            pageContainer.appendChild(descriptionEl);
+        }
+
+        var saveButton = document.createElement('div');
+        saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
+        saveButton.innerText = 'Save for later';
+        saveButton.className = 'footer_readmore_page_action_save';
+        saveButton.addEventListener('click', function(event){
+          _saveButtonClickHandler(wmfPage.title);
+          event.stopPropagation();
+          event.preventDefault();
+        }, false);
+
+        var bottomActions = document.createElement('div');
+        bottomActions.id = index;
+        bottomActions.className = 'footer_readmore_page_actions';
+        if(hasImage){
+          bottomActions.classList.add('footer_readmore_page_actions_with_image');
+        }        
+        bottomActions.appendChild(saveButton);
+        
+        pageContainer.appendChild(bottomActions);
+
+        return document.createDocumentFragment().appendChild(pageContainer);
+    }
+}
+
+function showReadMore(pages){  
+  shownTitles.length = 0;
+  
+  pages.forEach(function(page, index){
+
+    const title = page.title.replace(/ /g, '_');
+    shownTitles.push(title);
+
+    const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
+    const pageFragment = new WMFPageFragment(pageModel, index);
+    _readMoreContainer.appendChild(pageFragment);
+  });
+  
+  _titlesShownHandler(shownTitles);
+}
+
+// Leave 'baseURL' null if you don't need to deal with proxying.
+function fetchReadMore(baseURL, title, showReadMoreHandler) {
+    var xhr = new XMLHttpRequest();
+    if (baseURL === null) {
+      baseURL = '';
+    }
+    
+    const pageCountToFetch = 3;
+    const params = {
+      action: 'query',
+      continue: '',
+      exchars: 256,
+      exintro: 1,
+      exlimit: pageCountToFetch,
+      explaintext: '',
+      format: 'json',
+      generator: 'search',
+      gsrinfo: '',
+      gsrlimit: pageCountToFetch,
+      gsrnamespace: 0,
+      gsroffset: 0,
+      gsrprop: 'redirecttitle',
+      gsrsearch: `morelike:${title}`,
+      gsrwhat: 'text',
+      ns: 'ppprop',
+      pilimit: pageCountToFetch,
+      piprop: 'thumbnail',
+      pithumbsize: 120,
+      prop: 'pageterms|pageimages|pageprops|revisions|extracts',
+      rrvlimit: 1,
+      rvprop: 'ids',
+      wbptterms: 'description',
+      formatversion: 2
+    };
+
+    const paramsString = Object.keys(params)
+      .map(function(key){
+        return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
+      })
+      .join('&');
+    
+    xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true);
+    xhr.onload = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            showReadMoreHandler(JSON.parse(xhr.responseText).query.pages);
+        } else {
+          // console.error(xhr.statusText);
+        }
+      }
+    };
+    /*
+    xhr.onerror = function(e) {
+      console.log(`${e}`);
+      // console.error(xhr.statusText);
+    }
+    */
+    xhr.send(null);
+}
+
+function updateSaveButtonText(button, title, isSaved){
+  button.innerText = isSaved ? _savedForLaterString : _saveForLaterString;
+}
+
+function updateSaveButtonBookmarkIcon(button, title, isSaved){
+  button.classList.remove('footer_readmore_bookmark_unfilled');
+  button.classList.remove('footer_readmore_bookmark_filled');  
+  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled');
+}
+
+function setTitleIsSaved(title, isSaved){
+  const saveButton = document.getElementById(`${_saveButtonIDPrefix}${title}`);
+  updateSaveButtonText(saveButton, title, isSaved);
+  updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
+}
+
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, clickHandler, saveButtonClickHandler, titlesShownHandler) {
+  _readMoreContainer = document.getElementById(containerID);
+  _clickHandler = clickHandler;
+  _saveButtonClickHandler = saveButtonClickHandler;
+  _titlesShownHandler = titlesShownHandler;  
+  _saveForLaterString = saveForLaterString;
+  _savedForLaterString = savedForLaterString;
+  
+  fetchReadMore(baseURL, title, showReadMore);
+}
+
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
+}
+
+exports.setHeading = setHeading;
+exports.setTitleIsSaved = setTitleIsSaved;
+exports.add = add;
+
+},{}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -660,7 +988,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],10:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -741,7 +1069,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":6}],14:[function(require,module,exports){
 
 const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
@@ -758,7 +1086,7 @@ transformer.register('widenImages', function(content) {
     .forEach(maybeWidenImage);
 });
 
-},{"../transformer":6,"applib":13}],12:[function(require,module,exports){
+},{"../transformer":6,"applib":16}],15:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -811,7 +1139,7 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1010,4 +1338,4 @@ var index = {
 module.exports = index;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);

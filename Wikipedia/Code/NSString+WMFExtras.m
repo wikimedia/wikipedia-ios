@@ -142,6 +142,10 @@
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
+- (NSString *)wmf_stringByReplacingApostrophesWithBackslashApostrophes {
+    return [self stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+}
+
 - (NSString *)wmf_stringByCapitalizingFirstCharacter {
     // Capitalize first character of WikiData description.
     if (self.length > 1) {
