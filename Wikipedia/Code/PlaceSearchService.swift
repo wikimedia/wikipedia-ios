@@ -85,40 +85,14 @@ class PlaceSearchService
         }
     }
     
-//    func performWikidataQuery(forSearch search: PlaceSearch) {
-//        let fail = {
-//            dispatchOnMainQueue({
-////                if let region = search.region {
-////                    self.mapRegion = region
-////                }
-////                self.searching = false
-//                var newSearch = search
-//                newSearch.needsWikidataQuery = false
-//                //self.currentSearch = newSearch
-//            })
-//        }
-//        guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
-//            fail()
-//            return
-//        }
-//        
-//        wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
-//            DDLogError("Error fetching bounding region from Wikidata: \(error)")
-//            fail()
-//        }, success: { (region) in
-//            dispatchOnMainQueue({
-////                self.mapRegion = region
-////                self.searching = false
-//                var newSearch = search
-//                newSearch.needsWikidataQuery = false
-//                newSearch.region = region
-////                self.currentSearch = newSearch
-//            })
-//        })
-//    }
+    var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
+        get {
+            let savedRequest = WMFArticle.fetchRequest()
+            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
+            return savedRequest
+        }
+    }
 
-//    func performSearch(_ search: PlaceSearch, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void = {_ in }) {
-    
     public func performSearch(_ search: PlaceSearch, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
         var result: PlaceSearchResult?
         let siteURL = self.siteURL
@@ -133,22 +107,6 @@ class PlaceSearchService
             }
         }
         
-//        switch search.type {
-//        case .location:
-////            //        guard search.needsWikidataQuery else {
-////            //            tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-////            //            fallthrough
-////            //        }
-////            performWikidataQuery(forSearch: search)
-////            completion(nil)
-//           // return
-//            fallthrough
-//        case .text:
-//            fallthrough
-//        default:
-//            searchTerm = search.string
-//        }
-        
         searchTerm = search.string
 
         switch search.filter {
@@ -159,7 +117,6 @@ class PlaceSearchService
             done()
             
         case .top:
-            //tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             let center = region.center
             let halfLatitudeDelta = region.span.latitudeDelta * 0.5
             let halfLongitudeDelta = region.span.longitudeDelta * 0.5

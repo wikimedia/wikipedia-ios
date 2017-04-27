@@ -1279,78 +1279,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         })
     }
     
-    // MARK: - Saved Articles
-    
-    func showSavedArticles() {
-        tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-        let moc = dataStore.viewContext
-        isProgressHidden = false
-        progressView.setProgress(0, animated: false)
-        let done = { (articlesToShow: [WMFArticle]) -> Void in
-            let request = WMFArticle.fetchRequest()
-            let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            request.predicate = basePredicate
-            if let searchString = self.currentSearch?.string {
-                let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
-                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
-            }
-            request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-            self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-            if articlesToShow.count > 0 {
-                self.mapRegion = self.regionThatFits(articles: articlesToShow)
-            }
-            self.searching = false
-            if articlesToShow.count == 0 {
-                self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
-            }
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
-        }
-        
-        do {
-            let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
-            guard savedPagesWithLocation.count >= 99 else {
-                let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
-                savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
-                savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
-                guard savedPagesWithoutLocation.count > 0 else {
-                    done(savedPagesWithLocation)
-                    return
-                }
-                let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
-                    return article.url
-                })
-                dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
-                    var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
-                    allArticlesWithLocation.append(contentsOf: articles)
-                    done(allArticlesWithLocation)
-                }
-                return
-            }
-        } catch let error {
-            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-        }
-        done([])
-    }
-    
-    
-    var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            return savedRequest
-        }
-    }
-    
-    var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            return savedRequest
-        }
-    }
-    
     
     // MARK: - Progress
     
@@ -2637,7 +2565,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .saved:
             do {
                 let moc = dataStore.viewContext
-                return try moc.count(for: fetchRequestForSavedArticlesWithLocation)
+                return try moc.count(for: placeSearchService.fetchRequestForSavedArticlesWithLocation)
             } catch let error {
                 DDLogError("Error fetching saved article count: \(error)")
                 return 0
