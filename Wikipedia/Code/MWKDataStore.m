@@ -1219,10 +1219,20 @@ static uint64_t bundleHash() {
 
 - (void)startCacheRemoval:(dispatch_block_t)completion {
     dispatch_async(self.cacheRemovalQueue, ^{
-        if (!self.cacheRemovalActive) {
+        if (!self.isCacheRemovalActive) {
             self.cacheRemovalActive = true;
             self.cacheRemovalCompletion = completion;
             [self removeNextArticleFromCacheRemovalList];
+        } else {
+            dispatch_block_t existingCompletion = self.cacheRemovalCompletion;
+            self.cacheRemovalCompletion = ^{
+                if (existingCompletion) {
+                    existingCompletion();
+                }
+                if (completion) {
+                    completion();
+                }
+            };
         }
     });
 }
