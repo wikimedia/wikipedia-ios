@@ -235,4 +235,33 @@
     return [siteURL wmf_URLWithTitle:self.displayTitle];
 }
 
+#pragma mark - NSObject
+
+- (BOOL)isEqualToSearchResult:(MWKSearchResult *)searchResult {
+    if (!searchResult) {
+        return NO;
+    }
+    
+    BOOL haveEqualDisplayTitles = (!self.displayTitle && !searchResult.displayTitle) || [self.displayTitle isEqualToString:searchResult.displayTitle];
+    
+    return haveEqualDisplayTitles;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    }
+    
+    if (![object isKindOfClass:[MWKSearchResult class]]) {
+        return NO;
+    }
+    
+    return [self isEqualToSearchResult:(MWKSearchResult *)object];
+    
+}
+
+- (NSUInteger)hash {
+    return [self.displayTitle hash];
+}
+
 @end
