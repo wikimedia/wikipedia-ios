@@ -1031,16 +1031,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             if oldValue == .search && viewMode != .search {
-                searchBarToCloseTrailingConstraint.isActive = false
-                closeSearchButton.isHidden = true
-                searchBarToMapListToggleTrailingConstraint.isActive = true
-                mapListToggle.isHidden = false
- 
+                UIView.performWithoutAnimation {
+                    searchBarToCloseTrailingConstraint.isActive = false
+                    closeSearchButton.isHidden = true
+                    searchBarToMapListToggleTrailingConstraint.isActive = true
+                    mapListToggle.isHidden = false
+                    searchBar?.layoutIfNeeded()
+                }
             } else if oldValue != .search && viewMode == .search {
-                searchBarToMapListToggleTrailingConstraint.isActive = false
-                mapListToggle.isHidden = true
-                searchBarToCloseTrailingConstraint.isActive = true
-                closeSearchButton.isHidden = false
+                UIView.performWithoutAnimation {
+                    searchBarToMapListToggleTrailingConstraint.isActive = false
+                    mapListToggle.isHidden = true
+                    searchBarToCloseTrailingConstraint.isActive = true
+                    closeSearchButton.isHidden = false
+                    searchBar?.layoutIfNeeded()
+                }
             }
             switch traitBasedViewMode {
             case .listOverlay:
@@ -2060,7 +2065,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             attributedTitle = NSMutableAttributedString(string: title)
         }
         
-        self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
+        UIView.performWithoutAnimation {
+            self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
+            self.filterSelectorView.button.layoutIfNeeded()
+        }
     }
     
     @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
