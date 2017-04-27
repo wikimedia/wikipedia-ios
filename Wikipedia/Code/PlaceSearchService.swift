@@ -20,8 +20,6 @@ struct PlaceSearchResult
         self._fetchRequest = LazyBox<NSFetchRequest<WMFArticle>?> {
             return getFetchRequest()
         }
-        
-        
         self.error = nil
     }
     
@@ -166,6 +164,7 @@ class PlaceSearchService
                 let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                     return article.url
                 })
+                // TODO: ARM: I don't understand this --------------------V
                 //var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
                 dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
                     //allArticlesWithLocation.append(contentsOf: articles)
