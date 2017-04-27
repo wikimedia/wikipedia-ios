@@ -176,6 +176,11 @@
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-notifications-push-notifications" = "Notificaciones";
+"settings-clear-cache" = "Borrar los datos del caché";
+"settings-clear-cache-are-you-sure-title" = "¿Borrar los datos del caché?";
+"settings-clear-cache-are-you-sure-message" = "Si se borran los datos del caché se liberarán cerca de $1 de espacio. No borrará tus páginas guardadas.";
+"settings-clear-cache-ok" = "Borrar caché";
+"settings-clear-cache-cancel" = "Cancelar";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -513,8 +518,10 @@
 "status-saving-for-later" = "Guardando para después…";
 "status-saved-for-later" = "Guardado para después";
 "announcements-dismiss" = "No, gracias";
+// Fuzzy
 "places-search-top-articles" = "Artículos principales";
 "places-search-this-area" = "Buscar esta área";
+// Fuzzy
 "places-search-saved-articles" = "Artículos guardados";
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
 "places-search-recently-searched-header" = "Búsquedas recientes";

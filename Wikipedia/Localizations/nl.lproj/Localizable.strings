@@ -166,6 +166,7 @@
 "settings-notifications-learn-more" = "Meer informatie over meldingen";
 "settings-notifications-trending" = "Huidige actuele gebeurtenissen";
 "settings-notifications-push-notifications" = "Pushberichten";
+"settings-clear-cache-cancel" = "Annuleren";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -506,8 +507,10 @@
 "status-saving-for-later" = "Aan het opslaan voor later...";
 "status-saved-for-later" = "Opgeslagen voor later";
 "announcements-dismiss" = "Nee, bedankt";
+// Fuzzy
 "places-search-top-articles" = "Meest gelezen pagina's";
 "places-search-this-area" = "Zoeken binnen dit gebied";
+// Fuzzy
 "places-search-saved-articles" = "Opgeslagen pagina's";
 "places-search-suggested-searches-header" = "Zoeksuggesties";
 "places-search-recently-searched-header" = "Recente zoekopdrachten";

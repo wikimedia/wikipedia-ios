@@ -212,6 +212,9 @@
         NSUInteger enSubstituionCount = [enSubstitutions count];
 
         NSString *qqqVal = qqqStringsDict[key];
+        if (!qqqVal) {
+            XCTFail(@"missing description in qqq.lproj for key: %@", key);
+        }
         NSOrderedSet *qqqSubstitutions = [self dollarSubstitutionsInString:qqqVal];
         NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
 

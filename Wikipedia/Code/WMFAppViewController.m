@@ -66,9 +66,7 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeExplore = 0,
-#if WMF_PLACES_ENABLED
     WMFAppTabTypePlaces,
-#endif
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -689,14 +687,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypePlaces: {
-#if WMF_PLACES_ENABLED
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
                 [[self placesViewController] showArticleURL:articleURL];
             }
-#endif
         } break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
@@ -861,11 +857,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (PlacesViewController *)placesViewController {
-#if WMF_PLACES_ENABLED
     return (PlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
-#else
-    return nil;
-#endif
 }
 
 #pragma mark - UIViewController
