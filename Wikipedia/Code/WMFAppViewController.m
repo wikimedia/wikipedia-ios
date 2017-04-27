@@ -121,6 +121,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong) WMFLocationManager *showNearbyLocationManager;
 
+@property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -541,10 +543,23 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
-
-    [self.dataStore startCacheRemoval];
+    
+    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
+    self.backgroundTaskGroup = taskGroup;
+    
+    [taskGroup enter];
+    [self.dataStore startCacheRemoval:^{
+        [taskGroup leave];
+    }];
+    
+    [taskGroup enter];
     [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
-        DDLogDebug(@"Finished saved articles fetch.");
+        [taskGroup leave];
+    }];
+    
+    [taskGroup waitInBackgroundWithCompletion:^{
+        WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
+        [self endBackgroundTask];
     }];
 }
 

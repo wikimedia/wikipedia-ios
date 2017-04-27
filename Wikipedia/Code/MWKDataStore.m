@@ -31,6 +31,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
 @property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
@@ -1219,16 +1220,24 @@ static uint64_t bundleHash() {
     }
 }
 
-- (void)startCacheRemoval {
+- (void)startCacheRemoval:(dispatch_block_t)completion {
     dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-        [self removeNextArticleFromCacheRemovalList];
+        if (!self.cacheRemovalActive) {
+            self.cacheRemovalActive = true;
+            self.cacheRemovalCompletion = completion;
+            [self removeNextArticleFromCacheRemovalList];
+        }
     });
+}
+
+- (void)_stopCacheRemoval {
+    self.cacheRemovalActive = false;
+    self.cacheRemovalCompletion = nil;
 }
 
 - (void)stopCacheRemoval {
     dispatch_sync(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = false;
+        [self _stopCacheRemoval];
     });
 }
 
@@ -1237,23 +1246,29 @@ static uint64_t bundleHash() {
         return;
     }
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-    if (urlsOfArticlesToRemove.count > 0) {
-        NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        [self removeArticleWithURL:urlToRemove
-            fromDiskWithCompletion:^{
-                dispatch_async(self.cacheRemovalQueue, ^{
-                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
-                    NSError *error = nil;
-                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-                        dispatch_async(self.cacheRemovalQueue, ^{
-                            [self removeNextArticleFromCacheRemovalList];
-                        });
-                    } else {
-                        DDLogError(@"Error saving cache removal list: %@", error);
-                    }
-                });
-            }];
+    if (urlsOfArticlesToRemove.count == 0) {
+        dispatch_block_t completion = self.cacheRemovalCompletion;
+        if (completion) {
+            completion();
+        }
+        [self _stopCacheRemoval];
+        return;
     }
+    NSURL *urlToRemove = urlsOfArticlesToRemove[0];
+    [self removeArticleWithURL:urlToRemove
+        fromDiskWithCompletion:^{
+            dispatch_async(self.cacheRemovalQueue, ^{
+                [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                NSError *error = nil;
+                if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                    dispatch_async(self.cacheRemovalQueue, ^{
+                        [self removeNextArticleFromCacheRemovalList];
+                    });
+                } else {
+                    DDLogError(@"Error saving cache removal list: %@", error);
+                }
+            });
+        }];
 }
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
