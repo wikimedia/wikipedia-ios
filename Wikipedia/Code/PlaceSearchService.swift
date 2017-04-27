@@ -111,10 +111,12 @@ class PlaceSearchService
 
         switch search.filter {
         case .saved:
-            result = PlaceSearchResult(locationResults: nil, getFetchRequest: { () -> NSFetchRequest<WMFArticle>? in
-                return self.fetchSavedArticles(searchString: search.string)
+            self.fetchSavedArticles(searchString: search.string, completion: { (request) in
+                result = PlaceSearchResult(locationResults: nil, getFetchRequest: { () -> NSFetchRequest<WMFArticle>? in
+                    return request
+                })
+                done()
             })
-            done()
             
         case .top:
             let center = region.center
@@ -142,10 +144,10 @@ class PlaceSearchService
                 }
         }
     }
-    
-    func fetchSavedArticles(searchString: String?) -> NSFetchRequest<WMFArticle>? {
+
+    public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> () = {_ in }) {
         let moc = dataStore.viewContext
-        let done = { (articlesToShow: [WMFArticle]) -> NSFetchRequest<WMFArticle> in
+        let done = { (articlesToShow: [WMFArticle]) in
             let request = WMFArticle.fetchRequest()
             let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
             request.predicate = basePredicate
@@ -155,7 +157,7 @@ class PlaceSearchService
             }
             request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
             
-            return request
+            completion(request)
         }
         
         do {
@@ -166,7 +168,8 @@ class PlaceSearchService
                 savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
                 let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
                 guard savedPagesWithoutLocation.count > 0 else {
-                    return done(savedPagesWithLocation)
+                    done(savedPagesWithLocation)
+                    return
                 }
                 let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
                     return article.url
@@ -174,12 +177,13 @@ class PlaceSearchService
                 var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
                 dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
                     allArticlesWithLocation.append(contentsOf: articles)
+                    done(allArticlesWithLocation)
                 }
-                return done(allArticlesWithLocation)
+                return
             }
         } catch let error {
             DDLogError("Error fetching saved articles: \(error.localizedDescription)")
         }
-        return done([])
+        done([])
     }
 }

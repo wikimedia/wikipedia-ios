@@ -71,6 +71,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var searchFilterListController: PlaceSearchFilterListController!
     private var extendedNavBarHeightOrig: CGFloat?
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
+    private var topPlacesCountInCurrentMapRegion: Int?
     
     lazy private var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
@@ -160,6 +161,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        // Update saved places locations
+        placeSearchService.fetchSavedArticles(searchString: nil)
         
         if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
             updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
@@ -597,7 +601,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             articleFetchedResultsController.delegate = self
         }
     }
-    
+
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
         guard let searchRegion = currentSearchRegion else {
             redoSearchButton.isHidden = true
@@ -615,6 +619,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let heightRatio = visibleHeight/searchHeight
         let ratio = min(widthRatio, heightRatio)
         redoSearchButton.isHidden = !(ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
+        DDLogDebug("redoSearchButton.isHidden = \(redoSearchButton.isHidden)")
+        
+        // it's a little smelly to piggy-back this logic inside the redo rearch button logic, but another attempts
+        // added more code or duplicated the visible area calculation
+        resetSavedPlacesCountIfNecessary()
     }
     
     func performSearch(_ search: PlaceSearch) {
@@ -806,6 +815,27 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func updateSavedPlacesCountInCurrentMapRegionIfNecessary() {
+        if let currentSearch = self.currentSearch, currentSearchFilter == .saved {
+            var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
+            tempSearch.needsWikidataQuery = false
+            
+            placeSearchService.performSearch(tempSearch, region: mapView.region, completion: { (searchResult) in
+                guard let locationResults = searchResult.locationResults else {
+                    return
+                }
+                DDLogDebug("got \(locationResults.count) top places!")
+                self.topPlacesCountInCurrentMapRegion = locationResults.count
+            })
+        }
+    }
+    
+    func resetSavedPlacesCountIfNecessary() {
+        if (!redoSearchButton.isHidden) {
+            topPlacesCountInCurrentMapRegion = nil
+        }
+    }
+    
     @IBAction func redoSearch(_ sender: Any) {
         guard let search = currentSearch else {
             return
@@ -824,18 +854,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
         }
         
-//        if let currentSearch = self.currentSearch, currentSearchFilter == .saved {
-//            var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
-//            tempSearch.needsWikidataQuery = false
-//            
-//            performSearch(tempSearch, updatePlaces: false, completion: { (searchResults) in
-//                guard let results = searchResults else {
-//                    return
-//                }
-//                DDLogDebug("got \(results.count) results!")
-//            })
-//        }
-        
+        updateSavedPlacesCountInCurrentMapRegionIfNecessary()
     }
     
     // MARK: - Display Actions
@@ -2561,7 +2580,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
         switch (countForFilterType) {
         case .top:
-            return articleFetchedResultsController.fetchedObjects?.count ?? 0
+            return topPlacesCountInCurrentMapRegion ?? 0
         case .saved:
             do {
                 let moc = dataStore.viewContext
