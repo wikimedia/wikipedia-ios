@@ -238,11 +238,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             failure:^(NSError *_Nonnull error) {
                 dispatch_async(self.accessQueue, ^{
                     [self didFetchArticle:articleFromDisk url:articleURL error:error];
+                    failure(error);
                 });
             }
             success:^{
                 dispatch_async(self.accessQueue, ^{
                     [self didFetchArticle:articleFromDisk url:articleURL error:nil];
+                    success();
                 });
             }];
     } else {
@@ -253,6 +255,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(self.accessQueue, ^{
                         [self didFetchArticle:nil url:articleURL error:error];
+                        failure(error);
                     });
                 }
                 success:^(MWKArticle *_Nonnull article) {
