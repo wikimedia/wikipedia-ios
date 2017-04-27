@@ -77,7 +77,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
+        view.tintColor = .wmf_blueTint
         
         addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
@@ -105,9 +105,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // Setup location manager
         locationManager.delegate = self
-        
-        view.tintColor = .wmf_blueTint
-        redoSearchButton.setTitleColor(view.tintColor, for: .normal)
+    
+        // Setup Redo search button
+        redoSearchButton.backgroundColor = view.tintColor
+        redoSearchButton.setTitleColor(.white, for: .normal)
+        redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
+        redoSearchButton.isHidden = true
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
