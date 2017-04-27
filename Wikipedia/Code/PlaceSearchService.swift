@@ -43,6 +43,26 @@ struct PlaceSearchResult
     }
 }
 
+
+struct TopPlacesSearchResult
+{
+    let locationResults: [MWKLocationSearchResult]?
+    let error: Error?
+    
+    init(locationResults: [MWKLocationSearchResult]?)
+    {
+        self.locationResults = locationResults
+        self.error = nil
+    }
+    
+    init(error: Error?) // TODO: make non-optional?
+    {
+        self.locationResults = nil
+        self.error = error
+    }
+}
+
+
 class PlaceSearchService
 {
     public var dataStore: MWKDataStore!
@@ -65,52 +85,47 @@ class PlaceSearchService
         }
     }
     
-    func performWikidataQuery(forSearch search: PlaceSearch) {
-        let fail = {
-            dispatchOnMainQueue({
-//                if let region = search.region {
-//                    self.mapRegion = region
-//                }
-//                self.searching = false
-                var newSearch = search
-                newSearch.needsWikidataQuery = false
-                //self.currentSearch = newSearch
-            })
-        }
-        guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
-            fail()
-            return
-        }
-        
-        wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
-            DDLogError("Error fetching bounding region from Wikidata: \(error)")
-            fail()
-        }, success: { (region) in
-            dispatchOnMainQueue({
-//                self.mapRegion = region
-//                self.searching = false
-                var newSearch = search
-                newSearch.needsWikidataQuery = false
-                newSearch.region = region
-//                self.currentSearch = newSearch
-            })
-        })
-    }
+//    func performWikidataQuery(forSearch search: PlaceSearch) {
+//        let fail = {
+//            dispatchOnMainQueue({
+////                if let region = search.region {
+////                    self.mapRegion = region
+////                }
+////                self.searching = false
+//                var newSearch = search
+//                newSearch.needsWikidataQuery = false
+//                //self.currentSearch = newSearch
+//            })
+//        }
+//        guard let articleURL = search.searchResult?.articleURL(forSiteURL: siteURL) else {
+//            fail()
+//            return
+//        }
+//        
+//        wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
+//            DDLogError("Error fetching bounding region from Wikidata: \(error)")
+//            fail()
+//        }, success: { (region) in
+//            dispatchOnMainQueue({
+////                self.mapRegion = region
+////                self.searching = false
+//                var newSearch = search
+//                newSearch.needsWikidataQuery = false
+//                newSearch.region = region
+////                self.currentSearch = newSearch
+//            })
+//        })
+//    }
 
 //    func performSearch(_ search: PlaceSearch, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void = {_ in }) {
-
+    
     public func performSearch(_ search: PlaceSearch, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
-        
-        
         var result: PlaceSearchResult?
         let siteURL = self.siteURL
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
-        //let region = search.region ?? mapRegion ?? mapView.region
-        
+
         defer {
-//            if let r = result {
-//                completion(r)
             if (result != nil) {
                 completion(result!)
             } else {
@@ -118,26 +133,28 @@ class PlaceSearchService
             }
         }
         
-        switch search.type {
-        case .location:
-//            //        guard search.needsWikidataQuery else {
-//            //            tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-//            //            fallthrough
-//            //        }
-//            performWikidataQuery(forSearch: search)
-//            completion(nil)
-            return
-        case .text:
-            fallthrough
-        default:
-            searchTerm = search.string
-        }
+//        switch search.type {
+//        case .location:
+////            //        guard search.needsWikidataQuery else {
+////            //            tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
+////            //            fallthrough
+////            //        }
+////            performWikidataQuery(forSearch: search)
+////            completion(nil)
+//           // return
+//            fallthrough
+//        case .text:
+//            fallthrough
+//        default:
+//            searchTerm = search.string
+//        }
         
+        searchTerm = search.string
 
         switch search.filter {
         case .saved:
             result = PlaceSearchResult(locationResults: nil, getFetchRequest: { () -> NSFetchRequest<WMFArticle>? in
-                return self.showSavedArticles(searchString: search.string)
+                return self.fetchSavedArticles(searchString: search.string)
             })
             
         case .top:
@@ -155,35 +172,18 @@ class PlaceSearchService
             let radius = round(0.5*max(width, height))
             let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
             
-            let done = {
-                //                self.searching = false
-                //                self.progressView.setProgress(1.0, animated: true)
-                //                self.isProgressHidden = true
-            }
-            //            isProgressHidden = false
-            //            progressView.setProgress(0, animated: false)
-            //            perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
             locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-//                if (updatePlaces) {
-//                    self.updatePlaces(withSearchResults: searchResults.results)
-//                }
-                done()
-                //completion(searchResults.results)
-            }) { (error) in
-                WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                done()
-                //completion(nil)
-            }
+                    result = PlaceSearchResult(locationResults: searchResults.results, getFetchRequest: {
+                        return nil
+                    })
+                }) { (error) in
+                    WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
         }
-        
-        //completion(result)
     }
     
-    func showSavedArticles(searchString: String?) -> NSFetchRequest<WMFArticle>? {
-        //tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
+    func fetchSavedArticles(searchString: String?) -> NSFetchRequest<WMFArticle>? {
         let moc = dataStore.viewContext
-//        isProgressHidden = false
-//        progressView.setProgress(0, animated: false)
         let done = { (articlesToShow: [WMFArticle]) -> NSFetchRequest<WMFArticle> in
             let request = WMFArticle.fetchRequest()
             let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
@@ -195,19 +195,6 @@ class PlaceSearchService
             request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
             
             return request
-            
-//            self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-            
-            
-//            if articlesToShow.count > 0 {
-//                self.mapRegion = self.regionThatFits(articles: articlesToShow)
-//            }
-//            self.searching = false
-//            if articlesToShow.count == 0 {
-//                self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
-//            }
-//            self.progressView.setProgress(1.0, animated: true)
-//            self.isProgressHidden = true
         }
         
         do {
