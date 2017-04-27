@@ -5,9 +5,6 @@ import WMF
 struct PlaceSearchResult
 {
     let locationResults: [MWKLocationSearchResult]?
-//    lazy var fetchRequest: NSFetchRequest<WMFArticle>? = {
-//        return self.getFetchRequest()
-//    }()
     
     var fetchRequest: NSFetchRequest<WMFArticle>? {
         return _fetchRequest.value
@@ -15,13 +12,11 @@ struct PlaceSearchResult
     
     let error: Error?
     
-    //private let getFetchRequest: () -> NSFetchRequest<WMFArticle>?
     private let _fetchRequest: LazyBox<NSFetchRequest<WMFArticle>?>
     
     init(locationResults: [MWKLocationSearchResult]?, getFetchRequest: @escaping () -> NSFetchRequest<WMFArticle>?)
     {
         self.locationResults = locationResults
-        //self.getFetchRequest = getFetchRequest
         self._fetchRequest = LazyBox<NSFetchRequest<WMFArticle>?> {
             return getFetchRequest()
         }
@@ -33,12 +28,9 @@ struct PlaceSearchResult
     init(error: Error?) // TODO: make non-optional?
     {
         self.locationResults = nil
-        //self.getFetchRequest = { return nil }
-        
         self._fetchRequest = LazyBox<NSFetchRequest<WMFArticle>?> {
             return nil
         }
-        
         self.error = error
     }
 }
