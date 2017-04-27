@@ -72,6 +72,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var extendedNavBarHeightOrig: CGFloat?
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
     private var topPlacesCountInCurrentMapRegion: Int?
+    private var displayCountForTopPlaces: Int {
+        get {
+            switch (self.currentSearchFilter) {
+            case .top:
+                return articleFetchedResultsController.fetchedObjects?.count ?? 0
+            case .saved:
+                return topPlacesCountInCurrentMapRegion ?? 0
+            }
+        }
+    }
     
     lazy private var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
@@ -640,6 +650,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searching = true
         redoSearchButton.isHidden = true
         deselectAllAnnotations()
+        updateSavedPlacesCountInCurrentMapRegionIfNecessary()
         
         let siteURL = self.siteURL
         var searchTerm: String? = nil
@@ -816,6 +827,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func updateSavedPlacesCountInCurrentMapRegionIfNecessary() {
+        guard topPlacesCountInCurrentMapRegion == nil else {
+            return
+        }
+        
         if let currentSearch = self.currentSearch, currentSearchFilter == .saved {
             var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
             tempSearch.needsWikidataQuery = false
@@ -854,7 +869,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
         }
         
-        updateSavedPlacesCountInCurrentMapRegionIfNecessary()
+        //updateSavedPlacesCountInCurrentMapRegionIfNecessary()
     }
     
     // MARK: - Display Actions
@@ -1944,19 +1959,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             
             updateSearchFilterTitle()
-            
-//            if let currentSearch = self.currentSearch, isSearchFilterDropDownShowing, currentSearchFilter == .saved {
-//                var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: nil, searchResult: nil)
-//                tempSearch.needsWikidataQuery = false
-//                
-//                performSearch(tempSearch, updatePlaces: false, completion: { (searchResults) in
-//                    guard let results = searchResults else {
-//                        return
-//                    }
-//                    DDLogDebug("got \(results.count) results!")
-//                })
-//            }
-      
         }
     }
     
@@ -2580,7 +2582,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
         switch (countForFilterType) {
         case .top:
-            return topPlacesCountInCurrentMapRegion ?? 0
+            return displayCountForTopPlaces
         case .saved:
             do {
                 let moc = dataStore.viewContext
