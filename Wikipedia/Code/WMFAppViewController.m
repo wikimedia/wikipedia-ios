@@ -544,6 +544,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
     
+
+    if (self.backgroundTaskGroup) {
+        return;
+    }
+    
+
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     self.backgroundTaskGroup = taskGroup;
     
@@ -559,6 +565,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     
     [taskGroup waitInBackgroundWithCompletion:^{
         WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
+        self.backgroundTaskGroup = nil;
         [self endBackgroundTask];
     }];
 }
