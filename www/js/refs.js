@@ -66,11 +66,10 @@ function collectRefText( sourceNode ) {
     }
 
     // preferably without the back link
-    var refTexts = targetNode.getElementsByClassName( "reference-text" );
-    if ( refTexts.length > 0 ) {
-        targetNode = refTexts[0];
+    var backlinks = targetNode.getElementsByClassName( "mw-cite-backlink" );    
+    for (var i = 0; i < backlinks.length; i++) {
+        backlinks[i].style.display = 'none';
     }
-
     return targetNode.innerHTML;
 }
 
