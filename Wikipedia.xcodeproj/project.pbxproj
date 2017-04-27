@@ -3913,7 +3913,7 @@
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8C1B8381EB2796800B506DA /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalizationTest.swift; path = ../LocalizationTest.swift; sourceTree = "<group>"; };
+		D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationTest.swift; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -6527,7 +6527,6 @@
 		BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */,
 				BC5BC4941BCEA6D600062619 /* MWKList */,
 				B0E808E41C0D17DC0065EBC0 /* MWKArticleStoreTestCase.h */,
 				B0E808E51C0D17E20065EBC0 /* MWKArticleStoreTestCase.m */,
@@ -6655,6 +6654,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
+				D8C1B83A1EB2808600B506DA /* LocalizationTest.swift */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
 				D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */,
 				D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */,
