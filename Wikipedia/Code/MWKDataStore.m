@@ -6,12 +6,7 @@
 
 @import CoreData;
 
-NSString *const MWKArticleKey = @"MWKArticleKey";
-
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
-
-NSString *const MWKSetupDataSourcesNotification = @"MWKSetupDataSourcesNotification";
-NSString *const MWKTeardownDataSourcesNotification = @"MWKTeardownDataSourcesNotification";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -36,6 +31,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, strong, nullable) dispatch_block_t cacheRemovalCompletion;
 @property (readwrite, nonatomic, getter=wasSitesFolderMissing) BOOL sitesFolderMissing;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
@@ -453,7 +449,6 @@ static uint64_t bundleHash() {
     WMFAssertMainThread(@"Background Core Data operations must be started from the main thread.");
     NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     backgroundContext.parentContext = _viewContext;
-    backgroundContext.automaticallyMergesChangesFromParent = YES;
     backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:backgroundContext];
@@ -467,24 +462,29 @@ static uint64_t bundleHash() {
     NSManagedObjectContext *moc = _viewContext;
     [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
-        if (![moc save:&mainContextSaveError]) {
+        if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
             DDLogError(@"Error saving main context: %@", mainContextSaveError);
         }
     }];
 }
 
 - (NSManagedObjectContext *)feedImportContext {
+    WMFAssertMainThread(@"feedImportContext be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
-        _feedImportContext.automaticallyMergesChangesFromParent = YES;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
 
 - (void)teardownFeedImportContext {
-    _feedImportContext = nil;
+    WMFAssertMainThread(@"feedImportContext must be torn down on the main thread");
+    if (_feedImportContext) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        _feedImportContext = nil;
+    }
 }
 
 #pragma mark - Migrations
@@ -765,9 +765,6 @@ static uint64_t bundleHash() {
     self.articlePreviewCache.countLimit = 100;
 
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
-    dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-    });
 }
 
 #pragma mark - path methods
@@ -1220,16 +1217,38 @@ static uint64_t bundleHash() {
     }
 }
 
-- (void)startCacheRemoval {
+- (void)startCacheRemoval:(dispatch_block_t)completion {
     dispatch_async(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = true;
-        [self removeNextArticleFromCacheRemovalList];
+        if (!self.isCacheRemovalActive) {
+            self.cacheRemovalActive = true;
+            self.cacheRemovalCompletion = completion;
+            [self removeNextArticleFromCacheRemovalList];
+        } else {
+            dispatch_block_t existingCompletion = self.cacheRemovalCompletion;
+            self.cacheRemovalCompletion = ^{
+                if (existingCompletion) {
+                    existingCompletion();
+                }
+                if (completion) {
+                    completion();
+                }
+            };
+        }
     });
+}
+
+- (void)_stopCacheRemoval {
+    dispatch_block_t completion = self.cacheRemovalCompletion;
+    if (completion) {
+        completion();
+    }
+    self.cacheRemovalActive = false;
+    self.cacheRemovalCompletion = nil;
 }
 
 - (void)stopCacheRemoval {
     dispatch_sync(self.cacheRemovalQueue, ^{
-        self.cacheRemovalActive = false;
+        [self _stopCacheRemoval];
     });
 }
 
@@ -1238,23 +1257,25 @@ static uint64_t bundleHash() {
         return;
     }
     NSMutableArray<NSURL *> *urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-    if (urlsOfArticlesToRemove.count > 0) {
-        NSURL *urlToRemove = urlsOfArticlesToRemove[0];
-        [self removeArticleWithURL:urlToRemove
-            fromDiskWithCompletion:^{
-                dispatch_async(self.cacheRemovalQueue, ^{
-                    [urlsOfArticlesToRemove removeObjectAtIndex:0];
-                    NSError *error = nil;
-                    if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
-                        dispatch_async(self.cacheRemovalQueue, ^{
-                            [self removeNextArticleFromCacheRemovalList];
-                        });
-                    } else {
-                        DDLogError(@"Error saving cache removal list: %@", error);
-                    }
-                });
-            }];
+    if (urlsOfArticlesToRemove.count == 0) {
+        [self _stopCacheRemoval];
+        return;
     }
+    NSURL *urlToRemove = urlsOfArticlesToRemove[0];
+    [self removeArticleWithURL:urlToRemove
+        fromDiskWithCompletion:^{
+            dispatch_async(self.cacheRemovalQueue, ^{
+                [urlsOfArticlesToRemove removeObjectAtIndex:0];
+                NSError *error = nil;
+                if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+                    dispatch_async(self.cacheRemovalQueue, ^{
+                        [self removeNextArticleFromCacheRemovalList];
+                    });
+                } else {
+                    DDLogError(@"Error saving cache removal list: %@", error);
+                }
+            });
+        }];
 }
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {

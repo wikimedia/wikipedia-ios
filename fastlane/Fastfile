@@ -114,7 +114,7 @@ platform :ios do
   desc "Add a tag for the current build number and push to repo."
   lane :tag do |options|
     prefix = options[:prefix] || "betas"
-    build_number = options[:build_number] || get_build_number
+    build_number = options[:build_number] || options[:build] || get_build_number
     tag_name = "#{prefix}/#{build_number}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
@@ -226,7 +226,8 @@ platform :ios do
       skip_waiting_for_build_processing: false,
       skip_submission: true,
       distribute_external: false,
-      app_identifier:  app_identifier
+      app_identifier:  app_identifier,
+      beta_app_feedback_email: "ci-apps@wikimedia.org"
     )
     
     tag(
@@ -338,7 +339,7 @@ platform :ios do
     dsyms(
       app_identifier: app_identifier,
       version: version,
-      build_number: options[:build_number],
+      build_number: options[:build_number] || options[:build],
       hockey_app_id: hockey_app_id,
       ipa_path: ipa_path
     )

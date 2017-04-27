@@ -509,27 +509,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     [self setupRefreshControl];
-
-    self.reachabilityManager = [AFNetworkReachabilityManager manager];
-
-    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.userStore.viewContext sectionNameKeyPath:nil cacheName:nil];
-    frc.delegate = self;
-    [frc performFetch:nil];
-    self.fetchedResultsController = frc;
-    [self updateSectionCounts];
-    [self.collectionView reloadData];
-
-    @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      @strongify(self);
-                                                      [self.collectionView reloadData];
-                                                  }];
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
@@ -557,7 +536,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
-        if (self.isScrolledToTop) {
+        if (self.isScrolledToTop && self.numberOfSectionsInExploreFeed == 0) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
         }
     }
@@ -579,6 +558,31 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
+
+    if (!self.reachabilityManager) {
+        self.reachabilityManager = [AFNetworkReachabilityManager manager];
+    }
+
+    if (!self.fetchedResultsController) {
+        NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+        NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.userStore.viewContext sectionNameKeyPath:nil cacheName:nil];
+        frc.delegate = self;
+        [frc performFetch:nil];
+        self.fetchedResultsController = frc;
+        [self updateSectionCounts];
+        [self.collectionView reloadData];
+    }
+
+    @weakify(self);
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      @strongify(self);
+                                                      [self.collectionView reloadData];
+                                                  }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -594,6 +598,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self stopMonitoringReachability];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
 - (void)resetLayoutCache {
@@ -652,7 +657,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)showOfflineEmptyViewIfNeeded {
-    if (!self.isViewLoaded) {
+    if (!self.isViewLoaded || !self.fetchedResultsController) {
         return;
     }
     if (self.numberOfSectionsInExploreFeed > 0) {
@@ -1625,8 +1630,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                         }
                     } break;
                     case NSFetchedResultsChangeMove:
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
                         break;
                 }
             }
@@ -1737,6 +1741,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                              self.loadingOlderContent = NO;
                          }];
 }
+
+#if DEBUG
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    [self.userStore.feedContentController debugChaos];
+}
+#endif
 
 @end
 

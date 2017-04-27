@@ -145,9 +145,9 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                     if ([moc hasChanges] && ![moc save:&saveError]) {
                                         DDLogError(@"Error saving: %@", saveError);
                                     }
-                                    [self.dataStore teardownFeedImportContext];
-                                    [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self.dataStore teardownFeedImportContext];
+                                        [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
                                         self.taskGroup = nil;
                                         if (completion) {
                                             completion();
@@ -190,12 +190,19 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                             completion:^{
-                                WMFAssertMainThread(@"completion must be called on the main thread");
-                                self.taskGroup = nil;
-                                if (completion) {
-                                    completion();
-                                }
-                                [self popQueue];
+                                [moc performBlock:^{
+                                    NSError *saveError = nil;
+                                    if ([moc hasChanges] && ![moc save:&saveError]) {
+                                        DDLogError(@"Error saving: %@", saveError);
+                                    }
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        self.taskGroup = nil;
+                                        if (completion) {
+                                            completion();
+                                        }
+                                        [self popQueue];
+                                    });
+                                }];
                             }];
 }
 
@@ -229,21 +236,25 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
                                                           }];
     
     [group waitInBackgroundWithTimeout:WMFFeedRefreshBackgroundTimeout completion:^{
-        BOOL didUpdate = NO;
-        if ([moc hasChanges]) {
-            NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
-            NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
-            didUpdate = afterCount != beforeCount;
-            NSError *saveError = nil;
-            if (![moc save:&saveError]) {
-                DDLogError(@"Error saving background source update: %@", saveError);
+        [moc performBlock:^{
+            BOOL didUpdate = NO;
+            if ([moc hasChanges]) {
+                NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
+                NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
+                didUpdate = afterCount != beforeCount;
+                NSError *saveError = nil;
+                if (![moc save:&saveError]) {
+                    DDLogError(@"Error saving background source update: %@", saveError);
+                }
             }
-        }
-        if (completionHandler) {
-            completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
-        }
-        self.taskGroup = nil;
-        [self popQueue];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completionHandler) {
+                    completionHandler(didUpdate ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+                }
+                self.taskGroup = nil;
+                [self popQueue];
+            });
+        }];
     }];
 }
 
@@ -274,8 +285,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
-#pragma mark - Debug
-
+#if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -299,5 +309,61 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
         }];
     });
 }
+#endif
 
+#if DEBUG
+#pragma mark - Debug
+
+- (void)debugChaos {
+    if (self.taskGroup) {
+        return;
+    }
+    self.taskGroup = [WMFTaskGroup new];
+    BOOL needsTeardown = arc4random_uniform(2) > 0;
+    NSManagedObjectContext *moc = needsTeardown ? self.dataStore.feedImportContext : self.dataStore.viewContext;
+    [moc performBlock:^{
+        NSFetchRequest *request = [WMFContentGroup fetchRequest];
+        NSInteger count = [moc countForFetchRequest:request error:nil];
+        request.fetchLimit = (NSUInteger) arc4random_uniform((uint32_t)count);
+        request.fetchOffset = (NSUInteger) arc4random_uniform((uint32_t)(count - request.fetchLimit));
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        for (WMFContentGroup *group in results) {
+            uint32_t seed = arc4random_uniform(5);
+            int32_t random = (15 - (int32_t)arc4random_uniform(30));
+            switch (seed) {
+                case 0:
+                    group.dailySortPriority = group.dailySortPriority + random;
+                    break;
+                case 1:
+                    group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400*random];
+                    group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
+                    group.date = [group.date dateByAddingTimeInterval:86400*random];
+                    break;
+                case 2:
+                    [moc deleteObject:group];
+                default:
+                {
+                    [moc createGroupOfKind:group.contentGroupKind forDate:[group.date dateByAddingTimeInterval:86400*random] withSiteURL:group.siteURL associatedContent:group.content customizationBlock:^(WMFContentGroup * _Nonnull newGroup) {
+                        newGroup.location = group.location;
+                        newGroup.placemark = group.placemark;
+                        newGroup.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
+                    }];
+                }
+                    break;
+            }
+        }
+        NSError *saveError = nil;
+        if ([moc hasChanges] && ![moc save:&saveError]) {
+            DDLogError(@"chaos error: %@", saveError);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (needsTeardown) {
+                [self.dataStore teardownFeedImportContext];
+            }
+            self.taskGroup = nil;
+            [self popQueue];
+        });
+    }];
+}
+#endif
 @end

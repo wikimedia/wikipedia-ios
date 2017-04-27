@@ -119,6 +119,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong) WMFLocationManager *showNearbyLocationManager;
 
+@property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -223,8 +225,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
-    [self resumeApp:^{
-    }];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -234,7 +234,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSetupDataSourcesNotification object:nil];
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
         [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
@@ -253,8 +252,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKTeardownDataSourcesNotification object:nil];
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
@@ -544,10 +541,28 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
-
-    [self.dataStore startCacheRemoval];
+    
+    if (self.backgroundTaskGroup) {
+        return;
+    }
+    
+    WMFTaskGroup *taskGroup = [WMFTaskGroup new];
+    self.backgroundTaskGroup = taskGroup;
+    
+    [taskGroup enter];
+    [self.dataStore startCacheRemoval:^{
+        [taskGroup leave];
+    }];
+    
+    [taskGroup enter];
     [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
-        DDLogDebug(@"Finished saved articles fetch.");
+        [taskGroup leave];
+    }];
+    
+    [taskGroup waitInBackgroundWithCompletion:^{
+        WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
+        self.backgroundTaskGroup = nil;
+        [self endBackgroundTask];
     }];
 }
 

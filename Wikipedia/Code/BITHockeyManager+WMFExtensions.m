@@ -29,8 +29,6 @@ static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-
 
 - (void)wmf_setupAndStart {
     NSString *appID = [[NSBundle mainBundle] wmf_hockeyappIdentifier];
-    DDLogError(@"app ID: %@", appID);
-
     if ([appID length] == 0) {
         DDLogError(@"Not setting up hockey because no app ID was found");
         return;

@@ -112,7 +112,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                                 completion:^{
                                 }];
             if (article.isDownloaded) {
-                [self removeArticleWithURL:articleURL completion:^{ }];
+                [self removeArticleWithURL:articleURL
+                                completion:^{
+                                }];
                 [self.spotlightManager removeFromIndexWithUrl:articleURL];
             }
         }
@@ -189,9 +191,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 [group enter];
                 [self cancelFetchForArticleURL:articleURL
                                     completion:^{
-                                        [self removeArticleWithURL:articleURL completion:^{
-                                            [group leave];
-                                        }];
+                                        [self removeArticleWithURL:articleURL
+                                                        completion:^{
+                                                            [group leave];
+                                                        }];
                                     }];
             }
         }
@@ -235,11 +238,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             failure:^(NSError *_Nonnull error) {
                 dispatch_async(self.accessQueue, ^{
                     [self didFetchArticle:articleFromDisk url:articleURL error:error];
+                    failure(error);
                 });
             }
             success:^{
                 dispatch_async(self.accessQueue, ^{
                     [self didFetchArticle:articleFromDisk url:articleURL error:nil];
+                    success();
                 });
             }];
     } else {
@@ -250,6 +255,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(self.accessQueue, ^{
                         [self didFetchArticle:nil url:articleURL error:error];
+                        failure(error);
                     });
                 }
                 success:^(MWKArticle *_Nonnull article) {
@@ -448,7 +454,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)didFetchArticle:(MWKArticle *__nullable)fetchedArticle
                     url:(NSURL *)url
                   error:(NSError *__nullable)error {
-    dispatch_assert_queue_debug(self.accessQueue);
+    //Uncomment when dropping iOS 9
+    //dispatch_assert_queue_debug(self.accessQueue);
     if (error) {
         // store errors for later reporting
         DDLogError(@"Failed to download saved page %@ due to error: %@", url, error);
@@ -481,7 +488,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 /// Only invoke within accessQueue
 - (void)notifyDelegateIfFinished {
-    dispatch_assert_queue_debug(self.accessQueue);
+    //Uncomment when dropping iOS 9
+    //dispatch_assert_queue_debug(self.accessQueue);
     if ([self.fetchOperationsByArticleTitle count] == 0) {
         NSError *reportedError;
         if ([self.errorsByArticleTitle count] > 0) {
