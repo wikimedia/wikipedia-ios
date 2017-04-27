@@ -71,6 +71,21 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var searchFilterListController: PlaceSearchFilterListController!
     private var extendedNavBarHeightOrig: CGFloat?
     private var touchOutsideOverlayView: TouchOutsideOverlayView!
+    private var _displayCountForTopPlaces: Int?
+    private var displayCountForTopPlaces: Int {
+        get {
+            switch (self.currentSearchFilter) {
+            case .top:
+                return articleFetchedResultsController.fetchedObjects?.count ?? 0
+            case .saved:
+                return _displayCountForTopPlaces ?? 0
+            }
+        }
+    }
+    
+    lazy private var placeSearchService: PlaceSearchService! = {
+        return PlaceSearchService(dataStore: self.dataStore)
+    }()
     
     // MARK: - View Lifecycle
 
@@ -159,6 +174,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        // Update saved places locations
+        placeSearchService.fetchSavedArticles(searchString: nil)
         
         if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
             updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
@@ -512,7 +530,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             regroupArticlesIfNecessary(forVisibleRegion: region)
             showRedoSearchButtonIfNecessary(forVisibleRegion: region)
             
-            
             let mapViewRegion = mapView.region
             guard mapViewRegion.center.longitude != region.center.longitude || mapViewRegion.center.latitude != region.center.latitude || mapViewRegion.span.longitudeDelta != region.span.longitudeDelta || mapViewRegion.span.latitudeDelta != region.span.latitudeDelta else {
                 selectVisibleKeyToSelectIfNecessary()
@@ -596,9 +613,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             articleFetchedResultsController.delegate = self
         }
     }
-    
+
     func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion, let search = currentSearch, search.filter != .saved else {
+        guard let searchRegion = currentSearchRegion else {
             redoSearchButton.isHidden = true
             return
         }
@@ -614,16 +631,28 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let heightRatio = visibleHeight/searchHeight
         let ratio = min(widthRatio, heightRatio)
         redoSearchButton.isHidden = !(ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
+        DDLogDebug("redoSearchButton.isHidden = \(redoSearchButton.isHidden)")
+        
+        // it's a little smelly to piggy-back this logic inside the redo rearch button logic, but another attempts
+        // added more code or duplicated the visible area calculation
+        resetSavedPlacesCountIfNecessary()
     }
     
     func performSearch(_ search: PlaceSearch) {
         guard !searching else {
             return
         }
+        
+        let done = {
+            self.searching = false
+            self.progressView.setProgress(1.0, animated: true)
+            self.isProgressHidden = true
+        }
+        
         searching = true
         redoSearchButton.isHidden = true
-        
         deselectAllAnnotations()
+        updateSavedPlacesCountInCurrentMapRegionIfNecessary()
         
         let siteURL = self.siteURL
         var searchTerm: String? = nil
@@ -631,57 +660,79 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let region = search.region ?? mapRegion ?? mapView.region
         currentSearchRegion = region
 
-        switch search.type {
-        case .location:
-            guard search.needsWikidataQuery else {
+        if (search.filter == .top && search.type == .location) {
+            if (search.needsWikidataQuery) {
+                performWikidataQuery(forSearch: search)
+                return
+            } else {
+                // TODO: ARM: I don't understand this
                 tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-                fallthrough
             }
-            performWikidataQuery(forSearch: search)
-            return
-        case .text:
-            fallthrough
-        default:
-            searchTerm = search.string
         }
+        
+        searchTerm = search.string
+        
+        isProgressHidden = false
+        progressView.setProgress(0, animated: false)
+        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3) // TODO: maybe not needed for saved articles
         
         switch search.filter {
         case .saved:
-            showSavedArticles()
+            tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
+            
+            let moc = dataStore.viewContext
+            placeSearchService.performSearch(search, region: region, completion: { (result) in
+                defer { done() }
+                
+                guard result.error == nil else {
+                    DDLogError("Error fetching saved articles: \(result.error?.localizedDescription ?? "unknown error")")
+                    return
+                }
+                guard let request = result.fetchRequest else {
+                    DDLogError("Error fetching saved articles: fetchRequest was nil")
+                    return
+                }
+                
+                self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                
+                do {
+                    let articlesToShow = try moc.fetch(request)
+                    self.articleKeyToSelect = articlesToShow.first?.key
+                    if articlesToShow.count > 0 {
+                        if (self.currentSearch?.region == nil) {
+                            self.currentSearchRegion = self.regionThatFits(articles: articlesToShow)
+                            self.mapRegion = self.currentSearchRegion
+                        }
+                    }
+                    if articlesToShow.count == 0 {
+                        self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
+                    }
+                } catch let error {
+                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                }
+            })
+
         case .top:
             tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-            let center = region.center
-            let halfLatitudeDelta = region.span.latitudeDelta * 0.5
-            let halfLongitudeDelta = region.span.longitudeDelta * 0.5
-            let top = CLLocation(latitude: center.latitude + halfLatitudeDelta, longitude: center.longitude)
-            let bottom = CLLocation(latitude: center.latitude - halfLatitudeDelta, longitude: center.longitude)
-            let left =  CLLocation(latitude: center.latitude, longitude: center.longitude - halfLongitudeDelta)
-            let right =  CLLocation(latitude: center.latitude, longitude: center.longitude + halfLongitudeDelta)
-            let height = top.distance(from: bottom)
-            let width = right.distance(from: left)
             
-            let radius = round(0.5*max(width, height))
-            let searchRegion = CLCircularRegion(center: center, radius: radius, identifier: "")
-            
-            let done = {
-                self.searching = false
-                self.progressView.setProgress(1.0, animated: true)
-                self.isProgressHidden = true
-            }
-            isProgressHidden = false
-            progressView.setProgress(0, animated: false)
-            perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
-            locationSearchFetcher.fetchArticles(withSiteURL: siteURL, in: searchRegion, matchingSearchTerm: searchTerm, sortStyle: sortStyle, resultLimit: 50, completion: { (searchResults) in
-                self.updatePlaces(withSearchResults: searchResults.results)
-                done()
-            }) { (error) in
-                WMFAlertManager.sharedInstance.showWarningAlert(error.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                done()
-            }
+            placeSearchService.performSearch(search, region: region, completion: { (result) in
+                defer { done() }
+                
+                guard result.error == nil else {
+                    WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    return
+                }
+                
+                guard let locationResults = result.locationResults else {
+                    assertionFailure("no error and missing location results")
+                    return
+                }
+                
+                self.updatePlaces(withSearchResults: locationResults)
+            })
         }
     }
 
-    
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
             dispatchOnMainQueue({
@@ -780,6 +831,31 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    func updateSavedPlacesCountInCurrentMapRegionIfNecessary() {
+        guard _displayCountForTopPlaces == nil else {
+            return
+        }
+        
+        if let currentSearch = self.currentSearch, currentSearchFilter == .saved {
+            var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
+            tempSearch.needsWikidataQuery = false
+            
+            placeSearchService.performSearch(tempSearch, region: mapView.region, completion: { (searchResult) in
+                guard let locationResults = searchResult.locationResults else {
+                    return
+                }
+                DDLogDebug("got \(locationResults.count) top places!")
+                self._displayCountForTopPlaces = locationResults.count
+            })
+        }
+    }
+    
+    func resetSavedPlacesCountIfNecessary() {
+        if (!redoSearchButton.isHidden) {
+            _displayCountForTopPlaces = nil
+        }
+    }
+    
     @IBAction func redoSearch(_ sender: Any) {
         guard let search = currentSearch else {
             return
@@ -787,12 +863,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.isHidden = true
         
-        guard search.type != .location && search.filter != .saved else {
+        if (isDefaultSearch(search)) {
             performDefaultSearch(withRegion: mapView.region)
-            return
+        } else {
+            currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
         }
-        
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
     }
     
     // MARK: - Display Actions
@@ -1137,7 +1212,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 updateSearchSuggestions(withCompletions: [])
             default:
                 if let currentSearch = self.currentSearch {
-                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: currentSearch.region, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
                 }
             }
         }
@@ -1239,78 +1314,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         present(enableLocationVC, animated: true, completion: {
             
         })
-    }
-    
-    // MARK: - Saved Articles
-    
-    func showSavedArticles() {
-        tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-        let moc = dataStore.viewContext
-        isProgressHidden = false
-        progressView.setProgress(0, animated: false)
-        let done = { (articlesToShow: [WMFArticle]) -> Void in
-            let request = WMFArticle.fetchRequest()
-            let basePredicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            request.predicate = basePredicate
-            if let searchString = self.currentSearch?.string {
-                let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
-                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
-            }
-            request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-            self.articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: self.dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-            if articlesToShow.count > 0 {
-                self.mapRegion = self.regionThatFits(articles: articlesToShow)
-            }
-            self.searching = false
-            if articlesToShow.count == 0 {
-                self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
-            }
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
-        }
-        
-        do {
-            let savedPagesWithLocation = try moc.fetch(fetchRequestForSavedArticlesWithLocation)
-            guard savedPagesWithLocation.count >= 99 else {
-                let savedPagesWithoutLocationRequest = WMFArticle.fetchRequest()
-                savedPagesWithoutLocationRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey == NULL")
-                savedPagesWithoutLocationRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-                let savedPagesWithoutLocation = try moc.fetch(savedPagesWithoutLocationRequest)
-                guard savedPagesWithoutLocation.count > 0 else {
-                    done(savedPagesWithLocation)
-                    return
-                }
-                let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
-                    return article.url
-                })
-                dataStore.viewContext.updateOrCreateArticleSummariesForArticles(withURLs: urls) { (articles) in
-                    var allArticlesWithLocation = savedPagesWithLocation // this should be re-fetched
-                    allArticlesWithLocation.append(contentsOf: articles)
-                    done(allArticlesWithLocation)
-                }
-                return
-            }
-        } catch let error {
-            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
-        }
-        done([])
-    }
-    
-    
-    var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            return savedRequest
-        }
-    }
-    
-    var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            return savedRequest
-        }
     }
     
     
@@ -2585,11 +2588,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
         switch (countForFilterType) {
         case .top:
-            return articleFetchedResultsController.fetchedObjects?.count ?? 0
+            return displayCountForTopPlaces
         case .saved:
             do {
                 let moc = dataStore.viewContext
-                return try moc.count(for: fetchRequestForSavedArticlesWithLocation)
+                return try moc.count(for: placeSearchService.fetchRequestForSavedArticlesWithLocation)
             } catch let error {
                 DDLogError("Error fetching saved article count: \(error)")
                 return 0
