@@ -568,6 +568,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             
             updateSearchFilterTitle()
+            updateSearchBarText(forSearch: search)
+
             performSearch(search)
             
             switch search.type {
@@ -2082,6 +2084,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    
+    private func updateSearchBarText(forSearch search: PlaceSearch) {
+        if (isDefaultSearch(search)) {
+            searchBar?.text = nil
+        } else {
+            searchBar?.text = search.string ?? search.localizedDescription
+        }
+        
+    }
+    
+    private func updateSearchBarText() {
+        guard let search = currentSearch else {
+            searchBar?.text = nil
+            return
+        }
+        updateSearchBarText(forSearch: search)
+    }
+
+    
     @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
         self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
     }
@@ -2268,15 +2289,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        if let currentSearch = self.currentSearch, !isDefaultSearch(currentSearch) {
-            searchBar?.text = currentSearch.string ?? currentSearch.localizedDescription
-        } else {
-            searchBar?.text = nil
-        }
-        let searchText = searchBar?.text
-        if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            performDefaultSearch(withRegion: nil)
-        }
+        updateSearchBarText()
+        performDefaultSearchIfNecessary(withRegion: nil)
     }
     
     // MARK: - UISearchBarDelegate
@@ -2429,13 +2443,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - PlaceSearchSuggestionControllerDelegate
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
+        searchBar?.endEditing(true)
         currentSearch = search
-        if (isDefaultSearch(search)) {
-            searchBar?.text = nil
-        } else {
-            searchBar?.text = search.string ?? search.localizedDescription
-        }
-        closeSearch(controller)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
@@ -2470,7 +2479,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        performDefaultSearchIfNecessary(withRegion: region)
+        if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
+            performDefaultSearch(withRegion: mapRegion)
+        } else {
+            performDefaultSearchIfNecessary(withRegion: region)
+        }
     }
     
     var panMapToNextLocationUpdate = true
