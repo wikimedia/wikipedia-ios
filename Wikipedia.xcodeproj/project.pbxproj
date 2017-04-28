@@ -3629,7 +3629,7 @@
 		BCF2C5D01BA9D7C30063412D /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5D11BA9D7C40063412D /* sco */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sco; path = sco.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5D91BA9D84F0063412D /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BCF2C5DA1BA9D86E0063412D /* sr-EC */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-EC"; path = "sr-EC.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BCF2C5DA1BA9D86E0063412D /* sr-ec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-ec"; path = "sr-ec.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BCF2C5DB1BA9D87D0063412D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5DE1BA9D8D30063412D /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5DF1BA9D8E50063412D /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3905,7 +3905,7 @@
 		D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFKeyValue+CoreDataProperties.h"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFKeyValue+CoreDataProperties.m"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationController.swift; path = ../Wikipedia/Code/ArticleLocationController.swift; sourceTree = "<group>"; };
-		D89BBAFD1EB3593A00F0BD74 /* sr-EC */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "sr-EC"; path = "Localizations/sr-EC.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		D89BBAFD1EB3593A00F0BD74 /* sr-ec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "sr-ec"; path = "Localizations/sr-ec.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		D89BBB021EB36B6700F0BD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizations/Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D89BBB031EB3728200F0BD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Wikipedia UserTesting.app"; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -8023,7 +8023,7 @@
 				bs,
 				cy,
 				su,
-				"sr-EC",
+				"sr-ec",
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -10540,7 +10540,7 @@
 				BCF2C5D01BA9D7C30063412D /* ro */,
 				BCF2C5D11BA9D7C40063412D /* sco */,
 				BCF2C5D91BA9D84F0063412D /* sk */,
-				BCF2C5DA1BA9D86E0063412D /* sr-EC */,
+				BCF2C5DA1BA9D86E0063412D /* sr-ec */,
 				BCF2C5DB1BA9D87D0063412D /* sv */,
 				BCF2C5DE1BA9D8D30063412D /* tr */,
 				BCF2C5DF1BA9D8E50063412D /* uk */,
@@ -10717,7 +10717,7 @@
 		D89BBAF61EB3592900F0BD74 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D89BBAFD1EB3593A00F0BD74 /* sr-EC */,
+				D89BBAFD1EB3593A00F0BD74 /* sr-ec */,
 				D89BBB021EB36B6700F0BD74 /* Base */,
 			);
 			name = Localizable.stringsdict;
