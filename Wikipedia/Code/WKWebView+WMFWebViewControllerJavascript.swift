@@ -126,6 +126,7 @@ extension WKWebView {
             let title = (article.url as NSURL).wmf_title
         else {
             assert(false, "Expected read more title and proxyURL")
+            return
         }
         
         let heading = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-read-more-title").uppercased(with: Locale.current)
