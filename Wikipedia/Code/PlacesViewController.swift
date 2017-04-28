@@ -1186,7 +1186,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if (mapView.isHidden) {
                 redoSearchButton.isHidden = true
             } else {
-                showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
+                updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             updateSearchFilterTitle()
         }
