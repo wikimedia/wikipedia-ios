@@ -24,11 +24,11 @@
 }
 
 - (NSArray *)bundledLprogFiles {
-    return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
+    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
 }
 
 - (NSArray *)allLprogFiles {
-    return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
+    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
 }
 
 - (NSDictionary *)getPluralizableStringsDictFromLprogAtPath:(NSString *)lprojPath {
@@ -170,7 +170,6 @@
         @"cnh.lproj",
         @"ku-latn.lproj",
         @"mai.lproj",
-        @"pt-br.lproj", // for some reason Brazilian Portugese is still showing up as not bundled, but I added it... hmm...
         @"sa.lproj",
         @"sd.lproj",
         @"tl.lproj",
