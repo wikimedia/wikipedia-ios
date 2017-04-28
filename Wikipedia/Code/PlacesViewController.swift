@@ -2293,7 +2293,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        updateSearchBarText()
+        currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
     }
     
