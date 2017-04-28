@@ -31,6 +31,11 @@
     return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
 }
 
+- (NSDictionary *)getPluralizableStringsDictFromLprogAtPath:(NSString *)lprojPath {
+    NSString *stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.stringsdict"];
+    return [self getDictFromPListAtPath:stringsFilePath];
+}
+
 - (NSDictionary *)getTranslationStringsDictFromLprogAtPath:(NSString *)lprojPath {
     NSString *stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.strings"];
     return [self getDictFromPListAtPath:stringsFilePath];
@@ -111,10 +116,15 @@
     for (NSString *lprojFileName in self.lprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
             NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
                 if ([localizedString containsString:@"{{"]) {
-                    XCTAssert([localizedString containsString:@"{{PLURAL:$"]);
+                    if ([localizedString containsString:@"{{PLURAL:$"]) {
+                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
+                    } else {
+                        XCTAssertTrue(false, @"Unsupported {{ }} in localization");
+                    }
                 }
             }
         }
