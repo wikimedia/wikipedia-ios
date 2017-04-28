@@ -123,7 +123,7 @@ extension WKWebView {
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
         guard
             let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: article.url.host),
-            let title = (article.url as NSURL).wmf_title
+            let title = (article.url as NSURL).wmf_title?.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         else {
             assert(false, "Expected read more title and proxyURL")
         }
