@@ -49,13 +49,13 @@ class PlaceSearchFilterListController: UITableViewController {
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            myCell.subtitleLabel.text = String.localizedStringWithFormat(NSLocalizedString("places-filter-top-articles-count", value:"%d articles", comment: "Describes how many top articles are found in the top articles filter - %d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
+            myCell.subtitleLabel.text = String.localizedStringWithFormat(NSLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:$1|$1 article|$1 articles}}", comment: "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
             myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
             let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
             if (savedCount > 0) {
-                myCell.subtitleLabel.text =  String.localizedStringWithFormat(NSLocalizedString("places-filter-saved-articles-count", value:"%d places found", comment:"Describes how many saved articles are found in the saved articles filter - %d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))
+                myCell.subtitleLabel.text =  String.localizedStringWithFormat(NSLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:$1|$1 place|$1 places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
             } else {
                 myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-no-saved-places")
