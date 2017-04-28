@@ -20,9 +20,14 @@
 #footer_container_readmore_items {
   width: auto;
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
   white-space: nowrap;
   padding-left:11px;
   padding-right: 11px;
+}
+
+#footer_container_readmore_items::-webkit-scrollbar {
+  display: none;
 }
 
 #footer_container_menu_heading {
