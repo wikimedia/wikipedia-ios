@@ -96,8 +96,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)mergeResultsFromModel:(WMFSearchResults *)searchResults {
+    NSMutableArray *displayTitlesOfExistingResults = [NSMutableArray new];
+    for (MWKSearchResult *obj in self.results) {
+        [displayTitlesOfExistingResults addObject:obj.displayTitle];
+    }
+    
     NSArray *newResults = [searchResults.results wmf_reject:^BOOL(MWKSearchResult *obj) {
-        return [self.results containsObject:obj];
+        return [displayTitlesOfExistingResults containsObject:obj.displayTitle];
     }];
     [self.mutableResults addObjectsFromArray:newResults];
 }
