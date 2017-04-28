@@ -298,7 +298,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
 
-        showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
+        updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
         
         isMovingToRegion = false
         
@@ -528,7 +528,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             _mapRegion = region
             
             regroupArticlesIfNecessary(forVisibleRegion: region)
-            showRedoSearchButtonIfNecessary(forVisibleRegion: region)
+            updateViewIfMapMovedSignificantly(forVisibleRegion: region)
             
             let mapViewRegion = mapView.region
             guard mapViewRegion.center.longitude != region.center.longitude || mapViewRegion.center.latitude != region.center.latitude || mapViewRegion.span.longitudeDelta != region.span.longitudeDelta || mapViewRegion.span.latitudeDelta != region.span.latitudeDelta else {
@@ -568,6 +568,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
             
             updateSearchFilterTitle()
+            updateSearchBarText(forSearch: search)
+
             performSearch(search)
             
             switch search.type {
@@ -613,12 +615,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             articleFetchedResultsController.delegate = self
         }
     }
-
-    func showRedoSearchButtonIfNecessary(forVisibleRegion visibleRegion: MKCoordinateRegion) {
-        guard let searchRegion = currentSearchRegion else {
-            redoSearchButton.isHidden = true
-            return
-        }
+    
+    func isDistanceSignificant(betweenRegion searchRegion: MKCoordinateRegion, andRegion visibleRegion: MKCoordinateRegion) -> Bool {
         let searchWidth = searchRegion.width
         let searchHeight = searchRegion.height
         let searchRegionMinDimension = min(searchWidth, searchHeight)
@@ -630,12 +628,26 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let widthRatio = visibleWidth/searchWidth
         let heightRatio = visibleHeight/searchHeight
         let ratio = min(widthRatio, heightRatio)
-        redoSearchButton.isHidden = !(ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
-        DDLogDebug("redoSearchButton.isHidden = \(redoSearchButton.isHidden)")
         
-        // it's a little smelly to piggy-back this logic inside the redo rearch button logic, but another attempts
-        // added more code or duplicated the visible area calculation
-        resetSavedPlacesCountIfNecessary()
+        return (ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
+    }
+
+    func updateViewIfMapMovedSignificantly(forVisibleRegion visibleRegion: MKCoordinateRegion) {
+        guard let searchRegion = currentSearchRegion else {
+            redoSearchButton.isHidden = true
+            return
+        }
+        
+        let movedSignificantly = isDistanceSignificant(betweenRegion: searchRegion, andRegion: visibleRegion)
+        DDLogDebug("movedSignificantly=\(movedSignificantly)")
+        
+        // Update Redo Search Button
+        redoSearchButton.isHidden = !(movedSignificantly)
+        
+        // Clear count for Top Places
+        if (movedSignificantly) {
+            _displayCountForTopPlaces = nil
+        }
     }
     
     func performSearch(_ search: PlaceSearch) {
@@ -849,12 +861,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             })
         }
     }
-    
-    func resetSavedPlacesCountIfNecessary() {
-        if (!redoSearchButton.isHidden) {
-            _displayCountForTopPlaces = nil
-        }
-    }
+
     
     @IBAction func redoSearch(_ sender: Any) {
         guard let search = currentSearch else {
@@ -1176,7 +1183,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 filterSelectorView.button.isEnabled = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
-            redoSearchButton.isHidden = mapView.isHidden
+            if (mapView.isHidden) {
+                redoSearchButton.isHidden = true
+            } else {
+                updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
+            }
             updateSearchFilterTitle()
         }
     }
@@ -2077,6 +2088,25 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
+    
+    private func updateSearchBarText(forSearch search: PlaceSearch) {
+        if (isDefaultSearch(search)) {
+            searchBar?.text = nil
+        } else {
+            searchBar?.text = search.string ?? search.localizedDescription
+        }
+        
+    }
+    
+    private func updateSearchBarText() {
+        guard let search = currentSearch else {
+            searchBar?.text = nil
+            return
+        }
+        updateSearchBarText(forSearch: search)
+    }
+
+    
     @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
         self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
     }
@@ -2263,15 +2293,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     @IBAction func closeSearch(_ sender: Any) {
         searchBar?.endEditing(true)
-        if let currentSearch = self.currentSearch, !isDefaultSearch(currentSearch) {
-            searchBar?.text = currentSearch.string ?? currentSearch.localizedDescription
-        } else {
-            searchBar?.text = nil
-        }
-        let searchText = searchBar?.text
-        if searchText == nil || searchText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            performDefaultSearch(withRegion: nil)
-        }
+        updateSearchBarText()
+        performDefaultSearchIfNecessary(withRegion: nil)
     }
     
     // MARK: - UISearchBarDelegate
@@ -2424,13 +2447,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     // MARK: - PlaceSearchSuggestionControllerDelegate
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
+        searchBar?.endEditing(true)
         currentSearch = search
-        if (isDefaultSearch(search)) {
-            searchBar?.text = nil
-        } else {
-            searchBar?.text = search.string ?? search.localizedDescription
-        }
-        closeSearch(controller)
     }
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
@@ -2465,7 +2483,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         mapRegion = region
-        performDefaultSearchIfNecessary(withRegion: region)
+        if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
+            performDefaultSearch(withRegion: mapRegion)
+        } else {
+            performDefaultSearchIfNecessary(withRegion: region)
+        }
     }
     
     var panMapToNextLocationUpdate = true
