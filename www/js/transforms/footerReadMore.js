@@ -40,17 +40,23 @@ class WMFPage {
 class WMFPageFragment {
     constructor(wmfPage, index) {
       
-        var pageContainer = document.createElement('div');
-        pageContainer.id = index;
-        pageContainer.className = 'footer_readmore_page';        
+        var page = document.createElement('div');
+        page.id = index;
+        page.className = 'footer_readmore_page';        
       
         var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
         if(hasImage){
-          pageContainer.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
-          pageContainer.classList.add('footer_readmore_page_with_image');
+          var image = document.createElement('div');
+          image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
+          image.classList.add('footer_readmore_page_image');
+          page.appendChild(image);
         }
         
-        pageContainer.addEventListener('click', function(){
+        var container = document.createElement('div');
+        container.classList.add('footer_readmore_page_container');
+        page.appendChild(container);
+
+        page.addEventListener('click', function(){
           _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`);
         }, false);
 
@@ -58,11 +64,8 @@ class WMFPageFragment {
             var title = document.createElement('div');
             title.id = index;
             title.className = 'footer_readmore_page_title';
-            if(hasImage){
-              title.classList.add('footer_readmore_page_title_with_image');
-            }            
             title.innerHTML = wmfPage.title.replace(/_/g, ' ');
-            pageContainer.appendChild(title);
+            container.appendChild(title);
         }
 
         var description = null;
@@ -76,34 +79,22 @@ class WMFPageFragment {
             var descriptionEl = document.createElement('div');
             descriptionEl.id = index;
             descriptionEl.className = 'footer_readmore_page_description';
-            if(hasImage){
-              descriptionEl.classList.add('footer_readmore_page_description_with_image');
-            }            
             descriptionEl.innerHTML = description;
-            pageContainer.appendChild(descriptionEl);
+            container.appendChild(descriptionEl);
         }
 
         var saveButton = document.createElement('div');
         saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
         saveButton.innerText = 'Save for later';
-        saveButton.className = 'footer_readmore_page_action_save';
+        saveButton.className = 'footer_readmore_page_save';
         saveButton.addEventListener('click', function(event){
           _saveButtonClickHandler(wmfPage.title);
           event.stopPropagation();
           event.preventDefault();
         }, false);
+        container.appendChild(saveButton);
 
-        var bottomActions = document.createElement('div');
-        bottomActions.id = index;
-        bottomActions.className = 'footer_readmore_page_actions';
-        if(hasImage){
-          bottomActions.classList.add('footer_readmore_page_actions_with_image');
-        }        
-        bottomActions.appendChild(saveButton);
-        
-        pageContainer.appendChild(bottomActions);
-
-        return document.createDocumentFragment().appendChild(pageContainer);
+        return document.createDocumentFragment().appendChild(page);
     }
 }
 
