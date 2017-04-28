@@ -1183,7 +1183,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 filterSelectorView.button.isEnabled = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
-            redoSearchButton.isHidden = mapView.isHidden
+            if (mapView.isHidden) {
+                redoSearchButton.isHidden = true
+            } else {
+                showRedoSearchButtonIfNecessary(forVisibleRegion: mapView.region)
+            }
             updateSearchFilterTitle()
         }
     }
