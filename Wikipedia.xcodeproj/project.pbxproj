@@ -3907,6 +3907,7 @@
 		D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationController.swift; path = ../Wikipedia/Code/ArticleLocationController.swift; sourceTree = "<group>"; };
 		D89BBAFD1EB3593A00F0BD74 /* sr-EC */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "sr-EC"; path = "Localizations/sr-EC.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		D89BBB021EB36B6700F0BD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizations/Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D89BBB031EB3728200F0BD74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Wikipedia UserTesting.app"; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A42C2D1E815B0700D8E281 /* Wikipedia User Testing-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia User Testing-Info.plist"; sourceTree = "<group>"; };
 		D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia User Testing.entitlements"; sourceTree = "<group>"; };
@@ -10673,6 +10674,7 @@
 				D876C28D1E5F0D1300FCA00A /* bs */,
 				B07B04341E787F1F00C4789B /* cy */,
 				D80ACD2A1EA531DF00DC3F20 /* su */,
+				D89BBB031EB3728200F0BD74 /* Base */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
