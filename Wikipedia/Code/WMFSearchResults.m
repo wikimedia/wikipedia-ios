@@ -104,7 +104,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     NSArray *newResults = [searchResults.results wmf_reject:^BOOL(MWKSearchResult *obj) {
-        return [displayTitlesOfExistingResults containsObject:obj.displayTitle];
+        if (obj.displayTitle) {
+            return [displayTitlesOfExistingResults containsObject:obj.displayTitle];
+        } return YES;
     }];
     [self.mutableResults addObjectsFromArray:newResults];
 }
