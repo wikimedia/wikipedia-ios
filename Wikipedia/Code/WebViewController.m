@@ -577,10 +577,10 @@ NSString *const WMFCCBySALicenseURL =
     }
     
     NSString *earlyJavascriptTransforms = @""
-                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
-                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
-                                           "window.wmf.transformer.transform( 'widenImages', document );"
-                                           "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
+                                           "window.wmf.redlinks.hideRedlinks( document );"
+                                           "window.wmf.filePages.disableFilePageEdit( document );"
+                                           "window.wmf.images.widenImages( document );"
+                                           "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 

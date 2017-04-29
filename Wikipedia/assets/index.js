@@ -2,15 +2,19 @@
 var wmf = {};
 
 wmf.elementLocation = require("./js/elementLocation");
-wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
 wmf.footerReadMore = require("./js/transforms/footerReadMore");
 wmf.footerMenu = require("./js/transforms/footerMenu");
 wmf.footerLegal = require("./js/transforms/footerLegal");
+wmf.filePages = require("./js/transforms/disableFilePageEdit");
+wmf.tables = require("./js/transforms/collapseTables");
+wmf.redlinks = require("./js/transforms/hideRedlinks");
+wmf.paragraphs = require("./js/transforms/relocateFirstParagraph");
+wmf.images = require("./js/transforms/widenImages");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/utilities":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -283,7 +287,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":15}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":6,"./utilities":15}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -430,30 +434,6 @@ exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./elementLocation":2}],6:[function(require,module,exports){
-function Transformer() {
-}
-
-var transforms = {};
-
-Transformer.prototype.register = function( transform, fun ) {
-    if ( transform in transforms ) {
-        transforms[transform].push( fun );
-    } else {
-        transforms[transform] = [ fun ];
-    }
-};
-
-Transformer.prototype.transform = function( transform ) {
-    var functions = transforms[transform];
-    for ( var i = 0; i < functions.length; i++ ) {
-        functions[i](arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9], arguments[10]);
-    }
-};
-
-module.exports = new Transformer();
-
-},{}],7:[function(require,module,exports){
-var transformer = require("../transformer");
 var utilities = require("../utilities");
 
 /*
@@ -532,7 +512,7 @@ function shouldTableBeCollapsed( table ) {
     return true;
 }
 
-transformer.register( "hideTables", function( content , isMainPage, titleInfobox, titleOther, titleClose) {
+function hideTables(content , isMainPage, titleInfobox, titleOther, titleClose) {
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
@@ -610,7 +590,7 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
         collapsedDiv.onclick = tableCollapseClickHandler;
         bottomDiv.onclick = tableCollapseClickHandler;
     }
-} );
+}
 
 exports.openCollapsedTableIfItContainsElement = function(element){
     if(element){
@@ -624,10 +604,11 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":15}],8:[function(require,module,exports){
-var transformer = require("../transformer");
+exports.hideTables = hideTables;
 
-transformer.register( "disableFilePageEdit", function( content ) {
+},{"../utilities":15}],7:[function(require,module,exports){
+
+function disableFilePageEdit( content ) {
     var filetoc = content.querySelector( '#filetoc' );
     if (filetoc) {
         // We're on a File: page! Do some quick hacks.
@@ -648,9 +629,11 @@ transformer.register( "disableFilePageEdit", function( content ) {
             } );
         }
     }
-} );
+}
 
-},{"../transformer":6}],9:[function(require,module,exports){
+exports.disableFilePageEdit = disableFilePageEdit;
+
+},{}],8:[function(require,module,exports){
 
 function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
   var container = document.getElementById(containerID);
@@ -677,7 +660,7 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
 
 exports.add = add;
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 // var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
@@ -755,7 +738,7 @@ exports.IconTypeEnum = IconTypeEnum;
 exports.setHeading = setHeading;
 exports.addItem = addItem;
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 var _saveButtonClickHandler = null;
 var _clickHandler = null;
@@ -976,21 +959,23 @@ exports.setHeading = setHeading;
 exports.setTitleIsSaved = setTitleIsSaved;
 exports.add = add;
 
-},{}],12:[function(require,module,exports){
-var transformer = require("../transformer");
+},{}],11:[function(require,module,exports){
 
-transformer.register( "hideRedlinks", function( content ) {
+function hideRedlinks( content ) {
 	var redLinks = content.querySelectorAll( 'a.new' );
 	for ( var i = 0; i < redLinks.length; i++ ) {
 		var redLink = redLinks[i];
         redLink.style.color = 'inherit';
 	}
-} );
+}
 
-},{"../transformer":6}],13:[function(require,module,exports){
-var transformer = require("../transformer");
+exports.hideRedlinks = hideRedlinks;
 
-transformer.register( "moveFirstGoodParagraphUp", function( content ) {
+},{}],12:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],13:[function(require,module,exports){
+
+function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -1066,11 +1051,12 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
     // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
-});
+}
 
-},{"../transformer":6}],14:[function(require,module,exports){
+exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp;
 
-const transformer = require('../transformer');
+},{}],14:[function(require,module,exports){
+
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
 
 const isGalleryImage = function(image) {
@@ -1079,13 +1065,15 @@ const isGalleryImage = function(image) {
   return (image.getAttribute('data-image-gallery') === 'true');    
 };
 
-transformer.register('widenImages', function(content) {
+function widenImages(content) {
   Array.from(content.querySelectorAll('img'))
     .filter(isGalleryImage)
     .forEach(maybeWidenImage);
-});
+}
 
-},{"../transformer":6,"applib":16}],15:[function(require,module,exports){
+exports.widenImages = widenImages;
+
+},{"applib":16}],15:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -1337,4 +1325,4 @@ var index = {
 module.exports = index;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,13,14,15]);

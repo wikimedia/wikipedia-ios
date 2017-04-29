@@ -1,6 +1,5 @@
-var transformer = require("../transformer");
 
-transformer.register( "disableFilePageEdit", function( content ) {
+function disableFilePageEdit( content ) {
     var filetoc = content.querySelector( '#filetoc' );
     if (filetoc) {
         // We're on a File: page! Do some quick hacks.
@@ -21,4 +20,6 @@ transformer.register( "disableFilePageEdit", function( content ) {
             } );
         }
     }
-} );
+}
+
+exports.disableFilePageEdit = disableFilePageEdit;
