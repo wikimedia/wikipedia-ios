@@ -6820,11 +6820,11 @@
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
+				D8DC4FF91EB0EED500B6C93E /* UITests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
 				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
-				D8DC4FF91EB0EED500B6C93E /* WikipediaUITests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
@@ -7317,12 +7317,13 @@
 			path = "Third Party";
 			sourceTree = "<group>";
 		};
-		D8DC4FF91EB0EED500B6C93E /* WikipediaUITests */ = {
+		D8DC4FF91EB0EED500B6C93E /* UITests */ = {
 			isa = PBXGroup;
 			children = (
 				D8DC4FFA1EB0EED500B6C93E /* WikipediaUITests.swift */,
 				D8DC4FFC1EB0EED500B6C93E /* Info.plist */,
 			);
+			name = UITests;
 			path = WikipediaUITests;
 			sourceTree = "<group>";
 		};
@@ -15264,6 +15265,7 @@
 				D8DC50091EB0EED600B6C93E /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Wikipedia Beta" */ = {
 			isa = XCConfigurationList;
