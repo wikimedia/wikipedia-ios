@@ -219,7 +219,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
             fields.forEach {$0.deleteBackwardDelegate = self}
         }else{
-            assert(false, "Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
+            assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
@@ -306,7 +306,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             let presenter = presentingViewController,
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
         else {
-            assert(false, "Expected view controller(s) not found")
+            assertionFailure("Expected view controller(s) not found")
             return
         }
         dismiss(animated: true, completion: {
