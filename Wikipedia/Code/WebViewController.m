@@ -626,14 +626,13 @@ NSString *const WMFCCBySALicenseURL =
     }];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+
     self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackground];
+    self.webView.backgroundColor = [UIColor wmf_articleBackground];
+    self.view.backgroundColor = [UIColor wmf_articleBackground];
 
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
-
-    self.webView.backgroundColor = [UIColor whiteColor];
-
-    self.view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
 
     [self displayArticle];
 }

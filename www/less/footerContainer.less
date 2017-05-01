@@ -17,14 +17,26 @@
     line-height: 1.6;
 }
 
-#footer_container_readmore_items {
+#footer_container_readmore_pages {
   width: auto;
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
   white-space: nowrap;
   padding-left:11px;
   padding-right: 11px;
 }
 
+#footer_container_readmore_pages::-webkit-scrollbar {
+  display: none;
+}
+
 #footer_container_menu_heading {
   margin-bottom: 10px;
+}
+
+#footer_container_menu_items {
+  background-color: #c8ccd1;
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
 }
