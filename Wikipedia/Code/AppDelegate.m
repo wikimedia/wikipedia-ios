@@ -55,6 +55,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
                                                                 return YES;
                                                             }];
         for (NSURL *fileURL in enumerator) {
+            if ([fileURL.lastPathComponent hasPrefix:@"."]) {
+                continue;
+            }
             [fm removeItemAtURL:fileURL error:nil];
         }
 
