@@ -8,6 +8,7 @@
 // Author: Los688
 // Author: Macofe
 // Author: Nemo bis
+// Author: Omotecho
 // Author: Otokoume
 // Author: Ridmevo
 // Author: Shirayuki
@@ -281,8 +282,7 @@
 "onboarding-wikipedia" = "ウィキペディア";
 "onboarding-free-encyclopedia" = "フリー百科事典";
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディアがアプリの使用情報を収集することを許可する";
+"preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-sysop" = "このページは全保護されています。";
 "page-protected-other" = "このページは、次のレベルに保護されています:$1";
@@ -342,10 +342,8 @@
 "image-gallery-fetch-image-info-error-title" = "画像をダウンロードできませんでした";
 "image-gallery-fetch-image-info-error-message" = "この記事の画像をダウンロードできませんでした。記事を更新して、もう一度お試しください。";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-// Fuzzy
-"hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュを Wikimedia がレビューできるようになります。";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュを Wikimedia がレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";
+"hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをウィキメディア財団がレビューできるようになります。";
+"hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをウィキメディア財団がレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";
 "hockeyapp-alert-title" = "申し訳ありません、前回アプリがクラッシュしました";
 "hockeyapp-alert-send-report" = "レポートを送信";
 "hockeyapp-alert-always-send" = "常に送信";
@@ -463,4 +461,5 @@
 "status-saving-for-later" = "保存しています...";
 "status-saved-for-later" = "保存しました";
 "announcements-dismiss" = "不要です";
+"places-accessibility-show-more" = "さらに記事を見る";
 "action-save" = "保存";

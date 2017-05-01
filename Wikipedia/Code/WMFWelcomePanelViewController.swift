@@ -34,7 +34,7 @@ class WMFWelcomePanelViewController: UIViewController {
     fileprivate lazy var containerController: UIViewController? = {
         switch self.welcomePageType {
         case .intro:
-            assert(false, "Intro welcome view is not embedded in a panel.")
+            assertionFailure("Intro welcome view is not embedded in a panel.")
             return nil
         case .languages:
             return WMFWelcomeLanguageTableViewController.wmf_viewControllerFromWelcomeStoryboard()
@@ -46,7 +46,7 @@ class WMFWelcomePanelViewController: UIViewController {
     fileprivate func updateUIStrings(){
         switch self.welcomePageType {
         case .intro:
-            assert(false, "Intro welcome view is not embedded in a panel.")
+            assertionFailure("Intro welcome view is not embedded in a panel.")
         case .languages:
             titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-title").uppercased(with: Locale.current)
             subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")

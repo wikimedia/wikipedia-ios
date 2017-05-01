@@ -6,6 +6,7 @@
 
 @import CoreData;
 
+// Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";

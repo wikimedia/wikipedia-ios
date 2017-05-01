@@ -472,7 +472,7 @@
 "status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
 "announcements-dismiss" = "لا شكرًا";
-"places-search-saved-articles" = "المقالات المحفوظة";
+"places-search-saved-articles" = "كل المقالات المحفوظة";
 "places-search-suggested-searches-header" = "عمليات البحث المقترحة";
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
@@ -480,6 +480,7 @@
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
 "places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-clear-recent-searches" = "مسح عمليات البحث الأخيرة";
+"places-search-default-text" = "بحث عن المقالات أو المواقع";
 "action-share" = "شارك";
 "action-save" = "حفظ";
 "action-read" = "اقرأ";

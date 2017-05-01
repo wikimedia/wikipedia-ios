@@ -7,9 +7,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
             } else {
-                let footerIndex = self.webViewController.visibleFooterIndex()
-                if footerIndex != NSNotFound {
-                    self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: footerIndex, animated: false)
+                self.webViewController.getCurrentVisibleFooterIndexCompletion { (footerIndex, error) in
+                    if let index = footerIndex {
+                        self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: index.intValue, animated: false)
+                    }
                 }
             }
         }
@@ -23,22 +24,12 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             if let section = item as? MWKSection {
                 self.currentSection = section
                 self.sectionToRestoreScrollOffset = section
-                self.currentFooterIndex = NSNotFound
-                self.footerIndexToRestoreScrollOffset = NSNotFound
                 self.webViewController.scroll(to: section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursor(to: section)
                 }
-            } else if let footerItem = item as? TableOfContentsFooterItem {
-                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
-                dispatchOnMainQueueAfterDelayInSeconds(1) {
-                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
-                }
-                self.currentSection = nil
-                self.sectionToRestoreScrollOffset = nil
-                self.currentFooterIndex = footerIndex
-                self.footerIndexToRestoreScrollOffset = footerIndex
+            } else {
+                scrollToFooterSection(for: item)
             }
         case .modal:
             fallthrough
@@ -47,7 +38,6 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             var dismissVCCompletionHandler: (() -> Void)?
             if let section = item as? MWKSection {
                 self.currentSection = section
-                self.currentFooterIndex = NSNotFound
                 // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
                 self.webViewController.scroll(to: section, animated: true)
                 dismissVCCompletionHandler = {
@@ -56,26 +46,29 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                         self.webViewController.accessibilityCursor(to: section)
                     }
                 }
-            } else if let footerItem = item as? TableOfContentsFooterItem {
-                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooter(at: footerIndex, animated: true)
-                dismissVCCompletionHandler = {
-                    self.webViewController.accessibilityCursorToFooter(at: footerIndex)
-                }
-                self.currentSection = nil
-                self.currentFooterIndex = footerIndex
             } else {
-                assertionFailure("Unsupported selection of TOC item \(item)")
+                scrollToFooterSection(for: item)
             }
             
             // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
             dispatchOnMainQueueAfterDelayInSeconds(0.25) {
                 self.dismiss(animated: true, completion: dismissVCCompletionHandler)
             }
-        }
-        
+        }        
     }
 
+    private func scrollToFooterSection(for item: TableOfContentsItem) {
+        switch item {
+        case is TableOfContentsAboutThisArticleItem:
+            self.webViewController.scroll(toFragment: "footer_container_menu", animated: true)
+        case is TableOfContentsReadMoreItem:
+            self.webViewController.scroll(toFragment: "footer_container_readmore", animated: true)
+        default:
+            assertionFailure("Unsupported selection of TOC item \(item)")
+            break
+        }
+    }
+    
     public func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController) {
         dismiss(animated: true, completion: nil)
     }

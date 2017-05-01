@@ -166,6 +166,20 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
             }
 
             [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
+        } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
+            NSAssert(components.count == 6, @"Expected 6 components when using WMFProxyAPIBasePath");
+            if (components.count == 6) {
+
+                // APIURL is APIProxyURL without components 3, 4 and 5.
+                NSURLComponents *APIProxyURLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
+                APIProxyURLComponents.path = [NSString pathWithComponents:@[components[3], components[4], components[5]]];
+                APIProxyURLComponents.scheme = request.URL.scheme;
+                NSURL *APIURL = APIProxyURLComponents.URL;
+                [self handleAPIRequestForURL:APIURL completionBlock:completionBlock];
+            
+                return;
+            }
+            notFound();
         } else {
             notFound();
         }
@@ -173,6 +187,25 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 }
 
 #pragma mark - Specific Handlers
+
+- (void)handleAPIRequestForURL:(NSURL *)URL completionBlock:(GCDWebServerCompletionBlock)completionBlock {
+    GCDWebServerErrorResponse *notFound = [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"Wikipedia API endpoint not found"];
+    NSAssert(URL, @"Wikipedia API URL should not be nil");
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+    NSURLSessionDataTask *APIRequestTask =
+    [[NSURLSession sharedSession] dataTaskWithRequest:request
+                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                        if (response && data) {
+                                            completionBlock([[GCDWebServerDataResponse alloc] initWithData:data contentType:response.MIMEType]);
+                                        } else {
+                                            completionBlock(notFound);
+                                        }
+                                    }];
+    APIRequestTask.priority = NSURLSessionTaskPriorityLow;
+    [APIRequestTask resume];
+}
 
 - (void)handleFileRequestForRelativePath:(NSString *)relativePath completionBlock:(GCDWebServerCompletionBlock)completionBlock {
     WMFProxyServerResponse *response = [self responseForPath:relativePath];
@@ -241,6 +274,18 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyFileBasePath, relativeFilePath]];
     components.fragment = fragment;
+    return components.URL;
+}
+
+- (NSURL *)proxyURLForWikipediaAPIHost:(NSString *)host {
+    NSString *secret = self.secret;
+    NSURL *serverURL = self.webServer.serverURL;
+    if (secret == nil || serverURL == nil) {
+        return nil;
+    }
+    
+    NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyAPIBasePath, host]];
     return components.URL;
 }
 
