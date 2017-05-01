@@ -33,7 +33,7 @@ public extension UserDefaults {
         return UserDefaults.standard
 #else
         guard let defaults = UserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
-            assert(false)
+            assertionFailure("Defaults not found!")
             return UserDefaults.standard
         }
         return defaults
