@@ -27,22 +27,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - Defaults
 
 + (void)load {
-    /**
-     * Register default application preferences.
-     * @note This must be loaded before application launch so unit tests can run
-     */
-
-    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
-        @"CurrentArticleDomain": defaultLanguage,
-        @"Domain": defaultLanguage,
-        WMFZeroWarnWhenLeaving: @YES,
-        WMFZeroOnDialogShownOnce: @NO,
-        @"LastHousekeepingDate": [NSDate date],
-        @"SendUsageReports": @NO,
-        @"AccessSavedPagesMessageShown": @NO
-    }];
-
     NSArray<NSString *> *arguments = [[NSProcessInfo processInfo] arguments];
     NSString *appResetArgument = @"-WMFAppReset";
     if ([arguments containsObject:appResetArgument]) {
@@ -63,6 +47,21 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
         [NSUserDefaults wmf_resetUserDefaults];
     }
+
+    /**
+     * Register default application preferences.
+     * @note This must be loaded before application launch so unit tests can run
+     */
+    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
+        @"CurrentArticleDomain": defaultLanguage,
+        @"Domain": defaultLanguage,
+        WMFZeroWarnWhenLeaving: @YES,
+        WMFZeroOnDialogShownOnce: @NO,
+        @"LastHousekeepingDate": [NSDate date],
+        @"SendUsageReports": @NO,
+        @"AccessSavedPagesMessageShown": @NO
+    }];
 }
 
 #pragma mark - Accessors
