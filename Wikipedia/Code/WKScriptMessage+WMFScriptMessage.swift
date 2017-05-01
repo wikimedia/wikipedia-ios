@@ -80,7 +80,7 @@ extension WKScriptMessage {
                 return body
             }
         }
-        assert(false, "Unexpected script message body kind of class!")
+        assertionFailure("Unexpected script message body kind of class!")
         return nil
     }
 }
