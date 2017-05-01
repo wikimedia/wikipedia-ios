@@ -3,7 +3,7 @@ import MapKit
 import WMF
 import TUSafariActivity
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, ArticlePlaceGroupViewControllerDelegate, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, WMFAnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
@@ -337,27 +337,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             showingAllImages = shouldShowAllImages
         }
     }
-
-    var placeGroupVC: ArticlePlaceGroupViewController?
-    var placeGroupAnnotationView: MKAnnotationView?
-    
-    func dismissGroup(andZoom: Bool) {
-        dismissCurrentArticlePopover()
-        guard let groupVC = placeGroupVC else {
-            return
-        }
-        groupVC.hide {
-            groupVC.willMove(toParentViewController: nil)
-            groupVC.view.removeFromSuperview()
-            groupVC.removeFromParentViewController()
-            if andZoom {
-                self.mapRegion = self.regionThatFits(articles: groupVC.articles)
-            }
-            self.placeGroupAnnotationView?.isHidden = false
-            self.placeGroupVC = nil
-            self.placeGroupAnnotationView = nil
-        }
-    }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
@@ -367,30 +346,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
-#if WMF_PLACES_GROUP_POPOVERS
-            guard self.placeGroupVC == nil else {
-                return
-            }
-            let placeGroupVC = ArticlePlaceGroupViewController(articles: place.articles)
-            placeGroupVC.delegate = self
-            placeGroupVC.view.tintColor = view.tintColor
-            placeGroupVC.view.frame = view.bounds
-            placeGroupVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-            addChildViewController(placeGroupVC)
-            view.insertSubview(placeGroupVC.view, aboveSubview: redoSearchButton)
-            placeGroupVC.didMove(toParentViewController: self)
-            
-            
-            let center = view.convert(annotationView.center, from: annotationView.superview)
-            
-            placeGroupVC.show(center: center)
-        
-            self.placeGroupVC = placeGroupVC
-            annotationView.isHidden = true
-            self.placeGroupAnnotationView = annotationView
-            deselectAllAnnotations()
-#else
             deselectAllAnnotations()
     
             var minDistance = CLLocationDistanceMax
@@ -406,7 +361,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
             }
             mapRegion = regionThatFits(articles: place.articles)
-#endif
             return
         }
         
@@ -1716,7 +1670,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
     
-        view.insertSubview(articleVC.view, aboveSubview: placeGroupVC?.view ?? mapView)
+        view.insertSubview(articleVC.view, aboveSubview: mapView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1743,11 +1697,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         super.viewWillTransition(to: size, with: coordinator)
         
         coordinator.animate(alongsideTransition: { (context) in
-            if let groupVC = self.placeGroupVC, let annotationView = self.placeGroupAnnotationView  {
-                let center = self.view.convert(annotationView.center, from: annotationView.superview)
-                groupVC.layout(center: center)
-            }
-            
             if let popover = self.selectedArticlePopover,
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
@@ -1835,38 +1784,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let spacing: CGFloat = 5
         let annotationCenter = view.convert(annotationView.center, from: mapView)
         
-        if let groupAnnotationView = placeGroupAnnotationView {
-            let adjustedCenter = view.convert(annotationView.center, from: annotationView.superview)
-            let adjustedGroupCenter = view.convert(groupAnnotationView.center, from: groupAnnotationView.superview)
-            let dx = adjustedGroupCenter.x - adjustedCenter.x
-            let dy = adjustedGroupCenter.y - adjustedCenter.y
-            
-            if dy <= 0 && dx <= 0 {
-                if dy < dx {
-                    preferredLocations = [.bottom, .right]
-                } else {
-                    preferredLocations = [.right, .bottom]
-                }
-            } else if dy > 0 && dx <= 0 {
-                if dy > abs(dx) {
-                    preferredLocations = [.top, .right]
-                } else {
-                    preferredLocations = [.right, .top]
-                }
-            } else if dy <= 0 && dx > 0 {
-                if abs(dy) > dx {
-                    preferredLocations = [.bottom, .left]
-                } else {
-                    preferredLocations = [.left, .bottom]
-                }
-            } else if dy > 0 && dx > 0 {
-                if dy > dx {
-                    preferredLocations = [.top, .left]
-                } else {
-                    preferredLocations = [.left, .top]
-                }
-            }
-        } else if isViewModeOverlay {
+        if isViewModeOverlay {
             if UIApplication.shared.wmf_isRTL {
                 if annotationCenter.x >= listAndSearchOverlayContainerView.frame.minX {
                     preferredLocations = [.bottom, .left, .right, .top]
@@ -2567,24 +2485,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     public func analyticsName() -> String {
         return "Places"
-    }
-    
-    // MARK: - ArticlePlaceGroupViewControllerDelegate
-    
-    func articlePlaceGroupViewControllerDidDismiss(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
-        dismissGroup(andZoom: false)
-    }
-    
-    func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didDeselectPlaceView: ArticlePlaceView) {
-        dismissCurrentArticlePopover()
-    }
-    
-    func articlePlaceGroupViewController(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController, didSelectPlaceView: ArticlePlaceView) {
-        showPopover(forAnnotationView: didSelectPlaceView)
-    }
-    
-    func articlePlaceGroupViewControllerDidSelectZoom(_ aticlePlaceGroupViewController: ArticlePlaceGroupViewController) {
-        dismissGroup(andZoom: true)
     }
     
     // MARK: - UIGestureRecognizerDelegate

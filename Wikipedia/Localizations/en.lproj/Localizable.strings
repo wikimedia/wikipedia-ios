@@ -608,7 +608,7 @@
 "places-accessibility-close-search" = "Close search";
 "places-accessibility-clear-recent-searches" = "Clear recent searches";
 
-"places-filter-top-articles" = "Top articles";
+"places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "$1 articles";
 "places-filter-saved-articles" = "Saved articles";
 "places-filter-saved-articles-count" = "$1 places found";
