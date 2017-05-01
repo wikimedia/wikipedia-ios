@@ -31,6 +31,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
      */
+
     NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
@@ -41,6 +42,24 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO
     }];
+
+    NSArray<NSString *> *arguments = [[NSProcessInfo processInfo] arguments];
+    NSString *appResetArgument = @"-WMFAppReset";
+    if ([arguments containsObject:appResetArgument]) {
+        NSURL *containerURL = [[NSFileManager defaultManager] wmf_containerURL];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSDirectoryEnumerator<NSURL *> *enumerator = [fm enumeratorAtURL:containerURL
+                                              includingPropertiesForKeys:nil
+                                                                 options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                            errorHandler:^BOOL(NSURL *_Nonnull url, NSError *_Nonnull error) {
+                                                                return YES;
+                                                            }];
+        for (NSURL *fileURL in enumerator) {
+            [fm removeItemAtURL:fileURL error:nil];
+        }
+
+        [NSUserDefaults wmf_resetUserDefaults];
+    }
 }
 
 #pragma mark - Accessors
@@ -74,6 +93,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
+
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
