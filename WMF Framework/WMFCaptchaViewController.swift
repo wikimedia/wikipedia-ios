@@ -98,7 +98,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == captchaTextField {
             guard let captchaDelegate = captchaDelegate else {
-                assert(false, "Expected delegate not set")
+                assertionFailure("Expected delegate not set")
                 return true
             }
             captchaDelegate.captchaKeyboardReturnKeyTapped()
@@ -108,7 +108,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func refreshImage(for captcha: WMFCaptcha) {
         guard let fullCaptchaImageURL = fullCaptchaImageURL(from: captcha.captchaURL) else {
-            assert(false, "Unable to determine fullCaptchaImageURL")
+            assertionFailure("Unable to determine fullCaptchaImageURL")
             return
         }
         captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, failure: { (error) in
@@ -125,7 +125,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
 
     fileprivate func fullCaptchaImageURL(from captchaURL: URL) -> URL? {
         guard let components = URLComponents(url: captchaURL, resolvingAgainstBaseURL: false) else {
-            assert(false, "Could not extract url components")
+            assertionFailure("Could not extract url components")
             return nil
         }
         return components.url(relativeTo: captchaBaseURL())
@@ -133,17 +133,17 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func captchaBaseURL() -> URL? {
         guard let captchaDelegate = captchaDelegate else {
-            assert(false, "Expected delegate not set")
+            assertionFailure("Expected delegate not set")
             return nil
         }
         let captchaSiteURL = captchaDelegate.captchaSiteURL()
         guard var components = URLComponents(url: captchaSiteURL, resolvingAgainstBaseURL: false) else {
-            assert(false, "Could not extract url components")
+            assertionFailure("Could not extract url components")
             return nil
         }
         components.queryItems = nil
         guard let url = components.url else{
-            assert(false, "Could not extract url")
+            assertionFailure("Could not extract url")
             return nil
         }
         return url
@@ -177,7 +177,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let captchaDelegate = captchaDelegate else{
-            assert(false, "Required delegate is unset")
+            assertionFailure("Required delegate is unset")
             return
         }
         
@@ -220,7 +220,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             guard let previousCaptcha = self.captcha else {
-                assert(false, "If resetting a captcha, expect to have a previous one here")
+                assertionFailure("If resetting a captcha, expect to have a previous one here")
                 return
             }
             

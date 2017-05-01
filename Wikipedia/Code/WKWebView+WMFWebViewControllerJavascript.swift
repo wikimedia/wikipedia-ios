@@ -125,7 +125,7 @@ extension WKWebView {
             let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: article.url.host),
             let title = (article.url as NSURL).wmf_title
         else {
-            assert(false, "Expected read more title and proxyURL")
+            assertionFailure("Expected read more title and proxyURL")
             return
         }
         

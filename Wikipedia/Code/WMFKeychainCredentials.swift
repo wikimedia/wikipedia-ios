@@ -24,7 +24,7 @@ struct WMFKeychainCredentials {
             do {
                 return try set(value: newUserName, forKey: userNameKey)
             } catch let error {
-                assert(false, "\(error)")
+                assertionFailure("\(error)")
             }
         }
     }
@@ -41,7 +41,7 @@ struct WMFKeychainCredentials {
             do {
                 return try set(value: newPassword, forKey: passwordKey)
             } catch  {
-                assert(false, "\(error)")
+                assertionFailure("\(error)")
             }
         }
     }

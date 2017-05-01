@@ -39,7 +39,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             let presenter = presentingViewController,
             let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard()
         else {
-                assert(false, "Expected view controller(s) not found")
+                assertionFailure("Expected view controller(s) not found")
                 return
         }
         dismiss(animated: true, completion: {
@@ -141,7 +141,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 save()
             }
         default:
-            assert(false, "Unhandled text field")
+            assertionFailure("Unhandled text field")
         }
         return true
     }
