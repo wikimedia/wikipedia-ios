@@ -337,9 +337,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             showingAllImages = shouldShowAllImages
         }
     }
-
-    var placeGroupAnnotationView: MKAnnotationView?
-
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
@@ -1787,38 +1784,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let spacing: CGFloat = 5
         let annotationCenter = view.convert(annotationView.center, from: mapView)
         
-        if let groupAnnotationView = placeGroupAnnotationView {
-            let adjustedCenter = view.convert(annotationView.center, from: annotationView.superview)
-            let adjustedGroupCenter = view.convert(groupAnnotationView.center, from: groupAnnotationView.superview)
-            let dx = adjustedGroupCenter.x - adjustedCenter.x
-            let dy = adjustedGroupCenter.y - adjustedCenter.y
-            
-            if dy <= 0 && dx <= 0 {
-                if dy < dx {
-                    preferredLocations = [.bottom, .right]
-                } else {
-                    preferredLocations = [.right, .bottom]
-                }
-            } else if dy > 0 && dx <= 0 {
-                if dy > abs(dx) {
-                    preferredLocations = [.top, .right]
-                } else {
-                    preferredLocations = [.right, .top]
-                }
-            } else if dy <= 0 && dx > 0 {
-                if abs(dy) > dx {
-                    preferredLocations = [.bottom, .left]
-                } else {
-                    preferredLocations = [.left, .bottom]
-                }
-            } else if dy > 0 && dx > 0 {
-                if dy > dx {
-                    preferredLocations = [.top, .left]
-                } else {
-                    preferredLocations = [.left, .top]
-                }
-            }
-        } else if isViewModeOverlay {
+        if isViewModeOverlay {
             if UIApplication.shared.wmf_isRTL {
                 if annotationCenter.x >= listAndSearchOverlayContainerView.frame.minX {
                     preferredLocations = [.bottom, .left, .right, .top]
