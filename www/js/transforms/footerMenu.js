@@ -28,15 +28,15 @@ class WMFMenuItem {
 
 class WMFMenuItemFragment {
     constructor(wmfMenuItem) {
-        var itemContainer = document.createElement('div');
-        itemContainer.className = 'footer_menu_item_container';
+        var item = document.createElement('div');
+        item.className = 'footer_menu_item';
 
         var containerAnchor = document.createElement('a');
         containerAnchor.addEventListener('click', function(){
           wmfMenuItem.clickHandler();
         }, false);
                 
-        itemContainer.appendChild(containerAnchor);
+        item.appendChild(containerAnchor);
 
         if(wmfMenuItem.title){
             var title = document.createElement('div');
@@ -54,10 +54,10 @@ class WMFMenuItemFragment {
 
         if(wmfMenuItem.iconType){
             var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
-            itemContainer.classList.add(iconClass);
+            item.classList.add(iconClass);
         }
 
-        return document.createDocumentFragment().appendChild(itemContainer);
+        return document.createDocumentFragment().appendChild(item);
     }
 }
 

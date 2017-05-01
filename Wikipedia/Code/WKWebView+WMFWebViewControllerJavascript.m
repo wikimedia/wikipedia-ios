@@ -21,7 +21,7 @@ static int const kMinimumTextSelectionLength = 2;
 
 - (NSString *)tableCollapsingJavascriptForArticle:(MWKArticle *)article {
     return
-        [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
+        [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@');",
                                    article.isMain,
                                    [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
                                    [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],

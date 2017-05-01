@@ -1,6 +1,5 @@
-var transformer = require("../transformer");
 
-transformer.register( "moveFirstGoodParagraphUp", function( content ) {
+function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -76,4 +75,6 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
     // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
-});
+}
+
+exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp;

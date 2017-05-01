@@ -1,5 +1,4 @@
 
-const transformer = require('../transformer');
 const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
 
 const isGalleryImage = function(image) {
@@ -8,8 +7,10 @@ const isGalleryImage = function(image) {
   return (image.getAttribute('data-image-gallery') === 'true');    
 };
 
-transformer.register('widenImages', function(content) {
+function widenImages(content) {
   Array.from(content.querySelectorAll('img'))
     .filter(isGalleryImage)
     .forEach(maybeWidenImage);
-});
+}
+
+exports.widenImages = widenImages;
