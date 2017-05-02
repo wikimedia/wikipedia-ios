@@ -512,6 +512,7 @@
 "status-saved-for-later" = "Збережено на потім";
 "announcements-dismiss" = "Ні, дякую";
 "places-search-top-articles" = "Всі найбільш читані статті";
+// Fuzzy
 "places-search-this-area" = "Пошук у цій ділянці";
 "places-search-saved-articles" = "Всі збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
@@ -528,6 +529,7 @@
 "places-accessibility-recenter-map-on-user-location" = "Відцентрувати на Вашому місці розташування";
 "places-accessibility-close-search" = "Закрити пошук";
 "places-accessibility-clear-recent-searches" = "Очистити останню історію пошуку";
+// Fuzzy
 "places-filter-top-articles" = "Топ-статті";
 "places-filter-top-articles-count" = "$1 статей";
 "places-filter-saved-articles" = "Збережені статті";

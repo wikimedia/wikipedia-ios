@@ -505,7 +505,7 @@
 "in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
-"number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
+"number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.\n{{Identical|$1k}}";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
@@ -540,7 +540,7 @@
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
 "places-filter-list-title" = "Title shown above list of search filters that can be selected";
-"places-search-default-text" = "Placeholder text that displays where is there no current place search";
+"places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
 "places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
 "places-empty-search-description" = "Detail text shown on an overlay when there are no recent Places searches. Describes the kind of articles you can search for.";
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";

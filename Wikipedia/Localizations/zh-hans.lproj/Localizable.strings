@@ -517,7 +517,7 @@
 "status-saved-for-later" = "已保存以供日后使用";
 "announcements-dismiss" = "不用了，谢谢";
 "places-search-top-articles" = "所有最多阅读的条目";
-"places-search-this-area" = "搜索该地区";
+"places-search-this-area" = "该地区的结果";
 "places-search-saved-articles" = "所有保存的条目";
 "places-search-suggested-searches-header" = "建议搜索";
 "places-search-recently-searched-header" = "最近搜索";
@@ -534,13 +534,14 @@
 "places-accessibility-recenter-map-on-user-location" = "重新定位您的位置";
 "places-accessibility-close-search" = "关闭搜索";
 "places-accessibility-clear-recent-searches" = "清除最近搜索";
+// Fuzzy
 "places-filter-top-articles" = "最多阅读的条目";
 "places-filter-top-articles-count" = "$1个条目";
 "places-filter-saved-articles" = "保存的条目";
 "places-filter-saved-articles-count" = "找到了$1个地点";
 "places-filter-no-saved-places" = "您没有已保存的地方";
 "places-filter-list-title" = "搜索过滤器";
-"places-search-default-text" = "搜索条目或位置";
+"places-search-default-text" = "搜索";
 "places-empty-search-title" = "使用地理位置搜索维基百科条目";
 "places-empty-search-description" = "浏览城市、国家、大陆、自然地标、历史事件、建筑物以及更多。";
 "action-share" = "分享";

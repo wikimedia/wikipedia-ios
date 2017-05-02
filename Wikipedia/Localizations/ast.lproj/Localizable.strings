@@ -506,6 +506,7 @@
 "status-saved-for-later" = "Guardao pa dempués";
 "announcements-dismiss" = "Non, gracies";
 "places-search-top-articles" = "Tolos artículos principales";
+// Fuzzy
 "places-search-this-area" = "Buscar nesta área";
 "places-search-saved-articles" = "Tolos artículos guardaos";
 "places-search-suggested-searches-header" = "Guetes suxeríes";
@@ -523,12 +524,14 @@
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar nel to allugamientu";
 "places-accessibility-close-search" = "Zarrar la gueta";
 "places-accessibility-clear-recent-searches" = "Llimpiar les guetes recien";
+// Fuzzy
 "places-filter-top-articles" = "Artículos principales";
 "places-filter-top-articles-count" = "$1 artículos";
 "places-filter-saved-articles" = "Artículos guardaos";
 "places-filter-saved-articles-count" = "$1 llugares atopaos";
 "places-filter-no-saved-places" = "Nun tienes llugares guardaos";
 "places-filter-list-title" = "Filtros de gueta";
+// Fuzzy
 "places-search-default-text" = "Guetar artículos o llugares";
 "places-empty-search-title" = "Buscar artículos de Wikipedia con allugamientos xeográficos";
 "places-empty-search-description" = "Esplorar ciudaes, paises, continentes, monumentos naturales, socesos históricos, edificios y más.";

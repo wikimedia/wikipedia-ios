@@ -482,7 +482,9 @@
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
 "places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-clear-recent-searches" = "مسح عمليات البحث الأخيرة";
+// Fuzzy
 "places-filter-top-articles" = "أعلى المقالات";
+// Fuzzy
 "places-search-default-text" = "بحث عن المقالات أو المواقع";
 "action-share" = "شارك";
 "action-save" = "حفظ";

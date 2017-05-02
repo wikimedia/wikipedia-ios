@@ -481,6 +481,7 @@
 "explore-another-random" = "Outro artigo aleatorio";
 "explore-randomizer" = "Artigo aleatorio";
 "find-in-page-no-matches" = "Non hai coincidencias";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Atopar na páxina";
 "find-in-page-popover-description" = "Buscar o texto non artigos";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
@@ -510,7 +511,7 @@
 "status-saved-for-later" = "Gardado para máis tarde";
 "announcements-dismiss" = "Non, grazas";
 "places-search-top-articles" = "Todos os artigos mellores";
-"places-search-this-area" = "Procura nesta área";
+"places-search-this-area" = "Resultados nesta área";
 "places-search-saved-articles" = "Todos os artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-recently-searched-header" = "Buscado recentemente";
@@ -527,11 +528,14 @@
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
 "places-accessibility-close-search" = "Pechar a busca";
 "places-accessibility-clear-recent-searches" = "Limpar as buscas recentes";
+// Fuzzy
 "places-filter-top-articles" = "Os mellores artigos";
 "places-filter-top-articles-count" = "$1 artigos";
 "places-filter-saved-articles" = "Artigos gardados";
 "places-filter-saved-articles-count" = "$1 lugares atopados";
+"places-filter-no-saved-places" = "Non tes lugares gardados";
 "places-filter-list-title" = "Filtros de procura";
+// Fuzzy
 "places-search-default-text" = "Procurar artigos ou localizacións";
 "places-empty-search-title" = "Procurar artigos de Wikipedia con localizacións xeográficas";
 "places-empty-search-description" = "Explore cidades, países, continentes, monumentos naturais, eventos históricos, edificios e máis.";
