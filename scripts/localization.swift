@@ -84,22 +84,19 @@ extension String {
         guard let tokenRegex = tokenRegex else {
             return ""
         }
-        var nativeLocalization = self
+        var nativeLocalization = self as NSString
         var offset = 0
-        let fullRange = NSRange(location: 0, length: self.characters.count)
-        tokenRegex.enumerateMatches(in: self, options: [], range: fullRange) { (result, flags, stop) in
+        let fullRange = NSRange(location: 0, length: nativeLocalization.length)
+        tokenRegex.enumerateMatches(in: nativeLocalization as String, options: [], range: fullRange) { (result, flags, stop) in
             guard let result = result else {
                 return
             }
-            let token = tokenRegex.replacementString(for: result, in: nativeLocalization, offset: offset, template: "$1")
-            let lower = nativeLocalization.index(startIndex, offsetBy: result.range.location + offset)
-            let upper = nativeLocalization.index(lower, offsetBy: result.range.length)
-            let range = lower..<upper
+            let token = tokenRegex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
             let replacement = "%\(token)$@"
-            nativeLocalization = nativeLocalization.replacingCharacters(in: range, with: replacement)
+            nativeLocalization = nativeLocalization.replacingCharacters(in: NSRange(location: result.range.location + offset, length: result.range.length), with: replacement) as NSString
             offset += replacement.characters.count - result.range.length
         }
-        return nativeLocalization
+        return nativeLocalization as String
     }
 }
 
@@ -109,7 +106,7 @@ func writeStrings(fromDictionary dictionary: [String: String], toFile: String) t
     	return kv1.key < kv2.key
 	})
     for (key, value) in sortedDictionary {
-        output.append("\"\(key)\" = \"\(value.replacingOccurrences(of: "\"", with: "\\\""))\";\n")
+        output.append("\"\(key)\" = \"\(value.replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\\n"))\";\n")
     }
 
 	try output.write(toFile: toFile, atomically: true, encoding: .utf8)
