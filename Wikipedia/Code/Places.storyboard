@@ -370,7 +370,7 @@
                                 <exclude reference="bVF-HO-Onf"/>
                             </mask>
                         </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
+                        <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <include reference="Zax-gD-BeZ"/>
                                 <include reference="mYf-kK-anz"/>
@@ -382,8 +382,8 @@
                                 <exclude reference="Fqd-WF-erI"/>
                                 <include reference="S5v-Rm-6Vf"/>
                                 <exclude reference="kJv-Kd-ffk"/>
-                                <include reference="bVF-HO-Onf"/>
                                 <exclude reference="1PC-H2-U7d"/>
+                                <include reference="bVF-HO-Onf"/>
                             </mask>
                         </variation>
                     </view>
@@ -427,7 +427,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3Ik-kL-6c1">
-                            <rect key="frame" x="8" y="85.5" width="344" height="229.5"/>
+                            <rect key="frame" x="8" y="10" width="344" height="229.5"/>
                             <subviews>
                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
                                     <rect key="frame" x="88" y="0.0" width="168" height="139"/>
@@ -464,7 +464,7 @@
                     <constraints>
                         <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerX" secondItem="Mkb-GI-RvY" secondAttribute="centerX" id="I8g-iA-aXe"/>
                         <constraint firstItem="3Ik-kL-6c1" firstAttribute="top" secondItem="Mkb-GI-RvY" secondAttribute="top" constant="50" id="KOP-oX-WGC"/>
-                        <constraint firstItem="3Ik-kL-6c1" firstAttribute="centerY" secondItem="Mkb-GI-RvY" secondAttribute="centerY" id="j1d-oJ-r8H"/>
+                        <constraint firstItem="3Ik-kL-6c1" firstAttribute="top" secondItem="Mkb-GI-RvY" secondAttribute="top" constant="10" id="j1d-oJ-r8H"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
@@ -472,7 +472,7 @@
                             <exclude reference="j1d-oJ-r8H"/>
                         </mask>
                     </variation>
-                    <variation key="heightClass=regular-widthClass=compact">
+                    <variation key="widthClass=compact">
                         <mask key="constraints">
                             <include reference="KOP-oX-WGC"/>
                         </mask>
@@ -592,7 +592,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1517.3913043478262" y="-168.75"/>
+            <point key="canvasLocation" x="1517.0914542728638" y="-168.80000000000001"/>
         </scene>
         <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
