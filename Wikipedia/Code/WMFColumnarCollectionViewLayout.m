@@ -209,12 +209,4 @@
     return attributes;
 }
 
-- (void)finalizeCollectionViewUpdates {
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.75 initialSpringVelocity:0 options:0 animations:^{
-        [super finalizeCollectionViewUpdates];
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
 @end
