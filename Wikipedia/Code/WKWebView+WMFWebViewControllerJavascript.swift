@@ -94,7 +94,7 @@ import Foundation
 extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
-        let heading = article.apostropheEscapedArticleLanguageLocalizedStringForKey("article-about-title").uppercased(with: Locale.current)
+        let heading = WMFLocalizedStringWithDefaultValue("article-about-title", article.url, Bundle.wmf_localization, "About this article", "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
 
         let itemsJS = [

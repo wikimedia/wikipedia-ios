@@ -8,7 +8,7 @@ open class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooter
     }
     
     open var titleText:String {
-        return localizedStringForURLWithKeyFallingBackOnEnglish(self.url, "article-about-title")
+        return WMFLocalizedStringWithDefaultValue("article-about-title", self.url, Bundle.wmf_localization, "About this article", "The text that is displayed before the 'about' section at the bottom of an article")
     }
     
     open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
