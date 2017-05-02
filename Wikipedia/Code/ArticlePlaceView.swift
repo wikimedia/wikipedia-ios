@@ -351,7 +351,7 @@ class ArticlePlaceView: MKAnnotationView {
             zPosition = 2
             let countString = "\(articlePlace.articles.count)"
             countLabel.text = countString
-            accessibilityLabel = NSLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}").replacingOccurrences(of: "$1", with: countString)
+            accessibilityLabel = String.localizedStringWithFormat(NSLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}"), countString)
         }
         updateDotAndImageHiddenState(withArticlePlace: articlePlace)
     }

@@ -54,9 +54,7 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
 
 - (void)wmf_setupCrashNotificationAlert {
     [[BITHockeyManager sharedHockeyManager].crashManager setAlertViewHandler:^() {
-        NSString *title = [NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-title", nil, NSBundle.wmf_localizationBundle, @"Sorry, app crashed last time", "Concise and conciliatory alert dialog title for crash reporting")
-            stringByReplacingOccurrencesOfString:@"$1"
-                                      withString:WMFHockeyAppServiceName];
+        NSString *title = [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-title", nil, NSBundle.wmf_localizationBundle, @"Sorry, app crashed last time", "Concise and conciliatory alert dialog title for crash reporting"), WMFHockeyAppServiceName];
         UIAlertController *customAlertView = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
         [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashSendText]
                                                             style:UIAlertActionStyleDefault
@@ -79,9 +77,7 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
                                                               crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
                                                           }]];
-        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, NSBundle.wmf_localizationBundle, @"%1$@ privacy", "Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'")
-                                                                      stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                withString:WMFHockeyAppServiceName]
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat: NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, NSBundle.wmf_localizationBundle, @"%1$@ privacy", "Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockeyAppPrivacyUrl]];
@@ -90,12 +86,12 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
 
         NSString *exceptionReason = [[BITHockeyManager sharedHockeyManager].crashManager lastSessionCrashDetails].exceptionReason;
         if (exceptionReason) {
-            customAlertView.message = [NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-question-with-response-field", nil, NSBundle.wmf_localizationBundle, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash? Please describe what happened when the crash occurred:", "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'") stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+            customAlertView.message = [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-question-with-response-field", nil, NSBundle.wmf_localizationBundle, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash? Please describe what happened when the crash occurred:", "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName];
             [customAlertView addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField){
 
             }];
         } else {
-            customAlertView.message = [NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-question", nil, NSBundle.wmf_localizationBundle, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash?", "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'") stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+            customAlertView.message = [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"hockeyapp-alert-question", nil, NSBundle.wmf_localizationBundle, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash?", "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName];
         }
         [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:customAlertView animated:YES completion:NULL];
     }];

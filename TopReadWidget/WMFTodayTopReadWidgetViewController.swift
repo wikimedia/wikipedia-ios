@@ -236,7 +236,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.imageView.wmf_reset()
             let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
-            vc.rankLabel.accessibilityLabel = NSLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking\n{{Identical|Number}}").replacingOccurrences(of: "$1", with: rankString)
+            vc.rankLabel.accessibilityLabel = String.localizedStringWithFormat(NSLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking\n{{Identical|Number}}"), rankString)
             if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin

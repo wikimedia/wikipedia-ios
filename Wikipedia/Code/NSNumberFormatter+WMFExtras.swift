@@ -31,7 +31,7 @@ extension NumberFormatter {
         let absDoubleValue = abs(doubleValue)
         
         var adjustedDoubleValue: Double = doubleValue
-        var formatString: String = "$1"
+        var formatString: String = "%1$@"
         
         if absDoubleValue > 1000000000 {
             adjustedDoubleValue = doubleValue/1000000000.0
@@ -44,13 +44,13 @@ extension NumberFormatter {
             formatString = NSLocalizedString("number-thousands", value:"%1$@K", comment:"%1$@K - %1$@ is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation %1$@ with no other characters and the full number will be shown.\n{{Identical|%1$@k}}")
         }
         
-        if formatString == "$1" { //check for opt-out translations
+        if formatString == "%1$@" { //check for opt-out translations
             adjustedDoubleValue = doubleValue
         }
         
         
         if let numberString = thousandsFormatter.string(from: NSNumber(value:adjustedDoubleValue)) {
-            return formatString.replacingOccurrences(of: "$1" , with: numberString)
+            return String.localizedStringWithFormat(formatString, numberString)
         } else {
             return ""
         }
