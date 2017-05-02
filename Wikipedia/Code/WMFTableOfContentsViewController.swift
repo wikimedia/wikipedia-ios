@@ -33,7 +33,7 @@ open class WMFTableOfContentsViewController: UIViewController,
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
-    let isArticleRTL: Bool
+    let semanticContentAttribute: UISemanticContentAttribute
     
     var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
@@ -96,8 +96,8 @@ open class WMFTableOfContentsViewController: UIViewController,
     public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
                          delegate: WMFTableOfContentsViewControllerDelegate,
-                         isArticleRTL: Bool) {
-        self.isArticleRTL = isArticleRTL
+                         semanticContentAttribute: UISemanticContentAttribute) {
+        self.semanticContentAttribute = semanticContentAttribute
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
@@ -209,10 +209,8 @@ open class WMFTableOfContentsViewController: UIViewController,
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isArticleRTL {
-            view.semanticContentAttribute = .forceRightToLeft
-            tableView.semanticContentAttribute = .forceRightToLeft
-        }
+        view.semanticContentAttribute = semanticContentAttribute
+        tableView.semanticContentAttribute = semanticContentAttribute
         
         tableView.mas_makeConstraints { make in
             _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
@@ -271,10 +269,8 @@ open class WMFTableOfContentsViewController: UIViewController,
 
         cell.setSectionSelected(shouldHighlight, animated: false)
         
-        if isArticleRTL {
-            cell.contentView.semanticContentAttribute = .forceRightToLeft
-            cell.titleLabel.semanticContentAttribute = .forceRightToLeft
-        }
+        cell.contentView.semanticContentAttribute = semanticContentAttribute
+        cell.titleLabel.semanticContentAttribute = semanticContentAttribute
         
         return cell
     }
@@ -284,12 +280,8 @@ open class WMFTableOfContentsViewController: UIViewController,
             let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
             header?.articleURL = delegate.tableOfContentsArticleLanguageURL()
             header?.backgroundColor = tableView.backgroundColor
-            
-            if isArticleRTL {
-                header?.semanticContentAttribute = .forceRightToLeft
-                header?.contentsLabel.semanticContentAttribute = .forceRightToLeft
-            }
-            
+            header?.semanticContentAttribute = semanticContentAttribute
+            header?.contentsLabel.semanticContentAttribute = semanticContentAttribute
             return header
         } else {
             return nil

@@ -107,7 +107,8 @@ extension WMFArticleViewController {
     */
     public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
-            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, isArticleRTL: MWLanguageInfo.articleLanguageIsRTL(article))
+            let semanticContentAttribute:UISemanticContentAttribute = MWLanguageInfo.articleLanguageIsRTL(article) ? .forceRightToLeft : .forceLeftToRight
+            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute)
         }
     }
 
