@@ -29,7 +29,7 @@ fileprivate var iOSTokenRegex: NSRegularExpression? = {
 
 fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(?:MWLocalizedString\\(@\\\")(:?[^\"]+)", options: [])
+        return try NSRegularExpression(pattern: "(?:MWLocalizedString\\(@\\\")(:?[^\"]+)(?:[^\\)]*\\))", options: [])
     } catch {
         assertionFailure("mwLocalizedStringRegex failed to compile")
     }
