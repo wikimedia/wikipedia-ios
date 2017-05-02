@@ -1,0 +1,127 @@
+// Messages for Oriya (ଓଡ଼ିଆ)
+// Exported from translatewiki.net
+// Author: Psubhashish
+
+"article-languages-label" = "ଭାଷା ବାଛନ୍ତୁ";
+"article-languages-cancel" = "ବାତିଲ";
+"article-languages-downloading" = "ପ୍ରସଙ୍ଗର ଭାଷାମାନ ଆହରଣ କରୁଛି...";
+// Fuzzy
+"article-languages-filter-placeholder" = "ଛାଣିବା";
+// Fuzzy
+"history-label" = "ଇତିହାସ ଖୋଜୁଛି";
+"history-section-today" = "ଆଜି";
+"history-section-yesterday" = "ଗତକାଲି";
+"history-section-lastweek" = "ଗତ ସପ୍ତାହ";
+"history-section-lastmonth" = "ଗତ ମାସ";
+"zero-free-verbiage" = "ଆପଣଙ୍କ ମୋବାଇଲ ଅପରେଟରଙ୍କ ଠାରୁ ମାଗଣା ଉଇକିପିଡ଼ିଆ ସୁବିଧା (ଇଣ୍ଟରନେଟ ପାଇଁ ପଇସା ଲାଗିବ ନାହିଁ)";
+// Fuzzy
+"zero-charged-verbiage" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବନ୍ଦ (ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିବ)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରୁ ବାହାରନ୍ତୁ";
+// Fuzzy
+"zero-interstitial-leave-app" = "ବାହାର ସାଇଟଟିଏ ଦେଖିବା ଚାଲୁ ରଖିବେ? ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିପାରେ ।";
+// Fuzzy
+"zero-interstitial-continue" = "ଚାଲୁ ରଖିନ୍ତୁ";
+// Fuzzy
+"zero-interstitial-cancel" = "ବାତିଲ";
+// Fuzzy
+"zero-learn-more" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବାବଦରେ ଅଧିକ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?";
+// Fuzzy
+"zero-learn-more-learn-more" = "ଅଧିକ ଜାଣନ୍ତୁ";
+// Fuzzy
+"zero-learn-more-no-thanks" = "ନାଁ, ଧନ୍ୟବାଦ";
+"zero-wikipedia-zero-heading" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ";
+"zero-warn-when-leaving" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରୁ ବାହାରିଲେ ଜଣାଇବେ";
+"zero-settings-devmode" = "ଜିରୋ ଡେଭ ମୋଡ଼";
+"account-creation-captcha-required" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବା ଲୋଡ଼ା ।";
+"account-creation-captcha-obtaining" = "ନୂଆ CAPTCHA ଆହରଣ କରୁଛି ।";
+"account-creation-logging-in" = "ଲଗ ଇନ କରୁଛି...";
+"account-creation-passwords-mismatched" = "ପାସୱାର୍ଡ଼ ଦୁଇଟି ସମାନ ନୁହଁନ୍ତି ।";
+"account-creation-saving" = "ସଞ୍ଚୁଛି...";
+"login-name-not-found" = "ଲଗ ଇନ କରିବା ପାଇଁ ସଭ୍ୟ ନାମ ଲୋଡ଼ା ।";
+"login-name-illegal" = "ଆପଣ ଏକ ଅବୈଧ ସଭ୍ୟ ନାମ ଦେଇଛନ୍ତି ।";
+"login-name-does-not-exist" = "ଆପଣ ଦେଇଥିବା ସଭ୍ୟ ନାମ ତିଆରି ହିଁ ହୋଇନାହିଁ ।";
+"login-password-empty" = "ଲଗ ଇନ କରିବା ପାଇଁ ପାସୱାର୍ଡ଼ ଲୋଡ଼ା ।";
+"login-password-wrong" = "ଆପଣ ଦେଇଥିବା ପାସୱାର୍ଡ଼ଟି ଭୁଲ ।";
+"login-throttled" = "ଆପଣ ଅଳ୍ପ ସମୟରେ ଖୁବ ଅଧିକ ଥର ଲଗ ଇନ କରିଛନ୍ତି ।";
+"login-user-blocked" = "ସଭ୍ୟଙ୍କୁ ଅଟକାଯାଇଛି ।";
+// Fuzzy
+"wikitext-downloading" = "ଉଇକି ଲେଖା ଆହରଣ କରୁଛି...";
+"wikitext-download-failed" = "ଶେଷ ସଂସ୍କରଣ ଆହରଣ କରିବାରେ ବିଫଳ ।";
+// Fuzzy
+"wikitext-download-success" = "ଉଇକି ଲେଖା ଆହରଣ ହୋଇଗଲା ।";
+"wikitext-preview-changes" = "ଆପଣଙ୍କ ବଦଳର ଦେଖଣା ଆହରଣ କରୁଛି...";
+"wikitext-preview-changes-none" = "ଦେଖଣାରେ ଦେଖିବା ଭଳି ଆପଣ କିଛି ବଦଳାଇ ନାହାଁନ୍ତି ।";
+"wikitext-upload-result-unknown" = "ଉଇକି ଲେଖା ଅପଲୋଡ଼ ଫଳାଫଳ ନିର୍ଣ୍ଣୟ କରିବାରେ ବିଫଳ ।";
+"wikitext-upload-captcha-error" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବାରେ ଅସୁବିଧା ।";
+"wikitext-upload-captcha-needed" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବା ଲୋଡ଼ା ।";
+"wikitext-upload-save" = "ସଞ୍ଚୁଛି...";
+// Fuzzy
+"wikitext-upload-save-sign-in" = "ଲଗ ଇନ କରି ସାଇତିବେ";
+"wikitext-upload-save-sign-in-benefits" = "ବାକି ସମ୍ପାଦକମାନେ ଆପଣଙ୍କ ସହ ଯୋଗାଯୋଗ କରିପାରିବେ ଏବଂ ଆପଣ ମଧ୍ୟ ନିଜେ କରିଥିବା ସମ୍ପାଦନ ଦେଖିପାରିବେ ।";
+"wikitext-upload-save-anonymously" = "ଅଜଣା ଭାବେ ସାଇତିବେ";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "ଏଥିରେ କମ ଗୋପନୀୟତା ରହିଛି । ଆପଣଙ୍କ ସମ୍ପାଦନା IP ଠିକଣା ସହ ଦେଖାଯିବ ।";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"search-searching" = "ଖୋଜୁଛି...";
+"search-no-matches" = "ଖୋଜା ଶବ୍ଦରୁ କିଛି ଫଳାଫଳ ମିଳିଲା ନାହିଁ ।";
+"search-field-placeholder-text" = "ଉଇକିପିଡ଼ିଆରେ ଖୋଜନ୍ତୁ";
+"search-field-placeholder-text-zero" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରେ ଖୋଜନ୍ତୁ";
+"search-loading-section-zero" = "ପ୍ରସଙ୍ଗର ପ୍ରଥମ ବିଭାଗ ଖୋଲୁଛି...";
+"search-loading-section-remaining" = "ପ୍ରସଙ୍ଗରେ ବାକି ଭାଗ ଖୋଲୁଛି...";
+"search-loading-article-loaded" = "ପ୍ରସଙ୍ଗଟି ଖୋଲିଗଲା ।";
+"main-menu-language-title" = "$1 ଭାଷାର ଉଇକିରେ ଖୋଜନ୍ତୁ";
+"main-menu-language-toggle-show" = "ଭାଷାସମୂହ ଦେଖାନ୍ତୁ";
+"main-menu-language-toggle-hide" = "ଭାଷାସମୂହ ଲୁଚାନ୍ତୁ";
+"main-menu-language-selection-saved" = "ଭାଷା ବଛା ସାଇତାଗଲା";
+"main-menu-account-title-logged-out" = "ଖାତା";
+"main-menu-account-title-logged-in" = "$1 ନାମରେ ଲଗଇନ କଲେ ।";
+"main-menu-account-login" = "ଲଗ ଇନ";
+"main-menu-account-logout" = "ଲଗ ଆଉଟ";
+"main-menu-show-title" = "ମୋତେ ଦେଖାନ୍ତୁ";
+// Fuzzy
+"main-menu-show-history" = "ଇତିହାସ ଖୋଜା";
+"main-menu-show-saved" = "ସାଇତା ପୃଷ୍ଠାସମୂହ";
+"main-menu-current-article-save" = "ଅଫଲାଇନରେ ପଢ଼ିବା ପାଇଁ $1 ପୃଷ୍ଠାଟି ସାଇତିରଖନ୍ତୁ";
+// Fuzzy
+"main-menu-random" = "ଯାହିତାହି ପ୍ରସଙ୍ଗ";
+"main-menu-feedback-heading" = "ମତାମତ";
+// Fuzzy
+"main-menu-send-feedback" = "ମତାମତ ଦିଅନ୍ତୁ";
+"main-menu-show-page-history" = "$1ରେ ହୋଇଥିବା ବଦଳର ସମ୍ପାଦନା";
+"main-menu-credits" = "ଶ୍ରେୟ";
+"saved-pages-title" = "ସାଇତା ପୃଷ୍ଠା";
+"page-history-title" = "ପୃଷ୍ଠାର ଇତିହାସ";
+"page-history-downloading" = "ପୃଷ୍ଠାର ଇତିହାସ ଆହରଣ କରୁଛି...";
+"navbar-title-mode-edit-wikitext" = "ସମ୍ପାଦନା";
+// Fuzzy
+"navbar-title-mode-login" = "ଲଗଇନ";
+// Fuzzy
+"navbar-title-mode-login-and-save" = "ଲଗ ଇନ କରି ସାଇତିବେ";
+"navbar-title-mode-create-account" = "ଖାତାଟିଏ ଖୋଲନ୍ତୁ";
+"navbar-title-mode-create-account-and-save" = "ଖାତା ଖୋଲି ସାଇତିବେ";
+"navbar-title-mode-edit-wikitext-warning" = "ଅସୁବିଧାର ସମ୍ପାଦନା";
+"navbar-title-mode-edit-wikitext-disallow" = "ଅସୁବିଧାମାନଙ୍କର ସମ୍ପାଦନା";
+"navbar-title-mode-edit-wikitext-preview" = "ଦେଖଣା";
+"navbar-title-mode-edit-wikitext-captcha" = "ଶୀଘ୍ର ନିଶ୍ଚିତ କରିବାକୁ ହେବ";
+"navbar-title-mode-edit-wikitext-summary" = "ନିଜର ସମ୍ପାଦନା ବାବଦରେ ଜଣାନ୍ତୁ";
+"navbar-title-mode-edit-wikitext-save" = "ସାଇତିବେ";
+"edit-summary-choice-linked-words" = "ସମ୍ବନ୍ଧିତ ଶବ୍ଦରାଜି";
+"edit-summary-choice-fixed-grammar" = "ବ୍ୟାକରଣ ସଜାଡ଼ିବେ";
+"edit-summary-choice-fixed-inaccuracy" = "ଭୁଲ ସୁଧାରିବେ";
+"edit-summary-choice-fixed-styling" = "ଫିକ୍ସଡ ସଜାଣି";
+"edit-summary-choice-fixed-typos" = "ଫିକ୍ସଡ଼ ବନାନ";
+"edit-summary-choice-added-category" = "ଶ୍ରେଣୀଟିଏ ଯୋଡ଼ନ୍ତୁ";
+"edit-summary-choice-added-missing-info" = "ଏଥିରେ ନଥିବା ସୂଚନା ଯୋଡ଼ାଗଲା";
+"edit-summary-choice-added-clarification" = "ସ୍ପଷ୍ଟୀକରଣ ଯୋଡ଼ାଗଲା";
+"edit-summary-choice-other" = "ଅନ୍ୟାନ୍ୟ";
+"edit-summary-description" = "ଏକ ନିର୍ଦ୍ଦିଷ୍ଟ ସାରାଂଶ ବାକି ସମ୍ପାଦକମାନଙ୍କୁ ଆପଣଙ୍କ ସମ୍ପାଦନା ସଙ୍ଗେସଙ୍ଗେ ପରଖିବାରେ ସାହାଯ୍ୟ କରେ । ଆପଣ ତଳ ଟ୍ୟାଗରୁ ମଧ୍ୟ ବାଛି ପାରିବେ ।";
+"edit-summary-field-placeholder-text" = "ପୃଷ୍ଠାଟିକୁ ଆପଣ କିପରି ସୁଧାରିଲେ?";
+"fetching-random-article" = "ଯାହିତାହି ପ୍ରସଙ୍ଗଟିଏ ଆହରଣ କରୁଛି";
+"article-pull-to-refresh-prompt" = "ପ୍ରସଙ୍ଗଟି ରିଫ୍ରେସ କରନ୍ତୁ";
+"article-pull-to-refresh-is-refreshing" = "ପ୍ରସଙ୍ଗଟି ରିଫ୍ରେସ କରୁଛି";
+"credits-title" = "ଓପନ ସୋର୍ସ ଭଣ୍ଡାର";
+"credits-wikimedia-repos" = "ଉଇକିମିଡ଼ିଆ";
+"credits-gerrit-repo" = "App main (Gerrit)";
+"credits-github-mirror" = "App mirror (GitHub)";
+"credits-external-libraries" = "ବାହାର";

@@ -1,0 +1,173 @@
+// Messages for Swahili (Kiswahili)
+// Exported from translatewiki.net
+// Author: Kipala
+// Author: Kwisha
+
+"article-languages-label" = "Chagua lugha";
+"article-languages-cancel" = "Ghairi";
+"article-read-more-title" = "Soma zaidi";
+"info-box-close-text" = "Funga";
+"table-title-other" = "Maelezo zaidi";
+"history-label" = "Ya hivi karibuni";
+"history-section-today" = "Leo";
+"history-section-yesterday" = "Jana";
+"history-section-lastweek" = "Wiki iliyopita";
+"history-section-lastmonth" = "Mwezi iliopita";
+// Fuzzy
+"history-clear-confirmation-heading" = "Futa vifaa vyote vya hivi karibuni?";
+"history-clear-confirmation-sub-heading" = "Hii haiwezi kufanyuliwa";
+"history-clear-cancel" = "Ghairi";
+// Fuzzy
+"history-clear-delete-all" = "Futa Zote";
+"zero-charged-verbiage" = "Wikipedia Zero imezimwa";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Unatoka Wikipedia Zero";
+"zero-interstitial-leave-app" = "Unaweza kulipishwa matumizi ya data. Elekea kwenye tovuti ya nje?";
+"zero-interstitial-continue" = "Toka";
+"zero-interstitial-cancel" = "Kaa Hapa";
+"zero-learn-more-learn-more" = "Soma zaidi";
+"zero-learn-more-no-thanks" = "Futilia mbali";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
+"zero-warn-when-leaving" = "Toa ilani kama natoka Wikipedia Zero";
+"account-creation-logging-in" = "Unaingia...";
+"account-creation-saving" = "Inahifadhi...";
+"account-creation-login" = "Uko na akaunti tayari? Ingia.";
+// Fuzzy
+"account-creation-username-placeholder-text" = "Jina la mtumiaji";
+"account-creation-password-placeholder-text" = "Neno la siri";
+"account-creation-password-confirm-placeholder-text" = "Thibitisha neno la siri";
+"account-creation-email-placeholder-text" = "Barua pepe(sio lazima)";
+"account-creation-missing-fields" = "Lazima uingize jina la mtumiaji, neno la siri na dhibitisho ya neno la siri ili kuunda akaunti.";
+// Fuzzy
+"login-name-not-found" = "Jina la mtumiaji linahitajika ili kuingia.";
+// Fuzzy
+"login-name-illegal" = "Umetoa jina haramu la mtumiaji.";
+// Fuzzy
+"login-username-placeholder-text" = "Jina la mtumiaji";
+"login-password-placeholder-text" = "Neno la siri";
+"wikitext-downloading" = "Inapakia maudhui...";
+"wikitext-upload-save" = "Inahifadhi...";
+"wikitext-upload-save-sign-in" = "Ingia";
+"wikitext-upload-save-anonymously" = "Hifadhi bila majina";
+"wikitext-upload-save-terms-name" = "Masharti ya matumizi";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Fungua kiungo";
+"open-link-cancel" = "Ghairi";
+"search-searching" = "Inatafuta...";
+"search-field-placeholder-text" = "Tafuta Wikipedia";
+"search-field-placeholder-text-zero" = "Tafuta Wikipedia Zero";
+"search-cancel" = "Ghairi";
+"search-titles" = "Kichwa";
+"search-within-articles" = "Katika makala";
+"search-did-you-mean" = "Ulimaanisha $1?";
+// Fuzzy
+"search-recent-title" = "Kutafuta kwa hivi karibuni";
+"search-recent-clear-cancel" = "Ghairi";
+"search-recent-clear-delete-all" = "Futa Zote";
+"main-menu-title" = "Zaidi";
+"main-menu-language-title" = "Tafuta $1 Wikipedia";
+"main-menu-language-toggle-show" = "Onyesha lugha";
+"main-menu-language-toggle-hide" = "Ficha lugha";
+"main-menu-account-title-logged-out" = "Akaunti";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Umeingia kama: $1";
+// Fuzzy
+"main-menu-account-login" = "Ingia";
+"main-menu-account-logout" = "Toka";
+"main-menu-show-title" = "Nionyeshe...";
+"main-menu-show-history" = "Ya hivi karibuni";
+"main-menu-show-saved" = "Kurasa zilizohifadhiwa";
+"main-menu-random" = "Bahatisha";
+"main-menu-feedback-heading" = "Maoni";
+// Fuzzy
+"main-menu-send-feedback" = "Toa maoni ya programu timizi";
+"main-menu-show-page-history" = "Historia ya mabadiliko kwa $1";
+"main-menu-credits" = "Shukrani kwa";
+// Fuzzy
+"main-menu-about" = "Kuhusu programu tumizi ya Wikimedia";
+"main-menu-zero-faq" = "Wikipedia Zero Maswali Yaulizwayo Mara kwa Mara";
+"main-menu-privacy-policy" = "Sera ya faragha";
+// Fuzzy
+"main-menu-terms-of-use" = "Masharti ya matumizi";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Faragha na Masharti";
+"main-menu-show-today" = "Leo";
+"main-menu-nearby" = "Karibu";
+"main-menu-more" = "Zaidi...";
+"saved-pages-title" = "Kurasa zilizohifadhiwa";
+"saved-pages-clear-cancel" = "Ghairi";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Futa Zote";
+"saved-pages-refresh-cancel-alert-button" = "Nimeipata";
+"page-history-title" = "Historia ya makala";
+"page-history-downloading" = "Inapakia historia ya makala...";
+"navbar-title-mode-edit-wikitext" = "Hariri";
+"navbar-title-mode-login" = "Ingia";
+"navbar-title-mode-login-and-save" = "Ingia na uhifadhi";
+"navbar-title-mode-create-account" = "Unda akaunti";
+"navbar-title-mode-create-account-and-save" = "Unda akaunti na uhifadhi";
+"navbar-title-mode-edit-wikitext-preview" = "Onyesha hakikisho";
+"navbar-title-mode-edit-wikitext-summary" = "Eleza kuhusu kuhariri kwako";
+"navbar-title-mode-edit-wikitext-save" = "Hifadhi";
+"edit-summary-choice-linked-words" = "Nimeongeza viungo";
+"edit-summary-choice-fixed-grammar" = "Nimerekebisha sarufi";
+"edit-summary-choice-fixed-inaccuracy" = "Nimerekebisha kutokuwa sahihi";
+"edit-summary-choice-fixed-typos" = "Nimerekebisha chapa mbaya";
+"edit-summary-choice-added-category" = "Nimeongeza kundi";
+"edit-summary-choice-added-missing-info" = "Nimeongeza habari iliyokuwa inakosa";
+"edit-summary-choice-other" = "Nyingine";
+"about-title" = "Kuhusu";
+"about-wikipedia" = "Wikipedia";
+// Fuzzy
+"about-contributors" = "wachangiaji";
+// Fuzzy
+"about-translators" = "wafasiri";
+"about-libraries-license" = "Leseni";
+"about-send-feedback" = "Toa maoni ya programu timizi";
+// Fuzzy
+"about-product-of" = "Bidhaa ya $1";
+"about-wikimedia-foundation" = "Wakfu wa Wikimedia";
+"share-menu-save-page" = "Hifadhi ukurasa";
+"share-custom-menu-item" = "Gawa";
+"share-article-name-on-wikipedia" = "\"$1\" katika @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" katika @Wikipedia: \"$2\"";
+"share-as-image" = "Shiriki kama picha";
+"share-as-text" = "Shiriki kama maandiko";
+"timestamp-just-now" = "sasa hivi";
+"timestamp-minutes" = "dakika %d zilizopita";
+"timestamp-hours" = "masaa %d yaliyopita";
+"timestamp-days" = "siku %d zilizopita";
+"timestamp-months" = "miezi %d ilioyopita";
+"timestamp-years" = "miaka %d iliyopita";
+"lastmodified-by-user" = "Ilihaririwa $1 na $2";
+"button-next" = "Inayofuata";
+"button-done" = "Tayari";
+"button-save" = "Hifadhi";
+"onboarding-create-account" = "Unda akaunti";
+"onboarding-login" = "Ingia";
+"onboarding-already-have-account" = "Tayari uko na akaunti? $1";
+"onboarding-skip" = "Ruka";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Encyclopedia ya Bure";
+"preference-title-eventlogging-opt-in" = "Tuma ripoti za matumizi";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "Yaliyomo";
+"menu-edit-accessibility-label" = "Hariri";
+"menu-close-accessibility-label" = "Funga";
+"menu-preview-accessibility-label" = "Onyesha hakikisho";
+"menu-back-accessibility-label" = "Rudi";
+"menu-forward-accessibility-label" = "Mbele";
+"menu-w-accessibility-label" = "Menyu";
+"menu-toc-accessibility-label" = "Yaliyomo";
+"menu-search-accessibility-label" = "Tafuta";
+"menu-reload-accessibility-label" = "Pakia tena";
+"menu-cancel-accessibility-label" = "Ghairi";
+"menu-share-accessibility-label" = "Gawa";
+"menu-more-accessibility-label" = "Mipangilio zaidi";
+"menu-trash-accessibility-label" = "Futa";
+"nearby-title" = "Karibu";
+"nearby-distance-label-meters" = "$1 mita";
+"nearby-distance-label-km" = "$1 kilomita";
+"nearby-distance-label-feet" = "$1 fiti";
+"hockeyapp-alert-send-report" = "tuma ripoti";
