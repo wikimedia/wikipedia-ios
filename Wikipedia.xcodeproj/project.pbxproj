@@ -563,8 +563,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D8171C471E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
-		D8171C481E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
 		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
 		D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */ = {isa = PBXBuildFile; fileRef = D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */; };
@@ -1104,7 +1102,6 @@
 		D8A42B4F1E815A9C00D8E281 /* InTheNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */; };
 		D8A42B501E815A9C00D8E281 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		D8A42B511E815A9C00D8E281 /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */; };
-		D8A42B521E815A9C00D8E281 /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
 		D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
 		D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF91D2FEE6300963D42 /* WMFRandomDiceButton.m */; };
 		D8A42B551E815A9C00D8E281 /* WMFExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */; };
@@ -1967,7 +1964,6 @@
 		D8EC3E751E9BDA35006712EB /* WMFAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */; };
 		D8EC3E761E9BDA35006712EB /* UITextField+WMFAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07715211E69401800D393FE /* UITextField+WMFAuth.swift */; };
 		D8EC3E771E9BDA35006712EB /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
-		D8EC3E781E9BDA35006712EB /* ArticlePlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */; };
 		D8EC3E791E9BDA35006712EB /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* PreviewAndSaveViewController.m */; };
 		D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
 		D8EC3E7B1E9BDA35006712EB /* SSBaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A91E686B9C00BA8579 /* SSBaseCollectionCell.m */; };
@@ -3707,7 +3703,6 @@
 		D810C3481DF1C0A4003427DA /* Tweaks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tweaks.framework; path = Carthage/Build/iOS/Tweaks.framework; sourceTree = SOURCE_ROOT; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
 		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
-		D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlaceGroupViewController.swift; sourceTree = "<group>"; };
 		D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreFeedContentController.h; sourceTree = "<group>"; };
 		D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreFeedContentController.m; sourceTree = "<group>"; };
 		D81BA0F51D50D40B006C38AC /* WMFNearbyArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyArticleTableViewCell.h; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -7203,7 +7198,6 @@
 				D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */,
 				D82972821E3950100061550A /* ArticlePlace.swift */,
 				D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */,
-				D8171C461E731E170061F075 /* ArticlePlaceGroupViewController.swift */,
 				D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */,
 				D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */,
 				D87234031E1FF18100751E83 /* Places.storyboard */,
@@ -9142,7 +9136,6 @@
 				D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
-				D8171C471E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */,
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				0E19B99C1DA6E1A400239F3A /* WMFExploreViewController.m in Sources */,
@@ -9669,7 +9662,6 @@
 				D8A42B4F1E815A9C00D8E281 /* InTheNewsViewController.swift in Sources */,
 				D8A42B501E815A9C00D8E281 /* main.m in Sources */,
 				D8A42B511E815A9C00D8E281 /* WMFShareOptionsController.m in Sources */,
-				D8A42B521E815A9C00D8E281 /* ArticlePlaceGroupViewController.swift in Sources */,
 				D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */,
 				D8A42B551E815A9C00D8E281 /* WMFExploreViewController.m in Sources */,
@@ -9906,7 +9898,6 @@
 				D8CE257C1E698E2400DAE2E0 /* WMFAuthenticationManager.swift in Sources */,
 				D81446001E7094240078D71E /* UITextField+WMFAuth.swift in Sources */,
 				D8CE257D1E698E2400DAE2E0 /* WMFAuthLoginInfoFetcher.swift in Sources */,
-				D8171C481E731E170061F075 /* ArticlePlaceGroupViewController.swift in Sources */,
 				D8CE257E1E698E2400DAE2E0 /* PreviewAndSaveViewController.m in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
 				D8CE25801E698E2400DAE2E0 /* SSBaseCollectionCell.m in Sources */,
@@ -10234,7 +10225,6 @@
 				D8EC3E751E9BDA35006712EB /* WMFAuthenticationManager.swift in Sources */,
 				D8EC3E761E9BDA35006712EB /* UITextField+WMFAuth.swift in Sources */,
 				D8EC3E771E9BDA35006712EB /* WMFAuthLoginInfoFetcher.swift in Sources */,
-				D8EC3E781E9BDA35006712EB /* ArticlePlaceGroupViewController.swift in Sources */,
 				D8EC3E791E9BDA35006712EB /* PreviewAndSaveViewController.m in Sources */,
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
 				D8EC3E7B1E9BDA35006712EB /* SSBaseCollectionCell.m in Sources */,
@@ -12300,7 +12290,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_PLACES_GROUP_POPOVERS";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -12587,7 +12577,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_PLACES_GROUP_POPOVERS";
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
