@@ -367,9 +367,9 @@
 "places-filter-list-title" = "Title shown above list of search filters that can be selected";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
 "places-filter-saved-articles" = "Title of places saerch filter that searches saved articles";
-"places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - %d is replaced with the number of articles";
+"places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - %d is replaced with the number of articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the filter ('Top articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";

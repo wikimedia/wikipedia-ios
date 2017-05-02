@@ -13,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>Znaleziono %d miejsca</string>
+			<string>Znaleziono %1$d miejsca</string>
 			<key>one</key>
-			<string>Znaleziono %d miejsce</string>
+			<string>Znaleziono %1$d miejsce</string>
 			<key>other</key>
-			<string>Znaleziono %d miejsc</string>
+			<string>Znaleziono %1$d miejsc</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -31,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%d artykuły</string>
+			<string>%1$d artykuły</string>
 			<key>one</key>
-			<string>%d artykuł</string>
+			<string>%1$d artykuł</string>
 			<key>other</key>
-			<string>%d artykułów</string>
+			<string>%1$d artykułów</string>
 		</dict>
 	</dict>
 </dict>

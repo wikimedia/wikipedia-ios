@@ -13,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%d места пронађена</string>
+			<string>%1$d места пронађена</string>
 			<key>one</key>
-			<string>%d место пронађено</string>
+			<string>%1$d место пронађено</string>
 			<key>other</key>
-			<string>%d места пронађено</string>
+			<string>%1$d места пронађено</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -31,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%d чланка</string>
+			<string>%1$d чланка</string>
 			<key>one</key>
-			<string>%d чланак</string>
+			<string>%1$d чланак</string>
 			<key>other</key>
-			<string>%d чланака</string>
+			<string>%1$d чланака</string>
 		</dict>
 	</dict>
 </dict>

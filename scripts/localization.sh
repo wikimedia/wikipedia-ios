@@ -1,3 +1,3 @@
 #! /bin/sh
 
-xcrun extractLocStrings -o Wikipedia/Localizations/Base.lproj/ Wikipedia/Code/*
+xcrun extractLocStrings -o Wikipedia/iOS\ Native\ Localizations/Base.lproj/ Wikipedia/Code/*
