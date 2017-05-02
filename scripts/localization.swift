@@ -27,7 +27,19 @@ fileprivate var iOSTokenRegex: NSRegularExpression? = {
     return nil
 }()
 
+fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
+    do {
+        return try NSRegularExpression(pattern: "(?:MWLocalizedString\\(@\\\")(:?[^\"]+)", options: [])
+    } catch {
+        assertionFailure("mwLocalizedStringRegex failed to compile")
+    }
+    return nil
+}()
+
 extension String {
+    var escapedString: String {
+        return self.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n")
+    }
     var pluralDictionary: NSDictionary? {
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
@@ -70,10 +82,10 @@ extension String {
         let range = lower..<upper
         
         let keyDictionary = NSMutableDictionary(capacity: 5)
-		let formatValueType = "d"
+        let formatValueType = "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
-		let newToken = "%1$\(formatValueType)"
+        let newToken = "%1$\(formatValueType)"
         keyDictionary["other"] = self.replacingCharacters(in: range, with: other).replacingOccurrences(of: token, with: newToken)
         
         if countOfComponents > 2 {
@@ -91,55 +103,48 @@ extension String {
         return mutableDictionary
     }
     
+    public func replacingMatches(fromRegex regex: NSRegularExpression, withFormat format: String) -> String {
+        let nativeLocalization = NSMutableString(string: self)
+        var offset = 0
+        let fullRange = NSRange(location: 0, length: nativeLocalization.length)
+        regex.enumerateMatches(in: self, options: [], range: fullRange) { (result, flags, stop) in
+            guard let result = result else {
+                return
+            }
+            let token = regex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
+            let replacement = String(format: format, token)
+            let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
+            nativeLocalization.replaceCharacters(in: replacementRange, with: replacement)
+            offset += (replacement as NSString).length - result.range.length
+        }
+        return nativeLocalization as String
+    }
+    
     var iOSNativeLocalization: String {
         guard let tokenRegex = twnTokenRegex else {
             return ""
         }
-        var nativeLocalization = self as NSString
-        var offset = 0
-        let fullRange = NSRange(location: 0, length: nativeLocalization.length)
-        tokenRegex.enumerateMatches(in: nativeLocalization as String, options: [], range: fullRange) { (result, flags, stop) in
-            guard let result = result else {
-                return
-            }
-            let token = tokenRegex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
-            let replacement = "%\(token)$@"
-            nativeLocalization = nativeLocalization.replacingCharacters(in: NSRange(location: result.range.location + offset, length: result.range.length), with: replacement) as NSString
-            offset += replacement.characters.count - result.range.length
-        }
-        return nativeLocalization as String
+        return self.replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
     }
     
     var twnNativeLocalization: String {
         guard let tokenRegex = iOSTokenRegex else {
             return ""
         }
-        var nativeLocalization = self as NSString
-        var offset = 0
-        let fullRange = NSRange(location: 0, length: nativeLocalization.length)
-        tokenRegex.enumerateMatches(in: nativeLocalization as String, options: [], range: fullRange) { (result, flags, stop) in
-            guard let result = result else {
-                return
-            }
-            let token = tokenRegex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
-            let replacement = "$\(token)"
-            nativeLocalization = nativeLocalization.replacingCharacters(in: NSRange(location: result.range.location + offset, length: result.range.length), with: replacement) as NSString
-            offset += replacement.characters.count - result.range.length
-        }
-        return nativeLocalization as String
+        return self.replacingMatches(fromRegex: tokenRegex, withFormat: "$%@")
     }
 }
 
 func writeStrings(fromDictionary dictionary: [String: String], toFile: String) throws {
     var output = ""
-	let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
-    	return kv1.key < kv2.key
-	})
+    let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
+        return kv1.key < kv2.key
+    })
     for (key, value) in sortedDictionary {
-        output.append("\"\(key)\" = \"\(value.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n"))\";\n")
+        output.append("\"\(key)\" = \"\(value.escapedString)\";\n")
     }
-
-	try output.write(toFile: toFile, atomically: true, encoding: .utf8)
+    
+    try output.write(toFile: toFile, atomically: true, encoding: .utf8)
 }
 
 let basePath = "Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
@@ -147,98 +152,130 @@ let qqqPath = "Wikipedia/Localizations/qqq.lproj/Localizable.strings"
 let enPath = "Wikipedia/Localizations/en.lproj/Localizable.strings"
 
 guard let baseDictionary = NSDictionary(contentsOfFile: basePath),
-let qqqDictionary = NSMutableDictionary(contentsOfFile: qqqPath),
-let enDictionary = NSMutableDictionary(contentsOfFile: enPath) else {
-	abort()
+   let qqqDictionary = NSMutableDictionary(contentsOfFile: qqqPath),
+   let enDictionary = NSMutableDictionary(contentsOfFile: enPath) else {
+       print("ABORTING")
+       abort()
 }
 
 
 do {
-    let commentSet = CharacterSet(charactersIn: "/* ")
-    let quoteSet = CharacterSet(charactersIn: "\"")
-    let string = try String(contentsOfFile: basePath)
-    let lines = string.components(separatedBy: .newlines)
-    var currentComment: String?
-    var currentKey: String?
-    var commentsByKey = [String: String]()
-    for line in lines {
-        let cleanedLine = line.trimmingCharacters(in: .whitespaces)
-        if cleanedLine.hasPrefix("/*") {
-            currentComment = cleanedLine.trimmingCharacters(in: commentSet)
-            currentKey = nil
-        } else if currentComment != nil {
-            let quotesRemoved = cleanedLine.trimmingCharacters(in: quoteSet)
-            
-            if let range = quotesRemoved.range(of: "\" = \"") {
-                currentKey = quotesRemoved.substring(to: range.lowerBound)
+   let commentSet = CharacterSet(charactersIn: "/* ")
+   let quoteSet = CharacterSet(charactersIn: "\"")
+   let string = try String(contentsOfFile: basePath)
+   let lines = string.components(separatedBy: .newlines)
+   var currentComment: String?
+   var currentKey: String?
+   var commentsByKey = [String: String]()
+   for line in lines {
+       let cleanedLine = line.trimmingCharacters(in: .whitespaces)
+       if cleanedLine.hasPrefix("/*") {
+           currentComment = cleanedLine.trimmingCharacters(in: commentSet)
+           currentKey = nil
+       } else if currentComment != nil {
+           let quotesRemoved = cleanedLine.trimmingCharacters(in: quoteSet)
+
+           if let range = quotesRemoved.range(of: "\" = \"") {
+               currentKey = quotesRemoved.substring(to: range.lowerBound)
+           }
+       }
+       if let key = currentKey, let comment =  currentComment {
+           commentsByKey[key] = comment
+       }
+   }
+
+   for (key, comment) in commentsByKey {
+       qqqDictionary[key] = comment
+   }
+   let qqq = qqqDictionary as! [String: String]
+   try writeStrings(fromDictionary: qqq, toFile: qqqPath)
+
+   for (key, value) in baseDictionary {
+       guard let value = value as? String else {
+           continue
+       }
+       enDictionary[key] = value.twnNativeLocalization
+   }
+   let en = enDictionary as! [String: String]
+   try writeStrings(fromDictionary: en, toFile: enPath)
+
+  
+    var replacements = [String: String]()
+   for (key, comment) in qqq {
+       guard let value = en[key] else {
+           continue
+       }
+       replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
+   }
+
+   let codePath = "Wikipedia/Code"
+   let contents = try FileManager.default.contentsOfDirectory(atPath: codePath)
+    guard let mwLocalizedStringRegex = mwLocalizedStringRegex else {
+        abort()
+    }
+    for filename in contents {
+        do {
+			let path = codePath + "/" + filename
+            let string = try String(contentsOfFile: path)
+            //let string = try String(contentsOf: #fileLiteral(resourceName: "WMFContentGroup+WMFFeedContentDisplaying.m"))
+            let mutableString = NSMutableString(string: string)
+            var offset = 0
+            let fullRange = NSRange(location: 0, length: mutableString.length)
+            mwLocalizedStringRegex.enumerateMatches(in: string, options: [], range: fullRange) { (result, flags, stop) in
+                guard let result = result else {
+                    return
+                }
+                let key = mwLocalizedStringRegex.replacementString(for: result, in: mutableString as String, offset: offset, template: "$1")
+                guard let replacement = replacements[key] else {
+                    return
+                }
+                let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
+                mutableString.replaceCharacters(in: replacementRange, with: replacement)
+                offset += (replacement as NSString).length - replacementRange.length
             }
-        }
-        if let key = currentKey, let comment =  currentComment {
-            commentsByKey[key] = comment
-        }
-    }
-
-    for (key, comment) in commentsByKey {
-        qqqDictionary[key] = comment
-    }
-    try writeStrings(fromDictionary: qqqDictionary as! [String: String], toFile: qqqPath)
-	
-	for (key, value) in baseDictionary {
-		guard let value = value as? String else {
-			continue
-		}
-    	enDictionary[key] = value.twnNativeLocalization
-    }
-    try writeStrings(fromDictionary: enDictionary as! [String: String], toFile: enPath)
-	
-	
-	for (key, comment) in qqqDictionary {
-		
-	}
-	
-
+			mutableString.write(toFile: path, atomically: true, encoding: .utf8)
+        } catch { }
+   }
 } catch let error {
-    print("error: \(error)")
+   print("error: \(error)")
 }
 
 
 let fm = FileManager.default
 
 do {
-    let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
-    for filename in contents {
-		//print("parsing \(filename)")
-        guard let locale = filename.components(separatedBy: ".").first else {
-            continue
-        }
-        guard let twnStrings = NSDictionary(contentsOfFile: "Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
-            continue
-        }
-        let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
-        let strings = NSMutableDictionary(capacity: twnStrings.count)
-        for (key, value) in twnStrings {
-            guard let twnString = value as? String else {
-                continue
-            }
-            if twnString.contains("{{PLURAL:") {
-                stringsDict[key] = twnString.pluralDictionary
-            } else {
-                strings[key] = twnString.iOSNativeLocalization
-            }
-        }
-		
-		try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings")
-        guard stringsDict.count > 0 else {
-            do {
-                try fm.removeItem(atPath: "Wikipedia/Localizations/\(locale).lproj/Localizable.stringsdict")
-            } catch { }
-            continue
-        }
-        stringsDict.write(toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
-    }
-    
+   let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
+   for filename in contents {
+       //print("parsing \(filename)")
+       guard let locale = filename.components(separatedBy: ".").first, locale.lowercased() != "base" else {
+           continue
+       }
+       guard let twnStrings = NSDictionary(contentsOfFile: "Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
+           continue
+       }
+       let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
+       let strings = NSMutableDictionary(capacity: twnStrings.count)
+       for (key, value) in twnStrings {
+           guard let twnString = value as? String else {
+               continue
+           }
+           if twnString.contains("{{PLURAL:") {
+               stringsDict[key] = twnString.pluralDictionary
+           } else {
+               strings[key] = twnString.iOSNativeLocalization
+           }
+       }
+
+       try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings")
+       guard stringsDict.count > 0 else {
+           do {
+               try fm.removeItem(atPath: "Wikipedia/Localizations/\(locale).lproj/Localizable.stringsdict")
+           } catch { }
+           continue
+       }
+       stringsDict.write(toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
+   }
+
 } catch let error {
-    
+
 }
-
-
