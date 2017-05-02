@@ -1,117 +1,94 @@
-// Messages for Hawaiian (Hawai`i)
-// Exported from translatewiki.net
-// Author: Kolonahe
-
-"article-languages-label" = "Koho i ka ʻōlelo";
-"article-languages-cancel" = "Hoʻōki";
-"article-languages-downloading" = "Ke hoʻouka nei i nā ʻōlelo ʻatikala...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Kānana";
-// Fuzzy
-"history-label" = "Mōʻaukaki Pūnaewele";
-"history-section-today" = "I kēia lā";
-"history-section-yesterday" = "I nehinei";
-"history-section-lastweek" = "I ka pule aku nei";
-"history-section-lastmonth" = "I ka mahina aku nei";
-"zero-free-verbiage" = "Hiki iā ʻoe ke kele iā Wikipikia me ka uku ʻole ʻana mai kāu ʻoihana ponakaʻa (ʻaʻohe uku ʻikepili)";
-// Fuzzy
-"zero-charged-verbiage" = "Pani ʻo Wikipikia Zero (HANA PAHA I NĀ UKU ʻIKEPILI PAʻAMAU)";
-"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Haʻalele mai Wikipikia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "Holomua i ke kahua kūwaho? Hana paha i nā uku ʻikepili paʻamau.";
-// Fuzzy
-"zero-interstitial-continue" = "Holomua";
-// Fuzzy
-"zero-interstitial-cancel" = "Hoʻōki";
-// Fuzzy
-"zero-learn-more" = "Makemake e aʻo mai e pili ana Wikipikia Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "E aʻo mai";
-// Fuzzy
-"zero-learn-more-no-thanks" = "ʻAʻole";
-"zero-wikipedia-zero-heading" = "Wikipikia Zero";
-"zero-warn-when-leaving" = "E akahele iaʻu inā haʻalele wau mai Wikipikia Zero";
-"zero-settings-devmode" = "Devamoda Zero";
-"account-creation-captcha-required" = "Koi i ka hōʻoia Kapakā.";
 "account-creation-captcha-obtaining" = "Lawe nei i kekahi Kapakā hou.";
+"account-creation-captcha-required" = "Koi i ka hōʻoia Kapakā.";
 "account-creation-logging-in" = "ʻEʻe nei...";
 "account-creation-passwords-mismatched" = "ʻAʻole like nā ʻōlelo hūnā ʻelua";
 "account-creation-saving" = "Mālama nei...";
-"login-name-not-found" = "Koi i ka inoa mea hoʻohana no ka ʻeʻe ʻana.";
-"login-name-illegal" = "Ua loko ʻoe i kekahi inoa mea hoʻohana kolohe.";
-"login-name-does-not-exist" = "ʻAʻohe inoa mea hoʻohana āu i lako ʻia ai.";
-"login-password-empty" = "Koi i ka ʻōlelo hūnā no ka ʻeʻe ʻana.";
-"login-password-wrong" = "Hewa ka ʻōlelo hūnā.";
-"login-throttled" = "Ua ʻeʻe hewa i nā manawa nunui i kekahi manawa pōkole.";
-"login-user-blocked" = "Ua pale ‘ia ka mea ho‘ohana";
-// Fuzzy
-"wikitext-downloading" = "HOʻouka nei i ke kikokikona wiki...";
-"wikitext-download-failed" = "Hiki ʻole ke loaʻa ke kāmua houloa.";
-// Fuzzy
-"wikitext-download-success" = "Hoʻouka ʻia ke kikokikona wiki";
-"wikitext-preview-changes" = "Lawe ʻia nei ka nāmua o kāu mau loli...";
-"wikitext-preview-changes-none" = "ʻAʻohe loli a ka nāmua.";
-"wikitext-upload-result-unknown" = "Hiki ʻole ke ʻike ka hopena o ka hoʻouka kikokikonawiki ʻana.";
-"wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
-"wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
-"wikitext-upload-save" = "Mālama nei...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "E ʻeʻe a mālama";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "No laila hiki i nā luna hoʻoponopono ʻē aʻe ke hoʻokuʻi me ʻoe a hiki iā ʻoe ke ʻike i nā ʻatikala āu i hoʻololi ai";
-"wikitext-upload-save-anonymously" = "Mālama me ka inoa ʻole";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Oi aʻe ka pilikino o ka hana ʻeʻe ma mua o kēia hana ʻana. E hōʻike ana i kāu wahinoho IP me kāu mau hoʻololi a ma ka mālama ʻana, ʻae ʻoe i ka paʻi ʻana o kāu mau hoʻololi ma lalo o ka laikini CC BY-SA 3.0";
-"search-searching" = "Huli nei...";
-"search-no-matches" = "ʻAʻohe mea i loaʻa ʻia no kāu māmalaʻōlelo.";
-"search-field-placeholder-text" = "Huli iā Wikipikia";
-"search-field-placeholder-text-zero" = "Huli iā Wikipikia Zero";
-"search-loading-section-zero" = "Hoʻouka nei i ka pauku mua o kēia ʻatikala...";
-"search-loading-section-remaining" = "Hoʻouka nei i nā mea ʻē aʻe o ka ʻatikala...";
-"search-loading-article-loaded" = "Hoʻouka ʻia ka ʻatikala.";
-"main-menu-language-title" = "Huli i ka wiki ʻōlelo $1";
-"main-menu-language-toggle-show" = "Hōʻike i nā ʻōlelo";
-"main-menu-language-toggle-hide" = "Hoʻohūnā i nā ʻōlelo";
-"main-menu-language-selection-saved" = "Ua mālama ʻia ka ʻōlelo";
-"main-menu-account-title-logged-out" = "Moʻokāki";
-"main-menu-account-title-logged-in" = "ʻEʻe ʻia e: $1";
-"main-menu-account-login" = "ʻEʻe";
-"main-menu-account-logout" = "Haʻalele";
-"main-menu-show-title" = "Hōʻike iaʻu...";
-// Fuzzy
-"main-menu-show-history" = "Mōʻaukala Kelena";
-"main-menu-show-saved" = "Kaʻu ʻaoʻao mālama ʻia";
-"main-menu-current-article-save" = "Mālama no ka heluhelu pūnaeweleʻole ʻana";
-// Fuzzy
-"main-menu-random" = "ʻAtikala kaulele";
-"main-menu-feedback-heading" = "Manaʻo";
-// Fuzzy
-"main-menu-send-feedback" = "Hoʻouna i ka manaʻo";
-"saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
-"navbar-title-mode-edit-wikitext" = "Hoʻololi";
-// Fuzzy
-"navbar-title-mode-login" = "ʻEʻe";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "E ʻeʻe a mālama";
-"navbar-title-mode-create-account" = "E Kāinoa";
-"navbar-title-mode-create-account-and-save" = "E kāinoa a mālama";
-"navbar-title-mode-edit-wikitext-warning" = "Hoʻololi i nā pilikia";
-"navbar-title-mode-edit-wikitext-disallow" = "HOʻololi i nā pilikia";
-"navbar-title-mode-edit-wikitext-preview" = "Nāmua";
-"navbar-title-mode-edit-wikitext-captcha" = "Pono i ka hōʻoiana wiki";
-"navbar-title-mode-edit-wikitext-summary" = "E hōʻike ʻano i kāu hoʻololi";
-"edit-summary-choice-linked-words" = "Ua hoʻoloulou i nā huaʻōlelo";
+"article-languages-cancel" = "Hoʻōki";
+"article-languages-downloading" = "Ke hoʻouka nei i nā ʻōlelo ʻatikala...";
+"article-languages-filter-placeholder" = "Kānana";
+"article-languages-label" = "Koho i ka ʻōlelo";
+"article-pull-to-refresh-is-refreshing" = "Ke hoʻohelei nei i ka ʻatikala";
+"article-pull-to-refresh-prompt" = "Hoʻohelei no ka hōʻano hou o ka ʻatikala";
+"edit-summary-choice-added-category" = "Ua hoʻohui i ka mahele";
+"edit-summary-choice-added-clarification" = "Ua hoʻohui i ka moaka";
+"edit-summary-choice-added-missing-info" = "Ua hoʻohui i nā ʻike nele";
 "edit-summary-choice-fixed-grammar" = "Ua kāpili hou i ka pilinaʻōlelo";
 "edit-summary-choice-fixed-inaccuracy" = "Ua kāpili hou i ka ʻākulakī ʻole";
 "edit-summary-choice-fixed-styling" = "Ua kāpili hou i ke kaila";
 "edit-summary-choice-fixed-typos" = "Ua kāpili hou i ka hewa kākau";
-"edit-summary-choice-added-category" = "Ua hoʻohui i ka mahele";
-"edit-summary-choice-added-missing-info" = "Ua hoʻohui i nā ʻike nele";
-"edit-summary-choice-added-clarification" = "Ua hoʻohui i ka moaka";
+"edit-summary-choice-linked-words" = "Ua hoʻoloulou i nā huaʻōlelo";
 "edit-summary-choice-other" = "He mea ʻē aʻe";
 "edit-summary-description" = "Kākoʻo kekahi hōʻuluʻulu manaʻo kikoʻī i ka loihape ʻana o kāu mau hoʻololi e nā luna hoʻoponopono ʻē aʻe. Hiki iā ʻoe ke koho mai nā lepili i lalo.";
 "edit-summary-field-placeholder-text" = "Pehea āu i holomua ai i ka ʻaoʻao?";
 "fetching-random-article" = "Ke kiʻi nei i kekahi ʻatikala kaulele";
-"article-pull-to-refresh-prompt" = "Hoʻohelei no ka hōʻano hou o ka ʻatikala";
-"article-pull-to-refresh-is-refreshing" = "Ke hoʻohelei nei i ka ʻatikala";
+"history-label" = "Mōʻaukaki Pūnaewele";
+"history-section-lastmonth" = "I ka mahina aku nei";
+"history-section-lastweek" = "I ka pule aku nei";
+"history-section-today" = "I kēia lā";
+"history-section-yesterday" = "I nehinei";
+"login-name-does-not-exist" = "ʻAʻohe inoa mea hoʻohana āu i lako ʻia ai.";
+"login-name-illegal" = "Ua loko ʻoe i kekahi inoa mea hoʻohana kolohe.";
+"login-name-not-found" = "Koi i ka inoa mea hoʻohana no ka ʻeʻe ʻana.";
+"login-password-empty" = "Koi i ka ʻōlelo hūnā no ka ʻeʻe ʻana.";
+"login-password-wrong" = "Hewa ka ʻōlelo hūnā.";
+"login-throttled" = "Ua ʻeʻe hewa i nā manawa nunui i kekahi manawa pōkole.";
+"login-user-blocked" = "Ua pale ‘ia ka mea ho‘ohana";
+"main-menu-account-login" = "ʻEʻe";
+"main-menu-account-logout" = "Haʻalele";
+"main-menu-account-title-logged-in" = "ʻEʻe ʻia e: %1$@";
+"main-menu-account-title-logged-out" = "Moʻokāki";
+"main-menu-current-article-save" = "Mālama no ka heluhelu pūnaeweleʻole ʻana";
+"main-menu-feedback-heading" = "Manaʻo";
+"main-menu-language-selection-saved" = "Ua mālama ʻia ka ʻōlelo";
+"main-menu-language-title" = "Huli i ka wiki ʻōlelo %1$@";
+"main-menu-language-toggle-hide" = "Hoʻohūnā i nā ʻōlelo";
+"main-menu-language-toggle-show" = "Hōʻike i nā ʻōlelo";
+"main-menu-random" = "ʻAtikala kaulele";
+"main-menu-send-feedback" = "Hoʻouna i ka manaʻo";
+"main-menu-show-history" = "Mōʻaukala Kelena";
+"main-menu-show-saved" = "Kaʻu ʻaoʻao mālama ʻia";
+"main-menu-show-title" = "Hōʻike iaʻu...";
+"navbar-title-mode-create-account" = "E Kāinoa";
+"navbar-title-mode-create-account-and-save" = "E kāinoa a mālama";
+"navbar-title-mode-edit-wikitext" = "Hoʻololi";
+"navbar-title-mode-edit-wikitext-captcha" = "Pono i ka hōʻoiana wiki";
+"navbar-title-mode-edit-wikitext-disallow" = "HOʻololi i nā pilikia";
+"navbar-title-mode-edit-wikitext-preview" = "Nāmua";
+"navbar-title-mode-edit-wikitext-summary" = "E hōʻike ʻano i kāu hoʻololi";
+"navbar-title-mode-edit-wikitext-warning" = "Hoʻololi i nā pilikia";
+"navbar-title-mode-login" = "ʻEʻe";
+"navbar-title-mode-login-and-save" = "E ʻeʻe a mālama";
+"saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
+"search-field-placeholder-text" = "Huli iā Wikipikia";
+"search-field-placeholder-text-zero" = "Huli iā Wikipikia Zero";
+"search-loading-article-loaded" = "Hoʻouka ʻia ka ʻatikala.";
+"search-loading-section-remaining" = "Hoʻouka nei i nā mea ʻē aʻe o ka ʻatikala...";
+"search-loading-section-zero" = "Hoʻouka nei i ka pauku mua o kēia ʻatikala...";
+"search-no-matches" = "ʻAʻohe mea i loaʻa ʻia no kāu māmalaʻōlelo.";
+"search-searching" = "Huli nei...";
+"wikitext-download-failed" = "Hiki ʻole ke loaʻa ke kāmua houloa.";
+"wikitext-download-success" = "Hoʻouka ʻia ke kikokikona wiki";
+"wikitext-downloading" = "HOʻouka nei i ke kikokikona wiki...";
+"wikitext-preview-changes" = "Lawe ʻia nei ka nāmua o kāu mau loli...";
+"wikitext-preview-changes-none" = "ʻAʻohe loli a ka nāmua.";
+"wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
+"wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
+"wikitext-upload-result-unknown" = "Hiki ʻole ke ʻike ka hopena o ka hoʻouka kikokikonawiki ʻana.";
+"wikitext-upload-save" = "Mālama nei...";
+"wikitext-upload-save-anonymously" = "Mālama me ka inoa ʻole";
+"wikitext-upload-save-anonymously-warning" = "Oi aʻe ka pilikino o ka hana ʻeʻe ma mua o kēia hana ʻana. E hōʻike ana i kāu wahinoho IP me kāu mau hoʻololi a ma ka mālama ʻana, ʻae ʻoe i ka paʻi ʻana o kāu mau hoʻololi ma lalo o ka laikini CC BY-SA 3.0";
+"wikitext-upload-save-sign-in" = "E ʻeʻe a mālama";
+"wikitext-upload-save-sign-in-benefits" = "No laila hiki i nā luna hoʻoponopono ʻē aʻe ke hoʻokuʻi me ʻoe a hiki iā ʻoe ke ʻike i nā ʻatikala āu i hoʻololi ai";
+"zero-charged-verbiage" = "Pani ʻo Wikipikia Zero (HANA PAHA I NĀ UKU ʻIKEPILI PAʻAMAU)";
+"zero-free-verbiage" = "Hiki iā ʻoe ke kele iā Wikipikia me ka uku ʻole ʻana mai kāu ʻoihana ponakaʻa (ʻaʻohe uku ʻikepili)";
+"zero-interstitial-cancel" = "Hoʻōki";
+"zero-interstitial-continue" = "Holomua";
+"zero-interstitial-leave-app" = "Holomua i ke kahua kūwaho? Hana paha i nā uku ʻikepili paʻamau.";
+"zero-interstitial-title" = "Haʻalele mai Wikipikia Zero";
+"zero-learn-more" = "Makemake e aʻo mai e pili ana Wikipikia Zero?";
+"zero-learn-more-learn-more" = "E aʻo mai";
+"zero-learn-more-no-thanks" = "ʻAʻole";
+"zero-settings-devmode" = "Devamoda Zero";
+"zero-warn-when-leaving" = "E akahele iaʻu inā haʻalele wau mai Wikipikia Zero";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-wikipedia-zero-heading" = "Wikipikia Zero";
