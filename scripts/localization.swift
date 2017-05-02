@@ -233,7 +233,7 @@ do {
                 mutableString.replaceCharacters(in: replacementRange, with: replacement)
                 offset += (replacement as NSString).length - replacementRange.length
             }
-			mutableString.write(toFile: path, atomically: true, encoding: .utf8)
+			try mutableString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8.rawValue)
         } catch { }
    }
 } catch let error {
