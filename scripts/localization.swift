@@ -29,7 +29,7 @@ fileprivate var iOSTokenRegex: NSRegularExpression? = {
 
 fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(?:WMLocalizedString\\(\\\")(:?[^\"]+)(?:[^\\)]*\\))", options: [])
+        return try NSRegularExpression(pattern: "(?:WMLocalizedString\\(@\\\")(:?[^\"]+)(?:[^\\)]*\\))", options: [])
     } catch {
         assertionFailure("mwLocalizedStringRegex failed to compile")
     }
@@ -205,10 +205,10 @@ do {
        guard let value = en[key] else {
            continue
        }
-       replacements[key] = "NSLocalizedString(\"\(key.escapedString)\", value:\"\(value.iOSNativeLocalization.escapedString)\", comment: \"\(comment.iOSNativeLocalization.escapedString)\")"
+       replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
    }
 
-   let codePath = "Wikipedia/Code"
+   let codePath = "WMF Framework"
    let contents = try FileManager.default.contentsOfDirectory(atPath: codePath)
     guard let mwLocalizedStringRegex = mwLocalizedStringRegex else {
         abort()

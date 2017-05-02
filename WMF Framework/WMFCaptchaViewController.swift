@@ -186,13 +186,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle}
 
         captcha = nil
-        captchaTextFieldTitleLabel.text = WMLocalizedString("field-captcha-title")
-        captchaTextField.placeholder = WMLocalizedString("field-captcha-placeholder")
+        captchaTextFieldTitleLabel.text = NSLocalizedString("field-captcha-title", value:"Enter the text you see above", comment: "Title for captcha field")
+        captchaTextField.placeholder = NSLocalizedString("field-captcha-placeholder", value:"CAPTCHA text", comment: "Placeholder text shown inside captcha field until user taps on it")
         captchaTextField.wmf_addThinBottomBorder()
-        titleLabel.text = WMLocalizedString("account-creation-captcha-title")
+        titleLabel.text = NSLocalizedString("account-creation-captcha-title", value:"CAPTCHA security check", comment: "Title for account creation CAPTCHA interface")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: WMLocalizedString("account-creation-captcha-cannot-see-image"), substitutionString: WMLocalizedString("account-creation-captcha-request-account"))
+        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: NSLocalizedString("account-creation-captcha-cannot-see-image", value:"Can't see the image? %1$@", comment: "Text asking the user if they cannot see the captcha image. %1$@ is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}"), substitutionString: NSLocalizedString("account-creation-captcha-request-account", value:"Request account.", comment: "Text for link to 'Request an account' page."))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
@@ -216,7 +216,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
                 
         let failure: WMFErrorHandler = {error in }
         
-        WMFAlertManager.sharedInstance.showAlert(WMLocalizedString("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(NSLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             guard let previousCaptcha = self.captcha else {

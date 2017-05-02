@@ -6,7 +6,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = MWLocalizedString(@"page-issues", nil);
+    self.title = NSLocalizedStringWithDefaultValue(@"page-issues", nil, NSBundle.wmf_localizationBundle, @"Page issues", @"Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}");
     self.tableView.estimatedRowHeight = 90.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 

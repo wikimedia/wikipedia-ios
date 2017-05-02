@@ -179,7 +179,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
 
-    self.closeButton.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, NSBundle.mainBundle, @"Close", "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
+    self.closeButton.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, NSBundle.wmf_localizationBundle, @"Close", "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];

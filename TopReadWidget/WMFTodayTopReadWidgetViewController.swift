@@ -181,14 +181,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var headerText = ""
         
         if let language = language {
-            headerText = WMLocalizedString("top-read-header-with-language").replacingOccurrences(of: "$1", with: language)
+            headerText = NSLocalizedString("top-read-header-with-language", value:"%1$@ Wikipedia", comment: "%1$@ Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}").replacingOccurrences(of: "$1", with: language)
         } else {
-            headerText = WMLocalizedString("top-read-header-generic")
+            headerText = NSLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia\n{{Identical|Wikipedia}}")
         }
         
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
-        footerLabel.text = WMLocalizedString("top-read-see-more").uppercased()
+        footerLabel.text = NSLocalizedString("top-read-see-more", value:"See more top read", comment: "Text for footer button allowing the user to see more top read articles").uppercased()
         
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
@@ -236,7 +236,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.imageView.wmf_reset()
             let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
-            vc.rankLabel.accessibilityLabel = WMLocalizedString("rank-accessibility-label").replacingOccurrences(of: "$1", with: rankString)
+            vc.rankLabel.accessibilityLabel = NSLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking\n{{Identical|Number}}").replacingOccurrences(of: "$1", with: rankString)
             if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
@@ -250,7 +250,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
                         if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
-                            let format = WMLocalizedString("readers-accessibility-label")
+                            let format = NSLocalizedString("readers-accessibility-label", value:"%1$@ readers", comment: "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - %1$@ is replaced with the number of readers\n{{Identical|Reader}}")
                             vc.viewCountLabel.accessibilityLabel = format.replacingOccurrences(of: "$1", with: numberString)
                         }
                     } else {
