@@ -106,7 +106,7 @@ func writeStrings(fromDictionary dictionary: [String: String], toFile: String) t
     	return kv1.key < kv2.key
 	})
     for (key, value) in sortedDictionary {
-        output.append("\"\(key)\" = \"\(value.replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\\n"))\";\n")
+        output.append("\"\(key)\" = \"\(value.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n"))\";\n")
     }
 
 	try output.write(toFile: toFile, atomically: true, encoding: .utf8)
