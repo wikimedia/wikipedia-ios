@@ -32,6 +32,8 @@ open class WMFTableOfContentsViewController: UIViewController,
                                                WMFTableOfContentsAnimatorDelegate {
     
     let tableOfContentsFunnel: ToCInteractionFunnel
+
+    let isArticleRTL: Bool
     
     var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
@@ -93,7 +95,9 @@ open class WMFTableOfContentsViewController: UIViewController,
     // MARK: - Init
     public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
-                         delegate: WMFTableOfContentsViewControllerDelegate) {
+                         delegate: WMFTableOfContentsViewControllerDelegate,
+                         isArticleRTL: Bool) {
+        self.isArticleRTL = isArticleRTL
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
@@ -205,6 +209,11 @@ open class WMFTableOfContentsViewController: UIViewController,
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isArticleRTL {
+            view.semanticContentAttribute = .forceRightToLeft
+            tableView.semanticContentAttribute = .forceRightToLeft
+        }
+        
         tableView.mas_makeConstraints { make in
             _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
@@ -261,6 +270,12 @@ open class WMFTableOfContentsViewController: UIViewController,
         cell.setNeedsLayout()
 
         cell.setSectionSelected(shouldHighlight, animated: false)
+        
+        if isArticleRTL {
+            cell.contentView.semanticContentAttribute = .forceRightToLeft
+            cell.titleLabel.semanticContentAttribute = .forceRightToLeft
+        }
+        
         return cell
     }
     
@@ -269,6 +284,12 @@ open class WMFTableOfContentsViewController: UIViewController,
             let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
             header?.articleURL = delegate.tableOfContentsArticleLanguageURL()
             header?.backgroundColor = tableView.backgroundColor
+            
+            if isArticleRTL {
+                header?.semanticContentAttribute = .forceRightToLeft
+                header?.contentsLabel.semanticContentAttribute = .forceRightToLeft
+            }
+            
             return header
         } else {
             return nil
