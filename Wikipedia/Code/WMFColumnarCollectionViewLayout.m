@@ -176,36 +176,30 @@
     self.newSectionDeltaY = 0 - CGRectGetMaxY(sectionFrame);
 }
 
-- (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
-    if (itemIndexPath.section <= self.maxNewSection) {
+- (void)adjustAttributesIfNecessary:(UICollectionViewLayoutAttributes *)attributes forItemOrElementAppearingAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section <= self.maxNewSection) {
         CGRect frame = attributes.frame;
         frame.origin.y = frame.origin.y + self.newSectionDeltaY;
         attributes.frame = frame;
         attributes.alpha = 1;
     }
+}
+
+- (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:itemIndexPath];
     return attributes;
 }
 
 - (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
     UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingSupplementaryElementOfKind:elementKind atIndexPath:elementIndexPath];
-    if (elementIndexPath.section <= self.maxNewSection) {
-        CGRect frame = attributes.frame;
-        frame.origin.y = frame.origin.y + self.newSectionDeltaY;
-        attributes.frame = frame;
-        attributes.alpha = 1;
-    }
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:elementIndexPath];
     return attributes;
 }
 
 - (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingDecorationElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)decorationIndexPath {
     UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingDecorationElementOfKind:elementKind atIndexPath:decorationIndexPath];
-    if (decorationIndexPath.section <= self.maxNewSection) {
-        CGRect frame = attributes.frame;
-        frame.origin.y = frame.origin.y + self.newSectionDeltaY;
-        attributes.frame = frame;
-        attributes.alpha = 1;
-    }
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:decorationIndexPath];
     return attributes;
 }
 
