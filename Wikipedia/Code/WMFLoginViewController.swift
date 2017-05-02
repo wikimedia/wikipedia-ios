@@ -35,22 +35,22 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-account-login"), for: .normal)
+        loginButton.setTitle(NSLocalizedString("main-menu-account-login", value:"Log in", comment:"Button text for logging in.\n{{Identical|Log in}}"), for: .normal)
         
-        createAccountButton.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("login-no-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("login-join-wikipedia"))
+        createAccountButton.strings = WMFAuthLinkLabelStrings(dollarSignString: NSLocalizedString("login-no-account", value:"Don't have an account? %1$@", comment:"Text for create account button. %1$@ is the message {{msg-wikimedia|login-account-join-wikipedia}}"), substitutionString: NSLocalizedString("login-join-wikipedia", value:"Join Wikipedia.", comment:"Join Wikipedia text to be used as part of a create account button"))
         
         createAccountButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAccountButtonPushed(_:))))
 
-        forgotPasswordButton.text = localizedStringForKeyFallingBackOnEnglish("login-forgot-password")
+        forgotPasswordButton.text = NSLocalizedString("login-forgot-password", value:"Forgot your password?", comment:"Button text for loading the password reminder interface")
 
         forgotPasswordButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPasswordButtonPushed(_:))))
 
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
+        usernameField.placeholder = NSLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
+        passwordField.placeholder = NSLocalizedString("field-password-placeholder", value:"enter password", comment:"Placeholder text shown inside password field until user taps on it")
 
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("login-title")
-        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
-        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
+        titleLabel.text = NSLocalizedString("login-title", value:"Log in to your account", comment:"Title for log in interface")
+        usernameTitleLabel.text = NSLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
+        passwordTitleLabel.text = NSLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
 
         usernameField.wmf_addThinBottomBorder()
         passwordField.wmf_addThinBottomBorder()
@@ -139,9 +139,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_hideKeyboard()
         passwordAlertLabel.isHidden = true
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(NSLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
-            let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
+            let loggedInMessage = NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username.").replacingOccurrences(of: "$1", with: self.usernameField.text!)
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()

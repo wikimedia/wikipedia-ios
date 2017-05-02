@@ -29,7 +29,7 @@ fileprivate var iOSTokenRegex: NSRegularExpression? = {
 
 fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(?:MWLocalizedString\\(@\\\")(:?[^\"]+)(?:[^\\)]*\\))", options: [])
+        return try NSRegularExpression(pattern: "(?:WMLocalizedString\\(\\\")(:?[^\"]+)(?:[^\\)]*\\))", options: [])
     } catch {
         assertionFailure("mwLocalizedStringRegex failed to compile")
     }
@@ -205,7 +205,7 @@ do {
        guard let value = en[key] else {
            continue
        }
-       replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
+       replacements[key] = "NSLocalizedString(\"\(key.escapedString)\", value:\"\(value.iOSNativeLocalization.escapedString)\", comment: \"\(comment.iOSNativeLocalization.escapedString)\")"
    }
 
    let codePath = "Wikipedia/Code"

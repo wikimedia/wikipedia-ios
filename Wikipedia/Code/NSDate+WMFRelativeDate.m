@@ -11,17 +11,17 @@
     double years = months / 12.0;
 
     if (minutes < 2.0) {
-        return MWLocalizedString(@"timestamp-just-now", nil);
+        return NSLocalizedStringWithDefaultValue(@"timestamp-just-now", nil, NSBundle.wmf_localizationBundle, @"just now", "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}");
     } else if (hours < 2.0) {
-        return [NSString stringWithFormat:MWLocalizedString(@"timestamp-minutes", nil), (int)round(minutes)];
+        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"timestamp-minutes", nil, NSBundle.wmf_localizationBundle, @"%d minutes ago", "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes"), (int)round(minutes)];
     } else if (days < 2.0) {
-        return [NSString stringWithFormat:MWLocalizedString(@"timestamp-hours", nil), (int)round(hours)];
+        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"timestamp-hours", nil, NSBundle.wmf_localizationBundle, @"%d hours ago", "Human-readable approximate timestamp for events in the last couple days, expressed as hours"), (int)round(hours)];
     } else if (months < 2.0) {
-        return [NSString stringWithFormat:MWLocalizedString(@"timestamp-days", nil), (int)round(days)];
+        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"timestamp-days", nil, NSBundle.wmf_localizationBundle, @"%d days ago", "Human-readable approximate timestamp for events in the last couple months, expressed as days"), (int)round(days)];
     } else if (months < 24.0) {
-        return [NSString stringWithFormat:MWLocalizedString(@"timestamp-months", nil), (int)round(months)];
+        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"timestamp-months", nil, NSBundle.wmf_localizationBundle, @"%d months ago", "Human-readable approximate timestamp for events in the last couple years, expressed as months"), (int)round(months)];
     } else {
-        return [NSString stringWithFormat:MWLocalizedString(@"timestamp-years", nil), (int)round(years)];
+        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"timestamp-years", nil, NSBundle.wmf_localizationBundle, @"%d years ago", "Human-readable approximate timestamp for events in the distant past, expressed as years"), (int)round(years)];
     }
 }
 

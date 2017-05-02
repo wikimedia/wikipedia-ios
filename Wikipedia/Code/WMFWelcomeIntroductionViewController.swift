@@ -9,10 +9,10 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-title").uppercased(with: Locale.current)
-        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-explore-new-ways-sub-title")
-        tellMeMoreButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more"), for: UIControlState())
-        nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-explore-continue-button").uppercased(with: Locale.current), for: UIControlState())
+        titleLabel.text = NSLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features").uppercased(with: Locale.current)
+        subTitleLabel.text = NSLocalizedString("welcome-explore-new-ways-sub-title", value:"New notifications and widgets to help you discover interesting articles", comment:"Sub-title for exploration welcome screen including explanation of new notification features")
+        tellMeMoreButton.setTitle(NSLocalizedString("welcome-explore-tell-me-more", value:"Tell me more", comment:"Title for link which when tapped shows explaination of new exploration features"), for: UIControlState())
+        nextButton.setTitle(NSLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for moving to next welcome screen\n{{Identical|Get started}}").uppercased(with: Locale.current), for: UIControlState())
         self.view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -23,10 +23,10 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
     @IBAction fileprivate func showHowThisWorksAlert(withSender sender: AnyObject) {
         let alert = UIAlertController(
-            title:localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title"),
-            message:"\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))",
+            title:NSLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation"),
+            message:"\(NSLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(NSLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))",
             preferredStyle:.alert)
-        alert.addAction(UIAlertAction(title:localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style:.cancel, handler:nil))
+        alert.addAction(UIAlertAction(title:NSLocalizedString("welcome-explore-tell-me-more-done-button", value:"Got it", comment:"Text for button dismissing detailed explanation of new features"), style:.cancel, handler:nil))
         present(alert, animated:true, completion:nil)
     }
 }

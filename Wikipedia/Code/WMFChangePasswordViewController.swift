@@ -72,12 +72,12 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         passwordField.wmf_addThinBottomBorder()
         retypeField.wmf_addThinBottomBorder()
 
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-title")
-        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("new-password-instructions")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-placeholder")
-        retypeField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-placeholder")
-        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-title")
-        retypeTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-new-password-confirm-title")
+        titleLabel.text = NSLocalizedString("new-password-title", value:"Set your password", comment:"Title for password change interface")
+        subTitleLabel.text = NSLocalizedString("new-password-instructions", value:"You logged in with a temporary password. To finish logging in set a new password here.", comment:"Instructions for password change interface")
+        passwordField.placeholder = NSLocalizedString("field-new-password-placeholder", value:"enter new password", comment:"Placeholder text shown inside new password field until user taps on it")
+        retypeField.placeholder = NSLocalizedString("field-new-password-confirm-placeholder", value:"re-enter new password", comment:"Placeholder text shown inside confirm new password field until user taps on it")
+        passwordTitleLabel.text = NSLocalizedString("field-new-password-title", value:"New password", comment:"Title for new password field")
+        retypeTitleLabel.text = NSLocalizedString("field-new-password-confirm-title", value:"Confirm new password", comment:"Title for confirm new password field")
         
         view.wmf_configureSubviewsForDynamicType()
     }
@@ -89,7 +89,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     fileprivate func save() {
         
         guard passwordFieldsMatch() else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(NSLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             passwordField.text = nil
             retypeField.text = nil
             passwordField.becomeFirstResponder()
@@ -112,7 +112,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
                    captchaID: nil,
                    captchaWord: nil,
                    success: { _ in
-                    let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
+                    let loggedInMessage = NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username.").replacingOccurrences(of: "$1", with: userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()

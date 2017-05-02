@@ -551,20 +551,12 @@
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
-		D801C9271EB8E131001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C9281EB8E131001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C9291EB8E131001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C92A1EB8E131001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
-		D801C92C1EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
-		D801C92D1EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
-		D801C92E1EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
-		D801C92F1EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
 		D801C9301EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
-		D801C9311EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
-		D801C9321EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
-		D801C9331EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
-		D801C9341EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
 		D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
+		D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
+		D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
+		D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
+		D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
 		D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
 		D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */; };
@@ -2286,8 +2278,6 @@
 		D8FA18CB1E1BD891009675C3 /* WMFLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807361C0CED810065EBC0 /* WMFLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CC1E1BD891009675C3 /* WMFDirectoryPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CD1E1BD891009675C3 /* WMFOutParamUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18CE1E1BD891009675C3 /* WMFLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB681C110BFC00DE75E1 /* WMFLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18CF1E1BD891009675C3 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		D8FA18D01E1BD891009675C3 /* WMFMath.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807371C0CED810065EBC0 /* WMFMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807381C0CED810065EBC0 /* WMFMath.m */; };
 		D8FA18D21E1BD891009675C3 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2661,8 +2651,6 @@
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
-		0EF5BB681C110BFC00DE75E1 /* WMFLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocalization.h; path = Wikipedia/Code/WMFLocalization.h; sourceTree = SOURCE_ROOT; };
-		0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocalization.m; path = Wikipedia/Code/WMFLocalization.m; sourceTree = SOURCE_ROOT; };
 		0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wikipedia/Code/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Wikipedia/Code/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMapping.h"; path = "Wikipedia/Code/NSArray+WMFMapping.h"; sourceTree = SOURCE_ROOT; };
@@ -7379,8 +7367,6 @@
 				B0E807361C0CED810065EBC0 /* WMFLogging.h */,
 				0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */,
 				B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */,
-				0EF5BB681C110BFC00DE75E1 /* WMFLocalization.h */,
-				0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */,
 				B0E807371C0CED810065EBC0 /* WMFMath.h */,
 				B0E807381C0CED810065EBC0 /* WMFMath.m */,
 				D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */,
@@ -7632,7 +7618,6 @@
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
 				0E728D4D1DAEEE9A0074EB4B /* WMFRandomArticleFetcher.h in Headers */,
 				D8FA18B21E1BD891009675C3 /* WMFNumberOfExtractCharacters.h in Headers */,
-				D8FA18CE1E1BD891009675C3 /* WMFLocalization.h in Headers */,
 				D83FA6B21D74CDB2008CAB00 /* AFHTTPSessionManager+WMFConfig.h in Headers */,
 				D844D9B31D6CB7770042D692 /* MWKSavedPageListDataExportConstants.h in Headers */,
 			);
@@ -8153,7 +8138,7 @@
 				0E06FD5F1CC2D5B2002F3A72 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
 				192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */,
-				D801C9271EB8E131001FA294 /* InfoPlist.strings in Resources */,
+				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
@@ -8176,7 +8161,6 @@
 				D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */,
 				0E06FD611CC2D5E3002F3A72 /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				D8940CF01DB56C8A00E17F9E /* InTheNewsViewController.xib in Resources */,
-				D801C9311EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				B0E802E91C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -8189,7 +8173,6 @@
 				B0E803C91C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
-				D801C92C1EB8E131001FA294 /* Localizable.strings in Resources */,
 				B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */,
 				B0E807071C0CEBDA0065EBC0 /* ShareCard.xib in Resources */,
 				B0E803C41C0CDC4D0065EBC0 /* WMFArticlePreviewTableViewCell.xib in Resources */,
@@ -8277,7 +8260,7 @@
 				D8A42BC81E815A9C00D8E281 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
 				D8A42BC91E815A9C00D8E281 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D8A42BCA1E815A9C00D8E281 /* WMFArticleListCollectionViewCell.xib in Resources */,
-				D801C92A1EB8E131001FA294 /* InfoPlist.strings in Resources */,
+				D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */,
 				D8A42BCB1E815A9C00D8E281 /* WMFAppViewController.storyboard in Resources */,
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8A42BCD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
@@ -8300,7 +8283,6 @@
 				D8A42BDF1E815A9C00D8E281 /* WMFAppModalProgressViewController.xib in Resources */,
 				D8A42BE01E815A9C00D8E281 /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				D8A42BE11E815A9C00D8E281 /* InTheNewsViewController.xib in Resources */,
-				D801C9341EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				D8A42BE21E815A9C00D8E281 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				D8A42BE31E815A9C00D8E281 /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
 				D8A42BE41E815A9C00D8E281 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -8313,7 +8295,6 @@
 				D8A42BEB1E815A9C00D8E281 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				D8A42BEC1E815A9C00D8E281 /* WMFAccountCreationViewController.storyboard in Resources */,
 				D8A42BED1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon.png in Resources */,
-				D801C92F1EB8E131001FA294 /* Localizable.strings in Resources */,
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BEF1E815A9C00D8E281 /* ShareCard.xib in Resources */,
 				D8A42BF01E815A9C00D8E281 /* WMFArticlePreviewTableViewCell.xib in Resources */,
@@ -8383,7 +8364,7 @@
 				D8CE264F1E698E2400DAE2E0 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
 				D8CE26501E698E2400DAE2E0 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D8CE26511E698E2400DAE2E0 /* WMFArticleListCollectionViewCell.xib in Resources */,
-				D801C9281EB8E131001FA294 /* InfoPlist.strings in Resources */,
+				D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8CE26521E698E2400DAE2E0 /* WMFAppViewController.storyboard in Resources */,
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8CE26541E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
@@ -8406,7 +8387,6 @@
 				D8CE26661E698E2400DAE2E0 /* WMFAppModalProgressViewController.xib in Resources */,
 				D8CE26671E698E2400DAE2E0 /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				D8CE26681E698E2400DAE2E0 /* InTheNewsViewController.xib in Resources */,
-				D801C9321EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				D8CE26691E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				D8CE266A1E698E2400DAE2E0 /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -8419,7 +8399,6 @@
 				D8CE26721E698E2400DAE2E0 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				D8CE26731E698E2400DAE2E0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				D8CE26741E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon.png in Resources */,
-				D801C92D1EB8E131001FA294 /* Localizable.strings in Resources */,
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26761E698E2400DAE2E0 /* ShareCard.xib in Resources */,
 				D8CE26771E698E2400DAE2E0 /* WMFArticlePreviewTableViewCell.xib in Resources */,
@@ -8489,7 +8468,7 @@
 				D8EC3F4F1E9BDA35006712EB /* WMFPreferredLanguagesViewController.storyboard in Resources */,
 				D8EC3F501E9BDA35006712EB /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D8EC3F511E9BDA35006712EB /* WMFArticleListCollectionViewCell.xib in Resources */,
-				D801C9291EB8E131001FA294 /* InfoPlist.strings in Resources */,
+				D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8EC3F521E9BDA35006712EB /* WMFAppViewController.storyboard in Resources */,
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8EC3F541E9BDA35006712EB /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
@@ -8512,7 +8491,6 @@
 				D8EC3F661E9BDA35006712EB /* WMFAppModalProgressViewController.xib in Resources */,
 				D8EC3F671E9BDA35006712EB /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				D8EC3F681E9BDA35006712EB /* InTheNewsViewController.xib in Resources */,
-				D801C9331EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				D8EC3F691E9BDA35006712EB /* WMFFindInPageKeyboardBar.xib in Resources */,
 				D8EC3F6A1E9BDA35006712EB /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
@@ -8525,7 +8503,6 @@
 				D8EC3F721E9BDA35006712EB /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				D8EC3F731E9BDA35006712EB /* WMFAccountCreationViewController.storyboard in Resources */,
 				D8EC3F741E9BDA35006712EB /* NotificationBackgroundSuccessIcon.png in Resources */,
-				D801C92E1EB8E131001FA294 /* Localizable.strings in Resources */,
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F761E9BDA35006712EB /* ShareCard.xib in Resources */,
 				D8EC3F771E9BDA35006712EB /* WMFArticlePreviewTableViewCell.xib in Resources */,
@@ -9302,7 +9279,6 @@
 				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D531DAEEFB00074EB4B /* MWKSiteInfo.m in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
-				D8FA18CF1E1BD891009675C3 /* WMFLocalization.m in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
 				D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */,
 				D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */,

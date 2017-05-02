@@ -77,9 +77,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 - (void)updateCategories {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:MWLocalizedString(@"in-the-news-notification-read-now-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:MWLocalizedString(@"in-the-news-notification-share-action-title", nil) options:UNNotificationActionOptionForeground];
-    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:MWLocalizedString(@"in-the-news-notification-save-for-later-action-title", nil) options:UNNotificationActionOptionNone];
+    UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:NSLocalizedStringWithDefaultValue(@"in-the-news-notification-read-now-action-title", nil, NSBundle.wmf_localizationBundle, @"Read Now", "Title on the 'Read Now' action button") options:UNNotificationActionOptionForeground];
+    UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:NSLocalizedStringWithDefaultValue(@"in-the-news-notification-share-action-title", nil, NSBundle.wmf_localizationBundle, @"Share...", "Title on the 'Share' action button\n{{Identical|Share}}") options:UNNotificationActionOptionForeground];
+    UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:NSLocalizedStringWithDefaultValue(@"in-the-news-notification-save-for-later-action-title", nil, NSBundle.wmf_localizationBundle, @"Save for later", "Title on the 'Save for later' action button") options:UNNotificationActionOptionNone];
 
     if (!readNowAction || !saveForLaterAction || !shareAction) {
         DDLogError(@"Unable to create notification categories");

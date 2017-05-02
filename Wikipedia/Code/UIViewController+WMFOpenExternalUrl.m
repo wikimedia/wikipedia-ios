@@ -19,12 +19,12 @@
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
     if ([SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated && [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroWarnWhenLeaving]) {
         WMFZeroConfiguration *zeroConfiguration = [SessionSingleton sharedInstance].zeroConfigurationManager.zeroConfiguration;
-        NSString *exitDialogTitle = zeroConfiguration.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
-        NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroConfiguration.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
+        NSString *exitDialogTitle = zeroConfiguration.exitTitle ?: NSLocalizedStringWithDefaultValue(@"zero-interstitial-title", nil, NSBundle.wmf_localizationBundle, @"Leaving Wikipedia Zero", "Alert text for leaving Wikipedia Zero");
+        NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroConfiguration.exitWarning ?: NSLocalizedStringWithDefaultValue(@"zero-interstitial-leave-app", nil, NSBundle.wmf_localizationBundle, @"Data charges may apply. Continue to external site?", "Alert text shown if Wikipedia Zero free data access is enabled and user taps external link"), url.host];
 
         UIAlertController *zeroAlert = [UIAlertController alertControllerWithTitle:exitDialogTitle message:messageWithHost preferredStyle:UIAlertControllerStyleAlert];
-        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil)
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"zero-interstitial-cancel", nil, NSBundle.wmf_localizationBundle, @"Stay here", "Button text to not continue to external site.\n{{Identical|Stay here}}") style:UIAlertActionStyleCancel handler:NULL]];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"zero-interstitial-continue", nil, NSBundle.wmf_localizationBundle, @"Leave", "Button text confirming user wants to continue to external site.\n{{Identical|Leave}}")
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];

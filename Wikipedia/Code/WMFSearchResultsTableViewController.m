@@ -73,7 +73,7 @@
         return result.wikidataDescription;
     }
 
-    NSString *redirectedResultMessage = [MWLocalizedString(@"search-result-redirected-from", nil) stringByReplacingOccurrencesOfString:@"$1" withString:mapping.redirectFromTitle];
+    NSString *redirectedResultMessage = [NSLocalizedStringWithDefaultValue(@"search-result-redirected-from", nil, NSBundle.wmf_localizationBundle, @"Redirected from: %1$@", "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from") stringByReplacingOccurrencesOfString:@"$1" withString:mapping.redirectFromTitle];
 
     if (!result.wikidataDescription) {
         return redirectedResultMessage;

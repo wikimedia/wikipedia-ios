@@ -25,9 +25,9 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         //Hide accessibility of label because switch will become the label by default.
         toggleLabel.isAccessibilityElement = false
         
-        let title = isOn ? localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-thanks").replacingOccurrences(of: "$1", with: "😀") : localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-send-usage-reports")
+        let title = isOn ? NSLocalizedString("welcome-volunteer-thanks", value:"%1$@ Thank you!", comment:"Text which is shown if the user decides to send usage reports. %1$@ will be substituted with a positive image or emoji such as a smiley face or a thumbs-up.\n{{Identical|Thank you}}").replacingOccurrences(of: "$1", with: "😀") : NSLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
         toggleLabel.text = title
-        toggle.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("welcome-volunteer-send-usage-reports")
+        toggle.accessibilityLabel = NSLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
     }
     
     @IBAction func toggleAnalytics(withSender sender: UISwitch){

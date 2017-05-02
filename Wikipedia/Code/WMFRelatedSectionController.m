@@ -92,7 +92,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"explore-continue-related-heading", nil, NSBundle.mainBundle, @"Because you read", "Text for 'Because you read' header") attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
@@ -161,12 +161,12 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 - (UIAlertController *)menuActionSheet {
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+    [sheet addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"home-hide-suggestion-prompt", nil, NSBundle.mainBundle, @"Hide this suggestion", "Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self.blackList addBlackListArticleURL:self.url];
                                             }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    [sheet addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"home-hide-suggestion-cancel", nil, NSBundle.mainBundle, @"Cancel", "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
 }
 
@@ -174,7 +174,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 - (NSString *)footerText {
     return
-        [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
+        [NSLocalizedStringWithDefaultValue(@"home-more-like-footer", nil, NSBundle.mainBundle, @"More like %1$@", "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.") stringByReplacingOccurrencesOfString:@"$1"
                                                                                     withString:self.url.wmf_title];
 }
 

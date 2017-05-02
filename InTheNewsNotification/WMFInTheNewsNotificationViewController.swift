@@ -81,7 +81,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             DDLogError("erorr deserializing news story \(error)")
         }
 
-        timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
+        timeLabel.text = MWLocalizedString("in-the-news-currently-trending")
         articleTitleLabel.text = title
         articleSubtitleLabel.text = extract
         
@@ -131,12 +131,12 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             completion(.dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.isHidden = false
-            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
+            statusLabel.text = MWLocalizedString("status-saving-for-later")
             PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: self, contentType: self)
             if let dataStore = SessionSingleton.sharedInstance().dataStore {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 self.statusView.isHidden = false
-                self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+                self.statusLabel.text = MWLocalizedString("status-saved-for-later")
                 completion(.dismiss)
             } else {
                 completion(.dismiss)

@@ -93,37 +93,37 @@ typedef NS_ENUM(NSInteger, ViewType) {
                                   @[
                                      @{
                                          @"type": @(VIEW_TYPE_HEADING),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-heading", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-heading", nil, NSBundle.wmf_localizationBundle, @"This looks like an unconstructive edit, are you sure you want to publish it?", "Header text for unconstructive edit warning"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": [UIColor darkGrayColor]
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_SUBHEADING),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-subheading", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-subheading", nil, NSBundle.wmf_localizationBundle, @"Your edit may contain one or more of the following:", "Subheading text for potentially unconstructive edit warning"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-caps", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-caps", nil, NSBundle.wmf_localizationBundle, @"Typing in ALL CAPS", "Label text for typing in all capitals"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-blanking", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-blanking", nil, NSBundle.wmf_localizationBundle, @"Blanking articles or spamming", "Label text for blanking articles or spamming"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-irrelevant", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-irrelevant", nil, NSBundle.wmf_localizationBundle, @"Irrelevant external links or images", "Label text for irrelevant external links and images"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-warning-repeat", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-warning-repeat", nil, NSBundle.wmf_localizationBundle, @"Repeeeeating characters", "Label text for repeating characters"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy
@@ -136,19 +136,19 @@ typedef NS_ENUM(NSInteger, ViewType) {
                                   @[
                                      @{
                                          @"type": @(VIEW_TYPE_HEADING),
-                                         @"string": MWLocalizedString(@"abuse-filter-disallow-heading", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-disallow-heading", nil, NSBundle.wmf_localizationBundle, @"You cannot publish this edit. Please go back and change it.", "Header text for disallowed edit warning."),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": [UIColor darkGrayColor]
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-disallow-unconstructive", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-disallow-unconstructive", nil, NSBundle.wmf_localizationBundle, @"An automated filter has identified this edit as potentially unconstructive or a vandalism attempt.", "Label text for unconstructive edit description"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
-                                         @"string": MWLocalizedString(@"abuse-filter-disallow-notable", nil),
+                                         @"string": NSLocalizedStringWithDefaultValue(@"abuse-filter-disallow-notable", nil, NSBundle.wmf_localizationBundle, @"Wikipedia is an encyclopedia and only neutral, notable content belongs here.", "Label text for notable content description"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
                                      }.mutableCopy
@@ -301,7 +301,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
 
                 item.titleLabel.padding = UIEdgeInsetsMake(topPadding.floatValue, leftPadding.floatValue, bottomPadding.floatValue, rightPadding.floatValue);
 
-                [self setText:MWLocalizedString(viewData[@"string"], nil) forLabel:item.titleLabel subViewData:viewData];
+                [self setText:viewData[@"string"] forLabel:item.titleLabel subViewData:viewData];
 
                 [self.subViews addObject:item];
             } break;

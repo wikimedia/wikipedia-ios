@@ -532,7 +532,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                            style:UIBarButtonItemStylePlain
                                                                           target:self
                                                                           action:@selector(showTableOfContents:)];
-        _showTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        _showTableOfContentsToolbarItem.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
         return _showTableOfContentsToolbarItem;
     }
     return _showTableOfContentsToolbarItem;
@@ -546,7 +546,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
         closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
         _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
-        _hideTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        _hideTableOfContentsToolbarItem.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
         return _hideTableOfContentsToolbarItem;
     }
     return _hideTableOfContentsToolbarItem;
@@ -581,7 +581,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
+        _findInPageToolbarItem.accessibilityLabel = NSLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, NSBundle.wmf_localizationBundle, @"Find in page", "Accessibility label for the Find in Page button");
     }
     return _findInPageToolbarItem;
 }
@@ -1471,7 +1471,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
     articleListVC.delegate = self;
-    articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
+    articleListVC.title = NSLocalizedStringWithDefaultValue(@"page-similar-titles", nil, NSBundle.wmf_localizationBundle, @"Similar pages", "Label for button that shows a list of similar titles (disambiguation) for the current page");
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
     [self presentViewController:navController animated:YES completion:nil];
 }
@@ -1533,8 +1533,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, NSBundle.wmf_localizationBundle, @"This page is protected", "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:NSLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, NSBundle.wmf_localizationBundle, @"You do not have the rights to edit this page", "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"button-ok", nil, NSBundle.wmf_localizationBundle, @"OK", "Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
@@ -1677,7 +1677,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActions {
     UIPreviewAction *readAction =
-        [UIPreviewAction actionWithTitle:MWLocalizedString(@"button-read-now", nil)
+        [UIPreviewAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"button-read-now", nil, NSBundle.wmf_localizationBundle, @"Read now", "Read now button text used in various places.")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1686,7 +1686,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *saveAction =
-        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-remove", nil) : MWLocalizedString(@"button-save-for-later", nil)
+        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? NSLocalizedStringWithDefaultValue(@"button-saved-remove", nil, NSBundle.wmf_localizationBundle, @"Remove from saved", "Remove from saved button text used in various places.") : NSLocalizedStringWithDefaultValue(@"button-save-for-later", nil, NSBundle.wmf_localizationBundle, @"Save for later", "Longer button text for save button used in various places.")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1699,7 +1699,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *shareAction =
-        [UIPreviewAction actionWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+        [UIPreviewAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, NSBundle.wmf_localizationBundle, @"Share...", "Button label for text selection Share\n{{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1715,7 +1715,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
-            [UIPreviewAction actionWithTitle:MWLocalizedString(@"page-location", nil)
+            [UIPreviewAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"page-location", nil, NSBundle.wmf_localizationBundle, @"View on a map", "Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
                                          UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
@@ -1842,16 +1842,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTableOfContentsButtonPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
-                                                              withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
-                                                                message:MWLocalizedString(@"table-of-contents-popover-description", nil)
+                                                              withTitle:NSLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}")
+                                                                message:NSLocalizedStringWithDefaultValue(@"table-of-contents-popover-description", nil, NSBundle.wmf_localizationBundle, @"Get an overview of articles", "Description of Table of Contents which can appear over its icon in a tip bubble. “Overview” refers to a view of the article’s structure, not a summary of the article.")
                                                                   width:230.0f
                                                                duration:3.0];
 }
 
 - (void)showFindInPageButtonPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
-                                                              withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
-                                                                message:MWLocalizedString(@"find-in-page-popover-description", nil)
+                                                              withTitle:NSLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, NSBundle.wmf_localizationBundle, @"Find in page", "Accessibility label for the Find in Page button")
+                                                                message:NSLocalizedStringWithDefaultValue(@"find-in-page-popover-description", nil, NSBundle.wmf_localizationBundle, @"Search text in articles", "Description of Find in Page which can appear over its icon in a tip bubble")
                                                                   width:230.0f
                                                                duration:3.0];
 }

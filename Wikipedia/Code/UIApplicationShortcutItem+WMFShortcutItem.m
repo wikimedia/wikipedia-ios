@@ -11,7 +11,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
 
 + (UIApplicationShortcutItem *)wmf_search {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeSearch
-                                            localizedTitle:MWLocalizedString(@"icon-shortcut-search-title", nil)
+                                            localizedTitle:NSLocalizedStringWithDefaultValue(@"icon-shortcut-search-title", nil, NSBundle.wmf_localizationBundle, @"Search Wikipedia", "Title for app icon force touch shortcut to quickly open the search interface.")
                                          localizedSubtitle:@""
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"search"]
                                                   userInfo:nil];
@@ -19,7 +19,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
 
 + (UIApplicationShortcutItem *)wmf_random {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeRandom
-                                            localizedTitle:MWLocalizedString(@"icon-shortcut-random-title", nil)
+                                            localizedTitle:NSLocalizedStringWithDefaultValue(@"icon-shortcut-random-title", nil, NSBundle.wmf_localizationBundle, @"Random article", "Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}")
                                          localizedSubtitle:@""
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"random-quick-action"]
                                                   userInfo:nil];
@@ -31,7 +31,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
         return nil;
     }
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeContinueReading
-                                            localizedTitle:MWLocalizedString(@"icon-shortcut-continue-reading-title", nil)
+                                            localizedTitle:NSLocalizedStringWithDefaultValue(@"icon-shortcut-continue-reading-title", nil, NSBundle.wmf_localizationBundle, @"Continue reading", "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.")
                                          localizedSubtitle:lastRead.wmf_title
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"home-continue-reading-mini"]
                                                   userInfo:nil];
@@ -39,7 +39,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
 
 + (UIApplicationShortcutItem *)wmf_nearby {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeNearby
-                                            localizedTitle:MWLocalizedString(@"icon-shortcut-nearby-title", nil)
+                                            localizedTitle:NSLocalizedStringWithDefaultValue(@"icon-shortcut-nearby-title", nil, NSBundle.wmf_localizationBundle, @"Nearby articles", "Title for app icon force touch shortcut to quickly open the nearby articles interface.")
                                          localizedSubtitle:@""
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"nearby-quick-action"]
                                                   userInfo:nil];

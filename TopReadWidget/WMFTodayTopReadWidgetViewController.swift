@@ -181,14 +181,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var headerText = ""
         
         if let language = language {
-            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-with-language").replacingOccurrences(of: "$1", with: language)
+            headerText = WMLocalizedString("top-read-header-with-language").replacingOccurrences(of: "$1", with: language)
         } else {
-            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-generic")
+            headerText = WMLocalizedString("top-read-header-generic")
         }
         
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
-        footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more").uppercased()
+        footerLabel.text = WMLocalizedString("top-read-see-more").uppercased()
         
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
@@ -236,7 +236,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.imageView.wmf_reset()
             let rankString = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: i + 1))
             vc.rankLabel.text = rankString
-            vc.rankLabel.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("rank-accessibility-label").replacingOccurrences(of: "$1", with: rankString)
+            vc.rankLabel.accessibilityLabel = WMLocalizedString("rank-accessibility-label").replacingOccurrences(of: "$1", with: rankString)
             if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
@@ -250,7 +250,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     if let count = viewCounts.last {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
                         if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
-                            let format = localizedStringForKeyFallingBackOnEnglish("readers-accessibility-label")
+                            let format = WMLocalizedString("readers-accessibility-label")
                             vc.viewCountLabel.accessibilityLabel = format.replacingOccurrences(of: "$1", with: numberString)
                         }
                     } else {

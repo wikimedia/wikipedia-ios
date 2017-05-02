@@ -17,9 +17,9 @@ public enum WMFAccountLoginError: LocalizedError {
         case .needsOathTokenFor2FA(let message?):
             return message
         case .wrongPassword:
-            return localizedStringForKeyFallingBackOnEnglish("field-alert-password-invalid")
+            return NSLocalizedString("field-alert-password-invalid", value:"Invalid password", comment:"Alert shown if password is not correct")
         case .wrongToken:
-            return localizedStringForKeyFallingBackOnEnglish("field-alert-token-invalid")
+            return NSLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
         default:
             return "Unable to login: Reason unknown"
         }

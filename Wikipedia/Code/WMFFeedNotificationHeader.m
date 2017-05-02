@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:MWLocalizedString(@"feed-news-notification-text", nil)];
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, NSBundle.wmf_localizationBundle, @"You can now receive notifications about Wikipedia articles trending in the news.", "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")];
 
     [attributedText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, attributedText.length)];
 

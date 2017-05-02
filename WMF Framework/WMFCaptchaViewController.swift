@@ -186,13 +186,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle}
 
         captcha = nil
-        captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
-        captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
+        captchaTextFieldTitleLabel.text = WMLocalizedString("field-captcha-title")
+        captchaTextField.placeholder = WMLocalizedString("field-captcha-placeholder")
         captchaTextField.wmf_addThinBottomBorder()
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        titleLabel.text = WMLocalizedString("account-creation-captcha-title")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
+        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: WMLocalizedString("account-creation-captcha-cannot-see-image"), substitutionString: WMLocalizedString("account-creation-captcha-request-account"))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
@@ -216,7 +216,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
                 
         let failure: WMFErrorHandler = {error in }
         
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMLocalizedString("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             guard let previousCaptcha = self.captcha else {
