@@ -5,7 +5,7 @@
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%d %#@v0@</string>
+		<string>%#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,17 +13,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>места пронађена</string>
+			<string>%d места пронађена</string>
 			<key>one</key>
-			<string>место пронађено</string>
+			<string>%d место пронађено</string>
 			<key>other</key>
-			<string>места пронађено</string>
+			<string>%d места пронађено</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%d %#@v0@</string>
+		<string>%#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -31,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>чланка</string>
+			<string>%d чланка</string>
 			<key>one</key>
-			<string>чланак</string>
+			<string>%d чланак</string>
 			<key>other</key>
-			<string>чланака</string>
+			<string>%d чланака</string>
 		</dict>
 	</dict>
 </dict>

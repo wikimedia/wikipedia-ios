@@ -5,7 +5,7 @@
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Znaleziono %d %#@v0@</string>
+		<string>%#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,17 +13,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>miejsca</string>
+			<string>Znaleziono %d miejsca</string>
 			<key>one</key>
-			<string>miejsce</string>
+			<string>Znaleziono %d miejsce</string>
 			<key>other</key>
-			<string>miejsc</string>
+			<string>Znaleziono %d miejsc</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%d %#@v0@</string>
+		<string>%#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -31,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>artykuły</string>
+			<string>%d artykuły</string>
 			<key>one</key>
-			<string>artykuł</string>
+			<string>%d artykuł</string>
 			<key>other</key>
-			<string>artykułów</string>
+			<string>%d artykułów</string>
 		</dict>
 	</dict>
 </dict>

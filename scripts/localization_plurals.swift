@@ -16,61 +16,58 @@ extension String {
         }
         let fullRange = NSRange(location: 0, length: self.characters.count)
         let mutableDictionary = NSMutableDictionary(capacity: 5)
-        let mutableSelf = NSMutableString(string: self)
-        var offset = 0
-        var i = 0
-        dictionaryRegex.enumerateMatches(in: self, options: [], range: fullRange) { (result, flags, stop) in
-            guard let result = result else {
-                return
-            }
-            
-            let contents = dictionaryRegex.replacementString(for: result, in: mutableSelf as String, offset: offset, template: "$1")
-            let range = NSRange(location: result.range.location + offset, length: result.range.length)
-            let components = contents.components(separatedBy: "|")
-            let replaceMatchWith = { (string: String) in
-                offset += string.characters.count - result.range.length
-                mutableSelf.replaceCharacters(in: range, with: string)
-            }
-            let countOfComponents = components.count
-            guard countOfComponents > 1 else {
-                replaceMatchWith("")
-                return
-            }
-            
-            let firstComponent = components[0]
-            let other = components[countOfComponents - 1]
-            guard firstComponent.hasPrefix("PLURAL:") else {
-                replaceMatchWith(other)
-                return
-            }
-            
-            let token = firstComponent.substring(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
-            guard token.characters.count == 2 else {
-                replaceMatchWith(other)
-                return
-            }
-            mutableSelf.replaceOccurrences(of: token, with: "%d", options: [], range: NSRange(location: 0, length: mutableSelf.length))
-            let keyDictionary = NSMutableDictionary(capacity: 5)
-            keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
-            keyDictionary["NSStringFormatValueTypeKey"] = "d"
-            keyDictionary["other"] = other.replacingOccurrences(of: token, with: "%d")
-            
-            if countOfComponents > 2 {
-                keyDictionary["one"] = components[1].replacingOccurrences(of: token, with: "%d")
-            }
-            
-            if countOfComponents > 3 {
-                keyDictionary["few"] = components[2].replacingOccurrences(of: token, with: "%d")
-            }
-            
-            let key = "v\(i)"
-            i += 1
-            mutableDictionary[key] = keyDictionary
-            
-            let replacement = "%#@\(key)@"
-            replaceMatchWith(replacement)
+        let results = dictionaryRegex.matches(in: self, options: [], range: fullRange)
+        
+        guard results.count == 1 else {
+            // we only support strings with a single plural
+            return nil
         }
-        mutableDictionary["NSStringLocalizedFormatKey"] = mutableSelf
+        
+        guard let result = results.first else {
+            return nil
+        }
+        
+        let contents = dictionaryRegex.replacementString(for: result, in: self, offset: 0, template: "$1")
+
+        let components = contents.components(separatedBy: "|")
+
+        let countOfComponents = components.count
+        guard countOfComponents > 1 else {
+            return nil
+        }
+        
+        let firstComponent = components[0]
+        let other = components[countOfComponents - 1]
+        guard firstComponent.hasPrefix("PLURAL:") else {
+            return nil
+        }
+        
+        let token = firstComponent.substring(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
+        guard token.characters.count == 2 else {
+            return nil
+        }
+                
+        let lower = index(startIndex, offsetBy: result.range.location)
+        let upper = index(lower, offsetBy: result.range.length)
+        let range = lower..<upper
+        
+        let keyDictionary = NSMutableDictionary(capacity: 5)
+        keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
+        keyDictionary["NSStringFormatValueTypeKey"] = "d"
+        keyDictionary["other"] = self.replacingCharacters(in: range, with: other).replacingOccurrences(of: token, with: "%d")
+        
+        if countOfComponents > 2 {
+            keyDictionary["one"] = self.replacingCharacters(in: range, with: components[1]).replacingOccurrences(of: token, with: "%d")
+        }
+        
+        if countOfComponents > 3 {
+            keyDictionary["few"] = self.replacingCharacters(in: range, with: components[2]).replacingOccurrences(of: token, with: "%d")
+        }
+        
+        let key = "v0"
+        mutableDictionary[key] = keyDictionary
+        let replacement = "%#@\(key)@"
+        mutableDictionary["NSStringLocalizedFormatKey"] = replacement
         return mutableDictionary
     }
 }

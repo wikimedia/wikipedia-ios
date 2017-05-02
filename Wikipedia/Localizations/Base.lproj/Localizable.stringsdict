@@ -5,7 +5,7 @@
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@ found</string>
+		<string>%#@v0@</string>
 		<key>v0</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d place</string>
+			<string>%d place found</string>
 			<key>other</key>
-			<string>%d places</string>
+			<string>%d places found</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
