@@ -1991,13 +1991,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let imageString = NSAttributedString(attachment: imageAttachment)
             attributedTitle.append(imageString)
             
-            let fullRange = NSMakeRange(0, attributedTitle.length)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
-            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
+
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSMakeRange(0, attributedTitle.length))
         }
         
         UIView.performWithoutAnimation {
