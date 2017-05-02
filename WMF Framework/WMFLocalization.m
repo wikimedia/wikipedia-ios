@@ -14,7 +14,7 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL *url, NSBundle
         translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
     }
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-        return value;
+        return NSLocalizedStringWithDefaultValue(key, nil, bundle, value, comment);
     }
     return translation ? translation : @"";
 }
