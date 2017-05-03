@@ -609,9 +609,9 @@
 "places-accessibility-clear-recent-searches" = "Clear recent searches";
 
 "places-filter-top-articles" = "Top read";
-"places-filter-top-articles-count" = "$1 articles";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-saved-articles" = "Saved articles";
-"places-filter-saved-articles-count" = "$1 places found";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 place|$1 places}} found";
 "places-filter-no-saved-places" = "You have no saved places";
 "places-filter-list-title" = "Search filters";
 "places-search-default-text" = "Search";

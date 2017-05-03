@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: Macofe
 // Author: Maxí
+// Author: MyraMidnight
 // Author: Nemo bis
 // Author: Sveinn í Felli
 
@@ -407,3 +408,4 @@
 "explore-most-read-footer-for-date" = "Allar mest lesnu greinar á $1";
 "explore-most-read-more-list-title" = "Mest lesnu greinar";
 "explore-most-read-more-list-title-for-date" = "Mest lesið á $1";
+"places-search-default-text" = "Leita";

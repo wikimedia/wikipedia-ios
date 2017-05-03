@@ -523,6 +523,7 @@
 "status-saved-for-later" = "ذخیره برای بعد";
 "announcements-dismiss" = "نه ممنون";
 "places-search-top-articles" = "همهٔ مقالات برتر";
+// Fuzzy
 "places-search-this-area" = "جستجو در این محدوده";
 "places-search-saved-articles" = "همهٔ مقاله‌های ذخیره شده";
 "places-search-suggested-searches-header" = "جستجوهای پیشنهاد شده";
@@ -540,11 +541,13 @@
 "places-accessibility-recenter-map-on-user-location" = "وسط قرار دادن موقعیت شما";
 "places-accessibility-close-search" = "بستن جستجو";
 "places-accessibility-clear-recent-searches" = "پاک‌کردن جستجوهای اخیر";
+// Fuzzy
 "places-filter-top-articles" = "بالاترین مقالات";
 "places-filter-top-articles-count" = "$1 مقاله";
 "places-filter-saved-articles" = "مقاله‌های ذخیره شده";
 "places-filter-saved-articles-count" = "$1 مکان یافت شده";
 "places-filter-list-title" = "پالایه‌های جستجوی";
+// Fuzzy
 "places-search-default-text" = "جستجو برای مقالات یا مکان‌ها";
 "places-empty-search-title" = "جستجو برای مقالات ویکی‌پدیا که موقعیت جغرافیایی دارند";
 "places-empty-search-description" = "کاوش شهرها، کشورها، قاره‌ها، جاذبه‌های طبیعی، رویدادهای تاریخی، ساختمان‌ها و موارد دیگر.";

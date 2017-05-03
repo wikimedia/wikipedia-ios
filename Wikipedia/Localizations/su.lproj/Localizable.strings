@@ -1,5 +1,6 @@
 // Messages for Sundanese (Basa Sunda)
 // Exported from translatewiki.net
+// Author: Dipusparaga
 // Author: Uchup19
 // Author: WikiKaruhun
 
@@ -440,6 +441,7 @@
 "explore-another-random" = "Artikel acak lianna";
 "explore-randomizer" = "Kaca acak";
 "find-in-page-no-matches" = "taya nu cocog";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Panggihan dina kaca";
 "find-in-page-popover-description" = "Paluruh téks na artikel";
 "continue-reading-empty-title" = "Taya artikel nu dibaca ahir-ahir ieu";
@@ -469,6 +471,7 @@
 "status-saved-for-later" = "Disimpen jang engké";
 "announcements-dismiss" = "Henteu, nuhun";
 "places-search-top-articles" = "Sakur artikel pangluhurna";
+// Fuzzy
 "places-search-this-area" = "Paluruh ieu aréa";
 "places-search-saved-articles" = "Sakur artikel kasimpen";
 "places-search-suggested-searches-header" = "Pamaluruhan nu disarankeun";
@@ -485,12 +488,15 @@
 "places-accessibility-recenter-map-on-user-location" = "Puseurkeun deui di lokasi anjeun";
 "places-accessibility-close-search" = "Tutup pamaluruhan";
 "places-accessibility-clear-recent-searches" = "Bersihkeun pamaluruhan bieu";
+// Fuzzy
 "places-filter-top-articles" = "Artikel pangluhurna";
 "places-filter-top-articles-count" = "$1 artikel";
 "places-filter-saved-articles" = "Artikel kasimpen";
 "places-filter-saved-articles-count" = "$1 tempat kapanggih";
 "places-filter-list-title" = "Filter pamaluruhan";
+// Fuzzy
 "places-search-default-text" = "Paluruh artikel atawa lokasi";
+"places-empty-search-title" = "Sungsi artikel di Wikipedia maké lokasi géografis";
 "action-share" = "Bagikeun";
 "action-save" = "Simpen";
 "action-read" = "Baca";
