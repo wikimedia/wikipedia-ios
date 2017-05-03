@@ -1,9 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @import WMF;
 
 @interface TWNStringsTests : XCTestCase
@@ -123,74 +120,67 @@
     XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
-- (void)testIncomingTranslationStringForReversedSubstitutionShortcuts {
-    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
-            NSString *localizedString = stringsDict[key];
-            assertThat(localizedString, isNot(containsSubstring(@"1$")));
-            assertThat(localizedString, isNot(containsSubstring(@"2$")));
-            assertThat(localizedString, isNot(containsSubstring(@"3$")));
-            assertThat(localizedString, isNot(containsSubstring(@"4$")));
-            assertThat(localizedString, isNot(containsSubstring(@"5$")));
-        }
-    }
++ (NSRegularExpression *)reverseTWNTokenRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *reverseTWNTokenRegex;
+    dispatch_once(&onceToken, ^{
+        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9]+)(?:[$])" options:0 error:nil];
+    });
+    return reverseTWNTokenRegex;
 }
 
 + (NSRegularExpression *)twnTokenRegex {
     static dispatch_once_t onceToken;
-    static NSRegularExpression *dollarSignNumberSubstitutionRegex;
+    static NSRegularExpression *twnTokenRegex;
     dispatch_once(&onceToken, ^{
-        dollarSignNumberSubstitutionRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[$])(:?[0-9]+)" options:0 error:nil];
+        twnTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[$])(:?[0-9]+)" options:0 error:nil];
     });
-    return dollarSignNumberSubstitutionRegex;
+    return twnTokenRegex;
 }
 
-- (void)testiOSTranslationStringForTWNSubstitutionShortcuts {
-    for (NSString *lprojFileName in TWNStringsTests.iOSLprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
++ (NSRegularExpression *)percentNumberRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *percentNumberRegex;
+    dispatch_once(&onceToken, ^{
+        percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[%%])(:?[0-9s])" options:0 error:nil];
+    });
+    return percentNumberRegex;
+}
+
+- (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory haveNoMatchesWithRegex:(NSRegularExpression *)regex {
+    XCTAssertNotNil(regex);
+    for (NSString *lprojFileName in lprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
-            NSRegularExpression *regex = TWNStringsTests.twnTokenRegex;
-            XCTAssertNotNil(regex);
             XCTAssertNil([regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)]);
         }
     }
 }
 
-- (void)testIncomingTranslationStringForPercentNumber {
-    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
-            NSString *localizedString = stringsDict[key];
-            assertThat(localizedString, isNot(containsSubstring(@"%1")));
-            assertThat(localizedString, isNot(containsSubstring(@"%2")));
-            assertThat(localizedString, isNot(containsSubstring(@"%3")));
-            assertThat(localizedString, isNot(containsSubstring(@"%4")));
-            assertThat(localizedString, isNot(containsSubstring(@"%5")));
-        }
-    }
+- (void)testiOSTranslationStringForTWNSubstitutionShortcuts {
+    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.twnTokenRegex];
 }
 
-- (void)testIncomingTranslationStringForPercentS {
-    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
-            NSString *localizedString = stringsDict[key];
-            assertThat(localizedString, isNot(containsSubstring(@"%s")));
-        }
-    }
+- (void)testIncomingTranslationStringForReversedSubstitutionShortcuts {
+    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.twnLocalizationsDirectory haveNoMatchesWithRegex:TWNStringsTests.reverseTWNTokenRegex];
+}
+
+- (void)testIncomingTranslationStringForPercentTokens {
+    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.twnLocalizationsDirectory haveNoMatchesWithRegex:TWNStringsTests.percentNumberRegex];
+}
+
++ (NSRegularExpression *)htmlTagRegex {
+    static NSRegularExpression *htmlTagRegex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        htmlTagRegex = [NSRegularExpression regularExpressionWithPattern:@"(<[^>]*>)([^<]*)" options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    return htmlTagRegex;
 }
 
 - (void)testIncomingTranslationStringForHTML {
-    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
-            NSString *localizedString = stringsDict[key];
-            assertThat(localizedString, isNot(stringContainsInOrder(@"<", @">", nil)));
-            assertThat(localizedString, isNot(containsSubstring(@"&nbsp")));
-        }
-    }
+    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.htmlTagRegex];
 }
 
 - (void)testIncomingTranslationStringForBracketSubstitutions {
@@ -267,7 +257,7 @@
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             // Keys use dash "-" separators.
-            assertThat(key, isNot(containsSubstring(@"_")));
+            XCTAssertFalse([key containsString:@"_"]);
         }
     }
 }
