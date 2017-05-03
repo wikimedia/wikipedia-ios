@@ -3660,8 +3660,6 @@
 		D801C8EA1EB8E131001FA294 /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D801C8EB1EB8E131001FA294 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8EC1EB8E131001FA294 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D801C8ED1EB8E131001FA294 /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D801C8EE1EB8E131001FA294 /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8EF1EB8E131001FA294 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8F01EB8E131001FA294 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8F11EB8E131001FA294 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -7674,7 +7672,6 @@
 				0E8380771D64989F0076EDE4 /* Embed App Extensions */,
 				D84581101D67572D00B09640 /* Embed Frameworks */,
 				D82FDB301DF0B28B00DDF311 /* Embed Frameworks from Carthage */,
-				D8A50D0C1E00456E000324A1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -7752,7 +7749,6 @@
 				D8A42BB21E815A9C00D8E281 /* Resources */,
 				D8A42C1D1E815A9C00D8E281 /* Embed Frameworks */,
 				D8A42C1F1E815A9C00D8E281 /* Embed Frameworks from Carthage */,
-				D8A42C201E815A9C00D8E281 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -7774,7 +7770,6 @@
 				D8CE26A01E698E2400DAE2E0 /* Embed App Extensions */,
 				D8CE26A41E698E2400DAE2E0 /* Embed Frameworks */,
 				D8CE26A61E698E2400DAE2E0 /* Embed Frameworks from Carthage */,
-				D8CE26A71E698E2400DAE2E0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -7799,7 +7794,6 @@
 				D8EC3FA01E9BDA35006712EB /* Embed App Extensions */,
 				D8EC3FA41E9BDA35006712EB /* Embed Frameworks */,
 				D8EC3FA61E9BDA35006712EB /* Embed Frameworks from Carthage */,
-				D8EC3FA71E9BDA35006712EB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -8622,32 +8616,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		D8A42C201E815A9C00D8E281 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
-		};
-		D8A50D0C1E00456E000324A1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
-		};
 		D8CE26A61E698E2400DAE2E0 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -8673,19 +8641,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		D8CE26A71E698E2400DAE2E0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
 		};
 		D8D550821DF0D52D00B90177 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8744,19 +8699,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		D8EC3FA71E9BDA35006712EB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -10574,7 +10516,6 @@
 				D801C8E71EB8E131001FA294 /* ps */,
 				D801C8E91EB8E131001FA294 /* pt-br */,
 				D801C8EB1EB8E131001FA294 /* pt */,
-				D801C8ED1EB8E131001FA294 /* qqq */,
 				D801C8EF1EB8E131001FA294 /* ro */,
 				D801C8F11EB8E131001FA294 /* ru */,
 				D801C8F31EB8E131001FA294 /* sa */,
@@ -10679,7 +10620,6 @@
 				D801C8E81EB8E131001FA294 /* ps */,
 				D801C8EA1EB8E131001FA294 /* pt-br */,
 				D801C8EC1EB8E131001FA294 /* pt */,
-				D801C8EE1EB8E131001FA294 /* qqq */,
 				D801C8F01EB8E131001FA294 /* ro */,
 				D801C8F21EB8E131001FA294 /* ru */,
 				D801C8F41EB8E131001FA294 /* sa */,
