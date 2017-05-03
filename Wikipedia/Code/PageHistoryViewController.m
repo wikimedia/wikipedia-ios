@@ -23,7 +23,7 @@
 @implementation PageHistoryViewController
 
 - (NSString *)title {
-    return MWLocalizedString(@"page-history-title", nil);
+    return WMFLocalizedStringWithDefaultValue(@"page-history-title", nil, NSBundle.wmf_localizationBundle, @"Article history", @"Header text for Page History interface.\n{{Identical|Article history}}");
 }
 
 - (void)viewDidAppear:(BOOL)animated {

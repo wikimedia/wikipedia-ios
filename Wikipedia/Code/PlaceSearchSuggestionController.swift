@@ -71,12 +71,12 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         header.isLabelVerticallyCentered = true
         switch section {
 //        case PlaceSearchSuggestionController.suggestionSection:
-//            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
+//            header.text = WMFLocalizedString("places-search-suggested-searches-header", value:"Suggested searches", comment:"Suggested searches - header for the list of suggested searches")
         case PlaceSearchSuggestionController.recentSection:
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
-            header.clearButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-clear-saved-searches")
+            header.text = WMFLocalizedString("places-search-recently-searched-header", value:"Recently searched", comment:"Recently searched - header for the list of recently searched items")
+            header.clearButton.accessibilityLabel = WMFLocalizedString("places-accessibility-clear-saved-searches", value:"Clear saved searches", comment:"Accessibility hint for clearing saved searches")
         default:
             return nil
         }

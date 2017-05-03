@@ -23,14 +23,14 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-title")
-        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-instructions")
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
-        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
-        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title")
-        resetPasswordButton.setTitle(localizedStringForKeyFallingBackOnEnglish("forgot-password-button-title"), for: .normal)
-        orLabel.text = localizedStringForKeyFallingBackOnEnglish("forgot-password-username-or-email-title")
+        titleLabel.text = WMFLocalizedString("forgot-password-title", value:"Reset password", comment:"Title for reset password interface\n{{Identical|Reset password}}")
+        subTitleLabel.text = WMFLocalizedString("forgot-password-instructions", value:"Fill in one of the fields below to receive password reset instructions via email", comment:"Instructions for resetting password")
+        usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
+        emailField.placeholder = WMFLocalizedString("field-email-placeholder", value:"example@example.org", comment:"Placeholder text shown inside email address field until user taps on it")
+        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
+        emailTitleLabel.text = WMFLocalizedString("field-email-title", value:"Email", comment:"Noun. Title for email address field.\n{{Identical|E-mail}}")
+        resetPasswordButton.setTitle(WMFLocalizedString("forgot-password-button-title", value:"Reset", comment:"Title for reset password button\n{{Identical|Reset}}"), for: .normal)
+        orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}")
         
         usernameField.wmf_addThinBottomBorder()
         emailField.wmf_addThinBottomBorder()
@@ -108,7 +108,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
                 email: email,
                 success: { result in
                     self.dismiss(animated: true, completion:nil)
-                    WMFAlertManager.sharedInstance.showSuccessAlert(localizedStringForKeyFallingBackOnEnglish("forgot-password-email-sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }, failure:failure)
         }, failure:failure)
     }

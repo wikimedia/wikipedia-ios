@@ -1,9 +1,9 @@
 
 struct WMFAuthLinkLabelStrings {
-    /// String containing "$1" substring.
+    /// String containing "%1$@" substring.
     var dollarSignString: String
     
-    /// String which will replace "$1" in "dollarSignString".
+    /// String which will replace "%1$@" in "dollarSignString".
     var substitutionString: String
 }
 
@@ -55,7 +55,7 @@ class WMFAuthLinkLabel: UILabel {
             substitutionStringAttributes[NSFontAttributeName] = boldSubheadlineFont
         }
         
-        assert(strings.dollarSignString.contains("$1"), "Expected dollar sign substitution placeholder not found")
+        assert(strings.dollarSignString.contains("%1$@"), "Expected dollar sign substitution placeholder not found")
         
         return strings.dollarSignString.attributedString(attributes: dollarSignStringAttributes, substitutionStrings: [strings.substitutionString], substitutionAttributes: [substitutionStringAttributes])
     }
