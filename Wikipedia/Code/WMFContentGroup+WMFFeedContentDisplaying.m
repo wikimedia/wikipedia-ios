@@ -507,7 +507,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindRelatedPages:
             return
-            [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"home-more-like-footer", nil, NSBundle.wmf_localizationBundle, @"More like %1$@", "Footer for presenting user option to see longer list of articles related to a previously read article. %1$@ will be replaced with the name of the previously read article."), articleURL.wmf_title];
+            [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"home-more-like-footer", nil, NSBundle.wmf_localizationBundle, @"More like %1$@", "Footer for presenting user option to see longer list of articles related to a previously read article. %1$@ will be replaced with the name of the previously read article."), self.articleURL.wmf_title];
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
                 return NSLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, NSBundle.wmf_localizationBundle, @"More from nearby your location", "Footer for presenting user option to see longer list of nearby articles.");
