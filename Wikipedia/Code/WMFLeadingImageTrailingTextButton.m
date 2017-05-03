@@ -215,11 +215,11 @@
                                         inBundle:[NSBundle bundleForClass:[self class]]
                    compatibleWithTraitCollection:self.traitCollection];
 
-    self.labelText = NSLocalizedStringWithDefaultValue(@"button-save-for-later", nil, self.bundleForLocalization, @"Save for later", "Longer button text for save button used in various places.");
-    self.selectedLabelText = NSLocalizedStringWithDefaultValue(@"button-saved-for-later", nil, self.bundleForLocalization, @"Saved for later", "Longer button text for already saved button used in various places.");
+    self.labelText = WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, self.bundleForLocalization, @"Save for later", @"Longer button text for save button used in various places.");
+    self.selectedLabelText = WMFLocalizedStringWithDefaultValue(@"button-saved-for-later", nil, self.bundleForLocalization, @"Saved for later", @"Longer button text for already saved button used in various places.");
 
-    self.selectedActionText = NSLocalizedStringWithDefaultValue(@"unsave-action", nil, self.bundleForLocalization, @"Unsave", "Accessibility action description for 'Unsave'");
-    self.deselectedActionText = NSLocalizedStringWithDefaultValue(@"save-action", nil, self.bundleForLocalization, @"Save", "Accessibility action description for 'Save'\n{{Identical|Save}}");
+    self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, self.bundleForLocalization, @"Unsave", @"Accessibility action description for 'Unsave'");
+    self.deselectedActionText = WMFLocalizedStringWithDefaultValue(@"save-action", nil, self.bundleForLocalization, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
 }
 
 - (void)configureAsReportBugButton {
@@ -227,9 +227,9 @@
     self.iconImage = [UIImage imageNamed:@"settings-feedback"
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
-    self.labelText = NSLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", "Button text for reporting a bug");
-    self.selectedActionText = NSLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", "Button text for reporting a bug");
-    self.deselectedActionText = NSLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", "Button text for reporting a bug");
+    self.labelText = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", @"Button text for reporting a bug");
+    self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", @"Button text for reporting a bug");
+    self.deselectedActionText = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, self.bundleForLocalization, @"Report a bug", @"Button text for reporting a bug");
 }
 
 - (NSBundle *)bundleForLocalization {
@@ -250,13 +250,13 @@
     self.iconImage = [UIImage imageNamed:@"notificationsIconV1"
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
-    self.labelText = NSLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", "Text for button to turn on trending news notifications");
+    self.labelText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
 
     self.textLabel.textColor = [UIColor wmf_blueTint];
     self.textLabel.adjustsFontSizeToFitWidth = YES;
 
-    self.selectedActionText = NSLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", "Text for button to turn on trending news notifications");
-    self.deselectedActionText = NSLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", "Text for button to turn on trending news notifications");
+    self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
+    self.deselectedActionText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
 }
 
 @end

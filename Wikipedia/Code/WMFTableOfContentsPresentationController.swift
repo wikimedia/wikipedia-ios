@@ -46,8 +46,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
-        button.accessibilityHint = NSLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
-        button.accessibilityLabel = NSLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
+        button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
+        button.accessibilityLabel = WMFLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
 
         return button
     }()

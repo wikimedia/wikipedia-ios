@@ -346,12 +346,12 @@ class ArticlePlaceView: MKAnnotationView {
             zPosition = 1
             isPlaceholderHidden = false
             imageImagePlaceholderView.image = #imageLiteral(resourceName: "places-show-more")
-            accessibilityLabel = NSLocalizedString("places-accessibility-show-more", value:"Show more articles", comment:"Accessibility label for a button that shows more articles")
+            accessibilityLabel = WMFLocalizedString("places-accessibility-show-more", value:"Show more articles", comment:"Accessibility label for a button that shows more articles")
         } else {
             zPosition = 2
             let countString = "\(articlePlace.articles.count)"
             countLabel.text = countString
-            accessibilityLabel = String.localizedStringWithFormat(NSLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}"), countString)
+            accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}"), countString)
         }
         updateDotAndImageHiddenState(withArticlePlace: articlePlace)
     }

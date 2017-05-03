@@ -52,7 +52,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor.white), for: UIControlState())
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor(white: 0.9, alpha: 1.0)), for: .highlighted)
-        otherLanguagesButton?.setTitle(NSLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: UIControlState())
+        otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: UIControlState())
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in

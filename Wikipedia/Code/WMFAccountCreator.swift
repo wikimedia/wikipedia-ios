@@ -11,9 +11,9 @@ public enum WMFAccountCreatorError: LocalizedError {
         case .statusNotPass(let message?):
             return message
         case .wrongCaptcha:
-            return NSLocalizedString("field-alert-captcha-invalid", value:"Invalid CAPTCHA", comment:"Alert shown if CAPTCHA is not correct")
+            return WMFLocalizedString("field-alert-captcha-invalid", value:"Invalid CAPTCHA", comment:"Alert shown if CAPTCHA is not correct")
         case .usernameUnavailable:
-            return NSLocalizedString("field-alert-username-unavailable", value:"Username not available", comment:"Alert shown if new username is not available")
+            return WMFLocalizedString("field-alert-username-unavailable", value:"Username not available", comment:"Alert shown if new username is not available")
         default:
             return "Unable to create account: Reason unknown"
         }

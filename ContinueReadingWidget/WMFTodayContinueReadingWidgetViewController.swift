@@ -32,8 +32,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             daysAgoView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
         }
         
-        emptyDescriptionLabel.text = NSLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
-        emptyDescriptionLabel.text = NSLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
+        emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
+        emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
         _ = updateView()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))

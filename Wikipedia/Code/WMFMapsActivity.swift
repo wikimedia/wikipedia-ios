@@ -39,7 +39,7 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
     
     override open var activityTitle: String? {
         get {
-            return NSLocalizedString("share-open-in-maps", value:"Open in Maps", comment:"Button to open current article's location in the Maps app.")
+            return WMFLocalizedString("share-open-in-maps", value:"Open in Maps", comment:"Button to open current article's location in the Maps app.")
         }
     }
     
@@ -68,7 +68,7 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
 
     override open var activityTitle: String? {
         get {
-            return  NSLocalizedString("share-get-directions-in-maps", value:"Get Directions", comment:"Button to get directions to the current article's location in the Maps app.")
+            return  WMFLocalizedString("share-get-directions-in-maps", value:"Get Directions", comment:"Button to get directions to the current article's location in the Maps app.")
         }
     }
     

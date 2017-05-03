@@ -23,6 +23,7 @@
 #import "WMFLogging.h"
 #import "WMFDirectoryPaths.h"
 #import "WMFMath.h"
+#import "WMFLocalization.h"
 #import "NSError+WMFExtensions.h"
 #import "WMFOutParamUtils.h"
 #import "WMFRangeUtils.h"

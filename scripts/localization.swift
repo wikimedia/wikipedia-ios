@@ -298,7 +298,7 @@ func importLocalizationsFromTWN(_ path: String) {
 //     guard let value = en[key] else {
 //         continue
 //     }
-//     replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
+//     replacements[key] = "WMFLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
 // }
 //
 // let codePath = "WMF Framework"

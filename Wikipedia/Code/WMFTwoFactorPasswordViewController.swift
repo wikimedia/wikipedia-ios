@@ -48,13 +48,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             case .longAlphaNumeric:
                 backupOathTokenField.isHidden = false
                 oathTokenFieldsStackView.isHidden = true
-                tokenLabel.text = NSLocalizedString("field-backup-token-title", value:"Backup code", comment:"Title for backup token field")
-                displayModeToggle.text = NSLocalizedString("two-factor-login-with-regular-code", value:"Use verification code", comment:"Button text for showing text fields for normal two factor login")
+                tokenLabel.text = WMFLocalizedString("field-backup-token-title", value:"Backup code", comment:"Title for backup token field")
+                displayModeToggle.text = WMFLocalizedString("two-factor-login-with-regular-code", value:"Use verification code", comment:"Button text for showing text fields for normal two factor login")
             case .shortNumeric:
                 backupOathTokenField.isHidden = true
                 oathTokenFieldsStackView.isHidden = false
-                tokenLabel.text = NSLocalizedString("field-token-title", value:"Verification code", comment:"Title for token field")
-                displayModeToggle.text = NSLocalizedString("two-factor-login-with-backup-code", value:"Use one of your backup codes", comment:"Button text for showing text field for backup code two factor login")
+                tokenLabel.text = WMFLocalizedString("field-token-title", value:"Verification code", comment:"Title for token field")
+                displayModeToggle.text = WMFLocalizedString("two-factor-login-with-backup-code", value:"Use one of your backup codes", comment:"Button text for showing text field for backup code two factor login")
             }
             oathTokenFields.forEach {$0.text = nil}
             backupOathTokenField.text = nil
@@ -224,9 +224,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        loginButton.setTitle(NSLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
-        titleLabel.text = NSLocalizedString("two-factor-login-title", value:"Log in to your account", comment:"Title for two factor login interface")
-        subTitleLabel.text = NSLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
+        loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
+        titleLabel.text = WMFLocalizedString("two-factor-login-title", value:"Log in to your account", comment:"Title for two factor login interface")
+        subTitleLabel.text = WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
         
         backupOathTokenField.wmf_addThinBottomBorder()
         displayMode = .shortNumeric
@@ -260,7 +260,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         else {
             return
         }
-        WMFAlertManager.sharedInstance.showAlert(NSLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
         WMFAuthenticationManager.sharedInstance
             .login(username: userName,
@@ -270,7 +270,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                    captchaID: captchaID,
                    captchaWord: captchaWord,
                    success: { _ in
-                    let loggedInMessage = String.localizedStringWithFormat(NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
+                    let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
