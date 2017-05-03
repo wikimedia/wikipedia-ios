@@ -5,7 +5,7 @@ static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
 NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL *url, NSBundle *bundle, NSString *value, NSString *comment) {
     NSString *language = url.wmf_language;
     if (language == nil) {
-        language = @"en";
+       return NSLocalizedStringWithDefaultValue(key, nil, bundle, value, comment);
     }
     NSString *path = [[NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier] pathForResource:language ofType:@"lproj"];
     NSBundle *languageBundle = [NSBundle bundleWithPath:path];
