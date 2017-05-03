@@ -251,7 +251,6 @@ func importLocalizationsFromTWN() {
 		let defaultKeys = ["one"]
 	   let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
 	   for filename in contents {
-	       print("parsing \(filename)")
 	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "base", locale != "qqq" else {
 	           continue
 	       }
