@@ -6842,7 +6842,7 @@
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
-				D801C8501EB8E131001FA294 /* iOS Native Localizations */,
+				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
 				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
@@ -6914,14 +6914,14 @@
 			path = Wikipedia/Code/EventLogging;
 			sourceTree = SOURCE_ROOT;
 		};
-		D801C8501EB8E131001FA294 /* iOS Native Localizations */ = {
+		D801C8501EB8E131001FA294 /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
 				D801C8511EB8E131001FA294 /* InfoPlist.strings */,
 				D801C8531EB8E131001FA294 /* Localizable.strings */,
 				D801C8611EB8E131001FA294 /* Localizable.stringsdict */,
 			);
-			name = "iOS Native Localizations";
+			name = Localizations;
 			path = "Wikipedia/iOS Native Localizations";
 			sourceTree = "<group>";
 		};
