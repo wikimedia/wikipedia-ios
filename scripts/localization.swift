@@ -182,10 +182,10 @@ func writeStrings(fromDictionary dictionary: [String: String], toFile: String, e
 }
 
 
-func exportLocalizationsFromSourceCode() {
-	let basePath = "Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
-	let qqqPath = "Wikipedia/Localizations/qqq.lproj/Localizable.strings"
-	let enPath = "Wikipedia/Localizations/en.lproj/Localizable.strings"
+func exportLocalizationsFromSourceCode(_ path: String) {
+	let basePath = "\(path)/Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
+	let qqqPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
+	let enPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
 	guard let baseDictionary = NSDictionary(contentsOfFile: basePath) else {
 	       print("ABORTING")
 	       abort()
@@ -237,8 +237,8 @@ func exportLocalizationsFromSourceCode() {
 }
 
 
-func importLocalizationsFromTWN() {
-	let basePath = "Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
+func importLocalizationsFromTWN(_ path: String) {
+	let basePath = "\(path)/Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
 	guard let baseDictionary = NSDictionary(contentsOfFile: basePath) as? [String:String] else {
 	       print("ABORTING")
 	       abort()
@@ -249,12 +249,12 @@ func importLocalizationsFromTWN() {
 	do {
 		let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
 		let defaultKeys = ["one"]
-	   let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
+	   let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
 	   for filename in contents {
 	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "base", locale != "qqq" else {
 	           continue
 	       }
-	       guard let twnStrings = NSDictionary(contentsOfFile: "Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
+	       guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
 	           continue
 	       }
 	       let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
@@ -272,21 +272,21 @@ func importLocalizationsFromTWN() {
 	           }
 	       }
 
-	       try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings", escaped: true)
+	       try writeStrings(fromDictionary: strings as! [String: String], toFile: "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings", escaped: true)
 	       guard stringsDict.count > 0 else {
 	           do {
-	               try fm.removeItem(atPath: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict")
+	               try fm.removeItem(atPath: "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict")
 	           } catch { }
 	           continue
 	       }
-	       stringsDict.write(toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
+	       stringsDict.write(toFile: "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
 	   }
    
 	   do {
-	       try fm.removeItem(atPath: "Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
+	       try fm.removeItem(atPath: "\(path)/Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
 	   } catch { }
 	   do {
-	   	   try fm.copyItem(atPath: "Wikipedia/iOS Native Localizations/en.lproj/Localizable.stringsdict", toPath: "Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
+	   	   try fm.copyItem(atPath: "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.stringsdict", toPath: "\(path)/Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
 	   } catch let error {
 		   print("error copying: \(error)")
 	   }
@@ -294,15 +294,6 @@ func importLocalizationsFromTWN() {
 	} catch let error {
 		print("error importing: \(error)")
 	}
-}
-
-
-if CommandLine.arguments.contains("export") {
-	exportLocalizationsFromSourceCode()
-}
-
-if CommandLine.arguments.contains("import") {
-	importLocalizationsFromTWN()
 }
 
 

@@ -1,3 +1,4 @@
 #! /bin/sh
 
+cd "$1"
 xcrun extractLocStrings -s WMFLocalizedString -o Wikipedia/iOS\ Native\ Localizations/Base.lproj/ Wikipedia/Code/* WMF\ Framework/* InTheNewsNotification/* TopReadWidget/* ContinueReadingWidget/*

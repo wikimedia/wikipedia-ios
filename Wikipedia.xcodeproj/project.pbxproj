@@ -808,6 +808,8 @@
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
+		D87021631EBA63EF000D02D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021621EBA63EF000D02D6 /* main.swift */; };
+		D87021711EBA6400000D02D6 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021701EBA6400000D02D6 /* localization.swift */; };
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
@@ -2480,6 +2482,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D870215E1EBA63EE000D02D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		D8A42C1D1E815A9C00D8E281 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3883,6 +3894,9 @@
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
 		D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFColumnarCollectionViewLayout.m; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.m; sourceTree = SOURCE_ROOT; };
+		D87021601EBA63EE000D02D6 /* localization */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = localization; sourceTree = BUILT_PRODUCTS_DIR; };
+		D87021621EBA63EF000D02D6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D87021701EBA6400000D02D6 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = scripts/localization.swift; sourceTree = SOURCE_ROOT; };
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -4109,6 +4123,13 @@
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				D82FDB371DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
 				D8D551731DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D870215D1EBA63EE000D02D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6830,6 +6851,7 @@
 				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
+				D87021611EBA63EF000D02D6 /* localization */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
@@ -6847,6 +6869,7 @@
 				D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */,
 				D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */,
 				D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */,
+				D87021601EBA63EE000D02D6 /* localization */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7205,6 +7228,15 @@
 			);
 			name = Layout;
 			path = ../Schema;
+			sourceTree = "<group>";
+		};
+		D87021611EBA63EF000D02D6 /* localization */ = {
+			isa = PBXGroup;
+			children = (
+				D87021701EBA6400000D02D6 /* localization.swift */,
+				D87021621EBA63EF000D02D6 /* main.swift */,
+			);
+			path = localization;
 			sourceTree = "<group>";
 		};
 		D87233FC1E1FF05800751E83 /* Places */ = {
@@ -7693,6 +7725,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D844D97B1D6CB2600042D692 /* Build configuration list for PBXNativeTarget "WMF" */;
 			buildPhases = (
+				D87021731EBA6BA1000D02D6 /* ShellScript */,
+				D87021721EBA69B7000D02D6 /* ShellScript */,
 				D81E5F8C1E608F4200E1A80C /* ShellScript */,
 				D844D9671D6CB2600042D692 /* Sources */,
 				D844D9681D6CB2600042D692 /* Frameworks */,
@@ -7725,6 +7759,23 @@
 			productName = TopReadWidget;
 			productReference = D85D34C51D74D07500845125 /* TopReadWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
+		};
+		D870215F1EBA63EE000D02D6 /* localization */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D870216F1EBA63EF000D02D6 /* Build configuration list for PBXNativeTarget "localization" */;
+			buildPhases = (
+				D870215C1EBA63EE000D02D6 /* Sources */,
+				D870215D1EBA63EE000D02D6 /* Frameworks */,
+				D870215E1EBA63EE000D02D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = localization;
+			productName = localization;
+			productReference = D87021601EBA63EE000D02D6 /* localization */;
+			productType = "com.apple.product-type.tool";
 		};
 		D895D0821D9C1EB8005418C1 /* InTheNewsNotification */ = {
 			isa = PBXNativeTarget;
@@ -7821,7 +7872,7 @@
 					WMFWelcome,
 				);
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
@@ -7878,6 +7929,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					D870215F1EBA63EE000D02D6 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = AKK7J2GV64;
+						ProvisioningStyle = Automatic;
 					};
 					D895D0821D9C1EB8005418C1 = {
 						CreatedOnToolsVersion = 8.0;
@@ -8053,6 +8109,7 @@
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
 				D85D34C41D74D07500845125 /* TopReadWidget */,
 				D844D96B1D6CB2600042D692 /* WMF */,
+				D870215F1EBA63EE000D02D6 /* localization */,
 			);
 		};
 /* End PBXProject section */
@@ -8593,6 +8650,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D87021721EBA69B7000D02D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\"";
+			showEnvVarsInLog = 0;
+		};
+		D87021731EBA6BA1000D02D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/scripts/localization_extract\"";
 		};
 		D8A42C1F1E815A9C00D8E281 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9360,6 +9445,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D85D34C91D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D870215C1EBA63EE000D02D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D87021711EBA6400000D02D6 /* localization.swift in Sources */,
+				D87021631EBA63EF000D02D6 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12151,6 +12245,207 @@
 			};
 			name = Test;
 		};
+		D87021641EBA63EF000D02D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D87021651EBA63EF000D02D6 /* UserTestingDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = UserTestingDebug;
+		};
+		D87021661EBA63EF000D02D6 /* BetaDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaDebug;
+		};
+		D87021671EBA63EF000D02D6 /* BetaClusterDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaClusterDebug;
+		};
+		D87021681EBA63EF000D02D6 /* AlphaDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = AlphaDebug;
+		};
+		D87021691EBA63EF000D02D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		D870216A1EBA63EF000D02D6 /* UserTestingRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = UserTestingRelease;
+		};
+		D870216B1EBA63EF000D02D6 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Beta;
+		};
+		D870216C1EBA63EF000D02D6 /* BetaCluster */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaCluster;
+		};
+		D870216D1EBA63EF000D02D6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Test;
+		};
+		D870216E1EBA63EF000D02D6 /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Alpha;
+		};
 		D895D0921D9C1EB8005418C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -14891,6 +15186,23 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D870216F1EBA63EF000D02D6 /* Build configuration list for PBXNativeTarget "localization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D87021641EBA63EF000D02D6 /* Debug */,
+				D87021651EBA63EF000D02D6 /* UserTestingDebug */,
+				D87021661EBA63EF000D02D6 /* BetaDebug */,
+				D87021671EBA63EF000D02D6 /* BetaClusterDebug */,
+				D87021681EBA63EF000D02D6 /* AlphaDebug */,
+				D87021691EBA63EF000D02D6 /* Release */,
+				D870216A1EBA63EF000D02D6 /* UserTestingRelease */,
+				D870216B1EBA63EF000D02D6 /* Beta */,
+				D870216C1EBA63EF000D02D6 /* BetaCluster */,
+				D870216D1EBA63EF000D02D6 /* Test */,
+				D870216E1EBA63EF000D02D6 /* Alpha */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */ = {
 			isa = XCConfigurationList;
