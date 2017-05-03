@@ -36,15 +36,28 @@ fileprivate var mwLocalizedStringRegex: NSRegularExpression? = {
     return nil
 }()
 
+fileprivate var countPrefixRegex: NSRegularExpression? = {
+    do {
+        return try NSRegularExpression(pattern: "(:?^[0-9]+)(?:=)", options: [])
+    } catch {
+        assertionFailure("countPrefixRegex failed to compile")
+    }
+    return nil
+}()
+
 extension String {
+    var fullRange: NSRange {
+        return NSRange(location: 0, length: (self as NSString).length)
+    }
     var escapedString: String {
         return self.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n")
     }
-    var pluralDictionary: NSDictionary? {
+    func pluralDictionary(with keys: [String]) -> NSDictionary? {
+		//https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
         }
-        let fullRange = NSRange(location: 0, length: self.characters.count)
+        let fullRange = self.fullRange
         let mutableDictionary = NSMutableDictionary(capacity: 5)
         let results = dictionaryRegex.matches(in: self, options: [], range: fullRange)
         
@@ -67,16 +80,16 @@ extension String {
         }
         
         let firstComponent = components[0]
-        let other = components[countOfComponents - 1]
         guard firstComponent.hasPrefix("PLURAL:") else {
             return nil
         }
         
         let token = firstComponent.substring(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
-        guard token.characters.count == 2 else {
+        guard (token as NSString).length == 2 else {
             return nil
         }
         
+        let other = components[countOfComponents - 1]
         let lower = index(startIndex, offsetBy: result.range.location)
         let upper = index(lower, offsetBy: result.range.length)
         let range = lower..<upper
@@ -87,14 +100,35 @@ extension String {
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
         let newToken = "%1$\(formatValueType)"
         keyDictionary["other"] = self.replacingCharacters(in: range, with: other).replacingOccurrences(of: token, with: newToken)
+
+		var keyIndex = 0
+		guard let countPrefixRegex = countPrefixRegex else {
+		    abort()
+		}
+		for component in components[1..<(countOfComponents - 1)]{
+		    var keyForComponent: String?
+			var actualComponent: String? = component
+		    if let match = countPrefixRegex.firstMatch(in: component, options: [], range: component.fullRange) {
+		        let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
+		        if numberString == "0" {
+		            actualComponent = (component as NSString).substring(from: match.range.length) as String?
+		            keyForComponent = "zero"
+		        }
         
-        if countOfComponents > 2 {
-            keyDictionary["one"] = self.replacingCharacters(in: range, with: components[1]).replacingOccurrences(of: token, with: newToken)
-        }
-        
-        if countOfComponents > 3 {
-            keyDictionary["few"] = self.replacingCharacters(in: range, with: components[2]).replacingOccurrences(of: token, with: newToken)
-        }
+		    } else {
+		    	if keyIndex < keys.count {
+		    		keyForComponent = keys[keyIndex]
+					keyIndex += 1
+		    	}
+		    }
+			
+			guard let keyToInsert = keyForComponent, let componentToInsert = actualComponent else {
+				continue
+			}
+			
+			keyDictionary[keyToInsert] = self.replacingCharacters(in: range, with: componentToInsert).replacingOccurrences(of: token, with: newToken)
+			
+		}
         
         let key = "v0"
         mutableDictionary[key] = keyDictionary
@@ -241,10 +275,12 @@ do {
 let fm = FileManager.default
 
 do {
+	let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
+	let defaultKeys = ["one"]
    let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
    for filename in contents {
        print("parsing \(filename)")
-       guard let locale = filename.components(separatedBy: ".").first, locale.lowercased() != "base", locale.lowercased() != "qqq" else {
+       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "base", locale != "qqq" else {
            continue
        }
        guard let twnStrings = NSDictionary(contentsOfFile: "Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
@@ -257,7 +293,9 @@ do {
                continue
            }
            if twnString.contains("{{PLURAL:") {
-               stringsDict[key] = twnString.pluralDictionary
+			   let lang = locale.components(separatedBy: "-").first ?? ""
+			   let keys = keysByLanguage[lang] ?? defaultKeys
+               stringsDict[key] = twnString.pluralDictionary(with: keys)
            } else {
                strings[key] = twnString.iOSNativeLocalization
            }
