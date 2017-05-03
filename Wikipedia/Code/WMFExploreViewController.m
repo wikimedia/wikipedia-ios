@@ -1640,15 +1640,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     shouldReload = shouldReload || !sectionCountsMatch;
-
+    
+    WMFColumnarCollectionViewLayout *layout = (WMFColumnarCollectionViewLayout *)self.collectionViewLayout;
     if (shouldReload) {
+        layout.slideInNewContentFromTheTop = NO;
         [self.collectionView reloadData];
     } else {
-        if (didInsertFirstSection && sectionDelta > 0) {
-            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        if (didInsertFirstSection && sectionDelta > 0 && [previousSectionCounts count] > 0) {
+            layout.slideInNewContentFromTheTop = YES;
+            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self batchUpdateCollectionView:previousSectionCounts];
             } completion:NULL];
         } else {
+            layout.slideInNewContentFromTheTop = NO;
             [self batchUpdateCollectionView:previousSectionCounts];
         }
     }

@@ -153,6 +153,11 @@
 
 - (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems {
     [super prepareForCollectionViewUpdates:updateItems];
+    if (!self.slideInNewContentFromTheTop) {
+        self.maxNewSection = -1;
+        self.newSectionDeltaY = 0;
+        return;
+    }
     NSInteger maxSection = -1;
     for (UICollectionViewUpdateItem *updateItem in updateItems) {
         if (updateItem.indexPathBeforeUpdate != nil || updateItem.indexPathAfterUpdate == nil) {
