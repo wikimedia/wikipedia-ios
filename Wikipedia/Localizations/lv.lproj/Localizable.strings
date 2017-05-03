@@ -256,5 +256,7 @@
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "announcements-dismiss" = "Nē, paldies";
-// Fuzzy
-"places-search-saved-articles" = "Saglabātie raksti";
+"places-search-saved-articles" = "Visi saglabātie raksti";
+"places-filter-top-articles-count" = "$1 raksti";
+"places-filter-saved-articles" = "Saglabātie raksti";
+"places-filter-list-title" = "Meklēšanas filtri";

@@ -4,6 +4,7 @@
 // Author: Anaclaudiaml
 // Author: Araceletorres
 // Author: Arthurteb303
+// Author: BarbaraAckles
 // Author: Cainamarques
 // Author: Caçador de Palavras
 // Author: Cristofer Alves
@@ -498,6 +499,7 @@
 "explore-another-random" = "Outro artigo aleatório";
 "explore-randomizer" = "Aleatório";
 "find-in-page-no-matches" = "Sem correspondências";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Localizar na página";
 "find-in-page-popover-description" = "Pesquisa de texto em artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
@@ -527,7 +529,7 @@
 "status-saved-for-later" = "Salvo para mais tarde";
 "announcements-dismiss" = "Não, obrigado";
 "places-search-top-articles" = "Todos os principais artigos";
-"places-search-this-area" = "Procurar nesta área";
+"places-search-this-area" = "Resultados nesta área";
 "places-search-saved-articles" = "Todos os artigos salvos";
 "places-search-suggested-searches-header" = "Pesquisas sugeridas";
 "places-search-recently-searched-header" = "Procurado recentemente";
@@ -544,12 +546,14 @@
 "places-accessibility-recenter-map-on-user-location" = "Recentralizar sua localização";
 "places-accessibility-close-search" = "Fechar pesquisa";
 "places-accessibility-clear-recent-searches" = "Apagar pesquisas recentes";
+// Fuzzy
 "places-filter-top-articles" = "Artigos principais";
 "places-filter-top-articles-count" = "$1 artigos";
 "places-filter-saved-articles" = "Artigos salvos";
-"places-filter-saved-articles-count" = "$1 lugares encontrados";
+"places-filter-saved-articles-count" = "$1 lugar encontrado";
+"places-filter-no-saved-places" = "Você não tem lugares salvos";
 "places-filter-list-title" = "Filtros de pesquisa";
-"places-search-default-text" = "Procurar artigos ou localizações";
+"places-search-default-text" = "Procurar";
 "places-empty-search-title" = "Pesquisar artigos da Wikipédia com localizações geográficas";
 "places-empty-search-description" = "Explore cidades, países, continentes, marcos naturais, eventos históricos, edifícios e muito mais.";
 "action-share" = "Compartilhar";

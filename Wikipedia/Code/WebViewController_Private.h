@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
+
 /**
  * Designated initializer.
  * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.

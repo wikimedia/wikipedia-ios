@@ -250,7 +250,7 @@
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободна енциклопедија";
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
-"preference-summary-eventlogging-opt-in" = "Дозволите Фондацији Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
+"preference-summary-eventlogging-opt-in" = "Дозволите Задужбини Викимедија да прикупља информације о томе како користите апликацију у циљу њеног побољшања.";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
 "page-protected-other" = "Ова страница је заштићена на следећим нивоима: $1";
@@ -310,8 +310,8 @@
 "image-gallery-fetch-image-info-error-title" = "Грешка при преузимању слика";
 "image-gallery-fetch-image-info-error-message" = "Не могу да преузмем слике за овај чланак. Освежите га па покушајте поново.";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
-"hockeyapp-alert-question" = "Желите ли да $1-у пошаљете извештај о отказивању како би Фондација Викимедија могла да испита Ваш случај?";
-"hockeyapp-alert-question-with-response-field" = "Желите ли да $1-у пошаљете извештај о отказивању како би Фондација Викимедија могла да испита Ваш случај? Опишите шта се десило када је дошло до отказивања:";
+"hockeyapp-alert-question" = "Желите ли да $1-у пошаљете извештај о отказивању како би Задужбина Викимедија могла да испита ваш случај?";
+"hockeyapp-alert-question-with-response-field" = "Желите ли да $1-у пошаљете извештај о отказивању како би Задужбина Викимедија могла да испита ваш случај? Опишите шта се десило када је дошло до отказивања:";
 "hockeyapp-alert-title" = "Апликација је отказала прошли пут";
 "hockeyapp-alert-send-report" = "Пошаљи извештај";
 "hockeyapp-alert-always-send" = "Увек шаљи";
@@ -408,9 +408,13 @@
 "places-search-top-articles" = "Сви најчитанији чланци";
 "places-search-saved-articles" = "Сви сачувани чланци";
 "places-search-articles-that-match" = "$1 имају поклапање за „$2”";
+// Fuzzy
 "places-filter-top-articles" = "Најчитанији чланци";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-filter-saved-articles" = "Сачувани чланци";
+"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|место пронађено|места пронађена|места пронађено}}";
 "places-filter-list-title" = "Филтери за претрагу";
+// Fuzzy
 "places-search-default-text" = "Претражи чланке или локације";
 "places-empty-search-title" = "Претражи Википедијине чланке са географским локацијама";
 "places-empty-search-description" = "Истражи градове, државе, континенте, природне знаменитости, историјске догађаје, грађевине и друго.";

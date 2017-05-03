@@ -24,11 +24,16 @@
 }
 
 - (NSArray *)bundledLprogFiles {
-    return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
+    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
 }
 
 - (NSArray *)allLprogFiles {
-    return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
+    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+}
+
+- (NSDictionary *)getPluralizableStringsDictFromLprogAtPath:(NSString *)lprojPath {
+    NSString *stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.stringsdict"];
+    return [self getDictFromPListAtPath:stringsFilePath];
 }
 
 - (NSDictionary *)getTranslationStringsDictFromLprogAtPath:(NSString *)lprojPath {
@@ -111,9 +116,16 @@
     for (NSString *lprojFileName in self.lprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
             NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
-                assertThat(localizedString, isNot(stringContainsInOrder(@"{{", @"}}", nil)));
+                if ([localizedString containsString:@"{{"]) {
+                    if ([localizedString containsString:@"{{PLURAL:$"]) {
+                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
+                    } else {
+                        XCTAssertTrue(false, @"Unsupported {{ }} in localization");
+                    }
+                }
             }
         }
     }
@@ -158,7 +170,6 @@
         @"cnh.lproj",
         @"ku-latn.lproj",
         @"mai.lproj",
-        @"pt-br.lproj", // for some reason Brazilian Portugese is still showing up as not bundled, but I added it... hmm...
         @"sa.lproj",
         @"sd.lproj",
         @"tl.lproj",
