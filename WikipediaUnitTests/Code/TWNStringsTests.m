@@ -4,13 +4,18 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
+@import WMF;
+
 @interface TWNStringsTests : XCTestCase
 
-@property (strong, nonatomic) NSArray *lprojFiles;
-@property (strong, nonatomic) NSString *bundleRoot;
-@property (strong, nonatomic) NSArray *infoPlistFilePaths;
-@property (strong, nonatomic) NSString *twnLocalizationsDirectory;
-@property (strong, nonatomic) NSString *iOSLocalizationsDirectory;
+@property (class, strong, nonatomic, readonly) NSArray *bundledLprojFiles;
+@property (class, strong, nonatomic, readonly) NSArray *iOSLprojFiles;
+@property (class, strong, nonatomic, readonly) NSArray *twnLprojFiles;
+@property (class, strong, nonatomic, readonly) NSString *bundleRoot;
+@property (class, strong, nonatomic, readonly) NSArray *twnInfoPlistFilePaths;
+@property (class, strong, nonatomic, readonly) NSArray *iOSInfoPlistFilePaths;
+@property (class, strong, nonatomic, readonly) NSString *twnLocalizationsDirectory;
+@property (class, strong, nonatomic, readonly) NSString *iOSLocalizationsDirectory;
 
 @end
 
@@ -18,21 +23,70 @@
 
 - (void)setUp {
     [super setUp];
-    self.twnLocalizationsDirectory = [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
-    self.iOSLocalizationsDirectory = [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
-    self.bundleRoot = [[NSBundle mainBundle] bundlePath];
-    self.lprojFiles = [self bundledLprogFiles];
-    self.infoPlistFilePaths = [self.lprojFiles wmf_map:^NSString *(NSString *lprojFileName) {
-        return [[self.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
-    }];
 }
 
-- (NSArray *)bundledLprogFiles {
-    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
++ (NSString *)iOSLocalizationsDirectory {
+    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
 }
 
-- (NSArray *)allLprogFiles {
-    return [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.twnLocalizationsDirectory error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
++ (NSString *)twnLocalizationsDirectory {
+    return [SOURCE_ROOT_DIR stringByAppendingPathComponent:@"Wikipedia/Localizations"];
+}
+
++ (NSString *)bundleRoot {
+    return [[NSBundle wmf_localizationBundle] bundlePath];
+}
+
++ (NSString *)appBundleRoot {
+    return [[NSBundle mainBundle] bundlePath];
+}
+
++ (NSArray *)bundledLprojFiles {
+    static dispatch_once_t onceToken;
+    static NSArray *bundledLprojFiles;
+    dispatch_once(&onceToken, ^{
+        bundledLprojFiles = [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:TWNStringsTests.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+    });
+    return bundledLprojFiles;
+}
+
++ (NSArray *)twnInfoPlistFilePaths {
+    static dispatch_once_t onceToken;
+    static NSArray *twnInfoPlistFilePaths;
+    dispatch_once(&onceToken, ^{
+        twnInfoPlistFilePaths = [self.twnLprojFiles wmf_map:^NSString *(NSString *lprojFileName) {
+            return [[self.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
+        }];
+    });
+    return twnInfoPlistFilePaths;
+}
+
++ (NSArray *)iOSInfoPlistFilePaths {
+    static dispatch_once_t onceToken;
+    static NSArray *infoPlistFilePaths;
+    dispatch_once(&onceToken, ^{
+        infoPlistFilePaths = [self.iOSLprojFiles wmf_map:^NSString *(NSString *lprojFileName) {
+            return [[self.iOSLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
+        }];
+    });
+    return infoPlistFilePaths;
+}
++ (NSArray *)twnLprojFiles {
+    static dispatch_once_t onceToken;
+    static NSArray *twnLprojFiles;
+    dispatch_once(&onceToken, ^{
+        twnLprojFiles = [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.twnLocalizationsDirectory error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+    });
+    return twnLprojFiles;
+}
+
++ (NSArray *)iOSLprojFiles {
+    static dispatch_once_t onceToken;
+    static NSArray *iOSLprojFiles;
+    dispatch_once(&onceToken, ^{
+        iOSLprojFiles = [[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.iOSLocalizationsDirectory error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+    });
+    return iOSLprojFiles;
 }
 
 - (NSDictionary *)getPluralizableStringsDictFromLprogAtPath:(NSString *)lprojPath {
@@ -63,13 +117,14 @@
     return substitutions;
 }
 
-- (void)test_lproj_count {
-    assertThat(@(self.lprojFiles.count), is(greaterThan(@(0))));
+- (void)testLprojCount {
+    XCTAssert(TWNStringsTests.iOSLprojFiles.count > 0);
+    XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
 }
 
 - (void)testIncomingTranslationStringForReversedSubstitutionShortcuts {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             assertThat(localizedString, isNot(containsSubstring(@"1$")));
@@ -81,9 +136,18 @@
     }
 }
 
++ (NSRegularExpression *)twnTokenRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *dollarSignNumberSubstitutionRegex;
+    dispatch_once(&onceToken, ^{
+        dollarSignNumberSubstitutionRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[$])(:?[0-9]+)" options:0 error:nil];
+    });
+    return dollarSignNumberSubstitutionRegex;
+}
+
 - (void)testIncomingTranslationStringForPercentNumber {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             assertThat(localizedString, isNot(containsSubstring(@"%1")));
@@ -96,8 +160,8 @@
 }
 
 - (void)testIncomingTranslationStringForPercentS {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             assertThat(localizedString, isNot(containsSubstring(@"%s")));
@@ -106,8 +170,8 @@
 }
 
 - (void)testIncomingTranslationStringForHTML {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             assertThat(localizedString, isNot(stringContainsInOrder(@"<", @">", nil)));
@@ -117,10 +181,10 @@
 }
 
 - (void)testIncomingTranslationStringForBracketSubstitutions {
-    for (NSString *lprojFileName in self.lprojFiles) {
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
-            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-            NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
                 if ([localizedString containsString:@"{{"]) {
@@ -136,8 +200,8 @@
 }
 
 - (NSArray *)unbundledLprojFiles {
-    NSMutableArray *files = [[self allLprogFiles] mutableCopy];
-    [files removeObjectsInArray:[self bundledLprogFiles]];
+    NSMutableArray *files = [TWNStringsTests.twnLprojFiles mutableCopy];
+    [files removeObjectsInArray:TWNStringsTests.bundledLprojFiles];
     return files;
 }
 
@@ -147,7 +211,7 @@
         [self.unbundledLprojFiles wmf_select:^BOOL(NSString *lprojFileName) {
             BOOL isDirectory = NO;
             NSString *localizableStringsFilePath =
-                [[self.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
+                [[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
             return [[NSFileManager defaultManager] fileExistsAtPath:localizableStringsFilePath isDirectory:&isDirectory];
         }];
 }
@@ -185,26 +249,9 @@
     ];
 }
 
-- (void)testEachLprojContainsAnInfoPlistStringsFile {
-    for (NSString *path in [self infoPlistFilePaths]) {
-        BOOL isDir = NO;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir]) {
-            XCTAssert(NO, @"Required file not found: %@", path);
-        }
-    }
-}
-
-- (void)testEachInfoPlistStringsFileContainsCFBundleDisplayNameKey {
-    for (NSString *path in [self infoPlistFilePaths]) {
-        if (![[[self getDictFromPListAtPath:path] allKeys] containsObject:@"CFBundleDisplayName"]) {
-            XCTAssert(NO, @"Required CFBundleDisplayName key not found in: %@", path);
-        }
-    }
-}
-
 - (void)testKeysForUnderscores {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             // Keys use dash "-" separators.
             assertThat(key, isNot(containsSubstring(@"_")));
@@ -214,10 +261,10 @@
 
 - (void)testMismatchedSubstitutions {
 
-    NSString *qqqBundlePath = [self.twnLocalizationsDirectory stringByAppendingPathComponent:@"qqq.lproj"];
+    NSString *qqqBundlePath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"qqq.lproj"];
     NSDictionary *qqqStringsDict = [self getTranslationStringsDictFromLprogAtPath:qqqBundlePath];
 
-    NSString *enBundlePath = [self.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"];
+    NSString *enBundlePath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"];
     NSDictionary *enStringsDict = [self getTranslationStringsDictFromLprogAtPath:enBundlePath];
 
     for (NSString *key in enStringsDict) {
@@ -241,9 +288,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    self.lprojFiles = nil;
-    self.bundleRoot = nil;
-    self.infoPlistFilePaths = nil;
 }
 
 @end
