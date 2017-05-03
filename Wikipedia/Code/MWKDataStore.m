@@ -475,7 +475,7 @@ static uint64_t bundleHash() {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
         _feedImportContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
     }
     return _feedImportContext;
 }
@@ -483,7 +483,7 @@ static uint64_t bundleHash() {
 - (void)teardownFeedImportContext {
     WMFAssertMainThread(@"feedImportContext must be torn down on the main thread");
     if (_feedImportContext) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
+        // [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:_feedImportContext];
         _feedImportContext = nil;
     }
 }
