@@ -3531,9 +3531,6 @@
 		D801C85C1EB8E131001FA294 /* azb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = azb; path = azb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C85D1EB8E131001FA294 /* azb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = azb; path = azb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C85E1EB8E131001FA294 /* ba */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ba; path = ba.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D801C85F1EB8E131001FA294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D801C8601EB8E131001FA294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D801C8621EB8E131001FA294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D801C8631EB8E131001FA294 /* bcl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bcl; path = bcl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8641EB8E131001FA294 /* be-tarask */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "be-tarask"; path = "be-tarask.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		D801C8651EB8E131001FA294 /* be-tarask */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "be-tarask"; path = "be-tarask.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -6851,7 +6848,7 @@
 				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
-				D87021611EBA63EF000D02D6 /* localization */,
+				D87021611EBA63EF000D02D6 /* Localization */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
@@ -7230,12 +7227,13 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
-		D87021611EBA63EF000D02D6 /* localization */ = {
+		D87021611EBA63EF000D02D6 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
 				D87021701EBA6400000D02D6 /* localization.swift */,
 				D87021621EBA63EF000D02D6 /* main.swift */,
 			);
+			name = Localization;
 			path = localization;
 			sourceTree = "<group>";
 		};
@@ -10540,7 +10538,6 @@
 				D801C8591EB8E131001FA294 /* ast */,
 				D801C85B1EB8E131001FA294 /* az */,
 				D801C85C1EB8E131001FA294 /* azb */,
-				D801C85F1EB8E131001FA294 /* Base */,
 				D801C8631EB8E131001FA294 /* bcl */,
 				D801C8641EB8E131001FA294 /* be-tarask */,
 				D801C8661EB8E131001FA294 /* bgn */,
@@ -10654,7 +10651,6 @@
 				D801C85A1EB8E131001FA294 /* ast */,
 				D801C85D1EB8E131001FA294 /* azb */,
 				D801C85E1EB8E131001FA294 /* ba */,
-				D801C8601EB8E131001FA294 /* Base */,
 				D801C8651EB8E131001FA294 /* be-tarask */,
 				D801C8671EB8E131001FA294 /* bgn */,
 				D801C8691EB8E131001FA294 /* bn */,
@@ -10753,7 +10749,6 @@
 		D801C8611EB8E131001FA294 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D801C8621EB8E131001FA294 /* Base */,
 				D801C8871EB8E131001FA294 /* en */,
 				D801C8E61EB8E131001FA294 /* pl */,
 				D801C9021EB8E131001FA294 /* sr-EC */,
@@ -15203,6 +15198,7 @@
 				D870216E1EBA63EF000D02D6 /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */ = {
 			isa = XCConfigurationList;

@@ -183,21 +183,21 @@ func writeStrings(fromDictionary dictionary: [String: String], toFile: String, e
 
 
 func exportLocalizationsFromSourceCode(_ path: String) {
-	let basePath = "\(path)/Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
-	let qqqPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
-	let enPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
-	guard let baseDictionary = NSDictionary(contentsOfFile: basePath) else {
+	let iOSENPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
+	let twnQQQPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
+	let twnENPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
+	guard let iOSEN = NSDictionary(contentsOfFile: iOSENPath) else {
 	       print("ABORTING")
 	       abort()
 	}
 
-	var qqq = [String: String]()
-	var en = [String: String]() 
+	var twnQQQ = [String: String]()
+	var twnEN = [String: String]()
 
 	do {
 	   let commentSet = CharacterSet(charactersIn: "/* ")
 	   let quoteSet = CharacterSet(charactersIn: "\"")
-	   let string = try String(contentsOfFile: basePath)
+	   let string = try String(contentsOfFile: iOSENPath)
 	   let lines = string.components(separatedBy: .newlines)
 	   var currentComment: String?
 	   var currentKey: String?
@@ -220,26 +220,27 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 	   }
 
 	   for (key, comment) in commentsByKey {
-	       qqq[key] = comment.twnNativeLocalization
+	       twnQQQ[key] = comment.twnNativeLocalization
 	   }
-	   try writeStrings(fromDictionary: qqq, toFile: qqqPath, escaped: false)
+	   try writeStrings(fromDictionary: twnQQQ, toFile: twnQQQPath, escaped: false)
 
-	   for (key, value) in baseDictionary {
+	   for (key, value) in iOSEN {
 	       guard let value = value as? String, let key = key as? String  else {
 	           continue
 	       }
-	       en[key] = value.twnNativeLocalization
+	       twnEN[key] = value.twnNativeLocalization
 	   }
-	   try writeStrings(fromDictionary: en, toFile: enPath, escaped: true)
+	   try writeStrings(fromDictionary: twnEN, toFile: twnENPath, escaped: true)
 	} catch let error {
 	   print("error: \(error)")
 	}
+
 }
 
 
 func importLocalizationsFromTWN(_ path: String) {
-	let basePath = "\(path)/Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
-	guard let baseDictionary = NSDictionary(contentsOfFile: basePath) as? [String:String] else {
+	let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
+	guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String:String] else {
 	       print("ABORTING")
 	       abort()
 	}
@@ -251,7 +252,7 @@ func importLocalizationsFromTWN(_ path: String) {
 		let defaultKeys = ["one"]
 	   let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
 	   for filename in contents {
-	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "base", locale != "qqq" else {
+	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "en", locale != "qqq" else {
 	           continue
 	       }
 	       guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
@@ -260,7 +261,7 @@ func importLocalizationsFromTWN(_ path: String) {
 	       let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
 	       let strings = NSMutableDictionary(capacity: twnStrings.count)
 	       for (key, value) in twnStrings {
-	           guard let twnString = value as? String, let key = key as? String, baseDictionary[key] != nil else {
+	           guard let twnString = value as? String, let key = key as? String, enDictionary[key] != nil else {
 	               continue
 	           }
 	           if twnString.contains("{{PLURAL:") {
@@ -280,15 +281,6 @@ func importLocalizationsFromTWN(_ path: String) {
 	           continue
 	       }
 	       stringsDict.write(toFile: "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
-	   }
-   
-	   do {
-	       try fm.removeItem(atPath: "\(path)/Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
-	   } catch { }
-	   do {
-	   	   try fm.copyItem(atPath: "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.stringsdict", toPath: "\(path)/Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
-	   } catch let error {
-		   print("error copying: \(error)")
 	   }
 
 	} catch let error {
