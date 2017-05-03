@@ -135,13 +135,13 @@ extension String {
     }
 }
 
-func writeStrings(fromDictionary dictionary: [String: String], toFile: String) throws {
+func writeStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
     var output = ""
     let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
         return kv1.key < kv2.key
     })
     for (key, value) in sortedDictionary {
-        output.append("\"\(key)\" = \"\(value.escapedString)\";\n")
+        output.append("\"\(key)\" = \"\(escaped ? value.escapedString : value)\";\n")
     }
     
     try output.write(toFile: toFile, atomically: true, encoding: .utf8)
@@ -150,14 +150,13 @@ func writeStrings(fromDictionary dictionary: [String: String], toFile: String) t
 let basePath = "Wikipedia/iOS Native Localizations/Base.lproj/Localizable.strings"
 let qqqPath = "Wikipedia/Localizations/qqq.lproj/Localizable.strings"
 let enPath = "Wikipedia/Localizations/en.lproj/Localizable.strings"
-
-guard let baseDictionary = NSDictionary(contentsOfFile: basePath),
-   let qqqDictionary = NSMutableDictionary(contentsOfFile: qqqPath),
-   let enDictionary = NSMutableDictionary(contentsOfFile: enPath) else {
+guard let baseDictionary = NSDictionary(contentsOfFile: basePath) else {
        print("ABORTING")
        abort()
 }
 
+var qqq = [String: String]()
+var en = [String: String]() 
 
 do {
    let commentSet = CharacterSet(charactersIn: "/* ")
@@ -185,57 +184,55 @@ do {
    }
 
    for (key, comment) in commentsByKey {
-       qqqDictionary[key] = comment
+       qqq[key] = comment.twnNativeLocalization
    }
-   let qqq = qqqDictionary as! [String: String]
-   try writeStrings(fromDictionary: qqq, toFile: qqqPath)
+   try writeStrings(fromDictionary: qqq, toFile: qqqPath, escaped: false)
 
    for (key, value) in baseDictionary {
-       guard let value = value as? String else {
+       guard let value = value as? String, let key = key as? String  else {
            continue
        }
-       enDictionary[key] = value.twnNativeLocalization
+       en[key] = value.twnNativeLocalization
    }
-   let en = enDictionary as! [String: String]
-   try writeStrings(fromDictionary: en, toFile: enPath)
+   try writeStrings(fromDictionary: en, toFile: enPath, escaped: false)
 
   
-    var replacements = [String: String]()
-   for (key, comment) in qqq {
-       guard let value = en[key] else {
-           continue
-       }
-       replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
-   }
-
-   let codePath = "WMF Framework"
-   let contents = try FileManager.default.contentsOfDirectory(atPath: codePath)
-    guard let mwLocalizedStringRegex = mwLocalizedStringRegex else {
-        abort()
-    }
-    for filename in contents {
-        do {
-			let path = codePath + "/" + filename
-            let string = try String(contentsOfFile: path)
-            //let string = try String(contentsOf: #fileLiteral(resourceName: "WMFContentGroup+WMFFeedContentDisplaying.m"))
-            let mutableString = NSMutableString(string: string)
-            var offset = 0
-            let fullRange = NSRange(location: 0, length: mutableString.length)
-            mwLocalizedStringRegex.enumerateMatches(in: string, options: [], range: fullRange) { (result, flags, stop) in
-                guard let result = result else {
-                    return
-                }
-                let key = mwLocalizedStringRegex.replacementString(for: result, in: mutableString as String, offset: offset, template: "$1")
-                guard let replacement = replacements[key] else {
-                    return
-                }
-                let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
-                mutableString.replaceCharacters(in: replacementRange, with: replacement)
-                offset += (replacement as NSString).length - replacementRange.length
-            }
-			try mutableString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8.rawValue)
-        } catch { }
-   }
+   //  var replacements = [String: String]()
+   // for (key, comment) in qqq {
+   //     guard let value = en[key] else {
+   //         continue
+   //     }
+   //     replacements[key] = "NSLocalizedStringWithDefaultValue(@\"\(key.escapedString)\", nil, NSBundle.mainBundle, @\"\(value.iOSNativeLocalization.escapedString)\", \"\(comment.escapedString)\")"
+   // }
+   //
+   // let codePath = "WMF Framework"
+   // let contents = try FileManager.default.contentsOfDirectory(atPath: codePath)
+   //  guard let mwLocalizedStringRegex = mwLocalizedStringRegex else {
+   //      abort()
+   //  }
+   //  for filename in contents {
+   //      do {
+   // 			let path = codePath + "/" + filename
+   //          let string = try String(contentsOfFile: path)
+   //          //let string = try String(contentsOf: #fileLiteral(resourceName: "WMFContentGroup+WMFFeedContentDisplaying.m"))
+   //          let mutableString = NSMutableString(string: string)
+   //          var offset = 0
+   //          let fullRange = NSRange(location: 0, length: mutableString.length)
+   //          mwLocalizedStringRegex.enumerateMatches(in: string, options: [], range: fullRange) { (result, flags, stop) in
+   //              guard let result = result else {
+   //                  return
+   //              }
+   //              let key = mwLocalizedStringRegex.replacementString(for: result, in: mutableString as String, offset: offset, template: "$1")
+   //              guard let replacement = replacements[key] else {
+   //                  return
+   //              }
+   //              let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
+   //              mutableString.replaceCharacters(in: replacementRange, with: replacement)
+   //              offset += (replacement as NSString).length - replacementRange.length
+   //          }
+   // 			try mutableString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8.rawValue)
+   //      } catch { }
+   // }
 } catch let error {
    print("error: \(error)")
 }
@@ -256,7 +253,7 @@ do {
        let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
        let strings = NSMutableDictionary(capacity: twnStrings.count)
        for (key, value) in twnStrings {
-           guard let twnString = value as? String else {
+           guard let twnString = value as? String, let key = key as? String, qqq[key] != nil else {
                continue
            }
            if twnString.contains("{{PLURAL:") {
@@ -266,7 +263,7 @@ do {
            }
        }
 
-       try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings")
+       try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings", escaped: true)
        guard stringsDict.count > 0 else {
            do {
                try fm.removeItem(atPath: "Wikipedia/Localizations/\(locale).lproj/Localizable.stringsdict")
