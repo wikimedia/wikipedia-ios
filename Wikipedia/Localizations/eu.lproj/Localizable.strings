@@ -54,6 +54,14 @@
 "login-user-blocked" = "Erabiltzaile blokeatua.";
 "login-username-placeholder-text" = "Erabiltzaile izena";
 "login-password-placeholder-text" = "Pasahitza";
+"login-forgot-password" = "Zure pasahitza ahaztu duzu?";
+"field-password-title" = "Pasahitza";
+"field-password-placeholder" = "sartu pasahitza";
+"field-new-password-title" = "Pasahitz berria";
+"field-new-password-placeholder" = "sartu pasahitz berria";
+"field-email-title" = "Helbide elektronikoa";
+"field-email-title-optional" = "Helbide elektronikoa (aukerakoa)";
+"field-email-placeholder" = "adibidea@adibidea.eus";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
@@ -87,6 +95,9 @@
 "settings-support" = "Wikipedia Lagundu";
 "settings-my-languages" = "Nire hizkuntzak";
 "settings-notifications" = "Jakinarazpenak";
+"settings-clear-cache" = "Garbitu katxeratutako datuak";
+"settings-clear-cache-are-you-sure-title" = "Garbitu katxeratutako datuak?";
+"settings-clear-cache-ok" = "Garbitu katxea";
 "main-menu-title" = "Gehiago";
 "main-menu-heading-about" = "Honi buruz";
 "main-menu-language-title" = "Bilatu $1 Wikipedia";
@@ -174,6 +185,7 @@
 "share-as-image" = "Partekatu irudi gisa";
 "share-as-text" = "Partekatu testu gisa";
 "share-cancel" = "Utzi";
+"share-open-in-maps" = "Mapsen ireki";
 "timestamp-just-now" = "oraintxe bertan";
 "timestamp-minutes" = "duela %d minutu";
 "timestamp-hours" = "duela %d ordu";
@@ -242,6 +254,7 @@
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
 "page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
+"page-location" = "Ikusi mapan";
 "home-title" = "Esploratu";
 "home-empty-section" = "Emaitzik ez";
 "home-empty-section-check-again" = "Saiatu berriro";
@@ -264,6 +277,7 @@
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
 "welcome-volunteer-continue-button" = "Jarraitu";
 "welcome-volunteer-thanks" = "$1 Eskerrik asko!";
+"welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-search-results-message" = "Ez da emaitzarik aurkitu";
 "alert-no-internet" = "Ez dago internet konexiorik";
@@ -277,6 +291,8 @@
 "explore-continue-reading-heading" = "Irakurtzen jarraitu";
 "explore-nearby-heading" = "Inguruko tokiak";
 "explore-nearby-sub-heading-your-location" = "Zure kokapena";
+"explore-nearby-placeholder-heading" = "Lekuak";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipedian";
 "explore-main-page-heading" = "Gaur Wikipedian";
 "explore-random-article-heading" = "Ausazko artikulua";
 "explore-random-article-sub-heading" = "Ingelesezko Wikipedia";
@@ -290,6 +306,7 @@
 "readers-accessibility-label" = "$1 irakurle";
 "rank-accessibility-label" = "$1 zenbakia";
 "reference-title" = "$1 erreferentzia";
+"in-the-news-notification-read-now-action-title" = "Irakurri orain";
 "in-the-news-notification-share-action-title" = "Partekatu...";
 "in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
 "in-the-news-title" = "Albisteak";
@@ -299,3 +316,16 @@
 "back" = "Atzera";
 "save-action" = "Gorde";
 "announcements-dismiss" = "Ez, eskerrik asko";
+"places-search-saved-articles" = "Gordetako artikulu guztiak";
+"places-search-suggested-searches-header" = "Iradokitako bilaketak";
+"places-unknown-distance" = "distantzia ezezaguna";
+"places-accessibility-group" = "$1 artikulu";
+"places-accessibility-show-as-map" = "Erakutsi mapa gisa";
+"places-accessibility-show-as-list" = "Erakutsi zerrenda gisa";
+"places-accessibility-close-search" = "Itxi bilaketa";
+"places-accessibility-clear-recent-searches" = "Azken bilaketak garbitu";
+"places-filter-top-articles-count" = "$1 artikulu";
+"places-filter-saved-articles" = "Gordetako artikuluak";
+"places-search-default-text" = "Bilatu";
+"action-save" = "Gorde";
+"action-read" = "Irakurri";

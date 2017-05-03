@@ -489,6 +489,7 @@
 "explore-another-random" = "其他隨機條目";
 "explore-randomizer" = "隨機條目產生";
 "find-in-page-no-matches" = "沒有匹配結果";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "在頁面裡找尋";
 "find-in-page-popover-description" = "搜尋條目裡的文字內容";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
@@ -518,7 +519,7 @@
 "status-saved-for-later" = "已儲存供日後使用";
 "announcements-dismiss" = "不用了，謝謝";
 "places-search-top-articles" = "所有熱門條目";
-"places-search-this-area" = "搜尋此區域";
+"places-search-this-area" = "此區域的結果";
 "places-search-saved-articles" = "所有已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-recently-searched-header" = "近期搜尋";
@@ -535,11 +536,14 @@
 "places-accessibility-recenter-map-on-user-location" = "重定位您的位置";
 "places-accessibility-close-search" = "關閉搜尋";
 "places-accessibility-clear-recent-searches" = "清除近期搜尋";
+// Fuzzy
 "places-filter-top-articles" = "熱門條目";
 "places-filter-top-articles-count" = "$1 個條目";
 "places-filter-saved-articles" = "已儲存條目";
 "places-filter-saved-articles-count" = "找到$1個位置";
+"places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-list-title" = "搜尋過濾器";
+// Fuzzy
 "places-search-default-text" = "搜尋條目或位置";
 "places-empty-search-title" = "以地理位置來搜尋維基百科條目";
 "places-empty-search-description" = "瀏覽城市、國家、各大洲、自然地標、歷史事件、建物以及其它更多。";

@@ -11,6 +11,7 @@
 // Author: Maroen1990
 // Author: Meno25
 // Author: Mhurd
+// Author: Mido
 // Author: Musab Moahmmed
 // Author: Nemo bis
 // Author: Omda4wady
@@ -73,6 +74,7 @@
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-login" = "لديك حساب؟ سجل دخولك.";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
+"account-creation-create-account" = "أنشئ حسابك";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
@@ -480,6 +482,9 @@
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
 "places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-clear-recent-searches" = "مسح عمليات البحث الأخيرة";
+// Fuzzy
+"places-filter-top-articles" = "أعلى المقالات";
+// Fuzzy
 "places-search-default-text" = "بحث عن المقالات أو المواقع";
 "action-share" = "شارك";
 "action-save" = "حفظ";
