@@ -194,7 +194,7 @@ do {
        }
        en[key] = value.twnNativeLocalization
    }
-   try writeStrings(fromDictionary: en, toFile: enPath, escaped: false)
+   try writeStrings(fromDictionary: en, toFile: enPath, escaped: true)
 
   
    //  var replacements = [String: String]()
@@ -243,8 +243,8 @@ let fm = FileManager.default
 do {
    let contents = try fm.contentsOfDirectory(atPath: "Wikipedia/Localizations")
    for filename in contents {
-       //print("parsing \(filename)")
-       guard let locale = filename.components(separatedBy: ".").first, locale.lowercased() != "base" else {
+       print("parsing \(filename)")
+       guard let locale = filename.components(separatedBy: ".").first, locale.lowercased() != "base", locale.lowercased() != "qqq" else {
            continue
        }
        guard let twnStrings = NSDictionary(contentsOfFile: "Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
