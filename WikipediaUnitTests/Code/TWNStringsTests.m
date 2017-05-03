@@ -110,7 +110,7 @@
 
 - (NSMutableOrderedSet *)dollarSubstitutionsInString:(NSString *)s {
     NSMutableOrderedSet *substitutions = [[NSMutableOrderedSet alloc] initWithCapacity:5];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\$[1-5]" options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSRegularExpression *regex = [TWNStringsTests twnTokenRegex];
     NSArray *matches = [regex matchesInString:s options:0 range:NSMakeRange(0, [s length])];
     for (NSTextCheckingResult *match in matches) {
         [substitutions addObject:[s substringWithRange:match.range]];
