@@ -141,7 +141,7 @@
                     } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
                         msg = NSLocalizedStringWithDefaultValue(@"page-protected-sysop", nil, NSBundle.wmf_localizationBundle, @"This page has been fully protected.", "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.");
                     } else {
-                        msg = NSLocalizedStringWithDefaultValue(@"page-protected-other", nil, NSBundle.wmf_localizationBundle, @"This page has been protected to the following levels: %1$@", "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. $1 will refer to a list of protection levels.");
+                        msg = NSLocalizedStringWithDefaultValue(@"page-protected-other", nil, NSBundle.wmf_localizationBundle, @"This page has been protected to the following levels: %1$@", "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.");
                     }
                     [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {

@@ -112,7 +112,7 @@ class WMFChangePasswordViewController: WMFScrollViewController {
                    captchaID: nil,
                    captchaWord: nil,
                    success: { _ in
-                    let loggedInMessage = NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username.").replacingOccurrences(of: "$1", with: userName)
+                    let loggedInMessage = String.localizedStringWithFormat(NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()

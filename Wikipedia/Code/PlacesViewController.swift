@@ -2099,8 +2099,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             currentSearchScopeName = NSLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
         }
 
-        let currentSearchStringTitle = NSLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string").replacingOccurrences(of: "$1", with: currentSearchScopeName)
-            .replacingOccurrences(of: "$2", with: currentSearchString)
+        let currentSearchStringTitle = String.localizedStringWithFormat(NSLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
         let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
