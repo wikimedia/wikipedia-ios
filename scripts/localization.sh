@@ -6,4 +6,4 @@ xcrun extractLocStrings -s WMFLocalizedString -a -o Wikipedia/iOS\ Native\ Local
 xcrun extractLocStrings -s WMFLocalizedString -a -o Wikipedia/iOS\ Native\ Localizations/Base.lproj/ TopReadWidget/*
 xcrun extractLocStrings -s WMFLocalizedString -a -o Wikipedia/iOS\ Native\ Localizations/Base.lproj/ ContinueReadingWidget/*
 
-swift scripts/localization.swift
+swift scripts/localization.swift export import
