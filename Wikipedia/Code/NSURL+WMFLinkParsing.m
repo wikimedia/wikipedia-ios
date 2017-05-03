@@ -226,7 +226,8 @@ NSString *const WMFAPIPath = @"/w/api.php";
 #if WMF_USE_BETA_CLUSTER
             || [lowercaseHost isEqualToString:WMFDefaultSiteMainDomain] || [lowercaseHost hasSuffix:mainWikiResourceSuffix]
 #endif
-            || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix] ||[lowercaseHost isEqualToString:WMFMediaWikiDomain] || [lowercaseHost hasSuffix:WMFMediaWikiDomain]) && [self.path wmf_isWikiResource];
+            || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix] || [lowercaseHost isEqualToString:WMFMediaWikiDomain] || [lowercaseHost hasSuffix:WMFMediaWikiDomain]) &&
+           [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isWikiCitation {
@@ -294,7 +295,6 @@ NSString *const WMFAPIPath = @"/w/api.php";
 }
 
 - (NSURL *)wmf_articleDatabaseKeyURL {
-    NSParameterAssert(self.wmf_title);
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.fragment = nil;
