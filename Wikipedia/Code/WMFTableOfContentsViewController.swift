@@ -32,6 +32,8 @@ open class WMFTableOfContentsViewController: UIViewController,
                                                WMFTableOfContentsAnimatorDelegate {
     
     let tableOfContentsFunnel: ToCInteractionFunnel
+
+    let semanticContentAttributeOverride: UISemanticContentAttribute
     
     var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
@@ -93,7 +95,9 @@ open class WMFTableOfContentsViewController: UIViewController,
     // MARK: - Init
     public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
-                         delegate: WMFTableOfContentsViewControllerDelegate) {
+                         delegate: WMFTableOfContentsViewControllerDelegate,
+                         semanticContentAttribute: UISemanticContentAttribute) {
+        self.semanticContentAttributeOverride = semanticContentAttribute
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
@@ -205,6 +209,9 @@ open class WMFTableOfContentsViewController: UIViewController,
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.semanticContentAttribute = semanticContentAttributeOverride
+        tableView.semanticContentAttribute = semanticContentAttributeOverride
+        
         tableView.mas_makeConstraints { make in
             _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
@@ -261,6 +268,10 @@ open class WMFTableOfContentsViewController: UIViewController,
         cell.setNeedsLayout()
 
         cell.setSectionSelected(shouldHighlight, animated: false)
+        
+        cell.contentView.semanticContentAttribute = semanticContentAttributeOverride
+        cell.titleLabel.semanticContentAttribute = semanticContentAttributeOverride
+        
         return cell
     }
     
@@ -269,6 +280,8 @@ open class WMFTableOfContentsViewController: UIViewController,
             let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
             header?.articleURL = delegate.tableOfContentsArticleLanguageURL()
             header?.backgroundColor = tableView.backgroundColor
+            header?.semanticContentAttribute = semanticContentAttributeOverride
+            header?.contentsLabel.semanticContentAttribute = semanticContentAttributeOverride
             return header
         } else {
             return nil
