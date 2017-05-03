@@ -31,6 +31,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
+#import "WMFAnalyticsLogging.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
@@ -194,7 +195,8 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
-    [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
+    BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
+    [self logReadMoreSaveButtonToggle:isSaved];
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
 }
 
@@ -347,6 +349,33 @@ NSString *const WMFCCBySALicenseURL =
 - (void)handleFindInPageMatchesFoundMessage:(NSArray *)messageArray {
     self.findInPageMatches = messageArray;
     self.findInPageSelectedMatchIndex = -1;
+}
+
+#pragma mark - Read more save button event logging
+
+- (void)logReadMoreSaveButtonToggle:(BOOL)isSaved {
+    if (isSaved) {
+        [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
+    }
+}
+
+- (SavedPagesFunnel *)savedPagesFunnel {
+    if (!_savedPagesFunnel) {
+        _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
+    }
+    return _savedPagesFunnel;
+}
+
+- (NSString *)analyticsContext {
+    return @"Article";
+}
+
+- (NSString *)analyticsContentType {
+    return @"Read More";
 }
 
 #pragma mark - Find-in-page
