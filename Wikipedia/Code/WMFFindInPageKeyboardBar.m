@@ -108,14 +108,10 @@
     if (self.textField.text.length == 0) {
         labelText = nil;
     } else if (count > 0 && index == -1) {
-        labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
+        labelText = [NSString localizedStringWithFormat:@"%lu", (unsigned long)count];
     } else {
-        NSString *text = MWLocalizedString(@"find-in-page-number-matches", nil);
-        text = [text stringByReplacingOccurrencesOfString:@"$1" withString:[NSNumberFormatter localizedStringFromNumber:@(index + 1)
-                                                                                                            numberStyle:NSNumberFormatterDecimalStyle]];
-        text = [text stringByReplacingOccurrencesOfString:@"$2" withString:[NSNumberFormatter localizedStringFromNumber:@(count)
-                                                                                                            numberStyle:NSNumberFormatterDecimalStyle]];
-        labelText = text;
+        NSString *format = WMFLocalizedStringWithDefaultValue(@"find-in-page-number-matches", nil, NSBundle.wmf_localizationBundle, @"%1$d / %2$d", @"Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$d is replaced with the numerator, %2$d is replaced with the denominator.");
+        labelText = [NSString localizedStringWithFormat:format, index + 1, count];
     }
     [self.currentMatchLabel setText:labelText];
 }
