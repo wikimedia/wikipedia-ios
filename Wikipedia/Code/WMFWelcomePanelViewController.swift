@@ -48,13 +48,13 @@ class WMFWelcomePanelViewController: UIViewController {
         case .intro:
             assertionFailure("Intro welcome view is not embedded in a panel.")
         case .languages:
-            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-title").uppercased(with: Locale.current)
-            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-languages-sub-title")
-            nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("welcome-languages-continue-button").uppercased(with: Locale.current), for: UIControlState())
+            titleLabel.text = WMFLocalizedString("welcome-languages-title", value:"Languages", comment:"Title for welcome screen allowing user to select additional languages\n{{Identical|Language}}").uppercased(with: Locale.current)
+            subtitleLabel.text = WMFLocalizedString("welcome-languages-sub-title", value:"Choose your preferred languages to search Wikipedia", comment:"Sub-title for languages welcome screen")
+            nextButton.setTitle(WMFLocalizedString("welcome-languages-continue-button", value:"Continue", comment:"Text for button for moving to next welcome screen\n{{Identical|Continue}}").uppercased(with: Locale.current), for: UIControlState())
         case .analytics:
-            titleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-send-data-title").uppercased(with: Locale.current)
-            subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("welcome-send-data-sub-title")
-            nextButton.setTitle(localizedStringForKeyFallingBackOnEnglish("button-done").uppercased(with: Locale.current), for: UIControlState())
+            titleLabel.text = WMFLocalizedString("welcome-send-data-title", value:"Send Anonymous data", comment:"Title for welcome screen allowing user to opt in to send usage reports").uppercased(with: Locale.current)
+            subtitleLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help the Wikimedia Foundation make the app better by letting us know how you use the app. Data collected is anonymous", comment:"Sub-title explaining how sending usage reports can help improve the app")
+            nextButton.setTitle(WMFLocalizedString("button-done", value:"Done", comment:"Button text for done button used in various places.\n{{Identical|Done}}").uppercased(with: Locale.current), for: UIControlState())
         }
     }
 }

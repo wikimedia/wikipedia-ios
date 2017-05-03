@@ -515,7 +515,7 @@ static NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
     return [NSError errorWithDomain:WMFSavedPageErrorDomain
                                code:1
                            userInfo:@{
-                               NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
+                               NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, NSBundle.wmf_localizationBundle, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
                            }];
 }
 
