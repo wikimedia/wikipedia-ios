@@ -304,11 +304,20 @@ do {
        try writeStrings(fromDictionary: strings as! [String: String], toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings", escaped: true)
        guard stringsDict.count > 0 else {
            do {
-               try fm.removeItem(atPath: "Wikipedia/Localizations/\(locale).lproj/Localizable.stringsdict")
+               try fm.removeItem(atPath: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict")
            } catch { }
            continue
        }
        stringsDict.write(toFile: "Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict", atomically: true)
+   }
+   
+   do {
+       try fm.removeItem(atPath: "Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
+   } catch { }
+   do {
+   	   try fm.copyItem(atPath: "Wikipedia/iOS Native Localizations/en.lproj/Localizable.stringsdict", toPath: "Wikipedia/iOS Native Localizations/base.lproj/Localizable.stringsdict")
+   } catch let error {
+	   print("error copying")
    }
 
 } catch let error {
