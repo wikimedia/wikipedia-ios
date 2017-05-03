@@ -110,8 +110,8 @@
     } else if (count > 0 && index == -1) {
         labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     } else {
-        NSString *text = NSLocalizedStringWithDefaultValue(@"find-in-page-number-matches", nil, NSBundle.wmf_localizationBundle, @"%1$@ / %2$@", "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. $1 is replaced with the numerator, $2 is replaced with the denominator.");
-        text = [text stringByReplacingOccurrencesOfString:@"$1" withString:[NSNumberFormatter localizedStringFromNumber:@(index + 1)
+        NSString *text = NSLocalizedStringWithDefaultValue(@"find-in-page-number-matches", nil, NSBundle.wmf_localizationBundle, @"%1$@ / %2$@", "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, $2 is replaced with the denominator.");
+        text = [NSString localizedStringWithFormat:text, [NSNumberFormatter localizedStringFromNumber:@(index + 1)
                                                                                                             numberStyle:NSNumberFormatterDecimalStyle]];
         text = [text stringByReplacingOccurrencesOfString:@"$2" withString:[NSNumberFormatter localizedStringFromNumber:@(count)
                                                                                                             numberStyle:NSNumberFormatterDecimalStyle]];

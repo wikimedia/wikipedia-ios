@@ -309,22 +309,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)titleForActivityWithCard {
-    return [NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.")
-        stringByReplacingOccurrencesOfString:@"$1"
-                                  withString:self.shareTitle];
+    return [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
 }
 
 - (NSString *)titleForActivityTextOnly {
     if ([self snippetForTextOnlySharing].length == 0) {
-        return [NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.")
-            stringByReplacingOccurrencesOfString:@"$1"
-                                      withString:self.shareTitle];
+        return [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
     } else {
-        return [[NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia-with-selected-text", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia: \"%2$@\"", "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks. $2 will be a user-selected text snippet, which should be wrapped in the localized double quote marks.")
-            stringByReplacingOccurrencesOfString:@"$1"
-                                      withString:self.shareTitle]
-            stringByReplacingOccurrencesOfString:@"$2"
-                                      withString:[self snippetForTextOnlySharing]];
+        return [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia-with-selected-text", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia: \"%2$@\"", "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks. %2$@ will be a user-selected text snippet, which should be wrapped in the localized double quote marks."), self.shareTitle, [self snippetForTextOnlySharing]];
     }
 }
 

@@ -1507,10 +1507,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
     InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
-    NSString *format = NSLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, NSBundle.wmf_localizationBundle, @"News on %1$@", "Title for news on a given date - $1 is replaced with the date");
+    NSString *format = NSLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, NSBundle.wmf_localizationBundle, @"News on %1$@", "Title for news on a given date - %1$@ is replaced with the date");
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        NSString *title = [NSString localizedStringWithFormat:format, dateString];
         vc.title = title;
     } else {
         vc.title = NSLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", "Title for the 'In the news' notification & feed section");

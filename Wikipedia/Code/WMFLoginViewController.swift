@@ -141,7 +141,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         disableProgressiveButton()
         WMFAlertManager.sharedInstance.showAlert(NSLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
-            let loggedInMessage = NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username.").replacingOccurrences(of: "$1", with: self.usernameField.text!)
+            let loggedInMessage = String.localizedStringWithFormat(NSLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.dismiss(animated: true, completion: nil)
             self.funnel?.logSuccess()

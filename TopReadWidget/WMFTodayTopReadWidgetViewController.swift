@@ -181,7 +181,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var headerText = ""
         
         if let language = language {
-            headerText = NSLocalizedString("top-read-header-with-language", value:"%1$@ Wikipedia", comment: "%1$@ Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}").replacingOccurrences(of: "$1", with: language)
+            headerText = String.localizedStringWithFormat(NSLocalizedString("top-read-header-with-language", value:"%1$@ Wikipedia", comment: "%1$@ Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}"), language)
         } else {
             headerText = NSLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia\n{{Identical|Wikipedia}}")
         }
@@ -251,7 +251,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                         vc.viewCountLabel.text = NumberFormatter.localizedThousandsStringFromNumber(count)
                         if let numberString = NumberFormatter.threeSignificantDigitWholeNumberFormatter.string(from: count) {
                             let format = NSLocalizedString("readers-accessibility-label", value:"%1$@ readers", comment: "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - %1$@ is replaced with the number of readers\n{{Identical|Reader}}")
-                            vc.viewCountLabel.accessibilityLabel = format.replacingOccurrences(of: "$1", with: numberString)
+                            vc.viewCountLabel.accessibilityLabel = String.localizedStringWithFormat(format,numberString)
                         }
                     } else {
                         vc.viewCountLabel.accessibilityLabel = nil

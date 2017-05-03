@@ -283,9 +283,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #pragma mark - Clear Cache
 
 - (void)showClearCacheActionSheet {
-    NSString *message = NSLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-message", nil, NSBundle.wmf_localizationBundle, @"Clearing cached data will free up about %1$@ of space. It will not delete your saved pages.", "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.");
+    NSString *message = NSLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-message", nil, NSBundle.wmf_localizationBundle, @"Clearing cached data will free up about %1$@ of space. It will not delete your saved pages.", "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. %1$@ is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.");
     NSString *bytesString = [NSByteCountFormatter stringFromByteCount:[NSURLCache sharedURLCache].currentDiskUsage countStyle:NSByteCountFormatterCountStyleFile];
-    message = [message stringByReplacingOccurrencesOfString:@"$1" withString:bytesString];
+    message = [NSString localizedStringWithFormat:message, bytesString];
     
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-title", nil, NSBundle.wmf_localizationBundle, @"Clear cached data?", "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.") message:message preferredStyle:UIAlertControllerStyleAlert];
     [sheet addAction:[UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, NSBundle.wmf_localizationBundle, @"Clear cache", "Confirm action to clear cached data")

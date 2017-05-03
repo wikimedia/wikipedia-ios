@@ -25,7 +25,7 @@
     switch (type) {
         case WMFSettingsMenuItemType_Login: {
             NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
-            NSString *loginString = (userName) ? [NSLocalizedStringWithDefaultValue(@"main-menu-account-title-logged-in", nil, NSBundle.wmf_localizationBundle, @"Logged in as %1$@", "Header text used when account is logged in. $1 will be replaced with current username.") stringByReplacingOccurrencesOfString:@"$1" withString:userName] : NSLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, NSBundle.wmf_localizationBundle, @"Log in", "Button text for logging in.\n{{Identical|Log in}}");
+            NSString *loginString = (userName) ? [NSString localizedStringWithFormat:NSLocalizedStringWithDefaultValue(@"main-menu-account-title-logged-in", nil, NSBundle.wmf_localizationBundle, @"Logged in as %1$@", "Header text used when account is logged in. %1$@ will be replaced with current username."), userName] : NSLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, NSBundle.wmf_localizationBundle, @"Log in", "Button text for logging in.\n{{Identical|Log in}}");
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
