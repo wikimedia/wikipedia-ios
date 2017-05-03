@@ -23,8 +23,8 @@ import Foundation
     private func localizedTitle(with article: MWKArticle) -> String {
         var title = ""
         switch self {
-        case .languages: title = WMFLocalizedStringWithDefaultValue("page-read-in-other-languages", article.url, Bundle.wmf_localization, "Available in %1$@ other languages", "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
-        case .lastEdited: title = WMFLocalizedStringWithDefaultValue("page-last-edited", article.url, Bundle.wmf_localization, "Edited %1$@ days ago", "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
+        case .languages: title = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("page-read-in-other-languages", article.url, Bundle.wmf_localization, "Available in %1$@ other languages", "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), "$1") //Replace with $1 for JavaScript
+        case .lastEdited: title = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("page-last-edited", article.url, Bundle.wmf_localization, "Edited %1$@ days ago", "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days"), "$1")//Replace with $1 for JavaScript
         case .pageIssues: title = WMFLocalizedStringWithDefaultValue("page-issues", article.url, Bundle.wmf_localization, "Page issues", "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         case .disambiguation: title = WMFLocalizedStringWithDefaultValue("page-similar-titles", article.url, Bundle.wmf_localization, "Similar pages", "Label for button that shows a list of similar titles (disambiguation) for the current page")
         case .coordinate: title = WMFLocalizedStringWithDefaultValue("page-location", article.url, Bundle.wmf_localization, "View on a map", "Label for button used to show an article on the map")
@@ -111,7 +111,7 @@ extension WKWebView {
     }
 
     public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
-        let licenseString = WMFLocalizedStringWithDefaultValue("license-footer-text", article.url, Bundle.wmf_localization, "Content is available under %1$@ unless otherwise noted.", "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'.").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let licenseString = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("license-footer-text", article.url, Bundle.wmf_localization, "Content is available under %1$@ unless otherwise noted.", "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
         let licenseSubstitutionString = WMFLocalizedStringWithDefaultValue("license-footer-name", article.url, Bundle.wmf_localization, "CC BY-SA 3.0", "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let licenseLinkClickHandler =
         "function(){" +
