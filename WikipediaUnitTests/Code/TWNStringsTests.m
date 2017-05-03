@@ -71,6 +71,7 @@
     });
     return infoPlistFilePaths;
 }
+
 + (NSArray *)twnLprojFiles {
     static dispatch_once_t onceToken;
     static NSArray *twnLprojFiles;
@@ -143,6 +144,18 @@
         dollarSignNumberSubstitutionRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[$])(:?[0-9]+)" options:0 error:nil];
     });
     return dollarSignNumberSubstitutionRegex;
+}
+
+- (void)testiOSTranslationStringForTWNSubstitutionShortcuts {
+    for (NSString *lprojFileName in TWNStringsTests.iOSLprojFiles) {
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            NSRegularExpression *regex = TWNStringsTests.twnTokenRegex;
+            XCTAssertNotNil(regex);
+            XCTAssertNil([regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)]);
+        }
+    }
 }
 
 - (void)testIncomingTranslationStringForPercentNumber {
