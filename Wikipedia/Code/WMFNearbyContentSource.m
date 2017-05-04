@@ -163,9 +163,11 @@ const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters = 1000;
                 completion();
                 return;
             }
-            [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
-            [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
-            completion();
+            [moc performBlock:^{
+                [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+                [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
+                completion();
+            }];
         }
         failure:^(NSError *_Nonnull error) {
             completion();
