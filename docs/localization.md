@@ -9,9 +9,11 @@ TL;DR: `WMFLocalizedStringWithDefaultValue` in Obj-C, `WMFLocalizedString` in Sw
 Use keys that match this convention: `"places-filter-saved-articles-count"` - `"feature-name-info-about-the-string"`. **Do not change the keys for localized strings.** Unless absolutely necessary, keys should remain the same to prevent complications when syncing with TWN. 
 
 **ALWAYS USE ORDERED STRING FORMAT SPECIFIERS** even if there's only one format specifier - For example: `%1$@` instead of `%@`, `%1$d` instead of `%d`, etc. For strings with multiple specifiers, increment the number: 
- 
+
 ```swift
-WMFLocalizedString`("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string")
+    WMFLocalizedString`("places-search-articles-that-match",
+	value:"%1$@ matching “%2$@”",
+	comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string")
 ````
  
 #### Obj-C
