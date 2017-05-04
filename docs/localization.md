@@ -55,7 +55,7 @@ Plural string. Note the use of `localizedStringWithFormat` instead of `stringWit
 		@"places-filter-saved-articles-count",
 		nil,
 		nil,
-		@"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found",
+		@"{{PLURAL:%1$d|0=No saved places|%1$d place|%1$d places}} found",
 		@"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"
 	),
 	savedCount
@@ -93,7 +93,7 @@ Plural string. Note the use of `localizedStringWithFormat` instead of `stringWit
 String.localizedStringWithFormat(
 	WMFLocalizedString(
 		"places-filter-saved-articles-count",
-		value:"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found",
+		value:"{{PLURAL:%1$d|0=No saved places|%1$d place|%1$d places}} found",
 		comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"
 	),
 	savedCount
@@ -102,7 +102,7 @@ String.localizedStringWithFormat(
  
 
 #### Plural syntax
-Ensure the last variant is the "other" or "default" variant - in these cases it's %1$d places. Ensure the format specifier appears in the "other" variant. For example, `%1$d {{PLURAL:%1$d|place|places}}` is invalid, `{{PLURAL:%1$d|one place|%1$d places}}` is valid.
+Ensure the last variant is the "other" or "default" variant - in these cases it's %1$d places. Ensure the format specifier appears in the "other" variant. For example, `%1$d {{PLURAL:%1$d|place|places}}` is invalid, `{{PLURAL:%1$d|one place|%1$d places}}` is valid. **Plural strings can only contain one format specifier.**
 
 Without "zero" value:
 ```
