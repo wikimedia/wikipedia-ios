@@ -1,20 +1,3 @@
-// Messages for Message documentation (Message documentation)
-// Exported from translatewiki.net
-// Author: Amire80
-// Author: Beta16
-// Author: Brion
-// Author: Csega
-// Author: Jack Phoenix
-// Author: Liuxinyu970226
-// Author: Macofe
-// Author: Minh Nguyen
-// Author: Nemo bis
-// Author: Purodha
-// Author: Robby
-// Author: Shirayuki
-// Author: Siebrand
-// Author: Tacsipacsi
-
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";

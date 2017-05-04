@@ -12,7 +12,7 @@ open class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
     }
     
     open var titleText:String {
-        return localizedStringForURLWithKeyFallingBackOnEnglish(self.url, "article-read-more-title")
+        return WMFLocalizedStringWithDefaultValue("article-read-more-title", self.url, Bundle.wmf_localization, "Read more", "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}")
     }
     
     open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary

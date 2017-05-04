@@ -31,6 +31,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
+#import "WMFAnalyticsLogging.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
@@ -194,7 +195,8 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
-    [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
+    BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
+    [self logReadMoreSaveButtonToggle:isSaved];
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
 }
 
@@ -347,6 +349,33 @@ NSString *const WMFCCBySALicenseURL =
 - (void)handleFindInPageMatchesFoundMessage:(NSArray *)messageArray {
     self.findInPageMatches = messageArray;
     self.findInPageSelectedMatchIndex = -1;
+}
+
+#pragma mark - Read more save button event logging
+
+- (void)logReadMoreSaveButtonToggle:(BOOL)isSaved {
+    if (isSaved) {
+        [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
+    }
+}
+
+- (SavedPagesFunnel *)savedPagesFunnel {
+    if (!_savedPagesFunnel) {
+        _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
+    }
+    return _savedPagesFunnel;
+}
+
+- (NSString *)analyticsContext {
+    return @"Article";
+}
+
+- (NSString *)analyticsContentType {
+    return @"Read More";
 }
 
 #pragma mark - Find-in-page
@@ -859,7 +888,7 @@ NSString *const WMFCCBySALicenseURL =
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
 
-    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, NSBundle.wmf_localizationBundle, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 }
@@ -867,8 +896,8 @@ NSString *const WMFCCBySALicenseURL =
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, NSBundle.wmf_localizationBundle, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, NSBundle.wmf_localizationBundle, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, NSBundle.wmf_localizationBundle, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
