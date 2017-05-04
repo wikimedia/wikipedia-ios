@@ -9,47 +9,54 @@ TL;DR: `WMFLocalizedStringWithDefaultValue` in Obj-C, `WMFLocalizedString` in Sw
 Use keys that match this convention: `"places-filter-saved-articles-count"` - `"feature-name-info-about-the-string"`. **Do not change the keys for localized strings.** Unless absolutely necessary, keys should remain the same to prevent complications when syncing with TWN. 
 
 **ALWAYS USE ORDERED STRING FORMAT SPECIFIERS** even if there's only one format specifier - For example: `%1$@` instead of `%@`, `%1$d` instead of `%d`, etc. For strings with multiple specifiers, increment the number: 
-
-```
+ 
+```swift
 WMFLocalizedString`("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string")
 ````
-
+ 
 #### Obj-C
 `WMFLocalizedStringWithDefaultValue` matches the signature of `NSLocalizedStringWithDefaultValue` with one exception: the second parameter is an optional `siteURL` which will cause the returned localization to be in the language of the Wikipedia site at `siteURL`. For example, if `siteURL`'s host is `fr.wikipedia.org`, the returned string will be in French, even if the user's default language is English. This method matches the naming convention and number of parameters of `NSLocalizedStringWithDefaultValue` so that we can use the tools provided with Xcode for extracting string values from code automatically. Bundle should always be nil.
 
 To get a string localized to the user's system default locale:
-```
+ 
+```objc
 WMFLocalizedStringWithDefaultValue(@"article-about-title", nil, nil, @"About this article", @"The text that is displayed before the 'about' section at the bottom of an article");
 ```
-
+ 
 To get a string localized to the language of the Wikipedia site indicated by `siteURL`:
-```
+ 
+```objc
 WMFLocalizedStringWithDefaultValue(@"article-about-title", siteURL, nil, @"About this article", @"The text that is displayed before the 'about' section at the bottom of an article");
 ```
-
+ 
 Plural string. Note the use of `localizedStringWithFormat` instead of `stringWithFormat`:
-```
+ 
+```objc
 [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"places-filter-saved-articles-count", nil, nil, @"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found", @"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), savedCount)
 ```
+ 
 
 #### Swift
 In Swift, `WMFLocalizedString` matches the signature of `NSLocalizedString` with one exception - the second parameter is an optional `siteURL` which will cause the returned localization to be in the language of the Wikipedia site at `siteURL`. For example, if `siteURL`'s host is `fr.wikipedia.org`, the returned string will be in French, even if the user's default language is English. This method matches the naming convention and number of parameters of `NSLocalizedString` so that we can use the tools provided with Xcode for extracting string values from code automatically. You should always omit `bundle:`.
 
 To get a string localized to the user's system default locale:
-```
+ 
+```swift
 WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
 ```
-
+ 
 To get a string localized to the language of the Wikipedia site indicated by `siteURL`:
-```
+ 
+```swift
 WMFLocalizedString("places-filter-saved-articles", siteURL:siteURL, value:"Saved articles", comment:"Title of places search filter that searches saved articles")
 ```
-
+ 
 Plural string. Note the use of `localizedStringWithFormat` instead of `stringWithFormat`:
-```
+ 
+```swift
 String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), savedCount)
 ```
-
+ 
 
 #### Plural syntax
 Ensure the last variant is the "other" or "default" variant - in these cases it's %1$d places. Ensure the format specifier appears in the "other" variant. For example, `%1$d {{PLURAL:%1$d|place|places}}` is invalid, `{{PLURAL:%1$d|one place|%1$d places}}` is valid.
@@ -63,6 +70,10 @@ With "zero" value:
 ```
 {{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}}
 ```
+
+We don't support arbitrary numerals, only `0=`. For example, `{{PLURAL:%1$d|12=a dozen places|one place|%1$d places}}` is invalid.
+
+ 
 ### Translation workflow
 1. Developer adds localized strings & comments to source using the methods described above.
 2. Developer builds & runs the app. The app has two run script build phases that automatically extracts the strings from source and adds them to the appropriate localization bundles (for both the app `Wikipedia/iOS Native Localizations` & TWN `Wikipedia/Localizations`)
