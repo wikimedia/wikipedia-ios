@@ -34,6 +34,8 @@ end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 
+`git checkout twn`
+`git pull`
 path = `pwd`
 `scripts/localization #{path} import`
 `git commit -a -m "Import localizations from TWN on #{time_string}"`
