@@ -202,6 +202,7 @@
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-search-saved-articles" = "كل المقالات المحفوظة";
 "places-search-suggested-searches-header" = "عمليات البحث المقترحة";
+"places-search-top-articles" = "كل المقالات الأكثر قراءة";
 "places-unknown-distance" = "المسافة غير معروفة";
 "potd-description-prefix" = "صورة اليوم في تاريخ %1$@";
 "potd-empty-error-description" = "فشل في اجتلاب صورة اليوم في تاريخ %1$@";

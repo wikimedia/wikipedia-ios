@@ -237,7 +237,7 @@
 "places-filter-no-saved-places" = "Du hast keine gespeicherten Orte";
 "places-filter-saved-articles" = "Gespeicherte Artikel";
 "places-filter-saved-articles-count" = "%1$@ Orte gefunden";
-"places-filter-top-articles" = "Gute Artikel";
+"places-filter-top-articles" = "Meistgelesen";
 "places-filter-top-articles-count" = "%1$@ Artikel";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "%1$@, die mit „%2$@“ übereinstimmen";
