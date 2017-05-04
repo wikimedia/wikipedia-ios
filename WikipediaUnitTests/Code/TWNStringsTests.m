@@ -153,7 +153,8 @@
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
-            XCTAssertNil([regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)]);
+            NSTextCheckingResult *result = [regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
+            XCTAssertNil(result, @"Invalid character in string %@", localizedString);
         }
     }
 }
