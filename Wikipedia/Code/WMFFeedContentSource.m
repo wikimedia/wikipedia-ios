@@ -473,7 +473,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         info[WMFNotificationInfoArticleExtractKey] = snippet;
     }
 
-    NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", @"Title for the 'In the news' notification & feed section");
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
     NSDate *notificationDate = [NSDate date];

@@ -44,7 +44,7 @@
     self.label.adjustsFontSizeToFitWidth = YES;
     self.label.minimumScaleFactor = 0.1;
     self.label.textAlignment = NSTextAlignmentCenter;
-    self.label.text = WMFLocalizedStringWithDefaultValue(@"explore-randomizer", nil, NSBundle.wmf_localizationBundle, @"Randomizer", @"Displayed on a button that loads another random article - it's a 'Randomizer'");
+    self.label.text = WMFLocalizedStringWithDefaultValue(@"explore-randomizer", nil, nil, @"Randomizer", @"Displayed on a button that loads another random article - it's a 'Randomizer'");
     [self addSubview:self.label];
 }
 

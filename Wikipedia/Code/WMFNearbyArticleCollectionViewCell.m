@@ -144,7 +144,7 @@
 #pragma mark - Distance
 
 - (void)configureForUnknownDistance {
-    self.distanceLabel.text = [WMFLocalizedStringWithDefaultValue(@"places-unknown-distance", nil, NSBundle.wmf_localizationBundle, @"unknown distance", @"Indicates that a place is an unknown distance away") lowercaseString];
+    self.distanceLabel.text = [WMFLocalizedStringWithDefaultValue(@"places-unknown-distance", nil, nil, @"unknown distance", @"Indicates that a place is an unknown distance away") lowercaseString];
 }
 
 - (void)setDistance:(CLLocationDistance)distance {

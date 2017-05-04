@@ -1,12 +1,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 
-static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
-
 @implementation NSBundle (WMFInfoUtils)
-
-+ (NSBundle *)wmf_localizationBundle {
-    return [NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier];
-}
 
 - (NSString *)wmf_bundleName {
     return [self objectForInfoDictionaryKey:@"CFBundleName"];

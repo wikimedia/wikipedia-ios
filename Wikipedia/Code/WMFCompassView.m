@@ -228,7 +228,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
 
 - (NSString *)accessibilityLabel {
     NSInteger clockDirection = WMFRadiansToClock(self.angleRadians);
-    NSString *label = WMFLocalizedStringWithDefaultValue(@"compass-direction", nil, NSBundle.wmf_localizationBundle, @"at %1$@ o'clock", @"Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. %1$@ is the hour.");
+    NSString *label = WMFLocalizedStringWithDefaultValue(@"compass-direction", nil, nil, @"at %1$@ o'clock", @"Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. %1$@ is the hour.");
     label = [NSString localizedStringWithFormat:label, [NSString localizedStringWithFormat:@"%@", @(clockDirection)]];
     return label;
 }

@@ -14,7 +14,7 @@
     }
 
     if (!html) {
-        html = WMFLocalizedStringWithDefaultValue(@"article-unable-to-load-section", nil, NSBundle.wmf_localizationBundle, @"Unable to load this section. Try refreshing the article to see if it fixes the problem.", @"Displayed within the article content when a section fails to render for some reason.");
+        html = WMFLocalizedStringWithDefaultValue(@"article-unable-to-load-section", nil, nil, @"Unable to load this section. Try refreshing the article to see if it fixes the problem.", @"Displayed within the article content when a section fails to render for some reason.");
         ;
     }
 

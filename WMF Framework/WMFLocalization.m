@@ -2,12 +2,25 @@
 
 static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
 
-NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL * _Nullable url, NSBundle *bundle, NSString *value, NSString *comment) {
+@interface NSBundle (WMFLocalization)
+@property (class, readonly, strong) NSBundle *wmf_localizationBundle;
+@end
+
+@implementation NSBundle (WMFLocalization)
++ (NSBundle *)wmf_localizationBundle {
+    return [NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier];
+}
+@end
+
+NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL * _Nullable url, NSBundle * _Nullable bundle, NSString *value, NSString *comment) {
+    if (bundle == nil) {
+        bundle = NSBundle.wmf_localizationBundle;
+    }
     NSString *language = url.wmf_language;
     if (language == nil) {
        return NSLocalizedStringWithDefaultValue(key, nil, bundle, value, comment);
     }
-    NSString *path = [[NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier] pathForResource:language ofType:@"lproj"];
+    NSString *path = [bundle pathForResource:language ofType:@"lproj"];
     NSBundle *languageBundle = [NSBundle bundleWithPath:path];
     NSString *translation = nil;
     if (languageBundle) {

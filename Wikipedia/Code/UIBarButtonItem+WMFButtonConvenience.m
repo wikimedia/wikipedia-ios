@@ -6,7 +6,7 @@
     UIButton *button = [UIButton wmf_buttonType:type target:target action:action];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
     item.width = button.intrinsicContentSize.width;
-    item.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, NSBundle.wmf_localizationBundle, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
+    item.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
     return item;
 }
 

@@ -100,7 +100,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.title = WMFLocalizedStringWithDefaultValue(@"home-title", nil, NSBundle.wmf_localizationBundle, @"Explore", @"Title for home interface.\n{{Identical|Explore}}");
+    self.title = WMFLocalizedStringWithDefaultValue(@"home-title", nil, nil, @"Explore", @"Title for home interface.\n{{Identical|Explore}}");
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
@@ -981,25 +981,25 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFContentGroupKindRelatedPages: {
             NSURL *url = [section headerContentURL];
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-prompt", nil, NSBundle.wmf_localizationBundle, @"Hide this suggestion", @"Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-prompt", nil, nil, @"Hide this suggestion", @"Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [self.userStore setIsExcludedFromFeed:YES withArticleURL:url];
                                                         [self.userStore.viewContext removeContentGroup:section];
                                                     }]];
-            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-cancel", nil, nil, @"Cancel", @"Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
         }
         case WMFContentGroupKindLocationPlaceholder: {
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-dismiss", nil, NSBundle.wmf_localizationBundle, @"Dismiss", @"Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}")
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-dismiss", nil, nil, @"Dismiss", @"Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}")
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
                                                         section.wasDismissed = YES;
                                                         [section updateVisibility];
                                                     }]];
-            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-cancel", nil, nil, @"Cancel", @"Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
         }
         default:
@@ -1507,13 +1507,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
     InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
-    NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, NSBundle.wmf_localizationBundle, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
+    NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, nil, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
         NSString *title = [NSString localizedStringWithFormat:format, dateString];
         vc.title = title;
     } else {
-        vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", @"Title for the 'In the news' notification & feed section");
+        vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
     }
     return vc;
 }

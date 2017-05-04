@@ -32,7 +32,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
     return ^id(MWKImageInfo *info) {
         NSString *dateString = [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date];
         NSMutableString *potdDescription =
-        [[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"potd-description-prefix", nil, NSBundle.wmf_localizationBundle, @"Picture of the day for %1$@", @"Prefix to picture of the day description which states it was the picture of the day for a specific date. The %1$@ token is subtituted for the date."), dateString] mutableCopy];
+        [[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"potd-description-prefix", nil, nil, @"Picture of the day for %1$@", @"Prefix to picture of the day description which states it was the picture of the day for a specific date. The %1$@ token is subtituted for the date."), dateString] mutableCopy];
         if (info.imageDescription.length) {
             [potdDescription appendString:@"\n\n"];
             [potdDescription appendString:info.imageDescription];
@@ -86,7 +86,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
                                       code:MWKPOTDImageInfoErrorCodeEmptyInfo
                                   userInfo:@{
                                       NSLocalizedDescriptionKey:
-                                          [NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"potd-empty-error-description", nil, NSBundle.wmf_localizationBundle, @"Failed to retrieve picture of the day for %1$@", @"Error message when app fails to download Commons Picture of the Day. %1$@ will be substitued with the date which the app attempted to retrieve."), [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]]
+                                          [NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"potd-empty-error-description", nil, nil, @"Failed to retrieve picture of the day for %1$@", @"Error message when app fails to download Commons Picture of the Day. %1$@ will be substitued with the date which the app attempted to retrieve."), [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]]
                                   }];
 }
 

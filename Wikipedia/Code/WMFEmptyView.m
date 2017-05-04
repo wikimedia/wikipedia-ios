@@ -40,9 +40,9 @@
 + (instancetype)noFeedEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-title", nil, NSBundle.wmf_localizationBundle, @"No Internet Connection", @"Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, NSBundle.wmf_localizationBundle, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
-    view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, NSBundle.wmf_localizationBundle, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-title", nil, nil, @"No Internet Connection", @"Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
+    view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
 
     return view;
 }
@@ -50,7 +50,7 @@
 + (instancetype)noArticleEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-article"];
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-article-message", nil, NSBundle.wmf_localizationBundle, @"Sorry, could not load the article", @"Shown when an article cant be loaded in place of an article");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-article-message", nil, nil, @"Sorry, could not load the article", @"Shown when an article cant be loaded in place of an article");
 
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
@@ -60,7 +60,7 @@
 
 + (instancetype)noSearchResultsEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, NSBundle.wmf_localizationBundle, @"No results found", @"Shown when there are no search results");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results");
 
     [view.imageView removeFromSuperview];
     [view.titleLabel removeFromSuperview];
@@ -72,8 +72,8 @@
 + (instancetype)noSavedPagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-title", nil, NSBundle.wmf_localizationBundle, @"No saved pages yet", @"Title of a blank screen shown when a user has no saved pages");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-message", nil, NSBundle.wmf_localizationBundle, @"Save pages to view them later, even offline", @"Message of a blank screen shown when a user has no saved pages");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-title", nil, nil, @"No saved pages yet", @"Title of a blank screen shown when a user has no saved pages");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-message", nil, nil, @"Save pages to view them later, even offline", @"Message of a blank screen shown when a user has no saved pages");
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -83,8 +83,8 @@
 + (instancetype)noHistoryEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"recent-blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-title", nil, NSBundle.wmf_localizationBundle, @"No history to show", @"Title of a blank screen shown when a user has no history");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-message", nil, NSBundle.wmf_localizationBundle, @"Keep track of what you've been reading here", @"Message of a blank screen shown when a user has no history");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-title", nil, nil, @"No history to show", @"Title of a blank screen shown when a user has no history");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-message", nil, nil, @"Keep track of what you've been reading here", @"Message of a blank screen shown when a user has no history");
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];

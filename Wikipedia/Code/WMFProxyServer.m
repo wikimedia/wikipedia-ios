@@ -89,7 +89,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 #if DEBUG
                 [[WMFAlertManager sharedInstance] showEmailFeedbackAlertViewWithError:serverStartError];
 #else
-                NSString *errorMessage = WMFLocalizedStringWithDefaultValue(@"article-unable-to-load-article", nil, NSBundle.wmf_localizationBundle, @"Unable to load article.", @"Alert text shown when unable to load an article");
+                NSString *errorMessage = WMFLocalizedStringWithDefaultValue(@"article-unable-to-load-article", nil, nil, @"Unable to load article.", @"Alert text shown when unable to load an article");
                 [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:errorMessage
                                                                      sticky:YES
                                                       dismissPreviousAlerts:YES
