@@ -249,10 +249,11 @@ func importLocalizationsFromTWN(_ path: String) {
 
 	do {
 		let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
+        let languagesToSkip = ["en", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf", "qqq"]
 		let defaultKeys = ["one"]
 	   let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
 	   for filename in contents {
-	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "en", locale != "qqq" else {
+	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), !languagesToSkip.contains(locale) else {
 	           continue
 	       }
 	       guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
