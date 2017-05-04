@@ -1649,7 +1649,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             layout.slideInNewContentFromTheTop = YES;
             [UIView animateWithDuration:0.7 + 0.1 * sectionDelta
                                   delay:0
-                 usingSpringWithDamping:0.85
+                 usingSpringWithDamping:0.8
                   initialSpringVelocity:0
                                 options:UIViewAnimationOptionAllowUserInteraction
                              animations:^{
