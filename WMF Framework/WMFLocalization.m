@@ -2,10 +2,6 @@
 
 static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
 
-@interface NSBundle (WMFLocalization)
-@property (class, readonly, strong) NSBundle *wmf_localizationBundle;
-@end
-
 @implementation NSBundle (WMFLocalization)
 + (NSBundle *)wmf_localizationBundle {
     return [NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier];
