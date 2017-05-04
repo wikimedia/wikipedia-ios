@@ -1178,6 +1178,23 @@ var CollapseTable = {
 };
 
 /**
+ * Polyfill function that tells whether a given element matches a selector.
+ * @param {!Element} el Element
+ * @param {!string} selector Selector to look for
+ * @returns {!boolean} Whether the element matches the selector
+ */
+var matchesSelectorCompat = function matchesSelectorCompat(el, selector) {
+  if (el.matches) {
+    return el.matches(selector);
+  } else if (el.matchesSelector) {
+    return el.matchesSelector(selector);
+  } else if (el.webkitMatchesSelector) {
+    return el.webkitMatchesSelector(selector);
+  }
+  return false;
+};
+
+/**
  * Returns closest ancestor of element which matches selector.
  * Similar to 'closest' methods as seen here:
  *  https://api.jquery.com/closest/
@@ -1188,7 +1205,7 @@ var CollapseTable = {
  */
 var findClosestAncestor = function findClosestAncestor(el, selector) {
   var parentElement = void 0;
-  for (parentElement = el.parentElement; parentElement && !parentElement.matches(selector); parentElement = parentElement.parentElement) {
+  for (parentElement = el.parentElement; parentElement && !matchesSelectorCompat(parentElement, selector); parentElement = parentElement.parentElement) {
     // Intentionally empty.
   }
   return parentElement;
