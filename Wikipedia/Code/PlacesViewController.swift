@@ -1670,7 +1670,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
     
-        view.insertSubview(articleVC.view, aboveSubview: mapView)
+        view.insertSubview(articleVC.view, belowSubview: extendedNavBarView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
