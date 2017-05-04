@@ -12,6 +12,8 @@
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, getter=isLayoutValid) BOOL layoutValid;
+@property (nonatomic) NSInteger maxNewSection;
+@property (nonatomic) CGFloat newSectionDeltaY;
 
 @end
 
@@ -145,6 +147,65 @@
         *stop = attributesToReturn != nil;
     }];
     return attributesToReturn;
+}
+
+#pragma mark - Animation
+
+- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems {
+    [super prepareForCollectionViewUpdates:updateItems];
+    if (!self.slideInNewContentFromTheTop) {
+        self.maxNewSection = -1;
+        self.newSectionDeltaY = 0;
+        return;
+    }
+    NSInteger maxSection = -1;
+    for (UICollectionViewUpdateItem *updateItem in updateItems) {
+        if (updateItem.indexPathBeforeUpdate != nil || updateItem.indexPathAfterUpdate == nil) {
+            continue;
+        }
+        if (updateItem.indexPathAfterUpdate.item != NSNotFound) {
+            continue;
+        }
+        NSInteger section = updateItem.indexPathAfterUpdate.section;
+        if (section != maxSection + 1) {
+            continue;
+        }
+        maxSection = section;
+    }
+    if (maxSection >= self.info.sections.count) {
+        self.maxNewSection = -1;
+        return;
+    }
+    self.maxNewSection = maxSection;
+    CGRect sectionFrame = self.info.sections[maxSection].frame;
+    self.newSectionDeltaY = 0 - CGRectGetMaxY(sectionFrame);
+}
+
+- (void)adjustAttributesIfNecessary:(UICollectionViewLayoutAttributes *)attributes forItemOrElementAppearingAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section <= self.maxNewSection) {
+        CGRect frame = attributes.frame;
+        frame.origin.y = frame.origin.y + self.newSectionDeltaY;
+        attributes.frame = frame;
+        attributes.alpha = 1;
+    }
+}
+
+- (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:itemIndexPath];
+    return attributes;
+}
+
+- (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingSupplementaryElementOfKind:elementKind atIndexPath:elementIndexPath];
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:elementIndexPath];
+    return attributes;
+}
+
+- (nullable UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingDecorationElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)decorationIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingDecorationElementOfKind:elementKind atIndexPath:decorationIndexPath];
+    [self adjustAttributesIfNecessary:attributes forItemOrElementAppearingAtIndexPath:decorationIndexPath];
+    return attributes;
 }
 
 @end
