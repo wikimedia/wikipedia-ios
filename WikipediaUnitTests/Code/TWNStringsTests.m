@@ -198,6 +198,27 @@
                 if ([localizedString containsString:@"{{"]) {
                     if ([localizedString containsString:@"{{PLURAL:$"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
+                        XCTAssertFalse([localizedString containsString:@"{{PLURAL:$2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+                    } else {
+                        XCTAssertTrue(false, @"Unsupported {{ }} in localization");
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)testiOSTranslationStringForBracketSubstitutions {
+    for (NSString *lprojFileName in TWNStringsTests.iOSLprojFiles) {
+        if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
+            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            for (NSString *key in stringsDict) {
+                NSString *localizedString = stringsDict[key];
+                if ([localizedString containsString:@"{{"]) {
+                    if ([localizedString containsString:@"{{PLURAL:%"]) {
+                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
+                        XCTAssertFalse([localizedString containsString:@"{{PLURAL:%2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
                     } else {
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }
