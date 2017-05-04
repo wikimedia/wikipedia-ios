@@ -11,6 +11,8 @@
 
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesAtPoint:(CGPoint)point; //returns the first matched layout attributes that contain the given point
 
+@property (nonatomic) BOOL slideInNewContentFromTheTop;
+
 @end
 
 struct WMFLayoutEstimate {

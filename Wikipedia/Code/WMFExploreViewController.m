@@ -1543,6 +1543,66 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.objectChanges addObject:objectChange];
 }
 
+- (void)batchUpdateCollectionView:(NSArray *)previousSectionCounts {
+    [self.collectionView performBatchUpdates:^{
+        NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+        NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
+        for (WMFObjectChange *change in self.objectChanges) {
+            switch (change.type) {
+                case NSFetchedResultsChangeInsert: {
+                    NSInteger insertedIndex = change.toIndexPath.row;
+                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
+                    [insertedSections addIndex:insertedIndex];
+                } break;
+                case NSFetchedResultsChangeDelete: {
+                    NSInteger deletedIndex = change.fromIndexPath.row;
+                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
+                    [deletedSections addIndex:deletedIndex];
+                } break;
+                case NSFetchedResultsChangeUpdate: {
+                    if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
+                        if ([deletedSections containsIndex:change.fromIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        } else {
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        }
+                    } else {
+                        NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                        NSInteger sectionIndex = updatedIndexPath.row;
+                        if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        } else {
+                            NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                            NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                            if (previousCount == currentCount) {
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                continue;
+                            }
+
+                            while (previousCount > currentCount) {
+                                [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                previousCount--;
+                            }
+
+                            while (previousCount < currentCount) {
+                                [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                previousCount++;
+                            }
+
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        }
+                    }
+                } break;
+                case NSFetchedResultsChangeMove:
+                    [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
+                    break;
+            }
+        }
+    }
+                                  completion:NULL];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 
     BOOL shouldReload = self.sectionChanges.count > 0;
@@ -1551,11 +1611,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSInteger previousNumberOfSections = previousSectionCounts.count;
 
     NSInteger sectionDelta = 0;
+    BOOL didInsertFirstSection = false;
     for (WMFObjectChange *change in self.objectChanges) {
         switch (change.type) {
-            case NSFetchedResultsChangeInsert:
+            case NSFetchedResultsChangeInsert: {
                 sectionDelta++;
-                break;
+                if (change.toIndexPath.section == 0) {
+                    didInsertFirstSection = true;
+                }
+            } break;
             case NSFetchedResultsChangeDelete:
                 sectionDelta--;
                 break;
@@ -1576,68 +1640,26 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     shouldReload = shouldReload || !sectionCountsMatch;
 
+    WMFColumnarCollectionViewLayout *layout = (WMFColumnarCollectionViewLayout *)self.collectionViewLayout;
     if (shouldReload) {
+        layout.slideInNewContentFromTheTop = NO;
         [self.collectionView reloadData];
     } else {
-        [self.collectionView performBatchUpdates:^{
-            NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
-            NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
-            for (WMFObjectChange *change in self.objectChanges) {
-                switch (change.type) {
-                    case NSFetchedResultsChangeInsert: {
-                        NSInteger insertedIndex = change.toIndexPath.row;
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
-                        [insertedSections addIndex:insertedIndex];
-                    } break;
-                    case NSFetchedResultsChangeDelete: {
-                        NSInteger deletedIndex = change.fromIndexPath.row;
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
-                        [deletedSections addIndex:deletedIndex];
-                    } break;
-                    case NSFetchedResultsChangeUpdate: {
-                        if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
-                            if ([deletedSections containsIndex:change.fromIndexPath.row]) {
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
-                            } else {
-                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
-                            }
-                        } else {
-                            NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
-                            NSInteger sectionIndex = updatedIndexPath.row;
-                            if ([insertedSections containsIndex:updatedIndexPath.row]) {
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                            } else {
-                                NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
-                                NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
-                                if (previousCount == currentCount) {
-                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                                    continue;
-                                }
-
-                                while (previousCount > currentCount) {
-                                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
-                                    previousCount--;
-                                }
-
-                                while (previousCount < currentCount) {
-                                    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
-                                    previousCount++;
-                                }
-
-                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                            }
-                        }
-                    } break;
-                    case NSFetchedResultsChangeMove:
-                        [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
-                        break;
-                }
-            }
+        if (didInsertFirstSection && sectionDelta > 0 && [previousSectionCounts count] > 0) {
+            layout.slideInNewContentFromTheTop = YES;
+            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta
+                                  delay:0
+                 usingSpringWithDamping:0.8
+                  initialSpringVelocity:0
+                                options:UIViewAnimationOptionAllowUserInteraction
+                             animations:^{
+                                 [self batchUpdateCollectionView:previousSectionCounts];
+                             }
+                             completion:NULL];
+        } else {
+            layout.slideInNewContentFromTheTop = NO;
+            [self batchUpdateCollectionView:previousSectionCounts];
         }
-                                      completion:^(BOOL finished){
-
-                                      }];
     }
 
     [self.objectChanges removeAllObjects];
