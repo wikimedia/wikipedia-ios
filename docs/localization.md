@@ -20,13 +20,23 @@ WMFLocalizedString`("places-search-articles-that-match", value:"%1$@ matching â€
 To get a string localized to the user's system default locale:
  
 ```objc
-WMFLocalizedStringWithDefaultValue(@"article-about-title", nil, nil, @"About this article", @"The text that is displayed before the 'about' section at the bottom of an article");
+WMFLocalizedStringWithDefaultValue(@"article-about-title",
+								   nil,
+								   nil, 
+								   @"About this article",
+								   @"The text that is displayed before the 'about' section at the bottom of an article"
+								  );
 ```
  
 To get a string localized to the language of the Wikipedia site indicated by `siteURL`:
  
 ```objc
-WMFLocalizedStringWithDefaultValue(@"article-about-title", siteURL, nil, @"About this article", @"The text that is displayed before the 'about' section at the bottom of an article");
+WMFLocalizedStringWithDefaultValue(@"article-about-title", 
+								   siteURL,
+								   nil, 
+								   @"About this article", 
+								   @"The text that is displayed before the 'about' section at the bottom of an article"
+								  );
 ```
  
 Plural string. Note the use of `localizedStringWithFormat` instead of `stringWithFormat`:
@@ -42,19 +52,27 @@ In Swift, `WMFLocalizedString` matches the signature of `NSLocalizedString` with
 To get a string localized to the user's system default locale:
  
 ```swift
-WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
+WMFLocalizedString("places-filter-saved-articles", 
+             value:"Saved articles", 
+	       comment:"Title of places search filter that searches saved articles")
 ```
  
 To get a string localized to the language of the Wikipedia site indicated by `siteURL`:
  
 ```swift
-WMFLocalizedString("places-filter-saved-articles", siteURL:siteURL, value:"Saved articles", comment:"Title of places search filter that searches saved articles")
+WMFLocalizedString("places-filter-saved-articles",
+           siteURL:siteURL, 
+		     value:"Saved articles",
+		   comment:"Title of places search filter that searches saved articles")
 ```
  
 Plural string. Note the use of `localizedStringWithFormat` instead of `stringWithFormat`:
  
 ```swift
-String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), savedCount)
+let format = WMFLocalizedString("places-filter-saved-articles-count", 
+						  value:"{{PLURAL:%1$d|0=You have no saved places|%1$d place|%1$d places}} found",
+						comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles")
+String.localizedStringWithFormat(format, savedCount)
 ```
  
 
