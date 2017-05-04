@@ -22,7 +22,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "WMFGCDHelpers.h"
 #import "WMFLogging.h"
 #import "WMFLocalization.h"
-#import "WMFDirectoryPaths.h"
 #import "WMFMath.h"
 #import "WMFLocalization.h"
 #import "NSError+WMFExtensions.h"
