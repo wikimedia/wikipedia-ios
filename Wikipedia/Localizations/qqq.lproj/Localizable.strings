@@ -236,7 +236,7 @@
 "places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "places-filter-list-title" = "Title shown above list of search filters that can be selected";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
-"places-filter-saved-articles" = "Title of places saerch filter that searches saved articles";
+"places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
 "places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
