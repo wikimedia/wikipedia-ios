@@ -1,10 +1,11 @@
 #import "WMFLocalization.h"
-
-static NSString *const WMFLocalizationBundleIdentifier = @"org.wikimedia.WMF";
+#import <WMF/WMF-Swift.h>
 
 @implementation NSBundle (WMFLocalization)
+
 + (NSBundle *)wmf_localizationBundle {
-    return [NSBundle bundleWithIdentifier:WMFLocalizationBundleIdentifier];
+    return [NSBundle wmf];
+}
 }
 @end
 

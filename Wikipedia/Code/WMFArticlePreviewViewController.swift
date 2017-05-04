@@ -16,8 +16,7 @@ open class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
 
     public required init() {
-        let bundle = Bundle(identifier: "org.wikimedia.WMF")
-        super.init(nibName: "WMFArticlePreviewViewController", bundle: bundle)
+        super.init(nibName: "WMFArticlePreviewViewController", bundle: Bundle.wmf)
     }
     
     public required init?(coder aDecoder: NSCoder) {
