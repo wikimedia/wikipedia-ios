@@ -17,7 +17,8 @@
             NSInteger regexCountNeeded = substitutionStrings.count - regexArray.count;
             NSInteger regexCountPrevious = regexArray.count;
             for (NSUInteger i = 0; i < regexCountNeeded; i++) {
-                NSRegularExpression *newRegex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"\\$%lu+", (unsigned long)i + regexCountPrevious + 1] options:0 error:nil];
+                NSString *pattern = [NSString stringWithFormat:@"\\%%%lu+\\$@", (unsigned long)i + regexCountPrevious + 1];
+                NSRegularExpression *newRegex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
                 [regexArray addObject:newRegex];
             }
         }

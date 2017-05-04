@@ -20,12 +20,12 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (NSString *)tableCollapsingJavascriptForArticle:(MWKArticle *)article {
+    NSString *infoBoxTitle = [WMFLocalizedStringWithDefaultValue(@"info-box-title", article.url, NSBundle.wmf_localizationBundle, @"Quick Facts", @"The title of infoboxes – in collapsed and expanded form") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *tableTitle = [WMFLocalizedStringWithDefaultValue(@"table-title-other", article.url, NSBundle.wmf_localizationBundle, @"More information", @"The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *closeBoxText = [WMFLocalizedStringWithDefaultValue(@"info-box-close-text", article.url, NSBundle.wmf_localizationBundle, @"Close", @"The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     return
         [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@');",
-                                   article.isMain,
-                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
-                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
-                                   [article apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]];
+                                   article.isMain, infoBoxTitle, tableTitle, closeBoxText];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {

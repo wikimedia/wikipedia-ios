@@ -124,14 +124,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Setup Redo search button
         redoSearchButton.backgroundColor = view.tintColor
         redoSearchButton.setTitleColor(.white, for: .normal)
-        redoSearchButton.setTitle("    " + localizedStringForKeyFallingBackOnEnglish("places-search-this-area") + "    ", for: .normal)
+        redoSearchButton.setTitle("    " + WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area") + "    ", for: .normal)
         redoSearchButton.isHidden = true
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
         let list = #imageLiteral(resourceName: "places-list")
-        map.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-map")
-        list.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-show-as-list")
+        map.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-map", value:"Show as map", comment:"Accessibility label for the show as map toggle item")
+        list.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-list", value:"Show as list", comment:"Accessibility label for the show as list toggle item")
         mapListToggle.setImage(map, forSegmentAt: 0)
         mapListToggle.setImage(list, forSegmentAt: 1)
         mapListToggle.selectedSegmentIndex = 0
@@ -139,10 +139,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapListToggle.tintColor = .wmf_blueTint
         
         // Setup close search button
-        closeSearchButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-close-search")
+        closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
         
         // Setup recenter button
-        recenterOnUserLocationButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-recenter-map-on-user-location")
+        recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
         listAndSearchOverlayContainerView.radius = 5
@@ -162,11 +162,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
-        titleViewSearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
+        titleViewSearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        listAndSearchOverlaySearchBar.placeholder = localizedStringForKeyFallingBackOnEnglish("places-search-default-text")
+        listAndSearchOverlaySearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         
         viewMode = .map
         
@@ -550,7 +550,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func performDefaultSearch(withRegion region: MKCoordinateRegion?) {
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil)
     }
     
     var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
@@ -671,7 +671,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         }
                     }
                     if articlesToShow.count == 0 {
-                        self.wmf_showAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("places-no-saved-articles-have-location"))
+                        self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
                     DDLogError("Error fetching saved articles: \(error.localizedDescription)")
@@ -1670,7 +1670,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
     
-        view.insertSubview(articleVC.view, aboveSubview: mapView)
+        view.insertSubview(articleVC.view, belowSubview: extendedNavBarView)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1967,14 +1967,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let image: UIImage
         
         if (isSearchFilterDropDownShowing) {
-            title = localizedStringForKeyFallingBackOnEnglish("places-filter-list-title")
+            title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
             image = #imageLiteral(resourceName: "chevron-up")
         } else {
             switch currentSearchFilter {
             case .top:
-                title = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+                title = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
             case .saved:
-                title = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+                title = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
             }
             image = #imageLiteral(resourceName: "chevron-down")
         }
@@ -1991,13 +1991,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let imageString = NSAttributedString(attachment: imageAttachment)
             attributedTitle.append(imageString)
             
-            let fullRange = NSMakeRange(0, attributedTitle.length)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
-            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: fullRange)
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: fullRange)
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
+
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSMakeRange(0, attributedTitle.length))
         }
         
         UIView.performWithoutAnimation {
@@ -2030,8 +2030,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func setupEmptySearchOverlayView() {
-        emptySearchOverlayView.mainLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-title")
-        emptySearchOverlayView.detailLabel.text = localizedStringForKeyFallingBackOnEnglish("places-empty-search-description")
+        emptySearchOverlayView.mainLabel.text = WMFLocalizedString("places-empty-search-title", value:"Search for Wikipedia articles with geographic locations", comment:"Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.")
+        emptySearchOverlayView.detailLabel.text = WMFLocalizedString("places-empty-search-description", value:"Explore cities, countries, continents, natural landmarks, historical events, buildings and more.", comment:"Detail text shown on an overlay when there are no recent Places searches. Describes the kind of articles you can search for.")
     }
     
     // MARK: - Search Suggestions & Completions
@@ -2042,9 +2042,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let defaultSuggestion: PlaceSearch
             switch (currentSearchFilter) {
             case .top:
-                defaultSuggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-top-articles"), searchResult: nil)
+                defaultSuggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil)
             case .saved:
-                defaultSuggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: localizedStringForKeyFallingBackOnEnglish("places-search-saved-articles"), searchResult: nil)
+                defaultSuggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-saved-articles", value:"All saved articles", comment:"A search suggestion for saved articles"), searchResult: nil)
             }
             
             var recentSearches: [PlaceSearch] = []
@@ -2094,13 +2094,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentSearchScopeName: String
         switch (currentSearchFilter) {
         case .top:
-            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
+            currentSearchScopeName = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
         case .saved:
-            currentSearchScopeName = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            currentSearchScopeName = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
         }
 
-        let currentSearchStringTitle = localizedStringForKeyFallingBackOnEnglish("places-search-articles-that-match").replacingOccurrences(of: "$1", with: currentSearchScopeName)
-            .replacingOccurrences(of: "$2", with: currentSearchString)
+        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
         let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
@@ -2291,7 +2290,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
+        let title = article.savedDate == nil ? WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}") : WMFLocalizedString("action-saved", value:"Saved", comment:"Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}")
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -2303,7 +2302,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         saveForLaterAction.backgroundColor = .wmf_darkBlueTint
         
-        let shareAction = UITableViewRowAction(style: .default, title: localizedStringForKeyFallingBackOnEnglish("action-share")) { (action, indexPath) in
+        let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)

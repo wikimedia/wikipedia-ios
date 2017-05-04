@@ -48,17 +48,17 @@ class PlaceSearchFilterListController: UITableViewController {
         }
         
         if (indexPath.row == 0) {
-            myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles")
-            myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-top-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .top)))
+            myCell.titleLabel.text = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
+            myCell.subtitleLabel.text = String.localizedStringWithFormat(WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
             myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         } else if (indexPath.row == 1) {
-            myCell.titleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles")
+            myCell.titleLabel.text = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
             let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
             if (savedCount > 0) {
-                myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-saved-articles-count").replacingOccurrences(of: "$1", with: String(delegate.placeSearchFilterListController(self, countForFilterType: .saved)))
+                myCell.subtitleLabel.text =  String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
             } else {
-                myCell.subtitleLabel.text = localizedStringForKeyFallingBackOnEnglish("places-filter-no-saved-places")
+                myCell.subtitleLabel.text = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
             }
         }

@@ -100,7 +100,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.title = MWLocalizedString(@"home-title", nil);
+    self.title = WMFLocalizedStringWithDefaultValue(@"home-title", nil, NSBundle.wmf_localizationBundle, @"Explore", @"Title for home interface.\n{{Identical|Explore}}");
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
@@ -981,25 +981,25 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFContentGroupKindRelatedPages: {
             NSURL *url = [section headerContentURL];
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-prompt", nil, NSBundle.wmf_localizationBundle, @"Hide this suggestion", @"Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [self.userStore setIsExcludedFromFeed:YES withArticleURL:url];
                                                         [self.userStore.viewContext removeContentGroup:section];
                                                     }]];
-            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"home-hide-suggestion-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
         }
         case WMFContentGroupKindLocationPlaceholder: {
             UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-dismiss", nil)
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-dismiss", nil, NSBundle.wmf_localizationBundle, @"Dismiss", @"Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}")
                                                       style:UIAlertActionStyleDestructive
                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                         [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
                                                         section.wasDismissed = YES;
                                                         [section updateVisibility];
                                                     }]];
-            [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"explore-nearby-placeholder-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+            [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
             return sheet;
         }
         default:
@@ -1507,13 +1507,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
     InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
-    NSString *format = MWLocalizedString(@"in-the-news-title-for-date", nil);
+    NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, NSBundle.wmf_localizationBundle, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
     if (format && date) {
         NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-        NSString *title = [format stringByReplacingOccurrencesOfString:@"$1" withString:dateString];
+        NSString *title = [NSString localizedStringWithFormat:format, dateString];
         vc.title = title;
     } else {
-        vc.title = MWLocalizedString(@"in-the-news-title", nil);
+        vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", @"Title for the 'In the news' notification & feed section");
     }
     return vc;
 }
@@ -1543,6 +1543,66 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.objectChanges addObject:objectChange];
 }
 
+- (void)batchUpdateCollectionView:(NSArray *)previousSectionCounts {
+    [self.collectionView performBatchUpdates:^{
+        NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
+        NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
+        for (WMFObjectChange *change in self.objectChanges) {
+            switch (change.type) {
+                case NSFetchedResultsChangeInsert: {
+                    NSInteger insertedIndex = change.toIndexPath.row;
+                    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
+                    [insertedSections addIndex:insertedIndex];
+                } break;
+                case NSFetchedResultsChangeDelete: {
+                    NSInteger deletedIndex = change.fromIndexPath.row;
+                    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
+                    [deletedSections addIndex:deletedIndex];
+                } break;
+                case NSFetchedResultsChangeUpdate: {
+                    if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
+                        if ([deletedSections containsIndex:change.fromIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        } else {
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        }
+                    } else {
+                        NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                        NSInteger sectionIndex = updatedIndexPath.row;
+                        if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        } else {
+                            NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                            NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                            if (previousCount == currentCount) {
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                continue;
+                            }
+
+                            while (previousCount > currentCount) {
+                                [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                previousCount--;
+                            }
+
+                            while (previousCount < currentCount) {
+                                [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                previousCount++;
+                            }
+
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        }
+                    }
+                } break;
+                case NSFetchedResultsChangeMove:
+                    [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
+                    break;
+            }
+        }
+    }
+                                  completion:NULL];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 
     BOOL shouldReload = self.sectionChanges.count > 0;
@@ -1551,11 +1611,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSInteger previousNumberOfSections = previousSectionCounts.count;
 
     NSInteger sectionDelta = 0;
+    BOOL didInsertFirstSection = false;
     for (WMFObjectChange *change in self.objectChanges) {
         switch (change.type) {
-            case NSFetchedResultsChangeInsert:
+            case NSFetchedResultsChangeInsert: {
                 sectionDelta++;
-                break;
+                if (change.toIndexPath.section == 0) {
+                    didInsertFirstSection = true;
+                }
+            } break;
             case NSFetchedResultsChangeDelete:
                 sectionDelta--;
                 break;
@@ -1576,68 +1640,26 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     shouldReload = shouldReload || !sectionCountsMatch;
 
+    WMFColumnarCollectionViewLayout *layout = (WMFColumnarCollectionViewLayout *)self.collectionViewLayout;
     if (shouldReload) {
+        layout.slideInNewContentFromTheTop = NO;
         [self.collectionView reloadData];
     } else {
-        [self.collectionView performBatchUpdates:^{
-            NSMutableIndexSet *deletedSections = [NSMutableIndexSet indexSet];
-            NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSet];
-            for (WMFObjectChange *change in self.objectChanges) {
-                switch (change.type) {
-                    case NSFetchedResultsChangeInsert: {
-                        NSInteger insertedIndex = change.toIndexPath.row;
-                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:insertedIndex]];
-                        [insertedSections addIndex:insertedIndex];
-                    } break;
-                    case NSFetchedResultsChangeDelete: {
-                        NSInteger deletedIndex = change.fromIndexPath.row;
-                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
-                        [deletedSections addIndex:deletedIndex];
-                    } break;
-                    case NSFetchedResultsChangeUpdate: {
-                        if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
-                            if ([deletedSections containsIndex:change.fromIndexPath.row]) {
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
-                            } else {
-                                [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
-                            }
-                        } else {
-                            NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
-                            NSInteger sectionIndex = updatedIndexPath.row;
-                            if ([insertedSections containsIndex:updatedIndexPath.row]) {
-                                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                            } else {
-                                NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
-                                NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
-                                if (previousCount == currentCount) {
-                                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                                    continue;
-                                }
-
-                                while (previousCount > currentCount) {
-                                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
-                                    previousCount--;
-                                }
-
-                                while (previousCount < currentCount) {
-                                    [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
-                                    previousCount++;
-                                }
-
-                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                            }
-                        }
-                    } break;
-                    case NSFetchedResultsChangeMove:
-                        [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
-                        break;
-                }
-            }
+        if (didInsertFirstSection && sectionDelta > 0 && [previousSectionCounts count] > 0) {
+            layout.slideInNewContentFromTheTop = YES;
+            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta
+                                  delay:0
+                 usingSpringWithDamping:0.8
+                  initialSpringVelocity:0
+                                options:UIViewAnimationOptionAllowUserInteraction
+                             animations:^{
+                                 [self batchUpdateCollectionView:previousSectionCounts];
+                             }
+                             completion:NULL];
+        } else {
+            layout.slideInNewContentFromTheTop = NO;
+            [self batchUpdateCollectionView:previousSectionCounts];
         }
-                                      completion:^(BOOL finished){
-
-                                      }];
     }
 
     [self.objectChanges removeAllObjects];

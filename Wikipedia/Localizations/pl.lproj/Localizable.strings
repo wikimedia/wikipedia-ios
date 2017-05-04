@@ -408,6 +408,7 @@
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "explore-another-random" = "Inny losowy artykuł";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "top-read-header-generic" = "Wikipedia";
@@ -430,7 +431,10 @@
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
 "places-accessibility-clear-recent-searches" = "Wyczyść listę ostatnich wyszukiwań";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}";
 "places-filter-saved-articles" = "Zapisane artykuły";
+"places-filter-saved-articles-count" = "Znaleziono $1 {{PLURAL:$1|miejsce|miejsca|miejsc}}";
 "places-filter-list-title" = "Filtry wyszukiwania";
+"places-search-default-text" = "Szukaj";
 "action-share" = "Udostępnij";
 "action-save" = "Zapisz";

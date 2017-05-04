@@ -38,9 +38,9 @@
 
 - (void)testComplexAttributedStringCreation {
     // First create complex attributed string (complexAttributedString1) using our substitution method:
-    // (Note the multiple occurences of "$1".)
+    // (Note the multiple occurences of "%1$@".)
     NSAttributedString *complexAttributedString1 =
-        [@"Large orange text and some $1 and $2 text. More $1 text."
+        [@"Large orange text and some %1$@ and %2$@ text. More %1$@ text."
             attributedStringWithAttributes:self.largeOrangeText
                        substitutionStrings:@[@"small green", @"medium blue"]
                     substitutionAttributes:@[self.smallGreenText, self.mediumBlueText]];
@@ -65,7 +65,7 @@
         // Put the code you want to measure the time of here.
 
         for (NSInteger i = 0; i < 10000; i++) {
-            [@"Large orange text and some $1 and $2 text. More $1 text."
+            [@"Large orange text and some %1$@ and %2$@ text. More %1$@ text."
                 attributedStringWithAttributes:self.largeOrangeText
                            substitutionStrings:@[@"small green", @"medium blue"]
                         substitutionAttributes:@[self.smallGreenText, self.mediumBlueText]];
