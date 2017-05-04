@@ -1579,17 +1579,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                 [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                                 continue;
                             }
-                            
+
                             while (previousCount > currentCount) {
                                 [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
                                 previousCount--;
                             }
-                            
+
                             while (previousCount < currentCount) {
                                 [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
                                 previousCount++;
                             }
-                            
+
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                         }
                     }
@@ -1599,7 +1599,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     break;
             }
         }
-    } completion:NULL];
+    }
+                                  completion:NULL];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -1613,14 +1614,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     BOOL didInsertFirstSection = false;
     for (WMFObjectChange *change in self.objectChanges) {
         switch (change.type) {
-            case NSFetchedResultsChangeInsert:
-            {
+            case NSFetchedResultsChangeInsert: {
                 sectionDelta++;
                 if (change.toIndexPath.section == 0) {
                     didInsertFirstSection = true;
                 }
-            }
-                break;
+            } break;
             case NSFetchedResultsChangeDelete:
                 sectionDelta--;
                 break;
@@ -1640,7 +1639,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     shouldReload = shouldReload || !sectionCountsMatch;
-    
+
     WMFColumnarCollectionViewLayout *layout = (WMFColumnarCollectionViewLayout *)self.collectionViewLayout;
     if (shouldReload) {
         layout.slideInNewContentFromTheTop = NO;
@@ -1648,9 +1647,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     } else {
         if (didInsertFirstSection && sectionDelta > 0 && [previousSectionCounts count] > 0) {
             layout.slideInNewContentFromTheTop = YES;
-            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                [self batchUpdateCollectionView:previousSectionCounts];
-            } completion:NULL];
+            [UIView animateWithDuration:0.7 + 0.1 * sectionDelta
+                                  delay:0
+                 usingSpringWithDamping:0.85
+                  initialSpringVelocity:0
+                                options:UIViewAnimationOptionAllowUserInteraction
+                             animations:^{
+                                 [self batchUpdateCollectionView:previousSectionCounts];
+                             }
+                             completion:NULL];
         } else {
             layout.slideInNewContentFromTheTop = NO;
             [self batchUpdateCollectionView:previousSectionCounts];
