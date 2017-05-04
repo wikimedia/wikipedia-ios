@@ -124,7 +124,7 @@
     static dispatch_once_t onceToken;
     static NSRegularExpression *reverseTWNTokenRegex;
     dispatch_once(&onceToken, ^{
-        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[0-9]+)(?:[$])" options:0 error:nil];
+        reverseTWNTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(:?[^%%])(:?[0-9]+)(?:[$])(:?[^@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
     });
     return reverseTWNTokenRegex;
 }
@@ -164,6 +164,10 @@
 
 - (void)testIncomingTranslationStringForReversedSubstitutionShortcuts {
     [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.twnLocalizationsDirectory haveNoMatchesWithRegex:TWNStringsTests.reverseTWNTokenRegex];
+}
+
+- (void)testiOSTranslationStringForReversedSubstitutionShortcuts {
+    [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.reverseTWNTokenRegex];
 }
 
 - (void)testIncomingTranslationStringForPercentTokens {
