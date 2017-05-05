@@ -487,6 +487,14 @@
 		B3B018CC1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CA1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift */; };
 		B3B018CD1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CA1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift */; };
 		B3B018CE1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CA1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift */; };
+		B3B018D01EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */; };
+		B3B018D11EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */; };
+		B3B018D21EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */; };
+		B3B018D31EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */; };
+		B3B018D51EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
+		B3B018D61EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
+		B3B018D71EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
+		B3B018D81EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
 		B3D889441E9E8F8400F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
 		B3D889451E9E8F8900F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
 		B3D889461E9E8F8900F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
@@ -3426,6 +3434,8 @@
 		B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
 		B39427421E71F79700D3146D /* NSSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetBlocksKitTest.m; sourceTree = "<group>"; };
 		B3B018CA1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFNavigationBarUtilities.swift"; sourceTree = SOURCE_ROOT; };
+		B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFExploreWrapperViewController.swift; sourceTree = "<group>"; };
+		B3B018D41EBD15C300BE7F21 /* Explore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
 		B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchFilterListController.swift; sourceTree = "<group>"; };
 		B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
@@ -5187,6 +5197,8 @@
 		0E98805F1DA2A0C00058D7F2 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				B3B018D41EBD15C300BE7F21 /* Explore.storyboard */,
+				B3B018CF1EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift */,
 				B0E802C21C0CD2B80065EBC0 /* WMFExploreViewController.h */,
 				B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
@@ -8241,6 +8253,7 @@
 				B0E806EC1C0CEBA40065EBC0 /* RecentSearchCell.xib in Resources */,
 				D87A55A41D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
+				B3B018D51EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				0E5386981DB834DE0046E0F9 /* WMFFeedNotificationHeader.xib in Resources */,
 				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
@@ -8363,6 +8376,7 @@
 				D8A42C021E815A9C00D8E281 /* RecentSearchCell.xib in Resources */,
 				D8A42C031E815A9C00D8E281 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
+				B3B018D81EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8A42C061E815A9C00D8E281 /* WMFFeedNotificationHeader.xib in Resources */,
 				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
@@ -8467,6 +8481,7 @@
 				D8CE26891E698E2400DAE2E0 /* RecentSearchCell.xib in Resources */,
 				D8CE268A1E698E2400DAE2E0 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
+				B3B018D61EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8CE268D1E698E2400DAE2E0 /* WMFFeedNotificationHeader.xib in Resources */,
 				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
@@ -8571,6 +8586,7 @@
 				D8EC3F891E9BDA35006712EB /* RecentSearchCell.xib in Resources */,
 				D8EC3F8A1E9BDA35006712EB /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
+				B3B018D71EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8EC3F8D1E9BDA35006712EB /* WMFFeedNotificationHeader.xib in Resources */,
 				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
@@ -8935,6 +8951,7 @@
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */,
 				D876C2891E5DDF1A00FCA00A /* EnableLocationViewController.swift in Sources */,
+				B3B018D01EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
 				D82014CF1E686D6600BA8579 /* VTAcknowledgementsParser.m in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
@@ -9472,6 +9489,7 @@
 				D8A42A5C1E815A9C00D8E281 /* WMFArticleResponseSerializer.m in Sources */,
 				D8A42A5D1E815A9C00D8E281 /* EditSummaryViewController.m in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
+				B3B018D31EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */,
 				D8A42A5F1E815A9C00D8E281 /* EnableLocationViewController.swift in Sources */,
 				D8A42A601E815A9C00D8E281 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
 				D8A42A611E815A9C00D8E281 /* VTAcknowledgementsParser.m in Sources */,
@@ -9897,6 +9915,7 @@
 				D8CE254A1E698E2400DAE2E0 /* WMFLeadingImageTrailingTextButton.m in Sources */,
 				D8CE254B1E698E2400DAE2E0 /* WMFTableOfContentsViewController.swift in Sources */,
 				D8CE254C1E698E2400DAE2E0 /* WMFCVLAttributes.m in Sources */,
+				B3B018D11EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */,
 				D8CE254D1E698E2400DAE2E0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8CE254F1E698E2400DAE2E0 /* SSExpandingDataSource.m in Sources */,
@@ -10224,6 +10243,7 @@
 				D8EC3E411E9BDA35006712EB /* WMFLeadingImageTrailingTextButton.m in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,
 				D8EC3E431E9BDA35006712EB /* WMFCVLAttributes.m in Sources */,
+				B3B018D21EBCE3EC00BE7F21 /* WMFExploreWrapperViewController.swift in Sources */,
 				D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */,
 				D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8EC3E461E9BDA35006712EB /* SSExpandingDataSource.m in Sources */,

@@ -92,7 +92,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
-@property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
+@property (nonatomic, strong, readonly) WMFExploreWrapperViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
 
@@ -209,7 +209,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)configureExploreViewController {
-    [self.exploreViewController setUserStore:self.dataStore];
+    // qqq [self.exploreViewController setUserStore:self.dataStore];
 }
 
 - (void)configurePlacesViewController {
@@ -493,7 +493,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInititated:NO];
+        // qqq [self.exploreViewController updateFeedSourcesUserInititated:NO];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -706,7 +706,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [navController popToRootViewControllerAnimated:NO];
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-            [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
+            // qqq [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
 
         } break;
         case WMFUserActivityTypeSavedPages:
@@ -741,7 +741,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         case WMFUserActivityTypeSettings:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-            [self.exploreViewController showSettings];
+            // qqq [self.exploreViewController showSettings];
             break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
@@ -849,8 +849,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return self.session.dataStore;
 }
 
-- (WMFExploreViewController *)exploreViewController {
-    return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
+- (WMFExploreWrapperViewController *)exploreViewController {
+    return (WMFExploreWrapperViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
 - (WMFArticleListTableViewController *)savedArticlesViewController {
@@ -1237,7 +1237,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
+    // qqq [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
 }
 
 #pragma mark - Perma Random Mode

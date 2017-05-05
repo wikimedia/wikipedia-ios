@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U1o-Vy-4PN">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Explore Wrapper View Controller-->
+        <scene sceneID="7XG-fM-dwm">
+            <objects>
+                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreWrapperViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bvw-5L-o1P"/>
+                        <viewControllerLayoutGuide type="bottom" id="8FH-VM-Onk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k2o-HG-1ae">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-WZ-awY">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <connections>
+                                    <segue destination="Q8B-u3-RyW" kind="embed" id="oPv-Yo-vdt"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="qkK-r4-n2U"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.20536059139240559" blue="0.96722667635254644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="0MW-Y4-Jhn"/>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="BUh-aw-NBb"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="centerX" secondItem="k2o-HG-1ae" secondAttribute="centerX" id="GJZ-PR-uek"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="trailing" secondItem="MHl-WZ-awY" secondAttribute="trailing" id="J0d-lE-0Nd"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="width" secondItem="k2o-HG-1ae" secondAttribute="width" id="JNh-W6-EUk"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="leading" secondItem="MHl-WZ-awY" secondAttribute="leading" id="bO8-9O-U7T"/>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="pu7-jC-7hm"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="topMargin" id="q6P-Yl-10b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bvZ-8Y-hFE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLU-ff-DPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="38.23088455772114"/>
+        </scene>
+        <!--Explore View Controller-->
+        <scene sceneID="RjF-WS-MdK">
+            <objects>
+                <collectionViewController id="Q8B-u3-RyW" customClass="WMFExploreViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="sOn-PQ-x8k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0Ki-WV-5G0">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="Q8B-u3-RyW" id="wnA-6a-Gs6"/>
+                            <outlet property="delegate" destination="Q8B-u3-RyW" id="rBt-VP-oPZ"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nij-AE-Zos" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="503" y="38"/>
+        </scene>
+    </scenes>
+</document>

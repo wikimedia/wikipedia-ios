@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -119,38 +119,22 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="zJ3-6s-p4y" kind="relationship" relationship="rootViewController" id="dxC-UG-LzX"/>
+                        <segue destination="ee9-Ec-cf5" kind="relationship" relationship="rootViewController" id="azh-iY-UGR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="2114"/>
         </scene>
-        <!--Explore View Controller-->
-        <scene sceneID="onO-UZ-Vau">
+        <!--Explore-->
+        <scene sceneID="ja6-KK-7f5">
             <objects>
-                <collectionViewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="zJ3-6s-p4y" customClass="WMFExploreViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Wq4-Bq-WJQ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uqN-mo-6Hr" customClass="WMFColumnarCollectionViewLayout">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="zJ3-6s-p4y" id="XyN-u5-nnn"/>
-                            <outlet property="delegate" destination="zJ3-6s-p4y" id="oe2-nL-VRB"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="eka-zz-uW1"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mFe-ew-mnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Explore" storyboardName="Explore" id="ee9-Ec-cf5" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Als-n1-TeI"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x8l-Ve-Gbj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="2881"/>
+            <point key="canvasLocation" x="1054" y="2880"/>
         </scene>
         <!--Places-->
         <scene sceneID="f6L-ye-aCD">
@@ -160,15 +144,16 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epk-QC-w6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2469" y="1402"/>
         </scene>
     </scenes>
     <resources>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-explore-selected" width="25" height="25"/>
-        <image name="tabbar-nearby" width="24" height="24"/>
+        <image name="tabbar-nearby" width="20" height="24"/>
         <image name="tabbar-recent" width="24" height="23"/>
         <image name="tabbar-recent-selected" width="24" height="23"/>
-        <image name="tabbar-save" width="17" height="23"/>
-        <image name="tabbar-save-selected" width="17" height="23"/>
+        <image name="tabbar-save" width="17" height="24"/>
+        <image name="tabbar-save-selected" width="17" height="24"/>
     </resources>
 </document>
