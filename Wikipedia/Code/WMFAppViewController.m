@@ -369,6 +369,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [self endMigrationBackgroundTask];
         self.migrationActive = NO;
     };
+    self.migrationActive = YES;
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
         if (!migrationsAllowed) {
             bail();
