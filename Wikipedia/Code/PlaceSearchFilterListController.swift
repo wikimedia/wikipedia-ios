@@ -8,6 +8,8 @@ protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
 }
 
 class PlaceSearchFilterListController: UITableViewController {
+    static var savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
+    static var topArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
     
     weak var delegate: PlaceSearchFilterListDelegate!
     
@@ -48,11 +50,11 @@ class PlaceSearchFilterListController: UITableViewController {
         }
         
         if (indexPath.row == 0) {
-            myCell.titleLabel.text = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
+            myCell.titleLabel.text = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
             myCell.subtitleLabel.text = String.localizedStringWithFormat(WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
             myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         } else if (indexPath.row == 1) {
-            myCell.titleLabel.text = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
+            myCell.titleLabel.text = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
             let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
             if (savedCount > 0) {
                 myCell.subtitleLabel.text =  String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))

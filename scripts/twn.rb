@@ -2,7 +2,8 @@
 
 pr_branch = 'twn'
 base_branch = 'develop'
-title = "TWN sync on #{Time.now.strftime("%m/%d/%Y")}"
+time_string = Time.now.strftime("%m/%d/%Y")
+title = "TWN sync on #{time_string}"
 
 current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
 
@@ -33,6 +34,12 @@ end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 
+`git checkout twn`
+`git pull`
+path = `pwd`
+`scripts/localization #{path} import`
+`git commit -a -m "Import localizations from TWN on #{time_string}"`
+`git push`
 `scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
 
 if $?.to_i == 0

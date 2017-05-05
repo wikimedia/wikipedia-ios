@@ -237,7 +237,7 @@
 "places-filter-no-saved-places" = "Du har inte några sparade platser";
 "places-filter-saved-articles" = "Sparade artiklar";
 "places-filter-saved-articles-count" = "%1$@ platser hittades";
-"places-filter-top-articles" = "Populära artiklar";
+"places-filter-top-articles" = "Populära läsningar";
 "places-filter-top-articles-count" = "%1$@ artiklar";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "%1$@ matchar “%2$@”";
@@ -245,7 +245,7 @@
 "places-search-recently-searched-header" = "Senaste sökningar";
 "places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
-"places-search-this-area" = "Sök i detta område";
+"places-search-this-area" = "Resultat i detta område";
 "places-search-top-articles" = "Alla populära artiklar";
 "places-unknown-distance" = "okänt avstånd";
 "potd-description-prefix" = "Dagens bild för %1$@";

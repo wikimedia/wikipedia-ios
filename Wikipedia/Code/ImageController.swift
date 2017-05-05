@@ -98,7 +98,7 @@ open class ImageController : NSObject {
         self.permanentStorageDirectory = permanentStorageDirectory
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
-        let bundle = Bundle(identifier: "org.wikimedia.WMF")!
+        let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         let containerURL = permanentStorageDirectory

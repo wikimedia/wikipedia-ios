@@ -1972,9 +1972,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             switch currentSearchFilter {
             case .top:
-                title = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
+                title = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
             case .saved:
-                title = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
+                title = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
             }
             image = #imageLiteral(resourceName: "chevron-down")
         }
@@ -2094,9 +2094,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentSearchScopeName: String
         switch (currentSearchFilter) {
         case .top:
-            currentSearchScopeName = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
+            currentSearchScopeName = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
         case .saved:
-            currentSearchScopeName = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places saerch filter that searches saved articles")
+            currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
         }
 
         let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)

@@ -373,7 +373,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     NSString *ownerOrFallback = imageInfo.owner ? [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
-                                                : WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-owner", nil, NSBundle.wmf_localizationBundle, @"Author unknown.", @"Fallback text for when an item in the image gallery doesn't have a specified owner.");
+                                                : WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-owner", nil, nil, @"Author unknown.", @"Fallback text for when an item in the image gallery doesn't have a specified owner.");
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 

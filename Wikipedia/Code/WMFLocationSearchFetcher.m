@@ -129,7 +129,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             if (failure) {
                 if (![[error domain] isEqualToString:NSURLErrorDomain]) {
-                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeUnknown userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, NSBundle.wmf_localizationBundle, @"No results found", @"Shown when there are no search results")}];
+                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeUnknown userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
                 }
                 failure(error);
             }

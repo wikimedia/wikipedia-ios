@@ -35,10 +35,10 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
-    buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, NSBundle.wmf_localizationBundle, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
+    buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-next", nil, NSBundle.wmf_localizationBundle, @"Next", @"Button text for next button used in various places.\n{{Identical|Next}}")
+    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-next", nil, nil, @"Next", @"Button text for next button used in various places.\n{{Identical|Next}}")
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(rightButtonPressed)];
@@ -70,7 +70,7 @@
 
 - (void)rightButtonPressed {
     if (![self changesMade]) {
-        [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-changes-none", nil, NSBundle.wmf_localizationBundle, @"No changes were made to be previewed.", @"Alert text shown if no changes were made to be previewed.") sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-changes-none", nil, nil, @"No changes were made to be previewed.", @"Alert text shown if no changes were made to be previewed.") sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     } else {
         [self preview];
     }
@@ -137,15 +137,15 @@
                     NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
                     NSString *msg;
                     if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
-                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-autoconfirmed", nil, NSBundle.wmf_localizationBundle, @"This page has been semi-protected.", @"Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.");
+                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-autoconfirmed", nil, nil, @"This page has been semi-protected.", @"Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.");
                     } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
-                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-sysop", nil, NSBundle.wmf_localizationBundle, @"This page has been fully protected.", @"Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.");
+                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-sysop", nil, nil, @"This page has been fully protected.", @"Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.");
                     } else {
-                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-other", nil, NSBundle.wmf_localizationBundle, @"This page has been protected to the following levels: %1$@", @"Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.");
+                        msg = WMFLocalizedStringWithDefaultValue(@"page-protected-other", nil, nil, @"This page has been protected to the following levels: %1$@", @"Brief description of Wikipedia unknown protection level, shown when editing a page that is protected. %1$@ will refer to a list of protection levels.");
                     }
                     [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {
-                    //[self showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, NSBundle.wmf_localizationBundle, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved") type:ALERT_TYPE_TOP duration:1];
+                    //[self showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved") type:ALERT_TYPE_TOP duration:1];
                     [[WMFAlertManager sharedInstance] dismissAlert];
                 }
                 self.unmodifiedWikiText = revision;
@@ -163,7 +163,7 @@
 }
 
 - (void)loadLatestWikiTextForSectionFromServer {
-    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, NSBundle.wmf_localizationBundle, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited") sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited") sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section

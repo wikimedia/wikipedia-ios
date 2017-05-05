@@ -164,8 +164,8 @@
     }
     BOOL isSaved = [self isSaved];
     self.control.selected = isSaved;
-    self.control.accessibilityLabel = isSaved ? WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, NSBundle.wmf_localizationBundle, @"Unsave", @"Accessibility action description for 'Unsave'") : WMFLocalizedStringWithDefaultValue(@"save-action", nil, NSBundle.wmf_localizationBundle, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
-    self.barButtonItem.accessibilityLabel = isSaved ? WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, NSBundle.wmf_localizationBundle, @"Unsave", @"Accessibility action description for 'Unsave'") : WMFLocalizedStringWithDefaultValue(@"save-action", nil, NSBundle.wmf_localizationBundle, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
+    self.control.accessibilityLabel = isSaved ? WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, nil, @"Unsave", @"Accessibility action description for 'Unsave'") : WMFLocalizedStringWithDefaultValue(@"save-action", nil, nil, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
+    self.barButtonItem.accessibilityLabel = isSaved ? WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, nil, @"Unsave", @"Accessibility action description for 'Unsave'") : WMFLocalizedStringWithDefaultValue(@"save-action", nil, nil, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
     if (isSaved) {
         self.barButtonItem.image = [WMFSaveButtonController unsaveImage];
     } else {

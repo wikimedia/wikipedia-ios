@@ -58,7 +58,7 @@ static NSString *const pListFileName = @"Recent.plist";
     // with translation/meaning of all-caps in other languages. The recommendation
     // was to submit strings to TWN with non-all-caps, and at display time force the string
     // to all caps.
-    self.headingLabel.text = [WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, NSBundle.wmf_localizationBundle, @"Recently searched", @"Title for list of recent search terms") uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.headingLabel.text = [WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms") uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
 - (void)setupTrashButton {
@@ -72,7 +72,7 @@ static NSString *const pListFileName = @"Recent.plist";
         make.leading.trailing.top.and.bottom.equalTo(self.trashButtonContainer);
     }];
 
-    self.trashButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, NSBundle.wmf_localizationBundle, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}");
+    self.trashButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}");
     self.trashButton.accessibilityTraits = UIAccessibilityTraitButton;
 }
 
@@ -95,11 +95,11 @@ static NSString *const pListFileName = @"Recent.plist";
 }
 
 - (void)showDeleteAllDialog {
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, NSBundle.wmf_localizationBundle, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, NSBundle.wmf_localizationBundle, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
 
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
-    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, NSBundle.wmf_localizationBundle, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
                                                  [self deleteAllRecentSearchItems];

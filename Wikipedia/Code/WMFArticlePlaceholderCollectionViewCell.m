@@ -12,7 +12,7 @@
     self.placeholderImageView.image = stretch;
     self.placeholderImageView.contentMode = UIViewContentModeScaleToFill;
     [self.placeholderSaveButton setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
-    [self.placeholderSaveButton setTitle:WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, NSBundle.wmf_localizationBundle, @"Save for later", @"Longer button text for save button used in various places.") forState:UIControlStateNormal];
+    [self.placeholderSaveButton setTitle:WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, nil, @"Save for later", @"Longer button text for save button used in various places.") forState:UIControlStateNormal];
     self.placeholderSaveButton.tintColor = [UIColor wmf_placeholderLightGray];
 }
 

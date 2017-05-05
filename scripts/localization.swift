@@ -187,7 +187,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 	let twnQQQPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
 	let twnENPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
 	guard let iOSEN = NSDictionary(contentsOfFile: iOSENPath) else {
-	       print("ABORTING")
+	       print("Unable to read \(iOSENPath)")
 	       abort()
 	}
 
@@ -232,16 +232,16 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 	   }
 	   try writeStrings(fromDictionary: twnEN, toFile: twnENPath, escaped: true)
 	} catch let error {
-	   print("error: \(error)")
+	   print("Error exporting localizations: \(error)")
+       abort()
 	}
-
 }
 
 
 func importLocalizationsFromTWN(_ path: String) {
 	let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
 	guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String:String] else {
-	       print("ABORTING")
+	       print("Unable to read \(enPath)")
 	       abort()
 	}
 	
@@ -249,10 +249,11 @@ func importLocalizationsFromTWN(_ path: String) {
 
 	do {
 		let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
+        let languagesToSkip = ["en", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf", "qqq"]
 		let defaultKeys = ["one"]
 	   let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
 	   for filename in contents {
-	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), locale != "en", locale != "qqq" else {
+	       guard let locale = filename.components(separatedBy: ".").first?.lowercased(), !languagesToSkip.contains(locale) else {
 	           continue
 	       }
 	       guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
@@ -284,7 +285,8 @@ func importLocalizationsFromTWN(_ path: String) {
 	   }
 
 	} catch let error {
-		print("error importing: \(error)")
+		print("Error importing localizations: \(error)")
+        abort()
 	}
 }
 

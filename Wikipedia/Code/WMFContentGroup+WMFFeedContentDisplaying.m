@@ -107,25 +107,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)headerTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return WMFLocalizedStringWithDefaultValue(@"explore-continue-reading-heading", nil, NSBundle.wmf_localizationBundle, @"Continue reading", @"Text for 'Continue Reading' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-continue-reading-heading", nil, nil, @"Continue reading", @"Text for 'Continue Reading' header");
         case WMFContentGroupKindMainPage:
-            return WMFLocalizedStringWithDefaultValue(@"explore-main-page-heading", nil, NSBundle.wmf_localizationBundle, @"Today on Wikipedia", @"Text for 'Today on Wikipedia' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-main-page-heading", nil, nil, @"Today on Wikipedia", @"Text for 'Today on Wikipedia' header");
         case WMFContentGroupKindRelatedPages:
-            return WMFLocalizedStringWithDefaultValue(@"explore-continue-related-heading", nil, NSBundle.wmf_localizationBundle, @"Because you read", @"Text for 'Because you read' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-continue-related-heading", nil, nil, @"Because you read", @"Text for 'Because you read' header");
         case WMFContentGroupKindLocation:
-            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, NSBundle.wmf_localizationBundle, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
+            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, nil, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
         case WMFContentGroupKindLocationPlaceholder:
-            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-heading", nil, NSBundle.wmf_localizationBundle, @"Places", @"Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}");
+            return WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-heading", nil, nil, @"Places", @"Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}");
         case WMFContentGroupKindPictureOfTheDay:
-            return WMFLocalizedStringWithDefaultValue(@"explore-potd-heading", nil, NSBundle.wmf_localizationBundle, @"Picture of the day", @"Text for 'Picture of the day' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-potd-heading", nil, nil, @"Picture of the day", @"Text for 'Picture of the day' header");
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"explore-random-article-heading", nil, NSBundle.wmf_localizationBundle, @"Random article", @"Text for 'Random article' header\n{{Identical|Random article}}");
+            return WMFLocalizedStringWithDefaultValue(@"explore-random-article-heading", nil, nil, @"Random article", @"Text for 'Random article' header\n{{Identical|Random article}}");
         case WMFContentGroupKindFeaturedArticle:
-            return WMFLocalizedStringWithDefaultValue(@"explore-featured-article-heading", nil, NSBundle.wmf_localizationBundle, @"Featured article", @"Text for 'Featured article' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-featured-article-heading", nil, nil, @"Featured article", @"Text for 'Featured article' header");
         case WMFContentGroupKindTopRead:
-            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-heading", nil, NSBundle.wmf_localizationBundle, @"Top read on %1$@ Wikipedia", @"Text for 'Most read articles' explore section header. %1$@ is substituted for the localized language name (e.g. 'English' or 'Espanol').") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, NSBundle.wmf_localizationBundle, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present")];
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-heading", nil, nil, @"Top read on %1$@ Wikipedia", @"Text for 'Most read articles' explore section header. %1$@ is substituted for the localized language name (e.g. 'English' or 'Espanol').") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present")];
         case WMFContentGroupKindNews:
-            return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", @"Title for the 'In the news' notification & feed section");
+            return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -165,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
             return self.articleURL.wmf_title;
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, NSBundle.wmf_localizationBundle, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
+                return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
             } else if (self.placemark) {
                 return [NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality];
             } else {
@@ -173,11 +173,11 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } break;
         case WMFContentGroupKindLocationPlaceholder:
-            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-language-wikipedia", nil, NSBundle.wmf_localizationBundle, @"On %1$@ Wikipedia", @"Subtext beneath the 'Places' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"On Wikipedia", @"Subtext beneath the 'Places' header when the specific language wikipedia is unknown.")];
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-language-wikipedia", nil, nil, @"On %1$@ Wikipedia", @"Subtext beneath the 'Places' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-wikipedia", nil, nil, @"On Wikipedia", @"Subtext beneath the 'Places' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindPictureOfTheDay:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL, NSBundle.wmf_localizationBundle, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
+            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
         case WMFContentGroupKindFeaturedArticle:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindTopRead: {
@@ -509,22 +509,22 @@ NS_ASSUME_NONNULL_BEGIN
             return self.moreLikeTitle;
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, NSBundle.wmf_localizationBundle, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
+                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, nil, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
             } else {
-                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, NSBundle.wmf_localizationBundle, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
+                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
             }
         }
         case WMFContentGroupKindLocationPlaceholder: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, NSBundle.wmf_localizationBundle, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
+                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, nil, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
             } else {
-                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, NSBundle.wmf_localizationBundle, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
+                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
             }
         }
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"explore-another-random", nil, NSBundle.wmf_localizationBundle, @"Another random article", @"Displayed on buttons that indicate they would load 'Another random article'");
+            return WMFLocalizedStringWithDefaultValue(@"explore-another-random", nil, nil, @"Another random article", @"Displayed on buttons that indicate they would load 'Another random article'");
         case WMFContentGroupKindFeaturedArticle:
             break;
         case WMFContentGroupKindTopRead: {
@@ -534,7 +534,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
 
             return
-            [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, NSBundle.wmf_localizationBundle, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
+            [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
         }
         case WMFContentGroupKindNews:
             break;
@@ -583,7 +583,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)moreLikeTitle {
-    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-more-like-footer", nil, NSBundle.wmf_localizationBundle, @"More like %1$@", @"Footer for presenting user option to see longer list of articles related to a previously read article. %1$@ will be replaced with the name of the previously read article."), self.articleURL.wmf_title];
+    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-more-like-footer", nil, nil, @"More like %1$@", @"Footer for presenting user option to see longer list of articles related to a previously read article. %1$@ will be replaced with the name of the previously read article."), self.articleURL.wmf_title];
 }
 
 - (nullable NSString *)moreTitle {
@@ -595,7 +595,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
             return self.moreLikeTitle;
         case WMFContentGroupKindLocation:
-            return WMFLocalizedStringWithDefaultValue(@"main-menu-nearby", nil, NSBundle.wmf_localizationBundle, @"Nearby", @"Button for showing nearby articles.\n{{Identical|Nearby}}");
+            return WMFLocalizedStringWithDefaultValue(@"main-menu-nearby", nil, nil, @"Nearby", @"Button for showing nearby articles.\n{{Identical|Nearby}}");
         case WMFContentGroupKindLocationPlaceholder:
             break;
         case WMFContentGroupKindPictureOfTheDay:
@@ -752,7 +752,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)topReadMoreTitleForDate:(NSDate *)date {
     return
-    [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-more-list-title-for-date", nil, NSBundle.wmf_localizationBundle, @"Top on %1$@", @"Title with date for the view displaying longer list of top read articles. %1$@ will be substituted with the date"), [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
+    [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-more-list-title-for-date", nil, nil, @"Top on %1$@", @"Title with date for the view displaying longer list of top read articles. %1$@ will be substituted with the date"), [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
 }
 
 - (NSString *)localDateDisplayString {

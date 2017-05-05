@@ -237,7 +237,7 @@
 "places-filter-no-saved-places" = "您没有已保存的地方";
 "places-filter-saved-articles" = "保存的条目";
 "places-filter-saved-articles-count" = "找到了%1$@个地点";
-"places-filter-top-articles" = "最多阅读的条目";
+"places-filter-top-articles" = "最多阅读";
 "places-filter-top-articles-count" = "%1$@个条目";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "%1$@匹配“%2$@”";

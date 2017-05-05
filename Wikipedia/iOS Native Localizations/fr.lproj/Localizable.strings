@@ -237,7 +237,7 @@
 "places-filter-no-saved-places" = "Vous n’avez pas d’emplacement sauvegardé";
 "places-filter-saved-articles" = "Articles enregistrés";
 "places-filter-saved-articles-count" = "%1$@ endroits trouvés";
-"places-filter-top-articles" = "Meilleurs articles";
+"places-filter-top-articles" = "Les plus lus";
 "places-filter-top-articles-count" = "%1$@ articles";
 "places-no-saved-articles-have-location" = "Aucun de vos articles enregistrés n’a d’information de localisation";
 "places-search-articles-that-match" = "%1$@ correspondant à « %2$@ »";

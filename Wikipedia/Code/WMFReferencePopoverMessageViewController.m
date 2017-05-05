@@ -48,7 +48,7 @@
     self.closeButton.tintColor = [UIColor wmf_lightGray];
 
     self.titleLabel.attributedText =
-        [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, NSBundle.wmf_localizationBundle, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
+        [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
             attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:13] }
                        substitutionStrings:@[self.reference.text]
                     substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
