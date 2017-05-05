@@ -36,11 +36,11 @@
     self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0];
     self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0];
 
-    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-and-license", nil, NSBundle.wmf_localizationBundle, @"By publishing, you agree to the %1$@, and to irrevocably release your contributions under the %2$@ license.", @"Button text for information about the Terms of Use and edit license. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link");
+    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-and-license", nil, nil, @"By publishing, you agree to the %1$@, and to irrevocably release your contributions under the %2$@ license.", @"Button text for information about the Terms of Use and edit license. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link");
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
-    self.licenseLoginLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-anonymously-warning", nil, NSBundle.wmf_localizationBundle, @"Edits will be attributed to the IP address of your device. If you %1$@ you will have more privacy.", @"Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - sign in button text");
+    self.licenseLoginLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-anonymously-warning", nil, nil, @"Edits will be attributed to the IP address of your device. If you %1$@ you will have more privacy.", @"Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - sign in button text");
     [self underlineSignIn:self.licenseLoginLabel];
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
@@ -84,8 +84,8 @@
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, NSBundle.wmf_localizationBundle, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}"),
-                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, NSBundle.wmf_localizationBundle, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}")]
+                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}"),
+                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, nil, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}")]
                             substitutionAttributes:@[linkAttributes, linkAttributes]];
 }
 
@@ -110,7 +110,7 @@
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-sign-in", nil, NSBundle.wmf_localizationBundle, @"Log in", @"{{Identical|Log in}}")]
+                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-sign-in", nil, nil, @"Log in", @"{{Identical|Log in}}")]
                             substitutionAttributes:@[substitutionAttributes]];
 }
 

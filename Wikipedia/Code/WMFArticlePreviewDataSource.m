@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)displayTitle {
-    return WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, NSBundle.wmf_localizationBundle, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
+    return WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {

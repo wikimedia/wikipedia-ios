@@ -237,7 +237,7 @@
 "places-filter-no-saved-places" = "Немате зачувани места";
 "places-filter-saved-articles" = "Зачувани статии";
 "places-filter-saved-articles-count" = "Пронајдени се %1$@ места";
-"places-filter-top-articles" = "Најчитани статии";
+"places-filter-top-articles" = "Најчитани";
 "places-filter-top-articles-count" = "%1$@ статии";
 "places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-search-articles-that-match" = "%1$@ што одговараат на „%2$@“";

@@ -79,7 +79,7 @@
 
             if (!error && !result) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-result-unknown", nil, NSBundle.wmf_localizationBundle, @"Unable to determine wikitext upload result.", @"Alert text shown when the result of saving section wikitext changes is unknown");
+                errorDict[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-result-unknown", nil, nil, @"Unable to determine wikitext upload result.", @"Alert text shown when the result of saving section wikitext changes is unknown");
 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_UNKNOWN userInfo:errorDict];
@@ -89,8 +89,8 @@
                 if (responseObject[@"edit"][@"captcha"]) {
                     NSMutableDictionary *errorDict = [@{} mutableCopy];
 
-                    errorDict[NSLocalizedDescriptionKey] = (self.captchaWord && (self.captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, NSBundle.wmf_localizationBundle, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
-                                                                                                               : WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, NSBundle.wmf_localizationBundle, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
+                    errorDict[NSLocalizedDescriptionKey] = (self.captchaWord && (self.captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
+                                                                                                               : WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, nil, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
 
                     // Make the capcha id and url available from the error.
                     errorDict[@"captchaId"] = responseObject[@"edit"][@"captcha"][@"id"];

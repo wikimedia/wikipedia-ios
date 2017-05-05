@@ -227,7 +227,7 @@
 "places-filter-no-saved-places" = "Dir hutt keng gespäichert Plazen";
 "places-filter-saved-articles" = "Gespäichert Artikelen";
 "places-filter-saved-articles-count" = "%1$@ Plaze fonnt";
-"places-filter-top-articles" = "Beléiftst Artikelen";
+"places-filter-top-articles" = "Am dackste geliest";
 "places-filter-top-articles-count" = "%1$@ Artikelen";
 "places-search-default-text" = "Sichen";
 "places-search-recently-searched-header" = "Rezent gesicht";

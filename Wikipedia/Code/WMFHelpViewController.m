@@ -54,7 +54,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
         [button sizeToFit];
         [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
         _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        _sendEmailToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, NSBundle.wmf_localizationBundle, @"Report a bug", @"Button text for reporting a bug");
+        _sendEmailToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, nil, @"Report a bug", @"Button text for reporting a bug");
         return _sendEmailToolbarItem;
     }
     return _sendEmailToolbarItem;
@@ -82,7 +82,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
         vc.mailComposeDelegate = self;
         [self presentViewController:vc animated:YES completion:NULL];
     } else {
-        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"no-email-account-alert", nil, NSBundle.wmf_localizationBundle, @"Please setup an email account on your device and try again.", @"Displayed to the user when they try to send a feedback email, but they have never set up an account on their device") sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"no-email-account-alert", nil, nil, @"Please setup an email account on your device and try again.", @"Displayed to the user when they try to send a feedback email, but they have never set up an account on their device") sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 }
 

@@ -33,10 +33,10 @@
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.buttonDone = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-done", nil, NSBundle.wmf_localizationBundle, @"Done", @"Button text for done button used in various places.\n{{Identical|Done}}") style:UIBarButtonItemStylePlain target:self action:@selector(save)];
+    self.buttonDone = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-done", nil, nil, @"Done", @"Button text for done button used in various places.\n{{Identical|Done}}") style:UIBarButtonItemStylePlain target:self action:@selector(save)];
     self.navigationItem.rightBarButtonItem = self.buttonDone;
 
-    self.placeholderLabel.text = WMFLocalizedStringWithDefaultValue(@"edit-summary-field-placeholder-text", nil, NSBundle.wmf_localizationBundle, @"Other ways you improved the article", @"Placeholder text which appears initially in the free-form edit summary text box");
+    self.placeholderLabel.text = WMFLocalizedStringWithDefaultValue(@"edit-summary-field-placeholder-text", nil, nil, @"Other ways you improved the article", @"Placeholder text which appears initially in the free-form edit summary text box");
     self.placeholderLabel.textAlignment = NSTextAlignmentNatural;
     self.placeholderLabel.font = [UIFont systemFontOfSize:14.0];
 

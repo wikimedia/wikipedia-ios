@@ -99,6 +99,7 @@
 "places-filter-list-title" = "Meklēšanas filtri";
 "places-filter-saved-articles" = "Saglabātie raksti";
 "places-filter-top-articles-count" = "%1$@ raksti";
+"places-search-default-text" = "Meklēt";
 "places-search-saved-articles" = "Visi saglabātie raksti";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "%1$@ lasītāji";

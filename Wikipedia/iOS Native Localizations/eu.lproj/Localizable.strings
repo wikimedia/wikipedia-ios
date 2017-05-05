@@ -134,6 +134,7 @@
 "places-accessibility-show-as-list" = "Erakutsi zerrenda gisa";
 "places-accessibility-show-as-map" = "Erakutsi mapa gisa";
 "places-filter-saved-articles" = "Gordetako artikuluak";
+"places-filter-top-articles" = "Irakurrienak";
 "places-filter-top-articles-count" = "%1$@ artikulu";
 "places-search-default-text" = "Bilatu";
 "places-search-saved-articles" = "Gordetako artikulu guztiak";
@@ -160,6 +161,7 @@
 "search-title" = "Bilatu";
 "settings-clear-cache" = "Garbitu katxeratutako datuak";
 "settings-clear-cache-are-you-sure-title" = "Garbitu katxeratutako datuak?";
+"settings-clear-cache-cancel" = "Utzi";
 "settings-clear-cache-ok" = "Garbitu katxea";
 "settings-my-languages" = "Nire hizkuntzak";
 "settings-notifications" = "Jakinarazpenak";

@@ -23,7 +23,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.title = WMFLocalizedStringWithDefaultValue(@"history-title", nil, NSBundle.wmf_localizationBundle, @"History", @"Title of the history screen shown on history tab\n{{Identical|History}}");
+    self.title = WMFLocalizedStringWithDefaultValue(@"history-title", nil, nil, @"History", @"Title of the history screen shown on history tab\n{{Identical|History}}");
 }
 
 - (void)dealloc {
@@ -99,9 +99,9 @@
 
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
     if ([calendar isDateInToday:date]) {
-        return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-today", nil, NSBundle.wmf_localizationBundle, @"Today", @"Subsection label for list of articles browsed today.\n{{Identical|Today}}") uppercaseString]];
+        return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-today", nil, nil, @"Today", @"Subsection label for list of articles browsed today.\n{{Identical|Today}}") uppercaseString]];
     } else if ([calendar isDateInYesterday:date]) {
-        return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-yesterday", nil, NSBundle.wmf_localizationBundle, @"Yesterday", @"Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}") uppercaseString]];
+        return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-yesterday", nil, nil, @"Yesterday", @"Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}") uppercaseString]];
     } else {
         return [padding stringByAppendingString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]];
     }
@@ -141,19 +141,19 @@
 }
 
 - (NSString *)deleteButtonText {
-    return WMFLocalizedStringWithDefaultValue(@"history-clear-all", nil, NSBundle.wmf_localizationBundle, @"Clear", @"Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}");
+    return WMFLocalizedStringWithDefaultValue(@"history-clear-all", nil, nil, @"Clear", @"Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}");
 }
 
 - (NSString *)deleteAllConfirmationText {
-    return WMFLocalizedStringWithDefaultValue(@"history-clear-confirmation-heading", nil, NSBundle.wmf_localizationBundle, @"Are you sure you want to delete all your recent items?", @"Heading text of delete all confirmation dialog");
+    return WMFLocalizedStringWithDefaultValue(@"history-clear-confirmation-heading", nil, nil, @"Are you sure you want to delete all your recent items?", @"Heading text of delete all confirmation dialog");
 }
 
 - (NSString *)deleteText {
-    return WMFLocalizedStringWithDefaultValue(@"history-clear-delete-all", nil, NSBundle.wmf_localizationBundle, @"Yes, delete all", @"Button text for confirming delete all action");
+    return WMFLocalizedStringWithDefaultValue(@"history-clear-delete-all", nil, nil, @"Yes, delete all", @"Button text for confirming delete all action");
 }
 
 - (NSString *)deleteCancelText {
-    return WMFLocalizedStringWithDefaultValue(@"history-clear-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}");
+    return WMFLocalizedStringWithDefaultValue(@"history-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}");
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {

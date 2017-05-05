@@ -237,11 +237,11 @@
 "places-filter-no-saved-places" = "Non tes lugares gardados";
 "places-filter-saved-articles" = "Artigos gardados";
 "places-filter-saved-articles-count" = "%1$@ lugares atopados";
-"places-filter-top-articles" = "Os mellores artigos";
+"places-filter-top-articles" = "Os artigos máis lidos";
 "places-filter-top-articles-count" = "%1$@ artigos";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-search-articles-that-match" = "%1$@ correspondente a “%2$@”";
-"places-search-default-text" = "Procurar artigos ou localizacións";
+"places-search-default-text" = "Procurar";
 "places-search-recently-searched-header" = "Buscado recentemente";
 "places-search-saved-articles" = "Todos os artigos gardados";
 "places-search-suggested-searches-header" = "Buscas suxeridas";

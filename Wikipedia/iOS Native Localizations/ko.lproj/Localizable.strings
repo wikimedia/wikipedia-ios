@@ -231,7 +231,7 @@
 "places-filter-list-title" = "검색 필터";
 "places-filter-saved-articles" = "저장된 문서";
 "places-filter-saved-articles-count" = "%1$@곳을 찾았음";
-"places-filter-top-articles" = "최상위 문서";
+"places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "%1$@개의 문서";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-default-text" = "검색";

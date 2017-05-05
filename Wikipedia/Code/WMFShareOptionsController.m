@@ -143,9 +143,9 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.shareAsCardLabel.userInteractionEnabled = YES;
     shareOptionsView.shareAsTextLabel.userInteractionEnabled = YES;
     shareOptionsView.cancelLabel.userInteractionEnabled = YES;
-    shareOptionsView.shareAsCardLabel.text = WMFLocalizedStringWithDefaultValue(@"share-as-image", nil, NSBundle.wmf_localizationBundle, @"Share as image", @"Button label for sharing as an image card");
-    shareOptionsView.shareAsTextLabel.text = WMFLocalizedStringWithDefaultValue(@"share-as-text", nil, NSBundle.wmf_localizationBundle, @"Share as text", @"Button label for sharing as a text snippet (instead of as an image card)");
-    shareOptionsView.cancelLabel.text = WMFLocalizedStringWithDefaultValue(@"share-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Button which dismisses the share dialog, cancelling the action.\n{{Identical|Cancel}}");
+    shareOptionsView.shareAsCardLabel.text = WMFLocalizedStringWithDefaultValue(@"share-as-image", nil, nil, @"Share as image", @"Button label for sharing as an image card");
+    shareOptionsView.shareAsTextLabel.text = WMFLocalizedStringWithDefaultValue(@"share-as-text", nil, nil, @"Share as text", @"Button label for sharing as a text snippet (instead of as an image card)");
+    shareOptionsView.cancelLabel.text = WMFLocalizedStringWithDefaultValue(@"share-cancel", nil, nil, @"Cancel", @"Button which dismisses the share dialog, cancelling the action.\n{{Identical|Cancel}}");
     shareOptionsView.cardImageView.image = self.shareImage;
     shareOptionsView.accessibilityDelegate = self;
 
@@ -309,14 +309,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)titleForActivityWithCard {
-    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", @"Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
+    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, nil, @"\"%1$@\" on @Wikipedia:", @"Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
 }
 
 - (NSString *)titleForActivityTextOnly {
     if ([self snippetForTextOnlySharing].length == 0) {
-        return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia:", @"Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
+        return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, nil, @"\"%1$@\" on @Wikipedia:", @"Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.shareTitle];
     } else {
-        return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia-with-selected-text", nil, NSBundle.wmf_localizationBundle, @"\"%1$@\" on @Wikipedia: \"%2$@\"", @"Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks. %2$@ will be a user-selected text snippet, which should be wrapped in the localized double quote marks."), self.shareTitle, [self snippetForTextOnlySharing]];
+        return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia-with-selected-text", nil, nil, @"\"%1$@\" on @Wikipedia: \"%2$@\"", @"Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks. %2$@ will be a user-selected text snippet, which should be wrapped in the localized double quote marks."), self.shareTitle, [self snippetForTextOnlySharing]];
     }
 }
 

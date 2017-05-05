@@ -227,7 +227,7 @@
 "places-filter-list-title" = "সন্ধানের ছাঁকনি";
 "places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
 "places-filter-saved-articles-count" = "%1$@টি স্থান পাওয়া গেছে";
-"places-filter-top-articles" = "শীর্ষ নিবন্ধ";
+"places-filter-top-articles" = "শীর্ষ পঠিত";
 "places-filter-top-articles-count" = "%1$@টি নিবন্ধ";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-search-default-text" = "অনুসন্ধান";

@@ -2,8 +2,6 @@
 
 @interface NSBundle (WMFInfoUtils)
 
-@property (class, readonly, strong) NSBundle *wmf_localizationBundle;
-
 - (NSString *)wmf_bundleName;
 
 ///

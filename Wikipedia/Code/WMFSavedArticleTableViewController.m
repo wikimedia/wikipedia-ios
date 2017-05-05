@@ -26,7 +26,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.title = WMFLocalizedStringWithDefaultValue(@"saved-title", nil, NSBundle.wmf_localizationBundle, @"Saved", @"Title of the saved screen shown on the saved tab\n{{Identical|Saved}}");
+    self.title = WMFLocalizedStringWithDefaultValue(@"saved-title", nil, nil, @"Saved", @"Title of the saved screen shown on the saved tab\n{{Identical|Saved}}");
 }
 
 - (void)dealloc {
@@ -112,19 +112,19 @@
 }
 
 - (NSString *)deleteButtonText {
-    return WMFLocalizedStringWithDefaultValue(@"saved-clear-all", nil, NSBundle.wmf_localizationBundle, @"Clear", @"Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}");
+    return WMFLocalizedStringWithDefaultValue(@"saved-clear-all", nil, nil, @"Clear", @"Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}");
 }
 
 - (NSString *)deleteAllConfirmationText {
-    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-confirmation-heading", nil, NSBundle.wmf_localizationBundle, @"Are you sure you want to delete all your saved pages?", @"Heading text of delete all confirmation dialog");
+    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-confirmation-heading", nil, nil, @"Are you sure you want to delete all your saved pages?", @"Heading text of delete all confirmation dialog");
 }
 
 - (NSString *)deleteText {
-    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-delete-all", nil, NSBundle.wmf_localizationBundle, @"Yes, delete all", @"Button text for confirming delete all action\n{{Identical|Delete all}}");
+    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-delete-all", nil, nil, @"Yes, delete all", @"Button text for confirming delete all action\n{{Identical|Delete all}}");
 }
 
 - (NSString *)deleteCancelText {
-    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}");
+    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}");
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
