@@ -161,6 +161,7 @@
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-notifications-system-turn-on" = "Włączenie powiadomień";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
+"settings-clear-cache-cancel" = "Anuluj";
 "main-menu-title" = "Więcej";
 "main-menu-heading-about" = "O aplikacji";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
@@ -407,6 +408,7 @@
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "explore-another-random" = "Inny losowy artykuł";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "top-read-header-generic" = "Wikipedia";
@@ -420,7 +422,7 @@
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "back" = "Wstecz";
 "announcements-dismiss" = "Nie, dziękuję";
-"places-search-saved-articles" = "Zapisane artykuły";
+"places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 "places-unknown-distance" = "odległość nieznana";
@@ -429,5 +431,10 @@
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
 "places-accessibility-clear-recent-searches" = "Wyczyść listę ostatnich wyszukiwań";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}";
+"places-filter-saved-articles" = "Zapisane artykuły";
+"places-filter-saved-articles-count" = "Znaleziono $1 {{PLURAL:$1|miejsce|miejsca|miejsc}}";
+"places-filter-list-title" = "Filtry wyszukiwania";
+"places-search-default-text" = "Szukaj";
 "action-share" = "Udostępnij";
 "action-save" = "Zapisz";

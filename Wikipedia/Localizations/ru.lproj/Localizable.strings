@@ -1,6 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Alexandr Efremov
+// Author: Av6
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
@@ -184,6 +185,7 @@
 "settings-notifications-learn-more" = "Подробнее об уведомлениях";
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-notifications-push-notifications" = "Push-уведомления";
+"settings-clear-cache-cancel" = "Отмена";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -493,6 +495,7 @@
 "explore-another-random" = "Другая случайная статья";
 "explore-randomizer" = "Рандомизатор";
 "find-in-page-no-matches" = "0 совпадений";
+"find-in-page-number-matches" = "$1 из $2";
 "find-in-page-button-label" = "Найти на странице";
 "find-in-page-popover-description" = "Поиск текста в статьях";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
@@ -521,23 +524,36 @@
 "status-saving-for-later" = "Экономия на потом...";
 "status-saved-for-later" = "Сохранено на потом";
 "announcements-dismiss" = "Нет, спасибо";
-"places-search-top-articles" = "Самые читаемые статьи";
+"places-search-top-articles" = "Все самые читаемые статьи";
+// Fuzzy
 "places-search-this-area" = "Поиск в этой области";
-"places-search-saved-articles" = "Сохранённые статьи";
+"places-search-saved-articles" = "Все сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-recently-searched-header" = "Недавно искали";
+"places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-unknown-distance" = "расстояние неизвестно";
-"places-enable-location-title" = "Получайте статьи вблизи вашего местоположения, разрешив доступ к определению местоположения";
+"places-enable-location-title" = "Найдите статьи поблизости, разрешив доступ к определению вашего местоположения";
 "places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
 "places-accessibility-group" = "$1 статьи";
 "places-accessibility-show-more" = "Показать больше статей";
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-as-list" = "Показать как список";
-"places-accessibility-recenter-map-on-user-location" = "Перецентрировать ваше положение";
+"places-accessibility-recenter-map-on-user-location" = "Показать ваше положение в центре карты";
 "places-accessibility-close-search" = "Закрыть поиск";
 "places-accessibility-clear-recent-searches" = "Очистить список последних поисковых запросов";
+// Fuzzy
+"places-filter-top-articles" = "Самые читаемые статьи";
+"places-filter-top-articles-count" = "$1 статей";
+"places-filter-saved-articles" = "Сохранённые статьи";
+"places-filter-saved-articles-count" = "Найдено $1 мест";
+"places-filter-no-saved-places" = "У вас нет сохранённых мест";
+"places-filter-list-title" = "Фильтры поиска";
+// Fuzzy
+"places-search-default-text" = "Искать статью или местоположение";
+"places-empty-search-title" = "Искать статью по местоположению";
+"places-empty-search-description" = "Искать города, страны, континенты, природные достопримечательности, исторические события, сооружения и многое другое";
 "action-share" = "Поделиться";
 "action-save" = "Сохранить";
 "action-read" = "Читать";

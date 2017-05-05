@@ -6,6 +6,7 @@
 // Author: Indiralena
 // Author: Irus
 // Author: Koavf
+// Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
 // Author: Mcervera
@@ -176,6 +177,11 @@
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-notifications-push-notifications" = "Notificaciones";
+"settings-clear-cache" = "Borrar datos en caché";
+"settings-clear-cache-are-you-sure-title" = "¿Borrar datos en caché?";
+"settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
+"settings-clear-cache-ok" = "Borrar caché";
+"settings-clear-cache-cancel" = "Cancelar";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -485,6 +491,7 @@
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-randomizer" = "Aleatorio";
 "find-in-page-no-matches" = "0 coincidencias";
+"find-in-page-number-matches" = "$1/$2";
 "find-in-page-button-label" = "Buscar en la página";
 "find-in-page-popover-description" = "Búsqueda de texto en los artículos";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
@@ -513,11 +520,12 @@
 "status-saving-for-later" = "Guardando para después…";
 "status-saved-for-later" = "Guardado para después";
 "announcements-dismiss" = "No, gracias";
-"places-search-top-articles" = "Artículos principales";
-"places-search-this-area" = "Buscar esta área";
-"places-search-saved-articles" = "Artículos guardados";
+"places-search-top-articles" = "Todos los artículos principales";
+"places-search-this-area" = "Resultados de esta zona";
+"places-search-saved-articles" = "Todos los artículos guardados";
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
 "places-search-recently-searched-header" = "Búsquedas recientes";
+"places-search-articles-that-match" = "$1 que corresponden con «$2»";
 "places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
 "places-unknown-distance" = "distancia desconocida";
 "places-enable-location-title" = "Explora artículos cerca de tu ubicación habilitando el acceso a la ubicación";
@@ -530,6 +538,16 @@
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar en tu ubicación";
 "places-accessibility-close-search" = "Cerrar búsqueda";
 "places-accessibility-clear-recent-searches" = "Borrar búsquedas recientes";
+// Fuzzy
+"places-filter-top-articles" = "Artículos principales";
+"places-filter-top-articles-count" = "$1 artículos";
+"places-filter-saved-articles" = "Artículos guardados";
+"places-filter-saved-articles-count" = "$1 lugares encontrados";
+"places-filter-no-saved-places" = "No tienes lugares guardados";
+"places-filter-list-title" = "Filtros de búsqueda";
+"places-search-default-text" = "Buscar";
+"places-empty-search-title" = "Buscar artículos de Wikipedia con ubicaciones geográficas";
+"places-empty-search-description" = "Explora ciudades, países, continentes, monumentos naturales, eventos históricos, edificios y más.";
 "action-share" = "Compartir";
 "action-save" = "Guardar";
 "action-read" = "Leer";

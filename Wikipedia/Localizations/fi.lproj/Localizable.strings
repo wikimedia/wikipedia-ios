@@ -505,8 +505,11 @@
 "status-saving-for-later" = "Tallennetaan myöhempää varten...";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
 "announcements-dismiss" = "Ei kiitos";
+// Fuzzy
 "places-search-top-articles" = "Huippuartikkelit";
+// Fuzzy
 "places-search-this-area" = "Hae tältä alueelta";
+// Fuzzy
 "places-search-saved-articles" = "Tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-recently-searched-header" = "Äskettäin haetut";

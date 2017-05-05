@@ -509,8 +509,11 @@
 "status-saving-for-later" = "Menyimpan untuk nanti...";
 "status-saved-for-later" = "Disimpan untuk nanti";
 "announcements-dismiss" = "Tak apalah";
+// Fuzzy
 "places-search-top-articles" = "Rencana teratas";
+// Fuzzy
 "places-search-this-area" = "Cari kawasan ini";
+// Fuzzy
 "places-search-saved-articles" = "Rencana tersimpan";
 "places-search-suggested-searches-header" = "Cadangan carian";
 "places-search-recently-searched-header" = "Carian terkini";

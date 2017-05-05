@@ -180,6 +180,11 @@
 "settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی بیشتر بدانید";
 "settings-notifications-trending" = "رتبه‌بندی رویدادهای کنونی";
 "settings-notifications-push-notifications" = "ارسال آگاه‌سازی";
+"settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
+"settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";
+"settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما را حذف نمی‌کند.";
+"settings-clear-cache-ok" = "خالی کردن کاشه";
+"settings-clear-cache-cancel" = "لغو";
 "main-menu-title" = "بیشتر";
 "main-menu-heading-about" = "درباره";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
@@ -517,11 +522,13 @@
 "status-saving-for-later" = "ذخیره برای بعد...";
 "status-saved-for-later" = "ذخیره برای بعد";
 "announcements-dismiss" = "نه ممنون";
-"places-search-top-articles" = "مقالات برتر";
+"places-search-top-articles" = "همهٔ مقالات برتر";
+// Fuzzy
 "places-search-this-area" = "جستجو در این محدوده";
-"places-search-saved-articles" = "مقاله‌های ذخیره شده";
+"places-search-saved-articles" = "همهٔ مقاله‌های ذخیره شده";
 "places-search-suggested-searches-header" = "جستجوهای پیشنهاد شده";
 "places-search-recently-searched-header" = "جستجوهای اخیر";
+"places-search-articles-that-match" = "$1 منتطبق با «$2»";
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
 "places-unknown-distance" = "مسافت‌های نامشخص";
 "places-enable-location-title" = "با فعال کردن دسترسی به موقعیتتان، مقالات نزدیک به محل خود را جستجو کنید.";
@@ -534,6 +541,16 @@
 "places-accessibility-recenter-map-on-user-location" = "وسط قرار دادن موقعیت شما";
 "places-accessibility-close-search" = "بستن جستجو";
 "places-accessibility-clear-recent-searches" = "پاک‌کردن جستجوهای اخیر";
+// Fuzzy
+"places-filter-top-articles" = "بالاترین مقالات";
+"places-filter-top-articles-count" = "$1 مقاله";
+"places-filter-saved-articles" = "مقاله‌های ذخیره شده";
+"places-filter-saved-articles-count" = "$1 مکان یافت شده";
+"places-filter-list-title" = "پالایه‌های جستجوی";
+// Fuzzy
+"places-search-default-text" = "جستجو برای مقالات یا مکان‌ها";
+"places-empty-search-title" = "جستجو برای مقالات ویکی‌پدیا که موقعیت جغرافیایی دارند";
+"places-empty-search-description" = "کاوش شهرها، کشورها، قاره‌ها، جاذبه‌های طبیعی، رویدادهای تاریخی، ساختمان‌ها و موارد دیگر.";
 "action-share" = "به اشتراک گذاشتن";
 "action-save" = "ذخیره";
 "action-read" = "خواندن";

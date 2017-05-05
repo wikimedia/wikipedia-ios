@@ -242,6 +242,7 @@
 "in-the-news-title-for-date" = "$1 నాటి వార్తలు";
 "back" = "వెనుకకు";
 "save-action" = "భద్రపరచు";
+// Fuzzy
 "places-search-top-articles" = "మేటి వ్యాసాలు";
 "places-search-recently-searched-header" = "ఇటీవల వెతికినవి";
 "places-accessibility-group" = "$1 వ్యాసాలు";

@@ -448,7 +448,9 @@
 "status-saving-for-later" = "Ukladanie na neskôr...";
 "status-saved-for-later" = "Uložené na neskôr";
 "announcements-dismiss" = "Nie, vďaka";
+// Fuzzy
 "places-search-top-articles" = "Top články";
+// Fuzzy
 "places-search-saved-articles" = "Uložené články";
 "places-search-suggested-searches-header" = "Návrhy vyhľadávania";
 "places-search-recently-searched-header" = "Nedávno hľadané výrazy";

@@ -90,6 +90,7 @@
 "settings-my-languages" = "מיינע שפראכן";
 "settings-notifications" = "אנזאגן";
 "settings-help-and-feedback" = "הילף און פֿידבעק";
+"settings-clear-cache-cancel" = "אַנולירן";
 "main-menu-title" = "נאך";
 "main-menu-heading-about" = "וועגן";
 "main-menu-language-title" = "זוכן $1 וויקיפעדיע";
@@ -257,3 +258,5 @@
 "in-the-news-notification-share-action-title" = "טיילן…";
 "number-thousands" = "$1K";
 "announcements-dismiss" = "ניין, א דאנק";
+"places-filter-top-articles-count" = "$1 אַרטיקלען";
+"places-search-default-text" = "זוכן";

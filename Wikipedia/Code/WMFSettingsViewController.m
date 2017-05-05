@@ -119,7 +119,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (nullable NSString *)title {
-    return MWLocalizedString(@"settings-title", nil);
+    return WMFLocalizedStringWithDefaultValue(@"settings-title", nil, NSBundle.wmf_localizationBundle, @"Settings", @"Title of the view where app settings are displayed.\n{{Identical|Settings}}");
 }
 
 - (void)configureTableDataSource {
@@ -216,6 +216,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                animated:YES
                              completion:nil];
             break;
+        case WMFSettingsMenuItemType_ClearCache:
+            [self showClearCacheActionSheet];
+            break;
         case WMFSettingsMenuItemType_DebugCrash:
             [[self class] generateTestCrash];
             break;
@@ -263,17 +266,41 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (void)showLogoutActionSheet {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"main-menu-account-logout-are-you-sure", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout-are-you-sure", nil, NSBundle.wmf_localizationBundle, @"Are you sure you want to log out?", @"Header asking if user is sure they wish to log out.") message:nil preferredStyle:UIAlertControllerStyleAlert];
     @weakify(self)
-        [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout", nil)
+        [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout", nil, NSBundle.wmf_localizationBundle, @"Log out", @"Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}")
                                                   style:UIAlertActionStyleDestructive
                                                 handler:^(UIAlertAction *_Nonnull action) {
                                                     @strongify(self)
                                                         [self logout];
                                                     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
                                                 }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Button text for hiding the log out menu.\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
+    [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+#pragma mark - Clear Cache
+
+- (void)showClearCacheActionSheet {
+    NSString *message = WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-message", nil, NSBundle.wmf_localizationBundle, @"Clearing cached data will free up about %1$@ of space. It will not delete your saved pages.", @"Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. %1$@ is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.");
+    NSString *bytesString = [NSByteCountFormatter stringFromByteCount:[NSURLCache sharedURLCache].currentDiskUsage countStyle:NSByteCountFormatterCountStyleFile];
+    message = [NSString localizedStringWithFormat:message, bytesString];
+    
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-title", nil, NSBundle.wmf_localizationBundle, @"Clear cached data?", @"Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.") message:message preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, NSBundle.wmf_localizationBundle, @"Clear cache", @"Confirm action to clear cached data")
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [[WMFImageController sharedInstance] deleteTemporaryCache];
+                                                [[WMFImageController sharedInstance] removeLegacyCache];
+                                                [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
+                                                    DDLogError(@"Error removing unreferenced articles: %@", error);
+                                                } success:^{
+                                                    DDLogDebug(@"Successfully removed unreferenced articles");
+                                                }];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, NSBundle.wmf_localizationBundle, @"Cancel", @"Cancel action to clear cached data\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+    
     [self presentViewController:sheet animated:YES completion:NULL];
 }
 
@@ -378,6 +405,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;
     section.footer = nil;
@@ -391,8 +419,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendUsageReports]
         ]];
-    section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
-    section.footer = MWLocalizedString(@"preference-summary-eventlogging-opt-in", nil);
+    section.header = WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, NSBundle.wmf_localizationBundle, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.");
+    section.footer = WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, NSBundle.wmf_localizationBundle, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.");
     return section;
 }
 
@@ -402,7 +430,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroFAQ]
         ]];
-    section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
+    section.header = WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, NSBundle.wmf_localizationBundle, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}");
     section.footer = nil;
     return section;
 }
@@ -412,7 +440,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [SSSection sectionWithItems:@[
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About]
         ]];
     section.header = nil;
     section.footer = nil;
@@ -431,7 +459,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
         ]];
-    section.header = MWLocalizedString(@"main-menu-heading-debug", nil);
+    section.header = WMFLocalizedStringWithDefaultValue(@"main-menu-heading-debug", nil, NSBundle.wmf_localizationBundle, @"Debug", @"Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}");
     section.footer = nil;
     return section;
 }

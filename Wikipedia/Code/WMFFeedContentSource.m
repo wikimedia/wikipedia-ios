@@ -297,7 +297,18 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSDictionary<NSDate *, NSNumber *> *pageViewsForURL = pageViews[url];
             [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
-        story.featuredArticlePreview = story.articlePreviews.firstObject;
+
+        for (WMFFeedArticlePreview *preview in story.articlePreviews) {
+            if (preview.thumbnailURL == nil) {
+                continue;
+            }
+            story.featuredArticlePreview = preview;
+            break;
+        }
+
+        if (story.featuredArticlePreview == nil) {
+            story.featuredArticlePreview = story.articlePreviews.firstObject;
+        }
     }];
 }
 
@@ -462,7 +473,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         info[WMFNotificationInfoArticleExtractKey] = snippet;
     }
 
-    NSString *title = MWLocalizedString(@"in-the-news-title", nil);
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, NSBundle.wmf_localizationBundle, @"In the news", @"Title for the 'In the news' notification & feed section");
     NSString *body = [storyHTML wmf_stringByRemovingHTML];
 
     NSDate *notificationDate = [NSDate date];

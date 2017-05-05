@@ -166,6 +166,11 @@
 "settings-notifications-learn-more" = "Evit gouzout hiroc'h diwar-benn ar c'hemennoù";
 "settings-notifications-trending" = "Berzh darvoudoù ar mare";
 "settings-notifications-push-notifications" = "Kemennoù kaset";
+"settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
+"settings-clear-cache-are-you-sure-title" = "Diverkañ ar roadennoù krubuilhet ?";
+"settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";
+"settings-clear-cache-ok" = "Goullonderiñ ar c'hrubuilh";
+"settings-clear-cache-cancel" = "Nullañ";
 "main-menu-title" = "Muioc'h";
 "main-menu-heading-about" = "Diwar-benn";
 "main-menu-language-title" = "Furchal $1 Wikipedia";
@@ -475,6 +480,7 @@
 "explore-another-random" = "Ur pennad all dre zegouezh";
 "explore-randomizer" = "Dre zegouezh";
 "find-in-page-no-matches" = "Ne glot gant tra ebet";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Kavout ar bajenn";
 "find-in-page-popover-description" = "Klask an destenn er pennadoù";
 "continue-reading-empty-title" = "Pennad ebet lennet nevez zo";
@@ -503,11 +509,12 @@
 "status-saving-for-later" = "Enrollañ evit diwezhatoc'h...";
 "status-saved-for-later" = "Enrollet evit diwezhatoc'h";
 "announcements-dismiss" = "Ne'm bo ket, trugarez";
-"places-search-top-articles" = "Pennadoù gwellañ";
-"places-search-this-area" = "Klask en takad-mañ";
-"places-search-saved-articles" = "Pennadoù enrollet";
+"places-search-top-articles" = "An holl bennadoù gwellañ";
+"places-search-this-area" = "Disoc'hoù en takad-mañ";
+"places-search-saved-articles" = "An holl bennadoù enrollet";
 "places-search-suggested-searches-header" = "Enklaskoù kinniget";
 "places-search-recently-searched-header" = "Enklaskoù graet nevez zo";
+"places-search-articles-that-match" = "$1 a glot gant « $2 »";
 "places-no-saved-articles-have-location" = "Hini ebet eus ho pennadoù enrollet zo ennañ titouroù lec'hiañ";
 "places-unknown-distance" = "Keit dianav";
 "places-enable-location-title" = "Furchal ar pennadoù tost d'ho lec'hiadur en ur weredekaat Monet d'al lec'hiadur";
@@ -520,6 +527,16 @@
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";
 "places-accessibility-close-search" = "Serriñ an enklask";
 "places-accessibility-clear-recent-searches" = "diverkañ an enklaskoù nevez";
+// Fuzzy
+"places-filter-top-articles" = "Pennadoù gwellañ";
+"places-filter-top-articles-count" = "$1 pennad";
+"places-filter-saved-articles" = "Pennadoù enrollet";
+"places-filter-saved-articles-count" = "$1 lec'h kavet";
+"places-filter-no-saved-places" = "N'ho peus lec'h savetaet ebet";
+"places-filter-list-title" = "Siloù enklask";
+"places-search-default-text" = "Klask";
+"places-empty-search-title" = "Enklask pennadoù Wikipedia gant lec'hioù douaroniel.";
+"places-empty-search-description" = "Ergerzhet ar c'hêrioù, ar broioù, ar c'hevandirioù, ar monumantoù naturel, an darvoudoù istorel, ar savadurioù, ha muioc'h c'hoazh.";
 "action-share" = "Rannañ";
 "action-save" = "Enrollañ";
 "action-read" = "Lenn";

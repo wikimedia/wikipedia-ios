@@ -175,6 +175,11 @@
 "settings-notifications-system-turn-on" = "알림 켜기";
 "settings-notifications-learn-more" = "알림에 대해 더 알아보기";
 "settings-notifications-push-notifications" = "푸시 알림";
+"settings-clear-cache" = "캐시된 데이터 지우기";
+"settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";
+"settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
+"settings-clear-cache-ok" = "캐시 지우기";
+"settings-clear-cache-cancel" = "취소";
 "main-menu-title" = "더 보기";
 "main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
@@ -481,6 +486,7 @@
 "explore-another-random" = "다른 임의 문서";
 "explore-randomizer" = "임의 문서 보기";
 "find-in-page-no-matches" = "0개 일치";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "문서에서 찾기";
 "find-in-page-popover-description" = "문서에서 텍스트 검색";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
@@ -507,9 +513,9 @@
 "status-saving-for-later" = "나중을 위해 저장하는 중...";
 "status-saved-for-later" = "나중을 위해 저장됨";
 "announcements-dismiss" = "괜찮습니다";
-"places-search-top-articles" = "상위 문서";
-"places-search-this-area" = "이 분야 검색";
-"places-search-saved-articles" = "저장된 문서";
+"places-search-top-articles" = "모든 최상위 문서";
+"places-search-this-area" = "이 영역에서 검색";
+"places-search-saved-articles" = "저장된 모든 문서";
 "places-search-suggested-searches-header" = "추천된 검색";
 "places-search-recently-searched-header" = "최근 검색됨";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
@@ -521,6 +527,14 @@
 "places-accessibility-show-as-list" = "목록으로 보기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-clear-recent-searches" = "최근 검색 지우기";
+// Fuzzy
+"places-filter-top-articles" = "최상위 문서";
+"places-filter-top-articles-count" = "$1개의 문서";
+"places-filter-saved-articles" = "저장된 문서";
+"places-filter-saved-articles-count" = "$1곳을 찾았음";
+"places-filter-list-title" = "검색 필터";
+"places-search-default-text" = "검색";
+"places-empty-search-title" = "지리적 위치로 위키백과 문서 검색";
 "action-share" = "공유";
 "action-save" = "저장";
 "action-read" = "읽기";

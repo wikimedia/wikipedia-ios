@@ -164,6 +164,11 @@
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
 "settings-notifications-trending" = "Aktuelle Ereignisse";
 "settings-notifications-push-notifications" = "Push-Benachrichtigungen";
+"settings-clear-cache" = "Gecachte Daten löschen";
+"settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
+"settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten kann bis zu $1 Speicherplatz freigeben. Es löscht nicht deine gespeicherten Seiten.";
+"settings-clear-cache-ok" = "Cache löschen";
+"settings-clear-cache-cancel" = "Abbrechen";
 "main-menu-title" = "Weitere";
 "main-menu-heading-about" = "Über";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
@@ -473,6 +478,7 @@
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-randomizer" = "Zufallsgenerator";
 "find-in-page-no-matches" = "Keine Treffer";
+"find-in-page-number-matches" = "$1 von $2";
 "find-in-page-button-label" = "In Seite finden";
 "find-in-page-popover-description" = "Text in Artikeln suchen";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
@@ -501,11 +507,12 @@
 "status-saving-for-later" = "Für später speichern …";
 "status-saved-for-later" = "Für später gespeichert";
 "announcements-dismiss" = "Nein, danke";
-"places-search-top-articles" = "Beste Artikel";
-"places-search-this-area" = "Diesen Bereich durchsuchen";
-"places-search-saved-articles" = "Gespeicherte Artikel";
+"places-search-top-articles" = "Alle guten Artikel";
+"places-search-this-area" = "Ergebnisse in diesem Bereich";
+"places-search-saved-articles" = "Alle gespeicherten Artikel";
 "places-search-suggested-searches-header" = "Suchvorschläge";
 "places-search-recently-searched-header" = "Zuletzt gesucht";
+"places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-unknown-distance" = "unbekannte Entfernung";
 "places-enable-location-title" = "Entdecke Artikel in deiner Nähe durch das Aktivieren des Standortzugriffs";
@@ -518,6 +525,16 @@
 "places-accessibility-recenter-map-on-user-location" = "An deinem Standort neu zentrieren";
 "places-accessibility-close-search" = "Suche schließen";
 "places-accessibility-clear-recent-searches" = "Letzte Suchvorgänge löschen";
+// Fuzzy
+"places-filter-top-articles" = "Gute Artikel";
+"places-filter-top-articles-count" = "$1 Artikel";
+"places-filter-saved-articles" = "Gespeicherte Artikel";
+"places-filter-saved-articles-count" = "$1 Orte gefunden";
+"places-filter-no-saved-places" = "Du hast keine gespeicherten Orte";
+"places-filter-list-title" = "Suchfilter";
+"places-search-default-text" = "Suchen";
+"places-empty-search-title" = "Nach Wikipedia-Artikeln mit geografischen Standorten suchen";
+"places-empty-search-description" = "Entdecke Städte, Länder, Kontinente, Naturdenkmäler, historische Ereignisse, Gebäude und mehr.";
 "action-share" = "Teilen";
 "action-save" = "Speichern";
 "action-read" = "Lesen";

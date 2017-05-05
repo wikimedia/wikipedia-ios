@@ -80,6 +80,7 @@
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
+"settings-clear-cache-cancel" = "Atcelt";
 "main-menu-title" = "Vairāk";
 "main-menu-heading-about" = "Par";
 "main-menu-language-title" = "Meklēt $1 Vikipēdijā";
@@ -255,4 +256,7 @@
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "announcements-dismiss" = "Nē, paldies";
-"places-search-saved-articles" = "Saglabātie raksti";
+"places-search-saved-articles" = "Visi saglabātie raksti";
+"places-filter-top-articles-count" = "$1 raksti";
+"places-filter-saved-articles" = "Saglabātie raksti";
+"places-filter-list-title" = "Meklēšanas filtri";

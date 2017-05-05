@@ -508,8 +508,11 @@
 "status-saving-for-later" = "बाद के लिए सहेजा जा रहा है...";
 "status-saved-for-later" = "बाद के लिए सहेजा गया";
 "announcements-dismiss" = "नहीं धन्यवाद";
+// Fuzzy
 "places-search-top-articles" = "टॉप लेख";
+// Fuzzy
 "places-search-this-area" = "इस क्षेत्र को खोजें";
+// Fuzzy
 "places-search-saved-articles" = "सहेजे लेख";
 "places-search-suggested-searches-header" = "सुझाई गयी खोजें";
 "places-search-recently-searched-header" = "हाल ही में खोजा गया";

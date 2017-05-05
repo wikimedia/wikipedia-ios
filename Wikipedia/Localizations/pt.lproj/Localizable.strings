@@ -1,6 +1,7 @@
 // Messages for Portuguese (português)
 // Exported from translatewiki.net
 // Author: Diniscoelho
+// Author: Felipe L. Ewald
 // Author: Fúlvio
 // Author: Hamilton Abreu
 // Author: Imperadeiro98
@@ -470,8 +471,10 @@
 "status-saving-for-later" = "Guardar para depois...";
 "status-saved-for-later" = "Guardar para depois";
 "announcements-dismiss" = "Não, obrigado";
+// Fuzzy
 "places-search-top-articles" = "Artigos mais lidos";
-"places-search-this-area" = "Pesquisar esta área";
+"places-search-this-area" = "Resultados nesta área";
+// Fuzzy
 "places-search-saved-articles" = "Artigos guardados";
 "places-search-suggested-searches-header" = "Pesquisas sugeridas";
 "places-search-recently-searched-header" = "Pesquisas recentes";

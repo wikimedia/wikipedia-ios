@@ -4,6 +4,7 @@
 // Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
+// Author: Bulgu
 // Author: HakanIST
 // Author: Incelemeelemani
 // Author: Kumkumuk
@@ -182,6 +183,11 @@
 "settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-notifications-push-notifications" = "Anlık bildirimler";
+"settings-clear-cache" = "Önbellekteki verileri temizle";
+"settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
+"settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
+"settings-clear-cache-ok" = "Önbelleği temizle";
+"settings-clear-cache-cancel" = "İptal";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -418,7 +424,7 @@
 "home-hide-suggestion-cancel" = "Geri al";
 "home-accessibility-label" = "Vikipedi, Keşfet";
 "home-title-accessibility-label" = "Vikipedi, Keşfet'in başına git";
-"home-button-accessibility-label" = "Ana Sayfa";
+"home-button-accessibility-label" = "Anasayfa";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
 "home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
@@ -491,6 +497,7 @@
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-randomizer" = "Rastgele";
 "find-in-page-no-matches" = "Eşleşme yok";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Sayfada bul";
 "find-in-page-popover-description" = "Maddelerde metin ara";
 "continue-reading-empty-title" = "Son okunan makale yok";
@@ -519,9 +526,11 @@
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "status-saved-for-later" = "Sonrası için kaydedildi";
 "announcements-dismiss" = "Hayır, teşekkürler";
+// Fuzzy
 "places-search-top-articles" = "Gündemdeki maddeler";
+// Fuzzy
 "places-search-this-area" = "Bu bölgeyi ara";
-"places-search-saved-articles" = "Kaydedilmiş maddeler";
+"places-search-saved-articles" = "Kaydedilmiş maddelerin hepsi";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-recently-searched-header" = "Son arananlar";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
@@ -536,6 +545,9 @@
 "places-accessibility-recenter-map-on-user-location" = "Konumunuza geri dönün";
 "places-accessibility-close-search" = "Aramayı kapat";
 "places-accessibility-clear-recent-searches" = "Son aramaları temizle";
+"places-filter-top-articles-count" = "$1 madde";
+"places-filter-saved-articles" = "Kaydedilmiş maddeler";
+"places-search-default-text" = "Ara";
 "action-share" = "Paylaş";
 "action-save" = "Kaydet";
 "action-read" = "Oku";

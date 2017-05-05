@@ -505,8 +505,11 @@
 "status-saving-for-later" = "Gemmer til senere...";
 "status-saved-for-later" = "Gemt til senere";
 "announcements-dismiss" = "Nej tak";
+// Fuzzy
 "places-search-top-articles" = "Populære artikler";
+// Fuzzy
 "places-search-this-area" = "Søg i dette område";
+// Fuzzy
 "places-search-saved-articles" = "Gemte artikler";
 "places-search-suggested-searches-header" = "Søgeforslag";
 "places-search-recently-searched-header" = "Seneste søgninger";

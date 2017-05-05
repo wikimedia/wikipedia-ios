@@ -150,7 +150,7 @@ public extension UIFont {
         case .systemBold:
             return UIFont.boldSystemFont(ofSize: size)
         case .system:
-            assert(false, "Should never reach this point. System font is guarded against at beginning of method.")
+            assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             return nil
         }
     }

@@ -174,6 +174,8 @@
 "settings-notifications-learn-more" = "Més quant a les notificacions";
 "settings-notifications-trending" = "Tendències actuals";
 "settings-notifications-push-notifications" = "Notificacions enviades";
+"settings-clear-cache-ok" = "Neteja la memòria cau";
+"settings-clear-cache-cancel" = "Cancel·la";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -483,6 +485,7 @@
 "explore-another-random" = "Un altre article a l'atzar";
 "explore-randomizer" = "Article a l’atzar";
 "find-in-page-no-matches" = "0 coincidències";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Busca una pàgina";
 "find-in-page-popover-description" = "Cerca text als articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
@@ -511,9 +514,9 @@
 "status-saving-for-later" = "Es desa per més endavant...";
 "status-saved-for-later" = "Desat per a més endavant";
 "announcements-dismiss" = "No, gràcies";
-"places-search-top-articles" = "Millors articles";
-"places-search-this-area" = "Cerca en aquesta àrea";
-"places-search-saved-articles" = "Articles desats";
+"places-search-top-articles" = "Tots els millors articles";
+"places-search-this-area" = "Resultats en aquesta àrea";
+"places-search-saved-articles" = "Tots els articles desats";
 "places-search-suggested-searches-header" = "Cerques suggerides";
 "places-search-recently-searched-header" = "Cercat recentment";
 "places-no-saved-articles-have-location" = "Cap dels vostres articles desats té informació d'ubicació";
@@ -528,6 +531,12 @@
 "places-accessibility-recenter-map-on-user-location" = "Torneu a centrar en la vostra ubicació";
 "places-accessibility-close-search" = "Tanca la cerca";
 "places-accessibility-clear-recent-searches" = "Esborra les cerques recents";
+// Fuzzy
+"places-filter-top-articles" = "Millors articles";
+"places-filter-top-articles-count" = "$1 articles";
+"places-filter-saved-articles" = "Articles desats";
+"places-filter-list-title" = "Filtres de cerca";
+"places-search-default-text" = "Cerca";
 "action-share" = "Comparteix";
 "action-save" = "Desa";
 "action-read" = "Llegeix";

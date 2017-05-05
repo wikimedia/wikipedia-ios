@@ -39,7 +39,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             let presenter = presentingViewController,
             let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard()
         else {
-                assert(false, "Expected view controller(s) not found")
+                assertionFailure("Expected view controller(s) not found")
                 return
         }
         dismiss(animated: true, completion: {
@@ -56,29 +56,29 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
-        createAccountButton.setTitle(localizedStringForKeyFallingBackOnEnglish("account-creation-create-account"), for: .normal)
+        createAccountButton.setTitle(WMFLocalizedString("account-creation-create-account", value:"Create your account", comment:"Text for create account button"), for: .normal)
         
         scrollView.delegate = self
         
-        usernameField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-username-placeholder")
-        passwordField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-placeholder")
-        passwordRepeatField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-placeholder")
-        emailField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-email-placeholder")
-        usernameTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-username-title")
-        passwordTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-title")
-        passwordRepeatTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-password-confirm-title")
-        emailTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-email-title-optional")
-        passwordRepeatAlertLabel.text = localizedStringForKeyFallingBackOnEnglish("field-alert-password-confirm-mismatch")
+        usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
+        passwordField.placeholder = WMFLocalizedString("field-password-placeholder", value:"enter password", comment:"Placeholder text shown inside password field until user taps on it")
+        passwordRepeatField.placeholder = WMFLocalizedString("field-password-confirm-placeholder", value:"re-enter password", comment:"Placeholder text shown inside confirm password field until user taps on it")
+        emailField.placeholder = WMFLocalizedString("field-email-placeholder", value:"example@example.org", comment:"Placeholder text shown inside email address field until user taps on it")
+        usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
+        passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
+        passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
+        emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
+        passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
         
         usernameField.wmf_addThinBottomBorder()
         passwordField.wmf_addThinBottomBorder()
         passwordRepeatField.wmf_addThinBottomBorder()
         emailField.wmf_addThinBottomBorder()
 
-        loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-have-account"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-log-in"))
+        loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button\n{{Identical|Log in}}"))
         
         loginButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginButtonPushed(_:))))
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-title")
+        titleLabel.text = WMFLocalizedString("account-creation-title", value:"Create a new account", comment:"Title for account creation interface")
        
         view.wmf_configureSubviewsForDynamicType()
         
@@ -141,7 +141,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 save()
             }
         default:
-            assert(false, "Unhandled text field")
+            assertionFailure("Unhandled text field")
         }
         return true
     }
@@ -197,16 +197,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func login() {
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(
-            username: usernameField.text!,
-            password: passwordField.text!,
+            username: usernameField.text ?? "",
+            password: passwordField.text ?? "",
             retypePassword: nil,
             oathToken: nil,
             captchaID: nil,
             captchaWord: nil,
             success: { _ in
-                let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: self.usernameField.text!)
+                let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
         }, failure: { error in
@@ -234,7 +234,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatAlertLabel.isHidden = true
         
         guard areRequiredFieldsPopulated() else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-missing-fields"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
 
@@ -242,7 +242,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.passwordRepeatField.textColor = .wmf_yellow
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("account-creation-passwords-mismatched"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
         wmf_hideKeyboard()
@@ -262,7 +262,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-saving"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let creationFailure: WMFErrorHandler = {error in
             // Captcha's appear to be one-time, so always try to get a new one on failure.

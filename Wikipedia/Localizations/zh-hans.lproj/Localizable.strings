@@ -173,6 +173,11 @@
 "settings-notifications-learn-more" = "了解更多有关通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-notifications-push-notifications" = "推送通知";
+"settings-clear-cache" = "清空缓存的数据";
+"settings-clear-cache-are-you-sure-title" = "清空缓存的数据么？";
+"settings-clear-cache-are-you-sure-message" = "清空缓存的数据将腾出约$1空间。这将不会删除您保存的页面。";
+"settings-clear-cache-ok" = "清空缓存";
+"settings-clear-cache-cancel" = "取消";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "关于";
 "main-menu-language-title" = "搜索$1语维基百科";
@@ -482,6 +487,7 @@
 "explore-another-random" = "其他随机条目";
 "explore-randomizer" = "随机产生条目器";
 "find-in-page-no-matches" = "0个匹配";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "在页面中查找";
 "find-in-page-popover-description" = "搜索条目中的文本";
 "continue-reading-empty-title" = "没有最近阅读条目";
@@ -510,11 +516,12 @@
 "status-saving-for-later" = "正在保存以供日后使用...";
 "status-saved-for-later" = "已保存以供日后使用";
 "announcements-dismiss" = "不用了，谢谢";
-"places-search-top-articles" = "最多阅读的条目";
-"places-search-this-area" = "搜索该地区";
-"places-search-saved-articles" = "保存的条目";
+"places-search-top-articles" = "所有最多阅读的条目";
+"places-search-this-area" = "该地区的结果";
+"places-search-saved-articles" = "所有保存的条目";
 "places-search-suggested-searches-header" = "建议搜索";
 "places-search-recently-searched-header" = "最近搜索";
+"places-search-articles-that-match" = "$1匹配“$2”";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-unknown-distance" = "未知距离";
 "places-enable-location-title" = "通过启用位置访问，探索您所在位置附近的条目";
@@ -527,6 +534,16 @@
 "places-accessibility-recenter-map-on-user-location" = "重新定位您的位置";
 "places-accessibility-close-search" = "关闭搜索";
 "places-accessibility-clear-recent-searches" = "清除最近搜索";
+// Fuzzy
+"places-filter-top-articles" = "最多阅读的条目";
+"places-filter-top-articles-count" = "$1个条目";
+"places-filter-saved-articles" = "保存的条目";
+"places-filter-saved-articles-count" = "找到了$1个地点";
+"places-filter-no-saved-places" = "您没有已保存的地方";
+"places-filter-list-title" = "搜索过滤器";
+"places-search-default-text" = "搜索";
+"places-empty-search-title" = "使用地理位置搜索维基百科条目";
+"places-empty-search-description" = "浏览城市、国家、大陆、自然地标、历史事件、建筑物以及更多。";
 "action-share" = "分享";
 "action-save" = "保存";
 "action-read" = "阅读";

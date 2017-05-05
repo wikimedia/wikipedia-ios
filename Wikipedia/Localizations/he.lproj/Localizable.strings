@@ -170,6 +170,11 @@
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-trending" = "נושאים אקטואליים חמים";
 "settings-notifications-push-notifications" = "עדכונים";
+"settings-clear-cache" = "ניקוי נתונים מוטמנים";
+"settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
+"settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
+"settings-clear-cache-ok" = "ניקוי מטמון";
+"settings-clear-cache-cancel" = "ביטול";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
@@ -479,6 +484,7 @@
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-randomizer" = "הגרלה";
 "find-in-page-no-matches" = "אין התאמות";
+"find-in-page-number-matches" = "$1 מתוך $2";
 "find-in-page-button-label" = "למצוא בדף";
 "find-in-page-popover-description" = "חיפוש טקסט בערכים";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
@@ -507,11 +513,12 @@
 "status-saving-for-later" = "שמירה לאחר־כך...";
 "status-saved-for-later" = "נשמר לאחר־כך";
 "announcements-dismiss" = "לא, תודה";
-"places-search-top-articles" = "ערכים מובילים";
-"places-search-this-area" = "חיפוש באזור הזה";
-"places-search-saved-articles" = "ערכים שמורים";
+"places-search-top-articles" = "כל הערכים המובילים";
+"places-search-this-area" = "תוצאות באזור הזה";
+"places-search-saved-articles" = "כל הערכים השמורים";
 "places-search-suggested-searches-header" = "חיפושים מומלצים";
 "places-search-recently-searched-header" = "חיפושים אחרונים";
+"places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "places-enable-location-title" = "אפשר לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
@@ -524,6 +531,16 @@
 "places-accessibility-recenter-map-on-user-location" = "לאחרונה במיקומך";
 "places-accessibility-close-search" = "סגירת חיפוש";
 "places-accessibility-clear-recent-searches" = "ניקוי חיפושים אחרונים";
+// Fuzzy
+"places-filter-top-articles" = "ערכים מובילים";
+"places-filter-top-articles-count" = "$1 ערכים";
+"places-filter-saved-articles" = "ערכים שמורים";
+"places-filter-saved-articles-count" = "נמצאו $1 מקומות";
+"places-filter-no-saved-places" = "אין לך מקומות שמורים";
+"places-filter-list-title" = "מסנני חיפוש";
+"places-search-default-text" = "חיפוש";
+"places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";
+"places-empty-search-description" = "חיפוש ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
 "action-share" = "שיתוף";
 "action-save" = "שמירה";
 "action-read" = "קריאה";

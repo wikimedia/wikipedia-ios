@@ -162,7 +162,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)configureSearchField {
     self.searchField.textAlignment = NSTextAlignmentNatural;
     [self setSeparatorViewHidden:YES animated:NO];
-    [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
+    [self.searchField setPlaceholder:WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, NSBundle.wmf_localizationBundle, @"Search Wikipedia", @"Search field placeholder text")];
 }
 
 #pragma mark - UIViewController
@@ -175,11 +175,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
-    self.title = MWLocalizedString(@"search-title", nil);
+    self.title = WMFLocalizedStringWithDefaultValue(@"search-title", nil, NSBundle.wmf_localizationBundle, @"Search", @"Title for search interface.\n{{Identical|Search}}");
     self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
 
-    self.closeButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish(@"close-button-accessibility-label");
+    self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, NSBundle.wmf_localizationBundle, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
@@ -503,7 +503,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
-    return [MWLocalizedString(@"search-did-you-mean", nil)
+    return [WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, NSBundle.wmf_localizationBundle, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
         attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:18] }
                    substitutionStrings:@[suggestion]
                 substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];

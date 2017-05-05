@@ -173,6 +173,11 @@
 "settings-notifications-learn-more" = "Läs mer om notiser";
 "settings-notifications-trending" = "Populära aktuella händelser";
 "settings-notifications-push-notifications" = "Push-notiser";
+"settings-clear-cache" = "Rensa cachedata";
+"settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
+"settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
+"settings-clear-cache-ok" = "Rensa cachen";
+"settings-clear-cache-cancel" = "Avbryt";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
@@ -482,6 +487,7 @@
 "explore-another-random" = "En annan slumpmässig artikel";
 "explore-randomizer" = "Randomiserare";
 "find-in-page-no-matches" = "0 träffar";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-button-label" = "Sök på sidan";
 "find-in-page-popover-description" = "Sök efter text i artiklar";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
@@ -510,11 +516,13 @@
 "status-saving-for-later" = "Spara till senare...";
 "status-saved-for-later" = "Sparades till senare";
 "announcements-dismiss" = "Nej tack";
-"places-search-top-articles" = "Populära artiklar";
+"places-search-top-articles" = "Alla populära artiklar";
+// Fuzzy
 "places-search-this-area" = "Sök i detta område";
-"places-search-saved-articles" = "Sparade artiklar";
+"places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-recently-searched-header" = "Senaste sökningar";
+"places-search-articles-that-match" = "$1 matchar “$2”";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-unknown-distance" = "okänt avstånd";
 "places-enable-location-title" = "Utforska artiklar i närheten av din plats genom att aktivera platstjänster";
@@ -527,6 +535,16 @@
 "places-accessibility-recenter-map-on-user-location" = "Centrera på din plats";
 "places-accessibility-close-search" = "Stäng sökning";
 "places-accessibility-clear-recent-searches" = "Rensa senaste sökningar";
+// Fuzzy
+"places-filter-top-articles" = "Populära artiklar";
+"places-filter-top-articles-count" = "$1 artiklar";
+"places-filter-saved-articles" = "Sparade artiklar";
+"places-filter-saved-articles-count" = "$1 platser hittades";
+"places-filter-no-saved-places" = "Du har inte några sparade platser";
+"places-filter-list-title" = "Sökfilter";
+"places-search-default-text" = "Sök";
+"places-empty-search-title" = "Sök efter Wikipedia-artiklar med geografiska platser";
+"places-empty-search-description" = "Utforska städer, länder, kontinenter, naturliga landmärken, historiska händelser, byggnader och mer.";
 "action-share" = "Dela";
 "action-save" = "Spara";
 "action-read" = "Läs";

@@ -8,16 +8,17 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFReadMoreViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
-#import "WMFArticleFooterMenuViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
 #import "UIViewController+WMFSearch.h"
+#import "WMFDisambiguationPagesViewController.h"
+#import "PageHistoryViewController.h"
+#import "WMFPageIssuesViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -157,10 +158,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
-// Children
-@property (nonatomic, strong) WMFReadMoreViewController *readMoreListViewController;
-@property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
-
 // Views
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
@@ -210,7 +207,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self) {
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
-        self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
@@ -224,13 +220,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 #pragma mark - Accessors
-
-- (WMFArticleFooterMenuViewController *)footerMenuViewController {
-    if (!_footerMenuViewController && [self hasAboutThisArticle]) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article dataStore:self.dataStore similarPagesListDelegate:self];
-    }
-    return _footerMenuViewController;
-}
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleURL];
@@ -248,7 +237,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
-    self.footerMenuViewController.article = _article;
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
@@ -269,7 +257,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateToolbar];
     [self setupTableOfContentsViewController];
-    [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
 
     if (_article && self.shouldShareArticleOnLoad) {
@@ -361,16 +348,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [_headerImageView addGestureRecognizer:tap];
     }
     return _headerImageView;
-}
-
-- (WMFReadMoreViewController *)readMoreListViewController {
-    if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
-                                                                           userStore:self.dataStore];
-        _readMoreListViewController.delegate = self;
-        _readMoreListViewController.view.backgroundColor = [UIColor whiteColor];
-    }
-    return _readMoreListViewController;
 }
 
 - (WMFArticleFetcher *)articleFetcher {
@@ -555,7 +532,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                            style:UIBarButtonItemStylePlain
                                                                           target:self
                                                                           action:@selector(showTableOfContents:)];
-        _showTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
         return _showTableOfContentsToolbarItem;
     }
     return _showTableOfContentsToolbarItem;
@@ -569,7 +546,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
         closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
         _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
-        _hideTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
         return _hideTableOfContentsToolbarItem;
     }
     return _hideTableOfContentsToolbarItem;
@@ -604,7 +581,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(findInPageButtonPressed)];
-        _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
+        _findInPageToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, NSBundle.wmf_localizationBundle, @"Find in page", @"Accessibility label for the Find in Page button");
     }
     return _findInPageToolbarItem;
 }
@@ -651,31 +628,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+    BOOL includeReadMore = [self hasReadMore];
 
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
-}
-
-- (void)updateWebviewFootersIfNeeded {
-    if ([self.articleURL wmf_isNonStandardURL]) {
-        return;
-    }
-
-    NSMutableArray *footerVCs = [NSMutableArray arrayWithCapacity:2];
-    [footerVCs wmf_safeAddObject:self.footerMenuViewController];
-
-    /*
-       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
-     */
-
-    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
-    if (includeReadMore) {
-        [footerVCs addObject:self.readMoreListViewController];
-    }
-
-    [self.webViewController setFooterViewControllers:footerVCs];
-
-    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 }
 
 #pragma mark - Progress
@@ -1001,9 +956,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 
-    self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
-    self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
-
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
@@ -1040,8 +992,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [self layoutForSize:self.view.bounds.size];
                 if (self.sectionToRestoreScrollOffset) {
                     [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else if (self.footerIndexToRestoreScrollOffset != NSNotFound) {
-                    [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
                 } else {
                     scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
                 }
@@ -1297,28 +1247,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self fetchArticleForce:NO];
 }
 
-- (void)fetchReadMoreIfNeeded {
-    if (![self hasReadMore]) {
-        return;
-    }
-
-    @weakify(self);
-    [self.readMoreListViewController fetchIfNeededWithCompletionBlock:^(WMFRelatedSearchResults *results) {
-        @strongify(self);
-        if (!self) {
-            return;
-        }
-        // update footers to include read more if there are results
-        [self updateWebviewFootersIfNeeded];
-        [self updateTableOfContentsForFootersIfNeeded];
-
-    }
-        failureBlock:^(NSError *error) {
-            DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
-        }];
-}
-
 #pragma mark - Share
 
 - (void)shareAFactWithTextSnippet:(nullable NSString *)text {
@@ -1449,7 +1377,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.delegate articleControllerDidLoadArticle:self];
-    [self fetchReadMoreIfNeeded];
 
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
@@ -1481,31 +1408,21 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self shareAFactWithTextSnippet:text];
 }
 
-- (nullable NSString *)webViewController:(WebViewController *)controller titleForFooterViewController:(UIViewController *)footerViewController {
-    if (footerViewController == self.readMoreListViewController) {
-        return [MWSiteLocalizedString(self.articleURL, @"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    } else if (footerViewController == self.footerMenuViewController) {
-        return [MWSiteLocalizedString(self.articleURL, @"article-about-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    return nil;
-}
-
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
-    self.currentFooterIndex = NSNotFound;
     self.sectionToRestoreScrollOffset = nil;
-    self.footerIndexToRestoreScrollOffset = NSNotFound;
+    @weakify(self);
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
+        @strongify(self);
         if (section) {
             self.currentSection = section;
-            self.currentFooterIndex = NSNotFound;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        } else {
-            NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
-            if (visibleFooterIndex != NSNotFound) {
-                [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
-                self.currentFooterIndex = visibleFooterIndex;
-                self.currentSection = nil;
-            }
+        }else{
+            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
+                @strongify(self);
+                if(index){
+                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
+                }
+            }];
         }
     }];
 
@@ -1522,6 +1439,59 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+}
+
+#pragma mark - Footer menu
+
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item {
+    switch (item) {
+        case WMFArticleFooterMenuItemLanguages:
+            [self showLanguages];
+            break;
+        case WMFArticleFooterMenuItemLastEdited:
+            [self showEditHistory];
+            break;
+        case WMFArticleFooterMenuItemPageIssues:
+            [self showPageIssues];
+            break;
+        case WMFArticleFooterMenuItemDisambiguation:
+            [self showDisambiguationItems];
+            break;
+        case WMFArticleFooterMenuItemCoordinate:
+            [self showLocation];
+            break;
+    }
+}
+
+- (void)showLocation {
+    NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
+    [[UIApplication sharedApplication] openURL:placesURL];
+}
+
+- (void)showDisambiguationItems {
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    articleListVC.delegate = self;
+    articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, NSBundle.wmf_localizationBundle, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)showEditHistory {
+    PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
+    editHistoryVC.article = self.article;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
+}
+
+- (void)showLanguages {
+    WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
+    languagesVC.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+}
+
+- (void)showPageIssues {
+    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
 }
 
 #pragma mark - Header Tap Gesture
@@ -1563,8 +1533,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page-protected-can-not-edit-title", nil) message:MWLocalizedString(@"page-protected-can-not-edit", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, NSBundle.wmf_localizationBundle, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, NSBundle.wmf_localizationBundle, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, NSBundle.wmf_localizationBundle, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
@@ -1707,7 +1677,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActions {
     UIPreviewAction *readAction =
-        [UIPreviewAction actionWithTitle:MWLocalizedString(@"button-read-now", nil)
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, NSBundle.wmf_localizationBundle, @"Read now", @"Read now button text used in various places.")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1716,7 +1686,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *saveAction =
-        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? MWLocalizedString(@"button-saved-remove", nil) : MWLocalizedString(@"button-save-for-later", nil)
+        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, NSBundle.wmf_localizationBundle, @"Remove from saved", @"Remove from saved button text used in various places.") : WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, NSBundle.wmf_localizationBundle, @"Save for later", @"Longer button text for save button used in various places.")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1729,7 +1699,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *shareAction =
-        [UIPreviewAction actionWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, NSBundle.wmf_localizationBundle, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1740,12 +1710,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                shareActivityController:shareActivityController];
                                      }
                                  }];
-#if WMF_PLACES_ENABLED
-    WMFArticle *wmfarticle = [self.previewStore itemForURL:self.articleURL];
+
+    WMFArticle *wmfarticle = [self.dataStore fetchArticleWithURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
-            [UIPreviewAction actionWithTitle:MWLocalizedString(@"page-location", nil)
+            [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, NSBundle.wmf_localizationBundle, @"View on a map", @"Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
                                          UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
@@ -1761,9 +1731,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         return @[readAction, saveAction, shareAction];
     }
-#else
-    return @[readAction, saveAction, shareAction];
-#endif
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate methods
@@ -1875,16 +1842,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTableOfContentsButtonPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
-                                                              withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
-                                                                message:MWLocalizedString(@"table-of-contents-popover-description", nil)
+                                                              withTitle:WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, NSBundle.wmf_localizationBundle, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}")
+                                                                message:WMFLocalizedStringWithDefaultValue(@"table-of-contents-popover-description", nil, NSBundle.wmf_localizationBundle, @"Get an overview of articles", @"Description of Table of Contents which can appear over its icon in a tip bubble. “Overview” refers to a view of the article’s structure, not a summary of the article.")
                                                                   width:230.0f
                                                                duration:3.0];
 }
 
 - (void)showFindInPageButtonPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
-                                                              withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
-                                                                message:MWLocalizedString(@"find-in-page-popover-description", nil)
+                                                              withTitle:WMFLocalizedStringWithDefaultValue(@"find-in-page-button-label", nil, NSBundle.wmf_localizationBundle, @"Find in page", @"Accessibility label for the Find in Page button")
+                                                                message:WMFLocalizedStringWithDefaultValue(@"find-in-page-popover-description", nil, NSBundle.wmf_localizationBundle, @"Search text in articles", @"Description of Find in Page which can appear over its icon in a tip bubble")
                                                                   width:230.0f
                                                                duration:3.0];
 }

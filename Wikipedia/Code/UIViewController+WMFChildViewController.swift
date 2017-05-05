@@ -17,7 +17,7 @@ extension UIViewController {
         guard
             let childView = childController.view
             else{
-                assert(false, "Expected child controller view")
+                assertionFailure("Expected child controller view")
                 return
         }
         wmf_configureForDynamicHeight(childView: childView, containerView: containerView)

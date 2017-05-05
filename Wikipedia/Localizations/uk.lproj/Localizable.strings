@@ -3,6 +3,7 @@
 // Author: Alex Khimich
 // Author: Andriykopanytsia
 // Author: Base
+// Author: Choomaq
 // Author: Green Zero
 // Author: Macofe
 // Author: Nemo bis
@@ -139,7 +140,7 @@
 "open-link-title" = "Відкрити посилання";
 "open-link-cancel" = "Скасувати";
 "search-title" = "Пошук";
-"search-searching" = "Пошук...";
+"search-searching" = "Іде пошук...";
 "search-no-matches" = "Збігів не знайдено для пошукового терміну.";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
 "search-field-placeholder-text-zero" = "Пошук по Вікіпедії Zero";
@@ -171,6 +172,8 @@
 "settings-notifications-learn-more" = "Дізнатись більше про сповіщення";
 "settings-notifications-trending" = "В тренді поточних подій";
 "settings-notifications-push-notifications" = "Push-сповіщення";
+"settings-clear-cache" = "Очистити кеш";
+"settings-clear-cache-cancel" = "Скасувати";
 "main-menu-title" = "Ще";
 "main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
@@ -508,9 +511,10 @@
 "status-saving-for-later" = "Збереження на потім...";
 "status-saved-for-later" = "Збережено на потім";
 "announcements-dismiss" = "Ні, дякую";
-"places-search-top-articles" = "Топ-статті";
+"places-search-top-articles" = "Всі найбільш читані статті";
+// Fuzzy
 "places-search-this-area" = "Пошук у цій ділянці";
-"places-search-saved-articles" = "Збережені статті";
+"places-search-saved-articles" = "Всі збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
 "places-search-recently-searched-header" = "Недавні пошукові запити";
 "places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";
@@ -525,6 +529,12 @@
 "places-accessibility-recenter-map-on-user-location" = "Відцентрувати на Вашому місці розташування";
 "places-accessibility-close-search" = "Закрити пошук";
 "places-accessibility-clear-recent-searches" = "Очистити останню історію пошуку";
+// Fuzzy
+"places-filter-top-articles" = "Топ-статті";
+"places-filter-top-articles-count" = "$1 статей";
+"places-filter-saved-articles" = "Збережені статті";
+"places-filter-saved-articles-count" = "$1 місць знайдено";
+"places-empty-search-title" = "Шукати статті вікіпедії з місцем розташування";
 "action-share" = "Поділитися";
 "action-save" = "Зберегти";
 "action-read" = "Читати";

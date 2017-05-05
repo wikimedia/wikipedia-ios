@@ -358,8 +358,11 @@
 "status-saving-for-later" = "Enregistrament per mai tard…";
 "status-saved-for-later" = "Enregistrat per mai tard";
 "announcements-dismiss" = "Non mercé";
+// Fuzzy
 "places-search-top-articles" = "Melhors articles";
+// Fuzzy
 "places-search-this-area" = "Recercar dins aquesta zòna";
+// Fuzzy
 "places-search-saved-articles" = "Articles enregistrats";
 "places-search-suggested-searches-header" = "Recèrcas suggeridas";
 "places-search-recently-searched-header" = "Recercat recentament";
