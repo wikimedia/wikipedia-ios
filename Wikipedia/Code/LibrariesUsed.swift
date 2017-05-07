@@ -63,7 +63,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         guard
             let plistPath = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: "."))
         else {
-            assertionFailure("Could not get path to '\(fileName)' resource.")
+            assertionFailure("Could find '\(fileName)' resource.")
             return
         }
         libraries = librariesUsed(from: plistPath)
