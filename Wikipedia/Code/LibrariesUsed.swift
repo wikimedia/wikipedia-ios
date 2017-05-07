@@ -1,7 +1,4 @@
 
-let librariesUsedStoryboardName = "LibrariesUsed"
-let librariesUsedDataFileName = "LibrariesUsed.plist"
-
 public struct LibraryUsed {
     let title:String
     let licenseName:String
@@ -12,12 +9,15 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     var libraries:[LibraryUsed] = []
     @IBOutlet weak var tableView: UITableView!
     
-    static let cellReuseIdentifier = "org.wikimedia.libraries.used.cell"
+    public static let storyboardName = "LibrariesUsed"
     
-    static let plistLibrariesUsedKey = "LibrariesUsed"
-    static let plistTitleKey = "Title"
-    static let plistLicenseNameKey = "LicenseName"
-    static let plistLicenseTextKey = "LicenseText"
+    private static let cellReuseIdentifier = "org.wikimedia.libraries.used.cell"
+    private static let dataFileName = "LibrariesUsed.plist"
+    
+    private static let plistLibrariesUsedKey = "LibrariesUsed"
+    private static let plistTitleKey = "Title"
+    private static let plistLicenseNameKey = "LicenseName"
+    private static let plistLicenseTextKey = "LicenseText"
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -59,8 +59,9 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         
         title = WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.")
         
+        let fileName = LibrariesUsedViewController.dataFileName
         guard
-            let path = Bundle.main.path(forResource: librariesUsedDataFileName.wmf_substring(before: "."), ofType: librariesUsedDataFileName.wmf_substring(after: ".")),
+            let path = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: ".")),
             let dict = NSDictionary(contentsOfFile: path) as? [String: Any],
             let all = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
         else {
@@ -98,7 +99,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(librariesUsedStoryboardName)
+        let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(LibrariesUsedViewController.storyboardName)
         let library = self.libraries[indexPath.row];
         libraryVC.library = library
         libraryVC.title = library.title
@@ -108,7 +109,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
 
 class LibraryUsedViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
-    var library: LibraryUsed?
+    public var library: LibraryUsed?
     
     override func viewDidLoad() {
         super.viewDidLoad()
