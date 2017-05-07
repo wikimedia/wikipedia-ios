@@ -68,18 +68,22 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             let path = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: ".")),
             let dict = NSDictionary(contentsOfFile: path) as? [String: Any],
             let all = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
-            else {
-                assertionFailure("Required items not found in plist for one or more libraries")
-                return
+        else {
+            assertionFailure("\n\nCould not find or open '\(LibrariesUsedViewController.dataFileName)' or unexpected items found in its '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array.\n\n")
+            return
         }
         
         libraries = all
-            .map {library -> LibraryUsed in
-                var title = library[LibrariesUsedViewController.plistTitleKey] as! String
-                title = title.wmf_stringByCapitalizingFirstCharacter()
-                let licenseName = library[LibrariesUsedViewController.plistLicenseNameKey] as! String
-                let licenseText = library[LibrariesUsedViewController.plistLicenseTextKey] as! String
-                return LibraryUsed.init(title: title, licenseName: licenseName, licenseText: licenseText)
+            .flatMap {library -> LibraryUsed? in
+                guard
+                    let title = library[LibrariesUsedViewController.plistTitleKey] as? String,
+                    let licenseName = library[LibrariesUsedViewController.plistLicenseNameKey] as? String,
+                    let licenseText = library[LibrariesUsedViewController.plistLicenseTextKey] as? String
+                else {
+                    assertionFailure("\n\nOne of the following required keys not found in '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array in '\(LibrariesUsedViewController.dataFileName)': '\(LibrariesUsedViewController.plistTitleKey)', '\(LibrariesUsedViewController.plistLicenseNameKey)', '\(LibrariesUsedViewController.plistLicenseTextKey)'\n\n")
+                    return nil
+                }
+                return LibraryUsed.init(title: title.wmf_stringByCapitalizingFirstCharacter(), licenseName: licenseName, licenseText: licenseText)
             }
             .sorted(by: {
                 $0.title < $1.title
