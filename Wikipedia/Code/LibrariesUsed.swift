@@ -59,14 +59,18 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         
         title = WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.")
         
+        loadLibraries()
+    }
+    
+    private func loadLibraries() {
         let fileName = LibrariesUsedViewController.dataFileName
         guard
             let path = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: ".")),
             let dict = NSDictionary(contentsOfFile: path) as? [String: Any],
             let all = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
-        else {
-            assertionFailure("Required items not found in plist for one or more libraries")
-            return
+            else {
+                assertionFailure("Required items not found in plist for one or more libraries")
+                return
         }
         
         libraries = all
