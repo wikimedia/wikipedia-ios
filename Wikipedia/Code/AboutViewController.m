@@ -11,11 +11,6 @@
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
 
-static NSString *const kWMFPodsPlistName = @"Pods-Foundation-Wikipedia-acknowledgements";
-static NSString *const kWMFPodsLibraryArray = @"PreferenceSpecifiers";
-static NSString *const kWMFPodsLibraryNameKey = @"Title";
-static NSString *const kWMFPodsLibraryLicenseKey = @"FooterText";
-
 static NSString *const kWMFURLsKey = @"urls";
 static NSString *const kWMFURLsFeedbackKey = @"feedback";
 static NSString *const kWMFURLsTranslateWikiKey = @"twn";
