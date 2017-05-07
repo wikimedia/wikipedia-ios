@@ -59,21 +59,25 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         
         title = WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.")
         
-        loadLibraries()
-    }
-    
-    private func loadLibraries() {
         let fileName = LibrariesUsedViewController.dataFileName
         guard
-            let path = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: ".")),
-            let dict = NSDictionary(contentsOfFile: path) as? [String: Any],
-            let all = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
+            let plistPath = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: "."))
         else {
-            assertionFailure("\n\nCould not find or open '\(LibrariesUsedViewController.dataFileName)' or unexpected items found in its '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array.\n\n")
+            assertionFailure("Could not get path to '\(fileName)' resource.")
             return
         }
-        
-        libraries = all
+        libraries = librariesUsed(from: plistPath)
+    }
+    
+    private func librariesUsed(from plistPath: String) -> [LibraryUsed] {
+        guard
+            let dict = NSDictionary(contentsOfFile: plistPath) as? [String: Any],
+            let librariesUsedDataArray = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
+        else {
+            assertionFailure("\n\nUnexpected items found in '\(plistPath)' or its '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array.\n\n")
+            return []
+        }
+        return librariesUsedDataArray
             .flatMap {library -> LibraryUsed? in
                 guard
                     let title = library[LibrariesUsedViewController.plistTitleKey] as? String,
