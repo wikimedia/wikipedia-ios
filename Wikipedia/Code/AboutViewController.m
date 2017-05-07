@@ -229,11 +229,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     if ([[self class] isLicenseURL:requestURL]) {
 
-        NSString *acknowledgementsPath = [[NSBundle mainBundle] pathForResource:@"Acknowledgements" ofType:@"plist"];
-
-        VTAcknowledgementsViewController *vc = [[VTAcknowledgementsViewController alloc] initWithPath:acknowledgementsPath];
-        vc.headerText = [NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"about-libraries-licenses-title", nil, nil, @"We love open source software %1$@", @"Title for list of library licenses. %1$@ will be replaced with an emoji expressing our love for open source software"), @"💖"];
-
+        LibrariesUsedViewController *vc = [LibrariesUsedViewController wmf_viewControllerFromStoryboardNamed:@"LibrariesUsed"];
+        vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+        
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 
