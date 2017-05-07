@@ -6,7 +6,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
-#import "VTAcknowledgementsViewController.h"
 #import <Masonry/Masonry.h>
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
