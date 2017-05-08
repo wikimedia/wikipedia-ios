@@ -265,7 +265,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable NSURL *)contentURLForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    if ([section contentType] == WMFContentTypeTopReadPreview) {
+    if ([section displayType] == WMFFeedDisplayTypeRelatedPages) {
+        if (indexPath.item == 0) {
+            return section.articleURL;
+        } else {
+            NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
+            NSInteger index = indexPath.item - 1;
+            if (index >= [content count]) {
+                return nil;
+            }
+            return content[index];
+        }
+        
+    } else if ([section contentType] == WMFContentTypeTopReadPreview) {
 
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
 
@@ -679,7 +691,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (NSInteger)numberOfItemsInContentGroup:(WMFContentGroup *)contentGroup {
     NSParameterAssert(contentGroup);
     NSArray *feedContent = contentGroup.content;
-    return MIN([feedContent count], [contentGroup maxNumberOfCells]);
+    NSInteger countOfFeedContent = feedContent.count;
+    switch (contentGroup.displayType) {
+        case WMFFeedDisplayTypeRelatedPages:
+            return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]) + 1;
+            break;
+        default:
+            return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]);
+            break;
+    }
+    
 }
 
 - (void)updateSectionCounts {
@@ -720,6 +741,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self configureListCell:cell withArticle:article atIndexPath:indexPath];
             return cell;
         } break;
+        case WMFFeedDisplayTypeRelatedPages:
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticlePreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configurePreviewCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
@@ -776,6 +798,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePage: {
             estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
+        case WMFFeedDisplayTypeRelatedPages:
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             NSString *key = article.key;
@@ -1127,6 +1150,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
+    [self registerNib:[ArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[ArticleCollectionViewCell wmf_nibName]];
+    
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
     [self registerNib:[WMFArticlePreviewCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName]];

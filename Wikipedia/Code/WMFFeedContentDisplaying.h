@@ -9,7 +9,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
-    WMFFeedDisplayTypeAnnouncement
+    WMFFeedDisplayTypeAnnouncement,
+    WMFFeedDisplayTypeRelatedPages
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
