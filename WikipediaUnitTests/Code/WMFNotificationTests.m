@@ -4,7 +4,6 @@
 #import <Nocilla/LSNocilla.h>
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
-#import "NSUserDefaults+WMFReset.h"
 
 @interface WMFNotificationTests : XCTestCase
 
@@ -24,7 +23,7 @@
 - (void)setUp {
     [super setUp];
 
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [NSUserDefaults wmf_resetUserDefaults];
 
     self.dataStore = [MWKDataStore temporaryDataStore];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];

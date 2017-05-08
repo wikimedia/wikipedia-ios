@@ -16,4 +16,5 @@ NSString *const WMFApplicationGroupIdentifier = @QUOTE(WMF_APP_GROUP_IDENTIFIER)
     return [[self wmf_containerURL] path];
 }
 
+
 @end

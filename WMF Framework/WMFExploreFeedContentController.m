@@ -324,29 +324,34 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
     [moc performBlock:^{
         NSFetchRequest *request = [WMFContentGroup fetchRequest];
         NSInteger count = [moc countForFetchRequest:request error:nil];
-        request.fetchLimit = (NSUInteger) arc4random_uniform((uint32_t)count);
+        request.fetchLimit = (NSUInteger) arc4random_uniform((uint32_t)3);
         request.fetchOffset = (NSUInteger) arc4random_uniform((uint32_t)(count - request.fetchLimit));
         NSArray *results = [moc executeFetchRequest:request error:nil];
+        NSDate *now = [NSDate date];
         for (WMFContentGroup *group in results) {
             uint32_t seed = arc4random_uniform(5);
-            int32_t random = (15 - (int32_t)arc4random_uniform(30));
+            NSTimeInterval timeInterval = [now timeIntervalSinceDate:group.date];
+            NSTimeInterval adjustment = (timeInterval - 2*arc4random_uniform((uint32_t)timeInterval));
+            NSTimeInterval originalDelta = [group.contentMidnightUTCDate timeIntervalSinceDate:group.midnightUTCDate];
             switch (seed) {
                 case 0:
-                    group.dailySortPriority = group.dailySortPriority + random;
-                    break;
                 case 1:
-                    group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400*random];
-                    group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
-                    group.date = [group.date dateByAddingTimeInterval:86400*random];
+                {
+                    group.date = [group.date dateByAddingTimeInterval:adjustment];
+                    group.midnightUTCDate = [group.date wmf_midnightUTCDateFromLocalDate];
+                    group.contentMidnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:originalDelta];
+
+                }
                     break;
                 case 2:
                     [moc deleteObject:group];
                 default:
                 {
-                    [moc createGroupOfKind:group.contentGroupKind forDate:[group.date dateByAddingTimeInterval:86400*random] withSiteURL:group.siteURL associatedContent:group.content customizationBlock:^(WMFContentGroup * _Nonnull newGroup) {
+                    [moc createGroupOfKind:group.contentGroupKind forDate:[group.date dateByAddingTimeInterval:adjustment] withSiteURL:group.siteURL associatedContent:group.content customizationBlock:^(WMFContentGroup * _Nonnull newGroup) {
+                        newGroup.articleURLString = group.articleURLString;
                         newGroup.location = group.location;
                         newGroup.placemark = group.placemark;
-                        newGroup.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
+                        newGroup.contentMidnightUTCDate = [newGroup.midnightUTCDate dateByAddingTimeInterval:originalDelta];
                     }];
                 }
                     break;

@@ -27,6 +27,27 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - Defaults
 
 + (void)load {
+    NSArray<NSString *> *arguments = [[NSProcessInfo processInfo] arguments];
+    NSString *appResetArgument = @"-WMFAppReset";
+    if ([arguments containsObject:appResetArgument]) {
+        NSURL *containerURL = [[NSFileManager defaultManager] wmf_containerURL];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSDirectoryEnumerator<NSURL *> *enumerator = [fm enumeratorAtURL:containerURL
+                                              includingPropertiesForKeys:nil
+                                                                 options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                            errorHandler:^BOOL(NSURL *_Nonnull url, NSError *_Nonnull error) {
+                                                                return YES;
+                                                            }];
+        for (NSURL *fileURL in enumerator) {
+            if ([fileURL.lastPathComponent hasPrefix:@"."]) {
+                continue;
+            }
+            [fm removeItemAtURL:fileURL error:nil];
+        }
+
+        [NSUserDefaults wmf_resetUserDefaults];
+    }
+
     /**
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
@@ -74,6 +95,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
+
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);

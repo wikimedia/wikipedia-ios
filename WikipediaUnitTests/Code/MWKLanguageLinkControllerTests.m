@@ -4,7 +4,6 @@
 #import "MWKLanguageLink.h"
 #import <OCHamcrest/OCHamcrest.h>
 #import "NSString+WMFExtras.h"
-#import "NSUserDefaults+WMFReset.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
 @property (strong, nonatomic) MWKLanguageLinkController *controller;
@@ -18,7 +17,7 @@
     [super setUp];
 
     // force language link controller to grab device language, not previous values set by another test
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [NSUserDefaults wmf_resetUserDefaults];
 
     NSAssert([[NSLocale preferredLanguages] containsObject:@"en-US"] || [[NSLocale preferredLanguages] containsObject:@"en"],
              @"For simplicity these tests assume the simulator has 'English' has one of its preferred languages."
