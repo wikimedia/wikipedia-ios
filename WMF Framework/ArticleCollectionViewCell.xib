@@ -13,42 +13,61 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArticleCollectionViewCell" customModule="Wikipedia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiM-cZ-s1i">
-                        <rect key="frame" x="8" y="8" width="54" height="26.5"/>
+                        <rect key="frame" x="13" y="13" width="266" height="26.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbe-Md-uqA">
-                        <rect key="frame" x="8" y="38.5" width="42" height="20.5"/>
+                        <rect key="frame" x="13" y="43.5" width="266" height="20.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-Be-UUA">
-                        <rect key="frame" x="8" y="63" width="91" height="36"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-Be-UUA" customClass="WMFSaveButton">
+                        <rect key="frame" x="13" y="68" width="266" height="31"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <state key="normal" title="Save for later"/>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3e2-7O-ANY">
+                        <rect key="frame" x="292" y="21" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="Ysy-Ie-YpM"/>
+                            <constraint firstAttribute="height" constant="70" id="rwl-mr-wbb"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="topMargin" id="0Oj-fl-UBj"/>
+                <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="topMargin" constant="5" id="0Oj-fl-UBj"/>
                 <constraint firstItem="KXM-Be-UUA" firstAttribute="leading" secondItem="XiM-cZ-s1i" secondAttribute="leading" id="HPL-oA-5Dv"/>
                 <constraint firstItem="xbe-Md-uqA" firstAttribute="top" secondItem="XiM-cZ-s1i" secondAttribute="bottom" constant="4" id="LpY-7n-wEW"/>
-                <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leadingMargin" id="N6I-1X-qRj"/>
+                <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leadingMargin" constant="5" id="N6I-1X-qRj"/>
+                <constraint firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" constant="96" id="Rs3-hj-rR3"/>
                 <constraint firstItem="xbe-Md-uqA" firstAttribute="leading" secondItem="XiM-cZ-s1i" secondAttribute="leading" id="SQw-tO-Nee"/>
+                <constraint firstItem="KXM-Be-UUA" firstAttribute="trailing" secondItem="xbe-Md-uqA" secondAttribute="trailing" id="WO9-Ez-JaY"/>
+                <constraint firstItem="xbe-Md-uqA" firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" id="Wj2-bT-T7T"/>
                 <constraint firstItem="KXM-Be-UUA" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" constant="4" id="ena-jF-eo7"/>
-                <constraint firstAttribute="bottomMargin" secondItem="KXM-Be-UUA" secondAttribute="bottom" id="mZf-23-RPq"/>
+                <constraint firstAttribute="bottomMargin" secondItem="KXM-Be-UUA" secondAttribute="bottom" constant="5" id="mZf-23-RPq"/>
+                <constraint firstAttribute="trailingMargin" secondItem="3e2-7O-ANY" secondAttribute="trailing" constant="5" id="qFp-hG-kAA"/>
+                <constraint firstItem="3e2-7O-ANY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="21" id="tTO-gM-FGh"/>
             </constraints>
-            <size key="customSize" width="242" height="67"/>
-            <point key="canvasLocation" x="129.5" y="108.5"/>
+            <size key="customSize" width="242" height="71"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="xbe-Md-uqA" id="MRy-0Z-oqs"/>
+                <outlet property="imageView" destination="3e2-7O-ANY" id="GJN-5H-ykW"/>
+                <outlet property="saveButton" destination="KXM-Be-UUA" id="vhC-1c-kyT"/>
+                <outlet property="textTrailingConstraint" destination="Rs3-hj-rR3" id="eWM-wF-2hP"/>
+                <outlet property="titleLabel" destination="XiM-cZ-s1i" id="kRi-bj-bRl"/>
+            </connections>
+            <point key="canvasLocation" x="129.5" y="110.5"/>
         </collectionViewCell>
     </objects>
 </document>
