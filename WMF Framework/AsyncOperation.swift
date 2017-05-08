@@ -1,5 +1,42 @@
 // via https://github.com/barbaramartina/swift-operation-queues/blob/master/operationqueues/MyAsynchronousOperation.swift
 
+//
+//  This is an implemenation of an asynchronous operation subclass.
+//  BASED ON: ConcurrentOperation.swift: Created by Caleb Davenport on 7/7/14.
+//  The original implementation has been completed with specific links to the documentation in order
+//  to make sure all the guidelines for subclassing an async operation are followed and learn more about
+//  how it should be correctly implemented, as well as having links available to help our memory to remember all
+//  the requirements a subclass of NSOperation should fullfit when it runs asynchronously.
+//
+//  From Apple Docs:
+//  If you are creating a concurrent operation, you need to override the following methods and properties at a minimum:
+//  * start
+//  * asynchronous
+//  * executing
+//  * finished
+//
+//  https://developer.apple.com/library/mac/documentation/Cocoa/Reference/NSOperation_class/#//apple_ref/occ/instp/NSOperation/ready
+//
+//  Notes from Apple Docs:
+//  When you call the start method of an asynchronous operation, that method may return before the corresponding task is completed. An asynchronous operation object is responsible for scheduling its task on a separate thread. The operation could do that by starting a new thread directly, by calling an asynchronous method, or by submitting a block to a dispatch queue for execution. It does not actually matter if the operation is ongoing when control returns to the caller, only that it could be ongoing.
+//
+//  When you add an operation to an operation queue, the queue ignores the value of the asynchronous property and always calls the start method from a separate thread. Therefore, if you always run operations by adding them to an operation queue, there is no reason to make them asynchronous.
+//
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
     enum State {
         case ready, executing, finished
