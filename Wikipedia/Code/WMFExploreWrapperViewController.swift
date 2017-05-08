@@ -4,6 +4,8 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
     
     @IBOutlet weak var extendedNavBarView: UIView!
     
+    @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
+    
     public var userStore: MWKDataStore? {
         didSet {
             configureExploreViewController()
@@ -70,8 +72,44 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
     }
 
     func exploreViewDidScroll(_ scrollView: UIScrollView) {
+        DDLogDebug("scrolled! \(scrollView.contentOffset)")
         
-        DDLogDebug("scrolled!")
-    }
+        let h = extendedNavBarView.frame.size.height
+        let offset = abs(extendNavBarViewTopSpaceConstraint.constant)
+        let scrollY = scrollView.contentOffset.y
+        
+        // no change in scrollY
+        if (scrollY == 0) {
+            DDLogDebug("no change in scroll")
+            return
+        }
 
+        // pulling down when nav bar is already extended
+        if (offset == 0 && scrollY < 0) {
+            DDLogDebug("  bar already extended")
+            return
+        }
+        
+        // pulling up when navbar isn't fully collapsed
+        if (offset == h && scrollY > 0) {
+            DDLogDebug("  bar already collapsed")
+            return
+        }
+        
+        let newOffset: CGFloat
+        
+        // pulling down when nav bar is partially hidden
+        if (scrollY < 0) {
+            newOffset = max(offset - abs(scrollY), 0)
+            DDLogDebug("  showing bar newOffset:\(newOffset)")
+
+        // pulling up when navbar isn't fully collapsed
+        } else {
+            newOffset = min(offset + abs(scrollY), h)
+            DDLogDebug("  hiding bar newOffset:\(newOffset)")
+        }
+
+        extendNavBarViewTopSpaceConstraint.constant = -newOffset
+        scrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
 }

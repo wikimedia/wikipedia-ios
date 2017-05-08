@@ -58,6 +58,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="bvZ-8Y-hFE"/>
                     <connections>
+                        <outlet property="extendNavBarViewTopSpaceConstraint" destination="q6P-Yl-10b" id="Ufm-fZ-mqQ"/>
                         <outlet property="extendedNavBarView" destination="Nai-Yt-sU6" id="U0J-9q-kCQ"/>
                     </connections>
                 </viewController>
