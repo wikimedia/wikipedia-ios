@@ -2,6 +2,8 @@ import UIKit
 
 class WMFExploreWrapperViewController: UIViewController {
     
+    @IBOutlet weak var extendedNavBarView: UIView!
+    
     public var userStore: MWKDataStore? {
         didSet {
             configureExploreViewController()
@@ -41,5 +43,10 @@ class WMFExploreWrapperViewController: UIViewController {
         }
         
         exploreViewController = vc
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.wmf_addBottomShadow(view: extendedNavBarView)
+        self.wmf_updateNavigationBar(removeUnderline: true)
     }
 }
