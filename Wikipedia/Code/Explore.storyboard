@@ -31,7 +31,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
