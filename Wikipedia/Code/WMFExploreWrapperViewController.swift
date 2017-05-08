@@ -20,11 +20,12 @@ class WMFExploreWrapperViewController: UIViewController {
          super.init(coder: aDecoder)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
+        
+        self.wmf_addBottomShadow(view: extendedNavBarView)
     }
     
     fileprivate func configureExploreViewController() {
@@ -48,7 +49,6 @@ class WMFExploreWrapperViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.wmf_addBottomShadow(view: extendedNavBarView)
         self.wmf_updateNavigationBar(removeUnderline: true)
     }
 }

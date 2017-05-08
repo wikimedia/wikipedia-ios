@@ -6,6 +6,13 @@ extension UIViewController {
     public func wmf_addBottomShadow(view: UIView) {
         // Setup extended navigation bar
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
+  
+        guard let bgColor = view.backgroundColor else {
+            assertionFailure("Could not get background color of view")
+            return
+        }
+        assert(bgColor != UIColor.clear, "Background color must not be clear")
+        
         view.shadowOffset = CGSize(width: 0, height: CGFloat(1) / UIScreen.main.scale)
         view.shadowRadius = 0
         view.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

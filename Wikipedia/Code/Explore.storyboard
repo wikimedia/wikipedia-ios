@@ -36,6 +36,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="vQH-78-FaV" secondAttribute="bottom" id="BOV-8a-KMc"/>
                                     <constraint firstAttribute="trailing" secondItem="vQH-78-FaV" secondAttribute="trailing" id="I1q-zB-maA"/>
@@ -52,7 +53,6 @@
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="width" secondItem="k2o-HG-1ae" secondAttribute="width" id="JNh-W6-EUk"/>
                             <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="QxO-vs-KGH"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="leading" secondItem="MHl-WZ-awY" secondAttribute="leading" id="bO8-9O-U7T"/>
-                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="pu7-jC-7hm"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="topMargin" id="q6P-Yl-10b"/>
                         </constraints>
                     </view>
