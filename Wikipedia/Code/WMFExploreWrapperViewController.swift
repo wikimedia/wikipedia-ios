@@ -1,6 +1,6 @@
 import UIKit
 
-class WMFExploreWrapperViewController: UIViewController {
+class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControllerDelegate {
     
     @IBOutlet weak var extendedNavBarView: UIView!
     
@@ -31,9 +31,12 @@ class WMFExploreWrapperViewController: UIViewController {
     
     fileprivate func configureExploreViewController() {
         guard let vc = self.exploreViewController, let userStore = self.userStore else {
+            //assertionFailure("Could not set user store") // TODO: not sure if we want this
             return
         }
         vc.userStore = userStore
+        
+        vc.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,6 +67,11 @@ class WMFExploreWrapperViewController: UIViewController {
     public func showSettings() {
         let settingsContainer = UINavigationController(rootViewController: WMFSettingsViewController.init(dataStore: self.userStore))
         present(settingsContainer, animated: true, completion: nil)
+    }
+
+    func exploreViewDidScroll(_ scrollView: UIScrollView) {
+        
+        DDLogDebug("scrolled!")
     }
 
 }

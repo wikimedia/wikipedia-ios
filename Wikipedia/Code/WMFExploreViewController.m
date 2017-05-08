@@ -1700,6 +1700,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.delegate) {
+        [self.delegate exploreViewDidScroll:scrollView];
+    }
+    
     if (self.isLoadingOlderContent) {
         return;
     }

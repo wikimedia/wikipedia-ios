@@ -8,9 +8,19 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol WMFExploreViewControllerDelegate<NSObject>
+
+- (void)exploreViewDidScroll:(UIScrollView *)scrollView;
+
+@end
+
+
 @interface WMFExploreViewController : UICollectionViewController <WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding>
 
 @property (nonatomic, strong) MWKDataStore *userStore;
+
+@property (nonatomic, weak) id<WMFExploreViewControllerDelegate> delegate;
 
 @property (nonatomic, assign) BOOL canScrollToTop;
 
