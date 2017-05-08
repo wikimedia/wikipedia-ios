@@ -23,8 +23,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
-                                <rect key="frame" x="0.0" y="20" width="320" height="1297"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNC-SX-Sli">
+                                <rect key="frame" x="0.0" y="68" width="320" height="363"/>
                                 <connections>
                                     <outlet property="delegate" destination="pK5-Ai-Kzp" id="paj-rR-O2P"/>
                                 </connections>
@@ -581,7 +581,7 @@
                     </connections>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1517.0914542728638" y="-168.80000000000001"/>
+            <point key="canvasLocation" x="1516.875" y="-170"/>
         </scene>
         <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
