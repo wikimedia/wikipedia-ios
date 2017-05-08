@@ -23,6 +23,8 @@ class WMFExploreWrapperViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
     }
     
     fileprivate func configureExploreViewController() {
