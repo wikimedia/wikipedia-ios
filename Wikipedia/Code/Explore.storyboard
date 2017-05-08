@@ -30,19 +30,27 @@
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="vQH-78-FaV" secondAttribute="bottom" id="BOV-8a-KMc"/>
+                                    <constraint firstAttribute="trailing" secondItem="vQH-78-FaV" secondAttribute="trailing" id="I1q-zB-maA"/>
+                                    <constraint firstItem="vQH-78-FaV" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="top" id="o5c-Cu-MuW"/>
                                     <constraint firstAttribute="height" constant="44" id="qkK-r4-n2U"/>
+                                    <constraint firstItem="vQH-78-FaV" firstAttribute="leading" secondItem="Nai-Yt-sU6" secondAttribute="leading" id="t8q-U9-LBl"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.20536059139240559" blue="0.96722667635254644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="0MW-Y4-Jhn"/>
-                            <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="BUh-aw-NBb"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="centerX" secondItem="k2o-HG-1ae" secondAttribute="centerX" id="GJZ-PR-uek"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="trailing" secondItem="MHl-WZ-awY" secondAttribute="trailing" id="J0d-lE-0Nd"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="width" secondItem="k2o-HG-1ae" secondAttribute="width" id="JNh-W6-EUk"/>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="QxO-vs-KGH"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="leading" secondItem="MHl-WZ-awY" secondAttribute="leading" id="bO8-9O-U7T"/>
                             <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="pu7-jC-7hm"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="topMargin" id="q6P-Yl-10b"/>
