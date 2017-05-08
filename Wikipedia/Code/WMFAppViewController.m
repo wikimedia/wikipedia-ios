@@ -209,7 +209,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)configureExploreViewController {
-    // qqq [self.exploreViewController setUserStore:self.dataStore];
+    [self.exploreViewController setUserStore:self.dataStore];
 }
 
 - (void)configurePlacesViewController {

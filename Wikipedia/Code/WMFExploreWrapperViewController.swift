@@ -2,29 +2,33 @@ import UIKit
 
 class WMFExploreWrapperViewController: UIViewController {
     
-//    @IBOutlet weak var exploreViewController: WMFExploreViewController!
+    public var userStore: MWKDataStore? {
+        didSet {
+            configureExploreViewController()
+        }
+    }
     
-    private var exploreViewController: WMFExploreViewController?
-    
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-    
+    private var exploreViewController: WMFExploreViewController? {
+        didSet {
+            configureExploreViewController()
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
          super.init(coder: aDecoder)
-        
-       // exploreViewController = nil
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
     }
     
+    fileprivate func configureExploreViewController() {
+        guard let vc = self.exploreViewController, let userStore = self.userStore else {
+            return
+        }
+        vc.userStore = userStore
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier,
@@ -38,5 +42,4 @@ class WMFExploreWrapperViewController: UIViewController {
         
         exploreViewController = vc
     }
-    
 }
