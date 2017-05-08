@@ -139,42 +139,42 @@ class LibraryUsedViewController: UIViewController {
         textView.setContentOffset(.zero, animated: false)
     }
     
-    private var newlineBoundedWhitespaceRegex: NSRegularExpression? = {
+    private var newlineOptionalWhitespaceNewlineRegex: NSRegularExpression? = {
         do {
-            return try NSRegularExpression(pattern: "\n\\s*\n", options:.caseInsensitive)
+            return try NSRegularExpression(pattern: "\\R\\s*\\R", options: [])
         } catch {
-            assertionFailure("newlineBoundedWhitespaceRegex regex failed to compile")
+            assertionFailure("regex failed to compile")
         }
         return nil
     }()
 
-    private var whitespaceRegex: NSRegularExpression? = {
+    private var oneOrMoreWhitespaceCharactersRegex: NSRegularExpression? = {
         do {
-            return try NSRegularExpression(pattern: "\\s+", options:.caseInsensitive)
+            return try NSRegularExpression(pattern: "\\s+", options: [])
         } catch {
-            assertionFailure("whitespaceRegex regex failed to compile")
+            assertionFailure("regex failed to compile")
         }
         return nil
     }()
     
-    // Minimal cleanups on license copy. 
+    // Minimal cleanups on license text.
     //  - consecutive line breaks reduce to 2 line breaks
-    //  - non-consecutive line breaks converted to spaces (like in HTML)
+    //  - non-consecutive line breaks converted to spaces (similar to HTML)
     // Imperfect but *vast* improvement in readability especially with line wrapping.
     private func normalizeWhitespaceForBetterReadability(from licenseString: String) -> String {
         guard
-            let multiNewlineRegex = newlineBoundedWhitespaceRegex,
-            let whitespaceRegex = whitespaceRegex
+            let multiNewlineRegex = newlineOptionalWhitespaceNewlineRegex,
+            let whitespaceRegex = oneOrMoreWhitespaceCharactersRegex
         else {
-            assertionFailure("Regex's didn't compile!")
+            assertionFailure("regex(s) failed to compile")
             return licenseString
         }
         var string = licenseString
-        let breaksPlaceholder = "#breaks_placeholder#"
-        string = multiNewlineRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: breaksPlaceholder)
-        string = string.replacingOccurrences(of: "\n", with: " ")
+        let placeholder = "#temporary_placeholder#"
+        string = multiNewlineRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: placeholder)
+        string = string.components(separatedBy: .newlines).joined(separator: " ")
         string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
-        string = string.replacingOccurrences(of: breaksPlaceholder, with: "\n\n")
+        string = string.replacingOccurrences(of: placeholder, with: "\n\n")
         return string
     }
 }
