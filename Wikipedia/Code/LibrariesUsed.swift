@@ -55,6 +55,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableHeaderView = tableHeaderView
+        tableView.semanticContentAttribute = .forceLeftToRight
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target:nil, action:nil)
         
         title = WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.")
@@ -104,6 +105,9 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LibrariesUsedViewController.cellReuseIdentifier, for: indexPath)
+        cell.contentView.semanticContentAttribute = .forceLeftToRight
+        cell.textLabel?.semanticContentAttribute = .forceLeftToRight
+        cell.textLabel?.textAlignment = .left
         let library:LibraryUsed = self.libraries[indexPath.row];
         cell.textLabel?.text = library.title
         return cell
