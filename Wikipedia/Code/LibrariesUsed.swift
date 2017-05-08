@@ -28,7 +28,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     }
     
-    lazy private var tableHeaderView: UIView! = {
+    lazy private var tableHeaderView: UIView = {
         let headerFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 56)
         let headerView = UIView.init(frame: headerFrame)
         let labelFrame = headerView.frame.insetBy(dx: 10, dy: 10)
