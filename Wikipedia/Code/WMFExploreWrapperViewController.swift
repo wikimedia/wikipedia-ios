@@ -27,6 +27,7 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
 
         self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
+        //self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
     }
@@ -110,6 +111,13 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
         }
 
         extendNavBarViewTopSpaceConstraint.constant = -newOffset
+        
+        if (newOffset == h) {
+            self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
+        } else if (newOffset == 0) {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
 }

@@ -53,6 +53,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
+#import "UIViewController+WMFSearch.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
