@@ -131,7 +131,7 @@ class LibraryUsedViewController: UIViewController {
         super.viewDidLoad()
         textView.textContainerInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         guard let licenseText = library?.licenseText else { return }
-        textView.text = clean(licenseString: licenseText)
+        textView.text = normalizeWhitespaceForBetterReadability(from: licenseText)
     }
 
     override func viewDidLayoutSubviews() {
@@ -139,17 +139,41 @@ class LibraryUsedViewController: UIViewController {
         textView.setContentOffset(.zero, animated: false)
     }
     
-    // Minimal cleanups on license copy.
+    private var newlineBoundedWhitespaceRegex: NSRegularExpression? = {
+        do {
+            return try NSRegularExpression(pattern: "\n\\s*\n", options:.caseInsensitive)
+        } catch {
+            assertionFailure("newlineBoundedWhitespaceRegex regex failed to compile")
+        }
+        return nil
+    }()
+
+    private var whitespaceRegex: NSRegularExpression? = {
+        do {
+            return try NSRegularExpression(pattern: "\\s+", options:.caseInsensitive)
+        } catch {
+            assertionFailure("whitespaceRegex regex failed to compile")
+        }
+        return nil
+    }()
+    
+    // Minimal cleanups on license copy. 
     //  - consecutive line breaks reduce to 2 line breaks
-    //  - non-consecutive line breaks converted to spaces
-    private func clean(licenseString: String) -> String {
+    //  - non-consecutive line breaks converted to spaces (like in HTML)
+    // Imperfect but *vast* improvement in readability especially with line wrapping.
+    private func normalizeWhitespaceForBetterReadability(from licenseString: String) -> String {
+        guard
+            let multiNewlineRegex = newlineBoundedWhitespaceRegex,
+            let whitespaceRegex = whitespaceRegex
+        else {
+            assertionFailure("Regex's didn't compile!")
+            return licenseString
+        }
         var string = licenseString
         let breaksPlaceholder = "#breaks_placeholder#"
-        let regex1 = try! NSRegularExpression(pattern: "\n\\s*\n", options:.caseInsensitive)
-        string = regex1.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: breaksPlaceholder)
+        string = multiNewlineRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: breaksPlaceholder)
         string = string.replacingOccurrences(of: "\n", with: " ")
-        let regex2 = try! NSRegularExpression(pattern: "\\s+", options:.caseInsensitive)
-        string = regex2.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
+        string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
         string = string.replacingOccurrences(of: breaksPlaceholder, with: "\n\n")
         return string
     }
