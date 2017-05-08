@@ -132,8 +132,8 @@ extension WKWebView {
         let heading = WMFLocalizedStringWithDefaultValue("article-read-more-title", article.url, Bundle.wmf_localization, "Read more", "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
 
-        let saveForLaterString = WMFLocalizedStringWithDefaultValue("button-save-for-later", article.url, Bundle.wmf_localization, "Save for later", "Longer button text for save button used in various places.").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let savedForLaterString = WMFLocalizedStringWithDefaultValue("button-saved-for-later", article.url, Bundle.wmf_localization, "Saved for later", "Longer button text for already saved button used in various places.").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let saveForLaterString = SaveButton.saveTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let savedForLaterString = SaveButton.savedTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
 
         let tapHandler =
             "function(href){" +
