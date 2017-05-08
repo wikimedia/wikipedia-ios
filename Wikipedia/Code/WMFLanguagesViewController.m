@@ -45,7 +45,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = MWLocalizedString(@"article-languages-label", nil);
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"article-languages-label", nil, nil, @"Choose language", @"Header label for per-article language selector screen.\n{{Identical|Choose language}}");
     languagesVC.editing = NO;
     return languagesVC;
 }
@@ -54,7 +54,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = MWLocalizedString(@"settings-my-languages", nil);
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
     languagesVC.editing = NO;
     languagesVC.showPreferredLanguages = NO;
 
@@ -103,7 +103,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
     }
     self.languageFilterField.barTintColor = [UIColor wmf_settingsBackground];
-    self.languageFilterField.placeholder = MWLocalizedString(@"article-languages-filter-placeholder", nil);
+    self.languageFilterField.placeholder = WMFLocalizedStringWithDefaultValue(@"article-languages-filter-placeholder", nil, nil, @"Find language", @"Filter languages text box placeholder text.");
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.filterDividerHeightConstraint.constant = 0.5f;
@@ -272,7 +272,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (NSString *)titleForHeaderInSection:(NSInteger)section {
-    NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
+    NSString *title = ([self isPreferredSection:section]) ? WMFLocalizedStringWithDefaultValue(@"article-languages-yours", nil, nil, @"Your languages", @"Title for list of user's preferred languages") : WMFLocalizedStringWithDefaultValue(@"article-languages-others", nil, nil, @"Other languages", @"Title for list of languages not in user's preferred languages");
     return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
@@ -373,7 +373,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = MWLocalizedString(@"settings-my-languages", nil);
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
 
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;
@@ -436,7 +436,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if ([self shouldShowFooterForSection:section]) {
         WMFArticleLanguagesSectionFooter *footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
-        footer.title = MWLocalizedString(@"settings-primary-language-details", nil);
+        footer.title = WMFLocalizedStringWithDefaultValue(@"settings-primary-language-details", nil, nil, @"The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.", @"Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.");
         return footer;
     } else {
         return nil;
@@ -491,7 +491,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     languagesVC.articleURL = url;
     languagesVC.editing = NO;
-    languagesVC.title = MWLocalizedString(@"languages-title", nil);
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-title", nil, nil, @"Change language", @"Title for language picker\n{{Identical|Language}}");
 
     return languagesVC;
 }

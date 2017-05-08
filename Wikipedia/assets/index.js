@@ -2,12 +2,19 @@
 var wmf = {};
 
 wmf.elementLocation = require("./js/elementLocation");
-wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
 wmf.findInPage = require("./js/findInPage");
+wmf.footerReadMore = require("./js/transforms/footerReadMore");
+wmf.footerMenu = require("./js/transforms/footerMenu");
+wmf.footerLegal = require("./js/transforms/footerLegal");
+wmf.filePages = require("./js/transforms/disableFilePageEdit");
+wmf.tables = require("./js/transforms/collapseTables");
+wmf.redlinks = require("./js/transforms/hideRedlinks");
+wmf.paragraphs = require("./js/transforms/relocateFirstParagraph");
+wmf.images = require("./js/transforms/widenImages");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transformer":6,"./js/utilities":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -218,7 +225,6 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
  
     var href = hrefTarget.getAttribute( "href" );
-    var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
         window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
     } else if (href && refs.isCitation(href)) {
@@ -232,7 +238,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
         window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
-    } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
+    } else if (event.target.tagName === "IMG" && event.target.getAttribute( "data-image-gallery" ) === "true") {      
          window.webkit.messageHandlers.imageClicked.postMessage({
                                                           'src': event.target.getAttribute('src'),
                                                           'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -281,7 +287,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./refs":5,"./transforms/collapseTables":7,"./utilities":12}],5:[function(require,module,exports){
+},{"./refs":5,"./transforms/collapseTables":6,"./utilities":15}],5:[function(require,module,exports){
 var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
@@ -350,11 +356,10 @@ function collectRefText( sourceNode ) {
     }
 
     // preferably without the back link
-    var refTexts = targetNode.getElementsByClassName( "reference-text" );
-    if ( refTexts.length > 0 ) {
-        targetNode = refTexts[0];
+    var backlinks = targetNode.getElementsByClassName( "mw-cite-backlink" );    
+    for (var i = 0; i < backlinks.length; i++) {
+        backlinks[i].style.display = 'none';
     }
-
     return targetNode.innerHTML;
 }
 
@@ -429,30 +434,6 @@ exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./elementLocation":2}],6:[function(require,module,exports){
-function Transformer() {
-}
-
-var transforms = {};
-
-Transformer.prototype.register = function( transform, fun ) {
-    if ( transform in transforms ) {
-        transforms[transform].push( fun );
-    } else {
-        transforms[transform] = [ fun ];
-    }
-};
-
-Transformer.prototype.transform = function( transform ) {
-    var functions = transforms[transform];
-    for ( var i = 0; i < functions.length; i++ ) {
-        functions[i](arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9], arguments[10]);
-    }
-};
-
-module.exports = new Transformer();
-
-},{}],7:[function(require,module,exports){
-var transformer = require("../transformer");
 var utilities = require("../utilities");
 
 /*
@@ -531,7 +512,7 @@ function shouldTableBeCollapsed( table ) {
     return true;
 }
 
-transformer.register( "hideTables", function( content , isMainPage, titleInfobox, titleOther, titleClose) {
+function hideTables(content , isMainPage, titleInfobox, titleOther, titleClose) {
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
@@ -609,7 +590,7 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
         collapsedDiv.onclick = tableCollapseClickHandler;
         bottomDiv.onclick = tableCollapseClickHandler;
     }
-} );
+}
 
 exports.openCollapsedTableIfItContainsElement = function(element){
     if(element){
@@ -623,10 +604,11 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":6,"../utilities":12}],8:[function(require,module,exports){
-var transformer = require("../transformer");
+exports.hideTables = hideTables;
 
-transformer.register( "disableFilePageEdit", function( content ) {
+},{"../utilities":15}],7:[function(require,module,exports){
+
+function disableFilePageEdit( content ) {
     var filetoc = content.querySelector( '#filetoc' );
     if (filetoc) {
         // We're on a File: page! Do some quick hacks.
@@ -647,23 +629,344 @@ transformer.register( "disableFilePageEdit", function( content ) {
             } );
         }
     }
-} );
+}
 
-},{"../transformer":6}],9:[function(require,module,exports){
-var transformer = require("../transformer");
+exports.disableFilePageEdit = disableFilePageEdit;
 
-transformer.register( "hideRedlinks", function( content ) {
+},{}],8:[function(require,module,exports){
+
+function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
+  var container = document.getElementById(containerID);
+  var licenseStringHalves = licenseString.split('$1');
+
+
+  container.innerHTML = 
+  `<div class='footer_legal_contents'>
+    <hr class='footer_legal_divider'>
+    <span class='footer_legal_licence'>
+      ${licenseStringHalves[0]}
+      <a class='footer_legal_licence_link'>
+        ${licenseSubstitutionString}
+      </a>
+      ${licenseStringHalves[1]}
+    </span>
+  </div>`;
+
+  container.querySelector('.footer_legal_licence_link')
+           .addEventListener('click', function(){
+             licenceLinkClickHandler();
+           }, false);
+}
+
+exports.add = add;
+
+},{}],9:[function(require,module,exports){
+
+// var thisType = IconTypeEnum.languages;
+// var iconClass = IconTypeEnum.properties[thisType].iconClass; 
+//     iconClass is 'footer_menu_icon_languages'
+var IconTypeEnum = {
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5,
+  properties: {
+    1: {iconClass: "footer_menu_icon_languages"},
+    2: {iconClass: "footer_menu_icon_last_edited"},
+    3: {iconClass: "footer_menu_icon_page_issues"},
+    4: {iconClass: "footer_menu_icon_disambiguation"},
+    5: {iconClass: "footer_menu_icon_coordinate"}
+  }
+};
+
+class WMFMenuItem {
+    constructor(title, subtitle, iconType, clickHandler) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.iconType = iconType;
+        this.clickHandler = clickHandler;
+    }
+}
+
+class WMFMenuItemFragment {
+    constructor(wmfMenuItem) {
+        var item = document.createElement('div');
+        item.className = 'footer_menu_item';
+
+        var containerAnchor = document.createElement('a');
+        containerAnchor.addEventListener('click', function(){
+          wmfMenuItem.clickHandler();
+        }, false);
+                
+        item.appendChild(containerAnchor);
+
+        if(wmfMenuItem.title){
+            var title = document.createElement('div');
+            title.className = 'footer_menu_item_title';
+            title.innerText = wmfMenuItem.title;
+            containerAnchor.appendChild(title);
+        }
+
+        if(wmfMenuItem.subtitle){
+            var subtitle = document.createElement('div');
+            subtitle.className = 'footer_menu_item_subtitle';
+            subtitle.innerText = wmfMenuItem.subtitle;
+            containerAnchor.appendChild(subtitle);
+        }
+
+        if(wmfMenuItem.iconType){
+            var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass; 
+            item.classList.add(iconClass);
+        }
+
+        return document.createDocumentFragment().appendChild(item);
+    }
+}
+
+function addItem(title, subtitle, iconType, containerID, clickHandler) {
+  const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler);
+  const itemFragment = new WMFMenuItemFragment(itemModel);
+  document.getElementById(containerID).appendChild(itemFragment);
+}
+
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
+}
+
+exports.IconTypeEnum = IconTypeEnum;
+exports.setHeading = setHeading;
+exports.addItem = addItem;
+
+},{}],10:[function(require,module,exports){
+
+var _saveButtonClickHandler = null;
+var _clickHandler = null;
+var _titlesShownHandler = null;
+var _saveForLaterString = null;
+var _savedForLaterString = null;
+var _saveButtonIDPrefix = 'readmore:save:';
+var _readMoreContainer = null;
+
+var shownTitles = [];
+
+function safelyRemoveEnclosures(string, opener, closer) {
+  const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g');
+  var previousString = null;
+  var counter = 0;
+  const safeMaxTries = 30;
+  do {
+    previousString = string;
+    string = string.replace(enclosureRegex, '');
+    counter++;
+  } while (previousString !== string && counter < safeMaxTries);
+  return string;
+}
+
+function cleanExtract(string){
+  string = safelyRemoveEnclosures(string, '(', ')');
+  string = safelyRemoveEnclosures(string, '/', '/');
+  return string;
+}
+
+class WMFPage {
+    constructor(title, thumbnail, terms, extract) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.terms = terms;
+        this.extract = extract;
+    }
+}
+
+class WMFPageFragment {
+    constructor(wmfPage, index) {
+      
+        var page = document.createElement('div');
+        page.id = index;
+        page.className = 'footer_readmore_page';        
+      
+        var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;  
+        if(hasImage){
+          var image = document.createElement('div');
+          image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`;
+          image.classList.add('footer_readmore_page_image');
+          page.appendChild(image);
+        }
+        
+        var container = document.createElement('div');
+        container.classList.add('footer_readmore_page_container');
+        page.appendChild(container);
+
+        page.addEventListener('click', function(){
+          _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`);
+        }, false);
+
+        if(wmfPage.title){
+            var title = document.createElement('div');
+            title.id = index;
+            title.className = 'footer_readmore_page_title';
+            title.innerHTML = wmfPage.title.replace(/_/g, ' ');
+            container.appendChild(title);
+        }
+
+        var description = null;
+        if(wmfPage.terms){
+          description = wmfPage.terms.description;
+        }        
+        if((description === null || description.length < 10) && wmfPage.extract){
+          description = cleanExtract(wmfPage.extract);
+        }
+        if(description){
+            var descriptionEl = document.createElement('div');
+            descriptionEl.id = index;
+            descriptionEl.className = 'footer_readmore_page_description';
+            descriptionEl.innerHTML = description;
+            container.appendChild(descriptionEl);
+        }
+
+        var saveButton = document.createElement('div');
+        saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`;
+        saveButton.innerText = 'Save for later';
+        saveButton.className = 'footer_readmore_page_save';
+        saveButton.addEventListener('click', function(event){
+          _saveButtonClickHandler(wmfPage.title);
+          event.stopPropagation();
+          event.preventDefault();
+        }, false);
+        container.appendChild(saveButton);
+
+        return document.createDocumentFragment().appendChild(page);
+    }
+}
+
+function showReadMore(pages){  
+  shownTitles.length = 0;
+  
+  pages.forEach(function(page, index){
+
+    const title = page.title.replace(/ /g, '_');
+    shownTitles.push(title);
+
+    const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
+    const pageFragment = new WMFPageFragment(pageModel, index);
+    _readMoreContainer.appendChild(pageFragment);
+  });
+  
+  _titlesShownHandler(shownTitles);
+}
+
+// Leave 'baseURL' null if you don't need to deal with proxying.
+function fetchReadMore(baseURL, title, showReadMoreHandler) {
+    var xhr = new XMLHttpRequest();
+    if (baseURL === null) {
+      baseURL = '';
+    }
+    
+    const pageCountToFetch = 3;
+    const params = {
+      action: 'query',
+      continue: '',
+      exchars: 256,
+      exintro: 1,
+      exlimit: pageCountToFetch,
+      explaintext: '',
+      format: 'json',
+      generator: 'search',
+      gsrinfo: '',
+      gsrlimit: pageCountToFetch,
+      gsrnamespace: 0,
+      gsroffset: 0,
+      gsrprop: 'redirecttitle',
+      gsrsearch: `morelike:${title}`,
+      gsrwhat: 'text',
+      ns: 'ppprop',
+      pilimit: pageCountToFetch,
+      piprop: 'thumbnail',
+      pithumbsize: 120,
+      prop: 'pageterms|pageimages|pageprops|revisions|extracts',
+      rrvlimit: 1,
+      rvprop: 'ids',
+      wbptterms: 'description',
+      formatversion: 2
+    };
+
+    const paramsString = Object.keys(params)
+      .map(function(key){
+        return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
+      })
+      .join('&');
+    
+    xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true);
+    xhr.onload = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            showReadMoreHandler(JSON.parse(xhr.responseText).query.pages);
+        } else {
+          // console.error(xhr.statusText);
+        }
+      }
+    };
+    /*
+    xhr.onerror = function(e) {
+      console.log(`${e}`);
+      // console.error(xhr.statusText);
+    }
+    */
+    xhr.send(null);
+}
+
+function updateSaveButtonText(button, title, isSaved){
+  button.innerText = isSaved ? _savedForLaterString : _saveForLaterString;
+}
+
+function updateSaveButtonBookmarkIcon(button, title, isSaved){
+  button.classList.remove('footer_readmore_bookmark_unfilled');
+  button.classList.remove('footer_readmore_bookmark_filled');  
+  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled');
+}
+
+function setTitleIsSaved(title, isSaved){
+  const saveButton = document.getElementById(`${_saveButtonIDPrefix}${title}`);
+  updateSaveButtonText(saveButton, title, isSaved);
+  updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
+}
+
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, clickHandler, saveButtonClickHandler, titlesShownHandler) {
+  _readMoreContainer = document.getElementById(containerID);
+  _clickHandler = clickHandler;
+  _saveButtonClickHandler = saveButtonClickHandler;
+  _titlesShownHandler = titlesShownHandler;  
+  _saveForLaterString = saveForLaterString;
+  _savedForLaterString = savedForLaterString;
+  
+  fetchReadMore(baseURL, title, showReadMore);
+}
+
+function setHeading(headingString, headingID) {
+  document.getElementById(headingID).innerText = headingString;
+}
+
+exports.setHeading = setHeading;
+exports.setTitleIsSaved = setTitleIsSaved;
+exports.add = add;
+
+},{}],11:[function(require,module,exports){
+
+function hideRedlinks( content ) {
 	var redLinks = content.querySelectorAll( 'a.new' );
 	for ( var i = 0; i < redLinks.length; i++ ) {
 		var redLink = redLinks[i];
         redLink.style.color = 'inherit';
 	}
-} );
+}
 
-},{"../transformer":6}],10:[function(require,module,exports){
-var transformer = require("../transformer");
+exports.hideRedlinks = hideRedlinks;
 
-transformer.register( "moveFirstGoodParagraphUp", function( content ) {
+},{}],12:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],13:[function(require,module,exports){
+
+function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -739,12 +1042,13 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
     // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
-});
+}
 
-},{"../transformer":6}],11:[function(require,module,exports){
+exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp;
 
-const transformer = require('../transformer');
-const maybeWidenImage = require('applib').WidenImage.maybeWidenImage;
+},{}],14:[function(require,module,exports){
+
+const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage;
 
 const isGalleryImage = function(image) {
   // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
@@ -752,13 +1056,15 @@ const isGalleryImage = function(image) {
   return (image.getAttribute('data-image-gallery') === 'true');    
 };
 
-transformer.register('widenImages', function(content) {
+function widenImages(content) {
   Array.from(content.querySelectorAll('img'))
     .filter(isGalleryImage)
     .forEach(maybeWidenImage);
-});
+}
 
-},{"../transformer":6,"applib":13}],12:[function(require,module,exports){
+exports.widenImages = widenImages;
+
+},{"wikimedia-page-library":16}],15:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -811,8 +1117,13 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
+
+// This file exists for CSS packaging only. It imports the CSS which is to be
+// packaged in the override CSS build product.
+
+// todo: delete Empty.css when other overrides exist
 
 /**
   Tries to get an array of table header (TH) contents from a given table. If
@@ -824,7 +1135,7 @@ exports.isNestedInTable = isNestedInTable;
 var getTableHeader = function getTableHeader(element, pageTitle) {
   var thArray = [];
 
-  if (element.children === undefined || element.children === null) {
+  if (!element.children) {
     return thArray;
   }
 
@@ -867,6 +1178,23 @@ var CollapseTable = {
 };
 
 /**
+ * Polyfill function that tells whether a given element matches a selector.
+ * @param {!Element} el Element
+ * @param {!string} selector Selector to look for
+ * @returns {!boolean} Whether the element matches the selector
+ */
+var matchesSelectorCompat = function matchesSelectorCompat(el, selector) {
+  if (el.matches) {
+    return el.matches(selector);
+  } else if (el.matchesSelector) {
+    return el.matchesSelector(selector);
+  } else if (el.webkitMatchesSelector) {
+    return el.webkitMatchesSelector(selector);
+  }
+  return false;
+};
+
+/**
  * Returns closest ancestor of element which matches selector.
  * Similar to 'closest' methods as seen here:
  *  https://api.jquery.com/closest/
@@ -875,12 +1203,12 @@ var CollapseTable = {
  * @param  {!string} selector   Selector to look for in ancestors of 'el'
  * @return {?HTMLElement}       Closest ancestor of 'el' matching 'selector'
  */
-var findClosest = function findClosest(el, selector) {
-  while ((el = el.parentElement) && !el.matches(selector)) {
+var findClosestAncestor = function findClosestAncestor(el, selector) {
+  var parentElement = void 0;
+  for (parentElement = el.parentElement; parentElement && !matchesSelectorCompat(parentElement, selector); parentElement = parentElement.parentElement) {
     // Intentionally empty.
-    // Reminder: the parenthesis around 'el = el.parentElement' are also intentional.
   }
-  return el;
+  return parentElement;
 };
 
 /**
@@ -889,11 +1217,11 @@ var findClosest = function findClosest(el, selector) {
  * @return {boolean}        Whether table ancestor of 'el' is found
  */
 var isNestedInTable = function isNestedInTable(el) {
-  return findClosest(el, 'table') !== null;
+  return !!findClosestAncestor(el, 'table');
 };
 
 var elementUtilities = {
-  findClosest: findClosest,
+  findClosestAncestor: findClosestAncestor,
   isNestedInTable: isNestedInTable
 };
 
@@ -905,16 +1233,15 @@ var elementUtilities = {
  * @param  {!HTMLElement} el Element whose ancestors will be widened
  */
 var widenAncestors = function widenAncestors(el) {
-  while ((el = el.parentElement) && !el.classList.contains('content_block')) {
-    // Reminder: the parenthesis around 'el = el.parentElement' are intentional.
-    if (el.style.width) {
-      el.style.width = '100%';
+  for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
+    if (parentElement.style.width) {
+      parentElement.style.width = '100%';
     }
-    if (el.style.maxWidth) {
-      el.style.maxWidth = '100%';
+    if (parentElement.style.maxWidth) {
+      parentElement.style.maxWidth = '100%';
     }
-    if (el.style.float) {
-      el.style.float = 'none';
+    if (parentElement.style.float) {
+      parentElement.style.float = 'none';
     }
   }
 };
@@ -928,7 +1255,7 @@ var shouldWidenImage = function shouldWidenImage(image) {
   // Images within a "<div class='noresize'>...</div>" should not be widened.
   // Example exhibiting links overlaying such an image:
   //   'enwiki > Counties of England > Scope and structure > Local government'
-  if (elementUtilities.findClosest(image, "[class*='noresize']")) {
+  if (elementUtilities.findClosestAncestor(image, "[class*='noresize']")) {
     return false;
   }
 
@@ -937,7 +1264,7 @@ var shouldWidenImage = function shouldWidenImage(image) {
   // Examples exhibiting side-by-side images:
   //    'enwiki > Cold Comfort (Inside No. 9) > Casting'
   //    'enwiki > Vincent van Gogh > Letters'
-  if (elementUtilities.findClosest(image, "div[class*='tsingle']")) {
+  if (elementUtilities.findClosestAncestor(image, "div[class*='tsingle']")) {
     return false;
   }
 
@@ -999,7 +1326,7 @@ var WidenImage = {
   }
 };
 
-var index = {
+var pagelib$1 = {
   CollapseTable: CollapseTable,
   WidenImage: WidenImage,
   test: {
@@ -1007,7 +1334,11 @@ var index = {
   }
 };
 
-module.exports = index;
+// This file exists for CSS packaging only. It imports the override CSS
+// JavaScript index file, which also exists only for packaging, as well as the
+// real JavaScript, transform/index, it simply re-exports.
+
+module.exports = pagelib$1;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,13,14,15]);

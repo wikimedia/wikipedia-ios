@@ -7,10 +7,10 @@ protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
 class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
     static let cellReuseIdentifier = "org.wikimedia.places"
     static let headerReuseIdentifier = "org.wikimedia.places.header"
-    let suggestionSection = 0
-    let recentSection = 1
-    let currentStringSection = 2
-    let completionSection = 3
+    static let suggestionSection = 0
+    static let recentSection = 1
+    static let currentStringSection = 2
+    static let completionSection = 3
     
     var tableView: UITableView = UITableView() {
         didSet {
@@ -45,10 +45,6 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
         let search = searches[indexPath.section][indexPath.row]
         switch search.type {
-        case .saved:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
-        case .top:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
         case .location:
             cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-location")
         default:
@@ -74,13 +70,13 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         header.contentView.backgroundColor = .wmf_articleListBackground
         header.isLabelVerticallyCentered = true
         switch section {
-        case suggestionSection:
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-suggested-searches-header")
-        case recentSection:
+//        case PlaceSearchSuggestionController.suggestionSection:
+//            header.text = WMFLocalizedString("places-search-suggested-searches-header", value:"Suggested searches", comment:"Suggested searches - header for the list of suggested searches")
+        case PlaceSearchSuggestionController.recentSection:
             header.isClearButtonHidden = false
             header.addClearButtonTarget(self, selector: #selector(clearButtonPressed))
-            header.text = localizedStringForKeyFallingBackOnEnglish("places-search-recently-searched-header")
-            header.clearButton.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("places-accessibility-clear-saved-searches")
+            header.text = WMFLocalizedString("places-search-recently-searched-header", value:"Recently searched", comment:"Recently searched - header for the list of recently searched items")
+            header.clearButton.accessibilityLabel = WMFLocalizedString("places-accessibility-clear-saved-searches", value:"Clear saved searches", comment:"Accessibility hint for clearing saved searches")
         default:
             return nil
         }
@@ -98,7 +94,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
-        case recentSection:
+        case PlaceSearchSuggestionController.recentSection:
             return true
         default:
             return false
@@ -107,7 +103,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         switch indexPath.section {
-        case recentSection:
+        case PlaceSearchSuggestionController.recentSection:
             return [UITableViewRowAction(style: .destructive, title: "Delete", handler: { (action, indexPath) in
                 let search = self.searches[indexPath.section][indexPath.row]
                 self.delegate?.placeSearchSuggestionController(self, didDeleteSearch: search)

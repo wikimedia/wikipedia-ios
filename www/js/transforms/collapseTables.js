@@ -1,4 +1,3 @@
-var transformer = require("../transformer");
 var utilities = require("../utilities");
 
 /*
@@ -77,7 +76,7 @@ function shouldTableBeCollapsed( table ) {
     return true;
 }
 
-transformer.register( "hideTables", function( content , isMainPage, titleInfobox, titleOther, titleClose) {
+function hideTables(content , isMainPage, titleInfobox, titleOther, titleClose) {
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
@@ -155,7 +154,7 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
         collapsedDiv.onclick = tableCollapseClickHandler;
         bottomDiv.onclick = tableCollapseClickHandler;
     }
-} );
+}
 
 exports.openCollapsedTableIfItContainsElement = function(element){
     if(element){
@@ -168,3 +167,5 @@ exports.openCollapsedTableIfItContainsElement = function(element){
         }
     }
 };
+
+exports.hideTables = hideTables;

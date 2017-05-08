@@ -3,6 +3,8 @@
 #import "MWKArticle.h"
 #import "MWLanguageInfo.h"
 #import "Wikipedia-Swift.h"
+#import "WMFProxyServer.h"
+#import "NSURL+WMFLinkParsing.h"
 
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;
@@ -18,19 +20,12 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (NSString *)tableCollapsingJavascriptForArticle:(MWKArticle *)article {
+    NSString *infoBoxTitle = [WMFLocalizedStringWithDefaultValue(@"info-box-title", article.url, nil, @"Quick Facts", @"The title of infoboxes – in collapsed and expanded form") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *tableTitle = [WMFLocalizedStringWithDefaultValue(@"table-title-other", article.url, nil, @"More information", @"The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *closeBoxText = [WMFLocalizedStringWithDefaultValue(@"info-box-close-text", article.url, nil, @"Close", @"The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     return
-        [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
-                                   article.isMain,
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"
-                                                                                       article:article],
-                                   [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"
-                                                                                       article:article]];
-}
-
-- (NSString *)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key article:(MWKArticle *)article {
-    return [MWSiteLocalizedString(article.url, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+        [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@');",
+                                   article.isMain, infoBoxTitle, tableTitle, closeBoxText];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {
@@ -43,11 +38,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 - (void)wmf_setPageProtected {
     [self evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
-}
-
-- (void)wmf_setBottomPadding:(NSInteger)bottomPadding {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';", (long)bottomPadding]
-           completionHandler:nil];
 }
 
 - (void)wmf_scrollToFragment:(NSString *)fragment {

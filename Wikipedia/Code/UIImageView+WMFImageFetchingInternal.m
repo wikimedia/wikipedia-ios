@@ -158,11 +158,20 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
-    CGRect faceBounds = [faceBoundsValue CGRectValue];
     if (detectFaces) {
-        CGFloat faceArea = faceBounds.size.width * faceBounds.size.height;
-        if (!CGRectIsEmpty(faceBounds) && (faceArea >= 0.05)) {
-            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+        BOOL isFaceBigEnough = NO;
+        CGRect unitFaceBounds = [faceBoundsValue CGRectValue];
+        CGRect faceBounds = CGRectZero;
+        if (!CGRectIsEmpty(unitFaceBounds)) {
+            faceBounds = [image wmf_denormalizeRect:unitFaceBounds];
+            CGFloat faceArea = faceBounds.size.width * faceBounds.size.height;
+            CGFloat imageArea = image.size.width * image.size.height;
+            CGFloat faceProportionOfImage = faceArea / MAX(imageArea, 0.0000001);
+            // Reminder: "0.0178" of the area of a 640x640 image would be roughly 85x85.
+            isFaceBigEnough = (faceProportionOfImage >= 0.0178);
+        }
+        if (isFaceBigEnough) {
+            [self wmf_cropContentsByVerticallyCenteringFrame:faceBounds
                                          insideBoundsOfImage:image];
         } else {
             [self wmf_topAlignContentsRect:image];

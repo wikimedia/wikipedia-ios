@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WebViewController ()
 
 @property (nonatomic, strong, readwrite, nullable) WKWebView *webView;
-@property (nonatomic, strong, readwrite, nullable) UIScrollView *webViewScrollView;
 
 @property (nonatomic, strong, nullable, readwrite) MWKArticle *article;
 @property (nonatomic, strong, nullable, readwrite) NSURL *articleURL;
@@ -38,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
+
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 
 /**
  * Designated initializer.
