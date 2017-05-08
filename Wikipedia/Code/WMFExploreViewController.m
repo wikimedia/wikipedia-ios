@@ -48,7 +48,6 @@
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFMorePageListViewController.h"
-#import "WMFSettingsViewController.h"
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
@@ -131,8 +130,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.navigationItem.titleView.isAccessibilityElement = YES;
 
         self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
-        self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+//        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
     }
     return self;
 }
@@ -161,14 +159,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 }
-
-- (UIBarButtonItem *)settingsBarButtonItem {
-    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
-                                            style:UIBarButtonItemStylePlain
-                                           target:self
-                                           action:@selector(didTapSettingsButton:)];
-}
-
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -204,21 +194,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (BOOL)isScrolledToTop {
     return self.collectionView.contentOffset.y <= 0;
-}
-
-#pragma mark - Actions
-
-- (void)didTapSettingsButton:(UIBarButtonItem *)sender {
-    [self showSettings];
-}
-
-- (void)showSettings {
-    UINavigationController *settingsContainer =
-        [[UINavigationController alloc] initWithRootViewController:
-                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore]];
-    [self presentViewController:settingsContainer
-                       animated:YES
-                     completion:nil];
 }
 
 #pragma mark - Section Access

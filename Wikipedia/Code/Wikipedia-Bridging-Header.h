@@ -52,6 +52,7 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
+#import "WMFSettingsViewController.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"

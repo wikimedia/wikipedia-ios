@@ -24,6 +24,7 @@ class WMFExploreWrapperViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
+        self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
     }
@@ -51,4 +52,18 @@ class WMFExploreWrapperViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.wmf_updateNavigationBar(removeUnderline: true)
     }
+    
+    private func settingsBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(didTapSettingsButton(_:)))
+    }
+    
+    public func didTapSettingsButton(_ sender: UIBarButtonItem) {
+        showSettings()
+    }
+    
+    public func showSettings() {
+        let settingsContainer = UINavigationController(rootViewController: WMFSettingsViewController.init(dataStore: self.userStore))
+        present(settingsContainer, animated: true, completion: nil)
+    }
+
 }

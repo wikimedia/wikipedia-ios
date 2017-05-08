@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIButton *)titleButton;
 
-- (void)showSettings;
-
 - (NSUInteger)numberOfSectionsInExploreFeed;
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
