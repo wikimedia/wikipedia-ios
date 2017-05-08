@@ -70,7 +70,7 @@ class ArticlePopoverViewController: UIViewController {
         guard showSaveAndShareTitles else {
             return
         }
-        saveButton.isSaved =  article.savedDate != nil
+        saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
