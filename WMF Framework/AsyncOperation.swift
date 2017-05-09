@@ -3,6 +3,9 @@ import Foundation
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
+    static private let stateKeyPath = "state"
+    static private let keyPathsAffectingOperationKVO: Set<String> = [AsyncOperation.stateKeyPath]
+    
     fileprivate enum State: Int {
         case ready
         case executing
@@ -23,24 +26,24 @@ import Foundation
             return state
         }
         set {
-            willChangeValue(forKey: "state")
+            willChangeValue(forKey: AsyncOperation.stateKeyPath)
             semaphore.wait()
             _state = newValue
             semaphore.signal()
-            didChangeValue(forKey: "state")
+            didChangeValue(forKey: AsyncOperation.stateKeyPath)
         }
     }
     
     @objc private dynamic class func keyPathsForValuesAffectingIsReady() -> Set<String> {
-        return ["state"]
+        return AsyncOperation.keyPathsAffectingOperationKVO
     }
     
     @objc private dynamic class func keyPathsForValuesAffectingIsExecuting() -> Set<String> {
-        return ["state"]
+        return AsyncOperation.keyPathsAffectingOperationKVO
     }
     
     @objc private dynamic class func keyPathsForValuesAffectingIsFinished() -> Set<String> {
-        return ["state"]
+        return AsyncOperation.keyPathsAffectingOperationKVO
     }
     
     public final override var isReady: Bool {
