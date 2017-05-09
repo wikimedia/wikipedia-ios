@@ -13,7 +13,7 @@ NSString * const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExplor
 
 static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
-static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = nil;
+static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
 @interface WMFExploreFeedContentController ()
 
