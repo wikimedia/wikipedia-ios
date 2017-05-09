@@ -12,58 +12,75 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WMFArticleCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiM-cZ-s1i">
-                        <rect key="frame" x="13" y="13" width="54" height="26.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                        <rect key="frame" x="13" y="13" width="39.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbe-Md-uqA">
-                        <rect key="frame" x="13" y="43.5" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <rect key="frame" x="13" y="36.5" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-Be-UUA" customClass="WMFSaveButton">
-                        <rect key="frame" x="13" y="68" width="91" height="30"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <state key="normal" title="Save for later"/>
-                    </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3e2-7O-ANY">
-                        <rect key="frame" x="292" y="21" width="70" height="70"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3e2-7O-ANY">
+                        <rect key="frame" x="292" y="17" width="70" height="70"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="Ysy-Ie-YpM"/>
                             <constraint firstAttribute="height" constant="70" id="rwl-mr-wbb"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgd-ez-esK" customClass="WMFSaveButton">
+                        <rect key="frame" x="13" y="57.5" width="50" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <state key="normal" title="Button"/>
+                    </button>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="mgd-ez-esK" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" priority="750" constant="4" id="14q-MQ-km2"/>
                 <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="1YZ-BZ-Xuy"/>
+                <constraint firstItem="mgd-ez-esK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="37y-hM-Ctb"/>
                 <constraint firstItem="xbe-Md-uqA" firstAttribute="top" secondItem="XiM-cZ-s1i" secondAttribute="bottom" constant="4" id="3fj-Tf-4FO"/>
+                <constraint firstAttribute="bottom" secondItem="mgd-ez-esK" secondAttribute="bottom" constant="13" id="3sT-fq-pZg"/>
                 <constraint firstItem="xbe-Md-uqA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="7fF-ew-IFZ"/>
-                <constraint firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" constant="308" id="QKg-dz-5aM"/>
-                <constraint firstItem="3e2-7O-ANY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="RU7-bI-P1K"/>
-                <constraint firstItem="KXM-Be-UUA" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" constant="4" id="Zfv-O4-uzO"/>
-                <constraint firstItem="KXM-Be-UUA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="a4a-1I-x9w"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mgd-ez-esK" secondAttribute="trailing" constant="96" id="LpL-Ap-03C"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XiM-cZ-s1i" secondAttribute="trailing" constant="96" id="QKg-dz-5aM"/>
+                <constraint firstItem="3e2-7O-ANY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" priority="750" id="RU7-bI-P1K"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xbe-Md-uqA" secondAttribute="trailing" constant="96" id="eNU-wc-2BT"/>
                 <constraint firstAttribute="trailing" secondItem="3e2-7O-ANY" secondAttribute="trailing" constant="13" id="eum-9C-eel"/>
                 <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="yGT-bH-rDv"/>
             </constraints>
-            <size key="customSize" width="242" height="71"/>
+            <size key="customSize" width="242" height="77"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="LpL-Ap-03C"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="descriptionLabel" destination="xbe-Md-uqA" id="MRy-0Z-oqs"/>
                 <outlet property="imageView" destination="3e2-7O-ANY" id="GJN-5H-ykW"/>
-                <outlet property="saveButton" destination="KXM-Be-UUA" id="vhC-1c-kyT"/>
-                <outlet property="textTrailingConstraint" destination="QKg-dz-5aM" id="8G4-ws-dR5"/>
+                <outlet property="saveButton" destination="mgd-ez-esK" id="U29-5N-pz5"/>
+                <outlet property="textLeadingConstraint" destination="1YZ-BZ-Xuy" id="ZOH-gB-grd"/>
                 <outlet property="titleLabel" destination="XiM-cZ-s1i" id="kRi-bj-bRl"/>
+                <outletCollection property="textTrailingConstraints" destination="eNU-wc-2BT" collectionClass="NSMutableArray" id="qIc-Sn-2jB"/>
+                <outletCollection property="textTrailingConstraints" destination="QKg-dz-5aM" collectionClass="NSMutableArray" id="zgd-q1-vkM"/>
+                <outletCollection property="textTrailingConstraints" destination="LpL-Ap-03C" collectionClass="NSMutableArray" id="RSw-vV-det"/>
             </connections>
-            <point key="canvasLocation" x="129.5" y="110.5"/>
+            <point key="canvasLocation" x="129.5" y="112.5"/>
         </collectionViewCell>
     </objects>
 </document>

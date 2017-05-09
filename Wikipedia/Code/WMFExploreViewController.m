@@ -55,6 +55,7 @@
 
 #import "WMFCVLAttributes.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 @import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -812,8 +813,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 estimate.precalculated = YES;
                 break;
             }
-            NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
-            CGFloat estimatedHeight = 111;
+            CGFloat estimatedHeight = WMFArticleCollectionViewCell.estimatedHeight;
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticleCollectionViewCell wmf_nibName]];
             cell.frame = frameToFit;
@@ -1199,7 +1199,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
-    
+    NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
+    cell.isImageViewHidden = imageURL == nil;
+    if (!layoutOnly && imageURL) {
+        [cell.imageView wmf_setImageWithURL:imageURL];
+    }
+    cell.saveButton.saveButtonState = WMFSaveButtonStateLongSave;
+    cell.titleLabel.text = article.displayTitle;
+    cell.descriptionLabel.text = article.wikidataDescription;
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
