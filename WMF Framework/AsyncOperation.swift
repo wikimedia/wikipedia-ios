@@ -3,8 +3,9 @@ import Foundation
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
-    static private let stateKeyPath = "state"
-    static private let keyPathsAffectingOperationKVO: Set<String> = [AsyncOperation.stateKeyPath]
+    // MARK: - Operation State
+    static fileprivate let stateKeyPath = "state" // For KVO
+    fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
     fileprivate enum State: Int {
         case ready
@@ -12,11 +13,9 @@ import Foundation
         case finished
     }
     
-    private let semaphore = DispatchSemaphore(value: 1)
+    fileprivate var _state = AsyncOperation.State.ready
     
-    private var _state = AsyncOperation.State.ready
-    
-    private var state: AsyncOperation.State {
+    fileprivate var state: AsyncOperation.State {
         get {
             semaphore.wait()
             let state = _state
@@ -34,6 +33,11 @@ import Foundation
         }
     }
     
+    // MARK: - KVO
+    // Ensure changes to `state` also signal changes to isReady, isExecuting, & isFinished
+    
+    static fileprivate let keyPathsAffectingOperationKVO: Set<String> = [AsyncOperation.stateKeyPath]
+    
     @objc private dynamic class func keyPathsForValuesAffectingIsReady() -> Set<String> {
         return AsyncOperation.keyPathsAffectingOperationKVO
     }
@@ -45,6 +49,8 @@ import Foundation
     @objc private dynamic class func keyPathsForValuesAffectingIsFinished() -> Set<String> {
         return AsyncOperation.keyPathsAffectingOperationKVO
     }
+    
+    // MARK: - Operation subclass requirements
     
     public final override var isReady: Bool {
         return state == .ready && super.isReady
@@ -74,6 +80,8 @@ import Foundation
         state = .executing
         execute()
     }
+    
+    // MARK: - Custom behavior
     
     open func finish() {
         state = .finished
