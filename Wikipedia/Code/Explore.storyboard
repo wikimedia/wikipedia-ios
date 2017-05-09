@@ -70,8 +70,8 @@
         <scene sceneID="RjF-WS-MdK">
             <objects>
                 <collectionViewController id="Q8B-u3-RyW" customClass="WMFExploreViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="sOn-PQ-x8k">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sOn-PQ-x8k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewLayout key="collectionViewLayout" id="art-68-NBd" customClass="WMFColumnarCollectionViewLayout"/>
@@ -81,6 +81,8 @@
                             <outlet property="delegate" destination="Q8B-u3-RyW" id="rBt-VP-oPZ"/>
                         </connections>
                     </collectionView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nij-AE-Zos" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
