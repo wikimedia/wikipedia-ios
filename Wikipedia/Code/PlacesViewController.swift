@@ -1994,6 +1994,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blueTitleColor, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
