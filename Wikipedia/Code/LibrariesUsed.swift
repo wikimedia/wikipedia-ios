@@ -129,6 +129,9 @@ class LibraryUsedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 10.0, *) {
+            textView.adjustsFontForContentSizeCategory = true
+        }
         textView.textContainerInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         guard let licenseText = library?.licenseText else { return }
         textView.text = normalizeWhitespaceForBetterReadability(from: licenseText)
