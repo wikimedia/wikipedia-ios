@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,19 +19,19 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiM-cZ-s1i">
-                        <rect key="frame" x="13" y="13" width="266" height="26.5"/>
+                        <rect key="frame" x="13" y="13" width="54" height="26.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbe-Md-uqA">
-                        <rect key="frame" x="13" y="43.5" width="266" height="20.5"/>
+                        <rect key="frame" x="13" y="43.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-Be-UUA" customClass="WMFSaveButton">
-                        <rect key="frame" x="13" y="68" width="266" height="31"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-Be-UUA" customClass="WMFSaveButton">
+                        <rect key="frame" x="13" y="68" width="91" height="30"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <state key="normal" title="Save for later"/>
                     </button>
@@ -46,25 +45,22 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="topMargin" constant="5" id="0Oj-fl-UBj"/>
-                <constraint firstItem="3e2-7O-ANY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" priority="999" id="CPN-rQ-BjK"/>
-                <constraint firstItem="KXM-Be-UUA" firstAttribute="leading" secondItem="XiM-cZ-s1i" secondAttribute="leading" id="HPL-oA-5Dv"/>
-                <constraint firstItem="xbe-Md-uqA" firstAttribute="top" secondItem="XiM-cZ-s1i" secondAttribute="bottom" constant="4" id="LpY-7n-wEW"/>
-                <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leadingMargin" constant="5" id="N6I-1X-qRj"/>
-                <constraint firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" constant="96" id="Rs3-hj-rR3"/>
-                <constraint firstItem="xbe-Md-uqA" firstAttribute="leading" secondItem="XiM-cZ-s1i" secondAttribute="leading" id="SQw-tO-Nee"/>
-                <constraint firstItem="KXM-Be-UUA" firstAttribute="trailing" secondItem="xbe-Md-uqA" secondAttribute="trailing" id="WO9-Ez-JaY"/>
-                <constraint firstItem="xbe-Md-uqA" firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" id="Wj2-bT-T7T"/>
-                <constraint firstItem="KXM-Be-UUA" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" constant="4" id="ena-jF-eo7"/>
-                <constraint firstAttribute="bottomMargin" secondItem="KXM-Be-UUA" secondAttribute="bottom" constant="5" id="mZf-23-RPq"/>
-                <constraint firstAttribute="trailingMargin" secondItem="3e2-7O-ANY" secondAttribute="trailing" constant="5" id="qFp-hG-kAA"/>
+                <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="1YZ-BZ-Xuy"/>
+                <constraint firstItem="xbe-Md-uqA" firstAttribute="top" secondItem="XiM-cZ-s1i" secondAttribute="bottom" constant="4" id="3fj-Tf-4FO"/>
+                <constraint firstItem="xbe-Md-uqA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="7fF-ew-IFZ"/>
+                <constraint firstAttribute="trailing" secondItem="XiM-cZ-s1i" secondAttribute="trailing" constant="308" id="QKg-dz-5aM"/>
+                <constraint firstItem="3e2-7O-ANY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="RU7-bI-P1K"/>
+                <constraint firstItem="KXM-Be-UUA" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" constant="4" id="Zfv-O4-uzO"/>
+                <constraint firstItem="KXM-Be-UUA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="13" id="a4a-1I-x9w"/>
+                <constraint firstAttribute="trailing" secondItem="3e2-7O-ANY" secondAttribute="trailing" constant="13" id="eum-9C-eel"/>
+                <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="13" id="yGT-bH-rDv"/>
             </constraints>
             <size key="customSize" width="242" height="71"/>
             <connections>
                 <outlet property="descriptionLabel" destination="xbe-Md-uqA" id="MRy-0Z-oqs"/>
                 <outlet property="imageView" destination="3e2-7O-ANY" id="GJN-5H-ykW"/>
                 <outlet property="saveButton" destination="KXM-Be-UUA" id="vhC-1c-kyT"/>
-                <outlet property="textTrailingConstraint" destination="Rs3-hj-rR3" id="eWM-wF-2hP"/>
+                <outlet property="textTrailingConstraint" destination="QKg-dz-5aM" id="8G4-ws-dR5"/>
                 <outlet property="titleLabel" destination="XiM-cZ-s1i" id="kRi-bj-bRl"/>
             </connections>
             <point key="canvasLocation" x="129.5" y="110.5"/>
