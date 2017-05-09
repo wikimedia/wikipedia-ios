@@ -734,14 +734,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return [UICollectionViewCell new];
     }
     WMFArticle *article = [self articleForIndexPath:indexPath];
-
     switch ([contentGroup displayType]) {
         case WMFFeedDisplayTypePage: {
             WMFArticleListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configureListCell:cell withArticle:article atIndexPath:indexPath];
             return cell;
         } break;
-        case WMFFeedDisplayTypeRelatedPages:
+        case WMFFeedDisplayTypeRelatedPages: {
+            WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleCollectionViewCell wmf_nibName] forIndexPath:indexPath];
+            [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
+            return cell;
+        }
+            break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticlePreviewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticlePreviewCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configurePreviewCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
@@ -798,11 +802,34 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePage: {
             estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
-        case WMFFeedDisplayTypeRelatedPages:
+        case WMFFeedDisplayTypeRelatedPages: {
+            WMFArticle *article = [self articleForIndexPath:indexPath];
+            NSString *key = article.key;
+            NSString *cacheKey = [NSString stringWithFormat:@"article-%@-%lli", key, (long long)columnWidth];
+            NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
+            if (cachedValue) {
+                estimate.height = [cachedValue doubleValue];
+                estimate.precalculated = YES;
+                break;
+            }
+            NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
+            CGFloat estimatedHeight = 111;
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
+            WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFArticleCollectionViewCell wmf_nibName]];
+            cell.frame = frameToFit;
+            [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
+            [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
+        }
+            break;
         case WMFFeedDisplayTypePageWithPreview: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             NSString *key = article.key;
-            NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli", key, (long long)columnWidth];
+            NSString *cacheKey = [NSString stringWithFormat:@"preview-%@-%lli", key, (long long)columnWidth];
             NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
             if (cachedValue) {
                 estimate.height = [cachedValue doubleValue];
@@ -1150,7 +1177,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
-    [self registerNib:[ArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[ArticleCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleCollectionViewCell wmf_nibName]];
     
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
@@ -1169,6 +1196,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
     NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_listThumbnailWidth];
     [cell setImageURL:imageURL];
+}
+
+- (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
+    
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {

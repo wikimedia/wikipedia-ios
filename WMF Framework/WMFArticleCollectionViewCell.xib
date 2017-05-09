@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ArticleCollectionViewCell" customModule="Wikipedia" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WMFArticleCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -47,6 +47,7 @@
             </view>
             <constraints>
                 <constraint firstItem="XiM-cZ-s1i" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="topMargin" constant="5" id="0Oj-fl-UBj"/>
+                <constraint firstItem="3e2-7O-ANY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" priority="999" id="CPN-rQ-BjK"/>
                 <constraint firstItem="KXM-Be-UUA" firstAttribute="leading" secondItem="XiM-cZ-s1i" secondAttribute="leading" id="HPL-oA-5Dv"/>
                 <constraint firstItem="xbe-Md-uqA" firstAttribute="top" secondItem="XiM-cZ-s1i" secondAttribute="bottom" constant="4" id="LpY-7n-wEW"/>
                 <constraint firstItem="XiM-cZ-s1i" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leadingMargin" constant="5" id="N6I-1X-qRj"/>
@@ -57,7 +58,6 @@
                 <constraint firstItem="KXM-Be-UUA" firstAttribute="top" secondItem="xbe-Md-uqA" secondAttribute="bottom" constant="4" id="ena-jF-eo7"/>
                 <constraint firstAttribute="bottomMargin" secondItem="KXM-Be-UUA" secondAttribute="bottom" constant="5" id="mZf-23-RPq"/>
                 <constraint firstAttribute="trailingMargin" secondItem="3e2-7O-ANY" secondAttribute="trailing" constant="5" id="qFp-hG-kAA"/>
-                <constraint firstItem="3e2-7O-ANY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="21" id="tTO-gM-FGh"/>
             </constraints>
             <size key="customSize" width="242" height="71"/>
             <connections>

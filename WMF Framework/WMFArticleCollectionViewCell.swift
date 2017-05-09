@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleCollectionViewCell: UICollectionViewCell {
+@objc(WMFArticleCollectionViewCell) public class ArticleCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var textTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
