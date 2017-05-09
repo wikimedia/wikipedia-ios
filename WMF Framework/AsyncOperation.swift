@@ -3,7 +3,9 @@ import Foundation
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
+    
     // MARK: - Operation State
+
     static fileprivate let stateKeyPath = "state" // For KVO
     fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
@@ -94,8 +96,6 @@ import Foundation
         fatalError("Subclasses must implement `execute`.")
     }
 }
-
-
 
 @objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation {
     let asyncBlock: (AsyncBlockOperation) -> Void
