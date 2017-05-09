@@ -237,7 +237,7 @@
         // HAX: NSBundle.mainBundle is _not_ the application when the view is being created by IB
         return [NSBundle bundleForClass:[self class]];
     } else {
-        return NSBundle.mainBundle;
+        return nil;
     }
 }
 
