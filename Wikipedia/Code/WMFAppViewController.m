@@ -104,6 +104,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic) UIBackgroundTaskIdentifier housekeepingBackgroundTaskIdentifier;
 @property (nonatomic) UIBackgroundTaskIdentifier migrationBackgroundTaskIdentifier;
+@property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
@@ -330,6 +331,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
+- (void)feedContentControllerBusyStateDidChange:(NSNotification *)note {
+    if ([note object] != self.dataStore.feedContentController) {
+        return;
+    }
+    
+    UIBackgroundTaskIdentifier currentTaskIdentifier = self.feedContentFetchBackgroundTaskIdentifier;
+    if (self.dataStore.feedContentController.isBusy &&  currentTaskIdentifier == UIBackgroundTaskInvalid) {
+        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content" expirationHandler:^{
+            [self.dataStore.feedContentController cancelAllFetches];
+        }];
+    } else if (!self.dataStore.feedContentController.isBusy && currentTaskIdentifier != UIBackgroundTaskInvalid) {
+        self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        [[UIApplication sharedApplication] endBackgroundTask:currentTaskIdentifier];
+    }
+}
 #pragma mark - Launch
 
 + (WMFAppViewController *)initialAppViewControllerFromDefaultStoryBoard {
@@ -349,6 +365,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [self showSplashView];
