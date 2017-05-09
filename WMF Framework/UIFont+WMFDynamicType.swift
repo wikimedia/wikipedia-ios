@@ -3,6 +3,7 @@ import UIKit
 @objc public enum WMFFontFamily: Int {
     case system
     case systemBlack
+    case systemMedium
     case systemBold
     case georgia
 }
@@ -112,6 +113,22 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .small: 15,
                 .extraSmall: 14
             ]
+        ],
+        .systemMedium: [
+            UIFontTextStyle.subheadline: [ // Save for later button
+                .accessibilityExtraExtraExtraLarge: 21,
+                .accessibilityExtraExtraLarge: 21,
+                .accessibilityExtraLarge: 21,
+                .accessibilityLarge: 21,
+                .accessibilityMedium: 21,
+                .extraExtraExtraLarge: 21,
+                .extraExtraLarge: 19,
+                .extraLarge: 17,
+                .large: 15,
+                .medium: 14,
+                .small: 13,
+                .extraSmall: 12
+            ]
         ]
     ]
 }()
@@ -147,6 +164,8 @@ public extension UIFont {
             return UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
         case .systemBlack:
             return UIFont.systemFont(ofSize: size, weight: UIFontWeightBlack)
+        case .systemMedium:
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
         case .systemBold:
             return UIFont.boldSystemFont(ofSize: size)
         case .system:
