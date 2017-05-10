@@ -1,6 +1,30 @@
 import Foundation
 
-public class AnalyticsContext: NSObject, WMFAnalyticsContextProviding, ExpressibleByStringLiteral {
+@objc(WMFAnalyticsContextProviding) public protocol AnalyticsContextProviding {
+    var analyticsContext: String {
+        get
+    }
+}
+
+@objc(WMFAnalyticsContentTypeProviding) public protocol AnalyticsContentTypeProviding {
+    var analyticsContentType: String {
+        get
+    }
+}
+
+@objc(WMFAnalyticsViewNameProviding) public protocol AnalyticsViewNameProviding {
+    var analyticsName: String {
+        get
+    }
+}
+
+@objc(WMFAnalyticsValueProviding) public protocol AnalyticsValueProviding {
+    var analyticsValue: NSNumber? {
+        get
+    }
+}
+
+public class AnalyticsContext: NSObject, AnalyticsContextProviding, ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public typealias UnicodeScalarLiteralType = String
     public typealias ExtendedGraphemeClusterLiteralType = String
@@ -15,13 +39,13 @@ public class AnalyticsContext: NSObject, WMFAnalyticsContextProviding, Expressib
     public required init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
         name = value
     }
-    public func analyticsContext() -> String {
+    public var analyticsContext: String {
         return name
     }
 }
 
 
-public class AnalyticsContent: NSObject, WMFAnalyticsContentTypeProviding, ExpressibleByStringLiteral {
+public class AnalyticsContent: NSObject, AnalyticsContentTypeProviding, ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public typealias UnicodeScalarLiteralType = String
     public typealias ExtendedGraphemeClusterLiteralType = String
@@ -45,15 +69,27 @@ public class AnalyticsContent: NSObject, WMFAnalyticsContentTypeProviding, Expre
         type = url.host ?? AnalyticsContent.defaultContent
     }
     
-    public func analyticsContentType() -> String {
+    public var analyticsContentType: String {
         return type
     }
     
     public static let defaultContent = "unknown domain"
 }
 
-extension WMFArticle: WMFAnalyticsContentTypeProviding {
-    public func analyticsContentType() -> String {
-        return AnalyticsContent(url?.host ?? AnalyticsContent.defaultContent).analyticsContentType()
+extension WMFArticle: AnalyticsContentTypeProviding {
+    public var analyticsContentType: String {
+        return AnalyticsContent(url?.host ?? AnalyticsContent.defaultContent).analyticsContentType
+    }
+}
+
+extension NSString: AnalyticsContentTypeProviding {
+    public var analyticsContentType: String {
+        return self as String
+    }
+}
+
+extension NSString: AnalyticsContextProviding {
+    public var analyticsContext: String {
+        return self as String
     }
 }

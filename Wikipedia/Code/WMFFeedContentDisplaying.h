@@ -1,5 +1,4 @@
 @import UIKit;
-#import "WMFAnalyticsLogging.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

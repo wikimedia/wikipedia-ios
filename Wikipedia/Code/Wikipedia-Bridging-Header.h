@@ -62,3 +62,4 @@
 #import "ToCInteractionFunnel.h"
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
+#import "SavedPagesFunnel.h"

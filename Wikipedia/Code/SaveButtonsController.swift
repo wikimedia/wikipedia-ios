@@ -1,10 +1,11 @@
 import UIKit
 
-@objc(WMFArticleCellsSaveButtonController) class ArticleCellsSaveButtonController: NSObject {
+@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
     
     var visibleSaveButtons = [Int: SaveButton]()
     var visibleArticleKeys = [Int: String]()
     let dataStore: MWKDataStore
+    let savedPagesFunnel = SavedPagesFunnel()
     
     required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -16,8 +17,8 @@ import UIKit
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc(willDisplayCell:forArticle:) func willDisplay(cell: ArticleCollectionViewCell, for article: WMFArticle) {
-        guard let saveButton = cell.saveButton, let key = article.key else {
+    @objc(willDisplaySaveButton:forArticle:) func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
+        guard let key = article.key else {
             return
         }
         let tag = key.hash
@@ -28,8 +29,8 @@ import UIKit
         visibleArticleKeys[tag] = key
     }
     
-    @objc(didEndDisplayingCell:forArticle:) func didEndDisplaying(cell: ArticleCollectionViewCell, for article: WMFArticle) {
-        guard let saveButton = cell.saveButton, let key = article.key else {
+    @objc(didEndDisplayingSaveButton:forArticle:) func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
+        guard let key = article.key else {
             return
         }
         let tag = key.hash
@@ -45,10 +46,18 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
     }
     
-    func saveButtonPressed(sender: UIButton) {
+    func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
-        dataStore.savedPageList.toggleSavedPage(forKey: key)
+        let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
+        
+        if isSaved {
+            PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: sender, contentType: sender)
+            savedPagesFunnel.logSaveNew()
+        } else {
+            PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
+            savedPagesFunnel.logDelete()
+        }
     }
 }

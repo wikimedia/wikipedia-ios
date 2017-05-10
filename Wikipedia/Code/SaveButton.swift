@@ -1,6 +1,6 @@
 import UIKit
 
-@objc(WMFSaveButton) class SaveButton: AlignedImageButton {
+@objc(WMFSaveButton) class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     @objc(WMFSaveButtonState) enum State: Int {
         case shortSaved
         case longSaved
@@ -14,6 +14,9 @@ import UIKit
     static let saveTitle = WMFLocalizedString("button-save-for-later", value:"Save for later", comment:"Longer button text for save button used in various places.")
     static let saveImage = #imageLiteral(resourceName: "places-save")
     static let savedImage = #imageLiteral(resourceName: "places-unsave")
+    
+    public var analyticsContext = "unknown"
+    public var analyticsContentType = "unknown"
     
     var saveButtonState: SaveButton.State = .shortSave {
         didSet {

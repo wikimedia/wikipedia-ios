@@ -91,7 +91,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic) CGFloat topInsetBeforeHeader;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
-@property (nonatomic, strong) WMFArticleCellsSaveButtonController *saveButtonsController;
+@property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
@@ -118,7 +118,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     _userStore = userStore;
-    self.saveButtonsController = [[WMFArticleCellsSaveButtonController alloc] initWithDataStore:_userStore];
+    self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
 }
 
 - (void)dealloc {
@@ -929,9 +929,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
     if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
-        WMFArticle *article = [self articleForIndexPath:indexPath  ];
-        [self.saveButtonsController willDisplayCell:(WMFArticleCollectionViewCell *)cell forArticle:article];
-        
+        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
+        if (saveButton) {
+            WMFArticle *article = [self articleForIndexPath:indexPath];
+            [self.saveButtonsController willDisplaySaveButton:saveButton forArticle:article];
+        }
     }
     
     if ([WMFLocationManager isAuthorized]) {
@@ -945,9 +947,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(nonnull UICollectionViewCell *)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
-        WMFArticle *article = [self articleForIndexPath:indexPath];
-        [self.saveButtonsController didEndDisplayingCell:(WMFArticleCollectionViewCell *)cell forArticle:article];
-        
+        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
+        if (saveButton) {
+            WMFArticle *article = [self articleForIndexPath:indexPath];
+            [self.saveButtonsController didEndDisplayingSaveButton:saveButton forArticle:article];
+        }
     }
 }
 
@@ -1233,6 +1237,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     cell.titleLabel.text = article.displayTitle;
     cell.descriptionLabel.text = article.wikidataDescriptionOrSnippet;
+    cell.saveButton.analyticsContext = [self analyticsContext];
+    cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {

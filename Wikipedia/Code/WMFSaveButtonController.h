@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "WMFAnalyticsLogging.h"
 
 @class MWKSavedPageList, MWKSavedPageList;
 

@@ -1,19 +1,8 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@implementation NSString (WMFAnalytics)
-
-- (NSString *)analyticsContext {
-    return self;
-}
-
-- (NSString *)analyticsContentType {
-    return self;
-}
-
-@end
 
 @implementation PiwikTracker (WMFExtensions)
 
