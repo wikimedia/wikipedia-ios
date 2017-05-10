@@ -51,6 +51,5 @@ public extension UIColor {
     public static let wmf_orange: UIColor = .wmf_color(withHex: 0xff5b00, alpha: 1.0)
     public static let wmf_authTitle: UIColor = .wmf_color(withHex: 0x72777d, alpha: 1.0)
     public static let wmf_filterDropDownBackground: UIColor = .wmf_color(withHex: 0xf6f6f6, alpha: 1.0)
-    public static let wmf_blueTitleColor: UIColor = .wmf_color(withHex: 0x274ec0, alpha: 1.0)
 
 }
