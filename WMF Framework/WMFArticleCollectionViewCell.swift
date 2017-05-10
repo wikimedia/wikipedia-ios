@@ -1,11 +1,11 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewCell) public class ArticleCollectionViewCell: UICollectionViewCell {
+@objc(WMFArticleCollectionViewCell) public class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var saveButton: SaveButton!
-    @IBOutlet var textTrailingConstraints: [NSLayoutConstraint]!
-    @IBOutlet weak var textLeadingConstraint: NSLayoutConstraint!
+
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageContainerView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
 
@@ -14,16 +14,17 @@ import UIKit
     public final var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
-            let constant = isImageViewHidden ? textLeadingConstraint.constant : 2*textLeadingConstraint.constant + imageView.frame.size.width
-            for textTrailingConstraint in textTrailingConstraints {
-                textTrailingConstraint.constant = constant
-            }
-
+            imageContainerView.isHidden = isImageViewHidden
         }
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         saveButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.wmf_reset()
     }
 }
