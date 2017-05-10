@@ -85,7 +85,6 @@
 #import "WMFURLCache.h"
 
 #import "MWKArticle+WMFSharing.h"
-#import "MWKCitation.h"
 
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"

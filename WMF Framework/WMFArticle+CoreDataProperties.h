@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *displayTitle;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
-@property (nullable, nonatomic, copy) NSString *snippet;
+@property (nullable, nonatomic, copy) NSString *snippet; // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere) 
 @property (nullable, nonatomic, copy) NSString *thumbnailURLString; // deprecated
 @property (nullable, nonatomic, copy) NSString *imageURLString; // original image URL
 @property (nullable, nonatomic, copy) NSNumber *imageWidth;
