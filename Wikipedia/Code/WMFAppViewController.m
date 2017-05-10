@@ -773,8 +773,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [navController popToRootViewControllerAnimated:NO];
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-            // qqq [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
-
+            [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];

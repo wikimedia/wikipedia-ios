@@ -154,4 +154,10 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
     {
         self.exploreViewController.showInTheNews(for: story, date: date, animated: animated)
     }
+    
+    @objc(presentMoreViewControllerForGroup:animated:)
+    public func presentMoreViewController(for group: WMFContentGroup, animated: Bool)
+    {
+        self.exploreViewController.presentMoreViewController(for: group, animated: animated)
+    }
 }
