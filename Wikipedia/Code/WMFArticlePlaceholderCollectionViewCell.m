@@ -2,6 +2,7 @@
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 #import "WMFTitleInsetRespectingButton.h"
+#import "Wikipedia-Swift.h"
 
 @implementation WMFArticlePlaceholderCollectionViewCell
 
@@ -12,7 +13,7 @@
     self.placeholderImageView.image = stretch;
     self.placeholderImageView.contentMode = UIViewContentModeScaleToFill;
     [self.placeholderSaveButton setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
-    [self.placeholderSaveButton setTitle:WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, nil, @"Save for later", @"Longer button text for save button used in various places.") forState:UIControlStateNormal];
+    [self.placeholderSaveButton setTitle:[WMFSaveButton saveTitle] forState:UIControlStateNormal];
     self.placeholderSaveButton.tintColor = [UIColor wmf_placeholderLightGray];
 }
 

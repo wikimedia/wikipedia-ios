@@ -22,7 +22,7 @@ struct NotificationSettingsSection {
     let items: [NotificationSettingsItem]
 }
 
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -52,11 +52,11 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
        updateSections()
     }
     
-    func analyticsContext() -> String {
+    var analyticsContext: String {
         return "notification"
     }
     
-    func analyticsContentType() -> String {
+    var analyticsContentType: String {
         return "current events"
     }
     

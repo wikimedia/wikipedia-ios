@@ -15,7 +15,7 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBOutlet weak var buttonStackView: UIStackView!
     
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
     
@@ -70,10 +70,7 @@ class ArticlePopoverViewController: UIViewController {
         guard showSaveAndShareTitles else {
             return
         }
-        let saveTitle = article.savedDate == nil ? WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}") : WMFLocalizedString("action-saved", value:"Saved", comment:"Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}")
-        saveButton.setTitle(saveTitle, for: .normal)
-        let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
-        saveButton.setImage(saveImage, for: .normal)
+        saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {

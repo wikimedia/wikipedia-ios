@@ -35,10 +35,10 @@
     metrics.numberOfColumns = useTwoColumns ? 2 : 1;
     metrics.columnWeights = useTwoColumns ? isRTL ? @[@0.821, @1.179] : @[@1.179, @0.821] : @[@1];
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
-    metrics.interItemSpacing = 1;
+    metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = useTwoColumns ? 20 : 50;
     metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
-    metrics.sectionInsets = UIEdgeInsetsMake(1, 0, 1, 0);
+    metrics.sectionInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
 }

@@ -1,5 +1,4 @@
 @import UIKit;
-#import "WMFAnalyticsLogging.h"
 #import "MWKArticle.h"
 #import "WebViewController.h"
 #import "WMFTableOfContentsDisplay.h"
