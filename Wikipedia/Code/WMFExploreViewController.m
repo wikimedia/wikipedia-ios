@@ -928,20 +928,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
-    if (![WMFLocationManager isAuthorized]) {
-        return;
-    }
-
-    if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
-        [self.locationManager startMonitoringLocation];
-    } else {
-        [self.locationManager stopMonitoringLocation];
-    }
-    
     if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
         WMFArticle *article = [self articleForIndexPath:indexPath  ];
         [self.saveButtonsController willDisplayCell:(WMFArticleCollectionViewCell *)cell forArticle:article];
         
+    }
+    
+    if ([WMFLocationManager isAuthorized]) {
+        if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
+            [self.locationManager startMonitoringLocation];
+        } else {
+            [self.locationManager stopMonitoringLocation];
+        }
     }
 }
 
@@ -1233,7 +1231,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!layoutOnly && imageURL) {
         [cell.imageView wmf_setImageWithURL:imageURL];
     }
-    cell.saveButton.saveButtonState = WMFSaveButtonStateLongSave;
     cell.titleLabel.text = article.displayTitle;
     cell.descriptionLabel.text = article.wikidataDescriptionOrSnippet;
 }
