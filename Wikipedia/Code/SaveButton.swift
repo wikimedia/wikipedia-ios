@@ -38,8 +38,11 @@ import UIKit
                 saveTitle = SaveButton.shortSaveTitle
                 saveImage = SaveButton.saveImage
             }
-            setTitle(saveTitle, for: .normal)
-            setImage(saveImage, for: .normal)
+            UIView.performWithoutAnimation {
+                setTitle(saveTitle, for: .normal)
+                setImage(saveImage, for: .normal)
+                layoutIfNeeded()
+            }
         }
     }
 }
