@@ -10,6 +10,15 @@ import UIKit
         return 0
     }
     
+    open class var nibName: String {
+        assert(false, "Subclassers should implement nibName")
+        return "ArticleCollectionViewCell"
+    }
+    
+    open class var classNib: UINib {
+        return UINib(nibName: nibName, bundle: nil)
+    }
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!

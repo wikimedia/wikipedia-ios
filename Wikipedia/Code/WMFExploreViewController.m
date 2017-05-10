@@ -752,7 +752,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return cell;
         } break;
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.wmf_nibName :WMFArticleRightAlignedImageCollectionViewCell.wmf_nibName;
+            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
             WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
             return cell;
@@ -815,7 +815,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.wmf_nibName :WMFArticleRightAlignedImageCollectionViewCell.wmf_nibName;
+            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
             WMFArticle *article = [self articleForIndexPath:indexPath];
             NSString *key = article.key;
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%@-%lli", reuseIdentifier, key, (long long)columnWidth];
@@ -1206,9 +1206,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
-    [self registerNib:[WMFArticleRightAlignedImageCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleRightAlignedImageCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticleRightAlignedImageCollectionViewCell classNib] forCellWithReuseIdentifier:[WMFArticleRightAlignedImageCollectionViewCell nibName]];
     
-    [self registerNib:[WMFArticleFullWidthImageCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleFullWidthImageCollectionViewCell wmf_nibName]];
+    [self registerNib:[WMFArticleFullWidthImageCollectionViewCell classNib] forCellWithReuseIdentifier:[WMFArticleFullWidthImageCollectionViewCell nibName]];
     
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 

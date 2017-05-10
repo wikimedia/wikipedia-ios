@@ -8,6 +8,10 @@ import UIKit
     override open var imageWidth: Int {
         return traitCollection.wmf_leadImageWidth
     }
+    
+    override open class var nibName: String {
+        return "ArticleFullWidthImageCollectionViewCell"
+    }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
