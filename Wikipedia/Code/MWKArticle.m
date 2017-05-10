@@ -1,7 +1,5 @@
-#import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
 #import "WMFImageURLParsing.h"
-#import <hpple/TFHpple.h>
 #import "WMFImageTagParser.h"
 #import "WMFImageTagList.h"
 #import "WMFImageTagList+ImageURLs.h"
@@ -44,7 +42,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 @property (readwrite, strong, nonatomic) MWKImage *thumbnail;
 @property (readwrite, strong, nonatomic) MWKImage *image;
-@property (readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
 @property (readwrite, strong, nonatomic) NSString *summary;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
@@ -453,34 +450,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [imageURLs wmf_reject:^BOOL(id obj) {
         return [obj isEqual:[NSNull null]];
     }];
-}
-
-#pragma mark Citations
-
-static NSString *const WMFArticleReflistColumnSelector = @"/html/body/*[contains(@class,'reflist')]//*[contains(@class, 'references')]/li";
-
-- (NSArray *)citations {
-    if (!_citations) {
-        __block NSArray *referenceListItems;
-        [self.sections.entries enumerateObjectsWithOptions:NSEnumerationReverse
-                                                usingBlock:^(MWKSection *section, NSUInteger idx, BOOL *stop) {
-                                                    referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
-                                                    if (referenceListItems.count > 0) {
-                                                        *stop = YES;
-                                                    }
-                                                }];
-        if (!referenceListItems) {
-            DDLogWarn(@"Failed to parse reflist"); // Can't reference self here, causes infinite loop
-            return nil;
-        }
-        _citations = [[referenceListItems wmf_map:^MWKCitation *(TFHppleElement *el) {
-            return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
-                                                           rawHTML:el.raw];
-        }] wmf_reject:^BOOL(id obj) {
-            return WMF_IS_EQUAL(obj, [NSNull null]);
-        }];
-    }
-    return _citations;
 }
 
 #pragma mark Section Paragraphs
