@@ -1211,7 +1211,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     cell.saveButton.saveButtonState = WMFSaveButtonStateLongSave;
     cell.titleLabel.text = article.displayTitle;
-    cell.descriptionLabel.text = article.wikidataDescription;
+    cell.descriptionLabel.text = article.wikidataDescriptionOrSnippet;
 }
 
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
