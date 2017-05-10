@@ -1149,7 +1149,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configurePreviewCell:(WMFArticlePreviewCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     cell.titleText = article.displayTitle;
     cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
-    cell.snippetText = [article.snippet wmf_summaryFromText];
+    cell.snippetText = article.snippet;
     NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_leadImageWidth];
     if (layoutOnly) {
         if (imageURL) {
