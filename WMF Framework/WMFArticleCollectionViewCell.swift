@@ -34,5 +34,6 @@ import UIKit
     public override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
+        saveButton?.saveButtonState = .longSave
     }
 }
