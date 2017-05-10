@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             return WMFLocalizedStringWithDefaultValue(@"explore-main-page-heading", nil, nil, @"Today on Wikipedia", @"Text for 'Today on Wikipedia' header");
         case WMFContentGroupKindRelatedPages:
-            return WMFLocalizedStringWithDefaultValue(@"explore-continue-related-heading", nil, nil, @"Because you read", @"Text for 'Because you read' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you", nil, nil, @"Suggested for you", @"Text for 'Suggested for you' header");
         case WMFContentGroupKindLocation:
             return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, nil, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
         case WMFContentGroupKindLocationPlaceholder:
@@ -162,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
             break;
         case WMFContentGroupKindRelatedPages:
-            return self.articleURL.wmf_title;
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you-subtitle", nil, nil, @"Based on your reading history", @"Text for 'Suggested for you' header subtitle");
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
                 return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_blueTint];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindLocation:
             return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindLocationPlaceholder:

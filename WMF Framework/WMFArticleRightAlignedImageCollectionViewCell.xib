@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WMFArticleCollectionViewCell">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WMFArticleRightAlignedImageCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -92,7 +92,7 @@
                                 <constraints>
                                     <constraint firstItem="aKj-O4-Fzo" firstAttribute="leading" secondItem="dzU-7F-mQZ" secondAttribute="leading" id="FK1-cU-rN1"/>
                                     <constraint firstItem="aKj-O4-Fzo" firstAttribute="centerY" secondItem="dzU-7F-mQZ" secondAttribute="centerY" id="OqS-ih-NOl"/>
-                                    <constraint firstAttribute="width" constant="83" id="fH5-FK-IDv"/>
+                                    <constraint firstAttribute="width" priority="750" constant="83" id="fH5-FK-IDv"/>
                                 </constraints>
                             </view>
                         </subviews>
