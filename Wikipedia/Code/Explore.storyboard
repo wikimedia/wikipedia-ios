@@ -13,7 +13,7 @@
         <!--Explore Wrapper View Controller-->
         <scene sceneID="7XG-fM-dwm">
             <objects>
-                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreWrapperViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreWrapperViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bvw-5L-o1P"/>
                         <viewControllerLayoutGuide type="bottom" id="8FH-VM-Onk"/>
@@ -24,9 +24,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-WZ-awY">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <connections>
-                                    <segue destination="Q8B-u3-RyW" kind="embed" identifier="embedCollectionViewController" id="oPv-Yo-vdt"/>
-                                </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -58,6 +55,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="bvZ-8Y-hFE"/>
                     <connections>
+                        <outlet property="containerView" destination="MHl-WZ-awY" id="v2T-pM-cel"/>
                         <outlet property="extendNavBarViewTopSpaceConstraint" destination="q6P-Yl-10b" id="Ufm-fZ-mqQ"/>
                         <outlet property="extendedNavBarView" destination="Nai-Yt-sU6" id="U0J-9q-kCQ"/>
                     </connections>
@@ -69,7 +67,7 @@
         <!--Explore View Controller-->
         <scene sceneID="RjF-WS-MdK">
             <objects>
-                <collectionViewController id="Q8B-u3-RyW" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="CollectionViewController" id="Q8B-u3-RyW" customClass="WMFExploreViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sOn-PQ-x8k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

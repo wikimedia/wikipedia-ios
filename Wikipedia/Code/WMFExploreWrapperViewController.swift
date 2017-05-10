@@ -1,9 +1,10 @@
 import UIKit
 
-class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControllerDelegate {
+@objc(WMFExploreWrapperViewController)
+class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDelegate {
     
     @IBOutlet weak var extendedNavBarView: UIView!
-    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
     
     public var userStore: MWKDataStore? {
@@ -12,18 +13,35 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
         }
     }
     
-    private var exploreViewController: WMFExploreViewController? {
+    private var exploreViewController: WMFExploreViewController! {
         didSet {
             configureExploreViewController()
         }
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
+
+        // manually instiate child exploreViewController
+        // originally did via an embed segue but this caused the `exploreViewController` to load too late
+        let storyBoard = UIStoryboard(name: "Explore", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "CollectionViewController")
+        guard let exploreViewController = (vc as? WMFExploreViewController) else {
+            assertionFailure("Could not load WMFExploreViewController")
+            return nil
+        }
+        self.exploreViewController = exploreViewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // programmatically add sub view controller
+        // originally did via an embed segue but this caused the `exploreViewController` to load too late
+        self.exploreViewController.willMove(toParentViewController: self)
+        self.containerView.addSubview(exploreViewController.view)
+        self.addChildViewController(exploreViewController)
+        self.exploreViewController.didMove(toParentViewController: self)
 
         self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
@@ -42,18 +60,18 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
         vc.delegate = self
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier,
-            identifier == "embedCollectionViewController" else {
-                return
-        }
-        guard let vc = segue.destination as? WMFExploreViewController else {
-            assertionFailure("should be a WMFExploreViewController")
-            return
-        }
-        
-        exploreViewController = vc
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard let identifier = segue.identifier,
+//            identifier == "embedCollectionViewController" else {
+//                return
+//        }
+//        guard let vc = segue.destination as? WMFExploreViewController else {
+//            assertionFailure("should be a WMFExploreViewController")
+//            return
+//        }
+//        
+//        exploreViewController = vc
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.wmf_updateNavigationBar(removeUnderline: true)
@@ -74,6 +92,11 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
 
     func exploreViewDidScroll(_ scrollView: UIScrollView) {
         DDLogDebug("scrolled! \(scrollView.contentOffset)")
+        
+        guard self.view != nil else {
+            // view not loaded yet
+            return
+        }
         
         let h = extendedNavBarView.frame.size.height
         let offset = abs(extendNavBarViewTopSpaceConstraint.constant)
@@ -119,5 +142,10 @@ class WMFExploreWrapperViewController: UIViewController, WMFExploreViewControlle
         }
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
+    @objc(updateFeedSourcesUserInitiated:)
+    public func updateFeedSources(userInitiated wasUserInitiated: Bool) {
+        self.exploreViewController.updateFeedSourcesUserInitiated(wasUserInitiated)
     }
 }

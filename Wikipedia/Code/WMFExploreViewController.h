@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
 
-- (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated;
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated;
 
 @end
 

@@ -504,7 +504,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          }];
 }
 
-- (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated {
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated {
     if (self.isLoadingNewContent) {
         return;
     }
@@ -523,7 +523,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)refreshControlActivated {
-    [self updateFeedSourcesUserInititated:YES];
+    [self updateFeedSourcesUserInitiated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -617,7 +617,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSourcesUserInititated:NO];
+                        [self updateFeedSourcesUserInitiated:NO];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
