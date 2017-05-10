@@ -148,4 +148,10 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
     public func updateFeedSources(userInitiated wasUserInitiated: Bool) {
         self.exploreViewController.updateFeedSourcesUserInitiated(wasUserInitiated)
     }
+    
+    @objc(showInTheNewsForStory:date:animated:)
+    public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
+    {
+        self.exploreViewController.showInTheNews(for: story, date: date, animated: animated)
+    }
 }

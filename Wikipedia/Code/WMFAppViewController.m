@@ -1304,7 +1304,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    // qqq [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
+    [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
 }
 
 #pragma mark - Perma Random Mode
