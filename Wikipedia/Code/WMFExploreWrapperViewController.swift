@@ -25,6 +25,7 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
         // manually instiate child exploreViewController
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         let storyBoard = UIStoryboard(name: "Explore", bundle: nil)
+        
         let vc = storyBoard.instantiateViewController(withIdentifier: "CollectionViewController")
         guard let exploreViewController = (vc as? WMFExploreViewController) else {
             assertionFailure("Could not load WMFExploreViewController")
@@ -59,20 +60,7 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
         
         vc.delegate = self
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard let identifier = segue.identifier,
-//            identifier == "embedCollectionViewController" else {
-//                return
-//        }
-//        guard let vc = segue.destination as? WMFExploreViewController else {
-//            assertionFailure("should be a WMFExploreViewController")
-//            return
-//        }
-//        
-//        exploreViewController = vc
-//    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.wmf_updateNavigationBar(removeUnderline: true)
     }
