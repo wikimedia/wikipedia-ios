@@ -91,6 +91,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic) CGFloat topInsetBeforeHeader;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+@property (nonatomic, strong) WMFArticleCellsSaveButtonController *saveButtonsController;
+
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -109,6 +111,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
     self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
+}
+
+- (void)setUserStore:(MWKDataStore *)userStore {
+    if (_userStore == userStore) {
+        return;
+    }
+    _userStore = userStore;
+    self.saveButtonsController = [[WMFArticleCellsSaveButtonController alloc] initWithDataStore:_userStore];
 }
 
 - (void)dealloc {
@@ -926,6 +936,20 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [self.locationManager startMonitoringLocation];
     } else {
         [self.locationManager stopMonitoringLocation];
+    }
+    
+    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
+        WMFArticle *article = [self articleForIndexPath:indexPath  ];
+        [self.saveButtonsController willDisplayCell:(WMFArticleCollectionViewCell *)cell forArticle:article];
+        
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(nonnull UICollectionViewCell *)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
+        WMFArticle *article = [self articleForIndexPath:indexPath];
+        [self.saveButtonsController didEndDisplayingCell:(WMFArticleCollectionViewCell *)cell forArticle:article];
+        
     }
 }
 
