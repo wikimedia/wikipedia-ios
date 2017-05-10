@@ -8,4 +8,9 @@ import UIKit
     override open var imageWidth: Int {
         return traitCollection.wmf_leadImageWidth
     }
+
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
+    }
 }
