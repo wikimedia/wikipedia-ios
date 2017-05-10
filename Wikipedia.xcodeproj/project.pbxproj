@@ -694,13 +694,11 @@
 		D844D9811D6CB34F0042D692 /* MWKUser.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8078A1C0CEF660065EBC0 /* MWKUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9821D6CB3540042D692 /* MWKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8078B1C0CEF660065EBC0 /* MWKUser.m */; };
 		D844D98B1D6CB58E0042D692 /* MWKArticle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807B91C0CF04A0065EBC0 /* MWKArticle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D98C1D6CB58E0042D692 /* MWKCitation.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807BF1C0CF04A0065EBC0 /* MWKCitation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D98D1D6CB58E0042D692 /* MWKSectionList.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807CD1C0CF04A0065EBC0 /* MWKSectionList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D98E1D6CB58E0042D692 /* MWKSectionMetaData.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807CF1C0CF04A0065EBC0 /* MWKSectionMetaData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D98F1D6CB58E0042D692 /* MWKSection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807921C0CEF970065EBC0 /* MWKSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9901D6CB58E0042D692 /* MWKProtectionStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8079D1C0CEFBD0065EBC0 /* MWKProtectionStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */; };
-		D844D9921D6CB5970042D692 /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */; };
 		D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CE1C0CF04A0065EBC0 /* MWKSectionList.m */; };
 		D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807D01C0CF04A0065EBC0 /* MWKSectionMetaData.m */; };
 		D844D9951D6CB5970042D692 /* MWKSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807931C0CEF970065EBC0 /* MWKSection.m */; };
@@ -3254,8 +3252,6 @@
 		B0E807B61C0CF0180065EBC0 /* MWKSavedPageListDataExportConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKSavedPageListDataExportConstants.h; path = Wikipedia/Code/MWKSavedPageListDataExportConstants.h; sourceTree = SOURCE_ROOT; };
 		B0E807B91C0CF04A0065EBC0 /* MWKArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKArticle.h; path = Wikipedia/Code/MWKArticle.h; sourceTree = SOURCE_ROOT; };
 		B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticle.m; path = Wikipedia/Code/MWKArticle.m; sourceTree = SOURCE_ROOT; };
-		B0E807BF1C0CF04A0065EBC0 /* MWKCitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKCitation.h; path = Wikipedia/Code/MWKCitation.h; sourceTree = SOURCE_ROOT; };
-		B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKCitation.m; path = Wikipedia/Code/MWKCitation.m; sourceTree = SOURCE_ROOT; };
 		B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKDataStore.h; path = Wikipedia/Code/MWKDataStore.h; sourceTree = SOURCE_ROOT; };
 		B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MWKDataStore.m; path = Wikipedia/Code/MWKDataStore.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E807C31C0CF04A0065EBC0 /* MWKImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfo.h; path = Wikipedia/Code/MWKImageInfo.h; sourceTree = SOURCE_ROOT; };
@@ -4700,8 +4696,6 @@
 			children = (
 				B0E807B91C0CF04A0065EBC0 /* MWKArticle.h */,
 				B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */,
-				B0E807BF1C0CF04A0065EBC0 /* MWKCitation.h */,
-				B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */,
 				B0E807CD1C0CF04A0065EBC0 /* MWKSectionList.h */,
 				B0E807CE1C0CF04A0065EBC0 /* MWKSectionList.m */,
 				B0E807CF1C0CF04A0065EBC0 /* MWKSectionMetaData.h */,
@@ -7552,7 +7546,6 @@
 				D844D97E1D6CB2A10042D692 /* MWKDataObject.h in Headers */,
 				D844D98F1D6CB58E0042D692 /* MWKSection.h in Headers */,
 				D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */,
-				D844D98C1D6CB58E0042D692 /* MWKCitation.h in Headers */,
 				D844D9EE1D6CBFFD0042D692 /* MWKDataStoreList.h in Headers */,
 				D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */,
 				0E728D351DAEE8FF0074EB4B /* WMFRandomContentSource.h in Headers */,
@@ -9225,7 +9218,6 @@
 				0E728D4E1DAEEEA00074EB4B /* WMFRandomArticleFetcher.m in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
-				D844D9921D6CB5970042D692 /* MWKCitation.m in Sources */,
 				B0484FF01E74BA30003A0E28 /* UIImageView+WMFPlaceholder.m in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
