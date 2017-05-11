@@ -823,10 +823,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 break;
             }
             WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
-            CGFloat estimatedHeight = cell.estimatedHeight;
+            CGFloat estimatedHeight = 500;
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
-
-            cell.frame = frameToFit;
             [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
             attributesToFit.frame = frameToFit;

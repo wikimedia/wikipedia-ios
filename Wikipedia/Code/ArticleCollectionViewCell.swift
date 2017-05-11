@@ -1,12 +1,7 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewCell) public class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
-    
-    open var estimatedHeight: CGFloat {
-        assert(false, "Subclassers must implement estimatedHeight")
-        return 0
-    }
-    
+@objc(WMFArticleCollectionViewCell)
+open class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
     open var imageWidth: Int {
         assert(false, "Subclassers must implement imageWidth")
         return 0
@@ -28,11 +23,12 @@ import UIKit
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageContainerView: UIView?
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint?
 
     @IBOutlet weak var saveButton: SaveButton?
     @IBOutlet weak var saveButtonContainerView: UIView?
     
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         saveButton?.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
@@ -53,7 +49,7 @@ import UIKit
         }
     }
     
-    public override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
         saveButton?.saveButtonState = .longSave
@@ -77,11 +73,13 @@ extension ArticleCollectionViewCell {
             descriptionLabel.text = article.wikidataDescription
             extractLabel?.text = article.snippet
             isSaveButtonHidden = false
+            imageHeightConstraint?.constant = 196
         } else {
             descriptionLabel.text = article.wikidataDescriptionOrSnippet
             textContainerView?.backgroundColor = UIColor.wmf_lightGrayCellBackground
             extractLabel?.text = nil
             isSaveButtonHidden = true
+            imageHeightConstraint?.constant = 150
         }
     }
 }

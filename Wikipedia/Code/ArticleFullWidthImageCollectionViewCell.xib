@@ -12,23 +12,23 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WMFArticleFullWidthImageCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="357"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="357"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mxe-ED-xlp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C2g-H1-vW0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="150" id="8qn-3g-Nb6"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beS-I8-FSx" customClass="GroupedAccessibilityView" customModule="WMF">
-                                <rect key="frame" x="0.0" y="150" width="375" height="157"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="157"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCN-yI-f7t">
                                         <rect key="frame" x="13" y="15" width="51.5" height="24"/>
@@ -69,12 +69,12 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-2l-iOC">
-                                <rect key="frame" x="0.0" y="307" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="297" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i7-u6-ZoW" customClass="WMFSaveButton">
                                         <rect key="frame" x="13" y="0.0" width="46" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="50" id="g9r-YL-nc9"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="g9r-YL-nc9"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                     </button>
@@ -92,7 +92,6 @@
                             <constraint firstItem="beS-I8-FSx" firstAttribute="top" secondItem="C2g-H1-vW0" secondAttribute="bottom" id="71V-0e-GD4"/>
                             <constraint firstItem="C2g-H1-vW0" firstAttribute="top" secondItem="mxe-ED-xlp" secondAttribute="top" id="9IO-hq-6AG"/>
                             <constraint firstItem="beS-I8-FSx" firstAttribute="top" secondItem="C2g-H1-vW0" secondAttribute="bottom" id="MSC-at-DOb"/>
-                            <constraint firstAttribute="bottom" secondItem="PlR-2l-iOC" secondAttribute="bottom" id="b7L-Nu-TAI"/>
                             <constraint firstAttribute="trailing" secondItem="C2g-H1-vW0" secondAttribute="trailing" id="br4-9g-lW5"/>
                             <constraint firstAttribute="trailing" secondItem="beS-I8-FSx" secondAttribute="trailing" id="c1q-Ye-Jah"/>
                             <constraint firstItem="beS-I8-FSx" firstAttribute="leading" secondItem="mxe-ED-xlp" secondAttribute="leading" id="fSK-3j-PQe"/>
@@ -108,17 +107,18 @@
                 <constraint firstAttribute="trailing" secondItem="mxe-ED-xlp" secondAttribute="trailing" id="bE0-rb-Jpp"/>
                 <constraint firstAttribute="bottom" secondItem="mxe-ED-xlp" secondAttribute="bottom" id="cn0-S9-Cz9"/>
             </constraints>
-            <size key="customSize" width="375" height="362"/>
+            <size key="customSize" width="375" height="352"/>
             <connections>
                 <outlet property="descriptionLabel" destination="kft-MX-Jj2" id="My2-xt-Cwp"/>
                 <outlet property="extractLabel" destination="I8T-Yq-Ij7" id="XMj-6W-w7H"/>
+                <outlet property="imageHeightConstraint" destination="8qn-3g-Nb6" id="RtS-fn-FFx"/>
                 <outlet property="imageView" destination="C2g-H1-vW0" id="dET-90-pXa"/>
                 <outlet property="saveButton" destination="1i7-u6-ZoW" id="Nha-zs-ZJb"/>
                 <outlet property="saveButtonContainerView" destination="PlR-2l-iOC" id="EYJ-Uu-AOp"/>
                 <outlet property="textContainerView" destination="beS-I8-FSx" id="eU9-HW-J0i"/>
                 <outlet property="titleLabel" destination="LCN-yI-f7t" id="k4A-yH-UpI"/>
             </connections>
-            <point key="canvasLocation" x="78.5" y="170"/>
+            <point key="canvasLocation" x="78.5" y="164.5"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -17,7 +17,8 @@ import UIKit
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc(willDisplaySaveButton:forArticle:) func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
+    @objc(willDisplaySaveButton:forArticle:)
+    public func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
         }
@@ -29,7 +30,8 @@ import UIKit
         visibleArticleKeys[tag] = key
     }
     
-    @objc(didEndDisplayingSaveButton:forArticle:) func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
+    @objc(didEndDisplayingSaveButton:forArticle:)
+    public func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
         }
