@@ -81,7 +81,7 @@ extension ArticleCollectionViewCell {
             isSaveButtonHidden = false
             imageHeightConstraint?.constant = 196
         } else {
-            descriptionLabel.text = article.wikidataDescriptionOrSnippet.wmf_stringByCapitalizingFirstCharacter()
+            descriptionLabel.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
             textContainerView?.backgroundColor = UIColor.wmf_lightGrayCellBackground
             extractLabel?.text = nil
             if let _ = saveButtonContainerView { //hack check for FullWidth vs RightAligned
