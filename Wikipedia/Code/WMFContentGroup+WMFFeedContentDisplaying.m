@@ -162,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
             break;
         case WMFContentGroupKindRelatedPages:
-            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you-subtitle", nil, nil, @"Based on your reading history", @"Text for 'Suggested for you' header subtitle");
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you-subtitle", nil, nil, @"Because you read…", @"Text for 'Suggested for you' header subtitle");
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
                 return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
