@@ -27,7 +27,6 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
 #import "MWKHistoryEntry.h"
@@ -60,6 +59,8 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
+
+#import "Wikipedia-Swift.h"
 
 @import SafariServices;
 
@@ -1686,7 +1687,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *saveAction =
-        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, nil, @"Save for later", @"Longer button text for save button used in various places.")
+        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFSaveButton saveTitle]
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {

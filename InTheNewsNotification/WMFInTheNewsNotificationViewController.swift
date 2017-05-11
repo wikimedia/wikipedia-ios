@@ -4,7 +4,7 @@ import UserNotificationsUI
 import WMF
 import CocoaLumberjackSwift
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
+class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var statusView: UIVisualEffectView!
@@ -37,12 +37,12 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         }
     }
     
-    func analyticsContext() -> String {
+    var analyticsContext: String {
         return "notification"
     }
     
-    func analyticsContentType() -> String {
-        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType()
+    var analyticsContentType: String {
+        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType
     }
     
     override func awakeFromNib() {
