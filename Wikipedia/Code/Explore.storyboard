@@ -31,6 +31,9 @@
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="U1o-Vy-4PN" id="eCa-bN-gWL"/>
+                                        </connections>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFExploreViewController)
-class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate {
+class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate {
     
     public var collectionViewController: WMFExploreCollectionViewController!
     public var userStore: MWKDataStore? {
@@ -146,6 +146,15 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
+    
+    // MARK: - UISearchBarDelegate
+    
+     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.wmf_showSearch(animated: true)
+        return false
+    }
+    
+    // MARK: -
     
     @objc(updateFeedSourcesUserInitiated:)
     public func updateFeedSources(userInitiated wasUserInitiated: Bool) {
