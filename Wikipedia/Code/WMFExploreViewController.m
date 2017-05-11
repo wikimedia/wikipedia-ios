@@ -1590,7 +1590,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return vc;
 }
 
-static const NSString *kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship = nil;
+static const NSString *kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship = @"kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship";
 NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
