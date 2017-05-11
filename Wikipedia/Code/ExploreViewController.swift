@@ -59,7 +59,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
 
-        self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
         //self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
         
