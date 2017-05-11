@@ -25,6 +25,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
@@ -67,6 +68,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         //self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
+        
+        self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
     }
 
     override func viewWillAppear(_ animated: Bool) {

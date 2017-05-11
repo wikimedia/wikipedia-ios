@@ -61,6 +61,8 @@
                         <outlet property="containerView" destination="MHl-WZ-awY" id="v2T-pM-cel"/>
                         <outlet property="extendNavBarViewTopSpaceConstraint" destination="q6P-Yl-10b" id="Ufm-fZ-mqQ"/>
                         <outlet property="extendedNavBarView" destination="Nai-Yt-sU6" id="U0J-9q-kCQ"/>
+                        <outlet property="searchBar" destination="vQH-78-FaV" id="asT-tg-Fxi"/>
+                        <outlet property="view" destination="k2o-HG-1ae" id="g3M-4Q-Kgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLU-ff-DPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
