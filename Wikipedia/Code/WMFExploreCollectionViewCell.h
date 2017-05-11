@@ -1,6 +1,6 @@
-#import "SSDataSources.h"
+@import UIKit;
 
-@interface WMFExploreCollectionViewCell : SSBaseCollectionCell
+@interface WMFExploreCollectionViewCell : UICollectionViewCell
 
 @end
 

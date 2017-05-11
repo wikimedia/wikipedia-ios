@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "WMFAnalyticsLogging.h"
 #import "WMFArticleViewController.h"
 
 @class MWKDataStore;

@@ -3,7 +3,6 @@ github "CocoaLumberjack/CocoaLumberjack" ~> 3.0.0
 github "SnapKit/Masonry" ~> 1.0
 github "bitstadium/HockeySDK-iOS" ~> 4.1.0
 github "swisspol/GCDWebServer" ~> 3.3
-github "vtourraine/VTAcknowledgementsViewController"
 github "NYTimes/NYTPhotoViewer"
 github "wikimedia/AFNetworking" "release/3.1.1"
 github "wikimedia/SSDataSources" "master"

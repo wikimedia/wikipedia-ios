@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             return WMFLocalizedStringWithDefaultValue(@"explore-main-page-heading", nil, nil, @"Today on Wikipedia", @"Text for 'Today on Wikipedia' header");
         case WMFContentGroupKindRelatedPages:
-            return WMFLocalizedStringWithDefaultValue(@"explore-continue-related-heading", nil, nil, @"Because you read", @"Text for 'Because you read' header");
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you", nil, nil, @"Suggested for you", @"Text for 'Suggested for you' header");
         case WMFContentGroupKindLocation:
             return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, nil, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
         case WMFContentGroupKindLocationPlaceholder:
@@ -162,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
             break;
         case WMFContentGroupKindRelatedPages:
-            return self.articleURL.wmf_title;
+            return WMFLocalizedStringWithDefaultValue(@"explore-suggested-for-you-subtitle", nil, nil, @"Based on your reading history", @"Text for 'Suggested for you' header subtitle");
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
                 return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_blueTint];
+            return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindLocation:
             return [UIColor wmf_exploreSectionHeaderSubTitle];
         case WMFContentGroupKindLocationPlaceholder:
@@ -374,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             break;
         case WMFContentGroupKindRelatedPages:
-            return WMFFeedDisplayTypePageWithPreview;
+            return WMFFeedDisplayTypeRelatedPages;
         case WMFContentGroupKindLocation:
             return WMFFeedDisplayTypePageWithLocation;
         case WMFContentGroupKindLocationPlaceholder:
@@ -534,7 +534,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
 
             return
-            [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
+                [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
         }
         case WMFContentGroupKindNews:
             break;
@@ -650,7 +650,7 @@ NS_ASSUME_NONNULL_BEGIN
                 nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
             });
 
-            WMFAnnouncement *_Nullable announcement = (WMFAnnouncement * _Nullable)self.content.firstObject;
+            WMFAnnouncement *_Nullable announcement = (WMFAnnouncement * _Nullable) self.content.firstObject;
             if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
                 return nil;
             }
@@ -752,7 +752,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)topReadMoreTitleForDate:(NSDate *)date {
     return
-    [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-more-list-title-for-date", nil, nil, @"Top on %1$@", @"Title with date for the view displaying longer list of top read articles. %1$@ will be substituted with the date"), [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
+        [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-more-list-title-for-date", nil, nil, @"Top on %1$@", @"Title with date for the view displaying longer list of top read articles. %1$@ will be substituted with the date"), [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]];
 }
 
 - (NSString *)localDateDisplayString {

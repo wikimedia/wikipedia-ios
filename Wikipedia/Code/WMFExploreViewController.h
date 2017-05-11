@@ -1,5 +1,4 @@
 @import UIKit;
-#import "WMFAnalyticsLogging.h"
 #import "WMFContentSource.h"
 
 @class MWKDataStore;

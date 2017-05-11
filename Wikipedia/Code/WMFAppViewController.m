@@ -49,12 +49,6 @@
 #import "WMFNotificationsController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
-#define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
-
-#if TEST_SHARED_CONTAINER_MIGRATION
-#import "YapDatabase+WMFExtensions.h"
-#endif
-
 #import "WMFArticleNavigationController.h"
 
 /**
@@ -108,14 +102,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) NSUserActivity *unprocessedUserActivity;
 @property (nonatomic, strong) UIApplicationShortcutItem *unprocessedShortcutItem;
 
-@property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
+@property (nonatomic) UIBackgroundTaskIdentifier housekeepingBackgroundTaskIdentifier;
+@property (nonatomic) UIBackgroundTaskIdentifier migrationBackgroundTaskIdentifier;
+@property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
-@property (nonatomic, getter=areLaunchMigrationsComplete) BOOL launchMigrationsComplete;
+@property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
+@property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
 
 @property (nonatomic, strong) WMFLocationManager *showNearbyLocationManager;
 
@@ -134,7 +131,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
@@ -225,6 +223,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
+
+    // Retry migration if it was terminated by a background task ending
+    [self migrateIfNecessary];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -258,7 +259,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-    [self startBackgroundTask];
+    [self startHousekeepingBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
 #if WMF_TWEAKS_ENABLED
         if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
@@ -278,7 +279,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.areLaunchMigrationsComplete) {
+        if (!self.isMigrationComplete) {
             completion(UIBackgroundFetchResultNoData);
             return;
         }
@@ -288,27 +289,63 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 #pragma mark - Background Tasks
 
-- (void)startBackgroundTask {
-    if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+- (void)startHousekeepingBackgroundTask {
+    if (self.housekeepingBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
         [self.savedArticlesFetcher cancelFetchForSavedPages];
-        [self endBackgroundTask];
+        [self endHousekeepingBackgroundTask];
     }];
 }
 
-- (void)endBackgroundTask {
-    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+- (void)endHousekeepingBackgroundTask {
+    if (self.housekeepingBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
     }
 
-    UIBackgroundTaskIdentifier backgroundTaskToStop = self.backgroundTaskIdentifier;
-    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.housekeepingBackgroundTaskIdentifier;
+    self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
+- (void)startMigrationBackgroundTask:(dispatch_block_t)expirationHandler {
+    if (self.migrationBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+    self.migrationBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        if (expirationHandler) {
+            expirationHandler();
+        }
+    }];
+}
+
+- (void)endMigrationBackgroundTask {
+    if (self.migrationBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.migrationBackgroundTaskIdentifier;
+    self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
+}
+
+- (void)feedContentControllerBusyStateDidChange:(NSNotification *)note {
+    if ([note object] != self.dataStore.feedContentController) {
+        return;
+    }
+    
+    UIBackgroundTaskIdentifier currentTaskIdentifier = self.feedContentFetchBackgroundTaskIdentifier;
+    if (self.dataStore.feedContentController.isBusy &&  currentTaskIdentifier == UIBackgroundTaskInvalid) {
+        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content" expirationHandler:^{
+            [self.dataStore.feedContentController cancelAllFetches];
+        }];
+    } else if (!self.dataStore.feedContentController.isBusy && currentTaskIdentifier != UIBackgroundTaskInvalid) {
+        self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        [[UIApplication sharedApplication] endBackgroundTask:currentTaskIdentifier];
+    }
+}
 #pragma mark - Launch
 
 + (WMFAppViewController *)initialAppViewControllerFromDefaultStoryBoard {
@@ -328,26 +365,56 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [self showSplashView];
 
-#if TEST_SHARED_CONTAINER_MIGRATION
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[YapDatabase wmf_databasePath] error:nil];
-    [fm removeItemAtPath:[MWKDataStore mainDataStorePath] error:nil];
-    [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
-    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
-#endif
+    [self migrateIfNecessary];
+}
+
+- (void)migrateIfNecessary {
+    if (self.isMigrationComplete || self.isMigrationActive) {
+        return;
+    }
+
+    __block BOOL migrationsAllowed = YES;
+    [self startMigrationBackgroundTask:^{
+        migrationsAllowed = NO;
+    }];
+    dispatch_block_t bail = ^{
+        [self endMigrationBackgroundTask];
+        self.migrationActive = NO;
+    };
+    self.migrationActive = YES;
     [self migrateToSharedContainerIfNecessaryWithCompletion:^{
+        if (!migrationsAllowed) {
+            bail();
+            return;
+        }
         [self migrateToNewFeedIfNecessaryWithCompletion:^{
+            if (!migrationsAllowed) {
+                bail();
+                return;
+            }
             [self.dataStore performCoreDataMigrations:^{
+                if (!migrationsAllowed) {
+                    bail();
+                    return;
+                }
                 [self migrateToQuadKeyLocationIfNecessaryWithCompletion:^{
+                    if (!migrationsAllowed) {
+                        bail();
+                        return;
+                    }
                     [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            [self endMigrationBackgroundTask];
                             [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                                 [self loadMainUI];
-                                self.launchMigrationsComplete = YES;
+                                self.migrationComplete = YES;
+                                self.migrationActive = NO;
                                 if (!self.isWaitingToResumeApp) {
                                     [self resumeApp:^{
                                         [self hideSplashViewAnimated:!didShowOnboarding];
@@ -422,7 +489,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)hideSplashScreenAndResumeApp {
     self.waitingToResumeApp = NO;
-    if (self.areLaunchMigrationsComplete) {
+    if (self.isMigrationComplete) {
         [self resumeApp:^{
             [self hideSplashViewAnimated:true];
         }];
@@ -541,28 +608,28 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (deletedArticleURLs.count > 0) {
         [self.dataStore removeArticlesWithURLsFromCache:deletedArticleURLs];
     }
-    
+
     if (self.backgroundTaskGroup) {
         return;
     }
-    
+
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     self.backgroundTaskGroup = taskGroup;
-    
+
     [taskGroup enter];
     [self.dataStore startCacheRemoval:^{
         [taskGroup leave];
     }];
-    
+
     [taskGroup enter];
     [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
         [taskGroup leave];
     }];
-    
+
     [taskGroup waitInBackgroundWithCompletion:^{
         WMFAssertMainThread(@"Completion assumed to be called on the main queue.");
         self.backgroundTaskGroup = nil;
-        [self endBackgroundTask];
+        [self endHousekeepingBackgroundTask];
     }];
 }
 

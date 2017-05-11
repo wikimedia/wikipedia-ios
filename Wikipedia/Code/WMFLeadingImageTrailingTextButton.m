@@ -215,8 +215,8 @@
                                         inBundle:[NSBundle bundleForClass:[self class]]
                    compatibleWithTraitCollection:self.traitCollection];
 
-    self.labelText = WMFLocalizedStringWithDefaultValue(@"button-save-for-later", nil, self.bundleForLocalization, @"Save for later", @"Longer button text for save button used in various places.");
-    self.selectedLabelText = WMFLocalizedStringWithDefaultValue(@"button-saved-for-later", nil, self.bundleForLocalization, @"Saved for later", @"Longer button text for already saved button used in various places.");
+    self.labelText = [WMFSaveButton saveTitle];
+    self.selectedLabelText = [WMFSaveButton savedTitle];
 
     self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, self.bundleForLocalization, @"Unsave", @"Accessibility action description for 'Unsave'");
     self.deselectedActionText = WMFLocalizedStringWithDefaultValue(@"save-action", nil, self.bundleForLocalization, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
@@ -237,7 +237,7 @@
         // HAX: NSBundle.mainBundle is _not_ the application when the view is being created by IB
         return [NSBundle bundleForClass:[self class]];
     } else {
-        return NSBundle.mainBundle;
+        return nil;
     }
 }
 

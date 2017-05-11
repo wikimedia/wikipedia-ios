@@ -1,13 +1,11 @@
 #import <Piwik/PiwikTracker.h>
-#import "WMFAnalyticsLogging.h"
+
+@protocol WMFAnalyticsContextProviding;
+@protocol WMFAnalyticsContentTypeProviding;
+@protocol WMFAnalyticsViewNameProviding;
+@protocol WMFAnalyticsValueProviding;
 
 NS_ASSUME_NONNULL_BEGIN
-
-//Any string can be used for convienence,
-//but you are encouraged to implement these methods on your custom classes for re-usability
-@interface NSString (WMFAnalytics) <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
-
-@end
 
 @interface PiwikTracker (WMFExtensions)
 
