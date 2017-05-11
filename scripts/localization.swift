@@ -9,6 +9,16 @@ fileprivate var dictionaryRegex: NSRegularExpression? = {
     return nil
 }()
 
+fileprivate var curlyBraceRegex: NSRegularExpression? = {
+    do {
+        return try NSRegularExpression(pattern: "(?:[{][{][a-z]+:)(:?[^{]*)(?:[}][}])", options: [.caseInsensitive])
+    } catch {
+        assertionFailure("Localization regex failed to compile")
+    }
+    return nil
+}()
+
+
 fileprivate var twnTokenRegex: NSRegularExpression? = {
     do {
         return try NSRegularExpression(pattern: "(?:[$])(:?[0-9]+)", options: [])
@@ -153,10 +163,11 @@ extension String {
     }
     
     var iOSNativeLocalization: String {
-        guard let tokenRegex = twnTokenRegex else {
+        guard let tokenRegex = twnTokenRegex, let braceRegex = curlyBraceRegex else {
             return ""
         }
-        return self.replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
+        return self.replacingMatches(fromRegex: braceRegex, withFormat: "%@")
+.replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
     }
     
     var twnNativeLocalization: String {

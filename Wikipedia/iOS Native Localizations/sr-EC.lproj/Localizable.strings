@@ -204,9 +204,9 @@
 "new-password-instructions" = "Пријавили сте се са привременом лозинком.\nДа бисте завршили пријављивање морате поставити нову лозинку овде:";
 "new-password-title" = "Поставите своју лозинку";
 "no-email-account-alert" = "Подесите е-пошту на вашем уређају па покушајте поново.";
-"number-billions" = "{{FORMATNUM:%1$@}}B";
-"number-millions" = "{{FORMATNUM:%1$@}}M";
-"number-thousands" = "{{FORMATNUM:%1$@}}K";
+"number-billions" = "%1$@B";
+"number-millions" = "%1$@M";
+"number-thousands" = "%1$@K";
 "onboarding-wikipedia" = "Википедија";
 "open-link-cancel" = "Откажи";
 "page-edit-history" = "Целокупна историја измена";
