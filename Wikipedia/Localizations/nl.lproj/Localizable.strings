@@ -103,7 +103,6 @@
 "empty-no-search-results-message" = "Geen resultaten gevonden";
 "explore-another-random" = "Andere willekeurig pagina";
 "explore-continue-reading-heading" = "Verder lezen";
-"explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
@@ -241,6 +240,8 @@
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
+"places-filter-list-title" = "Zoekfilters";
+"places-search-default-text" = "Zoeken";
 "places-search-recently-searched-header" = "Recente zoekopdrachten";
 // Fuzzy
 "places-search-saved-articles" = "Opgeslagen pagina's";
