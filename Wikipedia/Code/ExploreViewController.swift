@@ -52,6 +52,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .wmf_settingsBackground
         self.view.tintColor = .wmf_blueTint
         
         // programmatically add sub view controller
