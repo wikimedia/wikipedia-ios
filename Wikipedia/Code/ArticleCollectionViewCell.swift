@@ -28,6 +28,11 @@ open class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
     @IBOutlet weak var saveButton: SaveButton?
     @IBOutlet weak var saveButtonContainerView: UIView?
     
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        imageView.wmf_showPlaceholder()
+    }
+    
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         saveButton?.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
@@ -52,6 +57,7 @@ open class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
     open override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
+        imageView.wmf_showPlaceholder()
         saveButton?.saveButtonState = .longSave
     }
 }
@@ -61,7 +67,7 @@ extension ArticleCollectionViewCell {
         if let imageURL = article.imageURL(forWidth: self.imageWidth) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: {  })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true
