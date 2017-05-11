@@ -18,7 +18,7 @@ extension WMFArticle {
         }
         
         if let extract = summary["extract"] as? String {
-            self.snippet = extract
+            self.snippet = extract.wmf_summaryFromText()
         }
         
         if let coordinate = summary["coordinates"] as? [String: Any] ?? (summary["coordinates"] as? [[String: Any]])?.first,

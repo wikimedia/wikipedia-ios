@@ -27,7 +27,6 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "MWKCitation.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle+WMFSharing.h"
 #import "MWKHistoryEntry.h"
