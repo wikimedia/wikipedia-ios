@@ -78,7 +78,11 @@ extension ArticleCollectionViewCell {
             descriptionLabel.text = article.wikidataDescriptionOrSnippet
             textContainerView?.backgroundColor = UIColor.wmf_lightGrayCellBackground
             extractLabel?.text = nil
-            isSaveButtonHidden = true
+            if let _ = saveButtonContainerView { //hack check for FullWidth vs RightAligned
+                isSaveButtonHidden = true
+            } else {
+                isSaveButtonHidden = false
+            }
             imageHeightConstraint?.constant = 150
         }
     }
