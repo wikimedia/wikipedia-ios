@@ -1,17 +1,3 @@
-// Messages for Message documentation (Message documentation)
-// Exported from translatewiki.net
-// Author: Amire80
-// Author: Brion
-// Author: Jack Phoenix
-// Author: Liuxinyu970226
-// Author: Minh Nguyen
-// Author: Nemo bis
-// Author: Purodha
-// Author: Robby
-// Author: Shirayuki
-// Author: Siebrand
-// Author: Tacsipacsi
-
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
@@ -99,6 +85,7 @@
 "empty-no-search-results-message" = "Shown when there are no search results";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
+"explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
@@ -115,8 +102,6 @@
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
-"explore-suggested-for-you" = "Text for 'Suggested for you' header";
-"explore-suggested-for-you-subtitle" = "Text for 'Suggested for you' header subtitle";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";
@@ -254,7 +239,7 @@
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles\n{{Identical|Article}}";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the filter ('Top articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
