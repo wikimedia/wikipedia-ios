@@ -2,18 +2,11 @@
 #import "WMFContentSource.h"
 
 @class MWKDataStore;
+@protocol WMFExploreCollectionViewControllerDelegate;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 NS_ASSUME_NONNULL_BEGIN
-
-
-@protocol WMFExploreCollectionViewControllerDelegate<NSObject>
-
-- (void)exploreCollectionViewDidScroll:(UIScrollView *)scrollView;
-
-@end
-
 
 @interface WMFExploreCollectionViewController : UICollectionViewController <WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding>
 
@@ -32,6 +25,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
 
 - (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated;
+
+@end
+
+@protocol WMFExploreCollectionViewControllerDelegate<NSObject>
+
+@optional
+- (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScroll:(UIScrollView *)scrollView;
+
+
+@optional
+- (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didEndScrolling:(UIScrollView *)scrollView;
 
 @end
 

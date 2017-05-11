@@ -96,8 +96,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     }
     
     // MARK: - WMFExploreCollectionViewControllerDelegate
-
-    func exploreCollectionViewDidScroll(_ scrollView: UIScrollView) {
+    
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScroll scrollView: UIScrollView) {
         //DDLogDebug("scrolled! \(scrollView.contentOffset)")
         
         guard self.view != nil else {
@@ -105,8 +105,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         
-        let h = extendedNavBarView.frame.size.height
-        let offset = abs(extendNavBarViewTopSpaceConstraint.constant)
+        let extNavBarHeight = extendedNavBarView.frame.size.height
+        let extNavBarOffset = abs(extendNavBarViewTopSpaceConstraint.constant)
         let scrollY = scrollView.contentOffset.y
         
         // no change in scrollY
@@ -116,13 +116,13 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
 
         // pulling down when nav bar is already extended
-        if (offset == 0 && scrollY < 0) {
+        if (extNavBarOffset == 0 && scrollY < 0) {
             //DDLogDebug("  bar already extended")
             return
         }
         
         // pulling up when navbar isn't fully collapsed
-        if (offset == h && scrollY > 0) {
+        if (extNavBarOffset == extNavBarHeight && scrollY > 0) {
             //DDLogDebug("  bar already collapsed")
             return
         }
@@ -131,24 +131,47 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         // pulling down when nav bar is partially hidden
         if (scrollY < 0) {
-            newOffset = max(offset - abs(scrollY), 0)
+            newOffset = max(extNavBarOffset - abs(scrollY), 0)
             //DDLogDebug("  showing bar newOffset:\(newOffset)")
 
         // pulling up when navbar isn't fully collapsed
         } else {
-            newOffset = min(offset + abs(scrollY), h)
+            newOffset = min(extNavBarOffset + abs(scrollY), extNavBarHeight)
             //DDLogDebug("  hiding bar newOffset:\(newOffset)")
         }
 
         extendNavBarViewTopSpaceConstraint.constant = -newOffset
         
-        if (newOffset == h) {
+        if (newOffset == extNavBarHeight) {
             self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
         } else if (newOffset == 0) {
             self.navigationItem.rightBarButtonItem = nil
         }
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didEndScrolling scrollView: UIScrollView) {
+
+        let extNavBarHeight = extendedNavBarView.frame.size.height
+        let extNavBarOffset = abs(extendNavBarViewTopSpaceConstraint.constant)
+
+        var newOffset: CGFloat?
+        if (extNavBarOffset > 0 && extNavBarOffset <= extNavBarHeight/2) {
+            DDLogDebug("Need to scroll down")
+            newOffset = 0
+        } else if (extNavBarOffset > extNavBarHeight/2 && extNavBarOffset < extNavBarHeight) {
+            DDLogDebug("Need to scroll up")
+            newOffset = extNavBarHeight
+        }
+
+        if (newOffset != nil) {
+            self.view.layoutIfNeeded() // Apple recommends you call layoutIfNeeded before the animation block ensure all pending layout changes are applied
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                self.extendNavBarViewTopSpaceConstraint.constant = -newOffset!
+                self.view.layoutIfNeeded() // layoutIfNeeded must be called from within the animation block
+            });
+        }
     }
     
     // MARK: - UISearchBarDelegate

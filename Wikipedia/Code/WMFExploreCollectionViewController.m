@@ -1822,8 +1822,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.delegate) {
-        [self.delegate exploreCollectionViewDidScroll:scrollView];
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {
+        [self.delegate exploreCollectionViewController:self didScroll:scrollView];
     }
     
     if (self.isLoadingOlderContent) {
@@ -1867,12 +1867,20 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    DDLogDebug(@"Stopped dragging");
+    //DDLogDebug(@"Stopped dragging");
+    if (!decelerate) {
+        if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
+            [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
+        }
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    DDLogDebug(@"Stopped decelerating");
+    //DDLogDebug(@"Stopped decelerating");
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
+        [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
+    }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
