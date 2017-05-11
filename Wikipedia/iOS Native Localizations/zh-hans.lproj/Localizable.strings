@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "找不到结果";
 "explore-another-random" = "其他随机条目";
 "explore-continue-reading-heading" = "继续阅读";
-"explore-continue-related-heading" = "因为您阅读";
 "explore-featured-article-heading" = "特色条目";
 "explore-main-page-heading" = "维基百科今日";
 "explore-most-read-footer-for-date" = "在%1$@所有最多阅读的条目";
@@ -222,6 +221,7 @@
 "page-protected-sysop" = "此页面已全保护。";
 "page-read-in-other-languages" = "在%1$@种其他语言中可用";
 "page-similar-titles" = "相似页面";
+"places-accessibility-clear-saved-searches" = "清除保存的搜索";
 "places-accessibility-close-search" = "关闭搜索";
 "places-accessibility-group" = "%1$@个条目";
 "places-accessibility-recenter-map-on-user-location" = "重新定位您的位置";
@@ -236,9 +236,7 @@
 "places-filter-list-title" = "搜索过滤器";
 "places-filter-no-saved-places" = "您没有已保存的地方";
 "places-filter-saved-articles" = "保存的条目";
-"places-filter-saved-articles-count" = "找到了%1$@个地点";
 "places-filter-top-articles" = "最多阅读";
-"places-filter-top-articles-count" = "%1$@个条目";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "%1$@匹配“%2$@”";
 "places-search-default-text" = "搜索";

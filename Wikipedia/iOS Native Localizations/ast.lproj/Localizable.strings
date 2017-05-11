@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "Nun s'alcontraron resultancies";
 "explore-another-random" = "Otru artículu al debalu";
 "explore-continue-reading-heading" = "Siguir lleyendo";
-"explore-continue-related-heading" = "Porque lleísti %1$@";
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-most-read-footer-for-date" = "Tolos artículos más lleíos el %1$@";
@@ -127,6 +126,7 @@
 "field-username-placeholder" = "escribe'l nome d'usuariu";
 "field-username-title" = "Nome d'usuariu";
 "find-in-page-button-label" = "Alcontrar na páxina";
+"find-in-page-number-matches" = "%1$@ / %2$@";
 "find-in-page-popover-description" = "Buscar un testu nos artículos";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
@@ -221,6 +221,7 @@
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
 "page-read-in-other-languages" = "Disponible'n %1$@ idiomes más";
 "page-similar-titles" = "Páxines asemeyaes";
+"places-accessibility-clear-saved-searches" = "Llimpiar les guetes guardaes";
 "places-accessibility-close-search" = "Zarrar la gueta";
 "places-accessibility-group" = "%1$@ artículos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar nel to allugamientu";
@@ -235,16 +236,14 @@
 "places-filter-list-title" = "Filtros de gueta";
 "places-filter-no-saved-places" = "Nun tienes llugares guardaos";
 "places-filter-saved-articles" = "Artículos guardaos";
-"places-filter-saved-articles-count" = "%1$@ llugares atopaos";
-"places-filter-top-articles" = "Artículos principales";
-"places-filter-top-articles-count" = "%1$@ artículos";
+"places-filter-top-articles" = "Más lleíos";
 "places-no-saved-articles-have-location" = "Dengún artículu de los guardaos tien información d'allugamientu";
 "places-search-articles-that-match" = "%1$@ que casen con «%2$@»";
-"places-search-default-text" = "Guetar artículos o llugares";
+"places-search-default-text" = "Buscar";
 "places-search-recently-searched-header" = "Guetao recién";
 "places-search-saved-articles" = "Tolos artículos guardaos";
 "places-search-suggested-searches-header" = "Guetes suxeríes";
-"places-search-this-area" = "Buscar nesta área";
+"places-search-this-area" = "Resultaos nesta fastera";
 "places-search-top-articles" = "Tolos artículos principales";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Imaxe del día pal %1$@";

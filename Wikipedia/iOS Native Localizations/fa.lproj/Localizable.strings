@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
 "explore-another-random" = "مقاله تصادفی دیگر";
 "explore-continue-reading-heading" = "ادامه دادن به خواندن";
-"explore-continue-related-heading" = "چون شما مطالعه می‌کنید";
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
 "explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در %1$@ داشتند";
@@ -127,6 +126,7 @@
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
 "find-in-page-button-label" = "در صفحه پیدا کنید";
+"find-in-page-number-matches" = "%1$@ / %2$@";
 "find-in-page-popover-description" = "جستجوی متن در مقالات";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
@@ -221,6 +221,7 @@
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page-read-in-other-languages" = "به %1$@ زبان در دسترس است";
 "page-similar-titles" = "صفحات مشابه";
+"places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-close-search" = "بستن جستجو";
 "places-accessibility-group" = "%1$@ مقاله";
 "places-accessibility-recenter-map-on-user-location" = "وسط قرار دادن موقعیت شما";
@@ -233,17 +234,16 @@
 "places-enable-location-description" = "دسترسی به موقعیت شما فقط وقتی که برنامه یا یکی از امکانات آن در نمایشگر شما نمایان باشد ممکن است.";
 "places-enable-location-title" = "با فعال کردن دسترسی به موقعیتتان، مقالات نزدیک به محل خود را جستجو کنید.";
 "places-filter-list-title" = "پالایه‌های جستجوی";
+"places-filter-no-saved-places" = "هیچ مکانی را ذخیره نکردید";
 "places-filter-saved-articles" = "مقاله‌های ذخیره شده";
-"places-filter-saved-articles-count" = "%1$@ مکان یافت شده";
-"places-filter-top-articles" = "بالاترین مقالات";
-"places-filter-top-articles-count" = "%1$@ مقاله";
+"places-filter-top-articles" = "بالاترین خوانده‌شده";
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
 "places-search-articles-that-match" = "%1$@ منتطبق با «%2$@»";
-"places-search-default-text" = "جستجو برای مقالات یا مکان‌ها";
+"places-search-default-text" = "جستجو";
 "places-search-recently-searched-header" = "جستجوهای اخیر";
 "places-search-saved-articles" = "همهٔ مقاله‌های ذخیره شده";
 "places-search-suggested-searches-header" = "جستجوهای پیشنهاد شده";
-"places-search-this-area" = "جستجو در این محدوده";
+"places-search-this-area" = "نتیجه‌ها در این محدوده";
 "places-search-top-articles" = "همهٔ مقالات برتر";
 "places-unknown-distance" = "مسافت‌های نامشخص";
 "potd-description-prefix" = "تصویر روز برای %1$@";

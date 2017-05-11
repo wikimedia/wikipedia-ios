@@ -106,7 +106,6 @@
 "empty-no-search-results-message" = "결과가 없습니다.";
 "explore-another-random" = "다른 임의 문서";
 "explore-continue-reading-heading" = "계속 읽기";
-"explore-continue-related-heading" = "읽었기 때문입니다";
 "explore-featured-article-heading" = "알찬 글";
 "explore-main-page-heading" = "오늘의 위키백과";
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
@@ -190,7 +189,6 @@
 "in-the-news-title" = "새로 들어온 소식";
 "in-the-news-title-for-date" = "$1 소식";
 "info-box-close-text" = "닫기";
-// Fuzzy
 "info-box-title" = "빠른 사실";
 "languages-title" = "언어 변경";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -243,6 +241,7 @@
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
 "page-similar-titles" = "비슷한 문서";
+"places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";
 "places-accessibility-show-as-list" = "목록으로 보기";
@@ -252,11 +251,9 @@
 "places-enable-location-action-button-title" = "위치 활성화";
 "places-filter-list-title" = "검색 필터";
 "places-filter-saved-articles" = "저장된 문서";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1곳을 찾았음";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1곳을}} 찾았음";
 "places-filter-top-articles" = "가장 많이 읽은 글";
-// Fuzzy
-"places-filter-top-articles-count" = "$1개의 문서";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-default-text" = "검색";
 "places-search-recently-searched-header" = "최근 검색됨";
