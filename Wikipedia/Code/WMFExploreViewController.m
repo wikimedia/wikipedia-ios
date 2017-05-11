@@ -55,6 +55,7 @@
 #import "WMFCVLAttributes.h"
 #import "NSCalendar+WMFCommonCalendars.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
+#import "UIScrollView+WMFScrollsToTop.h"
 @import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -522,7 +523,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerCellsAndViews];
-    self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     if ([self.collectionView respondsToSelector:@selector(setPrefetchDataSource:)]) {
@@ -611,6 +611,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(self.userStore);
     [super viewDidAppear:animated];
 
+    [self.collectionView wmf_shouldScrollToTopOnStatusBarTap:YES];
     [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
     [self startMonitoringReachabilityIfNeeded];
@@ -1530,7 +1531,37 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
 
+    [previewingContext.previewingGestureRecognizerForFailureRelationship addObserver:self
+                                                                          forKeyPath:kvo_WMFExploreViewController_peek_state_keypath
+                                                                             options:NSKeyValueObservingOptionNew
+                                                                             context:&kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship];
+
     return vc;
+}
+
+static const NSString *kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship = @"kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship";
+NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
+    if (
+        (context == &kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship) &&
+        [keyPath isEqualToString:kvo_WMFExploreViewController_peek_state_keypath] &&
+        (object != nil) &&
+        [object isKindOfClass:[UIGestureRecognizer class]]
+    ){
+        UIGestureRecognizer *recognizer = (UIGestureRecognizer *)object;
+        switch (recognizer.state) {
+            case UIGestureRecognizerStateEnded:
+                // Reminder: "UIGestureRecognizerStateEnded" is what previewingGestureRecognizerForFailureRelationship uses to indicate a peek ended but did not pop, which is what we're trying to detect.
+                [self.collectionView wmf_shouldScrollToTopOnStatusBarTap:YES];
+            case UIGestureRecognizerStateFailed:
+            case UIGestureRecognizerStateCancelled:
+                [recognizer removeObserver:self forKeyPath:kvo_WMFExploreViewController_peek_state_keypath];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
