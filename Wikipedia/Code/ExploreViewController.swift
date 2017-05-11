@@ -1,7 +1,8 @@
 import UIKit
 
 @objc(WMFExploreViewController)
-class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate {
+class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate, AnalyticsViewNameProviding, AnalyticsContextProviding
+{
     
     public var collectionViewController: WMFExploreCollectionViewController!
     public var userStore: MWKDataStore? {
@@ -149,9 +150,19 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - UISearchBarDelegate
     
-     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         self.wmf_showSearch(animated: true)
         return false
+    }
+    
+    // MARK: - Analytics
+    
+    public var analyticsContext: String {
+        return "Explore"
+    }
+    
+    public var analyticsName: String {
+        return analyticsContext
     }
     
     // MARK: -

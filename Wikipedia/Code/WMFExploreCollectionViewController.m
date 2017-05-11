@@ -1809,6 +1809,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 }
 
 #pragma mark - Analytics
+// TODO: pull from parent view?
 
 - (NSString *)analyticsContext {
     return @"Explore";
