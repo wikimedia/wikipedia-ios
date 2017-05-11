@@ -98,7 +98,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: - WMFExploreCollectionViewControllerDelegate
 
     func exploreCollectionViewDidScroll(_ scrollView: UIScrollView) {
-        DDLogDebug("scrolled! \(scrollView.contentOffset)")
+        //DDLogDebug("scrolled! \(scrollView.contentOffset)")
         
         guard self.view != nil else {
             // view not loaded yet
@@ -111,19 +111,19 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         // no change in scrollY
         if (scrollY == 0) {
-            DDLogDebug("no change in scroll")
+            //DDLogDebug("no change in scroll")
             return
         }
 
         // pulling down when nav bar is already extended
         if (offset == 0 && scrollY < 0) {
-            DDLogDebug("  bar already extended")
+            //DDLogDebug("  bar already extended")
             return
         }
         
         // pulling up when navbar isn't fully collapsed
         if (offset == h && scrollY > 0) {
-            DDLogDebug("  bar already collapsed")
+            //DDLogDebug("  bar already collapsed")
             return
         }
         
@@ -132,12 +132,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         // pulling down when nav bar is partially hidden
         if (scrollY < 0) {
             newOffset = max(offset - abs(scrollY), 0)
-            DDLogDebug("  showing bar newOffset:\(newOffset)")
+            //DDLogDebug("  showing bar newOffset:\(newOffset)")
 
         // pulling up when navbar isn't fully collapsed
         } else {
             newOffset = min(offset + abs(scrollY), h)
-            DDLogDebug("  hiding bar newOffset:\(newOffset)")
+            //DDLogDebug("  hiding bar newOffset:\(newOffset)")
         }
 
         extendNavBarViewTopSpaceConstraint.constant = -newOffset

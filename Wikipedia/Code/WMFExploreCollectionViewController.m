@@ -1865,6 +1865,21 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                          }];
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    DDLogDebug(@"Stopped dragging");
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    DDLogDebug(@"Stopped decelerating");
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    DDLogDebug(@"Stopped scrolling");
+}
+
 #if DEBUG
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
