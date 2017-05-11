@@ -1,4 +1,4 @@
-#import "WMFExploreViewController.h"
+#import "WMFExploreCollectionViewController.h"
 
 #import "Wikipedia-Swift.h"
 
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -99,7 +99,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @end
 
-@implementation WMFExploreViewController
+@implementation WMFExploreCollectionViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -132,17 +132,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
-        [b adjustsImageWhenHighlighted];
-        UIImage *w = [UIImage imageNamed:@"W"];
-        [b setImage:w forState:UIControlStateNormal];
-        [b sizeToFit];
-        [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = b;
-        self.navigationItem.titleView.isAccessibilityElement = YES;
-
-        self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
-//        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+        // TODO: delete this init?
     }
     return self;
 }
@@ -1600,7 +1590,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
+    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
@@ -1828,7 +1818,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.delegate) {
-        [self.delegate exploreViewDidScroll:scrollView];
+        [self.delegate exploreCollectionViewDidScroll:scrollView];
     }
     
     if (self.isLoadingOlderContent) {

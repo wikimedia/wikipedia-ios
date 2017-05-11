@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Explore Wrapper View Controller-->
+        <!--Explore View Controller-->
         <scene sceneID="7XG-fM-dwm">
             <objects>
-                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreWrapperViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bvw-5L-o1P"/>
                         <viewControllerLayoutGuide type="bottom" id="8FH-VM-Onk"/>
@@ -64,10 +64,10 @@
             </objects>
             <point key="canvasLocation" x="36" y="38.23088455772114"/>
         </scene>
-        <!--Explore View Controller-->
+        <!--Explore Collection View Controller-->
         <scene sceneID="RjF-WS-MdK">
             <objects>
-                <collectionViewController storyboardIdentifier="CollectionViewController" id="Q8B-u3-RyW" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="CollectionViewController" id="Q8B-u3-RyW" customClass="WMFExploreCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sOn-PQ-x8k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

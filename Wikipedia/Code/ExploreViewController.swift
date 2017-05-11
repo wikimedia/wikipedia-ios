@@ -1,23 +1,29 @@
 import UIKit
 
-@objc(WMFExploreWrapperViewController)
-class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDelegate {
+@objc(WMFExploreViewController)
+class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate {
     
+    public var collectionViewController: WMFExploreCollectionViewController!
+    public var userStore: MWKDataStore? {
+        didSet {
+            guard let newValue = userStore else {
+                assertionFailure("cannot set CollectionViewController.userStore to nil")
+                return
+            }
+            collectionViewController.userStore = newValue
+        }
+    }
+    
+    public var titleButton: UIButton? {
+        guard let button = self.navigationItem.titleView as? UIButton else {
+            return nil
+        }
+        return button
+    }
+
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
-    
-    public var userStore: MWKDataStore? {
-        didSet {
-            configureExploreViewController()
-        }
-    }
-    
-    private var exploreViewController: WMFExploreViewController! {
-        didSet {
-            configureExploreViewController()
-        }
-    }
     
     required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
@@ -25,13 +31,22 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
         // manually instiate child exploreViewController
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         let storyBoard = UIStoryboard(name: "Explore", bundle: nil)
-        
         let vc = storyBoard.instantiateViewController(withIdentifier: "CollectionViewController")
-        guard let exploreViewController = (vc as? WMFExploreViewController) else {
-            assertionFailure("Could not load WMFExploreViewController")
+        guard let collectionViewController = (vc as? WMFExploreCollectionViewController) else {
+            assertionFailure("Could not load WMFExploreCollectionViewController")
             return nil
         }
-        self.exploreViewController = exploreViewController
+        self.collectionViewController = collectionViewController
+        self.collectionViewController.delegate = self
+
+        let b = UIButton(type: .custom)
+        b.adjustsImageWhenHighlighted = true
+        b.setImage(#imageLiteral(resourceName: "wikipedia"), for: UIControlState.normal)
+        b.sizeToFit()
+        b.addTarget(self, action: #selector(titleBarButtonPressed), for: UIControlEvents.touchUpInside)
+        self.navigationItem.titleView = b
+        self.navigationItem.isAccessibilityElement = true
+        self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
     }
     
     override func viewDidLoad() {
@@ -39,26 +54,16 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
         
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
-        self.exploreViewController.willMove(toParentViewController: self)
-        self.containerView.addSubview(exploreViewController.view)
-        self.addChildViewController(exploreViewController)
-        self.exploreViewController.didMove(toParentViewController: self)
+        self.collectionViewController.willMove(toParentViewController: self)
+        self.containerView.addSubview(collectionViewController.view)
+        self.addChildViewController(collectionViewController)
+        self.collectionViewController.didMove(toParentViewController: self)
 
         self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "wikipedia"))
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
         //self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
-    }
-    
-    fileprivate func configureExploreViewController() {
-        guard let vc = self.exploreViewController, let userStore = self.userStore else {
-            //assertionFailure("Could not set user store") // TODO: not sure if we want this
-            return
-        }
-        vc.userStore = userStore
-        
-        vc.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,12 +78,20 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
         showSettings()
     }
     
+    // MARK: - Actions
+    
     public func showSettings() {
         let settingsContainer = UINavigationController(rootViewController: WMFSettingsViewController.init(dataStore: self.userStore))
         present(settingsContainer, animated: true, completion: nil)
     }
+    
+    public func titleBarButtonPressed() {
+        self.collectionViewController.collectionView?.setContentOffset(CGPoint.zero, animated: true)
+    }
+    
+    // MARK: - WMFExploreCollectionViewControllerDelegate
 
-    func exploreViewDidScroll(_ scrollView: UIScrollView) {
+    func exploreCollectionViewDidScroll(_ scrollView: UIScrollView) {
         DDLogDebug("scrolled! \(scrollView.contentOffset)")
         
         guard self.view != nil else {
@@ -134,18 +147,18 @@ class ExploreWrapperViewController: UIViewController, WMFExploreViewControllerDe
     
     @objc(updateFeedSourcesUserInitiated:)
     public func updateFeedSources(userInitiated wasUserInitiated: Bool) {
-        self.exploreViewController.updateFeedSourcesUserInitiated(wasUserInitiated)
+        self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated)
     }
     
     @objc(showInTheNewsForStory:date:animated:)
     public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
     {
-        self.exploreViewController.showInTheNews(for: story, date: date, animated: animated)
+        self.collectionViewController.showInTheNews(for: story, date: date, animated: animated)
     }
     
     @objc(presentMoreViewControllerForGroup:animated:)
     public func presentMoreViewController(for group: WMFContentGroup, animated: Bool)
     {
-        self.exploreViewController.presentMoreViewController(for: group, animated: animated)
+        self.collectionViewController.presentMoreViewController(for: group, animated: animated)
     }
 }

@@ -30,7 +30,6 @@
 #import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
-#import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
@@ -86,7 +85,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
-@property (nonatomic, strong, readonly) WMFExploreWrapperViewController *exploreViewController;
+@property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
 
@@ -915,8 +914,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return self.session.dataStore;
 }
 
-- (WMFExploreWrapperViewController *)exploreViewController {
-    return (WMFExploreWrapperViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
+- (WMFExploreViewController *)exploreViewController {
+    return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
 - (WMFArticleListTableViewController *)savedArticlesViewController {
