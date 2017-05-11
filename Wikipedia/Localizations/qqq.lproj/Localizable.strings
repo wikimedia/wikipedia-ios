@@ -84,6 +84,7 @@
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
+"explore-because-you-read" = "Text for 'Because you read' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
@@ -101,8 +102,6 @@
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
-"explore-suggested-for-you" = "Text for 'Suggested for you' header";
-"explore-suggested-for-you-subtitle" = "Text for 'Suggested for you' header subtitle";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "field-alert-captcha-invalid" = "Alert shown if CAPTCHA is not correct";

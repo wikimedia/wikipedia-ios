@@ -84,6 +84,7 @@
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
 "explore-another-random" = "Another random article";
+"explore-because-you-read" = "Because you read";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-featured-article-heading" = "Featured article";
 "explore-main-page-heading" = "Today on Wikipedia";
@@ -101,8 +102,6 @@
 "explore-potd-heading" = "Picture of the day";
 "explore-random-article-heading" = "Random article";
 "explore-randomizer" = "Randomizer";
-"explore-suggested-for-you" = "Suggested for you";
-"explore-suggested-for-you-subtitle" = "Because you read…";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "You can now receive notifications about Wikipedia articles trending in the news.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
