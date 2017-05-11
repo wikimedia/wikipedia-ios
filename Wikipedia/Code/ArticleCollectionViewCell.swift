@@ -76,12 +76,12 @@ extension ArticleCollectionViewCell {
         titleLabel.text = article.displayTitle
         if contentGroup.displayType() == WMFFeedDisplayType.pageWithPreview {
             textContainerView?.backgroundColor = UIColor.white
-            descriptionLabel.text = article.wikidataDescription
+            descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
             extractLabel?.text = article.snippet
             isSaveButtonHidden = false
             imageHeightConstraint?.constant = 196
         } else {
-            descriptionLabel.text = article.wikidataDescriptionOrSnippet
+            descriptionLabel.text = article.wikidataDescriptionOrSnippet.wmf_stringByCapitalizingFirstCharacter()
             textContainerView?.backgroundColor = UIColor.wmf_lightGrayCellBackground
             extractLabel?.text = nil
             if let _ = saveButtonContainerView { //hack check for FullWidth vs RightAligned
