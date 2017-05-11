@@ -55,10 +55,8 @@
 
 #import "WMFCVLAttributes.h"
 #import "NSCalendar+WMFCommonCalendars.h"
-
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
-
 @import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -613,6 +611,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.userStore);
     [super viewDidAppear:animated];
+
     [self.collectionView wmf_shouldScrollToTopOnStatusBarTap:YES];
     [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
