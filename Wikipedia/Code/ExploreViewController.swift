@@ -52,6 +52,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.tintColor = .wmf_blueTint
+        
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         self.collectionViewController.willMove(toParentViewController: self)
