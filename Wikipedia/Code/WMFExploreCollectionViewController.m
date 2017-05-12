@@ -1875,6 +1875,14 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    //DDLogDebug(@"Begin dragging");
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willBeginScrolling:)]) {
+        [self.delegate exploreCollectionViewController:self willBeginScrolling:scrollView];
+    }
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     //DDLogDebug(@"Stopped decelerating");
@@ -1885,7 +1893,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    DDLogDebug(@"Stopped scrolling");
+    // DDLogDebug(@"Stopped scrolling");
 }
 
 #if DEBUG

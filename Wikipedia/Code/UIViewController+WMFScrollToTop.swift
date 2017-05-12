@@ -21,5 +21,6 @@ extension ExploreViewController {
     func scrollToTop() {
         guard collectionViewController.canScrollToTop else { return }
         collectionViewController.scrollToFirstIndexPath()
+        showSearchBar(animated: true)
     }
 }
