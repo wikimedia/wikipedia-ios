@@ -2,7 +2,7 @@ import UIKit
 
 extension UILabel {
     var hasText: Bool {
-        return text?.characters.count ?? 0 > 0
+        return (text as NSString?)?.length ?? 0 > 0
     }
 }
 
