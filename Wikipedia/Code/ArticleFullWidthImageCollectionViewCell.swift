@@ -31,13 +31,15 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         y = layout(for: descriptionLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
-        if let extractLabel = extractLabel {
+        if let extractLabel = extractLabel, extractLabel.hasText {
+            y += 7
             y = layout(for: extractLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         }
 
         if !isSaveButtonHidden {
-            y += 10
+            y += 20
             y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
+            y += 5
         }
         y += margins.bottom
         return CGSize(width: size.width, height: y)
