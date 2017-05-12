@@ -852,10 +852,6 @@
 		D8831D3A1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
 		D8831D3B1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
 		D8831D3C1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
-		D8831D3E1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */; };
-		D8831D3F1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */; };
-		D8831D401EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */; };
-		D8831D411EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */; };
 		D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */; };
 		D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
 		D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCAE01E4B776600505A9F /* MapUtilities.swift */; };
@@ -3918,7 +3914,6 @@
 		D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadKeyTests.swift; sourceTree = "<group>"; };
 		D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFArticle+QuadKey.swift"; path = "Wikipedia/Code/WMFArticle+QuadKey.swift"; sourceTree = SOURCE_ROOT; };
 		D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleFullWidthImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ArticleFullWidthImageCollectionViewCell.xib; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikidataFetcher.swift; sourceTree = "<group>"; };
 		D88FCAE01E4B776600505A9F /* MapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtilities.swift; sourceTree = "<group>"; };
@@ -6255,7 +6250,6 @@
 			children = (
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
-				D8831D3D1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
 				D87721F31EC0CDB60005E634 /* ArticleRightAlignedImageCollectionViewCell.xib */,
 				D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */,
@@ -8248,7 +8242,6 @@
 				0EE2438F1DC988AA00066CBD /* WMFTableHeaderLabelView.xib in Resources */,
 				B0E802CC1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				B0E804161C0CDE480065EBC0 /* WebViewController.storyboard in Resources */,
-				D8831D3E1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */,
 				D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */,
 				D82014801E6868F800BA8579 /* TUSafariActivity.bundle in Resources */,
 				B0E804181C0CDE480065EBC0 /* WMFSettingsViewController.storyboard in Resources */,
@@ -8370,7 +8363,6 @@
 				D8A42C101E815A9C00D8E281 /* WMFTableHeaderLabelView.xib in Resources */,
 				D8A42C111E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */,
-				D8831D411EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */,
 				D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */,
 				D8A42C141E815A9C00D8E281 /* TUSafariActivity.bundle in Resources */,
 				D8A42C151E815A9C00D8E281 /* WMFSettingsViewController.storyboard in Resources */,
@@ -8474,7 +8466,6 @@
 				D8CE26971E698E2400DAE2E0 /* WMFTableHeaderLabelView.xib in Resources */,
 				D8CE26981E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */,
-				D8831D3F1EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
 				D8CE269B1E698E2400DAE2E0 /* TUSafariActivity.bundle in Resources */,
 				D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */,
@@ -8578,7 +8569,6 @@
 				D8EC3F971E9BDA35006712EB /* WMFTableHeaderLabelView.xib in Resources */,
 				D8EC3F981E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */,
-				D8831D401EC33F2F008CA89A /* ArticleFullWidthImageCollectionViewCell.xib in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
 				D8EC3F9B1E9BDA35006712EB /* TUSafariActivity.bundle in Resources */,
 				D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */,

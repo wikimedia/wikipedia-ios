@@ -83,7 +83,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, UICollectionViewCell *> *placeholderCells;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
@@ -755,10 +755,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
-            WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+            NSString *reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
+            id <WMFArticleCollectionViewCell> cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
-            return cell;
+            return (UICollectionViewCell *)cell;
         }
             break;
         case WMFFeedDisplayTypePageWithLocation: {
@@ -817,7 +817,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
+            NSString *reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" :@"WMFArticleRightAlignedImageCollectionViewCell";
             WMFArticle *article = [self articleForIndexPath:indexPath];
             NSString *key = article.key;
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%@-%lli", reuseIdentifier, (long long)displayType, key, (long long)columnWidth];
@@ -827,13 +827,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 estimate.precalculated = YES;
                 break;
             }
-            WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
+            id <WMFArticleCollectionViewCell> cell = [self placeholderCellForIdentifier:reuseIdentifier];
             CGFloat estimatedHeight = 500;
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
             attributesToFit.frame = frameToFit;
-            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            UICollectionViewLayoutAttributes *attributes = [(UICollectionViewCell *)cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
             estimate.precalculated = YES;
             [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
@@ -905,8 +905,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
-    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
-        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
+    if ([cell conformsToProtocol:@protocol(WMFArticleCollectionViewCell)]) {
+        WMFSaveButton *saveButton = [(id <WMFArticleCollectionViewCell>)cell saveButton];
         if (saveButton) {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             [self.saveButtonsController willDisplaySaveButton:saveButton forArticle:article];
@@ -923,8 +923,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(nonnull UICollectionViewCell *)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
-        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
+    if ([cell conformsToProtocol:@protocol(WMFArticleCollectionViewCell)]) {
+        WMFSaveButton *saveButton = [(id <WMFArticleCollectionViewCell>)cell saveButton];
         if (saveButton) {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             [self.saveButtonsController didEndDisplayingSaveButton:saveButton forArticle:article];
@@ -1153,6 +1153,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.placeholderCells setObject:placeholderCell forKey:identifier];
 }
 
+- (void)registerClass:(nullable Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
+    [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
+    UICollectionViewCell *placeholderCell = [[cellClass alloc] initWithFrame:CGRectZero];
+    if (!placeholderCell) {
+        return;
+    }
+    placeholderCell.hidden = YES;
+    [self.view insertSubview:placeholderCell atIndex:0];
+    [self.placeholderCells setObject:placeholderCell forKey:identifier];
+}
+
 - (id)placeholderCellForIdentifier:(NSString *)identifier {
     return self.placeholderCells[identifier];
 }
@@ -1183,9 +1194,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
-    [self registerNib:[WMFArticleRightAlignedImageCollectionViewCell classNib] forCellWithReuseIdentifier:[WMFArticleRightAlignedImageCollectionViewCell nibName]];
+    [self registerNib:[WMFArticleRightAlignedImageCollectionViewCell classNib] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
     
-    [self registerNib:[WMFArticleFullWidthImageCollectionViewCell classNib] forCellWithReuseIdentifier:[WMFArticleFullWidthImageCollectionViewCell nibName]];
+    [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
     
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
@@ -1204,7 +1215,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [cell setImageURL:imageURL];
 }
 
-- (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
+- (void)configureArticleCell:(id <WMFArticleCollectionViewCell>)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     if (!article || !section) {
         return;
     }

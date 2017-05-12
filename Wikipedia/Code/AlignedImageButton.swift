@@ -1,7 +1,6 @@
 import UIKit
 
-
-class AlignedImageButton: UIButton {
+public class AlignedImageButton: UIButton {
     
     @IBInspectable open var margin: CGFloat = 8
     @IBInspectable open var imageIsRightAligned: Bool = false {
@@ -16,7 +15,7 @@ class AlignedImageButton: UIButton {
         }
     }
     
-    override var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+    override public var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         get {
             let superDirection: UIUserInterfaceLayoutDirection
             if #available(iOS 10.0, *) {
@@ -48,7 +47,7 @@ class AlignedImageButton: UIButton {
         adjustInsets()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         adjustInsets()
     }
