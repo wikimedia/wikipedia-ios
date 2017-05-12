@@ -180,19 +180,19 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         // no change in scrollY
         if (scrollY == 0) {
-            DDLogDebug("no change in scroll")
+            //DDLogDebug("no change in scroll")
             return
         }
 
         // pulling down when nav bar is already extended
         if (extNavBarOffset == 0 && scrollY < 0) {
-            DDLogDebug("  bar already extended")
+            //DDLogDebug("  bar already extended")
             return
         }
         
         // pulling up when navbar isn't fully collapsed
         if (extNavBarOffset == extNavBarHeight && scrollY > 0) {
-            DDLogDebug("  bar already collapsed")
+            //DDLogDebug("  bar already collapsed")
             return
         }
         
@@ -201,12 +201,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         // pulling down when nav bar is partially hidden
         if (scrollY <= 0) {
             newOffset = max(extNavBarOffset - abs(scrollY), 0)
-            DDLogDebug("  showing bar newOffset:\(newOffset)")
+            //DDLogDebug("  showing bar newOffset:\(newOffset)")
 
         // pulling up when navbar isn't fully collapsed
         } else {
             newOffset = min(extNavBarOffset + abs(scrollY), extNavBarHeight)
-            DDLogDebug("  hiding bar newOffset:\(newOffset)")
+            //DDLogDebug("  hiding bar newOffset:\(newOffset)")
         }
         
         updateSearchBar(offset: newOffset, animated: false)
@@ -225,10 +225,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
         var newOffset: CGFloat?
         if (extNavBarOffset > 0 && extNavBarOffset < extNavBarHeight/2) {
-            DDLogDebug("Need to scroll down")
+            //DDLogDebug("Need to scroll down")
             newOffset = 0
         } else if (extNavBarOffset >= extNavBarHeight/2 && extNavBarOffset < extNavBarHeight) {
-            DDLogDebug("Need to scroll up")
+            //DDLogDebug("Need to scroll up")
             newOffset = extNavBarHeight
         }
         
