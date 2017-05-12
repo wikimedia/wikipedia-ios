@@ -30,7 +30,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beS-I8-FSx" customClass="GroupedAccessibilityView" customModule="WMF">
                                 <rect key="frame" x="0.0" y="150" width="375" height="157"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCN-yI-f7t">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCN-yI-f7t">
                                         <rect key="frame" x="13" y="15" width="51.5" height="24"/>
                                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="21"/>
                                         <nil key="textColor"/>
@@ -60,8 +60,8 @@
                                     <constraint firstItem="LCN-yI-f7t" firstAttribute="top" secondItem="beS-I8-FSx" secondAttribute="top" constant="15" id="cMB-vX-l5B"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="I8T-Yq-Ij7" secondAttribute="trailing" constant="13" id="egz-f7-Yyo"/>
                                     <constraint firstItem="I8T-Yq-Ij7" firstAttribute="leading" secondItem="LCN-yI-f7t" secondAttribute="leading" id="fMM-Id-MIH"/>
-                                    <constraint firstItem="I8T-Yq-Ij7" firstAttribute="top" secondItem="kft-MX-Jj2" secondAttribute="bottom" constant="6" id="xw9-oL-ag1"/>
-                                    <constraint firstItem="kft-MX-Jj2" firstAttribute="top" secondItem="LCN-yI-f7t" secondAttribute="bottom" constant="6" id="zy0-do-4y5"/>
+                                    <constraint firstItem="I8T-Yq-Ij7" firstAttribute="top" secondItem="kft-MX-Jj2" secondAttribute="bottom" priority="750" constant="6" id="xw9-oL-ag1"/>
+                                    <constraint firstItem="kft-MX-Jj2" firstAttribute="top" secondItem="LCN-yI-f7t" secondAttribute="bottom" priority="750" constant="6" id="zy0-do-4y5"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="accessibilityView0" destination="LCN-yI-f7t" id="7sX-pv-ySZ"/>
