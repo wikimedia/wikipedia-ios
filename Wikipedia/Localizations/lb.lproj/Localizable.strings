@@ -90,7 +90,6 @@
 "empty-no-search-results-message" = "Näischt fonnt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
-"explore-continue-related-heading" = "Well Dir liest";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
@@ -173,7 +172,6 @@
 "in-the-news-title" = "An den Neiegkeeten";
 "in-the-news-title-for-date" = "Neiegkeete vum $1";
 "info-box-close-text" = "Zoumaachen";
-// Fuzzy
 "info-box-title" = "Séier Fakten";
 "languages-title" = "Sprooch änneren";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -233,11 +231,9 @@
 "places-filter-list-title" = "Filtere fir d'Sichen";
 "places-filter-no-saved-places" = "Dir hutt keng gespäichert Plazen";
 "places-filter-saved-articles" = "Gespäichert Artikelen";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 Plaze fonnt";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|Eng Plaz|$1 Plaze}} fonnt";
 "places-filter-top-articles" = "Am dackste geliest";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 Artikelen";
+"places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
 "places-search-default-text" = "Sichen";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-search-saved-articles" = "All gespäichert Artikelen";

@@ -53,9 +53,13 @@
 "abuse-filter-warning-irrelevant" = "روابط أو صور خارجية لا صلة لها بالموضوع";
 "abuse-filter-warning-repeat" = "أحرف متكررررررة بلا داعي";
 "abuse-filter-warning-subheading" = "قد يحتوي تعديلك على واحد مما يلي أو أكثر:";
+"account-creation-captcha-cannot-see-image" = "لا ترى الصورة؟ $1";
 "account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
-"account-creation-captcha-request-account" = "طلب حساب";
+"account-creation-captcha-request-account" = "طلب حساب.";
+"account-creation-captcha-title" = "اختبار التحقق البشري";
 "account-creation-create-account" = "أنشئ حسابك";
+"account-creation-have-account" = "لديك حساب بالفعل؟ $1";
+"account-creation-log-in" = "ادخل.";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
@@ -107,7 +111,6 @@
 "empty-no-search-results-message" = "لا توجد نتائج";
 "explore-another-random" = "مقالة عشوائية أخرى";
 "explore-continue-reading-heading" = "واصل القراءة";
-"explore-continue-related-heading" = "لأنك قرأت";
 "explore-featured-article-heading" = "مقالة مختارة";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
 "explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
@@ -115,10 +118,18 @@
 "explore-most-read-heading" = "الأعلى قراءة في ويكيبيديا $1";
 "explore-most-read-more-list-title-for-date" = "الأكثر قراءة في $1";
 "explore-nearby-heading" = "أماكن قريبة";
+"explore-nearby-placeholder-cancel" = "ألغ";
+"explore-nearby-placeholder-dismiss" = "أغلق";
+"explore-nearby-placeholder-heading" = "أماكن";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "على ويكيبيديا $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-nearby-sub-heading-your-location" = "موقعك";
 "explore-potd-heading" = "صورة اليوم";
 "explore-random-article-heading" = "مقالة عشوائية";
+"explore-randomizer" = "صفحات عشوائية";
+"field-alert-captcha-invalid" = "تحقق بشري خاطئ";
+"field-alert-password-confirm-mismatch" = "كلمتا السر لا تتطابقان";
+"field-alert-password-invalid" = "كلمة سر خاطئة";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "البريد الإلكتروني";
 "field-email-title-optional" = "البريد الإلكتروني (اختياري)";
@@ -133,6 +144,7 @@
 "field-username-placeholder" = "أدخل اسم المستخدم";
 "field-username-title" = "اسم المستخدم";
 "find-in-page-button-label" = "البحث في الصفحة";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-popover-description" = "ابحث عن نص في المقالات";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
@@ -148,12 +160,13 @@
 "hockeyapp-alert-always-send" = "أرسل دائما";
 "hockeyapp-alert-do-not-send" = "لا ترسل";
 "hockeyapp-alert-privacy" = "$1 الخصوصية";
-// Fuzzy
-"hockeyapp-alert-question" = "هل تود أن ترسل تقرير بالعطب إلى $1 حتى يمكن لويكيميديا أن تراجع سبب العطب؟";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "هل ترغب في إرسال تقرير عطب إلى $1 حتى يمكن لويكيميديا مراجعة سبب العطب؟ يرجى وصف ما حدث حينما حدث هذا العطب.";
+"hockeyapp-alert-question" = "هل تود أن ترسل تقرير بالعطب إلى $1 حتى يمكن لمؤسسة ويكيميديا أن تراجع سبب العطب؟";
+"hockeyapp-alert-question-with-response-field" = "هل ترغب في إرسال تقرير عطب إلى $1 حتى يمكن لمؤسسة ويكيميديا مراجعة سبب العطب؟ يرجى وصف ما حدث حينما حدث هذا العطب.";
 "hockeyapp-alert-send-report" = "أرسل التقرير";
 "hockeyapp-alert-title" = "عذرا، تعطل التطبيق في آخر مرة";
+"home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
+"home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
+"home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
 "home-hide-suggestion-cancel" = "إلغاء";
 "home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "home-more-like-footer" = "المزيد مثل $1";
@@ -164,8 +177,7 @@
 "icon-shortcut-nearby-title" = "مقالات مجاورة";
 "icon-shortcut-random-title" = "مقالة عشوائية";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
-// Fuzzy
-"image-gallery-unknown-owner" = "الرافع غير معروف.";
+"image-gallery-unknown-owner" = "المؤلف غير معروف.";
 "in-the-news-currently-trending" = "الأكثر زيارة حاليا";
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
@@ -173,7 +185,6 @@
 "in-the-news-title" = "في الأخبار";
 "in-the-news-title-for-date" = "أخبار في $1";
 "info-box-close-text" = "إغلاق";
-// Fuzzy
 "info-box-title" = "معلومات سريعة";
 "languages-title" = "تغيير اللغة";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -181,6 +192,7 @@
 "login-forgot-password" = "هل نسيت كلمة السر؟";
 "login-join-wikipedia" = "انضم لويكيبيديا";
 "login-no-account" = "لا حساب لديك؟ $1";
+"login-title" = "تسجيل الدخول إلى حسابك";
 "main-menu-about" = "عن التطبيق";
 "main-menu-account-login" = "تسجيل الدخول";
 "main-menu-account-logout" = "تسجيل الخروج";
@@ -217,6 +229,7 @@
 "page-history-title" = "تاريخ المقالة";
 "page-issues" = "مشاكل في الصفحة";
 "page-last-edited" = "عدلت $1 يوم مضى";
+"page-location" = "شاهده على خريطة";
 "page-protected-autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page-protected-can-not-edit-title" = "هذه الصفحة محمية";
@@ -224,13 +237,15 @@
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-similar-titles" = "صفحات مشابهة";
+"places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-close-search" = "أغلق البحث";
+"places-accessibility-group" = "$1 مقالات";
+"places-accessibility-show-as-list" = "اعرض كقائمة";
+"places-accessibility-show-as-map" = "اعرض كخريطة";
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
-// Fuzzy
-"places-filter-top-articles" = "أعلى المقالات";
+"places-filter-top-articles" = "الأعلى قراءة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
-// Fuzzy
-"places-search-default-text" = "بحث عن المقالات أو المواقع";
+"places-search-default-text" = "بحث";
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-search-saved-articles" = "كل المقالات المحفوظة";
 "places-search-suggested-searches-header" = "عمليات البحث المقترحة";
@@ -238,9 +253,10 @@
 "places-unknown-distance" = "المسافة غير معروفة";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
 "potd-empty-error-description" = "فشل في اجتلاب صورة اليوم في تاريخ $1";
-// Fuzzy
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
+"rank-accessibility-label" = "رقم $1";
+"readers-accessibility-label" = "$1 قارئ";
 "reference-title" = "$1 مرجع";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
 "save-action" = "احفظ";
@@ -259,6 +275,11 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"settings-clear-cache" = "مسح المحتوى المخزن";
+"settings-clear-cache-are-you-sure-message" = "مسح المحتوى المخزن سيتيح حوالي مساحة $1. هذا لن يحذف المقالات المحفوظة.";
+"settings-clear-cache-are-you-sure-title" = "مسح المحتوى المخزن؟";
+"settings-clear-cache-cancel" = "ألغ";
+"settings-clear-cache-ok" = "مسح المخزون";
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-my-languages" = "لغاتي";
@@ -275,7 +296,9 @@
 "share-as-text" = "شارك كنص";
 "share-cancel" = "ألغ";
 "share-custom-menu-item" = "شارك...";
+"share-get-directions-in-maps" = "احصل على الاتجاهات";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
+"share-open-in-maps" = "افتح في الخرائط";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
 "status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "table-of-contents-button-label" = "قائمة المحتويات";
@@ -293,15 +316,20 @@
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
+"two-factor-login-continue" = "مواصلة تسجيل الدخول";
 "two-factor-login-instructions" = "يرجى إدخال تشفيرة المصادقة ذات العاملين";
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
+"unsave-action" = "تراجع عن الحفظ";
 "welcome-explore-continue-button" = "فلنبدأ";
+"welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more" = "أطلعني على المزيد";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-languages-continue-button" = "استمر";
 "welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
 "welcome-languages-title" = "اللغات";
+"welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
+"welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "welcome-volunteer-thanks" = "شكرا لك!$1";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";

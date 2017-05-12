@@ -109,7 +109,6 @@
 "empty-no-search-results-message" = "Nessun risultato trovato";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-continue-reading-heading" = "Continua a leggere";
-"explore-continue-related-heading" = "Perché hai letto";
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-most-read-footer-for-date" = "Tutte le voci più lette il $1";
@@ -189,7 +188,6 @@
 "in-the-news-title" = "Novità";
 "in-the-news-title-for-date" = "Novità del $1";
 "info-box-close-text" = "Chiudi";
-// Fuzzy
 "info-box-title" = "Fatti in breve";
 "languages-title" = "Cambia lingua";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -250,10 +248,8 @@
 "places-filter-list-title" = "Filtri di ricerca";
 "places-filter-no-saved-places" = "Non hai luoghi salvati";
 "places-filter-saved-articles" = "Voci salvate";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 luoghi trovati";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 voci";
+"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
 "places-search-default-text" = "Cerca";
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-search-saved-articles" = "Tutte le voci salvate";

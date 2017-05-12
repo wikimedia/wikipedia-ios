@@ -112,7 +112,6 @@
 "empty-no-search-results-message" = "Sonuç bulunamadı";
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-continue-reading-heading" = "Okumaya devam et";
-"explore-continue-related-heading" = "Okuduklarına benzer";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
 "explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
@@ -197,8 +196,7 @@
 "in-the-news-title" = "Haberlerde";
 "in-the-news-title-for-date" = "$1 haberleri";
 "info-box-close-text" = "Kapat";
-// Fuzzy
-"info-box-title" = "Pratik bilgiler";
+"info-box-title" = "Pratik Bilgiler";
 "languages-title" = "Dili değiştir";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
@@ -250,27 +248,32 @@
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-similar-titles" = "Benzer sayfalar";
+"places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";
 "places-accessibility-close-search" = "Aramayı kapat";
 "places-accessibility-group" = "$1 madde";
 "places-accessibility-recenter-map-on-user-location" = "Konumunuza geri dönün";
 "places-accessibility-show-as-list" = "Liste olarak göster";
 "places-accessibility-show-as-map" = "Harita olarak göster";
 "places-accessibility-show-more" = "Daha fazla madde göster";
+"places-empty-search-description" = "Şehirleri, ülkeleri, kıtaları, doğa harikalarını, tarihi olayları, yapıları ve daha fazlasını keşfedin.";
+"places-empty-search-title" = "Coğrafi konumu olan Vikipedi maddelerini ara";
 "places-enable-location-action-button-title" = "Konumu etkinleştir";
 "places-enable-location-description" = "Sadece uygulama veya uygulamanın bir özelliği ekranda açıkken konumunuza erişim imkanı olacaktır.";
 "places-enable-location-title" = "Konum Erişimini etkilenştirerek, yakınınızdaki maddeleri keşfedin";
+"places-filter-list-title" = "Arama süzgeçleri";
+"places-filter-no-saved-places" = "Kaydedilmiş yeriniz yok";
 "places-filter-saved-articles" = "Kaydedilmiş maddeler";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 madde";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 yer|$1 yer}} bulundu";
+"places-filter-top-articles" = "En çok okunanlar";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
+"places-search-articles-that-match" = "“$2” hakkındaki $1";
 "places-search-default-text" = "Ara";
 "places-search-recently-searched-header" = "Son arananlar";
 "places-search-saved-articles" = "Kaydedilmiş maddelerin hepsi";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
-// Fuzzy
-"places-search-this-area" = "Bu bölgeyi ara";
-// Fuzzy
-"places-search-top-articles" = "Gündemdeki maddeler";
+"places-search-this-area" = "Bu bölgedeki sonuçlar";
+"places-search-top-articles" = "En çok okunan tüm maddeler";
 "places-unknown-distance" = "bilinmeyen uzaklık";
 "potd-description-prefix" = "$1 tarihli günün resmi";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";

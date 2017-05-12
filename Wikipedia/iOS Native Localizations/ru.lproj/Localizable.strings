@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "Ничего не найдено";
 "explore-another-random" = "Другая случайная статья";
 "explore-continue-reading-heading" = "Продолжить чтение";
-"explore-continue-related-heading" = "Потому что вы читали";
 "explore-featured-article-heading" = "Избранная статья";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer-for-date" = "Все самые читаемые статьи на %1$@";
@@ -236,16 +235,14 @@
 "places-filter-list-title" = "Фильтры поиска";
 "places-filter-no-saved-places" = "У вас нет сохранённых мест";
 "places-filter-saved-articles" = "Сохранённые статьи";
-"places-filter-saved-articles-count" = "Найдено %1$@ мест";
-"places-filter-top-articles" = "Самые читаемые статьи";
-"places-filter-top-articles-count" = "%1$@ статей";
+"places-filter-top-articles" = "Самые читаемые";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-search-articles-that-match" = "%1$@ подходит для “%2$@”";
-"places-search-default-text" = "Искать статью или местоположение";
+"places-search-default-text" = "Найти";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-search-saved-articles" = "Все сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
-"places-search-this-area" = "Поиск в этой области";
+"places-search-this-area" = "Результаты в этой области";
 "places-search-top-articles" = "Все самые читаемые статьи";
 "places-unknown-distance" = "расстояние неизвестно";
 "potd-description-prefix" = "Изображение дня за %1$@";
@@ -273,6 +270,7 @@
 "search-result-redirected-from" = "Перенаправлено с: %1$@";
 "search-title" = "Поиск";
 "settings-clear-cache-cancel" = "Отмена";
+"settings-clear-cache-ok" = "Очистить кэш";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-my-languages" = "Мои языки";

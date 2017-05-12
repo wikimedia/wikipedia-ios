@@ -207,7 +207,6 @@
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
 "places-filter-list-title" = "Filtry wyszukiwania";
 "places-filter-saved-articles" = "Zapisane artykuły";
-// Fuzzy
 "places-filter-saved-articles-count" = "Znaleziono $1 {{PLURAL:$1|miejsce|miejsca|miejsc}}";
 // Fuzzy
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}";

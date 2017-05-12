@@ -84,7 +84,6 @@
 "empty-no-search-results-message" = "Näischt fonnt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
-"explore-continue-related-heading" = "Well Dir liest";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) %1$@";
@@ -226,9 +225,7 @@
 "places-filter-list-title" = "Filtere fir d'Sichen";
 "places-filter-no-saved-places" = "Dir hutt keng gespäichert Plazen";
 "places-filter-saved-articles" = "Gespäichert Artikelen";
-"places-filter-saved-articles-count" = "%1$@ Plaze fonnt";
 "places-filter-top-articles" = "Am dackste geliest";
-"places-filter-top-articles-count" = "%1$@ Artikelen";
 "places-search-default-text" = "Sichen";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-search-saved-articles" = "All gespäichert Artikelen";

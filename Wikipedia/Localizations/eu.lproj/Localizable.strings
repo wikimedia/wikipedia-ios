@@ -139,14 +139,14 @@
 "page-protected-sysop" = "Orri hau erabat babestua dago.";
 "page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
 "page-similar-titles" = "Antzeko orriak";
+"places-accessibility-clear-saved-searches" = "Garbitu gordetako bilaketak";
 "places-accessibility-close-search" = "Itxi bilaketa";
 "places-accessibility-group" = "$1 artikulu";
 "places-accessibility-show-as-list" = "Erakutsi zerrenda gisa";
 "places-accessibility-show-as-map" = "Erakutsi mapa gisa";
 "places-filter-saved-articles" = "Gordetako artikuluak";
 "places-filter-top-articles" = "Irakurrienak";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 artikulu";
+"places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
 "places-search-default-text" = "Bilatu";
 "places-search-saved-articles" = "Gordetako artikulu guztiak";
 "places-search-suggested-searches-header" = "Iradokitako bilaketak";

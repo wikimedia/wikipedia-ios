@@ -114,7 +114,6 @@
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
 "explore-another-random" = "Outro artigo aleatório";
 "explore-continue-reading-heading" = "Continue lendo";
-"explore-continue-related-heading" = "Porque você leu";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-main-page-heading" = "Hoje na Wikipédia";
 "explore-most-read-footer-for-date" = "Todos os artigos mais lidos em $1";
@@ -199,7 +198,6 @@
 "in-the-news-title" = "Eventos recentes";
 "in-the-news-title-for-date" = "Notícias em $1";
 "info-box-close-text" = "Fechar";
-// Fuzzy
 "info-box-title" = "Fatos rápidos";
 "languages-title" = "Alterar idioma";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -252,6 +250,7 @@
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-similar-titles" = "Páginas similares";
+"places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";
 "places-accessibility-close-search" = "Fechar pesquisa";
 "places-accessibility-group" = "$1 artigos";
 "places-accessibility-recenter-map-on-user-location" = "Recentralizar sua localização";
@@ -266,12 +265,9 @@
 "places-filter-list-title" = "Filtros de pesquisa";
 "places-filter-no-saved-places" = "Você não tem lugares salvos";
 "places-filter-saved-articles" = "Artigos salvos";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 lugar encontrado";
-// Fuzzy
-"places-filter-top-articles" = "Artigos principais";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 artigos";
+"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|$1 lugar|$1 lugares}} encontrado";
+"places-filter-top-articles" = "Mais lidos";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos salvos tem informações de localização";
 "places-search-articles-that-match" = "$1 coincidindo “$2”";
 "places-search-default-text" = "Procurar";
