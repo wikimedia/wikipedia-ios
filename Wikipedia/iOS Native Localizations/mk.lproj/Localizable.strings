@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "Не пронајдов ништо";
 "explore-another-random" = "Друга случајна статија";
 "explore-continue-reading-heading" = "Продолжете со читање";
-"explore-continue-related-heading" = "Бидејќи читавте";
 "explore-featured-article-heading" = "Избрани статии";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-most-read-footer-for-date" = "Сите најчитани статии на %1$@";
@@ -170,7 +169,7 @@
 "in-the-news-title" = "Вести";
 "in-the-news-title-for-date" = "Вести на %1$@";
 "info-box-close-text" = "Затвори";
-"info-box-title" = "Накратко";
+"info-box-title" = "Кратки факти";
 "languages-title" = "Смени јазик";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содржината е достапна под условите на %1$@ освен ако не е поинаку наведено.";
@@ -222,6 +221,7 @@
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
 "page-read-in-other-languages" = "Достапно на %1$@ други јазици";
 "page-similar-titles" = "Слични страници";
+"places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-close-search" = "Затвори пребарување";
 "places-accessibility-group" = "%1$@ статии";
 "places-accessibility-recenter-map-on-user-location" = "Сосредоточи на мојата местоположба";
@@ -236,9 +236,7 @@
 "places-filter-list-title" = "Филтри за пребарување";
 "places-filter-no-saved-places" = "Немате зачувани места";
 "places-filter-saved-articles" = "Зачувани статии";
-"places-filter-saved-articles-count" = "Пронајдени се %1$@ места";
 "places-filter-top-articles" = "Најчитани";
-"places-filter-top-articles-count" = "%1$@ статии";
 "places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-search-articles-that-match" = "%1$@ што одговараат на „%2$@“";
 "places-search-default-text" = "Пребарај";

@@ -91,7 +91,6 @@
 "empty-no-search-results-message" = "Ora ana asil";
 "explore-another-random" = "Artikel waton liyane";
 "explore-continue-reading-heading" = "Terus maca";
-"explore-continue-related-heading" = "Amarga maca";
 "explore-featured-article-heading" = "Artikel pinilih";
 "explore-main-page-heading" = "Dina iki ing Wikipedia";
 "explore-most-read-footer-for-date" = "Artikel maca ndhuwur kabeh ing $1";
@@ -133,6 +132,7 @@
 "field-username-placeholder" = "lebokaké jeneng panganggo";
 "field-username-title" = "Jeneng panganggo";
 "find-in-page-button-label" = "Golèk ing kaca";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-popover-description" = "Golèk teks ing artikel";
 "forgot-password-button-title" = "Rèsèt";
 "forgot-password-email-sent" = "Email karo pandhuan reset sandi dikirim";
@@ -149,10 +149,8 @@
 "hockeyapp-alert-always-send" = "Tansah ngirim";
 "hockeyapp-alert-do-not-send" = "Ora ngirim";
 "hockeyapp-alert-privacy" = "Privasi $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia bisa maneh kacilakan Panjenengan?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia bisa maneh kacilakan Panjenengan? Mangga njlèntrèhaké apa kedaden nalika kacilakan wonten:";
+"hockeyapp-alert-question" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia Foundation bisa maneh kacilakan Panjenengan?";
+"hockeyapp-alert-question-with-response-field" = "Punapa panjenengan kersa ngirim laporan kacilakan kanggo $1 supaya Wikimedia Foundation bisa maneh kacilakan Panjenengan? Mangga njlèntrèhaké apa kedaden nalika kacilakan wonten:";
 "hockeyapp-alert-send-report" = "Ngirim laporan";
 "hockeyapp-alert-title" = "Nuwun, aplikasi tabrakan pungkasan wektu";
 "home-button-explore-accessibility-label" = "Wikipedia, bali menyang Langkawi";
@@ -177,8 +175,7 @@
 "in-the-news-title" = "Lagi dadi warta";
 "in-the-news-title-for-date" = "Warta ing $1";
 "info-box-close-text" = "Tutup";
-// Fuzzy
-"info-box-title" = "Kasunyatan rikat";
+"info-box-title" = "Kasunyatan Rikat";
 "languages-title" = "Ganti basa";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Isi cumepak ing $1, kajaba ana katerangan liyané.";
@@ -230,24 +227,32 @@
 "page-protected-sysop" = "Kaca iki wis direksa kanthi.";
 "page-read-in-other-languages" = "Kasedhiya ing $1 basa liyane";
 "page-similar-titles" = "Kaca sing meh padha";
+"places-accessibility-clear-saved-searches" = "Busak golèkan kasimpen waé";
 "places-accessibility-close-search" = "Tutup golèkan";
 "places-accessibility-group" = "$1 artikel";
 "places-accessibility-recenter-map-on-user-location" = "Pusatkan ulang di lokasi Anda";
 "places-accessibility-show-as-list" = "Nuduhake minangka dhaftar";
 "places-accessibility-show-as-map" = "Nuduhake minangka peta";
 "places-accessibility-show-more" = "Tuduhaké artikel liyané";
+"places-empty-search-description" = "Eksplorasi kutha, negara, bawana, landmark alam, prastawa-prastawa sejarah, bangunan lan liyane.";
+"places-empty-search-title" = "Golèk artikel Wikipedia karo lokasi geografis";
 "places-enable-location-action-button-title" = "Ngaktifkan lokasi";
 "places-enable-location-description" = "Akses menyang lokasi mung kasedhiya nalika aplikasi utawa salah siji saka sawijining fitur katon ing layar.";
 "places-enable-location-title" = "Njelajah artikel near lokasi dening Nerjemahake isoh Lokasi Akses";
+"places-filter-list-title" = "Saringan golèk";
+"places-filter-no-saved-places" = "Sampeyan kudu ora panggonan disimpen";
+"places-filter-saved-articles" = "Artikel disimpen";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 panggonan|$1 panggonan}} ketemu";
+"places-filter-top-articles" = "Maca ndhuwur";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Artikel sing disimpen siji-sijia ora ana sing ngemu katerangan panggon";
+"places-search-articles-that-match" = "$1 cocog “$2”";
+"places-search-default-text" = "Golèk";
 "places-search-recently-searched-header" = "Bubar nggolèki";
-// Fuzzy
-"places-search-saved-articles" = "Artikel disimpen";
+"places-search-saved-articles" = "Artikel disimpen kabeh";
 "places-search-suggested-searches-header" = "Ngolèki disaranake";
-// Fuzzy
-"places-search-this-area" = "Golèk wilayah iki";
-// Fuzzy
-"places-search-top-articles" = "Artikel ndhuwur";
+"places-search-this-area" = "Asil ing wilayah iki";
+"places-search-top-articles" = "Artikel ndhuwur kabeh";
 "places-unknown-distance" = "Kadohan dingerteni";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "potd-empty-error-description" = "Gagal kanggo nompo Gambar dina kanggo $1";
@@ -273,7 +278,11 @@
 "search-recent-title" = "Bubar nggolèki";
 "search-result-redirected-from" = "Dilih saka: $1";
 "search-title" = "Golèk";
+"settings-clear-cache" = "Busak data dijupuk";
+"settings-clear-cache-are-you-sure-message" = "Mbusak data dijupuk saka papan singgahan bakal mbebasake bab $1 saka papan. Iku ora bakal mbusak kaca disimpen.";
+"settings-clear-cache-are-you-sure-title" = "Busak data dijupuk?";
 "settings-clear-cache-cancel" = "Wurung";
+"settings-clear-cache-ok" = "Busak cache";
 "settings-help-and-feedback" = "Pitulung lan saran";
 "settings-language-bar" = "Nuduhake basa ing nggoleki";
 "settings-my-languages" = "Basa sandi";

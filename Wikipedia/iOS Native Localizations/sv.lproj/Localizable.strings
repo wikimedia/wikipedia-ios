@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "Inga resultat hittades";
 "explore-another-random" = "En annan slumpmässig artikel";
 "explore-continue-reading-heading" = "Fortsätt läsa";
-"explore-continue-related-heading" = "Eftersom du läste";
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-most-read-footer-for-date" = "Alla mest lästa artiklar på %1$@";
@@ -222,6 +221,7 @@
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-read-in-other-languages" = "Tillgänglig på %1$@ andra språk";
 "page-similar-titles" = "Liknande sidor";
+"places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";
 "places-accessibility-close-search" = "Stäng sökning";
 "places-accessibility-group" = "%1$@ artikel";
 "places-accessibility-recenter-map-on-user-location" = "Centrera på din plats";
@@ -236,9 +236,7 @@
 "places-filter-list-title" = "Sökfilter";
 "places-filter-no-saved-places" = "Du har inte några sparade platser";
 "places-filter-saved-articles" = "Sparade artiklar";
-"places-filter-saved-articles-count" = "%1$@ platser hittades";
 "places-filter-top-articles" = "Populära läsningar";
-"places-filter-top-articles-count" = "%1$@ artiklar";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "%1$@ matchar “%2$@”";
 "places-search-default-text" = "Sök";

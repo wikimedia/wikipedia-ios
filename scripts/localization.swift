@@ -9,6 +9,16 @@ fileprivate var dictionaryRegex: NSRegularExpression? = {
     return nil
 }()
 
+fileprivate var curlyBraceRegex: NSRegularExpression? = {
+    do {
+        return try NSRegularExpression(pattern: "(?:[{][{][a-z]+:)(:?[^{]*)(?:[}][}])", options: [.caseInsensitive])
+    } catch {
+        assertionFailure("Localization regex failed to compile")
+    }
+    return nil
+}()
+
+
 fileprivate var twnTokenRegex: NSRegularExpression? = {
     do {
         return try NSRegularExpression(pattern: "(?:[$])(:?[0-9]+)", options: [])
@@ -90,16 +100,14 @@ extension String {
         }
         
         let other = components[countOfComponents - 1]
-        let lower = index(startIndex, offsetBy: result.range.location)
-        let upper = index(lower, offsetBy: result.range.length)
-        let range = lower..<upper
-        
+        let range = result.range
+        let nsSelf = self as NSString
         let keyDictionary = NSMutableDictionary(capacity: 5)
         let formatValueType = "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
         let newToken = "%1$\(formatValueType)"
-        keyDictionary["other"] = self.replacingCharacters(in: range, with: other).replacingOccurrences(of: token, with: newToken)
+        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).replacingOccurrences(of: token, with: newToken)
 
 		var keyIndex = 0
 		guard let countPrefixRegex = countPrefixRegex else {
@@ -126,7 +134,7 @@ extension String {
 				continue
 			}
 			
-			keyDictionary[keyToInsert] = self.replacingCharacters(in: range, with: componentToInsert).replacingOccurrences(of: token, with: newToken)
+			keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).replacingOccurrences(of: token, with: newToken)
 			
 		}
         
@@ -155,10 +163,11 @@ extension String {
     }
     
     var iOSNativeLocalization: String {
-        guard let tokenRegex = twnTokenRegex else {
+        guard let tokenRegex = twnTokenRegex, let braceRegex = curlyBraceRegex else {
             return ""
         }
-        return self.replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
+        return self.replacingMatches(fromRegex: braceRegex, withFormat: "%@")
+.replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
     }
     
     var twnNativeLocalization: String {

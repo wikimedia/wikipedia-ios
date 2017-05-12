@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "找不到任何結果";
 "explore-another-random" = "其他隨機條目";
 "explore-continue-reading-heading" = "繼續閱讀";
-"explore-continue-related-heading" = "因為您閱讀";
 "explore-featured-article-heading" = "特色條目";
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer-for-date" = "所有在 %1$@ 上閱讀最多的條目";
@@ -222,6 +221,7 @@
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-read-in-other-languages" = "在 %1$@ 種其他語言中可用";
 "page-similar-titles" = "相似頁面";
+"places-accessibility-clear-saved-searches" = "清除已儲搜尋";
 "places-accessibility-close-search" = "關閉搜尋";
 "places-accessibility-group" = "%1$@ 個條目";
 "places-accessibility-recenter-map-on-user-location" = "重定位您的位置";
@@ -236,12 +236,10 @@
 "places-filter-list-title" = "搜尋過濾器";
 "places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-saved-articles" = "已儲存條目";
-"places-filter-saved-articles-count" = "找到%1$@個位置";
-"places-filter-top-articles" = "熱門條目";
-"places-filter-top-articles-count" = "%1$@ 個條目";
+"places-filter-top-articles" = "最多閱讀";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "%1$@符合「%2$@」";
-"places-search-default-text" = "搜尋條目或位置";
+"places-search-default-text" = "搜尋";
 "places-search-recently-searched-header" = "近期搜尋";
 "places-search-saved-articles" = "所有已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";

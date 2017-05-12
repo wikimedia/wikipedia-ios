@@ -86,6 +86,7 @@
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
+"explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";

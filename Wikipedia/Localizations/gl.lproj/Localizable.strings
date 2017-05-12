@@ -96,7 +96,6 @@
 "empty-no-search-results-message" = "No se atoparon resultados";
 "explore-another-random" = "Outro artigo aleatorio";
 "explore-continue-reading-heading" = "Continuar lendo";
-"explore-continue-related-heading" = "Porque leu";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
 "explore-most-read-footer-for-date" = "Todos os artigos máis lidos en $1";
@@ -181,7 +180,6 @@
 "in-the-news-title" = "Actualidade";
 "in-the-news-title-for-date" = "Novas en $1";
 "info-box-close-text" = "Pechar";
-// Fuzzy
 "info-box-title" = "Datos rápidos";
 "languages-title" = "Cambiar lingua";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -234,6 +232,7 @@
 "page-protected-sysop" = "Esta páxina está totalmente protexida.";
 "page-read-in-other-languages" = "Dispoñible en outras $1 linguas";
 "page-similar-titles" = "Páxinas similares";
+"places-accessibility-clear-saved-searches" = "Limpar as buscas gardadas";
 "places-accessibility-close-search" = "Pechar a busca";
 "places-accessibility-group" = "$1 artigos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
@@ -248,11 +247,9 @@
 "places-filter-list-title" = "Filtros de procura";
 "places-filter-no-saved-places" = "Non tes lugares gardados";
 "places-filter-saved-articles" = "Artigos gardados";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 lugares atopados";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 lugar atopado|$1 lugares atopados}}";
 "places-filter-top-articles" = "Os artigos máis lidos";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 artigos";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-search-articles-that-match" = "$1 correspondente a “$2”";
 "places-search-default-text" = "Procurar";

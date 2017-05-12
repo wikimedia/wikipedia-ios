@@ -99,7 +99,6 @@
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-continue-reading-heading" = "המשך קריאה";
-"explore-continue-related-heading" = "כי קראת את";
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-main-page-heading" = "היום בוויקיפדיה";
 "explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
@@ -184,7 +183,6 @@
 "in-the-news-title" = "בחדשות";
 "in-the-news-title-for-date" = "חדשות ב־$1";
 "info-box-close-text" = "סגירה";
-// Fuzzy
 "info-box-title" = "עובדות מהירות";
 "languages-title" = "שינוי שפה";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -237,6 +235,7 @@
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
 "page-read-in-other-languages" = "זמין בעוד $1 שפות";
 "page-similar-titles" = "דפים דומים";
+"places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
 "places-accessibility-close-search" = "סגירת חיפוש";
 "places-accessibility-group" = "$1 ערכים";
 "places-accessibility-recenter-map-on-user-location" = "לאחרונה במיקומך";
@@ -251,11 +250,9 @@
 "places-filter-list-title" = "מסנני חיפוש";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
-// Fuzzy
-"places-filter-saved-articles-count" = "נמצאו $1 מקומות";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|נמצא מקום אחד|נמצאו $1 מקומות}}";
 "places-filter-top-articles" = "ערכים מובילים";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 ערכים";
+"places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
 "places-search-default-text" = "חיפוש";

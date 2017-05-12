@@ -84,7 +84,6 @@
 "empty-no-search-results-message" = "Nessun risultato trovato";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-continue-reading-heading" = "Continua a leggere";
-"explore-continue-related-heading" = "Perché hai letto";
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-most-read-footer-for-date" = "Tutte le voci più lette il %1$@";
@@ -224,8 +223,6 @@
 "places-filter-list-title" = "Filtri di ricerca";
 "places-filter-no-saved-places" = "Non hai luoghi salvati";
 "places-filter-saved-articles" = "Voci salvate";
-"places-filter-saved-articles-count" = "%1$@ luoghi trovati";
-"places-filter-top-articles-count" = "%1$@ voci";
 "places-search-default-text" = "Cerca";
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-search-saved-articles" = "Tutte le voci salvate";
