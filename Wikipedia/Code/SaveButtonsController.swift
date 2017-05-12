@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
     
-    var visibleSaveButtons = [Int: SaveButton]()
+    var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
@@ -17,7 +17,8 @@ import UIKit
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc(willDisplaySaveButton:forArticle:) func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
+    @objc(willDisplaySaveButton:forArticle:)
+    public func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
         }
@@ -25,25 +26,36 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
-        visibleSaveButtons[tag] = saveButton
+        var saveButtons = visibleSaveButtons[tag] ?? []
+        saveButtons.insert(saveButton)
+        visibleSaveButtons[tag] = saveButtons
         visibleArticleKeys[tag] = key
     }
     
-    @objc(didEndDisplayingSaveButton:forArticle:) func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
+    @objc(didEndDisplayingSaveButton:forArticle:)
+    public func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
         }
         let tag = key.hash
         saveButton.removeTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
-        visibleSaveButtons.removeValue(forKey: tag)
-        visibleArticleKeys.removeValue(forKey: tag)
+        var saveButtons = visibleSaveButtons[tag] ?? []
+        saveButtons.remove(saveButton)
+        if saveButtons.count == 0 {
+            visibleSaveButtons.removeValue(forKey: tag)
+            visibleArticleKeys.removeValue(forKey: tag)
+        } else {
+            visibleSaveButtons[tag] = saveButtons
+        }
     }
     
     func articleUpdated(notification: Notification) {
-        guard let article = notification.object as? WMFArticle, let key = article.key, let saveButton = visibleSaveButtons[key.hash] else {
+        guard let article = notification.object as? WMFArticle, let key = article.key, let saveButtons = visibleSaveButtons[key.hash] else {
             return
         }
-        saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        for saveButton in saveButtons {
+            saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        }
     }
     
     func saveButtonPressed(sender: SaveButton) {

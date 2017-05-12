@@ -1,10 +1,7 @@
 import UIKit
 
-@objc(WMFArticleFullWidthImageCollectionViewCell) class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
-    override open var estimatedHeight: CGFloat {
-        return 228
-    }
-    
+@objc(WMFArticleFullWidthImageCollectionViewCell)
+open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     override open var imageWidth: Int {
         return traitCollection.wmf_leadImageWidth
     }
@@ -13,7 +10,7 @@ import UIKit
         return "ArticleFullWidthImageCollectionViewCell"
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
     }
