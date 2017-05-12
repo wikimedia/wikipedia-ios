@@ -2206,6 +2206,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchText = searchBar.text else {
+            assertionFailure("could not read search text")
+            return
+        }
+        
+        guard searchText.trimmingCharacters(in: .whitespaces).characters.count > 0 else {
+            return
+        }
+        
         searchBar.endEditing(true)
         guard !isWaitingForSearchSuggestionUpdate else {
             isGoingToSearchForFirstSearchSuggestionAfterUpdate = true
