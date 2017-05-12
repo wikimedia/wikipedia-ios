@@ -96,7 +96,6 @@
 "empty-no-search-results-message" = "Nincs találat";
 "explore-another-random" = "Másik cikk találomra";
 "explore-continue-reading-heading" = "Olvasás folytatása";
-"explore-continue-related-heading" = "Mert ezt olvastad:";
 "explore-featured-article-heading" = "Kiemelt szócikk";
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
@@ -138,6 +137,7 @@
 "field-username-placeholder" = "add meg a szerkesztőnevedet";
 "field-username-title" = "Szerkesztőnév";
 "find-in-page-button-label" = "Keresés a lapon";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-popover-description" = "Szöveg keresése szócikkekben";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";
@@ -180,7 +180,6 @@
 "in-the-news-title" = "A hírekben";
 "in-the-news-title-for-date" = "Hírek – $1";
 "info-box-close-text" = "Bezárás";
-// Fuzzy
 "info-box-title" = "Gyors adatok";
 "languages-title" = "Nyelvváltás";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -233,24 +232,31 @@
 "page-protected-sysop" = "Ez a lap teljesen védett.";
 "page-read-in-other-languages" = "Elérhető $1 másik nyelven";
 "page-similar-titles" = "Hasonló lapok";
+"places-accessibility-clear-saved-searches" = "Mentett keresések törlése";
 "places-accessibility-close-search" = "Keresés bezárása";
 "places-accessibility-group" = "$1 szócikk";
 "places-accessibility-recenter-map-on-user-location" = "Saját helyzet középre helyezése";
 "places-accessibility-show-as-list" = "Megjelenítés listaként";
 "places-accessibility-show-as-map" = "Megjelenítés térképen";
 "places-accessibility-show-more" = "Több cikk mutatása";
+"places-empty-search-description" = "Fedezz fel városokat, országokat, földrészeket, természeti képződményeket, történelmi eseményeket, épületeket és még sok minden mást.";
+"places-empty-search-title" = "Földrajzi hellyel rendelkező Wikipédia-szócikkek keresése";
 "places-enable-location-action-button-title" = "Helymeghatározás engedélyezése";
 "places-enable-location-description" = "A helyzeted csak akkor érhető el, amikor az alkalmazás vagy egy funkciója látható a képernyőn.";
 "places-enable-location-title" = "A közeledben lévő témájú szócikkek felfedezése a helymeghatározás engedélyezésével";
+"places-filter-list-title" = "Keresési szűrők";
+"places-filter-no-saved-places" = "Nincsenek mentett helyeid";
+"places-filter-saved-articles" = "Mentett szócikkek";
+"places-filter-saved-articles-count" = "$1 hely található";
+"places-filter-top-articles" = "Legolvasottabb";
+"places-filter-top-articles-count" = "$1 szócikk";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
+"places-search-default-text" = "Keresés";
 "places-search-recently-searched-header" = "Legutóbbi keresések";
-// Fuzzy
-"places-search-saved-articles" = "Mentett szócikkek";
+"places-search-saved-articles" = "Minden mentett szócikk";
 "places-search-suggested-searches-header" = "Javasolt keresések";
-// Fuzzy
-"places-search-this-area" = "Keresés ezen a területen";
-// Fuzzy
-"places-search-top-articles" = "Top cikkek";
+"places-search-this-area" = "Találatok ezen a területen";
+"places-search-top-articles" = "Az összes legolvasottabb szócikk";
 "places-unknown-distance" = "ismeretlen távolság";
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";

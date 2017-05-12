@@ -106,7 +106,6 @@
 "empty-no-search-results-message" = "No se encontraron resultados";
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-continue-reading-heading" = "Continuar leyendo";
-"explore-continue-related-heading" = "Porque leíste";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-main-page-heading" = "Hoy en Wikipedia";
 "explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
@@ -191,7 +190,6 @@
 "in-the-news-title" = "Actualidad";
 "in-the-news-title-for-date" = "Noticias del $1";
 "info-box-close-text" = "Cerrar";
-// Fuzzy
 "info-box-title" = "Datos rápidos";
 "languages-title" = "Cambiar idioma";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -244,6 +242,7 @@
 "page-protected-sysop" = "Esta página está totalmente protegida.";
 "page-read-in-other-languages" = "Disponible en $1 idiomas más";
 "page-similar-titles" = "Páginas similares";
+"places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";
 "places-accessibility-close-search" = "Cerrar búsqueda";
 "places-accessibility-group" = "$1 artículos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar en tu ubicación";
@@ -258,12 +257,9 @@
 "places-filter-list-title" = "Filtros de búsqueda";
 "places-filter-no-saved-places" = "No tienes lugares guardados";
 "places-filter-saved-articles" = "Artículos guardados";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 lugares encontrados";
-// Fuzzy
-"places-filter-top-articles" = "Artículos principales";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 artículos";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 lugar encontrado|$1 lugares encontrados}}";
+"places-filter-top-articles" = "Más leídos";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artículo|$1 artículos}}";
 "places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
 "places-search-articles-that-match" = "$1 que corresponden con «$2»";
 "places-search-default-text" = "Buscar";
@@ -327,10 +323,10 @@
 "share-open-in-maps" = "Abrir en Mapas";
 "status-saved-for-later" = "Guardado para después";
 "status-saving-for-later" = "Guardando para después…";
-"table-of-contents-button-label" = "Tabla de contenidos";
+"table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
-"table-of-contents-close-accessibility-label" = "Cerrar la tabla de contenidos";
-"table-of-contents-heading" = "Contenido";
+"table-of-contents-close-accessibility-label" = "Cerrar el sumario";
+"table-of-contents-heading" = "Sumario";
 "table-of-contents-popover-description" = "Obtener una visión general de los artículos";
 "table-title-other" = "Más información";
 "timestamp-days" = "hace %d días";

@@ -196,10 +196,11 @@
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
                 if ([localizedString containsString:@"{{"]) {
-                    if ([localizedString containsString:@"{{PLURAL:$"]) {
+                    NSString *lowercaseString = localizedString.lowercaseString;
+                    if ([lowercaseString containsString:@"{{plural:$"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
-                        XCTAssertFalse([localizedString containsString:@"{{PLURAL:$2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
-                    } else {
+                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+                    } else if (![lowercaseString containsString:@"{{formatnum:$"]) {
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }
                 }
@@ -216,9 +217,10 @@
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
                 if ([localizedString containsString:@"{{"]) {
-                    if ([localizedString containsString:@"{{PLURAL:%"]) {
+                    NSString *lowercaseString = localizedString.lowercaseString;
+                    if ([lowercaseString containsString:@"{{plural:%"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
-                        XCTAssertFalse([localizedString containsString:@"{{PLURAL:%2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+                        XCTAssertFalse([lowercaseString containsString:@"{{plural:%2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
                     } else {
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }

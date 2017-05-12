@@ -44,7 +44,6 @@
 "abuse-filter-warning-subheading" = "आपके संपादन में निम्न में से एक या अधिक हैं:";
 "account-creation-captcha-cannot-see-image" = "$1 चित्र को नहीं देख सकते?";
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
-// Fuzzy
 "account-creation-captcha-request-account" = "अकाउंट हेतु अनुरोध";
 "account-creation-captcha-title" = "कैप्चा सिक्योरिटी चेक";
 "account-creation-create-account" = "अपना खाता बनाएँ";
@@ -101,7 +100,6 @@
 "empty-no-search-results-message" = "कोई परिणाम नहीं मिला";
 "explore-another-random" = "दूसरा बेतरतीब लेख";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
-"explore-continue-related-heading" = "क्योंकि आप पढ़ते हैं";
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
 "explore-most-read-footer-for-date" = "$1 को सर्वाधिक पढ़े गए लेख";
@@ -123,11 +121,14 @@
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स नहीं मैच हो रहे";
 "field-alert-password-invalid" = "अमान्य पासवर्ड";
+"field-alert-token-invalid" = "अमान्य कोड";
 "field-alert-username-unavailable" = "यह सदस्य नाम उपलब्ध नहीं";
+"field-backup-token-title" = "बैकअप कोड";
 "field-captcha-placeholder" = "कैप्चा टेक्स्ट";
 "field-captcha-title" = "टेक्स्ट को डालें जो आपको ऊपर दिख रहा है";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "ईमेल";
+"field-email-title-optional" = "ईमेल (वैकल्पिक)";
 "field-new-password-confirm-placeholder" = "पुनः नया पासवर्ड डालें";
 "field-new-password-confirm-title" = "नए पासवर्ड की पुष्टि करें";
 "field-new-password-placeholder" = "नया पासवर्ड डालें";
@@ -140,11 +141,13 @@
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
 "find-in-page-button-label" = "पेज में ढूंढें";
+"find-in-page-number-matches" = "$1/$2";
 "find-in-page-popover-description" = "लेखों में टेक्स्ट खोजें";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
+"forgot-password-username-or-email-title" = "या";
 "history-clear-all" = "साफ करें";
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
@@ -155,9 +158,7 @@
 "hockeyapp-alert-always-send" = "हमेशा भेजें";
 "hockeyapp-alert-do-not-send" = "नहीं भेजें";
 "hockeyapp-alert-privacy" = "$1 की गोपनीयता";
-// Fuzzy
 "hockeyapp-alert-question" = "क्या आप $1 को क्रैश रिपोर्ट भेजना पसंद करेंगे ताकि विकिमीडिया आपके क्रैश को जाँच सके?";
-// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "क्या आप $1 को क्रैश रिपोर्ट भेजना चाहते हैं ताकि विकिमीडिया आपके क्रैश को जाँच सके? कृपया बताएं क्रैश के समय क्या हुआ:";
 "hockeyapp-alert-send-report" = "रिपोर्ट भेजें";
 "hockeyapp-alert-title" = "क्षमा करें, पिछली बार एप क्रैश हो गयी";
@@ -183,7 +184,6 @@
 "in-the-news-title" = "समाचारों में";
 "in-the-news-title-for-date" = "$1 के समाचार";
 "info-box-close-text" = "बंद करें";
-// Fuzzy
 "info-box-title" = "सामान्य तथ्य";
 "languages-title" = "भाषा बदलें";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -236,27 +236,36 @@
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-similar-titles" = "समान पृष्ठ";
+"places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
 "places-accessibility-close-search" = "खोज बंद करें";
 "places-accessibility-group" = "$1 लेख";
 "places-accessibility-recenter-map-on-user-location" = "आपकी लोकेशन पर पुनः केंद्रित करें";
 "places-accessibility-show-as-list" = "सूची की तरह दिखाएँ";
 "places-accessibility-show-as-map" = "मैप पर दिखाएँ";
+"places-accessibility-show-more" = "अधिक लेख दिखाएं";
+"places-empty-search-description" = "शहरों, देशों, महाद्वीपों, प्राकृतिक स्थलों, ऐतिहासिक घटनाओं, भवनों और अन्य की खोज करें।";
+"places-empty-search-title" = "भौगिलिक लोकेशन्स अनुसार विकीपीडिया लेख खोजें";
 "places-enable-location-action-button-title" = "स्थान सक्रिय करें";
 "places-enable-location-description" = "आपकी लोकेशन की उपलब्धता केवल तभी है जब एप या इसके फीचर्स में से एक स्क्रीन पर दिखे।";
 "places-enable-location-title" = "लोकेशन एक्सेस इनेबल कर अपनी लोकेशन के पास के लेख खोजें";
+"places-filter-list-title" = "खोज फिल्टर्स";
+"places-filter-no-saved-places" = "आपके कोई सहेजे गए स्थान नहीं हैं";
+"places-filter-saved-articles" = "सहेजे गए लेख";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 स्थान|$1 स्थान}} मिले";
+"places-filter-top-articles" = "सर्वाधिक पढ़े गए";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 लेख|$1 लेख}}";
+"places-no-saved-articles-have-location" = "आपके सहेजे गए किसी भी लेख में लोकेशन जानकारी नहीं है";
+"places-search-articles-that-match" = "$1 से $2 मिलता हुआ";
+"places-search-default-text" = "खोजें";
 "places-search-recently-searched-header" = "हाल ही में खोजा गया";
-// Fuzzy
-"places-search-saved-articles" = "सहेजे लेख";
+"places-search-saved-articles" = "सभी सहेजे लेख";
 "places-search-suggested-searches-header" = "सुझाई गयी खोजें";
-// Fuzzy
-"places-search-this-area" = "इस क्षेत्र को खोजें";
-// Fuzzy
-"places-search-top-articles" = "टॉप लेख";
+"places-search-this-area" = "इस क्षेत्र में परिणाम";
+"places-search-top-articles" = "सभी टॉप लेख";
 "places-unknown-distance" = "अज्ञात दूरी";
 "potd-description-prefix" = "$1 के लिए आज का चित्र";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिपीडिया को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
+"preference-summary-eventlogging-opt-in" = "एप को बेहतर बनाने के लिए विकिमीडिया फाउंडेशन को आपके द्वारा इस एप के इस्तेमाल संबंधी जानकारी को इकट्ठा करने की अनुमति दें";
 "preference-title-eventlogging-opt-in" = "उपयोग रिपोर्ट भेजें";
 "rank-accessibility-label" = "नंबर $1";
 "readers-accessibility-label" = "$1 पाठक";
@@ -278,6 +287,11 @@
 "search-recent-title" = "हाल ही में खोजा गया";
 "search-result-redirected-from" = "$1 से पुनर्निर्देशित";
 "search-title" = "खोजें";
+"settings-clear-cache" = "कैश डेटा खाली करें";
+"settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";
+"settings-clear-cache-are-you-sure-title" = "कैश डेटा खाली करें?";
+"settings-clear-cache-cancel" = "रद्द करें";
+"settings-clear-cache-ok" = "कैश खाली करें";
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
 "settings-my-languages" = "मेरी भाषाएँ";
@@ -321,6 +335,7 @@
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
+"two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "unsave-action" = "गैर सहेजा";
 "welcome-explore-continue-button" = "शुरू करें";
@@ -335,7 +350,6 @@
 "welcome-notifications-tell-me-more-creation" = "आप की डिवाइस पर नोटिफिकेशन एप द्वारा बनाये और भेजे जाते हैं, न कि हमारे (या थर्ड पार्टी) सर्वर्स द्वारा।";
 "welcome-notifications-tell-me-more-storage" = "नोटिफिकेशन वरीयताएं डिवाइस पर स्टोर की जातीं हैं और ये व्यक्तिगत जानकारी या क्रियाकलाप पर आधारित नहीं हैं।";
 "welcome-notifications-tell-me-more-title" = "नोटिफिकेशन्स के बारे में अधिक";
-// Fuzzy
 "welcome-send-data-sub-title" = "हमें यह जानने की आज्ञा देकर कि आप एप को किस प्रकार प्रयोग करते हैं, विकिमीडिया को एप बेहतर बनाने में सहायता करें। एकत्रित डेटा एनोनिमस है।";
 "welcome-send-data-title" = "एनोनिमस डेटा भेजें";
 "welcome-volunteer-send-usage-reports" = "उपयोग रिपोर्ट भेजें";

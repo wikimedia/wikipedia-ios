@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "কোন ফলাফল পাওয়া যায়নি";
 "explore-another-random" = "অন্যান্য অজানা যে কোন নিবন্ধ";
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
-"explore-continue-related-heading" = "কারণ আপনি পড়েছেন";
 "explore-featured-article-heading" = "নির্বাচিত নিবন্ধ";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
 "explore-most-read-footer-for-date" = "%1$@ তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
@@ -226,9 +225,7 @@
 "places-enable-location-action-button-title" = "অবস্থান সক্রিয় করুন";
 "places-filter-list-title" = "সন্ধানের ছাঁকনি";
 "places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
-"places-filter-saved-articles-count" = "%1$@টি স্থান পাওয়া গেছে";
 "places-filter-top-articles" = "শীর্ষ পঠিত";
-"places-filter-top-articles-count" = "%1$@টি নিবন্ধ";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-search-default-text" = "অনুসন্ধান";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";

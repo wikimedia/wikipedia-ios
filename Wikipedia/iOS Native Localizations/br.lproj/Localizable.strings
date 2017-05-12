@@ -85,7 +85,6 @@
 "empty-no-search-results-message" = "N'eus bet kavet disoc'h ebet";
 "explore-another-random" = "Ur pennad all dre zegouezh";
 "explore-continue-reading-heading" = "Kenderc'hel da lenn";
-"explore-continue-related-heading" = "Peogwir ho peus lennet";
 "explore-featured-article-heading" = "Pennad a-zoare";
 "explore-main-page-heading" = "Hiziv e Wikipedia";
 "explore-most-read-footer-for-date" = "An holl bennadoù lennet ar muiañ d'an %1$@";
@@ -170,7 +169,7 @@
 "in-the-news-title" = "Er C'heleier";
 "in-the-news-title-for-date" = "Keleier war %1$@";
 "info-box-close-text" = "Serriñ";
-"info-box-title" = "Graet buan";
+"info-box-title" = "Fedoù berr-ha-berr";
 "languages-title" = "Cheñch yezh";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "An endalc'had a c'haller kavout dindan %1$@, nemet e vefe spisaet ar c'hontrol.";
@@ -222,6 +221,7 @@
 "page-protected-sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
 "page-read-in-other-languages" = "A c'haller kaout e %1$@ yezh all";
 "page-similar-titles" = "Pajennoù damheñvel";
+"places-accessibility-clear-saved-searches" = "Riñsañ an enklaskoù enrollet";
 "places-accessibility-close-search" = "Serriñ an enklask";
 "places-accessibility-group" = "%1$@ pennadoù";
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";
@@ -236,9 +236,7 @@
 "places-filter-list-title" = "Siloù enklask";
 "places-filter-no-saved-places" = "N'ho peus lec'h savetaet ebet";
 "places-filter-saved-articles" = "Pennadoù enrollet";
-"places-filter-saved-articles-count" = "%1$@ lec'h kavet";
-"places-filter-top-articles" = "Pennadoù gwellañ";
-"places-filter-top-articles-count" = "%1$@ pennad";
+"places-filter-top-articles" = "Ar re lennetañ";
 "places-no-saved-articles-have-location" = "Hini ebet eus ho pennadoù enrollet zo ennañ titouroù lec'hiañ";
 "places-search-articles-that-match" = "%1$@ a glot gant « %2$@ »";
 "places-search-default-text" = "Klask";
