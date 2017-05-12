@@ -726,7 +726,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
             NSString *reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
-            id <WMFArticleCollectionViewCell> cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+            WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
             return (UICollectionViewCell *)cell;
         }
@@ -797,7 +797,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 estimate.precalculated = YES;
                 break;
             }
-            id <WMFArticleCollectionViewCell> cell = [self placeholderCellForIdentifier:reuseIdentifier];
+            WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
             CGFloat estimatedHeight = 500;
             CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
@@ -875,8 +875,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
-    if ([cell conformsToProtocol:@protocol(WMFArticleCollectionViewCell)]) {
-        WMFSaveButton *saveButton = [(id <WMFArticleCollectionViewCell>)cell saveButton];
+    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
+        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
         if (saveButton) {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             [self.saveButtonsController willDisplaySaveButton:saveButton forArticle:article];
@@ -893,8 +893,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(nonnull UICollectionViewCell *)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    if ([cell conformsToProtocol:@protocol(WMFArticleCollectionViewCell)]) {
-        WMFSaveButton *saveButton = [(id <WMFArticleCollectionViewCell>)cell saveButton];
+    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
+        WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
         if (saveButton) {
             WMFArticle *article = [self articleForIndexPath:indexPath];
             [self.saveButtonsController didEndDisplayingSaveButton:saveButton forArticle:article];
@@ -1164,7 +1164,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
-    [self registerNib:[WMFArticleRightAlignedImageCollectionViewCell classNib] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
+    [self registerClass:[WMFArticleRightAlignedImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
     
     [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
     
@@ -1185,7 +1185,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [cell setImageURL:imageURL];
 }
 
-- (void)configureArticleCell:(id <WMFArticleCollectionViewCell>)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
+- (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     if (!article || !section) {
         return;
     }

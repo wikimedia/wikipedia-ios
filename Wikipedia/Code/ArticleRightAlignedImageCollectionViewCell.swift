@@ -1,100 +1,50 @@
 import UIKit
 
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
-open class ArticleRightAlignedImageCollectionViewCell: WMFExploreCollectionViewCell, ArticleCollectionViewCell {
-    public var imageHeight: CGFloat = 0
-
-    open var imageWidth: Int {
+open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
+    private var kvoButtonTitleContext = 0
+    
+    override open var imageWidth: Int {
         return traitCollection.wmf_nearbyThumbnailWidth
     }
     
-    open class var nibName: String {
-        return "ArticleRightAlignedImageCollectionViewCell"
+    override open func setup() {
+        imageView.cornerRadius = 3
+        imageView.masksToBounds = true
+        super.setup()
+    }
+  
+    override open func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
+        return UIColor.white
     }
     
-    open class var classNib: UINib {
-        return UINib(nibName: nibName, bundle: nil)
+    override open func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
+        return false
     }
     
-    @IBOutlet weak public var textContainerView: UIView?
-    @IBOutlet weak public var titleLabel: UILabel?
-    @IBOutlet weak public var descriptionLabel: UILabel?
-    @IBOutlet weak public var extractLabel: UILabel?
-    
-    @IBOutlet weak public var imageView: UIImageView?
-    @IBOutlet weak public var imageContainerView: UIView?
-    @IBOutlet weak public var imageHeightConstraint: NSLayoutConstraint?
-    
-    @IBOutlet weak public var saveButton: SaveButton!
-    @IBOutlet weak public var saveButtonContainerView: UIView?
-    
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        imageView?.wmf_showPlaceholder()
-    }
-    
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        saveButton?.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        descriptionLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    public final var isImageViewHidden = false {
-        didSet {
-            imageView?.isHidden = isImageViewHidden
-            imageContainerView?.isHidden = isImageViewHidden
-        }
-    }
-    
-    public final var isSaveButtonHidden = false {
-        didSet {
-            saveButton?.isHidden = isSaveButtonHidden
-            saveButtonContainerView?.isHidden = isSaveButtonHidden
-        }
-    }
-    
-    open override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView?.wmf_reset()
-        imageView?.wmf_showPlaceholder()
-        saveButton?.saveButtonState = .longSave
-    }
-    
-    public func configure(article: WMFArticle, contentGroup: WMFContentGroup, layoutOnly: Bool) {
-        if let imageURL = article.imageURL(forWidth: self.imageWidth) {
-            isImageViewHidden = false
-            if !layoutOnly {
-                imageView?.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
-            }
-        } else {
-            isImageViewHidden = true
+    override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let margins = UIEdgeInsetsMake(20, 13, 5, 13)
+        
+        var widthMinusMargins = size.width - margins.left - margins.right
+        if !isImageViewHidden {
+            let imageViewDimension: CGFloat = 70
+            let imageViewY = 0.5*size.height - 0.5*imageViewDimension
+            imageView.frame = CGRect(x: size.width - margins.right - imageViewDimension, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            widthMinusMargins = widthMinusMargins - 13 - 70
         }
         
-        titleLabel?.text = article.displayTitle
-        let displayType = contentGroup.displayType()
-        if displayType == .pageWithPreview {
-            textContainerView?.backgroundColor = UIColor.white
-            descriptionLabel?.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
-            extractLabel?.text = article.snippet
-            isSaveButtonHidden = false
-            imageHeight = 196
-        } else {
-            if displayType == .mainPage {
-                descriptionLabel?.text = article.wikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
-            } else {
-                descriptionLabel?.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
-            }
-            
-            textContainerView?.backgroundColor = displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
-            extractLabel?.text = nil
-            isSaveButtonHidden = true
-            imageHeight = 150
-        }
+        var y: CGFloat = margins.top
+        y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
+        y = layout(for: descriptionLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         
-        let language = (article.url as NSURL?)?.wmf_language
-        titleLabel?.accessibilityLanguage = language
-        descriptionLabel?.accessibilityLanguage = language
-        extractLabel?.accessibilityLanguage = language
+        if !isSaveButtonHidden {
+            y += 10
+            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
+            y += 10
+        }
+        y += margins.bottom
+        return CGSize(width: size.width, height: y)
     }
+
 }
+
