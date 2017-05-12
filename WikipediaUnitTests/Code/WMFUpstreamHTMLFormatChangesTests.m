@@ -84,7 +84,7 @@
                                  }];
 }
 
-- (void)testFormatOfMobileviewSectionHTMLNotChangedOnBeta {
+- (void)testFormatOfMobileviewSectionHTMLHasNotChangedOnBeta {
     NSArray *sectionsFromFixtureFile = [self loadJSON:@"obama-beta-cluster-revision-349208"][@"mobileview"][@"sections"];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for article fetch"];
     NSURL *betaClusterURL = [NSURL URLWithString:@"https://en.m.wikipedia.beta.wmflabs.org/w/api.php?action=mobileview&format=json&page=Barack_Obama&sections=all&prop=text%7Csections%7Crevision&revision=349208"];
