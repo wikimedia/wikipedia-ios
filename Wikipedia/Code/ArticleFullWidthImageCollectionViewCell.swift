@@ -24,8 +24,10 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         var y: CGFloat = 0
         
         if !isImageViewHidden {
-            imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageHeight)
-            y = imageView.frame.maxY
+            if (apply) {
+                imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageHeight)
+            }
+            y += imageHeight
         }
         
         y += margins.top
@@ -39,7 +41,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
 
         if !isSaveButtonHidden {
             y += 20
-            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
+            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: apply)
             y += 5
         }
         y += margins.bottom

@@ -29,7 +29,9 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         if !isImageViewHidden {
             let imageViewDimension: CGFloat = 70
             let imageViewY = 0.5*size.height - 0.5*imageViewDimension
-            imageView.frame = CGRect(x: size.width - margins.right - imageViewDimension, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            if (apply) {
+                imageView.frame = CGRect(x: size.width - margins.right - imageViewDimension, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            }
             widthMinusMargins = widthMinusMargins - 13 - 70
         }
         
@@ -39,7 +41,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         
         if !isSaveButtonHidden {
             y += 10
-            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
+            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: apply)
         }
         y += margins.bottom
         return CGSize(width: size.width, height: y)
