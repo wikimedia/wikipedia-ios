@@ -165,11 +165,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScroll scrollView: UIScrollView) {
         //DDLogDebug("scrolled! \(scrollView.contentOffset)")
         
-        guard self.view != nil else {
-            // view not loaded yet
-            return
-        }
-        
         guard isUserScrolling else {
             return
         }
