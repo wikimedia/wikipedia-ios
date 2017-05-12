@@ -369,9 +369,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFFeedDisplayType)displayType {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            break;
+            return WMFFeedDisplayTypeContinueReading;
         case WMFContentGroupKindMainPage:
-            break;
+            return WMFFeedDisplayTypeMainPage;
         case WMFContentGroupKindRelatedPages:
             return WMFFeedDisplayTypeRelatedPages;
         case WMFContentGroupKindLocation:

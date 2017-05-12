@@ -74,15 +74,21 @@ extension ArticleCollectionViewCell {
         }
         
         titleLabel.text = article.displayTitle
-        if contentGroup.displayType() == WMFFeedDisplayType.pageWithPreview {
+        let displayType = contentGroup.displayType()
+        if displayType == .pageWithPreview {
             textContainerView?.backgroundColor = UIColor.white
             descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
             extractLabel?.text = article.snippet
             isSaveButtonHidden = false
             imageHeightConstraint?.constant = 196
         } else {
-            descriptionLabel.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
-            textContainerView?.backgroundColor = UIColor.wmf_lightGrayCellBackground
+            if displayType == .mainPage {
+                descriptionLabel.text = article.wikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
+            } else {
+                descriptionLabel.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
+            }
+            
+            textContainerView?.backgroundColor = displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
             extractLabel?.text = nil
             if let _ = saveButtonContainerView { //hack check for FullWidth vs RightAligned
                 isSaveButtonHidden = true
@@ -91,5 +97,13 @@ extension ArticleCollectionViewCell {
             }
             imageHeightConstraint?.constant = 150
         }
+        
+        let language = (article.url as NSURL?)?.wmf_language
+        titleLabel.accessibilityLanguage = language
+        descriptionLabel.accessibilityLanguage = language
+        extractLabel?.accessibilityLanguage = language
+        
+        layoutIfNeeded()
     }
+    
 }

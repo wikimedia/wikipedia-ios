@@ -751,6 +751,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self configureListCell:cell withArticle:article atIndexPath:indexPath];
             return cell;
         } break;
+        case WMFFeedDisplayTypeContinueReading:
+        case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
             NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
@@ -811,6 +813,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePage: {
             estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
+        case WMFFeedDisplayTypeContinueReading:
+        case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
             NSString *reuseIdentifier = indexPath.item == 0 ? WMFArticleFullWidthImageCollectionViewCell.nibName :WMFArticleRightAlignedImageCollectionViewCell.nibName;
