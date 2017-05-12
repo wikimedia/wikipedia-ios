@@ -57,6 +57,8 @@
 #import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
 #import "WMFNearbyArticleTableViewCell.h"
+#import "WMFFeedContentDisplaying.h"
+#import "WMFContentGroup+WMFFeedContentDisplaying.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
