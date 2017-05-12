@@ -17,7 +17,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let margins = UIEdgeInsetsMake(10, 13, 10, 13)
+        let margins = UIEdgeInsetsMake(15, 13, 15, 13)
         let widthMinusMargins = size.width - margins.left - margins.right
         
         var y: CGFloat = 0
@@ -26,6 +26,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageHeight)
             y = imageView.frame.maxY
         }
+        
         y += margins.top
         
         y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
@@ -34,13 +35,11 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             y = layout(for: extractLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         }
 
-
         if !isSaveButtonHidden {
-            y += margins.top
+            y += 10
             y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
-            y += margins.bottom
         }
-        y += margins.top
+        y += margins.bottom
         return CGSize(width: size.width, height: y)
     }
 }

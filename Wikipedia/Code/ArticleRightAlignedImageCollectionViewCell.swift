@@ -23,7 +23,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let margins = UIEdgeInsetsMake(20, 13, 5, 13)
+        let margins = UIEdgeInsetsMake(15, 13, 15, 13)
         
         var widthMinusMargins = size.width - margins.left - margins.right
         if !isImageViewHidden {
@@ -40,10 +40,15 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         if !isSaveButtonHidden {
             y += 10
             y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: true)
-            y += 10
         }
         y += margins.bottom
         return CGSize(width: size.width, height: y)
+    }
+    
+    
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
     }
 
 }
