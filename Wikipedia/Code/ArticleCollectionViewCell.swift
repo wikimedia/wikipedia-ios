@@ -10,6 +10,7 @@ extension UILabel {
 open class ArticleCollectionViewCell: UICollectionViewCell {
     open func setup() {
         tintColor = UIColor.wmf_blueTint
+        imageView.contentMode = .scaleAspectFill
         imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)
