@@ -3,8 +3,15 @@ import UIKit
 @objc(WMFExploreViewController)
 class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate, AnalyticsViewNameProviding, AnalyticsContextProviding
 {
-    
     public var collectionViewController: WMFExploreCollectionViewController!
+
+    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    private var searchBarButtonItem: WMFSearchButton?
+    
     public var userStore: MWKDataStore? {
         didSet {
             guard let newValue = userStore else {
@@ -21,11 +28,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
         return button
     }
-
-    @IBOutlet weak var extendedNavBarView: UIView!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
@@ -49,6 +51,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.navigationItem.titleView = b
         self.navigationItem.isAccessibilityElement = true
         self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
+        
+        self.searchBarButtonItem = self.wmf_searchBarButtonItem()
     }
     
     override func viewDidLoad() {
@@ -65,7 +69,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.collectionViewController.didMove(toParentViewController: self)
 
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
-        //self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
+        self.navigationItem.rightBarButtonItem = self.searchBarButtonItem
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
         
@@ -74,6 +78,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
     override func viewWillAppear(_ animated: Bool) {
         self.wmf_updateNavigationBar(removeUnderline: true)
+        self.updateSearchButton()
     }
     
     private func settingsBarButtonItem() -> UIBarButtonItem {
@@ -82,6 +87,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     public func didTapSettingsButton(_ sender: UIBarButtonItem) {
         showSettings()
+    }
+    
+    private func updateSearchButton() {
+        let extNavBarHeight = extendedNavBarView.frame.size.height
+        let extNavBarOffset = abs(extendNavBarViewTopSpaceConstraint.constant)
+        self.searchBarButtonItem?.alpha = extNavBarOffset / extNavBarHeight
     }
     
     // MARK: - Actions
@@ -142,11 +153,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
         extendNavBarViewTopSpaceConstraint.constant = -newOffset
         
-        if (newOffset == extNavBarHeight) {
-            self.navigationItem.rightBarButtonItem = self.wmf_searchBarButtonItem()
-        } else if (newOffset == 0) {
-            self.navigationItem.rightBarButtonItem = nil
-        }
+        self.updateSearchButton()
         
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
@@ -166,9 +173,11 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
 
         if (newOffset != nil) {
+            let newAlpha: CGFloat = newOffset == 0 ? 0 : 1
             self.view.layoutIfNeeded() // Apple recommends you call layoutIfNeeded before the animation block ensure all pending layout changes are applied
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 self.extendNavBarViewTopSpaceConstraint.constant = -newOffset!
+                self.searchBarButtonItem?.alpha = newAlpha
                 self.view.layoutIfNeeded() // layoutIfNeeded must be called from within the animation block
             });
         }
