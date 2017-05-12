@@ -10,7 +10,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func setup() {
         imageView.cornerRadius = 3
-        imageView.masksToBounds = true
         super.setup()
     }
   

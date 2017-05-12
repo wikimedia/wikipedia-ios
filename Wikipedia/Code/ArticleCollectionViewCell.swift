@@ -11,6 +11,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     open func setup() {
         tintColor = UIColor.wmf_blueTint
         imageView.contentMode = .scaleAspectFill
+        imageView.masksToBounds = true
         imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)
