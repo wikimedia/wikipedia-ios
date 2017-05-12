@@ -1,4 +1,4 @@
-#import "WMFExploreViewController.h"
+#import "WMFExploreCollectionViewController.h"
 
 #import "Wikipedia-Swift.h"
 
@@ -47,7 +47,6 @@
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFMorePageListViewController.h"
-#import "WMFSettingsViewController.h"
 #import "WMFAnnouncement.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
@@ -63,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -99,7 +98,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @end
 
-@implementation WMFExploreViewController
+@implementation WMFExploreCollectionViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -132,18 +131,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
-        [b adjustsImageWhenHighlighted];
-        UIImage *w = [UIImage imageNamed:@"W"];
-        [b setImage:w forState:UIControlStateNormal];
-        [b sizeToFit];
-        [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = b;
-        self.navigationItem.titleView.isAccessibilityElement = YES;
-
-        self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
-        self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+        // TODO: delete this init?
     }
     return self;
 }
@@ -172,14 +160,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 }
-
-- (UIBarButtonItem *)settingsBarButtonItem {
-    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
-                                            style:UIBarButtonItemStylePlain
-                                           target:self
-                                           action:@selector(didTapSettingsButton:)];
-}
-
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -215,21 +195,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (BOOL)isScrolledToTop {
     return self.collectionView.contentOffset.y <= 0;
-}
-
-#pragma mark - Actions
-
-- (void)didTapSettingsButton:(UIBarButtonItem *)sender {
-    [self showSettings];
-}
-
-- (void)showSettings {
-    UINavigationController *settingsContainer =
-        [[UINavigationController alloc] initWithRootViewController:
-                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.userStore]];
-    [self presentViewController:settingsContainer
-                       animated:YES
-                     completion:nil];
 }
 
 #pragma mark - Section Access
@@ -522,6 +487,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // self.view is a wrapper view (Apple's, not ours), so we need to set the collectionView explicitly
+    self.view.backgroundColor = [UIColor wmf_settingsBackground];
+    self.collectionView.backgroundColor = [UIColor wmf_settingsBackground];
+    self.view.tintColor = [UIColor wmf_blueTint];
+    self.collectionView.tintColor = [UIColor wmf_blueTint];
     [self registerCellsAndViews];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -551,7 +521,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          }];
 }
 
-- (void)updateFeedSourcesUserInititated:(BOOL)wasUserInitiated {
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated {
     if (self.isLoadingNewContent) {
         return;
     }
@@ -570,7 +540,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)refreshControlActivated {
-    [self updateFeedSourcesUserInititated:YES];
+    [self updateFeedSourcesUserInitiated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -665,7 +635,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSourcesUserInititated:NO];
+                        [self updateFeedSourcesUserInitiated:NO];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -1577,7 +1547,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
+    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
@@ -1792,6 +1762,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 }
 
 #pragma mark - Analytics
+// TODO: pull from parent view?
 
 - (NSString *)analyticsContext {
     return @"Explore";
@@ -1804,6 +1775,10 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {
+        [self.delegate exploreCollectionViewController:self didScroll:scrollView];
+    }
+    
     if (self.isLoadingOlderContent) {
         return;
     }
@@ -1841,6 +1816,37 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                          completion:^{
                              self.loadingOlderContent = NO;
                          }];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    //DDLogDebug(@"Stopped dragging");
+    if (!decelerate) {
+        if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
+            [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    //DDLogDebug(@"Begin dragging");
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willBeginScrolling:)]) {
+        [self.delegate exploreCollectionViewController:self willBeginScrolling:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    //DDLogDebug(@"Stopped decelerating");
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
+        [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    // DDLogDebug(@"Stopped scrolling");
 }
 
 #if DEBUG
