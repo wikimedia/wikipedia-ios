@@ -14,6 +14,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         addSubview(extractLabel)
         self.extractLabel = extractLabel
         super.setup()
+        descriptionLabel.numberOfLines = 0
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
