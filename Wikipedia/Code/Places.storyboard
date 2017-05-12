@@ -310,17 +310,6 @@
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="top" secondItem="BGl-w8-FTx" secondAttribute="top" id="pNV-aG-5U0"/>
                                     <constraint firstAttribute="trailing" secondItem="HrB-BE-o86" secondAttribute="trailing" constant="15" id="wTw-8k-zE2"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                        <size key="value" width="0.0" height="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="dj2-Qs-aTQ"/>
