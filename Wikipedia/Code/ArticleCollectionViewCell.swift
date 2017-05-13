@@ -103,11 +103,26 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         return layout(forView: label, x: x, y: y, width: width, apply: apply) + 6
     }
     
+    override open var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+        get {
+            if #available(iOS 10.0, *) {
+                return super.effectiveUserInterfaceLayoutDirection
+            } else {
+                return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
+            }
+        }
+    }
+    
     public final func layout(forView view: UIView, x: CGFloat, y: CGFloat, width: CGFloat, apply: Bool) -> CGFloat {
         let sizeToFit = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let viewSize = view.sizeThatFits(sizeToFit)
         if apply {
-            view.frame = CGRect(x: x, y: y, width: min(viewSize.width, width), height: viewSize.height)
+            var actualX = x
+            let actualWidth = min(viewSize.width, width)
+            if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+                actualX = x + width - actualWidth
+            }
+            view.frame = CGRect(x: actualX, y: y, width: actualWidth, height: viewSize.height)
         }
         return y + viewSize.height
     }

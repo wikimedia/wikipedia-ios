@@ -29,18 +29,20 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             let imageViewDimension: CGFloat = 70
             let imageViewY = 0.5*size.height - 0.5*imageViewDimension
             if (apply) {
-                imageView.frame = CGRect(x: size.width - margins.right - imageViewDimension, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+                let x = effectiveUserInterfaceLayoutDirection == .leftToRight ? size.width - margins.right - imageViewDimension : margins.left
+                imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             }
-            widthMinusMargins = widthMinusMargins - 13 - 70
+            widthMinusMargins = widthMinusMargins - margins.right - 70
         }
         
         var y: CGFloat = margins.top
-        y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
-        y = layout(for: descriptionLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
+        let x = effectiveUserInterfaceLayoutDirection == .leftToRight ? margins.left : size.width - widthMinusMargins - margins.right
+        y = layout(for: titleLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
+        y = layout(for: descriptionLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
         
         if !isSaveButtonHidden {
             y += 10
-            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: apply)
+            y = layout(forView: saveButton, x: x, y: y, width: widthMinusMargins, apply: apply)
         }
         y += margins.bottom
         return CGSize(width: size.width, height: y)
