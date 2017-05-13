@@ -85,9 +85,11 @@
 }
 
 - (void)testFormatOfMobileviewSectionHTMLHasNotChangedOnBeta {
+    // Early notification of any changes to mobileview section html output.
+    // Changes are staged on wmflabs.org before being deployed to production.
     NSArray *sectionsFromFixtureFile = [self loadJSON:@"obama-beta-cluster-revision-349208"][@"mobileview"][@"sections"];
     NSURL *betaClusterURL = [NSURL URLWithString:@"https://en.m.wikipedia.beta.wmflabs.org/w/api.php?action=mobileview&format=json&page=Barack_Obama&sections=all&prop=text%7Csections%7Crevision&revision=349208"];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for article fetch"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch mobileview section html for a specific revision of an article on beta and compare this fetched section html against a fixture containing former output for the same request so we can be notified if anything changes."];
     NSURLSessionDataTask *dataTask =
     [[NSURLSession sharedSession] dataTaskWithURL:betaClusterURL
                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
