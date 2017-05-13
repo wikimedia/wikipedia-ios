@@ -23,20 +23,20 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let margins = UIEdgeInsetsMake(15, 13, 15, 13)
-        
+        let isRTL = titleLabel.wmf_isRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
         if !isImageViewHidden {
             let imageViewDimension: CGFloat = 70
             let imageViewY = 0.5*size.height - 0.5*imageViewDimension
             if (apply) {
-                let x = effectiveUserInterfaceLayoutDirection == .leftToRight ? size.width - margins.right - imageViewDimension : margins.left
+                let x = isRTL ? margins.left : size.width - margins.right - imageViewDimension
                 imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             }
             widthMinusMargins = widthMinusMargins - margins.right - 70
         }
         
         var y: CGFloat = margins.top
-        let x = effectiveUserInterfaceLayoutDirection == .leftToRight ? margins.left : size.width - widthMinusMargins - margins.right
+        let x = isRTL ? size.width - widthMinusMargins - margins.right : margins.left
         y = layout(for: titleLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
         y = layout(for: descriptionLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
         

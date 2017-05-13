@@ -6,6 +6,19 @@ extension UILabel {
     }
 }
 
+extension UIView {
+    var wmf_effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+        if #available(iOS 10.0, *) {
+            return self.effectiveUserInterfaceLayoutDirection
+        } else {
+            return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
+        }
+    }
+    var wmf_isRightToLeft: Bool {
+        return semanticContentAttribute == .forceRightToLeft || wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+}
+
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: UICollectionViewCell {
     open func setup() {
@@ -103,23 +116,13 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         return layout(forView: label, x: x, y: y, width: width, apply: apply) + 6
     }
     
-    override open var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-        get {
-            if #available(iOS 10.0, *) {
-                return super.effectiveUserInterfaceLayoutDirection
-            } else {
-                return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
-            }
-        }
-    }
-    
     public final func layout(forView view: UIView, x: CGFloat, y: CGFloat, width: CGFloat, apply: Bool) -> CGFloat {
         let sizeToFit = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let viewSize = view.sizeThatFits(sizeToFit)
         if apply {
             var actualX = x
             let actualWidth = min(viewSize.width, width)
-            if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            if view.wmf_isRightToLeft {
                 actualX = x + width - actualWidth
             }
             view.frame = CGRect(x: actualX, y: y, width: actualWidth, height: viewSize.height)
@@ -194,10 +197,14 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
             imageHeight = 150
         }
         
-        let language = (article.url as NSURL?)?.wmf_language
-        titleLabel.accessibilityLanguage = language
-        descriptionLabel.accessibilityLanguage = language
-        extractLabel?.accessibilityLanguage = language
+        let articleLanguage = (article.url as NSURL?)?.wmf_language
+        let articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        titleLabel.accessibilityLanguage = articleLanguage
+        titleLabel.semanticContentAttribute = articleSemanticContentAttribute
+        descriptionLabel.accessibilityLanguage = articleLanguage
+        descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
+        extractLabel?.accessibilityLanguage = articleLanguage
+        extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
     }
     
 }
