@@ -833,6 +833,10 @@
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
 		D8733C8B1ECA10930011E379 /* AccessibilityElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8A1ECA10930011E379 /* AccessibilityElements.swift */; };
+		D8733C8D1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		D8733C8E1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		D8733C8F1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		D8733C901ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		D876C2861E5CDE6500FCA00A /* AlignedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */; };
 		D876C2891E5DDF1A00FCA00A /* EnableLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */; };
 		D876C28A1E5DDF1A00FCA00A /* EnableLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */; };
@@ -3906,6 +3910,7 @@
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		D8733C8A1ECA10930011E379 /* AccessibilityElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityElements.swift; sourceTree = "<group>"; };
+		D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/ArticleCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		D8735B231DB7AAA100ED13C4 /* WMFTableOfContentsDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTableOfContentsDisplay.h; sourceTree = "<group>"; };
 		D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlignedImageButton.swift; sourceTree = "<group>"; };
 		D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableLocationViewController.swift; sourceTree = "<group>"; };
@@ -6261,6 +6266,7 @@
 			isa = PBXGroup;
 			children = (
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
+				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
 				D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */,
@@ -9024,6 +9030,7 @@
 				0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
+				D8733C8D1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */,
@@ -9679,6 +9686,7 @@
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
 				D8A42B261E815A9C00D8E281 /* UITableView+DynamicCellHeight.m in Sources */,
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
+				D8733C901ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8A42B281E815A9C00D8E281 /* String?+WMFExtras.swift in Sources */,
 				D8A42B291E815A9C00D8E281 /* WMFSavedArticleTableViewController.m in Sources */,
 				D8A42B2A1E815A9C00D8E281 /* WMFSearchResults.m in Sources */,
@@ -9889,6 +9897,7 @@
 				D8CE253F1E698E2400DAE2E0 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */,
 				D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */,
+				D8733C8E1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8CE25421E698E2400DAE2E0 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D8CE25431E698E2400DAE2E0 /* HexColors.m in Sources */,
 				D8CE25441E698E2400DAE2E0 /* WMFAccountLogin.swift in Sources */,
@@ -10216,6 +10225,7 @@
 				D8EC3E361E9BDA35006712EB /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
+				D8733C8F1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8EC3E391E9BDA35006712EB /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D8EC3E3A1E9BDA35006712EB /* HexColors.m in Sources */,
 				D8EC3E3B1E9BDA35006712EB /* WMFAccountLogin.swift in Sources */,
