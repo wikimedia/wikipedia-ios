@@ -44,3 +44,7 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
 exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
+
+exports.isTopOfElementAboveTopOfScreen = function(element){
+  return (element.getBoundingClientRect().top < 0);
+};
