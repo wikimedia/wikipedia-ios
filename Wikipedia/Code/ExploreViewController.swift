@@ -117,6 +117,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.searchBarButtonItem?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
+        self.searchBar.alpha = 1 - percentHidden
     }
     
     // MARK: - Actions
