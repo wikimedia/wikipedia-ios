@@ -169,7 +169,9 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(article: WMFArticle, contentGroup: WMFContentGroup, layoutOnly: Bool) {
-        if let imageURL = article.imageURL(forWidth: self.imageWidth) {
+        let displayType = contentGroup.displayType()
+
+        if displayType != .mainPage, let imageURL = article.imageURL(forWidth: self.imageWidth) {
             isImageViewHidden = false
             if !layoutOnly {
                 imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
@@ -179,7 +181,6 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         }
         
         titleLabel.text = article.displayTitle
-        let displayType = contentGroup.displayType()
         isSaveButtonHidden = isSaveButtonHidden(for: displayType)
         if displayType == .pageWithPreview {
             descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
