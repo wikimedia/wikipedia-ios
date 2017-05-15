@@ -7,7 +7,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     var extractLabel: UILabel?
     
     private var kvoButtonTitleContext = 0
-
+    
     // MARK - Initialization & setup
     
     open func setup() {
@@ -109,7 +109,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         if apply {
             var actualX = x
             let actualWidth = min(viewSize.width, width)
-            if view.wmf_isRightToLeft {
+            if articleSemanticContentAttribute == .forceRightToLeft {
                 actualX = x + width - actualWidth
             }
             view.frame = CGRect(x: actualX, y: y, width: actualWidth, height: viewSize.height)
@@ -136,6 +136,16 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
             return attributes
         } else {
             return layoutAttributes
+        }
+    }
+    
+    // MARK - Semantic content
+    
+    open var articleSemanticContentAttribute: UISemanticContentAttribute = .forceLeftToRight {
+        didSet {
+            titleLabel.semanticContentAttribute = articleSemanticContentAttribute
+            descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
+            extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
         }
     }
     

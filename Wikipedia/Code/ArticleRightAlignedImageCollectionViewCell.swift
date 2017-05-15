@@ -8,7 +8,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let margins = UIEdgeInsetsMake(15, 13, 15, 13)
-        let isRTL = titleLabel.wmf_isRightToLeft
+        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
         if !isImageViewHidden {
             let imageViewDimension: CGFloat = 70

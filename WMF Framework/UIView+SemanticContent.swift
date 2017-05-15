@@ -6,7 +6,4 @@ extension UIView {
             return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
         }
     }
-    public var wmf_isRightToLeft: Bool {
-        return semanticContentAttribute == .forceRightToLeft || wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
-    }
 }

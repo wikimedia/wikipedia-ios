@@ -41,13 +41,11 @@ public extension ArticleCollectionViewCell {
         }
         
         let articleLanguage = (article.url as NSURL?)?.wmf_language
-        let articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         titleLabel.accessibilityLanguage = articleLanguage
-        titleLabel.semanticContentAttribute = articleSemanticContentAttribute
         descriptionLabel.accessibilityLanguage = articleLanguage
-        descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
         extractLabel?.accessibilityLanguage = articleLanguage
-        extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
+        articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        setNeedsLayout()
     }
 }
 
