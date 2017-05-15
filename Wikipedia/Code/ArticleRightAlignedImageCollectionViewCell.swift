@@ -3,11 +3,7 @@ import UIKit
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     private var kvoButtonTitleContext = 0
-    
-    override open var imageWidth: Int {
-        return traitCollection.wmf_nearbyThumbnailWidth
-    }
-    
+
     override open func setup() {
         imageView.cornerRadius = 3
         super.setup()

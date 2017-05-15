@@ -21,6 +21,14 @@ extension UIView {
 
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: UICollectionViewCell {
+    let titleLabel = UILabel()
+    let descriptionLabel = UILabel()
+    let imageView = UIImageView()
+    let saveButton = SaveButton()
+    var extractLabel: UILabel?
+    
+    private var kvoButtonTitleContext = 0
+
     open func setup() {
         tintColor = UIColor.wmf_blueTint
         imageView.contentMode = .scaleAspectFill
@@ -49,13 +57,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
-    private var kvoButtonTitleContext = 0
-    
-    open var imageWidth: Int {
-        return 0
-    }
-    
-    var imageHeight: CGFloat = 150 {
+    var imageViewHeight: CGFloat = 150 {
         didSet {
             setNeedsLayout()
         }
@@ -75,11 +77,6 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let imageView = UIImageView()
-    let saveButton = SaveButton()
-    var extractLabel: UILabel?
     open override func prepareForReuse() {
         super.prepareForReuse()
         imageView.wmf_reset()
@@ -168,14 +165,6 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         accessibilityElements = updatedAccessibilityElements
     }
     
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &kvoButtonTitleContext {
-            setNeedsLayout()
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
     open func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
         return displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
     }
@@ -186,8 +175,9 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     
     public func configure(article: WMFArticle, contentGroup: WMFContentGroup, layoutOnly: Bool) {
         let displayType = contentGroup.displayType()
-
-        if displayType != .mainPage, let imageURL = article.imageURL(forWidth: self.imageWidth) {
+        
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
+        if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
                 imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
@@ -201,7 +191,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         if displayType == .pageWithPreview {
             descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
             extractLabel?.text = article.snippet
-            imageHeight = 196
+            imageViewHeight = 196
             backgroundColor = .white
         } else {
             if displayType == .mainPage {
@@ -211,7 +201,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
             }
             backgroundColor = backgroundColor(for: displayType)
             extractLabel?.text = nil
-            imageHeight = 150
+            imageViewHeight = 150
         }
         
         let articleLanguage = (article.url as NSURL?)?.wmf_language
@@ -223,6 +213,15 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
         
+    }
+    
+    // MARK - KVO
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &kvoButtonTitleContext {
+            setNeedsLayout()
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
     }
     
 }

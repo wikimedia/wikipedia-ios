@@ -4,10 +4,6 @@ import UIKit
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
-    override open var imageWidth: Int {
-        return traitCollection.wmf_leadImageWidth
-    }
-    
     override open func setup() {
         let extractLabel = UILabel()
         extractLabel.numberOfLines = 4
@@ -25,9 +21,9 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageHeight)
+                imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageViewHeight)
             }
-            y += imageHeight
+            y += imageViewHeight
         }
         
         y += margins.top
