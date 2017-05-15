@@ -99,6 +99,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
+        updateAccessibilityElements()
     }
     
     open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -150,6 +151,21 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         } else {
             return layoutAttributes
         }
+    }
+    
+    func updateAccessibilityElements() {
+        var updatedAccessibilityElements: [Any] = []
+        var groupedLabels = [titleLabel, descriptionLabel]
+        if let extract = extractLabel {
+            groupedLabels.append(extract)
+        }
+        updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels))
+        
+        if !isSaveButtonHidden {
+            updatedAccessibilityElements.append(saveButton)
+        }
+        
+        accessibilityElements = updatedAccessibilityElements
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -206,6 +222,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
         extractLabel?.accessibilityLanguage = articleLanguage
         extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
+        
     }
     
 }
