@@ -1,20 +1,9 @@
-import UIKit
-
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
-    private var kvoButtonTitleContext = 0
-
+    
     override open func setup() {
         imageView.cornerRadius = 3
         super.setup()
-    }
-  
-    override open func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
-        return UIColor.white
-    }
-    
-    override open func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
-        return false
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -49,6 +38,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
     }
-
+    
 }
 

@@ -1,6 +1,3 @@
-import UIKit
-
-
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
@@ -30,7 +27,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         y = layout(for: descriptionLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
-        if let extractLabel = extractLabel, extractLabel.hasText {
+        if let extractLabel = extractLabel, extractLabel.wmf_hasText {
             y += 7
             y = layout(for: extractLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
         }
@@ -43,6 +40,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         y += margins.bottom
         return CGSize(width: size.width, height: y)
     }
+    
 }
 
 

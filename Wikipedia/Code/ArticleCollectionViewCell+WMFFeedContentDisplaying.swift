@@ -1,6 +1,14 @@
 import Foundation
 
 public extension ArticleCollectionViewCell {
+    public func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
+        return displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
+    }
+    
+    public func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
+        return displayType == .pageWithPreview ? false : true
+    }
+    
     public func configure(article: WMFArticle, contentGroup: WMFContentGroup, layoutOnly: Bool) {
         let displayType = contentGroup.displayType()
         
@@ -40,5 +48,15 @@ public extension ArticleCollectionViewCell {
         descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
         extractLabel?.accessibilityLanguage = articleLanguage
         extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
+    }
+}
+
+extension ArticleRightAlignedImageCollectionViewCell {
+    public override func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
+        return UIColor.white
+    }
+    
+    public override func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
+        return false
     }
 }

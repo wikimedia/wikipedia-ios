@@ -1,24 +1,3 @@
-import UIKit
-
-extension UILabel {
-    var hasText: Bool {
-        return (text as NSString?)?.length ?? 0 > 0
-    }
-}
-
-extension UIView {
-    var wmf_effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-        if #available(iOS 10.0, *) {
-            return self.effectiveUserInterfaceLayoutDirection
-        } else {
-            return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
-        }
-    }
-    var wmf_isRightToLeft: Bool {
-        return semanticContentAttribute == .forceRightToLeft || wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
-    }
-}
-
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: UICollectionViewCell {
     let titleLabel = UILabel()
@@ -29,6 +8,8 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     
     private var kvoButtonTitleContext = 0
 
+    // MARK - Initialization & setup
+    
     open func setup() {
         tintColor = UIColor.wmf_blueTint
         imageView.contentMode = .scaleAspectFill
@@ -57,6 +38,17 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
+    // MARK - Cell lifecycle
+    
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.wmf_reset()
+        imageView.wmf_showPlaceholder()
+        saveButton.saveButtonState = .longSave
+    }
+    
+    // MARK - View configuration
+    
     var imageViewHeight: CGFloat = 150 {
         didSet {
             setNeedsLayout()
@@ -75,13 +67,6 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()
         }
-    }
-    
-    open override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
-        saveButton.saveButtonState = .longSave
     }
     
     // MARK - Dynamic type
@@ -112,7 +97,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     }
     
     public final func layout(for label: UILabel, x: CGFloat, y: CGFloat, width: CGFloat, apply: Bool) -> CGFloat {
-        guard label.hasText else {
+        guard label.wmf_hasText else {
             return y
         }
         return layout(forView: label, x: x, y: y, width: width, apply: apply) + 6
@@ -154,6 +139,8 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK - Accessibility
+    
     func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []
         var groupedLabels = [titleLabel, descriptionLabel]
@@ -167,14 +154,6 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         }
         
         accessibilityElements = updatedAccessibilityElements
-    }
-    
-    open func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
-        return displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
-    }
-    
-    open func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
-        return displayType == .pageWithPreview ? false : true
     }
     
     // MARK - KVO

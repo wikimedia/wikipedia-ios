@@ -832,11 +832,13 @@
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
-		D8733C8B1ECA10930011E379 /* AccessibilityElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8A1ECA10930011E379 /* AccessibilityElements.swift */; };
+		D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8A1ECA10930011E379 /* LabelGroupAccessibilityElement.swift */; };
 		D8733C8D1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		D8733C8E1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		D8733C8F1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		D8733C901ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */; };
+		D8733C941ECA16940011E379 /* UILabel+HasText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C931ECA16940011E379 /* UILabel+HasText.swift */; };
 		D876C2861E5CDE6500FCA00A /* AlignedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */; };
 		D876C2891E5DDF1A00FCA00A /* EnableLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */; };
 		D876C28A1E5DDF1A00FCA00A /* EnableLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */; };
@@ -3909,8 +3911,10 @@
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		D8733C8A1ECA10930011E379 /* AccessibilityElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityElements.swift; sourceTree = "<group>"; };
+		D8733C8A1ECA10930011E379 /* LabelGroupAccessibilityElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelGroupAccessibilityElement.swift; sourceTree = "<group>"; };
 		D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/ArticleCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
+		D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+SemanticContent.swift"; path = "WMF Framework/UIView+SemanticContent.swift"; sourceTree = SOURCE_ROOT; };
+		D8733C931ECA16940011E379 /* UILabel+HasText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+HasText.swift"; sourceTree = "<group>"; };
 		D8735B231DB7AAA100ED13C4 /* WMFTableOfContentsDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTableOfContentsDisplay.h; sourceTree = "<group>"; };
 		D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlignedImageButton.swift; sourceTree = "<group>"; };
 		D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableLocationViewController.swift; sourceTree = "<group>"; };
@@ -6266,9 +6270,9 @@
 			isa = PBXGroup;
 			children = (
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
-				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
+				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */,
 				D87A55961D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.h */,
 				D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */,
@@ -7060,7 +7064,9 @@
 				D801C93A1EB9404A001FA294 /* WMFLocalization.h */,
 				D801C93B1EB9404A001FA294 /* WMFLocalization.m */,
 				D8726D421EBA052900A107D0 /* Localization.swift */,
-				D8733C8A1ECA10930011E379 /* AccessibilityElements.swift */,
+				D8733C8A1ECA10930011E379 /* LabelGroupAccessibilityElement.swift */,
+				D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */,
+				D8733C931ECA16940011E379 /* UILabel+HasText.swift */,
 				D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */,
 				D8FB46A11E26BC6600F2620F /* QuadKey.swift */,
 				D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */,
@@ -9269,6 +9275,7 @@
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
+				D8733C941ECA16940011E379 /* UILabel+HasText.swift in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
@@ -9309,6 +9316,7 @@
 				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D531DAEEFB00074EB4B /* MWKSiteInfo.m in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
+				D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
 				D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */,
 				D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */,
@@ -9424,7 +9432,7 @@
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				D82014781E6864BF00BA8579 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
-				D8733C8B1ECA10930011E379 /* AccessibilityElements.swift in Sources */,
+				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				0E728D4F1DAEEED90074EB4B /* MWKSiteInfoFetcher.m in Sources */,
