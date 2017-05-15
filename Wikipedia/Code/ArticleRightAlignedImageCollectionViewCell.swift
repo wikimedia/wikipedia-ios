@@ -8,6 +8,8 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        let spacing: CGFloat = 6
+        let saveButtonTopSpacing: CGFloat = 10
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
         if !isImageViewHidden {
@@ -20,17 +22,22 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             widthMinusMargins = widthMinusMargins - margins.right - 70
         }
         
-        var y: CGFloat = margins.top
         let x = isRTL ? size.width - widthMinusMargins - margins.right : margins.left
-        y = layout(for: titleLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
-        y = layout(for: descriptionLabel, x: x, y: y, width: widthMinusMargins, apply:apply)
+        var origin = CGPoint(x: x, y: margins.top)
         
+        let titleLabelFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += titleLabelFrame.height > 0 ? titleLabelFrame.height + spacing : 0
+        
+        let descriptionLabelFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += descriptionLabelFrame.height > 0 ? descriptionLabelFrame.height + spacing : 0
+
         if !isSaveButtonHidden {
-            y += 10
-            y = layout(forView: saveButton, x: x, y: y, width: widthMinusMargins, apply: apply)
+            origin.y += saveButtonTopSpacing
+            let saveButtonFrame = saveButton.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += saveButtonFrame.height
         }
-        y += margins.bottom
-        return CGSize(width: size.width, height: y)
+        origin.y += margins.bottom
+        return CGSize(width: size.width, height: origin.y)
     }
     
     

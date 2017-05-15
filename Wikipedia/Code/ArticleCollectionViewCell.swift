@@ -1,3 +1,14 @@
+import UIKit
+
+// ArticleCollectionViewCell is the base class of collection view cells that represent an article.
+// These cells use a manual layout rather than auto layout for a few reasons:
+// 1. A significant in-code implementation was required anyway for handling the complexity of 
+//    hiding & showing different parts of the cells with auto layout
+// 2. The performance advantage over auto layout for views that contain several article cells.
+//    (To further alleviate this performance issue, WMFColumnarCollectionViewLayout could be updated
+//     to not require a full layout pass for calculating the total collection view content size. Instead,
+//     it could do a rough estimate pass, and then update the content size as the user scrolls.)
+
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: UICollectionViewCell {
     let titleLabel = UILabel()
@@ -8,8 +19,9 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     
     private var kvoButtonTitleContext = 0
     
-    // MARK - Initialization & setup
+    // MARK - Methods for subclassing
     
+    // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
         tintColor = UIColor.wmf_blueTint
         imageView.contentMode = .scaleAspectFill
@@ -27,6 +39,14 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
         backgroundColor = .white
         layoutSubviews()
     }
+    
+    // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews. 
+    // In this method, subclassers should calculate the appropriate layout size and if apply is `true`, apply the layout to the subviews.
+    open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        return size
+    }
+    
+    // MARK - Initializers
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,43 +101,18 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     
     // MARK - Layout
     
-    open override func layoutSubviews() {
+    final override public func layoutSubviews() {
         super.layoutSubviews()
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
     }
     
-    open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        return size
-    }
-    
-    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+    final override public func sizeThatFits(_ size: CGSize) -> CGSize {
         return sizeThatFits(size, apply: false)
     }
     
-    public final func layout(for label: UILabel, x: CGFloat, y: CGFloat, width: CGFloat, apply: Bool) -> CGFloat {
-        guard label.wmf_hasText else {
-            return y
-        }
-        return layout(forView: label, x: x, y: y, width: width, apply: apply) + 6
-    }
-    
-    public final func layout(forView view: UIView, x: CGFloat, y: CGFloat, width: CGFloat, apply: Bool) -> CGFloat {
-        let sizeToFit = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let viewSize = view.sizeThatFits(sizeToFit)
-        if apply {
-            var actualX = x
-            let actualWidth = min(viewSize.width, width)
-            if articleSemanticContentAttribute == .forceRightToLeft {
-                actualX = x + width - actualWidth
-            }
-            view.frame = CGRect(x: actualX, y: y, width: actualWidth, height: viewSize.height)
-        }
-        return y + viewSize.height
-    }
-    
-    open override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         if let attributesToFit = layoutAttributes as? WMFCVLAttributes, attributesToFit.precalculated {
             return attributesToFit
         }
@@ -151,7 +146,7 @@ open class ArticleCollectionViewCell: UICollectionViewCell {
     
     // MARK - Accessibility
     
-    func updateAccessibilityElements() {
+    open func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []
         var groupedLabels = [titleLabel, descriptionLabel]
         if let extract = extractLabel {

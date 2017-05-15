@@ -12,33 +12,43 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        let spacing: CGFloat = 6
+        let saveButtonTopSpacing: CGFloat = 20
         let widthMinusMargins = size.width - margins.left - margins.right
         
-        var y: CGFloat = 0
+        var origin = CGPoint(x: margins.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: y, width: size.width, height: imageViewHeight)
+                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
             }
-            y += imageViewHeight
+            origin.y += imageViewHeight
         }
         
-        y += margins.top
+        origin.y += margins.top
         
-        y = layout(for: titleLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
-        y = layout(for: descriptionLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
+        
+        let titleFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += titleFrame.height > 0 ? titleFrame.height + spacing : 0
+        
+        let descriptionFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += descriptionFrame.height > 0 ? descriptionFrame.height + spacing : 0
+
         if let extractLabel = extractLabel, extractLabel.wmf_hasText {
-            y += 7
-            y = layout(for: extractLabel, x: margins.left, y: y, width: widthMinusMargins, apply:apply)
+            origin.y += spacing // double spacing
+            let extractFrame = extractLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += extractFrame.height > 0 ? extractFrame.height + spacing : 0
         }
 
         if !isSaveButtonHidden {
-            y += 20
-            y = layout(forView: saveButton, x: margins.left, y: y, width: widthMinusMargins, apply: apply)
-            y += 5
+            origin.y += saveButtonTopSpacing
+            let saveButtonFrame = saveButton.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += saveButtonFrame.height > 0 ? saveButtonFrame.height + spacing : 0
+            origin.y += spacing
         }
-        y += margins.bottom
-        return CGSize(width: size.width, height: y)
+        
+        origin.y += margins.bottom
+        return CGSize(width: size.width, height: origin.y)
     }
     
 }
