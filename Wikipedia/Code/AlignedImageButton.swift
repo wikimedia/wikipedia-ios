@@ -8,12 +8,6 @@ public class AlignedImageButton: UIButton {
             adjustInsets()
         }
     }
-
-    private var isImageActuallyRightAligned: Bool {
-        get {
-            return effectiveUserInterfaceLayoutDirection == .rightToLeft ? !imageIsRightAligned : imageIsRightAligned
-        }
-    }
     
     override public var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         get {
