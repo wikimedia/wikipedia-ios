@@ -26,7 +26,7 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     // Subclassers should override updateAccessibilityElements to update any accessibility elements 
-    // that should be updated after layout
+    // that should be updated after layout. Subclassers must call super.updateAccessibilityElements()
     open func updateAccessibilityElements() {
         
     }
