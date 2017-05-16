@@ -483,6 +483,7 @@ open class ImageController : NSObject {
     
     
     public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+        assert(Thread.isMainThread)
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
             return
@@ -493,7 +494,9 @@ open class ImageController : NSObject {
         }
         fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
-                failure(ImageControllerError.invalidResponse)
+                DispatchQueue.main.async {
+                    failure(ImageControllerError.invalidResponse)
+                }
                 return
             }
             self.addToMemoryCache(image, url: url)
