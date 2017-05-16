@@ -22,8 +22,8 @@ function setLanguage(lang, dir, uidir){
     html.classList.add( 'ui-' + uidir );
 }
 
-function setPageProtected(){
-    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
+function setPageProtected(isProtected){
+    document.querySelector( 'html' ).classList[(isProtected ? 'add' : 'remove')]('page-protected');
 }
 
 function scrollToFragment(fragmentId){
