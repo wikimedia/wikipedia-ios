@@ -31,9 +31,9 @@ public extension ArticleCollectionViewCell {
             backgroundColor = .white
         } else {
             if displayType == .mainPage {
-                descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter() ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
+                descriptionLabel.text = article.wikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             } else {
-                descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
+                descriptionLabel.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
             }
             backgroundColor = backgroundColor(for: displayType)
             extractLabel?.text = nil
