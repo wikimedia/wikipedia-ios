@@ -51,6 +51,12 @@ open class CollectionViewCell: UICollectionViewCell {
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
+        #if DEBUG
+            for view in subviews {
+                assert(view.autoresizingMask == [])
+                assert(view.constraints == [])
+            }
+        #endif
     }
     
     final override public func sizeThatFits(_ size: CGSize) -> CGSize {
