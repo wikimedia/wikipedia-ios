@@ -504,6 +504,9 @@
 		B3B018D61EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
 		B3B018D71EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
 		B3B018D81EBD15C300BE7F21 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
+		B3B7945C1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */; };
+		B3B7945D1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */; };
+		B3B7945E1ECB3725005E2392 /* WMFExploreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */; };
 		B3D889441E9E8F8400F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
 		B3D889451E9E8F8900F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
 		B3D889461E9E8F8900F08F53 /* PlaceSearchFilterListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */; };
@@ -9571,6 +9574,7 @@
 				D8A42AA41E815A9C00D8E281 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D8A42AA51E815A9C00D8E281 /* WMFArticleListDataSourceTableViewController.m in Sources */,
 				D8A42AA61E815A9C00D8E281 /* WMFArticleRevisionFetcher.m in Sources */,
+				B3B7945E1ECB3725005E2392 /* WMFExploreCollectionViewController.m in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8A42AA81E815A9C00D8E281 /* PreviewLicenseView.m in Sources */,
 				D8A42AA91E815A9C00D8E281 /* WMFFixtureRecording.m in Sources */,
@@ -9955,6 +9959,7 @@
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
+				B3B7945D1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */,
 				D8CE25661E698E2400DAE2E0 /* WMFTabBarController.m in Sources */,
 				D8CE25671E698E2400DAE2E0 /* NSObject+WMFExtras.m in Sources */,
 				D8CE25681E698E2400DAE2E0 /* SWStepSlider.swift in Sources */,
@@ -10284,6 +10289,7 @@
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				D8EC3E5C1E9BDA35006712EB /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
+				B3B7945C1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */,
 				D8EC3E5E1E9BDA35006712EB /* WMFTabBarController.m in Sources */,
 				D8EC3E5F1E9BDA35006712EB /* NSObject+WMFExtras.m in Sources */,
 				D8EC3E601E9BDA35006712EB /* SWStepSlider.swift in Sources */,
