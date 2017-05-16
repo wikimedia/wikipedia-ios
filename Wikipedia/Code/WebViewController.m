@@ -892,14 +892,6 @@ NSString *const WMFCCBySALicenseURL =
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 }
 
-#pragma mark Bottom menu bar
-
-- (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
-    [self presentViewController:alert animated:YES completion:NULL];
-}
-
 #pragma mark References
 
 - (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
