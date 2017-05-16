@@ -1,6 +1,6 @@
 import UIKit
 
-@objc(WMFSaveButton) class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     @objc(WMFSaveButtonState) enum State: Int {
         case shortSaved
         case longSaved
