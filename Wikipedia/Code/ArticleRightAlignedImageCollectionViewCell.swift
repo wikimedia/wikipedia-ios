@@ -25,15 +25,15 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         let x = isRTL ? size.width - widthMinusMargins - margins.right : margins.left
         var origin = CGPoint(x: x, y: margins.top)
         
-        let titleLabelFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += titleLabelFrame.layoutHeight(with: spacing)
         
-        let descriptionLabelFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += descriptionLabelFrame.layoutHeight(with: spacing)
 
         if !isSaveButtonHidden {
             origin.y += saveButtonTopSpacing
-            let saveButtonFrame = saveButton.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += saveButtonFrame.height
         }
         origin.y += margins.bottom
