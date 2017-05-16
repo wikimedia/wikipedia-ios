@@ -1938,7 +1938,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         if (isSearchFilterDropDownShowing) {
             title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
-            image = #imageLiteral(resourceName: "chevron-up")
+            image = UIImage(cgImage: #imageLiteral(resourceName: "chevron-down-large").cgImage!, scale: 1.0, orientation: .down) // `.down` is 180 rotation, yielding a chevron pointing up
         } else {
             switch currentSearchFilter {
             case .top:
@@ -1946,7 +1946,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             case .saved:
                 title = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
             }
-            image = #imageLiteral(resourceName: "chevron-down")
+            image = #imageLiteral(resourceName: "chevron-down-large")
         }
         
         let attributedTitle: NSMutableAttributedString
@@ -1957,7 +1957,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             imageAttachment.image = image
             
             let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
-            imageAttachment.setImageHeight(6, font: font)
+            imageAttachment.setImageHeight(9, font: font)
             let imageString = NSAttributedString(attachment: imageAttachment)
             attributedTitle.append(imageString)
             
