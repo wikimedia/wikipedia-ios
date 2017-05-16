@@ -794,7 +794,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
             if (cachedValue) {
                 estimate.height = [cachedValue doubleValue];
-                estimate.precalculated = YES;
                 break;
             }
             WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
@@ -805,7 +804,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             attributesToFit.frame = frameToFit;
             UICollectionViewLayoutAttributes *attributes = [(UICollectionViewCell *)cell preferredLayoutAttributesFittingAttributes:attributesToFit];
             estimate.height = attributes.frame.size.height;
-            estimate.precalculated = YES;
             [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
         }
             break;
