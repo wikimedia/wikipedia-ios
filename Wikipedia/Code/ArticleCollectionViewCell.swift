@@ -28,6 +28,10 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
+    deinit {
+        saveButton.removeObserver(self, forKeyPath: "titleLabel.text", context: &kvoButtonTitleContext)
+    }
+    
     // MARK - Cell lifecycle
     
     open override func prepareForReuse() {
