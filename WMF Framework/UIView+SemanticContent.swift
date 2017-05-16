@@ -6,9 +6,7 @@ extension UIView {
             return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
         }
     }
-}
-
-extension UIView {
+    
     public func wmf_prefferedFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let viewSize = sizeThatFits(size)
         var actualX = point.x
