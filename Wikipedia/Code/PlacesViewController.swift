@@ -1952,7 +1952,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let attributedTitle: NSMutableAttributedString
         if (viewMode != .search) {
             
-            attributedTitle = NSMutableAttributedString(string: title + " ")
+            attributedTitle = NSMutableAttributedString(string: title + "  ")  // load-bearing spaces
             let imageAttachment = NSTextAttachment()
             imageAttachment.image = image
             
