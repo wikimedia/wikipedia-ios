@@ -28,21 +28,21 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += margins.top
         
-        let titleFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let titleFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += titleFrame.layoutHeight(with: spacing)
         
-        let descriptionFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += descriptionFrame.layoutHeight(with: spacing)
 
         if let extractLabel = extractLabel, extractLabel.wmf_hasText {
             origin.y += spacing // double spacing before extract
-            let extractFrame = extractLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let extractFrame = extractLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += extractFrame.layoutHeight(with: spacing)
         }
 
         if !isSaveButtonHidden {
             origin.y += saveButtonTopSpacing
-            let saveButtonFrame = saveButton.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += saveButtonFrame.layoutHeight(with: spacing)
             origin.y += spacing
         }
