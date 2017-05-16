@@ -1,8 +1,8 @@
 const tableCollapser = require('wikimedia-page-library').CollapseTable;
-var elementLocation = require("../elementLocation");
+var location = require("../elementLocation");
 
 function footerDivClickCallback(container) {
-  if(elementLocation.isTopOfElementAboveTopOfScreen(container)){
+  if(location.isElementTopOnscreen(container)){
     window.scrollTo( 0, container.offsetTop - 10 );
   }
 }

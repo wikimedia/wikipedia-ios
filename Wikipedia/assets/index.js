@@ -62,7 +62,7 @@ exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
 
-exports.isTopOfElementAboveTopOfScreen = function(element){
+exports.isElementTopOnscreen = function(element){
   return (element.getBoundingClientRect().top < 0);
 };
 
@@ -439,10 +439,10 @@ exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./elementLocation":2}],6:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable;
-var elementLocation = require("../elementLocation");
+var location = require("../elementLocation");
 
 function footerDivClickCallback(container) {
-  if(elementLocation.isTopOfElementAboveTopOfScreen(container)){
+  if(location.isElementTopOnscreen(container)){
     window.scrollTo( 0, container.offsetTop - 10 );
   }
 }

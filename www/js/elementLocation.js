@@ -45,6 +45,6 @@ exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
 
-exports.isTopOfElementAboveTopOfScreen = function(element){
+exports.isElementTopOnscreen = function(element){
   return (element.getBoundingClientRect().top < 0);
 };
