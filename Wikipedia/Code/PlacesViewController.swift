@@ -430,10 +430,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
                 return
         }
-        let frame = frameValue.cgRectValue
+        let keyboardScreenFrame = frameValue.cgRectValue
         var inset = searchSuggestionView.contentInset
-        inset.bottom = frame.size.height
+        inset.bottom = keyboardScreenFrame.size.height
         searchSuggestionView.contentInset = inset
+        
+        let keyboardViewFrame = emptySearchOverlayView.convert(keyboardScreenFrame, from: (UIApplication.shared.delegate?.window)!)
+        
+        switch (notification.name) {
+        case NSNotification.Name.UIKeyboardWillShow:
+            let overlap = keyboardViewFrame.intersection(emptySearchOverlayView.frame)
+            var newFrame = emptySearchOverlayView.frame
+            newFrame.size.height -= overlap.height
+            emptySearchOverlayView.frame = newFrame
+            
+        case NSNotification.Name.UIKeyboardWillHide:
+            // reset the frame
+            emptySearchOverlayView.frame = searchSuggestionView.frame
+            
+        default:
+            DDLogWarn("unexpected notification \(notification.name)")
+        }
+
+        self.view.setNeedsLayout()
     }
     
     // MARK: - Map Region
@@ -2046,8 +2065,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             if (recentSearches.count == 0) {
                 setupEmptySearchOverlayView()
-                emptySearchOverlayView.frame = searchSuggestionView.bounds
-                searchSuggestionView.addSubview(emptySearchOverlayView)
+                emptySearchOverlayView.frame = searchSuggestionView.frame
+                searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
             } else {
                 emptySearchOverlayView.removeFromSuperview()
             }
