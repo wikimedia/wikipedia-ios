@@ -28,23 +28,22 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += margins.top
         
-        
         let titleFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-        origin.y += titleFrame.height > 0 ? titleFrame.height + spacing : 0
+        origin.y += titleFrame.layoutHeight(with: spacing)
         
         let descriptionFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-        origin.y += descriptionFrame.height > 0 ? descriptionFrame.height + spacing : 0
+        origin.y += descriptionFrame.layoutHeight(with: spacing)
 
         if let extractLabel = extractLabel, extractLabel.wmf_hasText {
-            origin.y += spacing // double spacing
+            origin.y += spacing // double spacing before extract
             let extractFrame = extractLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += extractFrame.height > 0 ? extractFrame.height + spacing : 0
+            origin.y += extractFrame.layoutHeight(with: spacing)
         }
 
         if !isSaveButtonHidden {
             origin.y += saveButtonTopSpacing
             let saveButtonFrame = saveButton.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += saveButtonFrame.height > 0 ? saveButtonFrame.height + spacing : 0
+            origin.y += saveButtonFrame.layoutHeight(with: spacing)
             origin.y += spacing
         }
         

@@ -889,6 +889,7 @@
 		D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */; };
 		D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
+		D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89845211ECB3F6C00849DA4 /* CGRect+Layout.swift */; };
 		D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FB46A11E26BC6600F2620F /* QuadKey.swift */; };
 		D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
 		D89D44001D74D36100F7862E /* WMFArticlePreviewFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B06531611C221BC4003BD7DC /* WMFArticlePreviewFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3959,6 +3960,7 @@
 		D895D08E1D9C1EB8005418C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m"; sourceTree = "<group>"; };
+		D89845211ECB3F6C00849DA4 /* CGRect+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Layout.swift"; sourceTree = "<group>"; };
 		D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFKeyValue+CoreDataClass.h"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataClass.h"; sourceTree = "<group>"; };
 		D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFKeyValue+CoreDataClass.m"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataClass.m"; sourceTree = "<group>"; };
 		D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFKeyValue+CoreDataProperties.h"; path = "../Wikipedia/Code/WMFKeyValue+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -7074,6 +7076,7 @@
 				D801C93B1EB9404A001FA294 /* WMFLocalization.m */,
 				D8726D421EBA052900A107D0 /* Localization.swift */,
 				D8733C8A1ECA10930011E379 /* LabelGroupAccessibilityElement.swift */,
+				D89845211ECB3F6C00849DA4 /* CGRect+Layout.swift */,
 				D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */,
 				D8733C931ECA16940011E379 /* UILabel+HasText.swift */,
 				D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */,
@@ -9362,6 +9365,7 @@
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
 				D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */,
 				D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */,
+				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
 				D8FA18F51E1BDA3C009675C3 /* WMFSparklineView.swift in Sources */,

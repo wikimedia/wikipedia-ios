@@ -26,10 +26,10 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         var origin = CGPoint(x: x, y: margins.top)
         
         let titleLabelFrame = titleLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-        origin.y += titleLabelFrame.height > 0 ? titleLabelFrame.height + spacing : 0
+        origin.y += titleLabelFrame.layoutHeight(with: spacing)
         
         let descriptionLabelFrame = descriptionLabel.wmf_prefferedFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-        origin.y += descriptionLabelFrame.height > 0 ? descriptionLabelFrame.height + spacing : 0
+        origin.y += descriptionLabelFrame.layoutHeight(with: spacing)
 
         if !isSaveButtonHidden {
             origin.y += saveButtonTopSpacing
