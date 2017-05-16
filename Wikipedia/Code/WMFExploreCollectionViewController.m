@@ -798,13 +798,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 break;
             }
             WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
-            CGFloat estimatedHeight = 500;
-            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
             [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
-            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = frameToFit;
-            UICollectionViewLayoutAttributes *attributes = [(UICollectionViewCell *)cell preferredLayoutAttributesFittingAttributes:attributesToFit];
-            estimate.height = attributes.frame.size.height;
+            CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+            estimate.height = size.height;
             estimate.precalculated = YES;
             [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
         }
@@ -1119,7 +1115,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     placeholderCell.hidden = YES;
-    [self.view insertSubview:placeholderCell atIndex:0];
+    [self.view insertSubview:placeholderCell atIndex:0]; // so that the trait collections are updated
     [self.placeholderCells setObject:placeholderCell forKey:identifier];
 }
 
@@ -1130,7 +1126,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     placeholderCell.hidden = YES;
-    [self.view insertSubview:placeholderCell atIndex:0];
+    [self.view insertSubview:placeholderCell atIndex:0]; // so that the trait collections are updated
     [self.placeholderCells setObject:placeholderCell forKey:identifier];
 }
 
