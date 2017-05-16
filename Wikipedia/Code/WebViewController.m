@@ -317,8 +317,8 @@ NSString *const WMFCCBySALicenseURL =
         [self.webView wmf_collapseTablesForArticle:self.article];
     } else if ([messageString isEqualToString:@"setLanguage"]) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
-    } else if ([messageString isEqualToString:@"setPageProtected"] && !self.article.editable) {
-        [self.webView wmf_setPageProtected];
+    } else if ([messageString isEqualToString:@"setPageProtected"]) {
+        [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
