@@ -55,7 +55,7 @@ static WMFAssetsFile *_Nullable languageFile = nil;
 }
 
 + (NSString *)assetsPath {
-    return [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMF"] pathForResource:@"assets" ofType:nil];
+    return [[NSBundle wmf] pathForResource:@"assets" ofType:nil];
 }
 
 @end

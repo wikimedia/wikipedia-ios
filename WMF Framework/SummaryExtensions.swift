@@ -18,11 +18,10 @@ extension WMFArticle {
         }
         
         if let extract = summary["extract"] as? String {
-            self.snippet = extract
+            self.snippet = extract.wmf_summaryFromText()
         }
         
-        if let coordinates = summary["coordinates"] as? [[String: Any]],
-            let coordinate = coordinates.first,
+        if let coordinate = summary["coordinates"] as? [String: Any] ?? (summary["coordinates"] as? [[String: Any]])?.first,
             let lat = coordinate["lat"] as? Double,
             let lon = coordinate["lon"] as? Double {
             self.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)

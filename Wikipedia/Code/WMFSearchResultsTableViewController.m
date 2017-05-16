@@ -49,7 +49,7 @@
             [cell wmf_setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm];
             cell.titleLabel.accessibilityLanguage = self.dataSource.searchSiteURL.wmf_language;
             cell.descriptionText = [self descriptionForSearchResult:result];
-            // TODO: In "Redirected from: $1", "$1" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
+            // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
             cell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSiteURL.wmf_language : nil;
             [cell setImageURL:result.thumbnailURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
         };
@@ -73,7 +73,7 @@
         return result.wikidataDescription;
     }
 
-    NSString *redirectedResultMessage = [MWLocalizedString(@"search-result-redirected-from", nil) stringByReplacingOccurrencesOfString:@"$1" withString:mapping.redirectFromTitle];
+    NSString *redirectedResultMessage = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"search-result-redirected-from", nil, nil, @"Redirected from: %1$@", @"Text for search result letting user know if a result is a redirect from another article. Parameters:\n* %1$@ - article title the current search result redirected from"), mapping.redirectFromTitle];
 
     if (!result.wikidataDescription) {
         return redirectedResultMessage;

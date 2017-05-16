@@ -4,7 +4,7 @@ import UserNotificationsUI
 import WMF
 import CocoaLumberjackSwift
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
+class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var statusView: UIVisualEffectView!
@@ -37,12 +37,12 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         }
     }
     
-    func analyticsContext() -> String {
+    var analyticsContext: String {
         return "notification"
     }
     
-    func analyticsContentType() -> String {
-        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType()
+    var analyticsContentType: String {
+        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType
     }
     
     override func awakeFromNib() {
@@ -81,7 +81,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             DDLogError("erorr deserializing news story \(error)")
         }
 
-        timeLabel.text = localizedStringForKeyFallingBackOnEnglish("in-the-news-currently-trending")
+        timeLabel.text = WMFLocalizedString("in-the-news-currently-trending", value:"Currently trending", comment: "Currently trending - indicates that the story is trending right now")
         articleTitleLabel.text = title
         articleSubtitleLabel.text = extract
         
@@ -131,12 +131,12 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             completion(.dismiss)
         case WMFInTheNewsNotificationSaveForLaterActionIdentifier:
             statusView.isHidden = false
-            statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saving-for-later")
+            statusLabel.text = WMFLocalizedString("status-saving-for-later", value:"Saving for later...", comment: "Indicates to the user that the article is being saved for later")
             PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: self, contentType: self)
             if let dataStore = SessionSingleton.sharedInstance().dataStore {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 self.statusView.isHidden = false
-                self.statusLabel.text = localizedStringForKeyFallingBackOnEnglish("status-saved-for-later")
+                self.statusLabel.text = WMFLocalizedString("status-saved-for-later", value:"Saved for later", comment: "Indicates to the user that the article has been saved for later")
                 completion(.dismiss)
             } else {
                 completion(.dismiss)

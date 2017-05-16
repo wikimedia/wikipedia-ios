@@ -1,9 +1,8 @@
 
 public extension UIColor {
 
-    public static let wmf_licenseText: UIColor = .wmf_color(withHex: 0x565656, alpha: 1.0)
-    public static let wmf_licenseLink: UIColor = .wmf_blueTint
     public static let wmf_lightGray: UIColor = .wmf_color(withHex: 0xdddddd, alpha: 1.0)
+    public static let wmf_lightGrayCellBackground: UIColor = .wmf_color(withHex: 0xf8f9fa, alpha: 1.0)
     public static let wmf_placeholderLightGray: UIColor = .wmf_color(withHex: 0xf8f8f8, alpha: 1.0)
     public static let wmf_placeholderImageTint: UIColor = .wmf_color(withHex: 0xb2b2b2, alpha: 1.0)
     public static let wmf_placeholderImageBackground: UIColor = .wmf_color(withHex: 0xf4f4f4, alpha: 1.0)
@@ -52,5 +51,6 @@ public extension UIColor {
     public static let wmf_yellow: UIColor = .wmf_color(withHex: 0xffcc33, alpha: 1.0)
     public static let wmf_orange: UIColor = .wmf_color(withHex: 0xff5b00, alpha: 1.0)
     public static let wmf_authTitle: UIColor = .wmf_color(withHex: 0x72777d, alpha: 1.0)
+    public static let wmf_filterDropDownBackground: UIColor = .wmf_color(withHex: 0xf6f6f6, alpha: 1.0)
 
 }

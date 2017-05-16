@@ -48,13 +48,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             case .longAlphaNumeric:
                 backupOathTokenField.isHidden = false
                 oathTokenFieldsStackView.isHidden = true
-                tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-backup-token-title")
-                displayModeToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-regular-code")
+                tokenLabel.text = WMFLocalizedString("field-backup-token-title", value:"Backup code", comment:"Title for backup token field")
+                displayModeToggle.text = WMFLocalizedString("two-factor-login-with-regular-code", value:"Use verification code", comment:"Button text for showing text fields for normal two factor login")
             case .shortNumeric:
                 backupOathTokenField.isHidden = true
                 oathTokenFieldsStackView.isHidden = false
-                tokenLabel.text = localizedStringForKeyFallingBackOnEnglish("field-token-title")
-                displayModeToggle.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-with-backup-code")
+                tokenLabel.text = WMFLocalizedString("field-token-title", value:"Verification code", comment:"Title for token field")
+                displayModeToggle.text = WMFLocalizedString("two-factor-login-with-backup-code", value:"Use one of your backup codes", comment:"Button text for showing text field for backup code two factor login")
             }
             oathTokenFields.forEach {$0.text = nil}
             backupOathTokenField.text = nil
@@ -219,14 +219,14 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
             fields.forEach {$0.deleteBackwardDelegate = self}
         }else{
-            assert(false, "Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
+            assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         
-        loginButton.setTitle(localizedStringForKeyFallingBackOnEnglish("two-factor-login-continue"), for: .normal)
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-title")
-        subTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("two-factor-login-instructions")
+        loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
+        titleLabel.text = WMFLocalizedString("two-factor-login-title", value:"Log in to your account", comment:"Title for two factor login interface")
+        subTitleLabel.text = WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
         
         backupOathTokenField.wmf_addThinBottomBorder()
         displayMode = .shortNumeric
@@ -260,7 +260,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         else {
             return
         }
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-logging-in"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
         WMFAuthenticationManager.sharedInstance
             .login(username: userName,
@@ -270,7 +270,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                    captchaID: captchaID,
                    captchaWord: captchaWord,
                    success: { _ in
-                    let loggedInMessage = localizedStringForKeyFallingBackOnEnglish("main-menu-account-title-logged-in").replacingOccurrences(of: "$1", with: userName)
+                    let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.dismiss(animated: true, completion: nil)
                     self.funnel?.logSuccess()
@@ -306,7 +306,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             let presenter = presentingViewController,
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
         else {
-            assert(false, "Expected view controller(s) not found")
+            assertionFailure("Expected view controller(s) not found")
             return
         }
         dismiss(animated: true, completion: {

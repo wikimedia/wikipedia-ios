@@ -15,7 +15,7 @@ class ArticlePopoverViewController: UIViewController {
     
     @IBOutlet weak var buttonStackView: UIStackView!
     
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
     
@@ -38,10 +38,10 @@ class ArticlePopoverViewController: UIViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         articleSummaryView.addGestureRecognizer(tapGR)
         
-        shareButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-share"), for: .normal)
+        shareButton.setTitle(WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}"), for: .normal)
         shareButton.setImage(#imageLiteral(resourceName: "places-share"), for: .normal)
         
-        readButton.setTitle(localizedStringForKeyFallingBackOnEnglish("action-read"), for: .normal)
+        readButton.setTitle(WMFLocalizedString("action-read", value:"Read", comment:"Title for the 'Read' action\n{{Identical|Read}}"), for: .normal)
         readButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
         
         updateSaveButtonTitle()
@@ -70,10 +70,7 @@ class ArticlePopoverViewController: UIViewController {
         guard showSaveAndShareTitles else {
             return
         }
-        let saveTitle = article.savedDate == nil ? localizedStringForKeyFallingBackOnEnglish("action-save") : localizedStringForKeyFallingBackOnEnglish("action-saved")
-        saveButton.setTitle(saveTitle, for: .normal)
-        let saveImage = article.savedDate == nil ? #imageLiteral(resourceName: "places-save"): #imageLiteral(resourceName: "places-unsave")
-        saveButton.setImage(saveImage, for: .normal)
+        saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {

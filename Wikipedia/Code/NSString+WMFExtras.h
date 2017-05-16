@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)wmf_stringByReplacingSpacesWithUnderscores;
 
+- (NSString *)wmf_stringByReplacingApostrophesWithBackslashApostrophes;
+
 - (NSString *)wmf_stringByCapitalizingFirstCharacter;
 
 - (BOOL)wmf_containsString:(NSString *)string;

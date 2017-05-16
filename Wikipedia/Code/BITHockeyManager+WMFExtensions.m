@@ -6,25 +6,18 @@
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios
 // http://hockeyapp.net/help/sdk/ios/3.6.2/docs/docs/HowTo-Set-Custom-AlertViewHandler.html
 
-static NSString *const kHockeyAppTitleStringsKey = @"hockeyapp-alert-title";
-static NSString *const kHockeyAppQuestionStringsKey = @"hockeyapp-alert-question";
-static NSString *const kHockeyAppQuestionWithResponseFieldStringsKey = @"hockeyapp-alert-question-with-response-field";
-static NSString *const kHockeyAppSendStringsKey = @"hockeyapp-alert-send-report";
-static NSString *const kHockeyAppAlwaysSendStringsKey = @"hockeyapp-alert-always-send";
-static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-send";
-
 @implementation BITHockeyManager (WMFExtensions)
 
 + (NSString *)crashSendText {
-    return MWLocalizedString(kHockeyAppSendStringsKey, nil);
+    return WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-send-report", nil, nil, @"Send report", @"Alert dialog button text for crash reporting to be sent");
 }
 
 + (NSString *)crashAlwaysSendText {
-    return MWLocalizedString(kHockeyAppAlwaysSendStringsKey, nil);
+    return WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-always-send", nil, nil, @"Always send", @"Alert dialog button text for crash reporting to always be sent");
 }
 
 + (NSString *)crashDoNotSendText {
-    return MWLocalizedString(kHockeyAppDoNotSendStringsKey, nil);
+    return WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-do-not-send", nil, nil, @"Do not send", @"Alert dialog button text for crash reporting to not send the crash report");
 }
 
 - (void)wmf_setupAndStart {
@@ -57,14 +50,11 @@ static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-
 }
 
 NSString *const WMFHockeyAppServiceName = @"HockeyApp";
-NSString *const kHockeyAppPrivacyStringsKey = @"hockeyapp-alert-privacy";
 NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
 
 - (void)wmf_setupCrashNotificationAlert {
     [[BITHockeyManager sharedHockeyManager].crashManager setAlertViewHandler:^() {
-        NSString *title = [MWLocalizedString(kHockeyAppTitleStringsKey, nil)
-            stringByReplacingOccurrencesOfString:@"$1"
-                                      withString:WMFHockeyAppServiceName];
+        NSString *title = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-title", nil, nil, @"Sorry, app crashed last time", @"Concise and conciliatory alert dialog title for crash reporting"), WMFHockeyAppServiceName];
         UIAlertController *customAlertView = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
         [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashSendText]
                                                             style:UIAlertActionStyleDefault
@@ -87,9 +77,7 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
                                                               crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
                                                           }]];
-        [customAlertView addAction:[UIAlertAction actionWithTitle:[MWLocalizedString(kHockeyAppPrivacyStringsKey, nil)
-                                                                      stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                withString:WMFHockeyAppServiceName]
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, nil, @"%1$@ privacy", @"Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockeyAppPrivacyUrl]];
@@ -98,12 +86,12 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
 
         NSString *exceptionReason = [[BITHockeyManager sharedHockeyManager].crashManager lastSessionCrashDetails].exceptionReason;
         if (exceptionReason) {
-            customAlertView.message = [MWLocalizedString(kHockeyAppQuestionWithResponseFieldStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+            customAlertView.message = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-question-with-response-field", nil, nil, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash? Please describe what happened when the crash occurred:", @"Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName];
             [customAlertView addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField){
 
             }];
         } else {
-            customAlertView.message = [MWLocalizedString(kHockeyAppQuestionStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+            customAlertView.message = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-question", nil, nil, @"Would you like to send a crash report to %1$@ so the Wikimedia Foundation can review your crash?", @"Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName];
         }
         [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:customAlertView animated:YES completion:NULL];
     }];

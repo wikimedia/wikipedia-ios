@@ -22,8 +22,8 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "WMFGCDHelpers.h"
 #import "WMFLogging.h"
 #import "WMFDirectoryPaths.h"
-#import "WMFLocalization.h"
 #import "WMFMath.h"
+#import "WMFLocalization.h"
 #import "NSError+WMFExtensions.h"
 #import "WMFOutParamUtils.h"
 #import "WMFRangeUtils.h"
@@ -79,7 +79,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "WMFURLCache.h"
 
 #import "MWKArticle+WMFSharing.h"
-#import "MWKCitation.h"
 #import "MWKImage+CanonicalFilenames.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKSavedPageEntry+ImageMigration.h"

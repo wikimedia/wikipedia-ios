@@ -98,7 +98,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == captchaTextField {
             guard let captchaDelegate = captchaDelegate else {
-                assert(false, "Expected delegate not set")
+                assertionFailure("Expected delegate not set")
                 return true
             }
             captchaDelegate.captchaKeyboardReturnKeyTapped()
@@ -108,7 +108,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func refreshImage(for captcha: WMFCaptcha) {
         guard let fullCaptchaImageURL = fullCaptchaImageURL(from: captcha.captchaURL) else {
-            assert(false, "Unable to determine fullCaptchaImageURL")
+            assertionFailure("Unable to determine fullCaptchaImageURL")
             return
         }
         captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, failure: { (error) in
@@ -125,7 +125,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
 
     fileprivate func fullCaptchaImageURL(from captchaURL: URL) -> URL? {
         guard let components = URLComponents(url: captchaURL, resolvingAgainstBaseURL: false) else {
-            assert(false, "Could not extract url components")
+            assertionFailure("Could not extract url components")
             return nil
         }
         return components.url(relativeTo: captchaBaseURL())
@@ -133,17 +133,17 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func captchaBaseURL() -> URL? {
         guard let captchaDelegate = captchaDelegate else {
-            assert(false, "Expected delegate not set")
+            assertionFailure("Expected delegate not set")
             return nil
         }
         let captchaSiteURL = captchaDelegate.captchaSiteURL()
         guard var components = URLComponents(url: captchaSiteURL, resolvingAgainstBaseURL: false) else {
-            assert(false, "Could not extract url components")
+            assertionFailure("Could not extract url components")
             return nil
         }
         components.queryItems = nil
         guard let url = components.url else{
-            assert(false, "Could not extract url")
+            assertionFailure("Could not extract url")
             return nil
         }
         return url
@@ -177,7 +177,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let captchaDelegate = captchaDelegate else{
-            assert(false, "Required delegate is unset")
+            assertionFailure("Required delegate is unset")
             return
         }
         
@@ -186,13 +186,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle}
 
         captcha = nil
-        captchaTextFieldTitleLabel.text = localizedStringForKeyFallingBackOnEnglish("field-captcha-title")
-        captchaTextField.placeholder = localizedStringForKeyFallingBackOnEnglish("field-captcha-placeholder")
+        captchaTextFieldTitleLabel.text = WMFLocalizedString("field-captcha-title", value:"Enter the text you see above", comment: "Title for captcha field")
+        captchaTextField.placeholder = WMFLocalizedString("field-captcha-placeholder", value:"CAPTCHA text", comment: "Placeholder text shown inside captcha field until user taps on it")
         captchaTextField.wmf_addThinBottomBorder()
-        titleLabel.text = localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-title")
+        titleLabel.text = WMFLocalizedString("account-creation-captcha-title", value:"CAPTCHA security check", comment: "Title for account creation CAPTCHA interface")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
-        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-cannot-see-image"), substitutionString: localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-request-account"))
+        subTitleLabel.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-captcha-cannot-see-image", value:"Can't see the image? %1$@", comment: "Text asking the user if they cannot see the captcha image. %1$@ is the message {{msg-wm|Wikipedia-ios-account-creation-captcha-request-account}}"), substitutionString: WMFLocalizedString("account-creation-captcha-request-account", value:"Request account.", comment: "Text for link to 'Request an account' page."))
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
@@ -216,11 +216,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
                 
         let failure: WMFErrorHandler = {error in }
         
-        WMFAlertManager.sharedInstance.showAlert(localizedStringForKeyFallingBackOnEnglish("account-creation-captcha-obtaining"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             guard let previousCaptcha = self.captcha else {
-                assert(false, "If resetting a captcha, expect to have a previous one here")
+                assertionFailure("If resetting a captcha, expect to have a previous one here")
                 return
             }
             

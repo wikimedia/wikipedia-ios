@@ -33,7 +33,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                     self.currentlySelectedSearchLanguage = appLang
                     return appLang
                 }else{
-                    assert(false, "appLanguage should have been set at this point")
+                    assertionFailure("appLanguage should have been set at this point")
                     return nil
                 }
             }
@@ -52,12 +52,12 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor.white), for: UIControlState())
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor(white: 0.9, alpha: 1.0)), for: .highlighted)
-        otherLanguagesButton?.setTitle(localizedStringForKeyFallingBackOnEnglish("main-menu-title"), for: UIControlState())
+        otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: UIControlState())
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
             guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
-                assert(false, "Could not extract app language from WMFAppLanguageDidChangeNotification")
+                assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
                 return
             }
             self.currentlySelectedSearchLanguage = appLanguage
@@ -108,7 +108,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             if let selectedLanguage = currentlySelectedSearchLanguage {
                 button.isSelected = language.isEqual(to: selectedLanguage)
             }else{
-                assert(false, "selectedLanguage should have been set at this point")
+                assertionFailure("selectedLanguage should have been set at this point")
                 button.isSelected = false
             }
         }
@@ -125,7 +125,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
         guard let buttonIndex = languageButtons.index(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
-            assert(false, "Language button not found for language")
+            assertionFailure("Language button not found for language")
             return
         }
         currentlySelectedSearchLanguage = languageBarLanguages()[buttonIndex]

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Libraries Used View Controller-->
+        <scene sceneID="P7M-bV-rV7">
+            <objects>
+                <viewController restorationIdentifier="LibrariesUsedViewController" storyboardIdentifier="LibrariesUsedViewController" id="Var-9e-kfX" customClass="LibrariesUsedViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MGC-ij-JZT"/>
+                        <viewControllerLayoutGuide type="bottom" id="VjC-sP-RHA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QKe-YT-pRO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="x41-q6-hyH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Var-9e-kfX" id="Ijb-da-CqB"/>
+                                    <outlet property="delegate" destination="Var-9e-kfX" id="1CT-3T-cVP"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="x41-q6-hyH" secondAttribute="bottom" id="0pw-xn-NHX"/>
+                            <constraint firstItem="x41-q6-hyH" firstAttribute="leading" secondItem="QKe-YT-pRO" secondAttribute="leading" id="JFv-jM-wi4"/>
+                            <constraint firstAttribute="trailing" secondItem="x41-q6-hyH" secondAttribute="trailing" id="Rja-Bh-97y"/>
+                            <constraint firstItem="x41-q6-hyH" firstAttribute="top" secondItem="QKe-YT-pRO" secondAttribute="top" id="uFZ-L1-E7R"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="x41-q6-hyH" id="65x-UO-FPm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GyF-yh-Gr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-301.60000000000002" y="152.47376311844079"/>
+        </scene>
+        <!--Library Used View Controller-->
+        <scene sceneID="cDR-Z7-Bui">
+            <objects>
+                <viewController restorationIdentifier="LibraryUsedViewController" storyboardIdentifier="LibraryUsedViewController" id="RAl-lu-nmB" customClass="LibraryUsedViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1aA-FN-Odc"/>
+                        <viewControllerLayoutGuide type="bottom" id="tYN-Ns-7tX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lt1-Fz-AJg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAY-ku-Rwy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GAY-ku-Rwy" secondAttribute="trailing" id="5G0-AN-TxJ"/>
+                            <constraint firstItem="GAY-ku-Rwy" firstAttribute="leading" secondItem="Lt1-Fz-AJg" secondAttribute="leading" id="D04-iY-gm8"/>
+                            <constraint firstItem="GAY-ku-Rwy" firstAttribute="top" secondItem="1aA-FN-Odc" secondAttribute="bottom" id="aJ0-HM-EYC"/>
+                            <constraint firstItem="tYN-Ns-7tX" firstAttribute="top" secondItem="GAY-ku-Rwy" secondAttribute="bottom" id="ofq-I4-nbl"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="textView" destination="GAY-ku-Rwy" id="pkN-bK-PJj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LRj-cs-wXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="393" y="152"/>
+        </scene>
+    </scenes>
+</document>

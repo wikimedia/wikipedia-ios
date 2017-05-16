@@ -137,6 +137,21 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
 }
 
+- (BOOL)toggleSavedPageForKey:(NSString *)key {
+    if (!key) {
+        return NO;
+    }
+    WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
+    if (article.savedDate == nil) {
+        article.savedDate = [NSDate date];
+    } else {
+        article.savedDate = nil;
+    }
+    [self.dataStore save:nil];
+    return article.savedDate != nil;
+}
+
+
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
     article.savedDate = [NSDate date];

@@ -6,6 +6,7 @@
 
 @import CoreData;
 
+// Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -205,7 +206,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL {
-    NSURL *modelURL = [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMF"] URLForResource:@"Wikipedia" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle wmf] URLForResource:@"Wikipedia" withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSString *coreDataDBName = @"Wikipedia.sqlite";
 

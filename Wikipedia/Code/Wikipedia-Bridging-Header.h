@@ -40,24 +40,31 @@
 #import "WMFSearchFetcher.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "WMFProxyServer.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
 #import "WMFArticleListDataSourceTableViewController.h"
-#import "WMFExploreViewController.h"
+#import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
+#import "WMFSettingsViewController.h"
+#import "UIViewController+WMFSearch.h"
 
 // Views
 #import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
 #import "WMFNearbyArticleTableViewCell.h"
+#import "WMFFeedContentDisplaying.h"
+#import "WMFContentGroup+WMFFeedContentDisplaying.h"
+#import "WMFCVLAttributes.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
+#import "SavedPagesFunnel.h"

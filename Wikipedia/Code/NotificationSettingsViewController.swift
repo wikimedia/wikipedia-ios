@@ -22,7 +22,7 @@ struct NotificationSettingsSection {
     let items: [NotificationSettingsItem]
 }
 
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding {
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -52,30 +52,30 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
        updateSections()
     }
     
-    func analyticsContext() -> String {
+    var analyticsContext: String {
         return "notification"
     }
     
-    func analyticsContentType() -> String {
+    var analyticsContentType: String {
         return "current events"
     }
     
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
         
-        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-learn-more"), buttonAction: { [weak self] in
-            let title = localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-title")
-            let message = "\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-storage"))\n\n\(localizedStringForKeyFallingBackOnEnglish("welcome-notifications-tell-me-more-creation"))"
+        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-learn-more", value:"Learn more about notifications", comment:"A title for a button to learn more about notifications"), buttonAction: { [weak self] in
+            let title = WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
+            let message = "\(WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))"
             let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: localizedStringForKeyFallingBackOnEnglish("welcome-explore-tell-me-more-done-button"), style: UIAlertActionStyle.default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: WMFLocalizedString("welcome-explore-tell-me-more-done-button", value:"Got it", comment:"Text for button dismissing detailed explanation of new features"), style: UIAlertActionStyle.default, handler: { (action) in
             }))
             self?.present(alertController, animated: true, completion: nil)
         })]
         
-        let infoSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: infoItems)
+        let infoSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: infoItems)
         updatedSections.append(infoSection)
         
-        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-trending"), switchChecker: { () -> Bool in
+        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
             return UserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
             }, switchAction: { (isOn) in
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
@@ -98,20 +98,20 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 }
             UserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
-        let notificationSettingsSection = NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-push-notifications"), items: notificationSettingsItems)
+        let notificationSettingsSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-push-notifications", value:"Push notifications", comment:"A title for a list of Push notifications"), items: notificationSettingsItems)
         
         updatedSections.append(notificationSettingsSection)
         return updatedSections
     }
     
     func sectionsForSystemSettingsUnauthorized()  -> [NotificationSettingsSection] {
-        let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: localizedStringForKeyFallingBackOnEnglish("settings-notifications-system-turn-on"), buttonAction: {
+        let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-system-turn-on", value:"Turn on Notifications", comment:"Title for a button for turnining on notifications in the system settings"), buttonAction: {
             guard let URL = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
             }
             UIApplication.shared.openURL(URL)
         })]
-        return [NotificationSettingsSection(headerTitle: localizedStringForKeyFallingBackOnEnglish("settings-notifications-info"), items: unauthorizedItems)]
+        return [NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: unauthorizedItems)]
     }
     
     func updateSections() {

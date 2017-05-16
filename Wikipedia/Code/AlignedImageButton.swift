@@ -1,55 +1,49 @@
 import UIKit
 
-
-class AlignedImageButton: UIButton {
+public class AlignedImageButton: UIButton {
     
     @IBInspectable open var margin: CGFloat = 8
-    
     @IBInspectable open var imageIsRightAligned: Bool = false {
         didSet {
-            setNeedsLayout()
+            adjustInsets()
         }
     }
     
-    private var isImageActuallyRightAligned: Bool {
+    override public var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         get {
-            return effectiveUserInterfaceLayoutDirection == .rightToLeft ? !imageIsRightAligned : imageIsRightAligned
-        }
-    }
-    
-    override var effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-        get {
+            let superDirection: UIUserInterfaceLayoutDirection
             if #available(iOS 10.0, *) {
-                return super.effectiveUserInterfaceLayoutDirection
+                superDirection = super.effectiveUserInterfaceLayoutDirection
             } else {
-                return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
+                superDirection = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
+            }
+            if imageIsRightAligned {
+                if superDirection == .leftToRight {
+                    return .rightToLeft
+                } else {
+                    return .leftToRight
+                }
+            } else {
+                return superDirection
             }
         }
     }
-
     
-    override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-        var titleRect = super.titleRect(forContentRect: contentRect)
-        let imageRect = super.imageRect(forContentRect: contentRect)
-        let totalImageWidth = margin + imageRect.width
-        let availableWidth = contentRect.width - totalImageWidth - margin
-        let centeredInAvailableWidth = round(0.5*availableWidth - 0.5*titleRect.width)
-        if isImageActuallyRightAligned {
-            titleRect.origin.x = centeredInAvailableWidth + margin
-        } else {
-            titleRect.origin.x = totalImageWidth + centeredInAvailableWidth
-        }
-        return titleRect
+    fileprivate func adjustInsets() {
+        let inset = effectiveUserInterfaceLayoutDirection == .rightToLeft ? -0.5 * margin : 0.5 * margin
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
+        contentEdgeInsets = UIEdgeInsets(top: 0, left: abs(inset), bottom: 0, right: abs(inset))
     }
     
-    override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-        var imageRect = super.imageRect(forContentRect: contentRect)
-        if isImageActuallyRightAligned {
-            imageRect.origin.x = contentRect.maxX - imageRect.size.width - margin
-        } else {
-            imageRect.origin.x = margin
-        }
-        return imageRect
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        adjustInsets()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        adjustInsets()
     }
+    
+}
