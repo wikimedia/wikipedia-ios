@@ -2124,10 +2124,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             updateSearchCompletionsFromSearchBarTextForTopArticles()
         case .saved:
             // TODO: add suggestions here?
-            break
+            self.isWaitingForSearchSuggestionUpdate = false
         }
-        
-        self.isWaitingForSearchSuggestionUpdate = false
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
