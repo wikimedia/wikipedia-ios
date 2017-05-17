@@ -2116,25 +2116,18 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    private var isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
+    private var isWaitingForSearchSuggestionUpdate = false
     
-    private var isWaitingForSearchSuggestionUpdate = false {
-        didSet {
-            if !isWaitingForSearchSuggestionUpdate && isGoingToSearchForFirstSearchSuggestionAfterUpdate {
-                isGoingToSearchForFirstSearchSuggestionAfterUpdate = false
-                searchForFirstSearchSuggestion()
-            }
-        }
-    }
-
     func updateSearchCompletionsFromSearchBarText() {
         switch (currentSearchFilter) {
         case .top:
             updateSearchCompletionsFromSearchBarTextForTopArticles()
         case .saved:
             // TODO: add suggestions here?
-            self.isWaitingForSearchSuggestionUpdate = false
+            break
         }
+        
+        self.isWaitingForSearchSuggestionUpdate = false
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
@@ -2194,9 +2187,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isWaitingForSearchSuggestionUpdate = true
+
         updateSearchSuggestions(withCompletions: [])
 
-        isWaitingForSearchSuggestionUpdate = true
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
     }
@@ -2216,11 +2210,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        searchBar.endEditing(true)
         guard !isWaitingForSearchSuggestionUpdate else {
-            isGoingToSearchForFirstSearchSuggestionAfterUpdate = true
             return
         }
+        
+        searchBar.endEditing(true)
         searchForFirstSearchSuggestion()
     }
     
