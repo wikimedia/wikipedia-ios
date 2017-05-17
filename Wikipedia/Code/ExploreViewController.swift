@@ -82,6 +82,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         self.collectionViewController.willMove(toParentViewController: self)
+        self.collectionViewController.view.frame = self.containerView.bounds
+        self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.containerView.addSubview(collectionViewController.view)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
@@ -117,6 +119,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.searchBarButtonItem?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
+        self.searchBar.alpha = 1 - percentHidden
     }
     
     // MARK: - Actions

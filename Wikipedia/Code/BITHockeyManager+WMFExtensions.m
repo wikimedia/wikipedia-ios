@@ -6,6 +6,8 @@
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios
 // http://hockeyapp.net/help/sdk/ios/3.6.2/docs/docs/HowTo-Set-Custom-AlertViewHandler.html
 
+static NSString *const WMFHockeyAppIdentifier = @QUOTE(WMF_HOCKEYAPP_IDENTIFIER);
+
 @implementation BITHockeyManager (WMFExtensions)
 
 + (NSString *)crashSendText {
@@ -21,7 +23,7 @@
 }
 
 - (void)wmf_setupAndStart {
-    NSString *appID = [[NSBundle mainBundle] wmf_hockeyappIdentifier];
+    NSString *appID = WMFHockeyAppIdentifier;
     if ([appID length] == 0) {
         DDLogError(@"Not setting up hockey because no app ID was found");
         return;

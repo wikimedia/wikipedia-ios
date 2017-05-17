@@ -2,8 +2,6 @@
 
 @implementation MWLanguageInfo
 
-NSArray *rtlLanguages;
-
 + (MWLanguageInfo *)languageInfoForCode:(NSString *)code {
     MWLanguageInfo *languageInfo = [[MWLanguageInfo alloc] init];
     languageInfo.code = [MWLanguageInfo codeForCode:code];
@@ -15,11 +13,14 @@ NSArray *rtlLanguages;
     return languageInfo;
 }
 
-+ (BOOL)articleLanguageIsRTL:(MWKArticle *)article {
++ (BOOL)articleLanguageIsRTL:(nullable MWKArticle *)article {
+    if (!article) {
+        return NO;
+    }
     return [[MWLanguageInfo languageInfoForCode:
-                                article.url.wmf_language]
-                .dir
-        isEqualToString:@"rtl"];
+             article.url.wmf_language]
+            .dir
+            isEqualToString:@"rtl"];
 }
 
 + (NSString *)codeForCode:(NSString *)code {
@@ -32,12 +33,20 @@ NSArray *rtlLanguages;
     }
 }
 
-+ (NSArray *)rtlLanguages {
-    if (rtlLanguages == nil) {
-        rtlLanguages = @[@"arc", @"arz", @"ar", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"ha", @"he",
-                         @"khw", @"ks", @"mzn", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi"];
-    }
++ (NSSet *)rtlLanguages {
+    static dispatch_once_t onceToken;
+    static NSSet *rtlLanguages;
+    dispatch_once(&onceToken, ^{
+        rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"ha", @"he", @"khw", @"ks", @"mzn", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", nil];
+    });
     return rtlLanguages;
+}
+
++ (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language {
+    if (!language) {
+        return UISemanticContentAttributeUnspecified;
+    }
+    return [[MWLanguageInfo rtlLanguages] containsObject:language] ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
 }
 
 @end

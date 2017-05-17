@@ -448,20 +448,18 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (nullable SSSection *)section_6 {
-#ifndef ALPHA
-    if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
-        return nil;
-    }
-#endif
-
+#if WMF_TWEAKS_ENABLED
     SSSection *section =
-        [SSSection sectionWithItems:@[
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
-            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
-        ]];
+    [SSSection sectionWithItems:@[
+                                  [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
+                                  [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
+                                  ]];
     section.header = WMFLocalizedStringWithDefaultValue(@"main-menu-heading-debug", nil, nil, @"Debug", @"Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}");
     section.footer = nil;
     return section;
+#else
+    return nil;
+#endif
 }
 
 #pragma - KVO
