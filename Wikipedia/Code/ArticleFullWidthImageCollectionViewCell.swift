@@ -1,17 +1,57 @@
-import UIKit
-
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
-    override open var imageWidth: Int {
-        return traitCollection.wmf_leadImageWidth
+    
+    override open func setup() {
+        let extractLabel = UILabel()
+        extractLabel.numberOfLines = 4
+        addSubview(extractLabel)
+        self.extractLabel = extractLabel
+        super.setup()
+        descriptionLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 0
     }
     
-    override open class var nibName: String {
-        return "ArticleFullWidthImageCollectionViewCell"
-    }
+    open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        let spacing: CGFloat = 6
+        let saveButtonTopSpacing: CGFloat = 20
+        let widthMinusMargins = size.width - margins.left - margins.right
+        
+        var origin = CGPoint(x: margins.left, y: 0)
+        
+        if !isImageViewHidden {
+            if (apply) {
+                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
+            }
+            origin.y += imageViewHeight
+        }
+        
+        origin.y += margins.top
+        
+        let titleFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += titleFrame.layoutHeight(with: spacing)
+        
+        let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += descriptionFrame.layoutHeight(with: spacing)
 
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
+        if let extractLabel = extractLabel, extractLabel.wmf_hasText {
+            origin.y += spacing // double spacing before extract
+            let extractFrame = extractLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += extractFrame.layoutHeight(with: spacing)
+        }
+
+        if !isSaveButtonHidden {
+            origin.y += saveButtonTopSpacing
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += saveButtonFrame.layoutHeight(with: spacing)
+            origin.y += spacing
+        }
+        
+        origin.y += margins.bottom
+        return CGSize(width: size.width, height: origin.y)
     }
+    
 }
+
+
+

@@ -109,9 +109,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>WMFHockeyAppIdentifier</key>
-	<string>$(WMF_HOCKEYAPP_IDENTIFIER)</string>
-	<key>WMFShowDebugMenu</key>
-	<false/>
 </dict>
 </plist>
