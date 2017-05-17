@@ -305,7 +305,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logout];
+    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler failure:^(NSError *error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+    }];
 }
 
 #pragma mark - Languages
