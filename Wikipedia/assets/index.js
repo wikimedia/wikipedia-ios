@@ -62,6 +62,10 @@ exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
 
+exports.isElementTopOnscreen = function(element){
+  return (element.getBoundingClientRect().top < 0);
+};
+
 },{}],3:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
@@ -435,9 +439,12 @@ exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./elementLocation":2}],6:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable;
+var location = require("../elementLocation");
 
 function footerDivClickCallback(container) {
-  window.scrollTo( 0, container.offsetTop - 10 );
+  if(location.isElementTopOnscreen(container)){
+    window.scrollTo( 0, container.offsetTop - 10 );
+  }
 }
 
 function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
@@ -445,7 +452,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables;
-},{"wikimedia-page-library":16}],7:[function(require,module,exports){
+},{"../elementLocation":2,"wikimedia-page-library":16}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
     var filetoc = content.querySelector( '#filetoc' );
@@ -928,8 +935,8 @@ function setLanguage(lang, dir, uidir){
     html.classList.add( 'ui-' + uidir );
 }
 
-function setPageProtected(){
-    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
+function setPageProtected(isProtected){
+    document.querySelector( 'html' ).classList[(isProtected ? 'add' : 'remove')]('page-protected');
 }
 
 function scrollToFragment(fragmentId){

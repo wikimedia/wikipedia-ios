@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U1o-Vy-4PN">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Explore View Controller-->
+        <scene sceneID="7XG-fM-dwm">
+            <objects>
+                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bvw-5L-o1P"/>
+                        <viewControllerLayoutGuide type="bottom" id="8FH-VM-Onk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k2o-HG-1ae">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-WZ-awY">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="U1o-Vy-4PN" id="eCa-bN-gWL"/>
+                                        </connections>
+                                    </searchBar>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="vQH-78-FaV" secondAttribute="bottom" id="BOV-8a-KMc"/>
+                                    <constraint firstAttribute="trailing" secondItem="vQH-78-FaV" secondAttribute="trailing" id="I1q-zB-maA"/>
+                                    <constraint firstItem="vQH-78-FaV" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="top" id="o5c-Cu-MuW"/>
+                                    <constraint firstAttribute="height" constant="44" id="qkK-r4-n2U"/>
+                                    <constraint firstItem="vQH-78-FaV" firstAttribute="leading" secondItem="Nai-Yt-sU6" secondAttribute="leading" id="t8q-U9-LBl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="0MW-Y4-Jhn"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="centerX" secondItem="k2o-HG-1ae" secondAttribute="centerX" id="GJZ-PR-uek"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="trailing" secondItem="MHl-WZ-awY" secondAttribute="trailing" id="J0d-lE-0Nd"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="width" secondItem="k2o-HG-1ae" secondAttribute="width" id="JNh-W6-EUk"/>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="QxO-vs-KGH"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="leading" secondItem="MHl-WZ-awY" secondAttribute="leading" id="bO8-9O-U7T"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="topMargin" id="q6P-Yl-10b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bvZ-8Y-hFE"/>
+                    <connections>
+                        <outlet property="containerView" destination="MHl-WZ-awY" id="v2T-pM-cel"/>
+                        <outlet property="extendNavBarViewTopSpaceConstraint" destination="q6P-Yl-10b" id="Ufm-fZ-mqQ"/>
+                        <outlet property="extendedNavBarView" destination="Nai-Yt-sU6" id="U0J-9q-kCQ"/>
+                        <outlet property="searchBar" destination="vQH-78-FaV" id="asT-tg-Fxi"/>
+                        <outlet property="view" destination="k2o-HG-1ae" id="g3M-4Q-Kgb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLU-ff-DPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="38.23088455772114"/>
+        </scene>
+        <!--Explore Collection View Controller-->
+        <scene sceneID="RjF-WS-MdK">
+            <objects>
+                <collectionViewController storyboardIdentifier="CollectionViewController" id="Q8B-u3-RyW" customClass="WMFExploreCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sOn-PQ-x8k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewLayout key="collectionViewLayout" id="art-68-NBd" customClass="WMFColumnarCollectionViewLayout"/>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="Q8B-u3-RyW" id="wnA-6a-Gs6"/>
+                            <outlet property="delegate" destination="Q8B-u3-RyW" id="rBt-VP-oPZ"/>
+                        </connections>
+                    </collectionView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nij-AE-Zos" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="857" y="38"/>
+        </scene>
+    </scenes>
+</document>

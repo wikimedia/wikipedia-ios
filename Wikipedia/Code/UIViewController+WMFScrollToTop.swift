@@ -17,9 +17,10 @@ extension WMFArticleListTableViewController {
     }
 }
 
-extension WMFExploreViewController {
+extension ExploreViewController {
     func scrollToTop() {
-        guard canScrollToTop else { return }
-        scrollToFirstIndexPath()
+        guard collectionViewController.canScrollToTop else { return }
+        collectionViewController.scrollToFirstIndexPath()
+        showSearchBar(animated: true)
     }
 }

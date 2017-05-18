@@ -30,7 +30,6 @@
 #import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
-#import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
 #import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
@@ -560,7 +559,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInititated:NO];
+        [self.exploreViewController updateFeedSourcesUserInitiated:NO];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -774,7 +773,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
-
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];

@@ -84,9 +84,10 @@
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
+"explore-because-you-read" = "Text for 'Because you read' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
-"explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
+"explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
 "explore-most-read-generic-heading" = "Text for 'Most read articles' explore section header used when no language is present";
