@@ -656,6 +656,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 
                 guard result.error == nil else {
                     WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    
+                    let error: Error = result.error!
+                    let nserror = error as NSError
+                    if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
+                        DDLogDebug("load top completion now!")
+                    }
                     return
                 }
                 
