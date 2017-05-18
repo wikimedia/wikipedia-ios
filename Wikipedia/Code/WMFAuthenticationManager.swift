@@ -52,6 +52,7 @@ class WMFAuthenticationManager: NSObject {
                 self.keychainCredentials.userName = normalizedUserName
                 self.keychainCredentials.password = password
                 self.cloneSessionCookies()
+                SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 loginSuccess(result)
             }, failure: failure)
         }, failure:failure)
@@ -86,7 +87,7 @@ class WMFAuthenticationManager: NSObject {
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
-                        self.logout()
+                        self.logout(success:WMFIgnoreSuccessHandler, failure:WMFIgnoreErrorHandler)
                     }
                 }
                 failure(error)
@@ -94,20 +95,32 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
+    private let logoutManager = AFHTTPSessionManager(baseURL: MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())
+    
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    public func logout(){
-        keychainCredentials.userName = nil
-        keychainCredentials.password = nil
-        loggedInUsername = nil
-        guard let cookies = HTTPCookieStorage.shared.cookies else {
-            return
-        }
-        // Clear session cookies.
-        cookies.forEach { cookie in
-            HTTPCookieStorage.shared.deleteCookie(cookie)
-        }
+    public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
+        let outerSuccess = success;
+        let outerFailure = failure;
+        
+        _ = logoutManager.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
+            
+            self.keychainCredentials.userName = nil
+            self.keychainCredentials.password = nil
+            self.loggedInUsername = nil
+            // Cookie reminders: 
+            //  - Call "action=logout" API *before* clearing app cookies.
+            //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+            HTTPCookieStorage.shared.cookies?.forEach { cookie in
+                HTTPCookieStorage.shared.deleteCookie(cookie)
+            }
+            SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+            
+            outerSuccess()
+        }, failure: { (_, error) in
+            outerFailure(error)
+        })
     }
     
     func cloneSessionCookies() {
