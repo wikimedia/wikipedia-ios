@@ -37,13 +37,39 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         return searches.count
     }
     
+    var shouldUseFirstSuggestionAsDefault: Bool {
+        return searches[PlaceSearchSuggestionController.suggestionSection].count == 0 && searches[PlaceSearchSuggestionController.completionSection].count > 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searches[section].count
+        switch (section, shouldUseFirstSuggestionAsDefault) {
+        case (PlaceSearchSuggestionController.suggestionSection, true):
+            return 1
+        case (PlaceSearchSuggestionController.completionSection, true):
+            return searches[PlaceSearchSuggestionController.completionSection].count - 1
+        default:
+            return searches[section].count
+        }
+    }
+    
+    func searchForIndexPath(_ indexPath: IndexPath) -> PlaceSearch {
+        let search: PlaceSearch
+        switch (indexPath.section, shouldUseFirstSuggestionAsDefault) {
+        case (PlaceSearchSuggestionController.suggestionSection, true):
+            search = searches[PlaceSearchSuggestionController.completionSection][0]
+        case (PlaceSearchSuggestionController.completionSection, true):
+            search = searches[PlaceSearchSuggestionController.completionSection][indexPath.row+1]
+        default:
+            search = searches[indexPath.section][indexPath.row]
+        }
+        return search
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
-        let search = searches[indexPath.section][indexPath.row]
+
+        let search = searchForIndexPath(indexPath)
+        
         switch search.type {
         case .location:
             cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-location")
@@ -56,7 +82,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let search = searches[indexPath.section][indexPath.row]
+        let search = searchForIndexPath(indexPath)
         delegate?.placeSearchSuggestionController(self, didSelectSearch: search)
     }
     
@@ -105,7 +131,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         switch indexPath.section {
         case PlaceSearchSuggestionController.recentSection:
             return [UITableViewRowAction(style: .destructive, title: "Delete", handler: { (action, indexPath) in
-                let search = self.searches[indexPath.section][indexPath.row]
+                let search = self.searchForIndexPath(indexPath)
                 self.delegate?.placeSearchSuggestionController(self, didDeleteSearch: search)
             })]
         default:
