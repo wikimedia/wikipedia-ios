@@ -1648,7 +1648,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         selectedArticlePopover = articleVC
         selectedArticleAnnotationView = annotationView
         selectedArticleKey = articleKey
-    
         
         adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
         articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
@@ -2116,7 +2115,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    private var isWaitingForSearchSuggestionUpdate = false
+    private var isWaitingForSearchSuggestionUpdate = false {
+        didSet {
+            if (oldValue == false && isWaitingForSearchSuggestionUpdate == true) {
+                // start progress bar
+                isProgressHidden = false
+                progressView.setProgress(0, animated: false)
+                perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
+            } else if (isWaitingForSearchSuggestionUpdate == false) {
+                // stop progress bar
+                self.progressView.setProgress(1.0, animated: true)
+                self.isProgressHidden = true
+            }
+        }
+    }
     
     func updateSearchCompletionsFromSearchBarText() {
         switch (currentSearchFilter) {
