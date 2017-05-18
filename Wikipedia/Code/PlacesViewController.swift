@@ -254,7 +254,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     func selectVisibleKeyToSelectIfNecessary() {
-        guard !isMovingToRegion, countOfAnimatingAnnotations == 0, let keyToSelect = articleKeyToSelect else {
+        guard !isMovingToRegion, countOfAnimatingAnnotations == 0, let keyToSelect = articleKeyToSelect, viewMode == .map else {
             return
         }
         guard selectVisibleArticle(articleKey: keyToSelect) else {
@@ -1622,7 +1622,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         guard selectedArticlePopover == nil else {
             return
         }
-        
+
         if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
             listView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
