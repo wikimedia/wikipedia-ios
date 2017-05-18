@@ -102,7 +102,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.title = WMFLocalizedStringWithDefaultValue(@"home-title", nil, nil, @"Explore", @"Title for home interface.\n{{Identical|Explore}}");
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];

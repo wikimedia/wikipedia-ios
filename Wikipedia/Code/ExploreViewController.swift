@@ -71,6 +71,9 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
         
         self.searchBarButtonItem = self.wmf_searchBarButtonItem()
+        
+        self.title = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface.\n{{Identical|Explore}}")
+        self.navigationItem.title = self.title
     }
     
     override func viewDidLoad() {
