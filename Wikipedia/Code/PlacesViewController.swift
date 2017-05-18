@@ -660,7 +660,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     let error: Error = result.error!
                     let nserror = error as NSError
                     if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
-                        DDLogDebug("load top completion now!")
+                        let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
+                        if (completions.count > 0) {
+                            DDLogDebug("Did you mean??\n\(completions[0])")
+                        }
                     }
                     return
                 }
