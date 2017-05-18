@@ -16,7 +16,7 @@ public extension ArticleCollectionViewCell {
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
             }
         } else {
             isImageViewHidden = true

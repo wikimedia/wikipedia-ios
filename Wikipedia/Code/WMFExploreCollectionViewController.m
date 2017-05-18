@@ -674,12 +674,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSArray *feedContent = contentGroup.content;
     NSInteger countOfFeedContent = feedContent.count;
     switch (contentGroup.displayType) {
+        case WMFFeedDisplayTypeStory:
+            return 1;
         case WMFFeedDisplayTypeRelatedPages:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]) + 1;
-            break;
         default:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]);
-            break;
     }
     
 }
@@ -744,8 +744,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return cell;
         } break;
         case WMFFeedDisplayTypeStory: {
-            InTheNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureStoryCell:cell withSection:contentGroup article:article atIndexPath:indexPath];
+            WMFNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFNewsCollectionViewCell" forIndexPath:indexPath];
+            [cell configureWithGroup:contentGroup dataStore:self.userStore layoutOnly:NO];
             return cell;
         } break;
 
@@ -783,24 +783,53 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePage: {
             estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
         } break;
+        case WMFFeedDisplayTypeStory:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" :@"WMFArticleRightAlignedImageCollectionViewCell";
+            NSString *reuseIdentifier = @"WMFArticleFullWidthImageCollectionViewCell";
             WMFArticle *article = [self articleForIndexPath:indexPath];
             NSString *key = article.key;
+            switch (displayType) {
+                case WMFFeedDisplayTypeStory:
+                    reuseIdentifier = @"WMFNewsCollectionViewCell";
+                    key = section.key;
+                    break;
+                case WMFFeedDisplayTypeContinueReading:
+                    reuseIdentifier = indexPath.item == 0 ?  @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
+                    break;
+                default:
+                    break;
+            }
+            
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%@-%lli", reuseIdentifier, (long long)displayType, key, (long long)columnWidth];
+           
             NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
             if (cachedValue) {
                 estimate.height = [cachedValue doubleValue];
                 estimate.precalculated = YES;
                 break;
             }
-            WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
-            [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
-            CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
-            estimate.height = size.height;
+            
+            switch (displayType) {
+                case WMFFeedDisplayTypeStory:
+                {
+                    WMFNewsCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                    [cell configureWithGroup:section dataStore:self.userStore layoutOnly:YES];
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    estimate.height = size.height;
+                    break;
+                }
+                default:
+                {
+                    WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                    [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    estimate.height = size.height;
+                    break;
+                }
+            }
             estimate.precalculated = YES;
             [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
         }
@@ -811,9 +840,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePhoto: {
             estimate.height = [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
-        case WMFFeedDisplayTypeStory: {
-            estimate.height = [InTheNewsCollectionViewCell estimatedRowHeight];
-        } break;
+        
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
             CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
@@ -1164,13 +1191,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     
     [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
     
+    [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
+    
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
-
-    [self.collectionView registerNib:[InTheNewsCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[InTheNewsCollectionViewCell wmf_nibName]];
 }
 
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
@@ -1206,17 +1233,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
     //    self.referenceImageView = cell.potdImageView;
-}
-
-- (void)configureStoryCell:(InTheNewsCollectionViewCell *)cell withSection:(WMFContentGroup *)section article:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
-    NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:section];
-    if (indexPath.item >= stories.count) {
-        return;
-    }
-    WMFFeedNewsStory *story = stories[indexPath.item];
-    cell.bodyHTML = story.storyHTML;
-
-    cell.imageURL = [article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth];
 }
 
 - (void)configureAnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withSection:(WMFContentGroup *)section atIndexPath:(NSIndexPath *)indexPath {

@@ -881,8 +881,6 @@
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
 		D8940CEF1DB56C8A00E17F9E /* InTheNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */; };
 		D8940CF01DB56C8A00E17F9E /* InTheNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CEE1DB56C8A00E17F9E /* InTheNewsViewController.xib */; };
-		D8940CF41DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */; };
-		D8940CF51DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */; };
 		D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */; };
 		D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */; };
@@ -1149,7 +1147,6 @@
 		D8A42B511E815A9C00D8E281 /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */; };
 		D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
 		D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF91D2FEE6300963D42 /* WMFRandomDiceButton.m */; };
-		D8A42B561E815A9C00D8E281 /* InTheNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */; };
 		D8A42B571E815A9C00D8E281 /* WMFLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B11C0CEB160065EBC0 /* WMFLanguagesViewController.m */; };
 		D8A42B591E815A9C00D8E281 /* WMFMorePageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFMorePageListViewController.m */; };
 		D8A42B5A1E815A9C00D8E281 /* TableOfContentsReadMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */; };
@@ -1246,7 +1243,6 @@
 		D8A42BBE1E815A9C00D8E281 /* WMFSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */; };
 		D8A42BBF1E815A9C00D8E281 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */; };
-		D8A42BC11E815A9C00D8E281 /* InTheNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */; };
 		D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4F1DF22E1700B95311 /* NotificationBackgroundSuccess.png */; };
 		D8A42BC31E815A9C00D8E281 /* NotificationBackgroundErrorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4C1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png */; };
 		D8A42BC41E815A9C00D8E281 /* MultilineLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB78151DCB677000606794 /* MultilineLabelTableViewCell.xib */; };
@@ -1595,7 +1591,6 @@
 		D8CE25D61E698E2400DAE2E0 /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */; };
 		D8CE25D71E698E2400DAE2E0 /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
 		D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF91D2FEE6300963D42 /* WMFRandomDiceButton.m */; };
-		D8CE25DA1E698E2400DAE2E0 /* InTheNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */; };
 		D8CE25DB1E698E2400DAE2E0 /* WMFLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B11C0CEB160065EBC0 /* WMFLanguagesViewController.m */; };
 		D8CE25DD1E698E2400DAE2E0 /* WMFMorePageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFMorePageListViewController.m */; };
 		D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */; };
@@ -1693,7 +1688,6 @@
 		D8CE26451E698E2400DAE2E0 /* WMFSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */; };
 		D8CE26461E698E2400DAE2E0 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */; };
-		D8CE26481E698E2400DAE2E0 /* InTheNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */; };
 		D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4F1DF22E1700B95311 /* NotificationBackgroundSuccess.png */; };
 		D8CE264A1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4C1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png */; };
 		D8CE264B1E698E2400DAE2E0 /* MultilineLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB78151DCB677000606794 /* MultilineLabelTableViewCell.xib */; };
@@ -2075,7 +2069,6 @@
 		D8EC3ED41E9BDA35006712EB /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */; };
 		D8EC3ED51E9BDA35006712EB /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
 		D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF91D2FEE6300963D42 /* WMFRandomDiceButton.m */; };
-		D8EC3ED81E9BDA35006712EB /* InTheNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */; };
 		D8EC3ED91E9BDA35006712EB /* WMFLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B11C0CEB160065EBC0 /* WMFLanguagesViewController.m */; };
 		D8EC3EDB1E9BDA35006712EB /* WMFMorePageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFMorePageListViewController.m */; };
 		D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */; };
@@ -2178,7 +2171,6 @@
 		D8EC3F451E9BDA35006712EB /* WMFSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */; };
 		D8EC3F461E9BDA35006712EB /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */; };
-		D8EC3F481E9BDA35006712EB /* InTheNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */; };
 		D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4F1DF22E1700B95311 /* NotificationBackgroundSuccess.png */; };
 		D8EC3F4A1E9BDA35006712EB /* NotificationBackgroundErrorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4C1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png */; };
 		D8EC3F4B1E9BDA35006712EB /* MultilineLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB78151DCB677000606794 /* MultilineLabelTableViewCell.xib */; };
@@ -3954,8 +3946,6 @@
 		D890C85E1D772EE7007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8940CED1DB56C8A00E17F9E /* InTheNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InTheNewsViewController.swift; sourceTree = "<group>"; };
 		D8940CEE1DB56C8A00E17F9E /* InTheNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InTheNewsViewController.xib; sourceTree = "<group>"; };
-		D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InTheNewsCollectionViewCell.swift; path = Wikipedia/Code/InTheNewsCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InTheNewsCollectionViewCell.xib; path = Wikipedia/Code/InTheNewsCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InTheNewsNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D895D0841D9C1EB8005418C1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -5353,7 +5343,6 @@
 			isa = PBXGroup;
 			children = (
 				0E2E4BB51DE3429800AD9DFD /* Announcement */,
-				D8940CF11DB667CD00E17F9E /* In The News */,
 				0E6A6F541D9EA21F00189C80 /* Article */,
 				BCCB81461C110857008BC602 /* POTD */,
 				0E52FD651DA40EA200587426 /* Nearby */,
@@ -7306,15 +7295,6 @@
 			name = "In The News";
 			sourceTree = "<group>";
 		};
-		D8940CF11DB667CD00E17F9E /* In The News */ = {
-			isa = PBXGroup;
-			children = (
-				D8940CF21DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift */,
-				D8940CF31DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib */,
-			);
-			name = "In The News";
-			sourceTree = "<group>";
-		};
 		D895D0881D9C1EB8005418C1 /* InTheNewsNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -8208,7 +8188,6 @@
 				B0E8033D1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard in Resources */,
 				0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
-				D8940CF51DB667EF00E17F9E /* InTheNewsCollectionViewCell.xib in Resources */,
 				D8D92B601DF22E1700B95311 /* NotificationBackgroundSuccess.png in Resources */,
 				D8D92B5D1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D8FB78171DCB677000606794 /* MultilineLabelTableViewCell.xib in Resources */,
@@ -8329,7 +8308,6 @@
 				D8A42BBE1E815A9C00D8E281 /* WMFSearchViewController.storyboard in Resources */,
 				D8A42BBF1E815A9C00D8E281 /* WMFTabBarUI.storyboard in Resources */,
 				D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */,
-				D8A42BC11E815A9C00D8E281 /* InTheNewsCollectionViewCell.xib in Resources */,
 				D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */,
 				D8A42BC31E815A9C00D8E281 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D8A42BC41E815A9C00D8E281 /* MultilineLabelTableViewCell.xib in Resources */,
@@ -8432,7 +8410,6 @@
 				D8CE26451E698E2400DAE2E0 /* WMFSearchViewController.storyboard in Resources */,
 				D8CE26461E698E2400DAE2E0 /* WMFTabBarUI.storyboard in Resources */,
 				D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */,
-				D8CE26481E698E2400DAE2E0 /* InTheNewsCollectionViewCell.xib in Resources */,
 				D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */,
 				D8CE264A1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D8CE264B1E698E2400DAE2E0 /* MultilineLabelTableViewCell.xib in Resources */,
@@ -8535,7 +8512,6 @@
 				D8EC3F451E9BDA35006712EB /* WMFSearchViewController.storyboard in Resources */,
 				D8EC3F461E9BDA35006712EB /* WMFTabBarUI.storyboard in Resources */,
 				D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */,
-				D8EC3F481E9BDA35006712EB /* InTheNewsCollectionViewCell.xib in Resources */,
 				D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */,
 				D8EC3F4A1E9BDA35006712EB /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D8EC3F4B1E9BDA35006712EB /* MultilineLabelTableViewCell.xib in Resources */,
@@ -9212,7 +9188,6 @@
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
-				D8940CF41DB667EF00E17F9E /* InTheNewsCollectionViewCell.swift in Sources */,
 				B0E806B71C0CEB160065EBC0 /* WMFLanguagesViewController.m in Sources */,
 				0E03617A1C44905400FD9642 /* WMFMorePageListViewController.m in Sources */,
 				D8831D391EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
@@ -9759,7 +9734,6 @@
 				D8A42B511E815A9C00D8E281 /* WMFShareOptionsController.m in Sources */,
 				D8A42B531E815A9C00D8E281 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */,
-				D8A42B561E815A9C00D8E281 /* InTheNewsCollectionViewCell.swift in Sources */,
 				D8A42B571E815A9C00D8E281 /* WMFLanguagesViewController.m in Sources */,
 				D8A42B591E815A9C00D8E281 /* WMFMorePageListViewController.m in Sources */,
 				D8A42B5A1E815A9C00D8E281 /* TableOfContentsReadMoreItem.swift in Sources */,
@@ -10087,7 +10061,6 @@
 				D8CE25D61E698E2400DAE2E0 /* WMFShareOptionsController.m in Sources */,
 				D8CE25D71E698E2400DAE2E0 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */,
-				D8CE25DA1E698E2400DAE2E0 /* InTheNewsCollectionViewCell.swift in Sources */,
 				D8CE25DB1E698E2400DAE2E0 /* WMFLanguagesViewController.m in Sources */,
 				D8CE25DD1E698E2400DAE2E0 /* WMFMorePageListViewController.m in Sources */,
 				D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */,
@@ -10418,7 +10391,6 @@
 				D8EC3ED41E9BDA35006712EB /* WMFShareOptionsController.m in Sources */,
 				D8EC3ED51E9BDA35006712EB /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */,
-				D8EC3ED81E9BDA35006712EB /* InTheNewsCollectionViewCell.swift in Sources */,
 				D8EC3ED91E9BDA35006712EB /* WMFLanguagesViewController.m in Sources */,
 				D8EC3EDB1E9BDA35006712EB /* WMFMorePageListViewController.m in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
