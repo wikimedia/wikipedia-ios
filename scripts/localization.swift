@@ -30,7 +30,7 @@ fileprivate var twnTokenRegex: NSRegularExpression? = {
 
 fileprivate var iOSTokenRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "(?:[%])(:?[0-9]+)(?:[$][@dDuUxXoOfeEgGcCsSpaAF])", options: [])
+        return try NSRegularExpression(pattern: "(?:[%])(:?[0-9]+)(?:[$])(:?[@dDuUxXoOfeEgGcCsSpaAF])", options: [])
     } catch {
         assertionFailure("Localization token regex failed to compile")
     }
@@ -62,7 +62,7 @@ extension String {
     var escapedString: String {
         return self.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"").replacingOccurrences(of: "\n", with: "\\n")
     }
-    func pluralDictionary(with keys: [String]) -> NSDictionary? {
+    func pluralDictionary(with keys: [String], tokens: [String: String]) -> NSDictionary? {
         //https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html#//apple_ref/doc/uid/10000171i-CH16-SW1
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
@@ -103,7 +103,7 @@ extension String {
         let range = result.range
         let nsSelf = self as NSString
         let keyDictionary = NSMutableDictionary(capacity: 5)
-        let formatValueType = "d"
+        let formatValueType = tokens["1"] ?? "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
         let newToken = "%1$\(formatValueType)"
@@ -162,12 +162,28 @@ extension String {
         return nativeLocalization as String
     }
     
-    var iOSNativeLocalization: String {
+    public func replacingMatches(fromTokenRegex regex: NSRegularExpression, withFormat format: String, tokens: [String: String]) -> String {
+        let nativeLocalization = NSMutableString(string: self)
+        var offset = 0
+        let fullRange = NSRange(location: 0, length: nativeLocalization.length)
+        regex.enumerateMatches(in: self, options: [], range: fullRange) { (result, flags, stop) in
+            guard let result = result else {
+                return
+            }
+            let token = regex.replacementString(for: result, in: nativeLocalization as String, offset: offset, template: "$1")
+            let replacement = String(format: format, token, tokens[token] ?? "@")
+            let replacementRange = NSRange(location: result.range.location + offset, length: result.range.length)
+            nativeLocalization.replaceCharacters(in: replacementRange, with: replacement)
+            offset += (replacement as NSString).length - result.range.length
+        }
+        return nativeLocalization as String
+    }
+    
+    func iOSNativeLocalization(tokens: [String: String]) -> String {
         guard let tokenRegex = twnTokenRegex, let braceRegex = curlyBraceRegex else {
             return ""
         }
-        return self.replacingMatches(fromRegex: braceRegex, withFormat: "%@")
-            .replacingMatches(fromRegex: tokenRegex, withFormat: "%%%@$@")
+        return self.replacingMatches(fromRegex: braceRegex, withFormat: "%@").replacingMatches(fromTokenRegex: tokenRegex, withFormat: "%%%@$%@", tokens: tokens)
     }
     
     var twnNativeLocalization: String {
@@ -175,6 +191,28 @@ extension String {
             return ""
         }
         return self.replacingMatches(fromRegex: tokenRegex, withFormat: "$%@")
+    }
+    
+    var iOSTokenDictionary: [String: String] {
+        guard let iOSTokenRegex = iOSTokenRegex else {
+            print("Unable to compile iOS token regex")
+            abort()
+        }
+        var tokenDictionary = [String:String]()
+        iOSTokenRegex.enumerateMatches(in: self, options: [], range:self.fullRange, using: { (result, flags, stop) in
+            guard let result = result else {
+                return
+            }
+            let number = iOSTokenRegex.replacementString(for: result, in: self as String, offset: 0, template: "$1")
+            let token = iOSTokenRegex.replacementString(for: result, in: self as String, offset: 0, template: "$2")
+            if tokenDictionary[number] == nil {
+                tokenDictionary[number] = token
+            } else if token != tokenDictionary[number] {
+                print("Internal token mismatch: \(self)")
+                abort()
+            }
+        })
+        return tokenDictionary
     }
 }
 
@@ -274,11 +312,19 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 }
 
 
+
 func importLocalizationsFromTWN(_ path: String) {
     let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
-    guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String:String] else {
-	       print("Unable to read \(enPath)")
-	       abort()
+
+    guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String: String] else {
+        print("Unable to read \(enPath)")
+        abort()
+    }
+    
+    var enTokensByKey = [String: [String: String]]()
+    
+    for (key, value) in enDictionary {
+        enTokensByKey[key] = value.iOSTokenDictionary
     }
     
     let fm = FileManager.default
@@ -298,15 +344,22 @@ func importLocalizationsFromTWN(_ path: String) {
             let stringsDict = NSMutableDictionary(capacity: twnStrings.count)
             let strings = NSMutableDictionary(capacity: twnStrings.count)
             for (key, value) in twnStrings {
-                guard let twnString = value as? String, let key = key as? String, enDictionary[key] != nil else {
+                guard let twnString = value as? String, let key = key as? String, let enTokens = enTokensByKey[key] else {
+                    continue
+                }
+                let nativeLocalization = twnString.iOSNativeLocalization(tokens: enTokens)
+                let nativeLocalizationTokens = nativeLocalization.iOSTokenDictionary
+                guard nativeLocalizationTokens == enTokens else {
+                    //print("Mismatched tokens in \(locale) for \(key):\n\(enDictionary[key] ?? "")\n\(nativeLocalization)")
                     continue
                 }
                 if twnString.contains("{{PLURAL:") {
                     let lang = locale.components(separatedBy: "-").first ?? ""
                     let keys = keysByLanguage[lang] ?? defaultKeys
-                    stringsDict[key] = twnString.pluralDictionary(with: keys)
+                    stringsDict[key] = twnString.pluralDictionary(with: keys, tokens:enTokens)
+                    strings[key] = nativeLocalization
                 } else {
-                    strings[key] = twnString.iOSNativeLocalization
+                    strings[key] = nativeLocalization
                 }
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
