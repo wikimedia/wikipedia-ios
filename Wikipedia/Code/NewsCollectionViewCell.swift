@@ -23,8 +23,8 @@ class NewsCollectionViewCell: CollectionViewCell {
     override func setup() {
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         backgroundColor = .white
-        prototypeCell.titleLabel.text = "Lorem"
-        prototypeCell.descriptionLabel.text = "Ipsum"
+        prototypeCell.configure(with: NewsArticle(title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
+
         prototypeCell.isHidden = true
         addSubview(prototypeCell)
         addSubview(imageView)
@@ -64,10 +64,13 @@ class NewsCollectionViewCell: CollectionViewCell {
         origin.y += spacing
         origin.y += storyLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: newsSemanticContentAttribute, spacing: spacing, apply: apply)
         
-        let height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: newsSemanticContentAttribute, spacing: spacing, apply: false)
+        let collectionViewSpacing: CGFloat = 10
+        let height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: newsSemanticContentAttribute, spacing: 2*collectionViewSpacing, apply: false)
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: 250, height: height)
-            flowLayout?.minimumInteritemSpacing = 15
+            flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
+
+            flowLayout?.minimumInteritemSpacing = collectionViewSpacing
+            flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
             collectionView.reloadData()
         }
@@ -129,10 +132,7 @@ extension NewsCollectionViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let newsArticle = articles[indexPath.item]
-        cell.titleLabel.text = newsArticle.title
-        cell.descriptionLabel.text = newsArticle.description
-        cell.articleSemanticContentAttribute = newsSemanticContentAttribute
-        cell.isSaveButtonHidden = true
+        cell.configure(with: newsArticle, semanticContentAttribute: newsSemanticContentAttribute, layoutOnly: false)
         return cell
     }
 }
@@ -150,6 +150,38 @@ extension NewsCollectionViewCell {
         }
         let imageWidthToRequest = traitCollection.wmf_potdImageWidth
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
+            isImageViewHidden = false
+            if !layoutOnly {
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
+            }
+        } else {
+            isImageViewHidden = true
+        }
+    }
+}
+
+fileprivate extension ArticleRightAlignedImageCollectionViewCell {
+    func configure(with newsArticle: NewsArticle, semanticContentAttribute: UISemanticContentAttribute, layoutOnly: Bool) {
+        contentView.layer.cornerRadius = 5
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = .white
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 2
+        layer.shadowColor = UIColor.wmf_newsArticleCellShadow.cgColor
+        layer.masksToBounds = false
+        backgroundColor = .clear
+        titleTextStyle = .subheadline
+        descriptionTextStyle = .footnote
+        imageViewDimension = 40
+        margins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
+        isImageViewHidden = layoutOnly || newsArticle.imageURL == nil
+        titleLabel.text = newsArticle.title
+        descriptionLabel.text = newsArticle.description
+        articleSemanticContentAttribute = semanticContentAttribute
+        isSaveButtonHidden = true
+        
+        if let imageURL = newsArticle.imageURL {
             isImageViewHidden = false
             if !layoutOnly {
                 imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
