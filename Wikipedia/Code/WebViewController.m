@@ -317,8 +317,8 @@ NSString *const WMFCCBySALicenseURL =
         [self.webView wmf_collapseTablesForArticle:self.article];
     } else if ([messageString isEqualToString:@"setLanguage"]) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
-    } else if ([messageString isEqualToString:@"setPageProtected"] && !self.article.editable) {
-        [self.webView wmf_setPageProtected];
+    } else if ([messageString isEqualToString:@"setPageProtected"]) {
+        [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
@@ -900,14 +900,6 @@ NSString *const WMFCCBySALicenseURL =
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
-}
-
-#pragma mark Bottom menu bar
-
-- (void)showProtectedDialog {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit-title", nil, nil, @"This page is protected", @"Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") message:WMFLocalizedStringWithDefaultValue(@"page-protected-can-not-edit", nil, nil, @"You do not have the rights to edit this page", @"Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.") preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}") style:UIAlertActionStyleCancel handler:NULL]];
-    [self presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark References
