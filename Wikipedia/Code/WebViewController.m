@@ -521,7 +521,17 @@ NSString *const WMFCCBySALicenseURL =
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
-                                                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f))
+                                                 
+                                                 CGFloat halfSpaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y / 2.f;
+                                                 CGFloat halfMatchHeight = rect.size.height / 2.f;
+                                                 CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
+                                                 CGPoint offsetCenteringMatchAboveKeyboardBar =
+                                                 CGPointMake(
+                                                             self.webView.scrollView.contentOffset.x,
+                                                             fmaxf(rect.origin.y - yCenteringMatchAboveKeyboardBar, 0.f)
+                                                             );
+                                                 
+                                                 [self.webView.scrollView wmf_safeSetContentOffset:offsetCenteringMatchAboveKeyboardBar
                                                                                           animated:YES
                                                                                         completion:^(BOOL done) {
                                                                                             self.disableMinimizeFindInPage = NO;
