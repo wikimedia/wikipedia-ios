@@ -179,6 +179,29 @@ extension String {
 }
 
 func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String, escaped: Bool) throws {
+    var shouldWrite = true
+    
+    if let existingDictionary = NSDictionary(contentsOfFile: toFile) {
+        shouldWrite = existingDictionary.count != dictionary.count
+        if (!shouldWrite) {
+            for (key, value) in dictionary {
+                guard let value = value as? String, let existingValue = existingDictionary[key] as? NSString else {
+                    shouldWrite = true
+                    break
+                }
+                shouldWrite = !existingValue.isEqual(to: value)
+                if (shouldWrite) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    
+    guard shouldWrite else {
+        return
+    }
+    
     let output = dictionary.descriptionInStringsFileFormat
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
@@ -277,20 +300,24 @@ func importLocalizationsFromTWN(_ path: String) {
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
             
-            do {
-                try fm.removeItem(atPath: stringsFilePath)
-            } catch { }
+
             if strings.count > 0 {
                 try writeStrings(fromDictionary: strings, toFile: stringsFilePath, escaped: true)
+            } else {
+                do {
+                    try fm.removeItem(atPath: stringsFilePath)
+                } catch { }
             }
             
             
             let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
-            do {
-                try fm.removeItem(atPath: stringsdictFilePath)
-            } catch { }
+
             if stringsDict.count > 0 {
                 stringsDict.write(toFile: stringsdictFilePath, atomically: true)
+            } else {
+                do {
+                    try fm.removeItem(atPath: stringsdictFilePath)
+                } catch { }
             }
             
         }
