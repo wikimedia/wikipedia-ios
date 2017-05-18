@@ -178,7 +178,7 @@ extension String {
     }
 }
 
-func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String, escaped: Bool) throws {
+func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throws {
     var shouldWrite = true
     
     if let existingDictionary = NSDictionary(contentsOfFile: toFile) {
@@ -206,6 +206,17 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String, escap
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
 
+func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
+    var output = ""
+    let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
+        return kv1.key < kv2.key
+    })
+    for (key, value) in sortedDictionary {
+        output.append("\"\(key)\" = \"\(escaped ? value.escapedString : value)\";\n")
+    }
+    
+    try output.write(toFile: toFile, atomically: true, encoding: .utf8)
+}
 
 func exportLocalizationsFromSourceCode(_ path: String) {
     let iOSENPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
@@ -247,7 +258,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
         for (key, comment) in commentsByKey {
             twnQQQ[key] = comment.twnNativeLocalization
         }
-        try writeStrings(fromDictionary: twnQQQ, toFile: twnQQQPath, escaped: false)
+        try writeTWNStrings(fromDictionary: twnQQQ as! [String: String], toFile: twnQQQPath, escaped: false)
         
         for (key, value) in iOSEN {
             guard let value = value as? String, let key = key as? String  else {
@@ -255,7 +266,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
             }
             twnEN[key] = value.twnNativeLocalization
         }
-        try writeStrings(fromDictionary: twnEN, toFile: twnENPath, escaped: true)
+        try writeTWNStrings(fromDictionary: twnEN  as! [String: String], toFile: twnENPath, escaped: true)
     } catch let error {
         print("Error exporting localizations: \(error)")
         abort()
@@ -302,7 +313,7 @@ func importLocalizationsFromTWN(_ path: String) {
             
 
             if strings.count > 0 {
-                try writeStrings(fromDictionary: strings, toFile: stringsFilePath, escaped: true)
+                try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
             } else {
                 do {
                     try fm.removeItem(atPath: stringsFilePath)
