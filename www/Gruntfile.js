@@ -35,7 +35,10 @@ module.exports = function (grunt) {
     },
 
     eslint: {
-        src: [allJSFilesInJSFolder]
+        src: [allJSFilesInJSFolder],
+        options: {
+          fix: false
+        }
     },
 
     copy: {
