@@ -11,13 +11,13 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>few</key>
-			<string>%1$d чланка</string>
+			<string>%1$@ чланка</string>
 			<key>one</key>
-			<string>%1$d чланак</string>
+			<string>%1$@ чланак</string>
 			<key>other</key>
-			<string>%1$d чланака</string>
+			<string>%1$@ чланака</string>
 		</dict>
 	</dict>
 	<key>places-filter-saved-articles-count</key>

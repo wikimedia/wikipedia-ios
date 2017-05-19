@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, copy, readonly) NSDate *midnightUTCMonthAndDay; // Year on this date is invalid
 
++ (nullable NSString *)semanticFeaturedArticleTitleFromStoryHTML:(NSString *)storyHTML siteURL:(NSURL *)siteURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -223,6 +223,7 @@
 "page-protected-sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-close-search" = "Accessibility label for the button to close search";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";
@@ -249,6 +250,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
+"places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";

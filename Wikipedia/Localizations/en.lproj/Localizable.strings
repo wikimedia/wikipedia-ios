@@ -223,6 +223,7 @@
 "page-protected-sysop" = "This page has been fully protected.";
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-similar-titles" = "Similar pages";
+"pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-close-search" = "Close search";
 "places-accessibility-group" = "$1 articles";
@@ -249,6 +250,7 @@
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-this-area" = "Results in this area";
 "places-search-top-articles" = "All top articles";
+"places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
