@@ -4,7 +4,7 @@ module.exports = function (grunt) {
   var distFolder = '../wikipedia/assets/';
 
   grunt.loadNpmTasks( 'grunt-browserify' );
-  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+  grunt.loadNpmTasks( 'gruntify-eslint' );
   grunt.loadNpmTasks( 'grunt-contrib-copy' );
   grunt.loadNpmTasks( 'grunt-contrib-less' );
 
@@ -34,11 +34,8 @@ module.exports = function (grunt) {
       }
     },
 
-    jshint: {
-      allFiles: allJSFilesInJSFolder,
-      options: {
-        jshintrc: true
-      }
+    eslint: {
+        src: [allJSFilesInJSFolder]
     },
 
     copy: {
@@ -56,5 +53,5 @@ module.exports = function (grunt) {
     }
   } );
 
-  grunt.registerTask('default', ['jshint', 'browserify', 'less', 'copy']);
+  grunt.registerTask('default', ['eslint', 'browserify', 'less', 'copy']);
 };
