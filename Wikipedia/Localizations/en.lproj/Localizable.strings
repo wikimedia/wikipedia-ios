@@ -249,6 +249,7 @@
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-this-area" = "Results in this area";
 "places-search-top-articles" = "All top articles";
+"places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";

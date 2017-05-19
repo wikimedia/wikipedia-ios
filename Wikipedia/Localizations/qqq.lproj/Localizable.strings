@@ -249,6 +249,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
+"places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
