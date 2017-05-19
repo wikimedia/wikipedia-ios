@@ -75,7 +75,7 @@
     NSDictionary *linkAttributes =
         @{
            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName: [UIColor wmf_blueTint]
+           NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
     label.attributedText =
@@ -101,7 +101,7 @@
     NSDictionary *substitutionAttributes =
         @{
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: [UIColor wmf_blueTint]
+            NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
     label.attributedText =
@@ -114,7 +114,7 @@
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
-                                               NSForegroundColorAttributeName: [UIColor wmf_blueTint],
+                                               NSForegroundColorAttributeName: [UIColor wmf_blue],
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];
 }

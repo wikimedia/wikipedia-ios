@@ -29,7 +29,7 @@
     self.userImageView.image = [[UIImage imageNamed:isAnon ? @"user-sleep" : @"user-smile"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     if (delta.integerValue == 0) {
-        self.deltaLabel.textColor = [UIColor wmf_blueTint];
+        self.deltaLabel.textColor = [UIColor wmf_blue];
     } else if (delta.integerValue > 0) {
         self.deltaLabel.textColor = [UIColor wmf_green];
     } else {

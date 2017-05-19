@@ -20,10 +20,10 @@ public extension UIColor {
     public static let wmf_exploreSectionFooterText: UIColor = .wmf_customGray
     public static let wmf_exploreSectionHeaderIconTint: UIColor = .wmf_customGray
     public static let wmf_exploreSectionHeaderIconBackground: UIColor = .wmf_color(withHex: 0xf5f5f5, alpha: 1.0)
-    public static let wmf_exploreSectionHeaderLinkText: UIColor = .wmf_blueTint
-    public static let wmf_blueTint: UIColor = .wmf_color(withHex: 0x3366cc, alpha: 1.0)
-    public static let wmf_darkBlueTint: UIColor = .wmf_color(withHex: 0x2a4b8d, alpha: 1.0)
-    public static let wmf_lightBlueTint: UIColor = .wmf_color(withHex: 0xeaf2ff, alpha: 1.0)
+    public static let wmf_exploreSectionHeaderLinkText: UIColor = .wmf_blue
+    public static let wmf_blue: UIColor = .wmf_color(withHex: 0x3366cc, alpha: 1.0)
+    public static let wmf_darkBlue: UIColor = .wmf_color(withHex: 0x2a4b8d, alpha: 1.0)
+    public static let wmf_lightBlue: UIColor = .wmf_color(withHex: 0xeaf2ff, alpha: 1.0)
     public static let wmf_tapHighlight: UIColor = .wmf_color(withHex: 0xeeeeee, alpha: 1.0)
     public static let wmf_nearbyArrow: UIColor = .wmf_color(withHex: 0x00af89, alpha: 1.0)
     public static let wmf_nearbyTick: UIColor = .wmf_color(withHex: 0x00af89, alpha: 0.8)
