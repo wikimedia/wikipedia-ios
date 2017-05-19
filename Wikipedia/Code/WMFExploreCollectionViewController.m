@@ -92,7 +92,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 
-
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
@@ -251,7 +250,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             }
             return content[index];
         }
-        
+
     } else if ([section contentType] == WMFContentTypeTopReadPreview) {
 
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
@@ -680,7 +679,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         default:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]);
     }
-    
 }
 
 - (void)updateSectionCounts {
@@ -728,8 +726,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
             return (UICollectionViewCell *)cell;
-        }
-            break;
+        } break;
         case WMFFeedDisplayTypePageWithLocation: {
             WMFNearbyArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configureNearbyCell:cell withArticle:article atIndexPath:indexPath];
@@ -796,34 +793,32 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     key = section.key;
                     break;
                 case WMFFeedDisplayTypeContinueReading:
-                    reuseIdentifier = indexPath.item == 0 ?  @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
+                    reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
                     break;
                 default:
                     break;
             }
-            
+
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%@-%lli", reuseIdentifier, (long long)displayType, key, (long long)columnWidth];
-           
+
             NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
             if (cachedValue) {
                 estimate.height = [cachedValue doubleValue];
                 estimate.precalculated = YES;
                 break;
             }
-            
+
             switch (displayType) {
-                case WMFFeedDisplayTypeStory:
-                {
-                    WMFNewsCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                case WMFFeedDisplayTypeStory: {
+                    WMFNewsCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureNewsCell:cell withContentGroup:section layoutOnly:YES];
 
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
                 }
-                default:
-                {
-                    WMFArticleCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                default: {
+                    WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
@@ -832,15 +827,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             }
             estimate.precalculated = YES;
             [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
-        }
-            break;
+        } break;
         case WMFFeedDisplayTypePageWithLocation: {
             estimate.height = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypePhoto: {
             estimate.height = [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
-        
+
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
             CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
@@ -905,12 +899,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self.saveButtonsController willDisplaySaveButton:saveButton forArticle:article];
         }
     }
-    
+
     if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
         WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
         newsCell.newsDelegate = self;
     }
-    
+
     if ([WMFLocationManager isAuthorized]) {
         if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
             [self.locationManager startMonitoringLocation];
@@ -928,7 +922,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self.saveButtonsController didEndDisplayingSaveButton:saveButton forArticle:article];
         }
     }
-    
+
     if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
         WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
         newsCell.newsDelegate = nil;
@@ -1198,11 +1192,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
 
     [self registerClass:[WMFArticleRightAlignedImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
-    
+
     [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
-    
+
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
-    
+
     [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
@@ -1225,7 +1219,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [cell configureWithArticle:article contentGroup:section layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
-    
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
@@ -1561,8 +1554,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
         (context == &kvo_WMFExploreViewController_peek_gesture_recognizer_for_failure_relationship) &&
         [keyPath isEqualToString:kvo_WMFExploreViewController_peek_state_keypath] &&
         (object != nil) &&
-        [object isKindOfClass:[UIGestureRecognizer class]]
-    ){
+        [object isKindOfClass:[UIGestureRecognizer class]]) {
         UIGestureRecognizer *recognizer = (UIGestureRecognizer *)object;
         switch (recognizer.state) {
             case UIGestureRecognizerStateEnded:
@@ -1813,7 +1805,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {
         [self.delegate exploreCollectionViewController:self didScroll:scrollView];
     }
-    
+
     if (self.isLoadingOlderContent) {
         return;
     }
@@ -1822,12 +1814,16 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
         return;
     }
 
-    NSInteger lastGroupIndex = self.fetchedResultsController.sections.lastObject.numberOfObjects - 1;
+    NSInteger lastGroupIndex = (NSInteger)self.fetchedResultsController.sections.lastObject.numberOfObjects - 1;
     if (lastGroupIndex < 0) {
         return;
     }
 
     WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
+    if (lastGroup.contentGroupKind == WMFContentGroupKindNews && lastGroupIndex > 0) { //News can be added further back in the timeline, so don't use it as the date for this
+        lastGroupIndex--;
+        lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
+    }
 
     NSDate *now = [NSDate date];
     NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];
@@ -1853,8 +1849,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                          }];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     //DDLogDebug(@"Stopped dragging");
     if (!decelerate) {
         if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
@@ -1863,29 +1858,26 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     //DDLogDebug(@"Begin dragging");
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willBeginScrolling:)]) {
         [self.delegate exploreCollectionViewController:self willBeginScrolling:scrollView];
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //DDLogDebug(@"Stopped decelerating");
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
         [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
     }
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     // DDLogDebug(@"Stopped scrolling");
 }
-    
+
 #pragma mark - News Delegate
-    
+
 - (void)newsCollectionViewCell:(WMFNewsCollectionViewCell *)cell didSelectNewsArticleWithURL:(NSURL *)articleURL {
     if (articleURL == nil) {
         return;
