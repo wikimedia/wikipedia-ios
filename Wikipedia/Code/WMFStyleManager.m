@@ -21,7 +21,7 @@ static WMFStyleManager *_styleManager = nil;
     [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
 
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.305 green:0.305 blue:0.296 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor wmf_navigationGray]];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setTranslucent:NO];
 

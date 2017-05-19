@@ -29,11 +29,11 @@
     self.userImageView.image = [[UIImage imageNamed:isAnon ? @"user-sleep" : @"user-smile"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     if (delta.integerValue == 0) {
-        self.deltaLabel.textColor = [UIColor colorWithRed:0.2039 green:0.4824 blue:1.0 alpha:1.0];
+        self.deltaLabel.textColor = [UIColor wmf_blueTint];
     } else if (delta.integerValue > 0) {
-        self.deltaLabel.textColor = [UIColor colorWithRed:0.00 green:0.69 blue:0.54 alpha:1.0];
+        self.deltaLabel.textColor = [UIColor wmf_green];
     } else {
-        self.deltaLabel.textColor = [UIColor colorWithRed:0.82 green:0.09 blue:0.07 alpha:1.0];
+        self.deltaLabel.textColor = [UIColor wmf_red];
     }
 
     self.userImageView.tintColor = [UIColor wmf_customGray];

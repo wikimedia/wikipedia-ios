@@ -306,7 +306,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)setupEditSummaryContainerSubviews {
     // Setup the canned edit summary buttons.
-    UIColor *color = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+    UIColor *color = [UIColor wmf_blueTint];
     UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
     CGFloat fontSize = 14.0;

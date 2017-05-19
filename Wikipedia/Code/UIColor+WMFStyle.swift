@@ -38,6 +38,7 @@ public extension UIColor {
     public static let wmf_readerWGray: UIColor = .wmf_color(withHex: 0x444444, alpha: 1.0)
     public static let wmf_nearbyDistanceText: UIColor = .white
     public static let wmf_emptyGrayText: UIColor = .wmf_999999
+    public static let wmf_navigationGray: UIColor = .wmf_color(withHex: 0x4d4d4b, alpha: 1.0)
     public static let wmf_settingsBackground: UIColor = .wmf_color(withHex: 0xefeff4, alpha: 1.0)
     public static let wmf_green: UIColor = .wmf_color(withHex: 0x00af89, alpha: 1.0)
     public static let wmf_welcomeBackgroundGradientTop: UIColor = .wmf_color(withHex: 0x3366cc, alpha: 1.0)
