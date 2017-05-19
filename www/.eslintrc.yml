@@ -12,7 +12,7 @@ rules:
 
   # Stylistic Issues
   eol-last: [1, never]
-  func-style: [2, expression]
+  #func-style: [2, expression]
   indent: [1, 2]
   quotes: [1, single, {avoidEscape: true}]
   semi: [1, never]
@@ -24,8 +24,8 @@ rules:
   #   ArrowFunctionExpression: true
   # }}]
   no-extra-parens: 1
-  no-cond-assign: [2, always]
-  no-param-reassign: 1
+  #no-cond-assign: [2, always]
+  #no-param-reassign: 1
 
   # ECMAScript 6
   arrow-body-style: 1
