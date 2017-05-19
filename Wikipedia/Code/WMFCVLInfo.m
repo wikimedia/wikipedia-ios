@@ -359,8 +359,6 @@
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         }
 
-        assert(section.footers.count == 1);
-
         sectionHeight += footerHeight;
 
         section.frame = (CGRect){sectionOrigin, CGSizeMake(columnWidth, sectionHeight)};

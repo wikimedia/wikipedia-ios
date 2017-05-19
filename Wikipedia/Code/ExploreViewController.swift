@@ -264,7 +264,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @objc(showInTheNewsForStory:date:animated:)
     public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
     {
-        self.collectionViewController.showInTheNews(for: story, date: date, animated: animated)
+        self.collectionViewController.showInTheNews(forStories: [story], date: date, animated: animated)
     }
     
     @objc(presentMoreViewControllerForGroup:animated:)

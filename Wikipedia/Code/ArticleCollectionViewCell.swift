@@ -13,7 +13,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func setup() {
         tintColor = UIColor.wmf_blueTint
         imageView.contentMode = .scaleAspectFill
-        imageView.masksToBounds = true
+        imageView.clipsToBounds = true
         imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)

@@ -745,7 +745,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDisplayTypeStory: {
             WMFNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFNewsCollectionViewCell" forIndexPath:indexPath];
-            [cell configureWithGroup:contentGroup dataStore:self.userStore layoutOnly:NO];
+            [self configureNewsCell:cell withContentGroup:contentGroup layoutOnly:NO];
             return cell;
         } break;
 
@@ -816,7 +816,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 case WMFFeedDisplayTypeStory:
                 {
                     WMFNewsCollectionViewCell * cell = [self placeholderCellForIdentifier:reuseIdentifier];
-                    [cell configureWithGroup:section dataStore:self.userStore layoutOnly:YES];
+                    [self configureNewsCell:cell withContentGroup:section layoutOnly:YES];
+
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -1245,6 +1246,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     //    self.referenceImageView = cell.potdImageView;
 }
 
+- (void)configureNewsCell:(WMFNewsCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
+    NSArray *stories = contentGroup.content;
+    WMFFeedNewsStory *story = [stories firstObject];
+    if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
+        [cell configureWithStory:story dataStore:self.userStore layoutOnly:layoutOnly];
+    }
+}
+
 - (void)configureAnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withSection:(WMFContentGroup *)section atIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:section];
     if (indexPath.item >= announcements.count) {
@@ -1399,8 +1408,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
-            WMFFeedNewsStory *story = stories[indexPath.item];
-            InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:group.date];
+            WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:group.date];
             return vc;
         } break;
         case WMFFeedDetailTypeNone:
@@ -1578,7 +1586,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[InTheNewsViewController class]]) {
+    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
@@ -1587,21 +1595,16 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 #pragma mark - In The News
 
-- (InTheNewsViewController *)inTheNewsViewControllerForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date {
-    InTheNewsViewController *vc = [[InTheNewsViewController alloc] initWithStory:story dataStore:self.userStore];
-    NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, nil, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
-    if (format && date) {
-        NSString *dateString = [[NSDateFormatter wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date];
-        NSString *title = [NSString localizedStringWithFormat:format, dateString];
-        vc.title = title;
-    } else {
-        vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
-    }
+- (WMFNewsViewController *)inTheNewsViewControllerForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date {
+    WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
+    //Keeping this translation around until we're sure we don't need it
+    //NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, nil, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
+    vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
     return vc;
 }
 
-- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated {
-    InTheNewsViewController *vc = [self inTheNewsViewControllerForStory:story date:date];
+- (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated {
+    WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:date];
     [self.navigationController pushViewController:vc animated:animated];
 }
 

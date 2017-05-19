@@ -28,15 +28,21 @@ class NewsCollectionViewCell: CollectionViewCell {
     fileprivate var articles: [NewsArticle] = []
     
     override func setup() {
-        //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
-        backgroundColor = .white
-        prototypeCell.configure(with: NewsArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
-
-        prototypeCell.isHidden = true
         addSubview(prototypeCell)
         addSubview(imageView)
         addSubview(storyLabel)
         addSubview(collectionView)
+        
+        //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
+        prototypeCell.configure(with: NewsArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
+
+        prototypeCell.isHidden = true
+        
+        backgroundColor = .white
+        
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
         storyLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
         collectionView.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.articleCellIdentifier)
@@ -141,22 +147,20 @@ extension NewsCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  NewsCollectionViewCell.articleCellIdentifier, for: indexPath) as?  ArticleRightAlignedImageCollectionViewCell else {
-            return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  NewsCollectionViewCell.articleCellIdentifier, for: indexPath)
+        guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
+            return cell
         }
         let newsArticle = articles[indexPath.item]
-        cell.configure(with: newsArticle, semanticContentAttribute: newsSemanticContentAttribute, layoutOnly: false)
-        return cell
+        articleCell.configure(with: newsArticle, semanticContentAttribute: newsSemanticContentAttribute, layoutOnly: false)
+        return articleCell
     }
 }
 
 extension NewsCollectionViewCell {
-    @objc(configureWithGroup:dataStore:layoutOnly:)
-    func configure(with group: WMFContentGroup, dataStore: MWKDataStore, layoutOnly: Bool) {
-        guard let stories = group.content as? [WMFFeedNewsStory], let story = stories.first, let previews = story.articlePreviews else {
-            return
-        }
-        
+    @objc(configureWithStory:dataStore:layoutOnly:)
+    func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
+        let previews = story.articlePreviews ?? []
         storyHTML = story.storyHTML
         articles = previews.map { (articlePreview) -> NewsArticle in
             return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.wikidataDescription, imageURL: articlePreview.thumbnailURL)
