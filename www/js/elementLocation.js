@@ -3,48 +3,48 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 function stringEndsWith(str, suffix) {
-    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  return str.indexOf(suffix, str.length - suffix.length) !== -1
 }
 
 exports.getImageWithSrc = function(src) {
-    var images = document.getElementsByTagName('img');
-    for (var i = 0; i < images.length; ++i) {
-        if (stringEndsWith(images[i].src, src)) {
-            return images[i];
-        }
+  var images = document.getElementsByTagName('img')
+  for (var i = 0; i < images.length; ++i) {
+    if (stringEndsWith(images[i].src, src)) {
+      return images[i]
     }
-    return null;
-};
+  }
+  return null
+}
 
 exports.getElementRect = function(element) {
-    var rect = element.getBoundingClientRect();
+  var rect = element.getBoundingClientRect()
     // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
-    return {
-        Y: rect.top,
-        X: rect.left,
-        Width: rect.width,
-        Height: rect.height
-    };
-};
+  return {
+    Y: rect.top,
+    X: rect.left,
+    Width: rect.width,
+    Height: rect.height
+  }
+}
 
 exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
-    for (var i = 0; i < elementCount; ++i) {
-        var div = document.getElementById(elementPrefix + i);
-        if (div === null) {
-            continue;
-        }
-        var rect = this.getElementRect(div);
-        if ( (rect.Y >= -1) || ((rect.Y + rect.Height) >= 50)) {
-            return i;
-        }
+  for (var i = 0; i < elementCount; ++i) {
+    var div = document.getElementById(elementPrefix + i)
+    if (div === null) {
+      continue
     }
-    return -1;
-};
+    var rect = this.getElementRect(div)
+    if ( rect.Y >= -1 || rect.Y + rect.Height >= 50) {
+      return i
+    }
+  }
+  return -1
+}
 
 exports.getElementFromPoint = function(x, y){
-    return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
-};
+  return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
+}
 
 exports.isElementTopOnscreen = function(element){
-  return (element.getBoundingClientRect().top < 0);
-};
+  return element.getBoundingClientRect().top < 0
+}
