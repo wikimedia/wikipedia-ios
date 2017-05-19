@@ -73,10 +73,10 @@ class NewsViewController: UICollectionViewController {
     }
     
     static var headerDateFormatter: DateFormatter = {
-        let dateTemplate = "dMMMM"
-        let dateFormat = DateFormatter.dateFormat(fromTemplate: dateTemplate, options: 0, locale: Locale.autoupdatingCurrent)
         let headerDateFormatter = DateFormatter()
-        headerDateFormatter.dateFormat = dateFormat
+        headerDateFormatter.locale = Locale.autoupdatingCurrent
+        headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        headerDateFormatter.setLocalizedDateFormatFromTemplate("dMMMM") // Year is invalid on news content dates, we can only show month and day
         return headerDateFormatter
     }()
     
