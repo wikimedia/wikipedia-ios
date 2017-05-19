@@ -1,15 +1,22 @@
 import UIKit
 
 fileprivate struct NewsArticle {
+    let articleURL: URL?
     let title: String?
     let description: String?
     let imageURL: URL?
+}
+
+@objc(WMFNewsCollectionViewCellDelegate)
+protocol NewsCollectionViewCellDelegate {
+    func newsCollectionViewCell(_ newsCollectionViewCell: NewsCollectionViewCell, didSelectNewsArticleWithURL articleURL: URL)
 }
 
 @objc(WMFNewsCollectionViewCell)
 class NewsCollectionViewCell: CollectionViewCell {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     
+    weak var newsDelegate: NewsCollectionViewCellDelegate?
     let imageView = UIImageView()
     let storyLabel = UILabel()
     var flowLayout: UICollectionViewFlowLayout? {
@@ -23,7 +30,7 @@ class NewsCollectionViewCell: CollectionViewCell {
     override func setup() {
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         backgroundColor = .white
-        prototypeCell.configure(with: NewsArticle(title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
+        prototypeCell.configure(with: NewsArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
 
         prototypeCell.isHidden = true
         addSubview(prototypeCell)
@@ -115,7 +122,13 @@ class NewsCollectionViewCell: CollectionViewCell {
 }
 
 extension NewsCollectionViewCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newsArticle = articles[indexPath.item]
+        guard let articleURL = newsArticle.articleURL else {
+            return
+        }
+        newsDelegate?.newsCollectionViewCell(self, didSelectNewsArticleWithURL:articleURL)
+    }
 }
 
 extension NewsCollectionViewCell: UICollectionViewDataSource {
@@ -146,7 +159,7 @@ extension NewsCollectionViewCell {
         
         storyHTML = story.storyHTML
         articles = previews.map { (articlePreview) -> NewsArticle in
-            return NewsArticle(title: articlePreview.displayTitle, description: articlePreview.wikidataDescription, imageURL: articlePreview.thumbnailURL)
+            return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.wikidataDescription, imageURL: articlePreview.thumbnailURL)
         }
         let imageWidthToRequest = traitCollection.wmf_potdImageWidth
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {

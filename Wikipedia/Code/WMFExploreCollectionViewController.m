@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -906,6 +906,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
     
+    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
+        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
+        newsCell.newsDelegate = self;
+    }
+    
     if ([WMFLocationManager isAuthorized]) {
         if ([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]] || [self isDisplayingLocationCell]) {
             [self.locationManager startMonitoringLocation];
@@ -922,6 +927,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFArticle *article = [self articleForIndexPath:indexPath];
             [self.saveButtonsController didEndDisplayingSaveButton:saveButton forArticle:article];
         }
+    }
+    
+    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
+        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
+        newsCell.newsDelegate = nil;
     }
 }
 
@@ -1870,6 +1880,15 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     // DDLogDebug(@"Stopped scrolling");
+}
+    
+#pragma mark - News Delegate
+    
+- (void)newsCollectionViewCell:(WMFNewsCollectionViewCell *)cell didSelectNewsArticleWithURL:(NSURL *)articleURL {
+    if (articleURL == nil) {
+        return;
+    }
+    [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore animated:YES];
 }
 
 #if DEBUG
