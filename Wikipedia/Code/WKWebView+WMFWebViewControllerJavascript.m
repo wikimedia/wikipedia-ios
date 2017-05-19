@@ -36,8 +36,8 @@ static int const kMinimumTextSelectionLength = 2;
            completionHandler:nil];
 }
 
-- (void)wmf_setPageProtected {
-    [self evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
+- (void)wmf_setPageProtected:(BOOL)isProtected {
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.setPageProtected(%@)", isProtected ? @"true" : @"false"] completionHandler:nil];
 }
 
 - (void)wmf_scrollToFragment:(NSString *)fragment {
