@@ -16,12 +16,13 @@ rules:
   indent: [1, 2]
   quotes: [1, single, {avoidEscape: true}]
   semi: [1, never]
-  require-jsdoc: [1, {require: {
-    FunctionDeclaration: true,
-    MethodDefinition: true,
-    ClassDeclaration: true,
-    ArrowFunctionExpression: true
-  }}]
+  #TODO: re-enable jsdoc requirement
+  # require-jsdoc: [1, {require: {
+  #   FunctionDeclaration: true,
+  #   MethodDefinition: true,
+  #   ClassDeclaration: true,
+  #   ArrowFunctionExpression: true
+  # }}]
   no-extra-parens: 1
   no-cond-assign: [2, always]
   no-param-reassign: 1
