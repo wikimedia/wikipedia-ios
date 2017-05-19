@@ -49,6 +49,8 @@ class NewsCollectionViewCell: CollectionViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = backgroundColor
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         super.setup()
     }
     
