@@ -110,9 +110,12 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)wmf_showAlertForTappedAnchorHref:(NSString *)href {
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-title", nil, nil, @"Link preview", @"Title for link preview popup");
+    NSString *message = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-description", nil, nil, @"This link leads to '%1$@'", @"Description of the link URL. %1$@ is the URL."), href];
+
     UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:href
-                                            message:nil
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
                                      preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-ok", nil, nil, @"OK", @"Button text for ok button used in various places\n{{Identical|OK}}")
                                                         style:UIAlertActionStyleDefault
@@ -491,8 +494,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                             [self.funnel logCaptchaFailure];
                         }
 
-                        NSURL* captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
-                        NSString* captchaId = error.userInfo[@"captchaId"];
+                        NSURL *captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
+                        NSString *captchaId = error.userInfo[@"captchaId"];
                         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                         self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:captchaId captchaURL:captchaUrl];
                         [self revealCaptcha];
@@ -542,10 +545,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         self.previewHtmlFetcher =
-        [[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                     articleURL:self.section.url
-                                                    withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                             thenNotifyDelegate:self];
+            [[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
+                                                         articleURL:self.section.url
+                                                        withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
+                                                 thenNotifyDelegate:self];
     }];
 }
 
@@ -571,27 +574,30 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
         // access to the exact params which kicked off the token request.
-        
+
         NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:editURL.wmf_language];
         self.editTokenFetcher = [[WMFAuthTokenFetcher alloc] init];
         @weakify(self)
-        [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf siteURL:url success:^(WMFAuthToken* result){
-            @strongify(self)
+            [self.editTokenFetcher fetchTokenOfType:WMFAuthTokenTypeCsrf
+                siteURL:url
+                success:^(WMFAuthToken *result) {
+                    @strongify(self)
 
-            self.wikiTextSectionUploader =
-            [[WikiTextSectionUploader alloc] initAndUploadWikiText:self.wikiText
-                                                     forArticleURL:editURL
-                                                           section:[NSString stringWithFormat:@"%d", self.section.sectionId]
-                                                           summary:[self getSummary]
-                                                         captchaId:self.captchaViewController.captcha.captchaID
-                                                       captchaWord:self.captchaViewController.solution
-                                                             token:result.token
-                                                       withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                thenNotifyDelegate:self];
+                        self.wikiTextSectionUploader =
+                        [[WikiTextSectionUploader alloc] initAndUploadWikiText:self.wikiText
+                                                                 forArticleURL:editURL
+                                                                       section:[NSString stringWithFormat:@"%d", self.section.sectionId]
+                                                                       summary:[self getSummary]
+                                                                     captchaId:self.captchaViewController.captcha.captchaID
+                                                                   captchaWord:self.captchaViewController.solution
+                                                                         token:result.token
+                                                                   withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                            thenNotifyDelegate:self];
 
-        } failure:^(NSError* error){
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        }];
+                }
+                failure:^(NSError *error) {
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                }];
 
     }];
 }
@@ -615,18 +621,17 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if(self.captchaViewController.solution.length > 0){
+    if (self.captchaViewController.solution.length > 0) {
         [self save];
     }
     return YES;
 }
 
-- (NSURL * _Nonnull)captchaSiteURL {
+- (NSURL *_Nonnull)captchaSiteURL {
     return [SessionSingleton sharedInstance].currentArticleSiteURL;
 }
 
 - (void)captchaReloadPushed:(id)sender {
-
 }
 
 - (BOOL)captchaHideSubtitle {
@@ -637,7 +642,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [self save];
 }
 
-- (void)captchaSolutionChanged:(id)sender solutionText:(nullable NSString*)solutionText{
+- (void)captchaSolutionChanged:(id)sender solutionText:(nullable NSString *)solutionText {
     [self highlightCaptchaSubmitButton:(solutionText.length == 0) ? NO : YES];
 }
 

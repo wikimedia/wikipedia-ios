@@ -347,6 +347,8 @@
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";
+"wikitext-preview-link-preview-description" = "Description of the link URL. $1 is the URL.";
+"wikitext-preview-link-preview-title" = "Title for link preview popup";
 "wikitext-upload-captcha-error" = "Alert text shown when section wikitext upload captcha fails";
 "wikitext-upload-captcha-needed" = "Alert text shown when section wikitext upload captcha is required";
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
