@@ -1364,7 +1364,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
             [self.navigationController pushViewController:vc animated:animated];
         } break;
-
+        case WMFFeedMoreTypeNews: {
+            [self showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)group.content date:group.date animated:YES];
+        } break;
         default:
             NSAssert(false, @"Unknown More Type");
             break;
