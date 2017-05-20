@@ -1,7 +1,7 @@
 
 // var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
-//     iconClass is 'footer_menu_icon_languages'
+// iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
   languages: 1,
   lastEdited: 2,

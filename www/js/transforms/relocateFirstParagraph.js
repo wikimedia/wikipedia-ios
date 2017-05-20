@@ -19,8 +19,8 @@ function moveFirstGoodParagraphUp( content ) {
   if(!edit_section_button_0) return
 
   function isParagraphGood(p) {
-        // Narrow down to first P which is direct child of content_block_0 DIV.
-        // (Don't want to yank P from somewhere in the middle of a table!)
+    // Narrow down to first P which is direct child of content_block_0 DIV.
+    // (Don't want to yank P from somewhere in the middle of a table!)
     if  (p.parentNode == block_0 ||
             /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
                leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
@@ -47,7 +47,7 @@ function moveFirstGoodParagraphUp( content ) {
 
   if(!firstGoodParagraph) return
 
-    // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
+  // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
   var fragmentOfItemsToRelocate = function(){
     var didHitGoodP = false
     var didHitNextP = false
@@ -64,16 +64,16 @@ function moveFirstGoodParagraphUp( content ) {
     var fragment = document.createDocumentFragment()
     Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
       if(shouldElementMoveUp(element)){
-                // appendChild() attaches the element to the fragment *and* removes it from DOM.
+        // appendChild() attaches the element to the fragment *and* removes it from DOM.
         fragment.appendChild(element)
       }
     })
     return fragment
   }()
 
-    // Attach the fragment just after the lead section edit button.
-    // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
-    // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+  // Attach the fragment just after the lead section edit button.
+  // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
+  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
   block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling)
 }
 

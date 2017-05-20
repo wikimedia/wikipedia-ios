@@ -193,7 +193,7 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     event.preventDefault() // <-- Do not remove!
   }
 
-// track where initial touches start
+  // track where initial touches start
   var touchDownY = 0.0
   document.addEventListener(
             'touchstart',
@@ -230,23 +230,23 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
       window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
     } else if (href && refs.isCitation(href)) {
-        // Handle reference links with a popup view instead of scrolling about!
+      // Handle reference links with a popup view instead of scrolling about!
       refs.sendNearbyReferences( hrefTarget )
     } else if (href && href[0] === '#') {
  
       tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
  
-        // If it is a link to an anchor in the current page, use existing link handling
-        // so top floating native header height can be taken into account by the regular
-        // fragment handling logic.
+      // If it is a link to an anchor in the current page, use existing link handling
+      // so top floating native header height can be taken into account by the regular
+      // fragment handling logic.
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
     } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {      
       window.webkit.messageHandlers.imageClicked.postMessage({
         'src': event.target.getAttribute('src'),
         'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
         'height': event.target.naturalHeight,
- 														  'data-file-width': event.target.getAttribute('data-file-width'),
- 														  'data-file-height': event.target.getAttribute('data-file-height')
+        'data-file-width': event.target.getAttribute('data-file-width'),
+        'data-file-height': event.target.getAttribute('data-file-height')
       })
     } else if (href) {
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
@@ -266,8 +266,8 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     var hasSelectedText = window.getSelection().rangeCount > 0
 
     if (!didSendMessage && !hasSelectedText) {
-        // Do NOT prevent default behavior -- this is needed to for instance
-        // handle deselection of text.
+      // Do NOT prevent default behavior -- this is needed to for instance
+      // handle deselection of text.
       window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
         id: event.target.getAttribute( 'id' ),
         tagName: event.target.tagName
@@ -280,7 +280,7 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     var touchobj = event.changedTouches[0]
     var touchEndY = parseInt(touchobj.clientY)
     if (touchDownY - touchEndY === 0 && event.changedTouches.length === 1) {
-        // None of our tap events should fire if the user dragged vertically.
+      // None of our tap events should fire if the user dragged vertically.
       touchEndedWithoutDragging(event)
     }
   }
@@ -316,13 +316,13 @@ function skipOverWhitespace( skipFunc ) {
       element = skipFunc( element )
       if (element && element.nodeType == Node.TEXT_NODE) {
         if (element.textContent.match(/^\s+$/)) {
-                    // Ignore empty whitespace
+          // Ignore empty whitespace
           continue
         } else {
           break
         }
       } else {
-                // found an element or ran out
+        // found an element or ran out
         break
       }
     } while (true)
@@ -351,12 +351,12 @@ function collectRefText( sourceNode ) {
   var targetId = href.slice(1)
   var targetNode = document.getElementById( targetId )
   if ( targetNode === null ) {
-        /*global console */
+    /*global console */
     console.log('reference target not found: ' + targetId)
     return ''
   }
 
-    // preferably without the back link
+  // preferably without the back link
   var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )    
   for (var i = 0; i < backlinks.length; i++) {
     backlinks[i].style.display = 'none'
@@ -383,12 +383,12 @@ function sendNearbyReferences( sourceNode ) {
   var linkRects = []
   var curNode = sourceNode
 
-    // handle clicked ref:
+  // handle clicked ref:
   refs.push( collectRefText( curNode ) )
   linkId.push( collectRefLink( curNode ) )
   linkText.push( curNode.textContent )
 
-    // go left:
+  // go left:
   curNode = sourceNode.parentElement
   while ( hasCitationLink( goLeft( curNode ) ) ) {
     selectedIndex += 1
@@ -398,7 +398,7 @@ function sendNearbyReferences( sourceNode ) {
     linkText.unshift( curNode.textContent )
   }
 
-    // go right:
+  // go right:
   curNode = sourceNode.parentElement
   while ( hasCitationLink( goRight( curNode ) ) ) {
     curNode = goRight( curNode )
@@ -422,7 +422,7 @@ function sendNearbyReferences( sourceNode ) {
     })
   }
     
-    // Special handling for references
+  // Special handling for references
   window.webkit.messageHandlers.referenceClicked.postMessage({
     'selectedIndex': selectedIndex,
     'referencesGroup': referencesGroup
@@ -453,18 +453,18 @@ exports.hideTables = hideTables
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
   if (filetoc) {
-        // We're on a File: page! Do some quick hacks.
-        // In future, replace entire thing with a custom view most of the time.
-        // Hide edit sections
+    // We're on a File: page! Do some quick hacks.
+    // In future, replace entire thing with a custom view most of the time.
+    // Hide edit sections
     var editSections = content.querySelectorAll('.edit_section_button')
     for (var i = 0; i < editSections.length; i++) {
       editSections[i].style.display = 'none'
     }
     var fullImageLink = content.querySelector('.fullImageLink a')
     if (fullImageLink) {
-            // Don't replace the a with a span, as it will break styles.
-            // Just disable clicking.
-            // Don't disable touchstart as this breaks scrolling!
+      // Don't replace the a with a span, as it will break styles.
+      // Just disable clicking.
+      // Don't disable touchstart as this breaks scrolling!
       fullImageLink.href = ''
       fullImageLink.addEventListener( 'click', function( event ) {
         event.preventDefault()
@@ -504,7 +504,7 @@ exports.add = add
 
 // var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass; 
-//     iconClass is 'footer_menu_icon_languages'
+// iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
   languages: 1,
   lastEdited: 2,
@@ -823,8 +823,8 @@ function moveFirstGoodParagraphUp( content ) {
   if(!edit_section_button_0) return
 
   function isParagraphGood(p) {
-        // Narrow down to first P which is direct child of content_block_0 DIV.
-        // (Don't want to yank P from somewhere in the middle of a table!)
+    // Narrow down to first P which is direct child of content_block_0 DIV.
+    // (Don't want to yank P from somewhere in the middle of a table!)
     if  (p.parentNode == block_0 ||
             /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
                leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
@@ -851,7 +851,7 @@ function moveFirstGoodParagraphUp( content ) {
 
   if(!firstGoodParagraph) return
 
-    // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
+  // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
   var fragmentOfItemsToRelocate = function(){
     var didHitGoodP = false
     var didHitNextP = false
@@ -868,16 +868,16 @@ function moveFirstGoodParagraphUp( content ) {
     var fragment = document.createDocumentFragment()
     Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
       if(shouldElementMoveUp(element)){
-                // appendChild() attaches the element to the fragment *and* removes it from DOM.
+        // appendChild() attaches the element to the fragment *and* removes it from DOM.
         fragment.appendChild(element)
       }
     })
     return fragment
   }()
 
-    // Attach the fragment just after the lead section edit button.
-    // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
-    // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+  // Attach the fragment just after the lead section edit button.
+  // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
+  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
   block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling)
 }
 

@@ -25,13 +25,13 @@ function skipOverWhitespace( skipFunc ) {
       element = skipFunc( element )
       if (element && element.nodeType == Node.TEXT_NODE) {
         if (element.textContent.match(/^\s+$/)) {
-                    // Ignore empty whitespace
+          // Ignore empty whitespace
           continue
         } else {
           break
         }
       } else {
-                // found an element or ran out
+        // found an element or ran out
         break
       }
     } while (true)
@@ -60,12 +60,12 @@ function collectRefText( sourceNode ) {
   var targetId = href.slice(1)
   var targetNode = document.getElementById( targetId )
   if ( targetNode === null ) {
-        /*global console */
+    /*global console */
     console.log('reference target not found: ' + targetId)
     return ''
   }
 
-    // preferably without the back link
+  // preferably without the back link
   var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )    
   for (var i = 0; i < backlinks.length; i++) {
     backlinks[i].style.display = 'none'
@@ -92,12 +92,12 @@ function sendNearbyReferences( sourceNode ) {
   var linkRects = []
   var curNode = sourceNode
 
-    // handle clicked ref:
+  // handle clicked ref:
   refs.push( collectRefText( curNode ) )
   linkId.push( collectRefLink( curNode ) )
   linkText.push( curNode.textContent )
 
-    // go left:
+  // go left:
   curNode = sourceNode.parentElement
   while ( hasCitationLink( goLeft( curNode ) ) ) {
     selectedIndex += 1
@@ -107,7 +107,7 @@ function sendNearbyReferences( sourceNode ) {
     linkText.unshift( curNode.textContent )
   }
 
-    // go right:
+  // go right:
   curNode = sourceNode.parentElement
   while ( hasCitationLink( goRight( curNode ) ) ) {
     curNode = goRight( curNode )
@@ -131,7 +131,7 @@ function sendNearbyReferences( sourceNode ) {
     })
   }
     
-    // Special handling for references
+  // Special handling for references
   window.webkit.messageHandlers.referenceClicked.postMessage({
     'selectedIndex': selectedIndex,
     'referencesGroup': referencesGroup

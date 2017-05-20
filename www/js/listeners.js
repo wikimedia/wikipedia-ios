@@ -10,7 +10,7 @@
     event.preventDefault() // <-- Do not remove!
   }
 
-// track where initial touches start
+  // track where initial touches start
   var touchDownY = 0.0
   document.addEventListener(
             'touchstart',
@@ -47,23 +47,23 @@
     if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
       window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
     } else if (href && refs.isCitation(href)) {
-        // Handle reference links with a popup view instead of scrolling about!
+      // Handle reference links with a popup view instead of scrolling about!
       refs.sendNearbyReferences( hrefTarget )
     } else if (href && href[0] === '#') {
  
       tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
  
-        // If it is a link to an anchor in the current page, use existing link handling
-        // so top floating native header height can be taken into account by the regular
-        // fragment handling logic.
+      // If it is a link to an anchor in the current page, use existing link handling
+      // so top floating native header height can be taken into account by the regular
+      // fragment handling logic.
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
     } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {      
       window.webkit.messageHandlers.imageClicked.postMessage({
         'src': event.target.getAttribute('src'),
         'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
         'height': event.target.naturalHeight,
- 														  'data-file-width': event.target.getAttribute('data-file-width'),
- 														  'data-file-height': event.target.getAttribute('data-file-height')
+        'data-file-width': event.target.getAttribute('data-file-width'),
+        'data-file-height': event.target.getAttribute('data-file-height')
       })
     } else if (href) {
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
@@ -83,8 +83,8 @@
     var hasSelectedText = window.getSelection().rangeCount > 0
 
     if (!didSendMessage && !hasSelectedText) {
-        // Do NOT prevent default behavior -- this is needed to for instance
-        // handle deselection of text.
+      // Do NOT prevent default behavior -- this is needed to for instance
+      // handle deselection of text.
       window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
         id: event.target.getAttribute( 'id' ),
         tagName: event.target.tagName
@@ -97,7 +97,7 @@
     var touchobj = event.changedTouches[0]
     var touchEndY = parseInt(touchobj.clientY)
     if (touchDownY - touchEndY === 0 && event.changedTouches.length === 1) {
-        // None of our tap events should fire if the user dragged vertically.
+      // None of our tap events should fire if the user dragged vertically.
       touchEndedWithoutDragging(event)
     }
   }
