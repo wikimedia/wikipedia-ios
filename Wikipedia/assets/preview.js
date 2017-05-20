@@ -6,15 +6,6 @@ function findClosest (el, selector) {
   return el
 }
 
-function isNestedInTable(el) {
-  while (el = el.parentElement){
-    if(el.tagName === 'TD'){
-      return true
-    }
-  }
-  return false
-}
-
 function setLanguage(lang, dir, uidir){
   var html = document.querySelector( 'html' )
   html.lang = lang
@@ -49,7 +40,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-exports.isNestedInTable = isNestedInTable
+
 },{}],2:[function(require,module,exports){
 var wmf = {};
 
