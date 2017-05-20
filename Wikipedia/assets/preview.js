@@ -40,11 +40,10 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-
 },{}],2:[function(require,module,exports){
-var wmf = {};
+var wmf = {}
 
-wmf.utilities = require("./js/utilities");
+wmf.utilities = require('./js/utilities')
 
-window.wmf = wmf;
+window.wmf = wmf
 },{"./js/utilities":1}]},{},[2,1]);

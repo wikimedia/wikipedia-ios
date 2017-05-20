@@ -1,19 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var wmf = {};
+var wmf = {}
 
-wmf.elementLocation = require("./js/elementLocation");
-wmf.utilities = require("./js/utilities");
-wmf.findInPage = require("./js/findInPage");
-wmf.footerReadMore = require("./js/transforms/footerReadMore");
-wmf.footerMenu = require("./js/transforms/footerMenu");
-wmf.footerLegal = require("./js/transforms/footerLegal");
-wmf.filePages = require("./js/transforms/disableFilePageEdit");
-wmf.tables = require("./js/transforms/collapseTables");
-wmf.redlinks = require("./js/transforms/hideRedlinks");
-wmf.paragraphs = require("./js/transforms/relocateFirstParagraph");
-wmf.images = require("./js/transforms/widenImages");
+wmf.elementLocation = require('./js/elementLocation')
+wmf.utilities = require('./js/utilities')
+wmf.findInPage = require('./js/findInPage')
+wmf.footerReadMore = require('./js/transforms/footerReadMore')
+wmf.footerMenu = require('./js/transforms/footerMenu')
+wmf.footerLegal = require('./js/transforms/footerLegal')
+wmf.filePages = require('./js/transforms/disableFilePageEdit')
+wmf.tables = require('./js/transforms/collapseTables')
+wmf.redlinks = require('./js/transforms/hideRedlinks')
+wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
+wmf.images = require('./js/transforms/widenImages')
 
-window.wmf = wmf;
+window.wmf = wmf
 },{"./js/elementLocation":2,"./js/findInPage":3,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
@@ -941,7 +941,6 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-
 },{}],16:[function(require,module,exports){
 'use strict';
 
