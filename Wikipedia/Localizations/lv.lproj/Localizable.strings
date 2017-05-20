@@ -1,5 +1,6 @@
 // Messages for Latvian (latviešu)
 // Exported from translatewiki.net
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Papuass
 // Author: Silraks
@@ -160,7 +161,7 @@
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
 "welcome-send-data-title" = "Sūtīt anonīmus datus";
 "welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
-"welcome-volunteer-thanks" = "Paldies!";
+"welcome-volunteer-thanks" = "$1 Paldies!";
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";

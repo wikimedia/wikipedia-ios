@@ -92,8 +92,10 @@
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
 "explore-another-random" = "Друга случајна статија";
+"explore-because-you-read" = "Бидејќи читавте";
 "explore-continue-reading-heading" = "Продолжете со читање";
 "explore-featured-article-heading" = "Избрани статии";
+"explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-most-read-footer-for-date" = "Сите најчитани статии на $1";
 "explore-most-read-generic-heading" = "Најчитани";

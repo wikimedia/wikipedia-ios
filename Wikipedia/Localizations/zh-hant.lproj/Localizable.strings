@@ -103,8 +103,10 @@
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
 "explore-another-random" = "其他隨機條目";
+"explore-because-you-read" = "因為您閱讀";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-featured-article-heading" = "特色條目";
+"explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer-for-date" = "所有在 $1 上閱讀最多的條目";
 "explore-most-read-generic-heading" = "最多閱讀";

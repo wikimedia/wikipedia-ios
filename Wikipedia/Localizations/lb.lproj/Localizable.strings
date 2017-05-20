@@ -89,8 +89,10 @@
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
+"explore-because-you-read" = "Well Dir liest";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
+"explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-generic-heading" = "Am dackste geliest";
@@ -223,6 +225,7 @@
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
 "page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
+"places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
 "places-accessibility-group" = "$1 Artikelen";
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
@@ -239,6 +242,7 @@
 "places-search-saved-articles" = "All gespäichert Artikelen";
 "places-search-this-area" = "Resultater aus dëser Géigend";
 "places-search-top-articles" = "all déi beléift Artikelen";
+"places-title" = "Plazen";
 "places-unknown-distance" = "onbekannt Distanz";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
@@ -306,6 +310,7 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliest Artikele weisen";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
+"two-factor-login-instructions" = "Gitt w.e.g. den Zwee-Facteur Iwwerpréifungs-Code an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";

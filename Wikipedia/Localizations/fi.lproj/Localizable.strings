@@ -263,6 +263,7 @@
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-this-area" = "Hae tällä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
+"places-title" = "Paikat";
 "places-unknown-distance" = "tuntematon etäisyys";
 "potd-description-prefix" = "Päivän kuva: $1";
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";

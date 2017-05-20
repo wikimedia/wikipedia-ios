@@ -107,6 +107,7 @@
 "explore-another-random" = "다른 임의 문서";
 "explore-continue-reading-heading" = "계속 읽기";
 "explore-featured-article-heading" = "알찬 글";
+"explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
 "explore-most-read-generic-heading" = "가장 많이 읽은 글";
@@ -244,12 +245,15 @@
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";
+"places-accessibility-recenter-map-on-user-location" = "당신의 위치로 다시 고정";
 "places-accessibility-show-as-list" = "목록으로 보기";
 "places-accessibility-show-as-map" = "지도로 보기";
 "places-accessibility-show-more" = "더 많은 글 보기";
+"places-empty-search-description" = "도시, 국가, 대륙, 자연지표, 역사적 사건, 건물 등을 탐험합니다.";
 "places-empty-search-title" = "지리적 위치로 위키백과 문서 검색";
 "places-enable-location-action-button-title" = "위치 활성화";
 "places-filter-list-title" = "검색 필터";
+"places-filter-no-saved-places" = "저장한 장소가 없습니다";
 "places-filter-saved-articles" = "저장된 문서";
 "places-filter-saved-articles-count" = "{{PLURAL:$1|$1곳을}} 찾았음";
 "places-filter-top-articles" = "가장 많이 읽은 글";
@@ -261,6 +265,7 @@
 "places-search-suggested-searches-header" = "추천된 검색";
 "places-search-this-area" = "이 영역에서 검색";
 "places-search-top-articles" = "모든 최상위 문서";
+"places-title" = "장소";
 "places-unknown-distance" = "알 수 없는 거리";
 "potd-description-prefix" = "$1의 그림";
 "potd-empty-error-description" = "$1의 사진 가져오기 실패";
@@ -353,6 +358,8 @@
 "wikitext-downloading" = "내용을 불러오는 중...";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-changes-none" = "미리 보기에 바뀐 내용이 없습니다.";
+"wikitext-preview-link-preview-description" = "이 링크는 '$1'(으)로 이어집니다";
+"wikitext-preview-link-preview-title" = "링크 미리 보기";
 "wikitext-upload-captcha-error" = "캡차 확인 오류입니다.";
 "wikitext-upload-captcha-needed" = "캡차 확인이 필요합니다.";
 "wikitext-upload-result-unknown" = "위키텍스트 올리기 결과를 파악할 수 없습니다.";

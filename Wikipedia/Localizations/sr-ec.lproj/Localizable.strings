@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aktron
 // Author: Fendo99
+// Author: Mhurd
 // Author: Milicevic01
 // Author: Nemo bis
 // Author: Obsuser
@@ -358,6 +359,7 @@
 "wikitext-upload-captcha-needed" = "Потребна је верификација помоћу слике.";
 "wikitext-upload-result-unknown" = "Не могу да утврдим исход отпремања вики текста.";
 "wikitext-upload-save" = "Објављујем...";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Пријава";

@@ -8,6 +8,7 @@
 // Author: Notramo
 // Author: R-Joe
 // Author: Tacsipacsi
+// Author: Urbalazs
 
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom egy $1 alatt érhető el.";
@@ -257,6 +258,7 @@
 "places-search-suggested-searches-header" = "Javasolt keresések";
 "places-search-this-area" = "Találatok ezen a területen";
 "places-search-top-articles" = "Az összes legolvasottabb szócikk";
+"places-title" = "Helyek";
 "places-unknown-distance" = "ismeretlen távolság";
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
@@ -353,6 +355,8 @@
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";
+"wikitext-preview-link-preview-description" = "A hivatkozás ide mutat: „$1”";
+"wikitext-preview-link-preview-title" = "Hivatkozás előnézete";
 "wikitext-upload-captcha-error" = "CAPTCHA ellenőrzési hiba.";
 "wikitext-upload-captcha-needed" = "CAPTCHA ellenőrzés szükséges.";
 "wikitext-upload-result-unknown" = "A wikiszöveg-feltöltés eredményének meghatározása sikertelen.";

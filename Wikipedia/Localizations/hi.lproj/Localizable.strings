@@ -99,8 +99,10 @@
 "empty-no-saved-pages-title" = "अभी तक कोई सहेजे पेज नहीं";
 "empty-no-search-results-message" = "कोई परिणाम नहीं मिला";
 "explore-another-random" = "दूसरा बेतरतीब लेख";
+"explore-because-you-read" = "क्योंकि आपने पढ़ा";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
 "explore-featured-article-heading" = "निर्वाचित लेख";
+"explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
 "explore-most-read-footer-for-date" = "$1 को सर्वाधिक पढ़े गए लेख";
 "explore-most-read-generic-heading" = "सर्वाधिक पढ़े गए";

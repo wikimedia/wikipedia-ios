@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: ANDROBETA
 // Author: Macofe
+// Author: Matrafox
 // Author: Minisarm
 // Author: Nemo bis
 
@@ -157,6 +158,8 @@
 "page-protected-sysop" = "Această pagină a fost protejată.";
 "page-read-in-other-languages" = "Disponibil în alte $1 limbi";
 "page-similar-titles" = "Pagini similare";
+"places-filter-top-articles" = "Cele mai citite";
+"places-search-default-text" = "Caută";
 "potd-description-prefix" = "Imaginea zilei în $1";
 "potd-empty-error-description" = "Nu s-a putut găsi imaginea zilei pentru $1";
 // Fuzzy
