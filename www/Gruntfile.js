@@ -35,7 +35,7 @@ module.exports = function (grunt) {
     },
 
     eslint: {
-        src: [allJSFilesInJSFolder],
+        src: ['*.js', allJSFilesInJSFolder],
         options: {
           fix: false
         }
