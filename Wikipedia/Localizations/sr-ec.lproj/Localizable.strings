@@ -95,8 +95,10 @@
 "empty-no-saved-pages-title" = "Још увек нема сачуваних страница";
 "empty-no-search-results-message" = "Нема резултата";
 "explore-another-random" = "Други случајни чланак";
+"explore-because-you-read" = "Будући да сте прочитали";
 "explore-continue-reading-heading" = "Настави читање";
 "explore-featured-article-heading" = "Изабрани чланак";
+"explore-main-page-description" = "Главна страница Викимедијиних пројеката";
 "explore-main-page-heading" = "Данас на Википедији";
 "explore-most-read-footer-for-date" = "Сви најчитанији чланци за $1";
 "explore-most-read-generic-heading" = "Најчитаније";
@@ -258,6 +260,7 @@
 "places-search-suggested-searches-header" = "Предложене претраге";
 "places-search-this-area" = "Резултати на овом подручју";
 "places-search-top-articles" = "Сви најчитанији чланци";
+"places-title" = "Места";
 "places-unknown-distance" = "непозната удаљеност";
 "potd-description-prefix" = "Слика дана за $1";
 "potd-empty-error-description" = "Не могу да преузмем слику дана за $1";
@@ -355,12 +358,13 @@
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимам преглед ваших измена…";
 "wikitext-preview-changes-none" = "Нема измена за преглед.";
+"wikitext-preview-link-preview-description" = "Ова веза води до ’$1’";
+"wikitext-preview-link-preview-title" = "Претпреглед везе";
 "wikitext-upload-captcha-error" = "Грешка при верификацији помоћу слике.";
 "wikitext-upload-captcha-needed" = "Потребна је верификација помоћу слике.";
 "wikitext-upload-result-unknown" = "Не могу да утврдим исход отпремања вики текста.";
 "wikitext-upload-save" = "Објављујем...";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
+"wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси Вашег уређаја. Ако кликнете на дугме $1, имаћете више приватности.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-license" = "Објављивањем измена, слажете се са $1 и неопозиво прихватате објављивање вашег доприноса под лиценцом $2.";

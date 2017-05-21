@@ -101,8 +101,10 @@
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
 "explore-another-random" = "Toinen satunnainen sivu";
+"explore-because-you-read" = "Koska luit";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
+"explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-generic-heading" = "Luetuimmat";
@@ -361,6 +363,7 @@
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
+"wikitext-preview-link-preview-title" = "Linkin esikatselu";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
 "wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";

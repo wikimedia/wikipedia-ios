@@ -96,8 +96,10 @@
 "empty-no-saved-pages-title" = "Még nincsenek mentett lapok";
 "empty-no-search-results-message" = "Nincs találat";
 "explore-another-random" = "Másik cikk találomra";
+"explore-because-you-read" = "Mert ezt olvastad";
 "explore-continue-reading-heading" = "Olvasás folytatása";
 "explore-featured-article-heading" = "Kiemelt szócikk";
+"explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
 "explore-most-read-generic-heading" = "Legolvasottabb";
@@ -252,6 +254,7 @@
 "places-filter-top-articles" = "Legolvasottabb";
 "places-filter-top-articles-count" = "$1 szócikk";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
+"places-search-articles-that-match" = "$1 találat erre: „$2”";
 "places-search-default-text" = "Keresés";
 "places-search-recently-searched-header" = "Legutóbbi keresések";
 "places-search-saved-articles" = "Minden mentett szócikk";
