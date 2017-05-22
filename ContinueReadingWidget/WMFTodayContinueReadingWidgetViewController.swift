@@ -128,7 +128,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyViewHidden = true
         
-        if let subtitle = historyEntry.snippet ?? historyEntry.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(){
+        if let subtitle = historyEntry.capitalizedWikidataDescriptionOrSnippet {
             self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil

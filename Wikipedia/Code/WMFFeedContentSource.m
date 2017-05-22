@@ -282,13 +282,23 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if ([news count] == 0 || date == nil) {
         return;
     }
-
-    WMFContentGroup *group = [self newsForDate:date inManagedObjectContext:moc];
-
-    if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
-    } else if (group.content == nil) {
-        group.content = news;
+    
+    WMFFeedNewsStory *firstStory = [news firstObject];
+    NSDate *midnightMonthAndDay = firstStory.midnightUTCMonthAndDay;
+    if (midnightMonthAndDay && date) {
+        // This logic assumes we won't be loading something more than 30 days old
+        NSCalendar *utcCalendar = NSCalendar.wmf_utcGregorianCalendar;
+        NSDateComponents *storyComponents = [utcCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightMonthAndDay];
+        NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
+        NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:date];
+        if (storyComponents.month > components.month + 1) { //probably not how this should be done
+            components.year = components.year - 1; // assume it's last year
+        } else if (components.month > storyComponents.month + 1) {
+            components.year = components.year + 1; // assume it's next year
+        }
+        components.day = storyComponents.day;
+        components.month = storyComponents.month;
+        date = [localCalendar dateFromComponents:components];
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -298,18 +308,31 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViewsForURL];
         }];
 
+        NSString *featuredArticleTitleBasedOnSemanticLookup = [WMFFeedNewsStory semanticFeaturedArticleTitleFromStoryHTML:story.storyHTML siteURL:self.siteURL];
         for (WMFFeedArticlePreview *preview in story.articlePreviews) {
             if (preview.thumbnailURL == nil) {
                 continue;
             }
-            story.featuredArticlePreview = preview;
-            break;
+            NSString *displayTitle = preview.displayTitle;
+            if (displayTitle && featuredArticleTitleBasedOnSemanticLookup && [displayTitle caseInsensitiveCompare:featuredArticleTitleBasedOnSemanticLookup] == NSOrderedSame) {
+                story.featuredArticlePreview = preview;
+                break;
+            } else if (!story.featuredArticlePreview) {
+                story.featuredArticlePreview = preview;
+            }
         }
 
         if (story.featuredArticlePreview == nil) {
             story.featuredArticlePreview = story.articlePreviews.firstObject;
         }
     }];
+    
+    WMFContentGroup *group = [self newsForDate:date inManagedObjectContext:moc];
+    if (group == nil) {
+        [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+    } else {
+        group.content = news;
+    }
 }
 
 #pragma mark - Find Groups

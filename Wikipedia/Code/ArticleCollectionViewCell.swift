@@ -13,7 +13,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func setup() {
         tintColor = UIColor.wmf_blue
         imageView.contentMode = .scaleAspectFill
-        imageView.masksToBounds = true
+        imageView.clipsToBounds = true
         imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)
@@ -65,17 +65,29 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     // MARK - Dynamic type
     
+    var titleFontFamily = WMFFontFamily.georgia
+    var titleTextStyle  = UIFontTextStyle.title1
+    
+    var descriptionFontFamily = WMFFontFamily.system
+    var descriptionTextStyle  = UIFontTextStyle.subheadline
+    
+    var extractFontFamily = WMFFontFamily.system
+    var extractTextStyle  = UIFontTextStyle.subheadline
+    
+    var saveButtonFontFamily = WMFFontFamily.systemMedium
+    var saveButtonTextStyle  = UIFontTextStyle.subheadline
+    
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        saveButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
-        extractLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(titleFontFamily, withTextStyle: titleTextStyle, compatibleWithTraitCollection: traitCollection)
+        descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(descriptionFontFamily, withTextStyle:  descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        extractLabel?.font = UIFont.wmf_preferredFontForFontFamily(extractFontFamily, withTextStyle: extractTextStyle, compatibleWithTraitCollection: traitCollection)
+        saveButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(saveButtonFontFamily, withTextStyle: saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK - Semantic content
     
-    open var articleSemanticContentAttribute: UISemanticContentAttribute = .forceLeftToRight {
+    open var articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified {
         didSet {
             titleLabel.semanticContentAttribute = articleSemanticContentAttribute
             descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
