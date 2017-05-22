@@ -7,6 +7,7 @@
 // Author: Kingu
 // Author: Laaknor
 // Author: Macofe
+// Author: Mhurd
 // Author: Nemo bis
 // Author: SuperPotato
 // Author: Tsaetre
@@ -155,7 +156,7 @@
 "history-title" = "Historikk";
 "hockeyapp-alert-always-send" = "Alltid send";
 "hockeyapp-alert-do-not-send" = "Ikke send";
-"hockeyapp-alert-privacy" = "$ personvern";
+"hockeyapp-alert-privacy" = "$1 personvern";
 "hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia Foundation kan undersøke hva som skjedde?";
 "hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia Foundation kan undersøke hva som skjedde? Beskriv hva som skjedde da appen krasjet:";
 "hockeyapp-alert-send-report" = "Send rapport";
