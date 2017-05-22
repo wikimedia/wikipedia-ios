@@ -18,16 +18,12 @@ public extension ArticleCollectionViewCell {
         case .pageWithPreview:
             imageViewDimension = 196
             isSaveButtonHidden = false
-            titleTextStyle = .body
-            titleFontFamily = .georgia
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .continueReading:
             imageViewDimension = 150
             extractLabel?.text = nil
             isSaveButtonHidden = true
-            titleTextStyle = .body
-            titleFontFamily = .georgia
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
@@ -35,14 +31,10 @@ public extension ArticleCollectionViewCell {
             imageViewDimension = 150
             extractLabel?.text = nil
             isSaveButtonHidden = true
-            titleTextStyle = .body
-            titleFontFamily = .georgia
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPages:
             isSaveButtonHidden = false
-            titleTextStyle = .body
-            titleFontFamily = .system
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .mainPage:
@@ -58,8 +50,6 @@ public extension ArticleCollectionViewCell {
         default:
             imageViewDimension = 40
             isSaveButtonHidden = true
-            titleTextStyle = .subheadline
-            titleFontFamily = .system
             descriptionTextStyle = .footnote
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
