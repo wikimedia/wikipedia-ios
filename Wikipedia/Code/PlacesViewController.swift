@@ -6,6 +6,7 @@ import TUSafariActivity
 class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     @IBOutlet weak var redoSearchButton: UIButton!
+    @IBOutlet weak var didYouMeanButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var mapView: MKMapView!
@@ -131,6 +132,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         redoSearchButton.setTitleColor(.white, for: .normal)
         redoSearchButton.setTitle("    " + WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area") + "    ", for: .normal)
         redoSearchButton.isHidden = true
+        
+        // Setup Did You Mean button
+        didYouMeanButton.backgroundColor = view.tintColor
+        didYouMeanButton.setTitleColor(.white, for: .normal)
+        didYouMeanButton.isHidden = true
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
@@ -573,6 +579,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Update Redo Search Button
         redoSearchButton.isHidden = !(movedSignificantly)
         
+        // Update Did You Mean BUtton
+        didYouMeanButton.isHidden = movedSignificantly
+        
         // Clear count for Top Places
         if (movedSignificantly) {
             _displayCountForTopPlaces = nil
@@ -667,7 +676,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                         let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
                         if (completions.count > 0) {
-                            DDLogDebug("Did you mean??\n\(completions[0])")
+                            self.showDidYouMeanButton(search: completions[0])
                         }
                     }
                     return
@@ -681,6 +690,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 self.updatePlaces(withSearchResults: locationResults)
             })
         }
+    }
+    
+    func showDidYouMeanButton(search: PlaceSearch) {
+        DDLogDebug("Did you mean '\(String(describing: search.localizedDescription))'?")
+        self.didYouMeanButton.isHidden = false
+        
     }
 
     func performWikidataQuery(forSearch search: PlaceSearch) {
@@ -813,6 +828,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } else {
             currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
         }
+    }
+    
+    @IBAction func didYouMean(_ sender: Any) {
+        
     }
     
     // MARK: - Display Actions
