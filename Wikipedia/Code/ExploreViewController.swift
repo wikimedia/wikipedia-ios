@@ -116,7 +116,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     private func updateNavigationBar(newOffset extNavBarOffset: CGFloat) {
         let extNavBarHeight = extendedNavBarView.frame.size.height
         let percentHidden: CGFloat = extNavBarOffset / extNavBarHeight
-        DDLogDebug("percentHidden=\(percentHidden))")
         self.searchBarButtonItem?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
