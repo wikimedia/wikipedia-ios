@@ -2,10 +2,6 @@
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     override open func setup() {
-        imageViewDimension = 150
-        margins = UIEdgeInsetsMake(15, 13, 15, 13)
-        spacing = 6
-        saveButtonTopSpacing = 20
         let extractLabel = UILabel()
         extractLabel.numberOfLines = 4
         addSubview(extractLabel)
@@ -13,6 +9,13 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
         descriptionLabel.numberOfLines = 2
         titleLabel.numberOfLines = 0
+    }
+    
+    open override func reset() {
+        super.reset()
+        margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        spacing = 6
+        imageViewDimension = 150
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

@@ -3,9 +3,13 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func setup() {
         imageView.cornerRadius = 3
+        super.setup()
+    }
+    
+    open override func reset() {
+        super.reset()
         titleFontFamily = .system
         titleTextStyle = .body
-        super.setup()
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

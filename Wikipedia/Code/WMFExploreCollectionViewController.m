@@ -818,6 +818,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 default: {
                     WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                    [cell prepareForReuse];
                     [self configureArticleCell:cell withSection:section displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:YES];
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;

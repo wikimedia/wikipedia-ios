@@ -12,6 +12,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     open override func setup() {
         tintColor = UIColor.wmf_blue
+        titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.wmf_showPlaceholder()
@@ -25,7 +26,25 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         backgroundColor = .white
+        prepareForReuse()
         super.setup()
+    }
+    
+    // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse.
+    open func reset() {
+        backgroundColor = .white
+        titleFontFamily = .georgia
+        titleTextStyle = .title1
+        descriptionFontFamily = .system
+        descriptionTextStyle  = .subheadline
+        extractFontFamily = .system
+        extractTextStyle  = .subheadline
+        saveButtonFontFamily = .systemMedium
+        saveButtonTextStyle  = .subheadline
+        margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        spacing = 6
+        imageViewDimension = 70
+        saveButtonTopSpacing = 10
     }
     
     deinit {
@@ -36,31 +55,31 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     open override func prepareForReuse() {
         super.prepareForReuse()
+        reset()
+        updateLabelFonts()
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
-        saveButton.saveButtonState = .longSave
     }
     
     // MARK - View configuration
-    // Call setsNeedLayout after adjusting any of these properties
+    // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
-    var titleFontFamily = WMFFontFamily.georgia
-    var titleTextStyle  = UIFontTextStyle.title1
+    var titleFontFamily: WMFFontFamily!
+    var titleTextStyle: UIFontTextStyle!
     
-    var descriptionFontFamily = WMFFontFamily.system
-    var descriptionTextStyle  = UIFontTextStyle.subheadline
+    var descriptionFontFamily: WMFFontFamily!
+    var descriptionTextStyle: UIFontTextStyle!
     
-    var extractFontFamily = WMFFontFamily.system
-    var extractTextStyle  = UIFontTextStyle.subheadline
+    var extractFontFamily: WMFFontFamily!
+    var extractTextStyle: UIFontTextStyle!
     
-    var saveButtonFontFamily = WMFFontFamily.systemMedium
-    var saveButtonTextStyle  = UIFontTextStyle.subheadline
+    var saveButtonFontFamily: WMFFontFamily!
+    var saveButtonTextStyle: UIFontTextStyle!
     
-    var imageViewDimension: CGFloat = ArticleCollectionViewCell.defaultSpacing //used as height on full width cell, width & height on right aligned
-    var margins = ArticleCollectionViewCell.defaultMargins
-    
-    var spacing: CGFloat = ArticleCollectionViewCell.defaultSpacing
-    var saveButtonTopSpacing: CGFloat = 10
+    var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
+    var margins: UIEdgeInsets!
+    var spacing: CGFloat!
+    var saveButtonTopSpacing: CGFloat!
     
     var isImageViewHidden = false {
         didSet {
@@ -74,19 +93,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         }
     }
     
-    
-    // MARK - Defaults
-    
-    static var defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
-    static var defaultSpacing: CGFloat = 6
-    static var defaultImageViewDimension: CGFloat = 70
-    static var defaultTitleTextStyle = UIFontTextStyle.title1
-    static var defaultDescriptionTextStyle = UIFontTextStyle.subheadline
-    
     // MARK - Dynamic type
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateLabelFonts()
+    }
+    
+    open func updateLabelFonts() {
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(titleFontFamily, withTextStyle: titleTextStyle, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(descriptionFontFamily, withTextStyle:  descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         extractLabel?.font = UIFont.wmf_preferredFontForFontFamily(extractFontFamily, withTextStyle: extractTextStyle, compatibleWithTraitCollection: traitCollection)
