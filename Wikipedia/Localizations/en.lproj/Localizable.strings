@@ -246,6 +246,7 @@
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search";
+"places-search-did-you-mean" = "Did you mean $1?";
 "places-search-recently-searched-header" = "Recently searched";
 "places-search-saved-articles" = "All saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
