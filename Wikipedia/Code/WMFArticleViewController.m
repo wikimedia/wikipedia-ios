@@ -308,7 +308,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         UIProgressView *progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         progress.translatesAutoresizingMaskIntoConstraints = NO;
         progress.trackTintColor = [UIColor clearColor];
-        progress.tintColor = [UIColor wmf_blueTint];
+        progress.tintColor = [UIColor wmf_blue];
         _progressView = progress;
     }
 

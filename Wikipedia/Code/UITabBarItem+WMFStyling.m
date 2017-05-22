@@ -7,7 +7,7 @@
     switch (state) {
         case UIControlStateSelected:
             return @{
-                     NSForegroundColorAttributeName: [UIColor wmf_blueTint],
+                     NSForegroundColorAttributeName: [UIColor wmf_blue],
                      NSFontAttributeName: tabBarItemFont
                      };
             break;
