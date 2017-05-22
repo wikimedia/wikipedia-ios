@@ -50,7 +50,6 @@ public extension ArticleCollectionViewCell {
         default:
             imageViewDimension = 40
             isSaveButtonHidden = true
-            descriptionTextStyle = .footnote
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         }
