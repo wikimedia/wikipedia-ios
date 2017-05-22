@@ -70,7 +70,7 @@
 - (NSString *)descriptionForSearchResult:(MWKSearchResult *)result {
     MWKSearchRedirectMapping *mapping = [self redirectMappingForResult:result];
     if (!mapping) {
-        return result.wikidataDescription;
+        return [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.dataSource.searchSiteURL.wmf_language];
     }
 
     NSString *redirectedResultMessage = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"search-result-redirected-from", nil, nil, @"Redirected from: %1$@", @"Text for search result letting user know if a result is a redirect from another article. Parameters:\n* %1$@ - article title the current search result redirected from"), mapping.redirectFromTitle];
@@ -78,7 +78,7 @@
     if (!result.wikidataDescription) {
         return redirectedResultMessage;
     } else {
-        return [NSString stringWithFormat:@"%@\n%@", redirectedResultMessage, [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]];
+        return [NSString stringWithFormat:@"%@\n%@", redirectedResultMessage, [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.dataSource.searchSiteURL.wmf_language]];
     }
 }
 

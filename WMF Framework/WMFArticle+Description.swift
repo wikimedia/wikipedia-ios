@@ -1,8 +1,8 @@
 import Foundation
 
 extension WMFArticle {
-    public var wikidataDescriptionOrSnippet: String? {
-        guard let wikidataDescription = wikidataDescription, wikidataDescription.characters.count > 0 else {
+    public var capitalizedWikidataDescriptionOrSnippet: String? {
+        guard let wikidataDescription = capitalizedWikidataDescription, wikidataDescription.characters.count > 0 else {
             return snippet
         }
         return wikidataDescription

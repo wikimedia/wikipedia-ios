@@ -29,6 +29,7 @@
     // title and Wikidata description. For the snippet, we want to mimic
     // the webview's layout alignment, which is based upon actual article
     // language directionality.
+    NSString *language =  article.url.wmf_language;
     NSTextAlignment snippetAlignment =
         [MWLanguageInfo articleLanguageIsRTL:article] ? NSTextAlignmentRight : NSTextAlignmentLeft;
     self.shareSelectedText.text = snippet;
@@ -38,7 +39,7 @@
     self.shareArticleTitle.text = [article.displaytitle wmf_stringByRemovingHTML];
     self.shareArticleTitle.textAlignment = subtextAlignment;
     self.shareArticleDescription.text =
-        [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
+    [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:language];
     self.shareArticleDescription.textAlignment = subtextAlignment;
     
     if (image) {

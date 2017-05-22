@@ -21,7 +21,7 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 + (NSAttributedString *)wmf_attributedStringWithTitle:(NSString *)title
                                           description:(NSString *)description
                                              language:(NSString *)language {
-    description = [description wmf_stringByCapitalizingFirstCharacter];
+    description = [description wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:language];
 
     // Shrink super long titles.
     CGFloat titleSizeMultiplier = 1.0f;

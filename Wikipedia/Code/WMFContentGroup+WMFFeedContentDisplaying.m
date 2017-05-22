@@ -157,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRelatedPages:
         case WMFContentGroupKindContinueReading: {
             NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
-            return [relativeTimeString wmf_stringByCapitalizingFirstCharacter];
+            return [relativeTimeString wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:nil];
         } break;
         case WMFContentGroupKindMainPage:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
