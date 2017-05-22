@@ -579,8 +579,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Update Redo Search Button
         redoSearchButton.isHidden = !(movedSignificantly)
         
-        // Update Did You Mean BUtton
-        didYouMeanButton.isHidden = movedSignificantly
+        // Update Did You Mean Button
+        if (movedSignificantly) {
+            didYouMeanButton.isHidden = true // only hide it on move, never un-hide it
+        }
         
         // Clear count for Top Places
         if (movedSignificantly) {
