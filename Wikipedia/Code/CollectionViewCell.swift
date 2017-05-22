@@ -64,9 +64,9 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        if let attributesToFit = layoutAttributes as? WMFCVLAttributes, attributesToFit.precalculated {
-//            return attributesToFit
-//        }
+        if let attributesToFit = layoutAttributes as? WMFCVLAttributes, attributesToFit.precalculated {
+            return attributesToFit
+        }
         
         var sizeToFit = layoutAttributes.size
         sizeToFit.height = CGFloat.greatestFiniteMagnitude

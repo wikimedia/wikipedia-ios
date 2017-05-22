@@ -1,17 +1,7 @@
 import Foundation
 
 public extension ArticleCollectionViewCell {
-    public func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
-        return displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
-    }
-    
-    public func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
-        return displayType == .pageWithPreview ? false : true
-    }
-    
-    public func configure(article: WMFArticle, contentGroup: WMFContentGroup, layoutOnly: Bool) {
-        let displayType = contentGroup.displayType()
-        
+    public func configure(article: WMFArticle, contentGroup: WMFContentGroup, displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-width images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view. 
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
@@ -23,21 +13,65 @@ public extension ArticleCollectionViewCell {
         }
         let articleLanguage = (article.url as NSURL?)?.wmf_language
         titleLabel.text = article.displayTitle
-        isSaveButtonHidden = isSaveButtonHidden(for: displayType)
-        if displayType == .pageWithPreview {
+        switch displayType {
+        case .pageWithPreview:
+            backgroundColor = .white
+            imageViewDimension = 196
+            isSaveButtonHidden = false
+            titleTextStyle = .body
+            titleFontFamily = .georgia
+            descriptionTextStyle = ArticleCollectionViewCell.defaultDescriptionTextStyle
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
-            imageViewHeight = 196
+        case .continueReading:
             backgroundColor = .white
-        } else {
-            if displayType == .mainPage {
-                descriptionLabel.text = article.wikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
-            } else {
-                descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
-            }
-            backgroundColor = backgroundColor(for: displayType)
+            imageViewDimension = 150
             extractLabel?.text = nil
-            imageViewHeight = 150
+            isSaveButtonHidden = true
+            titleTextStyle = .body
+            titleFontFamily = .georgia
+            descriptionTextStyle = ArticleCollectionViewCell.defaultDescriptionTextStyle
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
+        case .relatedPagesSourceArticle:
+            backgroundColor = .wmf_lightGrayCellBackground
+            imageViewDimension = 150
+            extractLabel?.text = nil
+            isSaveButtonHidden = true
+            titleTextStyle = .body
+            titleFontFamily = .georgia
+            descriptionTextStyle = ArticleCollectionViewCell.defaultDescriptionTextStyle
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
+        case .relatedPages:
+            backgroundColor = UIColor.white
+            imageViewDimension = ArticleCollectionViewCell.defaultImageViewDimension
+            isSaveButtonHidden = false
+            titleTextStyle = .body
+            titleFontFamily = .system
+            descriptionTextStyle = ArticleCollectionViewCell.defaultDescriptionTextStyle
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
+        case .mainPage:
+            backgroundColor = .white
+            imageViewDimension = ArticleCollectionViewCell.defaultImageViewDimension
+            isSaveButtonHidden = true
+            titleTextStyle = .body
+            titleFontFamily = .system
+            descriptionTextStyle = ArticleCollectionViewCell.defaultDescriptionTextStyle
+            descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
+            extractLabel?.text = nil
+        case .page:
+            fallthrough
+        default:
+            backgroundColor = .white
+            imageViewDimension = 40
+            isSaveButtonHidden = true
+            titleTextStyle = .subheadline
+            titleFontFamily = .system
+            descriptionTextStyle = .footnote
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
         }
         
         titleLabel.accessibilityLanguage = articleLanguage
@@ -45,15 +79,5 @@ public extension ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         setNeedsLayout()
-    }
-}
-
-extension ArticleRightAlignedImageCollectionViewCell {
-    public override func backgroundColor(for displayType: WMFFeedDisplayType) -> UIColor {
-        return UIColor.white
-    }
-    
-    public override func isSaveButtonHidden(for displayType: WMFFeedDisplayType) -> Bool {
-        return false
     }
 }

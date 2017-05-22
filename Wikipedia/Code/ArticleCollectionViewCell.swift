@@ -42,28 +42,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     }
     
     // MARK - View configuration
-    
-    var imageViewHeight: CGFloat = 150 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
-    var isImageViewHidden = false {
-        didSet {
-            imageView.isHidden = isImageViewHidden
-            setNeedsLayout()
-        }
-    }
-    
-    var isSaveButtonHidden = false {
-        didSet {
-            saveButton.isHidden = isSaveButtonHidden
-            setNeedsLayout()
-        }
-    }
-    
-    // MARK - Dynamic type
+    // Call setsNeedLayout after adjusting any of these properties
     
     var titleFontFamily = WMFFontFamily.georgia
     var titleTextStyle  = UIFontTextStyle.title1
@@ -76,6 +55,35 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     var saveButtonFontFamily = WMFFontFamily.systemMedium
     var saveButtonTextStyle  = UIFontTextStyle.subheadline
+    
+    var imageViewDimension: CGFloat = ArticleCollectionViewCell.defaultSpacing //used as height on full width cell, width & height on right aligned
+    var margins = ArticleCollectionViewCell.defaultMargins
+    
+    var spacing: CGFloat = ArticleCollectionViewCell.defaultSpacing
+    var saveButtonTopSpacing: CGFloat = 10
+    
+    var isImageViewHidden = false {
+        didSet {
+            imageView.isHidden = isImageViewHidden
+        }
+    }
+    
+    var isSaveButtonHidden = false {
+        didSet {
+            saveButton.isHidden = isSaveButtonHidden
+        }
+    }
+    
+    
+    // MARK - Defaults
+    
+    static var defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
+    static var defaultSpacing: CGFloat = 6
+    static var defaultImageViewDimension: CGFloat = 70
+    static var defaultTitleTextStyle = UIFontTextStyle.title1
+    static var defaultDescriptionTextStyle = UIFontTextStyle.subheadline
+    
+    // MARK - Dynamic type
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)

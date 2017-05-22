@@ -2,6 +2,10 @@
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     override open func setup() {
+        imageViewDimension = 150
+        margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        spacing = 6
+        saveButtonTopSpacing = 20
         let extractLabel = UILabel()
         extractLabel.numberOfLines = 4
         addSubview(extractLabel)
@@ -12,18 +16,15 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let margins = UIEdgeInsetsMake(15, 13, 15, 13)
-        let spacing: CGFloat = 6
-        let saveButtonTopSpacing: CGFloat = 20
         let widthMinusMargins = size.width - margins.left - margins.right
         
         var origin = CGPoint(x: margins.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
+                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewDimension)
             }
-            origin.y += imageViewHeight
+            origin.y += imageViewDimension
         }
         
         origin.y += margins.top

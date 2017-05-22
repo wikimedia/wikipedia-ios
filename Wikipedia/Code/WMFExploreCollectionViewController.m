@@ -34,7 +34,6 @@
 
 #import "WMFLeadingImageTrailingTextButton.h"
 
-#import "WMFArticleListCollectionViewCell.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFAnnouncementCollectionViewCell.h"
@@ -239,18 +238,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable NSURL *)contentURLForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    if ([section displayType] == WMFFeedDisplayTypeRelatedPages) {
-        if (indexPath.item == 0) {
-            return section.articleURL;
-        } else {
-            NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
-            NSInteger index = indexPath.item - 1;
-            if (index >= [content count]) {
-                return nil;
-            }
-            return content[index];
+    WMFFeedDisplayType displayType = [section displayTypeForItemAtIndex:indexPath.item];
+    if (displayType == WMFFeedDisplayTypeRelatedPagesSourceArticle) {
+        return section.articleURL;
+    } else if (displayType == WMFFeedDisplayTypeRelatedPages) {
+        NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
+        NSInteger index = indexPath.item - 1;
+        if (index >= [content count]) {
+            return nil;
         }
-
+        return content[index];
     } else if ([section contentType] == WMFContentTypeTopReadPreview) {
 
         NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
@@ -671,10 +668,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(contentGroup);
     NSArray *feedContent = contentGroup.content;
     NSInteger countOfFeedContent = feedContent.count;
-    switch (contentGroup.displayType) {
-        case WMFFeedDisplayTypeStory:
+    switch (contentGroup.contentGroupKind) {
+        case WMFContentGroupKindNews:
             return 1;
-        case WMFFeedDisplayTypeRelatedPages:
+        case WMFContentGroupKindRelatedPages:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]) + 1;
         default:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]);
@@ -712,19 +709,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return [UICollectionViewCell new];
     }
     WMFArticle *article = [self articleForIndexPath:indexPath];
-    switch ([contentGroup displayType]) {
-        case WMFFeedDisplayTypePage: {
-            WMFArticleListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureListCell:cell withArticle:article atIndexPath:indexPath];
-            return cell;
-        } break;
+    WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
+    switch (displayType) {
+        case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
+        case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
+            NSString *reuseIdentifier = [self reuseIdentifierForCellAtIndexPath:indexPath displayType:displayType];
             WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-            [self configureArticleCell:cell withSection:contentGroup withArticle:article atIndexPath:indexPath layoutOnly:NO];
+            [self configureArticleCell:cell withSection:contentGroup displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:NO];
             return (UICollectionViewCell *)cell;
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
@@ -771,34 +766,38 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - UICollectionViewDelegate
 
+- (NSString *)reuseIdentifierForCellAtIndexPath:(NSIndexPath *)indexPath displayType:(WMFFeedDisplayType)displayType {
+    NSString *reuseIdentifier = @"WMFArticleRightAlignedImageCollectionViewCell";
+    switch (displayType) {
+        case WMFFeedDisplayTypeStory:
+            reuseIdentifier = @"WMFNewsCollectionViewCell";
+            break;
+        case WMFFeedDisplayTypeContinueReading:
+        case WMFFeedDisplayTypeRelatedPagesSourceArticle:
+        case WMFFeedDisplayTypePageWithPreview:
+            reuseIdentifier = @"WMFArticleFullWidthImageCollectionViewCell";
+        default:
+            break;
+    }
+    return reuseIdentifier;
+}
+
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     WMFLayoutEstimate estimate;
-    WMFFeedDisplayType displayType = [section displayType];
+    WMFFeedDisplayType displayType = [section displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
-        case WMFFeedDisplayTypePage: {
-            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
-        } break;
+        case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeStory:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
+        case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
-            NSString *reuseIdentifier = @"WMFArticleFullWidthImageCollectionViewCell";
             WMFArticle *article = [self articleForIndexPath:indexPath];
-            NSString *key = article.key;
-            switch (displayType) {
-                case WMFFeedDisplayTypeStory:
-                    reuseIdentifier = @"WMFNewsCollectionViewCell";
-                    key = section.key;
-                    break;
-                case WMFFeedDisplayTypeContinueReading:
-                    reuseIdentifier = indexPath.item == 0 ? @"WMFArticleFullWidthImageCollectionViewCell" : @"WMFArticleRightAlignedImageCollectionViewCell";
-                    break;
-                default:
-                    break;
-            }
+            NSString *key = displayType == WMFFeedDisplayTypeStory ? section.key : article.key;
 
+            NSString *reuseIdentifier = [self reuseIdentifierForCellAtIndexPath:indexPath displayType:displayType];
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%@-%lli", reuseIdentifier, (long long)displayType, key, (long long)columnWidth];
 
             NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
@@ -819,7 +818,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 default: {
                     WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
-                    [self configureArticleCell:cell withSection:section withArticle:article atIndexPath:indexPath layoutOnly:YES];
+                    [self configureArticleCell:cell withSection:section displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:YES];
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -850,7 +849,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         default:
             NSAssert(false, @"Unknown display Type");
-            estimate.height = [WMFArticleListCollectionViewCell estimatedRowHeight];
+            estimate.height = 100;
             break;
     }
     return estimate;
@@ -1197,26 +1196,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
 
-    [self.collectionView registerNib:[WMFArticleListCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCollectionViewCell wmf_nibName]];
-
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
 }
 
-- (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
-    cell.titleText = article.displayTitle;
-    cell.titleLabel.accessibilityLanguage = article.URL.wmf_language;
-    cell.descriptionText = article.capitalizedWikidataDescription;
-    NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_listThumbnailWidth];
-    [cell setImageURL:imageURL];
-}
-
-- (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
+- (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section displayType:(WMFFeedDisplayType)displayType withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article contentGroup:section layoutOnly:layoutOnly];
+    [cell configureWithArticle:article contentGroup:section displayType:displayType layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }

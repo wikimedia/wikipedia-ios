@@ -8,11 +8,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.setup()
     }
     
-    var imageViewDimension: CGFloat = 70
-    var margins = UIEdgeInsetsMake(15, 13, 15, 13)
-    var spacing: CGFloat = 6
-    var saveButtonTopSpacing: CGFloat = 10
-    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
@@ -40,7 +35,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             origin.y += saveButtonFrame.height
         }
         origin.y += margins.bottom
-        let height = max(origin.y, imageViewDimension + margins.top + margins.bottom)
+        let height = isImageViewHidden ? origin.y : max(origin.y, imageViewDimension + margins.top + margins.bottom)
         return CGSize(width: size.width, height: height)
     }
 }
