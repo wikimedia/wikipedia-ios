@@ -225,3 +225,30 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         }
     }
 }
+
+extension NewsCollectionViewCell {
+    @objc(subItemIndexAtPoint:)
+    func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
+        let collectionViewFrame = collectionView.frame
+        guard collectionViewFrame.contains(point) else {
+            return NSNotFound
+        }
+        let pointInCollectionViewCoordinates = convert(point, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: pointInCollectionViewCoordinates) else {
+            return NSNotFound
+        }
+        
+        return indexPath.item
+    }
+    
+    @objc(viewForSubItemAtIndex:)
+    func viewForSubItem(at index: Int) -> UIView? {
+        guard index != NSNotFound, index >= 0, index < collectionView.numberOfItems(inSection: 0) else {
+            return nil
+        }
+        guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
+            return nil
+        }
+        return cell
+    }
+}

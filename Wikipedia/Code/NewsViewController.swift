@@ -112,3 +112,32 @@ extension NewsViewController: NewsCollectionViewCellDelegate {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }
+
+extension NewsViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let collectionView = collectionView,
+            let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
+            return nil
+        }
+        
+        let pointInCellCoordinates =  collectionView.convert(location, to: cell)
+        let index = cell.subItemIndex(at: pointInCellCoordinates)
+        guard index != NSNotFound, let view = cell.viewForSubItem(at: index) else {
+            return nil
+        }
+        
+        let story = stories[indexPath.section]
+        guard let previews = story.articlePreviews, index < previews.count else {
+            return nil
+        }
+        
+        previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
+        let article = previews[index]
+        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
+    }
+}

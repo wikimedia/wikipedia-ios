@@ -1548,19 +1548,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
         WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
         CGPoint pointInCellCoordinates = [self.collectionView convertPoint:location toView:newsCell];
-        CGRect collectionViewFrame = newsCell.collectionView.frame;
-        if (CGRectContainsPoint(collectionViewFrame, pointInCellCoordinates)) {
-            CGPoint pointInCollectionViewCoordinates = [cell convertPoint:pointInCellCoordinates toView:newsCell.collectionView];
-            NSIndexPath *indexPath = [newsCell.collectionView indexPathForItemAtPoint:pointInCollectionViewCoordinates];
-            if (indexPath) {
-                UICollectionViewCell *cell = [newsCell.collectionView cellForItemAtIndexPath:indexPath];
-                if (cell) {
-                    CGRect sourceRect = [cell convertRect:cell.bounds toView:self.collectionView];
-                    previewingContext.sourceRect = sourceRect;
-                    NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, indexPath.item};
-                    previewIndexPath = [NSIndexPath indexPathWithIndexes:indexes length:3];
-                }
-            }
+        NSInteger index = [newsCell subItemIndexAtPoint:pointInCellCoordinates];
+        if (index != NSNotFound) {
+            UIView *view = [newsCell viewForSubItemAtIndex:index];
+            CGRect sourceRect = [view convertRect:view.bounds toView:self.collectionView];
+            previewingContext.sourceRect = sourceRect;
+            NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, index};
+            previewIndexPath = [NSIndexPath indexPathWithIndexes:indexes length:3];
         }
     }
 
