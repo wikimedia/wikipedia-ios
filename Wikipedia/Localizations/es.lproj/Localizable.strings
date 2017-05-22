@@ -105,8 +105,10 @@
 "empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
 "empty-no-search-results-message" = "No se encontraron resultados";
 "explore-another-random" = "Otro artículo aleatorio";
+"explore-because-you-read" = "Porque leíste";
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-featured-article-heading" = "Artículo destacado";
+"explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
 "explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
 "explore-most-read-generic-heading" = "Más leídos";
@@ -268,6 +270,7 @@
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
 "places-search-this-area" = "Resultados de esta zona";
 "places-search-top-articles" = "Todos los artículos principales";
+"places-title" = "Lugares";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Foto del día del $1";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
@@ -365,6 +368,8 @@
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-preview-changes" = "Generando previsualización de tus cambios…";
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
+"wikitext-preview-link-preview-description" = "Este enlace lleva a \"$1\"";
+"wikitext-preview-link-preview-title" = "Previsualización de enlace";
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";

@@ -98,8 +98,10 @@
 "empty-no-saved-pages-title" = "এখনও সংরক্ষিত পাতা নেই";
 "empty-no-search-results-message" = "কোন ফলাফল পাওয়া যায়নি";
 "explore-another-random" = "অন্যান্য অজানা যে কোন নিবন্ধ";
+"explore-because-you-read" = "কারণ আপনি পড়েছেন";
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "explore-featured-article-heading" = "নির্বাচিত নিবন্ধ";
+"explore-main-page-description" = "উইকিমিডিয়া প্রকল্পের প্রধান পাতা";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
 "explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
