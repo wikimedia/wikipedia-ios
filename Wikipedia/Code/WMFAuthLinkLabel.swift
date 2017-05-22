@@ -10,7 +10,7 @@ struct WMFAuthLinkLabelStrings {
 class WMFAuthLinkLabel: UILabel {
     override open func awakeFromNib() {
         super.awakeFromNib()
-        textColor = UIColor.wmf_blueTint
+        textColor = UIColor.wmf_blue
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
@@ -50,7 +50,7 @@ class WMFAuthLinkLabel: UILabel {
             dollarSignStringAttributes[NSFontAttributeName] = subheadlineFont
         }
 
-        var substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.wmf_blueTint]
+        var substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.wmf_blue]
         if let boldSubheadlineFont = boldSubheadlineFont {
             substitutionStringAttributes[NSFontAttributeName] = boldSubheadlineFont
         }
