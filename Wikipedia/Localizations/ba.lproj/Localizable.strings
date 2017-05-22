@@ -215,7 +215,7 @@
 "welcome-languages-sub-title" = "Википедияла эҙләү башҡарырға теләгән  телдәрҙе һайлағыҙ";
 "welcome-languages-title" = "Телдәр";
 "welcome-volunteer-send-usage-reports" = "Файҙаланыу тураһында отчет ебәрергә";
-"welcome-volunteer-thanks" = "Рәхмәт!";
+"welcome-volunteer-thanks" = "$1 Рәхмәт!";
 "wikitext-download-failed" = "Һуңғы версияны алып булмай";
 "wikitext-download-success" = "Булған нәмә күсерелгән";
 "wikitext-downloading" = "Булғанды күсереү";

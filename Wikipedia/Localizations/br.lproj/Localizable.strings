@@ -5,6 +5,7 @@
 // Author: Gwenn-Ael
 // Author: JoeWalshWMF
 // Author: Macofe
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Y-M D
 
@@ -259,6 +260,7 @@
 "places-search-top-articles" = "An holl bennadoù gwellañ";
 "places-unknown-distance" = "Keit dianav";
 "potd-description-prefix" = "Skeudenn an deiz evit $1";
+// Fuzzy
 "potd-empty-error-description" = "N'eus ket bet gallet adtapout skeudenn an deiz evit an";
 "preference-summary-eventlogging-opt-in" = "Aotren Diazezadur Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "preference-title-eventlogging-opt-in" = "Kas danevelloù implij";

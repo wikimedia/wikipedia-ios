@@ -10,6 +10,7 @@
 // Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Platinawolf
 // Author: Rockyfelle
@@ -368,7 +369,7 @@
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Logga in";
-"wikitext-upload-save-terms-and-license" = "Genom att publicera samtycker du till $1 och att oåterkalleligen släppa dina bidrag under licensen $1.";
+"wikitext-upload-save-terms-and-license" = "Genom att publicera samtycker du till $1 och att oåterkalleligen släppa dina bidrag under licensen $2.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";

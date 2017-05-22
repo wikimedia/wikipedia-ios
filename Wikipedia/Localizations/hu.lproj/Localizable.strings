@@ -8,6 +8,7 @@
 // Author: Notramo
 // Author: R-Joe
 // Author: Tacsipacsi
+// Author: Urbalazs
 
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom egy $1 alatt érhető el.";
@@ -95,8 +96,10 @@
 "empty-no-saved-pages-title" = "Még nincsenek mentett lapok";
 "empty-no-search-results-message" = "Nincs találat";
 "explore-another-random" = "Másik cikk találomra";
+"explore-because-you-read" = "Mert ezt olvastad";
 "explore-continue-reading-heading" = "Olvasás folytatása";
 "explore-featured-article-heading" = "Kiemelt szócikk";
+"explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
 "explore-most-read-generic-heading" = "Legolvasottabb";
@@ -251,12 +254,14 @@
 "places-filter-top-articles" = "Legolvasottabb";
 "places-filter-top-articles-count" = "$1 szócikk";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
+"places-search-articles-that-match" = "$1 találat erre: „$2”";
 "places-search-default-text" = "Keresés";
 "places-search-recently-searched-header" = "Legutóbbi keresések";
 "places-search-saved-articles" = "Minden mentett szócikk";
 "places-search-suggested-searches-header" = "Javasolt keresések";
 "places-search-this-area" = "Találatok ezen a területen";
 "places-search-top-articles" = "Az összes legolvasottabb szócikk";
+"places-title" = "Helyek";
 "places-unknown-distance" = "ismeretlen távolság";
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
@@ -353,6 +358,8 @@
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-changes-none" = "Nem történt megjeleníthető változtatás.";
+"wikitext-preview-link-preview-description" = "A hivatkozás ide mutat: „$1”";
+"wikitext-preview-link-preview-title" = "Hivatkozás előnézete";
 "wikitext-upload-captcha-error" = "CAPTCHA ellenőrzési hiba.";
 "wikitext-upload-captcha-needed" = "CAPTCHA ellenőrzés szükséges.";
 "wikitext-upload-result-unknown" = "A wikiszöveg-feltöltés eredményének meghatározása sikertelen.";
