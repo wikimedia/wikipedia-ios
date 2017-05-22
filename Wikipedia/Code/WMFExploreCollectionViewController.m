@@ -1402,6 +1402,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
+            if (indexPath.length > 2) {
+                WMFFeedNewsStory *story = stories[indexPath.item];
+                NSInteger articleIndex = [indexPath indexAtPosition:2];
+                if (articleIndex < story.articlePreviews.count) {
+                    WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
+                    NSURL *articleURL = preview.articleURL;
+                    if (articleURL) {
+                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                    }
+                }
+            }
             WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:group.date];
             return vc;
         } break;
@@ -1531,7 +1542,27 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
+    previewingContext.sourceRect = cell.frame;
+
+    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
+        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
+        CGPoint pointInCellCoordinates = [self.collectionView convertPoint:location toView:newsCell];
+        CGRect collectionViewFrame = newsCell.collectionView.frame;
+        if (CGRectContainsPoint(collectionViewFrame, pointInCellCoordinates)) {
+            CGPoint pointInCollectionViewCoordinates = [cell convertPoint:pointInCellCoordinates toView:newsCell.collectionView];
+            NSIndexPath *indexPath = [newsCell.collectionView indexPathForItemAtPoint:pointInCollectionViewCoordinates];
+            if (indexPath) {
+                UICollectionViewCell *cell = [newsCell.collectionView cellForItemAtIndexPath:indexPath];
+                if (cell) {
+                    CGRect sourceRect = [cell convertRect:cell.bounds toView:self.collectionView];
+                    previewingContext.sourceRect = sourceRect;
+                    NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, indexPath.item};
+                    previewIndexPath = [NSIndexPath indexPathWithIndexes:indexes length:3];
+                }
+            }
+        }
+    }
 
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
