@@ -84,8 +84,10 @@
 "empty-no-saved-pages-title" = "Can aya kaca nu disimpen";
 "empty-no-search-results-message" = "Taya hasil nu kapanggih";
 "explore-another-random" = "Artikel acak lianna";
+"explore-because-you-read" = "Lantaran anjeun maca";
 "explore-continue-reading-heading" = "Teruskeun Maca";
 "explore-featured-article-heading" = "Artikel petingan";
+"explore-main-page-description" = "Tepas proyék Wikimédia";
 "explore-main-page-heading" = "Poé ieu na Wikipédia";
 "explore-most-read-footer-for-date" = "Sakumna artikel bacaan pangluhurna di $1";
 "explore-most-read-generic-heading" = "Bacaan pangluhurna";
@@ -166,8 +168,7 @@
 "in-the-news-title" = "Dina warta";
 "in-the-news-title-for-date" = "Warta na $1";
 "info-box-close-text" = "Tutup";
-// Fuzzy
-"info-box-title" = "Fakta singget";
+"info-box-title" = "Fakta Singget";
 "languages-title" = "Robah basa";
 "license-footer-name" = "CC BY-SA 3.0";
 "login-forgot-password" = "Poho kecap sandi?";
@@ -228,25 +229,21 @@
 "places-enable-location-title" = "Langlang artikel sabudeureun lokasi anjeun ku cara ngahirupan Aksés Lokasi";
 "places-filter-list-title" = "Filter pamaluruhan";
 "places-filter-saved-articles" = "Artikel kasimpen";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 tempat kapanggih";
-// Fuzzy
-"places-filter-top-articles" = "Artikel pangluhurna";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 artikel";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 tempat|$1 tempat}} kapanggih";
+"places-filter-top-articles" = "Bacaan pangluhurna";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Taya pisan artikel kasimpeb anjeun nu mibanda info lokasi";
 "places-search-articles-that-match" = "$1 cocog jeung “$2”";
-// Fuzzy
-"places-search-default-text" = "Paluruh artikel atawa lokasi";
+"places-search-default-text" = "Paluruh";
 "places-search-recently-searched-header" = "Pamaluruhan kiwari";
 "places-search-saved-articles" = "Sakur artikel kasimpen";
 "places-search-suggested-searches-header" = "Pamaluruhan nu disarankeun";
-// Fuzzy
-"places-search-this-area" = "Paluruh ieu aréa";
+"places-search-this-area" = "Hasil di ieu aréa";
 "places-search-top-articles" = "Sakur artikel pangluhurna";
 "places-unknown-distance" = "jarak teu dipikanyaho";
 "potd-description-prefix" = "Gambar poé ieu pikeun $1";
 "potd-empty-error-description" = "Gagal pikeun nampa gambar poé ieu dina $1";
+"preference-summary-eventlogging-opt-in" = "Heugbaékeun Wikimédia pikeun ngumpulkeun info ngeunaan cara anjeun migunakeun aplikasi nu leuwih hadé";
 "preference-title-eventlogging-opt-in" = "Kirim laporan pamakéan";
 "rank-accessibility-label" = "Réngking $1";
 "readers-accessibility-label" = "$1 pamaca";

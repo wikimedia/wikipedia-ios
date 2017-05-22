@@ -12,8 +12,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d tempat kapanggih</string>
 			<key>other</key>
-			<string>tinemu %1$d papan</string>
+			<string>%1$d tempat kapanggih</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -26,6 +28,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
 			<key>other</key>
 			<string>%1$d artikel</string>
 		</dict>

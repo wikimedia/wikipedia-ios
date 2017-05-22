@@ -3,7 +3,7 @@
 // Author: Robin Owain
 
 "account-creation-create-account" = "Creer y cyfrif";
-"account-creation-have-account" = "Gyda chyfrif? Mewngofnodwch";
+"account-creation-have-account" = "Oes gen ti gyfrif? $1";
 "account-creation-log-in" = "Mewngofnodi";
 "action-read" = "Darllen";
 "action-save" = "Cadw";

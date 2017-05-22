@@ -103,8 +103,10 @@
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
 "explore-another-random" = "其他隨機條目";
+"explore-because-you-read" = "因為您閱讀";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-featured-article-heading" = "特色條目";
+"explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer-for-date" = "所有在 $1 上閱讀最多的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
@@ -266,6 +268,7 @@
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-this-area" = "此區域的結果";
 "places-search-top-articles" = "所有熱門條目";
+"places-title" = "地點";
 "places-unknown-distance" = "未知距離";
 "potd-description-prefix" = "$1 的每日圖片";
 "potd-empty-error-description" = "抓取 $1 的每日圖片失敗";
@@ -363,6 +366,8 @@
 "wikitext-downloading" = "讀取內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";
+"wikitext-preview-link-preview-description" = "此連結引至「$1」";
+"wikitext-preview-link-preview-title" = "連結預覽";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";

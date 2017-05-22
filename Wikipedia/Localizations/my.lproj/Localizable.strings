@@ -1,6 +1,7 @@
 // Messages for Burmese (မြန်မာဘာသာ)
 // Exported from translatewiki.net
 // Author: Dr Lotus Black
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Ninjastrikers
 
@@ -68,6 +69,7 @@
 "explore-nearby-placeholder-cancel" = "မလုပ်တော့ပါ";
 "explore-nearby-placeholder-dismiss" = "ဖြုတ်ရန်";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "$1 ဝီကီပီးဒီးယား";
 "explore-nearby-sub-heading-your-location" = "သင့်တည်နေရာ";
 "explore-potd-heading" = "ယနေ့အတွက် ဓာတ်ပုံ";
