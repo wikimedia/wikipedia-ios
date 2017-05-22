@@ -21,10 +21,54 @@ class NewsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .wmf_settingsBackground
-        collectionView?.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
-        collectionView?.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
+        guard let collectionView = collectionView else {
+            return
+        }
+        collectionView.backgroundColor = .wmf_settingsBackground
+        collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
+        collectionView.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForPreviewingIfAvailable()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        unregisterForPreviewing()
+    }
+    
+    // MARK - 3D Touch
+    
+    var previewingContext: UIViewControllerPreviewing?
+
+    
+    func unregisterForPreviewing() {
+        guard let context = previewingContext else {
+            return
+        }
+        unregisterForPreviewing(withContext: context)
+    }
+    
+    func registerForPreviewingIfAvailable() {
+        wmf_ifForceTouchAvailable({
+            self.unregisterForPreviewing()
+            guard let collectionView = self.collectionView else {
+                return
+            }
+            self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
+        }, unavailable: {
+            self.unregisterForPreviewing()
+        })
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.registerForPreviewingIfAvailable()
+    }
+    
+    // MARK - UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return stories.count
