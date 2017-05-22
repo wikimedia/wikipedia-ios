@@ -41,7 +41,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePageList,
     WMFFeedMoreTypePageListWithPreview,
     WMFFeedMoreTypePageListWithLocation,
-    WMFFeedMoreTypeLocationAuthorization
+    WMFFeedMoreTypeLocationAuthorization,
+    WMFFeedMoreTypeNews
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {

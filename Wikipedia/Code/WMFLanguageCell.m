@@ -31,7 +31,7 @@
         self.localizedLanguageLabel.text = nil;
     }
     _languageName = languageName;
-    self.languageNameLabel.text = [languageName wmf_stringByCapitalizingFirstCharacter];
+    self.languageNameLabel.text = [languageName wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:nil];
 }
 
 - (BOOL)shouldShowLanguageName:(NSString *)languageName {

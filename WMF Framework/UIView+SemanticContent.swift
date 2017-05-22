@@ -26,6 +26,10 @@ extension UIView {
         let size = CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude)
         return self.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
     }
+    
+    public func wmf_preferredHeight(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
+        return wmf_preferredFrame(at: point, fitting: availableWidth, alignedBy: semanticContentAttribute, apply: apply).layoutHeight(with: spacing)
+    }
 }
 
 extension UILabel {

@@ -6,11 +6,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFFeedNewsStory : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, strong, nullable, readonly) NSString *storyHTML;
+@property (nonatomic, copy, nullable, readonly) NSString *storyHTML;
 
-@property (nullable, nonatomic, strong, readwrite) WMFFeedArticlePreview *featuredArticlePreview;
+@property (nullable, nonatomic, copy, readwrite) WMFFeedArticlePreview *featuredArticlePreview;
 
-@property (nullable, nonatomic, strong, readonly) NSArray<WMFFeedArticlePreview *> *articlePreviews;
+@property (nullable, nonatomic, copy, readonly) NSArray<WMFFeedArticlePreview *> *articlePreviews;
+
+@property (nullable, nonatomic, copy, readonly) NSDate *midnightUTCMonthAndDay; // Year on this date is invalid
+
++ (nullable NSString *)semanticFeaturedArticleTitleFromStoryHTML:(NSString *)storyHTML siteURL:(NSURL *)siteURL;
 
 @end
 

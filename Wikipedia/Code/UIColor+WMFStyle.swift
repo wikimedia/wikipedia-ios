@@ -3,6 +3,7 @@ public extension UIColor {
 
     public static let wmf_lightGray: UIColor = .wmf_color(withHex: 0xdddddd, alpha: 1.0)
     public static let wmf_lightGrayCellBackground: UIColor = .wmf_color(withHex: 0xf8f9fa, alpha: 1.0)
+    public static let wmf_newsArticleCellShadow: UIColor = .wmf_color(withHex: 0xc8ccd1, alpha: 1.0)
     public static let wmf_placeholderLightGray: UIColor = .wmf_color(withHex: 0xf8f8f8, alpha: 1.0)
     public static let wmf_placeholderImageTint: UIColor = .wmf_color(withHex: 0xb2b2b2, alpha: 1.0)
     public static let wmf_placeholderImageBackground: UIColor = .wmf_color(withHex: 0xf4f4f4, alpha: 1.0)

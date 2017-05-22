@@ -297,8 +297,6 @@
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
         }
 
-        assert(section.headers.count == 1);
-
         sectionHeight += headerHeight;
         y += headerHeight;
 
@@ -358,8 +356,6 @@
         if (didCreateOrUpdate) {
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         }
-
-        assert(section.footers.count == 1);
 
         sectionHeight += footerHeight;
 
