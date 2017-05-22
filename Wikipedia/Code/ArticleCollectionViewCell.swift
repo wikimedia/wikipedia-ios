@@ -87,7 +87,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     // MARK - Semantic content
     
-    open var articleSemanticContentAttribute: UISemanticContentAttribute = .forceLeftToRight {
+    open var articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified {
         didSet {
             titleLabel.semanticContentAttribute = articleSemanticContentAttribute
             descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
