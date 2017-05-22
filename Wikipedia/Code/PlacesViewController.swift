@@ -604,6 +604,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         redoSearchButton.isHidden = true
         deselectAllAnnotations()
         updateSavedPlacesCountInCurrentMapRegionIfNecessary()
+        hideDidYouMeanButton()
         
         let siteURL = self.siteURL
         var searchTerm: String? = nil
