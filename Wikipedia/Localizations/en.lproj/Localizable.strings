@@ -83,6 +83,7 @@
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
+"error-unknown" = "An unknown error occurred";
 "explore-another-random" = "Another random article";
 "explore-because-you-read" = "Because you read";
 "explore-continue-reading-heading" = "Continue reading";
@@ -246,6 +247,7 @@
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search";
+"places-search-did-you-mean" = "Did you mean $1?";
 "places-search-recently-searched-header" = "Recently searched";
 "places-search-saved-articles" = "All saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
