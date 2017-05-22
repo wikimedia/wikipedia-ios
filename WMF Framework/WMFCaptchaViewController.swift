@@ -197,8 +197,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
         
-        infoButton.tintColor = .wmf_blueTint
-        refreshButton.tintColor = .wmf_blueTint
+        infoButton.tintColor = .wmf_blue
+        refreshButton.tintColor = .wmf_blue
 
         view.wmf_configureSubviewsForDynamicType()
     }

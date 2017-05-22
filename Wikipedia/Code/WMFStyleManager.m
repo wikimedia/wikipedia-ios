@@ -21,7 +21,7 @@ static WMFStyleManager *_styleManager = nil;
     [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
 
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.305 green:0.305 blue:0.296 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor wmf_navigationGray]];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setTranslucent:NO];
 
@@ -33,8 +33,8 @@ static WMFStyleManager *_styleManager = nil;
     [[UITabBarItem appearance] setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected]
                                              forState:UIControlStateSelected];
 
-    [[UITabBar appearance] setTintColor:[UIColor wmf_blueTint]];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:[UIColor wmf_blueTint]];
+    [[UITabBar appearance] setTintColor:[UIColor wmf_blue]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:[UIColor wmf_blue]];
 
     [[UISwitch appearance] setOnTintColor:[UIColor wmf_green]];
 }

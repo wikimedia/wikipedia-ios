@@ -5,10 +5,6 @@
 #import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 
-#define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
-
-//#import "NSString+WMFExtras.h"
-
 @interface PreviewLicenseView ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
@@ -79,7 +75,7 @@
     NSDictionary *linkAttributes =
         @{
            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
+           NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
     label.attributedText =
@@ -105,7 +101,7 @@
     NSDictionary *substitutionAttributes =
         @{
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
+            NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
     label.attributedText =
@@ -118,7 +114,7 @@
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
-                                               NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR,
+                                               NSForegroundColorAttributeName: [UIColor wmf_blue],
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];
 }
