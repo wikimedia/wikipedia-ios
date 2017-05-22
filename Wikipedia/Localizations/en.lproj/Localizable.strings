@@ -157,6 +157,7 @@
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-location-footer" = "More nearby $1";
+"home-news-footer" = "More in the news";
 "home-title" = "Explore";
 "home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "icon-shortcut-continue-reading-title" = "Continue reading";
@@ -223,6 +224,7 @@
 "page-protected-sysop" = "This page has been fully protected.";
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-similar-titles" = "Similar pages";
+"pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-close-search" = "Close search";
 "places-accessibility-group" = "$1 articles";

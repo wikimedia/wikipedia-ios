@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)wmf_stringByReplacingApostrophesWithBackslashApostrophes;
 
-- (NSString *)wmf_stringByCapitalizingFirstCharacter;
+- (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage; //Language is the string `en` in `en.wikipedia.org` or `de` in `de.wikipedia.org`. nil will use the current locale
 
 - (BOOL)wmf_containsString:(NSString *)string;
 

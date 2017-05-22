@@ -110,7 +110,7 @@
 - (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticle *entry = [self objectAtIndexPath:indexPath];
     cell.titleText = entry.displayTitle;
-    cell.descriptionText = [entry.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = entry.capitalizedWikidataDescription;
     [cell setImageURL:entry.thumbnailURL];
 }
 

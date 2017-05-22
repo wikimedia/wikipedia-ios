@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = self.articleURLs[indexPath.row];
     WMFArticle *preview = [self.userDataStore fetchArticleWithURL:url];
     cell.titleText = preview.displayTitle;
-    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = preview.capitalizedWikidataDescription;
     [cell setImageURL:preview.thumbnailURL];
     return cell;
 }
@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = self.articleURLs[indexPath.row];
     WMFArticle *preview = [self.userDataStore fetchArticleWithURL:url];
     cell.titleText = preview.displayTitle;
-    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = preview.capitalizedWikidataDescription;
     cell.snippetText = preview.snippet;
     [cell setImageURL:preview.thumbnailURL];
     cell.saveButtonController.analyticsContext = [self analyticsContext];
@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = self.articleURLs[indexPath.row];
     WMFArticle *preview = [self.userDataStore fetchArticleWithURL:url];
     cell.titleText = preview.displayTitle;
-    cell.descriptionText = [preview.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = preview.capitalizedWikidataDescription;
     [cell setImageURL:preview.thumbnailURL];
     [self updateLocationCell:cell location:preview.location];
 

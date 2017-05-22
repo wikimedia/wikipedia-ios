@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
 
-- (void)showInTheNewsForStory:(WMFFeedNewsStory *)story date:(nullable NSDate *)date animated:(BOOL)animated;
+- (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated;
 
 - (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated;
 

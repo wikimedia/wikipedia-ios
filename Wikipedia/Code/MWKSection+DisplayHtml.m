@@ -59,7 +59,7 @@
     if (self.article.entityDescription.length == 0) {
         return @"";
     } else {
-        return [NSString stringWithFormat:@"<p id='entity_description'>%@</p>", [self.article.entityDescription wmf_stringByCapitalizingFirstCharacter]];
+        return [NSString stringWithFormat:@"<p id='entity_description'>%@</p>", [self.article.entityDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.article.url.wmf_language]];
     }
 }
 

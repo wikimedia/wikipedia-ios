@@ -16,16 +16,16 @@ public extension ArticleCollectionViewCell {
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
             }
         } else {
             isImageViewHidden = true
         }
-        
+        let articleLanguage = (article.url as NSURL?)?.wmf_language
         titleLabel.text = article.displayTitle
         isSaveButtonHidden = isSaveButtonHidden(for: displayType)
         if displayType == .pageWithPreview {
-            descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
+            descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
             imageViewHeight = 196
             backgroundColor = .white
@@ -33,14 +33,13 @@ public extension ArticleCollectionViewCell {
             if displayType == .mainPage {
                 descriptionLabel.text = article.wikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             } else {
-                descriptionLabel.text = article.wikidataDescriptionOrSnippet?.wmf_stringByCapitalizingFirstCharacter()
+                descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             }
             backgroundColor = backgroundColor(for: displayType)
             extractLabel?.text = nil
             imageViewHeight = 150
         }
         
-        let articleLanguage = (article.url as NSURL?)?.wmf_language
         titleLabel.accessibilityLanguage = articleLanguage
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
