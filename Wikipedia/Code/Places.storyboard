@@ -88,7 +88,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="aLG-tT-Aqp"/>
+                                    <action selector="didYouMean:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="cuq-C2-kl4"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
@@ -118,7 +118,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="didYouMean:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="PYS-Ru-hai"/>
                                     <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
                                 </connections>
                             </button>
