@@ -852,7 +852,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     @IBAction func didYouMean(_ sender: Any) {
+        defer {
+            hideDidYouMeanButton()
+        }
         
+        guard let search = self.didYouMeanSearch else {
+            DDLogError("Did You Mean search is unset")
+            return
+        }
+        
+        performSearch(search)
     }
     
     // MARK: - Display Actions
