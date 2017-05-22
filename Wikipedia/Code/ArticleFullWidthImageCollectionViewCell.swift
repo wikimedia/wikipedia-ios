@@ -48,7 +48,6 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             origin.y += saveButtonTopSpacing
             let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += saveButtonFrame.layoutHeight(with: spacing)
-            origin.y += spacing
         }
         
         origin.y += margins.bottom
