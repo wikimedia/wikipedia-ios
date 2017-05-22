@@ -21,10 +21,54 @@ class NewsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .wmf_settingsBackground
-        collectionView?.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
-        collectionView?.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
+        guard let collectionView = collectionView else {
+            return
+        }
+        collectionView.backgroundColor = .wmf_settingsBackground
+        collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
+        collectionView.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForPreviewingIfAvailable()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        unregisterForPreviewing()
+    }
+    
+    // MARK - 3D Touch
+    
+    var previewingContext: UIViewControllerPreviewing?
+
+    
+    func unregisterForPreviewing() {
+        guard let context = previewingContext else {
+            return
+        }
+        unregisterForPreviewing(withContext: context)
+    }
+    
+    func registerForPreviewingIfAvailable() {
+        wmf_ifForceTouchAvailable({
+            self.unregisterForPreviewing()
+            guard let collectionView = self.collectionView else {
+                return
+            }
+            self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
+        }, unavailable: {
+            self.unregisterForPreviewing()
+        })
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.registerForPreviewingIfAvailable()
+    }
+    
+    // MARK - UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return stories.count
@@ -110,5 +154,34 @@ extension NewsViewController: WMFColumnarCollectionViewLayoutDelegate {
 extension NewsViewController: NewsCollectionViewCellDelegate {
     func newsCollectionViewCell(_ newsCollectionViewCell: NewsCollectionViewCell, didSelectNewsArticleWithURL articleURL: URL) {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
+    }
+}
+
+extension NewsViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let collectionView = collectionView,
+            let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
+            return nil
+        }
+        
+        let pointInCellCoordinates =  collectionView.convert(location, to: cell)
+        let index = cell.subItemIndex(at: pointInCellCoordinates)
+        guard index != NSNotFound, let view = cell.viewForSubItem(at: index) else {
+            return nil
+        }
+        
+        let story = stories[indexPath.section]
+        guard let previews = story.articlePreviews, index < previews.count else {
+            return nil
+        }
+        
+        previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
+        let article = previews[index]
+        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
     }
 }
