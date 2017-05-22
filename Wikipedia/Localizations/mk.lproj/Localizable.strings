@@ -92,8 +92,10 @@
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
 "explore-another-random" = "Друга случајна статија";
+"explore-because-you-read" = "Бидејќи читавте";
 "explore-continue-reading-heading" = "Продолжете со читање";
 "explore-featured-article-heading" = "Избрани статии";
+"explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-most-read-footer-for-date" = "Сите најчитани статии на $1";
 "explore-most-read-generic-heading" = "Најчитани";
@@ -255,6 +257,7 @@
 "places-search-suggested-searches-header" = "Предложени пребарувања";
 "places-search-this-area" = "Исход од подрачјево";
 "places-search-top-articles" = "Сите најчитани статии";
+"places-title" = "Места";
 "places-unknown-distance" = "непозната оддалеченост";
 "potd-description-prefix" = "Слика на денот за $1";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
@@ -352,6 +355,8 @@
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";
+"wikitext-preview-link-preview-description" = "Врскава води кон „$1“";
+"wikitext-preview-link-preview-title" = "Преглед на врската";
 "wikitext-upload-captcha-error" = "Грешка при проверката со сликичка.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со сликичка.";
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";

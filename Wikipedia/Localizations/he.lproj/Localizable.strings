@@ -6,6 +6,7 @@
 // Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Or
 // Author: YaronSh
@@ -19,7 +20,7 @@
 "about-libraries" = "ספריות בשימוש";
 "about-libraries-complete-list" = "רשימה מלאה";
 "about-libraries-license" = "רישיון";
-"about-libraries-licenses-title" = "אנחנו אוהבים תכנת קוד פתוח";
+"about-libraries-licenses-title" = "אנחנו אוהבים תכנת קוד פתוח $1";
 "about-product-of" = "נוצר על־ידי $1 בעזרת מתנדבים כמוך";
 "about-repositories" = "מאגרים";
 "about-repositories-app-source-license" = "קוד המקור זמין לפי תנאי $1.";
@@ -98,8 +99,10 @@
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
 "explore-another-random" = "ערך אקראי נוסף";
+"explore-because-you-read" = "כי קראת";
 "explore-continue-reading-heading" = "המשך קריאה";
 "explore-featured-article-heading" = "ערך מומלץ";
+"explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
 "explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
 "explore-most-read-generic-heading" = "הערכים הנקראים ביותר";

@@ -197,10 +197,10 @@
                 if ([localizedString containsString:@"{{"]) {
                     NSString *lowercaseString = localizedString.lowercaseString;
                     if ([lowercaseString containsString:@"{{plural:$"]) {
-                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
-                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string %@ in %@ with PLURAL: needs an entry in the corresponding stringsdict file. This likely means that this language's Localizable.stringsdict hasn't been added to the project yet.", key, lprojFileName);
+                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"%@ in %@ has more than one plural substitution. Only one plural per translation is supported at this time. You can add support for multiple plurals in scripts/localizations.swift.", key, lprojFileName);
                     } else if (![lowercaseString containsString:@"{{formatnum:$"]) {
-                        XCTAssertTrue(false, @"Unsupported {{ }} in localization");
+                        XCTAssertTrue(false, @"%@ in %@ has unsupported {{ }} in localization.", key, lprojFileName);
                     }
                 }
             }
@@ -226,28 +226,34 @@
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }
                 }
-                
+
                 NSMutableDictionary *localizedTokens = [NSMutableDictionary new];
                 NSRegularExpression *tokenRegex = [TWNStringsTests iOSTokenRegex];
-                [tokenRegex enumerateMatchesInString:localizedString options:0 range:NSMakeRange(0, localizedString.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-                    NSString *key = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$1"];
-                    NSString *value = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$2"];
-                    localizedTokens[key] = value;
-                }];
-                
+                [tokenRegex enumerateMatchesInString:localizedString
+                                             options:0
+                                               range:NSMakeRange(0, localizedString.length)
+                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                              NSString *key = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$1"];
+                                              NSString *value = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$2"];
+                                              localizedTokens[key] = value;
+                                          }];
+
                 NSString *enString = enStrings[key];
                 NSMutableDictionary *enTokens = enTokensByKey[key];
                 if (!enTokens) {
                     enTokens = [NSMutableDictionary new];
-   
-                    [tokenRegex enumerateMatchesInString:enString options:0 range:NSMakeRange(0, enString.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-                        NSString *key = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$1"];
-                        NSString *value = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$2"];
-                        enTokens[key] = value;
-                    }];
+
+                    [tokenRegex enumerateMatchesInString:enString
+                                                 options:0
+                                                   range:NSMakeRange(0, enString.length)
+                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                  NSString *key = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$1"];
+                                                  NSString *value = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$2"];
+                                                  enTokens[key] = value;
+                                              }];
                     enTokensByKey[key] = enTokens;
                 }
-                
+
                 XCTAssertEqualObjects(localizedTokens, enTokens, @"%@ translation for %@ has incorrect tokens:\n%@\n%@", lprojFileName, key, enString, localizedString);
             }
         }

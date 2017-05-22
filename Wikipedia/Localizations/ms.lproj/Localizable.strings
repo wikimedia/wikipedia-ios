@@ -93,8 +93,10 @@
 "empty-no-saved-pages-title" = "Tiada halaman tersimpan";
 "empty-no-search-results-message" = "Tiada hasil carian";
 "explore-another-random" = "Rencana sembarang lainnya";
+"explore-because-you-read" = "Kerana anda membaca";
 "explore-continue-reading-heading" = "Teruskan membaca";
 "explore-featured-article-heading" = "Rencana pilihan";
+"explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
 "explore-most-read-footer-for-date" = "Semua rencana bacaan teratas pada $1";
 "explore-most-read-generic-heading" = "Bacaan teratas";
