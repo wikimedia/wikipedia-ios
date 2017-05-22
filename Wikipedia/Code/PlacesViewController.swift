@@ -671,15 +671,20 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 defer { done() }
                 
                 guard result.error == nil else {
-                    WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                    
-                    let error: Error = result.error!
-                    let nserror = error as NSError
-                    if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
-                        let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                        if (completions.count > 0) {
-                            self.showDidYouMeanButton(search: completions[0])
+                    if let error = result.error {
+                        WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        
+                        let nserror = error as NSError
+                        if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
+                            let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
+                            if (completions.count > 0) {
+                                self.showDidYouMeanButton(search: completions[0])
+                            }
                         }
+                    } else {
+                        WMFAlertManager.sharedInstance.showWarningAlert(
+                            WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
+                            , sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     }
                     return
                 }
