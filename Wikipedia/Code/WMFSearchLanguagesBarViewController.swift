@@ -48,7 +48,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     override func viewDidLoad() {
         super.viewDidLoad()
         for button in languageButtons {
-            button.tintColor = .wmf_blueTint
+            button.tintColor = .wmf_blue
         }
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor.white), for: UIControlState())
         otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor(white: 0.9, alpha: 1.0)), for: .highlighted)

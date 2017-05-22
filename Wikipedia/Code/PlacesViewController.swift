@@ -88,11 +88,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }()
     
     // MARK: - View Lifecycle
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        title = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.tintColor = .wmf_blueTint
+        view.tintColor = .wmf_blue
         
         wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
@@ -136,7 +141,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapListToggle.setImage(list, forSegmentAt: 1)
         mapListToggle.selectedSegmentIndex = 0
         mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        mapListToggle.tintColor = .wmf_blueTint
+        mapListToggle.tintColor = .wmf_blue
         
         // Setup close search button
         closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
@@ -1972,7 +1977,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blueTint, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blue, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
@@ -2294,14 +2299,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
-        saveForLaterAction.backgroundColor = .wmf_darkBlueTint
+        saveForLaterAction.backgroundColor = .wmf_darkBlue
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)
         }
-        shareAction.backgroundColor = .wmf_blueTint
+        shareAction.backgroundColor = .wmf_blue
         return [saveForLaterAction, shareAction]
     }
     

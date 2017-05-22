@@ -36,7 +36,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.tintColor = [UIColor colorWithRed:0.3373 green:0.3373 blue:0.3373 alpha:1.0];
+        self.tintColor = [UIColor wmf_darkGray];
     }
     return self;
 }

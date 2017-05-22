@@ -264,7 +264,6 @@
 		B0E803CF1C0CDCAF0065EBC0 /* WMFSaveButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CE1C0CDCAF0065EBC0 /* WMFSaveButtonController.m */; };
 		B0E803D21C0CDCBF0065EBC0 /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
-		B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
 		B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */; };
 		B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
@@ -280,7 +279,6 @@
 		B0E804431C0CDF850065EBC0 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804301C0CDF850065EBC0 /* TabularScrollView.m */; };
 		B0E804461C0CDF850065EBC0 /* WikiGlyphLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804341C0CDF850065EBC0 /* WikiGlyphLabel.m */; };
-		B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */; };
 		B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
 		B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043E1C0CDF850065EBC0 /* WMFGradientView.m */; };
 		B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804401C0CDF850065EBC0 /* WMFPageCollectionViewController.m */; };
@@ -486,7 +484,6 @@
 		B34B0EE41EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
 		B34B0EE51EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
-		B384069E1E64D5C000DFC889 /* 640px-Shoso-in.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
 		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */; };
@@ -515,8 +512,6 @@
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
-		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
-		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
 		BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */; };
 		BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -526,47 +521,19 @@
 		BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */; };
 		BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */; };
 		BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */; };
-		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
-		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
-		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
-		BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */; };
 		BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */; };
 		BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */; };
-		BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */ = {isa = PBXBuildFile; fileRef = BC8210D61B4F048F0010BF7B /* Barack_Obama */; };
-		BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */; };
 		BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */; };
-		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
 		BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */ = {isa = PBXBuildFile; fileRef = BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */; };
-		BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */; };
 		BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */; };
 		BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */; };
-		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCC4D3551C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */; };
 		BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */; };
 		BCCB814B1C110A65008BC602 /* MWKImageInfoSerializationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB814A1C110A65008BC602 /* MWKImageInfoSerializationTest.m */; };
-		BCCB814D1C110A84008BC602 /* ImageInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BCCB814C1C110A84008BC602 /* ImageInfo.json */; };
-		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
-		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
-		BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE01B11CC5800231BB1 /* Obama.json */; };
-		BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE11B11CC5800231BB1 /* organization-anon.json */; };
-		BCCEC1251B1F68CF00A8B522 /* protection-empty.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE21B11CC5800231BB1 /* protection-empty.json */; };
-		BCCEC1261B1F68CF00A8B522 /* protection-obama.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE31B11CC5800231BB1 /* protection-obama.json */; };
-		BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE41B11CC5800231BB1 /* section0.json */; };
-		BCCEC1281B1F68CF00A8B522 /* section1-end.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE51B11CC5800231BB1 /* section1-end.json */; };
-		BCCEC1291B1F68CF00A8B522 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE61B11CC5800231BB1 /* TemplateIcon2x.png */; };
-		BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE71B11CC5800231BB1 /* test-notes.txt */; };
-		BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE81B11CC5800231BB1 /* user-anon.json */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */; };
-		BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE91B11CC5800231BB1 /* user-loggedin.json */; };
 		BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
-		BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */; };
-		BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */ = {isa = PBXBuildFile; fileRef = BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */; };
-		BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */ = {isa = PBXBuildFile; fileRef = BCF4553C1BCC73BB007C748A /* mobileview-preview.json */; };
-		BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BCF73DA61BD064AD000A13DB /* 4.1.7 */; };
-		BCF8DCA81B7009B100149C26 /* MobileView in Resources */ = {isa = PBXBuildFile; fileRef = BCF8DCA71B7009B100149C26 /* MobileView */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -628,9 +595,6 @@
 		D82014C31E686B9C00BA8579 /* SSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B81E686B9C00BA8579 /* SSSection.m */; };
 		D82014C41E686B9C00BA8579 /* SSSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
-		D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78C1DD0F11500806045 /* MCSFeed.json */; };
-		D820F78F1DD0F89700806045 /* PageViews.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F78E1DD0F89700806045 /* PageViews.json */; };
-		D820F7911DD1003900806045 /* MCSFeedTopReadNewsItem.json in Resources */ = {isa = PBXBuildFile; fileRef = D820F7901DD1003900806045 /* MCSFeedTopReadNewsItem.json */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
 		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
 		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
@@ -890,6 +854,7 @@
 		D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89845211ECB3F6C00849DA4 /* CGRect+Layout.swift */; };
+		D898452D1ECE29E000849DA4 /* TWNStringsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */; };
 		D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FB46A11E26BC6600F2620F /* QuadKey.swift */; };
 		D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
 		D89D44001D74D36100F7862E /* WMFArticlePreviewFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B06531611C221BC4003BD7DC /* WMFArticlePreviewFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -974,7 +939,6 @@
 		D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8A42A9F1E815A9C00D8E281 /* WMFSearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */; };
-		D8A42AA01E815A9C00D8E281 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
 		D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D8A42AA21E815A9C00D8E281 /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039B1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m */; };
 		D8A42AA31E815A9C00D8E281 /* MenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */; };
@@ -1094,7 +1058,6 @@
 		D8A42B171E815A9C00D8E281 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806FF1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m */; };
 		D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
-		D8A42B1B1E815A9C00D8E281 /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */; };
 		D8A42B1C1E815A9C00D8E281 /* WMFEmptySectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803111C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m */; };
 		D8A42B1E1E815A9C00D8E281 /* SSBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */; };
 		D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -1424,7 +1387,6 @@
 		D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8CE25281E698E2400DAE2E0 /* WMFSearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */; };
-		D8CE25291E698E2400DAE2E0 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
 		D8CE252A1E698E2400DAE2E0 /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039B1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m */; };
 		D8CE252B1E698E2400DAE2E0 /* MenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */; };
 		D8CE252C1E698E2400DAE2E0 /* WMFWelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WMFWelcomeAnimationExtensions.swift */; };
@@ -1540,7 +1502,6 @@
 		D8CE259D1E698E2400DAE2E0 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806FF1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m */; };
 		D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
-		D8CE25A11E698E2400DAE2E0 /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */; };
 		D8CE25A21E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803111C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m */; };
 		D8CE25A41E698E2400DAE2E0 /* SSBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */; };
 		D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -1897,7 +1858,6 @@
 		D8EC3E1D1E9BDA35006712EB /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */; };
 		D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */; };
 		D8EC3E1F1E9BDA35006712EB /* WMFSearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */; };
-		D8EC3E201E9BDA35006712EB /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
 		D8EC3E211E9BDA35006712EB /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039B1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m */; };
 		D8EC3E221E9BDA35006712EB /* MenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042C1C0CDF850065EBC0 /* MenuLabel.m */; };
 		D8EC3E231E9BDA35006712EB /* WMFWelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WMFWelcomeAnimationExtensions.swift */; };
@@ -2018,7 +1978,6 @@
 		D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
 		D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
-		D8EC3E9D1E9BDA35006712EB /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */; };
 		D8EC3E9E1E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803111C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m */; };
 		D8EC3EA01E9BDA35006712EB /* SSBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014AD1E686B9C00BA8579 /* SSBaseDataSource.m */; };
 		D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -2932,8 +2891,6 @@
 		B0E803DB1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+WMFEdgeToEdgeSeparator.m"; path = "Wikipedia/Code/UITableViewCell+WMFEdgeToEdgeSeparator.m"; sourceTree = SOURCE_ROOT; };
 		B0E803E41C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFStoryboardUtilities.h"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.h"; sourceTree = SOURCE_ROOT; };
 		B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFStoryboardUtilities.m"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.m"; sourceTree = SOURCE_ROOT; };
-		B0E803F81C0CDDBA0065EBC0 /* WMFUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFUnderlineButton.h; path = Wikipedia/Code/WMFUnderlineButton.h; sourceTree = SOURCE_ROOT; };
-		B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFUnderlineButton.m; path = Wikipedia/Code/WMFUnderlineButton.m; sourceTree = SOURCE_ROOT; };
 		B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AboutViewController.storyboard; path = Wikipedia/Code/AboutViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAccountCreationViewController.storyboard; path = Wikipedia/Code/WMFAccountCreationViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFCaptchaViewController.storyboard; path = Wikipedia/Code/WMFCaptchaViewController.storyboard; sourceTree = SOURCE_ROOT; };
@@ -2956,8 +2913,6 @@
 		B0E804301C0CDF850065EBC0 /* TabularScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabularScrollView.m; path = Wikipedia/Code/TabularScrollView.m; sourceTree = SOURCE_ROOT; };
 		B0E804331C0CDF850065EBC0 /* WikiGlyphLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiGlyphLabel.h; path = Wikipedia/Code/WikiGlyphLabel.h; sourceTree = SOURCE_ROOT; };
 		B0E804341C0CDF850065EBC0 /* WikiGlyphLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiGlyphLabel.m; path = Wikipedia/Code/WikiGlyphLabel.m; sourceTree = SOURCE_ROOT; };
-		B0E804351C0CDF850065EBC0 /* WMFBorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBorderButton.h; path = Wikipedia/Code/WMFBorderButton.h; sourceTree = SOURCE_ROOT; };
-		B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBorderButton.m; path = Wikipedia/Code/WMFBorderButton.m; sourceTree = SOURCE_ROOT; };
 		B0E804391C0CDF850065EBC0 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCollectionViewPageLayout.h; path = Wikipedia/Code/WMFCollectionViewPageLayout.h; sourceTree = SOURCE_ROOT; };
 		B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCollectionViewPageLayout.m; path = Wikipedia/Code/WMFCollectionViewPageLayout.m; sourceTree = SOURCE_ROOT; };
 		B0E8043D1C0CDF850065EBC0 /* WMFGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFGradientView.h; path = Wikipedia/Code/WMFGradientView.h; sourceTree = SOURCE_ROOT; };
@@ -3426,7 +3381,6 @@
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
 		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
-		B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-Shoso-in.jpg"; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
 		B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWKArticle+MKMapItem.swift"; sourceTree = "<group>"; };
@@ -3441,8 +3395,6 @@
 		BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMockLocationManager.m; path = WikipediaUnitTests/Code/WMFMockLocationManager.m; sourceTree = SOURCE_ROOT; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
 		BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKImage+CanonicalFilenames.m"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.m"; sourceTree = SOURCE_ROOT; };
-		BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetPrefixSearch.json; sourceTree = "<group>"; };
-		BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetFullTextSearch.json; sourceTree = "<group>"; };
 		BC23E4DB1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleRevisionFetcher.h; path = Wikipedia/Code/WMFArticleRevisionFetcher.h; sourceTree = SOURCE_ROOT; };
 		BC23E4DC1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleRevisionFetcher.m; path = Wikipedia/Code/WMFArticleRevisionFetcher.m; sourceTree = SOURCE_ROOT; };
 		BC23E4E01C223FAE00B5AFDE /* WMFArticleRevision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleRevision.h; path = Wikipedia/Code/WMFArticleRevision.h; sourceTree = SOURCE_ROOT; };
@@ -3462,23 +3414,14 @@
 		BC45FF4C1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QueuesSingleton+AllManagers.h"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.h"; sourceTree = SOURCE_ROOT; };
 		BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QueuesSingleton+AllManagers.m"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.m"; sourceTree = SOURCE_ROOT; };
 		BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWNStringsTests.m; sourceTree = "<group>"; };
-		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
-		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
-		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
-		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC62AE601C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSProcessInfo+WMFTestEnvironment.h"; path = "WikipediaUnitTests/Code/NSProcessInfo+WMFTestEnvironment.h"; sourceTree = SOURCE_ROOT; };
 		BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSProcessInfo+WMFTestEnvironment.m"; path = "WikipediaUnitTests/Code/NSProcessInfo+WMFTestEnvironment.m"; sourceTree = SOURCE_ROOT; };
 		BC62FFBE1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImageInfoFetcher+PicOfTheDayInfo.h"; path = "Wikipedia/Code/MWKImageInfoFetcher+PicOfTheDayInfo.h"; sourceTree = SOURCE_ROOT; };
 		BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKImageInfoFetcher+PicOfTheDayInfo.m"; path = "Wikipedia/Code/MWKImageInfoFetcher+PicOfTheDayInfo.m"; sourceTree = SOURCE_ROOT; };
-		BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArticleWithoutImages.dataexport.json; sourceTree = "<group>"; };
-		BC8210D61B4F048F0010BF7B /* Barack_Obama */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Barack_Obama; sourceTree = "<group>"; };
 		BC8B4F1D1C77B29A009B06F7 /* LSNocilla+AnyRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+AnyRequest.h"; path = "WikipediaUnitTests/Code/LSNocilla+AnyRequest.h"; sourceTree = SOURCE_ROOT; };
-		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeLanguageViewControllerVisualTests.m; sourceTree = "<group>"; };
-		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
 		BC97FF081C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+WMFBatchRecordMode.h"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.h"; sourceTree = SOURCE_ROOT; };
 		BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+WMFBatchRecordMode.m"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.m"; sourceTree = SOURCE_ROOT; };
-		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
 		BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggingDefaults.swift; path = Wikipedia/Code/LoggingDefaults.swift; sourceTree = SOURCE_ROOT; };
 		BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScreen+WMFImageWidth.h"; path = "Wikipedia/Code/UIScreen+WMFImageWidth.h"; sourceTree = SOURCE_ROOT; };
 		BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+WMFImageWidth.m"; path = "Wikipedia/Code/UIScreen+WMFImageWidth.m"; sourceTree = SOURCE_ROOT; };
@@ -3490,12 +3433,10 @@
 		BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroConfiguration.m; path = ../Wikipedia/Code/WMFZeroConfiguration.m; sourceTree = "<group>"; };
 		BCB00EC21C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MTLValueTransformer+WMFColorTransformer.h"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.h"; sourceTree = SOURCE_ROOT; };
 		BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFColorTransformer.m"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.m"; sourceTree = SOURCE_ROOT; };
-		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitleTests.m"; path = "WikipediaUnitTests/Code/NSDate+WMFPOTDTitleTests.m"; sourceTree = SOURCE_ROOT; };
 		BCCB813B1C110702008BC602 /* NSDate+WMFPOTDTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFPOTDTitle.h"; path = "Wikipedia/Code/NSDate+WMFPOTDTitle.h"; sourceTree = SOURCE_ROOT; };
 		BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitle.m"; path = "Wikipedia/Code/NSDate+WMFPOTDTitle.m"; sourceTree = SOURCE_ROOT; };
 		BCCB814A1C110A65008BC602 /* MWKImageInfoSerializationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoSerializationTest.m; path = WikipediaUnitTests/Code/MWKImageInfoSerializationTest.m; sourceTree = SOURCE_ROOT; };
-		BCCB814C1C110A84008BC602 /* ImageInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ImageInfo.json; sourceTree = "<group>"; };
 		BCCFC44A1C84BAE0009D3613 /* CLLocation+WMFComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CLLocation+WMFComparison.h"; path = "Wikipedia/Code/CLLocation+WMFComparison.h"; sourceTree = SOURCE_ROOT; };
 		BCCFC44B1C84BAE0009D3613 /* CLLocation+WMFComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFComparison.m"; path = "Wikipedia/Code/CLLocation+WMFComparison.m"; sourceTree = SOURCE_ROOT; };
 		BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCalendar+WMFCommonCalendars.h"; path = "Wikipedia/Code/NSCalendar+WMFCommonCalendars.h"; sourceTree = SOURCE_ROOT; };
@@ -3504,27 +3445,10 @@
 		BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimeZone+WMFTestingUtils.m"; path = "WikipediaUnitTests/Code/NSTimeZone+WMFTestingUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCD3200B1C737E0000317D08 /* NSNumber+MWKTitleNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+MWKTitleNamespace.h"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.h"; sourceTree = SOURCE_ROOT; };
 		BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+MWKTitleNamespace.m"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.m"; sourceTree = SOURCE_ROOT; };
-		BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
-		BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainPageMobileView.json; sourceTree = "<group>"; };
-		BCD41DE01B11CC5800231BB1 /* Obama.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Obama.json; sourceTree = "<group>"; };
-		BCD41DE11B11CC5800231BB1 /* organization-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-anon.json"; sourceTree = "<group>"; };
-		BCD41DE21B11CC5800231BB1 /* protection-empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "protection-empty.json"; sourceTree = "<group>"; };
-		BCD41DE31B11CC5800231BB1 /* protection-obama.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "protection-obama.json"; sourceTree = "<group>"; };
-		BCD41DE41B11CC5800231BB1 /* section0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = section0.json; sourceTree = "<group>"; };
-		BCD41DE51B11CC5800231BB1 /* section1-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "section1-end.json"; sourceTree = "<group>"; };
-		BCD41DE61B11CC5800231BB1 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
-		BCD41DE71B11CC5800231BB1 /* test-notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-notes.txt"; sourceTree = "<group>"; };
-		BCD41DE81B11CC5800231BB1 /* user-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-anon.json"; sourceTree = "<group>"; };
-		BCD41DE91B11CC5800231BB1 /* user-loggedin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-loggedin.json"; sourceTree = "<group>"; };
 		BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTextualSaveButtonLayoutVisualTests.m; sourceTree = "<group>"; };
 		BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+VisualTestUtils.h"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.h"; sourceTree = SOURCE_ROOT; };
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
-		BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TitlePreviewQuery.json; sourceTree = "<group>"; };
-		BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ObamaImageElement.html; sourceTree = "<group>"; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
-		BCF4553C1BCC73BB007C748A /* mobileview-preview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "mobileview-preview.json"; sourceTree = "<group>"; };
-		BCF73DA61BD064AD000A13DB /* 4.1.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 4.1.7; sourceTree = "<group>"; };
-		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
 		BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleFetchIfNeededTests.m; sourceTree = "<group>"; };
 		BCFEEA461C286DD600CA2986 /* LSNocilla+Quick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+Quick.h"; path = "WikipediaUnitTests/Code/LSNocilla+Quick.h"; sourceTree = SOURCE_ROOT; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3788,9 +3712,6 @@
 		D82014B91E686B9C00BA8579 /* SSSectionedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSSectionedDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.h; sourceTree = SOURCE_ROOT; };
 		D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSSectionedDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.m; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D820F78C1DD0F11500806045 /* MCSFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MCSFeed.json; sourceTree = "<group>"; };
-		D820F78E1DD0F89700806045 /* PageViews.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PageViews.json; sourceTree = "<group>"; };
-		D820F7901DD1003900806045 /* MCSFeedTopReadNewsItem.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MCSFeedTopReadNewsItem.json; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
@@ -5845,12 +5766,8 @@
 		BC45D56C1C32E910007C72F3 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				B0E803F81C0CDDBA0065EBC0 /* WMFUnderlineButton.h */,
-				B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */,
 				B0E803CA1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.h */,
 				B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */,
-				B0E804351C0CDF850065EBC0 /* WMFBorderButton.h */,
-				B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */,
 				0E2927921CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.h */,
 				0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */,
 			);
@@ -6305,16 +6222,6 @@
 			path = "Wikipedia/Code/Article Cells";
 			sourceTree = SOURCE_ROOT;
 		};
-		BC5620A41B6BC3700013FFB0 /* mobileview */ = {
-			isa = PBXGroup;
-			children = (
-				BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */,
-				BCD41DE01B11CC5800231BB1 /* Obama.json */,
-				BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */,
-			);
-			name = mobileview;
-			sourceTree = "<group>";
-		};
 		BC5BC4941BCEA6D600062619 /* MWKList */ = {
 			isa = PBXGroup;
 			children = (
@@ -6456,7 +6363,6 @@
 			isa = PBXGroup;
 			children = (
 				BC7C3A381C0FF9620057F023 /* Code */,
-				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 			);
 			name = Tests;
@@ -6633,45 +6539,6 @@
 			);
 			name = POTD;
 			path = "../Picture of the Day";
-			sourceTree = "<group>";
-		};
-		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				BCF73DA61BD064AD000A13DB /* 4.1.7 */,
-				BCF8DCA71B7009B100149C26 /* MobileView */,
-				BC5620A41B6BC3700013FFB0 /* mobileview */,
-				BC8210D61B4F048F0010BF7B /* Barack_Obama */,
-				BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */,
-				B384069D1E64D5C000DFC889 /* 640px-Shoso-in.jpg */,
-				BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */,
-				BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */,
-				BCD41DE11B11CC5800231BB1 /* organization-anon.json */,
-				BCD41DE21B11CC5800231BB1 /* protection-empty.json */,
-				BCD41DE31B11CC5800231BB1 /* protection-obama.json */,
-				BCD41DE41B11CC5800231BB1 /* section0.json */,
-				BCD41DE51B11CC5800231BB1 /* section1-end.json */,
-				BCD41DE61B11CC5800231BB1 /* TemplateIcon2x.png */,
-				BCD41DE71B11CC5800231BB1 /* test-notes.txt */,
-				BCD41DE81B11CC5800231BB1 /* user-anon.json */,
-				BCD41DE91B11CC5800231BB1 /* user-loggedin.json */,
-				BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */,
-				BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */,
-				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
-				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
-				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
-				BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */,
-				BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */,
-				BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */,
-				BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */,
-				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
-				BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */,
-				BCCB814C1C110A84008BC602 /* ImageInfo.json */,
-				D820F78E1DD0F89700806045 /* PageViews.json */,
-				D820F7901DD1003900806045 /* MCSFeedTopReadNewsItem.json */,
-				D820F78C1DD0F11500806045 /* MCSFeed.json */,
-			);
-			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		BCD41E071B11D2ED00231BB1 /* Fixture Utilities */ = {
@@ -7702,6 +7569,7 @@
 			buildPhases = (
 				BC42734E1A7C736800068882 /* Sources */,
 				BC42734F1A7C736800068882 /* Frameworks */,
+				D8B724B41ECF09F700D10836 /* Copy Test Fixtures */,
 				BC4273501A7C736800068882 /* Resources */,
 				D8D550821DF0D52D00B90177 /* ShellScript */,
 			);
@@ -8147,40 +8015,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */,
-				D820F78F1DD0F89700806045 /* PageViews.json in Resources */,
-				BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */,
-				BCCEC1251B1F68CF00A8B522 /* protection-empty.json in Resources */,
-				B384069E1E64D5C000DFC889 /* 640px-Shoso-in.jpg in Resources */,
-				BCCEC1261B1F68CF00A8B522 /* protection-obama.json in Resources */,
-				BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */,
-				BCCB814D1C110A84008BC602 /* ImageInfo.json in Resources */,
-				BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */,
-				BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */,
-				BCCEC1281B1F68CF00A8B522 /* section1-end.json in Resources */,
-				BCCEC1291B1F68CF00A8B522 /* TemplateIcon2x.png in Resources */,
-				BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */,
-				BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */,
-				BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */,
-				BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */,
-				BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */,
-				BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */,
-				BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */,
-				BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */,
-				BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */,
-				BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */,
-				D820F7911DD1003900806045 /* MCSFeedTopReadNewsItem.json in Resources */,
-				BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */,
-				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
-				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
-				D820F78D1DD0F11500806045 /* MCSFeed.json in Resources */,
-				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
-				BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */,
-				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
-				BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */,
-				BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */,
-				BCF8DCA81B7009B100149C26 /* MobileView in Resources */,
-				BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8719,6 +8553,20 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		D8B724B41ECF09F700D10836 /* Copy Test Fixtures */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Test Fixtures";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Fixtures\"\ncp -R \"$SRCROOT/WikipediaUnitTests/Fixtures\" \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Fixtures\"";
+		};
 		D8CE26A61E698E2400DAE2E0 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -9025,7 +8873,6 @@
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
-				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
@@ -9152,7 +8999,6 @@
 				B0E8070A1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m in Sources */,
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
-				B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */,
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D82014BE1E686B9C00BA8579 /* SSBaseDataSource.m in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -9571,7 +9417,6 @@
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
 				D8A42A9F1E815A9C00D8E281 /* WMFSearchLanguagesBarViewController.swift in Sources */,
-				D8A42AA01E815A9C00D8E281 /* WMFUnderlineButton.m in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				D8A42AA21E815A9C00D8E281 /* WMFArticleRequestSerializer.m in Sources */,
 				D8A42AA31E815A9C00D8E281 /* MenuLabel.m in Sources */,
@@ -9698,7 +9543,6 @@
 				D8A42B171E815A9C00D8E281 /* WMFShareCardImageContainer.m in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
-				D8A42B1B1E815A9C00D8E281 /* WMFBorderButton.m in Sources */,
 				D8A42B1C1E815A9C00D8E281 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8A42B1E1E815A9C00D8E281 /* SSBaseDataSource.m in Sources */,
 				D813FDA31EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */,
@@ -9898,7 +9742,6 @@
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
 				D8CE25281E698E2400DAE2E0 /* WMFSearchLanguagesBarViewController.swift in Sources */,
-				D8CE25291E698E2400DAE2E0 /* WMFUnderlineButton.m in Sources */,
 				D8CE252A1E698E2400DAE2E0 /* WMFArticleRequestSerializer.m in Sources */,
 				D8CE252B1E698E2400DAE2E0 /* MenuLabel.m in Sources */,
 				D8CE252C1E698E2400DAE2E0 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -10024,7 +9867,6 @@
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
-				D8CE25A11E698E2400DAE2E0 /* WMFBorderButton.m in Sources */,
 				D8CE25A21E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8CE25A41E698E2400DAE2E0 /* SSBaseDataSource.m in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -10228,7 +10070,6 @@
 				D8EC3E1D1E9BDA35006712EB /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */,
 				D8EC3E1F1E9BDA35006712EB /* WMFSearchLanguagesBarViewController.swift in Sources */,
-				D8EC3E201E9BDA35006712EB /* WMFUnderlineButton.m in Sources */,
 				D8EC3E211E9BDA35006712EB /* WMFArticleRequestSerializer.m in Sources */,
 				D8EC3E221E9BDA35006712EB /* MenuLabel.m in Sources */,
 				D8EC3E231E9BDA35006712EB /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -10238,6 +10079,7 @@
 				D8EC3E271E9BDA35006712EB /* PreviewLicenseView.m in Sources */,
 				D8EC3E281E9BDA35006712EB /* WMFFixtureRecording.m in Sources */,
 				D8EC3E291E9BDA35006712EB /* UIView+WMFRoundCorners.m in Sources */,
+				D898452D1ECE29E000849DA4 /* TWNStringsTests.m in Sources */,
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,
 				D8EC3E2B1E9BDA35006712EB /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
@@ -10354,7 +10196,6 @@
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
-				D8EC3E9D1E9BDA35006712EB /* WMFBorderButton.m in Sources */,
 				D8EC3E9E1E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8EC3EA01E9BDA35006712EB /* SSBaseDataSource.m in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,

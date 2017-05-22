@@ -58,10 +58,7 @@
     // !!!: Need to use different URLs to prevent reusing face detection data for different images
     NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
 
-    UIImage *testImage =
-        [UIImage imageNamed:imageFixtureName
-                                 inBundle:[self wmf_bundle]
-            compatibleWithTraitCollection:nil];
+    UIImage *testImage = [UIImage imageWithData:[[self wmf_bundle] wmf_dataFromContentsOfFile:imageFixtureName ofType:nil]];
 
     NSAssert(testImage,
              @"Couldn't find image fixture named %@. Make sure it's included in the unit testing target.",
