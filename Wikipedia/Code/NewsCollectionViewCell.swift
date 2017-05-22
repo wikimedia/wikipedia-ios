@@ -24,7 +24,13 @@ class NewsCollectionViewCell: CollectionViewCell {
     }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
-    var newsSemanticContentAttribute: UISemanticContentAttribute = .forceLeftToRight
+    var newsSemanticContentAttribute: UISemanticContentAttribute = .unspecified {
+        didSet {
+            storyLabel.semanticContentAttribute = newsSemanticContentAttribute
+            collectionView.semanticContentAttribute = newsSemanticContentAttribute
+        }
+    }
+    
     fileprivate var articles: [NewsArticle] = []
     
     override func setup() {
@@ -49,6 +55,8 @@ class NewsCollectionViewCell: CollectionViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = backgroundColor
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         super.setup()
     }
     
@@ -162,9 +170,18 @@ extension NewsCollectionViewCell {
     func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []
         storyHTML = story.storyHTML
+        
+        
         articles = previews.map { (articlePreview) -> NewsArticle in
-            return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.wikidataDescription, imageURL: articlePreview.thumbnailURL)
+            let articleLanguage = (articlePreview.articleURL as NSURL?)?.wmf_language
+            let description = articlePreview.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: articleLanguage)
+            return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: description, imageURL: articlePreview.thumbnailURL)
         }
+        
+        let articleLanguage = (story.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
+        storyLabel.accessibilityLanguage = articleLanguage
+        newsSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        
         let imageWidthToRequest = traitCollection.wmf_potdImageWidth
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false

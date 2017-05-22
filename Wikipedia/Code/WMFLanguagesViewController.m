@@ -379,7 +379,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection = NO;
 
-    languagesVC.editButtonItem.tintColor = [UIColor wmf_blueTint];
+    languagesVC.editButtonItem.tintColor = [UIColor wmf_blue];
     languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
     return languagesVC;
 }

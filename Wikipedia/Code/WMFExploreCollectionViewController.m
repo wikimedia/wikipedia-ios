@@ -488,8 +488,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     // self.view is a wrapper view (Apple's, not ours), so we need to set the collectionView explicitly
     self.view.backgroundColor = [UIColor wmf_settingsBackground];
     self.collectionView.backgroundColor = [UIColor wmf_settingsBackground];
-    self.view.tintColor = [UIColor wmf_blueTint];
-    self.collectionView.tintColor = [UIColor wmf_blueTint];
+    self.view.tintColor = [UIColor wmf_blue];
+    self.collectionView.tintColor = [UIColor wmf_blue];
     [self registerCellsAndViews];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -1207,7 +1207,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configureListCell:(WMFArticleListCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = article.displayTitle;
     cell.titleLabel.accessibilityLanguage = article.URL.wmf_language;
-    cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = article.capitalizedWikidataDescription;
     NSURL *imageURL = [article imageURLForWidth:self.traitCollection.wmf_listThumbnailWidth];
     [cell setImageURL:imageURL];
 }
@@ -1223,7 +1223,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
     cell.titleText = article.displayTitle;
-    cell.descriptionText = [article.wikidataDescription wmf_stringByCapitalizingFirstCharacter];
+    cell.descriptionText = article.capitalizedWikidataDescription;
     [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
     [self updateLocationCell:cell location:article.location];
 }

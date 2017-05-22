@@ -242,7 +242,7 @@
 }
 
 - (void)configureAsNotifyTrendingButton {
-    self.layer.borderColor = [UIColor wmf_blueTint].CGColor;
+    self.layer.borderColor = [UIColor wmf_blue].CGColor;
     self.layer.borderWidth = 1.0;
     self.layer.cornerRadius = 5.0;
     self.spaceBetweenIconAndText = 5.0;
@@ -252,7 +252,7 @@
            compatibleWithTraitCollection:self.traitCollection];
     self.labelText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
 
-    self.textLabel.textColor = [UIColor wmf_blueTint];
+    self.textLabel.textColor = [UIColor wmf_blue];
     self.textLabel.adjustsFontSizeToFitWidth = YES;
 
     self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");

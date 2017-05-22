@@ -227,9 +227,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             let result = results[i]
             
+            
             vc.titleLabel.text = result.displayTitle
             if let wikidataDescription = result.wikidataDescription {
-                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter()
+                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
             }else{
                 vc.subtitleLabel.text = result.snippet
             }

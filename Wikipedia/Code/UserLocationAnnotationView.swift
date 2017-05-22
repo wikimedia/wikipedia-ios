@@ -50,7 +50,7 @@ class UserLocationAnnotationView: MKAnnotationView {
         shapeLayer.isHidden = true
         shapeLayer.frame = layer.bounds
         shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.wmf_blueTint.cgColor
+        shapeLayer.fillColor = UIColor.wmf_blue.cgColor
         layer.addSublayer(shapeLayer)
         
         

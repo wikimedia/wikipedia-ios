@@ -23,7 +23,7 @@
     self.titleLabel.textColor = [UIColor wmf_777777];
     [self.addButton setTitle:WMFLocalizedStringWithDefaultValue(@"welcome-languages-add-button", nil, nil, @"Add another language", @"Title for button for adding another language")
                     forState:UIControlStateNormal];
-    [self.addButton setTitleColor:[UIColor wmf_blueTint] forState:UIControlStateNormal];
+    [self.addButton setTitleColor:[UIColor wmf_blue] forState:UIControlStateNormal];
     [self wmf_configureSubviewsForDynamicType];
 }
 

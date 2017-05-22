@@ -1,7 +1,7 @@
 
 function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
-  var container = document.getElementById(containerID);
-  var licenseStringHalves = licenseString.split('$1');
+  var container = document.getElementById(containerID)
+  var licenseStringHalves = licenseString.split('$1')
 
 
   container.innerHTML = 
@@ -14,12 +14,12 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
       </a>
       ${licenseStringHalves[1]}
     </span>
-  </div>`;
+  </div>`
 
   container.querySelector('.footer_legal_licence_link')
            .addEventListener('click', function(){
-             licenceLinkClickHandler();
-           }, false);
+             licenceLinkClickHandler()
+           }, false)
 }
 
-exports.add = add;
+exports.add = add

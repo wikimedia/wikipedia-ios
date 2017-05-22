@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
 - (void)addTopMask {
     // Prevents white bar from appearing above the icon view if user pulls down.
     UIView *topMask = [[UIView alloc] init];
-    topMask.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+    topMask.backgroundColor = [UIColor wmf_settingsBackground];
     topMask.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:topMask];
 
@@ -211,7 +211,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
         switch (type.integerValue) {
             case VIEW_TYPE_ICON: {
                 UIView *view = [[UIView alloc] init];
-                view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+                view.backgroundColor = [UIColor wmf_settingsBackground];
 
                 WikiGlyphLabel *label = [[WikiGlyphLabel alloc] init];
                 label.translatesAutoresizingMaskIntoConstraints = NO;

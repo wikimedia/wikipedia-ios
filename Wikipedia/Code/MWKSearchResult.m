@@ -73,8 +73,7 @@
 
 + (NSValueTransformer *)wikidataDescriptionJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value, BOOL *success, NSError *__autoreleasing *error) {
-        NSString *description = [value firstObject];
-        return [description wmf_stringByCapitalizingFirstCharacter];
+        return [value firstObject];
     }];
 }
 

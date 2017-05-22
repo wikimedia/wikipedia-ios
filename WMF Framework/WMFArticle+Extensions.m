@@ -3,6 +3,10 @@
 
 @implementation WMFArticle (Extensions)
 
+- (NSString *)capitalizedWikidataDescription {
+    return [self.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.URL.wmf_language];
+}
+
 - (nullable NSURL *)URL {
     NSString *key = self.key;
     if (!key) {

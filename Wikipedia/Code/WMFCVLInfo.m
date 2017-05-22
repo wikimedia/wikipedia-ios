@@ -297,8 +297,6 @@
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
         }
 
-        assert(section.headers.count == 1);
-
         sectionHeight += headerHeight;
         y += headerHeight;
 
