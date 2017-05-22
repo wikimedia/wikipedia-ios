@@ -224,6 +224,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        
         setNeedsLayout()
     }
 }

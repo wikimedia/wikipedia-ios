@@ -56,7 +56,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
-        updateLabelFonts()
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
     }
@@ -91,6 +90,11 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
         }
+    }
+    
+    open override func setNeedsLayout() {
+        updateLabelFonts()
+        super.setNeedsLayout()
     }
     
     // MARK - Dynamic type
