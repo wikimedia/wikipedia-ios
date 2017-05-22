@@ -2070,8 +2070,17 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Search Suggestions & Completions
     
+    var currentSearchString: String {
+        guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) else {
+            return ""
+        }
+        return currentSearchString
+    }
+    
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
-        guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), currentSearchString != "" || completions.count > 0 else {
+        guard currentSearchString != "" || completions.count > 0 else {
+            
+            // Search is empty, run a default search
             
             let defaultSuggestion: PlaceSearch
             switch (currentSearchFilter) {
@@ -2256,8 +2265,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         viewMode = .search
-        updateSearchSuggestions(withCompletions: [])
         deselectAllAnnotations()
+        
+        // Only update suggestion on *begin* editing if there is no text
+        // Otherwise, it just clears perfectly good results
+        if currentSearchString == "" {
+            updateSearchSuggestions(withCompletions: [])
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
