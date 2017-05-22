@@ -170,8 +170,12 @@ extension NewsCollectionViewCell {
     func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []
         storyHTML = story.storyHTML
+        
+        
         articles = previews.map { (articlePreview) -> NewsArticle in
-            return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.wikidataDescription, imageURL: articlePreview.thumbnailURL)
+            let articleLanguage = (articlePreview.articleURL as NSURL?)?.wmf_language
+            let description = articlePreview.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: articleLanguage)
+            return NewsArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: description, imageURL: articlePreview.thumbnailURL)
         }
         
         let articleLanguage = (story.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
