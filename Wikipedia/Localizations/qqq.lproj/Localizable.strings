@@ -244,6 +244,7 @@
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the filter ('Top articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
+"places-search-did-you-mean" = "Title displayed on a button shown when the current search has no results. $1 is replaced by the short description of the location of the most likely correction.";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";

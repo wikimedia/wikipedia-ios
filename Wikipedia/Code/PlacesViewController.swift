@@ -63,6 +63,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var currentSearchRegion: MKCoordinateRegion?
     private var performDefaultSearchOnNextMapRegionUpdate = false
     private var previouslySelectedArticlePlaceIdentifier: String?
+    private var didYouMeanSearch: PlaceSearch?
     private var searching: Bool = false
     private let tracker = PiwikTracker.sharedInstance()
     private let mapTrackerContext: AnalyticsContext = "Places_map"
@@ -578,14 +579,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // Update Redo Search Button
         redoSearchButton.isHidden = !(movedSignificantly)
-        
-        // Update Did You Mean Button
+
         if (movedSignificantly) {
-            didYouMeanButton.isHidden = true // only hide it on move, never un-hide it
-        }
-        
-        // Clear count for Top Places
-        if (movedSignificantly) {
+            // Update Did You Mean Button
+            hideDidYouMeanButton()
+            
+            // Clear count for Top Places
             _displayCountForTopPlaces = nil
         }
     }
@@ -695,9 +694,29 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func showDidYouMeanButton(search: PlaceSearch) {
+        guard let description = search.localizedDescription else {
+            DDLogError("Could not show Did You Mean button = no description for search:\n\(search)")
+            return
+        }
+        
         DDLogDebug("Did you mean '\(String(describing: search.localizedDescription))'?")
+        self.didYouMeanSearch = search
         self.didYouMeanButton.isHidden = false
         
+        let title = String.localizedStringWithFormat(WMFLocalizedString("places-search-did-you-mean", value:"Did you mean %1$@?", comment:"Title displayed on a button shown when the current search has no results. %1$@ is replaced by the short description of the location of the most likely correction."), description)
+        
+        let buttonFont = redoSearchButton.titleLabel?.font
+        let italicsFont = UIFont.italicSystemFont(ofSize: buttonFont?.pointSize ?? 15.0)
+        let nsTitle = title as NSString
+        let attributedTitle = NSMutableAttributedString(string: title)
+        let descriptionRange = nsTitle.range(of: description)
+        attributedTitle.addAttribute(NSFontAttributeName, value: italicsFont, range: descriptionRange)
+        self.didYouMeanButton.setAttributedTitle(attributedTitle, for: .normal)
+    }
+    
+    func hideDidYouMeanButton() {
+        didYouMeanButton.isHidden = true
+        didYouMeanSearch = nil
     }
 
     func performWikidataQuery(forSearch search: PlaceSearch) {
