@@ -77,7 +77,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         super.viewDidLoad()
         
         self.view.backgroundColor = .wmf_settingsBackground
-        self.view.tintColor = .wmf_blueTint
+        self.view.tintColor = .wmf_blue
         
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late

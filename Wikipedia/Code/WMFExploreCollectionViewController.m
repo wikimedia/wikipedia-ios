@@ -488,8 +488,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     // self.view is a wrapper view (Apple's, not ours), so we need to set the collectionView explicitly
     self.view.backgroundColor = [UIColor wmf_settingsBackground];
     self.collectionView.backgroundColor = [UIColor wmf_settingsBackground];
-    self.view.tintColor = [UIColor wmf_blueTint];
-    self.collectionView.tintColor = [UIColor wmf_blueTint];
+    self.view.tintColor = [UIColor wmf_blue];
+    self.collectionView.tintColor = [UIColor wmf_blue];
     [self registerCellsAndViews];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;

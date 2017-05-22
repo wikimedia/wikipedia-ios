@@ -118,7 +118,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+    view.backgroundColor = [UIColor wmf_settingsBackground];
     view.autoresizesSubviews = YES;
     PaddedLabel *label = [[PaddedLabel alloc] init];
 

@@ -11,7 +11,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        tintColor = UIColor.wmf_blueTint
+        tintColor = UIColor.wmf_blue
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.wmf_showPlaceholder()
@@ -20,8 +20,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         addSubview(descriptionLabel)
         descriptionLabel.textColor = UIColor.wmf_customGray
         addSubview(saveButton)
-        saveButton.tintColor = UIColor.wmf_blueTint
-        saveButton.setTitleColor(UIColor.wmf_blueTint, for: .normal)
+        saveButton.tintColor = UIColor.wmf_blue
+        saveButton.setTitleColor(UIColor.wmf_blue, for: .normal)
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         backgroundColor = .white

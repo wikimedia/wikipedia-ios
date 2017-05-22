@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_blueTint];
+            return [UIColor wmf_blue];
         case WMFContentGroupKindNews:
             break;
         case WMFContentGroupKindNotification:
@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
         case WMFContentGroupKindTopRead:
-            return [UIColor wmf_lightBlueTint];
+            return [UIColor wmf_lightBlue];
         case WMFContentGroupKindNews:
             return [UIColor wmf_exploreSectionHeaderIconBackground];
         case WMFContentGroupKindNotification:
