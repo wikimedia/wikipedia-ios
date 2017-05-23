@@ -191,6 +191,7 @@ extension NewsCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        setNeedsLayout()
     }
 }
 
@@ -208,12 +209,12 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
+        isSaveButtonHidden = true
         margins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
         isImageViewHidden = layoutOnly || newsArticle.imageURL == nil
         titleLabel.text = newsArticle.title
         descriptionLabel.text = newsArticle.description
         articleSemanticContentAttribute = semanticContentAttribute
-        isSaveButtonHidden = true
         
         if let imageURL = newsArticle.imageURL {
             isImageViewHidden = false
@@ -223,6 +224,8 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        
+        setNeedsLayout()
     }
 }
 
