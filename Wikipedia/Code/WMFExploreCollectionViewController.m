@@ -1893,6 +1893,14 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     // DDLogDebug(@"Stopped scrolling");
 }
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
+        [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
+    }
+}
+
+
 #pragma mark - News Delegate
 
 - (void)newsCollectionViewCell:(WMFNewsCollectionViewCell *)cell didSelectNewsArticleWithURL:(NSURL *)articleURL {
