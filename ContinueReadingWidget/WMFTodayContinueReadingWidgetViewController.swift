@@ -86,19 +86,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
     
     func hasNewData() -> Bool{
-        
-        guard let session = SessionSingleton.sharedInstance() else {
+        guard let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
             return false
         }
-        
-        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
-            return false
-        }
-        let fragment = historyEntry.viewedFragment
-        
-        let newURL = (historyEntry.url as NSURL?)?.wmf_URL(withFragment: fragment)
-        
-        return newURL?.absoluteString != articleURL?.absoluteString
+        return openArticleURL.absoluteString != articleURL?.absoluteString
     }
     
     func updateView() -> Bool {
@@ -119,7 +110,11 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        guard let historyEntry = session.dataStore.historyList.mostRecentEntry() else {
+        guard let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
+            return false
+        }
+    
+        guard let historyEntry = session.dataStore.historyList.entry(for: openArticleURL) else {
             return false
         }
         
