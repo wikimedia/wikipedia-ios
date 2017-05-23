@@ -888,7 +888,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if (isDefaultSearch(search)) {
             performDefaultSearch(withRegion: mapView.region)
         } else {
-            currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+            currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: nil)
         }
     }
     
