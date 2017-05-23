@@ -3,15 +3,14 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     
     override open func setup() {
         imageView.cornerRadius = 3
-        titleFontFamily = .system
-        titleTextStyle = .body
         super.setup()
     }
     
-    var imageViewDimension: CGFloat = 70
-    var margins = UIEdgeInsetsMake(15, 13, 15, 13)
-    var spacing: CGFloat = 6
-    var saveButtonTopSpacing: CGFloat = 10
+    open override func reset() {
+        super.reset()
+        titleFontFamily = .system
+        titleTextStyle = .body
+    }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
@@ -40,7 +39,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             origin.y += saveButtonFrame.height
         }
         origin.y += margins.bottom
-        let height = max(origin.y, imageViewDimension + margins.top + margins.bottom)
+        let height = isImageViewHidden ? origin.y : max(origin.y, imageViewDimension + margins.top + margins.bottom)
         return CGSize(width: size.width, height: height)
     }
 }
