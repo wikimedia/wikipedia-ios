@@ -53,7 +53,7 @@ struct PlaceSearch {
         self.region = region
         self.localizedDescription = localizedDescription
         self.searchResult = searchResult
-        self.needsWikidataQuery = region == nil && searchResult != nil
+        self.needsWikidataQuery = type == .location && searchResult != nil
     }
     
     
