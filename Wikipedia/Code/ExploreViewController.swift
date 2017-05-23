@@ -77,7 +77,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         super.viewDidLoad()
         
         self.view.backgroundColor = .wmf_settingsBackground
-        self.view.tintColor = .wmf_blueTint
+        self.view.tintColor = .wmf_blue
         
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
@@ -119,7 +119,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.searchBarButtonItem?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
-        self.searchBar.alpha = 1 - percentHidden
+        self.searchBar.alpha = max(1 - (percentHidden * 1.5), 0)
     }
     
     // MARK: - Actions
@@ -264,7 +264,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @objc(showInTheNewsForStory:date:animated:)
     public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
     {
-        self.collectionViewController.showInTheNews(for: story, date: date, animated: animated)
+        self.collectionViewController.showInTheNews(forStories: [story], date: date, animated: animated)
     }
     
     @objc(presentMoreViewControllerForGroup:animated:)

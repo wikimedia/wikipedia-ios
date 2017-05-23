@@ -7,7 +7,7 @@ extension UIView {
         }
     }
     
-    public func wmf_prefferedFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    public func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let viewSize = sizeThatFits(size)
         var actualX = point.x
         let actualWidth = min(viewSize.width, size.width)
@@ -21,18 +21,22 @@ extension UIView {
         return fitFrame
     }
     
-    @objc(wmf_prefferedFrameAtPoint:fittingAvailableWidth:alignedBySemanticContentAttribute:apply:)
-    public func wmf_prefferedFrame(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    @objc(wmf_preferredFrameAtPoint:fittingAvailableWidth:alignedBySemanticContentAttribute:apply:)
+    public func wmf_preferredFrame(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let size = CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude)
-        return self.wmf_prefferedFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+        return self.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+    }
+    
+    public func wmf_preferredHeight(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
+        return wmf_preferredFrame(at: point, fitting: availableWidth, alignedBy: semanticContentAttribute, apply: apply).layoutHeight(with: spacing)
     }
 }
 
 extension UILabel {
-    public override func wmf_prefferedFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    public override func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         guard self.wmf_hasText else {
             return .zero
         }
-        return super.wmf_prefferedFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+        return super.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
     }
 }

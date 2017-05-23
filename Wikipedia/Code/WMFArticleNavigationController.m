@@ -14,6 +14,14 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 @implementation WMFArticleNavigationController
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.title = WMFLocalizedStringWithDefaultValue(@"home-title", nil, nil, @"Explore", @"Title for home interface.\n{{Identical|Explore}}");
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [super setDelegate:self];

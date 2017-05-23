@@ -83,6 +83,7 @@
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
+"error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
@@ -157,6 +158,7 @@
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
+"home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
@@ -223,6 +225,7 @@
 "page-protected-sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-close-search" = "Accessibility label for the button to close search";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group\n{{Identical|Article}}";
@@ -244,11 +247,13 @@
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the filter ('Top articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
+"places-search-did-you-mean" = "Title displayed on a button shown when the current search has no results. $1 is replaced by the short description of the location of the most likely correction.";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
+"places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
@@ -346,6 +351,8 @@
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";
+"wikitext-preview-link-preview-description" = "Description of the link URL. $1 is the URL.";
+"wikitext-preview-link-preview-title" = "Title for link preview popup";
 "wikitext-upload-captcha-error" = "Alert text shown when section wikitext upload captcha fails";
 "wikitext-upload-captcha-needed" = "Alert text shown when section wikitext upload captcha is required";
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";

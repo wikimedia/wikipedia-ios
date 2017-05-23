@@ -105,16 +105,6 @@
     return nil;
 }
 
-- (NSMutableOrderedSet *)dollarSubstitutionsInString:(NSString *)s {
-    NSMutableOrderedSet *substitutions = [[NSMutableOrderedSet alloc] initWithCapacity:5];
-    NSRegularExpression *regex = [TWNStringsTests twnTokenRegex];
-    NSArray *matches = [regex matchesInString:s options:0 range:NSMakeRange(0, [s length])];
-    for (NSTextCheckingResult *match in matches) {
-        [substitutions addObject:[s substringWithRange:match.range]];
-    }
-    return substitutions;
-}
-
 - (void)testLprojCount {
     XCTAssert(TWNStringsTests.iOSLprojFiles.count > 0);
     XCTAssert(TWNStringsTests.twnLprojFiles.count > 0);
@@ -145,6 +135,15 @@
         percentNumberRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[%%])(:?[0-9s])" options:0 error:nil];
     });
     return percentNumberRegex;
+}
+
++ (NSRegularExpression *)iOSTokenRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *iOSTokenRegex;
+    dispatch_once(&onceToken, ^{
+        iOSTokenRegex = [NSRegularExpression regularExpressionWithPattern:@"(?:[%])(:?[0-9]+)(:?[$][@dDuUxXoOfeEgGcCsSpaAF])" options:0 error:nil];
+    });
+    return iOSTokenRegex;
 }
 
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory haveNoMatchesWithRegex:(NSRegularExpression *)regex {
@@ -198,10 +197,10 @@
                 if ([localizedString containsString:@"{{"]) {
                     NSString *lowercaseString = localizedString.lowercaseString;
                     if ([lowercaseString containsString:@"{{plural:$"]) {
-                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string with PLURAL: needs an entry in the corresponding stringsdict file");
-                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"Only one plural per translation is supported at this time. You can fix this in scripts/localizations.swift.");
+                        XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string %@ in %@ with PLURAL: needs an entry in the corresponding stringsdict file. This likely means that this language's Localizable.stringsdict hasn't been added to the project yet.", key, lprojFileName);
+                        XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"%@ in %@ has more than one plural substitution. Only one plural per translation is supported at this time. You can add support for multiple plurals in scripts/localizations.swift.", key, lprojFileName);
                     } else if (![lowercaseString containsString:@"{{formatnum:$"]) {
-                        XCTAssertTrue(false, @"Unsupported {{ }} in localization");
+                        XCTAssertTrue(false, @"%@ in %@ has unsupported {{ }} in localization.", key, lprojFileName);
                     }
                 }
             }
@@ -209,7 +208,9 @@
     }
 }
 
-- (void)testiOSTranslationStringForBracketSubstitutions {
+- (void)testiOSTranslationStringForBracketSubstitutionsAndMismatchedTokens {
+    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:@"en.lproj"]];
+    NSMutableDictionary *enTokensByKey = [NSMutableDictionary dictionaryWithCapacity:enStrings.count];
     for (NSString *lprojFileName in TWNStringsTests.iOSLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
             NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
@@ -225,6 +226,35 @@
                         XCTAssertTrue(false, @"Unsupported {{ }} in localization");
                     }
                 }
+
+                NSMutableDictionary *localizedTokens = [NSMutableDictionary new];
+                NSRegularExpression *tokenRegex = [TWNStringsTests iOSTokenRegex];
+                [tokenRegex enumerateMatchesInString:localizedString
+                                             options:0
+                                               range:NSMakeRange(0, localizedString.length)
+                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                              NSString *key = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$1"];
+                                              NSString *value = [tokenRegex replacementStringForResult:result inString:localizedString offset:0 template:@"$2"];
+                                              localizedTokens[key] = value;
+                                          }];
+
+                NSString *enString = enStrings[key];
+                NSMutableDictionary *enTokens = enTokensByKey[key];
+                if (!enTokens) {
+                    enTokens = [NSMutableDictionary new];
+
+                    [tokenRegex enumerateMatchesInString:enString
+                                                 options:0
+                                                   range:NSMakeRange(0, enString.length)
+                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                  NSString *key = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$1"];
+                                                  NSString *value = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$2"];
+                                                  enTokens[key] = value;
+                                              }];
+                    enTokensByKey[key] = enTokens;
+                }
+
+                XCTAssertEqualObjects(localizedTokens, enTokens, @"%@ translation for %@ has incorrect tokens:\n%@\n%@", lprojFileName, key, enString, localizedString);
             }
         }
     }
@@ -286,33 +316,6 @@
         for (NSString *key in stringsDict) {
             // Keys use dash "-" separators.
             XCTAssertFalse([key containsString:@"_"]);
-        }
-    }
-}
-
-- (void)testMismatchedSubstitutions {
-
-    NSString *qqqBundlePath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"qqq.lproj"];
-    NSDictionary *qqqStringsDict = [self getTranslationStringsDictFromLprogAtPath:qqqBundlePath];
-
-    NSString *enBundlePath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"];
-    NSDictionary *enStringsDict = [self getTranslationStringsDictFromLprogAtPath:enBundlePath];
-
-    for (NSString *key in enStringsDict) {
-
-        NSString *enVal = enStringsDict[key];
-        NSOrderedSet *enSubstitutions = [self dollarSubstitutionsInString:enVal];
-        NSUInteger enSubstituionCount = [enSubstitutions count];
-
-        NSString *qqqVal = qqqStringsDict[key];
-        if (!qqqVal) {
-            XCTFail(@"missing description in qqq.lproj for key: %@", key);
-        }
-        NSOrderedSet *qqqSubstitutions = [self dollarSubstitutionsInString:qqqVal];
-        NSUInteger qqqSubstituionCount = [qqqSubstitutions count];
-
-        if (enSubstituionCount != qqqSubstituionCount) {
-            XCTFail(@"en.lproj:%@ contains %tu substitution(s), but qqq.lproj:%@ describes %tu substitution(s)", key, enSubstituionCount, key, qqqSubstituionCount);
         }
     }
 }

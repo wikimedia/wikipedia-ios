@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Enolp
 // Author: Macofe
+// Author: Mhurd
 // Author: Nemo bis
 // Author: Xuacu
 
@@ -345,7 +346,7 @@
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a ameyorar esta aplicación contándonos cómo la uses. Los datos collechaos son anónimos.";
 "welcome-send-data-title" = "Unviar datos anónimos";
 "welcome-volunteer-send-usage-reports" = "Unviar informes d'usu";
-"welcome-volunteer-thanks" = "¡Gracies!";
+"welcome-volunteer-thanks" = "$1 ¡Gracies!";
 "wikitext-download-failed" = "Nun pue algamase la cabera revisión.";
 "wikitext-download-success" = "Cargáu el conteníu.";
 "wikitext-downloading" = "Cargando'l conteníu...";

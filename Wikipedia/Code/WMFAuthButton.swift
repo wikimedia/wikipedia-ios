@@ -7,11 +7,11 @@ class WMFAuthButton: UIButton {
         }
     }
     fileprivate func borderColor(forIsEnabled enabled:Bool) -> CGColor{
-        return enabled ? UIColor.wmf_blueTint.cgColor : UIColor.lightGray.cgColor
+        return enabled ? UIColor.wmf_blue.cgColor : UIColor.lightGray.cgColor
     }
     override open func awakeFromNib() {
         super.awakeFromNib()
-        tintColor = .wmf_blueTint
+        tintColor = .wmf_blue
         layer.borderWidth = 1.0
         layer.cornerRadius = 5
         layer.borderColor = borderColor(forIsEnabled: isEnabled)

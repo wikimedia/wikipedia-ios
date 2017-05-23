@@ -14,6 +14,7 @@
 // Author: Selhom
 // Author: Solucer
 // Author: The RedBurn
+// Author: Thibaut120094
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
@@ -104,8 +105,10 @@
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
 "explore-another-random" = "Un autre article au hasard";
+"explore-because-you-read" = "Parce que vous avez lu";
 "explore-continue-reading-heading" = "Continuer à lire";
 "explore-featured-article-heading" = "Article vedette";
+"explore-main-page-description" = "Page principale des projets Wikimedia";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "explore-most-read-footer-for-date" = "Tous les articles les plus lus au $1";
 "explore-most-read-generic-heading" = "Les plus lus";
@@ -364,6 +367,8 @@
 "wikitext-downloading" = "Chargement du contenu…";
 "wikitext-preview-changes" = "Récupération de l’aperçu de vos modifications…";
 "wikitext-preview-changes-none" = "Aucune modification faite pour l’aperçu.";
+"wikitext-preview-link-preview-description" = "Lien vers '$1'";
+"wikitext-preview-link-preview-title" = "Aperçu du lien";
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléchargement du wikitexte.";

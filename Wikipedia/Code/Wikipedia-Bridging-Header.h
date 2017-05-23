@@ -61,6 +61,7 @@
 #import "WMFNearbyArticleTableViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
+#import "WMFColumnarCollectionViewLayout.h"
 #import "WMFCVLAttributes.h"
 
 // Diagnostics
