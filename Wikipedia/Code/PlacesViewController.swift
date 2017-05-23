@@ -885,7 +885,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.isHidden = true
         
-        if (isDefaultSearch(search)) {
+        if isDefaultSearch(search) || (search.type == .location && search.filter == .top) {
             performDefaultSearch(withRegion: mapView.region)
         } else {
             currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: nil)
