@@ -117,20 +117,17 @@ NS_ASSUME_NONNULL_BEGIN
                 [articleKeysToExcludeFromSuggestions addObject:articleKey];
 
                 //Exclude the first three articles in any existing section
-                NSInteger maxIndex = MIN(contentGroup.content.count, 3);
-                if (maxIndex > 0) {
-                    NSArray *subarray = [contentGroup.content subarrayWithRange:NSMakeRange(0, maxIndex)];
-                    for (id object in subarray) {
-                        if (![object isKindOfClass:[NSURL class]]) {
-                            continue;
-                        }
-                        NSURL *URL = (NSURL *)object;
-                        NSString *key = [URL wmf_articleDatabaseKey];
-                        if (!key) {
-                            continue;
-                        }
-                        [articleKeysToExcludeFromSuggestions addObject:key];
+                NSArray *subarray = [contentGroup.content wmf_safeSubarrayWithRange:NSMakeRange(0, 3)];
+                for (id object in subarray) {
+                    if (![object isKindOfClass:[NSURL class]]) {
+                        continue;
                     }
+                    NSURL *URL = (NSURL *)object;
+                    NSString *key = [URL wmf_articleDatabaseKey];
+                    if (!key) {
+                        continue;
+                    }
+                    [articleKeysToExcludeFromSuggestions addObject:key];
                 }
             }
 
