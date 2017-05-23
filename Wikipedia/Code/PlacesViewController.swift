@@ -641,6 +641,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
         }
         
+        if let currentMapRegion = mapRegion, isDistanceSignificant(betweenRegion: region, andRegion: currentMapRegion) {
+            mapRegion = region
+        } else if mapRegion == nil {
+            mapRegion = region
+        }
+        
         searchTerm = search.string
         
         isProgressHidden = false
@@ -747,9 +753,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
             dispatchOnMainQueue({
-                if let region = search.region {
-                    self.mapRegion = region
-                }
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
@@ -766,7 +769,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             fail()
         }, success: { (region) in
             dispatchOnMainQueue({
-                self.mapRegion = region
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
