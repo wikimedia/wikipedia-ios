@@ -366,14 +366,14 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedBlacklistOptionNone;
 }
 
-- (WMFFeedDisplayType)displayType {
+- (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             return WMFFeedDisplayTypeContinueReading;
         case WMFContentGroupKindMainPage:
             return WMFFeedDisplayTypeMainPage;
         case WMFContentGroupKindRelatedPages:
-            return WMFFeedDisplayTypeRelatedPages;
+            return index == 0 ? WMFFeedDisplayTypeRelatedPagesSourceArticle : WMFFeedDisplayTypeRelatedPages;
         case WMFContentGroupKindLocation:
             return WMFFeedDisplayTypePageWithLocation;
         case WMFContentGroupKindLocationPlaceholder:
