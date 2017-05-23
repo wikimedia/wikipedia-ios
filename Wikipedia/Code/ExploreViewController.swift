@@ -237,6 +237,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
+        showSearchBar(animated: false)
+    }
+    
     // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
