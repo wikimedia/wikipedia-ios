@@ -41,7 +41,7 @@ struct PlaceSearch {
     var region: MKCoordinateRegion?
     let localizedDescription: String?
     let searchResult: MWKSearchResult?
-    var needsWikidataQuery: Bool = true
+    var needsWikidataQuery: Bool = false
 
 
     init(filter: PlaceFilterType, type: PlaceSearchType, origin: PlaceSearchOrigin, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
@@ -53,6 +53,7 @@ struct PlaceSearch {
         self.region = region
         self.localizedDescription = localizedDescription
         self.searchResult = searchResult
+        self.needsWikidataQuery = type == .location && searchResult != nil
     }
     
     
