@@ -24,22 +24,12 @@
 + (instancetype)wmf_gregorianCalendar;
 
 /**
- *  Used for getting the number of calendar years, months, and days between dates.
- *
- *  @param fromDate the earlier date
- *  @param toDate the later date
- *
- *  @return Date components that contain the years, months, and days between the dates.
- */
-- (NSDateComponents *)wmf_componentsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
-
-/**
  *  Used for getting the number of calendar days between dates. For example, if you compare 12 PM on a day to 9 AM on the following day, you would get 1 day between those dates despite the fact that there's less than 24 hours between the dates.
  *
  *  @param fromDate the earlier date
  *  @param toDate the later date
  *
- *  @return The number of days between the dates.
+ *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
  */
 - (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 

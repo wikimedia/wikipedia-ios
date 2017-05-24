@@ -21,23 +21,19 @@
     return gregorianCalendar;
 }
 
-- (NSDateComponents *)wmf_componentsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
+- (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!fromDate || !toDate) {
         return 0;
     }
-    
+
     NSDateComponents *fromDateComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:fromDate];
     NSDateComponents *toDateComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:toDate];
-    
+
     if (!fromDateComponents || !toDateComponents) {
         return 0;
     }
-    
-    return [self components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly];
-}
 
-- (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
-    return [self wmf_componentsFromDate:fromDate toDate:toDate].day;
+    return [self components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly].day;
 }
 
 @end
