@@ -263,6 +263,8 @@
 "readers-accessibility-label" = "$1 readers";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "save-action" = "Save";
 "saved-clear-all" = "Clear";
