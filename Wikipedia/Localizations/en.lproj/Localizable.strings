@@ -315,12 +315,12 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-popover-description" = "Get an overview of articles";
 "table-title-other" = "More information";
-"timestamp-days" = "$1 days ago";
-"timestamp-hours" = "$1 hours ago";
+"timestamp-days" = "%d days ago";
+"timestamp-hours" = "%d hours ago";
 "timestamp-just-now" = "just now";
-"timestamp-minutes" = "$1 minutes ago";
-"timestamp-months" = "$1 months ago";
-"timestamp-years" = "$1 years ago";
+"timestamp-minutes" = "%d minutes ago";
+"timestamp-months" = "%d months ago";
+"timestamp-years" = "%d years ago";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";
