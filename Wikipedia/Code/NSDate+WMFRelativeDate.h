@@ -4,6 +4,6 @@
 
 - (NSString *)wmf_relativeTimestamp;
 
-- (NSString *)wmf_localizedDaysMonthsOrYearsAgoFromMidnightUTCDate;
+- (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate;
 
 @end

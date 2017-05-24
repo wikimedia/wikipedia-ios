@@ -5,16 +5,9 @@
 @end
 
 @implementation WMFLocalizedDateFormatStrings
+
 + (NSString *)daysAgo {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday");
-}
-
-+ (NSString *)monthsAgo {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-months-ago", nil, nil, @"{{PLURAL:%1$d|0=This month|Last month|%1$d months ago}}", @"Relative months ago. 0 = this month, singular = last month.");
-}
-
-+ (NSString *)yearsAgo {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", nil, nil, @"{{PLURAL:%1$d|0=This year|Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year.");
 }
 
 @end
@@ -45,18 +38,15 @@ WMF_TECH_DEBT_TODO(@"Convert to the pluralized format strings above")
     }
 }
 
-- (NSString *)wmf_localizedDaysMonthsOrYearsAgoFromMidnightUTCDate {
+- (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate {
     NSDate *now = [NSDate date];
     NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDateComponents *components = [calendar wmf_componentsFromDate:self toDate:midnightUTC];
-    if (components.year > 0) {
-        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings yearsAgo], components.year];
-    } else if (components.month > 0) {
-        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings monthsAgo], components.month];
-    } else {
-        NSInteger days = MAX(0,components.day);
+    NSInteger days = MAX(0, [calendar wmf_daysFromDate:self toDate:midnightUTC]);
+    if (days < 7) {
         return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
+    } else {
+        return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self];
     }
 }
 
