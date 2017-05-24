@@ -572,19 +572,32 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func isDistanceSignificant(betweenRegion searchRegion: MKCoordinateRegion, andRegion visibleRegion: MKCoordinateRegion) -> Bool {
+        let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: searchRegion.center.latitude, longitude: searchRegion.center.longitude))
+        
         let searchWidth = searchRegion.width
         let searchHeight = searchRegion.height
         let searchRegionMinDimension = min(searchWidth, searchHeight)
         
+        guard searchRegionMinDimension > 0 else {
+            return distance > 1000
+        }
+       
+        let isDistanceSignificant = distance/searchRegionMinDimension > 0.33
+        guard !isDistanceSignificant else {
+            return true
+        }
+        
         let visibleWidth = visibleRegion.width
         let visibleHeight = visibleRegion.height
         
-        let distance = CLLocation(latitude: visibleRegion.center.latitude, longitude: visibleRegion.center.longitude).distance(from: CLLocation(latitude: searchRegion.center.latitude, longitude: searchRegion.center.longitude))
+        guard searchWidth > 0, visibleWidth > 0, visibleHeight > 0, searchHeight > 0 else {
+            return false
+        }
+        
         let widthRatio = visibleWidth/searchWidth
         let heightRatio = visibleHeight/searchHeight
         let ratio = min(widthRatio, heightRatio)
-        
-        return (ratio > 1.33 || ratio < 0.67 || distance/searchRegionMinDimension > 0.33)
+        return ratio > 1.33 || ratio < 0.67
     }
 
     func updateViewIfMapMovedSignificantly(forVisibleRegion visibleRegion: MKCoordinateRegion) {
@@ -593,7 +606,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let movedSignificantly = isDistanceSignificant(betweenRegion: searchRegion, andRegion: visibleRegion)
+        let regionThatFits = mapView.regionThatFits(searchRegion)
+        let movedSignificantly = isDistanceSignificant(betweenRegion: regionThatFits, andRegion: visibleRegion)
         DDLogDebug("movedSignificantly=\(movedSignificantly)")
         
         // Update Redo Search Button
@@ -639,6 +653,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 // TODO: ARM: I don't understand this
                 tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             }
+        }
+        
+        if let currentMapRegion = mapRegion, isDistanceSignificant(betweenRegion: region, andRegion: currentMapRegion) {
+            mapRegion = region
+        } else if mapRegion == nil {
+            mapRegion = region
         }
         
         searchTerm = search.string
@@ -747,9 +767,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func performWikidataQuery(forSearch search: PlaceSearch) {
         let fail = {
             dispatchOnMainQueue({
-                if let region = search.region {
-                    self.mapRegion = region
-                }
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
@@ -766,7 +783,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             fail()
         }, success: { (region) in
             dispatchOnMainQueue({
-                self.mapRegion = region
                 self.searching = false
                 var newSearch = search
                 newSearch.needsWikidataQuery = false
@@ -869,10 +885,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         redoSearchButton.isHidden = true
         
-        if (isDefaultSearch(search)) {
+        if isDefaultSearch(search) || (search.type == .location && search.filter == .top) {
             performDefaultSearch(withRegion: mapView.region)
         } else {
-            currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: search.searchResult)
+            currentSearch = PlaceSearch(filter: currentSearchFilter, type: search.type, origin: .user, sortStyle: search.sortStyle, string: search.string, region: nil, localizedDescription: search.localizedDescription, searchResult: nil)
         }
     }
     
