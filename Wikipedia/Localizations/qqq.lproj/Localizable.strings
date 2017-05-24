@@ -262,6 +262,9 @@
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
+"relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
+"relative-date-months-ago" = "Relative months ago. 0 = this month, singular = last month.";
+"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
