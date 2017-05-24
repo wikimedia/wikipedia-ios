@@ -8500,7 +8500,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\" export import";
+			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\" export";
 			showEnvVarsInLog = 0;
 		};
 		D87021731EBA6BA1000D02D6 /* ShellScript */ = {
