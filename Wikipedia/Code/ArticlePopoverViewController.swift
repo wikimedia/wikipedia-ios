@@ -61,7 +61,7 @@ class ArticlePopoverViewController: UIViewController {
         }
         
         titleLabel.text = article.displayTitle
-        subtitleLabel.text = article.wikidataDescription
+        subtitleLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         
         view.wmf_configureSubviewsForDynamicType()
     }
