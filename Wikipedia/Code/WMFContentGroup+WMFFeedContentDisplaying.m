@@ -156,11 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
     switch (self.contentGroupKind) {
         case WMFContentGroupKindRelatedPages:
         case WMFContentGroupKindContinueReading: {
-            NSString *subtitle = [self.contentMidnightUTCDate wmf_localizedRelativeDateFromMidnightUTCDate];
-            if (subtitle == nil) {
-                subtitle = [[self.date wmf_midnightUTCDateFromLocalDate] wmf_localizedRelativeDateFromMidnightUTCDate];
-            }
-            return subtitle ? subtitle : @"";
+            return [self.contentMidnightUTCDate wmf_localizedDaysMonthsOrYearsAgoFromMidnightUTCDate];
         } break;
         case WMFContentGroupKindMainPage:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
