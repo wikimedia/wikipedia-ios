@@ -7608,7 +7608,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D844D97B1D6CB2600042D692 /* Build configuration list for PBXNativeTarget "WMF" */;
 			buildPhases = (
-				D87021731EBA6BA1000D02D6 /* ShellScript */,
 				D87021721EBA69B7000D02D6 /* ShellScript */,
 				D81E5F8C1E608F4200E1A80C /* ShellScript */,
 				D844D9671D6CB2600042D692 /* Sources */,
@@ -8502,19 +8501,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/scripts/localization\" \"$SRCROOT\" export import";
 			showEnvVarsInLog = 0;
-		};
-		D87021731EBA6BA1000D02D6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/scripts/localization_extract\"";
 		};
 		D8A42C1F1E815A9C00D8E281 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
