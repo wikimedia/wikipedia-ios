@@ -67,7 +67,7 @@
 			<key>other</key>
 			<string>%1$d hours ago</string>
 			<key>zero</key>
-			<string>This hour</string>
+			<string>Recently</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
