@@ -34,5 +34,23 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Yesterday</string>
+			<key>other</key>
+			<string>%1$d days ago</string>
+			<key>zero</key>
+			<string>Today</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

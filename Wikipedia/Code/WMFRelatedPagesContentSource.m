@@ -270,6 +270,8 @@ NS_ASSUME_NONNULL_BEGIN
                             associatedContent:urls
                            customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                group.articleURL = article.URL;
+                               NSDate *contentDate = article.viewedDate ? article.viewedDate : article.savedDate;
+                               group.contentMidnightUTCDate = contentDate.wmf_midnightUTCDateFromLocalDate;
                            }];
                 if (completion) {
                     completion();

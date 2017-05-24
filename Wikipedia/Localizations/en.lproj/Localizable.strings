@@ -262,6 +262,7 @@
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
 "reference-title" = "Reference $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "save-action" = "Save";
 "saved-clear-all" = "Clear";
@@ -315,12 +316,12 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-popover-description" = "Get an overview of articles";
 "table-title-other" = "More information";
-"timestamp-days" = "%d days ago";
-"timestamp-hours" = "%d hours ago";
+"timestamp-days" = "$1 days ago";
+"timestamp-hours" = "$1 hours ago";
 "timestamp-just-now" = "just now";
-"timestamp-minutes" = "%d minutes ago";
-"timestamp-months" = "%d months ago";
-"timestamp-years" = "%d years ago";
+"timestamp-minutes" = "$1 minutes ago";
+"timestamp-months" = "$1 months ago";
+"timestamp-years" = "$1 years ago";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";

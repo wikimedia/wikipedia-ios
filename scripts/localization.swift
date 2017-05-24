@@ -55,6 +55,7 @@ fileprivate var countPrefixRegex: NSRegularExpression? = {
     return nil
 }()
 
+let keysByPrefix = ["0":"zero", "2":"two", "1":"one"]
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: (self as NSString).length)
@@ -117,12 +118,14 @@ extension String {
             var keyForComponent: String?
             var actualComponent: String? = component
             if let match = countPrefixRegex.firstMatch(in: component, options: [], range: component.fullRange) {
+                // Support for 0= 2=
                 let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
-                if numberString == "0" {
+                if let key = keysByPrefix[numberString] {
+                    keyForComponent = key
                     actualComponent = (component as NSString).substring(from: match.range.length) as String?
-                    keyForComponent = "zero"
+                } else {
+                    print("Unsupported prefix. Ignoring \(String(describing: component))")
                 }
-                
             } else {
                 if keyIndex < keys.count {
                     keyForComponent = keys[keyIndex]
@@ -315,7 +318,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 
 func importLocalizationsFromTWN(_ path: String) {
     let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
-
+    
     guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String: String] else {
         print("Unable to read \(enPath)")
         abort()
@@ -331,7 +334,7 @@ func importLocalizationsFromTWN(_ path: String) {
     
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
-        let languagesToSkip = ["en", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf", "qqq"]
+        let languagesToSkip: Set<String> = ["qqq", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf"]
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         for filename in contents {
@@ -364,18 +367,19 @@ func importLocalizationsFromTWN(_ path: String) {
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
             
-
-            if strings.count > 0 {
-                try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
-            } else {
-                do {
-                    try fm.removeItem(atPath: stringsFilePath)
-                } catch { }
+            
+            if locale != "en" { // only write the english plurals, skip the main file
+                if strings.count > 0 {
+                    try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
+                } else {
+                    do {
+                        try fm.removeItem(atPath: stringsFilePath)
+                    } catch { }
+                }
             }
-            
-            
-            let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
 
+            let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
+            
             if stringsDict.count > 0 {
                 stringsDict.write(toFile: stringsdictFilePath, atomically: true)
             } else {
