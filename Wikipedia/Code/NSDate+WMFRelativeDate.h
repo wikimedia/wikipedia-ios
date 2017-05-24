@@ -2,7 +2,7 @@
 
 @interface NSDate (WMFRelativeDate)
 
-- (NSString *)wmf_relativeTimestamp;
+- (NSString *)wmf_localizedRelativeDateFromLocalDate;
 
 - (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate;
 
