@@ -334,7 +334,7 @@ func importLocalizationsFromTWN(_ path: String) {
     
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
-        let languagesToSkip = ["azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf", "qqq"]
+        let languagesToSkip: Set<String> = ["qqq", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf"]
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         for filename in contents {
@@ -367,18 +367,19 @@ func importLocalizationsFromTWN(_ path: String) {
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
             
-
-            if strings.count > 0 {
-                try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
-            } else {
-                do {
-                    try fm.removeItem(atPath: stringsFilePath)
-                } catch { }
+            
+            if locale != "en" { // only write the english plurals, skip the main file
+                if strings.count > 0 {
+                    try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
+                } else {
+                    do {
+                        try fm.removeItem(atPath: stringsFilePath)
+                    } catch { }
+                }
             }
-            
-            
-            let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
 
+            let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
+            
             if stringsDict.count > 0 {
                 stringsDict.write(toFile: stringsdictFilePath, atomically: true)
             } else {
