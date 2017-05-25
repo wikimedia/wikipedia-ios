@@ -77,8 +77,8 @@ platform :ios do
       :code_coverage => true,
       :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
     }
-    opts[:output_files] = ["#{scheme} #{sim}.junit"]
-    opts[:output_types] = ['junit']
+    opts[:custom_report_file_name] = "#{scheme} #{sim}.junit"
+    opts[:output_types] = 'junit'
     scan(opts)
   end
   
