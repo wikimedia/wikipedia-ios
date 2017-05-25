@@ -94,9 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFMorePageListCellTypeNormal: {
             return [self listCellForRowAtIndexPath:indexPath];
         } break;
-        case WMFMorePageListCellTypePreview: {
-            return [self previewCellForRowAtIndexPath:indexPath];
-        } break;
         case WMFMorePageListCellTypeLocation: {
             return [self locationCellForRowAtIndexPath:indexPath];
         } break;
@@ -116,11 +113,6 @@ NS_ASSUME_NONNULL_BEGIN
             [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib]
                  forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
             self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-            [self.locationManager stopMonitoringLocation];
-        } break;
-        case WMFMorePageListCellTypePreview: {
-            [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
-            self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
             [self.locationManager stopMonitoringLocation];
         } break;
         case WMFMorePageListCellTypeLocation: {

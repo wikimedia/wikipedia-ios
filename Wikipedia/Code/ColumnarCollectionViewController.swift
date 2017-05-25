@@ -79,7 +79,7 @@ class ColumnarCollectionViewController: UICollectionViewController {
     }
 }
 
-
+// MARK: - UIViewControllerPreviewingDelegate
 extension ColumnarCollectionViewController: UIViewControllerPreviewingDelegate {
     open func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         return nil
@@ -107,6 +107,6 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     }
     
     func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1)
+        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1, collapseSectionSpacing:false)
     }
 }
