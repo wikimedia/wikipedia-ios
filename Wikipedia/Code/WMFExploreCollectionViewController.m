@@ -1343,6 +1343,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (group.moreType) {
         case WMFFeedMoreTypePageList: {
             WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
+            vc.title = group.moreTitle;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithLocation: {
