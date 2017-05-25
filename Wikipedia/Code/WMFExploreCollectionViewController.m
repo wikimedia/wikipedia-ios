@@ -1346,11 +1346,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc.cellType = WMFMorePageListCellTypeNormal;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
-        case WMFFeedMoreTypePageListWithPreview: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
-            vc.cellType = WMFMorePageListCellTypePreview;
-            [self.navigationController pushViewController:vc animated:animated];
-        } break;
         case WMFFeedMoreTypePageListWithLocation: {
             WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
             vc.cellType = WMFMorePageListCellTypeLocation;

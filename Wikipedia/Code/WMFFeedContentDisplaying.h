@@ -40,7 +40,6 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePage,
     WMFFeedMoreTypePageWithRandomButton,
     WMFFeedMoreTypePageList,
-    WMFFeedMoreTypePageListWithPreview,
     WMFFeedMoreTypePageListWithLocation,
     WMFFeedMoreTypeLocationAuthorization,
     WMFFeedMoreTypeNews
