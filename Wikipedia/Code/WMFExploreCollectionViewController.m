@@ -764,8 +764,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-#pragma mark - UICollectionViewDelegate
-
 - (NSString *)reuseIdentifierForCellAtIndexPath:(NSIndexPath *)indexPath displayType:(WMFFeedDisplayType)displayType {
     NSString *reuseIdentifier = @"WMFArticleRightAlignedImageCollectionViewCell";
     switch (displayType) {
@@ -780,6 +778,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             break;
     }
     return reuseIdentifier;
+}
+
+#pragma mark - WMFColumnarCollectionViewLayoutDelgate
+
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
@@ -887,6 +891,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:index];
     return [section prefersWiderColumn];
 }
+
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
@@ -1206,7 +1212,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article contentGroup:section displayType:displayType layoutOnly:layoutOnly];
+    [cell configureWithArticle:article displayType:displayType layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
@@ -1336,13 +1342,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     switch (group.moreType) {
         case WMFFeedMoreTypePageList: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
-            vc.cellType = WMFMorePageListCellTypeNormal;
-            [self.navigationController pushViewController:vc animated:animated];
-        } break;
-        case WMFFeedMoreTypePageListWithPreview: {
-            WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:group articleURLs:URLs userDataStore:self.userStore];
-            vc.cellType = WMFMorePageListCellTypePreview;
+            WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
+            vc.title = group.moreTitle;
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         case WMFFeedMoreTypePageListWithLocation: {

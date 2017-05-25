@@ -78,7 +78,7 @@
 - (void)prepareLayout {
     if (!self.isLayoutValid) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
+        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
@@ -103,7 +103,7 @@
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.boundsDidChange = YES;
-    self.metrics = [WMFCVLMetrics metricsWithBoundsSize:newBounds.size];
+    self.metrics = [self.delegate metricsWithBoundsSize:newBounds.size];
     [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }

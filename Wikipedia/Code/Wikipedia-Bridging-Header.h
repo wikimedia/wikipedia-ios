@@ -63,6 +63,7 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFColumnarCollectionViewLayout.h"
 #import "WMFCVLAttributes.h"
+#import "WMFCVLMetrics.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
