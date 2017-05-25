@@ -1,32 +1,27 @@
 @objc(WMFNewsViewController)
-class NewsViewController: UICollectionViewController {
+class NewsViewController: ColumnarCollectionViewController {
     static let cellReuseIdentifier = "NewsCollectionViewCell"
     static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
-    let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
     
     required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
         self.stories = stories
         self.dataStore = dataStore
-        super.init(collectionViewLayout: layout)
+        super.init()
         title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        return nil
+        fatalError("init(coder:) not supported")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let collectionView = collectionView else {
-            return
-        }
-        collectionView.backgroundColor = .wmf_settingsBackground
-        collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
-        collectionView.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
+        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
+        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,35 +32,6 @@ class NewsViewController: UICollectionViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         unregisterForPreviewing()
-    }
-    
-    // MARK - 3D Touch
-    
-    var previewingContext: UIViewControllerPreviewing?
-
-    
-    func unregisterForPreviewing() {
-        guard let context = previewingContext else {
-            return
-        }
-        unregisterForPreviewing(withContext: context)
-    }
-    
-    func registerForPreviewingIfAvailable() {
-        wmf_ifForceTouchAvailable({
-            self.unregisterForPreviewing()
-            guard let collectionView = self.collectionView else {
-                return
-            }
-            self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
-        }, unavailable: {
-            self.unregisterForPreviewing()
-        })
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.registerForPreviewingIfAvailable()
     }
     
     // MARK - UICollectionViewDataSource
@@ -157,8 +123,8 @@ extension NewsViewController: NewsCollectionViewCellDelegate {
     }
 }
 
-extension NewsViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+extension NewsViewController { // UIViewControllerPreviewingDelegate
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let collectionView = collectionView,
             let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
@@ -181,7 +147,7 @@ extension NewsViewController: UIViewControllerPreviewingDelegate {
         return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
     }
     
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
