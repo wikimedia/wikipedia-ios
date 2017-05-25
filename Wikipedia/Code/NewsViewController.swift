@@ -33,8 +33,10 @@ class NewsViewController: ColumnarCollectionViewController {
         super.viewDidDisappear(animated)
         unregisterForPreviewing()
     }
-    
-    // MARK - UICollectionViewDataSource
+}
+
+// MARK: - UICollectionViewDataSource
+extension NewsViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return stories.count
@@ -99,7 +101,8 @@ class NewsViewController: ColumnarCollectionViewController {
     }
 }
 
-extension NewsViewController { // WMFColumnarCollectionViewLayoutDelegate {
+// MARK: - WMFColumnarCollectionViewLayoutDelegate
+extension NewsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
         return headerTitle(for: section) == nil ? 0 : 50
     }
@@ -109,13 +112,15 @@ extension NewsViewController { // WMFColumnarCollectionViewLayoutDelegate {
     }
 }
 
+// MARK: - NewsCollectionViewCellDelegate
 extension NewsViewController: NewsCollectionViewCellDelegate {
     func newsCollectionViewCell(_ newsCollectionViewCell: NewsCollectionViewCell, didSelectNewsArticleWithURL articleURL: URL) {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }
 
-extension NewsViewController { // UIViewControllerPreviewingDelegate
+// MARK: - UIViewControllerPreviewingDelegate
+extension NewsViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let collectionView = collectionView,
             let indexPath = collectionView.indexPathForItem(at: location),
