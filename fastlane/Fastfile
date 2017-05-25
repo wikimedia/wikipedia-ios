@@ -37,35 +37,35 @@ platform :ios do
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
     verify(
-     sim: 'iPhone 6s 9.3',
+     sim: 'iPhone 6s (9.3)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim: 'iPhone 6s 9.3'
+     sim: 'iPhone 6s (9.3)'
     )
     verify(
-     sim: 'iPhone 6s 10.3',
+     sim: 'iPhone 6s (10.3)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim: 'iPhone 6s 10.3',
+     sim: 'iPhone 6s (10.3)',
     )
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
     verify(
-     sim: 'iPad Air 2 9.3',
+     sim: 'iPad Air 2 (9.3)',
     )
     verify(
-     sim: 'iPhone 6s 10.3',
+     sim: 'iPhone 6s (10.3)',
     )
   end
 
   desc "Runs unit tests, generates JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim = options[:sim] || 'iPhone 6s 10.3'
+    sim = options[:sim] || 'iPhone 6s (10.3)'
     opts = {
       :device => sim,
       :sdk => "iphonesimulator",
