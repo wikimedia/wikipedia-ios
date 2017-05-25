@@ -5,6 +5,7 @@ class ColumnarCollectionViewController: UICollectionViewController {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
 
     init() {
+        
         super.init(collectionViewLayout: layout)
     }
     
@@ -79,3 +80,24 @@ extension ColumnarCollectionViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDelegate {
+    open func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
+        return index % 2 == 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
+        return 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
+        return 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 0)
+    }
+    
+    func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
+        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1)
+    }
+}

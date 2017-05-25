@@ -764,8 +764,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-#pragma mark - UICollectionViewDelegate
-
 - (NSString *)reuseIdentifierForCellAtIndexPath:(NSIndexPath *)indexPath displayType:(WMFFeedDisplayType)displayType {
     NSString *reuseIdentifier = @"WMFArticleRightAlignedImageCollectionViewCell";
     switch (displayType) {
@@ -780,6 +778,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             break;
     }
     return reuseIdentifier;
+}
+
+#pragma mark - WMFColumnarCollectionViewLayoutDelgate
+
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
@@ -887,6 +891,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:index];
     return [section prefersWiderColumn];
 }
+
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];

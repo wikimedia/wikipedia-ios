@@ -28,4 +28,6 @@ typedef struct WMFLayoutEstimate WMFLayoutEstimate;
 - (CGFloat)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
 - (BOOL)collectionView:(nonnull UICollectionView *)collectionView prefersWiderColumnForSectionAtIndex:(NSUInteger)index;
 
+- (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)size;
+
 @end
