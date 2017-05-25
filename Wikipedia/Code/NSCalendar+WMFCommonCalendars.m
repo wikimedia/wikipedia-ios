@@ -21,7 +21,23 @@
     return gregorianCalendar;
 }
 
+- (NSDateComponents *)wmf_components:(NSCalendarUnit)unitFlags fromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
+    if (!fromDate || !toDate) {
+        return nil;
+    }
+    
+    NSDateComponents *fromDateComponents = [self components:unitFlags fromDate:fromDate];
+    NSDateComponents *toDateComponents = [self components:unitFlags fromDate:toDate];
+    
+    if (!fromDateComponents || !toDateComponents) {
+        return nil;
+    }
+    
+    return [self components:unitFlags fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly];
+}
+
 - (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
+    //Don't use wmf_components:fromDate:toDate: above unless it's adapted to work to use different unitFlags for from & to and the output
     if (!fromDate || !toDate) {
         return 0;
     }
