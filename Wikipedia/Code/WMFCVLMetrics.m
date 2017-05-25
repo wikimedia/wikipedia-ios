@@ -10,6 +10,7 @@
 @property (nonatomic) CGFloat interItemSpacing;
 @property (nonatomic, copy) NSArray *columnWeights;
 @end
+
 @implementation WMFCVLMetrics
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -22,14 +23,15 @@
     copy.interSectionSpacing = self.interSectionSpacing;
     copy.interItemSpacing = self.interItemSpacing;
     copy.columnWeights = self.columnWeights;
+    copy.shouldMatchColumnHeights = self.shouldMatchColumnHeights;
     return copy;
 }
 
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821];
+    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO];
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio {
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
     BOOL isRTL = [[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft;
@@ -40,9 +42,9 @@
     metrics.columnWeights = useTwoColumns ? isRTL ? @[@(secondColumnRatio), @(firstColumnRatio)] : @[@(firstColumnRatio), @(secondColumnRatio)] : @[@1];
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
-    metrics.interSectionSpacing = useTwoColumns ? 20 : 50;
+    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 50;
     metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
-    metrics.sectionInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
 }
