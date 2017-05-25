@@ -565,6 +565,10 @@
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
 		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
+		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
+		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
+		D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
+		D818D3841ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */ = {isa = PBXBuildFile; fileRef = D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */; };
 		D81BA0FB1D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D81BA0F61D50D40B006C38AC /* WMFNearbyArticleTableViewCell.m */; };
@@ -3669,6 +3673,7 @@
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Description.swift"; sourceTree = "<group>"; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
 		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = ../Wikipedia/Code/Analytics.swift; sourceTree = "<group>"; };
+		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
 		D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreFeedContentController.h; sourceTree = "<group>"; };
 		D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreFeedContentController.m; sourceTree = "<group>"; };
 		D81BA0F51D50D40B006C38AC /* WMFNearbyArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyArticleTableViewCell.h; path = Wikipedia/Code/WMFNearbyArticleTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -5622,6 +5627,7 @@
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D818D37F1ED725240076110D /* View Controllers */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				BC45D5561C31EEBE007C72F3 /* Error Handling */,
 				BC45D5591C31EFF8007C72F3 /* i18n */,
@@ -6838,6 +6844,14 @@
 				D82014811E68693600BA8579 /* HexColors */,
 			);
 			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		D818D37F1ED725240076110D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		D82014811E68693600BA8579 /* HexColors */ = {
@@ -8841,6 +8855,7 @@
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
+				D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				B07715221E69401800D393FE /* UITextField+WMFAuth.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
@@ -9443,6 +9458,7 @@
 				D8A42ACC1E815A9C00D8E281 /* WMFAuthLinkLabel.swift in Sources */,
 				D8A42ACD1E815A9C00D8E281 /* WMFHistoryTableViewController.m in Sources */,
 				D8A42ACE1E815A9C00D8E281 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
+				D818D3841ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8A42ACF1E815A9C00D8E281 /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8A42AD01E815A9C00D8E281 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8A42AD11E815A9C00D8E281 /* WMFPasswordResetter.swift in Sources */,
@@ -9717,6 +9733,7 @@
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
+				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8CE25251E698E2400DAE2E0 /* PageHistoryViewController.m in Sources */,
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8CE25271E698E2400DAE2E0 /* WMFChangePasswordViewController.swift in Sources */,
@@ -10075,6 +10092,7 @@
 				D8EC3E351E9BDA35006712EB /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8EC3E361E9BDA35006712EB /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */,
+				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				D8733C8F1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8EC3E391E9BDA35006712EB /* NSNumber+MWKTitleNamespace.m in Sources */,
