@@ -74,7 +74,7 @@ extension NewsViewController {
         cell.newsDelegate = nil
     }
     
-    static var headerDateFormatter: DateFormatter = {
+    static let headerDateFormatter: DateFormatter = {
         let headerDateFormatter = DateFormatter()
         headerDateFormatter.locale = Locale.autoupdatingCurrent
         headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
