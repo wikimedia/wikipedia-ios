@@ -89,6 +89,57 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return PlaceSearchService(dataStore: self.dataStore)
     }()
     
+    // MARK: - Accessibility
+    
+    func configurePlacesAccessibilityRotor() {
+        if #available(iOS 10.0, *) {
+            let favoritesRotor = UIAccessibilityCustomRotor(name: "Places") { predicate in
+                
+                let allArticlePlaceAnnotations = Array(self.mapView.annotations(in: self.mapView.visibleMapRect)).filter { $0 is ArticlePlace } as! [ArticlePlace]
+                
+                print("\ncount = \(allArticlePlaceAnnotations.count)\n")
+                
+                let currentAnnotationView = predicate.currentItem.targetElement as? ArticlePlaceView
+                let currentAnnotation = currentAnnotationView?.annotation as? ArticlePlace
+                
+                var index = 0
+                if let currentAnnotation = currentAnnotation {
+                    if let currentIndex = allArticlePlaceAnnotations.index(of: currentAnnotation) {
+                        index = currentIndex
+                    }
+                }
+                
+                print("\nindex previous = \(index)\n")
+
+                index = index + (predicate.searchDirection == .next ? 1 : -1)
+
+                print("\nindex maybe next = \(index)\n")
+
+                index = min(max(index, 0), allArticlePlaceAnnotations.count - 1)
+
+                print("\nindex next = \(index)\n")
+
+                let requestedAnnotation = allArticlePlaceAnnotations[index]
+                
+                //self.selectArticlePlace(requestedAnnotation) 
+                // ^ animation is causing weirdness... the stackoverflow link in the comment below may provide context
+                self.mapView.selectAnnotation(requestedAnnotation, animated: false)
+                self.previouslySelectedArticlePlaceIdentifier = requestedAnnotation.identifier
+                                
+                // https://stackoverflow.com/a/42170927/135557
+                //self.mapView.setCenter(requestedAnnotation.coordinate, animated: false)
+
+                if let annotationView = self.mapView.view(for: requestedAnnotation) {
+                //if let annotationView = self.mapView.selectedAnnotations.first {
+                    return UIAccessibilityCustomRotorItemResult(targetElement: annotationView, targetRange: nil)
+                }
+                return nil
+            }
+            self.accessibilityCustomRotors = [favoritesRotor]
+        } else {
+        }
+    }
+    
     // MARK: - View Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
@@ -856,6 +907,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
             selectVisibleKeyToSelectIfNecessary()
         }
+        
+        configurePlacesAccessibilityRotor()
+        
     }
     
     func updateSavedPlacesCountInCurrentMapRegionIfNecessary() {
