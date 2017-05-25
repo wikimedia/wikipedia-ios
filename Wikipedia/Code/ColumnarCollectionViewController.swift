@@ -5,7 +5,6 @@ class ColumnarCollectionViewController: UICollectionViewController {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
 
     init() {
-        
         super.init(collectionViewLayout: layout)
     }
     
@@ -16,6 +15,16 @@ class ColumnarCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .wmf_settingsBackground
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForPreviewingIfAvailable()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        unregisterForPreviewing()
     }
     
     // MARK - Cell & View Registration
