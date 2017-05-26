@@ -253,6 +253,7 @@
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-this-area" = "Results in this area";
 "places-search-top-articles" = "All top articles";
+"places-search-top-articles-that-match-scope" = "Nearby";
 "places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
 "potd-description-prefix" = "Picture of the day for $1";
