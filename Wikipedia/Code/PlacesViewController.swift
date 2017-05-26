@@ -93,7 +93,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func configurePlacesAccessibilityRotor() {
         if #available(iOS 10.0, *) {
-            let placesRotor = UIAccessibilityCustomRotor(name: "Places") { predicate in
+            let localizedRotorName = WMFLocalizedString("places-accessibility-rotor-name", value: "Wikipedia Articles", comment: "Name for the accessibility rotor that allows access to visible articles.")
+            let placesRotor = UIAccessibilityCustomRotor(name: localizedRotorName) { predicate in
                 guard
                     let unsortedAnnotations = self.mapView.annotations(in: self.mapView.visibleMapRect).filter({ $0 is ArticlePlace }) as? [ArticlePlace]
                 else {
@@ -113,6 +114,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                         index = currentIndex
                     }
                 }
+                
                 
                 print("\nindex previous = \(index)\n")
 
