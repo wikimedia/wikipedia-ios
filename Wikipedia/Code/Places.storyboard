@@ -89,7 +89,7 @@
                                     <action selector="redoSearch:" destination="pK5-Ai-Kzp" eventType="touchUpInside" id="wyT-P2-LdB"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
                                 <rect key="frame" x="516" y="36" width="182" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>

@@ -138,6 +138,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didYouMeanButton.backgroundColor = view.tintColor
         didYouMeanButton.setTitleColor(.white, for: .normal)
         didYouMeanButton.isHidden = true
+        didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        didYouMeanButton.titleLabel?.textAlignment = .center
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
