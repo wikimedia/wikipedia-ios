@@ -2271,6 +2271,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 return
             }
             
+            if let suggestion = searchResult.searchSuggestion {
+                DDLogDebug("got suggestion! \(suggestion)")
+            }
+            
             let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
             self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
