@@ -43,7 +43,7 @@
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 50;
-    metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
+    metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
