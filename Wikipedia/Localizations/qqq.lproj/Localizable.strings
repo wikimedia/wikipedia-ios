@@ -263,6 +263,8 @@
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
+"relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
+"relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
@@ -316,12 +318,6 @@
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-of-contents-popover-description" = "Description of Table of Contents which can appear over its icon in a tip bubble. “Overview” refers to a view of the article’s structure, not a summary of the article.";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
-"timestamp-days" = "Human-readable approximate timestamp for events in the last couple months, expressed as days";
-"timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
-"timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
-"timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
-"timestamp-months" = "Human-readable approximate timestamp for events in the last couple years, expressed as months";
-"timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
