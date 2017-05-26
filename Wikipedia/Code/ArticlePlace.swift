@@ -22,14 +22,16 @@ class ArticlePlace: NSObject, MKAnnotation {
     public let subtitle: String?
     public let articles: [WMFArticle]
     public let identifier: String
+    public let sortOrder: Int
     
-    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: String) {
+    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: String, sortOrder: Int) {
         self.title = nil
         self.subtitle = nil
         self.coordinate = coordinate
         self.nextCoordinate = nextCoordinate
         self.articles = articles
         self.identifier = identifier
+        self.sortOrder = sortOrder
     }
     
     public static func identifierForArticles(articles: [WMFArticle]) -> String {

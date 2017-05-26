@@ -93,18 +93,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func configurePlacesAccessibilityRotor() {
         if #available(iOS 10.0, *) {
-            let favoritesRotor = UIAccessibilityCustomRotor(name: "Places") { predicate in
+            let placesRotor = UIAccessibilityCustomRotor(name: "Places") { predicate in
+                guard
+                    let unsortedAnnotations = self.mapView.annotations(in: self.mapView.visibleMapRect).filter({ $0 is ArticlePlace }) as? [ArticlePlace]
+                else {
+                    return nil
+                }
                 
-                let allArticlePlaceAnnotations = Array(self.mapView.annotations(in: self.mapView.visibleMapRect)).filter { $0 is ArticlePlace } as! [ArticlePlace]
-                
-                print("\ncount = \(allArticlePlaceAnnotations.count)\n")
-                
+                let annotations = unsortedAnnotations.sorted(by: { (ap1, ap2) -> Bool in
+                    return ap1.sortOrder < ap2.sortOrder
+                })
+
                 let currentAnnotationView = predicate.currentItem.targetElement as? ArticlePlaceView
                 let currentAnnotation = currentAnnotationView?.annotation as? ArticlePlace
                 
                 var index = 0
                 if let currentAnnotation = currentAnnotation {
-                    if let currentIndex = allArticlePlaceAnnotations.index(of: currentAnnotation) {
+                    if let currentIndex = annotations.index(of: currentAnnotation) {
                         index = currentIndex
                     }
                 }
@@ -115,19 +120,11 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
                 print("\nindex maybe next = \(index)\n")
 
-                index = min(max(index, 0), allArticlePlaceAnnotations.count - 1)
+                index = min(max(index, 0), annotations.count - 1)
 
                 print("\nindex next = \(index)\n")
 
-                let requestedAnnotation = allArticlePlaceAnnotations[index]
-                
-                //self.selectArticlePlace(requestedAnnotation) 
-                // ^ animation is causing weirdness... the stackoverflow link in the comment below may provide context
-                self.mapView.selectAnnotation(requestedAnnotation, animated: false)
-                self.previouslySelectedArticlePlaceIdentifier = requestedAnnotation.identifier
-                                
-                // https://stackoverflow.com/a/42170927/135557
-                //self.mapView.setCenter(requestedAnnotation.coordinate, animated: false)
+                let requestedAnnotation = annotations[index]
 
                 if let annotationView = self.mapView.view(for: requestedAnnotation) {
                 //if let annotationView = self.mapView.selectedAnnotations.first {
@@ -135,7 +132,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 }
                 return nil
             }
-            self.accessibilityCustomRotors = [favoritesRotor]
+            self.accessibilityCustomRotors = [placesRotor]
         } else {
         }
     }
@@ -1587,6 +1584,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var groups: [String: ArticleGroup] = [:]
         var splittableGroups: [String: ArticleGroup] = [:]
+        var sortOrder = 0
         for article in articleFetchedResultsController.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
@@ -1723,13 +1721,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
 
             
-            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier) else {
+            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier, sortOrder: sortOrder) else {
                 continue
             }
             
             mapView.addAnnotation(place)
             
             groups.removeValue(forKey: key)
+            
+            sortOrder += 1
         }
         
         for (_, annotation) in annotationsToRemove {
