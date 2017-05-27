@@ -39,19 +39,19 @@ class WMFPage {
 
 class WMFPageFragment {
   constructor(wmfPage, index) {
-      
+
     var page = document.createElement('div')
     page.id = index
-    page.className = 'footer_readmore_page'        
-      
-    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source  
+    page.className = 'footer_readmore_page'
+
+    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
     if(hasImage){
       var image = document.createElement('div')
       image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
       image.classList.add('footer_readmore_page_image')
       page.appendChild(image)
     }
-        
+
     var container = document.createElement('div')
     container.classList.add('footer_readmore_page_container')
     page.appendChild(container)
@@ -71,7 +71,7 @@ class WMFPageFragment {
     var description = null
     if(wmfPage.terms){
       description = wmfPage.terms.description
-    }        
+    }
     if((description === null || description.length < 10) && wmfPage.extract){
       description = cleanExtract(wmfPage.extract)
     }
@@ -98,9 +98,9 @@ class WMFPageFragment {
   }
 }
 
-function showReadMore(pages){  
+function showReadMore(pages){
   shownTitles.length = 0
-  
+
   pages.forEach(function(page, index){
 
     const title = page.title.replace(/ /g, '_')
@@ -110,7 +110,7 @@ function showReadMore(pages){
     const pageFragment = new WMFPageFragment(pageModel, index)
     _readMoreContainer.appendChild(pageFragment)
   })
-  
+
   _titlesShownHandler(shownTitles)
 }
 
@@ -120,7 +120,7 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
   if (baseURL === null) {
     baseURL = ''
   }
-    
+
   const pageCountToFetch = 3
   const params = {
     action: 'query',
@@ -154,7 +154,7 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
         return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
       })
       .join('&')
-    
+
   xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true)
   xhr.onload = function() {
     if (xhr.readyState === 4) {
@@ -180,7 +180,7 @@ function updateSaveButtonText(button, title, isSaved){
 
 function updateSaveButtonBookmarkIcon(button, title, isSaved){
   button.classList.remove('footer_readmore_bookmark_unfilled')
-  button.classList.remove('footer_readmore_bookmark_filled')  
+  button.classList.remove('footer_readmore_bookmark_filled')
   button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled')
 }
 
@@ -194,10 +194,10 @@ function add(baseURL, title, saveForLaterString, savedForLaterString, containerI
   _readMoreContainer = document.getElementById(containerID)
   _clickHandler = clickHandler
   _saveButtonClickHandler = saveButtonClickHandler
-  _titlesShownHandler = titlesShownHandler  
+  _titlesShownHandler = titlesShownHandler
   _saveForLaterString = saveForLaterString
   _savedForLaterString = savedForLaterString
-  
+
   fetchReadMore(baseURL, title, showReadMore)
 }
 

@@ -26,7 +26,7 @@
     if (!hrefTarget) {
       return false
     }
- 
+
     /*
     "touchstart" is fired when you do a peek in WKWebView, but when the peek view controller
     is presented, it appears the JS for the then covered webview more or less pauses, and
@@ -42,7 +42,7 @@
     if(didDetectHangingTouchend){
       return false
     }
- 
+
     var href = hrefTarget.getAttribute( 'href' )
     if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
       window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
@@ -50,14 +50,14 @@
       // Handle reference links with a popup view instead of scrolling about!
       refs.sendNearbyReferences( hrefTarget )
     } else if (href && href[0] === '#') {
- 
+
       tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
- 
+
       // If it is a link to an anchor in the current page, use existing link handling
       // so top floating native header height can be taken into account by the regular
       // fragment handling logic.
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-    } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {      
+    } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
       window.webkit.messageHandlers.imageClicked.postMessage({
         'src': event.target.getAttribute('src'),
         'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.

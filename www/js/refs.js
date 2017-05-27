@@ -66,7 +66,7 @@ function collectRefText( sourceNode ) {
   }
 
   // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )    
+  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
   for (var i = 0; i < backlinks.length; i++) {
     backlinks[i].style.display = 'none'
   }
@@ -120,7 +120,7 @@ function sendNearbyReferences( sourceNode ) {
     var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
     linkRects.push(rect)
   }
-    
+
   var referencesGroup = []
   for(var j = 0; j < linkId.length; j++){
     referencesGroup.push({
@@ -130,7 +130,7 @@ function sendNearbyReferences( sourceNode ) {
       'html': refs[j]
     })
   }
-    
+
   // Special handling for references
   window.webkit.messageHandlers.referenceClicked.postMessage({
     'selectedIndex': selectedIndex,

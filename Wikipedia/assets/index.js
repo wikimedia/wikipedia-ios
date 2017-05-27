@@ -79,9 +79,9 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
       while (true) {
         var value = element.nodeValue  // Search for searchTerm in text node
         var idx = value.toLowerCase().indexOf(searchTerm)
-                
+
         if (idx < 0) break
-                
+
         var span = document.createElement('span')
         var text = document.createTextNode(value.substr(idx, searchTerm.length))
         span.appendChild(text)
@@ -113,7 +113,7 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
         element.parentNode.insertBefore(text,element)
         element.parentNode.removeChild(element)
         return true
-      } 
+      }
       var normalize = false
       for (var i = element.childNodes.length - 1; i >= 0; i--) {
         if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
@@ -123,7 +123,7 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
       if (normalize) {
         element.normalize()
       }
-            
+
     }
   }
   return false
@@ -150,9 +150,9 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     return
   }
   searchTerm = searchTerm.trim()
-    
+
   recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
-    
+
     // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
     // matches in first-to-last order. We can work around this by adding the "id"
     // and building our results array *after* the recursion is done, thanks to
@@ -165,7 +165,7 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
         // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
   }
-    
+
   window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
 }
 
@@ -209,7 +209,7 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     if (!hrefTarget) {
       return false
     }
- 
+
     /*
     "touchstart" is fired when you do a peek in WKWebView, but when the peek view controller
     is presented, it appears the JS for the then covered webview more or less pauses, and
@@ -225,7 +225,7 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
     if(didDetectHangingTouchend){
       return false
     }
- 
+
     var href = hrefTarget.getAttribute( 'href' )
     if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
       window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
@@ -233,14 +233,14 @@ exports.removeSearchTermHighlights = removeSearchTermHighlights
       // Handle reference links with a popup view instead of scrolling about!
       refs.sendNearbyReferences( hrefTarget )
     } else if (href && href[0] === '#') {
- 
+
       tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
- 
+
       // If it is a link to an anchor in the current page, use existing link handling
       // so top floating native header height can be taken into account by the regular
       // fragment handling logic.
       window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-    } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {      
+    } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
       window.webkit.messageHandlers.imageClicked.postMessage({
         'src': event.target.getAttribute('src'),
         'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -357,7 +357,7 @@ function collectRefText( sourceNode ) {
   }
 
   // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )    
+  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
   for (var i = 0; i < backlinks.length; i++) {
     backlinks[i].style.display = 'none'
   }
@@ -411,7 +411,7 @@ function sendNearbyReferences( sourceNode ) {
     var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
     linkRects.push(rect)
   }
-    
+
   var referencesGroup = []
   for(var j = 0; j < linkId.length; j++){
     referencesGroup.push({
@@ -421,7 +421,7 @@ function sendNearbyReferences( sourceNode ) {
       'html': refs[j]
     })
   }
-    
+
   // Special handling for references
   window.webkit.messageHandlers.referenceClicked.postMessage({
     'selectedIndex': selectedIndex,
@@ -481,7 +481,7 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
   var licenseStringHalves = licenseString.split('$1')
 
 
-  container.innerHTML = 
+  container.innerHTML =
   `<div class='footer_legal_contents'>
     <hr class='footer_legal_divider'>
     <span class='footer_legal_licence'>
@@ -503,7 +503,7 @@ exports.add = add
 },{}],9:[function(require,module,exports){
 
 // var thisType = IconTypeEnum.languages;
-// var iconClass = IconTypeEnum.properties[thisType].iconClass; 
+// var iconClass = IconTypeEnum.properties[thisType].iconClass;
 // iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
   languages: 1,
@@ -538,7 +538,7 @@ class WMFMenuItemFragment {
     containerAnchor.addEventListener('click', function(){
       wmfMenuItem.clickHandler()
     }, false)
-                
+
     item.appendChild(containerAnchor)
 
     if(wmfMenuItem.title){
@@ -556,7 +556,7 @@ class WMFMenuItemFragment {
     }
 
     if(wmfMenuItem.iconType){
-      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass 
+      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass
       item.classList.add(iconClass)
     }
 
@@ -619,19 +619,19 @@ class WMFPage {
 
 class WMFPageFragment {
   constructor(wmfPage, index) {
-      
+
     var page = document.createElement('div')
     page.id = index
-    page.className = 'footer_readmore_page'        
-      
-    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source  
+    page.className = 'footer_readmore_page'
+
+    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
     if(hasImage){
       var image = document.createElement('div')
       image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
       image.classList.add('footer_readmore_page_image')
       page.appendChild(image)
     }
-        
+
     var container = document.createElement('div')
     container.classList.add('footer_readmore_page_container')
     page.appendChild(container)
@@ -651,7 +651,7 @@ class WMFPageFragment {
     var description = null
     if(wmfPage.terms){
       description = wmfPage.terms.description
-    }        
+    }
     if((description === null || description.length < 10) && wmfPage.extract){
       description = cleanExtract(wmfPage.extract)
     }
@@ -678,9 +678,9 @@ class WMFPageFragment {
   }
 }
 
-function showReadMore(pages){  
+function showReadMore(pages){
   shownTitles.length = 0
-  
+
   pages.forEach(function(page, index){
 
     const title = page.title.replace(/ /g, '_')
@@ -690,7 +690,7 @@ function showReadMore(pages){
     const pageFragment = new WMFPageFragment(pageModel, index)
     _readMoreContainer.appendChild(pageFragment)
   })
-  
+
   _titlesShownHandler(shownTitles)
 }
 
@@ -700,7 +700,7 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
   if (baseURL === null) {
     baseURL = ''
   }
-    
+
   const pageCountToFetch = 3
   const params = {
     action: 'query',
@@ -734,7 +734,7 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
         return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
       })
       .join('&')
-    
+
   xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true)
   xhr.onload = function() {
     if (xhr.readyState === 4) {
@@ -760,7 +760,7 @@ function updateSaveButtonText(button, title, isSaved){
 
 function updateSaveButtonBookmarkIcon(button, title, isSaved){
   button.classList.remove('footer_readmore_bookmark_unfilled')
-  button.classList.remove('footer_readmore_bookmark_filled')  
+  button.classList.remove('footer_readmore_bookmark_filled')
   button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled')
 }
 
@@ -774,10 +774,10 @@ function add(baseURL, title, saveForLaterString, savedForLaterString, containerI
   _readMoreContainer = document.getElementById(containerID)
   _clickHandler = clickHandler
   _saveButtonClickHandler = saveButtonClickHandler
-  _titlesShownHandler = titlesShownHandler  
+  _titlesShownHandler = titlesShownHandler
   _saveForLaterString = saveForLaterString
   _savedForLaterString = savedForLaterString
-  
+
   fetchReadMore(baseURL, title, showReadMore)
 }
 
@@ -842,9 +842,9 @@ function moveFirstGoodParagraphUp( content ) {
       return !pIsTooSmall
     }
     return false
-      
+
   }
- 
+
   var firstGoodParagraph = function(){
     return Array.prototype.slice.call( allPs).find(isParagraphGood)
   }()
@@ -889,7 +889,7 @@ const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenI
 const isGalleryImage = function(image) {
   // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
   // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'    
+  return image.getAttribute('data-image-gallery') === 'true'
 }
 
 function widenImages(content) {

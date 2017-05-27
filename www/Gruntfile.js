@@ -1,33 +1,33 @@
 module.exports = function (grunt) {
-  
+
   grunt.loadNpmTasks( 'grunt-browserify' )
   grunt.loadNpmTasks( 'gruntify-eslint' )
   grunt.loadNpmTasks( 'grunt-contrib-copy' )
   grunt.loadNpmTasks( 'grunt-contrib-less' )
-  
+
   var allJSFilesInJSFolder = 'js/**/*.js'
   var distFolder = '../wikipedia/assets/'
-  
+
   grunt.initConfig( {
-    
+
     browserify: {
       distMain: {
         src: [
-          'index-main.js', 
-          allJSFilesInJSFolder, 
+          'index-main.js',
+          allJSFilesInJSFolder,
           '!preview-main.js'
         ],
         dest: `${distFolder}index.js`
       },
       distPreview: {
         src: [
-          'preview-main.js', 
+          'preview-main.js',
           'js/utilities.js'
         ],
         dest: `${distFolder}preview.js`
       }
     },
-    
+
     less: {
       all: {
         options: {
@@ -36,27 +36,27 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: [
-          { 
+          {
             src: [
-              'less/**/*.less', 
+              'less/**/*.less',
               'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css'
-            ], 
+            ],
             dest: `${distFolder}styleoverrides.css`
           }
         ]
       }
     },
-    
+
     eslint: {
       src: [
-        '*.js', 
+        '*.js',
         allJSFilesInJSFolder
       ],
       options: {
         fix: false
       }
     },
-    
+
     copy: {
       main: {
         files: [
@@ -75,11 +75,11 @@ module.exports = function (grunt) {
       }
     }
   } )
-  
+
   grunt.registerTask('default', [
-    'eslint', 
-    'browserify', 
-    'less', 
+    'eslint',
+    'browserify',
+    'less',
     'copy'
   ])
 }
