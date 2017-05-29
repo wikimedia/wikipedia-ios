@@ -91,9 +91,12 @@
 "empty-no-saved-pages-message" = "Guardar páxines pa veles más tarde, inclusive ensin conexón";
 "empty-no-saved-pages-title" = "Inda nun hai páxines guardaes";
 "empty-no-search-results-message" = "Nun s'alcontraron resultancies";
+"error-unknown" = "Hebo un error desconocíu.";
 "explore-another-random" = "Otru artículu al debalu";
+"explore-because-you-read" = "Porque lleísti";
 "explore-continue-reading-heading" = "Siguir lleyendo";
 "explore-featured-article-heading" = "Artículu destacáu";
+"explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-most-read-footer-for-date" = "Tolos artículos más lleíos el $1";
 "explore-most-read-generic-heading" = "Más lleíos";
@@ -163,6 +166,7 @@
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más de cerca del to allugamientu";
 "home-nearby-location-footer" = "Más cercanos a $1";
+"home-news-footer" = "Más nes noticies";
 "home-title" = "Esplorar";
 "home-title-accessibility-label" = "Wikipedia, subir al entamu d'Esplorar";
 "icon-shortcut-continue-reading-title" = "Siguir lleyendo";
@@ -229,6 +233,7 @@
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
 "page-read-in-other-languages" = "Disponible'n $1 idiomes más";
 "page-similar-titles" = "Páxines asemeyaes";
+"pictured" = "con semeya";
 "places-accessibility-clear-saved-searches" = "Llimpiar les guetes guardaes";
 "places-accessibility-close-search" = "Zarrar la gueta";
 "places-accessibility-group" = "$1 artículos";
@@ -250,11 +255,13 @@
 "places-no-saved-articles-have-location" = "Dengún artículu de los guardaos tien información d'allugamientu";
 "places-search-articles-that-match" = "$1 que casen con «$2»";
 "places-search-default-text" = "Buscar";
+"places-search-did-you-mean" = "¿Quixisti dicir $1?";
 "places-search-recently-searched-header" = "Guetao recién";
 "places-search-saved-articles" = "Tolos artículos guardaos";
 "places-search-suggested-searches-header" = "Guetes suxeríes";
 "places-search-this-area" = "Resultaos nesta fastera";
 "places-search-top-articles" = "Tolos artículos principales";
+"places-title" = "Llugares";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
@@ -263,6 +270,9 @@
 "rank-accessibility-label" = "Númberu $1";
 "readers-accessibility-label" = "$1 llectores";
 "reference-title" = "Referencia $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Güei|Ayeri|Hai $1 díes}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "save-action" = "Guardar";
 "saved-clear-all" = "Llimpiar";
@@ -316,12 +326,6 @@
 "table-of-contents-heading" = "Conteníu";
 "table-of-contents-popover-description" = "Recibir un resumen de los artículos";
 "table-title-other" = "Más información";
-"timestamp-days" = "hai %d díes";
-"timestamp-hours" = "hai %d hores";
-"timestamp-just-now" = "agora mesmo";
-"timestamp-minutes" = "hai %d minutos";
-"timestamp-months" = "hai %d meses";
-"timestamp-years" = "hai %d años";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Ver más lleíos";
@@ -352,6 +356,8 @@
 "wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
 "wikitext-preview-changes-none" = "Nun se ficieron cambios pa una vista previa.";
+"wikitext-preview-link-preview-description" = "Esti enllaz lleva a '$1'";
+"wikitext-preview-link-preview-title" = "Vista previa del enllaz";
 "wikitext-upload-captcha-error" = "Error na comprobación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del CAPTCHA.";
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";

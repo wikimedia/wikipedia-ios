@@ -232,12 +232,6 @@
 "table-of-contents-heading" = "Иһинээҕитэ";
 "table-of-contents-popover-description" = "Ыстатыйалар туһунан кылгас суруйууну ылыы";
 "table-title-other" = "Сиһилии";
-"timestamp-days" = "%d күн ынараа өттүгэр";
-"timestamp-hours" = "%d чаас ынараа өттүгэр";
-"timestamp-just-now" = "сибилигин";
-"timestamp-minutes" = "%d мүн. ынаараа өттүгэр";
-"timestamp-months" = "%d ый ынаараа өттүгэр";
-"timestamp-years" = "%d сыл ынараа өттүгэр";
 "top-read-header-generic" = "Бикипиэдьийэ";
 "top-read-header-with-language" = "$1 Бикипиэдьийэ";
 "top-read-see-more" = "Элбэхтэ ааҕыллары көрүү";

@@ -91,6 +91,7 @@
 "empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
+"error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-because-you-read" = "Weil du liest";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
@@ -165,6 +166,7 @@
 "home-more-like-footer" = "Mehr wie $1";
 "home-nearby-footer" = "Mehr aus deiner Nähe";
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
+"home-news-footer" = "Mehr in den Nachrichten";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, zum Anfang von Entdecken scrollen";
 "icon-shortcut-continue-reading-title" = "Mit dem Lesen fortfahren";
@@ -231,6 +233,7 @@
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
 "page-read-in-other-languages" = "In $1 weiteren Sprachen verfügbar";
 "page-similar-titles" = "Ähnliche Seiten";
+"pictured" = "Bild";
 "places-accessibility-clear-saved-searches" = "Gespeicherte Suchanfragen löschen";
 "places-accessibility-close-search" = "Suche schließen";
 "places-accessibility-group" = "$1 Artikel";
@@ -252,6 +255,7 @@
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
 "places-search-default-text" = "Suchen";
+"places-search-did-you-mean" = "Meintest du $1?";
 "places-search-recently-searched-header" = "Zuletzt gesucht";
 "places-search-saved-articles" = "Alle gespeicherten Artikel";
 "places-search-suggested-searches-header" = "Suchvorschläge";
@@ -266,6 +270,9 @@
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
 "reference-title" = "Einzelnachweis $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "save-action" = "Speichern";
 "saved-clear-all" = "Löschen";
@@ -319,12 +326,6 @@
 "table-of-contents-heading" = "Inhalte";
 "table-of-contents-popover-description" = "Eine Übersicht der Artikel erhalten";
 "table-title-other" = "Weitere Informationen";
-"timestamp-days" = "vor %d Tagen";
-"timestamp-hours" = "vor %d Stunden";
-"timestamp-just-now" = "gerade eben";
-"timestamp-minutes" = "vor %d Minuten";
-"timestamp-months" = "vor %d Monaten";
-"timestamp-years" = "vor %d Jahren";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Weitere meistgelesene Artikel ansehen";

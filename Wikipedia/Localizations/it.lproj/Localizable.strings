@@ -107,6 +107,7 @@
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
+"error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-because-you-read" = "Perché hai letto";
 "explore-continue-reading-heading" = "Continua a leggere";
@@ -253,6 +254,7 @@
 "places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
 "places-search-default-text" = "Cerca";
+"places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-search-saved-articles" = "Tutte le voci salvate";
 "places-search-this-area" = "Risultati in questa area";
@@ -264,6 +266,9 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reference-title" = "Riferimento $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|Ieri|$1 giorni fa}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "save-action" = "Salva";
 "saved-clear-all" = "Pulisci";
@@ -272,7 +277,7 @@
 "saved-pages-clear-delete-all" = "Sì, cancella tutto";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
 "saved-title" = "Salvato";
-"search-did-you-mean" = "Volevi dire $1?";
+"search-did-you-mean" = "Forse cercavi $1?";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
 "search-recent-clear-cancel" = "Annulla";
 "search-recent-clear-confirmation-heading" = "Eliminare tutte le ricerche recenti?";
@@ -311,12 +316,6 @@
 "table-of-contents-heading" = "Contenuti";
 "table-of-contents-popover-description" = "Ottieni una panoramica delle voci";
 "table-title-other" = "Ulteriori informazioni";
-"timestamp-days" = "%d giorni fa";
-"timestamp-hours" = "%d ore fa";
-"timestamp-just-now" = "proprio ora";
-"timestamp-minutes" = "%d minuti fa";
-"timestamp-months" = "%d mesi fa";
-"timestamp-years" = "%d anni fa";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-see-more" = "Vedi i più lettu";

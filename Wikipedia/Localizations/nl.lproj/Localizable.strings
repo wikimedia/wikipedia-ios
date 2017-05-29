@@ -51,7 +51,9 @@
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
 // Fuzzy
 "account-creation-captcha-request-account" = "Vraag een account aan.";
+"account-creation-captcha-title" = "CAPTCHA-veiligheidscontrole";
 "account-creation-create-account" = "Account aanmaken";
+"account-creation-have-account" = "Hebt u al een account? $1";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
@@ -101,7 +103,9 @@
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
+"error-unknown" = "Er is een onbekende fout opgetreden";
 "explore-another-random" = "Andere willekeurig pagina";
+"explore-because-you-read" = "Omdat u hebt gelezen";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
@@ -158,8 +162,7 @@
 "hockeyapp-alert-always-send" = "Altijd verzenden";
 "hockeyapp-alert-do-not-send" = "Niet verzenden";
 "hockeyapp-alert-privacy" = "Privacy van $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken?";
+"hockeyapp-alert-question" = "Wilt u het crashrapport naar $1 verzenden, zodat de Wikimedia Foundation het kan bekijken?";
 "hockeyapp-alert-question-with-response-field" = "Wilt u het crashrapport naar $1 verzenden, zodat de Wikimedia Foundation het kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
 "hockeyapp-alert-send-report" = "Rapport verzenden";
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
@@ -171,6 +174,7 @@
 "home-more-like-footer" = "Vergelijkbaar met $1";
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
+"home-news-footer" = "Meer in het nieuws";
 "home-title" = "Verkennen";
 "home-title-accessibility-label" = "Wikipedia, scroll naar boven om te verkennen";
 "icon-shortcut-continue-reading-title" = "Verder lezen";
@@ -185,7 +189,6 @@
 "in-the-news-title" = "Actueel";
 "in-the-news-title-for-date" = "Nieuws van $1";
 "info-box-close-text" = "Sluiten";
-// Fuzzy
 "info-box-title" = "Snelle feiten";
 "languages-title" = "Taal wijzigen";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -235,26 +238,30 @@
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
 "page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+"pictured" = "afgebeeld";
+"places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-close-search" = "Zoeken sluiten";
 "places-accessibility-group" = "$1 pagina's";
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
 "places-filter-list-title" = "Zoekfilters";
+"places-filter-no-saved-places" = "U heeft geen opgeslagen plaatsen";
+"places-filter-saved-articles" = "Opgeslagen pagina's";
+"places-filter-top-articles" = "Meest gelezen";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
 "places-search-default-text" = "Zoeken";
+"places-search-did-you-mean" = "Bedoelde u $1?";
 "places-search-recently-searched-header" = "Recente zoekopdrachten";
-// Fuzzy
-"places-search-saved-articles" = "Opgeslagen pagina's";
+"places-search-saved-articles" = "Alle opgeslagen pagina's";
 "places-search-suggested-searches-header" = "Zoeksuggesties";
-// Fuzzy
-"places-search-this-area" = "Zoeken binnen dit gebied";
-// Fuzzy
-"places-search-top-articles" = "Meest gelezen pagina's";
+"places-search-this-area" = "Resultaten binnen dit gebied";
+"places-search-top-articles" = "Alle meest gelezen pagina's";
+"places-title" = "Plaatsen";
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Wikimedia toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
+"preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
@@ -277,6 +284,7 @@
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
 "settings-clear-cache-cancel" = "Annuleren";
+"settings-clear-cache-ok" = "Cache wissen";
 "settings-help-and-feedback" = "Hulp en feedback";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-my-languages" = "Mijn talen";
@@ -308,12 +316,6 @@
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-popover-description" = "Een overzicht van de pagina krijgen";
 "table-title-other" = "Meer informatie";
-"timestamp-days" = "%d dagen geleden";
-"timestamp-hours" = "%d uur geleden";
-"timestamp-just-now" = "zojuist";
-"timestamp-minutes" = "%d minuten geleden";
-"timestamp-months" = "%d maanden geleden";
-"timestamp-years" = "%d jaar geleden";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-see-more" = "Meer meest gelezen pagina's bekijken";
@@ -333,8 +335,7 @@
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
-// Fuzzy
-"welcome-send-data-sub-title" = "Help Wikimedia de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
+"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
 "welcome-send-data-title" = "Anoniem gegevens zenden";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "welcome-volunteer-thanks" = "$1 Bedankt!";

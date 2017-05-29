@@ -202,12 +202,6 @@
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
 "table-of-contents-heading" = "Cuprins";
 "table-title-other" = "Mai multe informații";
-"timestamp-days" = "acum %d zile";
-"timestamp-hours" = "acum %d ore";
-"timestamp-just-now" = "chiar acum";
-"timestamp-minutes" = "acum %d minute";
-"timestamp-months" = "acum %d luni";
-"timestamp-years" = "acum %d ani";
 "welcome-explore-continue-button" = "Să începem";
 "welcome-explore-tell-me-more" = "Spune-mi mai multe";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";

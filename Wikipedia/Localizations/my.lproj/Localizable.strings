@@ -69,8 +69,7 @@
 "explore-nearby-placeholder-cancel" = "မလုပ်တော့ပါ";
 "explore-nearby-placeholder-dismiss" = "ဖြုတ်ရန်";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "$1 ဝီကီပီးဒီးယား";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ဝီကီပီးဒီးယားပေါ်တွင်";
 "explore-nearby-sub-heading-your-location" = "သင့်တည်နေရာ";
 "explore-potd-heading" = "ယနေ့အတွက် ဓာတ်ပုံ";
 "explore-random-article-heading" = "ကျပန်း ဆောင်းပါး";
@@ -198,12 +197,6 @@
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
 "table-of-contents-heading" = "မာတိကာ";
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
-"timestamp-days" = "%d ရက်အကြာက";
-"timestamp-hours" = "%d နာရီအကြာက";
-"timestamp-just-now" = "ယခုလေးတင်";
-"timestamp-minutes" = "%d မိနစ်အကြာက";
-"timestamp-months" = "%d လအကြာက";
-"timestamp-years" = "%d နှစ်အကြာက";
 "top-read-header-generic" = "ဝီကီပီးဒီးယား";
 "top-read-header-with-language" = "$1 ဝီကီပီးဒီးယား";
 "two-factor-login-continue" = "ဆက်လက် ဝင်ရောက်ပါ";

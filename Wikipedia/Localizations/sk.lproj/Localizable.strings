@@ -268,12 +268,6 @@
 "table-of-contents-heading" = "Obsah";
 "table-of-contents-popover-description" = "Zobrazovať náhľad článkov";
 "table-title-other" = "Viac informácií";
-"timestamp-days" = "pred %d dňami";
-"timestamp-hours" = "%d hodín dozadu";
-"timestamp-just-now" = "práve teraz";
-"timestamp-minutes" = "%d minút dozadu";
-"timestamp-months" = "pred %d mesiacmi";
-"timestamp-years" = "pred %d rokmi";
 "top-read-header-generic" = "Wikipédia";
 "top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
 "two-factor-login-continue" = "Pokračovať prihlásiť";

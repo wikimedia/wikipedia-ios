@@ -322,12 +322,6 @@
 "table-of-contents-heading" = "Innhold";
 "table-of-contents-popover-description" = "Få en oversikt over artikler";
 "table-title-other" = "Mer informasjon";
-"timestamp-days" = "for %d dager siden";
-"timestamp-hours" = "for %d timer siden";
-"timestamp-just-now" = "nå nettopp";
-"timestamp-minutes" = "for %d minutter siden";
-"timestamp-months" = "for %d måneder siden";
-"timestamp-years" = "for %d år siden";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-see-more" = "Se flere populære artikler";

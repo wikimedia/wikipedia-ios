@@ -140,12 +140,6 @@
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
 "table-title-other" = "نور مالومات";
-"timestamp-days" = "%d ورځې پخوا";
-"timestamp-hours" = "%d گړۍ پخوا";
-"timestamp-just-now" = "همدا اوس";
-"timestamp-minutes" = "%d دقيقې پخوا";
-"timestamp-months" = "%d مياشتې پخوا";
-"timestamp-years" = "%d کالونه پخوا";
 "top-read-header-generic" = "ويکيپېډيا";
 "top-read-header-with-language" = "$1 ويکيپېډيا";
 "welcome-explore-continue-button" = "پيلول";

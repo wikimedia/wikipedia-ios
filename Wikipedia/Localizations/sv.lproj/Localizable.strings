@@ -14,6 +14,7 @@
 // Author: Nemo bis
 // Author: Platinawolf
 // Author: Rockyfelle
+// Author: Skalman
 // Author: WikiPhoenix
 
 "about-content-license" = "Innehållslicens";
@@ -101,9 +102,12 @@
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
+"error-unknown" = "Ett okänt fel uppstod";
 "explore-another-random" = "En annan slumpmässig artikel";
+"explore-because-you-read" = "Eftersom du läste";
 "explore-continue-reading-heading" = "Fortsätt läsa";
 "explore-featured-article-heading" = "Utmärkt artikel";
+"explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-most-read-footer-for-date" = "Alla mest lästa artiklar på $1";
 "explore-most-read-generic-heading" = "Mest lästa";
@@ -173,6 +177,7 @@
 "home-more-like-footer" = "Mer som liknar $1";
 "home-nearby-footer" = "Mer från i närheten av din plats";
 "home-nearby-location-footer" = "Mer i närheten av $1";
+"home-news-footer" = "Mer aktuellt";
 "home-title" = "Utforska";
 "home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
 "icon-shortcut-continue-reading-title" = "Fortsätt läsa";
@@ -239,6 +244,7 @@
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-similar-titles" = "Liknande sidor";
+"pictured" = "i bild";
 "places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";
 "places-accessibility-close-search" = "Stäng sökning";
 "places-accessibility-group" = "$1 artikel";
@@ -260,11 +266,13 @@
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "$1 matchar “$2”";
 "places-search-default-text" = "Sök";
+"places-search-did-you-mean" = "Menade du $1?";
 "places-search-recently-searched-header" = "Senaste sökningar";
 "places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-this-area" = "Resultat i detta område";
 "places-search-top-articles" = "Alla populära artiklar";
+"places-title" = "Platser";
 "places-unknown-distance" = "okänt avstånd";
 "potd-description-prefix" = "Dagens bild för $1";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
@@ -273,6 +281,9 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
 "reference-title" = "Referens $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dagar sedan}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "save-action" = "Spara";
 "saved-clear-all" = "Rensa";
@@ -326,12 +337,6 @@
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-popover-description" = "Få en översikt över artiklar";
 "table-title-other" = "Mer information";
-"timestamp-days" = "%d dagar sedan";
-"timestamp-hours" = "%d timmar sedan";
-"timestamp-just-now" = "just nu";
-"timestamp-minutes" = "%d minuter sedan";
-"timestamp-months" = "%d månader sedan";
-"timestamp-years" = "%d år sedan";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se fler populära artiklar";
@@ -362,6 +367,8 @@
 "wikitext-downloading" = "Laddar innehåll...";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
+"wikitext-preview-link-preview-description" = "Denna länk leder till \"$1\"";
+"wikitext-preview-link-preview-title" = "Länkförhandsvisning";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";

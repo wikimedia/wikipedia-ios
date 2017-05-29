@@ -315,12 +315,6 @@
 "table-of-contents-heading" = "ناوەڕۆکەکان";
 "table-of-contents-popover-description" = "کورتەیەکی وتارەکان بەدەست بھێنە";
 "table-title-other" = "زانیاریی زیاتر";
-"timestamp-days" = "%d ڕۆژ لەمەوپێش";
-"timestamp-hours" = "%d سەعات لەمەوپێش";
-"timestamp-just-now" = "ھەر ئێستا";
-"timestamp-minutes" = "%d خولەک لەمەوپێش";
-"timestamp-months" = "%d مانگ لەمەوپێش";
-"timestamp-years" = "%d ساڵ لەمەوپێش";
 "top-read-header-generic" = "ویکیپیدیا";
 "top-read-header-with-language" = "$1 ویکیپیدیا";
 "top-read-see-more" = "زیاترین خوێندراوەی زیاتر ببینە";

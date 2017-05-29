@@ -88,6 +88,7 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
+"error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
@@ -136,6 +137,7 @@
 "find-in-page-number-matches" = "$1 / $2";
 "find-in-page-popover-description" = "Text an den Artikele sichen";
 "forgot-password-button-title" = "Zrécksetzen";
+"forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
 "history-clear-all" = "Eidel maachen";
@@ -160,6 +162,7 @@
 "home-more-like-footer" = "Méi wéi $1";
 "home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
+"home-news-footer" = "Méi an den Neiegkeeten";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, no uewe scrolle fir z'Entdecken";
 "icon-shortcut-continue-reading-title" = "Virufuere mat Liesen";
@@ -225,12 +228,14 @@
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
 "page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
+"pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
 "places-accessibility-group" = "$1 Artikelen";
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
 "places-accessibility-show-as-map" = "Als Kaart weisen";
 "places-accessibility-show-more" = "Méi Artikele weisen";
+"places-enable-location-action-button-title" = "Lokalisatioun aktivéieren";
 "places-filter-list-title" = "Filtere fir d'Sichen";
 "places-filter-no-saved-places" = "Dir hutt keng gespäichert Plazen";
 "places-filter-saved-articles" = "Gespäichert Artikelen";
@@ -238,6 +243,7 @@
 "places-filter-top-articles" = "Am dackste geliest";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
 "places-search-default-text" = "Sichen";
+"places-search-did-you-mean" = "Mengt Dir $1?";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-search-saved-articles" = "All gespäichert Artikelen";
 "places-search-this-area" = "Resultater aus dëser Géigend";
@@ -251,6 +257,9 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
 "reference-title" = "Referenz: $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "save-action" = "Späicheren";
 "saved-clear-all" = "Eidel maachen";
@@ -300,12 +309,6 @@
 "table-of-contents-heading" = "Inhalter";
 "table-of-contents-popover-description" = "Eng Iwwersiicht iwwer d'Artikele kréien";
 "table-title-other" = "Méi Informatiounen";
-"timestamp-days" = "viru(n) %d Deeg";
-"timestamp-hours" = "viru(n) %d Stonnen";
-"timestamp-just-now" = "grad elo";
-"timestamp-minutes" = "viru(n) %d Minutten";
-"timestamp-months" = "viru(n) %d Méint";
-"timestamp-years" = "viru(n) %d Joer";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliest Artikele weisen";

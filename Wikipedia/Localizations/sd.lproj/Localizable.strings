@@ -248,6 +248,7 @@
 "places-search-suggested-searches-header" = "مشورو ڏنل ڳولائون";
 "places-search-this-area" = "ھن ايراضي ۾ نتيجا";
 "places-search-top-articles" = "سڀ مٿاھان مضمون";
+"places-title" = "جڳھون";
 "places-unknown-distance" = "اَڻڄاٿل مفاضلو";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
@@ -308,12 +309,6 @@
 "table-of-contents-heading" = "فهرست";
 "table-of-contents-popover-description" = "مضمونن جي نظرثاني حاصل ڪريو";
 "table-title-other" = "وڌيڪ معلومات";
-"timestamp-days" = "%d ڏينهن اڳ";
-"timestamp-hours" = "%d ڪلاڪَ اڳ";
-"timestamp-just-now" = "بلڪل هاڻي";
-"timestamp-minutes" = "%d منٽ اڳ";
-"timestamp-months" = "%d مهينا اڳ";
-"timestamp-years" = "%d سال اڳ";
 "top-read-header-generic" = "وڪيپيڊيا";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-see-more" = "وڌيڪ گھڻو پڙھيل ڏسو";

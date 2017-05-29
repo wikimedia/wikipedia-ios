@@ -322,12 +322,6 @@
 "table-of-contents-heading" = "Tartalom";
 "table-of-contents-popover-description" = "Szócikkek áttekintése";
 "table-title-other" = "További információk";
-"timestamp-days" = "%d napja";
-"timestamp-hours" = "%d órája";
-"timestamp-just-now" = "épp most";
-"timestamp-minutes" = "%d perce";
-"timestamp-months" = "%d hónapja";
-"timestamp-years" = "%d éve";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Több felkapott";

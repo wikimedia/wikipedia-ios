@@ -306,12 +306,6 @@
 "table-of-contents-heading" = "Indhold";
 "table-of-contents-popover-description" = "Få et overblik over artikler";
 "table-title-other" = "Flere oplysninger";
-"timestamp-days" = "for %d dage siden";
-"timestamp-hours" = "for %d timer siden";
-"timestamp-just-now" = "lige nu";
-"timestamp-minutes" = "for %d minutter siden";
-"timestamp-months" = "for %d måneder siden";
-"timestamp-years" = "for %d år siden";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se flere mest læste";

@@ -104,6 +104,7 @@
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
+"error-unknown" = "알 수 없는 오류가 발생했습니다";
 "explore-another-random" = "다른 임의 문서";
 "explore-continue-reading-heading" = "계속 읽기";
 "explore-featured-article-heading" = "알찬 글";
@@ -177,6 +178,7 @@
 "home-more-like-footer" = "$1 등도 읽히고 있습니다";
 "home-nearby-footer" = "사용자 위치의 주변 정보";
 "home-nearby-location-footer" = "$1의 주변 정보";
+"home-news-footer" = "뉴스에서 더 보기";
 "home-title" = "찾아보기";
 "home-title-accessibility-label" = "위키백과, \"찾아보기\"의 최상단으로 스크롤";
 "icon-shortcut-continue-reading-title" = "계속 읽기";
@@ -252,6 +254,7 @@
 "places-empty-search-description" = "도시, 국가, 대륙, 자연지표, 역사적 사건, 건물 등을 탐험합니다.";
 "places-empty-search-title" = "지리적 위치로 위키백과 문서 검색";
 "places-enable-location-action-button-title" = "위치 활성화";
+"places-enable-location-description" = "당신의 위치에 대한 접근은 앱 또는 해당 기능들 중 하나가 화면에 보일 때에만 사용 가능합니다.";
 "places-filter-list-title" = "검색 필터";
 "places-filter-no-saved-places" = "저장한 장소가 없습니다";
 "places-filter-saved-articles" = "저장된 문서";
@@ -260,6 +263,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-default-text" = "검색";
+"places-search-did-you-mean" = "$1을(를) 찾으셨나요?";
 "places-search-recently-searched-header" = "최근 검색됨";
 "places-search-saved-articles" = "저장된 모든 문서";
 "places-search-suggested-searches-header" = "추천된 검색";
@@ -274,6 +278,9 @@
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
 "reference-title" = "각주 $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=오늘|어제|$1일 전}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "save-action" = "저장";
 "saved-clear-all" = "지우기";
@@ -325,12 +332,6 @@
 "table-of-contents-heading" = "목차";
 "table-of-contents-popover-description" = "문서 개요 가져오기";
 "table-title-other" = "자세한 정보";
-"timestamp-days" = "%d일 전";
-"timestamp-hours" = "%d시간 전";
-"timestamp-just-now" = "방금";
-"timestamp-minutes" = "%d분 전";
-"timestamp-months" = "%d개월 전";
-"timestamp-years" = "%d년 전";
 "top-read-header-generic" = "위키백과";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-see-more" = "윗글 더 보기";

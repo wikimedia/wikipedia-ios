@@ -97,6 +97,7 @@
 "empty-no-saved-pages-message" = "অফলাইনে পড়ার জন্য, পাতা সংরক্ষণ করুন";
 "empty-no-saved-pages-title" = "এখনও সংরক্ষিত পাতা নেই";
 "empty-no-search-results-message" = "কোন ফলাফল পাওয়া যায়নি";
+"error-unknown" = "একটি অজানা ত্রুটি দেখা দিয়েছে";
 "explore-another-random" = "অন্যান্য অজানা যে কোন নিবন্ধ";
 "explore-because-you-read" = "কারণ আপনি পড়েছেন";
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
@@ -246,6 +247,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1টি নিবন্ধ}}";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-search-default-text" = "অনুসন্ধান";
+"places-search-did-you-mean" = "আপনি কি বোঝাতে চাচ্ছেন $1?";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";
 "places-search-saved-articles" = "সব সংরক্ষিত নিবন্ধ";
 "places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
@@ -306,12 +308,6 @@
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
 "table-of-contents-popover-description" = "নিবন্ধের একটি আলোকপাত পান";
 "table-title-other" = "আরও তথ্য";
-"timestamp-days" = "%d দিন আগে";
-"timestamp-hours" = "%d ঘণ্টা আগে";
-"timestamp-just-now" = "এইমাত্র";
-"timestamp-minutes" = "%d মিনিট আগে";
-"timestamp-months" = "%d মাস আগে";
-"timestamp-years" = "%d বছর আগে";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";

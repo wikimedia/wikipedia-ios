@@ -145,12 +145,6 @@
 "table-of-contents-heading" = "Saturs";
 "table-of-contents-popover-description" = "Iegūt pārskatu par rakstiem";
 "table-title-other" = "Vairāk informācijas";
-"timestamp-days" = "pirms %d dienām";
-"timestamp-hours" = "pirms %d stundām";
-"timestamp-just-now" = "tikko";
-"timestamp-minutes" = "pirms %d minūtēm";
-"timestamp-months" = "pirms %d mēnešiem";
-"timestamp-years" = "pirms %d gadiem";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "welcome-explore-tell-me-more" = "Pastāsti man vairāk";
