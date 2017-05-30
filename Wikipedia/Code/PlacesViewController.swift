@@ -2375,7 +2375,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let article = articleFetchedResultsController.object(at: indexPath)
         
         cell.titleText = article.displayTitle
-        cell.descriptionText = article.wikidataDescription
+        cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.setImageURL(article.thumbnailURL)
         cell.articleLocation = article.location
         
