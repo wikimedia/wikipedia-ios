@@ -71,16 +71,10 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             _ = make?.width.equalTo()(44)
             _ = make?.height.equalTo()(44)
             switch self.displaySide {
+            case .right:
+                fallthrough
             case .left:
                 _ = make?.trailing.equalTo()(self.closeButton.superview!.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
-                if(self.traitCollection.verticalSizeClass == .compact){
-                    _ = make?.top.equalTo()(self.closeButtonTopPadding)
-                }else{
-                    _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
-                }
-                break
-            case .right:
-                _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
                 if(self.traitCollection.verticalSizeClass == .compact){
                     _ = make?.top.equalTo()(self.closeButtonTopPadding)
                 }else{
