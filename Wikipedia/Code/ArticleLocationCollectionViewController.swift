@@ -130,7 +130,7 @@ extension ArticleLocationCollectionViewController {
         return WMFLayoutEstimate(precalculated: false, height: WMFNearbyArticleCollectionViewCell.estimatedRowHeight())
     }
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1, collapseSectionSpacing:true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: true)
  
     }
 }

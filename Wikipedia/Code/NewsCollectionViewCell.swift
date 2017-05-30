@@ -88,8 +88,7 @@ class NewsCollectionViewCell: CollectionViewCell {
         let collectionViewSpacing: CGFloat = 10
         let height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: newsSemanticContentAttribute, spacing: 2*collectionViewSpacing, apply: false)
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
-
+            flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
