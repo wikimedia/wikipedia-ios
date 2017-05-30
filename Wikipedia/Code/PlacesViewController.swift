@@ -89,6 +89,56 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return PlaceSearchService(dataStore: self.dataStore)
     }()
     
+    // MARK: - Accessibility
+    
+    func configurePlacesAccessibilityRotor() {
+        if #available(iOS 10.0, *) {
+            let localizedRotorName = WMFLocalizedString("places-accessibility-rotor-name", value: "Wikipedia Articles", comment: "Name for the accessibility rotor that allows access to visible articles.")
+            let placesRotor = UIAccessibilityCustomRotor(name: localizedRotorName) { predicate in
+                guard
+                    let unsortedAnnotations = self.mapView.annotations(in: self.mapView.visibleMapRect).filter({ $0 is ArticlePlace }) as? [ArticlePlace]
+                else {
+                    return nil
+                }
+                
+                let annotations = unsortedAnnotations.sorted(by: { (ap1, ap2) -> Bool in
+                    return ap1.sortOrder < ap2.sortOrder
+                })
+
+                let currentAnnotationView = predicate.currentItem.targetElement as? ArticlePlaceView
+                let currentAnnotation = currentAnnotationView?.annotation as? ArticlePlace
+                
+                var index = 0
+                if let currentAnnotation = currentAnnotation {
+                    if let currentIndex = annotations.index(of: currentAnnotation) {
+                        index = currentIndex
+                    }
+                }
+                
+                
+                print("\nindex previous = \(index)\n")
+
+                index = index + (predicate.searchDirection == .next ? 1 : -1)
+
+                print("\nindex maybe next = \(index)\n")
+
+                index = min(max(index, 0), annotations.count - 1)
+
+                print("\nindex next = \(index)\n")
+
+                let requestedAnnotation = annotations[index]
+
+                if let annotationView = self.mapView.view(for: requestedAnnotation) {
+                //if let annotationView = self.mapView.selectedAnnotations.first {
+                    return UIAccessibilityCustomRotorItemResult(targetElement: annotationView, targetRange: nil)
+                }
+                return nil
+            }
+            self.accessibilityCustomRotors = [placesRotor]
+        } else {
+        }
+    }
+    
     // MARK: - View Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
@@ -856,6 +906,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
             selectVisibleKeyToSelectIfNecessary()
         }
+        
+        configurePlacesAccessibilityRotor()
+        
     }
     
     func updateSavedPlacesCountInCurrentMapRegionIfNecessary() {
@@ -1533,6 +1586,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var groups: [String: ArticleGroup] = [:]
         var splittableGroups: [String: ArticleGroup] = [:]
+        var sortOrder = 0
         for article in articleFetchedResultsController.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
@@ -1669,13 +1723,15 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             }
 
             
-            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier) else {
+            guard let place = ArticlePlace(coordinate: coordinate, nextCoordinate: nextCoordinate, articles: group.articles, identifier: identifier, sortOrder: sortOrder) else {
                 continue
             }
             
             mapView.addAnnotation(place)
             
             groups.removeValue(forKey: key)
+            
+            sortOrder += 1
         }
         
         for (_, annotation) in annotationsToRemove {
