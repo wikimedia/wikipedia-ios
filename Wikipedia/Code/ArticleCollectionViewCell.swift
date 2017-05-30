@@ -30,7 +30,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse.
+    // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     open func reset() {
         backgroundColor = .white
         titleFontFamily = .georgia
@@ -45,6 +45,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         spacing = 6
         imageViewDimension = 70
         saveButtonTopSpacing = 10
+        imageView.wmf_reset()
+        imageView.wmf_showPlaceholder()
     }
     
     deinit {
@@ -56,8 +58,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
-        imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
     }
     
     // MARK - View configuration
