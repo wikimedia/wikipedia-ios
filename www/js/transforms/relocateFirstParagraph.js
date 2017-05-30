@@ -38,9 +38,9 @@ function moveFirstGoodParagraphUp( content ) {
       return !pIsTooSmall
     }
     return false
-      
+
   }
- 
+
   var firstGoodParagraph = function(){
     return Array.prototype.slice.call( allPs).find(isParagraphGood)
   }()
