@@ -36,7 +36,6 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFMorePageListViewController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
@@ -1108,9 +1107,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                      }
 
                                                      NSArray *urls = nearby.content;
-
-                                                     WMFMorePageListViewController *vc = [[WMFMorePageListViewController alloc] initWithGroup:nearby articleURLs:urls userDataStore:self.dataStore];
-                                                     vc.cellType = WMFMorePageListCellTypeLocation;
+                                                     WMFArticleLocationCollectionViewController *vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:urls dataStore:self.dataStore];
                                                      [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
                                                  }];
 }
