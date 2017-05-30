@@ -107,6 +107,6 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     }
     
     func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1, collapseSectionSpacing:false)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: false)
     }
 }
