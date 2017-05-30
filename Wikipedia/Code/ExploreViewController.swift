@@ -97,8 +97,14 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.wmf_updateNavigationBar(removeUnderline: true)
         self.updateNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.wmf_updateNavigationBar(removeUnderline: false)
     }
     
     private func settingsBarButtonItem() -> UIBarButtonItem {
