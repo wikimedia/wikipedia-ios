@@ -4,6 +4,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MWKDataStore, WMFSearchViewController;
 
+@interface WMFSearchButton : UIBarButtonItem
+
+- (instancetype)initWithTarget:(id)target action:(SEL)action;
+
+@property (nonatomic) CGFloat alpha;
+
+@end
+
 @interface UIViewController (WMFSearchButton)
 
 + (WMFSearchViewController *)wmf_sharedSearchViewController;
@@ -20,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new bar button item which will call @c wmf_showSearchAnimated: when pressed.
  */
-- (UIBarButtonItem *)wmf_searchBarButtonItem;
+- (WMFSearchButton *)wmf_searchBarButtonItem;
 
 /**
  *  Present a search view controller

@@ -6,6 +6,7 @@
 // Author: Bsitzmann
 // Author: Dicto23456
 // Author: Dyaydyasasha2015
+// Author: Facenapalm
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
@@ -113,8 +114,10 @@
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
 "explore-another-random" = "Другая случайная статья";
+"explore-because-you-read" = "Потому что вы читали";
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-featured-article-heading" = "Избранная статья";
+"explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer-for-date" = "Все самые читаемые статьи на $1";
 "explore-most-read-generic-heading" = "Наиболее читаемые";
@@ -250,6 +253,7 @@
 "page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-similar-titles" = "Похожие страницы";
+"places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-close-search" = "Закрыть поиск";
 "places-accessibility-group" = "$1 статьи";
 "places-accessibility-recenter-map-on-user-location" = "Показать ваше положение в центре карты";
@@ -275,6 +279,7 @@
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-this-area" = "Результаты в этой области";
 "places-search-top-articles" = "Все самые читаемые статьи";
+"places-title" = "Места";
 "places-unknown-distance" = "расстояние неизвестно";
 "potd-description-prefix" = "Изображение дня за $1";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
@@ -300,6 +305,9 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"settings-clear-cache" = "Очистить кэш";
+"settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
+"settings-clear-cache-are-you-sure-title" = "Очистить кэш?";
 "settings-clear-cache-cancel" = "Отмена";
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-help-and-feedback" = "Помощь и обратная связь";
@@ -369,6 +377,8 @@
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
+"wikitext-preview-link-preview-description" = "Эта ссылка ведёт на '$1'";
+"wikitext-preview-link-preview-title" = "Предпросмотр ссылки";
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";

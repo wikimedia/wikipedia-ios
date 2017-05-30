@@ -29,9 +29,20 @@
  *  @param fromDate the earlier date
  *  @param toDate the later date
  *
- *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
+ *  @return The number of days between the dates.
  */
 - (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+
+/**
+ *  Used for getting the number of calendar years, month, days, hours, minutes, and/or seconds between dates.
+ *
+ *  @param unitFlags the unit flags to request
+ *  @param fromDate the earlier date
+ *  @param toDate the later date
+ *
+ *  @return The components between the dates.
+ */
+- (NSDateComponents *)wmf_components:(NSCalendarUnit)unitFlags fromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
 @end
 

@@ -36,7 +36,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.tintColor = [UIColor colorWithRed:0.3373 green:0.3373 blue:0.3373 alpha:1.0];
+        self.tintColor = [UIColor wmf_darkGray];
     }
     return self;
 }
@@ -110,8 +110,8 @@
     } else if (count > 0 && index == -1) {
         labelText = [NSString localizedStringWithFormat:@"%lu", (unsigned long)count];
     } else {
-        NSString *format = WMFLocalizedStringWithDefaultValue(@"find-in-page-number-matches", nil, nil, @"%1$d / %2$d", @"Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$d is replaced with the numerator, %2$d is replaced with the denominator.");
-        labelText = [NSString localizedStringWithFormat:format, index + 1, count];
+        NSString *format = WMFLocalizedStringWithDefaultValue(@"find-in-page-number-matches", nil, nil, @"%1$@ / %2$@", @"Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, %2$@ is replaced with the denominator.");
+        labelText = [NSString localizedStringWithFormat:format, @(index + 1), @(count)];
     }
     [self.currentMatchLabel setText:labelText];
 }

@@ -9,7 +9,10 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
     WMFFeedDisplayTypeAnnouncement,
-    WMFFeedDisplayTypeRelatedPages
+    WMFFeedDisplayTypeRelatedPagesSourceArticle,
+    WMFFeedDisplayTypeRelatedPages,
+    WMFFeedDisplayTypeContinueReading,
+    WMFFeedDisplayTypeMainPage
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -37,9 +40,9 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePage,
     WMFFeedMoreTypePageWithRandomButton,
     WMFFeedMoreTypePageList,
-    WMFFeedMoreTypePageListWithPreview,
     WMFFeedMoreTypePageListWithLocation,
-    WMFFeedMoreTypeLocationAuthorization
+    WMFFeedMoreTypeLocationAuthorization,
+    WMFFeedMoreTypeNews
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
@@ -128,7 +131,7 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
 /**
  *  How to display the content of the section.
  */
-- (WMFFeedDisplayType)displayType;
+- (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index;
 
 - (NSUInteger)maxNumberOfCells;
 

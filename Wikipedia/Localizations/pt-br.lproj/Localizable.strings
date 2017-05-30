@@ -113,8 +113,10 @@
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
 "explore-another-random" = "Outro artigo aleatório";
+"explore-because-you-read" = "Porque você leu";
 "explore-continue-reading-heading" = "Continue lendo";
 "explore-featured-article-heading" = "Artigo destacado";
+"explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
 "explore-most-read-footer-for-date" = "Todos os artigos mais lidos em $1";
 "explore-most-read-generic-heading" = "Mais lidos";

@@ -1,0 +1,33 @@
+
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
+
+rules:
+  # Best Practices
+  no-else-return: 1
+  no-trailing-spaces: 1
+  
+  # Strict Mode
+  strict: [1, never]
+
+  # Stylistic Issues
+  eol-last: [1, never]
+  #func-style: [2, expression]
+  indent: [1, 2]
+  quotes: [1, single, {avoidEscape: true}]
+  semi: [1, never]
+  #TODO: re-enable jsdoc requirement
+  # require-jsdoc: [1, {require: {
+  #   FunctionDeclaration: true,
+  #   MethodDefinition: true,
+  #   ClassDeclaration: true,
+  #   ArrowFunctionExpression: true
+  # }}]
+  no-extra-parens: 1
+  #no-cond-assign: [2, always]
+  #no-param-reassign: 1
+
+  # ECMAScript 6
+  arrow-body-style: 1
+  arrow-parens: [1, as-needed]

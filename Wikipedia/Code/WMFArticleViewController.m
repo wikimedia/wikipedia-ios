@@ -308,7 +308,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         UIProgressView *progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         progress.translatesAutoresizingMaskIntoConstraints = NO;
         progress.trackTintColor = [UIColor clearColor];
-        progress.tintColor = [UIColor wmf_blueTint];
+        progress.tintColor = [UIColor wmf_blue];
         _progressView = progress;
     }
 
@@ -817,6 +817,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.reachabilityManager startMonitoring];
+    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -1388,6 +1389,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
+        if(error){
+            // Reminder: an error is *expected* here when 1st loading an article. This is
+            // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
+            // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
+            // when tapping the 'Back' button), but on 1st load the article is not yet
+            // fetched when this occurs.
+            return;
+        }
         NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
     }];

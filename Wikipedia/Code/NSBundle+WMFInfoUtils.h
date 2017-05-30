@@ -29,13 +29,5 @@
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
 - (NSString *)wmf_versionForCurrentBundleIdentifier;
 
-///
-/// @name App Configuration
-///
-
-- (BOOL)wmf_shouldShowDebugMenu;
-
-/// @return HockeyApp ID for crash reports
-- (NSString *)wmf_hockeyappIdentifier;
 
 @end

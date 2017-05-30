@@ -83,9 +83,12 @@
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
+"error-unknown" = "An unknown error occurred";
 "explore-another-random" = "Another random article";
+"explore-because-you-read" = "Because you read";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-featured-article-heading" = "Featured article";
+"explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
 "explore-most-read-generic-heading" = "Top read";
@@ -101,8 +104,6 @@
 "explore-potd-heading" = "Picture of the day";
 "explore-random-article-heading" = "Random article";
 "explore-randomizer" = "Randomizer";
-"explore-suggested-for-you" = "Suggested for you";
-"explore-suggested-for-you-subtitle" = "Based on your reading history";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "You can now receive notifications about Wikipedia articles trending in the news.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
@@ -157,6 +158,7 @@
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-location-footer" = "More nearby $1";
+"home-news-footer" = "More in the news";
 "home-title" = "Explore";
 "home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "icon-shortcut-continue-reading-title" = "Continue reading";
@@ -223,6 +225,7 @@
 "page-protected-sysop" = "This page has been fully protected.";
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-similar-titles" = "Similar pages";
+"pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-close-search" = "Close search";
 "places-accessibility-group" = "$1 articles";
@@ -244,11 +247,14 @@
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search";
+"places-search-did-you-mean" = "Did you mean $1?";
 "places-search-recently-searched-header" = "Recently searched";
 "places-search-saved-articles" = "All saved articles";
 "places-search-suggested-searches-header" = "Suggested searches";
 "places-search-this-area" = "Results in this area";
 "places-search-top-articles" = "All top articles";
+"places-search-top-articles-that-match-scope" = "Nearby";
+"places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
@@ -257,6 +263,9 @@
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
 "reference-title" = "Reference $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "save-action" = "Save";
 "saved-clear-all" = "Clear";
@@ -310,12 +319,6 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-popover-description" = "Get an overview of articles";
 "table-title-other" = "More information";
-"timestamp-days" = "%d days ago";
-"timestamp-hours" = "%d hours ago";
-"timestamp-just-now" = "just now";
-"timestamp-minutes" = "%d minutes ago";
-"timestamp-months" = "%d months ago";
-"timestamp-years" = "%d years ago";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";
@@ -346,6 +349,8 @@
 "wikitext-downloading" = "Loading content...";
 "wikitext-preview-changes" = "Retrieving preview of your changes...";
 "wikitext-preview-changes-none" = "No changes were made to be previewed.";
+"wikitext-preview-link-preview-description" = "This link leads to '$1'";
+"wikitext-preview-link-preview-title" = "Link preview";
 "wikitext-upload-captcha-error" = "CAPTCHA verification error.";
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";

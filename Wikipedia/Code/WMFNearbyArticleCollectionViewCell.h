@@ -9,6 +9,8 @@
 
 @property (nonatomic, copy) NSString *descriptionText;
 
+@property (nonatomic, copy) CLLocation *articleLocation;
+
 /**
  *  Set the recievers @c image using an MWKImage
  */
