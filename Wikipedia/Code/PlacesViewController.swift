@@ -2179,12 +2179,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentSearchScopeName: String
         switch (currentSearchFilter) {
         case .top:
-            currentSearchScopeName = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
+            currentSearchScopeName = WMFLocalizedString("places-search-top-articles-that-match-scope", value: "Nearby", comment: "Title used in search description when searching an area for Top articles")
         case .saved:
             currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
         }
 
-        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
+        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
         let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
@@ -2381,7 +2381,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let article = articleFetchedResultsController.object(at: indexPath)
         
         cell.titleText = article.displayTitle
-        cell.descriptionText = article.wikidataDescription
+        cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.setImageURL(article.thumbnailURL)
         cell.articleLocation = article.location
         
@@ -2392,7 +2392,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             userLocation = locationManager.location
             userHeading = locationManager.heading
         }
-        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell)
+        cell.update(userLocation: userLocation, heading: userHeading)
         
         return cell
     }
@@ -2420,24 +2420,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return [saveForLaterAction, shareAction]
     }
     
-    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell) {
-        guard let articleLocation = cell.articleLocation, let userLocation = userLocation else {
-            cell.configureForUnknownDistance()
-            return
-        }
-        
-        let distance = articleLocation.distance(from: userLocation)
-        cell.setDistance(distance)
-        
-        if let heading = heading  {
-            let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
-            cell.setBearing(bearing)
-        } else {
-            let bearing = userLocation.wmf_bearing(to: articleLocation)
-            cell.setBearing(bearing)
-        }
-    }
-    
     func logListViewImpression(forIndexPath indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
         tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
@@ -2459,7 +2441,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
                 continue
             }
-            update(userLocation: location, heading: heading, onLocationCell: locationCell)
+            locationCell.update(userLocation: location, heading: heading)
         }
     }
 
