@@ -138,6 +138,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         didYouMeanButton.backgroundColor = view.tintColor
         didYouMeanButton.setTitleColor(.white, for: .normal)
         didYouMeanButton.isHidden = true
+        didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        didYouMeanButton.titleLabel?.textAlignment = .center
         
         // Setup map/list toggle
         let map = #imageLiteral(resourceName: "places-map")
@@ -2269,6 +2271,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }) { (searchResult) in
             guard text == self.searchBar?.text else {
                 return
+            }
+            
+            if let suggestion = searchResult.searchSuggestion {
+                DDLogDebug("got suggestion! \(suggestion)")
             }
             
             let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
