@@ -8,7 +8,7 @@
 @property (nonatomic) CGFloat interColumnSpacing;
 @property (nonatomic) CGFloat interSectionSpacing;
 @property (nonatomic) CGFloat interItemSpacing;
-@property (nonatomic, copy) NSArray *columnWeights;
+@property (nonatomic, copy) NSArray<NSNumber *> *columnWeights;
 @end
 
 @implementation WMFCVLMetrics
@@ -49,4 +49,21 @@
     return metrics;
 }
 
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing {
+    WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
+    metrics.boundsSize = boundsSize;
+    BOOL hasMargins = boundsSize.width > 600;
+    CGFloat fixedWidth = MIN(600, boundsSize.width);
+    metrics.numberOfColumns = 1;
+    metrics.columnWeights = @[@1];
+    metrics.interColumnSpacing = 0;
+    metrics.interItemSpacing = 0;
+    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 50;
+    CGFloat insetLeftAndRight = MAX(0, floor(0.5*(boundsSize.width - fixedWidth)));
+    CGFloat insetTopAndBottom = hasMargins ? 20 : 0;
+    metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
+    metrics.sectionInsets = UIEdgeInsetsZero;
+    metrics.shouldMatchColumnHeights = YES;
+    return metrics;
+}
 @end

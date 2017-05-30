@@ -104,7 +104,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, animated: true)
     }
 }
 
@@ -130,7 +130,7 @@ extension ArticleLocationCollectionViewController {
         return WMFLayoutEstimate(precalculated: false, height: WMFNearbyArticleCollectionViewCell.estimatedRowHeight())
     }
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1, collapseSectionSpacing:true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: true)
  
     }
 }

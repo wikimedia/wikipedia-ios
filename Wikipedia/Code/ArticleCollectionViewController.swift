@@ -54,7 +54,7 @@ extension ArticleCollectionViewController {
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, animated: true)
     }
 }
 
@@ -80,7 +80,7 @@ extension ArticleCollectionViewController {
         return WMFLayoutEstimate(precalculated: false, height: 60)
     }
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics(boundsSize: size, firstColumnRatio: 1, secondColumnRatio: 1, collapseSectionSpacing:true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
  
     }
 }
