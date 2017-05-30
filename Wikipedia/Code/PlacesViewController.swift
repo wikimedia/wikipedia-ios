@@ -2375,7 +2375,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let article = articleFetchedResultsController.object(at: indexPath)
         
         cell.titleText = article.displayTitle
-        cell.descriptionText = article.wikidataDescription
+        cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.setImageURL(article.thumbnailURL)
         cell.articleLocation = article.location
         
@@ -2386,7 +2386,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             userLocation = locationManager.location
             userHeading = locationManager.heading
         }
-        update(userLocation: userLocation, heading: userHeading, onLocationCell: cell)
+        cell.update(userLocation: userLocation, heading: userHeading)
         
         return cell
     }
@@ -2414,24 +2414,6 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return [saveForLaterAction, shareAction]
     }
     
-    func update(userLocation: CLLocation?, heading: CLHeading?, onLocationCell cell: WMFNearbyArticleTableViewCell) {
-        guard let articleLocation = cell.articleLocation, let userLocation = userLocation else {
-            cell.configureForUnknownDistance()
-            return
-        }
-        
-        let distance = articleLocation.distance(from: userLocation)
-        cell.setDistance(distance)
-        
-        if let heading = heading  {
-            let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
-            cell.setBearing(bearing)
-        } else {
-            let bearing = userLocation.wmf_bearing(to: articleLocation)
-            cell.setBearing(bearing)
-        }
-    }
-    
     func logListViewImpression(forIndexPath indexPath: IndexPath) {
         let article = articleFetchedResultsController.object(at: indexPath)
         tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
@@ -2453,7 +2435,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
                 continue
             }
-            update(userLocation: location, heading: heading, onLocationCell: locationCell)
+            locationCell.update(userLocation: location, heading: heading)
         }
     }
 

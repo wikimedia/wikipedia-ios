@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController {
-    static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
+    fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
     
     let articleURLs: [URL]
     let dataStore: MWKDataStore

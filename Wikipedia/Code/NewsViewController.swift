@@ -1,7 +1,7 @@
 @objc(WMFNewsViewController)
 class NewsViewController: ColumnarCollectionViewController {
-    static let cellReuseIdentifier = "NewsCollectionViewCell"
-    static let headerReuseIdentifier = "NewsCollectionViewHeader"
+    fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
+    fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
