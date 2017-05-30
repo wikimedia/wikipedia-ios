@@ -104,7 +104,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, animated: true)
     }
 }
 
