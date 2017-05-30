@@ -2177,12 +2177,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         let currentSearchScopeName: String
         switch (currentSearchFilter) {
         case .top:
-            currentSearchScopeName = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
+            currentSearchScopeName = WMFLocalizedString("places-search-top-articles-that-match-scope", value: "Nearby", comment: "Title used in search description when searching an area for Top articles")
         case .saved:
             currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
         }
 
-        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the filter ('Top articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
+        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
         let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
         searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
     }
