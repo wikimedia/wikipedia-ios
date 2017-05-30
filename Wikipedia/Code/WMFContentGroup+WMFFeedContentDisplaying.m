@@ -156,8 +156,11 @@ NS_ASSUME_NONNULL_BEGIN
     switch (self.contentGroupKind) {
         case WMFContentGroupKindRelatedPages:
         case WMFContentGroupKindContinueReading: {
-            NSString *relativeTimeString = [self.date wmf_relativeTimestamp];
-            return [relativeTimeString wmf_stringByCapitalizingFirstCharacter];
+            NSString *subtitle = [self.contentMidnightUTCDate wmf_localizedRelativeDateFromMidnightUTCDate];
+            if (subtitle == nil) {
+                subtitle = [[self.date wmf_midnightUTCDateFromLocalDate] wmf_localizedRelativeDateFromMidnightUTCDate];
+            }
+            return subtitle ? subtitle : @"";
         } break;
         case WMFContentGroupKindMainPage:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]];
@@ -366,14 +369,14 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedBlacklistOptionNone;
 }
 
-- (WMFFeedDisplayType)displayType {
+- (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
             return WMFFeedDisplayTypeContinueReading;
         case WMFContentGroupKindMainPage:
             return WMFFeedDisplayTypeMainPage;
         case WMFContentGroupKindRelatedPages:
-            return WMFFeedDisplayTypeRelatedPages;
+            return index == 0 ? WMFFeedDisplayTypeRelatedPagesSourceArticle : WMFFeedDisplayTypeRelatedPages;
         case WMFContentGroupKindLocation:
             return WMFFeedDisplayTypePageWithLocation;
         case WMFContentGroupKindLocationPlaceholder:
@@ -536,7 +539,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
         }
         case WMFContentGroupKindNews:
-            break;
+            return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More in the news", @"Footer for presenting user option to see longer list of news stories.");
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -569,7 +572,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             return WMFFeedMoreTypePageList;
         case WMFContentGroupKindNews:
-            break;
+            return WMFFeedMoreTypeNews;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:

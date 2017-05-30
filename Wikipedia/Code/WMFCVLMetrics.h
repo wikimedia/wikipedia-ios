@@ -51,5 +51,6 @@
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing; // ratios should add up to 2
 
 @end

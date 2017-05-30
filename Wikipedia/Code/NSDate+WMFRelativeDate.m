@@ -1,27 +1,60 @@
 #import "NSDate+WMFRelativeDate.h"
 
+
+@interface WMFLocalizedDateFormatStrings: NSObject
+@end
+
+@implementation WMFLocalizedDateFormatStrings
+
++ (NSString *)daysAgo {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday");
+}
+
++ (NSString *)hoursAgo {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-hours-ago", nil, nil, @"{{PLURAL:%1$d|0=Recently|%1$d hour ago|%1$d hours ago}}", @"Relative hours ago. 0 = this hour.");
+}
+
++ (NSString *)minutesAgo {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-minutes-ago", nil, nil, @"{{PLURAL:%1$d|0=Just now|%1$d minute ago|%1$d minutes ago}}", @"Relative minutes ago. 0 = just now.");
+}
+
+@end
+
 @implementation NSDate (WMFRelativeDate)
 
-- (NSString *)wmf_relativeTimestamp {
-    NSTimeInterval interval = fabs([self timeIntervalSinceNow]);
-    double minutes = interval / 60.0;
-    double hours = minutes / 60.0;
-    double days = hours / 24.0;
-    double months = days / (365.25 / 12.0);
-    double years = months / 12.0;
-
-    if (minutes < 2.0) {
-        return WMFLocalizedStringWithDefaultValue(@"timestamp-just-now", nil, nil, @"just now", @"Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}");
-    } else if (hours < 2.0) {
-        return [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"timestamp-minutes", nil, nil, @"%d minutes ago", @"Human-readable approximate timestamp for events in the last couple hours, expressed as minutes"), (int)round(minutes)];
-    } else if (days < 2.0) {
-        return [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"timestamp-hours", nil, nil, @"%d hours ago", @"Human-readable approximate timestamp for events in the last couple days, expressed as hours"), (int)round(hours)];
-    } else if (months < 2.0) {
-        return [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"timestamp-days", nil, nil, @"%d days ago", @"Human-readable approximate timestamp for events in the last couple months, expressed as days"), (int)round(days)];
-    } else if (months < 24.0) {
-        return [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"timestamp-months", nil, nil, @"%d months ago", @"Human-readable approximate timestamp for events in the last couple years, expressed as months"), (int)round(months)];
+- (NSString *)wmf_localizedRelativeDateStringFromLocalDateToLocalDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+    NSInteger days = [calendar wmf_daysFromDate:self toDate:date]; // Calendar days - less than 24 hours ago that is yesterday returns 1 day ago
+    if (days > 2) {
+        return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self];
+    } else if (days > 0) {
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
     } else {
-        return [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"timestamp-years", nil, nil, @"%d years ago", @"Human-readable approximate timestamp for events in the distant past, expressed as years"), (int)round(years)];
+        NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:self toDate:date];
+        if (components.hour > 12) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days]; //Today or Yesterday
+        } else if (components.hour > 0) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgo], components.hour];
+        } else {
+            NSInteger minutes = MAX(0, components.minute);
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings minutesAgo], minutes];
+        }
+    }
+}
+
+- (NSString *)wmf_localizedRelativeDateStringFromLocalDateToNow {
+    return [self wmf_localizedRelativeDateStringFromLocalDateToLocalDate:[NSDate date]];
+}
+
+- (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate {
+    NSDate *now = [NSDate date];
+    NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSInteger days = MAX(0, [calendar wmf_daysFromDate:self toDate:midnightUTC]);
+    if (days < 4) {
+        return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
+    } else {
+        return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self];
     }
 }
 

@@ -11,9 +11,9 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
       while (true) {
         var value = element.nodeValue  // Search for searchTerm in text node
         var idx = value.toLowerCase().indexOf(searchTerm)
-                
+
         if (idx < 0) break
-                
+
         var span = document.createElement('span')
         var text = document.createTextNode(value.substr(idx, searchTerm.length))
         span.appendChild(text)
@@ -45,7 +45,7 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
         element.parentNode.insertBefore(text,element)
         element.parentNode.removeChild(element)
         return true
-      } 
+      }
       var normalize = false
       for (var i = element.childNodes.length - 1; i >= 0; i--) {
         if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
@@ -55,7 +55,7 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
       if (normalize) {
         element.normalize()
       }
-            
+
     }
   }
   return false
@@ -82,9 +82,9 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     return
   }
   searchTerm = searchTerm.trim()
-    
+
   recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
-    
+
     // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
     // matches in first-to-last order. We can work around this by adding the "id"
     // and building our results array *after* the recursion is done, thanks to
@@ -97,7 +97,7 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
         // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
   }
-    
+
   window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
 }
 

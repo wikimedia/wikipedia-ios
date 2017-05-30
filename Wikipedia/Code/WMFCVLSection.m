@@ -170,7 +170,7 @@
         WMFCVLAttributes *attributes = attributesProvider([NSIndexPath indexPathForItem:index inSection:self.index]);
         CGRect frame = frameProvider(YES, CGRectZero, attributes);
         attributes.frame = frame;
-        if (attributes != nil) {
+        if (attributes != nil && attributes.frame.size.height > 0) {
             [array addObject:attributes];
         }
         return YES;

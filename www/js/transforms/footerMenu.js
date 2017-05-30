@@ -1,6 +1,6 @@
 
 // var thisType = IconTypeEnum.languages;
-// var iconClass = IconTypeEnum.properties[thisType].iconClass; 
+// var iconClass = IconTypeEnum.properties[thisType].iconClass;
 // iconClass is 'footer_menu_icon_languages'
 var IconTypeEnum = {
   languages: 1,
@@ -35,7 +35,7 @@ class WMFMenuItemFragment {
     containerAnchor.addEventListener('click', function(){
       wmfMenuItem.clickHandler()
     }, false)
-                
+
     item.appendChild(containerAnchor)
 
     if(wmfMenuItem.title){
@@ -53,7 +53,7 @@ class WMFMenuItemFragment {
     }
 
     if(wmfMenuItem.iconType){
-      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass 
+      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass
       item.classList.add(iconClass)
     }
 

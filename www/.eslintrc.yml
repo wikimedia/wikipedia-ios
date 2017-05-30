@@ -6,7 +6,8 @@ parserOptions:
 rules:
   # Best Practices
   no-else-return: 1
-
+  no-trailing-spaces: 1
+  
   # Strict Mode
   strict: [1, never]
 

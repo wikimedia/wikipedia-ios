@@ -84,4 +84,58 @@
                                  }];
 }
 
+- (void)testForUnpairedOpeningAndClosingDivsAndSpansInMobileviewSectionHTMLOnBeta {
+    // Early notification of unequal number of opening and closing div/span tags in mobileview
+    // section html output. Changes are staged on wmflabs.org before being deployed to production.
+    
+    // We had a really bad change make it to production which introduced an opening DIV tag
+    // *without* a matching closing DIV tag to the first section HMTL for every mobileview
+    // request: https://phabricator.wikimedia.org/T165115
+    
+    // This test makes a mobileview request to the beta cluster for a specific revision of
+    // an article and ensures each div and span has both an opener and a closer.
+    //
+    // If this test fails, find the upsteam ticket which introduced the change ASAP and raise
+    // a flag before the change is deployed to production!
+    
+    NSURL *betaClusterURL = [NSURL URLWithString:@"https://en.m.wikipedia.beta.wmflabs.org/w/api.php?action=mobileview&format=json&page=Barack_Obama&sections=all&prop=text%7Csections%7Crevision&revision=349208"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch mobileview section html for a specific revision of an article on beta and ensure each div and span has both an opener and a closer."];
+    NSURLSessionDataTask *dataTask =
+    [[NSURLSession sharedSession] dataTaskWithURL:betaClusterURL
+                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                                    NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
+                                    
+                                    for (NSInteger i = 0; i < sectionsFromBetaCluster.count; i++) {
+                                        NSDictionary *sectionFromBetaCluster = sectionsFromBetaCluster[i];
+                                        NSString *sectionTextFromBetaCluster = sectionFromBetaCluster[@"text"];
+                                        
+                                        BOOL divsAreBalanced = [self isTag:@"div" balancedInString:sectionTextFromBetaCluster];
+                                        XCTAssert(divsAreBalanced, @"Something staged on the beta cluster has introduced an unclosed (or unopened) %@! See test comments for details. Track this down ASAP because this affects the app in a bad way - see T165115 for similar incident.", @"div");
+
+                                        BOOL spansAreBalanced = [self isTag:@"span" balancedInString:sectionTextFromBetaCluster];
+                                        XCTAssert(spansAreBalanced, @"Something staged on the beta cluster has introduced an unclosed (or unopened) %@! See test comments for details. Track this down ASAP because this affects the app in a bad way - see T165115 for similar incident.", @"span");
+                                    }
+                                    
+                                    [expectation fulfill];
+                                    
+                                }];
+    [dataTask resume];
+    
+    [self waitForExpectationsWithTimeout:120.0
+                                 handler:^(NSError *error) {
+                                     if (error) {
+                                         NSLog(@"Timeout Error: %@", error);
+                                     }
+                                 }];
+}
+
+- (BOOL)isTag:(NSString*)tag balancedInString:(NSString*)string {
+    string = [string lowercaseString];
+    NSArray *a1 = [string componentsSeparatedByString:[@"<" stringByAppendingString:tag]];
+    NSArray *a2 = [string componentsSeparatedByString:[@"</" stringByAppendingString:tag]];
+    NSLog(@"%@ %ld %ld", tag, a1.count, a2.count);
+    return a1.count == a2.count;
+}
+
 @end

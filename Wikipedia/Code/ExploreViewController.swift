@@ -97,8 +97,14 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.wmf_updateNavigationBar(removeUnderline: true)
         self.updateNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.wmf_updateNavigationBar(removeUnderline: false)
     }
     
     private func settingsBarButtonItem() -> UIBarButtonItem {
@@ -119,7 +125,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.searchBarButtonItem?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
-        self.searchBar.alpha = 1 - percentHidden
+        self.searchBar.alpha = max(1 - (percentHidden * 1.5), 0)
     }
     
     // MARK: - Actions
@@ -237,6 +243,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
+        showSearchBar(animated: false)
+    }
+    
     // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -264,7 +274,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @objc(showInTheNewsForStory:date:animated:)
     public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
     {
-        self.collectionViewController.showInTheNews(for: story, date: date, animated: animated)
+        self.collectionViewController.showInTheNews(forStories: [story], date: date, animated: animated)
     }
     
     @objc(presentMoreViewControllerForGroup:animated:)

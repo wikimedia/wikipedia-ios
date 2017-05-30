@@ -129,7 +129,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             if (failure) {
                 if (![[error domain] isEqualToString:NSURLErrorDomain]) {
-                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeUnknown userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
+                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
                 }
                 failure(error);
             }
@@ -158,7 +158,9 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
         if (params.searchTerm) {
             [gsrSearchArray addObject:params.searchTerm];
         }
-        NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fkm,%.3f,%.3f", round(params.region.radius / 1000.0), params.region.center.latitude, params.region.center.longitude];
+        CLLocationDistance radius = params.region.radius;
+        CLLocationDistance radiusInKilometers = MAX(1,ceil(radius / 1000.0));
+        NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fkm,%.3f,%.3f", radiusInKilometers, params.region.center.latitude, params.region.center.longitude];
         [gsrSearchArray addObject:nearcoord];
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
         NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{

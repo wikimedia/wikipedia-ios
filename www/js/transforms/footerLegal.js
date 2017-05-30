@@ -4,7 +4,7 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
   var licenseStringHalves = licenseString.split('$1')
 
 
-  container.innerHTML = 
+  container.innerHTML =
   `<div class='footer_legal_contents'>
     <hr class='footer_legal_divider'>
     <span class='footer_legal_licence'>

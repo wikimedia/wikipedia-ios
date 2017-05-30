@@ -270,11 +270,12 @@
         CGFloat columnWidth = column.frame.size.width;
         CGFloat x = column.frame.origin.x;
 
-        if (sectionIndex == 0) {
+        if (column.sectionCount == 1) {
             [column updateHeightWithDelta:contentInsets.top];
         } else {
             [column updateHeightWithDelta:interSectionSpacing];
         }
+        
         CGFloat y = column.frame.size.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
 
@@ -296,8 +297,6 @@
         if (didCreateOrUpdate) {
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
         }
-
-        assert(section.headers.count == 1);
 
         sectionHeight += headerHeight;
         y += headerHeight;
@@ -358,8 +357,6 @@
         if (didCreateOrUpdate) {
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         }
-
-        assert(section.footers.count == 1);
 
         sectionHeight += footerHeight;
 
