@@ -1078,10 +1078,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let currentHeight = listAndSearchOverlayHeightConstraint.constant
             let newState: OverlayState
             if currentHeight <= midHeight {
-                newState = currentHeight - minHeight <= midHeight - currentHeight ? .min : .mid
+                let min: Bool = currentHeight - minHeight <= midHeight - currentHeight
+                if min {
+                    newState = .min
+                } else {
+                    newState = .mid
+                }
             } else {
-                let mid = currentHeight - midHeight <= maxHeight - currentHeight
-                newState = mid ? .mid : .max
+                let mid: Bool = currentHeight - midHeight <= maxHeight - currentHeight
+                if mid {
+                    newState = .mid
+                } else {
+                    newState = .max
+                }
             }
             set(overlayState: newState, withVelocity: panGR.velocity(in: view).y, animated: true)
             initialOverlayHeightForPan = nil
