@@ -42,7 +42,7 @@
     metrics.columnWeights = useTwoColumns ? isRTL ? @[@(secondColumnRatio), @(firstColumnRatio)] : @[@(firstColumnRatio), @(secondColumnRatio)] : @[@1];
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
-    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 50;
+    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 30;
     metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
@@ -58,7 +58,7 @@
     metrics.columnWeights = @[@1];
     metrics.interColumnSpacing = 0;
     metrics.interItemSpacing = 0;
-    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 50;
+    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 30;
     CGFloat insetLeftAndRight = MAX(0, floor(0.5*(boundsSize.width - fixedWidth)));
     CGFloat insetTopAndBottom = hasMargins ? 20 : 0;
     metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);

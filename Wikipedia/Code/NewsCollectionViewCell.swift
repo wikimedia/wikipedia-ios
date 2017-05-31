@@ -68,7 +68,7 @@ class NewsCollectionViewCell: CollectionViewCell {
     }
     
     let imageViewHeight: CGFloat = 170
-    let margins = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
+    let margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
     let spacing: CGFloat = 13
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

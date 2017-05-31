@@ -42,9 +42,9 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButtonFontFamily = .systemMedium
         saveButtonTextStyle  = .subheadline
         margins = UIEdgeInsetsMake(15, 13, 15, 13)
-        spacing = 6
+        spacing = 5
         imageViewDimension = 70
-        saveButtonTopSpacing = 10
+        saveButtonTopSpacing = 5
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
     }
@@ -83,12 +83,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
+            setNeedsLayout()
         }
     }
     
     var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
+            setNeedsLayout()
         }
     }
     
