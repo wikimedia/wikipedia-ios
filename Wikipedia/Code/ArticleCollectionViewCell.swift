@@ -83,12 +83,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
+            setNeedsLayout()
         }
     }
     
     var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
+            setNeedsLayout()
         }
     }
     
