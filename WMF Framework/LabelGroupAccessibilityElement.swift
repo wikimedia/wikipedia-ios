@@ -31,7 +31,8 @@ public class LabelGroupAccessibilityElement: UIAccessibilityElement {
                 maybeLabelLine = label.text
             }
             if let labelLine: String = maybeLabelLine, (labelLine as NSString).length > 0 {
-                combinedLabel = "\(combinedLabel)\n\(labelLine)"
+                combinedLabel.append("\n")
+                combinedLabel.append(labelLine)
             }
         }
         if #available(iOS 10.0, *) {
