@@ -17,21 +17,13 @@ public class LabelGroupAccessibilityElement: UIAccessibilityElement {
         guard let firstLabel = labels.first else {
             return
         }
-        var combinedLabel: String = ""
-        if let accessibilityLabel = firstLabel.accessibilityLabel {
-            combinedLabel = accessibilityLabel
-        } else if let text = firstLabel.text {
-            combinedLabel = text
-        }
+        var combinedLabel: String = firstLabel.accessibilityLabel ?? firstLabel.text ?? ""
         var combinedFrame = firstLabel.frame
         for label in labels[1..<labels.count] {
             combinedFrame = combinedFrame.union(label.frame)
-            var maybeLabelLine: String? = label.accessibilityLabel
-            if maybeLabelLine == nil {
-                maybeLabelLine = label.text
-            }
+            let maybeLabelLine: String? = label.accessibilityLabel ?? label.text
             if let labelLine: String = maybeLabelLine, (labelLine as NSString).length > 0 {
-                combinedLabel += "\n\(labelLine)"
+                combinedLabel = "\(combinedLabel)\n\(labelLine)"
             }
         }
         if #available(iOS 10.0, *) {
