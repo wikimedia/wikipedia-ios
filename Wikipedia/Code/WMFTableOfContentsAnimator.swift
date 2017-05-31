@@ -327,10 +327,17 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
             let translation = self.presentationGesture.translation(in: presentationGesture.view)
             let location = self.presentationGesture.location(in: presentationGesture.view)
             let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
-            let maxLocation = displaySide == .left
-                 ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
-            let isInStartBoundry = displaySide == .left ? maxLocation - location.x > 0 : location.x - maxLocation > 0
-            if(translation.x * tocMultiplier < 0) && isInStartBoundry{
+            let maxLocation: CGFloat
+            let isInStartBoundary: Bool
+            switch displaySide {
+            case .left:
+                maxLocation = gestureWidth
+                isInStartBoundary = maxLocation - location.x > 0
+            default:
+                maxLocation =  presentationGesture.view!.frame.maxX - gestureWidth
+                isInStartBoundary = location.x - maxLocation > 0
+            }
+            if(translation.x * tocMultiplier < 0) && isInStartBoundary {
                 return true
             }else{
                 return false

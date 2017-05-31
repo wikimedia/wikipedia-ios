@@ -30,7 +30,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        [titleLabel, usernameTitleLabel, passwordTitleLabel].forEach{$0.textColor = .wmf_authTitle}
+        let labels = [titleLabel, usernameTitleLabel, passwordTitleLabel]
+        for label in labels {
+            label?.textColor = .wmf_authTitle
+        }
         passwordAlertLabel.textColor = .wmf_red
     
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
