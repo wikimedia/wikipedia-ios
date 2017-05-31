@@ -486,10 +486,10 @@
 		B3591BAC1EDF3A9E00FC0E13 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAA1EDF3A9E00FC0E13 /* EventLoggingService.swift */; };
 		B3591BAD1EDF3A9E00FC0E13 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAA1EDF3A9E00FC0E13 /* EventLoggingService.swift */; };
 		B3591BAE1EDF3A9E00FC0E13 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAA1EDF3A9E00FC0E13 /* EventLoggingService.swift */; };
-		B3591BB01EDF3B3900FC0E13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* Event.swift */; };
-		B3591BB11EDF3B3900FC0E13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* Event.swift */; };
-		B3591BB21EDF3B3900FC0E13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* Event.swift */; };
-		B3591BB31EDF3B3900FC0E13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* Event.swift */; };
+		B3591BB01EDF3B3900FC0E13 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */; };
+		B3591BB11EDF3B3900FC0E13 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */; };
+		B3591BB21EDF3B3900FC0E13 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */; };
+		B3591BB31EDF3B3900FC0E13 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
 		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
@@ -3368,7 +3368,7 @@
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
 		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B3591BAA1EDF3A9E00FC0E13 /* EventLoggingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLoggingService.swift; sourceTree = SOURCE_ROOT; };
-		B3591BAF1EDF3B3900FC0E13 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = SOURCE_ROOT; };
+		B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCapsule.swift; sourceTree = SOURCE_ROOT; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
@@ -5525,7 +5525,7 @@
 		B3591BA91EDF3A5B00FC0E13 /* Wikimedia Event Logging New */ = {
 			isa = PBXGroup;
 			children = (
-				B3591BAF1EDF3B3900FC0E13 /* Event.swift */,
+				B3591BAF1EDF3B3900FC0E13 /* EventCapsule.swift */,
 				B3591BAA1EDF3A9E00FC0E13 /* EventLoggingService.swift */,
 			);
 			name = "Wikimedia Event Logging New";
@@ -8767,7 +8767,7 @@
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
-				B3591BB01EDF3B3900FC0E13 /* Event.swift in Sources */,
+				B3591BB01EDF3B3900FC0E13 /* EventCapsule.swift in Sources */,
 				D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */,
 				B0E803B11C0CDBCF0065EBC0 /* WMFSearchDataSource.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -9342,7 +9342,7 @@
 				D8A42A881E815A9C00D8E281 /* SSArrayDataSource.m in Sources */,
 				D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */,
 				D8A42A8A1E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
-				B3591BB31EDF3B3900FC0E13 /* Event.swift in Sources */,
+				B3591BB31EDF3B3900FC0E13 /* EventCapsule.swift in Sources */,
 				D87722001EC0DCA30005E634 /* SaveButton.swift in Sources */,
 				D8A42A8B1E815A9C00D8E281 /* SavedArticlesFetcher.m in Sources */,
 				D8A42A8C1E815A9C00D8E281 /* WMFSettingsTableViewCell.m in Sources */,
@@ -9789,7 +9789,7 @@
 				D8CE257D1E698E2400DAE2E0 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				D8CE257E1E698E2400DAE2E0 /* PreviewAndSaveViewController.m in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
-				B3591BB11EDF3B3900FC0E13 /* Event.swift in Sources */,
+				B3591BB11EDF3B3900FC0E13 /* EventCapsule.swift in Sources */,
 				D8CE25801E698E2400DAE2E0 /* SSBaseCollectionCell.m in Sources */,
 				D8CE25811E698E2400DAE2E0 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -10272,7 +10272,7 @@
 				D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */,
 				D8EC3F1B1E9BDA35006712EB /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */,
-				B3591BB21EDF3B3900FC0E13 /* Event.swift in Sources */,
+				B3591BB21EDF3B3900FC0E13 /* EventCapsule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

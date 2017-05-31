@@ -16,12 +16,20 @@ class EventLoggingService {
         }
     }
     
-    private func logEvent(_ event: Dictionary<String, Any>, revision:Int, wiki: String) -> Void {
+    private var eventQueue: [EventCapsule] = []
+    
+    private func logEvent(_ eventCapsule: EventCapsule) -> Void
+    {
+        eventQueue.append(eventCapsule)
+    }
+    
+    private func postEvent(_ eventCapsule: EventCapsule) -> Void {
 
         let payload: [String:Any] =  [
-            "event": event,
-            "revision": revision,
-            "wiki": wiki
+            "event": eventCapsule.event,
+            "schema": eventCapsule.schema,
+            "revision": eventCapsule.revision,
+            "wiki": eventCapsule.wiki
         ]
         
         do {
