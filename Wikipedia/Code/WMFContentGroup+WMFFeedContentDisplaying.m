@@ -39,35 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIColor *)headerIconTintColor {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindContinueReading:
-            break;
-        case WMFContentGroupKindMainPage:
-            break;
-        case WMFContentGroupKindRelatedPages:
-            break;
-        case WMFContentGroupKindLocation:
-            break;
-        case WMFContentGroupKindLocationPlaceholder:
-            break;
-        case WMFContentGroupKindPictureOfTheDay:
-            break;
-        case WMFContentGroupKindRandom:
-            break;
-        case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
-        case WMFContentGroupKindTopRead:
-            return [UIColor wmf_blue];
-        case WMFContentGroupKindNews:
-            break;
-        case WMFContentGroupKindNotification:
-            break;
-        case WMFContentGroupKindAnnouncement:
-            return nil;
-        case WMFContentGroupKindUnknown:
-        default:
-            break;
-    }
     return [UIColor wmf_exploreSectionHeaderIconTint];
 }
 
