@@ -2542,11 +2542,19 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updatePlaces()
     }
     
-    // MARK: - UIPopoverPresentationDelegate
+    // MARK: - UIPopoverPresentationControllerDelegate
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
+    
+    func popoverPresentationController(_ popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverTo rect: UnsafeMutablePointer<CGRect>, in view: AutoreleasingUnsafeMutablePointer<UIView>) {
+        let oldRect = rect.pointee
+        let center = CGPoint(x: view.pointee.bounds.midX, y: view.pointee.bounds.midY)
+        let newOrigin = CGPoint(x: center.x - 0.5*oldRect.width, y: center.y - 0.5*oldRect.height)
+        rect.pointee = CGRect(origin: newOrigin, size: oldRect.size)
+    }
+    
     
     // MARK: - EnableLocationViewControllerDelegate
     
