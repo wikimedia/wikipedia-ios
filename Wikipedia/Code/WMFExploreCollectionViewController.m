@@ -1211,7 +1211,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article displayType:displayType layoutOnly:layoutOnly];
+    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:section.content.count layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
