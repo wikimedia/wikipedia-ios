@@ -198,12 +198,6 @@
 "table-of-contents-close-accessibility-label" = "Zavřít tabulku s obsahem";
 "table-of-contents-heading" = "Obsah";
 "table-title-other" = "Další informace";
-"timestamp-days" = "%d dní";
-"timestamp-hours" = "%d hodin";
-"timestamp-just-now" = "právě teď";
-"timestamp-minutes" = "%d minut";
-"timestamp-months" = "%d měsíců";
-"timestamp-years" = "%d roků";
 "top-read-header-generic" = "Wikipedie";
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-see-more" = "Zobrazit další nejvíce čtené";

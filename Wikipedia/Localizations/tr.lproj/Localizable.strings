@@ -335,12 +335,6 @@
 "table-of-contents-heading" = "Konu başlıkları";
 "table-of-contents-popover-description" = "Makalelere genel bir bakın";
 "table-title-other" = "Daha fazla bilgi";
-"timestamp-days" = "%d gün önce";
-"timestamp-hours" = "%d saat önce";
-"timestamp-just-now" = "hemen şimdi";
-"timestamp-minutes" = "%d dakika önce";
-"timestamp-months" = "%d ay önce";
-"timestamp-years" = "%d yıl önce";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-see-more" = "En çok okunanları gör";

@@ -213,12 +213,6 @@
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer inligting";
-"timestamp-days" = "%d dae gelede";
-"timestamp-hours" = "%d uur gelede";
-"timestamp-just-now" = "nou net";
-"timestamp-minutes" = "%d minute gelede";
-"timestamp-months" = "%d maande gelede";
-"timestamp-years" = "%d jaar gelede";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "welcome-explore-tell-me-more-done-button" = "Het dit";

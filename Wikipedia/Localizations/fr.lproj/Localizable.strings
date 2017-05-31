@@ -15,6 +15,8 @@
 // Author: Solucer
 // Author: The RedBurn
 // Author: Thibaut120094
+// Author: Trial
+// Author: Urhixidur
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
@@ -104,6 +106,7 @@
 "empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
+"error-unknown" = "Une erreur inconnue est survenue";
 "explore-another-random" = "Un autre article au hasard";
 "explore-because-you-read" = "Parce que vous avez lu";
 "explore-continue-reading-heading" = "Continuer à lire";
@@ -178,6 +181,7 @@
 "home-more-like-footer" = "Davantage comme $1";
 "home-nearby-footer" = "Davantage proche de là où vous êtes";
 "home-nearby-location-footer" = "Plus proche de $1";
+"home-news-footer" = "Davantage dans les nouvelles";
 "home-title" = "Explorer";
 "home-title-accessibility-label" = "Wikipédia, faire défiler vers le haut pour Explorer";
 "icon-shortcut-continue-reading-title" = "Continuer à lire";
@@ -244,6 +248,7 @@
 "page-protected-sysop" = "Cette page a été complètement protégée.";
 "page-read-in-other-languages" = "Disponible en $1 autres langues";
 "page-similar-titles" = "Pages similaires";
+"pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
 "places-accessibility-close-search" = "Fermer la recherche";
 "places-accessibility-group" = "$1 articles";
@@ -265,11 +270,13 @@
 "places-no-saved-articles-have-location" = "Aucun de vos articles enregistrés n’a d’information de localisation";
 "places-search-articles-that-match" = "$1 correspondant à « $2 »";
 "places-search-default-text" = "Chercher";
+"places-search-did-you-mean" = "Voulez-vous dire $1 ?";
 "places-search-recently-searched-header" = "Récemment recherché";
 "places-search-saved-articles" = "Tous les articles sauvegardés";
 "places-search-suggested-searches-header" = "Recherches suggérées";
 "places-search-this-area" = "Résultats dans cette zone";
 "places-search-top-articles" = "Tous les meilleurs articles";
+"places-title" = "Lieux";
 "places-unknown-distance" = "distance inconnue";
 "potd-description-prefix" = "Image du jour pour $1";
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
@@ -278,6 +285,9 @@
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
 "reference-title" = "Référence $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|Hier|Il y a $1 jours}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "save-action" = "Enregistrer";
 "saved-clear-all" = "Effacer";
@@ -331,12 +341,6 @@
 "table-of-contents-heading" = "Contenus";
 "table-of-contents-popover-description" = "Obtenir une vue d’ensemble des articles";
 "table-title-other" = "Plus d’information";
-"timestamp-days" = "il y a %d jours";
-"timestamp-hours" = "il y a %d heures";
-"timestamp-just-now" = "à l’instant";
-"timestamp-minutes" = "il y a %d minutes";
-"timestamp-months" = "il y a %d mois";
-"timestamp-years" = "il y a %d ans";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-see-more" = "Voir plus de pages les plus regardées";
@@ -371,7 +375,7 @@
 "wikitext-preview-link-preview-title" = "Aperçu du lien";
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
-"wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléchargement du wikitexte.";
+"wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléversement du wikitexte.";
 "wikitext-upload-save" = "Publication en cours…";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";

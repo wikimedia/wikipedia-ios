@@ -236,12 +236,6 @@
 "table-of-contents-heading" = "შინაარსი";
 "table-of-contents-popover-description" = "სტატიების მიმოხილვის მიღება";
 "table-title-other" = "მეტი ინფორმაცია";
-"timestamp-days" = "% დღის წინ";
-"timestamp-hours" = "% საათის წინ";
-"timestamp-just-now" = "ახლავე";
-"timestamp-minutes" = "% წუთის წინ";
-"timestamp-months" = "% თვის წინ";
-"timestamp-years" = "% წლის წინ";
 "top-read-header-generic" = "ვიკიპედია";
 "top-read-header-with-language" = "$1 ვიკიპედია";
 "two-factor-login-continue" = "შესვლის გაგრძელება";

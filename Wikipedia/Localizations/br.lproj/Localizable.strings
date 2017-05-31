@@ -320,12 +320,6 @@
 "table-of-contents-heading" = "Endalc'had";
 "table-of-contents-popover-description" = "Kaout un tamm rakwel eus ar pennadoù";
 "table-title-other" = "Muioc'h a ditouroù";
-"timestamp-days" = "%d deiz zo";
-"timestamp-hours" = "%d eur zo";
-"timestamp-just-now" = "bremañ end-eeun";
-"timestamp-minutes" = "%d munut zo";
-"timestamp-months" = "%d miz zo";
-"timestamp-years" = "%d vloaz zo";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Gwelet muioc'h a bajennoù hag a vez sellet ar muiañ outo.";

@@ -203,12 +203,6 @@
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
 "table-of-contents-heading" = "Contenguts";
 "table-title-other" = "Mai d'informacions";
-"timestamp-days" = "i a %d jorns";
-"timestamp-hours" = "i a %d oras";
-"timestamp-just-now" = "sulpic";
-"timestamp-minutes" = "i a %d minutas";
-"timestamp-months" = "i a %d meses";
-"timestamp-years" = "i a %d ans";
 "top-read-header-generic" = "Wikipèdia";
 "top-read-header-with-language" = "Wikipèdia en $1";
 "top-read-see-more" = "Veire mai de paginas las mai gaitadas";

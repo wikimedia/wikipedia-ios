@@ -245,12 +245,6 @@
 "table-of-contents-heading" = "Turinys";
 "table-of-contents-popover-description" = "Gauti straipsnių apžvalgą";
 "table-title-other" = "Daugiau informacijos";
-"timestamp-days" = "Prieš %d dienas";
-"timestamp-hours" = "Prieš %d valandas";
-"timestamp-just-now" = "ką tik";
-"timestamp-minutes" = "Prieš %d minutes";
-"timestamp-months" = "Prieš %d mėnesius";
-"timestamp-years" = "Prieš %d metus";
 "top-read-header-generic" = "Vikipedija";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-see-more" = "Žiūrėti daugiau skaitomiausių";

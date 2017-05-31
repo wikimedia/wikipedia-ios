@@ -113,6 +113,7 @@
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
+"error-unknown" = "Произошла неизвестная ошибка";
 "explore-another-random" = "Другая случайная статья";
 "explore-because-you-read" = "Потому что вы читали";
 "explore-continue-reading-heading" = "Продолжить чтение";
@@ -274,6 +275,7 @@
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-search-default-text" = "Найти";
+"places-search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-search-saved-articles" = "Все сохранённые статьи";
 "places-search-suggested-searches-header" = "Предложения для поиска";
@@ -341,12 +343,6 @@
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-popover-description" = "Получить обзор статей";
 "table-title-other" = "Подробнее";
-"timestamp-days" = "%d дн. назад";
-"timestamp-hours" = "%d ч. назад";
-"timestamp-just-now" = "только что";
-"timestamp-minutes" = "%d мин. назад";
-"timestamp-months" = "%d мес. назад";
-"timestamp-years" = "%d г. назад";
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-see-more" = "Посмотреть ещё наиболее читаемые";

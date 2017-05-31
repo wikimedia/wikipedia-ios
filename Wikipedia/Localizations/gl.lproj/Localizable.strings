@@ -319,12 +319,6 @@
 "table-of-contents-heading" = "Contidos";
 "table-of-contents-popover-description" = "Obter unha vista xeral dos artigos";
 "table-title-other" = "Máis información";
-"timestamp-days" = "hai %d días";
-"timestamp-hours" = "hai %d horas";
-"timestamp-just-now" = "agora mesmo";
-"timestamp-minutes" = "hai %d minutos";
-"timestamp-months" = "hai %d meses";
-"timestamp-years" = "hai %d anos";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-see-more" = "Ver máis artigos máis lidos";

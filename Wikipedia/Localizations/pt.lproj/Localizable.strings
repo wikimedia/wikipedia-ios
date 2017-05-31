@@ -263,12 +263,6 @@
 "table-of-contents-heading" = "Índice";
 "table-of-contents-popover-description" = "Obter um resumo dos artigos";
 "table-title-other" = "Mais informação";
-"timestamp-days" = "há %d dias";
-"timestamp-hours" = "há %d horas";
-"timestamp-just-now" = "agora mesmo";
-"timestamp-minutes" = "há %d minutos";
-"timestamp-months" = "há %d meses";
-"timestamp-years" = "há %d anos";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia em $1";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";

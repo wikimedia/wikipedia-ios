@@ -152,12 +152,6 @@
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-heading" = "Enhavaĵoj";
 "table-title-other" = "Pliaj informoj";
-"timestamp-days" = "Antaŭ %d tagoj";
-"timestamp-hours" = "Antaŭ %d horoj";
-"timestamp-just-now" = "ĵus nun";
-"timestamp-minutes" = "Antaŭ %d minutoj";
-"timestamp-months" = "Antaŭ %d monatoj";
-"timestamp-years" = "Antaŭ %d jaroj";
 "top-read-header-generic" = "Vikipedio";
 "top-read-header-with-language" = "$1 Vikipedio";
 "welcome-languages-add-button" = "Aldoni alian lingvon";

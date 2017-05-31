@@ -107,9 +107,12 @@
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
+"error-unknown" = "خطای ناشناخته رخ داده‌است";
 "explore-another-random" = "مقاله تصادفی دیگر";
+"explore-because-you-read" = "چون شما مطالعه می‌کنید";
 "explore-continue-reading-heading" = "ادامه دادن به خواندن";
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
+"explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
 "explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-generic-heading" = "بیشترین خوانده شده";
@@ -179,6 +182,7 @@
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
 "home-nearby-location-footer" = "موارد نزدیک بیشتر به $1";
+"home-news-footer" = "موارد بیشتر در اخبار";
 "home-title" = "مرور";
 "home-title-accessibility-label" = "ویکی‌پدیا، برای کاوش به بالا اسکرول کنید";
 "icon-shortcut-continue-reading-title" = "ادامه دادن به خواندن";
@@ -245,6 +249,7 @@
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-similar-titles" = "صفحات مشابه";
+"pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-close-search" = "بستن جستجو";
 "places-accessibility-group" = "$1 مقاله";
@@ -266,11 +271,13 @@
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
 "places-search-articles-that-match" = "$1 منتطبق با «$2»";
 "places-search-default-text" = "جستجو";
+"places-search-did-you-mean" = "منظورتان «$1» بود؟";
 "places-search-recently-searched-header" = "جستجوهای اخیر";
 "places-search-saved-articles" = "همهٔ مقاله‌های ذخیره شده";
 "places-search-suggested-searches-header" = "جستجوهای پیشنهاد شده";
 "places-search-this-area" = "نتیجه‌ها در این محدوده";
 "places-search-top-articles" = "همهٔ مقالات برتر";
+"places-title" = "مکان‌ها";
 "places-unknown-distance" = "مسافت‌های نامشخص";
 "potd-description-prefix" = "تصویر روز برای $1";
 "potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
@@ -332,12 +339,6 @@
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-popover-description" = "دریافت نظرکلی مقالات";
 "table-title-other" = "اطلاعات بیشتر";
-"timestamp-days" = "%d روز پیش";
-"timestamp-hours" = "%d ساعت پیش";
-"timestamp-just-now" = "هم‌اکنون";
-"timestamp-minutes" = "%d دقیقه پیش";
-"timestamp-months" = "%d ماه پیش";
-"timestamp-years" = "%d سال پیش";
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
 "top-read-see-more" = "دیدن بیشتر خوانده‌شده‌ها";
@@ -368,6 +369,8 @@
 "wikitext-downloading" = "بارگیری متن...";
 "wikitext-preview-changes" = "بازیابی پیش نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";
+"wikitext-preview-link-preview-description" = "این پیوند به «$1» سوق دارد";
+"wikitext-preview-link-preview-title" = "پیش‌نمایش پیوند";
 "wikitext-upload-captcha-error" = "کپچا به درستی وارد نشده است.";
 "wikitext-upload-captcha-needed" = "نیاز به تایید بوسیله کپچا";
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";

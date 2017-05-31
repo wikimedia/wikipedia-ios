@@ -134,11 +134,6 @@
 "table-of-contents-heading" = "Cynnwys";
 "table-of-contents-popover-description" = "Bras olwg o erthyglau";
 "table-title-other" = "Rhagor o wybodaeth";
-"timestamp-days" = "%d diwrnod yn ôl";
-"timestamp-hours" = "%d awr yn ôl";
-"timestamp-minutes" = "%d munud yn ôl";
-"timestamp-months" = "%d mis yn ôl";
-"timestamp-years" = "%d blwyddyn yn ôl";
 "two-factor-login-title" = "Mewngofnodwch i'ch cyfri";
 "welcome-languages-add-button" = "Ychwanegu iaith arall";
 "welcome-languages-continue-button" = "Parhau";

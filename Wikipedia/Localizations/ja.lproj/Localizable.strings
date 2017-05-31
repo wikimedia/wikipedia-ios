@@ -214,6 +214,8 @@
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
 "reference-title" = "情報源$1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=今日|昨日|$1日前}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "save-action" = "保存";
 "saved-clear-all" = "消去";
@@ -258,12 +260,6 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
-"timestamp-days" = "%d日前";
-"timestamp-hours" = "%d時間前";
-"timestamp-just-now" = "たった今";
-"timestamp-minutes" = "%d分前";
-"timestamp-months" = "%dヶ月前";
-"timestamp-years" = "%d年前";
 "top-read-header-generic" = "ウィキペディア";
 "top-read-header-with-language" = "$1ウィキペディア";
 "unsave-action" = "保存しない";

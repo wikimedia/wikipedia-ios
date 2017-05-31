@@ -102,6 +102,7 @@
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
+"error-unknown" = "Terjadi sebuah kesalahan yang tidak diketahui";
 "explore-another-random" = "Artikel sembarang lainnya";
 "explore-because-you-read" = "Karena Anda membaca";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
@@ -176,6 +177,7 @@
 "home-more-like-footer" = "Lainnya yang seperti $1";
 "home-nearby-footer" = "Lainnya dari lokasi sekitar Anda";
 "home-nearby-location-footer" = "Lainnya di sekitar $1";
+"home-news-footer" = "Peristiwa terkini lainnya";
 "home-title" = "Jelajah";
 "home-title-accessibility-label" = "Wikipedia, gulir ke bagian atas halaman Jelajah";
 "icon-shortcut-continue-reading-title" = "Lanjutkan membaca";
@@ -242,6 +244,7 @@
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
 "page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-similar-titles" = "Halaman serupa";
+"pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
 "places-accessibility-close-search" = "Tutup pencarian";
 "places-accessibility-group" = "$1 artikel";
@@ -263,11 +266,13 @@
 "places-no-saved-articles-have-location" = "Tidak satu pun dari artikel tersimpan Anda memiliki informasi lokasi";
 "places-search-articles-that-match" = "$1 sesuai “$2”";
 "places-search-default-text" = "Cari";
+"places-search-did-you-mean" = "Mungkin maksud Anda $1?";
 "places-search-recently-searched-header" = "Ditelusuri baru-baru ini";
 "places-search-saved-articles" = "Semua artikel tersimpan";
 "places-search-suggested-searches-header" = "Penelusuran yang disarankan";
 "places-search-this-area" = "Hasil di daerah ini";
 "places-search-top-articles" = "Semua artikel teratas";
+"places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini pada $1";
@@ -276,6 +281,9 @@
 "rank-accessibility-label" = "Peringkat $1";
 "readers-accessibility-label" = "$1 pembaca";
 "reference-title" = "Referensi $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|Kemarin|$1 hari yang lalu}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "save-action" = "Simpan";
 "saved-clear-all" = "Kosongkan";
@@ -329,12 +337,6 @@
 "table-of-contents-heading" = "Konten";
 "table-of-contents-popover-description" = "Dapatkan ringkasan dari artikel";
 "table-title-other" = "Informasi lebih lanjut";
-"timestamp-days" = "%d hari yang lalu";
-"timestamp-hours" = "%d jam yang lalu";
-"timestamp-just-now" = "baru saja";
-"timestamp-minutes" = "%d menit yang lalu";
-"timestamp-months" = "%d bulan yang lalu";
-"timestamp-years" = "%d tahun yang lalu";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";
@@ -365,6 +367,8 @@
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
+"wikitext-preview-link-preview-description" = "Pranala ini menuju ke '$1'";
+"wikitext-preview-link-preview-title" = "Pratayang pranala";
 "wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Memerlukan verifikasi CAPTCHA.";
 "wikitext-upload-result-unknown" = "Tidak dapat menentukan hasil unggah teks wiki.";

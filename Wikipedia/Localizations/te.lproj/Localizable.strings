@@ -145,12 +145,6 @@
 "table-of-contents-close-accessibility-label" = "విషయ సూచికను మూసివేయి";
 "table-of-contents-heading" = "విషయాలు";
 "table-title-other" = "మరింత సమాచారం";
-"timestamp-days" = "%d రోజుల క్రితం";
-"timestamp-hours" = "%d గంటల క్రితం";
-"timestamp-just-now" = "ఇప్పుడే";
-"timestamp-minutes" = "%d నిమిషాల క్రితం";
-"timestamp-months" = "%d నెలల క్రితం";
-"timestamp-years" = "%d సంవత్సరాల క్రితం";
 "top-read-header-generic" = "వికీపీడియా";
 "top-read-header-with-language" = "$1 వికీపీడియా";
 "welcome-explore-continue-button" = "మొదలుపెట్టండి";

@@ -320,12 +320,6 @@
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-popover-description" = "Mostra la previsualització dels articles";
 "table-title-other" = "Més informació";
-"timestamp-days" = "fa %d dies";
-"timestamp-hours" = "fa %d hores";
-"timestamp-just-now" = "ara mateix";
-"timestamp-minutes" = "fa %d minuts";
-"timestamp-months" = "fa %d mesos";
-"timestamp-years" = "fa %d anys";
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-see-more" = "Vegeu-ne més";

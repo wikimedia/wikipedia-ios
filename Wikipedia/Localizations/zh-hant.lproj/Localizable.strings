@@ -102,6 +102,7 @@
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
+"error-unknown" = "發生不明錯誤";
 "explore-another-random" = "其他隨機條目";
 "explore-because-you-read" = "因為您閱讀";
 "explore-continue-reading-heading" = "繼續閱讀";
@@ -176,6 +177,7 @@
 "home-more-like-footer" = "更像 $1";
 "home-nearby-footer" = "更多您所在位置周遭的事物";
 "home-nearby-location-footer" = "$1 附近更多";
+"home-news-footer" = "更多的新聞";
 "home-title" = "探索";
 "home-title-accessibility-label" = "維基百科，滾動至探索頁面頂端";
 "icon-shortcut-continue-reading-title" = "繼續閱讀";
@@ -242,6 +244,7 @@
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
 "page-similar-titles" = "相似頁面";
+"pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";
 "places-accessibility-close-search" = "關閉搜尋";
 "places-accessibility-group" = "$1 個條目";
@@ -263,6 +266,7 @@
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
 "places-search-default-text" = "搜尋";
+"places-search-did-you-mean" = "您指的是 $1 嗎？";
 "places-search-recently-searched-header" = "近期搜尋";
 "places-search-saved-articles" = "所有已儲存條目";
 "places-search-suggested-searches-header" = "建議搜尋";
@@ -277,6 +281,9 @@
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
 "reference-title" = "參考資料 $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1 天前}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "save-action" = "儲存";
 "saved-clear-all" = "清除";
@@ -330,12 +337,6 @@
 "table-of-contents-heading" = "內容";
 "table-of-contents-popover-description" = "獲得一個條目的概要";
 "table-title-other" = "更多資訊";
-"timestamp-days" = "%d 天前";
-"timestamp-hours" = "%d 小時前";
-"timestamp-just-now" = "剛剛";
-"timestamp-minutes" = "%d 分鐘前";
-"timestamp-months" = "%d 個月前";
-"timestamp-years" = "%d 年前";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-see-more" = "查看更多熱門條目";

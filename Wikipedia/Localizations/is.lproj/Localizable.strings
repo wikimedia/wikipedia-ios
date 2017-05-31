@@ -198,12 +198,6 @@
 "table-of-contents-close-accessibility-label" = "Loka efnisyfirliti";
 "table-of-contents-heading" = "Efni";
 "table-title-other" = "Nánari upplýsingar";
-"timestamp-days" = "Fyrir %d dögum";
-"timestamp-hours" = "Fyrir %d tímum";
-"timestamp-just-now" = "rétt í þessu";
-"timestamp-minutes" = "Fyrir %d mínútum";
-"timestamp-months" = "Fyrir %d mánuðum";
-"timestamp-years" = "Fyrir %d árum";
 "welcome-explore-continue-button" = "Komast í gang";
 "welcome-explore-tell-me-more" = "Segðu mér fleira";
 "welcome-explore-tell-me-more-done-button" = "Náði því";

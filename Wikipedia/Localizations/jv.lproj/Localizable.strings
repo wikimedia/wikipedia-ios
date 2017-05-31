@@ -89,6 +89,7 @@
 "empty-no-saved-pages-message" = "Simpen kaca kanggo ndeleng mengko, malah offline";
 "empty-no-saved-pages-title" = "Ora ana kaca kasimpen";
 "empty-no-search-results-message" = "Ora ana asil";
+"error-unknown" = "Ana masalah sing ora dingertèni";
 "explore-another-random" = "Artikel sembarang liyané";
 "explore-because-you-read" = "Amarga panjenengan maca";
 "explore-continue-reading-heading" = "Bacutaké maca";
@@ -163,6 +164,7 @@
 "home-more-like-footer" = "Liyane kaya $1";
 "home-nearby-footer" = "Liyane saka toko lokasi";
 "home-nearby-location-footer" = "Liyané ing cedhak $1";
+"home-news-footer" = "Liyané sing dadi pawarta";
 "home-title" = "Dlajah";
 "home-title-accessibility-label" = "Wikipedia, gulung menyang ndhuwur Langkawi";
 "icon-shortcut-continue-reading-title" = "Terus maca";
@@ -229,6 +231,7 @@
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
 "page-read-in-other-languages" = "Ana ing $1 basa liyané";
 "page-similar-titles" = "Kaca sairib";
+"pictured" = "digambar";
 "places-accessibility-clear-saved-searches" = "Busak golèkan sing disimpen";
 "places-accessibility-close-search" = "Tutup golèkan";
 "places-accessibility-group" = "$1 artikel";
@@ -250,11 +253,13 @@
 "places-no-saved-articles-have-location" = "Artikel sing disimpen siji-sijia ora ana sing ngemu katerangan panggon";
 "places-search-articles-that-match" = "$1 jumbuh “$2”";
 "places-search-default-text" = "Golèk";
+"places-search-did-you-mean" = "Sing penjenengan karepaké apa $1?";
 "places-search-recently-searched-header" = "Mentas digolèki";
 "places-search-saved-articles" = "Kabèh artikel sing sumimpen";
 "places-search-suggested-searches-header" = "Gegolèkan sing diprayogakaké";
 "places-search-this-area" = "Kasil kanggo laladan iki";
 "places-search-top-articles" = "Kabèh artikel laris";
+"places-title" = "Panggonan";
 "places-unknown-distance" = "dohé ora kaweruhan";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";
 "potd-empty-error-description" = "Gagal kanggo nompo Gambar dina kanggo $1";
@@ -263,6 +268,9 @@
 "rank-accessibility-label" = "Angka $1";
 "readers-accessibility-label" = "$1 sing maca";
 "reference-title" = "Rujukan $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|Wingi|$1 dina kepungkur}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Bubar|$1 jam kepungkur|$1 jam kepungkur}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Mung saiki|$1 menit kepungkur|$1 menit kepungkur}}";
 "request-feedback-on-error" = "Aplikasi wis pinanggih masalah sing gawe kita kaya ngerti liyane babagan. Mangga tunyuk kene kanggo ngirim kita email karo rincian kesalahan.";
 "save-action" = "Simpen";
 "saved-clear-all" = "Busak";
@@ -316,17 +324,11 @@
 "table-of-contents-heading" = "Isi";
 "table-of-contents-popover-description" = "Golèk ulasan artikel";
 "table-title-other" = "Katerangan liyané";
-"timestamp-days" = "%d dina kapungkur";
-"timestamp-hours" = "%d jam kapungkur";
-"timestamp-just-now" = "mentas waé";
-"timestamp-minutes" = "%d menit kapungkur";
-"timestamp-months" = "%d wulan kapungkur";
-"timestamp-years" = "%d taun kapungkur";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia $1";
 "top-read-see-more" = "Deleng wacan laris liyané";
 "two-factor-login-continue" = "Banjuraké mlebu log";
-"two-factor-login-instructions" = "Mangga isènana kodhe vèrifikasi rong faktor";
+"two-factor-login-instructions" = "Mangga isinen kodhe vèrifikasi rong faktor";
 "two-factor-login-title" = "Mlebu log nyang akuné panjenengan";
 "two-factor-login-with-backup-code" = "Nganggo salah siji kodhé sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Nganggo kodhé vèrifikasi";
@@ -352,6 +354,8 @@
 "wikitext-downloading" = "Mbukak isi...";
 "wikitext-preview-changes" = "Nampa pratayang owah-owahan panjenengan ...";
 "wikitext-preview-changes-none" = "Ora ana owah-padha digawe kanggo dipratinjau.";
+"wikitext-preview-link-preview-description" = "Pranala iki ndadékaké kanggo '$1'";
+"wikitext-preview-link-preview-title" = "Pratayang pranala";
 "wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Kudu verifikasi CAPTCHA.";
 "wikitext-upload-result-unknown" = "Ora kanggo nemtokake kasil upload wiki teks.";
