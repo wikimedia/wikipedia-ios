@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "W_small.pdf"
+      "filename" : "W-iphone-medium.pdf"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "W-ipad-medium.pdf"
     }
   ],
   "info" : {
