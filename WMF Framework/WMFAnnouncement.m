@@ -46,6 +46,12 @@
         }];
 }
 
++ (MTLValueTransformer *)textJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *text, BOOL *success, NSError *__autoreleasing *error) {
+        return [text stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    }];
+}
+
 + (NSValueTransformer *)startTimeJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         NSDate *date = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:value];
