@@ -327,12 +327,6 @@
 "table-of-contents-heading" = "Sisällys";
 "table-of-contents-popover-description" = "Yleiskatsaus artikkeleista";
 "table-title-other" = "Lisätietoja";
-"timestamp-days" = "%d päivää sitten";
-"timestamp-hours" = "%d tuntia sitten";
-"timestamp-just-now" = "juuri nyt";
-"timestamp-minutes" = "%d minuuttia sitten";
-"timestamp-months" = "%d kuukautta sitten";
-"timestamp-years" = "%d vuotta sitten";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";

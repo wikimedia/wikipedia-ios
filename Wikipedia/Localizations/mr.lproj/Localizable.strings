@@ -199,12 +199,6 @@
 "table-of-contents-close-accessibility-label" = "अनुक्रमणिका बंद करा";
 "table-of-contents-heading" = "आशय";
 "table-title-other" = "अधिक माहिती";
-"timestamp-days" = "%d दिवसांपूर्वी";
-"timestamp-hours" = "%d तासांपूर्वी";
-"timestamp-just-now" = "आत्ताच";
-"timestamp-minutes" = "%d मिनीटांपूर्वी";
-"timestamp-months" = "%d महिन्यांपूर्वी";
-"timestamp-years" = "%d वर्षांपूर्वी";
 "top-read-header-generic" = "विकिपीडिया";
 "top-read-header-with-language" = "$1 विकिपीडिया";
 "welcome-explore-continue-button" = "सुरुवात करा";

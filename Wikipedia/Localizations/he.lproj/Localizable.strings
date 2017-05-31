@@ -98,6 +98,7 @@
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
+"error-unknown" = "אירעה שגיאה בלתי־ידועה";
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-because-you-read" = "כי קראת";
 "explore-continue-reading-heading" = "המשך קריאה";
@@ -172,6 +173,7 @@
 "home-more-like-footer" = "עוד כמו $1";
 "home-nearby-footer" = "עוד דברים בסביבה";
 "home-nearby-location-footer" = "עוד בסביבת $1";
+"home-news-footer" = "עוד בחדשות";
 "home-title" = "לחקור";
 "home-title-accessibility-label" = "ויקיפדיה, גלילה עד למעלה ב\"לחקור\"";
 "icon-shortcut-continue-reading-title" = "המשך קריאה";
@@ -238,6 +240,7 @@
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
 "page-read-in-other-languages" = "זמין בעוד $1 שפות";
 "page-similar-titles" = "דפים דומים";
+"pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
 "places-accessibility-close-search" = "סגירת חיפוש";
 "places-accessibility-group" = "$1 ערכים";
@@ -259,11 +262,13 @@
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
 "places-search-default-text" = "חיפוש";
+"places-search-did-you-mean" = "האם התכוונת לכתוב $1?";
 "places-search-recently-searched-header" = "חיפושים אחרונים";
 "places-search-saved-articles" = "כל הערכים השמורים";
 "places-search-suggested-searches-header" = "חיפושים מומלצים";
 "places-search-this-area" = "תוצאות באזור הזה";
 "places-search-top-articles" = "כל הערכים המובילים";
+"places-title" = "מקומות";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
@@ -272,6 +277,9 @@
 "rank-accessibility-label" = "מספר $1";
 "readers-accessibility-label" = "$1 קוראים";
 "reference-title" = "הערה $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|3=לפני יומיים|לפני $1 ימים}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "save-action" = "שמירה";
 "saved-clear-all" = "ניקוי";
@@ -325,12 +333,6 @@
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-popover-description" = "קבלת סקירה של ערכים";
 "table-title-other" = "מידע נוסף";
-"timestamp-days" = "לפני %d ימים";
-"timestamp-hours" = "לפני %d שעות";
-"timestamp-just-now" = "זה עתה";
-"timestamp-minutes" = "לפני %d דקות";
-"timestamp-months" = "לפני %d חודשים";
-"timestamp-years" = "לפני %d שנים";
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-see-more" = "צפייה בערכים פופולריים נוספים";
@@ -361,6 +363,8 @@
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
+"wikitext-preview-link-preview-description" = "הקישור הזה מוביל לכתובת '$1'";
+"wikitext-preview-link-preview-title" = "תצוגה מקדימה של קישור";
 "wikitext-upload-captcha-error" = "שגיאת אימות.";
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-result-unknown" = "לא ניתן להסיק את התוצאה של העלאת קוד ויקי.";

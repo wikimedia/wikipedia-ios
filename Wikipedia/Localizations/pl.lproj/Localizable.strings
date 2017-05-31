@@ -214,6 +214,7 @@
 "places-search-default-text" = "Szukaj";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"places-title" = "Miejsca";
 "places-unknown-distance" = "odległość nieznana";
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
@@ -252,12 +253,6 @@
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-heading" = "Zawartości";
 "table-title-other" = "Więcej informacji";
-"timestamp-days" = "%d dni temu";
-"timestamp-hours" = "%d godzin temu";
-"timestamp-just-now" = "po prostu teraz";
-"timestamp-minutes" = "%d minuty temu";
-"timestamp-months" = "%d miesięcy temu";
-"timestamp-years" = "%d lat temu";
 "top-read-header-generic" = "Wikipedia";
 "two-factor-login-continue" = "Kontynuuj logowanie";
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";

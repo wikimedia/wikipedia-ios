@@ -42,6 +42,10 @@ extension NewsViewController {
             return cell
         }
         let story = stories[indexPath.section]
+    
+        var margins = newsCell.margins ?? UIEdgeInsets.zero
+        margins.bottom = 15
+        newsCell.margins = margins
         newsCell.configure(with: story, dataStore: dataStore, layoutOnly: false)
         return newsCell
     }

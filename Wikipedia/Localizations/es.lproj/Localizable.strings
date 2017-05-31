@@ -104,6 +104,7 @@
 "empty-no-saved-pages-message" = "Guarda páginas para verlas más tarde, incluso sin conexión";
 "empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
 "empty-no-search-results-message" = "No se encontraron resultados";
+"error-unknown" = "Ocurrió un error desconocido";
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-because-you-read" = "Porque leíste";
 "explore-continue-reading-heading" = "Continuar leyendo";
@@ -178,6 +179,7 @@
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más de cercanos a tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
+"home-news-footer" = "Más en las noticias";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
 "icon-shortcut-continue-reading-title" = "Continuar leyendo";
@@ -244,6 +246,7 @@
 "page-protected-sysop" = "Esta página está totalmente protegida.";
 "page-read-in-other-languages" = "Disponible en $1 idiomas más";
 "page-similar-titles" = "Páginas similares";
+"pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";
 "places-accessibility-close-search" = "Cerrar búsqueda";
 "places-accessibility-group" = "$1 artículos";
@@ -265,6 +268,7 @@
 "places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
 "places-search-articles-that-match" = "$1 que corresponden con «$2»";
 "places-search-default-text" = "Buscar";
+"places-search-did-you-mean" = "¿Quisiste decir $1?";
 "places-search-recently-searched-header" = "Búsquedas recientes";
 "places-search-saved-articles" = "Todos los artículos guardados";
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
@@ -332,12 +336,6 @@
 "table-of-contents-heading" = "Sumario";
 "table-of-contents-popover-description" = "Obtener una visión general de los artículos";
 "table-title-other" = "Más información";
-"timestamp-days" = "hace %d días";
-"timestamp-hours" = "hace %d horas";
-"timestamp-just-now" = "recién";
-"timestamp-minutes" = "hace %d minutos";
-"timestamp-months" = "hace %d meses";
-"timestamp-years" = "hace %d años";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-see-more" = "Ver otros de los más leídos";

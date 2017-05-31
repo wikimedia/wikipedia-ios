@@ -325,12 +325,6 @@
 "table-of-contents-heading" = "सामग्री";
 "table-of-contents-popover-description" = "लेखों का ओवरव्यू प्राप्त करें";
 "table-title-other" = "अधिक जानकारी";
-"timestamp-days" = "%d दिन पहले";
-"timestamp-hours" = "%d घंटे पहले";
-"timestamp-just-now" = "अभी-अभी";
-"timestamp-minutes" = "%d मिनट पहले";
-"timestamp-months" = "%d महीने पहले";
-"timestamp-years" = "%d वर्ष पहले";
 "top-read-header-generic" = "विकिपीडिया";
 "top-read-header-with-language" = "$1 विकिपीडिया";
 "top-read-see-more" = "सर्वाधिक पढ़े जाने वाले और देखें";

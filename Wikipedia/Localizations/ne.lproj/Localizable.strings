@@ -155,12 +155,6 @@
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-title-other" = "थप जानकारी";
-"timestamp-days" = "%d दिन पहिले";
-"timestamp-hours" = "%d घन्ट पहिले";
-"timestamp-just-now" = "भर्खरै";
-"timestamp-minutes" = "%d मिनेट पहिले";
-"timestamp-months" = "%d महिना पहिले";
-"timestamp-years" = "%d वर्ष पहिले";
 "top-read-header-generic" = "विकिपिडिया";
 "top-read-header-with-language" = "$1 विकिपिडिया";
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस् \\";

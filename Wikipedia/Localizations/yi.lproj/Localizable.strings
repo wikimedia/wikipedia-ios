@@ -133,12 +133,6 @@
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";
 "table-title-other" = "נאך אינפארמאציע";
-"timestamp-days" = "פאר %d טעג";
-"timestamp-hours" = "פאר %d שעה׳ן";
-"timestamp-just-now" = "גראדע יעצט";
-"timestamp-minutes" = "פאר %d מינוט";
-"timestamp-months" = "פאר %d מאנאַטן";
-"timestamp-years" = "פאר %d יאר";
 "top-read-header-generic" = "וויקיפעדיע";
 "top-read-header-with-language" = "$1 וויקיפעדיע";
 "welcome-languages-title" = "שפראַכן";

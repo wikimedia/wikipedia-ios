@@ -109,6 +109,7 @@
 "empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقًا، حتى بدون اتصال بالإنترنت";
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-search-results-message" = "لا توجد نتائج";
+"error-unknown" = "حدث خطأ غير معروف";
 "explore-another-random" = "مقالة عشوائية أخرى";
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-featured-article-heading" = "مقالة مختارة";
@@ -172,6 +173,7 @@
 "home-more-like-footer" = "المزيد مثل $1";
 "home-nearby-footer" = "المزيد من جوار موقعك";
 "home-nearby-location-footer" = "المزيد بالقرب من $1";
+"home-news-footer" = "المزيد في الأخبار";
 "home-title" = "استكشف";
 "icon-shortcut-continue-reading-title" = "مواصلة القراءة";
 "icon-shortcut-nearby-title" = "مقالات مجاورة";
@@ -237,6 +239,7 @@
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-similar-titles" = "صفحات مشابهة";
+"pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-group" = "$1 مقالات";
@@ -246,6 +249,7 @@
 "places-filter-top-articles" = "الأعلى قراءة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
 "places-search-default-text" = "بحث";
+"places-search-did-you-mean" = "هل عنيت $1؟";
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-search-saved-articles" = "كل المقالات المحفوظة";
 "places-search-suggested-searches-header" = "عمليات البحث المقترحة";
@@ -307,12 +311,6 @@
 "table-of-contents-heading" = "المحتويات";
 "table-of-contents-popover-description" = "احصل على نظرة عامة عن المقالات";
 "table-title-other" = "مزيد من المعلومات";
-"timestamp-days" = "%d يوم مضت";
-"timestamp-hours" = "%d ساعة مضت";
-"timestamp-just-now" = "الآن فقط";
-"timestamp-minutes" = "%d دقيقة مضت";
-"timestamp-months" = "%d شهر مضت";
-"timestamp-years" = "%d سنة مضت";
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-see-more" = "طالع المزيد من الأعلى قراءةً";

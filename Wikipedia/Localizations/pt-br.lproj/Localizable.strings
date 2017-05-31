@@ -339,12 +339,6 @@
 "table-of-contents-heading" = "Conteúdo";
 "table-of-contents-popover-description" = "Obter um resumo dos artigos";
 "table-title-other" = "Mais informações";
-"timestamp-days" = "%d dias atrás";
-"timestamp-hours" = "%d horas atrás";
-"timestamp-just-now" = "agora mesmo";
-"timestamp-minutes" = "%d minutos atrás";
-"timestamp-months" = "%d meses atrás";
-"timestamp-years" = "%d anos atrás";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";

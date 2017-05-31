@@ -91,6 +91,7 @@
 "empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
+"error-unknown" = "Се појави непозната грешка";
 "explore-another-random" = "Друга случајна статија";
 "explore-because-you-read" = "Бидејќи читавте";
 "explore-continue-reading-heading" = "Продолжете со читање";
@@ -165,6 +166,7 @@
 "home-more-like-footer" = "Уште статии како $1";
 "home-nearby-footer" = "Уште од вашата близина";
 "home-nearby-location-footer" = "Повеќе околу $1";
+"home-news-footer" = "Повеќе новости";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
 "icon-shortcut-continue-reading-title" = "Продолжете со читање";
@@ -231,6 +233,7 @@
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-similar-titles" = "Слични страници";
+"pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-close-search" = "Затвори пребарување";
 "places-accessibility-group" = "$1 статии";
@@ -252,6 +255,7 @@
 "places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-search-articles-that-match" = "$1 што одговараат на „$2“";
 "places-search-default-text" = "Пребарај";
+"places-search-did-you-mean" = "Дали мислевте на $1?";
 "places-search-recently-searched-header" = "Неодамна пребарано";
 "places-search-saved-articles" = "Сите зачувани статии";
 "places-search-suggested-searches-header" = "Предложени пребарувања";
@@ -266,6 +270,9 @@
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
 "reference-title" = "Навод $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=денес|вчера|пред $1 дена}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "save-action" = "Зачувај";
 "saved-clear-all" = "Исчисти";
@@ -319,12 +326,6 @@
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-popover-description" = "Се појавува краток преглед на статиите";
 "table-title-other" = "Повеќе информации";
-"timestamp-days" = "пред %d дена";
-"timestamp-hours" = "пред %d часа";
-"timestamp-just-now" = "штотуку";
-"timestamp-minutes" = "пред %d минути";
-"timestamp-months" = "пред %d месеци";
-"timestamp-years" = "пред %d години";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Повеќе најчитани статии";

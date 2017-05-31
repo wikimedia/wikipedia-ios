@@ -34,5 +34,63 @@
 			<string>%1$d ערכים</string>
 		</dict>
 	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>אתמול</string>
+			<key>other</key>
+			<string>לפני %1$d ימים</string>
+			<key>two</key>
+			<string>שלשום</string>
+			<key>zero</key>
+			<string>היום</string>
+		</dict>
+	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>לפני שעה</string>
+			<key>other</key>
+			<string>לפני %1$d שעות</string>
+			<key>two</key>
+			<string>לפני שעתיים</string>
+			<key>zero</key>
+			<string>לפני זמן קצר</string>
+		</dict>
+	</dict>
+	<key>relative-date-minutes-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>לפני דקה</string>
+			<key>other</key>
+			<string>לפני %1$d דקות</string>
+			<key>zero</key>
+			<string>זה עתה</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

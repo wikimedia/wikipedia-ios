@@ -319,12 +319,6 @@
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-popover-description" = "Отримати огляд статей";
 "table-title-other" = "Більше інформації";
-"timestamp-days" = "%d дн. тому";
-"timestamp-hours" = "%d год тому";
-"timestamp-just-now" = "щойно";
-"timestamp-minutes" = "%d хв тому";
-"timestamp-months" = "%d міс. тому";
-"timestamp-years" = "%d р. тому";
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-see-more" = "Див. більше найкращих";

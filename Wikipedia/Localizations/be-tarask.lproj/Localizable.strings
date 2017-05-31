@@ -191,12 +191,6 @@
 "table-of-contents-button-label" = "Зьмест";
 "table-of-contents-heading" = "Зьмест";
 "table-title-other" = "Болей зьвестак";
-"timestamp-days" = "%d дзён таму";
-"timestamp-hours" = "%d гадзінаў таму";
-"timestamp-just-now" = "толькі што";
-"timestamp-minutes" = "%d хвілінаў таму";
-"timestamp-months" = "%d месяцаў таму";
-"timestamp-years" = "%d гадоў таму";
 // Fuzzy
 "welcome-languages-title" = "Мовы пошуку";
 "wikitext-download-failed" = "Не атрымліваецца атрымаць апошнюю вэрсію.";

@@ -293,12 +293,6 @@
 "table-of-contents-heading" = "Mục lục";
 "table-of-contents-popover-description" = "Xem cấu trúc bài viết";
 "table-title-other" = "Thêm thông tin";
-"timestamp-days" = "%d ngày trước";
-"timestamp-hours" = "%d giờ trước";
-"timestamp-just-now" = "vừa xong";
-"timestamp-minutes" = "%d phút trước";
-"timestamp-months" = "%d tháng trước";
-"timestamp-years" = "%d năm trước";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Xem thêm bài đọc nhiều nhất";

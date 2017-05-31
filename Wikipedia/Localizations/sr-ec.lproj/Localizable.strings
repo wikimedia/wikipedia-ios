@@ -322,12 +322,6 @@
 "table-of-contents-heading" = "Садржај";
 "table-of-contents-popover-description" = "Преузми преглед чланака";
 "table-title-other" = "Детаљније";
-"timestamp-days" = "пре %d дана";
-"timestamp-hours" = "пре %d ч.";
-"timestamp-just-now" = "управо сад";
-"timestamp-minutes" = "пре %d мин.";
-"timestamp-months" = "пре %d м.";
-"timestamp-years" = "пре %d г.";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Погледај још најчитанијег садржаја";
