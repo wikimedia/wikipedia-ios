@@ -33,7 +33,7 @@ class NewsCollectionViewCell: CollectionViewCell {
     
     fileprivate var articles: [NewsArticle] = []
     
-    override func setup() {
+    override open func setup() {
         addSubview(prototypeCell)
         addSubview(imageView)
         addSubview(storyLabel)
@@ -60,9 +60,11 @@ class NewsCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    override func reset() {
+    override open func reset() {
         super.reset()
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
+        imageView.wmf_reset()
+        imageView.wmf_showPlaceholder()
     }
     
     var isImageViewHidden = false {
@@ -123,13 +125,6 @@ class NewsCollectionViewCell: CollectionViewCell {
         }
         let attributedString = storyHTML.wmf_attributedStringByRemovingHTML(with: font, linkFont: linkFont)
         storyLabel.attributedText = attributedString
-    }
-    
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
     }
     
     var storyHTML: String? {
