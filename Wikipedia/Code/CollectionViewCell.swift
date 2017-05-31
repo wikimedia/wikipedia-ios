@@ -15,7 +15,12 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
+        reset()
         layoutSubviews()
+    }
+    
+    open func reset() {
+        
     }
     
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
@@ -42,6 +47,13 @@ open class CollectionViewCell: UICollectionViewCell {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    // MARK - Cell lifecycle
+    
+    open override func prepareForReuse() {
+        super.prepareForReuse()
+        reset()
     }
     
     // MARK - Layout
