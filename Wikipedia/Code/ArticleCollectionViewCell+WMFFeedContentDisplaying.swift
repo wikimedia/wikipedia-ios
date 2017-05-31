@@ -2,7 +2,7 @@ import Foundation
 
 public extension ArticleCollectionViewCell {
     fileprivate func adjustMargins(for index: Int, count: Int) {
-        var newMargins = margins!
+        var newMargins = margins ?? UIEdgeInsets.zero
         let maxIndex = count - 1
         if index < maxIndex {
             newMargins.bottom = round(0.5*margins.bottom)
@@ -28,6 +28,14 @@ public extension ArticleCollectionViewCell {
         
 
         switch displayType {
+        case .random:
+            imageViewDimension = 196
+            isSaveButtonHidden = false
+            descriptionLabel.text = article.capitalizedWikidataDescription
+            extractLabel?.text = article.snippet
+            var newMargins = margins ?? UIEdgeInsets.zero
+            newMargins.bottom = 0
+            margins = newMargins
         case .pageWithPreview:
             imageViewDimension = 196
             isSaveButtonHidden = false

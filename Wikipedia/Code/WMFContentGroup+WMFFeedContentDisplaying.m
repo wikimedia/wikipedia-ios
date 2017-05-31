@@ -326,7 +326,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindPictureOfTheDay:
             return WMFFeedDisplayTypePhoto;
         case WMFContentGroupKindRandom:
-            return WMFFeedDisplayTypePageWithPreview;
+            return WMFFeedDisplayTypeRandom;
         case WMFContentGroupKindFeaturedArticle:
             return WMFFeedDisplayTypePageWithPreview;
         case WMFContentGroupKindTopRead:

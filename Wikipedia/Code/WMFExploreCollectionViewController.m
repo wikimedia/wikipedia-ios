@@ -713,6 +713,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
+        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
@@ -771,6 +772,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             break;
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
+        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypePageWithPreview:
             reuseIdentifier = @"WMFArticleFullWidthImageCollectionViewCell";
         default:
@@ -795,6 +797,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
+        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
