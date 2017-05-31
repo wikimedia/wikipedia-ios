@@ -26,12 +26,12 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         backgroundColor = .white
-        prepareForReuse()
         super.setup()
     }
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
-    open func reset() {
+    override open func reset() {
+        super.reset()
         backgroundColor = .white
         titleFontFamily = .georgia
         titleTextStyle = .title1
@@ -52,13 +52,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     deinit {
         saveButton.removeObserver(self, forKeyPath: "titleLabel.text", context: &kvoButtonTitleContext)
     }
-    
-    // MARK - Cell lifecycle
-    
-    open override func prepareForReuse() {
-        super.prepareForReuse()
-        reset()
-    }
+
     
     // MARK - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
