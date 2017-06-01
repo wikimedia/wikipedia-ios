@@ -3504,7 +3504,6 @@
 		D801C8A01EB8E131001FA294 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8A11EB8E131001FA294 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8A21EB8E131001FA294 /* hrx */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hrx; path = hrx.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D801C8A31EB8E131001FA294 /* hrx */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hrx; path = hrx.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8A41EB8E131001FA294 /* hsb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hsb; path = hsb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8A51EB8E131001FA294 /* hsb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hsb; path = hsb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8A61EB8E131001FA294 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3749,6 +3748,7 @@
 		D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+WMFExtensions.swift"; path = "Wikipedia/Code/NSUserDefaults+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		D8494ADD1D6C85C500337433 /* WMFAssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAssetsFile.h; path = Wikipedia/Code/WMFAssetsFile.h; sourceTree = SOURCE_ROOT; };
 		D8494ADE1D6C85C500337433 /* WMFAssetsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAssetsFile.m; path = Wikipedia/Code/WMFAssetsFile.m; sourceTree = SOURCE_ROOT; };
+		D8497F5D1EE027D700100CBD /* hrx */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hrx; path = hrx.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
@@ -10473,7 +10473,6 @@
 				D801C89D1EB8E131001FA294 /* haw */,
 				D801C89F1EB8E131001FA294 /* he */,
 				D801C8A11EB8E131001FA294 /* hi */,
-				D801C8A31EB8E131001FA294 /* hrx */,
 				D801C8A51EB8E131001FA294 /* hsb */,
 				D801C8A71EB8E131001FA294 /* hu */,
 				D801C8A91EB8E131001FA294 /* hy */,
@@ -10579,6 +10578,7 @@
 				D80877951EDE1EFB00CCA97E /* bs */,
 				D80877961EDE1F3300CCA97E /* ja */,
 				D80877971EDE1F4F00CCA97E /* nl */,
+				D8497F5D1EE027D700100CBD /* hrx */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
