@@ -233,6 +233,7 @@
 "places-accessibility-show-as-list" = "Accessibility label for the show as list toggle item";
 "places-accessibility-show-as-map" = "Accessibility label for the show as map toggle item";
 "places-accessibility-show-more" = "Accessibility label for a button that shows more articles";
+"places-dismiss-filter-list-accessibility-label" = "Accessibility title for the button that dismisses search filters";
 "places-empty-search-description" = "Detail text shown on an overlay when there are no recent Places searches. Describes the kind of articles you can search for.";
 "places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
 "places-enable-location-action-button-title" = "Button title to enable location access";
@@ -254,6 +255,7 @@
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
 "places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
+"places-show-filter-list-accessibility-label" = "Accessibility title for the button that shows search filters";
 "places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
