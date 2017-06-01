@@ -330,7 +330,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return WMFFeedDisplayTypePageWithPreview;
         case WMFContentGroupKindTopRead:
-            break;
+            return WMFFeedDisplayTypeRanked;
         case WMFContentGroupKindNews:
             return WMFFeedDisplayTypeStory;
         case WMFContentGroupKindNotification:

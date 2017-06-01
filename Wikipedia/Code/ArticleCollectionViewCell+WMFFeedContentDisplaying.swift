@@ -18,7 +18,7 @@ public extension ArticleCollectionViewCell {
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true
@@ -82,5 +82,30 @@ public extension ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         setNeedsLayout()
+    }
+}
+
+public extension RankedArticleCollectionViewCell {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
+        rankView.rank = index + 1
+        let startColor = UIColor.wmf_blue
+        let endColor = UIColor.wmf_green
+        var r1: CGFloat = 0
+        var g1: CGFloat = 0
+        var b1: CGFloat = 0
+        var a1: CGFloat = 0
+        startColor.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        var r2: CGFloat = 0
+        var g2: CGFloat = 0
+        var b2: CGFloat = 0
+        var a2: CGFloat = 0
+        endColor.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        let percent = CGFloat(index + 1) / CGFloat(count)
+        let r = r1 + percent * (r2 - r1)
+        let g = g1 + percent * (g2 - g1)
+        let b = b1 + percent * (b2 - b1)
+        let a = a1 + percent * (a2 - a1)
+        rankView.tintColor = UIColor(red: r, green: g, blue: b, alpha: a)
+        super.configure(article: article, displayType: displayType, index: index, count: count, layoutOnly: layoutOnly)
     }
 }
