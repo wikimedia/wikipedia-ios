@@ -30,8 +30,8 @@ extension WMFArticle {
 }
 
 extension URLSession {
-    public func jsonDictionaryTask(with url: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return self.dataTask(with: url, completionHandler: { (data, response, error) in
+    public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+        return self.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
@@ -62,7 +62,10 @@ extension NSManagedObjectContext {
                 continue
             }
             taskGroup.enter()
-            session.jsonDictionaryTask(with: summaryURL, completionHandler: { (responseObject, response, error) in
+            var request = URLRequest(url: summaryURL)
+            //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+            request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
+            session.jsonDictionaryTask(with: request, completionHandler: { (responseObject, response, error) in
                 guard let responseObject = responseObject else {
                     taskGroup.leave()
                     return
