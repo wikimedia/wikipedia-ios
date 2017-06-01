@@ -63,7 +63,8 @@ extension NSManagedObjectContext {
             }
             taskGroup.enter()
             var request = URLRequest(url: summaryURL)
-            request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/HTML/1.2.1\"", forHTTPHeaderField: "Accept")
+            //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+            request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
             session.jsonDictionaryTask(with: request, completionHandler: { (responseObject, response, error) in
                 guard let responseObject = responseObject else {
                     taskGroup.leave()
