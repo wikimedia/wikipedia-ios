@@ -129,9 +129,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         locationManager.delegate = self
     
         // Setup Redo search button
+        redoSearchButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         redoSearchButton.backgroundColor = view.tintColor
         redoSearchButton.setTitleColor(.white, for: .normal)
-        redoSearchButton.setTitle("    " + WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area") + "    ", for: .normal)
+        redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
         
         // Setup Did You Mean button
@@ -1785,6 +1786,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
             }
+            if self.isSearchFilterDropDownShowing {
+                self.isSearchFilterDropDownShowing = false
+            }
             self.updateTraitBasedViewMode()
         }, completion: nil)
     }
@@ -1985,7 +1989,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let origHeight = filterDropDownContainerView.bounds.height
+        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
+        
         
         let frame: CGRect
         if (isSearchBarInNavigationBar) {
@@ -2025,7 +2030,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     private func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
-        let origHeight = filterDropDownContainerView.bounds.height
+        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
         
         self.touchOutsideOverlayView.removeFromSuperview()
         
