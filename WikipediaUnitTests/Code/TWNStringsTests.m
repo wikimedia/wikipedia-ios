@@ -149,11 +149,14 @@
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory haveNoMatchesWithRegex:(NSRegularExpression *)regex {
     XCTAssertNotNil(regex);
     for (NSString *lprojFileName in lprojFiles) {
+        if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
+            continue;
+        }
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             NSTextCheckingResult *result = [regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
-            XCTAssertNil(result, @"Invalid character in string %@", localizedString);
+            XCTAssertNil(result, @"Invalid character in string: %@ for key: %@ in locale: %@", localizedString, key, lprojFileName);
         }
     }
 }
@@ -281,9 +284,17 @@
     static dispatch_once_t onceToken;
     static NSSet<NSString *> *supportedLocales;
     dispatch_once(&onceToken, ^{
-        supportedLocales = [NSSet setWithArray:[NSLocale availableLocaleIdentifiers]];
+        NSArray *lowercaseAvailableLocales = [[NSLocale availableLocaleIdentifiers] wmf_map:^id(NSString *locale) {
+            return [locale lowercaseString];
+        }];
+        supportedLocales = [NSSet setWithArray:lowercaseAvailableLocales];
     });
     return supportedLocales;
+}
+
++ (BOOL)localeForLprojFilenameIsAvailableOniOS:(NSString *)lprojFileName {
+    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; //remove .lproj suffix
+    return [[TWNStringsTests supportedLocales] containsObject:localeIdentifier];
 }
 
 - (void)testAllSupportedTranslatedLanguagesWereAddedToProjectLocalizations {
@@ -291,10 +302,8 @@
     // not yet bundled in the project.
     // So, if this test fails, the languages listed will need to be added these to the project's localizations.
     NSArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
-    NSSet<NSString *> *supportedLocales = [TWNStringsTests supportedLocales];
     for (NSString *file in files) {
-        NSString *localeIdentifier = [file substringToIndex:file.length - 6]; //remove .lproj suffix
-        XCTAssert(![supportedLocales containsObject:localeIdentifier], @"Missing supported translation for %@", localeIdentifier);
+        XCTAssert(![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:file], @"Missing supported translation for %@", file);
     }
 }
 
