@@ -55,7 +55,7 @@ fileprivate var countPrefixRegex: NSRegularExpression? = {
     return nil
 }()
 
-let keysByPrefix = ["0":"zero", "2":"two", "1":"one"]
+let keysByPrefix = ["0":"zero", "1":"one", "2":"two", "3":"few"]
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: (self as NSString).length)
