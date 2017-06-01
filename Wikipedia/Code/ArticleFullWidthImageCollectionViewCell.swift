@@ -15,6 +15,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         margins = UIEdgeInsetsMake(15, 13, 15, 13)
         spacing = 6
+        saveButtonTopSpacing = 10
         imageViewDimension = 150
     }
     

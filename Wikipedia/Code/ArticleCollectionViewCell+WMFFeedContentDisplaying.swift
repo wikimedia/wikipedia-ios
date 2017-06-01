@@ -1,8 +1,20 @@
 import Foundation
 
 public extension ArticleCollectionViewCell {
-    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, layoutOnly: Bool) {
-        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-width images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view. 
+    fileprivate func adjustMargins(for index: Int, count: Int) {
+        var newMargins = margins ?? UIEdgeInsets.zero
+        let maxIndex = count - 1
+        if index < maxIndex {
+            newMargins.bottom = round(0.5*margins.bottom)
+        }
+        if index > 0 {
+            newMargins.top = round(0.5*margins.top)
+        }
+        margins = newMargins
+    }
+    
+    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
@@ -14,7 +26,16 @@ public extension ArticleCollectionViewCell {
         let articleLanguage = (article.url as NSURL?)?.wmf_language
         titleLabel.text = article.displayTitle
         
+
         switch displayType {
+        case .random:
+            imageViewDimension = 196
+            isSaveButtonHidden = false
+            descriptionLabel.text = article.capitalizedWikidataDescription
+            extractLabel?.text = article.snippet
+            var newMargins = margins ?? UIEdgeInsets.zero
+            newMargins.bottom = 0
+            margins = newMargins
         case .pageWithPreview:
             imageViewDimension = 196
             isSaveButtonHidden = false
@@ -37,6 +58,7 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
+            adjustMargins(for: index - 1, count: count) // related pages start at 1 due to the source article at 0
         case .mainPage:
             isSaveButtonHidden = true
             titleFontFamily = .georgia
@@ -52,6 +74,7 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
+            adjustMargins(for: index, count: count)
         }
         
         titleLabel.accessibilityLanguage = articleLanguage

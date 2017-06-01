@@ -60,6 +60,11 @@ class NewsCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
+    override func reset() {
+        super.reset()
+        margins = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
+    }
+    
     var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
@@ -68,7 +73,7 @@ class NewsCollectionViewCell: CollectionViewCell {
     }
     
     let imageViewHeight: CGFloat = 170
-    let margins = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
+    var margins: UIEdgeInsets!
     let spacing: CGFloat = 13
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
