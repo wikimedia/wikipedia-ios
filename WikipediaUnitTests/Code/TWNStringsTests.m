@@ -277,37 +277,25 @@
         }];
 }
 
-- (void)testAllTranslatedLanguagesWereAddedToProjectLocalizations {
-    NSMutableArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
-    [files removeObjectsInArray:[self languagesUnsureHowToMapToWikiCodes]];
-
-    // Fails if any lproj languages have translations (in "Localizable.strings") but are
-    // not yet bundled in the project.
-
-    // So, if this test fails, the languages listed will need to be added these to the project's localizations.
-
-    XCTAssertEqualObjects(files, @[@"qqq.lproj"]); //qqq.lproj should not be in the app bundle
++ (NSSet<NSString *> *)supportedLocales {
+    static dispatch_once_t onceToken;
+    static NSSet<NSString *> *supportedLocales;
+    dispatch_once(&onceToken, ^{
+        supportedLocales = [NSSet setWithArray:[NSLocale availableLocaleIdentifiers]];
+    });
+    return supportedLocales;
 }
 
-- (NSArray *)languagesUnsureHowToMapToWikiCodes {
-    // These have no obvious mappings to the lang options Apple provides...
-    // TODO: ^ revisit these
-    return @[
-        @"azb.lproj",
-        @"be-tarask.lproj",
-        @"bgn.lproj",
-        @"cnh.lproj",
-        @"ku-latn.lproj",
-        @"mai.lproj",
-        @"sa.lproj",
-        @"sd.lproj",
-        @"tl.lproj",
-        @"vec.lproj",
-        @"xmf.lproj",
-        @"ba.lproj",
-        @"tcy.lproj", // Tulu is written in Kannada alphabet, but "kn" wiki is already associated with "kn" localization.
-        @"jv.lproj"   // No keyboard or iOS localization for Javanese at the moment.
-    ];
+- (void)testAllSupportedTranslatedLanguagesWereAddedToProjectLocalizations {
+    // Fails if any supported languages have translations (in "Localizable.strings") but are
+    // not yet bundled in the project.
+    // So, if this test fails, the languages listed will need to be added these to the project's localizations.
+    NSArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
+    NSSet<NSString *> *supportedLocales = [TWNStringsTests supportedLocales];
+    for (NSString *file in files) {
+        NSString *localeIdentifier = [file substringToIndex:file.length - 6]; //remove .lproj suffix
+        XCTAssert(![supportedLocales containsObject:localeIdentifier], @"Missing supported translation for %@", localeIdentifier);
+    }
 }
 
 - (void)testKeysForUnderscores {
