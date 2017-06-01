@@ -270,6 +270,7 @@
 "places-search-suggested-searches-header" = "建议搜索";
 "places-search-this-area" = "该地区的结果";
 "places-search-top-articles" = "所有最多阅读的条目";
+"places-search-top-articles-that-match-scope" = "附近";
 "places-title" = "地方";
 "places-unknown-distance" = "未知距离";
 "potd-description-prefix" = "$1的每日图片";

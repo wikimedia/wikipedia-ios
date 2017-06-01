@@ -268,6 +268,7 @@
 "places-search-suggested-searches-header" = "חיפושים מומלצים";
 "places-search-this-area" = "תוצאות באזור הזה";
 "places-search-top-articles" = "כל הערכים המובילים";
+"places-search-top-articles-that-match-scope" = "בסביבה";
 "places-title" = "מקומות";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";

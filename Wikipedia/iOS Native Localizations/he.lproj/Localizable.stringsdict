@@ -44,6 +44,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>לפני יומיים</string>
 			<key>one</key>
 			<string>אתמול</string>
 			<key>other</key>

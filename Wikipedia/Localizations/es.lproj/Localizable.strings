@@ -5,6 +5,7 @@
 // Author: Fitoschido
 // Author: Indiralena
 // Author: Irus
+// Author: Javiersanp
 // Author: Koavf
 // Author: Luzcaru
 // Author: Macofe
@@ -274,6 +275,7 @@
 "places-search-suggested-searches-header" = "Búsquedas sugeridas";
 "places-search-this-area" = "Resultados de esta zona";
 "places-search-top-articles" = "Todos los artículos principales";
+"places-search-top-articles-that-match-scope" = "Cercanos";
 "places-title" = "Lugares";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Foto del día del $1";
@@ -283,6 +285,9 @@
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
 "reference-title" = "Referencia $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "save-action" = "Guardar";
 "saved-clear-all" = "Vaciar";
