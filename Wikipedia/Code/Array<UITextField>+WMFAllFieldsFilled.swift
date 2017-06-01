@@ -5,6 +5,12 @@ extension Array where Element: UITextField {
     ///
     /// - Returns: Bool indicating whether all UITextFields in this array have had text characters entered into them.
     func wmf_allFieldsFilled() -> Bool {
-        return self.first(where:{ $0.text?.characters.count == 0 }) == nil
+        let emptyElement: UITextField? = first { (element) -> Bool in
+            guard let text = element.text else {
+                return true
+            }
+            return text.characters.count == 0
+        }
+        return emptyElement == nil
     }
 }
