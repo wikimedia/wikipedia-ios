@@ -182,8 +182,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
         listAndSearchOverlaySearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         
-        viewMode = .map
-        
+        if UIAccessibilityIsVoiceOverRunning() {
+            viewMode = .list
+        } else {
+            viewMode = .map
+        }
+
         self.view.layoutIfNeeded()
     }
     
