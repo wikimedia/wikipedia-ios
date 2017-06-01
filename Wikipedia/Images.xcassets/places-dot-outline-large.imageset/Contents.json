@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "places-dot-outline-large .pdf"
+      "filename" : "places-dot-iphone-large-outline.pdf"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "places-dot-ipad-large-outline.pdf"
     }
   ],
   "info" : {
