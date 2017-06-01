@@ -34,5 +34,59 @@
 			<string>%1$d članaka</string>
 		</dict>
 	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Jučer</string>
+			<key>other</key>
+			<string>Prije %1$d dana</string>
+			<key>zero</key>
+			<string>Danas</string>
+		</dict>
+	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Prije %1$d sat</string>
+			<key>other</key>
+			<string>Prije %1$d sati</string>
+			<key>zero</key>
+			<string>Nedavno</string>
+		</dict>
+	</dict>
+	<key>relative-date-minutes-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Prije %1$d minute</string>
+			<key>other</key>
+			<string>Prije %1$d minuta</string>
+			<key>zero</key>
+			<string>Upravo</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

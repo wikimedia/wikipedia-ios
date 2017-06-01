@@ -253,6 +253,8 @@
 "places-search-suggested-searches-header" = "প্রস্তাবিত অনুসন্ধান";
 "places-search-this-area" = "এই এলাকায় ফলাফল";
 "places-search-top-articles" = "সব শীর্ষ নিবন্ধ";
+"places-search-top-articles-that-match-scope" = "কাছাকাছি";
+"places-title" = "স্থান";
 "places-unknown-distance" = "অজানা দূরত্ব";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
@@ -261,6 +263,9 @@
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
 "reference-title" = "তথ্যসূত্র $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=আজ|গতকাল|$1 দিন আগে}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
 "save-action" = "সংরক্ষণ";
 "saved-clear-all" = "পরিষ্কার করুন";

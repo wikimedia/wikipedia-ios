@@ -276,6 +276,7 @@
 "places-search-suggested-searches-header" = "Recherches suggérées";
 "places-search-this-area" = "Résultats dans cette zone";
 "places-search-top-articles" = "Tous les meilleurs articles";
+"places-search-top-articles-that-match-scope" = "À proximité";
 "places-title" = "Lieux";
 "places-unknown-distance" = "distance inconnue";
 "potd-description-prefix" = "Image du jour pour $1";
