@@ -1,3 +1,18 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Amire80
+// Author: Brion
+// Author: Jack Phoenix
+// Author: Liuxinyu970226
+// Author: Minh Nguyen
+// Author: Nemo bis
+// Author: Purodha
+// Author: Robby
+// Author: Shirayuki
+// Author: Siebrand
+// Author: Tacsipacsi
+// Author: Woytecr
+
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
@@ -243,7 +258,7 @@
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles\n{{Identical|Article}}";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
@@ -253,7 +268,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
-"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
+"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles\n{{Identical|Nearby}}";
 "places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
