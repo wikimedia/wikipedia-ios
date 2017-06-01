@@ -243,6 +243,10 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
         return
     }
     
+    let folder = (toFile as NSString).deletingLastPathComponent
+    do {
+        try FileManager.default.createDirectory(atPath: folder, withIntermediateDirectories: true, attributes: nil)
+    } catch { }
     let output = dictionary.descriptionInStringsFileFormat
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
