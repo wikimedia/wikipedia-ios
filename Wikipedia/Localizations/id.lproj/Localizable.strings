@@ -272,6 +272,7 @@
 "places-search-suggested-searches-header" = "Penelusuran yang disarankan";
 "places-search-this-area" = "Hasil di daerah ini";
 "places-search-top-articles" = "Semua artikel teratas";
+"places-search-top-articles-that-match-scope" = "Sekitar";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar hari ini pada $1";
