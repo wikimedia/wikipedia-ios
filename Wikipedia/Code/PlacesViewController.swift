@@ -2044,11 +2044,14 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         let title: String
         let image: UIImage
-        
+        let accessibilityLabel: String
         if (isSearchFilterDropDownShowing) {
+            accessibilityLabel = WMFLocalizedString("places-dismiss-filter-list-accessibility-label", value:"Dismiss search filters", comment:"Accessibility title for the button that dismisses search filters")
             title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
             image = UIImage(cgImage: #imageLiteral(resourceName: "chevron-down-large").cgImage!, scale: 1.0, orientation: .down) // `.down` is 180 rotation, yielding a chevron pointing up
         } else {
+            accessibilityLabel = WMFLocalizedString("places-show-filter-list-accessibility-label", value:"Show search filters", comment:"Accessibility title for the button that shows search filters")
+
             switch currentSearchFilter {
             case .top:
                 title = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
@@ -2081,6 +2084,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
         
         UIView.performWithoutAnimation {
+            self.filterSelectorView.button.accessibilityLabel = accessibilityLabel
             self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
             self.filterSelectorView.button.layoutIfNeeded()
         }
