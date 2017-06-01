@@ -261,6 +261,7 @@
 "places-search-suggested-searches-header" = "Foreslåtte søk";
 "places-search-this-area" = "Resultater i dette området";
 "places-search-top-articles" = "Alle populære artikler";
+"places-search-top-articles-that-match-scope" = "I nærheten";
 "places-unknown-distance" = "ukjent avstand";
 "potd-description-prefix" = "Dagens bilde $1";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";

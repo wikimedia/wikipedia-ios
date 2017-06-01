@@ -258,6 +258,7 @@
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-search-saved-articles" = "Tutte le voci salvate";
 "places-search-this-area" = "Risultati in questa area";
+"places-search-top-articles-that-match-scope" = "Nelle vicinanze";
 "places-unknown-distance" = "distanza sconosciuta";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
