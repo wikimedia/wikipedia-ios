@@ -19,6 +19,10 @@ class PlaceSearchFilterListController: UITableViewController {
         }
     }
     
+    public func preferredHeight(for width: CGFloat) -> CGFloat {
+        return 128 // this should be dynamically calculated if/when this view supports dynamic type
+    }
+    
     init(delegate: PlaceSearchFilterListDelegate) {
         super.init(style: .plain)
         self.delegate = delegate
