@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "places-dot-medium-opaque.pdf"
+      "filename" : "places-dot-iphone-medium-opaque.pdf"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "places-dot-ipad-medium-opaque.pdf"
     }
   ],
   "info" : {

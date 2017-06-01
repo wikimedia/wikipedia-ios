@@ -8,6 +8,7 @@
 // Author: Devwebtel
 // Author: Jacenty359
 // Author: Krottyianock
+// Author: Mazab IZW
 // Author: Nemo bis
 // Author: Pawel Niemczuk
 // Author: Peter Bowman
@@ -201,6 +202,7 @@
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
 "page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "page-similar-titles" = "Podobne strony";
+"pictured" = "z obrazkiem";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
@@ -214,6 +216,7 @@
 "places-search-default-text" = "Szukaj";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
+"places-search-top-articles-that-match-scope" = "W pobliżu";
 "places-title" = "Miejsca";
 "places-unknown-distance" = "odległość nieznana";
 "potd-description-prefix" = "Ilustracja dnia na $1";
@@ -270,6 +273,7 @@
 "wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
 "wikitext-preview-changes-none" = "Nie wprowadzono żadnych zmian, które można było by zobaczyć.";
+"wikitext-preview-link-preview-title" = "Podgląd linku";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Potrzebna weryfikacja CAPTCHA.";
 "wikitext-upload-result-unknown" = "Nie można określić wyniku pobierania wiki tekstu.";

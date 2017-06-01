@@ -261,6 +261,7 @@
 "places-search-suggested-searches-header" = "Предложени пребарувања";
 "places-search-this-area" = "Исход од подрачјево";
 "places-search-top-articles" = "Сите најчитани статии";
+"places-search-top-articles-that-match-scope" = "Во близина";
 "places-title" = "Места";
 "places-unknown-distance" = "непозната оддалеченост";
 "potd-description-prefix" = "Слика на денот за $1";
