@@ -2315,6 +2315,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchBar?.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, view)
     }
     
     // MARK: - UISearchBarDelegate
