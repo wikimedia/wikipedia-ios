@@ -24,7 +24,7 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         }
         
         let headerIconDimension: CGFloat = 40
-        let rankViewSize = rankView.sizeThatFits(size, apply: apply)
+        let rankViewSize = rankView.sizeThatFits(size)
         widthMinusMargins = widthMinusMargins - margins.left - headerIconDimension
         if (apply) {
             let rankViewY = margins.top + round(0.5*heightMinusMargins - 0.5*rankViewSize.height)
