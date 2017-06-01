@@ -1776,6 +1776,9 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
             }
+            if self.isSearchFilterDropDownShowing {
+                self.isSearchFilterDropDownShowing = false
+            }
             self.updateTraitBasedViewMode()
         }, completion: nil)
     }
@@ -1976,7 +1979,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let origHeight = filterDropDownContainerView.bounds.height
+        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
+        
         
         let frame: CGRect
         if (isSearchBarInNavigationBar) {
@@ -2016,7 +2020,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     private func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
-        let origHeight = filterDropDownContainerView.bounds.height
+        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
         
         self.touchOutsideOverlayView.removeFromSuperview()
         
