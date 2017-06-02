@@ -10,6 +10,10 @@
                            alpha:alpha];
 }
 
++ (UIColor *)wmf_colorWithHex:(NSInteger)hex {
+    return [UIColor wmf_colorWithHex:hex alpha:1.0];
+}
+
 - (NSString *)wmf_hexStringIncludingAlpha:(BOOL)includeAlpha {
     CGFloat red;
     CGFloat green;

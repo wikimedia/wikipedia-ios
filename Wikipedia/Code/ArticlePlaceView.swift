@@ -152,7 +152,7 @@ class ArticlePlaceView: MKAnnotationView {
     static let extraLargePlaceholderImage = #imageLiteral(resourceName: "places-w-extra-large")
 
     
-    required init(annotation: MKAnnotation?, reuseIdentifier: String?, isExtraLarge: Bool) {
+    required override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         selectedImageView = UIView()
         imageView = UIView()
         selectedImageImageView = UIImageView()
@@ -169,13 +169,13 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageImagePlaceholderView = UIImageView()
         
         let scale = ArticlePlaceView.mediumDotImage.scale
-        let mediumOpaqueDotImage = isExtraLarge ? ArticlePlaceView.extraMediumOpaqueDotImage : ArticlePlaceView.mediumOpaqueDotImage
-        let mediumOpaqueDotOutlineImage = isExtraLarge ? ArticlePlaceView.extraMediumOpaqueDotOutlineImage : ArticlePlaceView.mediumOpaqueDotOutlineImage
-        let largeOpaqueDotImage = isExtraLarge ? ArticlePlaceView.extraLargeOpaqueDotImage : ArticlePlaceView.largeOpaqueDotImage
-        let largeOpaqueDotOutlineImage = isExtraLarge ? ArticlePlaceView.extraLargeOpaqueDotOutlineImage : ArticlePlaceView.largeOpaqueDotOutlineImage
+        let mediumOpaqueDotImage = ArticlePlaceView.mediumOpaqueDotImage
+        let mediumOpaqueDotOutlineImage = ArticlePlaceView.mediumOpaqueDotOutlineImage
+        let largeOpaqueDotImage = ArticlePlaceView.largeOpaqueDotImage
+        let largeOpaqueDotOutlineImage = ArticlePlaceView.largeOpaqueDotOutlineImage
         
-        let mediumPlaceholderImage = isExtraLarge ? ArticlePlaceView.extraMediumPlaceholderImage : ArticlePlaceView.mediumPlaceholderImage
-        let largePlaceholderImage = isExtraLarge ? ArticlePlaceView.extraLargePlaceholderImage : ArticlePlaceView.largePlaceholderImage
+        let mediumPlaceholderImage = ArticlePlaceView.mediumPlaceholderImage
+        let largePlaceholderImage = ArticlePlaceView.largePlaceholderImage
         
         collapsedDimension = ArticlePlaceView.smallDotImage.size.width
         groupDimension = ArticlePlaceView.mediumDotImage.size.width
@@ -217,7 +217,10 @@ class ArticlePlaceView: MKAnnotationView {
         imageImagePlaceholderView.image = mediumPlaceholderImage
         imageView.addSubview(imageImagePlaceholderView)
         
-        imageImageView.frame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
+        var inset: CGFloat = 3.5
+        var imageViewFrame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+        imageViewFrame.origin = CGPoint(x: frame.origin.x + inset, y: frame.origin.y + inset)
+        imageImageView.frame = imageViewFrame
         imageImageView.contentMode = .scaleAspectFill
         imageImageView.layer.masksToBounds = true
         imageImageView.layer.cornerRadius = imageImageView.bounds.size.width * 0.5
@@ -245,9 +248,12 @@ class ArticlePlaceView: MKAnnotationView {
         selectedImageImagePlaceholderView.image = largePlaceholderImage
         selectedImageView.addSubview(selectedImageImagePlaceholderView)
         
-        selectedImageImageView.frame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
+        inset = imageDimension > 40 ? 3.5 : 5.5
+        imageViewFrame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+        imageViewFrame.origin = CGPoint(x: frame.origin.x + inset, y: frame.origin.y + inset)
+        selectedImageImageView.frame = imageViewFrame
         selectedImageImageView.contentMode = .scaleAspectFill
-        selectedImageImageView.layer.cornerRadius = selectedImageView.bounds.size.width * 0.5
+        selectedImageImageView.layer.cornerRadius = selectedImageImageView.bounds.size.width * 0.5
         selectedImageImageView.layer.masksToBounds = true
         selectedImageImageView.backgroundColor = UIColor.white
         selectedImageView.addSubview(selectedImageImageView)
@@ -271,10 +277,6 @@ class ArticlePlaceView: MKAnnotationView {
         
         prepareForReuse()
         self.annotation = annotation
-    }
-        
-    override convenience init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        self.init(annotation: annotation, reuseIdentifier: reuseIdentifier, isExtraLarge: false)
     }
     
     func selectedImageViewWasTapped(_ sender: UIButton) {

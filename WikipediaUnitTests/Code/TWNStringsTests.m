@@ -149,11 +149,14 @@
 - (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory haveNoMatchesWithRegex:(NSRegularExpression *)regex {
     XCTAssertNotNil(regex);
     for (NSString *lprojFileName in lprojFiles) {
+        if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
+            continue;
+        }
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
             NSTextCheckingResult *result = [regex firstMatchInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
-            XCTAssertNil(result, @"Invalid character in string %@", localizedString);
+            XCTAssertNil(result, @"Invalid character in string: %@ for key: %@ in locale: %@", localizedString, key, lprojFileName);
         }
     }
 }
@@ -190,13 +193,13 @@
 - (void)testIncomingTranslationStringForBracketSubstitutions {
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
-            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName]];
+            NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             NSDictionary *pluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in stringsDict) {
                 NSString *localizedString = stringsDict[key];
                 if ([localizedString containsString:@"{{"]) {
                     NSString *lowercaseString = localizedString.lowercaseString;
-                    if ([lowercaseString containsString:@"{{plural:$"]) {
+                    if ([lowercaseString containsString:@"{{plural:"]) {
                         XCTAssertNotNil([pluralizableStringsDict objectForKey:key], @"Localizable string %@ in %@ with PLURAL: needs an entry in the corresponding stringsdict file. This likely means that this language's Localizable.stringsdict hasn't been added to the project yet.", key, lprojFileName);
                         XCTAssertFalse([lowercaseString containsString:@"{{plural:$2"], @"%@ in %@ has more than one plural substitution. Only one plural per translation is supported at this time. You can add support for multiple plurals in scripts/localizations.swift.", key, lprojFileName);
                     } else if (![lowercaseString containsString:@"{{formatnum:$"]) {
@@ -277,37 +280,31 @@
         }];
 }
 
-- (void)testAllTranslatedLanguagesWereAddedToProjectLocalizations {
-    NSMutableArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
-    [files removeObjectsInArray:[self languagesUnsureHowToMapToWikiCodes]];
-
-    // Fails if any lproj languages have translations (in "Localizable.strings") but are
-    // not yet bundled in the project.
-
-    // So, if this test fails, the languages listed will need to be added these to the project's localizations.
-
-    XCTAssertEqualObjects(files, @[@"qqq.lproj"]); //qqq.lproj should not be in the app bundle
++ (NSSet<NSString *> *)supportedLocales {
+    static dispatch_once_t onceToken;
+    static NSSet<NSString *> *supportedLocales;
+    dispatch_once(&onceToken, ^{
+        NSArray *lowercaseAvailableLocales = [[NSLocale availableLocaleIdentifiers] wmf_map:^id(NSString *locale) {
+            return [locale lowercaseString];
+        }];
+        supportedLocales = [NSSet setWithArray:lowercaseAvailableLocales];
+    });
+    return supportedLocales;
 }
 
-- (NSArray *)languagesUnsureHowToMapToWikiCodes {
-    // These have no obvious mappings to the lang options Apple provides...
-    // TODO: ^ revisit these
-    return @[
-        @"azb.lproj",
-        @"be-tarask.lproj",
-        @"bgn.lproj",
-        @"cnh.lproj",
-        @"ku-latn.lproj",
-        @"mai.lproj",
-        @"sa.lproj",
-        @"sd.lproj",
-        @"tl.lproj",
-        @"vec.lproj",
-        @"xmf.lproj",
-        @"ba.lproj",
-        @"tcy.lproj", // Tulu is written in Kannada alphabet, but "kn" wiki is already associated with "kn" localization.
-        @"jv.lproj"   // No keyboard or iOS localization for Javanese at the moment.
-    ];
++ (BOOL)localeForLprojFilenameIsAvailableOniOS:(NSString *)lprojFileName {
+    NSString *localeIdentifier = [[lprojFileName substringToIndex:lprojFileName.length - 6] lowercaseString]; //remove .lproj suffix
+    return [[TWNStringsTests supportedLocales] containsObject:localeIdentifier];
+}
+
+- (void)testAllSupportedTranslatedLanguagesWereAddedToProjectLocalizations {
+    // Fails if any supported languages have translations (in "Localizable.strings") but are
+    // not yet bundled in the project.
+    // So, if this test fails, the languages listed will need to be added these to the project's localizations.
+    NSArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
+    for (NSString *file in files) {
+        XCTAssert(![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:file], @"Missing supported translation for %@", file);
+    }
 }
 
 - (void)testKeysForUnderscores {

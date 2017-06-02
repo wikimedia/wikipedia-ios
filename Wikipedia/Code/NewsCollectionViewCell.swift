@@ -33,7 +33,7 @@ class NewsCollectionViewCell: CollectionViewCell {
     
     fileprivate var articles: [NewsArticle] = []
     
-    override func setup() {
+    override open func setup() {
         addSubview(prototypeCell)
         addSubview(imageView)
         addSubview(storyLabel)
@@ -60,9 +60,11 @@ class NewsCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    override func reset() {
+    override open func reset() {
         super.reset()
-        margins = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
+        margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
+        imageView.wmf_reset()
+        imageView.wmf_showPlaceholder()
     }
     
     var isImageViewHidden = false {
@@ -125,13 +127,6 @@ class NewsCollectionViewCell: CollectionViewCell {
         storyLabel.attributedText = attributedString
     }
     
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
-    }
-    
     var storyHTML: String? {
         didSet {
             updateStoryHTMLStyle()
@@ -190,7 +185,7 @@ extension NewsCollectionViewCell {
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: {(error) in }, success: { })
             }
         } else {
             isImageViewHidden = true
@@ -223,7 +218,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         if let imageURL = newsArticle.imageURL {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true

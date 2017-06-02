@@ -262,6 +262,7 @@
 "places-search-suggested-searches-header" = "Cadangan carian";
 "places-search-this-area" = "Hasil di kawasan ini";
 "places-search-top-articles" = "Semua rencana teratas";
+"places-search-top-articles-that-match-scope" = "Berdekatan";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar pilihan pada $1";

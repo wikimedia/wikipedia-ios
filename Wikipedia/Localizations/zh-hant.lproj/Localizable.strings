@@ -15,6 +15,7 @@
 // Author: Reke
 // Author: Simon Shek
 // Author: Wehwei
+// Author: Wwycheuk
 // Author: 烈羽
 
 "about-content-license" = "內容許可協議";
@@ -104,7 +105,7 @@
 "empty-no-search-results-message" = "找不到任何結果";
 "error-unknown" = "發生不明錯誤";
 "explore-another-random" = "其他隨機條目";
-"explore-because-you-read" = "因為您閱讀";
+"explore-because-you-read" = "因為您讀了";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-featured-article-heading" = "特色條目";
 "explore-main-page-description" = "維基媒體計畫首頁";
@@ -186,7 +187,7 @@
 "icon-shortcut-search-title" = "搜尋維基百科";
 "image-gallery-unknown-owner" = "作者未知。";
 "in-the-news-currently-trending" = "最新動態";
-"in-the-news-notification-read-now-action-title" = "現在讀取";
+"in-the-news-notification-read-now-action-title" = "立刻讀取";
 "in-the-news-notification-save-for-later-action-title" = "稍後儲存";
 "in-the-news-notification-share-action-title" = "分享...";
 "in-the-news-title" = "新聞動態";
@@ -272,6 +273,7 @@
 "places-search-suggested-searches-header" = "建議搜尋";
 "places-search-this-area" = "此區域的結果";
 "places-search-top-articles" = "所有熱門條目";
+"places-search-top-articles-that-match-scope" = "附近";
 "places-title" = "地點";
 "places-unknown-distance" = "未知距離";
 "potd-description-prefix" = "$1 的每日圖片";

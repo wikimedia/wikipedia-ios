@@ -55,7 +55,7 @@ fileprivate var countPrefixRegex: NSRegularExpression? = {
     return nil
 }()
 
-let keysByPrefix = ["0":"zero", "2":"two", "1":"one"]
+let keysByPrefix = ["0":"zero", "1":"one", "2":"two", "3":"few"]
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: (self as NSString).length)
@@ -243,6 +243,10 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
         return
     }
     
+    let folder = (toFile as NSString).deletingLastPathComponent
+    do {
+        try FileManager.default.createDirectory(atPath: folder, withIntermediateDirectories: true, attributes: nil)
+    } catch { }
     let output = dictionary.descriptionInStringsFileFormat
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
@@ -314,7 +318,10 @@ func exportLocalizationsFromSourceCode(_ path: String) {
     }
 }
 
-
+let locales = Set<String>(Locale.availableIdentifiers)
+func localeIsAvailable(_ locale: String) -> Bool {
+    return locales.contains(locale)
+}
 
 func importLocalizationsFromTWN(_ path: String) {
     let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
@@ -331,14 +338,13 @@ func importLocalizationsFromTWN(_ path: String) {
     }
     
     let fm = FileManager.default
-    
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
-        let languagesToSkip: Set<String> = ["qqq", "azb", "be-tarask", "bgn", "cnh", "gom-latn", "ku-latn", "nah", "olo", "wuu", "xmf"]
+        
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         for filename in contents {
-            guard let locale = filename.components(separatedBy: ".").first?.lowercased(), !languagesToSkip.contains(locale) else {
+            guard let locale = filename.components(separatedBy: ".").first?.lowercased(), localeIsAvailable(locale) else {
                 continue
             }
             guard let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
