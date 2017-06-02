@@ -13,6 +13,8 @@
 + (UIColor *)wmf_colorWithHex:(NSInteger)hex
                         alpha:(CGFloat)alpha;
 
++ (UIColor *)wmf_colorWithHex:(NSInteger)hex; // Alpha defaults to 1.0
+
 /**
  Hex string representation of UIColor
 
