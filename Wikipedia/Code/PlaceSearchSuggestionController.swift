@@ -1,3 +1,6 @@
+import UIKit
+import WMF
+
 protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController)
@@ -12,9 +15,16 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     static let currentStringSection = 2
     static let completionSection = 3
     
+    var wikipediaLanguage: String? = "en"
+    var siteURL: URL? = nil {
+        didSet {
+            wikipediaLanguage = (siteURL as NSURL?)?.wmf_language
+        }
+    }
+    
     var tableView: UITableView = UITableView() {
         didSet {
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
+            tableView.register(PlacesSearchSuggestionTableViewCell.wmf_classNib(), forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
             tableView.register(WMFTableHeaderLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier)
             tableView.dataSource = self
             tableView.delegate = self
@@ -67,17 +77,21 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:  PlaceSearchSuggestionController.cellReuseIdentifier, for: indexPath)
+        guard let searchSuggestionCell = cell as? PlacesSearchSuggestionTableViewCell else {
+            return cell
+        }
 
         let search = searchForIndexPath(indexPath)
         
         switch search.type {
         case .location:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-location")
+            searchSuggestionCell.iconImageView.image = #imageLiteral(resourceName: "places-suggestion-location")
         default:
-            cell.imageView?.image = #imageLiteral(resourceName: "places-suggestion-text")
+            searchSuggestionCell.iconImageView.image = #imageLiteral(resourceName: "places-suggestion-text")
             break
         }
-        cell.textLabel?.text = search.localizedDescription
+        searchSuggestionCell.titleLabel.text = search.localizedDescription
+        searchSuggestionCell.detailLabel.text = search.searchResult?.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: wikipediaLanguage)
         return cell
     }
     

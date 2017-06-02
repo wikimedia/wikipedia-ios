@@ -2180,7 +2180,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } catch let error {
                 DDLogError("Error fetching recent place searches: \(error)")
             }
-            
+            searchSuggestionController.siteURL = siteURL
             searchSuggestionController.searches = [[defaultSuggestion], recentSearches, [], []]
             
             if (recentSearches.count == 0) {
