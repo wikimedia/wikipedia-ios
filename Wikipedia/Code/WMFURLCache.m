@@ -28,9 +28,16 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
         }
     }
     
+    dispatch_block_t done = ^{
+        if (!response) {
+            wmf_postNetworkRequestBeganNotification(request.HTTPMethod, request.URL.absoluteString);
+        }
+    };
+    
     NSURLResponse *maybeHTTPResponse = response.response;
     
     if (![maybeHTTPResponse isKindOfClass:[NSHTTPURLResponse class]]) {
+        done();
         return response;
     }
     
@@ -44,6 +51,7 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
         response = [[NSCachedURLResponse alloc] initWithResponse:newHTTPResponse data:response.data];
     }
     
+    done();
     return response;
 }
 
