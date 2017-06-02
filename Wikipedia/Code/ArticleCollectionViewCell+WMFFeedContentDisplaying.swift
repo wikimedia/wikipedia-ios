@@ -88,24 +88,8 @@ public extension ArticleCollectionViewCell {
 public extension RankedArticleCollectionViewCell {
     override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
         rankView.rank = index + 1
-        let startColor = UIColor.wmf_blue
-        let endColor = UIColor.wmf_green
-        var r1: CGFloat = 0
-        var g1: CGFloat = 0
-        var b1: CGFloat = 0
-        var a1: CGFloat = 0
-        startColor.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        var r2: CGFloat = 0
-        var g2: CGFloat = 0
-        var b2: CGFloat = 0
-        var a2: CGFloat = 0
-        endColor.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
         let percent = CGFloat(index + 1) / CGFloat(count)
-        let r = r1 + percent * (r2 - r1)
-        let g = g1 + percent * (g2 - g1)
-        let b = b1 + percent * (b2 - b1)
-        let a = a1 + percent * (a2 - a1)
-        rankView.tintColor = UIColor(red: r, green: g, blue: b, alpha: a)
+        rankView.tintColor = Gradient.wmf_blueToGreenGradient.color(at: percent)
         super.configure(article: article, displayType: displayType, index: index, count: count, layoutOnly: layoutOnly)
     }
 }

@@ -17,7 +17,10 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         if !isImageViewHidden {
             if (apply) {
                 let imageViewY = margins.top + round(0.5*heightMinusMargins - 0.5*imageViewDimension)
-                let x = isRTL ? margins.left : size.width - margins.right - imageViewDimension
+                var x =  margins.right
+                if !isRTL {
+                    x = size.width - x - imageViewDimension
+                }
                 imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             }
             widthMinusMargins = widthMinusMargins - margins.right - imageViewDimension
@@ -30,11 +33,17 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
             let rankViewY = margins.top + round(0.5*heightMinusMargins - 0.5*rankViewSize.height)
             let halfRankViewWidth = round(0.5*rankViewSize.width)
             let dimension = margins.left + 0.5 * headerIconDimension
-            let x = isRTL ? size.width - dimension - halfRankViewWidth : dimension - halfRankViewWidth
+            var x = dimension - halfRankViewWidth
+            if isRTL {
+                x = size.width - x - rankViewSize.width
+            }
             rankView.frame = CGRect(origin: CGPoint(x: x, y: rankViewY), size: rankViewSize)
         }
         
-        let x = margins.left + headerIconDimension + margins.left
+        var x = margins.left + headerIconDimension + margins.left
+        if isRTL {
+            x = size.width - x - widthMinusMargins
+        }
         var origin = CGPoint(x: x, y: margins.top)
         
         let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)

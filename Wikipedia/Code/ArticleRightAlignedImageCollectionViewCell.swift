@@ -22,13 +22,19 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         if !isImageViewHidden {
             if (apply) {
                 let imageViewY = margins.top + round(0.5*heightMinusMargins - 0.5*imageViewDimension)
-                let x = isRTL ? margins.left : size.width - margins.right - imageViewDimension
+                var x = margins.right
+                if !isRTL {
+                    x = size.width - x - imageViewDimension
+                }
                 imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             }
             widthMinusMargins = widthMinusMargins - margins.right - imageViewDimension
         }
         
-        let x = margins.left
+        var x = margins.left
+        if isRTL {
+            x = size.width - x - widthMinusMargins
+        }
         var origin = CGPoint(x: x, y: margins.top)
         
         let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
