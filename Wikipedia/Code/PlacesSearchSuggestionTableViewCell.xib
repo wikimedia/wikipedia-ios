@@ -20,27 +20,28 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ux-tk-eU3">
-                        <rect key="frame" x="56" y="17" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <rect key="frame" x="54" y="18.5" width="37.5" height="18"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZBB-dH-riT">
-                        <rect key="frame" x="8" y="7" width="40" height="40"/>
+                        <rect key="frame" x="8" y="8.5" width="38" height="38"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="fQM-K3-9NB"/>
-                            <constraint firstAttribute="width" constant="40" id="y8y-0A-W5t"/>
+                            <constraint firstAttribute="height" constant="38" id="fQM-K3-9NB"/>
+                            <constraint firstAttribute="width" constant="38" id="y8y-0A-W5t"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4c-5K-5S5">
-                        <rect key="frame" x="106" y="17" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <rect key="frame" x="99.5" y="18.5" width="37.5" height="18"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <color key="textColor" red="0.60392156860000001" green="0.62745098040000002" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="4Ux-tk-eU3" secondAttribute="bottom" id="4nS-ac-zf4"/>
+                    <constraint firstItem="ZBB-dH-riT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="5wJ-qb-l50"/>
                     <constraint firstItem="ZBB-dH-riT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fsr-tl-fhw"/>
                     <constraint firstItem="I4c-5K-5S5" firstAttribute="leading" secondItem="4Ux-tk-eU3" secondAttribute="trailing" constant="8" id="KWT-x7-plH"/>
                     <constraint firstItem="4Ux-tk-eU3" firstAttribute="leading" secondItem="ZBB-dH-riT" secondAttribute="trailing" constant="8" id="R0J-VB-WdD"/>
@@ -51,6 +52,7 @@
                     <constraint firstItem="I4c-5K-5S5" firstAttribute="baseline" secondItem="4Ux-tk-eU3" secondAttribute="baseline" id="kf9-6V-wN1"/>
                     <constraint firstItem="4Ux-tk-eU3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lDm-ho-a8c"/>
                     <constraint firstItem="I4c-5K-5S5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="qBC-yL-9Ne"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ZBB-dH-riT" secondAttribute="bottom" id="rU6-tW-Z45"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="4Ux-tk-eU3" secondAttribute="trailing" id="ygQ-f6-OF5"/>
                 </constraints>
             </tableViewCellContentView>
