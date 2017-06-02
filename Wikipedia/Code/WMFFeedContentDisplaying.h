@@ -13,7 +13,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeRelatedPages,
     WMFFeedDisplayTypeContinueReading,
     WMFFeedDisplayTypeMainPage,
-    WMFFeedDisplayTypeRandom
+    WMFFeedDisplayTypeRandom,
+    WMFFeedDisplayTypeRanked
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {

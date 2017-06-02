@@ -18,7 +18,7 @@ public extension ArticleCollectionViewCell {
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { [weak self] (error) in self?.isImageViewHidden = true }, success: { })
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
             }
         } else {
             isImageViewHidden = true
@@ -82,5 +82,14 @@ public extension ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         setNeedsLayout()
+    }
+}
+
+public extension RankedArticleCollectionViewCell {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
+        rankView.rank = index + 1
+        let percent = CGFloat(index + 1) / CGFloat(count)
+        rankView.tintColor = Gradient.wmf_blueToGreenGradient.color(at: percent)
+        super.configure(article: article, displayType: displayType, index: index, count: count, layoutOnly: layoutOnly)
     }
 }
