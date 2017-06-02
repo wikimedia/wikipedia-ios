@@ -39,11 +39,39 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIColor *)headerIconTintColor {
-    return [UIColor wmf_exploreSectionHeaderIconTint];
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindLocationPlaceholder:
+        case WMFContentGroupKindLocation:
+            return [UIColor wmf_green];
+        case WMFContentGroupKindPictureOfTheDay:
+            return [UIColor wmf_purple];
+        case WMFContentGroupKindRandom:
+            return [UIColor wmf_red];
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_yellow];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_blue];
+        default:
+            return [UIColor wmf_exploreSectionHeaderIconTint];
+    }
 }
 
 - (nullable UIColor *)headerIconBackgroundColor {
-    return [UIColor wmf_exploreSectionHeaderIconBackground];
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindLocationPlaceholder:
+        case WMFContentGroupKindLocation:
+            return [UIColor wmf_lightGreen];
+        case WMFContentGroupKindPictureOfTheDay:
+            return [UIColor wmf_lightPurple];
+        case WMFContentGroupKindRandom:
+            return [UIColor wmf_lightRed];
+        case WMFContentGroupKindFeaturedArticle:
+            return [UIColor wmf_lightYellow];
+        case WMFContentGroupKindTopRead:
+            return [UIColor wmf_lightBlue];
+        default:
+            return [UIColor wmf_exploreSectionHeaderIconBackground];
+    }
 }
 
 - (nullable NSString *)headerTitle {
