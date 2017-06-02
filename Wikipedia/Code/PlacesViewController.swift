@@ -62,7 +62,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     private var articleKeyToSelect: String?
     private var currentSearchRegion: MKCoordinateRegion?
     private var performDefaultSearchOnNextMapRegionUpdate = false
-    private var previouslySelectedArticlePlaceIdentifier: String?
+    private var previouslySelectedArticlePlaceIdentifier: Int?
     private var didYouMeanSearch: PlaceSearch?
     private var searching: Bool = false
     private let tracker = PiwikTracker.sharedInstance()
@@ -1530,7 +1530,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         var previousPlaceByArticle: [String: ArticlePlace] = [:]
         
-        var annotationsToRemove: [String:ArticlePlace] = [:]
+        var annotationsToRemove: [Int:ArticlePlace] = [:]
         
         for annotation in mapView.annotations {
             guard let place = annotation as? ArticlePlace else {
