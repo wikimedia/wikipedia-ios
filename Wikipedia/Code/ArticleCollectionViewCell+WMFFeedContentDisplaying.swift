@@ -33,9 +33,6 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
-            var newMargins = margins ?? UIEdgeInsets.zero
-            newMargins.bottom = 0
-            margins = newMargins
         case .pageWithPreview:
             imageViewDimension = 196
             isSaveButtonHidden = false
@@ -58,7 +55,7 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
-            adjustMargins(for: index - 1, count: count) // related pages start at 1 due to the source article at 0
+            adjustMargins(for: index - 1, count: count - 1) // related pages start at 1 due to the source article at 0
         case .mainPage:
             isSaveButtonHidden = true
             titleFontFamily = .georgia
