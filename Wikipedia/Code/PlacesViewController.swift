@@ -536,6 +536,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             performSearch(search)
             
             switch search.type {
+            case .nearby:
+                break
             case .location:
                 guard !search.needsWikidataQuery else {
                     break
@@ -632,6 +634,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func performSearch(_ search: PlaceSearch) {
         guard !searching else {
+            return
+        }
+        
+        guard search.type != .nearby else {
+            currentSearch = nil // will cause the default search to perform after re-centering
+            recenterOnUserLocation(self)
             return
         }
         
@@ -1265,7 +1273,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             
             switch viewMode {
             case .search:
-                updateSearchSuggestions(withCompletions: [])
+                updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             default:
                 if let currentSearch = self.currentSearch {
                     self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
@@ -2145,19 +2153,23 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         return currentSearchString
     }
     
-    func updateSearchSuggestions(withCompletions completions: [PlaceSearch]) {
+    func updateSearchSuggestions(withCompletions completions: [PlaceSearch], isSearchDone: Bool) {
         guard currentSearchString != "" || completions.count > 0 else {
             
             // Search is empty, run a default search
             
-            let defaultSuggestion: PlaceSearch
+            var defaultSuggestions = [PlaceSearch]()
+            
+            let yourLocationSuggestionTitle = WMFLocalizedString("places-search-your-current-location", value:"Your current location", comment:"A search suggestion for showing articles near your current location.")
+            defaultSuggestions.append(PlaceSearch(filter: currentSearchFilter, type: .nearby, origin: .user, sortStyle: .links, string: nil, region: nil, localizedDescription: yourLocationSuggestionTitle, searchResult: nil))
+            
             switch (currentSearchFilter) {
             case .top:
-                defaultSuggestion = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil)
+                defaultSuggestions.append(PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil))
             case .saved:
-                defaultSuggestion = PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-saved-articles", value:"All saved articles", comment:"A search suggestion for saved articles"), searchResult: nil)
+                defaultSuggestions.append(PlaceSearch(filter: .saved, type: .location, origin: .system, sortStyle: .links, string: nil, region: nil, localizedDescription: WMFLocalizedString("places-search-saved-articles", value:"All saved articles", comment:"A search suggestion for saved articles"), searchResult: nil))
             }
-            
+
             var recentSearches: [PlaceSearch] = []
             do {
                 let moc = dataStore.viewContext
@@ -2181,8 +2193,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             } catch let error {
                 DDLogError("Error fetching recent place searches: \(error)")
             }
-            
-            searchSuggestionController.searches = [[defaultSuggestion], recentSearches, [], []]
+            searchSuggestionController.siteURL = siteURL
+            searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
             if (recentSearches.count == 0) {
                 setupEmptySearchOverlayView()
@@ -2210,9 +2222,13 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
         }
 
-        let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
-        let currentStringSuggeston = PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil)
-        searchSuggestionController.searches = [[], [], [currentStringSuggeston], completions]
+        var currentSearchStringSuggestions = [PlaceSearch]()
+        if isSearchDone {
+            let currentSearchStringTitle = String.localizedStringWithFormat(WMFLocalizedString("places-search-articles-that-match", value:"%1$@ matching “%2$@”", comment:"A search suggestion for filtering the articles in the area by the search string. %1$@ is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). %2$@ is replaced with the search string"), currentSearchScopeName, currentSearchString)
+            currentSearchStringSuggestions.append(PlaceSearch(filter: currentSearchFilter, type: .text, origin: .user, sortStyle: .links, string: currentSearchString, region: nil, localizedDescription: currentSearchStringTitle, searchResult: nil))
+        }
+        
+        searchSuggestionController.searches = [[], [], currentSearchStringSuggestions, completions]
     }
     
     func handleCompletion(searchResults: [MWKSearchResult]) -> [PlaceSearch] {
@@ -2230,7 +2246,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
             return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
-        updateSearchSuggestions(withCompletions: completions)
+        updateSearchSuggestions(withCompletions: completions, isSearchDone: true)
         return completions
     }
     
@@ -2284,7 +2300,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
     {
         guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
-            updateSearchSuggestions(withCompletions: [])
+            updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
@@ -2292,7 +2308,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             guard text == self.searchBar?.text else {
                 return
             }
-            self.updateSearchSuggestions(withCompletions: [])
+            self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
             guard text == self.searchBar?.text else {
@@ -2343,15 +2359,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         // Only update suggestion on *begin* editing if there is no text
         // Otherwise, it just clears perfectly good results
         if currentSearchString == "" {
-            updateSearchSuggestions(withCompletions: [])
+            updateSearchSuggestions(withCompletions: [], isSearchDone: false)
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isWaitingForSearchSuggestionUpdate = true
-
-        updateSearchSuggestions(withCompletions: [])
-
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(updateSearchCompletionsFromSearchBarText), with: nil, afterDelay: 0.2)
     }
@@ -2488,7 +2501,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     func placeSearchSuggestionControllerClearButtonPressed(_ controller: PlaceSearchSuggestionController) {
         clearSearchHistory()
-        updateSearchSuggestions(withCompletions: [])
+        updateSearchSuggestions(withCompletions: [], isSearchDone: false)
     }
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didDeleteSearch search: PlaceSearch) {
@@ -2502,7 +2515,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         } catch let error {
             DDLogError("Error removing kv: \(error.localizedDescription)")
         }
-        updateSearchSuggestions(withCompletions: [])
+        updateSearchSuggestions(withCompletions: [], isSearchDone: false)
     }
     
     // MARK: - WMFLocationManagerDelegate

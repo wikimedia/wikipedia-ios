@@ -255,6 +255,7 @@
 "places-search-this-area" = "Results in this area";
 "places-search-top-articles" = "All top articles";
 "places-search-top-articles-that-match-scope" = "Nearby";
+"places-search-your-current-location" = "Your current location";
 "places-show-filter-list-accessibility-label" = "Show search filters";
 "places-title" = "Places";
 "places-unknown-distance" = "unknown distance";

@@ -552,6 +552,14 @@
 		D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */ = {isa = PBXBuildFile; fileRef = D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED2581EE178A800CE8C50 /* Gradient.swift */; };
+		D80ED25C1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
+		D80ED25D1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
+		D80ED25E1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
+		D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
+		D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */; };
+		D80ED2611EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */; };
+		D80ED2621EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */; };
+		D80ED2631EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */; };
 		D813FDA01EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */; };
 		D813FDA11EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */; };
 		D813FDA21EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */; };
@@ -3653,6 +3661,8 @@
 		D80C24B61D673DC300816503 /* WMFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTabBarController.h; sourceTree = "<group>"; };
 		D80C24B71D673DC300816503 /* WMFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTabBarController.m; sourceTree = "<group>"; };
 		D80ED2581EE178A800CE8C50 /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
+		D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesSearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacesSearchSuggestionTableViewCell.xib; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
 		D810C3481DF1C0A4003427DA /* Tweaks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tweaks.framework; path = Carthage/Build/iOS/Tweaks.framework; sourceTree = SOURCE_ROOT; };
@@ -7137,6 +7147,8 @@
 				D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */,
 				D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */,
 				D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */,
+				D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */,
+				D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */,
 				D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */,
 				D82972821E3950100061550A /* ArticlePlace.swift */,
 				D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */,
@@ -8029,6 +8041,7 @@
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */,
+				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -8144,6 +8157,7 @@
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8A42BCD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D8A42BCE1E815A9C00D8E281 /* PageHistoryResultPrototypeView.xib in Resources */,
+				D80ED2631EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8A42BD01E815A9C00D8E281 /* WikiFont-Glyphs.ttf in Resources */,
 				D8A42BD11E815A9C00D8E281 /* WMFTableOfContentsCell.xib in Resources */,
 				D8A42BD21E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -8241,6 +8255,7 @@
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8CE26541E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D8CE26551E698E2400DAE2E0 /* PageHistoryResultPrototypeView.xib in Resources */,
+				D80ED2611EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8CE26571E698E2400DAE2E0 /* WikiFont-Glyphs.ttf in Resources */,
 				D8CE26581E698E2400DAE2E0 /* WMFTableOfContentsCell.xib in Resources */,
 				D8CE26591E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -8338,6 +8353,7 @@
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8EC3F541E9BDA35006712EB /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D8EC3F551E9BDA35006712EB /* PageHistoryResultPrototypeView.xib in Resources */,
+				D80ED2621EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8EC3F571E9BDA35006712EB /* WikiFont-Glyphs.ttf in Resources */,
 				D8EC3F581E9BDA35006712EB /* WMFTableOfContentsCell.xib in Resources */,
 				D8EC3F591E9BDA35006712EB /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
@@ -8846,6 +8862,7 @@
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8733C8D1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				B0379A3D1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m in Sources */,
+				D80ED25C1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				D8497F691EE09D0200100CBD /* SizeThatFitsView.swift in Sources */,
 				B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */,
@@ -9568,6 +9585,7 @@
 				D8A42B671E815A9C00D8E281 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8A42B691E815A9C00D8E281 /* WMFImageGalleryViewController.m in Sources */,
 				D8A42B6A1E815A9C00D8E281 /* RecentSearchesViewController.m in Sources */,
+				D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8A42B6B1E815A9C00D8E281 /* UIFont+WMFStyle.m in Sources */,
 				D8A42B6C1E815A9C00D8E281 /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				D8A42B6D1E815A9C00D8E281 /* WMFAccountCreationViewController.swift in Sources */,
@@ -9800,6 +9818,7 @@
 				D818D3AC1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8CE25841E698E2400DAE2E0 /* WMFRandomArticleViewController.m in Sources */,
+				D80ED25D1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8CE25851E698E2400DAE2E0 /* SSSection.m in Sources */,
 				D8CE25861E698E2400DAE2E0 /* WMFArticleViewController.m in Sources */,
 				D8CE25871E698E2400DAE2E0 /* SSCoreDataSource.m in Sources */,
@@ -10248,6 +10267,7 @@
 				D8EC3EFF1E9BDA35006712EB /* WMFCaptchaViewController.swift in Sources */,
 				D8EC3F001E9BDA35006712EB /* DDLog+WMFLogger.m in Sources */,
 				D818D3881ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
+				D80ED25E1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D8EC3F021E9BDA35006712EB /* WMFReference.swift in Sources */,
 				D8EC3F031E9BDA35006712EB /* WMFWelcomePageViewController.swift in Sources */,
 				D8EC3F041E9BDA35006712EB /* MKCoordinateRegion+Dimensions.swift in Sources */,
