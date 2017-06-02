@@ -3,6 +3,7 @@ import MapKit
 enum PlaceSearchType: UInt {
     case text
     case location
+    case nearby
 }
 
 enum PlaceFilterType: UInt {
