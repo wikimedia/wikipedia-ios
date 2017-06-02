@@ -158,6 +158,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
+        recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
         listAndSearchOverlayContainerView.radius = 5
