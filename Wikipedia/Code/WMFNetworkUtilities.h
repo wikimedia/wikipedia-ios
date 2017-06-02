@@ -1,5 +1,7 @@
 extern NSString *const WMFNetworkingErrorDomain;
 
+extern NSString *const WMFNetworkRequestBeganNotification;
+
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError,
     WMFNetworkingError_InvalidParameters
@@ -23,6 +25,9 @@ extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
  *  @return The URL string for the "wikimedia.org" REST API endpoint verison.
  */
 extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion);
+
+extern void wmf_postNetworkRequestBeganNotification(NSString *method, NSString* URLString);
+
 
 #import "FetcherBase.h"
 

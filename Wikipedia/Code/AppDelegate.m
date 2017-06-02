@@ -73,6 +73,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[WMFEventLoggingService shared] start];
+    
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",

@@ -1,7 +1,7 @@
 import Foundation
 
-
-class EventLoggingService {
+@objc(WMFEventLoggingService)
+class EventLoggingService : NSObject {
 
     private static let LoggingEndpoint =
         // production
@@ -9,6 +9,19 @@ class EventLoggingService {
         // testing
         // "http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
     
+    private let reachabilityManager: AFNetworkReachabilityManager
+    
+    private var lastNetworkRequestTimestamp: TimeInterval?
+    
+    static let shared = EventLoggingService()
+    
+    public init(reachabilityManager: AFNetworkReachabilityManager = AFNetworkReachabilityManager.shared()) {
+        self.reachabilityManager = reachabilityManager
+    }
+    
+    deinit {
+        stop()
+    }
     
     private var urlSession: URLSession {
         get {
@@ -18,7 +31,18 @@ class EventLoggingService {
     
     private var eventQueue: [EventCapsule] = []
     
-    private func logEvent(_ eventCapsule: EventCapsule) -> Void
+    public func start() -> Void {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFNetworkRequestBegan, object: nil, queue: .main) { (note) in
+            self.lastNetworkRequestTimestamp = Date.timeIntervalSinceReferenceDate
+            DDLogDebug("last network request: \(String(describing: self.lastNetworkRequestTimestamp))")
+        }
+    }
+    
+    public func stop() -> Void {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    public func logEvent(_ eventCapsule: EventCapsule) -> Void
     {
         eventQueue.append(eventCapsule)
     }
