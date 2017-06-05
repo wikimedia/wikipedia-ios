@@ -116,6 +116,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             mapView.delegate = self
             mapView.allowsRotating = false
             mapView.allowsTilting = false
+            mapView.showsUserLocation = false
         #else
             mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
@@ -2625,17 +2626,14 @@ extension PlacesViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         
         guard let place = annotation as? ArticlePlace else {
-            #if OSM
-            #else
             // CRASH WORKAROUND
             // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
             if let userLocation = annotation as? MGLUserLocation {
                 let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
-                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(annotation: userLocation, reuseIdentifier: userViewReuseIdentifier)
+                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(reuseIdentifier: userViewReuseIdentifier)
                 placeView.annotation = userLocation
                 return placeView
             }
-            #endif
             return nil
         }
         
@@ -2643,11 +2641,7 @@ extension PlacesViewController: MGLMapViewDelegate {
         var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
         
         if placeView == nil {
-            #if OSM
-                placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
-            #else
-                placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-            #endif
+            placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
         } else {
             placeView?.prepareForReuse()
             placeView?.annotation = place
