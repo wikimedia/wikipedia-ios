@@ -258,6 +258,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 लेख|$1 लेख}}";
 "places-no-saved-articles-have-location" = "आपके सहेजे गए किसी भी लेख में लोकेशन जानकारी नहीं है";
 "places-search-articles-that-match" = "$1 से $2 मिलता हुआ";
+// Fuzzy
 "places-search-default-text" = "खोजें";
 "places-search-recently-searched-header" = "हाल ही में खोजा गया";
 "places-search-saved-articles" = "सभी सहेजे लेख";

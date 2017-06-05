@@ -213,6 +213,7 @@
 // Fuzzy
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}";
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
+// Fuzzy
 "places-search-default-text" = "Szukaj";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";

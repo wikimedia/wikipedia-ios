@@ -147,6 +147,7 @@
 "places-filter-saved-articles" = "Gordetako artikuluak";
 "places-filter-top-articles" = "Irakurrienak";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
+// Fuzzy
 "places-search-default-text" = "Bilatu";
 "places-search-saved-articles" = "Gordetako artikulu guztiak";
 "places-search-suggested-searches-header" = "Iradokitako bilaketak";

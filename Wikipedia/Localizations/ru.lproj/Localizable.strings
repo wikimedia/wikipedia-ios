@@ -274,6 +274,7 @@
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
+// Fuzzy
 "places-search-default-text" = "Найти";
 "places-search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "places-search-recently-searched-header" = "Недавно искали";
@@ -281,6 +282,8 @@
 "places-search-suggested-searches-header" = "Предложения для поиска";
 "places-search-this-area" = "Результаты в этой области";
 "places-search-top-articles" = "Все самые читаемые статьи";
+"places-search-top-articles-that-match-scope" = "Поблизости";
+"places-show-filter-list-accessibility-label" = "Показать фильтры поиска";
 "places-title" = "Места";
 "places-unknown-distance" = "расстояние неизвестно";
 "potd-description-prefix" = "Изображение дня за $1";
@@ -290,6 +293,9 @@
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
 "reference-title" = "Примечание $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "save-action" = "Сохранить";
 "saved-clear-all" = "Очистить";

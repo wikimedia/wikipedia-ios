@@ -258,6 +258,7 @@
 "places-accessibility-show-as-list" = "اعرض كقائمة";
 "places-accessibility-show-as-map" = "اعرض كخريطة";
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
+"places-dismiss-filter-list-accessibility-label" = "تجاهُل مرشحات البحث";
 "places-empty-search-description" = "استكشف مدن وبلدان وقارات ومعالم طبيعية وأحداث تاريخية ومباني وأكثر من ذلك.";
 "places-empty-search-title" = "ابحث في ويكيبيديا عن مقالات ذات مواقع جغرافية";
 "places-enable-location-action-button-title" = "تفعيل الوصول لموقعك";
@@ -269,6 +270,7 @@
 "places-filter-top-articles" = "الأعلى قراءة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
 "places-search-articles-that-match" = "$1 التي تطابق \"$2\"";
+// Fuzzy
 "places-search-default-text" = "بحث";
 "places-search-did-you-mean" = "هل عنيت $1؟";
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
@@ -276,6 +278,8 @@
 "places-search-suggested-searches-header" = "عمليات البحث المقترحة";
 "places-search-this-area" = "نتائج هذه المنطقة";
 "places-search-top-articles" = "كل المقالات الأكثر قراءة";
+"places-search-top-articles-that-match-scope" = "بالقرب من هنا";
+"places-show-filter-list-accessibility-label" = "إظهار مرشحات البحث";
 "places-title" = "أماكن";
 "places-unknown-distance" = "المسافة غير معروفة";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
@@ -384,4 +388,4 @@
 "zero-learn-more" = "تم التنازل عن رسوم البيانات لهذا التطبيق الخاص بويكيبيديا.";
 "zero-learn-more-learn-more" = "اقرأ المزيد";
 "zero-learn-more-no-thanks" = "تجاهل";
-"zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
+"zero-warn-when-leaving" = "قم بالتحذير عند ترك زيرو";

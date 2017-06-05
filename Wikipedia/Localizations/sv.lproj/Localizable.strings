@@ -265,6 +265,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "$1 matchar “$2”";
+// Fuzzy
 "places-search-default-text" = "Sök";
 "places-search-did-you-mean" = "Menade du $1?";
 "places-search-recently-searched-header" = "Senaste sökningar";

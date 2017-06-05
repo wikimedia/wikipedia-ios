@@ -243,13 +243,15 @@
 "places-filter-top-articles" = "Am dackste geliest";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
-"places-search-default-text" = "Sichen";
+"places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-search-saved-articles" = "All gespäichert Artikelen";
 "places-search-this-area" = "Resultater aus dëser Géigend";
 "places-search-top-articles" = "all déi beléift Artikelen";
 "places-search-top-articles-that-match-scope" = "Nobäi";
+"places-search-your-current-location" = "Är aktuell Plaz";
+"places-show-filter-list-accessibility-label" = "Sichfiltere weisen";
 "places-title" = "Plazen";
 "places-unknown-distance" = "onbekannt Distanz";
 "potd-description-prefix" = "Bild vum Dag vum $1";
