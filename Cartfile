@@ -10,6 +10,7 @@ github "wikimedia/piwik-sdk-ios" "master"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
 github "wikimedia/TUSafariActivity" "master"
+binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" ~> 3.5
 
 github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0

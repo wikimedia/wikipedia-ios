@@ -21,7 +21,6 @@ then
 		cp -R "$CARTHAGE_CACHE" "$CARTHAGE"
 	else
 		carthage bootstrap --platform iOS 2> /dev/null
-		plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
 		cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
