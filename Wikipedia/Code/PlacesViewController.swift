@@ -3,17 +3,13 @@ import WMF
 import TUSafariActivity
 #if OSM
 import Mapbox
-#else
-import MapKit
 #endif
+
+import MapKit
 
 class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
-    #if OSM
-    weak var mapView: MGLMapView!
-    #else
-    weak var mapView: MKMapView!
-    #endif
+    fileprivate var mapView: MapView!
     
     @IBOutlet weak var mapContainerView: UIView!
     
@@ -68,7 +64,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     fileprivate var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     fileprivate var currentGroupingPrecision: QuadKeyPrecision = 1
     fileprivate var selectedArticlePopover: ArticlePopoverViewController?
-    fileprivate var selectedArticleAnnotationView: MKAnnotationView?
+    fileprivate var selectedArticleAnnotationView: MapAnnotationView?
     fileprivate var selectedArticleKey: String?
     fileprivate var articleKeyToSelect: String?
     fileprivate var currentSearchRegion: MKCoordinateRegion?
@@ -114,12 +110,13 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
-            mapView = MGLMapView(frame: mapViewFrame, styleURL: styleURL)
+            let styleURL = MGLStyle.lightStyleURL(withVersion: 9)
+            mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
             mapView.delegate = self
             mapView.allowsRotating = false
             mapView.allowsTilting = false
         #else
-            mapView = MKMapView(frame: mapViewFrame)
+            mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
             // Setup map view
             mapView.mapType = .standard
@@ -271,7 +268,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
     
     func selectVisibleArticle(articleKey: String) -> Bool {
-        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        let annotations = mapView.visibleAnnotations
         for annotation in annotations {
             guard let place = annotation as? ArticlePlace,
                 place.articles.count == 1,
@@ -298,7 +295,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
 
     
     func updateShouldShowAllImagesIfNecessary() {
-        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        let visibleAnnotations = mapView.visibleAnnotations
         var visibleArticleCount = 0
         var visibleGroupCount = 0
         for annotation in visibleAnnotations {
@@ -1625,7 +1622,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     
     // MARK: - Article Popover
     
-    func showPopover(forAnnotationView annotationView: MKAnnotationView) {
+    func showPopover(forAnnotationView annotationView: MapAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
@@ -1770,7 +1767,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         case right
     }
     
-    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MKAnnotationView) {
+    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MapAnnotationView) {
         var preferredLocations = [PopoverLocation]()
         
         
@@ -2561,8 +2558,146 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
 }
 
-// MARK: - MKMapViewDelegate
 
+#if OSM
+// MARK: - MGLMapViewDelegate
+extension PlacesViewController: MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        deselectAllAnnotations()
+        isMovingToRegion = true
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        _mapRegion = mapView.region
+        guard performDefaultSearchOnNextMapRegionUpdate == false else {
+            performDefaultSearchOnNextMapRegionUpdate = false
+            performDefaultSearchIfNecessary(withRegion: nil)
+            return
+        }
+        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+        
+        updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
+        
+        isMovingToRegion = false
+        
+        selectVisibleKeyToSelectIfNecessary()
+        
+        updateShouldShowAllImagesIfNecessary()
+    }
+    
+    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
+            return
+        }
+        
+        previouslySelectedArticlePlaceIdentifier = place.identifier
+        
+        guard place.articles.count == 1 else {
+            deselectAllAnnotations()
+            
+            var minDistance = CLLocationDistanceMax
+            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            for article in place.articles {
+                guard let location = article.location else {
+                    continue
+                }
+                let distance = location.distance(from: center)
+                if distance < minDistance {
+                    minDistance = distance
+                    articleKeyToSelect = article.key
+                }
+            }
+            mapRegion = regionThatFits(articles: place.articles)
+            return
+        }
+        
+        showPopover(forAnnotationView: annotationView)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didDeselect view: MGLAnnotationView) {
+        selectedArticleKey = nil
+        dismissCurrentArticlePopover()
+    }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        
+        guard let place = annotation as? ArticlePlace else {
+            #if OSM
+            #else
+            // CRASH WORKAROUND
+            // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
+            if let userLocation = annotation as? MGLUserLocation {
+                let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
+                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(annotation: userLocation, reuseIdentifier: userViewReuseIdentifier)
+                placeView.annotation = userLocation
+                return placeView
+            }
+            #endif
+            return nil
+        }
+        
+        let reuseIdentifier = "org.wikimedia.articlePlaceView"
+        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
+        
+        if placeView == nil {
+            #if OSM
+                placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
+            #else
+                placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
+            #endif
+        } else {
+            placeView?.prepareForReuse()
+            placeView?.annotation = place
+        }
+        
+        placeView?.delegate = self
+        
+        if showingAllImages {
+            placeView?.set(alwaysShowImage: true, animated: false)
+        }
+        
+        if place.articles.count > 1 && place.nextCoordinate == nil {
+            placeView?.alpha = 0
+            placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.transform = CGAffineTransform.identity
+                    placeView?.alpha = 1
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+            })
+        } else if let nextCoordinate = place.nextCoordinate {
+            placeView?.alpha = 0
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    place.coordinate = nextCoordinate
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+                UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.alpha = 1
+                }, completion: nil)
+            })
+        } else {
+            placeView?.alpha = 0
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.alpha = 1
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+            })
+        }
+        
+        return placeView
+    }
+}
+#else
+// MARK: - MKMapViewDelegate
 extension PlacesViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         deselectAllAnnotations()
@@ -2588,7 +2723,7 @@ extension PlacesViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
-        guard let place = annotationView.annotation as? ArticlePlace else {
+        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
             return
         }
         
@@ -2619,9 +2754,6 @@ extension PlacesViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         selectedArticleKey = nil
         dismissCurrentArticlePopover()
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -2694,6 +2826,7 @@ extension PlacesViewController: MKMapViewDelegate {
         return placeView
     }
 }
+#endif
 
 // MARK: -
 

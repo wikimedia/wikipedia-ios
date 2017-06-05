@@ -1,135 +1,16 @@
 import UIKit
-import MapKit
 import WMF
+#if OSM
+import Mapbox
+#else
+import MapKit
+#endif
 
 protocol ArticlePlaceViewDelegate: NSObjectProtocol {
     func articlePlaceViewWasTapped(_ articlePlaceView: ArticlePlaceView)
 }
 
-class ArticlePlaceView: MKAnnotationView {
-    public weak var delegate: ArticlePlaceViewDelegate?
-    
-    let imageView: UIView
-    private let imageImageView: UIImageView
-    private let imageImagePlaceholderView: UIImageView
-    private let imageOutlineView: UIView
-    private let imageBackgroundView: UIView
-    private let selectedImageView: UIView
-    private let selectedImageImageView: UIImageView
-    private let selectedImageImagePlaceholderView: UIImageView
-    private let selectedImageOutlineView: UIView
-    private let selectedImageBackgroundView: UIView
-    private let dotView: UIView
-    private let groupView: UIView
-    private let countLabel: UILabel
-    private let dimension: CGFloat
-    private let collapsedDimension: CGFloat
-    let groupDimension: CGFloat
-    let imageDimension: CGFloat
-    private let selectionAnimationDuration = 0.3
-    private let springDamping: CGFloat = 0.5
-    private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
-    private var alwaysShowImage = false
-    private let alwaysRasterize = true // set this or rasterize on animations, not both
-    private let rasterizeOnAnimations = false
-    
-    func set(alwaysShowImage: Bool, animated: Bool) {
-        self.alwaysShowImage = alwaysShowImage
-        let scale = collapsedDimension/imageDimension
-        let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
-        let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
-        if alwaysShowImage {
-            loadImage()
-            imageView.alpha = 0
-            imageView.isHidden = false
-            dotView.alpha = 1
-            dotView.isHidden = false
-            imageView.transform = imageViewScaleDownTransform
-            dotView.transform = CGAffineTransform.identity
-        } else {
-            dotView.transform = dotViewScaleUpTransform
-            imageView.transform = CGAffineTransform.identity
-            imageView.alpha = 1
-            imageView.isHidden = false
-            dotView.alpha = 0
-            dotView.isHidden = false
-        }
-        
-        let transforms = {
-            if alwaysShowImage {
-                self.imageView.transform = CGAffineTransform.identity
-                self.dotView.transform = dotViewScaleUpTransform
-                
-            } else {
-                self.imageView.transform = imageViewScaleDownTransform
-                self.dotView.transform = CGAffineTransform.identity
-            }
-        }
-        let fadesIn = {
-            if alwaysShowImage {
-                self.imageView.alpha = 1
-            } else {
-                self.dotView.alpha = 1
-            }
-        }
-        let fadesOut = {
-            if alwaysShowImage {
-                self.dotView.alpha = 0
-            } else {
-                self.imageView.alpha = 0
-            }
-        }
-        
-        if (animated && rasterizeOnAnimations) {
-            self.imageView.layer.shouldRasterize = true
-        }
-        let done = {
-            if (animated && self.rasterizeOnAnimations) {
-                self.imageView.layer.shouldRasterize = false
-            }
-            guard let articlePlace = self.annotation as? ArticlePlace else {
-                return
-            }
-            self.updateDotAndImageHiddenState(withArticlePlace: articlePlace)
-        }
-        if animated {
-            if alwaysShowImage {
-                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: transforms, completion:nil)
-                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
-                    UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
-                }) { (didFinish) in
-                    done()
-                }
-            } else {
-                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
-                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)
-                }) { (didFinish) in
-                    done()
-                }
-            }
-        } else {
-            transforms()
-            fadesIn()
-            fadesOut()
-            done()
-        }
-    }
-    
-    let selectedImageButton: UIButton
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else {
-            selectedImageButton.removeTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
-            return
-        }
-        
-        selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
-    }
-    
+class ArticlePlaceView: MapAnnotationView {
     static let smallDotImage = #imageLiteral(resourceName: "places-dot-small")
     static let mediumDotImage = #imageLiteral(resourceName: "places-dot-medium")
     
@@ -150,9 +31,37 @@ class ArticlePlaceView: MKAnnotationView {
     
     static let extraMediumPlaceholderImage = #imageLiteral(resourceName: "places-w-extra-medium")
     static let extraLargePlaceholderImage = #imageLiteral(resourceName: "places-w-extra-large")
-
     
-    required override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+    public weak var delegate: ArticlePlaceViewDelegate?
+    
+    var imageView: UIView!
+    private var imageImageView: UIImageView!
+    private var imageImagePlaceholderView: UIImageView!
+    private var imageOutlineView: UIView!
+    private var imageBackgroundView: UIView!
+    private var selectedImageView: UIView!
+    private var selectedImageImageView: UIImageView!
+    private var selectedImageImagePlaceholderView: UIImageView!
+    private var selectedImageOutlineView: UIView!
+    private var selectedImageBackgroundView: UIView!
+    private var dotView: UIView!
+    private var groupView: UIView!
+    private var countLabel: UILabel!
+    private var dimension: CGFloat!
+    private var collapsedDimension: CGFloat!
+    var groupDimension: CGFloat!
+    var imageDimension: CGFloat!
+    var selectedImageButton: UIButton!
+    
+    private var alwaysShowImage = false
+    
+    private let selectionAnimationDuration = 0.3
+    private let springDamping: CGFloat = 0.5
+    private let crossFadeRelativeHalfDuration: TimeInterval = 0.1
+    private let alwaysRasterize = true // set this or rasterize on animations, not both
+    private let rasterizeOnAnimations = false
+    
+    override func setup() {
         selectedImageView = UIView()
         imageView = UIView()
         selectedImageImageView = UIImageView()
@@ -185,7 +94,6 @@ class ArticlePlaceView: MKAnnotationView {
         let gravity = kCAGravityBottomRight
         
         isPlaceholderHidden = false
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         
@@ -273,11 +181,113 @@ class ArticlePlaceView: MKAnnotationView {
         countLabel.textAlignment = .center
         countLabel.font = UIFont.boldSystemFont(ofSize: 16)
         groupView.addSubview(countLabel)
-        
-        
+    
         prepareForReuse()
-        self.annotation = annotation
+        super.setup()
+        
+        updateLayout()
+        if let annotation = annotation as? ArticlePlace {
+           update(withArticlePlace: annotation)
+        }
     }
+    
+    func set(alwaysShowImage: Bool, animated: Bool) {
+        self.alwaysShowImage = alwaysShowImage
+        let scale = collapsedDimension/imageDimension
+        let imageViewScaleDownTransform = CGAffineTransform(scaleX: scale, y: scale)
+        let dotViewScaleUpTransform = CGAffineTransform(scaleX: 1.0/scale, y: 1.0/scale)
+        if alwaysShowImage {
+            loadImage()
+            imageView.alpha = 0
+            imageView.isHidden = false
+            dotView.alpha = 1
+            dotView.isHidden = false
+            imageView.transform = imageViewScaleDownTransform
+            dotView.transform = CGAffineTransform.identity
+        } else {
+            dotView.transform = dotViewScaleUpTransform
+            imageView.transform = CGAffineTransform.identity
+            imageView.alpha = 1
+            imageView.isHidden = false
+            dotView.alpha = 0
+            dotView.isHidden = false
+        }
+        
+        let transforms = {
+            if alwaysShowImage {
+                self.imageView.transform = CGAffineTransform.identity
+                self.dotView.transform = dotViewScaleUpTransform
+                
+            } else {
+                self.imageView.transform = imageViewScaleDownTransform
+                self.dotView.transform = CGAffineTransform.identity
+            }
+        }
+        let fadesIn = {
+            if alwaysShowImage {
+                self.imageView.alpha = 1
+            } else {
+                self.dotView.alpha = 1
+            }
+        }
+        let fadesOut = {
+            if alwaysShowImage {
+                self.dotView.alpha = 0
+            } else {
+                self.imageView.alpha = 0
+            }
+        }
+        
+        if (animated && rasterizeOnAnimations) {
+            self.imageView.layer.shouldRasterize = true
+        }
+        let done = {
+            if (animated && self.rasterizeOnAnimations) {
+                self.imageView.layer.shouldRasterize = false
+            }
+            guard let articlePlace = self.annotation as? ArticlePlace else {
+                return
+            }
+            self.updateDotAndImageHiddenState(withArticlePlace: articlePlace)
+        }
+        if animated {
+            if alwaysShowImage {
+                UIView.animate(withDuration: 2*selectionAnimationDuration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: transforms, completion:nil)
+                UIView.animateKeyframes(withDuration: 2*selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: self.crossFadeRelativeHalfDuration, relativeDuration: self.crossFadeRelativeHalfDuration, animations:fadesOut)
+                }) { (didFinish) in
+                    done()
+                }
+            } else {
+                UIView.animateKeyframes(withDuration: selectionAnimationDuration, delay: 0, options: [.allowUserInteraction], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations:transforms)
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations:fadesIn)
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations:fadesOut)
+                }) { (didFinish) in
+                    done()
+                }
+            }
+        } else {
+            transforms()
+            fadesIn()
+            fadesOut()
+            done()
+        }
+    }
+    
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else {
+            selectedImageButton.removeTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
+            return
+        }
+        
+        selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
+    }
+    
+
     
     func selectedImageViewWasTapped(_ sender: UIButton) {
         delegate?.articlePlaceViewWasTapped(self)
@@ -292,7 +302,7 @@ class ArticlePlaceView: MKAnnotationView {
         }
     }
 
-    var isPlaceholderHidden: Bool {
+    var isPlaceholderHidden: Bool = true {
         didSet {
             selectedImageImagePlaceholderView.isHidden = isPlaceholderHidden
             imageImagePlaceholderView.isHidden = isPlaceholderHidden
@@ -372,15 +382,26 @@ class ArticlePlaceView: MKAnnotationView {
             groupView.isHidden = false
         }
     }
-    
-    override var annotation: MKAnnotation? {
+
+    #if OSM
+    override var annotation: MGLAnnotation? {
         didSet {
-            guard let articlePlace = annotation as? ArticlePlace else {
+            guard isSetup, let articlePlace = annotation as? ArticlePlace else {
                 return
             }
             update(withArticlePlace: articlePlace)
         }
     }
+    #else
+    override var annotation: MKAnnotation? {
+        didSet {
+            guard isSetup, let articlePlace = annotation as? ArticlePlace else {
+                return
+            }
+            update(withArticlePlace: articlePlace)
+        }
+    }
+    #endif
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -398,12 +419,7 @@ class ArticlePlaceView: MKAnnotationView {
         alpha = 1
         transform = CGAffineTransform.identity
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        return nil
-    }
-    
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         guard let place = annotation as? ArticlePlace, place.articles.count == 1 else {
@@ -509,12 +525,18 @@ class ArticlePlaceView: MKAnnotationView {
     
     override var frame: CGRect {
         didSet {
+            guard isSetup else {
+                return
+            }
             updateLayout()
         }
     }
     
     override var bounds: CGRect {
         didSet {
+            guard isSetup else {
+                return
+            }
             updateLayout()
         }
     }

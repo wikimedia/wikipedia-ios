@@ -1066,6 +1066,11 @@
 		D82014C41E686B9C00BA8579 /* SSSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
 		D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117F91EE587650076C040 /* Mapbox+Extensions.swift */; };
+		D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
+		D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
+		D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
+		D82117FF1EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
+		D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
 		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
 		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
@@ -1327,6 +1332,11 @@
 		D8831D3A1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
 		D8831D3B1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
 		D8831D3C1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */; };
+		D88C70181EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
+		D88C70191EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
+		D88C701A1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
+		D88C701B1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
+		D88C701C1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
 		D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */; };
 		D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
 		D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCAE01E4B776600505A9F /* MapUtilities.swift */; };
@@ -4216,6 +4226,7 @@
 		D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSSectionedDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.m; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D82117F91EE587650076C040 /* Mapbox+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mapbox+Extensions.swift"; sourceTree = "<group>"; };
+		D82117FB1EE58C080076C040 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
@@ -4369,6 +4380,7 @@
 		D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadKeyTests.swift; sourceTree = "<group>"; };
 		D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFArticle+QuadKey.swift"; path = "Wikipedia/Code/WMFArticle+QuadKey.swift"; sourceTree = SOURCE_ROOT; };
 		D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleFullWidthImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		D88C70171EE595E90022A26A /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikidataFetcher.swift; sourceTree = "<group>"; };
 		D88FCAE01E4B776600505A9F /* MapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtilities.swift; sourceTree = "<group>"; };
@@ -7670,6 +7682,8 @@
 				D87721FC1EC0DCA30005E634 /* SaveButton.swift */,
 				D82117F91EE587650076C040 /* Mapbox+Extensions.swift */,
 				D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */,
+				D88C70171EE595E90022A26A /* MapView.swift */,
+				D82117FB1EE58C080076C040 /* MapAnnotation.swift */,
 				D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */,
 				D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */,
 				D88FCAE01E4B776600505A9F /* MapUtilities.swift */,
@@ -9499,6 +9513,7 @@
 				D87721FD1EC0DCA30005E634 /* SaveButton.swift in Sources */,
 				B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */,
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
+				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */,
 				B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */,
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
@@ -9747,6 +9762,7 @@
 				D876C2861E5CDE6500FCA00A /* AlignedImageButton.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
+				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -9950,6 +9966,7 @@
 				D80ED31C1EE57F4800CE8C50 /* SSBaseCollectionCell.m in Sources */,
 				D80ED31D1EE57F4800CE8C50 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */,
+				D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D80ED3201EE57F4800CE8C50 /* WMFRandomArticleViewController.m in Sources */,
 				D80ED3211EE57F4800CE8C50 /* SSSection.m in Sources */,
@@ -10077,6 +10094,7 @@
 				D80ED39A1EE57F4800CE8C50 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */,
 				D80ED39B1EE57F4800CE8C50 /* WMFAlertManager.swift in Sources */,
 				D80ED39C1EE57F4800CE8C50 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
+				D88C701C1EE595E90022A26A /* MapView.swift in Sources */,
 				D80ED39D1EE57F4800CE8C50 /* AlignedImageButton.swift in Sources */,
 				D80ED39E1EE57F4800CE8C50 /* LoginFunnel.m in Sources */,
 				D80ED39F1EE57F4800CE8C50 /* TabularScrollView.m in Sources */,
@@ -10428,6 +10446,7 @@
 				D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8A42AB81E815A9C00D8E281 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
+				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				B34B0EE51EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				D8A42ABB1E815A9C00D8E281 /* NSNumber+MWKTitleNamespace.m in Sources */,
@@ -10543,6 +10562,7 @@
 				D8733C901ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8A42B281E815A9C00D8E281 /* String?+WMFExtras.swift in Sources */,
 				D8A42B291E815A9C00D8E281 /* WMFSavedArticleTableViewController.m in Sources */,
+				D82117FF1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8A42B2A1E815A9C00D8E281 /* WMFSearchResults.m in Sources */,
 				D8A42B2B1E815A9C00D8E281 /* WMFAnnouncementCollectionViewCell.m in Sources */,
 				D8A42B2C1E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
@@ -10831,6 +10851,7 @@
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
 				D8CE25821E698E2400DAE2E0 /* WMFCompassView.m in Sources */,
 				D818D3AC1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
+				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8CE25841E698E2400DAE2E0 /* WMFRandomArticleViewController.m in Sources */,
 				D80ED25D1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
@@ -10958,6 +10979,7 @@
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE26091E698E2400DAE2E0 /* AlignedImageButton.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* LoginFunnel.m in Sources */,
+				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
 				D8CE260B1E698E2400DAE2E0 /* TabularScrollView.m in Sources */,
 				B34B0EE31EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
@@ -11097,6 +11119,7 @@
 				D8EC3E3F1E9BDA35006712EB /* UINavigationBar+WMFTransparency.m in Sources */,
 				D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8EC3E401E9BDA35006712EB /* WKWebView+WMFSuppressSelection.m in Sources */,
+				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E411E9BDA35006712EB /* WMFLeadingImageTrailingTextButton.m in Sources */,
 				D8EC3E421E9BDA35006712EB /* WMFTableOfContentsViewController.swift in Sources */,
 				D8EC3E431E9BDA35006712EB /* WMFCVLAttributes.m in Sources */,
@@ -11119,6 +11142,7 @@
 				D8EC3E511E9BDA35006712EB /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
+				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				D8EC3E541E9BDA35006712EB /* WMFArticlePreviewDataSource.m in Sources */,
 				D8EC3E551E9BDA35006712EB /* WMFCVLInfo.m in Sources */,
 				D8EC3E561E9BDA35006712EB /* WMFArticleContainerViewController+TOC.swift in Sources */,

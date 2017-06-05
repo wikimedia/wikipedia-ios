@@ -1,14 +1,13 @@
 import Mapbox
+import MapKit
 
-func MGLCoordinateRegionMakeWithDistance(_ centerCoordinate: CLLocationCoordinate2D, _ latitudinalMeters: CLLocationDistance, _ longitudinalMeters: CLLocationDistance) -> MGLCoordinateRegion {
-    let mkRegion = MKCoordinateRegionMakeWithDistance(centerCoordinate, latitudinalMeters, longitudinalMeters)
-    return MGLCoordinateRegion(center: mkRegion.center, span: MGLCoordinateSpan(latitudeDelta: mkRegion.span.latitudeDelta, longitudeDelta: mkRegion.span.longitudeDelta))
+extension MKCoordinateSpan {
+    init(_ span: MGLCoordinateSpan) {
+        self.init(latitudeDelta: span.latitudeDelta, longitudeDelta:span.longitudeDelta)
+    }
 }
 
-struct MGLCoordinateRegion {
-    var center: CLLocationCoordinate2D
-    var span: MGLCoordinateSpan
-    
+extension MKCoordinateRegion {
     var coordinateBounds: MGLCoordinateBounds {
         get {
             let sw = CLLocationCoordinate2D(latitude: center.latitude - span.latitudeDelta, longitude: center.longitude + span.longitudeDelta)
@@ -19,7 +18,7 @@ struct MGLCoordinateRegion {
     
     init(center: CLLocationCoordinate2D, span: MGLCoordinateSpan) {
         self.center = center
-        self.span = span
+        self.span = MKCoordinateSpan(span)
     }
     
     init(_ bounds: MGLCoordinateBounds) {
@@ -33,20 +32,5 @@ struct MGLCoordinateRegion {
     
     init() {
         self.init(center: CLLocationCoordinate2D(latitude: 0, longitude:0), span: MGLCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0))
-    }
-}
-
-extension MGLMapView {
-    func regionThatFits(_ region: MGLCoordinateRegion) -> MGLCoordinateRegion {
-        return region
-    }
-    
-    var region: MGLCoordinateRegion {
-        get {
-            return MGLCoordinateRegion(visibleCoordinateBounds)
-        }
-        set {
-            visibleCoordinateBounds = newValue.coordinateBounds
-        }
     }
 }
