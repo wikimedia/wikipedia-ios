@@ -58,13 +58,14 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
-                                <rect key="frame" x="63.5" y="85" width="248" height="40"/>
+                                <rect key="frame" x="103.5" y="85" width="168" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="Nes-Zp-3AQ"/>
                                     <constraint firstAttribute="height" constant="40" id="bl4-5f-ixX"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="          Redo Search in this Area          "/>
+                                <state key="normal" title="Redo Search in this Area"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -88,7 +89,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
-                                <rect key="frame" x="71" y="85" width="233" height="40"/>
+                                <rect key="frame" x="96.5" y="85" width="182" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="DTV-bA-1bt"/>
@@ -358,9 +359,11 @@
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="EsT-De-Ary" secondAttribute="trailing" id="8Fb-x8-txL"/>
                             <constraint firstItem="qzd-3E-mH2" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="AfI-uU-yeg"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="z6h-da-ewO" secondAttribute="trailing" priority="998" constant="15" id="FX1-9v-ZFx"/>
                             <constraint firstAttribute="trailing" secondItem="hEe-dF-AFg" secondAttribute="trailing" id="Fqd-WF-erI"/>
                             <constraint firstItem="EsT-De-Ary" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="Gdw-I5-72V"/>
                             <constraint firstItem="qzd-3E-mH2" firstAttribute="top" secondItem="Cy7-2m-87u" secondAttribute="bottom" id="HuV-Vk-h3n"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="IFe-5L-9c3"/>
                             <constraint firstItem="Pet-ct-8QU" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" id="Jc5-dx-3Pw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mxh-CO-RQm" secondAttribute="trailing" id="Jrj-Yh-h1b"/>
                             <constraint firstAttribute="trailing" secondItem="Pet-ct-8QU" secondAttribute="trailing" id="Lu5-NQ-Oca"/>
@@ -380,13 +383,14 @@
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" id="mYf-kK-anz"/>
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
-                            <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" priority="998" constant="15" id="ua0-k1-E4K"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" priority="998" constant="15" id="ua0-k1-E4K"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Gdw-I5-72V"/>
                                 <exclude reference="S5v-Rm-6Vf"/>
                                 <exclude reference="mYf-kK-anz"/>
+                                <exclude reference="IFe-5L-9c3"/>
                                 <exclude reference="bVF-HO-Onf"/>
                             </mask>
                         </variation>
@@ -408,7 +412,10 @@
                                 <include reference="S5v-Rm-6Vf"/>
                                 <exclude reference="kJv-Kd-ffk"/>
                                 <exclude reference="mu2-bC-yEv"/>
+                                <exclude reference="FX1-9v-ZFx"/>
+                                <include reference="IFe-5L-9c3"/>
                                 <include reference="bVF-HO-Onf"/>
+                                <exclude reference="ua0-k1-E4K"/>
                                 <exclude reference="1PC-H2-U7d"/>
                             </mask>
                         </variation>
