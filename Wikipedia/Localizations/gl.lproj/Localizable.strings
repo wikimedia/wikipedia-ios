@@ -257,6 +257,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-search-articles-that-match" = "$1 correspondente a “$2”";
+// Fuzzy
 "places-search-default-text" = "Procurar";
 "places-search-did-you-mean" = "Quixo dicir $1?";
 "places-search-recently-searched-header" = "Buscado recentemente";
@@ -264,6 +265,7 @@
 "places-search-suggested-searches-header" = "Buscas suxeridas";
 "places-search-this-area" = "Resultados nesta área";
 "places-search-top-articles" = "Todos os artigos mellores";
+"places-search-top-articles-that-match-scope" = "Preto";
 "places-title" = "Lugares";
 "places-unknown-distance" = "distancia descoñecida";
 "potd-description-prefix" = "Imaxe do día para $1";

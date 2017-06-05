@@ -124,6 +124,7 @@
 "places-filter-saved-articles" = "Saglabātie raksti";
 // Fuzzy
 "places-filter-top-articles-count" = "$1 raksti";
+// Fuzzy
 "places-search-default-text" = "Meklēt";
 "places-search-saved-articles" = "Visi saglabātie raksti";
 "places-search-top-articles-that-match-scope" = "Tuvumā";

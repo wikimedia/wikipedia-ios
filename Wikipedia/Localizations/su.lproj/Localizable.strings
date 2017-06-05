@@ -234,6 +234,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Taya pisan artikel kasimpeb anjeun nu mibanda info lokasi";
 "places-search-articles-that-match" = "$1 cocog jeung “$2”";
+// Fuzzy
 "places-search-default-text" = "Paluruh";
 "places-search-recently-searched-header" = "Pamaluruhan kiwari";
 "places-search-saved-articles" = "Sakur artikel kasimpen";

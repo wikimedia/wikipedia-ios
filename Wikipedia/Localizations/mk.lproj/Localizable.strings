@@ -241,6 +241,7 @@
 "places-accessibility-show-as-list" = "Прикажи како список";
 "places-accessibility-show-as-map" = "Прикажи како карта";
 "places-accessibility-show-more" = "Повеќе статии";
+"places-dismiss-filter-list-accessibility-label" = "Тргни пребар. филтри";
 "places-empty-search-description" = "Истражете градови, земји, континенти, природни знаменитости, историски настани, градби и многу друго.";
 "places-empty-search-title" = "Пребарајте статии на Википедија со географски местоположби";
 "places-enable-location-action-button-title" = "Овозможи местоположба";
@@ -254,7 +255,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 статија|$1 статии}}";
 "places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-search-articles-that-match" = "$1 што одговараат на „$2“";
-"places-search-default-text" = "Пребарај";
+"places-search-default-text" = "Пребарај места";
 "places-search-did-you-mean" = "Дали мислевте на $1?";
 "places-search-recently-searched-header" = "Неодамна пребарано";
 "places-search-saved-articles" = "Сите зачувани статии";
@@ -262,6 +263,8 @@
 "places-search-this-area" = "Исход од подрачјево";
 "places-search-top-articles" = "Сите најчитани статии";
 "places-search-top-articles-that-match-scope" = "Во близина";
+"places-search-your-current-location" = "Вашата тековна местоположба";
+"places-show-filter-list-accessibility-label" = "Прикажи пребар. филтри";
 "places-title" = "Места";
 "places-unknown-distance" = "непозната оддалеченост";
 "potd-description-prefix" = "Слика на денот за $1";

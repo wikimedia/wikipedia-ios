@@ -250,6 +250,7 @@
 "places-filter-saved-articles" = "Opgeslagen pagina's";
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
+// Fuzzy
 "places-search-default-text" = "Zoeken";
 "places-search-did-you-mean" = "Bedoelde u $1?";
 "places-search-recently-searched-header" = "Recente zoekopdrachten";

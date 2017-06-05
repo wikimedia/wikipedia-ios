@@ -196,7 +196,7 @@
 "info-box-title" = "快速預覽";
 "languages-title" = "變更語言";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
-"license-footer-text" = "除非另有註記，內容根據 $1 授權";
+"license-footer-text" = "除非另有註明，否則頁面內容均以 $1 條款授權";
 "login-forgot-password" = "忘記您的密碼？";
 "login-join-wikipedia" = "加入維基百科。";
 "login-no-account" = "還沒有帳號？$1";
@@ -211,7 +211,7 @@
 "main-menu-debug-tweaks" = "開發人員設定";
 "main-menu-heading-debug" = "除錯";
 "main-menu-heading-legal" = "隱私與條款";
-"main-menu-heading-zero" = "維基百科零";
+"main-menu-heading-zero" = "維基百科 Zero";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隱私政策";
 "main-menu-rate-app" = "付費應用程式";
@@ -253,6 +253,7 @@
 "places-accessibility-show-as-list" = "以清單顯示";
 "places-accessibility-show-as-map" = "以地圖顯示";
 "places-accessibility-show-more" = "顯示更多條目";
+"places-dismiss-filter-list-accessibility-label" = "停用搜尋過濾器";
 "places-empty-search-description" = "瀏覽城市、國家、各大洲、自然地標、歷史事件、建物以及其它更多。";
 "places-empty-search-title" = "以地理位置來搜尋維基百科條目";
 "places-enable-location-action-button-title" = "啟用位置";
@@ -266,6 +267,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1個條目|$1個條目}}";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
+// Fuzzy
 "places-search-default-text" = "搜尋";
 "places-search-did-you-mean" = "您指的是 $1 嗎？";
 "places-search-recently-searched-header" = "近期搜尋";
@@ -274,6 +276,7 @@
 "places-search-this-area" = "此區域的結果";
 "places-search-top-articles" = "所有熱門條目";
 "places-search-top-articles-that-match-scope" = "附近";
+"places-show-filter-list-accessibility-label" = "顯示搜尋過濾器";
 "places-title" = "地點";
 "places-unknown-distance" = "未知距離";
 "potd-description-prefix" = "$1 的每日圖片";

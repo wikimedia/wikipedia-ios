@@ -272,6 +272,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos salvos tem informações de localização";
 "places-search-articles-that-match" = "$1 coincidindo “$2”";
+// Fuzzy
 "places-search-default-text" = "Procurar";
 "places-search-recently-searched-header" = "Procurado recentemente";
 "places-search-saved-articles" = "Todos os artigos salvos";

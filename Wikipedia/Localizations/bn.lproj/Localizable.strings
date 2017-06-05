@@ -4,6 +4,7 @@
 // Author: Aftabuzzaman
 // Author: Bodhisattwa
 // Author: Elias Ahmmad
+// Author: JoeWalshWMF
 // Author: Kayser Ahmad
 // Author: Macofe
 // Author: Nemo bis
@@ -246,6 +247,7 @@
 "places-filter-top-articles" = "শীর্ষ পঠিত";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1টি নিবন্ধ}}";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
+// Fuzzy
 "places-search-default-text" = "অনুসন্ধান";
 "places-search-did-you-mean" = "আপনি কি বোঝাতে চাচ্ছেন $1?";
 "places-search-recently-searched-header" = "সম্প্রতি অনুসন্ধানকৃত";
@@ -254,6 +256,7 @@
 "places-search-this-area" = "এই এলাকায় ফলাফল";
 "places-search-top-articles" = "সব শীর্ষ নিবন্ধ";
 "places-search-top-articles-that-match-scope" = "কাছাকাছি";
+"places-show-filter-list-accessibility-label" = "সন্ধানের ছাঁকনি দেখান";
 "places-title" = "স্থান";
 "places-unknown-distance" = "অজানা দূরত্ব";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
