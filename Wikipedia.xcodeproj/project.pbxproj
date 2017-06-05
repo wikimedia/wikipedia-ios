@@ -1065,6 +1065,7 @@
 		D82014C31E686B9C00BA8579 /* SSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014B81E686B9C00BA8579 /* SSSection.m */; };
 		D82014C41E686B9C00BA8579 /* SSSectionedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
+		D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117F91EE587650076C040 /* Mapbox+Extensions.swift */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
 		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
 		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
@@ -4214,6 +4215,7 @@
 		D82014B91E686B9C00BA8579 /* SSSectionedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSSectionedDataSource.h; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.h; sourceTree = SOURCE_ROOT; };
 		D82014BA1E686B9C00BA8579 /* SSSectionedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSSectionedDataSource.m; path = Carthage/Checkouts/SSDataSources/SSDataSources/SSSectionedDataSource.m; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D82117F91EE587650076C040 /* Mapbox+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mapbox+Extensions.swift"; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
@@ -7666,6 +7668,7 @@
 				D82972871E3A49980061550A /* ArticlePopoverViewController.xib */,
 				D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */,
 				D87721FC1EC0DCA30005E634 /* SaveButton.swift */,
+				D82117F91EE587650076C040 /* Mapbox+Extensions.swift */,
 				D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */,
 				D876C2871E5DDF1A00FCA00A /* EnableLocationViewController.swift */,
 				D876C2881E5DDF1A00FCA00A /* EnableLocationViewController.xib */,
@@ -10052,6 +10055,7 @@
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
 				D80ED3861EE57F4800CE8C50 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				D80ED3871EE57F4800CE8C50 /* NSAttributedString+WMFModify.m in Sources */,
+				D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */,
 				D80ED3881EE57F4800CE8C50 /* WMFSettingsViewController.m in Sources */,
 				D80ED3891EE57F4800CE8C50 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D80ED38A1EE57F4800CE8C50 /* WMFTableOfContentsItem.swift in Sources */,
