@@ -102,9 +102,12 @@
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
+"error-unknown" = "S'ha produït un error desconegut";
 "explore-another-random" = "Un altre article a l'atzar";
+"explore-because-you-read" = "Perquè vau llegir";
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-featured-article-heading" = "Article destacat";
+"explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
 "explore-most-read-generic-heading" = "El més llegit";
@@ -173,6 +176,7 @@
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més propers a la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";
+"home-news-footer" = "Novetats";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
@@ -187,8 +191,7 @@
 "in-the-news-title" = "Actualitat";
 "in-the-news-title-for-date" = "Actualitat sobre $1";
 "info-box-close-text" = "Tanca";
-// Fuzzy
-"info-box-title" = "Dades bàsiques";
+"info-box-title" = "Dades ràpides";
 "languages-title" = "Canvia la llengua";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
@@ -251,17 +254,20 @@
 "places-enable-location-title" = "Exploreu articles propers a la vostra ubicació habilitant la geolocalització";
 "places-filter-list-title" = "Filtres de cerca";
 "places-filter-saved-articles" = "Articles desats";
-// Fuzzy
-"places-filter-top-articles" = "Millors articles";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 articles";
+"places-filter-top-articles" = "Més llegits";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-no-saved-articles-have-location" = "Cap dels vostres articles desats té informació d'ubicació";
+// Fuzzy
 "places-search-default-text" = "Cerca";
+"places-search-did-you-mean" = "Volíeu dir $1?";
 "places-search-recently-searched-header" = "Cercat recentment";
 "places-search-saved-articles" = "Tots els articles desats";
 "places-search-suggested-searches-header" = "Cerques suggerides";
 "places-search-this-area" = "Resultats en aquesta àrea";
 "places-search-top-articles" = "Tots els millors articles";
+"places-search-top-articles-that-match-scope" = "A prop";
+"places-show-filter-list-accessibility-label" = "Mostra els filtres de cerca";
+"places-title" = "Llocs";
 "places-unknown-distance" = "distància desconeguda";
 "potd-description-prefix" = "Imatge del dia per a $1";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
@@ -350,6 +356,7 @@
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-preview-changes" = "S'està recuperant una vista prèvia dels canvis...";
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";
+"wikitext-preview-link-preview-title" = "Previsualització de l'enllaç";
 "wikitext-upload-captcha-error" = "Error de verificació de CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cal verificació de CAPTCHA.";
 "wikitext-upload-result-unknown" = "No s'ha pogut determinar el resultat de la càrrega del viquitext.";

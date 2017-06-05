@@ -100,6 +100,7 @@
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
+"error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
 "explore-because-you-read" = "Koska luit";
 "explore-continue-reading-heading" = "Jatka lukemista";
@@ -247,6 +248,7 @@
 "places-accessibility-show-as-list" = "Näytä luettelona";
 "places-accessibility-show-as-map" = "Näytä karttana";
 "places-accessibility-show-more" = "Näytä lisää artikkeleja";
+"places-dismiss-filter-list-accessibility-label" = "Piilota hakusuodattimet";
 "places-empty-search-description" = "Tutki kaupunkeja, maita, mantereita, luontokohteita, historiallisia tapahtumia, rakennuksia ja paljon muuta.";
 "places-empty-search-title" = "Etsi Wikipedia artikkeleita maantieteellisillä paikoilla";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
@@ -259,12 +261,15 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-search-articles-that-match" = "$1 vastaa “$2”";
+// Fuzzy
 "places-search-default-text" = "Haku";
+"places-search-did-you-mean" = "Tarkoititko $1?";
 "places-search-recently-searched-header" = "Äskettäin haetut";
 "places-search-saved-articles" = "Kaikki tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-this-area" = "Hae tällä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
+"places-show-filter-list-accessibility-label" = "Näytä hakusuodattimet";
 "places-title" = "Paikat";
 "places-unknown-distance" = "tuntematon etäisyys";
 "potd-description-prefix" = "Päivän kuva: $1";
@@ -274,6 +279,9 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
 "reference-title" = "Lähde $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|Eilen|$1 päivää sitten}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "save-action" = "Tallenna";
 "saved-clear-all" = "Tyhjennä";

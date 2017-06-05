@@ -255,6 +255,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkel|$1 artikler}}";
 "places-no-saved-articles-have-location" = "Ingen av dine lagrede artikler har stedsinformasjon";
 "places-search-articles-that-match" = "$1 matcher «$2»";
+// Fuzzy
 "places-search-default-text" = "Søk";
 "places-search-recently-searched-header" = "Siste søk";
 "places-search-saved-articles" = "Alle lagrede artikler";

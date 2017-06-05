@@ -273,6 +273,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
+// Fuzzy
 "places-search-default-text" = "Ara";
 "places-search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "places-search-recently-searched-header" = "Son arananlar";

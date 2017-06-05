@@ -253,6 +253,7 @@
 "places-filter-saved-articles" = "Voci salvate";
 "places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
+// Fuzzy
 "places-search-default-text" = "Cerca";
 "places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
