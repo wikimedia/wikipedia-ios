@@ -28,7 +28,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
-                                <rect key="frame" x="319" y="83" width="40" height="40"/>
+                                <rect key="frame" x="319" y="84.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JR3-1A-AEQ"/>
@@ -368,7 +368,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="mxh-CO-RQm" secondAttribute="trailing" id="Jrj-Yh-h1b"/>
                             <constraint firstAttribute="trailing" secondItem="Pet-ct-8QU" secondAttribute="trailing" id="Lu5-NQ-Oca"/>
                             <constraint firstItem="EsT-De-Ary" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="N4z-kS-Lfj"/>
-                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Pet-ct-8QU" secondAttribute="top" constant="15" id="NpV-RO-Sui"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="S5v-Rm-6Vf"/>
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="bVF-HO-Onf"/>
@@ -381,6 +380,7 @@
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="top" secondItem="Pet-ct-8QU" secondAttribute="bottom" constant="15" id="iGn-ip-sz8"/>
                             <constraint firstItem="Pet-ct-8QU" firstAttribute="leading" secondItem="pBD-gM-dPf" secondAttribute="leading" id="j1P-UH-ysO"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Pet-ct-8QU" secondAttribute="bottom" constant="15" id="ktL-e4-gOU"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="bottom" id="mYf-kK-anz"/>
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="ua0-k1-E4K"/>
@@ -410,8 +410,8 @@
                                 <exclude reference="fmp-aY-ndd"/>
                                 <exclude reference="Fqd-WF-erI"/>
                                 <include reference="S5v-Rm-6Vf"/>
-                                <exclude reference="kJv-Kd-ffk"/>
                                 <exclude reference="mu2-bC-yEv"/>
+                                <exclude reference="kJv-Kd-ffk"/>
                                 <exclude reference="FX1-9v-ZFx"/>
                                 <include reference="IFe-5L-9c3"/>
                                 <include reference="bVF-HO-Onf"/>
