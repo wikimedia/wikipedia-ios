@@ -255,12 +255,14 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkel|$1 artikler}}";
 "places-no-saved-articles-have-location" = "Ingen av dine lagrede artikler har stedsinformasjon";
 "places-search-articles-that-match" = "$1 matcher «$2»";
+// Fuzzy
 "places-search-default-text" = "Søk";
 "places-search-recently-searched-header" = "Siste søk";
 "places-search-saved-articles" = "Alle lagrede artikler";
 "places-search-suggested-searches-header" = "Foreslåtte søk";
 "places-search-this-area" = "Resultater i dette området";
 "places-search-top-articles" = "Alle populære artikler";
+"places-search-top-articles-that-match-scope" = "I nærheten";
 "places-unknown-distance" = "ukjent avstand";
 "potd-description-prefix" = "Dagens bilde $1";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";

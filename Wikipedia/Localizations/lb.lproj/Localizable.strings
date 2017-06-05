@@ -242,12 +242,16 @@
 "places-filter-saved-articles-count" = "{{PLURAL:$1|Eng Plaz|$1 Plaze}} fonnt";
 "places-filter-top-articles" = "Am dackste geliest";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
-"places-search-default-text" = "Sichen";
+"places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
+"places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
 "places-search-recently-searched-header" = "Rezent gesicht";
 "places-search-saved-articles" = "All gespäichert Artikelen";
 "places-search-this-area" = "Resultater aus dëser Géigend";
 "places-search-top-articles" = "all déi beléift Artikelen";
+"places-search-top-articles-that-match-scope" = "Nobäi";
+"places-search-your-current-location" = "Är aktuell Plaz";
+"places-show-filter-list-accessibility-label" = "Sichfiltere weisen";
 "places-title" = "Plazen";
 "places-unknown-distance" = "onbekannt Distanz";
 "potd-description-prefix" = "Bild vum Dag vum $1";
@@ -277,6 +281,8 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-title" = "Sichen";
+"settings-clear-cache" = "Tëschegespäichert Date läschen";
+"settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
 "settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
 "settings-help-and-feedback" = "Hëllef a Feedback";
@@ -339,6 +345,7 @@
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
 "wikitext-preview-changes" = "Kucken ouni ze späichere vun Ären Ännerunge gëtt preparéiert...";
 "wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";
+"wikitext-preview-link-preview-description" = "Dëse Link féiert op '$1'";
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";

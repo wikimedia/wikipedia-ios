@@ -158,6 +158,7 @@
 // Fuzzy
 "page-read-in-other-languages" = "Lesa á $1 tungumálum";
 "page-similar-titles" = "Áþekkar síður";
+// Fuzzy
 "places-search-default-text" = "Leita";
 "potd-description-prefix" = "Mynd dagsins þann $1";
 "potd-empty-error-description" = "Mistókst að ná í mynd dagsins fyrir $1";

@@ -256,6 +256,7 @@
 "places-accessibility-show-as-list" = "Afficher comme liste";
 "places-accessibility-show-as-map" = "Afficher comme carte";
 "places-accessibility-show-more" = "Afficher plus d’articles";
+"places-dismiss-filter-list-accessibility-label" = "Enlever les filtres de recherche";
 "places-empty-search-description" = "Explorer des villes, des pays, des continents, des monuments naturels, des événements historiques, des bâtiments, et plus encore.";
 "places-empty-search-title" = "Recherche d'articles Wikipedia avec des lieux géographiques";
 "places-enable-location-action-button-title" = "Activer la localisation";
@@ -269,6 +270,7 @@
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|article|articles}}";
 "places-no-saved-articles-have-location" = "Aucun de vos articles enregistrés n’a d’information de localisation";
 "places-search-articles-that-match" = "$1 correspondant à « $2 »";
+// Fuzzy
 "places-search-default-text" = "Chercher";
 "places-search-did-you-mean" = "Voulez-vous dire $1 ?";
 "places-search-recently-searched-header" = "Récemment recherché";
@@ -276,6 +278,8 @@
 "places-search-suggested-searches-header" = "Recherches suggérées";
 "places-search-this-area" = "Résultats dans cette zone";
 "places-search-top-articles" = "Tous les meilleurs articles";
+"places-search-top-articles-that-match-scope" = "À proximité";
+"places-show-filter-list-accessibility-label" = "Afficher les filtres de recherche";
 "places-title" = "Lieux";
 "places-unknown-distance" = "distance inconnue";
 "potd-description-prefix" = "Image du jour pour $1";

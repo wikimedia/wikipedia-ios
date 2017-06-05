@@ -255,6 +255,7 @@
 "places-filter-top-articles-count" = "$1 szócikk";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
 "places-search-articles-that-match" = "$1 találat erre: „$2”";
+// Fuzzy
 "places-search-default-text" = "Keresés";
 "places-search-recently-searched-header" = "Legutóbbi keresések";
 "places-search-saved-articles" = "Minden mentett szócikk";
@@ -270,6 +271,9 @@
 "rank-accessibility-label" = "$1.";
 "readers-accessibility-label" = "$1 olvasó";
 "reference-title" = "Forráshivatkozás $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Ma|Tegnap|$1 napja}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "save-action" = "Mentés";
 "saved-clear-all" = "Törlés";

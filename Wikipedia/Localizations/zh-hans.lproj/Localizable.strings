@@ -250,6 +250,7 @@
 "places-accessibility-show-as-list" = "以列表显示";
 "places-accessibility-show-as-map" = "以地图显示";
 "places-accessibility-show-more" = "显示更多条目";
+"places-dismiss-filter-list-accessibility-label" = "关闭搜索过滤器";
 "places-empty-search-description" = "浏览城市、国家、大陆、自然地标、历史事件、建筑物以及更多。";
 "places-empty-search-title" = "使用地理位置搜索维基百科条目";
 "places-enable-location-action-button-title" = "启用位置";
@@ -263,13 +264,16 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1个条目}}";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "$1匹配“$2”";
-"places-search-default-text" = "搜索";
+"places-search-default-text" = "搜索地点";
 "places-search-did-you-mean" = "您的意思是$1么？";
 "places-search-recently-searched-header" = "最近搜索";
 "places-search-saved-articles" = "所有保存的条目";
 "places-search-suggested-searches-header" = "建议搜索";
 "places-search-this-area" = "该地区的结果";
 "places-search-top-articles" = "所有最多阅读的条目";
+"places-search-top-articles-that-match-scope" = "附近";
+"places-search-your-current-location" = "您当前的位置";
+"places-show-filter-list-accessibility-label" = "显示搜索过滤器";
 "places-title" = "地方";
 "places-unknown-distance" = "未知距离";
 "potd-description-prefix" = "$1的每日图片";

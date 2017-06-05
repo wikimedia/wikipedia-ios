@@ -21,14 +21,18 @@ public class AlignedImageButton: UIButton {
         if imageIsRightAligned {
             if direction == .leftToRight {
                 semanticContentAttribute = .forceRightToLeft
+                imageView?.semanticContentAttribute = .forceLeftToRight
             } else {
                 semanticContentAttribute = .forceLeftToRight
+                imageView?.semanticContentAttribute = .forceRightToLeft
             }
         } else {
             if direction == .leftToRight {
                 semanticContentAttribute = .forceLeftToRight
+                imageView?.semanticContentAttribute = .forceLeftToRight
             } else {
                 semanticContentAttribute = .forceRightToLeft
+                imageView?.semanticContentAttribute = .forceRightToLeft
             }
         }
     }

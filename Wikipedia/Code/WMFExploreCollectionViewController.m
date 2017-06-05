@@ -710,6 +710,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
+        case WMFFeedDisplayTypeRanked:
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
@@ -767,6 +768,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (NSString *)reuseIdentifierForCellAtIndexPath:(NSIndexPath *)indexPath displayType:(WMFFeedDisplayType)displayType {
     NSString *reuseIdentifier = @"WMFArticleRightAlignedImageCollectionViewCell";
     switch (displayType) {
+        case WMFFeedDisplayTypeRanked:
+            reuseIdentifier = @"WMFRankedArticleCollectionViewCell";
+            break;
         case WMFFeedDisplayTypeStory:
             reuseIdentifier = @"WMFNewsCollectionViewCell";
             break;
@@ -792,6 +796,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFLayoutEstimate estimate;
     WMFFeedDisplayType displayType = [section displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
+        case WMFFeedDisplayTypeRanked:
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeStory:
         case WMFFeedDisplayTypeContinueReading:
@@ -1201,6 +1206,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerClass:[WMFArticleRightAlignedImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
 
+    [self registerClass:[WMFRankedArticleCollectionViewCell class] forCellWithReuseIdentifier:@"WMFRankedArticleCollectionViewCell"];
+    
     [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
 
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
@@ -1214,7 +1221,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:section.content.count layoutOnly:layoutOnly];
+    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }

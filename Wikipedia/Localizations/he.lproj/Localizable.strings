@@ -248,6 +248,7 @@
 "places-accessibility-show-as-list" = "להציג כרשימה";
 "places-accessibility-show-as-map" = "להציג כמפה";
 "places-accessibility-show-more" = "הצגת ערכים נוספים";
+"places-dismiss-filter-list-accessibility-label" = "ביטול מסנני חיפוש";
 "places-empty-search-description" = "חיפוש ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
 "places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";
 "places-enable-location-action-button-title" = "להפעיל מיקום";
@@ -261,6 +262,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
+// Fuzzy
 "places-search-default-text" = "חיפוש";
 "places-search-did-you-mean" = "האם התכוונת לכתוב $1?";
 "places-search-recently-searched-header" = "חיפושים אחרונים";
@@ -268,6 +270,8 @@
 "places-search-suggested-searches-header" = "חיפושים מומלצים";
 "places-search-this-area" = "תוצאות באזור הזה";
 "places-search-top-articles" = "כל הערכים המובילים";
+"places-search-top-articles-that-match-scope" = "בסביבה";
+"places-show-filter-list-accessibility-label" = "הצגת מסנני חיפוש";
 "places-title" = "מקומות";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";

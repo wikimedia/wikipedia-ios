@@ -241,6 +241,7 @@
 "places-accessibility-show-as-list" = "Als Liste anzeigen";
 "places-accessibility-show-as-map" = "Als Karte anzeigen";
 "places-accessibility-show-more" = "Weitere Artikel anzeigen";
+"places-dismiss-filter-list-accessibility-label" = "Suchfilter ausblenden";
 "places-empty-search-description" = "Entdecke Städte, Länder, Kontinente, Naturdenkmäler, historische Ereignisse, Gebäude und mehr.";
 "places-empty-search-title" = "Nach Wikipedia-Artikeln mit geografischen Standorten suchen";
 "places-enable-location-action-button-title" = "Standort aktivieren";
@@ -254,6 +255,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|Ein|$1}} Artikel";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
+// Fuzzy
 "places-search-default-text" = "Suchen";
 "places-search-did-you-mean" = "Meintest du $1?";
 "places-search-recently-searched-header" = "Zuletzt gesucht";
@@ -261,6 +263,8 @@
 "places-search-suggested-searches-header" = "Suchvorschläge";
 "places-search-this-area" = "Ergebnisse in diesem Bereich";
 "places-search-top-articles" = "Alle guten Artikel";
+"places-search-top-articles-that-match-scope" = "In der Nähe";
+"places-show-filter-list-accessibility-label" = "Suchfilter anzeigen";
 "places-title" = "Orte";
 "places-unknown-distance" = "unbekannte Entfernung";
 "potd-description-prefix" = "Bild des Tages für $1";

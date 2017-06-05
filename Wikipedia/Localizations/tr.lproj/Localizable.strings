@@ -110,9 +110,12 @@
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
+"error-unknown" = "Bilinmeyen bir hata oluştu";
 "explore-another-random" = "Rastgele başka bir madde";
+"explore-because-you-read" = "Okuduklarına benzer";
 "explore-continue-reading-heading" = "Okumaya devam et";
 "explore-featured-article-heading" = "Seçkin madde";
+"explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
 "explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
 "explore-most-read-generic-heading" = "En çok okunanlar";
@@ -182,6 +185,7 @@
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakındakilerden daha fazla madde";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
+"home-news-footer" = "Daha fazla haber";
 "home-title" = "Keşfet";
 "home-title-accessibility-label" = "Vikipedi, Keşfet'in başına git";
 "icon-shortcut-continue-reading-title" = "Okumaya devam et";
@@ -248,6 +252,7 @@
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-similar-titles" = "Benzer sayfalar";
+"pictured" = "resimdeki";
 "places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";
 "places-accessibility-close-search" = "Aramayı kapat";
 "places-accessibility-group" = "$1 madde";
@@ -268,12 +273,15 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
+// Fuzzy
 "places-search-default-text" = "Ara";
+"places-search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "places-search-recently-searched-header" = "Son arananlar";
 "places-search-saved-articles" = "Kaydedilmiş maddelerin hepsi";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-this-area" = "Bu bölgedeki sonuçlar";
 "places-search-top-articles" = "En çok okunan tüm maddeler";
+"places-title" = "Yerler";
 "places-unknown-distance" = "bilinmeyen uzaklık";
 "potd-description-prefix" = "$1 tarihli günün resmi";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";
@@ -282,6 +290,9 @@
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
 "reference-title" = "$1 referansı";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|Dün|$1 gün önce}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "save-action" = "Kaydet";
 "saved-clear-all" = "Temizle";
@@ -365,6 +376,8 @@
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";
+"wikitext-preview-link-preview-description" = "Bu bağlantı '$1' sayfasına gider";
+"wikitext-preview-link-preview-title" = "Bağlantı önizlemesi";
 "wikitext-upload-captcha-error" = "CAPTCHA doğrulama hatası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";

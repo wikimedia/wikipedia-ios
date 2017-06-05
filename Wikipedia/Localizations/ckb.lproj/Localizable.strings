@@ -248,6 +248,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 وتار|$1 وتار}}";
 "places-no-saved-articles-have-location" = "ھیچ کامێک لە وتارە پاشەکەوتکراوەکانت زانیاری ناوچەییان نییە";
 "places-search-articles-that-match" = "$1 لە «$2» دەچێت";
+// Fuzzy
 "places-search-default-text" = "گەڕان";
 "places-search-recently-searched-header" = "گەڕانە نوێکان";
 "places-search-saved-articles" = "وتارە پاشەکەوتکراوەکان";

@@ -1,3 +1,5 @@
+import UIKit
+
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     

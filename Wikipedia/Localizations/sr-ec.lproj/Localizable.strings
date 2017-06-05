@@ -7,6 +7,7 @@
 // Author: Nemo bis
 // Author: Obsuser
 // Author: Rancher
+// Author: Srdjan m
 // Author: Сербијана
 
 "about-content-license" = "Лиценца садржаја";
@@ -94,6 +95,7 @@
 "empty-no-saved-pages-message" = "Сачувајте странице да бисте их касније читали, чак и без интернета";
 "empty-no-saved-pages-title" = "Још увек нема сачуваних страница";
 "empty-no-search-results-message" = "Нема резултата";
+"error-unknown" = "Дошло је до непознате грешке";
 "explore-another-random" = "Други случајни чланак";
 "explore-because-you-read" = "Будући да сте прочитали";
 "explore-continue-reading-heading" = "Настави читање";
@@ -254,12 +256,15 @@
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-no-saved-articles-have-location" = "Ниједан од ваших сачуваних чланака нема информације о локацији";
 "places-search-articles-that-match" = "$1 имају поклапање за „$2”";
+// Fuzzy
 "places-search-default-text" = "Претражи";
+"places-search-did-you-mean" = "Да ли сте мислили на $1?";
 "places-search-recently-searched-header" = "Скорашње претраге";
 "places-search-saved-articles" = "Сви сачувани чланци";
 "places-search-suggested-searches-header" = "Предложене претраге";
 "places-search-this-area" = "Резултати на овом подручју";
 "places-search-top-articles" = "Сви најчитанији чланци";
+"places-search-top-articles-that-match-scope" = "У близини";
 "places-title" = "Места";
 "places-unknown-distance" = "непозната удаљеност";
 "potd-description-prefix" = "Слика дана за $1";

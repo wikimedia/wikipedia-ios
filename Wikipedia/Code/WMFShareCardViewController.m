@@ -9,12 +9,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *shareSelectedText;
 @property (weak, nonatomic) IBOutlet UILabel *shareArticleTitle;
 @property (weak, nonatomic) IBOutlet UILabel *shareArticleDescription;
+@property (weak, nonatomic) IBOutlet UIImageView *wikipediaWordmarkImageView;
 @end
 
 @implementation WMFShareCardViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.wikipediaWordmarkImageView.image = [[UIImage imageNamed:@"wikipedia"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.wikipediaWordmarkImageView.tintColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

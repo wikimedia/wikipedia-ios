@@ -253,11 +253,13 @@
 "places-filter-saved-articles" = "Voci salvate";
 "places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
+// Fuzzy
 "places-search-default-text" = "Cerca";
 "places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
 "places-search-saved-articles" = "Tutte le voci salvate";
 "places-search-this-area" = "Risultati in questa area";
+"places-search-top-articles-that-match-scope" = "Nelle vicinanze";
 "places-unknown-distance" = "distanza sconosciuta";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
