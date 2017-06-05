@@ -2562,16 +2562,13 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
 }
 
-
-#if OSM
-// MARK: - MGLMapViewDelegate
-extension PlacesViewController: MGLMapViewDelegate {
-    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+extension PlacesViewController {
+    func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
     }
     
-    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+    func regionDidChange() {
         _mapRegion = mapView.region
         guard performDefaultSearchOnNextMapRegionUpdate == false else {
             performDefaultSearchOnNextMapRegionUpdate = false
@@ -2589,11 +2586,7 @@ extension PlacesViewController: MGLMapViewDelegate {
         updateShouldShowAllImagesIfNecessary()
     }
     
-    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
-        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
-            return
-        }
-        
+    func didSelect(place: ArticlePlace, annotationView: MapAnnotationView) {
         previouslySelectedArticlePlaceIdentifier = place.identifier
         
         guard place.articles.count == 1 else {
@@ -2618,30 +2611,21 @@ extension PlacesViewController: MGLMapViewDelegate {
         showPopover(forAnnotationView: annotationView)
     }
     
-    func mapView(_ mapView: MGLMapView, didDeselect view: MGLAnnotationView) {
+    func didDeselectAnnotation() {
         selectedArticleKey = nil
         dismissCurrentArticlePopover()
     }
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        
-        guard let place = annotation as? ArticlePlace else {
-            // CRASH WORKAROUND
-            // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
-            if let userLocation = annotation as? MGLUserLocation {
-                let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
-                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(reuseIdentifier: userViewReuseIdentifier)
-                placeView.annotation = userLocation
-                return placeView
-            }
-            return nil
-        }
-        
+    func viewFor(place: ArticlePlace) -> MapAnnotationView? {
         let reuseIdentifier = "org.wikimedia.articlePlaceView"
         var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
         
         if placeView == nil {
-            placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
+            #if OSM
+                placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
+            #else
+                placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
+            #endif
         } else {
             placeView?.prepareForReuse()
             placeView?.annotation = place
@@ -2691,6 +2675,38 @@ extension PlacesViewController: MGLMapViewDelegate {
         }
         
         return placeView
+    }
+}
+
+#if OSM
+    
+// MARK: - MGLMapViewDelegate
+extension PlacesViewController: MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        regionWillChange()
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        regionDidChange()
+    }
+    
+    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
+            return
+        }
+        didSelect(place: place, annotationView: annotationView)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didDeselect view: MGLAnnotationView) {
+        didDeselectAnnotation()
+    }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        guard let place = annotation as? ArticlePlace else {
+            return nil
+        }
+        
+        return viewFor(place: place)
     }
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
@@ -2810,29 +2826,15 @@ extension PlacesViewController: MGLMapViewDelegate {
     }
 }
 #else
+    
 // MARK: - MKMapViewDelegate
 extension PlacesViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        deselectAllAnnotations()
-        isMovingToRegion = true
+        regionWillChange()
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        _mapRegion = mapView.region
-        guard performDefaultSearchOnNextMapRegionUpdate == false else {
-            performDefaultSearchOnNextMapRegionUpdate = false
-            performDefaultSearchIfNecessary(withRegion: nil)
-            return
-        }
-        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
-        
-        updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
-        
-        isMovingToRegion = false
-        
-        selectVisibleKeyToSelectIfNecessary()
-        
-        updateShouldShowAllImagesIfNecessary()
+        regionDidChange()
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
@@ -2840,37 +2842,14 @@ extension PlacesViewController: MKMapViewDelegate {
             return
         }
         
-        previouslySelectedArticlePlaceIdentifier = place.identifier
-        
-        guard place.articles.count == 1 else {
-            deselectAllAnnotations()
-            
-            var minDistance = CLLocationDistanceMax
-            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-            for article in place.articles {
-                guard let location = article.location else {
-                    continue
-                }
-                let distance = location.distance(from: center)
-                if distance < minDistance {
-                    minDistance = distance
-                    articleKeyToSelect = article.key
-                }
-            }
-            mapRegion = regionThatFits(articles: place.articles)
-            return
-        }
-        
-        showPopover(forAnnotationView: annotationView)
+        didSelect(place: place, annotationView: annotationView)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        selectedArticleKey = nil
-        dismissCurrentArticlePopover()
+        didDeselectAnnotation()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         guard let place = annotation as? ArticlePlace else {
             // CRASH WORKAROUND
             // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
@@ -2883,62 +2862,10 @@ extension PlacesViewController: MKMapViewDelegate {
             return nil
         }
         
-        let reuseIdentifier = "org.wikimedia.articlePlaceView"
-        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
-        
-        if placeView == nil {
-            placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-        } else {
-            placeView?.prepareForReuse()
-            placeView?.annotation = place
-        }
-        
-        placeView?.delegate = self
-        
-        if showingAllImages {
-            placeView?.set(alwaysShowImage: true, animated: false)
-        }
-        
-        if place.articles.count > 1 && place.nextCoordinate == nil {
-            placeView?.alpha = 0
-            placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.transform = CGAffineTransform.identity
-                    placeView?.alpha = 1
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-            })
-        } else if let nextCoordinate = place.nextCoordinate {
-            placeView?.alpha = 0
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    place.coordinate = nextCoordinate
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-                UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.alpha = 1
-                }, completion: nil)
-            })
-        } else {
-            placeView?.alpha = 0
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.alpha = 1
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-            })
-        }
-        
-        return placeView
+        return viewFor(place: place)
     }
 }
+    
 #endif
 
 // MARK: -

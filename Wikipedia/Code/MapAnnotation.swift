@@ -64,7 +64,6 @@ public class MapAnnotationView: MKAnnotationView {
     
     required public init?(coder aDecoder: NSCoder) {
         return nil
-        setup()
     }
     
     open func setup() {
