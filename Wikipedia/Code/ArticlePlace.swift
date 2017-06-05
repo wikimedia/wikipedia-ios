@@ -21,9 +21,9 @@ class ArticlePlace: NSObject, MKAnnotation {
     public let title: String?
     public let subtitle: String?
     public let articles: [WMFArticle]
-    public let identifier: String
+    public let identifier: Int
     
-    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: String) {
+    init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: Int) {
         self.title = nil
         self.subtitle = nil
         self.coordinate = coordinate
@@ -32,14 +32,14 @@ class ArticlePlace: NSObject, MKAnnotation {
         self.identifier = identifier
     }
     
-    public static func identifierForArticles(articles: [WMFArticle]) -> String {
-        return articles.map({ (article) -> Int in
+    public static func identifierForArticles(articles: [WMFArticle]) -> Int {
+        var hash = 0
+        for article in articles {
             guard let key = article.key else {
-                return 0
+                continue
             }
-            return key.hash
-        }).sorted().reduce("|") { (result, hash) -> String in
-            return result + "\(hash)|"
+            hash ^= key.hash
         }
+        return hash
     }
 }

@@ -269,7 +269,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
-"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles\n{{Identical|Nearby}}";
+"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
 "places-search-your-current-location" = "A search suggestion for showing articles near your current location.";
 "places-show-filter-list-accessibility-label" = "Accessibility title for the button that shows search filters";
 "places-title" = "Title of the Places screen shown on the places tab.";
