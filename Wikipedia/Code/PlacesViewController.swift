@@ -2698,6 +2698,122 @@ extension PlacesViewController: MGLMapViewDelegate {
         
         return placeView
     }
+    
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        let wikimediaVectorSource = MGLVectorSource(identifier: "WMFSource", tileURLTemplates: ["http://maps.wikimedia.org/osm-pbf/{z}/{x}/{y}.pbf"], options: [.minimumZoomLevel: 0,
+                                                                                                                                                                .maximumZoomLevel: 26,
+                                                                                                                                                                .attributionInfos: [
+                                                                                                                                                                    MGLAttributionInfo(title: NSAttributedString(string: "Wikimedia"), url: URL(string: "http://wikimedia.org"))
+            ]])
+        style.addSource(wikimediaVectorSource)
+        
+        let layers = style.layers
+        for layer in layers {
+            style.removeLayer(layer)
+            if let fillLayer = layer as? MGLFillStyleLayer {
+                let duplicateFillLayer = MGLFillStyleLayer(identifier: fillLayer.identifier, source: wikimediaVectorSource)
+                duplicateFillLayer.sourceLayerIdentifier = fillLayer.sourceLayerIdentifier
+                duplicateFillLayer.predicate = fillLayer.predicate
+                duplicateFillLayer.fillAntialiased = fillLayer.fillAntialiased
+                duplicateFillLayer.fillColor = fillLayer.fillColor
+                duplicateFillLayer.fillOpacity = fillLayer.fillOpacity
+                duplicateFillLayer.fillOutlineColor = fillLayer.fillOutlineColor
+                duplicateFillLayer.fillPattern = fillLayer.fillPattern
+                duplicateFillLayer.fillTranslation = fillLayer.fillTranslation
+                duplicateFillLayer.fillTranslationAnchor = fillLayer.fillTranslationAnchor
+                style.addLayer(duplicateFillLayer)
+            } else if let lineLayer = layer as? MGLLineStyleLayer {
+                let dupeLineLayer = MGLLineStyleLayer(identifier: lineLayer.identifier, source: wikimediaVectorSource)
+                dupeLineLayer.sourceLayerIdentifier = lineLayer.sourceLayerIdentifier
+                dupeLineLayer.predicate = lineLayer.predicate
+                dupeLineLayer.lineCap = lineLayer.lineCap
+                dupeLineLayer.lineJoin = lineLayer.lineJoin
+                dupeLineLayer.lineMiterLimit = lineLayer.lineMiterLimit
+                dupeLineLayer.lineRoundLimit = lineLayer.lineRoundLimit
+                dupeLineLayer.lineBlur = lineLayer.lineBlur
+                dupeLineLayer.lineColor = lineLayer.lineColor
+                dupeLineLayer.lineDashPattern = lineLayer.lineDashPattern
+                dupeLineLayer.lineGapWidth = lineLayer.lineGapWidth
+                dupeLineLayer.lineOffset = lineLayer.lineOffset
+                dupeLineLayer.lineOpacity = lineLayer.lineOpacity
+                dupeLineLayer.linePattern = lineLayer.linePattern
+                dupeLineLayer.lineTranslation = lineLayer.lineTranslation
+                dupeLineLayer.lineTranslationAnchor = lineLayer.lineTranslationAnchor
+                dupeLineLayer.lineWidth = lineLayer.lineWidth
+                style.addLayer(dupeLineLayer)
+            } else if let symbolLayer = layer as? MGLSymbolStyleLayer {
+                let dupeSymbolLayer = MGLSymbolStyleLayer(identifier: symbolLayer.identifier, source: wikimediaVectorSource)
+                dupeSymbolLayer.sourceLayerIdentifier = symbolLayer.sourceLayerIdentifier
+                dupeSymbolLayer.predicate = symbolLayer.predicate
+                dupeSymbolLayer.iconAllowsOverlap = symbolLayer.iconAllowsOverlap
+                dupeSymbolLayer.iconIgnoresPlacement = symbolLayer.iconIgnoresPlacement
+                dupeSymbolLayer.iconImageName = symbolLayer.iconImageName
+                dupeSymbolLayer.iconOffset = symbolLayer.iconOffset
+                dupeSymbolLayer.iconOptional = symbolLayer.iconOptional
+                dupeSymbolLayer.iconPadding = symbolLayer.iconPadding
+                dupeSymbolLayer.iconRotation = symbolLayer.iconRotation
+                dupeSymbolLayer.iconRotationAlignment = symbolLayer.iconRotationAlignment
+                dupeSymbolLayer.iconScale = symbolLayer.iconScale
+                dupeSymbolLayer.iconTextFit = symbolLayer.iconTextFit
+                dupeSymbolLayer.iconTextFitPadding = symbolLayer.iconTextFitPadding
+                dupeSymbolLayer.keepsIconUpright = symbolLayer.keepsIconUpright
+                dupeSymbolLayer.keepsTextUpright = symbolLayer.keepsTextUpright
+                dupeSymbolLayer.maximumTextAngle = symbolLayer.maximumTextAngle
+                dupeSymbolLayer.maximumTextWidth = symbolLayer.maximumTextWidth
+                dupeSymbolLayer.symbolAvoidsEdges = symbolLayer.symbolAvoidsEdges
+                dupeSymbolLayer.symbolPlacement = symbolLayer.symbolPlacement
+                dupeSymbolLayer.symbolSpacing = symbolLayer.symbolSpacing
+                dupeSymbolLayer.text = symbolLayer.text
+                dupeSymbolLayer.textAllowsOverlap = symbolLayer.textAllowsOverlap
+                dupeSymbolLayer.textAnchor = symbolLayer.textAnchor
+                dupeSymbolLayer.textFontNames = symbolLayer.textFontNames
+                dupeSymbolLayer.textFontSize = symbolLayer.textFontSize
+                dupeSymbolLayer.textIgnoresPlacement = symbolLayer.textIgnoresPlacement
+                dupeSymbolLayer.textJustification = symbolLayer.textJustification
+                dupeSymbolLayer.textLetterSpacing = symbolLayer.textLetterSpacing
+                dupeSymbolLayer.textLineHeight = symbolLayer.textLineHeight
+                dupeSymbolLayer.textOffset = symbolLayer.textOffset
+                dupeSymbolLayer.textOptional = symbolLayer.textOptional
+                dupeSymbolLayer.textPadding = symbolLayer.textPadding
+                dupeSymbolLayer.textPitchAlignment = symbolLayer.textPitchAlignment
+                dupeSymbolLayer.textRotation = symbolLayer.textRotation
+                dupeSymbolLayer.textRotationAlignment = symbolLayer.textRotationAlignment
+                dupeSymbolLayer.textTransform = symbolLayer.textTransform
+                dupeSymbolLayer.iconColor = symbolLayer.iconColor
+                dupeSymbolLayer.iconHaloBlur = symbolLayer.iconHaloBlur
+                dupeSymbolLayer.iconHaloColor = symbolLayer.iconHaloColor
+                dupeSymbolLayer.iconHaloWidth = symbolLayer.iconHaloWidth
+                dupeSymbolLayer.iconOpacity = symbolLayer.iconOpacity
+                dupeSymbolLayer.iconTranslation = symbolLayer.iconTranslation
+                dupeSymbolLayer.iconTranslationAnchor = symbolLayer.iconTranslationAnchor
+                dupeSymbolLayer.textColor = symbolLayer.textColor
+                dupeSymbolLayer.textHaloBlur = symbolLayer.textHaloBlur
+                dupeSymbolLayer.textHaloColor = symbolLayer.textHaloColor
+                dupeSymbolLayer.textHaloWidth = symbolLayer.textHaloWidth
+                dupeSymbolLayer.textOpacity = symbolLayer.textOpacity
+                dupeSymbolLayer.textTranslation = symbolLayer.textTranslation
+                dupeSymbolLayer.textTranslationAnchor = symbolLayer.textTranslationAnchor
+                style.addLayer(dupeSymbolLayer)
+            } else if let backgroundLayer = layer as? MGLBackgroundStyleLayer {
+                let dupeBackgroundLayer = MGLBackgroundStyleLayer(identifier: backgroundLayer.identifier)
+                dupeBackgroundLayer.backgroundColor = backgroundLayer.backgroundColor
+                dupeBackgroundLayer.backgroundOpacity = backgroundLayer.backgroundOpacity
+                dupeBackgroundLayer.backgroundPattern = backgroundLayer.backgroundPattern
+                style.addLayer(dupeBackgroundLayer)
+            } else {
+                print("missing duplicate class for \(layer)")
+            }
+        }
+        
+        
+        for source in style.sources {
+            guard source.identifier != wikimediaVectorSource.identifier else {
+                continue
+            }
+            style.removeSource(source)
+        }
+        
+    }
 }
 #else
 // MARK: - MKMapViewDelegate
