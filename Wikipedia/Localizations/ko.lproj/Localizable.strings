@@ -262,7 +262,7 @@
 "places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
-"places-search-default-text" = "검색";
+"places-search-default-text" = "장소 검색";
 "places-search-did-you-mean" = "$1을(를) 찾으셨나요?";
 "places-search-recently-searched-header" = "최근 검색됨";
 "places-search-saved-articles" = "저장된 모든 문서";
@@ -270,6 +270,8 @@
 "places-search-this-area" = "이 영역에서 검색";
 "places-search-top-articles" = "모든 최상위 문서";
 "places-search-top-articles-that-match-scope" = "근처";
+"places-search-your-current-location" = "당신의 현재 위치";
+"places-show-filter-list-accessibility-label" = "검색 필터 표시";
 "places-title" = "장소";
 "places-unknown-distance" = "알 수 없는 거리";
 "potd-description-prefix" = "$1의 그림";

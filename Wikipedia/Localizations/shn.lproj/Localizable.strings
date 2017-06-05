@@ -250,6 +250,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ပွင်ႈလိၵ်ႈ|$1 ပွင်ႈလိၵ်ႈ}}";
 "places-no-saved-articles-have-location" = "ပွင်ႈလိၵ်ႈၸိူဝ်းၸဝ်ႈၵဝ်ႇ သိမ်းဝႆႉၼၼ်ႉ ဢမ်ႇႁၼ်မီး လွၼ်ႉၶၢဝ်ႇ ဢွင်ႇတီႈသေဢၼ်";
 "places-search-articles-that-match" = "$1 ၶူပ်းၵၼ်တူၺ်း “$2”";
+// Fuzzy
 "places-search-default-text" = "ၶူၼ်ႉႁႃ";
 "places-search-did-you-mean" = "ၸဝ်ႈၵဝ်ႇ မၢႆထိုင်ဝႃႈ  $1?";
 "places-search-recently-searched-header" = "လွင်ႈၶူၼ်ႉႁႃ ၸိူဝ်းပႆႇႁိုင်:";

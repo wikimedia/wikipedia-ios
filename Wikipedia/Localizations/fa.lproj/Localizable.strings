@@ -270,6 +270,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}}";
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
 "places-search-articles-that-match" = "$1 منتطبق با «$2»";
+// Fuzzy
 "places-search-default-text" = "جستجو";
 "places-search-did-you-mean" = "منظورتان «$1» بود؟";
 "places-search-recently-searched-header" = "جستجوهای اخیر";

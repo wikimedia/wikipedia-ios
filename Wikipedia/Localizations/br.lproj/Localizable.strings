@@ -252,6 +252,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 pennad|$1 pennad}}";
 "places-no-saved-articles-have-location" = "Hini ebet eus ho pennadoù enrollet zo ennañ titouroù lec'hiañ";
 "places-search-articles-that-match" = "$1 a glot gant « $2 »";
+// Fuzzy
 "places-search-default-text" = "Klask";
 "places-search-recently-searched-header" = "Enklaskoù graet nevez zo";
 "places-search-saved-articles" = "An holl bennadoù enrollet";
