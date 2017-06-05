@@ -186,9 +186,7 @@ class ArticlePlaceView: MapAnnotationView {
         super.setup()
         
         updateLayout()
-        if let annotation = annotation as? ArticlePlace {
-           update(withArticlePlace: annotation)
-        }
+        update(withArticlePlace: annotation as? ArticlePlace)
     }
     
     func set(alwaysShowImage: Bool, animated: Bool) {
@@ -248,7 +246,7 @@ class ArticlePlaceView: MapAnnotationView {
             guard let articlePlace = self.annotation as? ArticlePlace else {
                 return
             }
-            self.updateDotAndImageHiddenState(withArticlePlace: articlePlace)
+            self.updateDotAndImageHiddenState(with: articlePlace.articles.count)
         }
         if animated {
             if alwaysShowImage {
@@ -346,30 +344,32 @@ class ArticlePlaceView: MapAnnotationView {
         }
     }
     
-    func update(withArticlePlace articlePlace: ArticlePlace) {
-        if articlePlace.articles.count == 1 {
+    func update(withArticlePlace articlePlace: ArticlePlace?) {
+        let articleCount = articlePlace?.articles.count ?? 1
+        switch articleCount {
+        case 0:
+            zPosition = 1
+            isPlaceholderHidden = false
+            imageImagePlaceholderView.image = #imageLiteral(resourceName: "places-show-more")
+            accessibilityLabel = WMFLocalizedString("places-accessibility-show-more", value:"Show more articles", comment:"Accessibility label for a button that shows more articles")
+        case 1:
             zPosition = 1
             isImageLoaded = false
             if isSelected || alwaysShowImage {
                 loadImage()
             }
-            accessibilityLabel = articlePlace.articles.first?.displayTitle
-        } else if articlePlace.articles.count == 0 {
-            zPosition = 1
-            isPlaceholderHidden = false
-            imageImagePlaceholderView.image = #imageLiteral(resourceName: "places-show-more")
-            accessibilityLabel = WMFLocalizedString("places-accessibility-show-more", value:"Show more articles", comment:"Accessibility label for a button that shows more articles")
-        } else {
+            accessibilityLabel = articlePlace?.articles.first?.displayTitle
+        default:
             zPosition = 2
-            let countString = "\(articlePlace.articles.count)"
+            let countString = "\(articleCount)"
             countLabel.text = countString
             accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("places-accessibility-group", value:"%1$@ articles", comment:"Accessibility label for a map icon - %1$@ is replaced with the number of articles in the group\n{{Identical|Article}}"), countString)
         }
-        updateDotAndImageHiddenState(withArticlePlace: articlePlace)
+        updateDotAndImageHiddenState(with: articleCount)
     }
     
-    func updateDotAndImageHiddenState(withArticlePlace articlePlace: ArticlePlace) {
-        switch articlePlace.articles.count {
+    func updateDotAndImageHiddenState(with articleCount: Int) {
+        switch articleCount {
         case 0:
             fallthrough
         case 1:
