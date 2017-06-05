@@ -126,6 +126,8 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             mapView.showsPointsOfInterest = false
             mapView.showsScale = false
             mapView.showsUserLocation = false
+            mapView.isRotateEnabled = false
+            mapView.isPitchEnabled = false
         #endif
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
