@@ -110,6 +110,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
+            MGLAccountManager.setAccessToken(WMFMGLAccessToken)
             let styleURL = MGLStyle.lightStyleURL(withVersion: 9)
             mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
             mapView.delegate = self

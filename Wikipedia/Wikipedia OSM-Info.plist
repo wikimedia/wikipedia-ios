@@ -105,7 +105,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1Ijoiam9ld2Fsc2h3bWYiLCJhIjoiY2l5enE4aW94MDFyaTJ3bW55encxbjV5dSJ9.yltpNFyY0ZSYR4tRjcPZhQ</string>
 </dict>
 </plist>
