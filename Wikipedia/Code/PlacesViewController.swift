@@ -2708,8 +2708,13 @@ extension PlacesViewController: MGLMapViewDelegate {
         
         return viewFor(place: place)
     }
-    
+
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        // This is the current workaround that allows the use of maps.wikimedia.org as the tile server
+        // A complete style would need to be defined that works with these vector tiles.
+        // There is also probably a better way to integrate this - perhaps by setting the `style`
+        // property on the MGLMapView instead of intercepting & updating here
+
         let wikimediaVectorSource = MGLVectorSource(identifier: "WMFSource", tileURLTemplates: ["http://maps.wikimedia.org/osm-pbf/{z}/{x}/{y}.pbf"], options: [.minimumZoomLevel: 0,
                                                                                                                                                                 .maximumZoomLevel: 26,
                                                                                                                                                                 .attributionInfos: [
