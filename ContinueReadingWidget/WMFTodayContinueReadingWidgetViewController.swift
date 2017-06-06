@@ -85,28 +85,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
     }
     
-    func hasNewData() -> Bool{
-        guard let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
-            return false
-        }
-        return openArticleURL.absoluteString != articleURL?.absoluteString
-    }
-    
     func updateView() -> Bool {
-        
-        if hasNewData() == false{
-            return false
-        }
-
-        textLabel.text = nil
-        titleLabel.text = nil
-        imageView.image = nil
-        imageView.isHidden = true
-        daysAgoLabel.text = nil
-        daysAgoView.isHidden = true
-        
         guard let session = SessionSingleton.sharedInstance() else {
-            emptyViewHidden = false
             return false
         }
         
@@ -121,8 +101,23 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         let fragment = article.viewedFragment
-        articleURL = (article.url as NSURL?)?.wmf_URL(withFragment: fragment)
         
+        guard let newArticleURL = (article.url as NSURL?)?.wmf_URL(withFragment: fragment) else {
+            return false
+        }
+        
+        guard newArticleURL.absoluteString != articleURL?.absoluteString else {
+            return false
+        }
+        
+        articleURL = newArticleURL
+
+        textLabel.text = nil
+        titleLabel.text = nil
+        imageView.image = nil
+        imageView.isHidden = true
+        daysAgoLabel.text = nil
+        daysAgoView.isHidden = true
         emptyViewHidden = true
         
         if let subtitle = article.capitalizedWikidataDescriptionOrSnippet {
