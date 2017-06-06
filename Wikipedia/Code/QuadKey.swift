@@ -22,12 +22,24 @@ public extension QuadKeyPrecision {
     }
     
     public init(deltaLatitude: QuadKeyDegrees) {
-        let precision = (log(QuadKeyDegrees.latitudeRangeLength/deltaLatitude)/log(2)).rounded()
+        var delta = deltaLatitude
+        if delta.isInfinite || delta > QuadKeyDegrees.latitudeRangeLength {
+            delta = QuadKeyDegrees.latitudeRangeLength
+        } else if delta.isNaN || delta <= 0.0001 {
+            delta = 0.0001
+        }
+        let precision = (log(QuadKeyDegrees.latitudeRangeLength/delta)/log(2)).rounded()
         self.init(precision)
     }
     
     public init(deltaLongitude: QuadKeyDegrees) {
-        let precision = (log(QuadKeyDegrees.longitudeRangeLength/deltaLongitude)/log(2)).rounded()
+        var delta = deltaLongitude
+        if delta.isInfinite || delta > QuadKeyDegrees.longitudeRangeLength {
+            delta = QuadKeyDegrees.longitudeRangeLength
+        } else if delta.isNaN || delta <= 0.0001 {
+            delta = 0.0001
+        }
+        let precision = (log(QuadKeyDegrees.longitudeRangeLength/delta)/log(2)).rounded()
         self.init(precision)
     }
 }

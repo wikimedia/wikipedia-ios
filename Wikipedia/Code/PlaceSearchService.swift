@@ -4,11 +4,11 @@ import WMF
 
 struct PlaceSearchResult
 {
-    let locationResults: [MWKLocationSearchResult]?
+    let locationResults: [MWKSearchResult]?
     let fetchRequest: NSFetchRequest<WMFArticle>?
     let error: Error?
     
-    init(locationResults: [MWKLocationSearchResult]?, fetchRequest: NSFetchRequest<WMFArticle>?) {
+    init(locationResults: [MWKSearchResult]?, fetchRequest: NSFetchRequest<WMFArticle>?) {
         self.locationResults = locationResults
         self.fetchRequest = fetchRequest
         self.error = nil
@@ -24,10 +24,6 @@ struct PlaceSearchResult
 class PlaceSearchService
 {
     public var dataStore: MWKDataStore!
-    
-    
-    private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    
     private let locationSearchFetcher = WMFLocationSearchFetcher()
     private let wikidataFetcher = WikidataFetcher()
     
@@ -51,15 +47,29 @@ class PlaceSearchService
         }
     }
 
-    public func performSearch(_ search: PlaceSearch, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
+    public func performSearch(_ search: PlaceSearch, defaultSiteURL: URL, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
         var result: PlaceSearchResult?
-        let siteURL = self.siteURL
+        let siteURL =  search.siteURL ?? defaultSiteURL
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
 
         let done = {
-            if (result != nil) {
-                completion(result!)
+            if var actualResult = result {
+                if let searchResult = search.searchResult {
+                    var foundResult = false
+                    var locationResults = actualResult.locationResults ?? []
+                    for result in locationResults {
+                        if result.articleID == searchResult.articleID {
+                            foundResult = true
+                            break
+                        }
+                    }
+                    if !foundResult {
+                        locationResults.append(searchResult)
+                        actualResult = PlaceSearchResult(locationResults: locationResults, fetchRequest: actualResult.fetchRequest)
+                    }
+                }
+                completion(actualResult)
             } else {
                 completion(PlaceSearchResult(error: nil))
             }
