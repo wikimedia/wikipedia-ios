@@ -2149,11 +2149,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             let _ = view else { // force view instantiation
             return
         }
-
-        var region: MKCoordinateRegion? = nil
-        if let coordinate = article.coordinate {
-            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
-        }
+        let region = regionThatFits(articles: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
         currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
     }
