@@ -1,6 +1,7 @@
 import Foundation
 
-struct EventCapsule {
+@objc(WMFEventCapsule)
+class EventCapsule : NSObject {
     
     let event: Dictionary<String, Any>
     let schema: String
