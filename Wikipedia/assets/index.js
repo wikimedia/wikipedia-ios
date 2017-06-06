@@ -14,7 +14,58 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
+var refs = require('./refs')
+var utilities = require('./utilities')
+var tableCollapser = require('wikimedia-page-library').CollapseTable
+
+/**
+ * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
+ * @return `true` if a message was sent, otherwise `false`.
+ */
+function maybeSendMessageForTarget(hrefTarget, event){
+  if (!hrefTarget) {
+    return false
+  }
+
+  var href = hrefTarget.getAttribute( 'href' )
+  if (href && refs.isCitation(href)) {
+      // Handle reference links with a popup view instead of scrolling about!
+    refs.sendNearbyReferences( hrefTarget )
+  } else if (href && href[0] === '#') {
+
+    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
+
+      // If it is a link to an anchor in the current page, use existing link handling
+      // so top floating native header height can be taken into account by the regular
+      // fragment handling logic.
+    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+  } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
+    window.webkit.messageHandlers.imageClicked.postMessage({
+      'src': event.target.getAttribute('src'),
+      'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+      'height': event.target.naturalHeight,
+      'data-file-width': event.target.getAttribute('data-file-width'),
+      'data-file-height': event.target.getAttribute('data-file-height')
+    })
+  } else if (href) {
+    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+  } else {
+    return false
+  }
+  return true
+}
+
+document.addEventListener('click', function (event) {
+  event.preventDefault()
+  /*
+  there are certain elements which don't have an <a> ancestor, so if we fail to find it,
+  specify the event's target instead
+  */
+  var target = utilities.findClosest(event.target, 'A') || event.target
+  maybeSendMessageForTarget(target, event)
+}, false)
+},{"./refs":5,"./utilities":15,"wikimedia-page-library":16}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -65,7 +116,7 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
@@ -180,58 +231,7 @@ function useFocusStyleForHighlightedSearchTermWithId(id) {
 exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
-},{}],4:[function(require,module,exports){
-var refs = require('./refs')
-var utilities = require('./utilities')
-var tableCollapser = require('wikimedia-page-library').CollapseTable
-
-/**
- * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
- * @return `true` if a message was sent, otherwise `false`.
- */
-function maybeSendMessageForTarget(hrefTarget, event){
-  if (!hrefTarget) {
-    return false
-  }
-
-  var href = hrefTarget.getAttribute( 'href' )
-  if (href && refs.isCitation(href)) {
-      // Handle reference links with a popup view instead of scrolling about!
-    refs.sendNearbyReferences( hrefTarget )
-  } else if (href && href[0] === '#') {
-
-    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
-
-      // If it is a link to an anchor in the current page, use existing link handling
-      // so top floating native header height can be taken into account by the regular
-      // fragment handling logic.
-    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-  } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
-    window.webkit.messageHandlers.imageClicked.postMessage({
-      'src': event.target.getAttribute('src'),
-      'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
-      'height': event.target.naturalHeight,
-      'data-file-width': event.target.getAttribute('data-file-width'),
-      'data-file-height': event.target.getAttribute('data-file-height')
-    })
-  } else if (href) {
-    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-  } else {
-    return false
-  }
-  return true
-}
-
-document.addEventListener('click', function (event) {
-  event.preventDefault()
-  /*
-  there are certain elements which don't have an <a> ancestor, so if we fail to find it,
-  specify the event's target instead
-  */
-  var target = utilities.findClosest(event.target, 'A') || event.target
-  maybeSendMessageForTarget(target, event)
-}, false)
-},{"./refs":5,"./utilities":15,"wikimedia-page-library":16}],5:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -376,7 +376,7 @@ exports.isEndnote = isEndnote
 exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
-},{"./elementLocation":2}],6:[function(require,module,exports){
+},{"./elementLocation":3}],6:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -391,7 +391,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":2,"wikimedia-page-library":16}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":16}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
