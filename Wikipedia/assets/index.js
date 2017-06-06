@@ -195,9 +195,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
   }
 
   var href = hrefTarget.getAttribute( 'href' )
-  if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
-    window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
-  } else if (href && refs.isCitation(href)) {
+  if (href && refs.isCitation(href)) {
       // Handle reference links with a popup view instead of scrolling about!
     refs.sendNearbyReferences( hrefTarget )
   } else if (href && href[0] === '#') {
