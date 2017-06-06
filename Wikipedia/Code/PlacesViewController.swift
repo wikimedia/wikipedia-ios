@@ -61,7 +61,11 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             searchBar?.delegate = self
         }
     }
-    fileprivate var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    
+    fileprivate var siteURL: URL {
+        return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    }
+    
     fileprivate var currentGroupingPrecision: QuadKeyPrecision = 1
     fileprivate var selectedArticlePopover: ArticlePopoverViewController?
     fileprivate var selectedArticleAnnotationView: MapAnnotationView?
