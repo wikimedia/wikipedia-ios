@@ -110,20 +110,22 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        guard let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
-            return false
-        }
-    
-        guard let historyEntry = session.dataStore.historyList.entry(for: openArticleURL) else {
+        let article: WMFArticle
+        
+        if let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL(), let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
+            article = openArticle
+        } else if let mostRecentHistoryEntry = session.dataStore.historyList.mostRecentEntry() {
+            article = mostRecentHistoryEntry
+        } else {
             return false
         }
         
-        let fragment = historyEntry.viewedFragment
-        articleURL = (historyEntry.url as NSURL?)?.wmf_URL(withFragment: fragment)
+        let fragment = article.viewedFragment
+        articleURL = (article.url as NSURL?)?.wmf_URL(withFragment: fragment)
         
         emptyViewHidden = true
         
-        if let subtitle = historyEntry.capitalizedWikidataDescriptionOrSnippet {
+        if let subtitle = article.capitalizedWikidataDescriptionOrSnippet {
             self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
@@ -137,11 +139,11 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         
-        self.titleLabel.text = historyEntry.displayTitle
+        self.titleLabel.text = article.displayTitle
         
         
         if #available(iOSApplicationExtension 10.0, *) {
-            if let imageURL = historyEntry.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
+            if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
                 self.collapseImageAndWidenLabels = false
                 self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     self.collapseImageAndWidenLabels = true
