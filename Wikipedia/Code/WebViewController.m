@@ -116,9 +116,6 @@ NSString *const WMFCCBySALicenseURL =
         case WMFWKScriptMessageEditClicked:
             [self handleEditClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
-            [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
-            break;
         case WMFWKScriptMessageLateJavascriptTransform:
             [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
             break;
@@ -302,13 +299,6 @@ NSString *const WMFCCBySALicenseURL =
                                                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
                                            }
                                        }];
-                                   }];
-}
-
-- (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
-    [self wmf_dismissReferencePopoverAnimated:NO
-                                   completion:^{
-                                       [self hideFindInPageWithCompletion:nil];
                                    }];
 }
 
@@ -601,7 +591,6 @@ NSString *const WMFCCBySALicenseURL =
                               @"imageClicked",
                               @"referenceClicked",
                               @"editClicked",
-                              @"nonAnchorTouchEndedWithoutDragging",
                               @"javascriptConsoleLog",
                               @"articleState",
                               @"findInPageMatchesFound",
