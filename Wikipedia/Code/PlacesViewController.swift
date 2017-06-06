@@ -126,7 +126,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             mapView.showsTraffic = false
             mapView.showsPointsOfInterest = false
             mapView.showsScale = false
-            mapView.showsUserLocation = false
+            mapView.showsUserLocation = true
             mapView.isRotateEnabled = false
             mapView.isPitchEnabled = false
         #endif

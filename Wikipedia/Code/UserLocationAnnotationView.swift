@@ -31,9 +31,7 @@ public class UserLocationAnnotationView: MapAnnotationView {
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         layer.zPosition = -1
-        
-        
-        
+
         let path = UIBezierPath()
         
         path.move(to: CGPoint(x: 0.5*dimension - 0.5*arrowWidth, y:arrowHeight))
@@ -47,13 +45,10 @@ public class UserLocationAnnotationView: MapAnnotationView {
         shapeLayer.fillColor = UIColor.wmf_blue.cgColor
         layer.addSublayer(shapeLayer)
         
-        
         dotLayer.bounds = CGRect(x: 0, y: 0, width: dotImage.size.width, height: dotImage.size.height)
         dotLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
         dotLayer.contents = dotImage.cgImage
         layer.addSublayer(dotLayer)
-        
-        self.annotation = annotation
         
         super.setup()
     }
