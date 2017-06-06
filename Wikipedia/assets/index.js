@@ -189,7 +189,7 @@ var tableCollapser = require('wikimedia-page-library').CollapseTable
  * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
  * @return `true` if a message was sent, otherwise `false`.
  */
-function maybeSendMessageForTarget(event, hrefTarget){
+function maybeSendMessageForTarget(hrefTarget, event){
   if (!hrefTarget) {
     return false
   }
@@ -222,24 +222,14 @@ function maybeSendMessageForTarget(event, hrefTarget){
   return true
 }
 
-function handleClickEvent(event){
-/*
-there are certain elements which don't have an <a> ancestor, so if we fail to find it,
-specify the event's target instead
-*/
-  var didSendMessage = maybeSendMessageForTarget(event, utilities.findClosest(event.target, 'A') || event.target)
-  var hasSelectedText = window.getSelection().rangeCount > 0
-  if (!didSendMessage && !hasSelectedText) {
-    window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
-      id: event.target.getAttribute( 'id' ),
-      tagName: event.target.tagName
-    })
-  }
-}
-
 document.addEventListener('click', function (event) {
   event.preventDefault()
-  handleClickEvent(event)
+  /*
+  there are certain elements which don't have an <a> ancestor, so if we fail to find it,
+  specify the event's target instead
+  */
+  var target = utilities.findClosest(event.target, 'A') || event.target
+  maybeSendMessageForTarget(target, event)
 }, false)
 },{"./refs":5,"./utilities":15,"wikimedia-page-library":16}],5:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
