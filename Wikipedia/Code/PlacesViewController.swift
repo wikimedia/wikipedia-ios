@@ -2137,7 +2137,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                     return nil
             }
             set.insert(key)
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
+            let region = [location.coordinate].wmf_boundingRegion(with: dimension)
             return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
         }
         updateSearchSuggestions(withCompletions: completions, isSearchDone: true)
@@ -2419,7 +2419,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let region = [location.coordinate].wmf_boundingRegion
         mapRegion = region
         if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
             performDefaultSearch(withRegion: mapRegion)
