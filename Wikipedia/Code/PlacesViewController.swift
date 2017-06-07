@@ -7,6 +7,7 @@ import Mapbox
 
 import MapKit
 
+@objc(WMFPlacesViewController)
 class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     fileprivate var mapView: MapView!
@@ -2164,7 +2165,15 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         return completions
     }
     
-    @objc public func showArticleURL(_ articleURL: URL) {
+    public func showNearbyArticles() {
+        guard let _ = view else { // force view instantiation
+            return
+        }
+        currentSearch = nil // will cause the default search to perform after re-centering
+        recenterOnUserLocation(self)
+    }
+    
+    public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
             let _ = view else { // force view instantiation
             return
@@ -2479,7 +2488,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         }
     }
     
-    @IBAction func recenterOnUserLocation(_ sender: Any) {
+    @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
         guard WMFLocationManager.isAuthorized() else {
             promptForLocationAccess()
             return
