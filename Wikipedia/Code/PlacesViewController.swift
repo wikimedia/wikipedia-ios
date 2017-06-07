@@ -428,7 +428,12 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
-        return coordinates.wmf_boundingRegion
+        guard coordinates.count > 1 else {
+            return coordinates.wmf_boundingRegion(with: 10000)
+        }
+        
+        let initialRegion = coordinates.wmf_boundingRegion(with: 50)
+        return coordinates.wmf_boundingRegion(with: 0.25 * initialRegion.width)
     }
     
     // MARK: - Searching
@@ -2435,7 +2440,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
-        let region = [location.coordinate].wmf_boundingRegion
+        let region = [location.coordinate].wmf_boundingRegion(with: 10000)
         mapRegion = region
         if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
             performDefaultSearch(withRegion: mapRegion)
