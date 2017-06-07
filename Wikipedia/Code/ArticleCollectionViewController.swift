@@ -62,10 +62,13 @@ extension ArticleCollectionViewController {
 extension ArticleCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location) else {
+            let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell
+        else {
                 return nil
         }
         let url = articleURL(at: indexPath)
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         return WMFArticleViewController(articleURL: url, dataStore: dataStore)
     }
     
