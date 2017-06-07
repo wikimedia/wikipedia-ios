@@ -120,7 +120,7 @@ function handleClickEvent(event){
 }
 
 /**
- * Associate our custom handler logic to the `click` event.
+ * Associate our custom click handler logic with the document `click` event.
  */
 document.addEventListener('click', function (event) {
   event.preventDefault()
