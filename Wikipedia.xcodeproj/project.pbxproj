@@ -1292,6 +1292,11 @@
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D87021631EBA63EF000D02D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021621EBA63EF000D02D6 /* main.swift */; };
 		D87021711EBA6400000D02D6 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021701EBA6400000D02D6 /* localization.swift */; };
+		D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
+		D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
+		D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
+		D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
+		D8703DC31EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
@@ -4359,6 +4364,7 @@
 		D87021601EBA63EE000D02D6 /* localization */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = localization; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87021621EBA63EF000D02D6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D87021701EBA6400000D02D6 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = scripts/localization.swift; sourceTree = SOURCE_ROOT; };
+		D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewingViewController.swift; sourceTree = "<group>"; };
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -7379,6 +7385,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
@@ -9714,6 +9721,7 @@
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearch.m in Sources */,
+				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
@@ -9974,6 +9982,7 @@
 				D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D80ED3201EE57F4800CE8C50 /* WMFRandomArticleViewController.m in Sources */,
+				D8703DC31EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D80ED3211EE57F4800CE8C50 /* SSSection.m in Sources */,
 				D80ED3221EE57F4800CE8C50 /* ArticleCollectionViewCell.swift in Sources */,
 				D80ED3231EE57F4800CE8C50 /* WMFArticleViewController.m in Sources */,
@@ -10554,6 +10563,7 @@
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8A42B1B1E815A9C00D8E281 /* WMFBorderButton.m in Sources */,
+				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8A42B1C1E815A9C00D8E281 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8A42B1E1E815A9C00D8E281 /* SSBaseDataSource.m in Sources */,
 				D813FDA31EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */,
@@ -10852,6 +10862,7 @@
 				D8CE257E1E698E2400DAE2E0 /* PreviewAndSaveViewController.m in Sources */,
 				D8497F651EE09BE600100CBD /* CircledRankView.swift in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
+				D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8CE25801E698E2400DAE2E0 /* SSBaseCollectionCell.m in Sources */,
 				D8CE25811E698E2400DAE2E0 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -11195,6 +11206,7 @@
 				D8EC3E7F1E9BDA35006712EB /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8EC3E801E9BDA35006712EB /* WMFRandomArticleViewController.m in Sources */,
 				D8EC3E811E9BDA35006712EB /* SSSection.m in Sources */,
+				D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8EC3E821E9BDA35006712EB /* WMFArticleViewController.m in Sources */,
 				D8EC3E831E9BDA35006712EB /* SSCoreDataSource.m in Sources */,
 				D8EC3E841E9BDA35006712EB /* NSAttributedString+WMFTrim.m in Sources */,
