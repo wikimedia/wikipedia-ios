@@ -21,33 +21,45 @@ function clickTypeForTarget(target, href){
 }
 
 /**
- * Sends messages to native land for respective click types.
+ * Send messages to native land for respective click types.
  * @return `true` if a message was sent, otherwise `false`.
  */
 function sendMessageForClickType(clickType, target, href){
   switch(clickType) {
   case ClickTypeEnum.link:
-    if(href[0] === '#'){
-      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
-    }
-    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+    sendMessageForLinkWithHref(href)
     break
   case ClickTypeEnum.image:
-    window.webkit.messageHandlers.imageClicked.postMessage({
-      'src': target.getAttribute('src'),
-      'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
-      'height': target.naturalHeight,
-      'data-file-width': target.getAttribute('data-file-width'),
-      'data-file-height': target.getAttribute('data-file-height')
-    })
+    sendMessageForImageWithTarget(target)
     break
   case ClickTypeEnum.reference:
-    refs.sendNearbyReferences( target )
+    sendMessageForReferenceWithTarget(target)
     break
   default:
     return false
   }
   return true
+}
+
+function sendMessageForLinkWithHref(href){
+  if(href[0] === '#'){
+    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
+  }
+  window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+}
+
+function sendMessageForImageWithTarget(target){
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': target.getAttribute('src'),
+    'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+    'height': target.naturalHeight,
+    'data-file-width': target.getAttribute('data-file-width'),
+    'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+function sendMessageForReferenceWithTarget(target){
+  refs.sendNearbyReferences( target )
 }
 
 function handleClickEvent(event){
