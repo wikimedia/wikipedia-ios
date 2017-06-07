@@ -38,7 +38,7 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL * _Nullable ur
     }
     NSString *language = url.wmf_language;
     if (language == nil) {
-       return NSLocalizedStringWithDefaultValue(key, nil, bundle, value, comment);
+        return [bundle localizedStringForKey:key value:value table:nil];
     }
 
     NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:language];
@@ -47,7 +47,7 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL * _Nullable ur
         translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
     }
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-        return NSLocalizedStringWithDefaultValue(key, nil, bundle, value, comment);
+        return [bundle localizedStringForKey:key value:value table:nil];
     }
     return translation ? translation : @"";
 }
