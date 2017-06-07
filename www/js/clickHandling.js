@@ -25,7 +25,7 @@ function clickTypeForTarget(hrefTarget, event){
 }
 
 /**
- * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
+ * Sends messages to native land for respective click types.
  * @return `true` if a message was sent, otherwise `false`.
  */
 function maybeSendMessageForTarget(hrefTarget, event){
