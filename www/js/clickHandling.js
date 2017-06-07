@@ -9,12 +9,12 @@ const ClickTypeEnum = {
   reference: 3
 }
 
-function clickTypeForTarget(target, hrefForTarget){
-  if (refs.isCitation(hrefForTarget)) {
+function clickTypeForTarget(target, href){
+  if (refs.isCitation(href)) {
     return ClickTypeEnum.reference
   } else if (target.tagName === 'IMG' && target.getAttribute( 'data-image-gallery' ) === 'true') {
     return ClickTypeEnum.image
-  } else if (hrefForTarget) {
+  } else if (href) {
     return ClickTypeEnum.link
   }
   return ClickTypeEnum.unknown
@@ -24,13 +24,13 @@ function clickTypeForTarget(target, hrefForTarget){
  * Sends messages to native land for respective click types.
  * @return `true` if a message was sent, otherwise `false`.
  */
-function maybeSendMessageForTarget(target, hrefForTarget){
-  switch(clickTypeForTarget(target, hrefForTarget)) {
+function sendMessageForClickType(clickType, target, href){
+  switch(clickType) {
   case ClickTypeEnum.link:
-    if(hrefForTarget[0] === '#'){
-      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(hrefForTarget.substring(1)))
+    if(href[0] === '#'){
+      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
     }
-    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': hrefForTarget })
+    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
     break
   case ClickTypeEnum.image:
     window.webkit.messageHandlers.imageClicked.postMessage({
@@ -50,19 +50,25 @@ function maybeSendMessageForTarget(target, hrefForTarget){
   return true
 }
 
-document.addEventListener('click', function (event) {
-  event.preventDefault()
-  const anchorForTarget = utilities.findClosest(event.target, 'A') || event.target
-  if(!anchorForTarget) {
-    return
-  }
-  const hrefForTarget = anchorForTarget.getAttribute( 'href' )
-  if(!hrefForTarget) {
-    return
-  }
+function handleClickEvent(event){
   const target = event.target
   if(!target) {
     return
-  }  
-  maybeSendMessageForTarget(target, hrefForTarget)
+  }
+  // Find anchor for non-anchor targets - like images.
+  const anchorForTarget = utilities.findClosest(target, 'A') || target
+  if(!anchorForTarget) {
+    return
+  }
+  const href = anchorForTarget.getAttribute( 'href' )
+  if(!href) {
+    return
+  }
+  const clickType = clickTypeForTarget(target, href)
+  sendMessageForClickType(clickType, target, href)
+}
+
+document.addEventListener('click', function (event) {
+  event.preventDefault()
+  handleClickEvent(event)
 }, false)
