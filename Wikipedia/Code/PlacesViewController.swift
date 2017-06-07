@@ -2169,6 +2169,11 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         guard let _ = view else { // force view instantiation
             return
         }
+        
+        guard currentSearch != nil else { // if current search is nil, this is the initial setup for the view and it will recenter automatically
+            return
+        }
+        
         currentSearch = nil // will cause the default search to perform after re-centering
         recenterOnUserLocation(self)
     }
