@@ -27,10 +27,7 @@ const ClickTypeEnum = {
 }
 
 function clickTypeForTarget(target, hrefForTarget){
-  if (!hrefForTarget) {
-    return ClickTypeEnum.unknown
-  }
-  if (hrefForTarget && refs.isCitation(hrefForTarget)) {
+  if (refs.isCitation(hrefForTarget)) {
     return ClickTypeEnum.reference
   } else if (target.tagName === 'IMG' && target.getAttribute( 'data-image-gallery' ) === 'true') {
     return ClickTypeEnum.image
@@ -73,8 +70,18 @@ function maybeSendMessageForTarget(target, hrefForTarget){
 document.addEventListener('click', function (event) {
   event.preventDefault()
   const anchorForTarget = utilities.findClosest(event.target, 'A') || event.target
+  if(!anchorForTarget) {
+    return
+  }
   const hrefForTarget = anchorForTarget.getAttribute( 'href' )
-  maybeSendMessageForTarget(event.target, hrefForTarget)
+  if(!hrefForTarget) {
+    return
+  }
+  const target = event.target
+  if(!target) {
+    return
+  }  
+  maybeSendMessageForTarget(target, hrefForTarget)
 }, false)
 },{"./refs":5,"./utilities":15,"wikimedia-page-library":16}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
