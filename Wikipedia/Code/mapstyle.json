@@ -1,0 +1,30 @@
+{
+    "version": 8,
+    "sources": {
+        "wikimedia-osm": {
+            "type": "vector",
+            "url": "https://maps.wikimedia.org/osm-pbf/info.json"
+        }
+    },
+    "layers": [
+               {
+               "id": "background",
+               "type": "background",
+               "paint": { "background-color": "#efefef" }
+               },
+               {
+               "id": "water",
+               "source": "wikimedia-osm",
+               "source-layer": "water",
+               "type": "fill",
+               "paint": { "fill-color": "#33ccff" }
+               },
+               {
+               "id": "waterway",
+               "source": "wikimedia-osm",
+               "source-layer": "waterway",
+               "type": "fill",
+               "paint": { "fill-color": "#33ccff" }
+               }
+               ]
+}
