@@ -8,7 +8,7 @@ wmf.footerMenu = require('./js/transforms/footerMenu')
 wmf.footerLegal = require('./js/transforms/footerLegal')
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
-wmf.redlinks = require('./js/transforms/hideRedlinks')
+wmf.redlinks = require('wikimedia-page-library').Redlinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
