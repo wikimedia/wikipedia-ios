@@ -7,7 +7,7 @@ import Mapbox
 
 import MapKit
 
-class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
     
     fileprivate var mapView: MapView!
     
@@ -2904,4 +2904,27 @@ class PlaceSearchEmptySearchOverlayView: UIView {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+extension PlacesViewController {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard viewMode == .list else {
+            return nil
+        }
+        let point = view.convert(location, to: listView)
+        guard
+            let indexPath = listView.indexPathForRow(at: point),
+            let url = self.articleFetchedResultsController.object(at: indexPath).url,
+            let cell = listView.cellForRow(at: indexPath)
+        else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
+    }
 }
