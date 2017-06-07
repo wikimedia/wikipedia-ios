@@ -130,7 +130,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             mapView.showsTraffic = false
             mapView.showsPointsOfInterest = false
             mapView.showsScale = false
-            mapView.showsUserLocation = false
+            mapView.showsUserLocation = true
             mapView.isRotateEnabled = false
             mapView.isPitchEnabled = false
         #endif
@@ -375,6 +375,18 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     
     // MARK: - Map Region
     
+    fileprivate func region(thatFits regionToFit: MKCoordinateRegion) -> MKCoordinateRegion {
+        var region = mapView.regionThatFits(regionToFit)
+        
+        if region.span.latitudeDelta == 0 || region.span.longitudeDelta == 0 ||
+           region.span.latitudeDelta.isNaN || region.span.longitudeDelta.isNaN ||
+           region.span.latitudeDelta.isInfinite || region.span.longitudeDelta.isInfinite {
+            region = regionToFit
+        }
+
+        return region
+    }
+    
     fileprivate var _mapRegion: MKCoordinateRegion?
     
     fileprivate var mapRegion: MKCoordinateRegion? {
@@ -384,8 +396,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 return
             }
             
-            let region = mapView.regionThatFits(value)
-            
+            let region = self.region(thatFits: value)
             _mapRegion = region
             
             regroupArticlesIfNecessary(forVisibleRegion: region)
@@ -413,7 +424,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         }
     }
     
-    func regionThatFits(articles: [WMFArticle]) -> MKCoordinateRegion {
+    func region(thatFits articles: [WMFArticle]) -> MKCoordinateRegion {
         let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
@@ -514,7 +525,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             return
         }
         
-        let regionThatFits = mapView.regionThatFits(searchRegion)
+        let regionThatFits = region(thatFits: searchRegion)
         let movedSignificantly = isDistanceSignificant(betweenRegion: regionThatFits, andRegion: visibleRegion)
         DDLogDebug("movedSignificantly=\(movedSignificantly)")
         
@@ -553,7 +564,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         updateSavedPlacesCountInCurrentMapRegionIfNecessary()
         hideDidYouMeanButton()
         
-        let siteURL = self.siteURL
+        let siteURL = search.siteURL ?? self.siteURL
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
@@ -586,7 +597,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
             let moc = dataStore.viewContext
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -605,7 +616,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                     self.articleKeyToSelect = articlesToShow.first?.key
                     if articlesToShow.count > 0 {
                         if (self.currentSearch?.region == nil) {
-                            self.currentSearchRegion = self.regionThatFits(articles: articlesToShow)
+                            self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
@@ -620,7 +631,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         case .top:
             tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -706,7 +717,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         })
     }
     
-    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+    func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
@@ -714,7 +725,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
                 let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
                 var minDistance = CLLocationDistance(Double.greatestFiniteMagnitude)
-                var resultToSelect: MWKLocationSearchResult?
+                var resultToSelect: MWKSearchResult?
                 for result in searchResults {
                     guard let location = result.location else {
                         continue
@@ -781,7 +792,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
             tempSearch.needsWikidataQuery = false
             
-            placeSearchService.performSearch(tempSearch, region: mapView.region, completion: { (searchResult) in
+            placeSearchService.performSearch(tempSearch, defaultSiteURL: siteURL, region: mapView.region, completion: { (searchResult) in
                 guard let locationResults = searchResult.locationResults else {
                     return
                 }
@@ -1174,7 +1185,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             default:
                 if let currentSearch = self.currentSearch {
-                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult, siteURL: currentSearch.siteURL)
                 }
             }
         }
@@ -2129,7 +2140,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         searchSuggestionController.searches = [[], [], currentSearchStringSuggestions, completions]
     }
     
-    func handleCompletion(searchResults: [MWKSearchResult]) -> [PlaceSearch] {
+    func handleCompletion(searchResults: [MWKSearchResult], siteURL: URL) -> [PlaceSearch] {
         var set = Set<String>()
         let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
@@ -2141,8 +2152,8 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                     return nil
             }
             set.insert(key)
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            let region = [location.coordinate].wmf_boundingRegion(with: dimension)
+            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result, siteURL: siteURL)
         }
         updateSearchSuggestions(withCompletions: completions, isSearchDone: true)
         return completions
@@ -2153,13 +2164,9 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             let _ = view else { // force view instantiation
             return
         }
-
-        var region: MKCoordinateRegion? = nil
-        if let coordinate = article.coordinate {
-            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
-        }
+        let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
@@ -2202,6 +2209,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
+        let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             guard text == self.searchBar?.text else {
                 return
@@ -2217,7 +2225,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 DDLogDebug("got suggestion! \(suggestion)")
             }
             
-            let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
             self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
                 return
@@ -2232,7 +2240,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
                 let newResults = locationSearchResults.results as [MWKSearchResult]
                 combinedResults.append(contentsOf: newResults)
-                let _ = self.handleCompletion(searchResults: combinedResults)
+                let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
             }) { (error) in
                 guard text == self.searchBar?.text else {
                     return
@@ -2427,7 +2435,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let region = [location.coordinate].wmf_boundingRegion
         mapRegion = region
         if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
             performDefaultSearch(withRegion: mapRegion)
@@ -2608,7 +2616,7 @@ extension PlacesViewController {
                     articleKeyToSelect = article.key
                 }
             }
-            mapRegion = regionThatFits(articles: place.articles)
+            mapRegion = region(thatFits: place.articles)
             return
         }
         
