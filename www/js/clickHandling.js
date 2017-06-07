@@ -2,38 +2,43 @@ const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 
-const ClickTypeEnum = {
+const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
   reference: 3
 }
 
-function clickTypeForTarget(target, href){
-  if (refs.isCitation(href)) {
-    return ClickTypeEnum.reference
-  } else if (target.tagName === 'IMG' && target.getAttribute( 'data-image-gallery' ) === 'true') {
-    return ClickTypeEnum.image
-  } else if (href) {
-    return ClickTypeEnum.link
+class ClickedItem {
+  constructor(target, href) {
+    this.target = target
+    this.href = href
   }
-  return ClickTypeEnum.unknown
+  type() {
+    if (refs.isCitation(this.href)) {
+      return ItemType.reference
+    } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
+      return ItemType.image
+    } else if (this.href) {
+      return ItemType.link
+    }
+    return ItemType.unknown  }
 }
 
 /**
  * Send messages to native land for respective click types.
  * @return `true` if a message was sent, otherwise `false`.
  */
-function sendMessageForClickType(clickType, target, href){
-  switch(clickType) {
-  case ClickTypeEnum.link:
-    sendMessageForLinkWithHref(href)
+function sendMessageForClickedItem(item){
+  switch(item.type()) {
+  case ItemType.link:
+    sendMessageForLinkWithHref(item.href)
     break
-  case ClickTypeEnum.image:
-    sendMessageForImageWithTarget(target)
+  case ItemType.image:
+    sendMessageForImageWithTarget(item.target)
     break
-  case ClickTypeEnum.reference:
-    sendMessageForReferenceWithTarget(target)
+  case ItemType.reference:
+    sendMessageForReferenceWithTarget(item.target)
     break
   default:
     return false
@@ -76,8 +81,7 @@ function handleClickEvent(event){
   if(!href) {
     return
   }
-  const clickType = clickTypeForTarget(target, href)
-  sendMessageForClickType(clickType, target, href)
+  sendMessageForClickedItem(new ClickedItem(target, href))
 }
 
 document.addEventListener('click', function (event) {
