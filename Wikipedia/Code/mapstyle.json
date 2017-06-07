@@ -10,21 +10,21 @@
                {
                "id": "background",
                "type": "background",
-               "paint": { "background-color": "#efefef" }
+               "paint": { "background-color": "#f8f4f0" }
                },
                {
                "id": "water",
                "source": "wikimedia-osm",
                "source-layer": "water",
                "type": "fill",
-               "paint": { "fill-color": "#33ccff" }
+               "paint": { "fill-color": "#a0c8f0" }
                },
                {
                "id": "waterway",
                "source": "wikimedia-osm",
                "source-layer": "waterway",
                "type": "fill",
-               "paint": { "fill-color": "#33ccff" }
+               "paint": { "fill-color": "#a0c8f0" }
                }
                ]
 }
