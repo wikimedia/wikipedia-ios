@@ -3,8 +3,12 @@ import UIKit
 protocol EnableLocationViewControllerDelegate: NSObjectProtocol {
     func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess  shouldPromptForLocationAccess: Bool)
 }
-class EnableLocationViewController: UIViewController {
 
+class EnableLocationViewController: UIViewController {
+    static let localizedEnableLocationTitle = WMFLocalizedString("places-enable-location-title", value:"Explore articles near your location by enabling Location Access", comment:"Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".")
+    static let localizedEnableLocationDescription = WMFLocalizedString("places-enable-location-description", value:"Access to your location is available only when the app or one of its features is visible on your screen.", comment:"Describes that access to your location is only used when the app or one of its features is on the screen")
+    static let localizedEnableLocationButtonTitle = WMFLocalizedString("places-enable-location-action-button-title", value:"Enable location", comment:"Button title to enable location access")
+    
     weak var delegate: EnableLocationViewControllerDelegate?
     
     @IBOutlet weak var enableLocationAccessButton: UIButton!
@@ -15,9 +19,9 @@ class EnableLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = WMFLocalizedString("places-enable-location-title", value:"Explore articles near your location by enabling Location Access", comment:"Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".")
-        descriptionLabel.text = WMFLocalizedString("places-enable-location-description", value:"Access to your location is available only when the app or one of its features is visible on your screen.", comment:"Describes that access to your location is only used when the app or one of its features is on the screen")
-        enableLocationAccessButton.setTitle(WMFLocalizedString("places-enable-location-action-button-title", value:"Enable location", comment:"Button title to enable location access"), for: .normal)
+        titleLabel.text = EnableLocationViewController.localizedEnableLocationTitle
+        descriptionLabel.text = EnableLocationViewController.localizedEnableLocationDescription
+        enableLocationAccessButton.setTitle(EnableLocationViewController.localizedEnableLocationButtonTitle, for: .normal)
     }
     
     @IBAction func close(_ sender: Any) {
