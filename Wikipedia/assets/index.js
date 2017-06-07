@@ -19,6 +19,10 @@ const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 
+/**
+ * Type of items users can click which we may need to handle.
+ * @type {!Object}
+ */
 const ItemType = {
   unknown: 0,
   link: 1,
@@ -26,11 +30,20 @@ const ItemType = {
   reference: 3
 }
 
+/**
+ * Model of clicked item.
+ * Reminder: separate `target` and `href` properties
+ * needed to handle non-anchor targets such as images.
+ */
 class ClickedItem {
   constructor(target, href) {
     this.target = target
     this.href = href
   }
+  /**
+   * Determines type of item based on its properties.
+   * @return {!ItemType} Type of the item
+   */
   type() {
     if (refs.isCitation(this.href)) {
       return ItemType.reference
@@ -39,12 +52,14 @@ class ClickedItem {
     } else if (this.href) {
       return ItemType.link
     }
-    return ItemType.unknown  }
+    return ItemType.unknown
+  }
 }
 
 /**
  * Send messages to native land for respective click types.
- * @return `true` if a message was sent, otherwise `false`.
+ * @param  {!ClickedItem} item the item which was clicked on
+ * @return {Boolean} `true` if a message was sent, otherwise `false`
  */
 function sendMessageForClickedItem(item){
   switch(item.type()) {
@@ -63,6 +78,11 @@ function sendMessageForClickedItem(item){
   return true
 }
 
+/**
+ * Sends message for a link click.
+ * @param  {!String} href url
+ * @return {void}
+ */
 function sendMessageForLinkWithHref(href){
   if(href[0] === '#'){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
@@ -70,6 +90,11 @@ function sendMessageForLinkWithHref(href){
   window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
 }
 
+/**
+ * Sends message for an image click.
+ * @param  {!Element} target an image element
+ * @return {void}
+ */
 function sendMessageForImageWithTarget(target){
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': target.getAttribute('src'),
@@ -80,10 +105,20 @@ function sendMessageForImageWithTarget(target){
   })
 }
 
+/**
+ * Sends message for a reference click.
+ * @param  {!Element} target an anchor element
+ * @return {void}
+ */
 function sendMessageForReferenceWithTarget(target){
   refs.sendNearbyReferences( target )
 }
 
+/**
+ * Handler for the click event.
+ * @param  {ClickEvent} event the event being handled
+ * @return {void}
+ */
 function handleClickEvent(event){
   const target = event.target
   if(!target) {
@@ -101,6 +136,9 @@ function handleClickEvent(event){
   sendMessageForClickedItem(new ClickedItem(target, href))
 }
 
+/**
+ * Associate our custom handler logic to the `click` event.
+ */
 document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
