@@ -39,29 +39,31 @@ class WMFPage {
 class WMFPageFragment {
   constructor(wmfPage, index) {
 
-    var page = document.createElement('a')
-    page.id = index
-    page.className = 'footer_readmore_page'
+    var outerAnchorContainer = document.createElement('a')
+    outerAnchorContainer.id = index
+    outerAnchorContainer.className = 'footer_readmore_page'
 
     var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
     if(hasImage){
       var image = document.createElement('div')
       image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
       image.classList.add('footer_readmore_page_image')
-      page.appendChild(image)
+      outerAnchorContainer.appendChild(image)
     }
 
-    var container = document.createElement('div')
-    container.classList.add('footer_readmore_page_container')
-    page.appendChild(container)
-    page.href = `/wiki/${encodeURI(wmfPage.title)}`
+    var innerDivContainer = document.createElement('div')
+    innerDivContainer.classList.add('footer_readmore_page_container')
+    outerAnchorContainer.appendChild(innerDivContainer)
+    outerAnchorContainer.href = `/wiki/${encodeURI(wmfPage.title)}`
 
     if(wmfPage.title){
       var title = document.createElement('div')
       title.id = index
       title.className = 'footer_readmore_page_title'
-      title.innerHTML = wmfPage.title.replace(/_/g, ' ')
-      container.appendChild(title)
+      var displayTitle = wmfPage.title.replace(/_/g, ' ')
+      title.innerHTML = displayTitle
+      outerAnchorContainer.title = displayTitle
+      innerDivContainer.appendChild(title)
     }
 
     var description = null
@@ -76,21 +78,22 @@ class WMFPageFragment {
       descriptionEl.id = index
       descriptionEl.className = 'footer_readmore_page_description'
       descriptionEl.innerHTML = description
-      container.appendChild(descriptionEl)
+      innerDivContainer.appendChild(descriptionEl)
     }
 
     var saveButton = document.createElement('div')
     saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`
-    saveButton.innerText = 'Save for later'
+    saveButton.innerText = _saveForLaterString
+    saveButton.title = _saveForLaterString
     saveButton.className = 'footer_readmore_page_save'
     saveButton.addEventListener('click', function(event){
       event.stopPropagation()
       event.preventDefault()
       _saveButtonClickHandler(wmfPage.title)
     }, false)
-    container.appendChild(saveButton)
+    innerDivContainer.appendChild(saveButton)
 
-    return document.createDocumentFragment().appendChild(page)
+    return document.createDocumentFragment().appendChild(outerAnchorContainer)
   }
 }
 
@@ -171,7 +174,9 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
 }
 
 function updateSaveButtonText(button, title, isSaved){
-  button.innerText = isSaved ? _savedForLaterString : _saveForLaterString
+  const text = isSaved ? _savedForLaterString : _saveForLaterString
+  button.innerText = text
+  button.title = text
 }
 
 function updateSaveButtonBookmarkIcon(button, title, isSaved){
@@ -197,7 +202,9 @@ function add(baseURL, title, saveForLaterString, savedForLaterString, containerI
 }
 
 function setHeading(headingString, headingID) {
-  document.getElementById(headingID).innerText = headingString
+  const headingElement = document.getElementById(headingID)
+  headingElement.innerText = headingString
+  headingElement.title = headingString
 }
 
 exports.setHeading = setHeading
