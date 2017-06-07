@@ -1,6 +1,5 @@
 
 var _saveButtonClickHandler = null
-var _clickHandler = null
 var _titlesShownHandler = null
 var _saveForLaterString = null
 var _savedForLaterString = null
@@ -40,7 +39,7 @@ class WMFPage {
 class WMFPageFragment {
   constructor(wmfPage, index) {
 
-    var page = document.createElement('div')
+    var page = document.createElement('a')
     page.id = index
     page.className = 'footer_readmore_page'
 
@@ -55,10 +54,7 @@ class WMFPageFragment {
     var container = document.createElement('div')
     container.classList.add('footer_readmore_page_container')
     page.appendChild(container)
-
-    page.addEventListener('click', function(){
-      _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`)
-    }, false)
+    page.href = `/wiki/${encodeURI(wmfPage.title)}`
 
     if(wmfPage.title){
       var title = document.createElement('div')
@@ -88,9 +84,9 @@ class WMFPageFragment {
     saveButton.innerText = 'Save for later'
     saveButton.className = 'footer_readmore_page_save'
     saveButton.addEventListener('click', function(event){
-      _saveButtonClickHandler(wmfPage.title)
       event.stopPropagation()
       event.preventDefault()
+      _saveButtonClickHandler(wmfPage.title)
     }, false)
     container.appendChild(saveButton)
 
@@ -190,9 +186,8 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved)
 }
 
-function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, clickHandler, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID)
-  _clickHandler = clickHandler
   _saveButtonClickHandler = saveButtonClickHandler
   _titlesShownHandler = titlesShownHandler
   _saveForLaterString = saveForLaterString
