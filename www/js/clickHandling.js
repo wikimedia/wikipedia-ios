@@ -1,6 +1,6 @@
-var refs = require('./refs')
-var utilities = require('./utilities')
-var tableCollapser = require('wikimedia-page-library').CollapseTable
+const refs = require('./refs')
+const utilities = require('./utilities')
+const tableCollapser = require('wikimedia-page-library').CollapseTable
 
 const ClickTypeEnum = {
   unknown: 0,
@@ -9,16 +9,15 @@ const ClickTypeEnum = {
   reference: 3
 }
 
-function clickTypeForTarget(hrefTarget, event){
-  if (!hrefTarget) {
+function clickTypeForTarget(target, hrefForTarget){
+  if (!hrefForTarget) {
     return ClickTypeEnum.unknown
   }
-  var href = hrefTarget.getAttribute( 'href' )
-  if (href && refs.isCitation(href)) {
+  if (hrefForTarget && refs.isCitation(hrefForTarget)) {
     return ClickTypeEnum.reference
-  } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
+  } else if (target.tagName === 'IMG' && target.getAttribute( 'data-image-gallery' ) === 'true') {
     return ClickTypeEnum.image
-  } else if (href) {
+  } else if (hrefForTarget) {
     return ClickTypeEnum.link
   }
   return ClickTypeEnum.unknown
@@ -28,26 +27,25 @@ function clickTypeForTarget(hrefTarget, event){
  * Sends messages to native land for respective click types.
  * @return `true` if a message was sent, otherwise `false`.
  */
-function maybeSendMessageForTarget(hrefTarget, event){
-  var href = hrefTarget.getAttribute( 'href' )
-  switch(clickTypeForTarget(hrefTarget, event)) {
+function maybeSendMessageForTarget(target, hrefForTarget){
+  switch(clickTypeForTarget(target, hrefForTarget)) {
   case ClickTypeEnum.link:
-    if(href[0] === '#'){
-      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
+    if(hrefForTarget[0] === '#'){
+      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(hrefForTarget.substring(1)))
     }
-    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+    window.webkit.messageHandlers.linkClicked.postMessage({ 'href': hrefForTarget })
     break
   case ClickTypeEnum.image:
     window.webkit.messageHandlers.imageClicked.postMessage({
-      'src': event.target.getAttribute('src'),
-      'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
-      'height': event.target.naturalHeight,
-      'data-file-width': event.target.getAttribute('data-file-width'),
-      'data-file-height': event.target.getAttribute('data-file-height')
+      'src': target.getAttribute('src'),
+      'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+      'height': target.naturalHeight,
+      'data-file-width': target.getAttribute('data-file-width'),
+      'data-file-height': target.getAttribute('data-file-height')
     })
     break
   case ClickTypeEnum.reference:
-    refs.sendNearbyReferences( hrefTarget )
+    refs.sendNearbyReferences( target )
     break
   default:
     return false
@@ -57,10 +55,7 @@ function maybeSendMessageForTarget(hrefTarget, event){
 
 document.addEventListener('click', function (event) {
   event.preventDefault()
-  /*
-  There are certain elements which don't have an <a> ancestor, so if we fail to find it,
-  specify the event's target instead.
-  */
-  var target = utilities.findClosest(event.target, 'A') || event.target
-  maybeSendMessageForTarget(target, event)
+  const anchorForTarget = utilities.findClosest(event.target, 'A') || event.target
+  const hrefForTarget = anchorForTarget.getAttribute( 'href' )
+  maybeSendMessageForTarget(event.target, hrefForTarget)
 }, false)
