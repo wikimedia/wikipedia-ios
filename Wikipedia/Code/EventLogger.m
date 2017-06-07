@@ -24,7 +24,13 @@ NSString *const WMFLoggingEndpoint =
 
 #if NEW_EVENT_LOGGING
             WMFEventCapsule *capsule = [[WMFEventCapsule alloc] initWithEvent:event schema:schema revision:revision wiki:wiki];
-            [[WMFEventLoggingService shared] logEvent:capsule];
+//            WMFEventCapsule *capsule = [[WMFEventCapsule alloc] initW
+//            capsule.schema = schema;
+//            capsule.wiki = wiki;
+//            capsule.event = event;
+//            capsule.revision = revision;
+            
+            [[WMFEventLoggingService sharedInstance] logEvent:capsule];
 #else
             NSDictionary *payload =
             @{

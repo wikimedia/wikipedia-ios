@@ -475,8 +475,19 @@
 		B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
 		B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */; };
 		B31B6AE71EC4CBFA009C76DD /* WMFExploreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */; };
-		B3369A351EE1F69E0075953E /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A331EE1F69E0075953E /* EventCapsule.swift */; };
-		B3369A361EE1F69E0075953E /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A341EE1F69E0075953E /* EventLoggingService.swift */; };
+		B32535E41EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
+		B32535E51EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
+		B32535E61EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
+		B32535E71EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
+		B32535E81EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
+		B32535EA1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
+		B32535EB1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
+		B32535EC1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
+		B32535ED1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
+		B32535EE1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
+		B32535F11EE856FF00372E93 /* EventLogging.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */; };
+		B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */; };
+		B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */; };
 		B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
@@ -3888,6 +3899,11 @@
 		B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAuthAccountCreationInfoFetcher.swift; sourceTree = "<group>"; };
 		B31B6AE51EC4CBFA009C76DD /* WMFExploreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreCollectionViewController.h; sourceTree = "<group>"; };
 		B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreCollectionViewController.m; sourceTree = "<group>"; };
+		B32535E31EE71B5600372E93 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSaveEvent.swift; sourceTree = SOURCE_ROOT; };
+		B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventLogging.xcdatamodel; sourceTree = "<group>"; };
+		B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B3369A331EE1F69E0075953E /* EventCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventCapsule.swift; path = "WMF Framework/EventCapsule.swift"; sourceTree = SOURCE_ROOT; };
 		B3369A341EE1F69E0075953E /* EventLoggingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventLoggingService.swift; path = "WMF Framework/EventLoggingService.swift"; sourceTree = SOURCE_ROOT; };
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
@@ -6089,6 +6105,7 @@
 		B3591BA91EDF3A5B00FC0E13 /* Wikimedia Event Logging New */ = {
 			isa = PBXGroup;
 			children = (
+				B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */,
 			);
 			name = "Wikimedia Event Logging New";
 			sourceTree = "<group>";
@@ -6096,8 +6113,12 @@
 		B3632E7E1EE5F97C007A2464 /* Event Logging New */ = {
 			isa = PBXGroup;
 			children = (
+				B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */,
+				B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */,
 				B3369A331EE1F69E0075953E /* EventCapsule.swift */,
 				B3369A341EE1F69E0075953E /* EventLoggingService.swift */,
+				B32535E31EE71B5600372E93 /* Event.swift */,
+				B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */,
 			);
 			name = "Event Logging New";
 			sourceTree = "<group>";
@@ -9637,6 +9658,7 @@
 				D8301C321DF1C55100135DC6 /* SWStepSlider.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
+				B32535E41EE71B5600372E93 /* Event.swift in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
@@ -9707,6 +9729,7 @@
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
 				B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
+				B32535EA1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B31B6AE71EC4CBFA009C76DD /* WMFExploreCollectionViewController.m in Sources */,
 				D8FA190F1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m in Sources */,
@@ -9854,6 +9877,7 @@
 				D80ED28D1EE57F4800CE8C50 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D80ED28E1EE57F4800CE8C50 /* WMFTableHeaderLabelView.m in Sources */,
 				D80ED28F1EE57F4800CE8C50 /* PreviewHtmlFetcher.m in Sources */,
+				B32535E81EE71B5600372E93 /* Event.swift in Sources */,
 				D80ED2901EE57F4800CE8C50 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				D80ED2911EE57F4800CE8C50 /* NSCharacterSet+WMFExtras.m in Sources */,
 				D80ED2921EE57F4800CE8C50 /* WMFPageCollectionViewController.m in Sources */,
@@ -9903,6 +9927,7 @@
 				D80ED2BE1EE57F4800CE8C50 /* MenuLabel.m in Sources */,
 				D80ED2BF1EE57F4800CE8C50 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D80ED2C01EE57F4800CE8C50 /* WMFArticleListDataSourceTableViewController.m in Sources */,
+				B32535EE1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D80ED2C11EE57F4800CE8C50 /* WMFArticleRevisionFetcher.m in Sources */,
 				D80ED2C21EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D80ED2C31EE57F4800CE8C50 /* PreviewLicenseView.m in Sources */,
@@ -10169,6 +10194,7 @@
 				D8733C941ECA16940011E379 /* UILabel+HasText.swift in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
+				B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,
 				D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */,
@@ -10194,6 +10220,7 @@
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				B0484FEF1E74B77F003A0E28 /* UIColor+WMFStyle.swift in Sources */,
 				D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */,
+				B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */,
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
@@ -10331,6 +10358,7 @@
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				0E728D4F1DAEEED90074EB4B /* MWKSiteInfoFetcher.m in Sources */,
+				B32535F11EE856FF00372E93 /* EventLogging.xcdatamodeld in Sources */,
 				D844D9A71D6CB7280042D692 /* MWKList.m in Sources */,
 				0E728D441DAEEE880074EB4B /* CLLocationManager+WMFLocationManagers.m in Sources */,
 				D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */,
@@ -10472,6 +10500,7 @@
 				D8A42AAF1E815A9C00D8E281 /* SavedPagesFunnel.m in Sources */,
 				D8A42AB01E815A9C00D8E281 /* AssetsFileFetcher.m in Sources */,
 				D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */,
+				B32535E71EE71B5600372E93 /* Event.swift in Sources */,
 				D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */,
 				B3B018CE1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
 				D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -10578,6 +10607,7 @@
 				D8A42B141E815A9C00D8E281 /* NSLocale+WMFExtras.swift in Sources */,
 				D8A42B151E815A9C00D8E281 /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */,
+				B32535ED1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8A42B171E815A9C00D8E281 /* WMFShareCardImageContainer.m in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -10734,6 +10764,7 @@
 				D8CE24F71E698E2400DAE2E0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				D8CE24F81E698E2400DAE2E0 /* UIApplication+RTL.swift in Sources */,
+				B32535E51EE71B5600372E93 /* Event.swift in Sources */,
 				D8CE24F91E698E2400DAE2E0 /* WMFAppModalProgressViewController.swift in Sources */,
 				D8CE24FA1E698E2400DAE2E0 /* WMFSearchDataSource.m in Sources */,
 				D8CE24FB1E698E2400DAE2E0 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -10849,6 +10880,7 @@
 				D8CE25611E698E2400DAE2E0 /* WMFArticleListTableViewController.m in Sources */,
 				D8CE25621E698E2400DAE2E0 /* WikiGlyphLabel.m in Sources */,
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
+				B32535EB1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				B3B7945D1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */,
@@ -11077,6 +11109,7 @@
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderLabelView.m in Sources */,
+				B32535E61EE71B5600372E93 /* Event.swift in Sources */,
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
 				D8EC3DF91E9BDA35006712EB /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				D8EC3DFA1E9BDA35006712EB /* NSCharacterSet+WMFExtras.m in Sources */,
@@ -11126,6 +11159,7 @@
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8EC3E271E9BDA35006712EB /* PreviewLicenseView.m in Sources */,
 				D8EC3E281E9BDA35006712EB /* WMFFixtureRecording.m in Sources */,
+				B32535EC1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8EC3E291E9BDA35006712EB /* UIView+WMFRoundCorners.m in Sources */,
 				D898452D1ECE29E000849DA4 /* TWNStringsTests.m in Sources */,
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,
@@ -17548,6 +17582,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */,
+			);
+			currentVersion = B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */;
+			path = EventLogging.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
