@@ -86,11 +86,9 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         switch search.type {
         case .nearby:
             searchSuggestionCell.iconImageView.image = #imageLiteral(resourceName: "places-suggestion-location")
-        case .location:
-            searchSuggestionCell.iconImageView.image = #imageLiteral(resourceName: "nearby-mini")
         default:
-            searchSuggestionCell.iconImageView.image = #imageLiteral(resourceName: "places-suggestion-text")
-            break
+            searchSuggestionCell.iconImageView.image = search.searchResult != nil ? #imageLiteral(resourceName: "nearby-mini") : #imageLiteral(resourceName: "places-suggestion-text")
+            
         }
         searchSuggestionCell.titleLabel.text = search.localizedDescription
         searchSuggestionCell.detailLabel.text = search.searchResult?.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: wikipediaLanguage)
