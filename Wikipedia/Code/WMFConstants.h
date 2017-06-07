@@ -1,0 +1,2 @@
+
+extern NSString *const WMFMGLAccessToken;

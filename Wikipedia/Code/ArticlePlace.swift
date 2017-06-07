@@ -1,22 +1,17 @@
 import UIKit
-import MapKit
 import WMF
 
-class DebugAnnotation: NSObject, MKAnnotation {
-    public let coordinate: CLLocationCoordinate2D
-    public let title: String?
-    public let subtitle: String?
+class DebugAnnotation: MapAnnotation {
+    public var title: String?
+    public var subtitle: String?
     
-    
-    init?(coordinate: CLLocationCoordinate2D) {
+    override func setup() {
         self.title = nil
         self.subtitle = nil
-        self.coordinate = coordinate
     }
 }
 
-class ArticlePlace: NSObject, MKAnnotation {
-    public dynamic var coordinate: CLLocationCoordinate2D
+class ArticlePlace: MapAnnotation {
     public var nextCoordinate: CLLocationCoordinate2D?
     public let title: String?
     public let subtitle: String?
@@ -26,10 +21,10 @@ class ArticlePlace: NSObject, MKAnnotation {
     init?(coordinate: CLLocationCoordinate2D, nextCoordinate: CLLocationCoordinate2D?, articles: [WMFArticle], identifier: Int) {
         self.title = nil
         self.subtitle = nil
-        self.coordinate = coordinate
         self.nextCoordinate = nextCoordinate
         self.articles = articles
         self.identifier = identifier
+        super.init(coordinate: coordinate)
     }
     
     public static func identifierForArticles(articles: [WMFArticle]) -> Int {

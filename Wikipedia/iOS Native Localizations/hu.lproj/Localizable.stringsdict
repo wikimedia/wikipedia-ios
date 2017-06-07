@@ -2,38 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d paikka löytyi</string>
-			<key>other</key>
-			<string>%1$d paikkaa löytyi</string>
-		</dict>
-	</dict>
-	<key>places-filter-top-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artikkeli</string>
-			<key>other</key>
-			<string>%1$d artikkelia</string>
-		</dict>
-	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -45,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Eilen</string>
+			<string>Tegnap</string>
 			<key>other</key>
-			<string>%1$d päivää sitten</string>
+			<string>%1$d napja</string>
 			<key>zero</key>
-			<string>Tänään</string>
+			<string>Ma</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -63,11 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d tunti sitten</string>
+			<string>%1$d órája</string>
 			<key>other</key>
-			<string>%1$d tuntia sitten</string>
+			<string>%1$d órája</string>
 			<key>zero</key>
-			<string>Äskettäin</string>
+			<string>Nemrég</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -81,11 +49,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d minuutti sitten</string>
+			<string>%1$d perce</string>
 			<key>other</key>
-			<string>%1$d minuuttia sitten</string>
+			<string>%1$d perce</string>
 			<key>zero</key>
-			<string>Juuri nyt</string>
+			<string>Épp most</string>
 		</dict>
 	</dict>
 </dict>

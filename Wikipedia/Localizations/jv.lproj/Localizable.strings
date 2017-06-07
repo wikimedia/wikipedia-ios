@@ -239,6 +239,7 @@
 "places-accessibility-show-as-list" = "Tuduhaké minangka pratélan";
 "places-accessibility-show-as-map" = "Tuduhaké minangka petha";
 "places-accessibility-show-more" = "Tuduhaké artikel liyané";
+"places-dismiss-filter-list-accessibility-label" = "Nolak saringan golèk";
 "places-empty-search-description" = "Eksplorasi kutha, negara, bawana, landmark alam, prastawa-prastawa sejarah, bangunan lan liyane.";
 "places-empty-search-title" = "Golèk artikel Wikipedia karo lokasi geografis";
 "places-enable-location-action-button-title" = "Urubaké pernah";
@@ -252,6 +253,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Artikel kasimpen siji-sijia ora ana sing ngemu katerangan pernah";
 "places-search-articles-that-match" = "$1 jumbuh “$2”";
+// Fuzzy
 "places-search-default-text" = "Golèk";
 "places-search-did-you-mean" = "Sing penjenengan karepaké apa $1?";
 "places-search-recently-searched-header" = "Mentas digolèki";
@@ -260,6 +262,7 @@
 "places-search-this-area" = "Kasil kanggo laladan iki";
 "places-search-top-articles" = "Kabèh artikel laris";
 "places-search-top-articles-that-match-scope" = "Cedhak";
+"places-show-filter-list-accessibility-label" = "Nuduhake saringan golèk";
 "places-title" = "Panggonan";
 "places-unknown-distance" = "dohé ora kaweruhan";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";

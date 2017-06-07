@@ -98,6 +98,7 @@
 "page-protected-sysop" = "דער בלאט איז געווארן גאנג געשיצט.";
 "page-similar-titles" = "ענלעכע בלעטער";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 אַרטיקל|$1 אַרטיקלען}}";
+// Fuzzy
 "places-search-default-text" = "זוכן";
 "preference-summary-eventlogging-opt-in" = "דערלויבן די וויקימעדיע פֿונדאציע צו זאמלען אינפארמאציע וויאזוי איר ניצט דעם אפ כדי צו פארבעסערן דעם אפ";
 "preference-title-eventlogging-opt-in" = "שיקן ניצונג־באריכטן";

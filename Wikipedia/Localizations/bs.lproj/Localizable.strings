@@ -239,6 +239,7 @@
 "places-accessibility-show-as-list" = "Prikaži kao spisak";
 "places-accessibility-show-as-map" = "Prikaži kao kartu";
 "places-accessibility-show-more" = "Prikaži više članaka";
+"places-dismiss-filter-list-accessibility-label" = "Sakrij filtere za pretragu";
 "places-empty-search-description" = "Istražite gradove, države, kontinente, prirodne znamenitosti, historijske događaje, građevine i drugo.";
 "places-empty-search-title" = "Pretražite Wikipedijine članke s geografskim lokacijama";
 "places-enable-location-action-button-title" = "Uključi lociranje";
@@ -252,6 +253,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 članak|$1 članka|$1 članaka}}";
 "places-no-saved-articles-have-location" = "Nijedan od Vaših sačuvanih članaka nema informacije o lokaciji";
 "places-search-articles-that-match" = "$1 koji odgovara “$2”";
+// Fuzzy
 "places-search-default-text" = "Pretraži";
 "places-search-did-you-mean" = "Jeste li mislili $1?";
 "places-search-recently-searched-header" = "Nedavne pretrage";
@@ -260,6 +262,7 @@
 "places-search-this-area" = "Rezultati na ovom području";
 "places-search-top-articles" = "Svi najčitaniji članci";
 "places-search-top-articles-that-match-scope" = "U blizini";
+"places-show-filter-list-accessibility-label" = "Prikaži filtere za pretragu";
 "places-title" = "Mjesta";
 "places-unknown-distance" = "nepoznata udaljenost";
 "potd-description-prefix" = "Slika dana za $1";
