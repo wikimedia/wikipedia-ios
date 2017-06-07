@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,20 +20,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ux-tk-eU3">
-                        <rect key="frame" x="66" y="18.5" width="37.5" height="18"/>
+                        <rect key="frame" x="46" y="18.5" width="37.5" height="18"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZBB-dH-riT">
-                        <rect key="frame" x="8" y="2.5" width="50" height="50"/>
+                        <rect key="frame" x="15" y="2.5" width="16" height="50"/>
                         <color key="tintColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="y8y-0A-W5t"/>
+                            <constraint firstAttribute="width" constant="16" id="y8y-0A-W5t"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4c-5K-5S5">
-                        <rect key="frame" x="111.5" y="18.5" width="37.5" height="18"/>
+                        <rect key="frame" x="91.5" y="18.5" width="37.5" height="18"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <color key="textColor" red="0.60392156860000001" green="0.62745098040000002" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -43,8 +43,8 @@
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="4Ux-tk-eU3" secondAttribute="bottom" id="4nS-ac-zf4"/>
                     <constraint firstItem="ZBB-dH-riT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="5wJ-qb-l50"/>
                     <constraint firstItem="I4c-5K-5S5" firstAttribute="leading" secondItem="4Ux-tk-eU3" secondAttribute="trailing" constant="8" id="KWT-x7-plH"/>
-                    <constraint firstItem="4Ux-tk-eU3" firstAttribute="leading" secondItem="ZBB-dH-riT" secondAttribute="trailing" constant="8" id="R0J-VB-WdD"/>
-                    <constraint firstItem="ZBB-dH-riT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="TBJ-P6-7yX"/>
+                    <constraint firstItem="4Ux-tk-eU3" firstAttribute="leading" secondItem="ZBB-dH-riT" secondAttribute="trailing" constant="15" id="R0J-VB-WdD"/>
+                    <constraint firstItem="ZBB-dH-riT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="TBJ-P6-7yX"/>
                     <constraint firstItem="4Ux-tk-eU3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="eIb-QC-nXd"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="I4c-5K-5S5" secondAttribute="trailing" priority="999" id="its-bp-cXj"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="I4c-5K-5S5" secondAttribute="bottom" id="j53-zQ-jPc"/>

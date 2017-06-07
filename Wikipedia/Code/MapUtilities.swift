@@ -32,9 +32,5 @@ extension Array { // seems you can no longer do extension [CLLocationCoordinate2
         }
         return region
     }
-    var wmf_boundingRegion: MKCoordinateRegion {
-        let metersPerPoint: Double = count == 1 ? 10000 : 50
-        return wmf_boundingRegion(with: metersPerPoint)
-    }
 }
 
