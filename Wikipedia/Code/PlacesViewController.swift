@@ -115,13 +115,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
-            MGLAccountManager.setAccessToken(WMFMGLAccessToken)
             let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
             mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
             mapView.delegate = self
             mapView.allowsRotating = false
             mapView.allowsTilting = false
             mapView.showsUserLocation = false
+            mapView.logoView.isHidden = true
         #else
             mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
