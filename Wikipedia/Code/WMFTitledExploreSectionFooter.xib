@@ -62,6 +62,9 @@
                 <constraint firstAttribute="trailing" secondItem="FLN-Qn-RlX" secondAttribute="trailing" constant="42" id="n7c-Ac-Bbm"/>
                 <constraint firstItem="FLN-Qn-RlX" firstAttribute="top" secondItem="Jze-hP-209" secondAttribute="bottom" constant="10.5" id="osJ-fz-5QS"/>
             </constraints>
+            <connections>
+                <outlet property="enableLocationButton" destination="FLN-Qn-RlX" id="lat-If-LkC"/>
+            </connections>
             <point key="canvasLocation" x="33.5" y="112.5"/>
         </collectionReusableView>
     </objects>

@@ -1081,12 +1081,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-
-            for (UIGestureRecognizer *gr in footer.gestureRecognizers) {
-                [footer removeGestureRecognizer:gr];
+            
+            for (UIGestureRecognizer *gr in footer.enableLocationButton.gestureRecognizers) {
+                [footer.enableLocationButton removeGestureRecognizer:gr];
             }
             UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePromptForLocationAccessGestureRecognizer:)];
-            [footer addGestureRecognizer:tapGR];
+            [footer.enableLocationButton addGestureRecognizer:tapGR];
+            
             return footer;
         }
         default: {
