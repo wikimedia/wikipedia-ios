@@ -7,8 +7,9 @@ import Mapbox
 
 import MapKit
 
-class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
-    
+@objc(WMFPlacesViewController)
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+
     fileprivate var mapView: MapView!
     
     @IBOutlet weak var mapContainerView: UIView!
@@ -2164,7 +2165,20 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         return completions
     }
     
-    @objc public func showArticleURL(_ articleURL: URL) {
+    public func showNearbyArticles() {
+        guard let _ = view else { // force view instantiation
+            return
+        }
+        
+        guard currentSearch != nil else { // if current search is nil, this is the initial setup for the view and it will recenter automatically
+            return
+        }
+        
+        currentSearch = nil // will cause the default search to perform after re-centering
+        recenterOnUserLocation(self)
+    }
+    
+    public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
             let _ = view else { // force view instantiation
             return
@@ -2479,7 +2493,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         }
     }
     
-    @IBAction func recenterOnUserLocation(_ sender: Any) {
+    @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
         guard WMFLocationManager.isAuthorized() else {
             promptForLocationAccess()
             return
@@ -2904,4 +2918,27 @@ class PlaceSearchEmptySearchOverlayView: UIView {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+extension PlacesViewController {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard viewMode == .list else {
+            return nil
+        }
+        let point = view.convert(location, to: listView)
+        guard
+            let indexPath = listView.indexPathForRow(at: point),
+            let url = self.articleFetchedResultsController.object(at: indexPath).url,
+            let cell = listView.cellForRow(at: indexPath)
+        else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
+    }
 }

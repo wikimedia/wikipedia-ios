@@ -14,7 +14,7 @@
         <!--Places View Controller-->
         <scene sceneID="iCz-d5-DDs">
             <objects>
-                <viewController id="pK5-Ai-Kzp" customClass="PlacesViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pK5-Ai-Kzp" customClass="WMFPlacesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cy7-2m-87u"/>
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
