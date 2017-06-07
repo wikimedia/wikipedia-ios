@@ -1081,12 +1081,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-
-            for (UIGestureRecognizer *gr in footer.gestureRecognizers) {
-                [footer removeGestureRecognizer:gr];
-            }
-            UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePromptForLocationAccessGestureRecognizer:)];
-            [footer addGestureRecognizer:tapGR];
+            
+            [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
+            footer.enableLocationButton.tag = indexPath.section;
+            [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
             return footer;
         }
         default: {
@@ -1108,10 +1107,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-- (void)handlePromptForLocationAccessGestureRecognizer:(UITapGestureRecognizer *)tapGR {
-    if (tapGR.state != UIGestureRecognizerStateRecognized) {
-        return;
-    }
+- (void)enableLocationButtonPressed:(UIButton *)sender {
     [[NSUserDefaults wmf_userDefaults] wmf_setExploreDidPromptForLocationAuthorization:YES];
     if ([WMFLocationManager isAuthorizationNotDetermined]) {
         [self.locationManager startMonitoringLocation];
