@@ -253,8 +253,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 članak|$1 članka|$1 članaka}}";
 "places-no-saved-articles-have-location" = "Nijedan od Vaših sačuvanih članaka nema informacije o lokaciji";
 "places-search-articles-that-match" = "$1 koji odgovara “$2”";
-// Fuzzy
-"places-search-default-text" = "Pretraži";
+"places-search-default-text" = "Pretraži mjesta";
 "places-search-did-you-mean" = "Jeste li mislili $1?";
 "places-search-recently-searched-header" = "Nedavne pretrage";
 "places-search-saved-articles" = "Svi sačuvani članci";
@@ -262,6 +261,7 @@
 "places-search-this-area" = "Rezultati na ovom području";
 "places-search-top-articles" = "Svi najčitaniji članci";
 "places-search-top-articles-that-match-scope" = "U blizini";
+"places-search-your-current-location" = "Vaša trenutna lokacija";
 "places-show-filter-list-accessibility-label" = "Prikaži filtere za pretragu";
 "places-title" = "Mjesta";
 "places-unknown-distance" = "nepoznata udaljenost";
