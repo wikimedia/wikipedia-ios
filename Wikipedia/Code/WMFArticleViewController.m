@@ -1632,7 +1632,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
-    if ([self.peekableImageExtensions containsObject:[linkURL pathExtension]]) {
+    if ([self.peekableImageExtensions containsObject:[[linkURL pathExtension] lowercaseString]]) {
         return [self viewControllerForImageFilePageURL:linkURL];
     } else {
         return [self viewControllerForPreviewURL:linkURL];
