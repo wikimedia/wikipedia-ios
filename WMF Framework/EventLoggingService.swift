@@ -5,6 +5,9 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
+    public var readBatchSize = 100
+    public var postBatchSize = 100
+    
 
     private static let LoggingEndpoint =
         // production
@@ -15,8 +18,12 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
     private var urlSession: URLSession?
+    private var networkQueue: OperationQueue
+    private let postLock = NSLock()
+    private var posting = false
     
     private var lastNetworkRequestTimestamp: TimeInterval?
+    //private var eventQueue: [EventRecord] = []
     
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let managedObjectContext: NSManagedObjectContext
@@ -67,6 +74,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
+        self.networkQueue = OperationQueue.main
         
 //        self.urlSession = URLSession(configuration: urlSesssionConfiguration)
 //        
@@ -127,17 +135,21 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
         
         prune()
-        
+
+#if DEBUG
+    
         self.managedObjectContext.perform {
             do {
-                let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
-                fetch.includesSubentities = false
-                let count = try self.managedObjectContext.count(for: fetch)
-                DDLogError("There are \(count) queued events")
+                let countFetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
+                countFetch.includesSubentities = false
+                let count = try self.managedObjectContext.count(for: countFetch)
+                DDLogInfo("There are \(count) queued events")
             } catch let error {
                 DDLogError(error.localizedDescription)
             }
         }
+#endif
+
     }
     
     public func stop() -> Void {
@@ -184,39 +196,116 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    public func logEvent(_ eventCapsule: EventCapsule) -> Void {
-        
+    public func logEvent(_ event: NSDictionary) -> Void {
+
         let now = NSDate()
         
-        let record = NSEntityDescription.insertNewObject(forEntityName: "WMFEventRecord", into: self.managedObjectContext) as! EventRecord
-        record.eventCapsule = eventCapsule
-        record.recorded = now
-        
-        if shouldSendImmediately {
-            postEvent(record)
+        let moc = self.managedObjectContext
+        moc.perform {
+            let record = NSEntityDescription.insertNewObject(forEntityName: "WMFEventRecord", into: self.managedObjectContext) as! EventRecord
+            record.event = event
+            record.recorded = now
+            
+            //self.eventQueue.append(record)
+            
+            
+            if self.shouldSendImmediately {
+                //            postEvent(record)
+                self.tryPostEvents()
+            }
         }
     }
     
-    private func postEvent(_ eventRecord: EventRecord) -> Void {
-        
-        guard let eventCapsule = eventRecord.eventCapsule as? EventCapsule else {
-            // TODO: error
+    private func tryPostEvents() {
+
+        self.postLock.lock()
+        guard !posting else {
+            self.postLock.unlock()
             return
         }
+        posting = true
+        self.postLock.unlock()
+        
+//        var eventRecords: [EventRecord] = []
+        
+
+
+        let moc = self.managedObjectContext
+        moc.perform {
+            let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
+            fetch.sortDescriptors = [NSSortDescriptor.init(key: "recorded", ascending: true)]
+            fetch.fetchLimit = self.readBatchSize
+            
+            do {
+                var eventRecords: [EventRecord] = []
+                defer {
+                    self.postEvents(eventRecords)
+                }
+                eventRecords = try moc.fetch(fetch)
+
+                
+            } catch let error {
+                DDLogError(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func save() -> Void {
+        let moc = self.managedObjectContext
+        moc.perform {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func postEvents(_ eventRecords: [EventRecord]) -> Void {
+        
+        guard eventRecords.count > 0 else {
+            self.postLock.lock()
+            self.posting = false
+            self.postLock.unlock()
+            
+            return
+        }
+        
+        self.networkQueue.addOperation({
+            
+            defer {
+                self.postLock.lock()
+                self.posting = false
+                self.postLock.unlock()
+                
+                self.prune()
+                self.save()
+            }
+
+            do {
+                for record in eventRecords {
+                    try self.postEvent(record)
+                }
+            } catch let error {
+                DDLogError(error.localizedDescription)
+            }
+
+        })
+    }
+    
+    private func postEvent(_ eventRecord: EventRecord) throws -> Void {
         
         guard let urlSession = self.urlSession else {
             // TODO: error
             return
         }
         
-        let payload: [String:Any] =  [
-            "event": eventCapsule.event,
-            "schema": eventCapsule.schema,
-            "revision": eventCapsule.revision,
-            "wiki": eventCapsule.wiki
-        ]
+        guard let payload = eventRecord.event else {
+            // TODO: error
+            return
+        }
         
-        do {
+//        do {
             let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
             guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
                 DDLogError("Could not convert JSON data to string")
@@ -246,16 +335,12 @@ class EventLoggingService : NSObject, URLSessionDelegate {
                     return
                 }
                 
-                eventRecord.posted = NSDate()
-                
-                self.managedObjectContext.perform {
-                    self.managedObjectContext.delete(eventRecord)
-                }
+                eventRecord.posted = NSDate()   
                 
             }).resume()
             
-        } catch let error {
-            DDLogError(error.localizedDescription)
-        }
+//        } catch let error {
+//            DDLogError(error.localizedDescription)
+//        }
     }
 }
