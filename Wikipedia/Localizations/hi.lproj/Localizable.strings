@@ -283,7 +283,7 @@
 "reference-title" = "सन्दर्भ $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=आज|कल|$1 दिन पहले}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
-"relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "save-action" = "सहेजें";
 "saved-clear-all" = "साफ़ करें";
