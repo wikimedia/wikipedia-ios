@@ -267,8 +267,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1個條目|$1個條目}}";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
-// Fuzzy
-"places-search-default-text" = "搜尋";
+"places-search-default-text" = "搜尋地點";
 "places-search-did-you-mean" = "您指的是 $1 嗎？";
 "places-search-recently-searched-header" = "近期搜尋";
 "places-search-saved-articles" = "所有已儲存條目";
@@ -276,6 +275,7 @@
 "places-search-this-area" = "此區域的結果";
 "places-search-top-articles" = "所有熱門條目";
 "places-search-top-articles-that-match-scope" = "附近";
+"places-search-your-current-location" = "您的目前位置";
 "places-show-filter-list-accessibility-label" = "顯示搜尋過濾器";
 "places-title" = "地點";
 "places-unknown-distance" = "未知距離";

@@ -253,8 +253,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Artikel kasimpen siji-sijia ora ana sing ngemu katerangan pernah";
 "places-search-articles-that-match" = "$1 jumbuh “$2”";
-// Fuzzy
-"places-search-default-text" = "Golèk";
+"places-search-default-text" = "Golèk Panggonan";
 "places-search-did-you-mean" = "Sing penjenengan karepaké apa $1?";
 "places-search-recently-searched-header" = "Mentas digolèki";
 "places-search-saved-articles" = "Kabèh artikel sing kasimpen";
@@ -262,6 +261,7 @@
 "places-search-this-area" = "Kasil kanggo laladan iki";
 "places-search-top-articles" = "Kabèh artikel laris";
 "places-search-top-articles-that-match-scope" = "Cedhak";
+"places-search-your-current-location" = "Lokasi saiki sampeyan";
 "places-show-filter-list-accessibility-label" = "Nuduhake saringan golèk";
 "places-title" = "Panggonan";
 "places-unknown-distance" = "dohé ora kaweruhan";

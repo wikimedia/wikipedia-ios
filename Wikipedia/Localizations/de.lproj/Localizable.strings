@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: BodminPill
 // Author: JanRei
+// Author: Kghbln
 // Author: Metalhead64
 // Author: Nemo bis
 // Author: Purodha
@@ -255,8 +256,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|Ein|$1}} Artikel";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
-// Fuzzy
-"places-search-default-text" = "Suchen";
+"places-search-default-text" = "Orte suchen";
 "places-search-did-you-mean" = "Meintest du $1?";
 "places-search-recently-searched-header" = "Zuletzt gesucht";
 "places-search-saved-articles" = "Alle gespeicherten Artikel";
@@ -264,6 +264,7 @@
 "places-search-this-area" = "Ergebnisse in diesem Bereich";
 "places-search-top-articles" = "Alle guten Artikel";
 "places-search-top-articles-that-match-scope" = "In der Nähe";
+"places-search-your-current-location" = "Dein aktueller Standort";
 "places-show-filter-list-accessibility-label" = "Suchfilter anzeigen";
 "places-title" = "Orte";
 "places-unknown-distance" = "unbekannte Entfernung";
