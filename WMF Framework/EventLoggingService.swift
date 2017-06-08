@@ -160,8 +160,8 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
             fetch.returnsObjectsAsFaults = false
             
-            let pruneDate = Date().addingTimeInterval(-(Double)(self.pruningAge)) as NSDate
-            fetch.predicate = NSPredicate(format: "(recorded < %@)", pruneDate)
+            let pruneDate = Date().addingTimeInterval(-(self.pruningAge)) as NSDate
+            fetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil)", pruneDate)
             let delete = NSBatchDeleteRequest(fetchRequest: fetch)
             delete.resultType = .resultTypeCount
 
