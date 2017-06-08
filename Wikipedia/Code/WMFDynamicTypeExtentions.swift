@@ -1,7 +1,17 @@
 import Foundation
 
+extension UIView {
+    open func wmf_configureSubviewsForDynamicType() {
+        if #available(iOS 10.0, *) {
+            for subview in subviews {
+                subview.wmf_configureSubviewsForDynamicType()
+            }
+        }
+    }
+}
+
 extension UIButton {
-    fileprivate func wmf_configureForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType(){
         if #available(iOS 10.0, *) {
             guard let titleLabel = titleLabel else {
                 return
@@ -14,38 +24,25 @@ extension UIButton {
             titleLabel.minimumScaleFactor = 0.25
             titleLabel.adjustsFontSizeToFitWidth = true
         }
+        super.wmf_configureSubviewsForDynamicType()
     }
 }
 
 extension UILabel {
-    fileprivate func wmf_configureForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType(){
         if #available(iOS 10.0, *) {
             adjustsFontForContentSizeCategory = true
         }
+        super.wmf_configureSubviewsForDynamicType()
     }
 }
 
 extension UITextField {
-    fileprivate func wmf_configureForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType(){
         if #available(iOS 10.0, *) {
             adjustsFontForContentSizeCategory = true
         }
+        super.wmf_configureSubviewsForDynamicType()
     }
 }
 
-extension UIView {
-    func wmf_configureSubviewsForDynamicType() {
-        if #available(iOS 10.0, *) {
-            if isKind(of: UIButton.self) {
-                (self as! UIButton).wmf_configureForDynamicType()
-            }else if isKind(of: UILabel.self) {
-                (self as! UILabel).wmf_configureForDynamicType()
-            }else if isKind(of: UITextField.self) {
-                (self as! UITextField).wmf_configureForDynamicType()
-            }
-            for subview in subviews {
-                subview.wmf_configureSubviewsForDynamicType()
-            }
-        }
-    }
-}

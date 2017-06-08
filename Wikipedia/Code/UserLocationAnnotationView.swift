@@ -1,18 +1,14 @@
-import MapKit
-
-class UserLocationAnnotationView: MKAnnotationView {
+public class UserLocationAnnotationView: MapAnnotationView {
+    fileprivate let shapeLayer = CAShapeLayer()
+    fileprivate let dotLayer = CALayer()
     
-    let shapeLayer = CAShapeLayer()
-    let dotLayer = CALayer()
-    
-    
-    var isHeadingArrowVisible = false {
+    public var isHeadingArrowVisible = false {
         didSet {
             shapeLayer.isHidden = !isHeadingArrowVisible
         }
     }
     
-    var heading: CLLocationDirection = 0 {
+    public var heading: CLLocationDirection = 0 {
         didSet {
             let transform = CATransform3DMakeRotation(CGFloat(heading/180.0)*CGFloat.pi, 0, 0, 1.0)
             CATransaction.begin()
@@ -25,23 +21,19 @@ class UserLocationAnnotationView: MKAnnotationView {
         }
     }
     
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        
+    override public func setup() {
         let arrowWidth: CGFloat = 12
         let arrowHeight: CGFloat = 8
-
+        
         let dotImage = #imageLiteral(resourceName: "places-user-location")
         let dotDimension: CGFloat = dotImage.size.width
         let dimension = arrowHeight + dotDimension
         
         frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         layer.zPosition = -1
-        
 
-        
         let path = UIBezierPath()
-
+        
         path.move(to: CGPoint(x: 0.5*dimension - 0.5*arrowWidth, y:arrowHeight))
         path.addLine(to: CGPoint(x: 0.5*dimension, y:0))
         path.addLine(to: CGPoint(x: 0.5*dimension + 0.5*arrowWidth, y:arrowHeight))
@@ -53,18 +45,11 @@ class UserLocationAnnotationView: MKAnnotationView {
         shapeLayer.fillColor = UIColor.wmf_blue.cgColor
         layer.addSublayer(shapeLayer)
         
-        
         dotLayer.bounds = CGRect(x: 0, y: 0, width: dotImage.size.width, height: dotImage.size.height)
         dotLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
         dotLayer.contents = dotImage.cgImage
         layer.addSublayer(dotLayer)
         
-        self.annotation = annotation
+        super.setup()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        return nil
-    }
-    
-
 }

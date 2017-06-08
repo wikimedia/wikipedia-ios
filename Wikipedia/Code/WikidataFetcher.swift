@@ -84,8 +84,8 @@ class WikidataFetcher: NSObject {
                 failure(WikidataFetcherError.genericError)
                 return
             }
-            
-            success(coordinates.wmf_boundingRegion)
+
+            success(coordinates.wmf_boundingRegion(with: 1))
         }
     }
 }

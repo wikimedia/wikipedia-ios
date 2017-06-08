@@ -1,15 +1,23 @@
 import UIKit
-import MapKit
 import WMF
 import TUSafariActivity
+#if OSM
+import Mapbox
+#endif
 
-class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+import MapKit
+
+@objc(WMFPlacesViewController)
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+
+    fileprivate var mapView: MapView!
+    
+    @IBOutlet weak var mapContainerView: UIView!
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
@@ -38,43 +46,49 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     public var dataStore: MWKDataStore!
 
-    private let locationSearchFetcher = WMFLocationSearchFetcher()
-    private let searchFetcher = WMFSearchFetcher()
-    private let wikidataFetcher = WikidataFetcher()
-    private let locationManager = WMFLocationManager.fine()
-    private let animationDuration = 0.6
-    private let animationScale = CGFloat(0.6)
-    private let popoverFadeDuration = 0.25
-    private let searchHistoryCountLimit = 15
-    private var searchSuggestionController: PlaceSearchSuggestionController!
-    private var searchBar: UISearchBar? {
+    fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
+    fileprivate let searchFetcher = WMFSearchFetcher()
+    fileprivate let wikidataFetcher = WikidataFetcher()
+    fileprivate let locationManager = WMFLocationManager.fine()
+    fileprivate let animationDuration = 0.6
+    fileprivate let animationScale = CGFloat(0.6)
+    fileprivate let popoverFadeDuration = 0.25
+    fileprivate let searchHistoryCountLimit = 15
+    fileprivate var searchSuggestionController: PlaceSearchSuggestionController!
+    fileprivate var searchBar: UISearchBar? {
         didSet {
             oldValue?.delegate = nil
             searchBar?.text = oldValue?.text
             searchBar?.delegate = self
         }
     }
-    private var siteURL: URL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
-    private var currentGroupingPrecision: QuadKeyPrecision = 1
-    private var selectedArticlePopover: ArticlePopoverViewController?
-    private var selectedArticleAnnotationView: MKAnnotationView?
-    private var selectedArticleKey: String?
-    private var articleKeyToSelect: String?
-    private var currentSearchRegion: MKCoordinateRegion?
-    private var performDefaultSearchOnNextMapRegionUpdate = false
-    private var previouslySelectedArticlePlaceIdentifier: Int?
-    private var didYouMeanSearch: PlaceSearch?
-    private var searching: Bool = false
-    private let tracker = PiwikTracker.sharedInstance()
-    private let mapTrackerContext: AnalyticsContext = "Places_map"
-    private let listTrackerContext: AnalyticsContext = "Places_list"
-    private let searchTrackerContext: AnalyticsContext = "Places_search"
-    private let imageController = ImageController.shared
-    private var searchFilterListController: PlaceSearchFilterListController!
-    private var extendedNavBarHeightOrig: CGFloat?
-    private var touchOutsideOverlayView: TouchOutsideOverlayView!
-    private var _displayCountForTopPlaces: Int?
-    private var displayCountForTopPlaces: Int {
+    
+    fileprivate var siteURL: URL {
+        return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+    }
+    
+    fileprivate var currentGroupingPrecision: QuadKeyPrecision = 1
+    fileprivate var selectedArticlePopover: ArticlePopoverViewController?
+    fileprivate var selectedArticleAnnotationView: MapAnnotationView?
+    fileprivate var selectedArticleKey: String?
+    fileprivate var articleKeyToSelect: String?
+    fileprivate var currentSearchRegion: MKCoordinateRegion?
+    fileprivate var performDefaultSearchOnNextMapRegionUpdate = false
+    fileprivate var isMovingToRegion = false
+
+    fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
+    fileprivate var didYouMeanSearch: PlaceSearch?
+    fileprivate var searching: Bool = false
+    fileprivate let tracker = PiwikTracker.sharedInstance()
+    fileprivate let mapTrackerContext: AnalyticsContext = "Places_map"
+    fileprivate let listTrackerContext: AnalyticsContext = "Places_list"
+    fileprivate let searchTrackerContext: AnalyticsContext = "Places_search"
+    fileprivate let imageController = ImageController.shared
+    fileprivate var searchFilterListController: PlaceSearchFilterListController!
+    fileprivate var extendedNavBarHeightOrig: CGFloat?
+    fileprivate var touchOutsideOverlayView: TouchOutsideOverlayView!
+    fileprivate var _displayCountForTopPlaces: Int?
+    fileprivate var displayCountForTopPlaces: Int {
         get {
             switch (self.currentSearchFilter) {
             case .top:
@@ -85,7 +99,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    lazy private var placeSearchService: PlaceSearchService! = {
+    lazy fileprivate var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
     }()
     
@@ -98,6 +112,32 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let mapViewFrame = mapContainerView.bounds
+        #if OSM
+            let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
+            mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
+            mapView.delegate = self
+            mapView.allowsRotating = false
+            mapView.allowsTilting = false
+            mapView.showsUserLocation = false
+            mapView.logoView.isHidden = true
+        #else
+            mapView = MapView(frame: mapViewFrame)
+            mapView.delegate = self
+            // Setup map view
+            mapView.mapType = .standard
+            mapView.showsBuildings = false
+            mapView.showsTraffic = false
+            mapView.showsPointsOfInterest = false
+            mapView.showsScale = false
+            mapView.showsUserLocation = true
+            mapView.isRotateEnabled = false
+            mapView.isPitchEnabled = false
+        #endif
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapContainerView.addSubview(mapView)
+
         
         view.tintColor = .wmf_blue
         
@@ -116,15 +156,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         wmf_addBottomShadow(view: filterDropDownContainerView)
 
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        // Setup map view
-        mapView.mapType = .standard
-        mapView.showsBuildings = false
-        mapView.showsTraffic = false
-        mapView.showsPointsOfInterest = false
-        mapView.showsScale = false
-        mapView.showsUserLocation = false
-        
+
         // Setup location manager
         locationManager.delegate = self
     
@@ -244,17 +276,8 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         mapView.showsUserLocation = false
     }
     
-    // MARK: - MKMapViewDelegate
-    
-    private var isMovingToRegion = false
-    
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        deselectAllAnnotations()
-        isMovingToRegion = true
-    }
-    
     func selectVisibleArticle(articleKey: String) -> Bool {
-        let annotations = mapView.annotations(in: mapView.visibleMapRect)
+        let annotations = mapView.visibleAnnotations
         for annotation in annotations {
             guard let place = annotation as? ArticlePlace,
                 place.articles.count == 1,
@@ -278,27 +301,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         articleKeyToSelect = nil
 
     }
-    
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        _mapRegion = mapView.region
-        guard performDefaultSearchOnNextMapRegionUpdate == false else {
-            performDefaultSearchOnNextMapRegionUpdate = false
-            performDefaultSearchIfNecessary(withRegion: nil)
-            return
-        }
-        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
 
-        updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
-        
-        isMovingToRegion = false
-        
-        selectVisibleKeyToSelectIfNecessary()
-        
-        updateShouldShowAllImagesIfNecessary()
-    }
     
     func updateShouldShowAllImagesIfNecessary() {
-        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        let visibleAnnotations = mapView.visibleAnnotations
         var visibleArticleCount = 0
         var visibleGroupCount = 0
         for annotation in visibleAnnotations {
@@ -328,119 +334,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
-        guard let place = annotationView.annotation as? ArticlePlace else {
-            return
-        }
-        
-        previouslySelectedArticlePlaceIdentifier = place.identifier
-        
-        guard place.articles.count == 1 else {
-            deselectAllAnnotations()
-    
-            var minDistance = CLLocationDistanceMax
-            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-            for article in place.articles {
-                guard let location = article.location else {
-                    continue
-                }
-                let distance = location.distance(from: center)
-                if distance < minDistance {
-                    minDistance = distance
-                    articleKeyToSelect = article.key
-                }
-            }
-            mapRegion = regionThatFits(articles: place.articles)
-            return
-        }
-        
-        showPopover(forAnnotationView: annotationView)
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        selectedArticleKey = nil
-        dismissCurrentArticlePopover()
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    }
-    
     var countOfAnimatingAnnotations = 0 {
         didSet {
             if countOfAnimatingAnnotations == 0 {
                 selectVisibleKeyToSelectIfNecessary()
             }
         }
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        guard let place = annotation as? ArticlePlace else {
-            // CRASH WORKAROUND 
-            // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
-            if let userLocation = annotation as? MKUserLocation {
-                let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
-                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(annotation: userLocation, reuseIdentifier: userViewReuseIdentifier)
-                placeView.annotation = userLocation
-                return placeView
-            }
-            return nil
-        }
-        
-        let reuseIdentifier = "org.wikimedia.articlePlaceView"
-        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
-        
-        if placeView == nil {
-            placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
-        } else {
-            placeView?.prepareForReuse()
-            placeView?.annotation = place
-        }
-        
-        placeView?.delegate = self
-        
-        if showingAllImages {
-            placeView?.set(alwaysShowImage: true, animated: false)
-        }
-        
-        if place.articles.count > 1 && place.nextCoordinate == nil {
-            placeView?.alpha = 0
-            placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.transform = CGAffineTransform.identity
-                    placeView?.alpha = 1
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-            })
-        } else if let nextCoordinate = place.nextCoordinate {
-            placeView?.alpha = 0
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    place.coordinate = nextCoordinate
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-                UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.alpha = 1
-                }, completion: nil)
-            })
-        } else {
-            placeView?.alpha = 0
-            dispatchOnMainQueue({
-                self.countOfAnimatingAnnotations += 1
-                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
-                    placeView?.alpha = 1
-                }, completion: { (done) in
-                    self.countOfAnimatingAnnotations -= 1
-                })
-            })
-        }
-        
-        return placeView
     }
     
     // MARK: - Keyboard
@@ -477,17 +376,28 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Map Region
     
-    private var _mapRegion: MKCoordinateRegion?
+    fileprivate func region(thatFits regionToFit: MKCoordinateRegion) -> MKCoordinateRegion {
+        var region = mapView.regionThatFits(regionToFit)
+        
+        if region.span.latitudeDelta == 0 || region.span.longitudeDelta == 0 ||
+           region.span.latitudeDelta.isNaN || region.span.longitudeDelta.isNaN ||
+           region.span.latitudeDelta.isInfinite || region.span.longitudeDelta.isInfinite {
+            region = regionToFit
+        }
+
+        return region
+    }
     
-    private var mapRegion: MKCoordinateRegion? {
+    fileprivate var _mapRegion: MKCoordinateRegion?
+    
+    fileprivate var mapRegion: MKCoordinateRegion? {
         set {
             guard let value = newValue else {
                 _mapRegion = nil
                 return
             }
             
-            let region = mapView.regionThatFits(value)
-            
+            let region = self.region(thatFits: value)
             _mapRegion = region
             
             regroupArticlesIfNecessary(forVisibleRegion: region)
@@ -515,11 +425,16 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    func regionThatFits(articles: [WMFArticle]) -> MKCoordinateRegion {
+    func region(thatFits articles: [WMFArticle]) -> MKCoordinateRegion {
         let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
-        return coordinates.wmf_boundingRegion
+        guard coordinates.count > 1 else {
+            return coordinates.wmf_boundingRegion(with: 10000)
+        }
+        
+        let initialRegion = coordinates.wmf_boundingRegion(with: 50)
+        return coordinates.wmf_boundingRegion(with: 0.25 * initialRegion.width)
     }
     
     // MARK: - Searching
@@ -616,7 +531,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             return
         }
         
-        let regionThatFits = mapView.regionThatFits(searchRegion)
+        let regionThatFits = region(thatFits: searchRegion)
         let movedSignificantly = isDistanceSignificant(betweenRegion: regionThatFits, andRegion: visibleRegion)
         DDLogDebug("movedSignificantly=\(movedSignificantly)")
         
@@ -655,7 +570,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         updateSavedPlacesCountInCurrentMapRegionIfNecessary()
         hideDidYouMeanButton()
         
-        let siteURL = self.siteURL
+        let siteURL = search.siteURL ?? self.siteURL
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
@@ -688,7 +603,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
             let moc = dataStore.viewContext
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -707,7 +622,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     self.articleKeyToSelect = articlesToShow.first?.key
                     if articlesToShow.count > 0 {
                         if (self.currentSearch?.region == nil) {
-                            self.currentSearchRegion = self.regionThatFits(articles: articlesToShow)
+                            self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
@@ -722,7 +637,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case .top:
             tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -808,7 +723,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         })
     }
     
-    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+    func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
@@ -816,7 +731,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
                 let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
                 var minDistance = CLLocationDistance(Double.greatestFiniteMagnitude)
-                var resultToSelect: MWKLocationSearchResult?
+                var resultToSelect: MWKSearchResult?
                 for result in searchResults {
                     guard let location = result.location else {
                         continue
@@ -883,7 +798,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
             tempSearch.needsWikidataQuery = false
             
-            placeSearchService.performSearch(tempSearch, region: mapView.region, completion: { (searchResult) in
+            placeSearchService.performSearch(tempSearch, defaultSiteURL: siteURL, region: mapView.region, completion: { (searchResult) in
                 guard let locationResults = searchResult.locationResults else {
                     return
                 }
@@ -968,7 +883,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case searchOverlay
     }
     
-    private var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
+    fileprivate var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
@@ -1126,7 +1041,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     
-    private func updateTraitBasedViewMode() {
+    fileprivate func updateTraitBasedViewMode() {
         //forces an update
         let oldViewMode = self.viewMode
         self.viewMode = .none
@@ -1276,7 +1191,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             default:
                 if let currentSearch = self.currentSearch {
-                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult, siteURL: currentSearch.siteURL)
                 }
             }
         }
@@ -1299,12 +1214,12 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
 
     // MARK: - Search History
     
-    private func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
+    fileprivate func searchHistoryGroup(forFilter: PlaceFilterType) -> String {
         let searchHistoryGroup = "PlaceSearch"
         return "\(searchHistoryGroup).\(forFilter.stringValue)"
     }
     
-    private func currentSearchHistoryGroup() -> String {
+    fileprivate func currentSearchHistoryGroup() -> String {
         return searchHistoryGroup(forFilter: currentSearchFilter)
     }
     
@@ -1416,10 +1331,10 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Place Grouping
     
-    private var groupingTaskGroup: WMFTaskGroup?
-    private var needsRegroup = false
-    private var showingAllImages = false
-    private var greaterThanOneArticleGroupCount = 0
+    fileprivate var groupingTaskGroup: WMFTaskGroup?
+    fileprivate var needsRegroup = false
+    fileprivate var showingAllImages = false
+    fileprivate var greaterThanOneArticleGroupCount = 0
     
     struct ArticleGroup {
         var articles: [WMFArticle] = []
@@ -1732,7 +1647,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     
     // MARK: - Article Popover
     
-    func showPopover(forAnnotationView annotationView: MKAnnotationView) {
+    func showPopover(forAnnotationView annotationView: MapAnnotationView) {
         guard let place = annotationView.annotation as? ArticlePlace else {
             return
         }
@@ -1877,7 +1792,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         case right
     }
     
-    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MKAnnotationView) {
+    func adjustLayout(ofPopover articleVC: ArticlePopoverViewController, withSize popoverSize: CGSize, viewSize: CGSize, forAnnotationView annotationView: MapAnnotationView) {
         var preferredLocations = [PopoverLocation]()
         
         
@@ -1995,7 +1910,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    private func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+    fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
         guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
             // TODO: error
@@ -2041,7 +1956,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         })
     }
     
-    private func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
+    fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
         
         let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
         
@@ -2063,7 +1978,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 
     
-    private func updateSearchFilterTitle() {
+    fileprivate func updateSearchFilterTitle() {
         
         let title: String
         let image: UIImage
@@ -2117,7 +2032,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     
-    private func updateSearchBarText(forSearch search: PlaceSearch) {
+    fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
         if (isDefaultSearch(search)) {
             searchBar?.text = nil
         } else {
@@ -2126,7 +2041,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         
     }
     
-    private func updateSearchBarText() {
+    fileprivate func updateSearchBarText() {
         guard let search = currentSearch else {
             searchBar?.text = nil
             return
@@ -2231,7 +2146,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         searchSuggestionController.searches = [[], [], currentSearchStringSuggestions, completions]
     }
     
-    func handleCompletion(searchResults: [MWKSearchResult]) -> [PlaceSearch] {
+    func handleCompletion(searchResults: [MWKSearchResult], siteURL: URL) -> [PlaceSearch] {
         var set = Set<String>()
         let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
@@ -2243,28 +2158,37 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                     return nil
             }
             set.insert(key)
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            let region = [location.coordinate].wmf_boundingRegion(with: dimension)
+            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result, siteURL: siteURL)
         }
         updateSearchSuggestions(withCompletions: completions, isSearchDone: true)
         return completions
     }
     
-    @objc public func showArticleURL(_ articleURL: URL) {
+    public func showNearbyArticles() {
+        guard let _ = view else { // force view instantiation
+            return
+        }
+        
+        guard currentSearch != nil else { // if current search is nil, this is the initial setup for the view and it will recenter automatically
+            return
+        }
+        
+        currentSearch = nil // will cause the default search to perform after re-centering
+        recenterOnUserLocation(self)
+    }
+    
+    public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
             let _ = view else { // force view instantiation
             return
         }
-
-        var region: MKCoordinateRegion? = nil
-        if let coordinate = article.coordinate {
-            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
-        }
+        let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
     }
     
-    private func searchForFirstSearchSuggestion() {
+    fileprivate func searchForFirstSearchSuggestion() {
         if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
         } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
@@ -2272,7 +2196,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    private var isWaitingForSearchSuggestionUpdate = false {
+    fileprivate var isWaitingForSearchSuggestionUpdate = false {
         didSet {
             if (oldValue == false && isWaitingForSearchSuggestionUpdate == true) {
                 // start progress bar
@@ -2304,6 +2228,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
+        let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             guard text == self.searchBar?.text else {
                 return
@@ -2319,7 +2244,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 DDLogDebug("got suggestion! \(suggestion)")
             }
             
-            let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
             self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
                 return
@@ -2334,7 +2259,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
                 let newResults = locationSearchResults.results as [MWKSearchResult]
                 combinedResults.append(contentsOf: newResults)
-                let _ = self.handleCompletion(searchResults: combinedResults)
+                let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
             }) { (error) in
                 guard text == self.searchBar?.text else {
                     return
@@ -2529,7 +2454,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let region = [location.coordinate].wmf_boundingRegion(with: 10000)
         mapRegion = region
         if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
             performDefaultSearch(withRegion: mapRegion)
@@ -2568,7 +2493,7 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
         }
     }
     
-    @IBAction func recenterOnUserLocation(_ sender: Any) {
+    @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
         guard WMFLocationManager.isAuthorized() else {
             promptForLocationAccess()
             return
@@ -2668,6 +2593,200 @@ class PlacesViewController: UIViewController, MKMapViewDelegate, UISearchBarDele
     }
 }
 
+extension PlacesViewController {
+    func regionWillChange() {
+        deselectAllAnnotations()
+        isMovingToRegion = true
+    }
+    
+    func regionDidChange() {
+        _mapRegion = mapView.region
+        guard performDefaultSearchOnNextMapRegionUpdate == false else {
+            performDefaultSearchOnNextMapRegionUpdate = false
+            performDefaultSearchIfNecessary(withRegion: nil)
+            return
+        }
+        regroupArticlesIfNecessary(forVisibleRegion: mapView.region)
+        
+        updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
+        
+        isMovingToRegion = false
+        
+        selectVisibleKeyToSelectIfNecessary()
+        
+        updateShouldShowAllImagesIfNecessary()
+    }
+    
+    func didSelect(place: ArticlePlace, annotationView: MapAnnotationView) {
+        previouslySelectedArticlePlaceIdentifier = place.identifier
+        
+        guard place.articles.count == 1 else {
+            deselectAllAnnotations()
+            
+            var minDistance = CLLocationDistanceMax
+            let center = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            for article in place.articles {
+                guard let location = article.location else {
+                    continue
+                }
+                let distance = location.distance(from: center)
+                if distance < minDistance {
+                    minDistance = distance
+                    articleKeyToSelect = article.key
+                }
+            }
+            mapRegion = region(thatFits: place.articles)
+            return
+        }
+        
+        showPopover(forAnnotationView: annotationView)
+    }
+    
+    func didDeselectAnnotation() {
+        selectedArticleKey = nil
+        dismissCurrentArticlePopover()
+    }
+    
+    func viewFor(place: ArticlePlace) -> MapAnnotationView? {
+        let reuseIdentifier = "org.wikimedia.articlePlaceView"
+        var placeView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as! ArticlePlaceView?
+        
+        if placeView == nil {
+            #if OSM
+                placeView = ArticlePlaceView(reuseIdentifier: reuseIdentifier)
+            #else
+                placeView = ArticlePlaceView(annotation: place, reuseIdentifier: reuseIdentifier)
+            #endif
+        } else {
+            placeView?.prepareForReuse()
+            placeView?.annotation = place
+        }
+        
+        placeView?.delegate = self
+        
+        if showingAllImages {
+            placeView?.set(alwaysShowImage: true, animated: false)
+        }
+        
+        if place.articles.count > 1 && place.nextCoordinate == nil {
+            placeView?.alpha = 0
+            placeView?.transform = CGAffineTransform(scaleX: animationScale, y: animationScale)
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.transform = CGAffineTransform.identity
+                    placeView?.alpha = 1
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+            })
+        } else if let nextCoordinate = place.nextCoordinate {
+            placeView?.alpha = 0
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: 2*self.animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    place.coordinate = nextCoordinate
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+                UIView.animate(withDuration: 0.5*self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.alpha = 1
+                }, completion: nil)
+            })
+        } else {
+            placeView?.alpha = 0
+            dispatchOnMainQueue({
+                self.countOfAnimatingAnnotations += 1
+                UIView.animate(withDuration: self.animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                    placeView?.alpha = 1
+                }, completion: { (done) in
+                    self.countOfAnimatingAnnotations -= 1
+                })
+            })
+        }
+        
+        return placeView
+    }
+}
+
+#if OSM
+    
+// MARK: - MGLMapViewDelegate
+extension PlacesViewController: MGLMapViewDelegate {
+    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        regionWillChange()
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        regionDidChange()
+    }
+    
+    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
+            return
+        }
+        didSelect(place: place, annotationView: annotationView)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didDeselect view: MGLAnnotationView) {
+        didDeselectAnnotation()
+    }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        guard let place = annotation as? ArticlePlace else {
+            return nil
+        }
+        
+        return viewFor(place: place)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        
+    }
+}
+#else
+    
+// MARK: - MKMapViewDelegate
+extension PlacesViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        regionWillChange()
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        regionDidChange()
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect annotationView: MKAnnotationView) {
+        guard let place = annotationView.annotation as? ArticlePlace, let annotationView = annotationView as? MapAnnotationView else {
+            return
+        }
+        
+        didSelect(place: place, annotationView: annotationView)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        didDeselectAnnotation()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let place = annotation as? ArticlePlace else {
+            // CRASH WORKAROUND
+            // The UIPopoverController that the map view presents from the default user location annotation is causing a crash. Using our own annotation view for the user location works around this issue.
+            if let userLocation = annotation as? MKUserLocation {
+                let userViewReuseIdentifier = "org.wikimedia.userLocationAnnotationView"
+                let placeView = mapView.dequeueReusableAnnotationView(withIdentifier: userViewReuseIdentifier) as? UserLocationAnnotationView ?? UserLocationAnnotationView(annotation: userLocation, reuseIdentifier: userViewReuseIdentifier)
+                placeView.annotation = userLocation
+                return placeView
+            }
+            return nil
+        }
+        
+        return viewFor(place: place)
+    }
+}
+    
+#endif
+
 // MARK: -
 
 class PlaceSearchFilterSelectorView: UIView {
@@ -2682,4 +2801,27 @@ class PlaceSearchEmptySearchOverlayView: UIView {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+extension PlacesViewController {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard viewMode == .list else {
+            return nil
+        }
+        let point = view.convert(location, to: listView)
+        guard
+            let indexPath = listView.indexPathForRow(at: point),
+            let url = self.articleFetchedResultsController.object(at: indexPath).url,
+            let cell = listView.cellForRow(at: indexPath)
+        else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
+    }
 }
