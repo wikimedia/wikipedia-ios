@@ -71,6 +71,3 @@
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
-
-// Constants
-#import "WMFConstants.h"
