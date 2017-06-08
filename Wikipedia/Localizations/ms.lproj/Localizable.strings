@@ -256,8 +256,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 rencana|$1 rencana}}";
 "places-no-saved-articles-have-location" = "Tiada artikel tersimpan anda mempunyai maklumat terperinci";
 "places-search-articles-that-match" = "$1 yang hampir sama “$2”";
-// Fuzzy
-"places-search-default-text" = "Cari";
+"places-search-default-text" = "Cari Tempat";
 "places-search-did-you-mean" = "Maksud anda $1?";
 "places-search-recently-searched-header" = "Carian terkini";
 "places-search-saved-articles" = "Semua rencana tersimpan";
@@ -265,6 +264,7 @@
 "places-search-this-area" = "Hasil di kawasan ini";
 "places-search-top-articles" = "Semua rencana teratas";
 "places-search-top-articles-that-match-scope" = "Berdekatan";
+"places-search-your-current-location" = "Lokasi semasa anda";
 "places-show-filter-list-accessibility-label" = "Tunjukkan penapis carian";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";

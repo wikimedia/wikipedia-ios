@@ -252,6 +252,7 @@
 "places-accessibility-show-as-list" = "Visa som lista";
 "places-accessibility-show-as-map" = "Visa som karta";
 "places-accessibility-show-more" = "Visa fler artiklar";
+"places-dismiss-filter-list-accessibility-label" = "Stäng sökfilter";
 "places-empty-search-description" = "Utforska städer, länder, kontinenter, naturliga landmärken, historiska händelser, byggnader och mer.";
 "places-empty-search-title" = "Sök efter Wikipedia-artiklar med geografiska platser";
 "places-enable-location-action-button-title" = "Aktivera plats";
@@ -265,14 +266,16 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "$1 matchar “$2”";
-// Fuzzy
-"places-search-default-text" = "Sök";
+"places-search-default-text" = "Sök platser";
 "places-search-did-you-mean" = "Menade du $1?";
 "places-search-recently-searched-header" = "Senaste sökningar";
 "places-search-saved-articles" = "Alla sparade artiklar";
 "places-search-suggested-searches-header" = "Förslag på sökningar";
 "places-search-this-area" = "Resultat i detta område";
 "places-search-top-articles" = "Alla populära artiklar";
+"places-search-top-articles-that-match-scope" = "I närheten";
+"places-search-your-current-location" = "Din aktuella position";
+"places-show-filter-list-accessibility-label" = "Visa sökfilter";
 "places-title" = "Platser";
 "places-unknown-distance" = "okänt avstånd";
 "potd-description-prefix" = "Dagens bild för $1";

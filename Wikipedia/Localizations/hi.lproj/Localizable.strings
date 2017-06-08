@@ -98,6 +98,7 @@
 "empty-no-saved-pages-message" = "ऑफलाइन होने पर भी, बाद में देखने के लिए पेजों को सहेजें";
 "empty-no-saved-pages-title" = "अभी तक कोई सहेजे पेज नहीं";
 "empty-no-search-results-message" = "कोई परिणाम नहीं मिला";
+"error-unknown" = "एक अज्ञात एरर घटित हुआ है";
 "explore-another-random" = "दूसरा बेतरतीब लेख";
 "explore-because-you-read" = "क्योंकि आपने पढ़ा";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
@@ -139,7 +140,7 @@
 "field-password-confirm-title" = "पासवर्ड की पुष्टि करें";
 "field-password-placeholder" = "पासवर्ड डालें";
 "field-password-title" = "पासवर्ड";
-"field-token-title" = "टोकन";
+"field-token-title" = "वेरिफिकेशन कोड";
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
 "find-in-page-button-label" = "पेज में ढूंढें";
@@ -172,6 +173,7 @@
 "home-more-like-footer" = "$1 के समान";
 "home-nearby-footer" = "आपकी निकटतम लोकेशन से और अधिक";
 "home-nearby-location-footer" = "$1 के निकट और अधिक";
+"home-news-footer" = "समाचारों में अधिक";
 "home-title" = "छानबीन";
 "home-title-accessibility-label" = "विकिपीडिया, खोज के ऊपरी हिस्से पर जाएँ";
 "icon-shortcut-continue-reading-title" = "पढ़ना जारी रखें";
@@ -233,11 +235,12 @@
 "page-location" = "नक्शे पर देखें";
 "page-protected-autoconfirmed" = "यह पृष्ठ अर्ध-सुरक्षित है।";
 "page-protected-can-not-edit" = "इस पेज को सम्पादित करने के लिए आपके पास अधिकार नहीं हैं";
-"page-protected-can-not-edit-title" = "यह पृष्ठ संरक्षित है";
+"page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
 "page-protected-other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-similar-titles" = "समान पृष्ठ";
+"pictured" = "चित्रित";
 "places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
 "places-accessibility-close-search" = "खोज बंद करें";
 "places-accessibility-group" = "$1 लेख";
@@ -245,9 +248,10 @@
 "places-accessibility-show-as-list" = "सूची की तरह दिखाएँ";
 "places-accessibility-show-as-map" = "मैप पर दिखाएँ";
 "places-accessibility-show-more" = "अधिक लेख दिखाएं";
+"places-dismiss-filter-list-accessibility-label" = "खोज फिल्टरों को निरस्त करें";
 "places-empty-search-description" = "शहरों, देशों, महाद्वीपों, प्राकृतिक स्थलों, ऐतिहासिक घटनाओं, भवनों और अन्य की खोज करें।";
 "places-empty-search-title" = "भौगिलिक लोकेशन्स अनुसार विकीपीडिया लेख खोजें";
-"places-enable-location-action-button-title" = "स्थान सक्रिय करें";
+"places-enable-location-action-button-title" = "लोकेशन सक्रिय करें";
 "places-enable-location-description" = "आपकी लोकेशन की उपलब्धता केवल तभी है जब एप या इसके फीचर्स में से एक स्क्रीन पर दिखे।";
 "places-enable-location-title" = "लोकेशन एक्सेस इनेबल कर अपनी लोकेशन के पास के लेख खोजें";
 "places-filter-list-title" = "खोज फिल्टर्स";
@@ -258,13 +262,17 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 लेख|$1 लेख}}";
 "places-no-saved-articles-have-location" = "आपके सहेजे गए किसी भी लेख में लोकेशन जानकारी नहीं है";
 "places-search-articles-that-match" = "$1 से $2 मिलता हुआ";
-// Fuzzy
-"places-search-default-text" = "खोजें";
+"places-search-default-text" = "स्थान खोजें";
+"places-search-did-you-mean" = "क्या आपका मतलब $1 से हैं?";
 "places-search-recently-searched-header" = "हाल ही में खोजा गया";
 "places-search-saved-articles" = "सभी सहेजे लेख";
 "places-search-suggested-searches-header" = "सुझाई गयी खोजें";
 "places-search-this-area" = "इस क्षेत्र में परिणाम";
 "places-search-top-articles" = "सभी टॉप लेख";
+"places-search-top-articles-that-match-scope" = "आस-पास";
+"places-search-your-current-location" = "आपकी वर्तमान लोकेशन";
+"places-show-filter-list-accessibility-label" = "खोज फ़िल्टर दिखाएं";
+"places-title" = "स्थान";
 "places-unknown-distance" = "अज्ञात दूरी";
 "potd-description-prefix" = "$1 के लिए आज का चित्र";
 "potd-empty-error-description" = "$1 के लिए आज का चित्र लाने में असमर्थ";
@@ -273,6 +281,9 @@
 "rank-accessibility-label" = "नंबर $1";
 "readers-accessibility-label" = "$1 पाठक";
 "reference-title" = "सन्दर्भ $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=आज|कल|$1 दिन पहले}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "save-action" = "सहेजें";
 "saved-clear-all" = "साफ़ करें";
@@ -356,6 +367,8 @@
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";
+"wikitext-preview-link-preview-description" = "यह लिंक $1 पर ले जाता है";
+"wikitext-preview-link-preview-title" = "लिंक प्रीव्यू";
 "wikitext-upload-captcha-error" = "कैप्चा सत्यापन में त्रुटि";
 "wikitext-upload-captcha-needed" = "कैप्चा के प्रमाणिकरण की आवश्यकता है।";
 "wikitext-upload-result-unknown" = "विकिटेक्सट के अपलोड परिणाम बताने में असमर्थ।";

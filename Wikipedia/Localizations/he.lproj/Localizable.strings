@@ -262,8 +262,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
-// Fuzzy
-"places-search-default-text" = "חיפוש";
+"places-search-default-text" = "חיפוש מקומות";
 "places-search-did-you-mean" = "האם התכוונת לכתוב $1?";
 "places-search-recently-searched-header" = "חיפושים אחרונים";
 "places-search-saved-articles" = "כל הערכים השמורים";
@@ -271,6 +270,7 @@
 "places-search-this-area" = "תוצאות באזור הזה";
 "places-search-top-articles" = "כל הערכים המובילים";
 "places-search-top-articles-that-match-scope" = "בסביבה";
+"places-search-your-current-location" = "המיקום הנוכחי שלך";
 "places-show-filter-list-accessibility-label" = "הצגת מסנני חיפוש";
 "places-title" = "מקומות";
 "places-unknown-distance" = "מרחק בלתי־ידוע";

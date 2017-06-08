@@ -270,8 +270,7 @@
 "places-filter-top-articles" = "الأعلى قراءة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
 "places-search-articles-that-match" = "$1 التي تطابق \"$2\"";
-// Fuzzy
-"places-search-default-text" = "بحث";
+"places-search-default-text" = "ابحث عن أماكن";
 "places-search-did-you-mean" = "هل عنيت $1؟";
 "places-search-recently-searched-header" = "عمليات البحث الأخيرة";
 "places-search-saved-articles" = "كل المقالات المحفوظة";
@@ -279,6 +278,7 @@
 "places-search-this-area" = "نتائج هذه المنطقة";
 "places-search-top-articles" = "كل المقالات الأكثر قراءة";
 "places-search-top-articles-that-match-scope" = "بالقرب من هنا";
+"places-search-your-current-location" = "موقعك الحالي";
 "places-show-filter-list-accessibility-label" = "إظهار مرشحات البحث";
 "places-title" = "أماكن";
 "places-unknown-distance" = "المسافة غير معروفة";
