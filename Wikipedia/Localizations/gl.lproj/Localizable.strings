@@ -244,6 +244,7 @@
 "places-accessibility-show-as-list" = "Amosar como lista";
 "places-accessibility-show-as-map" = "Amosar como mapa";
 "places-accessibility-show-more" = "Amosar máis artigos";
+"places-dismiss-filter-list-accessibility-label" = "Descartar filtros de procura";
 "places-empty-search-description" = "Explore cidades, países, continentes, monumentos naturais, eventos históricos, edificios e máis.";
 "places-empty-search-title" = "Procurar artigos de Wikipedia con localizacións xeográficas";
 "places-enable-location-action-button-title" = "Activar localización";
@@ -257,8 +258,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-search-articles-that-match" = "$1 correspondente a “$2”";
-// Fuzzy
-"places-search-default-text" = "Procurar";
+"places-search-default-text" = "Procurar lugares";
 "places-search-did-you-mean" = "Quixo dicir $1?";
 "places-search-recently-searched-header" = "Buscado recentemente";
 "places-search-saved-articles" = "Todos os artigos gardados";
@@ -266,6 +266,8 @@
 "places-search-this-area" = "Resultados nesta área";
 "places-search-top-articles" = "Todos os artigos mellores";
 "places-search-top-articles-that-match-scope" = "Preto";
+"places-search-your-current-location" = "A súa situación actual";
+"places-show-filter-list-accessibility-label" = "Amosar filtros de procura";
 "places-title" = "Lugares";
 "places-unknown-distance" = "distancia descoñecida";
 "potd-description-prefix" = "Imaxe do día para $1";
