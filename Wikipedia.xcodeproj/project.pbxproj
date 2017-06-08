@@ -1297,6 +1297,7 @@
 		D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
 		D8703DC31EE84533001A4BAB /* PreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */; };
+		D8703DCF1EE8B27A001A4BAB /* mapstyle.json in Resources */ = {isa = PBXBuildFile; fileRef = D8703DCE1EE8B27A001A4BAB /* mapstyle.json */; };
 		D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D87234041E1FF18100751E83 /* Places.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87234031E1FF18100751E83 /* Places.storyboard */; };
 		D8726D431EBA052900A107D0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8726D421EBA052900A107D0 /* Localization.swift */; };
@@ -1342,7 +1343,6 @@
 		D88C701A1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
 		D88C701B1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
 		D88C701C1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
-		D88C70231EE5AA450022A26A /* WMFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D88C701E1EE5AA450022A26A /* WMFConstants.m */; };
 		D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */; };
 		D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
 		D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCAE01E4B776600505A9F /* MapUtilities.swift */; };
@@ -4365,6 +4365,7 @@
 		D87021621EBA63EF000D02D6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D87021701EBA6400000D02D6 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = scripts/localization.swift; sourceTree = SOURCE_ROOT; };
 		D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewingViewController.swift; sourceTree = "<group>"; };
+		D8703DCE1EE8B27A001A4BAB /* mapstyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mapstyle.json; sourceTree = "<group>"; };
 		D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
 		D87234031E1FF18100751E83 /* Places.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Places.storyboard; sourceTree = "<group>"; };
 		D8726D421EBA052900A107D0 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -4388,8 +4389,6 @@
 		D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFArticle+QuadKey.swift"; path = "Wikipedia/Code/WMFArticle+QuadKey.swift"; sourceTree = SOURCE_ROOT; };
 		D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleFullWidthImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D88C70171EE595E90022A26A /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		D88C701D1EE5AA450022A26A /* WMFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFConstants.h; sourceTree = "<group>"; };
-		D88C701E1EE5AA450022A26A /* WMFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFConstants.m; sourceTree = "<group>"; };
 		D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikidataFetcher.swift; sourceTree = "<group>"; };
 		D88FCAE01E4B776600505A9F /* MapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtilities.swift; sourceTree = "<group>"; };
@@ -6134,8 +6133,6 @@
 				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
 				0EF5BB651C110BFC00DE75E1 /* Global.h */,
-				D88C701D1EE5AA450022A26A /* WMFConstants.h */,
-				D88C701E1EE5AA450022A26A /* WMFConstants.m */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
@@ -7693,6 +7690,7 @@
 				D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */,
 				D87721FC1EC0DCA30005E634 /* SaveButton.swift */,
 				D82117F91EE587650076C040 /* Mapbox+Extensions.swift */,
+				D8703DCE1EE8B27A001A4BAB /* mapstyle.json */,
 				D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */,
 				D88C70171EE595E90022A26A /* MapView.swift */,
 				D82117FB1EE58C080076C040 /* MapAnnotation.swift */,
@@ -8704,6 +8702,7 @@
 				D80ED3CD1EE57F4800CE8C50 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
 				D80ED3CE1EE57F4800CE8C50 /* WMFExploreSectionFooter.xib in Resources */,
 				D80ED3CF1EE57F4800CE8C50 /* WMFNearbyArticleCollectionViewCell.xib in Resources */,
+				D8703DCF1EE8B27A001A4BAB /* mapstyle.json in Resources */,
 				D80ED3D01EE57F4800CE8C50 /* EditSummaryViewController.storyboard in Resources */,
 				D80ED3D11EE57F4800CE8C50 /* AboutViewController.plist in Resources */,
 				D80ED3D21EE57F4800CE8C50 /* NotificationBackgroundMessage.png in Resources */,
@@ -10020,7 +10019,6 @@
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D80ED3441EE57F4800CE8C50 /* WMFArticleNavigationController.m in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
-				D88C70231EE5AA450022A26A /* WMFConstants.m in Sources */,
 				D80ED3461EE57F4800CE8C50 /* UITableView+DynamicCellHeight.m in Sources */,
 				D80ED3471EE57F4800CE8C50 /* ArticlePlace.swift in Sources */,
 				D80ED3481EE57F4800CE8C50 /* String?+WMFExtras.swift in Sources */,
@@ -11887,7 +11885,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = Test;
 		};
@@ -12103,7 +12100,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = Debug;
 		};
@@ -12162,7 +12158,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = Release;
 		};
@@ -12705,7 +12700,6 @@
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 					"WMF_HOCKEYAPP_IDENTIFIER=$(WMF_HOCKEYAPP_IDENTIFIER)",
 					"OSM=1",
-					"WMF_MGL_ACCESS_TOKEN=$(WMF_MGL_ACCESS_TOKEN)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -12727,7 +12721,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_MGL_ACCESS_TOKEN = pk.eyJ1Ijoiam9ld2Fsc2h3bWYiLCJhIjoiY2l5enE4aW94MDFyaTJ3bW55encxbjV5dSJ9.yltpNFyY0ZSYR4tRjcPZhQ;
 			};
 			name = OSMDebug;
 		};
@@ -13133,7 +13126,6 @@
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 					"WMF_HOCKEYAPP_IDENTIFIER=$(WMF_HOCKEYAPP_IDENTIFIER)",
 					"OSM=1",
-					"WMF_MGL_ACCESS_TOKEN=$(WMF_MGL_ACCESS_TOKEN)",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -13154,7 +13146,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = pk.eyJ1Ijoiam9ld2Fsc2h3bWYiLCJhIjoiY2l5enE4aW94MDFyaTJ3bW55encxbjV5dSJ9.yltpNFyY0ZSYR4tRjcPZhQ;
 			};
 			name = OSMRelease;
 		};
@@ -13569,7 +13560,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = BetaClusterDebug;
 		};
@@ -13993,7 +13983,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = Alpha;
 		};
@@ -14220,7 +14209,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = AlphaDebug;
 		};
@@ -14815,7 +14803,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = Beta;
 		};
@@ -15101,7 +15088,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = BetaDebug;
 		};
@@ -15739,7 +15725,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = UserTestingRelease;
 		};
@@ -16061,7 +16046,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = UserTestingDebug;
 		};
@@ -16634,7 +16618,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
-				WMF_MGL_ACCESS_TOKEN = "";
 			};
 			name = BetaCluster;
 		};
