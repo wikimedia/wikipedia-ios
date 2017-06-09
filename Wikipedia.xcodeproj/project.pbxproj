@@ -480,11 +480,6 @@
 		B32535E61EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
 		B32535E71EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
 		B32535E81EE71B5600372E93 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E31EE71B5600372E93 /* Event.swift */; };
-		B32535EA1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
-		B32535EB1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
-		B32535EC1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
-		B32535ED1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
-		B32535EE1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */; };
 		B32535F11EE856FF00372E93 /* EventLogging.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */; };
 		B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */; };
 		B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */; };
@@ -3905,7 +3900,6 @@
 		B31B6AE51EC4CBFA009C76DD /* WMFExploreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreCollectionViewController.h; sourceTree = "<group>"; };
 		B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreCollectionViewController.m; sourceTree = "<group>"; };
 		B32535E31EE71B5600372E93 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSaveEvent.swift; sourceTree = SOURCE_ROOT; };
 		B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventLogging.xcdatamodel; sourceTree = "<group>"; };
 		B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -6110,7 +6104,6 @@
 		B3591BA91EDF3A5B00FC0E13 /* Wikimedia Event Logging New */ = {
 			isa = PBXGroup;
 			children = (
-				B32535E91EE71FDC00372E93 /* PageSaveEvent.swift */,
 			);
 			name = "Wikimedia Event Logging New";
 			sourceTree = "<group>";
@@ -9733,7 +9726,6 @@
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
 				B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
-				B32535EA1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B31B6AE71EC4CBFA009C76DD /* WMFExploreCollectionViewController.m in Sources */,
 				D8FA190F1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m in Sources */,
@@ -9932,7 +9924,6 @@
 				D80ED2BE1EE57F4800CE8C50 /* MenuLabel.m in Sources */,
 				D80ED2BF1EE57F4800CE8C50 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D80ED2C01EE57F4800CE8C50 /* WMFArticleListDataSourceTableViewController.m in Sources */,
-				B32535EE1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D80ED2C11EE57F4800CE8C50 /* WMFArticleRevisionFetcher.m in Sources */,
 				D80ED2C21EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D80ED2C31EE57F4800CE8C50 /* PreviewLicenseView.m in Sources */,
@@ -10612,7 +10603,6 @@
 				D8A42B141E815A9C00D8E281 /* NSLocale+WMFExtras.swift in Sources */,
 				D8A42B151E815A9C00D8E281 /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D8A42B161E815A9C00D8E281 /* WMFTableOfContentsHeader.swift in Sources */,
-				B32535ED1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8A42B171E815A9C00D8E281 /* WMFShareCardImageContainer.m in Sources */,
 				D8A42B181E815A9C00D8E281 /* UILabel+WMFStyling.m in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -10886,7 +10876,6 @@
 				D8CE25611E698E2400DAE2E0 /* WMFArticleListTableViewController.m in Sources */,
 				D8CE25621E698E2400DAE2E0 /* WikiGlyphLabel.m in Sources */,
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
-				B32535EB1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				B3B7945D1ECB3723005E2392 /* WMFExploreCollectionViewController.m in Sources */,
@@ -11166,7 +11155,6 @@
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8EC3E271E9BDA35006712EB /* PreviewLicenseView.m in Sources */,
 				D8EC3E281E9BDA35006712EB /* WMFFixtureRecording.m in Sources */,
-				B32535EC1EE71FDC00372E93 /* PageSaveEvent.swift in Sources */,
 				D8EC3E291E9BDA35006712EB /* UIView+WMFRoundCorners.m in Sources */,
 				D898452D1ECE29E000849DA4 /* TWNStringsTests.m in Sources */,
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,
