@@ -1,7 +1,7 @@
 #import "WMFShareOptionsController.h"
 
 #import "Wikipedia-Swift.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 #import "WMFShareFunnel.h"
 

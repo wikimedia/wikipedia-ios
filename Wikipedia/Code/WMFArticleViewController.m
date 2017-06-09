@@ -4,7 +4,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 // Frameworks
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"

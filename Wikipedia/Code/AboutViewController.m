@@ -6,7 +6,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";

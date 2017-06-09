@@ -17,7 +17,7 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
 

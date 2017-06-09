@@ -15,7 +15,7 @@
 #import "WMFSearchResults.h"
 #import "WMFSearchDataSource.h"
 
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
