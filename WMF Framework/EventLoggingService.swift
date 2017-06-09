@@ -9,6 +9,8 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     public var postTimeout: TimeInterval = 60*2 // 2 minutes
     public var postInterval: TimeInterval = 60*10 // 10 minutes
     
+    public var debugDisableImmediateSend = false
+    
     private static let LoggingEndpoint =
         // production
         "https://meta.wikimedia.org/beacon/event"
@@ -55,6 +57,10 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     private var shouldSendImmediately: Bool {
         
         if !started {
+            return false
+        }
+        
+        if (debugDisableImmediateSend) {
             return false
         }
         
@@ -274,7 +280,13 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             do {
                 var eventRecords: [EventRecord] = []
                 defer {
-                    self.postEvents(eventRecords)
+                    if eventRecords.count > 0 {
+                        self.postEvents(eventRecords)
+                    } else {
+                        self.postLock.lock()
+                        self.posting = false
+                        self.postLock.unlock()
+                    }
                 }
                 eventRecords = try moc.fetch(fetch)
             } catch let error {
@@ -295,22 +307,21 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func postEvents(_ eventRecords: [EventRecord]) {
-        guard eventRecords.count > 0 else {
-            self.postLock.lock()
-            self.posting = false
-            self.postLock.unlock()
-            
-            return
-        }
         
+        assert(posting, "method expects posting to be set when called")
+
         DDLogDebug("Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
         var tasks = [URLSessionTask]()
+        var completedRecords = [EventRecord]()
         
         self.queue.addOperation({
             for record in eventRecords {
-                if let task = self.task(forEventRecord: record, completion: { (error) in
+                if let task = self.task(forEventRecord: record, completion: {
+                    if (record.posted != nil) {
+                        completedRecords.append(record)
+                    }
                     taskGroup.leave()
                 }) {
                     taskGroup.enter()
@@ -321,14 +332,22 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             
             taskGroup.waitInBackground(withTimeout: self.postTimeout, completion: {
                 for task in tasks {
-                    task.cancel()
+                    if task.state == URLSessionTask.State.running {
+                        task.cancel()
+                    }
                 }
                 self.postLock.lock()
                 self.posting = false
                 self.postLock.unlock()
 
                 self.save()
-                self.tryPostEvents()
+                
+                if (completedRecords.count == eventRecords.count) {
+                    DDLogDebug("All records succeeded, attempting to post more")
+                    self.tryPostEvents()
+                } else {
+                    DDLogDebug("Some records failed, waiting to post more")
+                }
             })
         })
     }
