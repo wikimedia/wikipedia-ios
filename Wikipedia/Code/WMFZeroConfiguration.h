@@ -1,4 +1,5 @@
-#import <Mantle/Mantle.h>
+@import UIKit;
+@import Mantle;
 
 @interface WMFZeroConfiguration : MTLModel <MTLJSONSerializing>
 

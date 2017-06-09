@@ -1,4 +1,6 @@
-#import <Foundation/Foundation.h>
+@import UIKit;
+
+@class MWKDataStore;
 
 extern NSString * _Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 

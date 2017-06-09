@@ -1,11 +1,10 @@
 #import "WMFShareOptionsController.h"
 
 #import "Wikipedia-Swift.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 #import "WMFShareFunnel.h"
 
-#import "NSString+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "UIView+WMFSnapshotting.h"

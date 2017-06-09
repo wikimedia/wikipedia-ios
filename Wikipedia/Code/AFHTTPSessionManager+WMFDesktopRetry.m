@@ -1,6 +1,7 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "NSError+WMFExtensions.h"
 #import "SessionSingleton.h"
+#import "NSURL+WMFLinkParsing.h"
 
 @implementation AFHTTPSessionManager (WMFDesktopRetry)
 

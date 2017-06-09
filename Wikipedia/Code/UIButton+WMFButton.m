@@ -1,6 +1,5 @@
 #import "UIButton+WMFButton.h"
 #import "UIFont+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

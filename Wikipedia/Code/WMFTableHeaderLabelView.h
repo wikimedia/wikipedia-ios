@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface WMFTableHeaderLabelView : UITableViewHeaderFooterView
 @property (copy, nonatomic) NSString *text;

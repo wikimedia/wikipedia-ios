@@ -2,6 +2,7 @@
 #import <hpple/TFHpple.h>
 #import "NSString+WMFExtras.h"
 #import "WMFNumberOfExtractCharacters.h"
+#import "WMFComparison.h"
 
 @implementation NSString (WMFHTMLParsing)
 

@@ -1,5 +1,5 @@
 #import "PreviewWebViewContainer.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN

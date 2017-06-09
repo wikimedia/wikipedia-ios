@@ -4,6 +4,8 @@
 #import "WMFZeroConfiguration.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFZeroConfigurationManager.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "WikipediaAppUtils.h"
 
 @interface WMFZeroConfigurationFetcher ()
 

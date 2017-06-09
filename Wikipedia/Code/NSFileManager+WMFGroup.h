@@ -1,3 +1,5 @@
+@import Foundation;
+
 extern NSString *_Nonnull const WMFApplicationGroupIdentifier;
 
 @interface NSFileManager (WMFGroup)

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 @class CAGradientLayer;
 
 IB_DESIGNABLE

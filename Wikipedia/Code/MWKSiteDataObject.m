@@ -1,3 +1,7 @@
+#import "MWKSiteDataObject.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "MWKUser.h"
+
 @interface MWKSiteDataObject ()
 
 @property (readwrite, strong, nonatomic) NSURL *url;

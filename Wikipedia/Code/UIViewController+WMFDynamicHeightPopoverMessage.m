@@ -2,7 +2,6 @@
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFBarButtonItemPopoverBackgroundView.h"
-#import "UIColor+WMFStyle.h"
 
 typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentationController *presenter);
 

@@ -1,4 +1,5 @@
 #import "WMFArticlePreview.h"
+#import "NSDictionary+WMFPageViewsSortedByDate.h"
 
 @implementation WMFArticlePreview
 

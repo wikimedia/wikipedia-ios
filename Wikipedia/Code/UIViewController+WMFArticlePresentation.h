@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "WMFArticleViewController.h"
 
 @class MWKDataStore;

@@ -1,4 +1,7 @@
 #import "WMFTaskGroup.h"
+#import "WMFLogging.h"
+#import "WMFGCDHelpers.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @interface WMFTaskGroup ()
 

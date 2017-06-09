@@ -1,7 +1,6 @@
 #import "WMFProxyServer.h"
 @import GCDWebServers;
 #import "NSURL+WMFExtras.h"
-#import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"
 #import "Wikipedia-Swift.h"
 #import "WMFImageTag.h"

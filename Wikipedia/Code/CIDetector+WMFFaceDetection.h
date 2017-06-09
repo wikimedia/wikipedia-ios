@@ -1,4 +1,5 @@
 @import CoreImage;
+#import "WMFBlockDefinitions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

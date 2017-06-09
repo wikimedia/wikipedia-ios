@@ -15,7 +15,6 @@
 #import "UIFont+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "Wikipedia-Swift.h"
 
