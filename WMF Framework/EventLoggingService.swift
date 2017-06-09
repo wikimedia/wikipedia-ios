@@ -333,7 +333,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         })
     }
     
-    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping ()) -> URLSessionTask? {
+    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
         
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
