@@ -1,20 +1,12 @@
-// Model
-#import "MWKLanguageLink.h"
-
 // Utilities
-#import "WikipediaAppUtils.h"
 #import "WMFTabBarController.h"
 #import "TSBlurView.h"
 #import "TSMessage.h"
 #import "TSMessageView.h"
 
-
 #import "NSString+FormattedAttributedString.h"
 #import "UIFont+WMFStyle.h"
-#import "WMFApiJsonResponseSerializer.h"
 #import "WMFPageHistoryRevision.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "WMFTaskGroup.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFExploreCollectionViewCell.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -26,7 +18,6 @@
 
 #import "WMFSearchResults.h"
 #import "WMFSearchFetcher.h"
-#import "NSURL+WMFLinkParsing.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 

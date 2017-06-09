@@ -1,5 +1,3 @@
-@import WMF.FetcherBase;
-
 @class AFHTTPSessionManager;
 
 @interface PreviewHtmlFetcher : FetcherBase

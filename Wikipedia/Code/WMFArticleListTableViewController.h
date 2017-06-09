@@ -1,6 +1,5 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFTableViewUpdater.h"
-@import WMF.Swift;
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
 
