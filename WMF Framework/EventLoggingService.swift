@@ -167,10 +167,10 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             }
         }
 #endif
-
     }
     
-    @objc private func timerFired() {
+    @objc
+    private func timerFired() {
         tryPostEvents()
         save()
     }
