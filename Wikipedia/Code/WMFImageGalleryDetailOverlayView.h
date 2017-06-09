@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "MWKLicense.h"
 
 @interface WMFImageGalleryDetailOverlayView : UIView

@@ -2,7 +2,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSUserActivity+WMFExtensions.h"
 
-#import "NSString+WMFExtras.h"
 #import "MWKHistoryList.h"
 
 #import "MWKArticle.h"

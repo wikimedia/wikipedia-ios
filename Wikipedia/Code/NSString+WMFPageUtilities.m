@@ -1,4 +1,5 @@
 #import "NSString+WMFPageUtilities.h"
+#import "WMFRangeUtils.h"
 #import "NSString+WMFExtras.h"
 
 NSString *const WMFReferenceFragmentSubstring = @"ref_";

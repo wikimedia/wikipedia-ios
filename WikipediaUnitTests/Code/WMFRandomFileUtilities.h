@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 
 /// @return The path to a folder or extension-less file with a uniquely random name in the @c tmp directory.
 extern NSString *WMFRandomTemporaryPath();

@@ -1,6 +1,7 @@
 #import "WMFFaceDetectionCache.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "UIImage+WMFNormalization.h"
+#import "MWKImage.h"
 
 @interface WMFFaceDetectionCache ()
 

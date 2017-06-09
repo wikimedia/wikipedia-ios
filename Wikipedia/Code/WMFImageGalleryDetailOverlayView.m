@@ -5,7 +5,7 @@
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;

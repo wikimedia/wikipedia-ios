@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN

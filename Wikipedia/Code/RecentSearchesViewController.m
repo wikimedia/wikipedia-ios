@@ -4,7 +4,7 @@
 #import "Wikipedia-Swift.h"
 #import "MWKRecentSearchList.h"
 #import "MWKRecentSearchEntry.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 static NSString *const pListFileName = @"Recent.plist";
 

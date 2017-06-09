@@ -1,5 +1,5 @@
 #import "WMFArticleResponseSerializer.h"
-#import <Mantle/Mantle.h>
+@import Mantle;
 #import "WMFFixtureRecording.h"
 
 @implementation WMFArticleResponseSerializer

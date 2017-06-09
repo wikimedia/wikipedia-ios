@@ -1,7 +1,3 @@
-#pragma once
-
-#import <Foundation/Foundation.h>
-
 #import "MWKSiteDataObject.h"
 
 @interface MWKUser : MWKSiteDataObject

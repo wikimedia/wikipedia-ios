@@ -3,6 +3,8 @@
 #import "WMFArticlePreviewFetcher.h"
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
+#import "WMFContentGroup+Extensions.h"
+#import "WMFArticle+Extensions.h"
 
 @interface WMFMainPageContentSource ()
 

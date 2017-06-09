@@ -1,4 +1,7 @@
 #import "WMFFeedImage.h"
+#import "WMFComparison.h"
+#import "WMFImageURLParsing.h"
+#import "NSURL+WMFExtras.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

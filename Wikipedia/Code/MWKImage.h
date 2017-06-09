@@ -1,5 +1,5 @@
-#import "UIKit/UIKit.h"
 #import "MWKSiteDataObject.h"
+@import CoreGraphics;
 
 @class MWKArticle;
 @class MWKImageInfo;

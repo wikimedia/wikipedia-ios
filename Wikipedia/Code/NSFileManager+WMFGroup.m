@@ -1,4 +1,5 @@
 #import "NSFileManager+WMFGroup.h"
+#import "WMFQuoteMacros.h"
 
 NSString *const WMFApplicationGroupIdentifier = @QUOTE(WMF_APP_GROUP_IDENTIFIER);
 

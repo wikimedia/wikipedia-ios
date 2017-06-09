@@ -1,4 +1,4 @@
-#import "UIKit/UIKit.h"
+#import "MWKImage.h"
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
 #import <WMF/WMF-Swift.h>

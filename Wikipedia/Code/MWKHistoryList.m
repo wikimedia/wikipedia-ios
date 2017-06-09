@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)URL {
+- (void)setFragment:(nullable NSString *)fragment scrollPosition:(double)scrollposition onPageInHistoryWithURL:(NSURL *)URL {
     if ([URL wmf_isNonStandardURL]) {
         return;
     }

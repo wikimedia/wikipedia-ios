@@ -4,7 +4,7 @@
 #import "WMFSaveButtonController.h"
 #import "MWKImage.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "WMFLeadingImageTrailingTextButton.h"
 

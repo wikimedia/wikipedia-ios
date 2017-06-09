@@ -1,3 +1,5 @@
+@import Foundation;
+
 extern NSString *const WMFNetworkingErrorDomain;
 
 extern NSString *const WMFNetworkRequestBeganNotification;

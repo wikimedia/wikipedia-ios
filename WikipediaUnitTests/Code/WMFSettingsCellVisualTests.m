@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "WMFSettingsTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"

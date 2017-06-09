@@ -1,4 +1,5 @@
 #import "WMFExploreCollectionViewCell.h"
+@import WMF.WMFBlockDefinitions;
 @import CoreLocation;
 
 @class MWKImage;

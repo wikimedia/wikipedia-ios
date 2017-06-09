@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 // Enums for the FetchFinishedDelegate protocol method.
 typedef NS_ENUM(NSInteger, FetchFinalStatus) {

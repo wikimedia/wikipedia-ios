@@ -3,7 +3,6 @@
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "WKWebView+ElementLocation.h"
-#import "NSString+WMFExtras.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
 #import "NSString+FormattedAttributedString.h"

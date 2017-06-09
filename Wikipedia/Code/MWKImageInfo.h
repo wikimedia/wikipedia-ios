@@ -1,7 +1,6 @@
-#import <UIKit/UIKit.h>
-
 #import "MWKDataObject.h"
-#import "MWKLicense.h"
+@import CoreGraphics;
+@class MWKLicense;
 
 @interface MWKImageInfo : MWKDataObject
 

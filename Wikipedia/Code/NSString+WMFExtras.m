@@ -3,8 +3,9 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
-#import <MobileCoreServices/MobileCoreServices.h>
+@import MobileCoreServices;
 #import "NSString+WMFHTMLParsing.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation NSString (WMFExtras)
 

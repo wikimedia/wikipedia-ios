@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Felix Krause. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 // NS_ENUM is now the preferred way to do typedefs. It gives the compiler and debugger more information, which helps everyone.
 // When using SDK 6 or later, NS_ENUM is defined by Apple, so this block does nothing.
 // For SDK 5 or earlier, this is the same definition block Apple uses.

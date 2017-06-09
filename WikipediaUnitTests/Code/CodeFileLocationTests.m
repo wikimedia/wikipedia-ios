@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

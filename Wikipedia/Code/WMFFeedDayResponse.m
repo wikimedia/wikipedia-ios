@@ -3,6 +3,7 @@
 #import "WMFFeedImage.h"
 #import "WMFFeedTopReadResponse.h"
 #import "WMFFeedNewsStory.h"
+#import "WMFComparison.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedDayResponse

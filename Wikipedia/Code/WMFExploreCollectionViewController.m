@@ -2,7 +2,7 @@
 
 #import "Wikipedia-Swift.h"
 
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 #import "PiwikTracker+WMFExtensions.h"
 
@@ -53,7 +53,6 @@
 #import "NSCalendar+WMFCommonCalendars.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
-@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 

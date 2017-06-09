@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
+#import "NSURL+WMFLinkParsing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

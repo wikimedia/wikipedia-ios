@@ -1,15 +1,20 @@
 #import "WMFLocationSearchFetcher.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "WMFLocalization.h"
+#import "UIScreen+WMFImageWidth.h"
 
 //Networking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFSearchResponseSerializer.h"
-#import <Mantle/Mantle.h>
+@import Mantle;
 #import "WMFBaseRequestSerializer.h"
 
 //Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 

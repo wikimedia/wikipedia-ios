@@ -1,5 +1,4 @@
 #import "WMFPicOfTheDayCollectionViewCell.h"
-#import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "WMFGradientView.h"
 #import "Wikipedia-Swift.h"

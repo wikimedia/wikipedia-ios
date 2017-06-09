@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 @class MWKDataStore;
 @class MWKArticle;
 @class AFHTTPSessionManager;

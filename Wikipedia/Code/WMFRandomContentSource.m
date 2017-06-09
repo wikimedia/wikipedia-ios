@@ -1,5 +1,12 @@
 #import "WMFRandomContentSource.h"
 #import "WMFRandomArticleFetcher.h"
+#import "NSCalendar+WMFCommonCalendars.h"
+#import "WMFContentGroup+Extensions.h"
+#import "WMFTaskGroup.h"
+#import "EXTScope.h"
+#import "MWKSearchResult.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "WMFArticle+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

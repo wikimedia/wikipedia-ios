@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 @interface UIView (WMF_RoundCorners)
 

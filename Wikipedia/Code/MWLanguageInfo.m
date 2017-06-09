@@ -1,4 +1,6 @@
 #import "MWLanguageInfo.h"
+#import "MWKArticle.h"
+#import "NSURL+WMFLinkParsing.h"
 
 @implementation MWLanguageInfo
 

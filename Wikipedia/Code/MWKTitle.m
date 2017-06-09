@@ -1,6 +1,8 @@
 #import "MWKTitle.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSString+WMFPageUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "WMFComparison.h"
+#import "WMFHashing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
