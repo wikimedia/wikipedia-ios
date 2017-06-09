@@ -1,7 +1,7 @@
 import Foundation
 
 @objc(WMFEventLoggingService)
-class EventLoggingService : NSObject, URLSessionDelegate {
+public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
@@ -77,8 +77,9 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         
         return false
     }
-    
-    public init(permanentStorageURL: URL, urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager) {
+
+    public init(urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager, permanentStorageURL: URL? = nil) {
+        
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
         self.queue = OperationQueue.init() //DispatchQueue.init(label: "org.wikimedia.EventLogging")
@@ -88,21 +89,30 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
         let options = [NSMigratePersistentStoresAutomaticallyOption: NSNumber(booleanLiteral: true), NSInferMappingModelAutomaticallyOption: NSNumber(booleanLiteral: true)]
-        do {
-            try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: permanentStorageURL, options: options)
-        } catch {
+        
+        if let storeURL = permanentStorageURL {
             do {
-                try FileManager.default.removeItem(at: permanentStorageURL)
+                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
             } catch {
-                
+                do {
+                    try FileManager.default.removeItem(at: storeURL)
+                } catch {
+                    
+                }
+                do {
+                    try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
+                } catch {
+                    abort()
+                }
             }
+        } else {
             do {
-                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: permanentStorageURL, options: options)
+                try psc.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: options)
             } catch {
                 abort()
             }
         }
-        
+    
         self.persistentStoreCoordinator = psc
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = psc
@@ -118,7 +128,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         urlSessionConfig.httpMaximumConnectionsPerHost = 2
         urlSessionConfig.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        self.init(permanentStorageURL: permanentStorageURL, urlSesssionConfiguration: urlSessionConfig, reachabilityManager: reachabilityManager)
+        self.init(urlSesssionConfiguration: urlSessionConfig, reachabilityManager: reachabilityManager, permanentStorageURL: permanentStorageURL)
     }
     
     deinit {
