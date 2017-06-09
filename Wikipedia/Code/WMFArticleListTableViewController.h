@@ -1,7 +1,5 @@
-#import <UIKit/UIKit.h>
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFTableViewUpdater.h"
-
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
 
@@ -34,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsContext;
 - (NSString *)analyticsContentType;
-
+ 
 - (WMFEmptyViewType)emptyViewType;
 
 - (BOOL)showsDeleteAllButton;

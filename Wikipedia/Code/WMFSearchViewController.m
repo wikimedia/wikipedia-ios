@@ -15,11 +15,10 @@
 #import "WMFSearchResults.h"
 #import "WMFSearchDataSource.h"
 
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"

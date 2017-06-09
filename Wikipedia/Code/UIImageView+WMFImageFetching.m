@@ -1,6 +1,7 @@
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "UIImageView+WMFContentOffset.h"
+#import "MWKImage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

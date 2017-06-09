@@ -1,5 +1,4 @@
 #import "WMFShareFunnel.h"
-#import "NSString+WMFExtras.h"
 
 static NSString *const kSchemaName = @"MobileWikiAppShareAFact";
 static int const kSchemaVersion = 11331974;

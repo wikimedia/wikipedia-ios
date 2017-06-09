@@ -1,3 +1,5 @@
+@import Foundation;
+
 @interface NSURL (WMFMainPage)
 
 /**

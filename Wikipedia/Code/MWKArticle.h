@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 @import CoreLocation;
 
 #import "MWKSiteDataObject.h"

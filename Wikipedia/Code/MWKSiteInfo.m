@@ -1,4 +1,7 @@
 #import "MWKSiteInfo.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "WMFComparison.h"
+#import "WMFHashing.h"
 
 typedef NS_ENUM(NSUInteger, MWKSiteInfoNSCodingSchemaVersion) {
     MWKSiteInfoNSCodingSchemaVersion_1 = 1

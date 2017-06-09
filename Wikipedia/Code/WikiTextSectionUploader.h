@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
 typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {

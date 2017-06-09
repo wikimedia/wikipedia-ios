@@ -1,4 +1,8 @@
 #import "WMFFeedArticlePreview.h"
+#import "WMFComparison.h"
+#import "NSURL+WMFExtras.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSString+WMFHTMLParsing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

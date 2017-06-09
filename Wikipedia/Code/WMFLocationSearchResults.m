@@ -1,5 +1,7 @@
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
+#import "WMFComparison.h"
+#import "NSURL+WMFLinkParsing.h"
 
 @interface WMFLocationSearchResults ()
 

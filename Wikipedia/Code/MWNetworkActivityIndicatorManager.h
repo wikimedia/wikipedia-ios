@@ -1,3 +1,5 @@
+@import Foundation;
+
 @interface MWNetworkActivityIndicatorManager : NSObject
 
 + (MWNetworkActivityIndicatorManager *)sharedManager;

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "SSBaseTableCell.h"
 #import "WMFSettingsMenuItem.h"
 

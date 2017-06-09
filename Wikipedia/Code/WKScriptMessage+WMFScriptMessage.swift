@@ -1,3 +1,4 @@
+import WebKit
 
 @objc public enum WMFWKScriptMessage: Int {
     case unknown

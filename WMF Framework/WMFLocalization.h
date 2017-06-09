@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 NS_ASSUME_NONNULL_BEGIN
 
 // Don't rename this function. It'll break the script that generates the strings. https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "MWKArticleStoreTestCase.h"
 
 #define MOCKITO_SHORTHAND 1

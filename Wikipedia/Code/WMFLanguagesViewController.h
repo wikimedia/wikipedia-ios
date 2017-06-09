@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 @class MWKLanguageLink;
 @class WMFLanguagesViewController;

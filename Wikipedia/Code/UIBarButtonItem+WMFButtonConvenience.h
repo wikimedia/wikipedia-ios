@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "UIButton+WMFButton.h"
 
 NS_ASSUME_NONNULL_BEGIN

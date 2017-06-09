@@ -1,7 +1,6 @@
 #define HC_SHORTHAND 1
 #define MOCKITO_SHORTHAND 1
 
-#import <UIKit/UIKit.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 @class WMFLeadingImageTrailingTextButton;
 #import "PiwikTracker+WMFExtensions.h"
 

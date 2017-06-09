@@ -1,5 +1,5 @@
 
-import Foundation
+import WebKit
 
 @objc enum WMFArticleFooterMenuItem: Int {
 

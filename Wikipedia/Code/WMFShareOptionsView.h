@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 @class PaddedLabel;
 
 @interface WMFShareOptionsView : UIView
