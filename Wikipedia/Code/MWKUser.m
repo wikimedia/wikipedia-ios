@@ -1,3 +1,5 @@
+#import "MWKUser.h"
+#import "WMFComparison.h"
 
 @interface MWKUser ()
 

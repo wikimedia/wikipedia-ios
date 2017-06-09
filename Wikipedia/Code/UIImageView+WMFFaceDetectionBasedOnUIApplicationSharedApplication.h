@@ -1,3 +1,7 @@
+@import UIKit;
+#import "WMFBlockDefinitions.h"
+@class MWKImage;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (WMFFaceDetectionBasedOnUIApplicationSharedApplication)

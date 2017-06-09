@@ -11,14 +11,9 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFURLCache.h"
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
-#import <NYTPhotoViewer/NYTPhotosViewControllerDataSource.h>
-#import <NYTPhotoViewer/NYTPhotoViewController.h>
-#import <NYTPhotoViewer/NYTPhotosOverlayView.h>
-#import <NYTPhotoViewer/NYTScalingImageView.h>
-#import <NYTPhotoViewer/NYTPhoto.h>
-#import <Masonry/Masonry.h>
+@import FLAnimatedImage;
+@import NYTPhotoViewer;
+@import Masonry;
 #import "WMFGradientView.h"
 
 NS_ASSUME_NONNULL_BEGIN

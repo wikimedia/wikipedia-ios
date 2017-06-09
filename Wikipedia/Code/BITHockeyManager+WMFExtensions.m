@@ -1,6 +1,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "DDLog+WMFLogger.h"
+#import "WMFQuoteMacros.h"
 
 // See also:
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios

@@ -3,6 +3,7 @@
 #import "MWKLanguageLink.h"
 #import "NSString+WMFExtras.h"
 #import <WMF/WMF-Swift.h>
+#import "WMFComparison.h"
 
 static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
 

@@ -2,7 +2,7 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <Masonry/Masonry.h>
+@import Masonry;
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif

@@ -1,6 +1,4 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
-
-#import "Global.h"
 #import "WMFZeroConfigurationManager.h"
 #import "SessionSingleton.h"
 #import "WMFZeroConfiguration.h"

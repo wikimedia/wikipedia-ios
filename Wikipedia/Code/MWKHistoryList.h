@@ -1,6 +1,7 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class MWKDataStore;
+@class WMFArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param url          The url of the page
  *
  */
-- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollPosition onPageInHistoryWithURL:(NSURL *)url;
+- (void)setFragment:(nullable NSString *)fragment scrollPosition:(double)scrollPosition onPageInHistoryWithURL:(NSURL *)url;
 
 /**
  *  Sets the history entry to be "significantly viewed"

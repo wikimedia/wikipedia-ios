@@ -1,4 +1,5 @@
 #import "NSString+WMFDistance.h"
+#import "WMFLocalization.h"
 
 @implementation NSString (WMFDistance)
 

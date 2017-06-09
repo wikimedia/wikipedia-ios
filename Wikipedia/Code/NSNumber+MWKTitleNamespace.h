@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 
 /**
  *  List of all built-in MediaWiki namespaces.

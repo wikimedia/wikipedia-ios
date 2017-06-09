@@ -1,11 +1,12 @@
 #import "WMFRelatedSearchFetcher.h"
+#import "NSURL+WMFLinkParsing.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
-#import <Mantle/Mantle.h>
+@import Mantle;
 #import "WMFBaseRequestSerializer.h"
 
 //Models
@@ -13,6 +14,8 @@
 #import "MWKSearchResult.h"
 
 #import "NSDictionary+WMFCommonParams.h"
+#import "WMFLogging.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +26,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @interface WMFRelatedSearchRequestParameters : NSObject
 @property (nonatomic, strong) NSURL *articleURL;
 @property (nonatomic, assign) NSUInteger numberOfResults;
-
 @end
 
 @interface WMFRelatedSearchRequestSerializer : WMFBaseRequestSerializer
@@ -112,11 +114,14 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 - (NSDictionary *)serializedParams:(WMFRelatedSearchRequestParameters *)params {
     NSNumber *numResults = @(params.numberOfResults);
+    NSURL *articleURL = params.articleURL;
+    NSString *articleTitle = articleURL.wmf_title;
+    NSString *gsrsearch = [NSString stringWithFormat:@"morelike:%@", articleTitle];
     NSMutableDictionary *baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
     [baseParams setValuesForKeysWithDictionary:@{
         @"generator": @"search",
         // search
-        @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
+        @"gsrsearch": gsrsearch,
         @"gsrnamespace": @0,
         @"gsrwhat": @"text",
         @"gsrinfo": @"",

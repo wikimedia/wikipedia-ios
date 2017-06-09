@@ -1,6 +1,8 @@
 /* Unsafe, do not use.* @see WMFStrictClamp * @see WMFClamp */
 #define _WMFStrictClamp(min, x, max) MAX(MIN((max), (x)), (min))
 
+@import Foundation;
+
 /**
  * @function WMFStrictClamp
  * Function-like macro which clamps `x` between `[min, max]` without defensively handling cases where `min > max`.

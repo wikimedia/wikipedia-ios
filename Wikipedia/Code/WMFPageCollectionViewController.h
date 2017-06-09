@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 /**
  * View controller which displays "pages" of content using a collection view.

@@ -1,4 +1,6 @@
-#import <Mantle/Mantle.h>
+@import Foundation;
+@import CoreLocation;
+@import Mantle;
 
 @interface MWKSearchResult : MTLModel <MTLJSONSerializing>
 

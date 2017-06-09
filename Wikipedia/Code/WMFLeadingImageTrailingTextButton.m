@@ -1,5 +1,5 @@
 #import "WMFLeadingImageTrailingTextButton.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "Wikipedia-Swift.h"
 
 /**

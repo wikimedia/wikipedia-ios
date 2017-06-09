@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import UIKit;
+@import CoreData;
 
 @class WMFTableViewUpdater;
 

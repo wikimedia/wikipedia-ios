@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
-
+@import Foundation;
+#import "WMFBlockDefinitions.h"
 @class WMFFeedDayResponse;
 
 typedef void (^WMFPageViewsHandler)(NSDictionary<NSDate *, NSNumber *> *_Nonnull results);

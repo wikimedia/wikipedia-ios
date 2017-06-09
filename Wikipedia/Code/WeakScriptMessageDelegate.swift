@@ -1,4 +1,4 @@
-import Foundation
+import WebKit
 
 // "addScriptMessageHandler:" retains the handler object you pass it,
 // which caused the WebViewController's dealloc to never get called.

@@ -3,7 +3,7 @@
 #import "Wikipedia-Swift.h"
 
 @import WebKit;
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "NSString+WMFHTMLParsing.h"
 
 #import "MWKArticle.h"

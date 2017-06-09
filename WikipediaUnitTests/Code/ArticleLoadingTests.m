@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WebViewController_Private.h"
 #import "MWKDataStore+TemporaryDataStore.h"

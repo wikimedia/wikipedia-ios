@@ -1,6 +1,6 @@
 #import "WMFImageURLParsing.h"
-#import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
+#import "WMFLogging.h"
 
 static NSRegularExpression *WMFImageURLParsingRegex() {
     static NSRegularExpression *imageNameFromURLRegex = nil;

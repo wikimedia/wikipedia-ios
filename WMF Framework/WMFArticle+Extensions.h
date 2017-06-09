@@ -1,5 +1,8 @@
 #import "WMFArticle+CoreDataClass.h"
 
+@class MWKSearchResult;
+@class WMFFeedArticlePreview;
+
 typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeUnknown = 0,
     WMFGeoTypeCountry,

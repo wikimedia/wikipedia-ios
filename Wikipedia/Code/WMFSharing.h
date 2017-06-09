@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /**
  * Protocol for shareable Wikipedia entities.

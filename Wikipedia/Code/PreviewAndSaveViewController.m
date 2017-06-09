@@ -4,7 +4,6 @@
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
-#import "NSString+WMFExtras.h"
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"
@@ -18,7 +17,7 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
 

@@ -5,7 +5,7 @@
 #import "WMFApiJsonResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
-
+#import "UIScreen+WMFImageWidth.h"
 #import "MWKSearchResult.h"
 
 

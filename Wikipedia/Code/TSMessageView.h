@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Felix Krause. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "TSMessage.h"
 
 #define TSMessageViewAlpha 0.95

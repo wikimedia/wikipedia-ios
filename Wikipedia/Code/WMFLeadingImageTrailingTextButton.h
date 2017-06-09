@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 //IB_DESIGNABLE
 @interface WMFLeadingImageTrailingTextButton : UIControl

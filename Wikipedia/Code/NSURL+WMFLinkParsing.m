@@ -1,7 +1,7 @@
 #import "NSURL+WMFLinkParsing.h"
-#import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
 #import "NSURLComponents+WMFLinkParsing.h"
+#import "NSURL+WMFExtras.h"
 
 #if WMF_USE_BETA_CLUSTER
 NSString *const WMFDefaultSiteDomain = @"wikipedia.beta.wmflabs.org";

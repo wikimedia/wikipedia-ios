@@ -1,4 +1,4 @@
-#import <Mantle/Mantle.h>
+@import Mantle;
 
 @interface WMFPageHistoryRevision : MTLModel <MTLJSONSerializing>
 

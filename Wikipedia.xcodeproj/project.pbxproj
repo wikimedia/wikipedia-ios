@@ -2683,6 +2683,8 @@
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
+		D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */; };
+		D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */; };
 		D8FA18AA1E1BD867009675C3 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551411DF1A33D00B90177 /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D551421DF1A33D00B90177 /* EXTScope.m */; };
@@ -3142,7 +3144,6 @@
 		0EE2438E1DC988AA00066CBD /* WMFTableHeaderLabelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFTableHeaderLabelView.xib; sourceTree = "<group>"; };
 		0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UIViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
-		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wikipedia/Code/AppDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -4271,8 +4272,6 @@
 		D844D96C1D6CB2600042D692 /* WMF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D844D96E1D6CB2600042D692 /* WMF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WMF.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D844D9831D6CB3830042D692 /* WMF-global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMF-global.h"; sourceTree = "<group>"; };
-		D844D9841D6CB3900042D692 /* WMF-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMF-prefix.pch"; sourceTree = "<group>"; };
 		D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTaskGroupTests.m; sourceTree = "<group>"; };
 		D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTableOfContentsHeader.swift; path = Wikipedia/Code/WMFTableOfContentsHeader.swift; sourceTree = SOURCE_ROOT; };
 		D84692DF1D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFTableOfContentsHeader.xib; path = Wikipedia/Code/WMFTableOfContentsHeader.xib; sourceTree = SOURCE_ROOT; };
@@ -4492,6 +4491,8 @@
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
 		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
 		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationsController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMF-prefix.pch"; sourceTree = "<group>"; };
+		D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFQuoteMacros.h; sourceTree = "<group>"; };
 		D8FA190C1E1BDD89009675C3 /* WMFAnnouncementCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAnnouncementCollectionViewCell.h; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D8FA190D1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAnnouncementCollectionViewCell.m; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFAnnouncementCollectionViewCell.xib; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -6132,7 +6133,6 @@
 				0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */,
 				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
-				0EF5BB651C110BFC00DE75E1 /* Global.h */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
@@ -7501,9 +7501,9 @@
 			isa = PBXGroup;
 			children = (
 				D844D96E1D6CB2600042D692 /* WMF.h */,
+				D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */,
+				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
-				D844D9831D6CB3830042D692 /* WMF-global.h */,
-				D844D9841D6CB3900042D692 /* WMF-prefix.pch */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
 				D801C93A1EB9404A001FA294 /* WMFLocalization.h */,
@@ -7970,6 +7970,7 @@
 				D844D9F01D6CC01C0042D692 /* MWKLicense.h in Headers */,
 				D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */,
 				0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */,
+				D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */,
 				D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */,
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
 				0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */,
@@ -8066,6 +8067,7 @@
 				D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
+				D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */,
 				D8FA18E51E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.h in Headers */,
 				D8FA19071E1BDA66009675C3 /* UIColor+WMFHexColor.h in Headers */,
 				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
