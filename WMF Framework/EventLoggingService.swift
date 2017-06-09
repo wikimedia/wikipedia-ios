@@ -71,12 +71,9 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         
         return false
     }
-
+    
     public init(permanentStorageURL: URL, urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager) {
-        
         self.reachabilityManager = reachabilityManager
-        
-        
         self.urlSessionConfiguration = urlSesssionConfiguration
         self.queue = OperationQueue.init() //DispatchQueue.init(label: "org.wikimedia.EventLogging")
         
