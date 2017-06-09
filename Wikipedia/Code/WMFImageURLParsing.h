@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /**
  * Parse the file page title from an image's source URL and then unescape and normalize it. The returned string will be unescaped and precomposed using canonical mapping. See tests for examples.

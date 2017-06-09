@@ -1,3 +1,5 @@
+@import Foundation;
+
 extern NSString *const WMFNetworkingErrorDomain;
 
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {

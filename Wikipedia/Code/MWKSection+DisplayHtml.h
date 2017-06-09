@@ -1,3 +1,5 @@
+#import "MWKSection.h"
+
 @interface MWKSection (DisplayHtml)
 
 /*

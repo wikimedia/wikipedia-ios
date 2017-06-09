@@ -1,4 +1,4 @@
-#import <AFNetworking/AFNetworking.h>
+@import AFNetworking;
 
 NS_ASSUME_NONNULL_BEGIN
 

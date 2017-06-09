@@ -1,5 +1,6 @@
 #import "WMFZeroConfiguration.h"
 #import "MTLValueTransformer+WMFColorTransformer.h"
+#import "WMFComparison.h"
 
 @implementation WMFZeroConfiguration
 

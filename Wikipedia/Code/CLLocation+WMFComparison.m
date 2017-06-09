@@ -1,4 +1,5 @@
 #import "CLLocation+WMFComparison.h"
+#import "WMFComparison.h"
 
 @implementation CLLocation (WMFComparison)
 

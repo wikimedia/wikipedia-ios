@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 @class WMFRelatedSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN

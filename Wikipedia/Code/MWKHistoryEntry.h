@@ -1,3 +1,4 @@
+@import CoreGraphics;
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
 

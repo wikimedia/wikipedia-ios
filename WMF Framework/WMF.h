@@ -1,3 +1,4 @@
+@import Foundation;
 @import UIKit;
 
 //! Project version number for WMF.
@@ -42,6 +43,8 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "NSDictionary+WMFPageViewsSortedByDate.h"
+#import "NSString+WMFPageUtilities.h"
+#import "MWKLicense.h"
 
 #import "EXTScope.h"
 

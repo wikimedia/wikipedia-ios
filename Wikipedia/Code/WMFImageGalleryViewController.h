@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "WMFImageInfoController.h"
 

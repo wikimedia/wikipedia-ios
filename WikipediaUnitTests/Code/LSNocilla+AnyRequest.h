@@ -1,5 +1,4 @@
 #import <Nocilla/Nocilla.h>
-#import <Foundation/Foundation.h>
 
 static inline LSStubRequestDSL *stubAnyRequest() {
     NSError *regexError;

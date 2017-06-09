@@ -1,4 +1,6 @@
 #import "WMFContentSource.h"
+@import CoreLocation;
+@class MWKDataStore;
 
 extern const CLLocationDistance WMFNearbyForcedUpdateDistanceThresholdInMeters;
 

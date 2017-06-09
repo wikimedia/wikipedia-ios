@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, BulletType) {
     BULLET_TYPE_NONE,

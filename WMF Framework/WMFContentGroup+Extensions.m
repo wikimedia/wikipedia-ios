@@ -1,5 +1,10 @@
 #import "WMFContentGroup+Extensions.h"
 #import "WMFAnnouncement.h"
+@import UIKit;
+#import "NSURL+WMFLinkParsing.h"
+#import "NSCalendar+WMFCommonCalendars.h"
+#import "NSDateFormatter+WMFExtensions.h"
+#import "WMFLogging.h"
 
 @implementation WMFContentGroup (Extensions)
 

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 @class PreviewAndSaveViewController;
 @interface EditSummaryViewController : UIViewController <UITextFieldDelegate>

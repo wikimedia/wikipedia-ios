@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 
 @class WMFCVLSection;
 @class WMFCVLInvalidationContext;

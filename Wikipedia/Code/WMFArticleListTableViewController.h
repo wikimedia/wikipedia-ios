@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFTableViewUpdater.h"
 

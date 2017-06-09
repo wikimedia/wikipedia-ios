@@ -1,4 +1,4 @@
-#import <CoreLocation/CoreLocation.h>
+@import CoreLocation;
 
 @interface CLLocation (WMFComparison)
 

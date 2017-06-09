@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 
 @interface UICollectionViewFlowLayout (WMFItemSizeThatFits)
 

@@ -4,7 +4,6 @@
 #import "SessionSingleton.h"
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
-#import "NSString+WMFExtras.h"
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"

@@ -1,5 +1,4 @@
 #import "WMFPageHistoryRevision.h"
-#import "NSString+WMFExtras.h"
 
 @implementation WMFPageHistoryRevision
 

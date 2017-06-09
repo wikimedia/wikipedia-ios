@@ -1,4 +1,5 @@
-#import <Mantle/Mantle.h>
+@import Mantle;
+@import CoreLocation;
 
 @interface WMFLegacyContentGroup : MTLModel //This exists solely for the migration from YapDB to Core Data
 

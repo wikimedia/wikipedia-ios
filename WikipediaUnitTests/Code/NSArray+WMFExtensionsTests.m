@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "Wikipedia-Swift.h"
 #define HC_SHORTHAND 1

@@ -1,3 +1,8 @@
+#import "MWKHistoryEntry.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
+#import "WMFComparison.h"
+
 @interface MWKHistoryEntry ()
 
 @end

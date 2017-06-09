@@ -1,3 +1,5 @@
+@import Foundation;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (WMFExtras)
