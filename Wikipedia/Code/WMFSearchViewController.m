@@ -21,7 +21,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
-#import "UIImage+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 
 #import "UIViewController+WMFArticlePresentation.h"

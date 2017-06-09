@@ -435,10 +435,14 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:thumbURLs]];
 
     NSURL *articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
-    [imageURLs wmf_safeAddObject:articleImageURL];
+    if (articleImageURL) {
+        [imageURLs addObject:articleImageURL];
+    }
 
     NSURL *articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
-    [imageURLs wmf_safeAddObject:articleThumbnailURL];
+    if (articleImageURL) {
+        [imageURLs addObject:articleThumbnailURL];
+    }
 
 #if !defined(NS_BLOCK_ASSERTIONS)
     for (NSURL *url in imageURLs) {

@@ -1,6 +1,6 @@
 @import UIKit;
-#import "WMFBlockDefinitions.h"
 @class MWKImage;
+#import "WMFBlockDefinitions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

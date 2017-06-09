@@ -509,10 +509,10 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)scrollToAndFocusOnSelectedMatch {
-    if (self.findInPageMatches.count == 0) {
+    if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
         return;
     }
-    NSString *matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
+    NSString *matchSpanId = [self.findInPageMatches objectAtIndex:self.findInPageSelectedMatchIndex];
     if (matchSpanId == nil) {
         return;
     }
@@ -933,7 +933,7 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
-    if (index < 0 || self.lastClickedReferencesGroup.count == 0 || [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index] == nil) {
+    if (index < 0 || index >= self.lastClickedReferencesGroup.count) {
         NSAssert(false, @"Expected index or reference group not found.");
         return;
     }
@@ -1000,7 +1000,10 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
-    WMFReference *selectedReference = [referenceGroup wmf_safeObjectAtIndex:selectedIndex];
+    if (selectedIndex < 0 || selectedIndex >= referenceGroup.count) {
+        return;
+    }
+    WMFReference *selectedReference = [referenceGroup objectAtIndex:selectedIndex];
     CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
     [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
                                                           width:width];

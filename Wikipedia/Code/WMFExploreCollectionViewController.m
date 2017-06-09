@@ -46,7 +46,6 @@
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFAnnouncement.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
 
 #import "WMFCVLAttributes.h"

@@ -381,7 +381,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [sections addObject:[self section_3]];
     [sections addObject:[self section_4]];
     [sections addObject:[self section_5]];
-    [sections wmf_safeAddObject:[self section_6]];
+    SSSection *section6 = [self section_6];
+    if (section6) {
+        [sections addObject:section6];
+    }
 
     [self.elementDataSource.sections setArray:sections];
     [self.elementDataSource.tableView reloadData];

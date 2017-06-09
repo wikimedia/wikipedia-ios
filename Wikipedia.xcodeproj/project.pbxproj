@@ -2738,10 +2738,6 @@
 		D8FA18E01E1BD8A3009675C3 /* NSDictionary+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */; };
 		D8FA18E11E1BD8A3009675C3 /* NSArray+WMFMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18E21E1BD8A3009675C3 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
-		D8FA18E31E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18E41E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */; };
-		D8FA18E51E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18E61E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */; };
 		D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */; };
 		D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18E91E1BD8B9009675C3 /* WMFComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8072F1C0CED810065EBC0 /* WMFComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3241,8 +3237,6 @@
 		B07715211E69401800D393FE /* UITextField+WMFAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+WMFAuth.swift"; sourceTree = "<group>"; };
 		B07963E11C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+WMFHideEmptyToolbar.h"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.h"; sourceTree = SOURCE_ROOT; };
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
-		B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
-		B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUpstreamHTMLFormatChangesTests.m; sourceTree = "<group>"; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
 		B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePageViewController.swift; path = Wikipedia/Code/WMFWelcomePageViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -3471,8 +3465,6 @@
 		B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+BKReduce.h"; path = "Wikipedia/Code/NSIndexSet+BKReduce.h"; sourceTree = SOURCE_ROOT; };
 		B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduce.m"; path = "Wikipedia/Code/NSIndexSet+BKReduce.m"; sourceTree = SOURCE_ROOT; };
 		B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLocale+WMFExtras.swift"; path = "Wikipedia/Code/NSLocale+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
-		B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableArray+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
-		B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableArray+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+WMFMaybeSet.h"; path = "Wikipedia/Code/NSMutableDictionary+WMFMaybeSet.h"; sourceTree = SOURCE_ROOT; };
 		B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+WMFMaybeSet.m"; path = "Wikipedia/Code/NSMutableDictionary+WMFMaybeSet.m"; sourceTree = SOURCE_ROOT; };
 		B0E8049E1C0CE0B40065EBC0 /* NSObject+WMFExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+WMFExtras.h"; path = "Wikipedia/Code/NSObject+WMFExtras.h"; sourceTree = SOURCE_ROOT; };
@@ -7609,10 +7601,6 @@
 				0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */,
 				0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */,
 				D81446051E71771B0078D71E /* WMFBlocksKit.swift */,
-				B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */,
-				B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */,
-				B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */,
-				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 			);
 			name = Collections;
 			path = ../WMFKit;
@@ -8043,7 +8031,6 @@
 				D8FA18F01E1BDA2F009675C3 /* UIImage+WMFNormalization.h in Headers */,
 				D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */,
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
-				D8FA18E31E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
 				D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
@@ -8068,7 +8055,6 @@
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
 				D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */,
-				D8FA18E51E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.h in Headers */,
 				D8FA19071E1BDA66009675C3 /* UIColor+WMFHexColor.h in Headers */,
 				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */,
@@ -10158,7 +10144,6 @@
 				D8FA18DE1E1BD8A3009675C3 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
-				D8FA18E41E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.m in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
 				D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */,
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
@@ -10276,7 +10261,6 @@
 				D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
-				D8FA18E61E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.m in Sources */,
 				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,
