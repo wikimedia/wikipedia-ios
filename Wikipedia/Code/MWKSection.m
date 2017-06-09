@@ -244,7 +244,7 @@ static NSString *const WMFSectionSummaryXPathSelector = @"\
     }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
-static NSString *const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@class='hatnote']//a/@href";
+static NSString *const WMFSectionDisambiguationTitlesXPathSelector = @"//div[contains(@class, 'hatnote')]//a/@href";
 
 - (nullable NSArray<NSURL *> *)disambiguationURLs {
     NSArray *textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
