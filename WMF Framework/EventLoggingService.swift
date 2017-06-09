@@ -120,7 +120,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     }
 
     @objc
-    public func start() -> Void {
+    public func start() {
         
         assert(Thread.isMainThread, "must be started on main thread")
         guard !self.started else {
@@ -173,7 +173,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     @objc
-    public func stop() -> Void {
+    public func stop() {
         
         assert(Thread.isMainThread, "must be stopped on main thread")
         guard self.started else {
@@ -198,7 +198,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func prune() -> Void {
+    private func prune() {
         
         self.managedObjectContext.perform {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
@@ -229,7 +229,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     @objc
-    public func logEvent(_ event: NSDictionary) -> Void {
+    public func logEvent(_ event: NSDictionary) {
         
         if (!self.started) {
             DDLogWarn("EventLoggingService not started. Event will be recorded, but not posted")
@@ -283,7 +283,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func save() -> Void {
+    private func save() {
         let moc = self.managedObjectContext
         moc.perform {
             do {
@@ -294,7 +294,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func postEvents(_ eventRecords: [EventRecord]) -> Void {
+    private func postEvents(_ eventRecords: [EventRecord]) {
         guard eventRecords.count > 0 else {
             self.postLock.lock()
             self.posting = false
@@ -333,7 +333,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         })
     }
     
-    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
+    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping ()) -> URLSessionTask? {
         
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
