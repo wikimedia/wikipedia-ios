@@ -6,21 +6,10 @@
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
-#import "PiwikTracker+WMFExtensions.h"
-
-// Utility
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKDataStore.h"
 
 // Networking
 #import "SavedArticlesFetcher.h"
-#import "SessionSingleton.h"
 #import "AssetsFileFetcher.h"
-
-// Model
-#import "MWKSearchResult.h"
-#import "MWKLanguageLinkController.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -40,11 +29,9 @@
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
-#import "WMFNotificationsController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "WMFArticleNavigationController.h"
