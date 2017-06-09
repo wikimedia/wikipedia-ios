@@ -1,6 +1,6 @@
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -9,7 +9,7 @@
 #import "WMFHelpViewController.h"
 
 // Models
-#import "MWKLanguageLink.h"
+#import <WMF/MWKLanguageLink.h>
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
@@ -21,12 +21,12 @@
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIView+WMFDefaultNib.h"
-#import "SessionSingleton.h"
+#import <WMF/UIView+WMFDefaultNib.h>
+#import <WMF/SessionSingleton.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKLanguageLinkController.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/NSBundle+WMFInfoUtils.h>
 #import "Wikipedia-Swift.h"
 
 #pragma mark - Static URLs

@@ -1,4 +1,4 @@
-#import "NSArray+WMFMapping.h"
+#import <WMF/NSArray+WMFMapping.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN

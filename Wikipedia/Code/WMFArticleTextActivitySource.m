@@ -1,5 +1,5 @@
 #import "WMFArticleTextActivitySource.h"
-#import "MWKArticle+WMFSharing.h"
+#import <WMF/MWKArticle+WMFSharing.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

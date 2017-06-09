@@ -1,8 +1,8 @@
 #import "MWKTitleLanguageController.h"
-#import "MWKLanguageLink.h"
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKLanguageLink.h>
+#import <WMF/MWKLanguageLinkController.h>
 #import "MWKLanguageLinkFetcher.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

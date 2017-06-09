@@ -1,5 +1,5 @@
-#import "MWKDataObject.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/MWKDataObject.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 
 @implementation MWKDataObject
 

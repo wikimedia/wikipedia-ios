@@ -1,9 +1,9 @@
-#import "MWKSavedPageList.h"
+#import <WMF/MWKSavedPageList.h>
 #import <WMF/WMF-Swift.h>
 
 //Legacy
-#import "MWKSavedPageListDataExportConstants.h"
-#import "MWKSavedPageEntry.h"
+#import <WMF/MWKSavedPageListDataExportConstants.h>
+#import <WMF/MWKSavedPageEntry.h>
 NSString *const MWKSavedPageExportedEntriesKey = @"entries";
 NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 

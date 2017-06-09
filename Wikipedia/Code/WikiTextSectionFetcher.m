@@ -1,6 +1,6 @@
 #import "WikiTextSectionFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "SessionSingleton.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/SessionSingleton.h>
 #import "NSObject+WMFExtras.h"
 
 @interface WikiTextSectionFetcher ()

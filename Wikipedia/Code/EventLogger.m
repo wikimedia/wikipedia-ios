@@ -1,6 +1,6 @@
-#import "EventLogger.h"
-#import "NSString+WMFExtras.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/EventLogger.h>
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/WikipediaAppUtils.h>
 
 NSString *const WMFLoggingEndpoint =
     // production

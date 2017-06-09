@@ -1,4 +1,4 @@
-#import "UIScreen+WMFImageWidth.h"
+#import <WMF/UIScreen+WMFImageWidth.h>
 
 /**
  *  Image width buckets used to ensure image sizes don't vary too wildly.

@@ -1,8 +1,8 @@
 #import "MWKSection+DisplayHtml.h"
-#import "WMFImageURLParsing.h"
-#import "WMFImageTagParser.h"
-#import "WMFImageTagList.h"
-#import "WMFImageTagList+ImageURLs.h"
+#import <WMF/WMFImageURLParsing.h>
+#import <WMF/WMFImageTagParser.h>
+#import <WMF/WMFImageTagList.h>
+#import <WMF/WMFImageTagList+ImageURLs.h>
 #import <WMF/WMF-Swift.h>
 
 @import CoreText;

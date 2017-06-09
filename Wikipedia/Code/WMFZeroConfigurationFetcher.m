@@ -1,11 +1,11 @@
-#import "WMFZeroConfigurationFetcher.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import "WMFZeroConfiguration.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/WMFZeroConfigurationFetcher.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+#import <WMF/WMFZeroConfiguration.h>
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import "WMFZeroConfigurationManager.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WikipediaAppUtils.h>
 
 @interface WMFZeroConfigurationFetcher ()
 

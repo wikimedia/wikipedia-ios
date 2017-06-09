@@ -1,6 +1,6 @@
 #import "MWKSection+DisplayHtml.h"
-#import "SessionSingleton.h"
-#import "NSString+WMFExtras.h"
+#import <WMF/SessionSingleton.h>
+#import <WMF/NSString+WMFExtras.h>
 
 @implementation MWKSection (DisplayHtml)
 

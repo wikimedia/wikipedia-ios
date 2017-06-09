@@ -1,15 +1,15 @@
 #import "WMFSearchViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
 
-#import "SessionSingleton.h"
+#import <WMF/SessionSingleton.h>
 
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import "MWKLanguageLinkController.h"
-#import "MWKLanguageLink.h"
+#import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWKLanguageLink.h>
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"

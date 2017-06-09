@@ -1,4 +1,4 @@
-#import "EventLoggingFunnel.h"
+#import <WMF/EventLoggingFunnel.h>
 
 typedef NS_ENUM(NSUInteger, WMFSearchType) {
     WMFSearchTypePrefix = 0,

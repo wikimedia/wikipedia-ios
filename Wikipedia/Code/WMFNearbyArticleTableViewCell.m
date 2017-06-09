@@ -10,11 +10,11 @@
 #import "WMFCompassView.h"
 
 // Utils
-#import "WMFGeometry.h"
-#import "NSString+WMFDistance.h"
+#import <WMF/WMFGeometry.h>
+#import <WMF/NSString+WMFDistance.h>
 #import "UIFont+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFNearbyArticleTableViewCell ()

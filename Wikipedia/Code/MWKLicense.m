@@ -1,5 +1,5 @@
-#import "MWKLicense.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
+#import <WMF/MWKLicense.h>
+#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 
 static NSString *const MWKLicenseCodeKey = @"code";
 static NSString *const MWKLicenseShortDescKey = @"shortDescription";

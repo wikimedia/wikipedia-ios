@@ -1,4 +1,4 @@
-#import "WMFLogging.h"
+#import <WMF/WMFLogging.h>
 
 @interface DDLog (WMFLogger)
 

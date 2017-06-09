@@ -1,4 +1,4 @@
-#import "FetcherBase.h"
+#import <WMF/FetcherBase.h>
 
 /*
    Note about langlinks:

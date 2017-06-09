@@ -1,5 +1,5 @@
-#import "WMFNetworkUtilities.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
+#import <WMF/WMFNetworkUtilities.h>
+#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 
 NSString *const WMFNetworkingErrorDomain = @"WMFNetworkingErrorDomain";
 

@@ -1,4 +1,4 @@
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/NSBundle+WMFInfoUtils.h>
 
 @implementation NSBundle (WMFInfoUtils)
 

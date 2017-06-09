@@ -1,6 +1,6 @@
 #import "WMFShareCardImageContainer.h"
 #import "UIImage+WMFFocalImageDrawing.h"
-#import "WMFGeometry.h"
+#import <WMF/WMFGeometry.h>
 
 @interface WMFShareCardImageContainer ()
 @property (nonatomic) CGRect focalBounds;

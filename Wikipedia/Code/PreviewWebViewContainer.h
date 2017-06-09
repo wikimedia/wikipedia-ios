@@ -1,6 +1,6 @@
 @import WebKit;
 #import "WMFOpenExternalLinkDelegateProtocol.h"
-#import "MWLanguageInfo.h"
+#import <WMF/MWLanguageInfo.h>
 
 @protocol WMFPreviewSectionLanguageInfoDelegate
 

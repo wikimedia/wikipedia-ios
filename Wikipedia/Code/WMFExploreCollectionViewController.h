@@ -1,5 +1,5 @@
 @import UIKit;
-#import "WMFContentSource.h"
+#import <WMF/WMFContentSource.h>
 
 @class MWKDataStore;
 @protocol WMFExploreCollectionViewControllerDelegate;

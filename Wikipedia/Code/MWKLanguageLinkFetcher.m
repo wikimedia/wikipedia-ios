@@ -1,7 +1,7 @@
 #import "MWKLanguageLinkFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "WMFNetworkUtilities.h"
-#import "MWKLanguageLinkResponseSerializer.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/WMFNetworkUtilities.h>
+#import <WMF/MWKLanguageLinkResponseSerializer.h>
 
 #import <AFNetworking/AFHTTPSessionManager.h>
 

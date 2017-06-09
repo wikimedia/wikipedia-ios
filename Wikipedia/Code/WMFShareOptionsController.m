@@ -5,14 +5,14 @@
 
 #import "WMFShareFunnel.h"
 
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 #import "UIView+WMFSnapshotting.h"
 
 #import "WMFShareCardViewController.h"
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
-#import "MWKArticle.h"
+#import <WMF/MWKArticle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

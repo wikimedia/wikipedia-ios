@@ -1,6 +1,6 @@
-#import "QueuesSingleton.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "MWKLanguageLinkResponseSerializer.h"
+#import <WMF/QueuesSingleton.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/MWKLanguageLinkResponseSerializer.h>
 
 @implementation QueuesSingleton
 

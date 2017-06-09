@@ -1,5 +1,5 @@
-#import "MWKLanguageLinkResponseSerializer.h"
-#import "MWKLanguageLink.h"
+#import <WMF/MWKLanguageLinkResponseSerializer.h>
+#import <WMF/MWKLanguageLink.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation MWKLanguageLinkResponseSerializer

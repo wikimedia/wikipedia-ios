@@ -1,14 +1,14 @@
 #import "WMFEnglishFeaturedTitleFetcher.h"
 #import "Wikipedia-Swift.h"
 
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFApiJsonResponseSerializer.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import "WMFNetworkUtilities.h"
-#import "MWKSearchResult.h"
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFBaseRequestSerializer.h"
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/WMFApiJsonResponseSerializer.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+#import <WMF/WMFNetworkUtilities.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/NSDictionary+WMFCommonParams.h>
+#import <WMF/WMFBaseRequestSerializer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

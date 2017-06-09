@@ -2717,7 +2717,6 @@
 		D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E804261C0CDF510065EBC0 /* WMFGeometry.c */; };
 		D8FA18CA1E1BD891009675C3 /* WMFRangeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8073A1C0CED810065EBC0 /* WMFRangeUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CB1E1BD891009675C3 /* WMFLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807361C0CED810065EBC0 /* WMFLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18CC1E1BD891009675C3 /* WMFDirectoryPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CD1E1BD891009675C3 /* WMFOutParamUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18D01E1BD891009675C3 /* WMFMath.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807371C0CED810065EBC0 /* WMFMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807381C0CED810065EBC0 /* WMFMath.m */; };
@@ -3141,7 +3140,6 @@
 		0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UIViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
-		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wikipedia/Code/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Wikipedia/Code/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMapping.h"; path = "Wikipedia/Code/NSArray+WMFMapping.h"; sourceTree = SOURCE_ROOT; };
@@ -7856,7 +7854,6 @@
 				B0E804261C0CDF510065EBC0 /* WMFGeometry.c */,
 				B0E8073A1C0CED810065EBC0 /* WMFRangeUtils.h */,
 				B0E807361C0CED810065EBC0 /* WMFLogging.h */,
-				0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */,
 				B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */,
 				B0E807371C0CED810065EBC0 /* WMFMath.h */,
 				B0E807381C0CED810065EBC0 /* WMFMath.m */,
@@ -7971,7 +7968,6 @@
 				D8FA18D81E1BD899009675C3 /* NSURL+WMFLinkParsing.h in Headers */,
 				D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */,
 				D844D9F21D6CC01C0042D692 /* MWKImage+CanonicalFilenames.h in Headers */,
-				D8FA18CC1E1BD891009675C3 /* WMFDirectoryPaths.h in Headers */,
 				D84448581DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h in Headers */,
 				D8FA18BB1E1BD891009675C3 /* NSFileManager+WMFGroup.h in Headers */,
 				D8FA18B31E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.h in Headers */,

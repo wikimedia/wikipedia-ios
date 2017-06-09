@@ -2,12 +2,12 @@
 
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
-#import "MWLanguageInfo.h"
+#import <WMF/MWLanguageInfo.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "Wikipedia-Swift.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)

@@ -1,5 +1,5 @@
 #import "EditFunnel.h"
-#import "SessionSingleton.h"
+#import <WMF/SessionSingleton.h>
 
 @implementation EditFunnel
 

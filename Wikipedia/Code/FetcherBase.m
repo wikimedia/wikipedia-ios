@@ -1,5 +1,5 @@
-#import "FetcherBase.h"
-#import "SessionSingleton.h"
+#import <WMF/FetcherBase.h>
+#import <WMF/SessionSingleton.h>
 
 @implementation FetcherBase
 

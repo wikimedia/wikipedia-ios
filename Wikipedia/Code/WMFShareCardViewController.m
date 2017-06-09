@@ -1,6 +1,6 @@
 #import "WMFShareCardViewController.h"
 #import "WMFShareCardImageContainer.h"
-#import "MWLanguageInfo.h"
+#import <WMF/MWLanguageInfo.h>
 
 @interface WMFShareCardViewController ()
 

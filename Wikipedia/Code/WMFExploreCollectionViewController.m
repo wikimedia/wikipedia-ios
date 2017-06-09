@@ -4,20 +4,20 @@
 
 @import Masonry;
 
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
 
-#import "MWKDataStore.h"
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKLanguageLinkController.h>
 
-#import "WMFLocationManager.h"
-#import "CLLocation+WMFBearing.h"
+#import <WMF/WMFLocationManager.h>
+#import <WMF/CLLocation+WMFBearing.h>
 
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "MWKHistoryEntry.h"
+#import <WMF/MWKHistoryEntry.h>
 
-#import "WMFFeedArticlePreview.h"
-#import "WMFFeedNewsStory.h"
-#import "WMFFeedImage.h"
+#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/WMFFeedNewsStory.h>
+#import <WMF/WMFFeedImage.h>
 #import "WMFAnnouncement.h"
 
 #import "WMFSaveButtonController.h"
@@ -26,7 +26,7 @@
 
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
@@ -49,7 +49,7 @@
 #import "WMFChange.h"
 
 #import "WMFCVLAttributes.h"
-#import "NSCalendar+WMFCommonCalendars.h"
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 

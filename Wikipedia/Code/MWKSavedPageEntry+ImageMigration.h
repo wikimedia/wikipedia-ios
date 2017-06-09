@@ -1,4 +1,4 @@
-#import "MWKSavedPageEntry.h"
+#import <WMF/MWKSavedPageEntry.h>
 
 @interface MWKSavedPageEntry (WMFImageMigration)
 

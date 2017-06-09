@@ -1,4 +1,4 @@
-#import "MWKDataObject.h"
+#import <WMF/MWKDataObject.h>
 @import CoreGraphics;
 @class MWKLicense;
 

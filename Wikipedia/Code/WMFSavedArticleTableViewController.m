@@ -1,17 +1,17 @@
 #import "WMFSavedArticleTableViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import "MWKDataStore.h"
+#import <WMF/MWKDataStore.h>
 
-#import "MWKSavedPageList.h"
+#import <WMF/MWKSavedPageList.h>
 
-#import "MWKArticle.h"
+#import <WMF/MWKArticle.h>
 
 #import "WMFSaveButtonController.h"
 
 #import "WMFArticleListTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 #import "WMFTableViewUpdater.h"
 
 @interface WMFSavedArticleTableViewController ()

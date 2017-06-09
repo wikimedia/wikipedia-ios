@@ -1,6 +1,6 @@
 #import "AssetsFileFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "WMFAssetsFile.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/WMFAssetsFile.h>
 
 NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
 

@@ -1,14 +1,14 @@
 #import "WMFHistoryTableViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import "MWKHistoryList.h"
+#import <WMF/MWKHistoryList.h>
 
-#import "MWKArticle.h"
-#import "MWKSavedPageEntry.h"
+#import <WMF/MWKArticle.h>
+#import <WMF/MWKSavedPageEntry.h>
 
 #import "WMFArticleListTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 #import "WMFTableViewUpdater.h"
 
 @interface WMFHistoryTableViewController ()

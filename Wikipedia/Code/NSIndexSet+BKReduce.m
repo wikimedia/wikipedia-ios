@@ -1,4 +1,4 @@
-#import "NSIndexSet+BKReduce.h"
+#import <WMF/NSIndexSet+BKReduce.h>
 
 @implementation NSIndexSet (BKReduce)
 

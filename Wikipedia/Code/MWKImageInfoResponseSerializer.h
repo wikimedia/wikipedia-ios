@@ -1,4 +1,4 @@
-#import "WMFApiJsonResponseSerializer.h"
+#import <WMF/WMFApiJsonResponseSerializer.h>
 
 @interface MWKImageInfoResponseSerializer : WMFApiJsonResponseSerializer
 

@@ -1,9 +1,9 @@
-#import "MWKLanguageFilter.h"
-#import "MWKLanguageLinkController.h"
-#import "MWKLanguageLink.h"
-#import "NSString+WMFExtras.h"
+#import <WMF/MWKLanguageFilter.h>
+#import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWKLanguageLink.h>
+#import <WMF/NSString+WMFExtras.h>
 #import <WMF/WMF-Swift.h>
-#import "WMFComparison.h"
+#import <WMF/WMFComparison.h>
 
 static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
 

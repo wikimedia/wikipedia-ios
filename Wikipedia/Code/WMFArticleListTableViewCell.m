@@ -1,7 +1,7 @@
 #import "WMFArticleListTableViewCell.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
-#import "UIImageView+WMFImageFetching.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
+#import <WMF/UIImageView+WMFImageFetching.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFArticleListTableViewCell ()

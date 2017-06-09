@@ -1,8 +1,8 @@
 #import "WMFArticleRevisionFetcher.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import "WMFNetworkUtilities.h"
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+#import <WMF/WMFNetworkUtilities.h>
 
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"

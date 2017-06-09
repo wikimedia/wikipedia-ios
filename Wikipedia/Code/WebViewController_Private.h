@@ -1,7 +1,7 @@
 #import "WebViewController.h"
 
-#import "SessionSingleton.h"
-#import "MWLanguageInfo.h"
+#import <WMF/SessionSingleton.h>
+#import <WMF/MWLanguageInfo.h>
 #import "WKWebView+ElementLocation.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
@@ -11,9 +11,9 @@
 #import "UIFont+WMFStyle.h"
 
 #import "UIScrollView+WMFScrollsToTop.h"
-#import "WMFURLCache.h"
+#import <WMF/WMFURLCache.h>
 
-#import "MWKHistoryEntry.h"
+#import <WMF/MWKHistoryEntry.h>
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 NS_ASSUME_NONNULL_BEGIN

@@ -1,5 +1,5 @@
 #import "RecentSearchCell.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @implementation RecentSearchCell

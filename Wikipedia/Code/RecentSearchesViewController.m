@@ -2,8 +2,8 @@
 #import "RecentSearchCell.h"
 #import "UIButton+WMFButton.h"
 #import "Wikipedia-Swift.h"
-#import "MWKRecentSearchList.h"
-#import "MWKRecentSearchEntry.h"
+#import <WMF/MWKRecentSearchList.h>
+#import <WMF/MWKRecentSearchEntry.h>
 @import Masonry;
 
 static NSString *const pListFileName = @"Recent.plist";

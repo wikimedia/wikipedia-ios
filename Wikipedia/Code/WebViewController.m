@@ -4,12 +4,12 @@
 
 @import WebKit;
 @import Masonry;
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/NSString+WMFHTMLParsing.h>
 
-#import "MWKArticle.h"
-#import "MWKSection.h"
-#import "MWKSectionList.h"
-#import "MWKDataStore.h"
+#import <WMF/MWKArticle.h>
+#import <WMF/MWKSection.h>
+#import <WMF/MWKSectionList.h>
+#import <WMF/MWKDataStore.h>
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -22,13 +22,13 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFZeroConfiguration.h"
+#import <WMF/WMFZeroConfiguration.h>
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "NSURL+WMFProxyServer.h"
-#import "WMFImageTag.h"
+#import <WMF/NSURL+WMFProxyServer.h>
+#import <WMF/WMFImageTag.h>
 #import "WMFFindInPageKeyboardBar.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 

@@ -4,12 +4,12 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
-#import "MWKDataStore.h"
-#import "MWKSavedPageList.h"
-#import "MWKArticle.h"
-#import "MWKImage+CanonicalFilenames.h"
-#import "WMFImageURLParsing.h"
-#import "WMFTaskGroup.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKSavedPageList.h>
+#import <WMF/MWKArticle.h>
+#import <WMF/MWKImage+CanonicalFilenames.h>
+#import <WMF/WMFImageURLParsing.h>
+#import <WMF/WMFTaskGroup.h>
 #import <WMF/WMF.h>
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;

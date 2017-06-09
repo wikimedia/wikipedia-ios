@@ -26,7 +26,7 @@ extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
  */
 extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion);
 
-#import "FetcherBase.h"
+#import <WMF/FetcherBase.h>
 
 @interface NSError (WMFFetchFinalStatus)
 

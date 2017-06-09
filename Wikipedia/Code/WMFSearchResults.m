@@ -1,7 +1,7 @@
 #import "WMFSearchResults_Internal.h"
-#import "MWKArticle.h"
-#import "UIView+WMFDefaultNib.h"
-#import "MWKSearchResult.h"
+#import <WMF/MWKArticle.h>
+#import <WMF/UIView+WMFDefaultNib.h>
+#import <WMF/MWKSearchResult.h>
 #import "MWKSearchRedirectMapping.h"
 
 NS_ASSUME_NONNULL_BEGIN

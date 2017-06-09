@@ -1,4 +1,4 @@
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 
 @implementation AFHTTPSessionManager (WMFCancelAll)
 
