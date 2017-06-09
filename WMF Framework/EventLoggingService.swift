@@ -5,10 +5,10 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
-    public var readBatchSize = 100
-    public var postBatchSize = 100
+    public var postBatchSize = 10
+    public var postTimeout: TimeInterval = 60*2 // 2 minutes
+    public var postInterval: TimeInterval = 60*10 // 10 minutes
     
-
     private static let LoggingEndpoint =
         // production
         "https://meta.wikimedia.org/beacon/event"
@@ -18,19 +18,18 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
     private var urlSession: URLSession?
-    private var networkQueue: OperationQueue
+    private var queue: OperationQueue
     private let postLock = NSLock()
     private var posting = false
+    private var started = false
+    private var timer: Timer?
     
     private var lastNetworkRequestTimestamp: TimeInterval?
-    //private var eventQueue: [EventRecord] = []
     
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let managedObjectContext: NSManagedObjectContext
     
     @objc(sharedInstance) public static let shared: EventLoggingService = {
-//        let session = URLSession.shared
-//        let cache = URLCache.shared
         let fileManager = FileManager.default
         var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Event Logging", isDirectory: true)
         var didGetDirectoryExistsError = false
@@ -55,6 +54,10 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var shouldSendImmediately: Bool {
         
+        if !started {
+            return false
+        }
+        
         if self.reachabilityManager.isReachableViaWiFi {
             return true
         }
@@ -68,17 +71,14 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         
         return false
     }
-    
 
     public init(permanentStorageURL: URL, urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager) {
         
         self.reachabilityManager = reachabilityManager
-        self.urlSessionConfiguration = urlSesssionConfiguration
-        self.networkQueue = OperationQueue.main
         
-//        self.urlSession = URLSession(configuration: urlSesssionConfiguration)
-//        
-//        self.urlSession.delegate = self
+        
+        self.urlSessionConfiguration = urlSesssionConfiguration
+        self.queue = OperationQueue.init() //DispatchQueue.init(label: "org.wikimedia.EventLogging")
         
         let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "EventLogging", withExtension: "momd")!
@@ -118,14 +118,18 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         self.init(permanentStorageURL: permanentStorageURL, urlSesssionConfiguration: urlSessionConfig, reachabilityManager: reachabilityManager)
     }
     
-    
     deinit {
         stop()
     }
-    
+
+    @objc
     public func start() -> Void {
         
-        self.reachabilityManager.startMonitoring()
+        assert(Thread.isMainThread, "must be started on main thread")
+        guard !self.started else {
+            return
+        }
+        self.started = true
         
         self.urlSession = URLSession(configuration: self.urlSessionConfiguration, delegate: self, delegateQueue: nil)
         
@@ -133,11 +137,25 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             self.lastNetworkRequestTimestamp = Date.timeIntervalSinceReferenceDate
             //DDLogDebug("last network request: \(String(describing: self.lastNetworkRequestTimestamp))")
         }
+
+        self.reachabilityManager.setReachabilityStatusChange { (status) in
+            switch status {
+            case .reachableViaWiFi:
+                self.tryPostEvents()
+                fallthrough
+            case .reachableViaWWAN:
+                self.queue.isSuspended = false
+            default:
+                self.queue.isSuspended = true
+            }
+        }
+        self.reachabilityManager.startMonitoring()
+        
+        self.timer = Timer.scheduledTimer(timeInterval: self.postInterval, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         
         prune()
 
 #if DEBUG
-    
         self.managedObjectContext.perform {
             do {
                 let countFetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
@@ -152,12 +170,29 @@ class EventLoggingService : NSObject, URLSessionDelegate {
 
     }
     
+    @objc private func timerFired() {
+        tryPostEvents()
+        save()
+    }
+    
+    @objc
     public func stop() -> Void {
+        
+        assert(Thread.isMainThread, "must be stopped on main thread")
+        guard self.started else {
+            return
+        }
+        self.started = false
+
         self.reachabilityManager.stopMonitoring()
         
         self.urlSession?.finishTasksAndInvalidate()
+        self.urlSession = nil
         
         NotificationCenter.default.removeObserver(self)
+        
+        self.timer?.invalidate()
+        self.timer = nil
         
         do {
             try self.managedObjectContext.save()
@@ -173,7 +208,7 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             fetch.returnsObjectsAsFaults = false
             
             let pruneDate = Date().addingTimeInterval(-(self.pruningAge)) as NSDate
-            fetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil)", pruneDate)
+            fetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil) OR (failed == TRUE)", pruneDate)
             let delete = NSBatchDeleteRequest(fetchRequest: fetch)
             delete.resultType = .resultTypeCount
 
@@ -196,8 +231,13 @@ class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
+    @objc
     public func logEvent(_ event: NSDictionary) -> Void {
-
+        
+        if (!self.started) {
+            DDLogWarn("EventLoggingService not started. Event will be recorded, but not posted")
+        }
+        
         let now = NSDate()
         
         let moc = self.managedObjectContext
@@ -206,35 +246,33 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             record.event = event
             record.recorded = now
             
-            //self.eventQueue.append(record)
+            DDLogDebug("\(record.objectID) logged!")
             
-            
+            self.save()
+
             if self.shouldSendImmediately {
-                //            postEvent(record)
                 self.tryPostEvents()
             }
         }
     }
     
+    @objc
     private func tryPostEvents() {
 
         self.postLock.lock()
-        guard !posting else {
+        guard started, !posting else {
             self.postLock.unlock()
             return
         }
         posting = true
         self.postLock.unlock()
         
-//        var eventRecords: [EventRecord] = []
-        
-
-
         let moc = self.managedObjectContext
         moc.perform {
             let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
             fetch.sortDescriptors = [NSSortDescriptor.init(key: "recorded", ascending: true)]
-            fetch.fetchLimit = self.readBatchSize
+            fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
+            fetch.fetchLimit = self.postBatchSize
             
             do {
                 var eventRecords: [EventRecord] = []
@@ -242,8 +280,6 @@ class EventLoggingService : NSObject, URLSessionDelegate {
                     self.postEvents(eventRecords)
                 }
                 eventRecords = try moc.fetch(fetch)
-
-                
             } catch let error {
                 DDLogError(error.localizedDescription)
             }
@@ -262,7 +298,6 @@ class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func postEvents(_ eventRecords: [EventRecord]) -> Void {
-        
         guard eventRecords.count > 0 else {
             self.postLock.lock()
             self.posting = false
@@ -271,76 +306,91 @@ class EventLoggingService : NSObject, URLSessionDelegate {
             return
         }
         
-        self.networkQueue.addOperation({
+        DDLogDebug("Posting \(eventRecords.count) events!")
+        
+        let taskGroup = WMFTaskGroup()
+        var tasks = [URLSessionTask]()
+        
+        self.queue.addOperation({
+            for record in eventRecords {
+                if let task = self.task(forEventRecord: record, completion: { (error) in
+                    taskGroup.leave()
+                }) {
+                    taskGroup.enter()
+                    tasks.append(task)
+                    task.resume()
+                }
+            }
             
-            defer {
+            taskGroup.waitInBackground(withTimeout: self.postTimeout, completion: {
+                for task in tasks {
+                    task.cancel()
+                }
                 self.postLock.lock()
                 self.posting = false
                 self.postLock.unlock()
-                
-                self.prune()
+
                 self.save()
-            }
-
-            do {
-                for record in eventRecords {
-                    try self.postEvent(record)
-                }
-            } catch let error {
-                DDLogError(error.localizedDescription)
-            }
-
+                self.tryPostEvents()
+            })
         })
     }
     
-    private func postEvent(_ eventRecord: EventRecord) throws -> Void {
+    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
         
         guard let urlSession = self.urlSession else {
-            // TODO: error
-            return
+            assertionFailure("urlSession was nil")
+            return nil
         }
         
         guard let payload = eventRecord.event else {
-            // TODO: error
-            return
+            eventRecord.failed = true
+            return nil
         }
         
-//        do {
+        do {
             let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
+            
             guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
                 DDLogError("Could not convert JSON data to string")
-                return
+                eventRecord.failed = true
+                return nil
             }
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
             let urlString = "\(EventLoggingService.LoggingEndpoint)?\(encodedPayloadJsonString)"
             guard let url = URL(string: urlString) else {
                 DDLogError("Could not convert string '\(urlString)' to URL object")
-                return
+                eventRecord.failed = true
+                return nil
             }
             
             var request = URLRequest(url: url)
             request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-            urlSession.dataTask(with: request).resume()
-            urlSession.dataTask(with: request, completionHandler: { (_, response, error) in
+
+            eventRecord.postAttempts += 1
+            let task = urlSession.dataTask(with: request, completionHandler: { (_, response, error) in
                 
-                if error != nil {
-                    return
+                defer { completion() }
+                
+                guard error == nil,
+                    let httpResponse = response as? HTTPURLResponse,
+                    httpResponse.statusCode / 100 == 2 else {
+                        return
                 }
                 
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    return
+                eventRecord.posted = NSDate()
+                self.managedObjectContext.perform {
+                    self.managedObjectContext.delete(eventRecord)
                 }
                 
-                if httpResponse.statusCode / 100 != 2 {
-                    return
-                }
-                
-                eventRecord.posted = NSDate()   
-                
-            }).resume()
+                DDLogDebug("\(eventRecord.objectID) posted!")
+            })
+            return task
             
-//        } catch let error {
-//            DDLogError(error.localizedDescription)
-//        }
+        } catch let error {
+            eventRecord.failed = true
+            DDLogError(error.localizedDescription)
+            return nil
+        }
     }
 }
