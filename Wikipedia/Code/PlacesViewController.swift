@@ -7,8 +7,9 @@ import Mapbox
 
 import MapKit
 
-class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
-    
+@objc(WMFPlacesViewController)
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+
     fileprivate var mapView: MapView!
     
     @IBOutlet weak var mapContainerView: UIView!
@@ -114,13 +115,13 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
-            MGLAccountManager.setAccessToken(WMFMGLAccessToken)
-            let styleURL = MGLStyle.lightStyleURL(withVersion: 9)
+            let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
             mapView = MapView(frame: mapViewFrame, styleURL: styleURL)
             mapView.delegate = self
             mapView.allowsRotating = false
             mapView.allowsTilting = false
             mapView.showsUserLocation = false
+            mapView.logoView.isHidden = true
         #else
             mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
@@ -130,7 +131,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             mapView.showsTraffic = false
             mapView.showsPointsOfInterest = false
             mapView.showsScale = false
-            mapView.showsUserLocation = false
+            mapView.showsUserLocation = true
             mapView.isRotateEnabled = false
             mapView.isPitchEnabled = false
         #endif
@@ -375,6 +376,18 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     
     // MARK: - Map Region
     
+    fileprivate func region(thatFits regionToFit: MKCoordinateRegion) -> MKCoordinateRegion {
+        var region = mapView.regionThatFits(regionToFit)
+        
+        if region.span.latitudeDelta == 0 || region.span.longitudeDelta == 0 ||
+           region.span.latitudeDelta.isNaN || region.span.longitudeDelta.isNaN ||
+           region.span.latitudeDelta.isInfinite || region.span.longitudeDelta.isInfinite {
+            region = regionToFit
+        }
+
+        return region
+    }
+    
     fileprivate var _mapRegion: MKCoordinateRegion?
     
     fileprivate var mapRegion: MKCoordinateRegion? {
@@ -384,8 +397,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 return
             }
             
-            let region = mapView.regionThatFits(value)
-            
+            let region = self.region(thatFits: value)
             _mapRegion = region
             
             regroupArticlesIfNecessary(forVisibleRegion: region)
@@ -413,11 +425,16 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         }
     }
     
-    func regionThatFits(articles: [WMFArticle]) -> MKCoordinateRegion {
+    func region(thatFits articles: [WMFArticle]) -> MKCoordinateRegion {
         let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
-        return coordinates.wmf_boundingRegion
+        guard coordinates.count > 1 else {
+            return coordinates.wmf_boundingRegion(with: 10000)
+        }
+        
+        let initialRegion = coordinates.wmf_boundingRegion(with: 50)
+        return coordinates.wmf_boundingRegion(with: 0.25 * initialRegion.width)
     }
     
     // MARK: - Searching
@@ -514,7 +531,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             return
         }
         
-        let regionThatFits = mapView.regionThatFits(searchRegion)
+        let regionThatFits = region(thatFits: searchRegion)
         let movedSignificantly = isDistanceSignificant(betweenRegion: regionThatFits, andRegion: visibleRegion)
         DDLogDebug("movedSignificantly=\(movedSignificantly)")
         
@@ -553,7 +570,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         updateSavedPlacesCountInCurrentMapRegionIfNecessary()
         hideDidYouMeanButton()
         
-        let siteURL = self.siteURL
+        let siteURL = search.siteURL ?? self.siteURL
         var searchTerm: String? = nil
         let sortStyle = search.sortStyle
         let region = search.region ?? mapRegion ?? mapView.region
@@ -586,7 +603,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
             let moc = dataStore.viewContext
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -605,7 +622,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                     self.articleKeyToSelect = articlesToShow.first?.key
                     if articlesToShow.count > 0 {
                         if (self.currentSearch?.region == nil) {
-                            self.currentSearchRegion = self.regionThatFits(articles: articlesToShow)
+                            self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
@@ -620,7 +637,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         case .top:
             tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             
-            placeSearchService.performSearch(search, region: region, completion: { (result) in
+            placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
                 guard result.error == nil else {
@@ -706,7 +723,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         })
     }
     
-    func updatePlaces(withSearchResults searchResults: [MWKLocationSearchResult]) {
+    func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
@@ -714,7 +731,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
                 let center = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
                 var minDistance = CLLocationDistance(Double.greatestFiniteMagnitude)
-                var resultToSelect: MWKLocationSearchResult?
+                var resultToSelect: MWKSearchResult?
                 for result in searchResults {
                     guard let location = result.location else {
                         continue
@@ -781,7 +798,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             var tempSearch = PlaceSearch(filter: .top, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: nil, region: mapView.region, localizedDescription: nil, searchResult: nil)
             tempSearch.needsWikidataQuery = false
             
-            placeSearchService.performSearch(tempSearch, region: mapView.region, completion: { (searchResult) in
+            placeSearchService.performSearch(tempSearch, defaultSiteURL: siteURL, region: mapView.region, completion: { (searchResult) in
                 guard let locationResults = searchResult.locationResults else {
                     return
                 }
@@ -1174,7 +1191,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             default:
                 if let currentSearch = self.currentSearch {
-                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult)
+                    self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult, siteURL: currentSearch.siteURL)
                 }
             }
         }
@@ -2129,7 +2146,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         searchSuggestionController.searches = [[], [], currentSearchStringSuggestions, completions]
     }
     
-    func handleCompletion(searchResults: [MWKSearchResult]) -> [PlaceSearch] {
+    func handleCompletion(searchResults: [MWKSearchResult], siteURL: URL) -> [PlaceSearch] {
         var set = Set<String>()
         let completions = searchResults.flatMap { (result) -> PlaceSearch? in
             guard let location = result.location,
@@ -2141,25 +2158,34 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                     return nil
             }
             set.insert(key)
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, dimension, dimension)
-            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result)
+            let region = [location.coordinate].wmf_boundingRegion(with: dimension)
+            return PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: result.displayTitle, searchResult: result, siteURL: siteURL)
         }
         updateSearchSuggestions(withCompletions: completions, isSearchDone: true)
         return completions
     }
     
-    @objc public func showArticleURL(_ articleURL: URL) {
+    public func showNearbyArticles() {
+        guard let _ = view else { // force view instantiation
+            return
+        }
+        
+        guard currentSearch != nil else { // if current search is nil, this is the initial setup for the view and it will recenter automatically
+            return
+        }
+        
+        currentSearch = nil // will cause the default search to perform after re-centering
+        recenterOnUserLocation(self)
+    }
+    
+    public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
             let _ = view else { // force view instantiation
             return
         }
-
-        var region: MKCoordinateRegion? = nil
-        if let coordinate = article.coordinate {
-            region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000)
-        }
+        let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
@@ -2202,6 +2228,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
+        let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
             guard text == self.searchBar?.text else {
                 return
@@ -2217,7 +2244,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 DDLogDebug("got suggestion! \(suggestion)")
             }
             
-            let completions = self.handleCompletion(searchResults: searchResult.results ?? [])
+            let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
             self.isWaitingForSearchSuggestionUpdate = false
             guard completions.count < 10 else {
                 return
@@ -2232,7 +2259,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
                 let newResults = locationSearchResults.results as [MWKSearchResult]
                 combinedResults.append(contentsOf: newResults)
-                let _ = self.handleCompletion(searchResults: combinedResults)
+                let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
             }) { (error) in
                 guard text == self.searchBar?.text else {
                     return
@@ -2427,7 +2454,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
     }
     
     func zoomAndPanMapView(toLocation location: CLLocation) {
-        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let region = [location.coordinate].wmf_boundingRegion(with: 10000)
         mapRegion = region
         if let searchRegion = currentSearchRegion, isDistanceSignificant(betweenRegion: searchRegion, andRegion: region) {
             performDefaultSearch(withRegion: mapRegion)
@@ -2466,7 +2493,7 @@ class PlacesViewController: UIViewController, UISearchBarDelegate, ArticlePopove
         }
     }
     
-    @IBAction func recenterOnUserLocation(_ sender: Any) {
+    @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
         guard WMFLocationManager.isAuthorized() else {
             promptForLocationAccess()
             return
@@ -2608,7 +2635,7 @@ extension PlacesViewController {
                     articleKeyToSelect = article.key
                 }
             }
-            mapRegion = regionThatFits(articles: place.articles)
+            mapRegion = region(thatFits: place.articles)
             return
         }
         
@@ -2712,125 +2739,8 @@ extension PlacesViewController: MGLMapViewDelegate {
         
         return viewFor(place: place)
     }
-
+    
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        // This is the current workaround that allows the use of maps.wikimedia.org as the tile server
-        // A complete style would need to be defined that works with these vector tiles.
-        // There is also probably a better way to integrate this - perhaps by setting the `style`
-        // property on the MGLMapView instead of intercepting & updating here
-
-        let wikimediaVectorSource = MGLVectorSource(identifier: "WMFSource", tileURLTemplates: ["http://maps.wikimedia.org/osm-pbf/{z}/{x}/{y}.pbf"], options: [.minimumZoomLevel: 0,
-                                                                                                                                                                .maximumZoomLevel: 26,
-                                                                                                                                                                .attributionInfos: [
-                                                                                                                                                                    MGLAttributionInfo(title: NSAttributedString(string: "Wikimedia"), url: URL(string: "http://wikimedia.org"))
-            ]])
-        style.addSource(wikimediaVectorSource)
-        
-        let layers = style.layers
-        for layer in layers {
-            style.removeLayer(layer)
-            if let fillLayer = layer as? MGLFillStyleLayer {
-                let duplicateFillLayer = MGLFillStyleLayer(identifier: fillLayer.identifier, source: wikimediaVectorSource)
-                duplicateFillLayer.sourceLayerIdentifier = fillLayer.sourceLayerIdentifier
-                duplicateFillLayer.predicate = fillLayer.predicate
-                duplicateFillLayer.fillAntialiased = fillLayer.fillAntialiased
-                duplicateFillLayer.fillColor = fillLayer.fillColor
-                duplicateFillLayer.fillOpacity = fillLayer.fillOpacity
-                duplicateFillLayer.fillOutlineColor = fillLayer.fillOutlineColor
-                duplicateFillLayer.fillPattern = fillLayer.fillPattern
-                duplicateFillLayer.fillTranslation = fillLayer.fillTranslation
-                duplicateFillLayer.fillTranslationAnchor = fillLayer.fillTranslationAnchor
-                style.addLayer(duplicateFillLayer)
-            } else if let lineLayer = layer as? MGLLineStyleLayer {
-                let dupeLineLayer = MGLLineStyleLayer(identifier: lineLayer.identifier, source: wikimediaVectorSource)
-                dupeLineLayer.sourceLayerIdentifier = lineLayer.sourceLayerIdentifier
-                dupeLineLayer.predicate = lineLayer.predicate
-                dupeLineLayer.lineCap = lineLayer.lineCap
-                dupeLineLayer.lineJoin = lineLayer.lineJoin
-                dupeLineLayer.lineMiterLimit = lineLayer.lineMiterLimit
-                dupeLineLayer.lineRoundLimit = lineLayer.lineRoundLimit
-                dupeLineLayer.lineBlur = lineLayer.lineBlur
-                dupeLineLayer.lineColor = lineLayer.lineColor
-                dupeLineLayer.lineDashPattern = lineLayer.lineDashPattern
-                dupeLineLayer.lineGapWidth = lineLayer.lineGapWidth
-                dupeLineLayer.lineOffset = lineLayer.lineOffset
-                dupeLineLayer.lineOpacity = lineLayer.lineOpacity
-                dupeLineLayer.linePattern = lineLayer.linePattern
-                dupeLineLayer.lineTranslation = lineLayer.lineTranslation
-                dupeLineLayer.lineTranslationAnchor = lineLayer.lineTranslationAnchor
-                dupeLineLayer.lineWidth = lineLayer.lineWidth
-                style.addLayer(dupeLineLayer)
-            } else if let symbolLayer = layer as? MGLSymbolStyleLayer {
-                let dupeSymbolLayer = MGLSymbolStyleLayer(identifier: symbolLayer.identifier, source: wikimediaVectorSource)
-                dupeSymbolLayer.sourceLayerIdentifier = symbolLayer.sourceLayerIdentifier
-                dupeSymbolLayer.predicate = symbolLayer.predicate
-                dupeSymbolLayer.iconAllowsOverlap = symbolLayer.iconAllowsOverlap
-                dupeSymbolLayer.iconIgnoresPlacement = symbolLayer.iconIgnoresPlacement
-                dupeSymbolLayer.iconImageName = symbolLayer.iconImageName
-                dupeSymbolLayer.iconOffset = symbolLayer.iconOffset
-                dupeSymbolLayer.iconOptional = symbolLayer.iconOptional
-                dupeSymbolLayer.iconPadding = symbolLayer.iconPadding
-                dupeSymbolLayer.iconRotation = symbolLayer.iconRotation
-                dupeSymbolLayer.iconRotationAlignment = symbolLayer.iconRotationAlignment
-                dupeSymbolLayer.iconScale = symbolLayer.iconScale
-                dupeSymbolLayer.iconTextFit = symbolLayer.iconTextFit
-                dupeSymbolLayer.iconTextFitPadding = symbolLayer.iconTextFitPadding
-                dupeSymbolLayer.keepsIconUpright = symbolLayer.keepsIconUpright
-                dupeSymbolLayer.keepsTextUpright = symbolLayer.keepsTextUpright
-                dupeSymbolLayer.maximumTextAngle = symbolLayer.maximumTextAngle
-                dupeSymbolLayer.maximumTextWidth = symbolLayer.maximumTextWidth
-                dupeSymbolLayer.symbolAvoidsEdges = symbolLayer.symbolAvoidsEdges
-                dupeSymbolLayer.symbolPlacement = symbolLayer.symbolPlacement
-                dupeSymbolLayer.symbolSpacing = symbolLayer.symbolSpacing
-                dupeSymbolLayer.text = symbolLayer.text
-                dupeSymbolLayer.textAllowsOverlap = symbolLayer.textAllowsOverlap
-                dupeSymbolLayer.textAnchor = symbolLayer.textAnchor
-                dupeSymbolLayer.textFontNames = symbolLayer.textFontNames
-                dupeSymbolLayer.textFontSize = symbolLayer.textFontSize
-                dupeSymbolLayer.textIgnoresPlacement = symbolLayer.textIgnoresPlacement
-                dupeSymbolLayer.textJustification = symbolLayer.textJustification
-                dupeSymbolLayer.textLetterSpacing = symbolLayer.textLetterSpacing
-                dupeSymbolLayer.textLineHeight = symbolLayer.textLineHeight
-                dupeSymbolLayer.textOffset = symbolLayer.textOffset
-                dupeSymbolLayer.textOptional = symbolLayer.textOptional
-                dupeSymbolLayer.textPadding = symbolLayer.textPadding
-                dupeSymbolLayer.textPitchAlignment = symbolLayer.textPitchAlignment
-                dupeSymbolLayer.textRotation = symbolLayer.textRotation
-                dupeSymbolLayer.textRotationAlignment = symbolLayer.textRotationAlignment
-                dupeSymbolLayer.textTransform = symbolLayer.textTransform
-                dupeSymbolLayer.iconColor = symbolLayer.iconColor
-                dupeSymbolLayer.iconHaloBlur = symbolLayer.iconHaloBlur
-                dupeSymbolLayer.iconHaloColor = symbolLayer.iconHaloColor
-                dupeSymbolLayer.iconHaloWidth = symbolLayer.iconHaloWidth
-                dupeSymbolLayer.iconOpacity = symbolLayer.iconOpacity
-                dupeSymbolLayer.iconTranslation = symbolLayer.iconTranslation
-                dupeSymbolLayer.iconTranslationAnchor = symbolLayer.iconTranslationAnchor
-                dupeSymbolLayer.textColor = symbolLayer.textColor
-                dupeSymbolLayer.textHaloBlur = symbolLayer.textHaloBlur
-                dupeSymbolLayer.textHaloColor = symbolLayer.textHaloColor
-                dupeSymbolLayer.textHaloWidth = symbolLayer.textHaloWidth
-                dupeSymbolLayer.textOpacity = symbolLayer.textOpacity
-                dupeSymbolLayer.textTranslation = symbolLayer.textTranslation
-                dupeSymbolLayer.textTranslationAnchor = symbolLayer.textTranslationAnchor
-                style.addLayer(dupeSymbolLayer)
-            } else if let backgroundLayer = layer as? MGLBackgroundStyleLayer {
-                let dupeBackgroundLayer = MGLBackgroundStyleLayer(identifier: backgroundLayer.identifier)
-                dupeBackgroundLayer.backgroundColor = backgroundLayer.backgroundColor
-                dupeBackgroundLayer.backgroundOpacity = backgroundLayer.backgroundOpacity
-                dupeBackgroundLayer.backgroundPattern = backgroundLayer.backgroundPattern
-                style.addLayer(dupeBackgroundLayer)
-            } else {
-                print("missing duplicate class for \(layer)")
-            }
-        }
-        
-        
-        for source in style.sources {
-            guard source.identifier != wikimediaVectorSource.identifier else {
-                continue
-            }
-            style.removeSource(source)
-        }
         
     }
 }
@@ -2891,4 +2801,27 @@ class PlaceSearchEmptySearchOverlayView: UIView {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+extension PlacesViewController {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard viewMode == .list else {
+            return nil
+        }
+        let point = view.convert(location, to: listView)
+        guard
+            let indexPath = listView.indexPathForRow(at: point),
+            let url = self.articleFetchedResultsController.object(at: indexPath).url,
+            let cell = listView.cellForRow(at: indexPath)
+        else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        wmf_push(viewControllerToCommit, animated: true)
+    }
 }

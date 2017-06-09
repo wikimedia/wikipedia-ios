@@ -79,7 +79,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFLocationManagerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -111,8 +111,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
-
-@property (nonatomic, strong) WMFLocationManager *showNearbyLocationManager;
 
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
@@ -691,7 +689,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
-        [self showNearbyListAnimated:NO];
+        [self showNearbyAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
         [self showLastReadArticleAnimated:NO];
     }
@@ -751,7 +749,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
 
-    switch ([activity wmf_type]) {
+    WMFUserActivityType type = [activity wmf_type];
+    switch (type) {
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
@@ -925,8 +924,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
-- (PlacesViewController *)placesViewController {
-    return (PlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
+- (WMFPlacesViewController *)placesViewController {
+    return (WMFPlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
 }
 
 #pragma mark - UIViewController
@@ -1080,44 +1079,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [exploreNavController pushViewController:vc animated:animated];
 }
 
-- (void)showNearbyListAnimated:(BOOL)animated {
-    if (![WMFLocationManager isAuthorized]) {
-        self.showNearbyLocationManager = [WMFLocationManager coarseLocationManager];
-        self.showNearbyLocationManager.delegate = self;
-        [self.showNearbyLocationManager startMonitoringLocation];
-        return;
+- (void)showNearbyAnimated:(BOOL)animated {
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
+    UINavigationController *placesNavigationController = [self navigationControllerForTab:WMFAppTabTypePlaces];
+    if (placesNavigationController.presentedViewController) {
+        [placesNavigationController dismissViewControllerAnimated:NO completion:NULL];
     }
-    [self _showNearbyListAnimated:animated];
-}
-
-- (void)_showNearbyListAnimated:(BOOL)animated {
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-    if (exploreNavController.presentedViewController) {
-        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
-    }
-    [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    [self.dataStore.feedContentController updateNearbyForce:YES
-                                                 completion:^{
-                                                     WMFAssertMainThread(@"Completion assumed to be called on the main thread");
-                                                     WMFContentGroup *nearby = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindLocation];
-                                                     if (!nearby) {
-                                                         //TODO: show an error?
-                                                         return;
-                                                     }
-
-                                                     NSArray *urls = nearby.content;
-                                                     WMFArticleLocationCollectionViewController *vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:urls dataStore:self.dataStore];
-                                                     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
-                                                 }];
-}
-
-- (void)locationManager:(WMFLocationManager *)locationManager didChangeEnabledState:(BOOL)enabled {
-    if (locationManager == self.showNearbyLocationManager && enabled) {
-        [self _showNearbyListAnimated:YES];
-        self.showNearbyLocationManager.delegate = nil;
-        [self.showNearbyLocationManager stopMonitoringLocation];
-    }
+    [placesNavigationController popToRootViewControllerAnimated:NO];
+    
+    [[self placesViewController] showNearbyArticles];
 }
 
 #pragma mark - Download Assets

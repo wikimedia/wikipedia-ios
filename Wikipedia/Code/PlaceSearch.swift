@@ -43,9 +43,9 @@ struct PlaceSearch {
     let localizedDescription: String?
     let searchResult: MWKSearchResult?
     var needsWikidataQuery: Bool = false
+    let siteURL: URL?
 
-
-    init(filter: PlaceFilterType, type: PlaceSearchType, origin: PlaceSearchOrigin, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?) {
+    init(filter: PlaceFilterType, type: PlaceSearchType, origin: PlaceSearchOrigin, sortStyle: WMFLocationSearchSortStyle, string: String?, region: MKCoordinateRegion?, localizedDescription: String?, searchResult: MWKSearchResult?, siteURL: URL? = nil) {
         self.filter = filter
         self.type = type
         self.origin = origin
@@ -55,21 +55,25 @@ struct PlaceSearch {
         self.localizedDescription = localizedDescription
         self.searchResult = searchResult
         self.needsWikidataQuery = type == .location && searchResult != nil
+        self.siteURL = siteURL
     }
     
     
     var key: String {
         get {
-            let baseString = "\(type.rawValue)|\(sortStyle.rawValue)|\(string?.lowercased().precomposedStringWithCanonicalMapping ?? "")"
-            switch type {
-            case .location:
-                guard let region = region else {
-                    fallthrough
+            var key = "\(type.rawValue)|\(filter.rawValue)|\(sortStyle.rawValue)"
+            if let searchResult = searchResult {
+                if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = (articleURL as NSURL).wmf_articleDatabaseKey {
+                    key.append("|\(articleKey)")
+                } else {
+                    let lang = (siteURL as NSURL?)?.wmf_language ?? ""
+                    key.append("|\(lang)|\(searchResult.displayTitle?.precomposedStringWithCanonicalMapping ?? "")")
                 }
-                return baseString + "|\(region.stringValue )"
-            default:
-                return baseString
+                
+            } else if let string = string {
+                key.append("|\(string.lowercased().precomposedStringWithCanonicalMapping)")
             }
+            return key
         }
     }
     
@@ -94,6 +98,9 @@ struct PlaceSearch {
             }
             if let result = searchResult {
                 dictionary["searchResult"] = result
+            }
+            if let siteURL = siteURL {
+                dictionary["siteURL"] = siteURL.absoluteString as NSString
             }
             return dictionary
         }
@@ -128,6 +135,11 @@ struct PlaceSearch {
         }
         self.searchResult = dictionary["searchResult"] as? MWKSearchResult
         self.localizedDescription = dictionary["localizedDescription"] as? String
+        if let siteURLString = dictionary["siteURL"] as? String {
+            self.siteURL = URL(string: siteURLString)
+        } else {
+            self.siteURL = nil
+        }
     }
     
     init?(object: NSObject?) {
@@ -160,5 +172,10 @@ struct PlaceSearch {
         }
         self.searchResult = object.value(forKey: "searchResult") as? MWKSearchResult
         self.localizedDescription = object.value(forKey: "localizedDescription") as? String
+        if let siteURLString = object.value(forKey: "siteURL") as? String {
+            self.siteURL = URL(string: siteURLString)
+        } else {
+            self.siteURL = nil
+        }
     }
 }

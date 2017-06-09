@@ -255,8 +255,7 @@
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|artículu|artículos}}";
 "places-no-saved-articles-have-location" = "Dengún artículu de los guardaos tien información d'allugamientu";
 "places-search-articles-that-match" = "$1 que casen con «$2»";
-// Fuzzy
-"places-search-default-text" = "Buscar";
+"places-search-default-text" = "Buscar llugares";
 "places-search-did-you-mean" = "¿Quixisti dicir $1?";
 "places-search-recently-searched-header" = "Guetao recién";
 "places-search-saved-articles" = "Tolos artículos guardaos";
@@ -264,6 +263,7 @@
 "places-search-this-area" = "Resultaos nesta fastera";
 "places-search-top-articles" = "Tolos artículos principales";
 "places-search-top-articles-that-match-scope" = "Cercanu";
+"places-search-your-current-location" = "El to allugamientu actual";
 "places-show-filter-list-accessibility-label" = "Amosar los filtros de gueta";
 "places-title" = "Llugares";
 "places-unknown-distance" = "distancia desconocida";

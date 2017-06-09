@@ -257,8 +257,7 @@
 "places-filter-top-articles" = "Més llegits";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-no-saved-articles-have-location" = "Cap dels vostres articles desats té informació d'ubicació";
-// Fuzzy
-"places-search-default-text" = "Cerca";
+"places-search-default-text" = "Cerca llocs";
 "places-search-did-you-mean" = "Volíeu dir $1?";
 "places-search-recently-searched-header" = "Cercat recentment";
 "places-search-saved-articles" = "Tots els articles desats";
@@ -266,6 +265,7 @@
 "places-search-this-area" = "Resultats en aquesta àrea";
 "places-search-top-articles" = "Tots els millors articles";
 "places-search-top-articles-that-match-scope" = "A prop";
+"places-search-your-current-location" = "La vostra ubicació actual";
 "places-show-filter-list-accessibility-label" = "Mostra els filtres de cerca";
 "places-title" = "Llocs";
 "places-unknown-distance" = "distància desconeguda";
