@@ -3891,7 +3891,7 @@
 		B31B6AE51EC4CBFA009C76DD /* WMFExploreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreCollectionViewController.h; sourceTree = "<group>"; };
 		B31B6AE61EC4CBFA009C76DD /* WMFExploreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreCollectionViewController.m; sourceTree = "<group>"; };
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
-		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
+		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSTextAttachment+WMFExtras.swift"; path = "../../../WMF Framework/NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
@@ -6265,6 +6265,9 @@
 		BC45D5661C32E6E8007C72F3 /* Grand Central Dispatch */ = {
 			isa = PBXGroup;
 			children = (
+				B0E807301C0CED810065EBC0 /* WMFGCDHelpers.h */,
+				0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */,
+				B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */,
 			);
 			name = "Grand Central Dispatch";
 			path = ../Wikipedia/Code/Global;
@@ -6338,6 +6341,8 @@
 		BC45D5711C32EADD007C72F3 /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
+				B0E8072F1C0CED810065EBC0 /* WMFComparison.h */,
+				B0E807311C0CED810065EBC0 /* WMFHashing.h */,
 			);
 			name = NSObject;
 			path = "../Wikipedia/Code/mw-utils";
@@ -7263,6 +7268,14 @@
 		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
 			isa = PBXGroup;
 			children = (
+				B0E804FA1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.h */,
+				B0E804FB1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m */,
+				B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */,
+				B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */,
+				B0E805021C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.h */,
+				B0E805031C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m */,
+				B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */,
+				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
 			);
 			name = "Face Detection";
 			path = "Wikipedia/Code/Face Detection";
@@ -7589,6 +7602,17 @@
 		D8494AFB1D6C8D5A00337433 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
+				B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */,
+				B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */,
+				0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */,
+				0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */,
+				0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */,
+				0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */,
+				D81446051E71771B0078D71E /* WMFBlocksKit.swift */,
+				B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */,
+				B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */,
+				B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */,
+				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 			);
 			name = Collections;
 			path = ../WMFKit;
@@ -7597,6 +7621,8 @@
 		D8494AFC1D6C8D6700337433 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */,
+				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
 			);
 			name = System;
 			path = ../WMFKit;
@@ -7605,6 +7631,13 @@
 		D8494B011D6C8DBA00337433 /* Parsing */ = {
 			isa = PBXGroup;
 			children = (
+				B0E804AE1C0CE0B40065EBC0 /* NSURL+WMFExtras.h */,
+				B0E804AF1C0CE0B40065EBC0 /* NSURL+WMFExtras.m */,
+				D8494AD81D6C85C500337433 /* NSURL+WMFLinkParsing.h */,
+				D8494AD91D6C85C500337433 /* NSURL+WMFLinkParsing.m */,
+				D8494ADA1D6C85C500337433 /* NSURLComponents+WMFLinkParsing.h */,
+				D8494ADB1D6C85C500337433 /* NSURLComponents+WMFLinkParsing.m */,
+				B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */,
 			);
 			name = Parsing;
 			path = ../WMFKit;
@@ -7844,35 +7877,10 @@
 				B0E804911C0CE0B40065EBC0 /* NSError+WMFExtensions.h */,
 				B0E804921C0CE0B40065EBC0 /* NSError+WMFExtensions.m */,
 				D8494B011D6C8DBA00337433 /* Parsing */,
-				B0E804AE1C0CE0B40065EBC0 /* NSURL+WMFExtras.h */,
-				B0E804AF1C0CE0B40065EBC0 /* NSURL+WMFExtras.m */,
-				D8494AD81D6C85C500337433 /* NSURL+WMFLinkParsing.h */,
-				D8494AD91D6C85C500337433 /* NSURL+WMFLinkParsing.m */,
-				D8494ADA1D6C85C500337433 /* NSURLComponents+WMFLinkParsing.h */,
-				D8494ADB1D6C85C500337433 /* NSURLComponents+WMFLinkParsing.m */,
-				B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */,
 				D8494AFB1D6C8D5A00337433 /* Collections */,
-				B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */,
-				B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */,
-				0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */,
-				0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */,
-				0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */,
-				0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */,
-				D81446051E71771B0078D71E /* WMFBlocksKit.swift */,
-				B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */,
-				B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */,
-				B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */,
-				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 				D8494AFC1D6C8D6700337433 /* System */,
-				B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */,
-				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
 				BC45D5711C32EADD007C72F3 /* NSObject */,
-				B0E8072F1C0CED810065EBC0 /* WMFComparison.h */,
-				B0E807311C0CED810065EBC0 /* WMFHashing.h */,
 				BC45D5661C32E6E8007C72F3 /* Grand Central Dispatch */,
-				B0E807301C0CED810065EBC0 /* WMFGCDHelpers.h */,
-				0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */,
-				B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -7901,14 +7909,6 @@
 				D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */,
 				D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */,
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
-				B0E804FA1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.h */,
-				B0E804FB1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m */,
-				B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */,
-				B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */,
-				B0E805021C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.h */,
-				B0E805031C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m */,
-				B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */,
-				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
