@@ -2,7 +2,6 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReferencePopoverBackgroundView.h"
-#import "UIColor+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN

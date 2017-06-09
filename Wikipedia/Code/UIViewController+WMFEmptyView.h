@@ -1,3 +1,4 @@
+@import UIKit;
 
 typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNone,

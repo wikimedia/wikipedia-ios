@@ -1,3 +1,4 @@
+@import UIKit;
 
 /**
  * Utilities for getting layout attributes and index paths for items in a flow layout.

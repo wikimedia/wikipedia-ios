@@ -48,7 +48,6 @@
 #import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
-#import "UIImageView+WMFPlaceholder.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import "NSString+WMFPageUtilities.h"

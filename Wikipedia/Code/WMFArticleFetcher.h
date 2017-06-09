@@ -1,7 +1,8 @@
-
+@import Foundation;
 @class MWKDataStore;
 @class MWKArticle;
 @class AFHTTPSessionManager;
+@import WMF.WMFBlockDefinitions;
 
 NS_ASSUME_NONNULL_BEGIN
 

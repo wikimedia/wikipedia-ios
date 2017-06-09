@@ -4,7 +4,7 @@
 #import "MWLanguageInfo.h"
 #import "Wikipedia-Swift.h"
 #import "WMFProxyServer.h"
-#import "NSURL+WMFLinkParsing.h"
+@import WMF.NSURL_WMFLinkParsing;
 
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;

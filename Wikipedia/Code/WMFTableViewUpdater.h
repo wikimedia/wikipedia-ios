@@ -1,3 +1,5 @@
+@import UIKit;
+@import CoreData;
 
 @class WMFTableViewUpdater;
 

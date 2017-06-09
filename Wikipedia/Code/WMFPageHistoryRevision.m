@@ -1,4 +1,7 @@
 #import "WMFPageHistoryRevision.h"
+@import WMF.WMFComparison;
+@import WMF.NSString_WMFExtras;
+@import WMF.NSCalendar_WMFCommonCalendars;
 
 @implementation WMFPageHistoryRevision
 

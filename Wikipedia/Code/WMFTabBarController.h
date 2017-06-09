@@ -1,3 +1,4 @@
+@import UIKit;
 
 @interface WMFTabBarController : UITabBarController
 

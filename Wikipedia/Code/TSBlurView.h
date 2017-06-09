@@ -6,6 +6,7 @@
 //
 //
 
+@import UIKit;
 
 @interface TSBlurView : UIView
 
