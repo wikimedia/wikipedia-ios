@@ -32,7 +32,7 @@
     self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0];
     self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0];
 
-    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-and-license", nil, nil, @"By publishing, you agree to the %1$@, and to irrevocably release your contributions under the %2$@ license.", @"Button text for information about the Terms of Use and edit license. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link");
+    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-and-license", nil, nil, @"By saving changes, you agree to the %1$@and agree to release your contribution under the %2$@ and %3$@ license.", @"Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2");
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
@@ -81,7 +81,8 @@
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
                                substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}"),
-                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, nil, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}")]
+                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, nil, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}"),
+                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name2", nil, nil, @"GFDL", @"Name of the second license user edits are saved under - presently GFDL\n{{Identical|CC BY-SA}}")]]
                             substitutionAttributes:@[linkAttributes, linkAttributes]];
 }
 
