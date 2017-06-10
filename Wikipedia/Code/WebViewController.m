@@ -46,6 +46,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
+NSString *const GFDLLicenseURL =
+    @"https://www.gnu.org/licenses/fdl.html";
+
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
@@ -776,6 +779,7 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)showLicenseButtonPressed {
     [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
+    [self wmf_openExternalUrl:[NSURL URLWithString:GFDLLicenseURL]];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
