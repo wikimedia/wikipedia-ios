@@ -19,15 +19,15 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 
 ## Building and Running
 
-###Minimum Requirements:
+### Minimum Requirements
 * [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
 
-**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` **from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
+**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
 
 * [Homebrew](https://brew.sh)
 * [Carthage](https://github.com/Carthage/Carthage)
-* [clang-format](http://clang.llvm.org/docs/ClangFormat.html)
+* [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
 At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
@@ -82,7 +82,7 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 [npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ### Fastlane
- 
+*TODO: Write about what this is.*
 [fastlane](https://fastlane.tools)
 
 ## Continuous Integration
