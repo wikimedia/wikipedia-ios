@@ -28,9 +28,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-NSString *const WMFCCBySALicenseURL =
-    @"https://creativecommons.org/licenses/by-sa/3.0/";
-
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
@@ -760,7 +757,7 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showLicenseButtonPressed {
-    [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
+    [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
 }
 
 - (void)setHeaderView:(UIView *)headerView {

@@ -368,7 +368,7 @@
 "wikitext-upload-result-unknown" = "Das Ergebnis deines Wikitext-Uploads konnte nicht ermittelt werden.";
 "wikitext-upload-save" = "Veröffentliche …";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
-"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
+"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Anmelden";
 "wikitext-upload-save-terms-and-license" = "Mit dem Veröffentlichen stimmst du den $1 und der unwiderruflichen Veröffentlichung deiner Beiträge unter der $2-Lizenz zu.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
