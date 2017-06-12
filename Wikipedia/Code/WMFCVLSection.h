@@ -1,4 +1,4 @@
-
+@import UIKit;
 @class WMFCVLColumn;
 @class WMFCVLAttributes;
 @class WMFCVLInvalidationContext;

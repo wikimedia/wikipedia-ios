@@ -1,5 +1,6 @@
+@import UIKit;
 @class WMFLeadingImageTrailingTextButton;
-#import "PiwikTracker+WMFExtensions.h"
+@import WMF.Swift;
 
 @interface WMFFeedNotificationHeader : UIView <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 

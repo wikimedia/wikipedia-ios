@@ -1,4 +1,4 @@
-#import "UIImage+WMFStyle.h"
+#import <WMF/UIImage+WMFStyle.h>
 
 @implementation UIImage (WMFStyle)
 

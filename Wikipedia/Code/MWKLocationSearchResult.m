@@ -1,5 +1,5 @@
-#import "MWKLocationSearchResult.h"
-#import "WMFComparison.h"
+#import <WMF/MWKLocationSearchResult.h>
+#import <WMF/WMFComparison.h>
 
 @implementation MWKLocationSearchResult
 

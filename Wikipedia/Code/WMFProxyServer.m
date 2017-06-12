@@ -1,11 +1,10 @@
 #import "WMFProxyServer.h"
 @import GCDWebServers;
-#import "NSURL+WMFExtras.h"
-#import "NSURL+WMFProxyServer.h"
+#import <WMF/NSURL+WMFProxyServer.h>
 #import "Wikipedia-Swift.h"
-#import "WMFImageTag.h"
-#import "WMFImageTag+TargetImageWidthURL.h"
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/WMFImageTag.h>
+#import <WMF/WMFImageTag+TargetImageWidthURL.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 static const NSInteger WMFCachedResponseCountLimit = 4;
 

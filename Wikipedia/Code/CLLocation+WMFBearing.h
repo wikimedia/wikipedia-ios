@@ -20,7 +20,7 @@
  *  Uses a special formula which accommodates for the Earth's approximate shape.  Native port of JS function
  *  @c LatLon.prototype.bearingTo on http://www.movable-type.co.uk/scripts/latlong.html
  *
- *  @param location         The target destination.
+ *  @param destination         The target destination.
  *
  *  @return The relative bearing in degrees, where a positive value goes in the clockwise direction.
  */

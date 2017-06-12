@@ -1,15 +1,7 @@
 #import "WMFHistoryTableViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKHistoryList.h"
-
-#import "MWKArticle.h"
-#import "MWKSavedPageEntry.h"
-
 #import "WMFArticleListTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
 #import "WMFTableViewUpdater.h"
+@import WMF;
 
 @interface WMFHistoryTableViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

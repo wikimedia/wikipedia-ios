@@ -1,8 +1,8 @@
 #import "AboutViewController.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/WikipediaAppUtils.h>
 #import "WKWebView+LoadAssetsHtml.h"
-#import "NSString+WMFExtras.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"

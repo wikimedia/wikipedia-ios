@@ -1,4 +1,4 @@
-#import "MWKImage.h"
+#import <WMF/MWKImage.h>
 
 @interface MWKImage (CanonicalFilenames)
 

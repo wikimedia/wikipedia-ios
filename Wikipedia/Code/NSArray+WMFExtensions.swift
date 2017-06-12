@@ -49,7 +49,7 @@ extension NSArray {
     /**
     Select the first `n` elements from an array.
     
-    - parameter length: The max length
+    - parameter intLength: The max length
     
     - returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
               in the array.

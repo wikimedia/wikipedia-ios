@@ -1,4 +1,4 @@
-#import "MWKSectionMetaData.h"
+#import <WMF/MWKSectionMetaData.h>
 #import "MTLValueTransformer+WMFNumericValueTransformer.h"
 #import <WMF/WMF-Swift.h>
 

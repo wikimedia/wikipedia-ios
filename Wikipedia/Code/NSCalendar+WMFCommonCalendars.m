@@ -1,4 +1,4 @@
-#import "NSCalendar+WMFCommonCalendars.h"
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
 
 @implementation NSCalendar (WMFCommonCalendars)
 

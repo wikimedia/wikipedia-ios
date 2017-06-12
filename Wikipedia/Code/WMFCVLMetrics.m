@@ -1,4 +1,5 @@
 #import "WMFCVLMetrics.h"
+@import UIKit;
 
 @interface WMFCVLMetrics ()
 @property (nonatomic) CGSize boundsSize;

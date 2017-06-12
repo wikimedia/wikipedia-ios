@@ -2,7 +2,7 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 

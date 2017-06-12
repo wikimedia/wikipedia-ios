@@ -1,4 +1,4 @@
-#import "NSURL+WMFQueryParameters.h"
+#import <WMF/NSURL+WMFQueryParameters.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation NSURL (WMFQueryParameters)

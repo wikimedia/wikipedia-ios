@@ -1,3 +1,5 @@
+@import Foundation;
+@import WMF.WMFBlockDefinitions;
 
 NS_ASSUME_NONNULL_BEGIN
 
