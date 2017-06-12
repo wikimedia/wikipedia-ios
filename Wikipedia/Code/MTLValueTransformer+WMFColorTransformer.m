@@ -1,4 +1,5 @@
 #import "MTLValueTransformer+WMFColorTransformer.h"
+@import WMF;
 
 @implementation MTLValueTransformer (WMFColorTransformer)
 

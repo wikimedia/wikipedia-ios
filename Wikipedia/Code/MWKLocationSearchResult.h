@@ -1,4 +1,4 @@
-#import "MWKSearchResult.h"
+#import <WMF/MWKSearchResult.h>
 @import CoreLocation;
 
 /**

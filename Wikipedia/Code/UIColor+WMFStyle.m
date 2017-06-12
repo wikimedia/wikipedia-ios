@@ -1,4 +1,4 @@
-#import "UIColor+WMFStyle.h"
+#import <WMF/UIColor+WMFStyle.h>
 
 @implementation UIColor (WMFStyle)
 

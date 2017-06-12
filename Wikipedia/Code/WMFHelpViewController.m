@@ -1,7 +1,7 @@
 #import "WMFHelpViewController.h"
-#import "MWKDataStore.h"
+#import <WMF/MWKDataStore.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/WikipediaAppUtils.h>
 #import "Wikipedia-Swift.h"
 #import "WMFLeadingImageTrailingTextButton.h"
 #import "DDLog+WMFLogger.h"

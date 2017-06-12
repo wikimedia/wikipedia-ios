@@ -1,5 +1,6 @@
 #import "SSDataSources.h"
 @import CoreLocation;
+@import WMF.WMFBlockDefinitions;
 
 @class MWKImage;
 

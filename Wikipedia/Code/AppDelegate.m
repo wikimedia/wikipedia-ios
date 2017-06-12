@@ -1,12 +1,13 @@
 #import "AppDelegate.h"
+@import UserNotifications;
+@import WMF.NSUserActivity_WMFExtensions;
+@import WMF.PiwikTracker_WMFExtensions;
+@import WMF.NSFileManager_WMFGroup;
 #import "BITHockeyManager+WMFExtensions.h"
-#import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import "NSUserActivity+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
-#import "NSFileManager+WMFGroup.h"
-@import UserNotifications;
+
 
 #if WMF_UX_STUDY_ENABLED
 #import <Appsee/Appsee.h>

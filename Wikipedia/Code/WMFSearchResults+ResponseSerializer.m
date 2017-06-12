@@ -1,5 +1,5 @@
 #import "WMFSearchResults+ResponseSerializer.h"
-#import "WMFMantleJSONResponseSerializer.h"
+#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <AFNetworking/AFURLResponseSerialization.h>
 
 @implementation WMFSearchResults (ResponseSerializer)

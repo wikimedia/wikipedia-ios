@@ -1,5 +1,7 @@
 #import "WMFArticleTextActivitySource.h"
-#import "MWKArticle+WMFSharing.h"
+@import WMF.MWKArticle_WMFSharing;
+@import WMF.WMFLocalization;
+@import WMF.NSURL_WMFLinkParsing;
 
 NS_ASSUME_NONNULL_BEGIN
 

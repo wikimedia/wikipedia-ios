@@ -1,8 +1,8 @@
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/NSString+WMFHTMLParsing.h>
 #import <hpple/TFHpple.h>
-#import "NSString+WMFExtras.h"
-#import "WMFNumberOfExtractCharacters.h"
-#import "WMFComparison.h"
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/WMFNumberOfExtractCharacters.h>
+#import <WMF/WMFComparison.h>
 
 @implementation NSString (WMFHTMLParsing)
 

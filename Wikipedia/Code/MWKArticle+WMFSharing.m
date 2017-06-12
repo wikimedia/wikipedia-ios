@@ -1,7 +1,7 @@
-#import "MWKArticle+WMFSharing.h"
-#import "NSString+WMFHTMLParsing.h"
-#import "MWKSectionList.h"
-#import "MWKSection.h"
+#import <WMF/MWKArticle+WMFSharing.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/MWKSectionList.h>
+#import <WMF/MWKSection.h>
 
 #define MWKArticleMainPageLeadingHTMLXPath @"/html/body/div/div/p[1]"
 static NSString *const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLeadingHTMLXPath "//text()";

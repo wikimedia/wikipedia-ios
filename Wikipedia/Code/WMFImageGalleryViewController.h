@@ -1,6 +1,8 @@
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "WMFImageInfoController.h"
 
+@class MWKArticle;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class WMFImageGalleryViewController;

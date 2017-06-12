@@ -1,12 +1,12 @@
-#import "WMFExploreFeedContentController.h"
-#import "WMFRelatedPagesContentSource.h"
-#import "WMFMainPageContentSource.h"
-#import "WMFNearbyContentSource.h"
-#import "WMFContinueReadingContentSource.h"
-#import "WMFFeedContentSource.h"
-#import "WMFRandomContentSource.h"
-#import "WMFAnnouncementsContentSource.h"
-#import "WMFAssertions.h"
+#import <WMF/WMFExploreFeedContentController.h>
+#import <WMF/WMFRelatedPagesContentSource.h>
+#import <WMF/WMFMainPageContentSource.h>
+#import <WMF/WMFNearbyContentSource.h>
+#import <WMF/WMFContinueReadingContentSource.h>
+#import <WMF/WMFFeedContentSource.h>
+#import <WMF/WMFRandomContentSource.h>
+#import <WMF/WMFAnnouncementsContentSource.h>
+#import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
 
 NSString * const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";

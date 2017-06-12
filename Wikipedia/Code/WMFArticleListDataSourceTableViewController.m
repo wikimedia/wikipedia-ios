@@ -1,7 +1,7 @@
 #import "WMFArticleListDataSourceTableViewController.h"
 
-#import "MWKDataStore.h"
-#import "MWKArticle.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKArticle.h>
 
 #import "SSDataSources.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"

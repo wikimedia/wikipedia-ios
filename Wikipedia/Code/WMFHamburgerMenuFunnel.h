@@ -1,4 +1,4 @@
-#import "EventLoggingFunnel.h"
+@import WMF.EventLoggingFunnel;
 
 typedef NS_ENUM(NSUInteger, WMFHamburgerMenuItemType) {
     WMFHamburgerMenuItemTypeLogin,

@@ -1,5 +1,5 @@
 #import <Mantle/MTLModel.h>
-#import "MWKSite.h"
+#import <WMF/MWKSite.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

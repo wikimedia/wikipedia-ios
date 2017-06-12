@@ -1,9 +1,9 @@
-#import "MWKSearchResult.h"
-#import "WMFArticle+Extensions.h"
-#import "NSURL+WMFExtras.h"
-#import "NSString+WMFHTMLParsing.h"
-#import "WMFComparison.h"
-#import "NSURL+WMFLinkParsing.h"
+#import <WMF/MWKSearchResult.h>
+#import <WMF/WMFArticle+Extensions.h>
+#import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @interface MWKSearchResult ()
 

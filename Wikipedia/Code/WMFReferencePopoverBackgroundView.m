@@ -1,6 +1,6 @@
 #import "WMFReferencePopoverBackgroundView.h"
 #import "WMFPopoverBackgroundView.h"
-#import "UIColor+WMFStyle.h"
+@import WMF.Swift;
 
 @implementation WMFReferencePopoverBackgroundView
 

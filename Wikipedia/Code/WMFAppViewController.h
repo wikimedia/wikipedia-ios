@@ -1,3 +1,4 @@
+@import UIKit;
 @import UserNotifications;
 
 NS_ASSUME_NONNULL_BEGIN

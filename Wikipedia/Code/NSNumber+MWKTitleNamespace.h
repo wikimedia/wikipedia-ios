@@ -1,3 +1,4 @@
+@import Foundation;
 
 /**
  *  List of all built-in MediaWiki namespaces.

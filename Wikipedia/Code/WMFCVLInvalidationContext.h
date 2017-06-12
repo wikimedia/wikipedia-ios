@@ -1,3 +1,4 @@
+@import UIKit.UICollectionViewLayout;
 
 @interface WMFCVLInvalidationContext : UICollectionViewLayoutInvalidationContext
 

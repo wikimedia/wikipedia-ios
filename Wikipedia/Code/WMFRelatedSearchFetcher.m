@@ -1,20 +1,20 @@
-#import "WMFRelatedSearchFetcher.h"
-#import "NSURL+WMFLinkParsing.h"
+#import <WMF/WMFRelatedSearchFetcher.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 //AFNetworking
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFMantleJSONResponseSerializer.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
 @import Mantle;
-#import "WMFBaseRequestSerializer.h"
+#import <WMF/WMFBaseRequestSerializer.h>
 
 //Models
-#import "WMFRelatedSearchResults.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFRelatedSearchResults.h>
+#import <WMF/MWKSearchResult.h>
 
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFLogging.h"
+#import <WMF/NSDictionary+WMFCommonParams.h>
+#import <WMF/WMFLogging.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

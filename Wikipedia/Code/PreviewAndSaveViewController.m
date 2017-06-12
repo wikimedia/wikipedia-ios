@@ -1,7 +1,7 @@
 #import "PreviewAndSaveViewController.h"
 #import "PreviewHtmlFetcher.h"
 #import "WikiTextSectionUploader.h"
-#import "SessionSingleton.h"
+#import <WMF/SessionSingleton.h>
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
 #import "MenuButton.h"
@@ -9,7 +9,7 @@
 #import "PreviewLicenseView.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
-#import "MWLanguageInfo.h"
+#import <WMF/MWLanguageInfo.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "SavedPagesFunnel.h"
@@ -18,7 +18,7 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 @import Masonry;
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import "WKWebView+LoadAssetsHtml.h"
 
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"

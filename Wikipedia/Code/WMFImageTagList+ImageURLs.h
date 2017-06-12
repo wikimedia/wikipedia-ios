@@ -1,4 +1,4 @@
-#import "WMFImageTagList.h"
+#import <WMF/WMFImageTagList.h>
 
 @interface WMFImageTagList (ImageURLs)
 

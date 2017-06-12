@@ -1,5 +1,5 @@
 @import UIKit;
-#import "WMFDeprecationMacros.h"
+#import <WMF/WMFDeprecationMacros.h>
 @class MWKArticle;
 
 WMF_TECH_DEBT_DEPRECATED

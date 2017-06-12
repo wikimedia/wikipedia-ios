@@ -1,4 +1,4 @@
-#import "WMFArticle+Extensions.h"
+#import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFArticle (Extensions)

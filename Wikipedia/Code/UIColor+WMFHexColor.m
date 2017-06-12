@@ -1,4 +1,4 @@
-#import "UIColor+WMFHexColor.h"
+#import <WMF/UIColor+WMFHexColor.h>
 
 @implementation UIColor (WMF_HexColor)
 

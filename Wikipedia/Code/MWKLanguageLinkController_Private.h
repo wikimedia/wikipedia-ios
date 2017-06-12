@@ -1,4 +1,4 @@
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKLanguageLinkController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

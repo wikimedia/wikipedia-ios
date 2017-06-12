@@ -1,4 +1,5 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
+@import WMF.WMFLogging;
 
 @implementation UIScrollView (WMFContentOffsetUtils)
 
