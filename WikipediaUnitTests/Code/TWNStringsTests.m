@@ -244,7 +244,9 @@
                 NSMutableDictionary *enTokens = enTokensByKey[key];
                 if (!enTokens) {
                     enTokens = [NSMutableDictionary new];
-
+                    if (enString == nil) {
+                        NSLog(@"%@ %@", lprojFileName, key);
+                    }
                     [tokenRegex enumerateMatchesInString:enString
                                                  options:0
                                                    range:NSMakeRange(0, enString.length)
