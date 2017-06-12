@@ -1,4 +1,3 @@
-
 @interface NSBundle (TestAssets)
 
 - (NSString *)wmf_stringFromContentsOfFile:(NSString *)filename ofType:(NSString *)type;

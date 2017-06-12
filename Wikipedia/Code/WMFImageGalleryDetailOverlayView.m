@@ -143,7 +143,7 @@
     [self.ownerStackView addArrangedSubview:ownerLabel];
 }
 
-- (UILabel*)newLicenseLabel {
+- (UILabel *)newLicenseLabel {
     UILabel *label = [[UILabel alloc] init];
     [label wmf_configureSubviewsForDynamicType];
     label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];

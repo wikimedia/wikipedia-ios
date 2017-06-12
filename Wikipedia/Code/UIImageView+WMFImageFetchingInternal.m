@@ -100,7 +100,10 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
-    [self.wmf_imageController fetchImageWithURL:imageURL priority:0.5 failure:failure success:^(WMFImageDownload * _Nonnull download) {
+    [self.wmf_imageController fetchImageWithURL:imageURL
+                                       priority:0.5
+                                        failure:failure
+                                        success:^(WMFImageDownload *_Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {

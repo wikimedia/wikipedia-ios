@@ -155,7 +155,7 @@
     return YES;
 }
 
-- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
     [[self historyList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 

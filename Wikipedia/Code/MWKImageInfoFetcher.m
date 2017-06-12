@@ -9,7 +9,6 @@
 @import WMF.NSURL_WMFLinkParsing;
 #import "MWKImageInfoResponseSerializer.h"
 
-
 @interface MWKImageInfoFetcher ()
 
 @property (nonatomic, strong, readonly) AFHTTPSessionManager *manager;

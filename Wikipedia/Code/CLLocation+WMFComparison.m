@@ -13,7 +13,6 @@
     }
 }
 
-
 @end
 
 @implementation CLPlacemark (WMFComparison)

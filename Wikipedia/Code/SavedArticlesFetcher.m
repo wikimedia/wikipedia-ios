@@ -4,7 +4,6 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
-
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
 #undef LOG_LEVEL_DEF

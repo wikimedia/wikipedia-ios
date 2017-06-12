@@ -8,7 +8,6 @@
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFBackgroundAccessibilityEscapeView : UIView
@@ -102,13 +101,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showShareOptionsWithImage:(nullable UIImage *)image {
     [self setupBackgroundView];
 
-    [self cardImageWithArticleImage:image completion:^(UIImage *_Nullable cardImage) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.shareImage = cardImage;
-            [self setupShareOptions];
-            [self presentShareOptions];
-        });
-    }];
+    [self cardImageWithArticleImage:image
+                         completion:^(UIImage *_Nullable cardImage) {
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 self.shareImage = cardImage;
+                                 [self setupShareOptions];
+                                 [self presentShareOptions];
+                             });
+                         }];
 }
 
 - (void)setupBackgroundView {
@@ -155,8 +155,10 @@ NS_ASSUME_NONNULL_BEGIN
                                                      bundle:nil];
 
     UIView *cardView = cardViewController.view;
-    [cardViewController fillCardWithMWKArticle:self.article snippet:self.snippet image:image
-                                    completion:^(void){
+    [cardViewController fillCardWithMWKArticle:self.article
+                                       snippet:self.snippet
+                                         image:image
+                                    completion:^(void) {
                                         completion([cardView wmf_snapshotImage]);
                                     }];
 }

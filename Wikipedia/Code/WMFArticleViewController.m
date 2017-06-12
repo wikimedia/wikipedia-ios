@@ -1388,7 +1388,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-        if(error){
+        if (error) {
             // Reminder: an error is *expected* here when 1st loading an article. This is
             // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
             // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
@@ -1425,10 +1425,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if (section) {
             self.currentSection = section;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        }else{
+        } else {
             [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
                 @strongify(self);
-                if(index){
+                if (index) {
                     [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
                 }
             }];

@@ -1,4 +1,3 @@
-
 @class MWKDataStore;
 
 @interface WMFSettingsViewController : UIViewController

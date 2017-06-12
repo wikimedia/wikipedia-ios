@@ -8,7 +8,6 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "Wikipedia-Swift.h"
 
-
 #if WMF_UX_STUDY_ENABLED
 #import <Appsee/Appsee.h>
 static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
@@ -74,9 +73,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+
     [[WMFEventLoggingService sharedInstance] start];
-    
+
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",

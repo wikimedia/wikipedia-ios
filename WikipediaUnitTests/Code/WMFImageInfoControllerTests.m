@@ -71,8 +71,8 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange = NSMakeRange(0, 2);
-    
-    NSArray *infos = [testImages wmf_map:^id _Nullable(MWKImage * _Nonnull img) {
+
+    NSArray *infos = [testImages wmf_map:^id _Nullable(MWKImage *_Nonnull img) {
         return [img createAssociatedInfo];
     }];
     NSArray *expectedImageInfo = [infos subarrayWithRange:preFetchedRange];

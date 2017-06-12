@@ -26,12 +26,12 @@ NSString *const WMFLoggingEndpoint =
             [[WMFEventLoggingService sharedInstance] logEvent:capsule];
 #else
             NSDictionary *payload =
-            @{
-              @"event": event,
-              @"revision": @(revision),
-              @"schema": schema,
-              @"wiki": wiki
-              };
+                @{
+                    @"event": event,
+                    @"revision": @(revision),
+                    @"schema": schema,
+                    @"wiki": wiki
+                };
             NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
             NSString *payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", payloadJsonString);

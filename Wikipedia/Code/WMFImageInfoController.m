@@ -10,13 +10,13 @@ static const int LOG_LEVEL_DEF = DDLogLevelDebug;
 
 NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     return [imageInfo wmf_reduce:[NSMutableDictionary dictionaryWithCapacity:imageInfo.count]
-                      withBlock:^NSMutableDictionary *(NSMutableDictionary *indexedInfo, MWKImageInfo *info) {
-                          id<NSCopying> key = info.imageAssociationValue;
-                          if (key) {
-                              indexedInfo[key] = info;
-                          }
-                          return indexedInfo;
-                      }];
+                       withBlock:^NSMutableDictionary *(NSMutableDictionary *indexedInfo, MWKImageInfo *info) {
+                           id<NSCopying> key = info.imageAssociationValue;
+                           if (key) {
+                               indexedInfo[key] = info;
+                           }
+                           return indexedInfo;
+                       }];
 }
 
 @implementation WMFImageInfoController
@@ -87,13 +87,13 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     if (!_fetchedIndices) {
         _fetchedIndices =
             [self.indexedImageInfo.allValues wmf_reduce:[NSMutableIndexSet new]
-                                             withBlock:^id(NSMutableIndexSet *acc, MWKImageInfo *info) {
-                                                 NSInteger infoIndex = [self indexOfImageAssociatedWithInfo:info];
-                                                 if (infoIndex != NSNotFound) {
-                                                     [acc addIndex:infoIndex];
-                                                 }
-                                                 return acc;
-                                             }];
+                                              withBlock:^id(NSMutableIndexSet *acc, MWKImageInfo *info) {
+                                                  NSInteger infoIndex = [self indexOfImageAssociatedWithInfo:info];
+                                                  if (infoIndex != NSNotFound) {
+                                                      [acc addIndex:infoIndex];
+                                                  }
+                                                  return acc;
+                                              }];
     }
     return _fetchedIndices ?: [NSMutableIndexSet new];
 }
@@ -126,13 +126,13 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
         return nil;
     } else {
         return [indexes wmf_reduce:[NSMutableArray new]
-                        withBlock:^NSMutableArray *(NSMutableArray *acc, NSUInteger index) {
-                            id<MWKImageInfoRequest> request = [self fetchBatchContainingIndex:index];
-                            if (request) {
-                                [acc addObject:request];
-                            }
-                            return acc;
-                        }];
+                         withBlock:^NSMutableArray *(NSMutableArray *acc, NSUInteger index) {
+                             id<MWKImageInfoRequest> request = [self fetchBatchContainingIndex:index];
+                             if (request) {
+                                 [acc addObject:request];
+                             }
+                             return acc;
+                         }];
     }
 }
 

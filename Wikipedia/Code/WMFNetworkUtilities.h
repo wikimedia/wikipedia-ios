@@ -28,10 +28,9 @@ extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
  */
 extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion);
 
-
 #import <WMF/FetcherBase.h>
 
-extern void wmf_postNetworkRequestBeganNotification(NSString *method, NSString* URLString);
+extern void wmf_postNetworkRequestBeganNotification(NSString *method, NSString *URLString);
 
 @interface NSError (WMFFetchFinalStatus)
 

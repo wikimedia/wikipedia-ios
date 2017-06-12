@@ -3,7 +3,7 @@
 @implementation WMFKeyValue (CoreDataProperties)
 
 + (NSFetchRequest<WMFKeyValue *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFKeyValue"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFKeyValue"];
 }
 
 @dynamic key;
