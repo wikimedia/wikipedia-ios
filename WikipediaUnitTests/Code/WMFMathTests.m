@@ -1,9 +1,9 @@
 #import <XCTest/XCTest.h>
+@import WMF.WMFMath;
 
 // Redefine assert macro for testing WMFStrictClamp
 #undef assert
 #define assert(...) (void)(didAssert = YES)
-#import "WMFMath.h"
 
 static BOOL didAssert = NO;
 

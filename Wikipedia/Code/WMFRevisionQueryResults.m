@@ -1,5 +1,6 @@
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
+@import WMF;
 
 typedef NS_ENUM(NSInteger, WMFRevisionQueryResultsError) {
     WMFRevisionQueryResultsErrorMissingTitle = 1,

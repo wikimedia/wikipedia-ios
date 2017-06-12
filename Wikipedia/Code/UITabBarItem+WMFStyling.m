@@ -1,4 +1,5 @@
 #import "UITabBarItem+WMFStyling.h"
+@import WMF.Swift;
 
 @implementation UITabBarItem (WMFStyling)
 

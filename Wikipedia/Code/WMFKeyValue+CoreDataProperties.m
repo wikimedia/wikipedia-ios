@@ -1,4 +1,4 @@
-#import "WMFKeyValue+CoreDataProperties.h"
+#import <WMF/WMFKeyValue+CoreDataProperties.h>
 
 @implementation WMFKeyValue (CoreDataProperties)
 

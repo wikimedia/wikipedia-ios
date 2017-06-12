@@ -1,4 +1,4 @@
-#import "WMFImageTag.h"
+#import <WMF/WMFImageTag.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

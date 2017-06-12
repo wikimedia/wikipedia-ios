@@ -1,7 +1,5 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "NSString+WMFHTMLParsing.h"
-#import "MWKArticle.h"
-#import "MWLanguageInfo.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFProxyServer.h"
 

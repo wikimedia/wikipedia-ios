@@ -1,4 +1,5 @@
 #import "WMFFeedContentDisplaying.h"
+@import WMF.WMFContentGroup_CoreDataClass;
 
 NS_ASSUME_NONNULL_BEGIN
 

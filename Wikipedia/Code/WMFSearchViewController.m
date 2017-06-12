@@ -1,29 +1,21 @@
 #import "WMFSearchViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/NSUserActivity+WMFExtensions.h>
+#import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWKLanguageLink.h>
+@import Masonry;
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
-
-#import "SessionSingleton.h"
-
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKLanguageLinkController.h"
-#import "MWKLanguageLink.h"
-
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 #import "WMFSearchDataSource.h"
-
-@import Masonry;
 #import "Wikipedia-Swift.h"
-
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
-#import "UIImage+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
-
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFEmptyView.h"
 

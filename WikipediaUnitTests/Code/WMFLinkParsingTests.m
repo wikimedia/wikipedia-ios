@@ -1,7 +1,5 @@
 #import <XCTest/XCTest.h>
 @import WMF;
-#import "NSURLComponents+WMFLinkParsing.h"
-#import "NSString+WMFPageUtilities.h"
 
 @interface WMFLinkParsingTests : XCTestCase
 

@@ -1,3 +1,4 @@
+@import UIKit;
 
 @class MWKRecentSearchList, MWKRecentSearchEntry;
 @protocol WMFRecentSearchesViewControllerDelegate;

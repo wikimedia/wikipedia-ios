@@ -1,6 +1,6 @@
 @import CoreLocation;
 
-#import "MWKSiteDataObject.h"
+#import <WMF/MWKSiteDataObject.h>
 NS_ASSUME_NONNULL_BEGIN
 static const NSInteger kMWKArticleSectionNone = -1;
 

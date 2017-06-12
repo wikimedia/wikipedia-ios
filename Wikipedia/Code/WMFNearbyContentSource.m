@@ -1,10 +1,10 @@
-#import "WMFNearbyContentSource.h"
-#import "WMFLocationSearchResults.h"
-#import "MWKLocationSearchResult.h"
+#import <WMF/WMFNearbyContentSource.h>
+#import <WMF/WMFLocationSearchResults.h>
+#import <WMF/MWKLocationSearchResult.h>
 
-#import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
-#import "CLLocation+WMFComparison.h"
+#import <WMF/WMFLocationManager.h>
+#import <WMF/WMFLocationSearchFetcher.h>
+#import <WMF/CLLocation+WMFComparison.h>
 
 #import <WMF/WMF-Swift.h>
 

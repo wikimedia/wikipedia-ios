@@ -1,4 +1,4 @@
-#import "ReadingActionFunnel.h"
+#import <WMF/ReadingActionFunnel.h>
 
 @implementation ReadingActionFunnel
 

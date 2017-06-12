@@ -1,12 +1,12 @@
-#import "WMFRandomContentSource.h"
-#import "WMFRandomArticleFetcher.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "WMFContentGroup+Extensions.h"
-#import "WMFTaskGroup.h"
-#import "EXTScope.h"
-#import "MWKSearchResult.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "WMFArticle+Extensions.h"
+#import <WMF/WMFRandomContentSource.h>
+#import <WMF/WMFRandomArticleFetcher.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/WMFContentGroup+Extensions.h>
+#import <WMF/WMFTaskGroup.h>
+#import <WMF/EXTScope.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMFArticle+Extensions.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

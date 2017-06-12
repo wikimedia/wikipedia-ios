@@ -1,4 +1,4 @@
-#import "MWKLanguageFilter.h"
+#import <WMF/MWKLanguageFilter.h>
 
 @class MWKLanguageLink;
 

@@ -1,5 +1,5 @@
-#import "WMFBaseRequestSerializer.h"
-#import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
+#import <WMF/WMFBaseRequestSerializer.h>
+#import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
 
 @implementation WMFBaseRequestSerializer
 

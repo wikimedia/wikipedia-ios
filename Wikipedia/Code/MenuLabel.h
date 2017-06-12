@@ -1,3 +1,5 @@
+@import UIKit;
+
 #import "PaddedLabel.h"
 
 @interface MenuLabel : PaddedLabel

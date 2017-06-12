@@ -1,12 +1,6 @@
 #import "UIViewController+WMFArticlePresentation.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
-
-#import "MWKDataStore.h"
-
-#import "MWKHistoryList.h"
-#import "MWKHistoryEntry.h"
-
-#import "PiwikTracker+WMFExtensions.h"
 #import "WMFArticleViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN

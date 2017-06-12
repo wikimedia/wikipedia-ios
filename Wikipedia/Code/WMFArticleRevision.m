@@ -1,4 +1,5 @@
 #import "WMFArticleRevision.h"
+@import WMF;
 
 #define WMFArticleRevisionKey(key) WMF_SAFE_KEYPATH([WMFArticleRevision new], key)
 

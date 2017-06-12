@@ -1,5 +1,5 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
-
+#import <WMF/WMFBlockDefinitions.h>
 @class MWKImage;
 @class WMFImageController;
 @class WMFFaceDetectionCache;

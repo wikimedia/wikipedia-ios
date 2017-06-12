@@ -1,4 +1,4 @@
-
+@import UIKit.UICollectionView;
 @class WMFCVLColumn;
 @class WMFCVLSection;
 @class WMFCVLAttributes;
