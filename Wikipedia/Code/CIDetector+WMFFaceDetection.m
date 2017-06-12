@@ -1,5 +1,5 @@
-#import "CIDetector+WMFFaceDetection.h"
-#import "CIContext+WMFImageProcessing.h"
+#import <WMF/CIDetector+WMFFaceDetection.h>
+#import <WMF/CIContext+WMFImageProcessing.h>
 #import "UIImage+WMFImageProcessing.h"
 
 NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-error";

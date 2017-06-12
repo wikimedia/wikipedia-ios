@@ -1,12 +1,6 @@
 #import "UIViewController+WMFArticlePresentation.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
-
-#import "MWKDataStore.h"
-
-#import "MWKHistoryList.h"
-#import "MWKHistoryEntry.h"
-
-#import "PiwikTracker+WMFExtensions.h"
 #import "WMFArticleViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,7 +8,12 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIViewController (WMFArticlePresentation)
 
 - (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
-    return [self wmf_pushArticleWithURL:url dataStore:dataStore restoreScrollPosition:restoreScrollPosition animated:animated articleLoadCompletion:^{}];
+    return [self wmf_pushArticleWithURL:url
+                              dataStore:dataStore
+                  restoreScrollPosition:restoreScrollPosition
+                               animated:animated
+                  articleLoadCompletion:^{
+                  }];
 }
 
 - (WMFArticleViewController *)wmf_pushArticleWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated articleLoadCompletion:(dispatch_block_t)articleLoadCompletion {

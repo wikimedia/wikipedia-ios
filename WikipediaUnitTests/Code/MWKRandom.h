@@ -1,4 +1,3 @@
-
 /**
  *  Protocol for easily creating arbitrary and unique instances of model objects.
  *

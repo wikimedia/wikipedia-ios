@@ -1,4 +1,3 @@
-// Utilities
 #import "WMFTabBarController.h"
 #import "TSBlurView.h"
 #import "TSMessage.h"

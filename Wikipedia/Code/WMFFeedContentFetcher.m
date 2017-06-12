@@ -1,14 +1,14 @@
-#import "WMFFeedContentFetcher.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import "WMFFeedDayResponse.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "NSDateFormatter+WMFExtensions.h"
-#import "WMFLogging.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "NSError+WMFExtensions.h"
-#import "WMFNetworkUtilities.h"
-#import "NSString+WMFExtras.h"
-#import "NSCalendar+WMFCommonCalendars.h"
+#import <WMF/WMFFeedContentFetcher.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+#import <WMF/WMFFeedDayResponse.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/WMFLogging.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSError+WMFExtensions.h>
+#import <WMF/WMFNetworkUtilities.h>
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

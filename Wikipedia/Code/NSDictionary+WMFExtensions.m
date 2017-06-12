@@ -1,4 +1,4 @@
-#import "NSDictionary+WMFExtensions.h"
+#import <WMF/NSDictionary+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation NSDictionary (WMFExtensions)

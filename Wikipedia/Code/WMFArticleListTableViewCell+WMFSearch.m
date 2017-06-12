@@ -1,4 +1,5 @@
 #import "WMFArticleListTableViewCell+WMFSearch.h"
+@import WMF;
 
 @implementation WMFArticleListTableViewCell (WMFSearch)
 

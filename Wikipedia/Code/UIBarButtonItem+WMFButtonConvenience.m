@@ -1,4 +1,5 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+@import WMF.WMFLocalization;
 
 @implementation UIBarButtonItem (WMFButtonConvenience)
 

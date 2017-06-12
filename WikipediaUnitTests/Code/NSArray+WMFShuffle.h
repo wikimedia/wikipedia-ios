@@ -1,4 +1,3 @@
-
 @interface NSArray (WMFShuffle)
 
 /// @return A shuffled copy of the receiver.

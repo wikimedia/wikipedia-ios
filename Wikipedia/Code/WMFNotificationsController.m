@@ -1,5 +1,5 @@
-#import "WMFNotificationsController.h"
-#import "WMFFaceDetectionCache.h"
+#import <WMF/WMFNotificationsController.h>
+#import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
 @import ImageIO;
 @import UserNotifications;
@@ -162,69 +162,71 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     }
 
     WMFImageController *imageController = [WMFImageController sharedInstance];
-    [imageController fetchDataWithURL:thumbnailURL failure:^(NSError * _Nonnull error) {
-         [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
-    } success:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response) {
-        WMFFaceDetectionCache *faceDetectionCache = [WMFFaceDetectionCache sharedCache];
-        BOOL useGPU = YES;
-        NSURL *cacheDirectory = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] isDirectory:YES];
-        NSString *filename = [[NSUUID UUID] UUIDString];
-        NSURL *cachedThumbnailURL = [cacheDirectory URLByAppendingPathComponent:filename];
-        UIImage *image = [UIImage imageWithData:data];
-        if (!cachedThumbnailURL || !image) {
+    [imageController fetchDataWithURL:thumbnailURL
+        failure:^(NSError *_Nonnull error) {
             [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
-            return;
         }
-        [data writeToURL:cachedThumbnailURL atomically:YES];
-        UNNotificationAttachment *attachement = [UNNotificationAttachment attachmentWithIdentifier:thumbnailURLString
-                                                                                               URL:cachedThumbnailURL
-                                                                                           options:@{ UNNotificationAttachmentOptionsTypeHintKey: typeHint,
-                                                                                                      UNNotificationAttachmentOptionsThumbnailClippingRectKey: (__bridge_transfer NSDictionary *)CGRectCreateDictionaryRepresentation(CGRectMake(0, 0, 1, 1)) }
-                                                                                             error:nil];
-        NSArray *imageAttachements = nil;
-        if (attachement) {
-            imageAttachements = @[attachement];
-        }
-        
-        [faceDetectionCache detectFaceBoundsInImage:image
-                                              onGPU:useGPU
-                                                URL:thumbnailURL
-                                            failure:^(NSError *_Nonnull error) {
-                                                [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
-                                            }
-                                            success:^(NSValue *faceRectValue) {
-                                                if (faceRectValue) {
-                                                    //CGFloat aspect = image.size.width / image.size.height;
-                                                    //                                                    CGRect cropRect = CGRectMake(0, 0, 1, 1);
-                                                    //                                                    if (faceRectValue) {
-                                                    //                                                        CGRect faceRect = [faceRectValue CGRectValue];
-                                                    //                                                        if (aspect < 1) {
-                                                    //                                                            CGFloat faceMidY = CGRectGetMidY(faceRect);
-                                                    //                                                            CGFloat normalizedHeight = WMFNotificationImageCropNormalizedMinDimension * aspect;
-                                                    //                                                            CGFloat halfNormalizedHeight = 0.5 * normalizedHeight;
-                                                    //                                                            CGFloat originY = MAX(0, faceMidY - halfNormalizedHeight);
-                                                    //                                                            CGFloat normalizedWidth = MAX(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
-                                                    //                                                            CGFloat originX = 0.5 * (1 - normalizedWidth);
-                                                    //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
-                                                    //                                                        } else {
-                                                    //                                                            CGFloat faceMidX = CGRectGetMidX(faceRect);
-                                                    //                                                            CGFloat normalizedWidth = WMFNotificationImageCropNormalizedMinDimension / aspect;
-                                                    //                                                            CGFloat halfNormalizedWidth = 0.5 * normalizedWidth;
-                                                    //                                                            CGFloat originX = MAX(0, faceMidX - halfNormalizedWidth);
-                                                    //                                                            CGFloat normalizedHeight = MAX(faceRect.size.height, WMFNotificationImageCropNormalizedMinDimension);
-                                                    //                                                            CGFloat originY = 0.5 * (1 - normalizedHeight);
-                                                    //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
-                                                    //                                                        }
-                                                    //                                                    }
-                                                    
-                                                    //Since face cropping is broken, don't attach images with faces
-                                                    [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
-                                                } else {
-                                                    [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
-                                                }
-                                            }];
+        success:^(NSData *_Nonnull data, NSURLResponse *_Nonnull response) {
+            WMFFaceDetectionCache *faceDetectionCache = [WMFFaceDetectionCache sharedCache];
+            BOOL useGPU = YES;
+            NSURL *cacheDirectory = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] isDirectory:YES];
+            NSString *filename = [[NSUUID UUID] UUIDString];
+            NSURL *cachedThumbnailURL = [cacheDirectory URLByAppendingPathComponent:filename];
+            UIImage *image = [UIImage imageWithData:data];
+            if (!cachedThumbnailURL || !image) {
+                [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
+                return;
+            }
+            [data writeToURL:cachedThumbnailURL atomically:YES];
+            UNNotificationAttachment *attachement = [UNNotificationAttachment attachmentWithIdentifier:thumbnailURLString
+                                                                                                   URL:cachedThumbnailURL
+                                                                                               options:@{UNNotificationAttachmentOptionsTypeHintKey: typeHint,
+                                                                                                         UNNotificationAttachmentOptionsThumbnailClippingRectKey: (__bridge_transfer NSDictionary *)CGRectCreateDictionaryRepresentation(CGRectMake(0, 0, 1, 1))}
+                                                                                                 error:nil];
+            NSArray *imageAttachements = nil;
+            if (attachement) {
+                imageAttachements = @[attachement];
+            }
 
-    }];
+            [faceDetectionCache detectFaceBoundsInImage:image
+                onGPU:useGPU
+                URL:thumbnailURL
+                failure:^(NSError *_Nonnull error) {
+                    [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
+                }
+                success:^(NSValue *faceRectValue) {
+                    if (faceRectValue) {
+                        //CGFloat aspect = image.size.width / image.size.height;
+                        //                                                    CGRect cropRect = CGRectMake(0, 0, 1, 1);
+                        //                                                    if (faceRectValue) {
+                        //                                                        CGRect faceRect = [faceRectValue CGRectValue];
+                        //                                                        if (aspect < 1) {
+                        //                                                            CGFloat faceMidY = CGRectGetMidY(faceRect);
+                        //                                                            CGFloat normalizedHeight = WMFNotificationImageCropNormalizedMinDimension * aspect;
+                        //                                                            CGFloat halfNormalizedHeight = 0.5 * normalizedHeight;
+                        //                                                            CGFloat originY = MAX(0, faceMidY - halfNormalizedHeight);
+                        //                                                            CGFloat normalizedWidth = MAX(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
+                        //                                                            CGFloat originX = 0.5 * (1 - normalizedWidth);
+                        //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
+                        //                                                        } else {
+                        //                                                            CGFloat faceMidX = CGRectGetMidX(faceRect);
+                        //                                                            CGFloat normalizedWidth = WMFNotificationImageCropNormalizedMinDimension / aspect;
+                        //                                                            CGFloat halfNormalizedWidth = 0.5 * normalizedWidth;
+                        //                                                            CGFloat originX = MAX(0, faceMidX - halfNormalizedWidth);
+                        //                                                            CGFloat normalizedHeight = MAX(faceRect.size.height, WMFNotificationImageCropNormalizedMinDimension);
+                        //                                                            CGFloat originY = 0.5 * (1 - normalizedHeight);
+                        //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
+                        //                                                        }
+                        //                                                    }
+
+                        //Since face cropping is broken, don't attach images with faces
+                        [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
+                    } else {
+                        [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
+                    }
+                }];
+
+        }];
 }
 
 @end

@@ -1,7 +1,7 @@
-#import "WMFURLCache.h"
-#import "SessionSingleton.h"
-#import "MWKArticle.h"
-#import "MWKImage.h"
+#import <WMF/WMFURLCache.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/MWKArticle.h>
+#import <WMF/MWKImage.h>
 #import <WMF/WMF-Swift.h>
 
 static NSString *const WMFURLCacheWikipediaHost = @".wikipedia.org";
@@ -29,24 +29,24 @@ static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig
     }
 
     NSURLResponse *maybeHTTPResponse = response.response;
-    
+
     if (![maybeHTTPResponse isKindOfClass:[NSHTTPURLResponse class]]) {
         if (!response) {
             wmf_postNetworkRequestBeganNotification(request.HTTPMethod, request.URL.absoluteString);
         }
         return response;
     }
-    
+
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)maybeHTTPResponse;
-    
+
     if (httpResponse.statusCode == 200 && httpResponse.allHeaderFields[@"ETAG"] != nil) {
-        
+
         //This is coming from the cache and has an ETAG, lets actually use the correct 304 response code
         NSHTTPURLResponse *newHTTPResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL statusCode:304 HTTPVersion:@"HTTP/1.1" headerFields:httpResponse.allHeaderFields];
-        
+
         response = [[NSCachedURLResponse alloc] initWithResponse:newHTTPResponse data:response.data];
     }
-    
+
     if (!response) {
         wmf_postNetworkRequestBeganNotification(request.HTTPMethod, request.URL.absoluteString);
     }

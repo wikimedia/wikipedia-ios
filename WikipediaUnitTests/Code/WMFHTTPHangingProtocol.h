@@ -1,4 +1,3 @@
-
 /**
  *   Protocol which intercepts all HTTP requests and prevents them from ever starting.
  *

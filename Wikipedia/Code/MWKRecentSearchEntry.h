@@ -1,5 +1,5 @@
-#import "MWKSiteDataObject.h"
-#import "MWKList.h"
+#import <WMF/MWKSiteDataObject.h>
+#import <WMF/MWKList.h>
 
 @interface MWKRecentSearchEntry : MWKSiteDataObject <MWKListObject>
 

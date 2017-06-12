@@ -1,4 +1,4 @@
-#import "WMFImageTag.h"
+#import <WMF/WMFImageTag.h>
 
 @interface WMFImageTag (TargetImageWidthURL)
 

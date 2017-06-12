@@ -1,10 +1,10 @@
-#import "WMFContentGroup+Extensions.h"
+#import <WMF/WMFContentGroup+Extensions.h>
 #import "WMFAnnouncement.h"
 @import UIKit;
-#import "NSURL+WMFLinkParsing.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "NSDateFormatter+WMFExtensions.h"
-#import "WMFLogging.h"
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/WMFLogging.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -241,7 +241,7 @@
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
     return url;
 }
-    
+
 + (nullable NSURL *)locationPlaceholderContentGroupURL {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby-placeholder"];
     return url;
@@ -421,12 +421,12 @@
     if (!URL) {
         return nil;
     }
-    
+
     NSString *key = [WMFContentGroup databaseKeyForURL:URL];
     if (!key) {
         return nil;
     }
-    
+
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     fetchRequest.fetchLimit = 1;
@@ -491,7 +491,6 @@
     return contentGroups;
 }
 
-
 - (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self];
     group.date = date;
@@ -499,11 +498,11 @@
     group.contentGroupKind = kind;
     group.siteURLString = siteURL.absoluteString;
     group.content = associatedContent;
-    
+
     if (customizationBlock) {
         customizationBlock(group);
     }
-    
+
     if (URL) {
         group.URL = URL;
     } else {
@@ -511,7 +510,7 @@
     }
     [group updateContentType];
     [group updateDailySortPriority];
-    
+
     return group;
 }
 
@@ -524,7 +523,7 @@
 }
 
 - (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    
+
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
         group.date = date;
@@ -538,7 +537,7 @@
     } else {
         group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
     }
-    
+
     return group;
 }
 
@@ -565,17 +564,17 @@
 - (nullable WMFContentGroup *)locationContentGroupWithinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
-                            withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                CLLocation *groupLocation = group.location;
-                                if (!groupLocation) {
-                                    return;
-                                }
-                                CLLocationDistance distance = [groupLocation distanceFromLocation:location];
-                                if (distance <= meters) {
-                                    locationContentGroup = group;
-                                    *stop = YES;
-                                }
-                            }];
+                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                 CLLocation *groupLocation = group.location;
+                                 if (!groupLocation) {
+                                     return;
+                                 }
+                                 CLLocationDistance distance = [groupLocation distanceFromLocation:location];
+                                 if (distance <= meters) {
+                                     locationContentGroup = group;
+                                     *stop = YES;
+                                 }
+                             }];
     return locationContentGroup;
 }
 

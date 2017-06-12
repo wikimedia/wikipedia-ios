@@ -1,14 +1,14 @@
 #import "WMFRandomArticleViewController.h"
-#import "WMFRandomArticleFetcher.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFRandomArticleFetcher.h>
+#import <WMF/MWKSearchResult.h>
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
 #import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleNavigationController.h"
 #if WMF_TWEAKS_ENABLED
-#import "MWKDataStore.h"
-#import "MWKSavedPageList.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKSavedPageList.h>
 #endif
 
 static const CGFloat WMFRandomAnimationDurationFade = 0.5;

@@ -1,5 +1,5 @@
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFBaseRequestSerializer.h"
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/WMFBaseRequestSerializer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

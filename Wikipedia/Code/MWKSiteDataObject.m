@@ -1,6 +1,6 @@
-#import "MWKSiteDataObject.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "MWKUser.h"
+#import <WMF/MWKSiteDataObject.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/MWKUser.h>
 
 @interface MWKSiteDataObject ()
 

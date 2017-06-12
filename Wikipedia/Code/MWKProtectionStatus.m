@@ -1,4 +1,4 @@
-#import "MWKProtectionStatus.h"
+#import <WMF/MWKProtectionStatus.h>
 
 @interface MWKProtectionStatus ()
 

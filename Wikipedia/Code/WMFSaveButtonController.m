@@ -1,10 +1,6 @@
 #import "WMFSaveButtonController.h"
-#import "MWKSavedPageList.h"
-#import "MWKDataStore.h"
-#import "MWKArticle.h"
-#import "MWKDataStore.h"
 #import "SavedPagesFunnel.h"
-#import "PiwikTracker+WMFExtensions.h"
+@import WMF;
 
 @interface WMFSaveButtonController ()
 
@@ -144,7 +140,7 @@
     NSString *articleKey = article.key;
     NSString *myDatabaseKey = self.url.wmf_articleDatabaseKey;
     if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
-         [self updateSavedButtonState];
+        [self updateSavedButtonState];
     }
 }
 

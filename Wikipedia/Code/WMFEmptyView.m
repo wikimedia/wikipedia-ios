@@ -1,6 +1,5 @@
 #import "WMFEmptyView.h"
-#import "UIColor+WMFStyle.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFEmptyView ()

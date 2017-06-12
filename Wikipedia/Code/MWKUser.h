@@ -1,4 +1,4 @@
-#import "MWKSiteDataObject.h"
+#import <WMF/MWKSiteDataObject.h>
 
 @interface MWKUser : MWKSiteDataObject
 

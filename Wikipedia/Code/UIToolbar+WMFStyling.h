@@ -1,3 +1,4 @@
+@import UIKit.UIToolbar;
 
 @interface UIToolbar (WMFStyling)
 
