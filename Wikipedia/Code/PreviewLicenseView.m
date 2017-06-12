@@ -78,12 +78,9 @@
            NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
-    label.attributedText =
-        [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}"),
-                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, nil, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}"),
-                                                     WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name2", nil, nil, @"GFDL", @"Name of the second license user edits are saved under - presently GFDL\n{{Identical|GFDL}}")]]
-                            substitutionAttributes:@[linkAttributes, linkAttributes]];
+    NSString *saveTerms = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}");
+    label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
+                                                  substitutionStrings:@[saveTerms, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle] substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
 }
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {

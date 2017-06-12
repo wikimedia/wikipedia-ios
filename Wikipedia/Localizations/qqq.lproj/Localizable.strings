@@ -64,6 +64,7 @@
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
 "button-saved-remove" = "Remove from saved button text used in various places.";
+"cc-by-sa-3.0" = "Name of the CC BY-SA 3.0 license - https://creativecommons.org/licenses/by-sa/3.0";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
@@ -136,6 +137,7 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}";
+"gdfl" = "Name of the GDFL license - https://www.gnu.org/licenses/fdl.html";
 "history-clear-all" = "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}";
 "history-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -359,9 +361,8 @@
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
 "wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
-"wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
-"wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit license. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link";
+"wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link 1\n* $3 - license name link 2";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
 "zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";

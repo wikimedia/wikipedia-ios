@@ -22,8 +22,7 @@
 #import "WKWebView+LoadAssetsHtml.h"
 
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
-#define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
-#define LICENSE_LINK2 @https://www.gnu.org/licenses/fdl.html"
+
 
 typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -677,15 +676,15 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
                                             }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name", nil, nil, @"CC BY-SA 3.0", @"Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}")
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedCCBYSA3Title
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
+                                                [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
                                             }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-license-name2", nil, nil, @"GFDL", @"Name of the second license user edits are saved under - presently GFDL\n{{Identical|GFDL}}")
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedGDFLTitle
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
+                                                [self wmf_openExternalUrl:WMFLicenses.GDFLURL];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"open-link-cancel", nil, nil, @"Cancel", @"Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];

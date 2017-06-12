@@ -221,7 +221,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Һаҡлана";
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге конфиденциаллек алығыҙ";
-"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
+"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Инеү";
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Һаҡлап,  $1 лицензияһы аҫтында үҙегеҙҙең өлөштө урынлаштырыу менән килешәһегеҙ";

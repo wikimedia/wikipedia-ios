@@ -350,7 +350,7 @@
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-terms-and-license" = "Door te publiceren gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de licentie $2.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";

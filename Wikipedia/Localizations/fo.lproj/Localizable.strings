@@ -83,7 +83,7 @@
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Við at goyma so góðtekur tú $1 og uttan møguleika fyri at kunna angra tað, at tíni íkøst verða útgivin undir $2 lisensinum.";
 "wikitext-upload-save-terms-name" = "Nýtslutreytir";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "open-link-title" = "Lat leinkju upp";
 "open-link-cancel" = "Avbrót";
 "search-title" = "Leita";
