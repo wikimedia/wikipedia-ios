@@ -83,7 +83,7 @@
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Na khon nakthawng in, $1 ding ah na lung a tling i na remhmi pawl cu $2 license ning in langhter a si lai.";
 "wikitext-upload-save-terms-name" = "Hmannak Hngalhawk Phung";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "open-link-title" = "Link hun ding";
 "open-link-cancel" = "Let than";
 "search-searching" = "Kawl lio...";

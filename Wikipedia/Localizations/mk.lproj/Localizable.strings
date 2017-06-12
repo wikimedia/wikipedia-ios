@@ -367,7 +367,7 @@
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Најава";
 "wikitext-upload-save-terms-and-license" = "Објавувајќи ги промените, се согласувате со $1 и дека неотповикливо ги објавувате на вашите придонеси под лиценцата $2.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";

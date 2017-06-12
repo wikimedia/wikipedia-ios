@@ -379,7 +379,7 @@
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
-"wikitext-upload-save-license-name" = "CC 姓名標示-相同方式分享 3.0";
+"cc-by-sa-3.0" = "CC 姓名標示-相同方式分享 3.0";
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-license" = "要進行發佈，代表您同意 $1 以 $2 授權條款發佈您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";

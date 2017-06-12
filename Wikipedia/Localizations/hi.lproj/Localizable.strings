@@ -374,7 +374,7 @@
 "wikitext-upload-result-unknown" = "विकिटेक्सट के अपलोड परिणाम बताने में असमर्थ।";
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-and-license" = "इसे प्रकाशित करने से आप $1 से सहमत हैं और अपने योगदानों को  $2 लाइसेंस के अंतर्गत अपरिवर्तनीय रूप से प्रदर्शित  करते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
