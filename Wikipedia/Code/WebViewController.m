@@ -1,34 +1,19 @@
-#import "WebViewController_Private.h"
-
+#import "WebViewController_Private.h" 
 #import "Wikipedia-Swift.h"
-
 @import WebKit;
 @import Masonry;
-#import "NSString+WMFHTMLParsing.h"
-
-#import "MWKArticle.h"
-#import "MWKSection.h"
-#import "MWKSectionList.h"
-#import "MWKDataStore.h"
-
+@import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-
 #import "WMFShareCardViewController.h"
 #import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
-
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-
-#import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import "NSURL+WMFProxyServer.h"
-#import "WMFImageTag.h"
 #import "WMFFindInPageKeyboardBar.h"
-#import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 
@@ -506,10 +491,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToAndFocusOnSelectedMatch {
-    if (self.findInPageMatches.count == 0) {
+    if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
         return;
     }
-    NSString *matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
+    NSString *matchSpanId = [self.findInPageMatches objectAtIndex:self.findInPageSelectedMatchIndex];
     if (matchSpanId == nil) {
         return;
     }
@@ -931,7 +916,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
-    if (index < 0 || self.lastClickedReferencesGroup.count == 0 || [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index] == nil) {
+    if (index < 0 || index >= self.lastClickedReferencesGroup.count) {
         NSAssert(false, @"Expected index or reference group not found.");
         return;
     }
@@ -998,7 +983,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
-    WMFReference *selectedReference = [referenceGroup wmf_safeObjectAtIndex:selectedIndex];
+    if (selectedIndex < 0 || selectedIndex >= referenceGroup.count) {
+        return;
+    }
+    WMFReference *selectedReference = [referenceGroup objectAtIndex:selectedIndex];
     CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
     [self wmf_presentReferencePopoverViewControllerForReference:selectedReference
                                                           width:width];

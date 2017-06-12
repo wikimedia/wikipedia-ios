@@ -1,6 +1,6 @@
-#import "MWKImage+CanonicalFilenames.h"
-#import "NSArray+WMFMapping.h"
-#import "WMFLogging.h"
+#import <WMF/MWKImage+CanonicalFilenames.h>
+#import <WMF/NSArray+WMFMapping.h>
+#import <WMF/WMFLogging.h>
 
 @implementation MWKImage (CanonicalFilenames)
 

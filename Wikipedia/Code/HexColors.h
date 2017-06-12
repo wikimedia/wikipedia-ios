@@ -15,7 +15,8 @@
 #import "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    #define HXColor UIColor
+  #import <UIKit/UIKit.h>
+  #define HXColor UIColor
 #else
   #import <Cocoa/Cocoa.h>
   #define HXColor NSColor

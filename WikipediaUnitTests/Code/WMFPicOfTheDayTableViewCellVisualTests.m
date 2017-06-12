@@ -6,7 +6,6 @@
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFHTTPHangingProtocol.h"
 #import "WMFAsyncTestCase.h"
-#import "UIImage+WMFStyle.h"
 
 @interface WMFPicOfTheDayTableViewCellVisualTests : FBSnapshotTestCase
 

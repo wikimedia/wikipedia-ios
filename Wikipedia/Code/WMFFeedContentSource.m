@@ -1,13 +1,13 @@
-#import "WMFFeedContentSource.h"
-#import "WMFFeedContentFetcher.h"
+#import <WMF/WMFFeedContentSource.h>
+#import <WMF/WMFFeedContentFetcher.h>
 
-#import "WMFFeedDayResponse.h"
-#import "WMFFeedArticlePreview.h"
-#import "WMFFeedImage.h"
-#import "WMFFeedTopReadResponse.h"
-#import "WMFFeedNewsStory.h"
+#import <WMF/WMFFeedDayResponse.h>
+#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/WMFFeedImage.h>
+#import <WMF/WMFFeedTopReadResponse.h>
+#import <WMF/WMFFeedNewsStory.h>
 
-#import "WMFNotificationsController.h"
+#import <WMF/WMFNotificationsController.h>
 
 #import <WMF/WMF-Swift.h>
 

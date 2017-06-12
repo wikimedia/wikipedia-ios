@@ -1,5 +1,5 @@
-#import "NSURL+WMFExtras.h"
-#import "NSString+WMFExtras.h"
+#import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSString+WMFExtras.h>
 
 @implementation NSURL (WMFExtras)
 

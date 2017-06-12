@@ -1,4 +1,5 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,4 +1,6 @@
 #import "WMFFixtureRecording.h"
+@import WMF.Swift;
+@import WMF.WMFLogging;
 
 NS_ASSUME_NONNULL_BEGIN
 

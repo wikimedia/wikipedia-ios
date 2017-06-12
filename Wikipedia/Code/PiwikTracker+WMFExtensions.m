@@ -1,5 +1,5 @@
-#import "PiwikTracker+WMFExtensions.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/NSBundle+WMFInfoUtils.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN

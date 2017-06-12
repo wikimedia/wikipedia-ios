@@ -1,3 +1,4 @@
+@import UIKit.UICollectionViewLayout;
 
 /*!
  @class        WMFCVLMetrics

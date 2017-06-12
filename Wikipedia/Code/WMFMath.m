@@ -1,4 +1,4 @@
-#import "WMFMath.h"
+#import <WMF/WMFMath.h>
 #import <math.h>
 
 double WMFRoundedPercentage(double (*rounder)(double), double x, unsigned int precision) {

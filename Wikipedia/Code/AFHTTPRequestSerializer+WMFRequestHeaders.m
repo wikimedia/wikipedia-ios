@@ -1,7 +1,7 @@
-#import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
-#import "SessionSingleton.h"
-#import "ReadingActionFunnel.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/ReadingActionFunnel.h>
+#import <WMF/WikipediaAppUtils.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation AFHTTPRequestSerializer (WMFRequestHeaders)

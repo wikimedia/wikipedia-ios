@@ -1,3 +1,4 @@
+@import UIKit;
 
 typedef NS_ENUM(NSInteger, TabularScrollViewOrientation) {
     TABULAR_SCROLLVIEW_LAYOUT_VERTICAL = 0,

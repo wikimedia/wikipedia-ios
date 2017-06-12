@@ -1,4 +1,4 @@
-#import "WMFLocalization.h"
+#import <WMF/WMFLocalization.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation NSBundle (WMFLocalization)

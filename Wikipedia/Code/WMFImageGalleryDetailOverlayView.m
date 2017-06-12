@@ -6,6 +6,7 @@
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
 @import Masonry;
+@import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;

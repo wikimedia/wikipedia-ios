@@ -1,5 +1,6 @@
 #import "SSDataSources.h"
 @class MWKImage;
+@import WMF.WMFBlockDefinitions;
 
 @interface WMFArticleListTableViewCell : SSBaseTableCell
 

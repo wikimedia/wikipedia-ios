@@ -1,7 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
 // Frameworks
 @import Masonry;
@@ -12,7 +12,7 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
 #import "UIViewController+WMFSearch.h"
@@ -23,18 +23,18 @@
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
 
 // Model
-#import "MWKDataStore.h"
-#import "MWKSavedPageList.h"
-#import "MWKArticle+WMFSharing.h"
-#import "MWKHistoryEntry.h"
-#import "MWKHistoryList.h"
-#import "MWKProtectionStatus.h"
-#import "MWKSectionList.h"
-#import "MWKHistoryList.h"
-#import "MWKLanguageLink.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKSavedPageList.h>
+#import <WMF/MWKArticle+WMFSharing.h>
+#import <WMF/MWKHistoryEntry.h>
+#import <WMF/MWKHistoryList.h>
+#import <WMF/MWKProtectionStatus.h>
+#import <WMF/MWKSectionList.h>
+#import <WMF/MWKHistoryList.h>
+#import <WMF/MWKLanguageLink.h>
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -50,7 +50,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
-#import "NSString+WMFPageUtilities.h"
+#import <WMF/NSString+WMFPageUtilities.h>
 #import "UIToolbar+WMFStyling.h"
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>

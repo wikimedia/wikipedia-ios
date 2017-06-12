@@ -1,10 +1,10 @@
-#import "WMFFeedNewsStory.h"
-#import "WMFFeedArticlePreview.h"
-#import "WMFComparison.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "WMFLocalization.h"
-#import "NSString+WMFPageUtilities.h"
-#import "NSURL+WMFLinkParsing.h"
+#import <WMF/WMFFeedNewsStory.h>
+#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/WMFLocalization.h>
+#import <WMF/NSString+WMFPageUtilities.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

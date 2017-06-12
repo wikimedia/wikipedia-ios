@@ -1,14 +1,10 @@
 #import "WMFImageInfoController.h"
 
 // Model
-#import "MWKArticle.h"
-#import "MWKDataStore.h"
-#import "MWKImage.h"
-#import "MWKImageInfo+MWKImageComparison.h"
+@import WMF;
 
 // Networking
-#import <AFNetworking/AFNetworking.h>
-#import "AFHTTPSessionManager+WMFConfig.h"
+@import AFNetworking;
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 

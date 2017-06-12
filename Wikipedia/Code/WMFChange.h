@@ -1,3 +1,4 @@
+@import CoreData;
 
 @interface WMFChange : NSObject
 @property (nonatomic) NSFetchedResultsChangeType type;

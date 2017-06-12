@@ -1,4 +1,4 @@
-#import "WMFLegacyImageCache.h"
+#import <WMF/WMFLegacyImageCache.h>
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation WMFLegacyImageCache

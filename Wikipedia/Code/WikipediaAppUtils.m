@@ -1,6 +1,6 @@
-#import "WikipediaAppUtils.h"
-#import "WMFAssetsFile.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/WikipediaAppUtils.h>
+#import <WMF/WMFAssetsFile.h>
+#import <WMF/NSBundle+WMFInfoUtils.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN

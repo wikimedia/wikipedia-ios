@@ -1,6 +1,6 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WebViewController+WMFReferencePopover.h"
-#import "UIColor+WMFHexColor.h"
+#import <WMF/UIColor+WMFHexColor.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>

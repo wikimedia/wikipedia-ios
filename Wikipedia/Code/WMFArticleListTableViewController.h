@@ -2,6 +2,7 @@
 #import "WMFTableViewUpdater.h"
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 

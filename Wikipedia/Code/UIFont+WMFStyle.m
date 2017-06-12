@@ -1,4 +1,5 @@
 #import "UIFont+WMFStyle.h"
+@import WMF;
 
 @implementation UIFont (WMF_Style)
 

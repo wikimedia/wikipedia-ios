@@ -1,8 +1,8 @@
 #import "WMFAnnouncement.h"
-#import "WMFComparison.h"
-#import "NSURL+WMFExtras.h"
-#import "NSDateFormatter+WMFExtensions.h"
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 @implementation WMFAnnouncement
 

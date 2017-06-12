@@ -1,10 +1,10 @@
-#import "WMFMainPageContentSource.h"
-#import "MWKSiteInfoFetcher.h"
-#import "WMFArticlePreviewFetcher.h"
-#import "MWKSiteInfo.h"
-#import "MWKSearchResult.h"
-#import "WMFContentGroup+Extensions.h"
-#import "WMFArticle+Extensions.h"
+#import <WMF/WMFMainPageContentSource.h>
+#import <WMF/MWKSiteInfoFetcher.h>
+#import <WMF/WMFArticlePreviewFetcher.h>
+#import <WMF/MWKSiteInfo.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/WMFContentGroup+Extensions.h>
+#import <WMF/WMFArticle+Extensions.h>
 
 @interface WMFMainPageContentSource ()
 

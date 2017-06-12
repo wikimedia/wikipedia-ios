@@ -1,56 +1,29 @@
 #import "WMFExploreCollectionViewController.h"
-
-#import "Wikipedia-Swift.h"
-
 @import Masonry;
-
-#import "PiwikTracker+WMFExtensions.h"
-
-#import "MWKDataStore.h"
-#import "MWKLanguageLinkController.h"
-
-#import "WMFLocationManager.h"
-#import "CLLocation+WMFBearing.h"
-
+@import WMF;
+#import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "MWKHistoryEntry.h"
-
-#import "WMFFeedArticlePreview.h"
-#import "WMFFeedNewsStory.h"
-#import "WMFFeedImage.h"
 #import "WMFAnnouncement.h"
-
 #import "WMFSaveButtonController.h"
-
 #import "WMFColumnarCollectionViewLayout.h"
-
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
-#import "UIView+WMFDefaultNib.h"
-
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
 #import "WMFFeedNotificationHeader.h"
-
 #import "WMFLeadingImageTrailingTextButton.h"
-
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFAnnouncementCollectionViewCell.h"
-
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFSearch.h"
-
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFAnnouncement.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
-
 #import "WMFCVLAttributes.h"
-#import "NSCalendar+WMFCommonCalendars.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 

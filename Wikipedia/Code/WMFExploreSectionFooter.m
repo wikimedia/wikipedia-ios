@@ -1,5 +1,4 @@
 #import "WMFExploreSectionFooter.h"
-#import "UIImage+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 
 @interface WMFExploreSectionFooter ()

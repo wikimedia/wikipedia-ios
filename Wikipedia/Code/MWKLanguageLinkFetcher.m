@@ -1,9 +1,10 @@
 #import "MWKLanguageLinkFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "WMFNetworkUtilities.h"
-#import "MWKLanguageLinkResponseSerializer.h"
-
-#import <AFNetworking/AFHTTPSessionManager.h>
+@import AFNetworking.AFHTTPSessionManager;
+@import WMF.MWNetworkActivityIndicatorManager;
+@import WMF.WMFNetworkUtilities;
+@import WMF.MWKLanguageLinkResponseSerializer;
+@import WMF.SessionSingleton;
+@import WMF.NSURL_WMFLinkParsing;
 
 @interface MWKLanguageLinkFetcher ()
 
@@ -34,7 +35,7 @@
 - (void)finishWithError:(NSError *)error fetchedData:(id)fetchedData block:(void (^)(id))block {
     [super finishWithError:error fetchedData:fetchedData];
     if (block) {
-        dispatchOnMainQueue(^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             block(error ?: fetchedData);
         });
     }

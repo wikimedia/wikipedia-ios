@@ -1,7 +1,7 @@
-#import "MWKHistoryEntry.h"
+@import Foundation;
+@class MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
-@class MWKSavedPageList;
 
 @protocol WMFTitleListDataSource
 

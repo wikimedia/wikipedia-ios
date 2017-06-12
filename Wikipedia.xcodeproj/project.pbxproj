@@ -2688,9 +2688,9 @@
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
-		D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */; };
 		D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */; };
 		D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F36F021EEEBA130087D4DD /* Licenses.swift */; };
+		D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8FA18AA1E1BD867009675C3 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551411DF1A33D00B90177 /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D551421DF1A33D00B90177 /* EXTScope.m */; };
@@ -2723,7 +2723,6 @@
 		D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E804261C0CDF510065EBC0 /* WMFGeometry.c */; };
 		D8FA18CA1E1BD891009675C3 /* WMFRangeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8073A1C0CED810065EBC0 /* WMFRangeUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CB1E1BD891009675C3 /* WMFLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807361C0CED810065EBC0 /* WMFLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18CC1E1BD891009675C3 /* WMFDirectoryPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18CD1E1BD891009675C3 /* WMFOutParamUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18D01E1BD891009675C3 /* WMFMath.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807371C0CED810065EBC0 /* WMFMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807381C0CED810065EBC0 /* WMFMath.m */; };
@@ -2744,10 +2743,6 @@
 		D8FA18E01E1BD8A3009675C3 /* NSDictionary+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */; };
 		D8FA18E11E1BD8A3009675C3 /* NSArray+WMFMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18E21E1BD8A3009675C3 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
-		D8FA18E31E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18E41E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */; };
-		D8FA18E51E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18E61E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */; };
 		D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */; };
 		D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18E91E1BD8B9009675C3 /* WMFComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8072F1C0CED810065EBC0 /* WMFComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3151,7 +3146,6 @@
 		0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UIViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
-		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Wikipedia/Code/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Wikipedia/Code/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMapping.h"; path = "Wikipedia/Code/NSArray+WMFMapping.h"; sourceTree = SOURCE_ROOT; };
@@ -3247,8 +3241,6 @@
 		B07715211E69401800D393FE /* UITextField+WMFAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+WMFAuth.swift"; sourceTree = "<group>"; };
 		B07963E11C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+WMFHideEmptyToolbar.h"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.h"; sourceTree = SOURCE_ROOT; };
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
-		B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
-		B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUpstreamHTMLFormatChangesTests.m; sourceTree = "<group>"; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
 		B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePageViewController.swift; path = Wikipedia/Code/WMFWelcomePageViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -3477,8 +3469,6 @@
 		B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+BKReduce.h"; path = "Wikipedia/Code/NSIndexSet+BKReduce.h"; sourceTree = SOURCE_ROOT; };
 		B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduce.m"; path = "Wikipedia/Code/NSIndexSet+BKReduce.m"; sourceTree = SOURCE_ROOT; };
 		B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLocale+WMFExtras.swift"; path = "Wikipedia/Code/NSLocale+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
-		B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableArray+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
-		B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableArray+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+WMFMaybeSet.h"; path = "Wikipedia/Code/NSMutableDictionary+WMFMaybeSet.h"; sourceTree = SOURCE_ROOT; };
 		B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+WMFMaybeSet.m"; path = "Wikipedia/Code/NSMutableDictionary+WMFMaybeSet.m"; sourceTree = SOURCE_ROOT; };
 		B0E8049E1C0CE0B40065EBC0 /* NSObject+WMFExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+WMFExtras.h"; path = "Wikipedia/Code/NSObject+WMFExtras.h"; sourceTree = SOURCE_ROOT; };
@@ -3978,7 +3968,6 @@
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Prefix.pch"; sourceTree = "<group>"; };
 		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wikipedia/Images.xcassets; sourceTree = "<group>"; };
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D801C8521EB8E131001FA294 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -4424,7 +4413,7 @@
 		D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationController.swift; path = ../Wikipedia/Code/ArticleLocationController.swift; sourceTree = "<group>"; };
 		D89927DC1ED310540008F54C /* yi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = yi; path = yi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D89927DD1ED310B60008F54C /* su */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = su; path = su.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Wikipedia UserTesting.app"; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia User Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A42C2D1E815B0700D8E281 /* Wikipedia User Testing-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia User Testing-Info.plist"; sourceTree = "<group>"; };
 		D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wikipedia User Testing.entitlements"; sourceTree = "<group>"; };
 		D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationAnnotationView.swift; sourceTree = "<group>"; };
@@ -4502,7 +4491,6 @@
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
 		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
 		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationsController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMF-prefix.pch"; sourceTree = "<group>"; };
 		D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFQuoteMacros.h; sourceTree = "<group>"; };
 		D8F36F021EEEBA130087D4DD /* Licenses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Licenses.swift; sourceTree = "<group>"; };
 		D8FA190C1E1BDD89009675C3 /* WMFAnnouncementCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAnnouncementCollectionViewCell.h; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -6957,7 +6945,6 @@
 				0E10C4FD1C81046300CEB5C2 /* Wikipedia.entitlements */,
 				D8A42C2F1E815C1300D8E281 /* Wikipedia User Testing.entitlements */,
 				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
-				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			path = ..;
@@ -7349,7 +7336,7 @@
 				D85D34C51D74D07500845125 /* TopReadWidget.appex */,
 				D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */,
 				D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */,
-				D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */,
+				D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */,
 				D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */,
 				D87021601EBA63EE000D02D6 /* localization */,
 				D80ED4381EE57F4800CE8C50 /* Wikipedia OSM.app */,
@@ -7533,7 +7520,6 @@
 			isa = PBXGroup;
 			children = (
 				D844D96E1D6CB2600042D692 /* WMF.h */,
-				D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
@@ -7643,10 +7629,6 @@
 				0EF5BB6E1C1628B100DE75E1 /* NSArray+WMFMapping.h */,
 				0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */,
 				D81446051E71771B0078D71E /* WMFBlocksKit.swift */,
-				B0E804981C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.h */,
-				B0E804991C0CE0B40065EBC0 /* NSMutableArray+WMFSafeAdd.m */,
-				B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */,
-				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 			);
 			name = Collections;
 			path = ../WMFKit;
@@ -7902,7 +7884,6 @@
 				B0E804261C0CDF510065EBC0 /* WMFGeometry.c */,
 				B0E8073A1C0CED810065EBC0 /* WMFRangeUtils.h */,
 				B0E807361C0CED810065EBC0 /* WMFLogging.h */,
-				0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */,
 				B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */,
 				B0E807371C0CED810065EBC0 /* WMFMath.h */,
 				B0E807381C0CED810065EBC0 /* WMFMath.m */,
@@ -8017,7 +7998,6 @@
 				D8FA18D81E1BD899009675C3 /* NSURL+WMFLinkParsing.h in Headers */,
 				D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */,
 				D844D9F21D6CC01C0042D692 /* MWKImage+CanonicalFilenames.h in Headers */,
-				D8FA18CC1E1BD891009675C3 /* WMFDirectoryPaths.h in Headers */,
 				D84448581DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h in Headers */,
 				D8FA18BB1E1BD891009675C3 /* NSFileManager+WMFGroup.h in Headers */,
 				D8FA18B31E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.h in Headers */,
@@ -8077,7 +8057,6 @@
 				D8FA18F01E1BDA2F009675C3 /* UIImage+WMFNormalization.h in Headers */,
 				D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */,
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
-				D8FA18E31E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
 				D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
@@ -8101,8 +8080,6 @@
 				D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
-				D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */,
-				D8FA18E51E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.h in Headers */,
 				D8FA19071E1BDA66009675C3 /* UIColor+WMFHexColor.h in Headers */,
 				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */,
@@ -8306,7 +8283,7 @@
 			);
 			name = "Wikipedia User Testing";
 			productName = "Wikipedia-iOS";
-			productReference = D8A42C2B1E815A9C00D8E281 /* Wikipedia UserTesting.app */;
+			productReference = D8A42C2B1E815A9C00D8E281 /* Wikipedia User Testing.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D8CE24D71E698E2400DAE2E0 /* Wikipedia Alpha */ = {
@@ -10193,7 +10170,6 @@
 				D8FA18DE1E1BD8A3009675C3 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
-				D8FA18E41E1BD8A3009675C3 /* NSMutableArray+WMFSafeAdd.m in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
 				D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */,
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
@@ -10314,7 +10290,6 @@
 				D8CD976B1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift in Sources */,
 				D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */,
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
-				D8FA18E61E1BD8A3009675C3 /* NSMutableSet+WMFSafeAdd.m in Sources */,
 				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,
@@ -10388,6 +10363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */,
 				D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11921,6 +11897,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -11940,7 +11917,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -11949,8 +11925,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12136,6 +12110,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -12193,6 +12168,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -12213,7 +12189,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12221,8 +12196,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12250,7 +12223,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12259,8 +12231,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12287,7 +12257,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12295,8 +12264,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12324,7 +12291,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12332,8 +12298,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12361,7 +12325,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12369,8 +12332,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12398,7 +12359,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12406,8 +12366,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12435,7 +12393,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12444,8 +12401,6 @@
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12481,7 +12436,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12490,8 +12444,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12518,7 +12470,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12527,8 +12478,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12555,7 +12504,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12564,8 +12512,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12592,7 +12538,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12601,8 +12546,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12629,7 +12572,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12638,8 +12580,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12666,7 +12606,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12676,8 +12615,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12757,6 +12694,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DOSM";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -12776,7 +12714,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12784,8 +12721,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12813,7 +12748,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12821,8 +12755,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12850,7 +12782,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12858,8 +12789,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12886,7 +12815,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12894,8 +12822,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -12923,7 +12849,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12931,8 +12856,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13093,7 +13016,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13181,6 +13103,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DOSM";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -13201,7 +13124,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13210,8 +13132,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13238,7 +13158,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13247,8 +13166,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13275,7 +13192,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13284,8 +13200,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13311,7 +13225,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13320,8 +13233,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13348,7 +13259,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13357,8 +13267,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13504,7 +13412,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13596,6 +13503,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -13615,7 +13523,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13623,8 +13530,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -13785,7 +13690,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13820,7 +13724,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13855,7 +13758,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13891,7 +13793,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -14018,6 +13919,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -14038,7 +13940,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -14048,8 +13949,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -14171,7 +14070,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -14245,6 +14143,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -14264,7 +14163,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -14273,8 +14171,6 @@
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -14413,7 +14309,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -14838,6 +14733,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -14858,7 +14754,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -14867,8 +14762,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -14895,7 +14788,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -14904,8 +14796,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15051,7 +14941,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -15124,6 +15013,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15143,7 +15033,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15151,8 +15040,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15180,7 +15067,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15188,8 +15074,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15350,7 +15234,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -15377,7 +15260,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15385,8 +15267,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15413,7 +15293,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15421,8 +15300,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15449,7 +15326,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15457,8 +15333,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15485,7 +15359,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15494,8 +15367,6 @@
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15530,7 +15401,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15539,8 +15409,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15566,7 +15434,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15575,8 +15442,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15602,7 +15467,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15611,8 +15475,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15638,7 +15500,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15647,8 +15508,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15674,7 +15533,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15684,8 +15542,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15760,6 +15616,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15780,7 +15637,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15789,8 +15645,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15817,7 +15671,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15826,8 +15679,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15853,7 +15704,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15862,8 +15712,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16009,7 +15857,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -16082,6 +15929,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -16101,7 +15949,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16109,8 +15956,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16138,7 +15983,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16146,8 +15990,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16174,7 +16016,6 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16182,8 +16023,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16344,7 +16183,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -16372,7 +16210,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16380,8 +16217,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16409,7 +16244,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16417,8 +16251,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16446,7 +16278,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16455,8 +16286,6 @@
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16492,7 +16321,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16501,8 +16329,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16529,7 +16355,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16538,8 +16363,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16566,7 +16389,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16576,8 +16398,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16653,6 +16473,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -16673,7 +16494,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16682,8 +16502,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16710,7 +16528,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16719,8 +16536,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16866,7 +16681,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -16895,7 +16709,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16903,8 +16716,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16932,7 +16743,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16940,8 +16750,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -16969,7 +16777,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16977,8 +16784,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17006,7 +16811,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17014,8 +16818,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17043,7 +16845,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17052,8 +16853,6 @@
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17089,7 +16888,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17098,8 +16896,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17126,7 +16922,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17135,8 +16930,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17163,7 +16956,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17172,8 +16964,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17200,7 +16990,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17209,8 +16998,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17237,7 +17024,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17246,8 +17032,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -17274,7 +17058,6 @@
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17284,8 +17067,6 @@
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",

@@ -1,4 +1,4 @@
-#import "EventLoggingFunnel.h"
+@import WMF.EventLoggingFunnel;
 
 @interface ProtectedEditAttemptFunnel : EventLoggingFunnel
 

@@ -1,7 +1,7 @@
-#import "NSDate+WMFRelativeDate.h"
-#import "WMFLocalization.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/NSDate+WMFRelativeDate.h>
+#import <WMF/WMFLocalization.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 
 @interface WMFLocalizedDateFormatStrings: NSObject
 @end

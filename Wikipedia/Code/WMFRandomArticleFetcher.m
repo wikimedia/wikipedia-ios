@@ -1,12 +1,12 @@
-#import "WMFRandomArticleFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFApiJsonResponseSerializer.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import "WMFNumberOfExtractCharacters.h"
-#import "UIScreen+WMFImageWidth.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFRandomArticleFetcher.h>
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/WMFApiJsonResponseSerializer.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+#import <WMF/WMFNumberOfExtractCharacters.h>
+#import <WMF/UIScreen+WMFImageWidth.h>
+#import <WMF/MWKSearchResult.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

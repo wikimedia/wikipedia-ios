@@ -1,7 +1,7 @@
 @import Foundation;
-#import "MWKHistoryEntry.h"
+#import <WMF/MWKHistoryEntry.h>
 #import "WMFZeroConfigurationManager.h"
-#import "WMFDeprecationMacros.h"
+#import <WMF/WMFDeprecationMacros.h>
 
 @class MWKDataStore;
 @class MWKArticle;

@@ -1,8 +1,5 @@
 #import "WMFImageInfoController_Private.h"
-
-#import "MWKImage+CanonicalFilenames.h"
-#import "SessionSingleton.h"
-#import "MWNetworkActivityIndicatorManager.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
