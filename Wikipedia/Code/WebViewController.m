@@ -758,7 +758,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)showLicenseButtonPressed {
     [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
-    [self wmf_openExternalUrl:WMFLicenses.GDFLURL];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
