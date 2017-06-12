@@ -15,19 +15,19 @@ The official Wikipedia iOS client.
 * Team page: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
 ## Development Team
-The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
+The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the Freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
 
-###Minimum Requirements:
-* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+### Minimum Requirements
+* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
 
 
-**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` **from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
+**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
 
 * [Homebrew](https://brew.sh)
 * [Carthage](https://github.com/Carthage/Carthage)
-* [clang-format](http://clang.llvm.org/docs/ClangFormat.html)
+* [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
 At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
@@ -73,7 +73,7 @@ Certain development and maintenance tasks will require the installation of speci
  
 `brew install clang-format`
 
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu. You already have clang format if you ran one of the setup scripts above.
+As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu. You already have clang-format if you ran one of the setup scripts above.
 
 ### NPM
  
@@ -82,7 +82,7 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 [npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ### Fastlane
- 
+*TODO: Write about what this is.*
 [fastlane](https://fastlane.tools)
 
 ## Continuous Integration
