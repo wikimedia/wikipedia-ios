@@ -4,6 +4,7 @@
 @import WMF.WMFNetworkUtilities;
 @import WMF.MWKLanguageLinkResponseSerializer;
 @import WMF.SessionSingleton;
+@import WMF.NSURL_WMFLinkParsing;
 
 @interface MWKLanguageLinkFetcher ()
 

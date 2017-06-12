@@ -1,4 +1,6 @@
-@import WMF.MWKLicense;
+@import UIKit;
+
+@class MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView : UIView
 @property (nonatomic, copy) NSString *imageDescription;

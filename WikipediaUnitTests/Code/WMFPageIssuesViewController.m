@@ -2,6 +2,7 @@
 #import "SSDataSources.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 @import WMF.UITableViewCell_WMFEdgeToEdgeSeparator;
+@import WMF.WMFLocalization;
 
 @implementation WMFPageIssuesViewController
 

@@ -1,5 +1,7 @@
 @import WMF.EventLoggingFunnel;
 
+@class MWKArticle;
+
 @interface WMFShareFunnel : EventLoggingFunnel
 
 - (id)initWithArticle:(MWKArticle *)article;

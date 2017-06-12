@@ -1,5 +1,0 @@
-@import UIKit;
-@import WMF.WMFBlockDefinitions;
-@import WMF.NSURL_WMFLinkParsing;
-@import WMF.WMFLogging;
-@import WMF.WMFLocalization;

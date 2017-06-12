@@ -1,5 +1,6 @@
 #import "WMFSuggestedPagesFunnel.h"
 @import WMF.MWKArticle;
+@import WMF.NSURL_WMFLinkParsing;
 
 static NSString *const kSchemaName = @"MobileWikiAppArticleSuggestions";
 static int const kSchemaVersion = 10590869;

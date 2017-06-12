@@ -6,6 +6,7 @@
 @import WMF.AFHTTPSessionManager_WMFCancelAll;
 @import WMF.UIScreen_WMFImageWidth;
 @import WMF.EXTScope;
+@import WMF.NSURL_WMFLinkParsing;
 #import "MWKImageInfoResponseSerializer.h"
 
 

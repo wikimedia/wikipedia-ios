@@ -1,5 +1,4 @@
 @import Foundation;
-@import UIKit;
 
 //! Project version number for WMF.
 FOUNDATION_EXPORT double WMFVersionNumber;

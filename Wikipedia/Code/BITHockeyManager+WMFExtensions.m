@@ -1,5 +1,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
 @import WMF.NSBundle_WMFInfoUtils;
+@import WMF.WMFLocalization;
 #import "DDLog+WMFLogger.h"
 #import "WMFQuoteMacros.h"
 

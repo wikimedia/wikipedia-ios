@@ -1,3 +1,4 @@
+@import UIKit;
 
 @class MWKArticle;
 @interface PageHistoryViewController : UIViewController

@@ -1,4 +1,5 @@
 @import WMF.EventLoggingFunnel;
+@class MWKArticle;
 
 @interface WMFSuggestedPagesFunnel : EventLoggingFunnel
 

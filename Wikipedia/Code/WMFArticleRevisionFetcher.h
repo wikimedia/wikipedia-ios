@@ -1,4 +1,5 @@
-
+@import Foundation;
+@import WMF.WMFBlockDefinitions;
 
 @interface WMFArticleRevisionFetcher : NSObject
 

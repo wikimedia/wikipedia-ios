@@ -1,3 +1,4 @@
+@import UIKit;
 @import WMF.Swift;
 @class MWKSavedPageList, MWKSavedPageList;
 

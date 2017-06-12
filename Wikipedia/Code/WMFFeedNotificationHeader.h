@@ -1,3 +1,4 @@
+@import UIKit;
 @class WMFLeadingImageTrailingTextButton;
 @import WMF.Swift;
 

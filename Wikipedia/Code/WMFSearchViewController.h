@@ -1,4 +1,6 @@
 @import WMF.Swift;
+@import UIKit;
+
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN

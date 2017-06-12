@@ -2,6 +2,7 @@
 @import WMF.WMFGeometry;
 @import WMF.Swift;
 @import WMF.WMFMath;
+@import WMF.WMFLocalization;
 
 static CGFloat const WMFCompassPadding = 18.0;
 

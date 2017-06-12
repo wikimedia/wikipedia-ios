@@ -1,5 +1,7 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 @import WMF.Swift;
+@import WMF.WMFLocalization;
+@import WMF.NSURL_WMFLinkParsing;
 
 NS_ASSUME_NONNULL_BEGIN
 

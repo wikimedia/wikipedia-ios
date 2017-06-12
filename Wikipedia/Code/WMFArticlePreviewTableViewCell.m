@@ -1,10 +1,10 @@
 #import "WMFArticlePreviewTableViewCell.h"
+@import WMF.MWKImage;
+@import WMF.UITableViewCell_WMFEdgeToEdgeSeparator;
+@import Masonry;
 #import "UIButton+WMFButton.h"
 #import "WMFSaveButtonController.h"
-#import <WMF/MWKImage.h>
 #import "UITableViewCell+SelectedBackground.h"
-@import Masonry;
-#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "WMFLeadingImageTrailingTextButton.h"
 
 @interface WMFArticlePreviewTableViewCell ()

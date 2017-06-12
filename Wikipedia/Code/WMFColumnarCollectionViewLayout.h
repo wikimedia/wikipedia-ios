@@ -1,4 +1,4 @@
-
+@import UIKit;
 @class WMFCVLMetrics;
 
 /*!
