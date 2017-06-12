@@ -383,7 +383,7 @@
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
 "wikitext-upload-save" = "Paylaşılıyor...";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-terms-and-license" = "Yayınladığınızda, $1nı ve katkılarınızı geri dönülemez şekilde $2 lisansıyla yayımlamayı kabul etmiş olursunuz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
