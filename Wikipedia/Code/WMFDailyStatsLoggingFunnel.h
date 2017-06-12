@@ -1,4 +1,4 @@
-#import <WMF/EventLoggingFunnel.h>
+@import WMF.EventLoggingFunnel;
 
 @interface WMFDailyStatsLoggingFunnel : EventLoggingFunnel
 
