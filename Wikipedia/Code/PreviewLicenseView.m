@@ -78,9 +78,8 @@
            NSForegroundColorAttributeName: [UIColor wmf_blue]
         };
 
-    NSString *saveTerms = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}");
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
-                                                  substitutionStrings:@[saveTerms, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle] substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
+                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle] substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
 }
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {

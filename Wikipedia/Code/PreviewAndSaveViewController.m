@@ -21,9 +21,6 @@
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
 
-#define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
-
-
 typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
     CANNED_SUMMARY_GRAMMAR,
@@ -671,10 +668,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)previewLicenseViewTermsLicenseLabelWasTapped:(PreviewLicenseView *)previewLicenseview {
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-name", nil, nil, @"Terms of Use", @"This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}")
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedSaveTermsTitle
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
+                                                [self wmf_openExternalUrl:WMFLicenses.saveTermsURL];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedCCBYSA3Title
                                               style:UIAlertActionStyleDefault
