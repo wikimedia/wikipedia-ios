@@ -2688,7 +2688,6 @@
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
-		D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */; };
 		D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */; };
 		D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8FA18AA1E1BD867009675C3 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4492,7 +4491,6 @@
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
 		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
 		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationsController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMF-prefix.pch"; sourceTree = "<group>"; };
 		D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFQuoteMacros.h; sourceTree = "<group>"; };
 		D8FA190C1E1BDD89009675C3 /* WMFAnnouncementCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAnnouncementCollectionViewCell.h; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D8FA190D1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAnnouncementCollectionViewCell.m; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -7522,7 +7520,6 @@
 			isa = PBXGroup;
 			children = (
 				D844D96E1D6CB2600042D692 /* WMF.h */,
-				D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
@@ -8082,7 +8079,6 @@
 				D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
-				D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */,
 				D8FA19071E1BDA66009675C3 /* UIColor+WMFHexColor.h in Headers */,
 				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */,
@@ -13071,7 +13067,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13482,7 +13477,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13763,7 +13757,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13798,7 +13791,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13833,7 +13825,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -13869,7 +13860,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -14149,7 +14139,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -14391,7 +14380,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -15029,7 +15017,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -15328,7 +15315,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -15987,7 +15973,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -16322,7 +16307,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
@@ -16844,7 +16828,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREFIX_HEADER = "WMF Framework/WMF-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=1",
