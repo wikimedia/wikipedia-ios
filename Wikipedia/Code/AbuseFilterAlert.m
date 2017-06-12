@@ -3,6 +3,7 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
 #import "BulletedLabel.h"
+@import WMF.Swift;
 
 typedef NS_ENUM(NSInteger, ViewType) {
     VIEW_TYPE_ICON,

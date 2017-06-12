@@ -1,18 +1,13 @@
 #import "WMFShareOptionsController.h"
-
-#import "Wikipedia-Swift.h"
 @import Masonry;
-
+@import WMF;
+#import "Wikipedia-Swift.h"
 #import "WMFShareFunnel.h"
-
-#import <WMF/NSString+WMFHTMLParsing.h>
-
 #import "UIView+WMFSnapshotting.h"
-
 #import "WMFShareCardViewController.h"
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
-#import <WMF/MWKArticle.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 

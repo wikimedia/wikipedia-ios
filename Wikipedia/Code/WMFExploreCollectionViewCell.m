@@ -1,5 +1,6 @@
 #import "WMFExploreCollectionViewCell.h"
 #import "WMFCVLAttributes.h"
+@import WMF.Swift;
 
 @implementation WMFExploreCollectionViewCell
 

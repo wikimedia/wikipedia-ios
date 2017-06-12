@@ -1,5 +1,5 @@
 #import "WMFArticleRequestSerializer.h"
-#import <WMF/WMFNetworkUtilities.h>
+@import WMF;
 
 @implementation WMFArticleRequestSerializer
 

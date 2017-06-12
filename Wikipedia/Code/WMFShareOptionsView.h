@@ -1,3 +1,4 @@
+@import UIKit;
 @class PaddedLabel;
 
 @interface WMFShareOptionsView : UIView

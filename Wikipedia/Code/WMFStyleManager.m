@@ -1,5 +1,6 @@
 #import "WMFStyleManager.h"
 #import "UITabBarItem+WMFStyling.h"
+@import WMF;
 
 static WMFStyleManager *_styleManager = nil;
 

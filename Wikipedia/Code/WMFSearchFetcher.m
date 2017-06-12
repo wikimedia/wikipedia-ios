@@ -1,13 +1,7 @@
 #import "WMFSearchFetcher_Testing.h"
 #import "WMFSearchResults_Internal.h"
 #import "WMFSearchResults+ResponseSerializer.h"
-#import <WMF/MWKSearchResult.h>
-
-#import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
-
-#import <WMF/WMFBaseRequestSerializer.h>
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 

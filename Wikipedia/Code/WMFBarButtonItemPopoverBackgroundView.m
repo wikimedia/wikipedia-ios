@@ -1,5 +1,6 @@
 #import "WMFBarButtonItemPopoverBackgroundView.h"
 #import "WMFPopoverBackgroundView.h"
+@import WMF.Swift;
 
 @implementation WMFBarButtonItemPopoverBackgroundView
 

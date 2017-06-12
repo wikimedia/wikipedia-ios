@@ -1,4 +1,5 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 

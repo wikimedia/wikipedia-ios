@@ -1,10 +1,13 @@
 #import "MWKImageInfoFetcher.h"
-#import <WMF/WMFNetworkUtilities.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+@import WMF.WMFNetworkUtilities;
+@import WMF.AFHTTPSessionManager_WMFConfig;
+@import WMF.MWKArticle;
+@import WMF.AFHTTPSessionManager_WMFDesktopRetry;
+@import WMF.AFHTTPSessionManager_WMFCancelAll;
+@import WMF.UIScreen_WMFImageWidth;
+@import WMF.EXTScope;
 #import "MWKImageInfoResponseSerializer.h"
-#import <WMF/MWKArticle.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
-#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
+
 
 @interface MWKImageInfoFetcher ()
 

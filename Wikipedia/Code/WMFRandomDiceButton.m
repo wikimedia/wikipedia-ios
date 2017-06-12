@@ -1,5 +1,6 @@
 #import "WMFRandomDiceButton.h"
 @import WebKit;
+@import WMF.UIColor_WMFHexColor;
 
 @interface WMFRandomDiceButton ()
 @property (nonatomic, strong) WKWebView *webView;

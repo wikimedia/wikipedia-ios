@@ -1,4 +1,5 @@
 
+
 @interface WMFArticleRevisionFetcher : NSObject
 
 - (instancetype)init;

@@ -2685,6 +2685,7 @@
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
 		D8F36EFB1EEAE3590087D4DD /* WMF-prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFA1EEAE3590087D4DD /* WMF-prefix.pch */; };
 		D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */; };
+		D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8FA18AA1E1BD867009675C3 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551411DF1A33D00B90177 /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D551421DF1A33D00B90177 /* EXTScope.m */; };
@@ -10328,6 +10329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */,
 				D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

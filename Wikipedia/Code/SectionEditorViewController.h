@@ -1,4 +1,4 @@
-#import <WMF/FetcherBase.h>
+@import WMF.FetcherBase;
 #import "EditFunnel.h"
 #import "SavedPagesFunnel.h"
 

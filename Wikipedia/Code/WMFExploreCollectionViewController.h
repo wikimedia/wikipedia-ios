@@ -1,7 +1,9 @@
 @import UIKit;
-#import <WMF/WMFContentSource.h>
+@import WMF.Swift;
 
+@class WMFContentGroup;
 @class MWKDataStore;
+@class WMFFeedNewsStory;
 @protocol WMFExploreCollectionViewControllerDelegate;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;

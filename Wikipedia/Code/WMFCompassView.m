@@ -1,5 +1,7 @@
 #import "WMFCompassView.h"
-#import <WMF/WMFGeometry.h>
+@import WMF.WMFGeometry;
+@import WMF.Swift;
+@import WMF.WMFMath;
 
 static CGFloat const WMFCompassPadding = 18.0;
 

@@ -1,4 +1,5 @@
 #import "WMFFindInPageKeyboardBar.h"
+@import WMF.Swift;
 
 @interface WMFFindInPageKeyboardBar () <UITextFieldDelegate>
 

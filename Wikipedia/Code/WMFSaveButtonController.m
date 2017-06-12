@@ -1,10 +1,6 @@
 #import "WMFSaveButtonController.h"
-#import <WMF/MWKSavedPageList.h>
-#import <WMF/MWKDataStore.h>
-#import <WMF/MWKArticle.h>
-#import <WMF/MWKDataStore.h>
 #import "SavedPagesFunnel.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
+@import WMF;
 
 @interface WMFSaveButtonController ()
 

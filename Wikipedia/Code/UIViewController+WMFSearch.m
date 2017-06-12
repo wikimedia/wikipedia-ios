@@ -1,6 +1,6 @@
 #import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
-#import <WMF/SessionSingleton.h>
+@import WMF.SessionSingleton;
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN

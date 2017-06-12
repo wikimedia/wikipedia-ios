@@ -1,34 +1,19 @@
-#import "WebViewController_Private.h"
-
+#import "WebViewController_Private.h" 
 #import "Wikipedia-Swift.h"
-
 @import WebKit;
 @import Masonry;
-#import <WMF/NSString+WMFHTMLParsing.h>
-
-#import <WMF/MWKArticle.h>
-#import <WMF/MWKSection.h>
-#import <WMF/MWKSectionList.h>
-#import <WMF/MWKDataStore.h>
-
+@import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-
 #import "WMFShareCardViewController.h"
 #import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
-
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-
-#import <WMF/WMFZeroConfiguration.h>
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
-#import <WMF/NSURL+WMFProxyServer.h>
-#import <WMF/WMFImageTag.h>
 #import "WMFFindInPageKeyboardBar.h"
-#import <WMF/UIView+WMFDefaultNib.h>
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 

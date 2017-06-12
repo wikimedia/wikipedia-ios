@@ -1,4 +1,5 @@
-#import <WMF/FetcherBase.h>
+@import WMF.FetcherBase;
+@import WMF.WMFAssetsFile;
 
 @class AFHTTPSessionManager;
 

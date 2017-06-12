@@ -1,18 +1,7 @@
 #import "WMFSavedArticleTableViewController.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
-#import <WMF/NSUserActivity+WMFExtensions.h>
-
-#import <WMF/MWKDataStore.h>
-
-#import <WMF/MWKSavedPageList.h>
-
-#import <WMF/MWKArticle.h>
-
-#import "WMFSaveButtonController.h"
-
 #import "WMFArticleListTableViewCell.h"
-#import <WMF/UIView+WMFDefaultNib.h>
 #import "WMFTableViewUpdater.h"
+@import WMF;
 
 @interface WMFSavedArticleTableViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

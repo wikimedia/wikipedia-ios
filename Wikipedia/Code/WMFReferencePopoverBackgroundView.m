@@ -1,5 +1,6 @@
 #import "WMFReferencePopoverBackgroundView.h"
 #import "WMFPopoverBackgroundView.h"
+@import WMF.Swift;
 
 @implementation WMFReferencePopoverBackgroundView
 

@@ -1,3 +1,4 @@
+@import UIKit;
 @class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);

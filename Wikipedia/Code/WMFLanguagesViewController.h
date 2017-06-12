@@ -1,4 +1,5 @@
-
+@import UIKit;
+@import WMF.Swift;
 @class MWKLanguageLink;
 @class WMFLanguagesViewController;
 

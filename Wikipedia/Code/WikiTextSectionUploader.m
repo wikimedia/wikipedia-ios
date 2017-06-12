@@ -1,7 +1,7 @@
 #import "WikiTextSectionUploader.h"
-#import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/SessionSingleton.h>
 #import "NSObject+WMFExtras.h"
+@import AFNetworking;
+@import WMF;
 
 @interface WikiTextSectionUploader ()
 
