@@ -1,10 +1,9 @@
-@import WMF.EventLogger;
-@import WMF.NSString_WMFExtras;
-@import WMF.WikipediaAppUtils;
-@import WMF.Swift;
+#import <WMF/EventLogger.h>
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/WikipediaAppUtils.h>
+#import <WMF/WMF-Swift.h>
 
 #define NEW_EVENT_LOGGING 1
-
 
 NSString *const WMFLoggingEndpoint =
     // production
