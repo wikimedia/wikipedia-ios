@@ -87,7 +87,7 @@ describe(@"send usage reports", ^{
 
 QuickSpecEnd
 
-        QuickConfigurationBegin(SessionSingletonSharedExamples)
+    QuickConfigurationBegin(SessionSingletonSharedExamples)
 
     + (void)configure : (Configuration *)configuration {
     sharedExamples(@"a persistent property", ^(QCKDSLSharedExampleContext getContext) {

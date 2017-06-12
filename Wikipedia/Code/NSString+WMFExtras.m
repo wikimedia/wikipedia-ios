@@ -163,7 +163,7 @@
     if (!wikipediaLanguage) {
         return [NSLocale autoupdatingCurrentLocale];
     }
-    
+
     static dispatch_once_t onceToken;
     static NSMutableDictionary *localeCache;
     dispatch_once(&onceToken, ^{

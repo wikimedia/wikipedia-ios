@@ -1,4 +1,3 @@
-
 extern NSString *const WMFCodingStyleConstant;
 
 typedef NS_ENUM(NSInteger, WMFCodingStyle) {

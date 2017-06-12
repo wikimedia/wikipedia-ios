@@ -275,7 +275,7 @@
         } else {
             [column updateHeightWithDelta:interSectionSpacing];
         }
-        
+
         CGFloat y = column.frame.size.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
 

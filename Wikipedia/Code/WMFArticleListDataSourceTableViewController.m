@@ -29,14 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
     _dataSource.tableView = nil;
     self.tableView.dataSource = nil;
 
-
     NSString *keyPath = WMF_SAFE_KEYPATH(_dataSource, urls);
     [(id)_dataSource removeObserver:self forKeyPath:keyPath context:&kvo_WMFArticleListDataSourceTableViewController_dataSource_urls];
-    
+
     _dataSource = dataSource;
 
     [(id)_dataSource addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFArticleListDataSourceTableViewController_dataSource_urls];
-    
+
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
@@ -88,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataSource urlForIndexPath:indexPath];
 }
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context {
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFArticleListDataSourceTableViewController_dataSource_urls) {
         [self updateEmptyAndDeleteState];
     } else {

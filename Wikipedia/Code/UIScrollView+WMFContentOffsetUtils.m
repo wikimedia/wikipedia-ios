@@ -25,7 +25,7 @@
         }
 #endif
         [UIView animateWithDuration:(animated ? 0.3f : 0.0f)
-                              delay:0.0f
+                delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              self.contentOffset = offset;

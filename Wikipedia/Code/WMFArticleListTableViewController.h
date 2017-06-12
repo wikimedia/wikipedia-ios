@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsContext;
 - (NSString *)analyticsContentType;
- 
+
 - (WMFEmptyViewType)emptyViewType;
 
 - (BOOL)showsDeleteAllButton;

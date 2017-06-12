@@ -6,7 +6,12 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIImageView (WMFFaceDetectionBasedOnUIApplicationSharedApplication)
 
 - (void)wmf_setImageWithURL:(NSURL *)imageURL {
-    [self wmf_setImageWithURL:imageURL detectFaces:YES failure:^(NSError *error){ } success:^{ }];
+    [self wmf_setImageWithURL:imageURL
+                  detectFaces:YES
+                      failure:^(NSError *error) {
+                      }
+                      success:^{
+                      }];
 }
 
 - (void)wmf_setImageWithURL:(NSURL *)imageURL detectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {

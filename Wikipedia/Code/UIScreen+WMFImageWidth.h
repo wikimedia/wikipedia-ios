@@ -44,7 +44,6 @@
 
 @end
 
-
 @interface UITraitCollection (WMFImageWidth)
 
 @property (nonatomic, readonly) NSInteger wmf_listThumbnailWidth;
@@ -55,5 +54,3 @@
 @property (nonatomic, readonly) NSInteger wmf_articleImageWidth;
 
 @end
-
-

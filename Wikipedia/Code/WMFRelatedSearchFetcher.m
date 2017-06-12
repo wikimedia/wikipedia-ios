@@ -16,7 +16,6 @@
 #import <WMF/NSDictionary+WMFCommonParams.h>
 #import <WMF/WMFLogging.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 NSUInteger const WMFMaxRelatedSearchResultLimit = 20;

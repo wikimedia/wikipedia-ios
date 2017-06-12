@@ -60,7 +60,7 @@
     metrics.interColumnSpacing = 0;
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 30;
-    CGFloat insetLeftAndRight = MAX(0, floor(0.5*(boundsSize.width - fixedWidth)));
+    CGFloat insetLeftAndRight = MAX(0, floor(0.5 * (boundsSize.width - fixedWidth)));
     CGFloat insetTopAndBottom = hasMargins ? 20 : 0;
     metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
     metrics.sectionInsets = UIEdgeInsetsZero;

@@ -21,7 +21,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL                                        saveToDisk:(BOOL)saveToDisk progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL saveToDisk:(BOOL)saveToDisk progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
 
 /**
  *  Fetch the latest version of @c URL, if the locally stored revision is not the latest.

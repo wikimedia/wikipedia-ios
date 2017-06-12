@@ -20,9 +20,9 @@
         return NO;
     }
     return [[MWLanguageInfo languageInfoForCode:
-             article.url.wmf_language]
-            .dir
-            isEqualToString:@"rtl"];
+                                article.url.wmf_language]
+                .dir
+        isEqualToString:@"rtl"];
 }
 
 + (NSString *)codeForCode:(NSString *)code {

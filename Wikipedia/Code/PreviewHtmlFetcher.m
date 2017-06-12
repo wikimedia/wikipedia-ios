@@ -80,7 +80,8 @@
         @"prop": @"text",
         @"text": (wikiText ? wikiText : @""),
         @"format": @"json"
-    }.mutableCopy;
+    }
+        .mutableCopy;
 }
 
 - (NSString *)getSanitizedResponse:(NSDictionary *)rawResponse {
