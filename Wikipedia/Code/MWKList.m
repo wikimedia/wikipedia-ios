@@ -1,4 +1,4 @@
-#import "MWKList+Subclass.h"
+#import <WMF/MWKList+Subclass.h>
 #import <WMF/WMF-Swift.h>
 
 @interface MWKList ()

@@ -1,4 +1,4 @@
-#import "WMFArticle+Extensions.h"
+#import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFArticle (Extensions)
@@ -133,7 +133,7 @@
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {
-    
+
     NSParameterAssert(articleURL);
     WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL];
     [article updateWithSearchResult:searchResult];
@@ -145,7 +145,7 @@
     if (!articleURL) {
         return nil;
     }
-    
+
     WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
     if ([feedPreview.displayTitle length] > 0) {
         preview.displayTitle = feedPreview.displayTitle;

@@ -1,10 +1,10 @@
-#import "WMFMainPageContentSource.h"
-#import "MWKSiteInfoFetcher.h"
-#import "WMFArticlePreviewFetcher.h"
-#import "MWKSiteInfo.h"
-#import "MWKSearchResult.h"
-#import "WMFContentGroup+Extensions.h"
-#import "WMFArticle+Extensions.h"
+#import <WMF/WMFMainPageContentSource.h>
+#import <WMF/MWKSiteInfoFetcher.h>
+#import <WMF/WMFArticlePreviewFetcher.h>
+#import <WMF/MWKSiteInfo.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/WMFContentGroup+Extensions.h>
+#import <WMF/WMFArticle+Extensions.h>
 
 @interface WMFMainPageContentSource ()
 
@@ -17,7 +17,7 @@
 
 @implementation WMFMainPageContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL  {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
@@ -56,17 +56,17 @@
 
 - (void)cleanupOldSectionsInManagedObjectContext:(NSManagedObjectContext *)moc {
     __block BOOL foundTodaysSection = NO;
-    
+
     [moc enumerateContentGroupsOfKind:WMFContentGroupKindMainPage
-                                          withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
-                                              BOOL isForToday = section.isForToday;
-                                              if (!isForToday || foundTodaysSection) {
-                                                  [moc removeContentGroup:section];
-                                              }
-                                              if (!foundTodaysSection) {
-                                                  foundTodaysSection = isForToday;
-                                              }
-                                          }];
+                            withBlock:^(WMFContentGroup *_Nonnull section, BOOL *_Nonnull stop) {
+                                BOOL isForToday = section.isForToday;
+                                if (!isForToday || foundTodaysSection) {
+                                    [moc removeContentGroup:section];
+                                }
+                                if (!foundTodaysSection) {
+                                    foundTodaysSection = isForToday;
+                                }
+                            }];
 }
 
 #pragma mark - Fetch
@@ -82,50 +82,50 @@
             return;
         }
         [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
-                                           completion:^(MWKSiteInfo *_Nonnull data) {
-                                               if (data.mainPageURL == nil) {
-                                                   if (completion) {
-                                                       completion();
-                                                   }
-                                                   return;
-                                               }
-                                               
-                                               [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
-                                                                                                     siteURL:self.siteURL
-                                                                                                  completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
-                                                                                                      if ([results count] == 0) {
-                                                                                                          if (completion) {
-                                                                                                              completion();
-                                                                                                          }
-                                                                                                          return;
-                                                                                                      }
-                                                                                                      [moc performBlock:^{
-                                                                                                          WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
-                                                                                                          [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
-                                                                                                          section.content = @[data.mainPageURL];
-                                                                                                          [self cleanupOldSectionsInManagedObjectContext:moc];
-                                                                                                          
-                                                                                                          if (completion) {
-                                                                                                              completion();
-                                                                                                          }
-                                                                                                      }];
-                                                                                                      
-                                                                                                  }
-                                                                                                     failure:^(NSError *_Nonnull error) {
-                                                                                                         //TODO??
-                                                                                                         if (completion) {
-                                                                                                             completion();
-                                                                                                         }
-                                                                                                         
-                                                                                                     }];
-                                               
-                                           }
-                                              failure:^(NSError *_Nonnull error) {
-                                                  //TODO??
-                                                  if (completion) {
-                                                      completion();
-                                                  }
-                                              }];
+            completion:^(MWKSiteInfo *_Nonnull data) {
+                if (data.mainPageURL == nil) {
+                    if (completion) {
+                        completion();
+                    }
+                    return;
+                }
+
+                [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
+                    siteURL:self.siteURL
+                    completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
+                        if ([results count] == 0) {
+                            if (completion) {
+                                completion();
+                            }
+                            return;
+                        }
+                        [moc performBlock:^{
+                            WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
+                            [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
+                            section.content = @[data.mainPageURL];
+                            [self cleanupOldSectionsInManagedObjectContext:moc];
+
+                            if (completion) {
+                                completion();
+                            }
+                        }];
+
+                    }
+                    failure:^(NSError *_Nonnull error) {
+                        //TODO??
+                        if (completion) {
+                            completion();
+                        }
+
+                    }];
+
+            }
+            failure:^(NSError *_Nonnull error) {
+                //TODO??
+                if (completion) {
+                    completion();
+                }
+            }];
     }];
 }
 

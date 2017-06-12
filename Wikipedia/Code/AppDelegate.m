@@ -1,12 +1,12 @@
 #import "AppDelegate.h"
+@import UserNotifications;
+@import WMF.NSUserActivity_WMFExtensions;
+@import WMF.PiwikTracker_WMFExtensions;
+@import WMF.NSFileManager_WMFGroup;
 #import "BITHockeyManager+WMFExtensions.h"
-#import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import "NSUserActivity+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
-#import "NSFileManager+WMFGroup.h"
-@import UserNotifications;
 
 #if WMF_UX_STUDY_ENABLED
 #import <Appsee/Appsee.h>
@@ -73,9 +73,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+
     [[WMFEventLoggingService sharedInstance] start];
-    
+
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",

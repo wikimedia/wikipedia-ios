@@ -365,7 +365,7 @@
 "wikitext-upload-result-unknown" = "Ne mogu utvrditi rezultat postavljanja wikiteksta.";
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-and-license" = "Objavljivanjem izmjena, slažete se s $1 i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $2.";
 "wikitext-upload-save-terms-name" = "uslovima korištenja";

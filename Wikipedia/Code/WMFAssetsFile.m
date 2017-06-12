@@ -1,5 +1,5 @@
-#import "WMFAssetsFile.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/WMFAssetsFile.h>
+#import <WMF/WikipediaAppUtils.h>
 
 @interface WMFAssetsFile ()
 

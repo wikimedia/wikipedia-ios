@@ -1,3 +1,4 @@
+@import UIKit.UIButton;
 
 @interface WMFRandomDiceButton : UIButton
 

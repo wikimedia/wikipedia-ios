@@ -1,5 +1,5 @@
-#import "WMFApiJsonResponseSerializer.h"
-#import "WMFNetworkUtilities.h"
+#import <WMF/WMFApiJsonResponseSerializer.h>
+#import <WMF/WMFNetworkUtilities.h>
 
 @implementation WMFApiJsonResponseSerializer
 

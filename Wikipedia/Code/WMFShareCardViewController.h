@@ -1,3 +1,5 @@
+@import UIKit;
+@class MWKArticle;
 
 @interface WMFShareCardViewController : UIViewController
 

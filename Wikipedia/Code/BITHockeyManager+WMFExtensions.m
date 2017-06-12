@@ -1,5 +1,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
-#import "NSBundle+WMFInfoUtils.h"
+@import WMF.NSBundle_WMFInfoUtils;
+@import WMF.WMFLocalization;
 #import "DDLog+WMFLogger.h"
 #import "WMFQuoteMacros.h"
 
@@ -80,7 +81,7 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
                                                               crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
                                                           }]];
-        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, nil, @"%1$@ privacy", @"Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, nil, @"%1$@ privacy", @"Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockeyAppPrivacyUrl]];

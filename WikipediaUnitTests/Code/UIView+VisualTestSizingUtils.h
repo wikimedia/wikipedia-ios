@@ -1,4 +1,3 @@
-
 @interface UIView (VisualTestSizingUtils)
 
 - (void)wmf_sizeToFitWindowWidth;

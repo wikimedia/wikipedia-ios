@@ -83,7 +83,7 @@
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "अत्र रक्षणेन सह $1 इति भवान्/भवती अङ्गीकरोति, तथा च भवता/भवत्या कृतं प्रकाशनं $2 इत्यस्यान्तरगतं भवति ।";
 "wikitext-upload-save-terms-name" = "प्रयोगस्य नियमाः";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "open-link-title" = "परिसन्धिः उद्घाट्यताम्";
 "open-link-cancel" = "निरस्यताम्";
 "search-searching" = "अन्वेष्यताम्...";

@@ -218,7 +218,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Enlogge";
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Dosch et Faßhalle schemms de dä $1 zoh, un deihjs Dinge Beijdraach onwidderohflessch unger dä $2 Lezänz öffentlesch maache.";

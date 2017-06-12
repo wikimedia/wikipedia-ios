@@ -1,4 +1,3 @@
-
 @interface NSUserDefaults (WMFReset)
 
 /**

@@ -1,4 +1,4 @@
-#import "FLAnimatedImage+SafeForSwift.h"
+#import <WMF/FLAnimatedImage+SafeForSwift.h>
 
 @implementation FLAnimatedImage (SafeForSwift)
 

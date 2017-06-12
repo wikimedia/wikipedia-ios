@@ -1,7 +1,7 @@
-#import "MWKLanguageLink.h"
-#import "WMFComparison.h"
-#import "WMFHashing.h"
-#import "NSURL+WMFLinkParsing.h"
+#import <WMF/MWKLanguageLink.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/WMFHashing.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @interface MWKLanguageLink ()
 

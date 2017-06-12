@@ -21,7 +21,7 @@
          isAnon:(BOOL)isAnon
         summary:(NSString *)summary
       separator:(BOOL)separator {
-    
+
     self.nameLabel.text = name;
     self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:date];
     self.deltaLabel.text = [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];

@@ -1,16 +1,8 @@
 #import "SavedArticlesFetcher_Testing.h"
-
+@import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
-
-#import "MWKDataStore.h"
-#import "MWKSavedPageList.h"
-#import "MWKArticle.h"
-#import "MWKImage+CanonicalFilenames.h"
-#import "WMFImageURLParsing.h"
-#import "WMFTaskGroup.h"
-#import <WMF/WMF.h>
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 

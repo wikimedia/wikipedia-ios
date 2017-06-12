@@ -1,7 +1,7 @@
-#import "MWKRecentSearchEntry.h"
-#import "WMFComparison.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "WMFHashing.h"
+#import <WMF/MWKRecentSearchEntry.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMFHashing.h>
 
 @interface MWKRecentSearchEntry ()
 

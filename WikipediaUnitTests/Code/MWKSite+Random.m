@@ -1,6 +1,5 @@
 #import "MWKSite+Random.h"
 
-
 @implementation NSURL (WMFRandom)
 
 + (instancetype)wmf_randomSiteURL {

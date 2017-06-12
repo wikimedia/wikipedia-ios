@@ -1,5 +1,5 @@
-#import "MWKHistoryList.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/MWKHistoryList.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100

@@ -1,4 +1,5 @@
 #import "WMFArticleListDataSourceTableViewController.h"
+@class MWKArticle;
 
 @interface WMFDisambiguationPagesViewController : WMFArticleListDataSourceTableViewController
 

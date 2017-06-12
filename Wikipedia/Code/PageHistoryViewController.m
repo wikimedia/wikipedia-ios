@@ -4,7 +4,7 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+@import WMF.AFHTTPSessionManager_WMFCancelAll;
 #import "WMFPageHistoryRevision.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
@@ -53,7 +53,7 @@
          forCellReuseIdentifier:TABLE_CELL_ID];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 75;
 }
@@ -137,7 +137,7 @@
     label.text = self.pageHistoryDataArray[section].sectionTitle;
 
     [label wmf_configureSubviewsForDynamicType];
-    
+
     [view addSubview:label];
 
     return view;

@@ -1,9 +1,9 @@
 #import "WMFFirstRandomViewController.h"
-#import "WMFRandomArticleFetcher.h"
+#import <WMF/WMFRandomArticleFetcher.h>
 #import "Wikipedia-Swift.h"
-#import "MWKDataStore.h"
-#import "SessionSingleton.h"
-#import "MWKSearchResult.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/MWKSearchResult.h>
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 

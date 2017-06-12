@@ -1,6 +1,6 @@
-#import "NSDictionary+WMFRequiredValueForKey.h"
-#import "WMFLogging.h"
-#import "WMFOutParamUtils.h"
+#import <WMF/NSDictionary+WMFRequiredValueForKey.h>
+#import <WMF/WMFLogging.h>
+#import <WMF/WMFOutParamUtils.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

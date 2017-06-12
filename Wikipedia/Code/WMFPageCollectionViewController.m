@@ -1,5 +1,6 @@
 #import "WMFPageCollectionViewController.h"
 #import "UICollectionViewLayout+AttributeUtils.h"
+@import WMF.WMFDeprecationMacros;
 
 @interface WMFPageCollectionViewController ()
 

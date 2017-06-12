@@ -79,7 +79,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 
     [fetcher fetchArticleForURL:dummyArticleURL
-      saveToDisk:YES
+        saveToDisk:YES
         progress:NULL
         failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
@@ -96,7 +96,7 @@
                                                 }];
 
             [fetcher fetchArticleForURL:dummyArticleURL
-                             saveToDisk:YES
+                saveToDisk:YES
                 progress:NULL
                 failure:^(NSError *erorr) {
                     XCTFail(@"Recieved error");

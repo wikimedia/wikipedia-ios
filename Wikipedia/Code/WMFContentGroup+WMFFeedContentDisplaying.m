@@ -1,5 +1,6 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 

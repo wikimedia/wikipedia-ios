@@ -1,4 +1,5 @@
-#import "FetcherBase.h"
+@import WMF.FetcherBase;
+@import WMF.WMFBlockDefinitions;
 
 @class MWKArticle;
 @class NSURLSessionDataTask;

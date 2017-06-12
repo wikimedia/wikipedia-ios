@@ -223,7 +223,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Se salvează...";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Autentificare";
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Salvând, sunteți de acord cu acești $1 și acceptați să vă publicați irevocabil modificările sub licența $2.";
