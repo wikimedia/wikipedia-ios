@@ -14,7 +14,7 @@ export CARTHAGE_SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, 
 export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 rm -rf "$CARTHAGE"
 carthage update --platform iOS 2> /dev/null
-plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
+rm -rf "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
 if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 then
