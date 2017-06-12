@@ -151,7 +151,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     return article.savedDate != nil;
 }
 
-
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
     article.savedDate = [NSDate date];

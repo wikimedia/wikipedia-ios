@@ -52,9 +52,9 @@
     }
     CGSize sizeToFit = attributesToFit.size;
     sizeToFit.height = UIViewNoIntrinsicMetric;
-    
+
     CGSize fitSize = [self systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-    
+
     if (CGSizeEqualToSize(fitSize, attributesToFit.size)) {
         return attributesToFit;
     } else {
@@ -63,10 +63,9 @@
         if (fitSize.height == CGFLOAT_MAX) {
             fitSize.height = attributesToFit.size.height;
         }
-        
+
         fitAttributes.frame = (CGRect){attributesToFit.frame.origin, fitSize};
         return fitAttributes;
     }
 }
 @end
-

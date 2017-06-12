@@ -374,7 +374,7 @@
 "wikitext-upload-result-unknown" = "לא ניתן להסיק את התוצאה של העלאת קוד ויקי.";
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "כניסה";
 "wikitext-upload-save-terms-and-license" = "פרסום מהווה את הסכמתך ל$1 ולשחרור בלתי־חוזר של התרומות שלך לפי תנאי רישיון $2.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";

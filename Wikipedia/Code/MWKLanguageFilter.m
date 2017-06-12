@@ -67,7 +67,7 @@ static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
     if (context == &kvo_MWKLanguageFilter_dataSource_allLanguages) {
         [self updateFilteredLanguages];
     } else {

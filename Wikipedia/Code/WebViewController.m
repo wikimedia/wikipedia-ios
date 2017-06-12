@@ -1,4 +1,4 @@
-#import "WebViewController_Private.h" 
+#import "WebViewController_Private.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
 @import Masonry;
@@ -27,9 +27,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionNext,
     WMFFindInPageScrollDirectionPrevious
 };
-
-NSString *const WMFCCBySALicenseURL =
-    @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
 
@@ -141,25 +138,25 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleFooterReadMoreSaveClickedScriptMessage:(NSDictionary *)messageDict {
-    NSURL* articleURL = [self.article.url wmf_URLWithTitle:messageDict[@"title"]];
-    if(articleURL){
+    NSURL *articleURL = [self.article.url wmf_URLWithTitle:messageDict[@"title"]];
+    if (articleURL) {
         [self toggleReadMoreSaveButtonIsSavedStateForURL:articleURL];
     }
 }
 
 - (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
     WMFArticleFooterMenuItem item;
-    if ([messageString isEqualToString:@"languages"]){
+    if ([messageString isEqualToString:@"languages"]) {
         item = WMFArticleFooterMenuItemLanguages;
-    }else if ([messageString isEqualToString:@"lastEdited"]){
+    } else if ([messageString isEqualToString:@"lastEdited"]) {
         item = WMFArticleFooterMenuItemLastEdited;
-    }else if ([messageString isEqualToString:@"pageIssues"]){
+    } else if ([messageString isEqualToString:@"pageIssues"]) {
         item = WMFArticleFooterMenuItemPageIssues;
-    }else if ([messageString isEqualToString:@"disambiguation"]){
+    } else if ([messageString isEqualToString:@"disambiguation"]) {
         item = WMFArticleFooterMenuItemDisambiguation;
-    }else if ([messageString isEqualToString:@"coordinate"]){
+    } else if ([messageString isEqualToString:@"coordinate"]) {
         item = WMFArticleFooterMenuItemCoordinate;
-    }else {
+    } else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
@@ -170,15 +167,15 @@ NSString *const WMFCCBySALicenseURL =
     [self showLicenseButtonPressed];
 }
 
-- (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
+- (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
     NSString *title = [url.absoluteString.lastPathComponent wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    if(title){
+    if (title) {
         [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
 
-- (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL*)url {
+- (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
     BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
     [self logReadMoreSaveButtonToggle:isSaved];
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
@@ -506,16 +503,15 @@ NSString *const WMFCCBySALicenseURL =
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
-                                                 
+
                                                  CGFloat halfSpaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y / 2.f;
                                                  CGFloat halfMatchHeight = rect.size.height / 2.f;
                                                  CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
                                                  CGPoint offsetCenteringMatchAboveKeyboardBar =
-                                                 CGPointMake(
-                                                             self.webView.scrollView.contentOffset.x,
-                                                             fmaxf(rect.origin.y - yCenteringMatchAboveKeyboardBar, 0.f)
-                                                             );
-                                                 
+                                                     CGPointMake(
+                                                         self.webView.scrollView.contentOffset.x,
+                                                         fmaxf(rect.origin.y - yCenteringMatchAboveKeyboardBar, 0.f));
+
                                                  [self.webView.scrollView wmf_safeSetContentOffset:offsetCenteringMatchAboveKeyboardBar
                                                                                           animated:YES
                                                                                         completion:^(BOOL done) {
@@ -567,38 +563,38 @@ NSString *const WMFCCBySALicenseURL =
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     NSArray *lateTransformNames = @[
-                                    @"collapseTables",
-                                    @"setPageProtected",
-                                    @"setLanguage",
-                                    @"addFooterReadMore",
-                                    @"addFooterMenu",
-                                    @"addFooterLegal"
-                                    ];
+        @"collapseTables",
+        @"setPageProtected",
+        @"setLanguage",
+        @"addFooterReadMore",
+        @"addFooterMenu",
+        @"addFooterLegal"
+    ];
     for (NSString *transformName in lateTransformNames) {
         NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
         [userContentController addUserScript:[[WKUserScript alloc] initWithSource:transformJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
     }
 
     NSArray *handlerNames = @[
-                              @"lateJavascriptTransform",
-                              @"peek",
-                              @"linkClicked",
-                              @"imageClicked",
-                              @"referenceClicked",
-                              @"editClicked",
-                              @"nonAnchorTouchEndedWithoutDragging",
-                              @"javascriptConsoleLog",
-                              @"articleState",
-                              @"findInPageMatchesFound",
-                              @"footerReadMoreSaveClicked",
-                              @"footerReadMoreTitlesShown",
-                              @"footerMenuItemClicked",
-                              @"footerLegalLicenseLinkClicked"
-                              ];
+        @"lateJavascriptTransform",
+        @"peek",
+        @"linkClicked",
+        @"imageClicked",
+        @"referenceClicked",
+        @"editClicked",
+        @"nonAnchorTouchEndedWithoutDragging",
+        @"javascriptConsoleLog",
+        @"articleState",
+        @"findInPageMatchesFound",
+        @"footerReadMoreSaveClicked",
+        @"footerReadMoreTitlesShown",
+        @"footerMenuItemClicked",
+        @"footerLegalLicenseLinkClicked"
+    ];
     for (NSString *handlerName in handlerNames) {
         [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];
     }
-    
+
     NSString *earlyJavascriptTransforms = @""
                                            "window.wmf.redlinks.hideRedlinks( document );"
                                            "window.wmf.filePages.disableFilePageEdit( document );"
@@ -696,11 +692,11 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification *)notification {
-    if(notification.object){
-        if([notification.object isMemberOfClass:[WMFArticle class]]){
+    if (notification.object) {
+        if ([notification.object isMemberOfClass:[WMFArticle class]]) {
             WMFArticle *article = (WMFArticle *)notification.object;
             NSURL *articleURL = [NSURL URLWithString:article.key];
-            if(articleURL){
+            if (articleURL) {
                 [self updateReadMoreSaveButtonIsSavedStateForURL:articleURL];
             }
         }
@@ -760,7 +756,7 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showLicenseButtonPressed {
-    [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
+    [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
@@ -833,7 +829,7 @@ NSString *const WMFCCBySALicenseURL =
                                                   if (error) {
                                                       completion(nil, error);
                                                   } else {
-                                                      NSNumber* indexOfFirstOnscreenSection = ((NSNumber *)obj);
+                                                      NSNumber *indexOfFirstOnscreenSection = ((NSNumber *)obj);
                                                       completion(indexOfFirstOnscreenSection.integerValue == -1 ? nil : indexOfFirstOnscreenSection, error);
                                                   }
                                               }];

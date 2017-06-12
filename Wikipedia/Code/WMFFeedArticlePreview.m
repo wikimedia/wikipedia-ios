@@ -63,16 +63,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)snippetJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^NSString *(NSString *extract,
-                                                     BOOL *success,
-                                                     NSError *__autoreleasing *error) {
-                return [extract wmf_summaryFromText];
-            }
-            reverseBlock:^NSString *(NSString *snippet,
-                                     BOOL *success,
-                                     NSError *__autoreleasing *error) {
-                return snippet;
-            }];
+        transformerUsingForwardBlock:^NSString *(NSString *extract,
+                                                 BOOL *success,
+                                                 NSError *__autoreleasing *error) {
+            return [extract wmf_summaryFromText];
+        }
+        reverseBlock:^NSString *(NSString *snippet,
+                                 BOOL *success,
+                                 NSError *__autoreleasing *error) {
+            return snippet;
+        }];
 }
 
 - (BOOL)validateValue:(inout id _Nullable *_Nonnull)ioValue forKey:(NSString *)inKey error:(out NSError **)outError {

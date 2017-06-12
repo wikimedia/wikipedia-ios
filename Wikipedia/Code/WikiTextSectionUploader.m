@@ -156,7 +156,8 @@
             @"section": self.section,
             @"title": self.articleURL.wmf_title,
             @"format": @"json"
-        }.mutableCopy;
+        }
+            .mutableCopy;
 
     if (self.captchaWord) {
         params[@"captchaid"] = self.captchaId;

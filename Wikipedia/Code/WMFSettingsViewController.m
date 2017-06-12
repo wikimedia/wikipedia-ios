@@ -90,9 +90,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if (_authManager == authManager) {
         return;
     }
-    
+
     NSString *keyPath = WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername);
-    
+
     [_authManager removeObserver:self forKeyPath:keyPath context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
     _authManager = authManager;
     [_authManager addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFSettingsViewController_authManager_loggedInUsername];
@@ -133,8 +133,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
     @weakify(self)
         self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-            @strongify(self)
-        cell.title = menuItem.title;
+        @strongify(self)
+            cell.title = menuItem.title;
         cell.iconColor = menuItem.iconColor;
         cell.iconName = menuItem.iconName;
         cell.disclosureType = menuItem.disclosureType;
@@ -147,8 +147,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         } else {
             cell.accessibilityTraits = UIAccessibilityTraitStaticText;
         }
-        
-    
+
         [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
         cell.disclosureSwitch.tag = menuItem.type;
         [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -286,7 +285,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     NSString *message = WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-message", nil, nil, @"Clearing cached data will free up about %1$@ of space. It will not delete your saved pages.", @"Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. %1$@ is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.");
     NSString *bytesString = [NSByteCountFormatter stringFromByteCount:[NSURLCache sharedURLCache].currentDiskUsage countStyle:NSByteCountFormatterCountStyleFile];
     message = [NSString localizedStringWithFormat:message, bytesString];
-    
+
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-are-you-sure-title", nil, nil, @"Clear cached data?", @"Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.") message:message preferredStyle:UIAlertControllerStyleAlert];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
@@ -295,19 +294,21 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                                 [[WMFImageController sharedInstance] removeLegacyCache];
                                                 [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
                                                     DDLogError(@"Error removing unreferenced articles: %@", error);
-                                                } success:^{
-                                                    DDLogDebug(@"Successfully removed unreferenced articles");
-                                                }];
+                                                }
+                                                    success:^{
+                                                        DDLogDebug(@"Successfully removed unreferenced articles");
+                                                    }];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
-    
+
     [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler failure:^(NSError *error) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-    }];
+    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler
+                                                         failure:^(NSError *error) {
+                                                             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                         }];
 }
 
 #pragma mark - Languages
@@ -455,10 +456,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (nullable SSSection *)section_6 {
 #if WMF_TWEAKS_ENABLED
     SSSection *section =
-    [SSSection sectionWithItems:@[
-                                  [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
-                                  [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
-                                  ]];
+        [SSSection sectionWithItems:@[
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
+            [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
+        ]];
     section.header = WMFLocalizedStringWithDefaultValue(@"main-menu-heading-debug", nil, nil, @"Debug", @"Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}");
     section.footer = nil;
     return section;
@@ -469,7 +470,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 #pragma - KVO
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey,id> *)change context:(nullable void *)context    {
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
         [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
     } else {

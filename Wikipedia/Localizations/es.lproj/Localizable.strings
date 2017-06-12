@@ -381,7 +381,7 @@
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-terms-and-license" = "Al publicar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
 "wikitext-upload-save-terms-name" = "Términos de uso";

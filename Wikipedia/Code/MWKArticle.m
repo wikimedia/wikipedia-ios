@@ -120,7 +120,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"id"] = @(self.articleId);
     dict[@"languagecount"] = @(self.languagecount);
-    
+
     dict[@"ns"] = @(self.ns);
 
     [dict wmf_maybeSetObject:self.displaytitle forKey:@"displaytitle"];
@@ -139,12 +139,14 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"mainpage"] = @(self.isMain);
 
     [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
-    
+
     CLLocationCoordinate2D coordinate = self.coordinate;
     if (CLLocationCoordinate2DIsValid(coordinate)) {
-        [dict wmf_maybeSetObject:@{@"lat": @(coordinate.latitude), @"lon": @(coordinate.longitude)} forKey:@"coordinates"];
+        [dict wmf_maybeSetObject:@{ @"lat": @(coordinate.latitude),
+                                    @"lon": @(coordinate.longitude) }
+                          forKey:@"coordinates"];
     }
-    
+
     return [dict copy];
 }
 
@@ -156,7 +158,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount = [[self requiredNumber:@"languagecount" dict:dict] intValue];
-    
+
     self.ns = [[self optionalNumber:@"ns" dict:dict] integerValue];
 
     //We are getting crashes because of the protection status.
@@ -210,13 +212,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if ([sectionsData count] > 0) {
         self.sections = [[MWKSectionList alloc] initWithArticle:self sections:sectionsData];
     }
-    
+
     id coordinates = dict[@"coordinates"];
     id coordinateDictionary = coordinates;
     if ([coordinates isKindOfClass:[NSArray class]]) {
         coordinateDictionary = [coordinates firstObject];
     }
-    
+
     CLLocationCoordinate2D coordinate = kCLLocationCoordinate2DInvalid;
     if ([coordinateDictionary isKindOfClass:[NSDictionary class]]) {
         id lat = coordinateDictionary[@"lat"];

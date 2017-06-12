@@ -65,11 +65,11 @@ NS_ASSUME_NONNULL_BEGIN
         [group enter];
         NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
         [self loadContentForDate:date
-          inManagedObjectContext:moc
-                           force:force
-                      completion:^{
-                          [group leave];
-                      }];
+            inManagedObjectContext:moc
+                             force:force
+                        completion:^{
+                            [group leave];
+                        }];
     }
 
     [group waitInBackgroundWithCompletion:completion];
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
     NSURL *siteURL = self.siteURL;
-    
+
     if (!siteURL) {
         if (completion) {
             completion();
@@ -93,46 +93,44 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return;
         }
-        
-        @weakify(self)
-        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
-                                            failure:^(NSError *error) {
-                                                if (completion) {
-                                                    completion();
-                                                }
-                                            }
-                                            success:^(MWKSearchResult *result) {
-                                                @strongify(self);
-                                                if (!self) {
-                                                    if (completion) {
-                                                        completion();
-                                                    }
-                                                    return;
-                                                }
-                                                
-                                                NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-                                                if (!articleURL) {
-                                                    if (completion) {
-                                                        completion();
-                                                    }
-                                                    return;
-                                                }
-                                                [moc performBlock:^{
-                                                    [moc fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:NULL];
-                                                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
-                                                    if (completion) {
-                                                        completion();
-                                                    }
-                                                }];
 
-                                            }];
+        @weakify(self)
+            [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
+                failure:^(NSError *error) {
+                    if (completion) {
+                        completion();
+                    }
+                }
+                success:^(MWKSearchResult *result) {
+                    @strongify(self);
+                    if (!self) {
+                        if (completion) {
+                            completion();
+                        }
+                        return;
+                    }
+
+                    NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+                    if (!articleURL) {
+                        if (completion) {
+                            completion();
+                        }
+                        return;
+                    }
+                    [moc performBlock:^{
+                        [moc fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:NULL];
+                        [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+                        if (completion) {
+                            completion();
+                        }
+                    }];
+
+                }];
     }];
-    
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindRandom];
-    
 }
 
 @end

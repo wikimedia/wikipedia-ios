@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionShareInContext:(id<WMFAnalyticsContextProviding>)context
-                       contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                        contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Share"
                                name:[contentType analyticsContentType]

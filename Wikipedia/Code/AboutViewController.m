@@ -225,7 +225,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
         LibrariesUsedViewController *vc = [LibrariesUsedViewController wmf_viewControllerFromStoryboardNamed:LibrariesUsedViewController.storyboardName];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
-        
+
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 

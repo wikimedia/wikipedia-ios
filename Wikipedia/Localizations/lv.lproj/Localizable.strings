@@ -178,7 +178,7 @@
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Pieslēgties";
 "wikitext-upload-save-terms-name" = "Izmantošanas noteikumi";
 "zero-charged-verbiage" = "Vikipēdija Zero ir izslēgts";

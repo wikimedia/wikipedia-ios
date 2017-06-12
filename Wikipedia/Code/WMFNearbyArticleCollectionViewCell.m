@@ -99,7 +99,7 @@
         [attributedTitleAndDescription appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"\n"]];
         [attributedTitleAndDescription appendAttributedString:searchResultDescription];
     }
-   
+
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineBreakMode = NSLineBreakByTruncatingTail;
     [attributedTitleAndDescription addAttribute:NSParagraphStyleAttributeName

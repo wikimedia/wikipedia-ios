@@ -5,4 +5,3 @@
 @property (nonatomic) BOOL precalculated;
 
 @end
-

@@ -495,7 +495,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
     return [WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
-        attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:18] }
+        attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
                    substitutionStrings:@[suggestion]
                 substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }

@@ -1,4 +1,3 @@
-
 #import <WMF/MWKDataObject.h>
 
 @class MWKArticle;

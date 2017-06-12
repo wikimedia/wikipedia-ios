@@ -41,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @protocol WMFOptionalNewContentSource <NSObject>
 
 /**

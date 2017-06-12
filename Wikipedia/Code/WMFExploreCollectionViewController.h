@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFExploreCollectionViewControllerDelegate<NSObject>
+@protocol WMFExploreCollectionViewControllerDelegate <NSObject>
 
 @optional
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didEndScrolling:(UIScrollView *)scrollView;
@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScrollToTop:(UIScrollView *)scrollView;
-
 
 @end
 

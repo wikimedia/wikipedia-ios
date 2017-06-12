@@ -3,7 +3,7 @@
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 
-@interface WMFLocalizedDateFormatStrings: NSObject
+@interface WMFLocalizedDateFormatStrings : NSObject
 @end
 
 @implementation WMFLocalizedDateFormatStrings
@@ -32,7 +32,7 @@
     } else if (days > 0) {
         return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
     } else {
-        NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:self toDate:date];
+        NSDateComponents *components = [calendar wmf_components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:self toDate:date];
         if (components.hour > 12) {
             return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days]; //Today or Yesterday
         } else if (components.hour > 0) {
