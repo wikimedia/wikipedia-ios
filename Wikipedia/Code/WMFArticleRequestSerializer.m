@@ -1,5 +1,5 @@
 #import "WMFArticleRequestSerializer.h"
-#import "WMFNetworkUtilities.h"
+@import WMF;
 
 @implementation WMFArticleRequestSerializer
 
@@ -35,7 +35,8 @@
         @"thumbwidth": thumbnailWidth,
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby", @"languagecount", @"id", @"protection", @"editable", @"displaytitle", @"thumb", @"description", @"image", @"revision", @"namespace"]),
         @"pilicense": @"any"
-    }.mutableCopy;
+    }
+                                      .mutableCopy;
 
     return params;
 }

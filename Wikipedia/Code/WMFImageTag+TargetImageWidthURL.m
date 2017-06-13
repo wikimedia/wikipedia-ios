@@ -1,5 +1,5 @@
-#import "WMFImageTag+TargetImageWidthURL.h"
-#import "WMFImageURLParsing.h"
+#import <WMF/WMFImageTag+TargetImageWidthURL.h>
+#import <WMF/WMFImageURLParsing.h>
 
 @implementation WMFImageTag (TargetImageWidthURL)
 

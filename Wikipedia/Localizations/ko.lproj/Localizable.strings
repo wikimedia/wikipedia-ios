@@ -370,7 +370,7 @@
 "wikitext-upload-result-unknown" = "위키텍스트 올리기 결과를 파악할 수 없습니다.";
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-and-license" = "게시하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";

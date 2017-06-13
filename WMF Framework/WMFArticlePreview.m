@@ -1,5 +1,5 @@
 #import "WMFArticlePreview.h"
-#import "NSDictionary+WMFPageViewsSortedByDate.h"
+#import <WMF/NSDictionary+WMFPageViewsSortedByDate.h>
 
 @implementation WMFArticlePreview
 

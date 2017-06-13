@@ -1,4 +1,5 @@
 #import "UITableViewCell+SelectedBackground.h"
+@import WMF.Swift;
 
 @implementation UITableViewCell (WMFCellSelectedBackground)
 

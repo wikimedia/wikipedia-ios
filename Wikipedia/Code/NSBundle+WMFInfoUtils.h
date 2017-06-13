@@ -29,5 +29,4 @@
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
 - (NSString *)wmf_versionForCurrentBundleIdentifier;
 
-
 @end

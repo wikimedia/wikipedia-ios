@@ -1,7 +1,7 @@
-#import "UIImageView+WMFPlaceholder.h"
-#import "UIImage+WMFStyle.h"
-#import "UIColor+WMFStyle.h"
-#import "UIImageView+WMFImageFetching.h"
+#import <WMF/UIImageView+WMFPlaceholder.h>
+#import <WMF/UIImage+WMFStyle.h>
+#import <WMF/UIColor+WMFStyle.h>
+#import <WMF/UIImageView+WMFImageFetching.h>
 #import <objc/runtime.h>
 #import <WMF/WMF-Swift.h>
 

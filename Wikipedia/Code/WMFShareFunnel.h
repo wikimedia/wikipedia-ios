@@ -1,4 +1,6 @@
-#import "EventLoggingFunnel.h"
+@import WMF.EventLoggingFunnel;
+
+@class MWKArticle;
 
 @interface WMFShareFunnel : EventLoggingFunnel
 

@@ -1,3 +1,4 @@
+@import UIKit.UITableView;
 
 @interface UITableView (DynamicCellHeight)
 

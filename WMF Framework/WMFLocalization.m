@@ -1,4 +1,4 @@
-#import "WMFLocalization.h"
+#import <WMF/WMFLocalization.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation NSBundle (WMFLocalization)
@@ -16,7 +16,6 @@
     return wmf_languageBundles;
 }
 
-
 - (nullable NSBundle *)wmf_languageBundleForLanguage:(nonnull NSString *)language {
     NSMutableDictionary *bundles = [NSBundle wmf_languageBundles];
     NSString *path = [self pathForResource:language ofType:@"lproj"];
@@ -32,7 +31,7 @@
 
 @end
 
-NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL * _Nullable url, NSBundle * _Nullable bundle, NSString *value, NSString *comment) {
+NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL *_Nullable url, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
     if (bundle == nil) {
         bundle = NSBundle.wmf_localizationBundle;
     }

@@ -1,6 +1,6 @@
-#import "WMFImageTagList+ImageURLs.h"
-#import "WMFImageTag+TargetImageWidthURL.h"
-#import "WMFImageTag.h"
+#import <WMF/WMFImageTagList+ImageURLs.h>
+#import <WMF/WMFImageTag+TargetImageWidthURL.h>
+#import <WMF/WMFImageTag.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFImageTagList (ImageURLs)

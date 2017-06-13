@@ -1,3 +1,5 @@
+@import Foundation;
+@import WMF.WMFBlockDefinitions;
 
 @class WMFSearchResults;
 

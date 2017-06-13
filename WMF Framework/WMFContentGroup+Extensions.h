@@ -60,7 +60,6 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 - (void)updateVisibility;
 - (void)markDismissed;
 
-
 @end
 
 @interface NSManagedObjectContext (WMFContentGroup)

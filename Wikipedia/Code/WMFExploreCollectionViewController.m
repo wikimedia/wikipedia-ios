@@ -1,56 +1,29 @@
 #import "WMFExploreCollectionViewController.h"
-
-#import "Wikipedia-Swift.h"
-
 @import Masonry;
-
-#import "PiwikTracker+WMFExtensions.h"
-
-#import "MWKDataStore.h"
-#import "MWKLanguageLinkController.h"
-
-#import "WMFLocationManager.h"
-#import "CLLocation+WMFBearing.h"
-
+@import WMF;
+#import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "MWKHistoryEntry.h"
-
-#import "WMFFeedArticlePreview.h"
-#import "WMFFeedNewsStory.h"
-#import "WMFFeedImage.h"
 #import "WMFAnnouncement.h"
-
 #import "WMFSaveButtonController.h"
-
 #import "WMFColumnarCollectionViewLayout.h"
-
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
-#import "UIView+WMFDefaultNib.h"
-
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
 #import "WMFFeedNotificationHeader.h"
-
 #import "WMFLeadingImageTrailingTextButton.h"
-
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFAnnouncementCollectionViewCell.h"
-
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFSearch.h"
-
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFAnnouncement.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "WMFChange.h"
-
 #import "WMFCVLAttributes.h"
-#import "NSCalendar+WMFCommonCalendars.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 
@@ -1082,11 +1055,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
             footer.titleLabel.text = [EnableLocationViewController localizedEnableLocationExploreTitle];
             footer.descriptionLabel.text = [EnableLocationViewController localizedEnableLocationDescription];
-            [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState: UIControlStateNormal];
+            [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
             [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
             footer.enableLocationButton.tag = indexPath.section;
             [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            
+
             return footer;
         }
         default: {
@@ -1204,7 +1177,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerClass:[WMFArticleRightAlignedImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
 
     [self registerClass:[WMFRankedArticleCollectionViewCell class] forCellWithReuseIdentifier:@"WMFRankedArticleCollectionViewCell"];
-    
+
     [self registerClass:[WMFArticleFullWidthImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleFullWidthImageCollectionViewCell"];
 
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
@@ -1900,12 +1873,11 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    
+
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
         [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
     }
 }
-
 
 #pragma mark - News Delegate
 

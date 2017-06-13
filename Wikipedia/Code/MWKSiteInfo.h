@@ -1,4 +1,4 @@
-#import "MWKDataObject.h"
+#import <WMF/MWKDataObject.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

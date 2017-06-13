@@ -387,7 +387,7 @@
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";
 "wikitext-upload-save" = "Публикация…";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-license" = "Публикуя, вы принимаете $1 и безоговорочно соглашаетесь разместить ваш вклад под лицензией $2.";
 "wikitext-upload-save-terms-name" = "Условия использования";

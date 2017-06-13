@@ -1,4 +1,4 @@
-#import "NSCalendar+WMFCommonCalendars.h"
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
 
 @implementation NSCalendar (WMFCommonCalendars)
 
@@ -25,14 +25,14 @@
     if (!fromDate || !toDate) {
         return nil;
     }
-    
+
     NSDateComponents *fromDateComponents = [self components:unitFlags fromDate:fromDate];
     NSDateComponents *toDateComponents = [self components:unitFlags fromDate:toDate];
-    
+
     if (!fromDateComponents || !toDateComponents) {
         return nil;
     }
-    
+
     return [self components:unitFlags fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly];
 }
 

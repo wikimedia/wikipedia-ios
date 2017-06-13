@@ -1,4 +1,4 @@
-#import "MWKSiteDataObject.h"
+#import <WMF/MWKSiteDataObject.h>
 @import CoreGraphics;
 
 @class MWKArticle;

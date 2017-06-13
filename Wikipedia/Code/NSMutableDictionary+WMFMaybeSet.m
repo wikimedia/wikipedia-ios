@@ -1,4 +1,4 @@
-#import "NSMutableDictionary+WMFMaybeSet.h"
+#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 
 @implementation NSMutableDictionary (WMFMaybeSet)
 

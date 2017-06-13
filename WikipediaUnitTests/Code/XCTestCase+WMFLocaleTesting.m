@@ -14,10 +14,10 @@
                                   block:(WMFLocaleTest)block {
     NSDictionary *expectationsForLocale =
         [localeIdentifiers wmf_reduce:[NSMutableDictionary dictionaryWithCapacity:localeIdentifiers.count]
-                           withBlock:^id(NSMutableDictionary *sum, NSString *localeID) {
-                               sum[localeID] = [self expectationWithDescription:localeID];
-                               return sum;
-                           }];
+                            withBlock:^id(NSMutableDictionary *sum, NSString *localeID) {
+                                sum[localeID] = [self expectationWithDescription:localeID];
+                                return sum;
+                            }];
     dispatch_queue_t concurrentBackgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_apply(localeIdentifiers.count, concurrentBackgroundQueue, ^(size_t i) {
         NSString *localeID = localeIdentifiers[i];

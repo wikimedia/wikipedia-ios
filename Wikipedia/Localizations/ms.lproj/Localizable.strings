@@ -368,7 +368,7 @@
 "wikitext-upload-result-unknown" = "Hasil muat naikan teks wiki tidak dapat ditentukan.";
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-terms-and-license" = "Dengan menerbitkan, anda akur kepada $1 dan melepaskan sumbangan anda di bawah lesen $2 tanpa boleh menarik baliknya.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";

@@ -1,4 +1,4 @@
-#import "MWNetworkActivityIndicatorManager.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
 
 // Private
 @interface MWNetworkActivityIndicatorManager ()

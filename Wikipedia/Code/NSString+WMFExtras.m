@@ -1,11 +1,11 @@
-#import "NSString+WMFExtras.h"
+#import <WMF/NSString+WMFExtras.h>
 #import <hpple/TFHpple.h>
 #import <CommonCrypto/CommonDigest.h>
-#import "SessionSingleton.h"
-#import "MWLanguageInfo.h"
+#import <WMF/SessionSingleton.h>
+#import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
-#import "NSString+WMFHTMLParsing.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 
 @implementation NSString (WMFExtras)
 
@@ -163,7 +163,7 @@
     if (!wikipediaLanguage) {
         return [NSLocale autoupdatingCurrentLocale];
     }
-    
+
     static dispatch_once_t onceToken;
     static NSMutableDictionary *localeCache;
     dispatch_once(&onceToken, ^{

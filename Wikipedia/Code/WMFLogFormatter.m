@@ -1,5 +1,5 @@
 #import "WMFLogFormatter.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/NSBundle+WMFInfoUtils.h>
 
 static NSString *cachedApplicationName;
 

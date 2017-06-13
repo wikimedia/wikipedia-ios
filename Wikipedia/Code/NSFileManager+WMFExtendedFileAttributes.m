@@ -1,4 +1,4 @@
-#import "NSFileManager+WMFExtendedFileAttributes.h"
+#import <WMF/NSFileManager+WMFExtendedFileAttributes.h>
 #import <sys/xattr.h>
 
 NSString *const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtendedFileAttributesError";

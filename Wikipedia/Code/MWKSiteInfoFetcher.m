@@ -1,10 +1,10 @@
-#import "MWKSiteInfoFetcher.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFNetworkUtilities.h"
-#import "WMFApiJsonResponseSerializer.h"
-#import "MWKSiteInfo.h"
+#import <WMF/MWKSiteInfoFetcher.h>
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/WMFNetworkUtilities.h>
+#import <WMF/WMFApiJsonResponseSerializer.h>
+#import <WMF/MWKSiteInfo.h>
 
 @interface MWKSiteInfoFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;

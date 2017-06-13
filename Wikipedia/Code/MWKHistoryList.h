@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Calling this on a page already in the history will simply update its @c date.
  *
- *  @param urls The urls of the pages to add
+ *  @param URLs The urls of the pages to add
  */
 - (void)addPagesToHistoryWithURLs:(NSArray<NSURL *> *)URLs;
 
