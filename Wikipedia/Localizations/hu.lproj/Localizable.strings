@@ -363,7 +363,7 @@
 "wikitext-upload-result-unknown" = "A wikiszöveg-feltöltés eredményének meghatározása sikertelen.";
 "wikitext-upload-save" = "Közzététel…";
 "wikitext-upload-save-anonymously-warning" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. A $1 nagyobb adatvédelmet biztosít.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Bejelentkezés";
 "wikitext-upload-save-terms-and-license" = "A közzététellel elfogadod a $1et és visszavonhatatlanul közzéteszed a közreműködésedet a $2 licenc alatt.";
 "wikitext-upload-save-terms-name" = "Felhasználási feltételek";

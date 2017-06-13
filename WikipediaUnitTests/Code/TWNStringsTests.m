@@ -242,21 +242,22 @@
 
                 NSString *enString = enStrings[key];
                 NSMutableDictionary *enTokens = enTokensByKey[key];
-                if (!enTokens) {
-                    enTokens = [NSMutableDictionary new];
-
-                    [tokenRegex enumerateMatchesInString:enString
-                                                 options:0
-                                                   range:NSMakeRange(0, enString.length)
-                                              usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                                  NSString *key = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$1"];
-                                                  NSString *value = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$2"];
-                                                  enTokens[key] = value;
-                                              }];
-                    enTokensByKey[key] = enTokens;
+                if (enString) {
+                    if (!enTokens) {
+                        enTokens = [NSMutableDictionary new];
+                        [tokenRegex enumerateMatchesInString:enString
+                                                     options:0
+                                                       range:NSMakeRange(0, enString.length)
+                                                  usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                                      NSString *key = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$1"];
+                                                      NSString *value = [tokenRegex replacementStringForResult:result inString:enString offset:0 template:@"$2"];
+                                                      enTokens[key] = value;
+                                                  }];
+                        enTokensByKey[key] = enTokens;
+                    }
+                    
+                    XCTAssertEqualObjects(localizedTokens, enTokens, @"%@ translation for %@ has incorrect tokens:\n%@\n%@", lprojFileName, key, enString, localizedString);
                 }
-
-                XCTAssertEqualObjects(localizedTokens, enTokens, @"%@ translation for %@ has incorrect tokens:\n%@\n%@", lprojFileName, key, enString, localizedString);
             }
         }
     }

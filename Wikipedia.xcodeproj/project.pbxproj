@@ -2689,6 +2689,7 @@
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
 		D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */; };
+		D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F36F021EEEBA130087D4DD /* Licenses.swift */; };
 		D8F36F011EEB42CD0087D4DD /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8FA18AA1E1BD867009675C3 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551431DF1A33D00B90177 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D551411DF1A33D00B90177 /* EXTScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4491,6 +4492,7 @@
 		D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNotificationsController.h; sourceTree = "<group>"; };
 		D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationsController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFQuoteMacros.h; sourceTree = "<group>"; };
+		D8F36F021EEEBA130087D4DD /* Licenses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Licenses.swift; sourceTree = "<group>"; };
 		D8FA190C1E1BDD89009675C3 /* WMFAnnouncementCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAnnouncementCollectionViewCell.h; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D8FA190D1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAnnouncementCollectionViewCell.m; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFAnnouncementCollectionViewCell.xib; path = Wikipedia/Code/WMFAnnouncementCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -7515,6 +7517,7 @@
 				D8D3650E1E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift */,
 				D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */,
 				D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */,
+				D8F36F021EEEBA130087D4DD /* Licenses.swift */,
 				D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */,
 				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
 				D84448241DDB632100425630 /* WMFArticle+CoreDataClass.h */,
@@ -10263,6 +10266,7 @@
 				D8FA18C21E1BD891009675C3 /* NSURL+WMFQueryParameters.m in Sources */,
 				D844D9B41D6CB77D0042D692 /* MWKSavedPageEntry.m in Sources */,
 				D8FA18C71E1BD891009675C3 /* NSIndexSet+BKReduce.m in Sources */,
+				D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */,
 				0E728D231DAEE2B50074EB4B /* WMFFeedNewsStory.m in Sources */,
 				D844D9981D6CB5CD0042D692 /* WikipediaAppUtils.m in Sources */,
 				D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */,
