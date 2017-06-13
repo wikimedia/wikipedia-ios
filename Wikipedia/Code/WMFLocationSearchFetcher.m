@@ -158,9 +158,8 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
         if (params.searchTerm) {
             [gsrSearchArray addObject:params.searchTerm];
         }
-        CLLocationDistance radius = params.region.radius;
-        CLLocationDistance radiusInKilometers = MAX(1,ceil(radius / 1000.0));
-        NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fkm,%.3f,%.3f", radiusInKilometers, params.region.center.latitude, params.region.center.longitude];
+        CLLocationDistance radius = MAX(1,ceil(params.region.radius));
+        NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fm,%.3f,%.3f", radius, params.region.center.latitude, params.region.center.longitude];
         [gsrSearchArray addObject:nearcoord];
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
         NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
