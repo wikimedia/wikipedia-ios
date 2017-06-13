@@ -596,7 +596,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     NSString *earlyJavascriptTransforms = @""
-                                           "window.wmf.redlinks.hideRedlinks( document );"
+                                           "window.wmf.redLinks.hideRedLinks( document );"
                                            "window.wmf.filePages.disableFilePageEdit( document );"
                                            "window.wmf.images.widenImages( document );"
                                            "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
