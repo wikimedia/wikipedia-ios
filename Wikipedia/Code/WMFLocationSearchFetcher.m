@@ -76,7 +76,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                                      useDesktopURL:(BOOL)useDeskTopURL
                                         completion:(void (^)(WMFLocationSearchResults *results))completion
                                            failure:(void (^)(NSError *error))failure {
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:10000 identifier:@""];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:1000 identifier:@""];
     return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
 }
 
