@@ -4239,7 +4239,6 @@
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
 		D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
-		D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB191DF0AAFF00DDF311 /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = Carthage/Build/iOS/Masonry.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NYTPhotoViewer.framework; path = Carthage/Build/iOS/NYTPhotoViewer.framework; sourceTree = SOURCE_ROOT; };
@@ -4482,7 +4481,6 @@
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
-		D8E2F6A61E01658300968645 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
 		D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8EC3FB61E9BDAAB006712EB /* Wikipedia Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia Beta-Info.plist"; sourceTree = "<group>"; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
@@ -7473,7 +7471,6 @@
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				D8E2F6A61E01658300968645 /* SDWebImage.framework */,
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
 				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
@@ -7486,7 +7483,6 @@
 				D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */,
 				D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */,
 				D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */,
-				D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */,
 				D82FDB191DF0AAFF00DDF311 /* Masonry.framework */,
 				D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */,
 				D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */,
