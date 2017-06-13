@@ -1,4 +1,4 @@
-@import HockeySDK;
+#import <HockeySDK/HockeySDK.h>
 
 @interface BITHockeyManager (WMFExtensions) <BITHockeyManagerDelegate>
 
