@@ -15,5 +15,5 @@ github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
-github "Quick/Quick" ~> 1.0.0
-github "Quick/Nimble" ~> 5.1.1
+github "Quick/Quick" ~> 1.1.0
+github "Quick/Nimble" ~> 7.0.1
