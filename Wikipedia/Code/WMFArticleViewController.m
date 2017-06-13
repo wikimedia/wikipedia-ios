@@ -249,6 +249,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
                                                    }];
+            NSURL *articleURL = self.articleURL;
+            if (articleURL && self.isAddingArticleToHistoryListEnabled) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataStore.historyList addPageToHistoryWithURL:articleURL];
+                });
+            }
         }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
@@ -258,6 +264,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self updateToolbar];
     [self setupTableOfContentsViewController];
     [self updateTableOfContentsForFootersIfNeeded];
+    
+
 
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;

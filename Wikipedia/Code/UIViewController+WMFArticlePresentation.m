@@ -42,14 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert(0, @"Unexpected view controller hierarchy");
     }
     [[PiwikTracker sharedInstance] wmf_logView:viewController];
-
-    if (viewController.isAddingArticleToHistoryListEnabled) {
-        // Use slight delay so history interface doesn't try to re-order items during push animation when you select item from history.
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            MWKHistoryList *historyList = viewController.dataStore.historyList;
-            [historyList addPageToHistoryWithURL:viewController.articleURL];
-        });
-    }
 }
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
