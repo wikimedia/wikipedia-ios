@@ -9,12 +9,13 @@ wmf.footerMenu = require('./js/transforms/footerMenu')
 wmf.footerLegal = require('./js/transforms/footerLegal')
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
-wmf.redlinks = require('./js/transforms/hideRedlinks')
+wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/hideRedlinks":12,"./js/transforms/relocateFirstParagraph":13,"./js/transforms/widenImages":14,"./js/utilities":15}],2:[function(require,module,exports){
+
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -143,7 +144,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":15,"wikimedia-page-library":16}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -469,7 +470,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":16}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":14}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -816,19 +817,6 @@ exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
 },{}],11:[function(require,module,exports){
 
-function hideRedlinks( content ) {
-  var redLinks = content.querySelectorAll( 'a.new' )
-  for ( var i = 0; i < redLinks.length; i++ ) {
-    var redLink = redLinks[i]
-    redLink.style.color = 'inherit'
-  }
-}
-
-exports.hideRedlinks = hideRedlinks
-},{}],12:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],13:[function(require,module,exports){
-
 function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
@@ -908,7 +896,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],14:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -925,7 +913,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":16}],15:[function(require,module,exports){
+},{"wikimedia-page-library":14}],13:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -967,7 +955,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 // This file exists for CSS packaging only. It imports the CSS which is to be
@@ -1078,12 +1066,20 @@ var getTableHeader = function getTableHeader(element, pageTitle) {
   return thArray;
 };
 
-/** Ex: toggleCollapseClickCallback.bind(el, (container) => {
-          window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
-        })
-    @this HTMLElement
-    @param footerDivClickCallback {?(!HTMLElement) => void}
-    @return {void} */
+/**
+ * @typedef {function} FooterDivClickCallback
+ * @param {!HTMLElement}
+ * @return {void}
+ */
+
+/**
+ * Ex: toggleCollapseClickCallback.bind(el, (container) => {
+ *       window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
+ *     })
+ * @this HTMLElement
+ * @param {?FooterDivClickCallback} footerDivClickCallback
+ * @return {void}
+ */
 var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
   var container = this.parentNode;
   var header = container.children[0];
@@ -1285,11 +1281,81 @@ var CollapseTable = {
 };
 
 /**
+ * Configures span to be suitable replacement for red link anchor.
+ * @param {!HTMLSpanElement} span The span element to configure as anchor replacement.
+ * @param {!HTMLAnchorElement} anchor The anchor element being replaced.
+ * @return {void}
+ */
+var configureRedLinkTemplate = function configureRedLinkTemplate(span, anchor) {
+  span.innerHTML = anchor.innerHTML;
+  span.setAttribute('class', anchor.getAttribute('class'));
+};
+
+/**
+ * Finds red links in a document or document fragment.
+ * @param {!(Document|DocumentFragment)} content Document or fragment in which to seek red links.
+ * @return {!NodeList} Nodelist of zero or more red link anchors.
+ */
+var redLinkAnchorsInContent = function redLinkAnchorsInContent(content) {
+  return content.querySelectorAll('a.new');
+};
+
+/**
+ * Makes span to be used as cloning template for red link anchor replacements.
+ * @param  {!Document} document Document to use to create span element. Reminder: this can't be a
+ * document fragment because fragments don't implement 'createElement'.
+ * @return {!HTMLSpanElement} Span element suitable for use as template for red link anchor
+ * replacements.
+ */
+var newRedLinkTemplate = function newRedLinkTemplate(document) {
+  return document.createElement('span');
+};
+
+/**
+ * Replaces anchor with span.
+ * @param  {!HTMLAnchorElement} anchor Anchor element.
+ * @param  {!HTMLSpanElement} span Span element.
+ * @return {void}
+ */
+var replaceAnchorWithSpan = function replaceAnchorWithSpan(anchor, span) {
+  return anchor.parentNode.replaceChild(span, anchor);
+};
+
+/**
+ * Hides red link anchors in either a document or a document fragment so they are unclickable and
+ * unfocusable.
+ * @param {!Document} document Document in which to hide red links.
+ * @param {?DocumentFragment} fragment If specified, red links are hidden in the fragment and the
+ * document is used only for span cloning.
+ * @return {void}
+ */
+var hideRedLinks = function hideRedLinks(document, fragment) {
+  var spanTemplate = newRedLinkTemplate(document);
+  var content = fragment !== undefined ? fragment : document;
+  redLinkAnchorsInContent(content).forEach(function (redLink) {
+    var span = spanTemplate.cloneNode(false);
+    configureRedLinkTemplate(span, redLink);
+    replaceAnchorWithSpan(redLink, span);
+  });
+};
+
+var RedLinks = {
+  hideRedLinks: hideRedLinks,
+  test: {
+    configureRedLinkTemplate: configureRedLinkTemplate,
+    redLinkAnchorsInContent: redLinkAnchorsInContent,
+    newRedLinkTemplate: newRedLinkTemplate,
+    replaceAnchorWithSpan: replaceAnchorWithSpan
+  }
+};
+
+/**
  * To widen an image element a css class called 'wideImageOverride' is applied to the image element,
  * however, ancestors of the image element can prevent the widening from taking effect. This method
  * makes minimal adjustments to ancestors of the image element being widened so the image widening
  * can take effect.
  * @param  {!HTMLElement} el Element whose ancestors will be widened
+ * @return {void}
  */
 var widenAncestors = function widenAncestors(el) {
   for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
@@ -1306,7 +1372,7 @@ var widenAncestors = function widenAncestors(el) {
 };
 
 /**
- * Some images should not be widended. This method makes that determination.
+ * Some images should not be widened. This method makes that determination.
  * @param  {!HTMLElement} image   The image in question
  * @return {boolean}              Whether 'image' should be widened
  */
@@ -1346,6 +1412,7 @@ var shouldWidenImage = function shouldWidenImage(image) {
 /**
  * Removes barriers to images widening taking effect.
  * @param  {!HTMLElement} image   The image in question
+ * @return {void}
  */
 var makeRoomForImageWidening = function makeRoomForImageWidening(image) {
   widenAncestors(image);
@@ -1358,6 +1425,7 @@ var makeRoomForImageWidening = function makeRoomForImageWidening(image) {
 /**
  * Widens the image.
  * @param  {!HTMLElement} image   The image in question
+ * @return {void}
  */
 var widenImage = function widenImage(image) {
   makeRoomForImageWidening(image);
@@ -1387,6 +1455,7 @@ var WidenImage = {
 
 var pagelib$1 = {
   CollapseTable: CollapseTable,
+  RedLinks: RedLinks,
   WidenImage: WidenImage,
   test: {
     ElementUtilities: elementUtilities
@@ -1400,4 +1469,4 @@ var pagelib$1 = {
 module.exports = pagelib$1;
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,13,14,15]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
