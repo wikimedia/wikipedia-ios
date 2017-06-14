@@ -98,9 +98,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageEditClicked:
             [self handleEditClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
-            [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
-            break;
         case WMFWKScriptMessageLateJavascriptTransform:
             [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
             break;
@@ -284,13 +281,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
                                            }
                                        }];
-                                   }];
-}
-
-- (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
-    [self wmf_dismissReferencePopoverAnimated:NO
-                                   completion:^{
-                                       [self hideFindInPageWithCompletion:nil];
                                    }];
 }
 
@@ -582,7 +572,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"imageClicked",
         @"referenceClicked",
         @"editClicked",
-        @"nonAnchorTouchEndedWithoutDragging",
         @"javascriptConsoleLog",
         @"articleState",
         @"findInPageMatchesFound",

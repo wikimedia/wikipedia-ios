@@ -15,7 +15,136 @@ wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
 
-},{"./js/elementLocation":2,"./js/findInPage":3,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
+const refs = require('./refs')
+const utilities = require('./utilities')
+const tableCollapser = require('wikimedia-page-library').CollapseTable
+
+/**
+ * Type of items users can click which we may need to handle.
+ * @type {!Object}
+ */
+const ItemType = {
+  unknown: 0,
+  link: 1,
+  image: 2,
+  reference: 3
+}
+
+/**
+ * Model of clicked item.
+ * Reminder: separate `target` and `href` properties
+ * needed to handle non-anchor targets such as images.
+ */
+class ClickedItem {
+  constructor(target, href) {
+    this.target = target
+    this.href = href
+  }
+  /**
+   * Determines type of item based on its properties.
+   * @return {!ItemType} Type of the item
+   */
+  type() {
+    if (refs.isCitation(this.href)) {
+      return ItemType.reference
+    } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
+      return ItemType.image
+    } else if (this.href) {
+      return ItemType.link
+    }
+    return ItemType.unknown
+  }
+}
+
+/**
+ * Send messages to native land for respective click types.
+ * @param  {!ClickedItem} item the item which was clicked on
+ * @return {Boolean} `true` if a message was sent, otherwise `false`
+ */
+function sendMessageForClickedItem(item){
+  switch(item.type()) {
+  case ItemType.link:
+    sendMessageForLinkWithHref(item.href)
+    break
+  case ItemType.image:
+    sendMessageForImageWithTarget(item.target)
+    break
+  case ItemType.reference:
+    sendMessageForReferenceWithTarget(item.target)
+    break
+  default:
+    return false
+  }
+  return true
+}
+
+/**
+ * Sends message for a link click.
+ * @param  {!String} href url
+ * @return {void}
+ */
+function sendMessageForLinkWithHref(href){
+  if(href[0] === '#'){
+    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
+  }
+  window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+}
+
+/**
+ * Sends message for an image click.
+ * @param  {!Element} target an image element
+ * @return {void}
+ */
+function sendMessageForImageWithTarget(target){
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': target.getAttribute('src'),
+    'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+    'height': target.naturalHeight,
+    'data-file-width': target.getAttribute('data-file-width'),
+    'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+/**
+ * Sends message for a reference click.
+ * @param  {!Element} target an anchor element
+ * @return {void}
+ */
+function sendMessageForReferenceWithTarget(target){
+  refs.sendNearbyReferences( target )
+}
+
+/**
+ * Handler for the click event.
+ * @param  {ClickEvent} event the event being handled
+ * @return {void}
+ */
+function handleClickEvent(event){
+  const target = event.target
+  if(!target) {
+    return
+  }
+  // Find anchor for non-anchor targets - like images.
+  const anchorForTarget = utilities.findClosest(target, 'A') || target
+  if(!anchorForTarget) {
+    return
+  }
+  const href = anchorForTarget.getAttribute( 'href' )
+  if(!href) {
+    return
+  }
+  sendMessageForClickedItem(new ClickedItem(target, href))
+}
+
+/**
+ * Associate our custom click handler logic with the document `click` event.
+ */
+document.addEventListener('click', function (event) {
+  event.preventDefault()
+  handleClickEvent(event)
+}, false)
+},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -66,7 +195,7 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
@@ -181,115 +310,7 @@ function useFocusStyleForHighlightedSearchTermWithId(id) {
 exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
-},{}],4:[function(require,module,exports){
-(function () {
-  var refs = require('./refs')
-  var utilities = require('./utilities')
-  var tableCollapser = require('wikimedia-page-library').CollapseTable
-
-  document.onclick = function() {
-    // Reminder: resist adding any click/tap handling here - they can
-    // "fight" with items in the touchEndedWithoutDragging handler.
-    // Add click/tap handling to touchEndedWithoutDragging instead.
-    event.preventDefault() // <-- Do not remove!
-  }
-
-  // track where initial touches start
-  var touchDownY = 0.0
-  document.addEventListener(
-            'touchstart',
-            function (event) {
-              touchDownY = parseInt(event.changedTouches[0].clientY)
-            }, false)
-
-/**
- * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
- * @return `true` if a message was sent, otherwise `false`.
- */
-  function maybeSendMessageForTarget(event, hrefTarget){
-    if (!hrefTarget) {
-      return false
-    }
-
-    /*
-    "touchstart" is fired when you do a peek in WKWebView, but when the peek view controller
-    is presented, it appears the JS for the then covered webview more or less pauses, and
-    the matching "touchend" does't get called until the view is again shown and touched (the
-    hanging "touchend" seems to fire just before that new touch's "touchstart").
-    This is troublesome because that delayed call to "touchend" ends up causing the image or
-    link click handling to be called when the user touches the article again, even though
-    that image or link is probably not what the user is interacting with now. Thankfully we
-    can check for this weird condition because when it happens the number of touches hasn't
-    gone to 0 yet. So we check here and bail if that's the case.
-    */
-    var didDetectHangingTouchend = event.touches.length > 0
-    if(didDetectHangingTouchend){
-      return false
-    }
-
-    var href = hrefTarget.getAttribute( 'href' )
-    if (hrefTarget.getAttribute( 'data-action' ) === 'edit_section') {
-      window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( 'data-id' ) })
-    } else if (href && refs.isCitation(href)) {
-      // Handle reference links with a popup view instead of scrolling about!
-      refs.sendNearbyReferences( hrefTarget )
-    } else if (href && href[0] === '#') {
-
-      tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
-
-      // If it is a link to an anchor in the current page, use existing link handling
-      // so top floating native header height can be taken into account by the regular
-      // fragment handling logic.
-      window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-    } else if (event.target.tagName === 'IMG' && event.target.getAttribute( 'data-image-gallery' ) === 'true') {
-      window.webkit.messageHandlers.imageClicked.postMessage({
-        'src': event.target.getAttribute('src'),
-        'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
-        'height': event.target.naturalHeight,
-        'data-file-width': event.target.getAttribute('data-file-width'),
-        'data-file-height': event.target.getAttribute('data-file-height')
-      })
-    } else if (href) {
-      window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-    } else {
-      return false
-    }
-    return true
-  }
-
-  function touchEndedWithoutDragging(event){
-    /*
-     there are certain elements which don't have an <a> ancestor, so if we fail to find it,
-     specify the event's target instead
-     */
-    var didSendMessage = maybeSendMessageForTarget(event, utilities.findClosest(event.target, 'A') || event.target)
-
-    var hasSelectedText = window.getSelection().rangeCount > 0
-
-    if (!didSendMessage && !hasSelectedText) {
-      // Do NOT prevent default behavior -- this is needed to for instance
-      // handle deselection of text.
-      window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
-        id: event.target.getAttribute( 'id' ),
-        tagName: event.target.tagName
-      })
-
-    }
-  }
-
-  function handleTouchEnded(event){
-    var touchobj = event.changedTouches[0]
-    var touchEndY = parseInt(touchobj.clientY)
-    if (touchDownY - touchEndY === 0 && event.changedTouches.length === 1) {
-      // None of our tap events should fire if the user dragged vertically.
-      touchEndedWithoutDragging(event)
-    }
-  }
-
-  document.addEventListener('touchend', handleTouchEnded, false)
-
-})()
-},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],5:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -434,7 +455,7 @@ exports.isEndnote = isEndnote
 exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
-},{"./elementLocation":2}],6:[function(require,module,exports){
+},{"./elementLocation":3}],6:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -449,7 +470,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":2,"wikimedia-page-library":14}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":14}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -546,6 +567,7 @@ class WMFMenuItemFragment {
       var title = document.createElement('div')
       title.className = 'footer_menu_item_title'
       title.innerText = wmfMenuItem.title
+      containerAnchor.title = wmfMenuItem.title
       containerAnchor.appendChild(title)
     }
 
@@ -572,7 +594,9 @@ function addItem(title, subtitle, iconType, containerID, clickHandler) {
 }
 
 function setHeading(headingString, headingID) {
-  document.getElementById(headingID).innerText = headingString
+  const headingElement = document.getElementById(headingID)
+  headingElement.innerText = headingString
+  headingElement.title = headingString
 }
 
 exports.IconTypeEnum = IconTypeEnum
@@ -581,7 +605,6 @@ exports.addItem = addItem
 },{}],10:[function(require,module,exports){
 
 var _saveButtonClickHandler = null
-var _clickHandler = null
 var _titlesShownHandler = null
 var _saveForLaterString = null
 var _savedForLaterString = null
@@ -621,32 +644,31 @@ class WMFPage {
 class WMFPageFragment {
   constructor(wmfPage, index) {
 
-    var page = document.createElement('div')
-    page.id = index
-    page.className = 'footer_readmore_page'
+    var outerAnchorContainer = document.createElement('a')
+    outerAnchorContainer.id = index
+    outerAnchorContainer.className = 'footer_readmore_page'
 
     var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
     if(hasImage){
       var image = document.createElement('div')
       image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
       image.classList.add('footer_readmore_page_image')
-      page.appendChild(image)
+      outerAnchorContainer.appendChild(image)
     }
 
-    var container = document.createElement('div')
-    container.classList.add('footer_readmore_page_container')
-    page.appendChild(container)
-
-    page.addEventListener('click', function(){
-      _clickHandler(`/wiki/${encodeURI(wmfPage.title)}`)
-    }, false)
+    var innerDivContainer = document.createElement('div')
+    innerDivContainer.classList.add('footer_readmore_page_container')
+    outerAnchorContainer.appendChild(innerDivContainer)
+    outerAnchorContainer.href = `/wiki/${encodeURI(wmfPage.title)}`
 
     if(wmfPage.title){
       var title = document.createElement('div')
       title.id = index
       title.className = 'footer_readmore_page_title'
-      title.innerHTML = wmfPage.title.replace(/_/g, ' ')
-      container.appendChild(title)
+      var displayTitle = wmfPage.title.replace(/_/g, ' ')
+      title.innerHTML = displayTitle
+      outerAnchorContainer.title = displayTitle
+      innerDivContainer.appendChild(title)
     }
 
     var description = null
@@ -661,21 +683,22 @@ class WMFPageFragment {
       descriptionEl.id = index
       descriptionEl.className = 'footer_readmore_page_description'
       descriptionEl.innerHTML = description
-      container.appendChild(descriptionEl)
+      innerDivContainer.appendChild(descriptionEl)
     }
 
     var saveButton = document.createElement('div')
     saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`
-    saveButton.innerText = 'Save for later'
+    saveButton.innerText = _saveForLaterString
+    saveButton.title = _saveForLaterString
     saveButton.className = 'footer_readmore_page_save'
     saveButton.addEventListener('click', function(event){
-      _saveButtonClickHandler(wmfPage.title)
       event.stopPropagation()
       event.preventDefault()
+      _saveButtonClickHandler(wmfPage.title)
     }, false)
-    container.appendChild(saveButton)
+    innerDivContainer.appendChild(saveButton)
 
-    return document.createDocumentFragment().appendChild(page)
+    return document.createDocumentFragment().appendChild(outerAnchorContainer)
   }
 }
 
@@ -756,7 +779,9 @@ function fetchReadMore(baseURL, title, showReadMoreHandler) {
 }
 
 function updateSaveButtonText(button, title, isSaved){
-  button.innerText = isSaved ? _savedForLaterString : _saveForLaterString
+  const text = isSaved ? _savedForLaterString : _saveForLaterString
+  button.innerText = text
+  button.title = text
 }
 
 function updateSaveButtonBookmarkIcon(button, title, isSaved){
@@ -771,9 +796,8 @@ function setTitleIsSaved(title, isSaved){
   updateSaveButtonBookmarkIcon(saveButton, title, isSaved)
 }
 
-function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, clickHandler, saveButtonClickHandler, titlesShownHandler) {
+function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _readMoreContainer = document.getElementById(containerID)
-  _clickHandler = clickHandler
   _saveButtonClickHandler = saveButtonClickHandler
   _titlesShownHandler = titlesShownHandler
   _saveForLaterString = saveForLaterString
@@ -783,7 +807,9 @@ function add(baseURL, title, saveForLaterString, savedForLaterString, containerI
 }
 
 function setHeading(headingString, headingID) {
-  document.getElementById(headingID).innerText = headingString
+  const headingElement = document.getElementById(headingID)
+  headingElement.innerText = headingString
+  headingElement.title = headingString
 }
 
 exports.setHeading = setHeading
