@@ -69,6 +69,12 @@ Certain development and maintenance tasks will require the installation of speci
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
+### Carthage
+ 
+`brew install carthage`
+
+We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. It is required to build the project. After installing carthage, (or running `scripts/setup`) you should be able to build & run in Xcode. `scripts/carthage_bootstrap` is run as a build step by Xcode. Your first build will take awhile as the dependencies are built. Subsequent builds will re-use the prebuilt dependencies.
+
 ### Clang-Format
  
 `brew install clang-format`
