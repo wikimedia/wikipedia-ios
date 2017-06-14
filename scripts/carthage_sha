@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$SRCROOT" ]
+then
+    export SRCROOT=`pwd`
+fi
+
+export SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, /^[0-9a-f]*/) { print substr($0, RSTART, RLENGTH) }'`
+export VERSION=`clang --version | awk 'match($0, /Apple\ LLVM\ version\ [0-9.]*/) { print substr($0, RSTART + 19, RLENGTH - 19) }'`
+
+echo $SHA-$VERSION
