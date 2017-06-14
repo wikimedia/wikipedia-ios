@@ -1,3 +1,4 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 BasedOnStyle: LLVM
 AccessModifierOffset: -2
 AlignAfterOpenBracket: true
