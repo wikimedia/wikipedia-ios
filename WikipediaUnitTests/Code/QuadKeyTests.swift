@@ -55,4 +55,38 @@ class QuadKeyTests: XCTestCase {
 
     }
     
+    func testInvalidQuadKeys() {
+        var invalidKey = QuadKey(latitude: Double.nan, longitude: Double.nan)
+        XCTAssertEqual(invalidKey.latitude, -90)
+        XCTAssertEqual(invalidKey.longitude, -180)
+        
+        invalidKey = QuadKey(latitude: Double.signalingNaN, longitude: Double.signalingNaN)
+        XCTAssertEqual(invalidKey.latitude, -90)
+        XCTAssertEqual(invalidKey.longitude, -180)
+        
+        invalidKey = QuadKey(latitude: Double.infinity, longitude: Double.infinity)
+        XCTAssertEqual(invalidKey.latitude, -90)
+        XCTAssertEqual(invalidKey.longitude, -180)
+        
+        invalidKey = QuadKey(latitude: 90.00001, longitude: 180.00001)
+        XCTAssertEqual(invalidKey.longitude, 180)
+        XCTAssertEqual(invalidKey.latitude, 90)
+        
+        invalidKey = QuadKey(latitude: -90.01, longitude: -180.01)
+        XCTAssertEqual(invalidKey.longitude, -180)
+        XCTAssertEqual(invalidKey.latitude, -90)
+        
+        var validKey = QuadKey(latitude: 90, longitude: 180)
+        XCTAssertEqual(validKey.longitude, 180)
+        XCTAssertEqual(validKey.latitude, 90)
+        
+        validKey = QuadKey(latitude: -90, longitude: -180)
+        XCTAssertEqual(validKey.longitude, -180)
+        XCTAssertEqual(validKey.latitude, -90)
+        
+        validKey = QuadKey(latitude: -0.0, longitude: -0.0)
+        XCTAssertEqualWithAccuracy(validKey.longitude, 0, accuracy: 0.00001)
+        XCTAssertEqualWithAccuracy(validKey.latitude, 0, accuracy: 0.00001)
+    }
+    
 }

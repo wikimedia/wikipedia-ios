@@ -66,6 +66,30 @@ class ArticlePopoverViewController: UIViewController {
         view.wmf_configureSubviewsForDynamicType()
     }
     
+    override func didMove(toParentViewController parent: UIViewController?) {
+        super.didMove(toParentViewController: parent)
+        updateMoreButtonImage(with: traitCollection)
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        updateMoreButtonImage(with: newCollection)
+    }
+    
+    func updateMoreButtonImage(with traitCollection: UITraitCollection) {
+        var moreImage = #imageLiteral(resourceName: "places-more")
+        if #available(iOS 10.0, *) {
+            if traitCollection.layoutDirection == .rightToLeft {
+                moreImage = moreImage.withHorizontallyFlippedOrientation()
+            }
+        } else {
+            if UIApplication.shared.wmf_isRTL {
+                moreImage = moreImage.imageFlippedForRightToLeftLayoutDirection()
+            }
+        }
+        readButton.setImage(moreImage, for: .normal)
+    }
+    
     func updateSaveButtonTitle() {
         guard showSaveAndShareTitles else {
             return

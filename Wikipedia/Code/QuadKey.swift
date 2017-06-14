@@ -1,3 +1,5 @@
+import Foundation
+
 //https://msdn.microsoft.com/en-us/library/bb259689.aspx
 //http://wiki.openstreetmap.org/wiki/QuadTiles
 
@@ -96,18 +98,30 @@ public extension QuadKeyDegrees {
     public static func max(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
         return a > b ? a : b
     }
+    
+    public static func min(_ a: QuadKeyDegrees, _ b: QuadKeyDegrees) -> QuadKeyDegrees {
+        return a < b ? a : b
+    }
 }
 
 public extension QuadKeyPart {
     
     public init(latitude: QuadKeyDegrees) {
-        let nonNegativeLatitude = QuadKeyDegrees.max(0, latitude + QuadKeyDegrees.latitudeMax)
+        guard latitude.isFinite else {
+            self.init(QuadKeyPart(0))
+            return
+        }
+        let nonNegativeLatitude = QuadKeyDegrees.min(QuadKeyDegrees.latitudeRangeLength, QuadKeyDegrees.max(0, latitude + QuadKeyDegrees.latitudeMax))
         let partInDegrees = nonNegativeLatitude * QuadKeyDegrees.latitudeToPartConstant
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
     
     public init(longitude: QuadKeyDegrees) {
-        let nonNegativeLongitude = QuadKeyDegrees.max(0, longitude + QuadKeyDegrees.longitudeMax)
+        guard longitude.isFinite else {
+            self.init(QuadKeyPart(0))
+            return
+        }
+        let nonNegativeLongitude = QuadKeyDegrees.min(QuadKeyDegrees.longitudeRangeLength, QuadKeyDegrees.max(0, longitude + QuadKeyDegrees.longitudeMax))
         let partInDegrees = nonNegativeLongitude * QuadKeyDegrees.longitudeToPartConstant
         self.init(QuadKeyPart(partInDegrees.rounded()))
     }
@@ -214,6 +228,22 @@ public extension QuadKey {
             value >>= 1
         }
         return string
+    }
+    
+    public func coordinate(precision: QuadKeyPrecision) -> QuadKeyCoordinate {
+        return QuadKeyCoordinate(quadKey: self, precision: precision)
+    }
+    
+    public var coordinate: QuadKeyCoordinate {
+        return coordinate(precision: QuadKeyPrecision.maxPrecision)
+    }
+    
+    public var longitude: QuadKeyDegrees {
+        return coordinate.longitude
+    }
+    
+    public var latitude: QuadKeyDegrees {
+        return coordinate.latitude
     }
 }
 
