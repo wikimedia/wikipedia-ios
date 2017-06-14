@@ -1,17 +1,12 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
 
-[![Build Status](https://travis-ci.org/wikimedia/wikipedia-ios.svg)](https://travis-ci.org/wikimedia/wikipedia-ios) [![codecov.io](http://codecov.io/github/wikimedia/wikipedia-ios/coverage.svg?branch=master)](http://codecov.io/github/wikimedia/wikipedia-ios?branch=master) [![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt)
+[![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt)
 
-* OS target: iOS 9.3 or higher
-* Device target: iPhone, iPod, iPad
 * License: MIT License
 * Source repo: https://github.com/wikimedia/wikipedia-ios
-* Code review:
-  * GitHub: https://github.com/wikimedia/wikipedia-ios
-  * Gerrit: https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z
 * Planning (bugs & features): https://phabricator.wikimedia.org/project/view/782/
-* IRC chat: #wikimedia-mobile and #wikimedia-ios on irc.freenode.net
+* IRC chat: #wikimedia-ios on irc.freenode.net
 * Team page: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
 ## Development Team
@@ -20,29 +15,26 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 ## Building and Running
 
 ### Minimum Requirements
-* [Xcode 8.2.1](https://itunes.apple.com/us/app/xcode/id497799835) or higher  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
+* [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
 
+**Run `scripts/setup` before building & running in Xcode to install all of the required dependencies. This may take a while as it will also compile any code dependencies.**
 
-**If you'd rather not install the remaining dependencies yourself, you can run `scripts/setup` from the project directory to install them. This may take awhile as it will also compile any code dependencies.**
+`scripts/setup` will install:
 
 * [Homebrew](https://brew.sh)
 * [Carthage](https://github.com/Carthage/Carthage)
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+* A pre-commit hook that runs clang-format on any changed files
 
-At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
-
-> Quick note: you might not see an app icon when first building the project after a clean checkout. See [Wikipedia App Icons](docs/app-icons.md) for information about generating the icons.
+At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+) or messaging us on IRC in #wikimedia-ios on Freenode.
 
 ## Development
-### Architecture
-*TODO: We hope to have some high-level documentation on the application's architecture soon.*
-### Best practices and coding style
-You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [clang-format](#clang-format).
-### Dependencies
+
+### Third-party Dependencies
 We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.
 
 ## Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action.
 
 ## Contributing
 If you're interested in contributing to the project, you can find our current product, bug, and engineering backlogs on the [iOS App Phabricator project board](https://phabricator.wikimedia.org/project/view/782/). Once you pick a task, make sure you assign it to yourself to ensure nobody else duplicates your work.  The **#Easy** tag in Phabricator can also help you find tasks that are ideal for new contributors because they're small and/or well-defined.  We suggest you [filter the **#Easy** project to only show tasks in the Wikipedia iOS app projects](https://phabricator.wikimedia.org/project/board/169/query/OuulRzaqbmPh/).
@@ -92,5 +84,4 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 [fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
 
 ## Continuous Integration
-Continuous integration is run on [Jenkins](https://travis-ci.org) in response to pull request updates and merges to the **master** branch. See the `verify` lane in `fastlane/Fastfile` and our `.travis.yml` for details.
-
+Tests are run on [Jenkins](https://jenkins.io) in response to pull requests. Volunteer contributor pull requests require an `ok to test` comment on the pull request from a project admin before tests are run. 
