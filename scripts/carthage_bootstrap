@@ -12,10 +12,18 @@ fi
 
 export CARTHAGE="$SRCROOT/Carthage"
 export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
+export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
+
+if [ "$1" == "force" ]
+then
+	echo "Removing prebuilt dependencies..."
+	rm -rf "$CARTHAGE"
+	rm -rf "$CARTHAGE_CACHE"
+fi
+
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
 if ! cmp -s "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 then
-	export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 	rm -rf "$CARTHAGE"
 	if [ -d "$CARTHAGE_CACHE" ] && [ ! -d "$CARTHAGE" ]
 	then
