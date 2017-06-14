@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -51,6 +51,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="240" id="31O-uv-jWF"/>
                         <constraint firstAttribute="trailing" secondItem="klq-SJ-pvp" secondAttribute="trailing" constant="14" id="4pT-Hc-EfG"/>
                         <constraint firstAttribute="trailing" secondItem="Hkk-X5-bAA" secondAttribute="trailing" constant="14" id="5f4-KW-Nc3"/>
                         <constraint firstAttribute="trailing" secondItem="rjY-is-qJD" secondAttribute="trailing" constant="14" id="9Jb-u8-Du2"/>
@@ -116,6 +117,7 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Hcw-WG-NzJ" secondAttribute="bottom" id="CmN-k0-JEh"/>
                         <constraint firstItem="Hcw-WG-NzJ" firstAttribute="leading" secondItem="nxC-vP-z1C" secondAttribute="leading" id="Gyi-s5-9bY"/>
+                        <constraint firstAttribute="width" constant="240" id="SXY-h1-eWf"/>
                         <constraint firstItem="Hcw-WG-NzJ" firstAttribute="top" secondItem="nxC-vP-z1C" secondAttribute="top" id="eCd-Eq-rB4"/>
                         <constraint firstAttribute="height" constant="40" id="mHU-MY-KA2"/>
                         <constraint firstAttribute="trailing" secondItem="Hcw-WG-NzJ" secondAttribute="trailing" id="n6F-uf-PKQ"/>
