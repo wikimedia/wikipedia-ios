@@ -61,6 +61,9 @@
         case WMFContentGroupKindNews:
             URL = [WMFContentGroup newsContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
+        case WMFContentGroupKindOnThisDay:
+            URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
+            break;
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
@@ -82,6 +85,7 @@
             self.contentType = WMFContentTypeTopReadPreview;
             break;
         case WMFContentGroupKindNews:
+        case WMFContentGroupKindOnThisDay:
             self.contentType = WMFContentTypeStory;
             break;
         case WMFContentGroupKindUnknown:
@@ -139,6 +143,10 @@
             break;
         case WMFContentGroupKindNews:
             self.dailySortPriority = isPad ? 5 : 4;
+            break;
+        case WMFContentGroupKindOnThisDay:
+//TODO: figure out the right value(s) for this...
+            self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
@@ -286,6 +294,10 @@
 
 + (nullable NSURL *)newsContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
     return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"news"];
+}
+
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"on-this-day"];
 }
 
 + (nullable NSURL *)notificationContentGroupURL {

@@ -214,6 +214,8 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-footer" = "More historical events on this day";
+"on-this-day-title" = "On this day";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancel";
 "page-edit-history" = "Full edit history";

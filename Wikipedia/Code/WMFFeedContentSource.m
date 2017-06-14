@@ -195,6 +195,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindPictureOfTheDay];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindNews];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
 }
 
 #pragma mark - Save Groups
@@ -352,6 +353,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
+}
+
+- (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
 }
 
 #pragma mark - Notifications

@@ -642,6 +642,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindNews:
             return 1;
+        case WMFContentGroupKindOnThisDay:
+            return 1;
         case WMFContentGroupKindRelatedPages:
             return MIN(countOfFeedContent, [contentGroup maxNumberOfCells]) + 1;
         default:
@@ -1816,7 +1818,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 
     WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
-    if (lastGroup.contentGroupKind == WMFContentGroupKindNews && lastGroupIndex > 0) { //News can be added further back in the timeline, so don't use it as the date for this
+    if ((lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay) && lastGroupIndex > 0) { //News or On This Day can be added further back in the timeline, so don't use them as the date for this
         lastGroupIndex--;
         lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
     }
