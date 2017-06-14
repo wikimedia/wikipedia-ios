@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -132,11 +132,11 @@
             </subviews>
             <constraints>
                 <constraint firstItem="azY-0z-TnI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ge2-Ta-AgA"/>
-                <constraint firstAttribute="trailing" secondItem="azY-0z-TnI" secondAttribute="trailing" id="RwI-sC-bpl"/>
+                <constraint firstAttribute="trailing" secondItem="azY-0z-TnI" secondAttribute="trailing" priority="999" id="RwI-sC-bpl"/>
                 <constraint firstItem="nxC-vP-z1C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TEi-5o-4gI"/>
                 <constraint firstAttribute="bottom" secondItem="nxC-vP-z1C" secondAttribute="bottom" id="W2S-0a-L3T"/>
                 <constraint firstItem="nxC-vP-z1C" firstAttribute="top" secondItem="azY-0z-TnI" secondAttribute="bottom" constant="4" id="ZT5-Ce-f4n"/>
-                <constraint firstAttribute="trailing" secondItem="nxC-vP-z1C" secondAttribute="trailing" id="b8G-Oq-78M"/>
+                <constraint firstAttribute="trailing" secondItem="nxC-vP-z1C" secondAttribute="trailing" priority="999" id="b8G-Oq-78M"/>
                 <constraint firstItem="azY-0z-TnI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="q8g-MS-KNG"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
