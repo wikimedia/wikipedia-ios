@@ -42,6 +42,7 @@ class WMFMenuItemFragment {
       var title = document.createElement('div')
       title.className = 'footer_menu_item_title'
       title.innerText = wmfMenuItem.title
+      containerAnchor.title = wmfMenuItem.title
       containerAnchor.appendChild(title)
     }
 
@@ -68,7 +69,9 @@ function addItem(title, subtitle, iconType, containerID, clickHandler) {
 }
 
 function setHeading(headingString, headingID) {
-  document.getElementById(headingID).innerText = headingString
+  const headingElement = document.getElementById(headingID)
+  headingElement.innerText = headingString
+  headingElement.title = headingString
 }
 
 exports.IconTypeEnum = IconTypeEnum
