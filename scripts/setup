@@ -9,4 +9,4 @@ if ! xcode-select -p > /dev/null ; then \
 	xcode-select --install; \
 fi
 
-scripts/carthage_bootstrap
+scripts/carthage_bootstrap $1

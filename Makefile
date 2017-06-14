@@ -17,6 +17,9 @@ prebuild: setup
 build: ##Build the project
 build: setup
 	@xcodebuild
+	
+deps: ##Build deps from scratch. Uses carthage.
+	@./scripts/setup force
 
 #!!!!!
 #!!!!! Individual executable dependencies (instead of running the all of setup)
