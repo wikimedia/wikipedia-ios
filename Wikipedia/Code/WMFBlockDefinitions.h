@@ -20,7 +20,7 @@ typedef void (^WMFHistoryFetchResultsHandler)(HistoryFetchResults *results);
 typedef void (^WMFArrayOfNumbersHandler)(NSArray<NSNumber *> *_Nonnull results);
 typedef void (^WMFPlacemarkHandler)(CLPlacemark *result);
 
-typedef void (^WMFSuccessHandler)();
+typedef void (^WMFSuccessHandler)(void);
 typedef void (^WMFSuccessIdHandler)(id object);
 typedef void (^WMFSuccessUIImageHandler)(UIImage *image);
 typedef void (^WMFSuccessNSValueHandler)(NSValue *value);

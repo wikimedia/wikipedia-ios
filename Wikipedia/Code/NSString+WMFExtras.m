@@ -126,7 +126,7 @@
 
 - (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 {
-    float (^rnd)() = ^() {
+    float (^rnd)(void) = ^() {
         return (float)(rand() % (maxTimes - 1) + 1);
     };
 

@@ -1,7 +1,5 @@
 #import "WMFArticleTextActivitySource.h"
-@import WMF.MWKArticle_WMFSharing;
-@import WMF.WMFLocalization;
-@import WMF.NSURL_WMFLinkParsing;
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString string];
 }
 
-- (nullable id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+- (nullable id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(UIActivityType)activityType {
     if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] || [activityType isEqualToString:UIActivityTypeAirDrop]) {
         if (self.shareText.length > 0) {
             return self.shareText;

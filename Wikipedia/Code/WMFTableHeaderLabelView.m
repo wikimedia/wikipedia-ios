@@ -75,6 +75,7 @@
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
     [self removeAllClearButtonTargets];
     self.clearButtonHidden = YES;
 }
