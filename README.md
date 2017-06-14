@@ -30,6 +30,17 @@ At this point, you should be able to open `Wikipedia.xcodeproject` and run the a
 
 ## Development
 
+### Guidelines
+These are general guidelines rather than hard rules.
+
+#### Objective-C
+* [Apple's Coding Guidelines for Cocoa](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html)
+#### Swift
+* [swift.org API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
+
+### Formatting
+We use Xcode's default 4 space indentation and our `.clang-format` file with the pre-commit hook setup by `scripts/setup`. Currently, this does not enforce Swift formatting.
+
 ### Third-party Dependencies
 We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party native dependencies and [npm](#npm) for web.
 
