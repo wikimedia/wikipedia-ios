@@ -79,7 +79,7 @@ We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manage
  
 `brew install clang-format`
 
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu. You already have clang-format if you ran one of the setup scripts above.
+As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use a pre-commit hook to format code. The pre commit hook is `scripts/clang_format_diff` and is installed by `scripts/setup`.
 
 ### NPM
  
