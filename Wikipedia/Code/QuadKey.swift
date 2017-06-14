@@ -229,6 +229,22 @@ public extension QuadKey {
         }
         return string
     }
+    
+    public func coordinate(precision: QuadKeyPrecision) -> QuadKeyCoordinate {
+        return QuadKeyCoordinate(quadKey: self, precision: precision)
+    }
+    
+    public var coordinate: QuadKeyCoordinate {
+        return coordinate(precision: QuadKeyPrecision.maxPrecision)
+    }
+    
+    public var longitude: QuadKeyDegrees {
+        return coordinate.longitude
+    }
+    
+    public var latitude: QuadKeyDegrees {
+        return coordinate.latitude
+    }
 }
 
 public extension Int64 {
