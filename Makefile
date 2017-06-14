@@ -5,13 +5,13 @@ XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
 help: ##Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
-setup: ##Install all requried dependencies to build & run the app
+setup: ##Install all required dependencies to build & run the app
 	@./scripts/setup
 
-bootstrap: ##Install all requried dependencies to build & run the app (alias for setup)
+bootstrap: ##Install all required dependencies to build & run the app (alias for setup)
 bootstrap: setup
 
-prebuild: ##Install all requried dependencies to build & run the app (alias for setup)
+prebuild: ##Install all required dependencies to build & run the app (alias for setup)
 prebuild: setup
 	
 build: ##Build the project
