@@ -38,9 +38,7 @@ static NSString *const WMFHockeyAppIdentifier = @QUOTE(WMF_HOCKEYAPP_IDENTIFIER)
 #else
     [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelError;
 #endif
-    [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
     [BITHockeyManager sharedHockeyManager].metricsManager.disabled = NO;
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     //We always wnat usrs to have the chance to send a crash report.
     if ([[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus == BITCrashManagerStatusDisabled) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
