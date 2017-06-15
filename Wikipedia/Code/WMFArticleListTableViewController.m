@@ -71,12 +71,26 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self canDeleteItemAtIndexPath:indexPath];
-}
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return [self canDeleteItemAtIndexPath:indexPath];
+//}
+//
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [self deleteItemAtIndexPath:indexPath];
+//}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self deleteItemAtIndexPath:indexPath];
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSLog(@"In share action");
+    }];
+    shareAction.backgroundColor = [UIColor blueColor];
+    
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    return @[deleteAction,shareAction];
 }
 
 #pragma mark - Previewing
