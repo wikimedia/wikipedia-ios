@@ -81,6 +81,7 @@
 "button-save-for-later" = "保存以供日后使用";
 "button-saved-for-later" = "已保存以供日后使用";
 "button-saved-remove" = "从已保存内容中移除";
+"cc-by-sa-3.0" = "知识共享 署名-相同方式共享 3.0";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
@@ -378,7 +379,6 @@
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "cc-by-sa-3.0" = "知识共享 署名-相同方式共享 3.0";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-and-license" = "通过发布，即表明您同意遵守$1，并根据$2许可协议发表您的贡献，该授权不可撤回。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";

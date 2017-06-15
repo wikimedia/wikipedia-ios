@@ -94,6 +94,7 @@
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
 "button-saved-remove" = "Удалить из сохранённых";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
@@ -117,6 +118,7 @@
 "explore-another-random" = "Другая случайная статья";
 "explore-because-you-read" = "Потому что вы читали";
 "explore-continue-reading-heading" = "Продолжить чтение";
+"explore-enable-location-title" = "Изучите статьи возле вашего текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -166,6 +168,7 @@
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
 "forgot-password-title" = "Сбросить пароль";
 "forgot-password-username-or-email-title" = "Или";
+"gdfl" = "GDFL";
 "history-clear-all" = "Очистить";
 "history-clear-cancel" = "Отмена";
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
@@ -188,6 +191,7 @@
 "home-more-like-footer" = "Ещё похожее на $1";
 "home-nearby-footer" = "Ещё про то, что находится поблизости от вас";
 "home-nearby-location-footer" = "Ещё поблизости от $1";
+"home-news-footer" = "Больше в новостях";
 "home-title" = "Исследуйте!";
 "home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
 "icon-shortcut-continue-reading-title" = "Продолжить чтение";
@@ -254,6 +258,7 @@
 "page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-similar-titles" = "Похожие страницы";
+"pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-close-search" = "Закрыть поиск";
 "places-accessibility-group" = "$1 статьи";
@@ -261,6 +266,7 @@
 "places-accessibility-show-as-list" = "Показать как список";
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-more" = "Показать больше статей";
+"places-dismiss-filter-list-accessibility-label" = "Отказаться от поисковых фильтров";
 "places-empty-search-description" = "Искать города, страны, континенты, природные достопримечательности, исторические события, сооружения и многое другое";
 "places-empty-search-title" = "Искать статью по местоположению";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
@@ -274,8 +280,7 @@
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
-// Fuzzy
-"places-search-default-text" = "Найти";
+"places-search-default-text" = "Места поиска";
 "places-search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "places-search-recently-searched-header" = "Недавно искали";
 "places-search-saved-articles" = "Все сохранённые статьи";
@@ -389,7 +394,7 @@
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Войти";
-"wikitext-upload-save-terms-and-license" = "Публикуя, вы принимаете $1 и безоговорочно соглашаетесь разместить ваш вклад под лицензией $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Сохраняя изменения, вы соглашаетесь с $1 и с тем, что размещаете свой вклад под лицензиями $2 и $3.";
 "wikitext-upload-save-terms-name" = "Условия использования";
 "zero-charged-verbiage" = "Wikipedia Zero выключена";
 "zero-charged-verbiage-extended" = "При загрузке других статей может взиматься плата за передачу данных. Сохранённые статьи, хранящиеся автономно, не требуют передачи данных и поэтому бесплатны.";

@@ -70,6 +70,7 @@
 "button-save-for-later" = "Simpen kanggo mengko";
 "button-saved-for-later" = "Kasimpen kanggo mengko";
 "button-saved-remove" = "Busak saka panyimpenan";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "nalika pukul $1 thèng";
 "continue-reading-empty-description" = "Dlajahi Wikipédia supaya bisa maca werna-werna artikelé";
@@ -93,6 +94,7 @@
 "explore-another-random" = "Artikel sembarang liyané";
 "explore-because-you-read" = "Amarga panjenengan maca";
 "explore-continue-reading-heading" = "Bacutaké maca";
+"explore-enable-location-title" = "Njelajah artikel dekat lokasi saiki";
 "explore-featured-article-heading" = "Artikel pinilih";
 "explore-main-page-description" = "Kaca tepas proyèk-proyèké Wikimedia";
 "explore-main-page-heading" = "Dina iki ing Wikipédia";
@@ -142,6 +144,7 @@
 "forgot-password-instructions" = "Isinen ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung wadi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung wadi";
 "forgot-password-username-or-email-title" = "Utawa";
+"gdfl" = "GDFL";
 "history-clear-all" = "Busak";
 "history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
@@ -367,7 +370,7 @@
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-"wikitext-upload-save-terms-and-license" = "Kanthi mbabar, panjenengan sarujuk marang $1, lan nguculaké sumbangané panjenengan ing pangayomané lisènsi $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Miturut nerbitake owahan, sampeyan setuju $1 lan nglepasaken kontribusi panjenengan ing lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
 "zero-charged-verbiage" = "Wikipedia Zero mati";
 "zero-charged-verbiage-extended" = "Ngamot artikel liyané bokmanawa kena béya dhata. Artikel kasimpen sing ana ing njaban jaringan ora nganggo dhata lan gratis.";

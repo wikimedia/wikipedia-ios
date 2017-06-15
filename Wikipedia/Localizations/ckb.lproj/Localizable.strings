@@ -72,6 +72,7 @@
 "button-save-for-later" = "پاشەکەوت بۆ دواتر";
 "button-saved-for-later" = "پاشەکەوت کرا بۆ دواتر";
 "button-saved-remove" = "لە خەزێنەکراوەکانی لابەرە";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "داخستن";
 "compass-direction" = "لە کاتژمێر $1";
 "continue-reading-empty-description" = "ویکیپیدیا بگەڕێ بۆ دۆزینەوەی وتاری زیاتر بۆ خوێندنەوەیان";
@@ -91,9 +92,12 @@
 "empty-no-saved-pages-message" = "پەڕەکان خەزێنە بکە بۆ بینینیان لە دواتردا، بە ئۆفڵاینیش بەردەستن";
 "empty-no-saved-pages-title" = "ھێشتا ھیچ پەڕەیەک پاشەکەوت نەکراوە";
 "empty-no-search-results-message" = "ھیچ ئەنجامێک نەدۆزرایەوە";
+"error-unknown" = "ھەڵەیەکی نەناسراو ڕوویدا.";
 "explore-another-random" = "وتارێکی تر بە ھەڵکەوت";
+"explore-because-you-read" = "لەبەر ئەوەی ئەمەت خوێندەوە:";
 "explore-continue-reading-heading" = "بەردەوامبوون لە خوێندنەوە";
 "explore-featured-article-heading" = "وتاری ھەڵبژێردراو";
+"explore-main-page-description" = "پەڕەی دەستپێکی پرۆژەکانی ویکیمیدیا";
 "explore-main-page-heading" = "ئەمڕۆ لە ویکیپیدیا";
 "explore-most-read-footer-for-date" = "ھەموو وتارە زۆرترین خوێندراوەکان لە $1";
 "explore-most-read-generic-heading" = "زۆرترین خوێندراوە";
@@ -163,6 +167,7 @@
 "home-more-like-footer" = "زیاتر وەک $1";
 "home-nearby-footer" = "زیاتر لە نزیک شوێنەکەتەوە";
 "home-nearby-location-footer" = "زیاتر لە نزیک $1";
+"home-news-footer" = "زیاتر لە ھەواڵەکاندا";
 "home-title" = "دۆزینەوە";
 "home-title-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ سەری گەڕان";
 "icon-shortcut-continue-reading-title" = "بەردەوامبوون لە خوێندنەوە";
@@ -228,6 +233,7 @@
 "page-protected-sysop" = "ئەم پەڕەیە بە تەواوی پارێزراوە.";
 "page-read-in-other-languages" = "بە $1 زمان بەردەستە";
 "page-similar-titles" = "پەڕە لێکچووەکان";
+"pictured" = "وێنەکراو";
 "places-accessibility-clear-saved-searches" = "سڕینەوەی گەڕانە خەزنکراوەکان";
 "places-accessibility-close-search" = "داخستنەوەی گەڕان";
 "places-accessibility-group" = "$1 وتار";
@@ -235,6 +241,7 @@
 "places-accessibility-show-as-list" = "وەک پێڕست نیشانی بدە";
 "places-accessibility-show-as-map" = "وەک نەخشە بیشانی بدە";
 "places-accessibility-show-more" = "وتاری زیادتر پیشان بدە";
+"places-dismiss-filter-list-accessibility-label" = "پاڵێوەرەکانی گەڕان وەلا بنێ";
 "places-empty-search-description" = "بگەڕێ بەناو شارەکان، وڵاتەکان، کیشوەرەکان، شوێنە سروشتییەکان، ڕووداوە مێژووییەکان، تەلارەکان و زیاتر.";
 "places-empty-search-title" = "بۆ وتارەکانی ویکیپیدیا بگەڕێ بە ناوچەی جوگرافیاوە";
 "places-enable-location-action-button-title" = "لۆکەیشن کار پێ بکە";
@@ -248,13 +255,17 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 وتار|$1 وتار}}";
 "places-no-saved-articles-have-location" = "ھیچ کامێک لە وتارە پاشەکەوتکراوەکانت زانیاری ناوچەییان نییە";
 "places-search-articles-that-match" = "$1 لە «$2» دەچێت";
-// Fuzzy
-"places-search-default-text" = "گەڕان";
+"places-search-default-text" = "بە شوێنەکاندا بگەڕێ";
+"places-search-did-you-mean" = "ئایا مەبەستت لە $1 بوو؟";
 "places-search-recently-searched-header" = "گەڕانە نوێکان";
 "places-search-saved-articles" = "وتارە پاشەکەوتکراوەکان";
 "places-search-suggested-searches-header" = "گەڕانە پێشنیارکراوەکان";
 "places-search-this-area" = "ئەم ناوچەیە بگەڕێ";
 "places-search-top-articles" = "بەناوبانگترین وتارەکان";
+"places-search-top-articles-that-match-scope" = "لەم نزیکانەدا";
+"places-search-your-current-location" = "شوێنی ئێستات";
+"places-show-filter-list-accessibility-label" = "پاڵێوەرەکانی گەڕان پیشان بدە";
+"places-title" = "شوێنەکان";
 "places-unknown-distance" = "دوورییەکی نەزانراوە";
 "potd-description-prefix" = "وێنەی ڕۆژ بۆ $1";
 "potd-empty-error-description" = "ھێنانی وێنەی ڕۆژ بۆ $1 شکستی ھێنا";
@@ -263,6 +274,9 @@
 "rank-accessibility-label" = "ژمارە $1";
 "readers-accessibility-label" = "$1 خوێنەر";
 "reference-title" = "سەرچاوە $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=ئەمڕۆ|دوێنێ|$1 ڕۆژ لەمەوبەر}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=لەم ماوەیەدا|$1 سەعات لەمەوبەر|$1 سەعات لەمەوبەر}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=ھەر ئێستا|$1 دەقە لەمەوبەر|$1 دەقە لەمەوبەر}}";
 "request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
 "save-action" = "خەزێنەکردن";
 "saved-clear-all" = "سڕینەوە";
@@ -346,12 +360,13 @@
 "wikitext-downloading" = "ھێنانی ناوەڕۆک...";
 "wikitext-preview-changes" = "گۆڕانکارییەکانت بیشان دەدرێن...";
 "wikitext-preview-changes-none" = "ھیچ گۆڕانکارییەک نەکراوە تا نیشان بدرێت.";
+"wikitext-preview-link-preview-description" = "ئەم بەستەرە دەتگەێنێت بە «$1»";
+"wikitext-preview-link-preview-title" = "پێشبینی بەستەر";
 "wikitext-upload-captcha-error" = "ھەڵە لە دڵنیاکردنەوەی کاپچا";
 "wikitext-upload-captcha-needed" = "پێویستت بە دووپاتکردنەوەی کاپچایە";
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
-"wikitext-upload-save-terms-and-license" = "بە بڵاوکردنەوەی، تۆ ڕازیت بە $1، ڕازیشیت بە بڵاکردنەوەی ھەموو بەشدارییەکانت لەژێر بڕوانامەی $2";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";
 "zero-charged-verbiage" = "ویکیپیدیا زیرۆ کوژاوەتەوە";
 "zero-charged-verbiage-extended" = "کردنەوەی وتاری تر لەوانەیە داتا ببات. وتارە خەزێنە کراوەکان بۆ ئۆفڵاین خۆڕایین و داتا نابەن.";
@@ -360,6 +375,7 @@
 "zero-interstitial-continue" = "بەجێھێشتن";
 "zero-interstitial-leave-app" = "لەوانەیە داتات لێ بڕوات. بەردەوام دەبیت بۆ سایتی دەرەکی؟";
 "zero-interstitial-title" = "جێھێشتنی ویکیپیدیا زێرۆ";
+"zero-learn-more" = "ئەم ئاپە ھیچ یەکەیەک نابات.";
 "zero-learn-more-learn-more" = "زیاتر بخوێنەوە";
 "zero-learn-more-no-thanks" = "وازلێهێنان";
 "zero-warn-when-leaving" = "ئاگادارکردنەوە لەکاتی بەجێھێشتنی زیرۆ";

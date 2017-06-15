@@ -83,6 +83,7 @@
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
 "button-saved-remove" = "Ta bort från sparade";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Stäng";
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
@@ -106,6 +107,7 @@
 "explore-another-random" = "En annan slumpmässig artikel";
 "explore-because-you-read" = "Eftersom du läste";
 "explore-continue-reading-heading" = "Fortsätt läsa";
+"explore-enable-location-title" = "Utforska artiklar nära din nuvarande plats";
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -155,6 +157,7 @@
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";
 "forgot-password-title" = "Återställ lösenord";
 "forgot-password-username-or-email-title" = "Eller";
+"gdfl" = "GDFL";
 "history-clear-all" = "Rensa";
 "history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
@@ -380,7 +383,7 @@
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Logga in";
-"wikitext-upload-save-terms-and-license" = "Genom att publicera samtycker du till $1 och att oåterkalleligen släppa dina bidrag under licensen $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";

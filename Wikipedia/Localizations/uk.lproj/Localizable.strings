@@ -80,6 +80,7 @@
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";
 "button-saved-remove" = "Вилучити зі збережених";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Подосліджуйте Вікіпедію, щоб знайти більше статей для читання";
@@ -356,7 +357,6 @@
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Увійти";
-"wikitext-upload-save-terms-and-license" = "Зберігаючи зміни, Ви погоджуєтесь із $1 й невідклично публікуєте Ваш внесок під ліценцією $2.";
 "wikitext-upload-save-terms-name" = "Умови використання";
 "zero-charged-verbiage" = "Вікіпедія Zero вимкнена";
 "zero-charged-verbiage-extended" = "Під час завантаження інших статей може стягуватися плата за передачу даних. Збережені статті, що накопичуються автономно, не вимагають передачі даних і є безкоштовними.";

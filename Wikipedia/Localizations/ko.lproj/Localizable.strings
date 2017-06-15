@@ -85,6 +85,7 @@
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-remove" = "저장된 항목에서 제거";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
@@ -372,7 +373,6 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-and-license" = "게시하면, $1에 동의하고 영구히 $2 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";
