@@ -33,7 +33,6 @@
      p.lineSpacing = 5;
      
      [attributedText addAttribute:NSParagraphStyleAttributeName value:p range:NSMakeRange(0, attributedText.length)];
-     [attributedText addAttribute:NSParagraphStyleAttributeName value:p range:NSMakeRange(0, attributedText.length)];
      
      return attributedText;
 }
