@@ -280,26 +280,30 @@
         CGPoint sectionOrigin = CGPointMake(x, y);
 
         CGFloat sectionHeight = 0;
-
+        
         NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
 
-        __block CGFloat headerHeight = 0;
-        BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
-                                                 withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
-                                                     if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                         headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
-                                                         return CGRectMake(x, y, columnWidth, headerHeight);
-                                                     } else {
-                                                         headerHeight = existingFrame.size.height;
-                                                         return CGRectMake(x, y, columnWidth, headerHeight);
-                                                     }
-                                                 }];
-        if (didCreateOrUpdate) {
-            [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
+        if (metrics.hasHeaders) {
+            __block CGFloat headerHeight = 0;
+            BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
+                                                     withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
+                                                         if (wasCreated || section.needsToRecalculateEstimatedLayout) {
+                                                             headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                             return CGRectMake(x, y, columnWidth, headerHeight);
+                                                         } else {
+                                                             headerHeight = existingFrame.size.height;
+                                                             return CGRectMake(x, y, columnWidth, headerHeight);
+                                                         }
+                                                     }];
+            if (didCreateOrUpdate) {
+                [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
+            }
+            
+            assert(section.headers.count == 1);
+            
+            sectionHeight += headerHeight;
+            y += headerHeight;
         }
-
-        sectionHeight += headerHeight;
-        y += headerHeight;
 
         CGFloat itemX = x + sectionInsets.left;
         CGFloat itemWidth = columnWidth - sectionInsets.left - sectionInsets.right;
@@ -339,26 +343,31 @@
         }
 
         assert(section.items.count == numberOfItems);
-
+        
         sectionHeight += sectionInsets.bottom;
         y += sectionInsets.bottom;
 
-        __block CGFloat footerHeight = 0;
-        didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
-                                            withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
-                                                if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                    footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
-                                                    return CGRectMake(x, y, columnWidth, footerHeight);
-                                                } else {
-                                                    footerHeight = existingFrame.size.height;
-                                                    return CGRectMake(x, y, columnWidth, footerHeight);
-                                                }
-                                            }];
-        if (didCreateOrUpdate) {
-            [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
+        if (metrics.hasFooters) {
+            __block CGFloat footerHeight = 0;
+            BOOL didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
+                                                withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
+                                                    if (wasCreated || section.needsToRecalculateEstimatedLayout) {
+                                                        footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                        return CGRectMake(x, y, columnWidth, footerHeight);
+                                                    } else {
+                                                        footerHeight = existingFrame.size.height;
+                                                        return CGRectMake(x, y, columnWidth, footerHeight);
+                                                    }
+                                                }];
+            if (didCreateOrUpdate) {
+                [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
+            }
+            
+            assert(section.footers.count == 1);
+            
+            sectionHeight += footerHeight;
         }
 
-        sectionHeight += footerHeight;
 
         section.frame = (CGRect){sectionOrigin, CGSizeMake(columnWidth, sectionHeight)};
 
