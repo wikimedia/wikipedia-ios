@@ -88,12 +88,12 @@
         
         [self shareArticle:shareActivityController];
     }];
-    shareAction.backgroundColor = [UIColor blueColor];
+    shareAction.backgroundColor = [UIColor wmf_green];
     
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [self deleteItemAtIndexPath:indexPath];
     }];
-    deleteAction.backgroundColor = [UIColor redColor];
+    deleteAction.backgroundColor = [UIColor wmf_red];
     return @[deleteAction,shareAction];
 }
 
