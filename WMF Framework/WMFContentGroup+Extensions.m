@@ -85,8 +85,10 @@
             self.contentType = WMFContentTypeTopReadPreview;
             break;
         case WMFContentGroupKindNews:
-        case WMFContentGroupKindOnThisDay:
             self.contentType = WMFContentTypeStory;
+            break;
+        case WMFContentGroupKindOnThisDay:
+            self.contentType = WMFContentTypeOnThisDayEvent;
             break;
         case WMFContentGroupKindUnknown:
             assert(false);

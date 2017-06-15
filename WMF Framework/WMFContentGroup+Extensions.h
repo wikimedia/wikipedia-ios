@@ -10,7 +10,8 @@ typedef NS_ENUM(int16_t, WMFContentType) {
     WMFContentTypeImage = 2,
     WMFContentTypeTopReadPreview = 3,
     WMFContentTypeStory = 4,
-    WMFContentTypeAnnouncement = 5
+    WMFContentTypeAnnouncement = 5,
+    WMFContentTypeOnThisDayEvent = 6
 };
 
 typedef NS_ENUM(int32_t, WMFContentGroupKind) {

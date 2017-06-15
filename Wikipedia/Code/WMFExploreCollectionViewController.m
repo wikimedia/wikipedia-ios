@@ -227,6 +227,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
             return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
         }];
+    } else if ([group contentType] == WMFContentTypeOnThisDayEvent) {
+        content = [content wmf_map:^id(WMFFeedOnThisDayEvent *obj) {
+            return [[[obj articlePreviews] firstObject] articleURL];
+        }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
     }
@@ -269,6 +273,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return nil;
         }
         return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+    } else if ([section contentType] == WMFContentTypeOnThisDayEvent) {
+        NSArray<WMFFeedOnThisDayEvent *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            return nil;
+        }
+        return [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -313,6 +323,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             articleURL = nil;
         }
         articleURL = [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+        width = self.traitCollection.wmf_nearbyThumbnailWidth;
+    } else if ([section contentType] == WMFContentTypeOnThisDayEvent) {
+        NSArray<WMFFeedOnThisDayEvent *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (indexPath.row >= [content count]) {
+            articleURL = nil;
+        }
+        articleURL = [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
         width = self.traitCollection.wmf_nearbyThumbnailWidth;
     } else {
         return nil;
