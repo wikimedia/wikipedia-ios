@@ -88,6 +88,7 @@
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "ذخیره برای بعد";
 "button-saved-remove" = "حذف از ذخیره‌شده";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "بستن";
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
@@ -257,6 +258,7 @@
 "places-accessibility-show-as-list" = "نمایش به عنوان فهرست";
 "places-accessibility-show-as-map" = "نمایش به عنوان نقشه";
 "places-accessibility-show-more" = "نمایش مقاله‌های بیشتر";
+"places-dismiss-filter-list-accessibility-label" = "رها کردن جستجوی پالایه";
 "places-empty-search-description" = "کاوش شهرها، کشورها، قاره‌ها، جاذبه‌های طبیعی، رویدادهای تاریخی، ساختمان‌ها و موارد دیگر.";
 "places-empty-search-title" = "جستجو برای مقالات ویکی‌پدیا که موقعیت جغرافیایی دارند";
 "places-enable-location-action-button-title" = "فعال‌کردن موقعیت";
@@ -270,14 +272,16 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}}";
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
 "places-search-articles-that-match" = "$1 منتطبق با «$2»";
-// Fuzzy
-"places-search-default-text" = "جستجو";
+"places-search-default-text" = "جستجوی مکان‌ها";
 "places-search-did-you-mean" = "منظورتان «$1» بود؟";
 "places-search-recently-searched-header" = "جستجوهای اخیر";
 "places-search-saved-articles" = "همهٔ مقاله‌های ذخیره شده";
 "places-search-suggested-searches-header" = "جستجوهای پیشنهاد شده";
 "places-search-this-area" = "نتیجه‌ها در این محدوده";
 "places-search-top-articles" = "همهٔ مقالات برتر";
+"places-search-top-articles-that-match-scope" = "در نزدیکی";
+"places-search-your-current-location" = "موقعیت کنونی شما";
+"places-show-filter-list-accessibility-label" = "نمایش جستجوی پالایه‌ها";
 "places-title" = "مکان‌ها";
 "places-unknown-distance" = "مسافت‌های نامشخص";
 "potd-description-prefix" = "تصویر روز برای $1";
@@ -287,6 +291,9 @@
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
 "reference-title" = "منبع $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=امروز|دیروز|$1 روز پیش}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "save-action" = "ذخیره";
 "saved-clear-all" = "پاک‌کردن";
@@ -377,9 +384,7 @@
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "ورود";
-"wikitext-upload-save-terms-and-license" = "با منتشر کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";

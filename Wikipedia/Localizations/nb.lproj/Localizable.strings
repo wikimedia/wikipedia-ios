@@ -78,6 +78,7 @@
 "button-save-for-later" = "Lagre til senere";
 "button-saved-for-later" = "Lagret til senere";
 "button-saved-remove" = "Fjern fra lagrede";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Lukk";
 "compass-direction" = "mot kl. $1";
 "continue-reading-empty-description" = "Utforsk Wikipedia for flere artikler å lese";
@@ -359,9 +360,7 @@
 "wikitext-upload-result-unknown" = "Kunne ikke avgjøre resultatet av oppdateringen.";
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Logg inn";
-"wikitext-upload-save-terms-and-license" = "Ved å publisere samtykker du til $1, og til å ugjenkallelig slippe bidragene dine under $2-lisensen.";
 "wikitext-upload-save-terms-name" = "Bruksvilkår";
 "zero-charged-verbiage" = "Wikipedia Zero er skrudd av";
 "zero-charged-verbiage-extended" = "Innlasting av artikler kan føre til at datakostnader påløper. Visning av lagrede artikler fører imidlertid ikke til databruk og er gratis.";

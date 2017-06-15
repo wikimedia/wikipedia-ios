@@ -73,6 +73,7 @@
 "button-save-for-later" = "Für später speichern";
 "button-saved-for-later" = "Für später gespeichert";
 "button-saved-remove" = "Von gespeichert entfernen";
+"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "close-button-accessibility-label" = "Schließen";
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
@@ -96,6 +97,7 @@
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-because-you-read" = "Weil du liest";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
+"explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Vorgestellter Artikel";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -145,6 +147,7 @@
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
+"gdfl" = "GFDL";
 "history-clear-all" = "Löschen";
 "history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
@@ -368,9 +371,8 @@
 "wikitext-upload-result-unknown" = "Das Ergebnis deines Wikitext-Uploads konnte nicht ermittelt werden.";
 "wikitext-upload-save" = "Veröffentliche …";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
-"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Anmelden";
-"wikitext-upload-save-terms-and-license" = "Mit dem Veröffentlichen stimmst du den $1 und der unwiderruflichen Veröffentlichung deiner Beiträge unter der $2-Lizenz zu.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Durch das Veröffentlichen von Änderungen stimmst du den $1 und der Veröffentlichung deines Beitrags unter den Lizenzen $2 und $3 zu.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ist aus";
 "zero-charged-verbiage-extended" = "Das Laden weiterer Artikel kann Datenübertragungsgebühren verursachen. Offline gespeicherte Artikel verwenden keine Daten und sind kostenlos.";

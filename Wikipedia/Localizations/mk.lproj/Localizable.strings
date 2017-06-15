@@ -72,6 +72,7 @@
 "button-save-for-later" = "Зачувај за подоцна";
 "button-saved-for-later" = "Зачувано за подоцна";
 "button-saved-remove" = "Отстрани од зачувани";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
@@ -95,6 +96,7 @@
 "explore-another-random" = "Друга случајна статија";
 "explore-because-you-read" = "Бидејќи читавте";
 "explore-continue-reading-heading" = "Продолжете со читање";
+"explore-enable-location-title" = "Истражете статии околу вашето тековно наоѓалиште";
 "explore-featured-article-heading" = "Избрани статии";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -144,6 +146,7 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-username-or-email-title" = "Или";
+"gdfl" = "ГЛСД";
 "history-clear-all" = "Исчисти";
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
@@ -367,9 +370,8 @@
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Најава";
-"wikitext-upload-save-terms-and-license" = "Објавувајќи ги промените, се согласувате со $1 и дека неотповикливо ги објавувате на вашите придонеси под лиценцата $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3 license.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";

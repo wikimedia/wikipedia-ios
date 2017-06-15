@@ -72,6 +72,7 @@
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zarrar";
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
@@ -367,9 +368,7 @@
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
-"wikitext-upload-save-terms-and-license" = "Al espublizar, aceutes les $1 y lliberar les tos collaboraciones baxo la llicencia $2.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";

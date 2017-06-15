@@ -75,6 +75,7 @@
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
 "button-saved-remove" = "Quitar dos gardados";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Pechar";
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
@@ -98,6 +99,7 @@
 "explore-another-random" = "Outro artigo aleatorio";
 "explore-because-you-read" = "Porque vostede leu";
 "explore-continue-reading-heading" = "Continuar lendo";
+"explore-enable-location-title" = "Explorar artigos preto da súa localización actual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -147,6 +149,7 @@
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
+"gdfl" = "GDFL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
@@ -370,9 +373,8 @@
 "wikitext-upload-result-unknown" = "Non é posible determinar o resultado da subida do wikitexto.";
 "wikitext-upload-save" = "Publicando...";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
-"wikitext-upload-save-terms-and-license" = "Ó publicar acepta os $1 e a liberar irrevocablemente as súas contribucións baixo os termos da licenza $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ó publicar cambios, vostede acepta os $1 e acepta liberar a súa contribución baixo as licenzas $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivada";
 "zero-charged-verbiage-extended" = "Cargar outros artigos pode facer que se aplique a súa tarifa de datos. Os artigos gardados e almacenados sen conexión non usan os datos e o seu acceso é gratuíto.";
