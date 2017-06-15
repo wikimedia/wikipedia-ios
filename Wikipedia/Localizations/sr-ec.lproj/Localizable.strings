@@ -366,9 +366,7 @@
 "wikitext-upload-save" = "Објављујем...";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси Вашег уређаја. Ако кликнете на дугме $1, имаћете више приватности.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
-=======
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
->>>>>>> origin/twn
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-name" = "условима коришћења";
 "zero-charged-verbiage" = "Wikipedia Zero је искључена";
