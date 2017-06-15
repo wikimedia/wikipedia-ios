@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 /**
  *  Protocol for easily creating arbitrary and unique instances of model objects.
  *

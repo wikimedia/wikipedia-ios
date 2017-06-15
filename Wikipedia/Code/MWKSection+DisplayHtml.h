@@ -1,3 +1,5 @@
+#import <WMF/MWKSection.h>
+
 @interface MWKSection (DisplayHtml)
 
 /*

@@ -1,4 +1,11 @@
-#import "WMFImageURLParsing.h"
+#import <WMF/MWKImageInfo.h>
+#import <WMF/WMFImageURLParsing.h>
+#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
+#import <WMF/MWKLicense.h>
+@import UIKit;
+#import <WMF/WMFComparison.h>
+#import <WMF/WMFHashing.h>
+#import <WMF/NSString+WMFExtras.h>
 
 // !!!: don't change key constants w/o writing conversion code to pull values from the old keys
 // Model Version 1.0.0

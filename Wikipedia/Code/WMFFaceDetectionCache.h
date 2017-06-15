@@ -1,4 +1,5 @@
 @import UIKit;
+#import <WMF/WMFBlockDefinitions.h>
 
 @class MWKImage;
 

@@ -1,6 +1,5 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "WMFHashing.h"
+@import WMF;
 
 @interface CircularBitwiseRotationTests : XCTestCase
 

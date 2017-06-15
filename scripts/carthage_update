@@ -10,12 +10,13 @@ then
 	export CACHEROOT="$SRCROOT/Carthage Cache/"
 fi
 
-export CARTHAGE_SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, /^[0-9a-f]*/) { print substr($0, RSTART, RLENGTH) }'`
+export CARTHAGE="$SRCROOT/Carthage"
+export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
+echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
 export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 rm -rf "$CARTHAGE"
-carthage update --platform iOS 2> /dev/null
-plutil -replace CFBundleVersion -string 4.0.0 "$SRCROOT/Carthage/Build/iOS/SDWebImage.framework/Info.plist"
-cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
+carthage update --platform iOS --cache-builds 2> /dev/null
+mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 then
 	mkdir -p "$CACHEROOT"

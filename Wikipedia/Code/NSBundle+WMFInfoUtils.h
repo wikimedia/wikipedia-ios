@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSBundle (WMFInfoUtils)
 
@@ -28,6 +28,5 @@
 
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
 - (NSString *)wmf_versionForCurrentBundleIdentifier;
-
 
 @end

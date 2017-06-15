@@ -1,5 +1,6 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
+@import WMF;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindContinueReading:
             return [UIImage imageNamed:@"home-continue-reading-mini"];
         case WMFContentGroupKindMainPage:
-            return [UIImage imageNamed:@"news-mini"];
+            return [UIImage imageNamed:@"today-mini"];
         case WMFContentGroupKindRelatedPages:
             return [UIImage imageNamed:@"recent-mini"];
         case WMFContentGroupKindLocation:
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             return [UIImage imageNamed:@"trending-mini"];
         case WMFContentGroupKindNews:
-            return [UIImage imageNamed:@"news-mini"];
+            return [UIImage imageNamed:@"in-the-news-mini"];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:

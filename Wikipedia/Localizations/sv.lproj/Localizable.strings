@@ -378,7 +378,7 @@
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Logga in";
 "wikitext-upload-save-terms-and-license" = "Genom att publicera samtycker du till $1 och att oåterkalleligen släppa dina bidrag under licensen $2.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";

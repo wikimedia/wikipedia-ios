@@ -1,6 +1,9 @@
-#import "EventLogger.h"
-#import "NSString+WMFExtras.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/EventLogger.h>
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/WikipediaAppUtils.h>
+#import <WMF/WMF-Swift.h>
+
+#define NEW_EVENT_LOGGING 1
 
 NSString *const WMFLoggingEndpoint =
     // production
@@ -17,6 +20,11 @@ NSString *const WMFLoggingEndpoint =
     self = [super init];
     if (self) {
         if (event && schema && wiki) {
+
+#if NEW_EVENT_LOGGING
+            NSDictionary *capsule = [NSDictionary wmf_eventCapsuleWithEvent:event schema:schema revision:revision wiki:wiki];
+            [[WMFEventLoggingService sharedInstance] logEvent:capsule];
+#else
             NSDictionary *payload =
                 @{
                     @"event": event,
@@ -24,7 +32,6 @@ NSString *const WMFLoggingEndpoint =
                     @"schema": schema,
                     @"wiki": wiki
                 };
-
             NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
             NSString *payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", payloadJsonString);
@@ -39,6 +46,7 @@ NSString *const WMFLoggingEndpoint =
              */
 
             [[[NSURLSession sharedSession] dataTaskWithRequest:request] resume];
+#endif
         }
     }
     return self;

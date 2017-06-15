@@ -1,3 +1,8 @@
+#import <WMF/MWKRecentSearchEntry.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMFHashing.h>
+
 @interface MWKRecentSearchEntry ()
 
 @property (readwrite, copy, nonatomic) NSString *searchTerm;

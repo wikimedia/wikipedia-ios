@@ -9,14 +9,11 @@
 #import "WMFCompassView.h"
 
 // Utils
-#import "WMFGeometry.h"
-#import "NSString+WMFDistance.h"
-#import "UIColor+WMFStyle.h"
+#import <WMF/WMFGeometry.h>
+#import <WMF/NSString+WMFDistance.h>
 #import "UIFont+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import "UIImageView+WMFPlaceholder.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFNearbyArticleCollectionViewCell ()
@@ -102,7 +99,7 @@
         [attributedTitleAndDescription appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"\n"]];
         [attributedTitleAndDescription appendAttributedString:searchResultDescription];
     }
-   
+
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineBreakMode = NSLineBreakByTruncatingTail;
     [attributedTitleAndDescription addAttribute:NSParagraphStyleAttributeName

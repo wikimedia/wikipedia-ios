@@ -1,4 +1,4 @@
-#import "MWKLanguageLinkController_Private.h"
+#import <WMF/MWKLanguageLinkController_Private.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN

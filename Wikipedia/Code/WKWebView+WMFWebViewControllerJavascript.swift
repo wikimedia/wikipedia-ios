@@ -1,5 +1,5 @@
 
-import Foundation
+import WebKit
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
@@ -135,11 +135,6 @@ extension WKWebView {
         let saveForLaterString = SaveButton.saveTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let savedForLaterString = SaveButton.savedTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
 
-        let tapHandler =
-            "function(href){" +
-                "window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })" +
-        "}"
-
         let saveButtonTapHandler =
         "function(title){" +
             "window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})" +
@@ -150,7 +145,7 @@ extension WKWebView {
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(tapHandler), \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }

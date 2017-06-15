@@ -1,4 +1,8 @@
 #import "WMFAnnouncement.h"
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 @implementation WMFAnnouncement
 
@@ -13,7 +17,7 @@
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-               WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
+              WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
               WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
     };
 }
@@ -66,7 +70,7 @@
         if (value) {
             value = [@[value, @"\n"] componentsJoinedByString:@""];
         }
-        
+
         return [value wmf_attributedStringWithLinksFromHTMLTags];
     }];
 }

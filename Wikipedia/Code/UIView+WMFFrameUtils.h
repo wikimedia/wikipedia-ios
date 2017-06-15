@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) __attribute__((const)) __attribute__((pure));
 

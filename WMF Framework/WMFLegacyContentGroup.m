@@ -1,4 +1,4 @@
-#import "WMFLegacyContentGroup.h"
+#import <WMF/WMFLegacyContentGroup.h>
 
 @interface WMFLegacyContentGroup ()
 

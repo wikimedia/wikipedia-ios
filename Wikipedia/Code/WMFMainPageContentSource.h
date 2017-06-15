@@ -1,4 +1,4 @@
-#import "WMFContentSource.h"
+#import <WMF/WMFContentSource.h>
 
 @interface WMFMainPageContentSource : NSObject <WMFContentSource>
 

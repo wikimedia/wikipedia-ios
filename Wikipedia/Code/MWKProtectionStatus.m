@@ -1,3 +1,5 @@
+#import <WMF/MWKProtectionStatus.h>
+
 @interface MWKProtectionStatus ()
 
 @property (nonatomic, strong) NSDictionary *protection;

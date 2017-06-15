@@ -1,6 +1,9 @@
-#import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
-#import "CLLocationManager+WMFLocationManagers.h"
+@import UIKit;
+#import <WMF/WMFLocationManager.h>
+#import <WMF/WMFLocationSearchFetcher.h>
+#import <WMF/CLLocationManager+WMFLocationManagers.h>
+#import <WMF/WMFLogging.h>
+#import <WMF/EXTScope.h>
 
 static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelInfo;
 

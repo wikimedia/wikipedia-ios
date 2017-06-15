@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @class MWKDataStore;
 
 @interface WMFSettingsViewController : UIViewController

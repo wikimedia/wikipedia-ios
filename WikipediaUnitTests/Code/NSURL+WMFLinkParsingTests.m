@@ -1,6 +1,5 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "NSURL+WMFLinkParsing.h"
+#import <WMF/NSURL+WMFLinkParsing.h>
 #import "NSString+WMFPageUtilities.h"
 
 #define MOCKITO_SHORTHAND 1

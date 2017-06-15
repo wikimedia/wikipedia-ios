@@ -1,4 +1,4 @@
-#import "WMFApiJsonResponseSerializer.h"
+#import <WMF/WMFApiJsonResponseSerializer.h>
 
 /**
  * Converts langlink query responses into the form of `[String:[MWKLanguageLink]]` where the string

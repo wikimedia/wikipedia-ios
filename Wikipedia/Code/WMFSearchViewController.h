@@ -1,4 +1,5 @@
-#import <UIKit/UIKit.h>
+@import WMF.Swift;
+@import UIKit;
 
 @class MWKDataStore;
 

@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import WMF.WMFDeprecationMacros;
 
 @interface NSObject (WMFExtras)
 

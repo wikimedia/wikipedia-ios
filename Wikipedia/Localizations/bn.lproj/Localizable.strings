@@ -348,7 +348,7 @@
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
-"wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
+"cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-and-license" = "প্রকাশ করার দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 লাইসেন্সের অধীনে অপরিবর্তনীয় প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";

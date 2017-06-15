@@ -1,7 +1,7 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UITabBarItem (WMFStyling)
 
-+ (NSDictionary*)wmf_rootTabBarItemStyleForState:(UIControlState)state;
++ (NSDictionary *)wmf_rootTabBarItemStyleForState:(UIControlState)state;
 
 @end

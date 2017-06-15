@@ -1,18 +1,20 @@
-#import "WMFRelatedSearchFetcher.h"
+#import <WMF/WMFRelatedSearchFetcher.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 //AFNetworking
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFMantleJSONResponseSerializer.h"
-#import <Mantle/Mantle.h>
-#import "WMFBaseRequestSerializer.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/WMFMantleJSONResponseSerializer.h>
+@import Mantle;
+#import <WMF/WMFBaseRequestSerializer.h>
 
 //Models
-#import "WMFRelatedSearchResults.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFRelatedSearchResults.h>
+#import <WMF/MWKSearchResult.h>
 
-#import "NSDictionary+WMFCommonParams.h"
+#import <WMF/NSDictionary+WMFCommonParams.h>
+#import <WMF/WMFLogging.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +25,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @interface WMFRelatedSearchRequestParameters : NSObject
 @property (nonatomic, strong) NSURL *articleURL;
 @property (nonatomic, assign) NSUInteger numberOfResults;
-
 @end
 
 @interface WMFRelatedSearchRequestSerializer : WMFBaseRequestSerializer
@@ -112,11 +113,14 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 - (NSDictionary *)serializedParams:(WMFRelatedSearchRequestParameters *)params {
     NSNumber *numResults = @(params.numberOfResults);
+    NSURL *articleURL = params.articleURL;
+    NSString *articleTitle = articleURL.wmf_title;
+    NSString *gsrsearch = [NSString stringWithFormat:@"morelike:%@", articleTitle];
     NSMutableDictionary *baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
     [baseParams setValuesForKeysWithDictionary:@{
         @"generator": @"search",
         // search
-        @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
+        @"gsrsearch": gsrsearch,
         @"gsrnamespace": @0,
         @"gsrwhat": @"text",
         @"gsrinfo": @"",

@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 @class MWKDataStore;
 
 @protocol MWKDataStoreList

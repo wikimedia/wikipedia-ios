@@ -1,6 +1,4 @@
-#import <Foundation/Foundation.h>
-
-#import "MWKDataObject.h"
+#import <WMF/MWKDataObject.h>
 
 @class MWKArticle;
 

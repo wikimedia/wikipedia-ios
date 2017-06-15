@@ -1,4 +1,6 @@
-#import "NSURL+WMFMainPage.h"
+#import <WMF/NSURL+WMFMainPage.h>
+#import <WMF/WMFAssetsFile.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @implementation NSURL (WMFMainPage)
 

@@ -1,5 +1,6 @@
 #import "WMFFeedNotificationHeader.h"
 #import "WMFLeadingImageTrailingTextButton.h"
+@import WMF.WMFLocalization;
 
 @implementation WMFFeedNotificationHeader
 

@@ -1,8 +1,8 @@
-#import "WMFImageTagParser.h"
-#import "WMFImageTag.h"
-#import "WMFImageTagList.h"
-#import "WMFImageURLParsing.h"
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/WMFImageTagParser.h>
+#import <WMF/WMFImageTag.h>
+#import <WMF/WMFImageTagList.h>
+#import <WMF/WMFImageURLParsing.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

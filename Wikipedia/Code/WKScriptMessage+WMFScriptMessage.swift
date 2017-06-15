@@ -1,3 +1,4 @@
+import WebKit
 
 @objc public enum WMFWKScriptMessage: Int {
     case unknown
@@ -6,7 +7,6 @@
     case imageClicked
     case referenceClicked
     case editClicked
-    case nonAnchorTouchEndedWithoutDragging
     case lateJavascriptTransform
     case articleState
     case findInPageMatchesFound
@@ -20,8 +20,6 @@ extension WKScriptMessage {
 
     public class func wmf_typeForMessageName(_ name: String) -> WMFWKScriptMessage {
         switch name {
-        case "nonAnchorTouchEndedWithoutDragging":
-            return .nonAnchorTouchEndedWithoutDragging
         case "linkClicked":
             return .linkClicked
         case "imageClicked":
@@ -53,8 +51,7 @@ extension WKScriptMessage {
 
     public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
         switch type {
-        case .nonAnchorTouchEndedWithoutDragging,
-             .linkClicked,
+        case .linkClicked,
              .imageClicked,
              .referenceClicked,
              .editClicked,

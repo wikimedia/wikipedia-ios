@@ -1,7 +1,7 @@
-#import "WMFContinueReadingContentSource.h"
-#import "MWKDataStore.h"
-#import "MWKHistoryEntry.h"
-#import "MWKArticle.h"
+#import <WMF/WMFContinueReadingContentSource.h>
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKHistoryEntry.h>
+#import <WMF/MWKArticle.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -43,7 +43,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
     NSURL *continueReadingURL = [WMFContentGroup continueReadingContentGroupURL];
     [moc performBlock:^{
-        WMFContentGroup * group = [moc contentGroupForURL:continueReadingURL];
+        WMFContentGroup *group = [moc contentGroupForURL:continueReadingURL];
         if (!shouldShowContinueReading) {
             if (group) {
                 [moc removeContentGroup:group];
@@ -53,27 +53,27 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             }
             return;
         }
-        
+
         NSURL *savedURL = (NSURL *)[group.content firstObject];
-        
+
         if ([savedURL isEqual:lastRead]) {
             if (completion) {
                 completion();
             }
             return;
         }
-        
+
         WMFArticle *userData = [moc fetchArticleWithURL:lastRead];
-        
+
         if (userData == nil) {
             if (completion) {
                 completion();
             }
             return;
         }
-        
+
         [moc fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:NULL];
-        
+
         if (completion) {
             completion();
         }

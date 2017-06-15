@@ -1,11 +1,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
-
-#import "Global.h"
 #import "WMFZeroConfigurationManager.h"
-#import "SessionSingleton.h"
-#import "WMFZeroConfiguration.h"
-#import <SafariServices/SFSafariViewController.h>
-#import "NSURL+WMFExtras.h"
+@import WMF;
+@import SafariServices.SFSafariViewController;
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 

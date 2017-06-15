@@ -1,6 +1,9 @@
 #import "WMFSearchDataSource.h"
 #import "WMFSearchResults.h"
-#import "MWKSearchResult.h"
+@import WMF.MWKSearchResult;
+@import WMF.WMFComparison;
+@import WMF.Swift;
+@import WMF.NSURL_WMFLinkParsing;
 
 @interface WMFSearchDataSource ()
 

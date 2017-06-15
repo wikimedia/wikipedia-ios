@@ -1,6 +1,4 @@
-#import <Foundation/Foundation.h>
-#import "FetcherBase.h"
-
+@import WMF.FetcherBase;
 @class AFHTTPSessionManager;
 
 @interface PreviewHtmlFetcher : FetcherBase

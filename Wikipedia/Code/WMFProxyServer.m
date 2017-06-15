@@ -1,12 +1,10 @@
 #import "WMFProxyServer.h"
 @import GCDWebServers;
-#import "NSURL+WMFExtras.h"
-#import "NSString+WMFExtras.h"
-#import "NSURL+WMFProxyServer.h"
+#import <WMF/NSURL+WMFProxyServer.h>
 #import "Wikipedia-Swift.h"
-#import "WMFImageTag.h"
-#import "WMFImageTag+TargetImageWidthURL.h"
-#import "NSString+WMFHTMLParsing.h"
+#import <WMF/WMFImageTag.h>
+#import <WMF/WMFImageTag+TargetImageWidthURL.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
 
 static const NSInteger WMFCachedResponseCountLimit = 4;
 
@@ -176,7 +174,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
                 APIProxyURLComponents.scheme = request.URL.scheme;
                 NSURL *APIURL = APIProxyURLComponents.URL;
                 [self handleAPIRequestForURL:APIURL completionBlock:completionBlock];
-            
+
                 return;
             }
             notFound();
@@ -191,18 +189,18 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 - (void)handleAPIRequestForURL:(NSURL *)URL completionBlock:(GCDWebServerCompletionBlock)completionBlock {
     GCDWebServerErrorResponse *notFound = [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"Wikipedia API endpoint not found"];
     NSAssert(URL, @"Wikipedia API URL should not be nil");
-    
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSURLSessionDataTask *APIRequestTask =
-    [[NSURLSession sharedSession] dataTaskWithRequest:request
-                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                        if (response && data) {
-                                            completionBlock([[GCDWebServerDataResponse alloc] initWithData:data contentType:response.MIMEType]);
-                                        } else {
-                                            completionBlock(notFound);
-                                        }
-                                    }];
+        [[NSURLSession sharedSession] dataTaskWithRequest:request
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            if (response && data) {
+                                                completionBlock([[GCDWebServerDataResponse alloc] initWithData:data contentType:response.MIMEType]);
+                                            } else {
+                                                completionBlock(notFound);
+                                            }
+                                        }];
     APIRequestTask.priority = NSURLSessionTaskPriorityLow;
     [APIRequestTask resume];
 }
@@ -236,7 +234,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imgURL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
-    
+
     if (cachedResponse.response && cachedResponse.data) {
         NSString *mimeType = cachedResponse.response.MIMEType;
         if (mimeType == nil) {
@@ -283,7 +281,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     if (secret == nil || serverURL == nil) {
         return nil;
     }
-    
+
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyAPIBasePath, host]];
     return components.URL;

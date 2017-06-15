@@ -1,5 +1,5 @@
-#import "MWKImageInfo.h"
-#import "MWKImage.h"
+#import <WMF/MWKImageInfo.h>
+#import <WMF/MWKImage.h>
 
 @interface MWKImageInfo (MWKImageComparison)
 

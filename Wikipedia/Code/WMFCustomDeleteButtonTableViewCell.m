@@ -1,5 +1,5 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 @interface WMFCustomDeleteButtonTableViewCell ()
 

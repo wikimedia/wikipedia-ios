@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import <WMF/WMF-Swift.h>
+@import WMF.Swift;
 
 @interface WMFLocaleTests : XCTestCase
 

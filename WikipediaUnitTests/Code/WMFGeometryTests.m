@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFGeometry.h"
 #import "XCTAssert+CGGeometry.h"

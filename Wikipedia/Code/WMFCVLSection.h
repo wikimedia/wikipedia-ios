@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+@import UIKit;
 @class WMFCVLColumn;
 @class WMFCVLAttributes;
 @class WMFCVLInvalidationContext;

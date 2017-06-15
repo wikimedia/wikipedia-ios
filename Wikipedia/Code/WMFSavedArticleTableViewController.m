@@ -1,19 +1,7 @@
 #import "WMFSavedArticleTableViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
-#import "NSString+WMFExtras.h"
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKDataStore.h"
-
-#import "MWKSavedPageList.h"
-
-#import "MWKArticle.h"
-
-#import "WMFSaveButtonController.h"
-
 #import "WMFArticleListTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
 #import "WMFTableViewUpdater.h"
+@import WMF;
 
 @interface WMFSavedArticleTableViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -58,7 +46,7 @@
     self.fetchedResultsController = frc;
     self.tableViewUpdater = [[WMFTableViewUpdater alloc] initWithFetchedResultsController:self.fetchedResultsController tableView:self.tableView];
     self.tableViewUpdater.delegate = self;
-    
+
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
@@ -135,7 +123,7 @@
     return YES;
 }
 
-- (void)deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
     [[self savedPageList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }
 

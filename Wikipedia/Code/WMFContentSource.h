@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import CoreData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 @end
-
 
 @protocol WMFOptionalNewContentSource <NSObject>
 

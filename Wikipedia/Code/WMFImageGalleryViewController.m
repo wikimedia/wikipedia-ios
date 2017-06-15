@@ -1,24 +1,12 @@
 #import "WMFImageGalleryViewController.h"
-#import "MWKArticle.h"
-#import "MWKImage.h"
-#import "MWKImageInfo.h"
-#import "MWKDataStore.h"
+@import WMF;
+@import FLAnimatedImage;
+@import NYTPhotoViewer;
+@import Masonry;
 #import "Wikipedia-Swift.h"
-#import "UIImage+WMFStyle.h"
-#import "UIColor+WMFStyle.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "UIView+WMFDefaultNib.h"
-#import "WMFURLCache.h"
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
-#import <NYTPhotoViewer/NYTPhotosViewControllerDataSource.h>
-#import <NYTPhotoViewer/NYTPhotoViewController.h>
-#import <NYTPhotoViewer/NYTPhotosOverlayView.h>
-#import <NYTPhotoViewer/NYTScalingImageView.h>
-#import <NYTPhotoViewer/NYTPhoto.h>
-#import <Masonry/Masonry.h>
 #import "WMFGradientView.h"
 
 NS_ASSUME_NONNULL_BEGIN

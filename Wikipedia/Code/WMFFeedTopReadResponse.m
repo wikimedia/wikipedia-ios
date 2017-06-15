@@ -1,6 +1,7 @@
-#import "WMFFeedTopReadResponse.h"
-#import "WMFFeedArticlePreview.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/WMFFeedTopReadResponse.h>
+#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/WMFComparison.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,10 +1,10 @@
 #import "RecentSearchesViewController.h"
+@import WMF.MWKRecentSearchList;
+@import WMF.MWKRecentSearchEntry;
+@import Masonry;
 #import "RecentSearchCell.h"
 #import "UIButton+WMFButton.h"
 #import "Wikipedia-Swift.h"
-#import "MWKRecentSearchList.h"
-#import "MWKRecentSearchEntry.h"
-#import <Masonry/Masonry.h>
 
 static NSString *const pListFileName = @"Recent.plist";
 

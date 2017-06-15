@@ -1,4 +1,5 @@
 #import "UICollectionViewLayout+AttributeUtils.h"
+@import WMF.Swift;
 
 @implementation UICollectionViewLayout (AttributeUtils)
 

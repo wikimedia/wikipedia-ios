@@ -2,10 +2,9 @@
 
 
 def iterate_and_format(dir)
-  puts dir
   file_types = {h: true, m: true, cpp: true, c: true}
   Dir.foreach(dir) do |filename|
-    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods" || filename == "Carthage"
+    next if filename.start_with?('.') || filename.length == 0 || filename == "Pods" || filename.start_with?('Carthage') || filename == "build" || filename.start_with?('Third Party') || filename.end_with?('.framework') 
     
     full_path = dir + '/' + filename
     if File.directory?(full_path) 
@@ -34,7 +33,8 @@ def iterate_and_format(dir)
       f.close
     rescue Errno::EISDIR
     end
-    `clang-format -style=file -i #{full_path}`
+    puts "formatting #{full_path}"
+    `clang-format -style=file -i "#{full_path}"`
   end
 end
 

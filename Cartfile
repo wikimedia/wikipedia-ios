@@ -1,7 +1,6 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "CocoaLumberjack/CocoaLumberjack" ~> 3.0.0
 github "SnapKit/Masonry" ~> 1.0
-github "bitstadium/HockeySDK-iOS" ~> 4.1.0
 github "swisspol/GCDWebServer" ~> 3.3
 github "NYTimes/NYTPhotoViewer"
 github "wikimedia/AFNetworking" "release/3.1.1"
@@ -16,5 +15,5 @@ github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
-github "Quick/Quick" ~> 1.0.0
-github "Quick/Nimble" ~> 5.1.1
+github "Quick/Quick" ~> 1.1.0
+github "Quick/Nimble" ~> 7.0.1

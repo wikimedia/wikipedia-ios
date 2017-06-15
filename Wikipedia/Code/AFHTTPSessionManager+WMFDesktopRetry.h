@@ -10,7 +10,7 @@
  *  @param mobileURLString  The mobile URL
  *  @param desktopURLString The desktop URL
  *  @param parameters       The parameters for the request (same as normal GET:)
- *  @param success          The retry block - called if a retry is executed. Use this to get the new operation.
+ *  @param retry            The retry block - called if a retry is executed. Use this to get the new operation.
  *  @param success          The success block (same as normal GET:)
  *  @param failure          The failure block (same as normal GET:)
  *
@@ -50,7 +50,7 @@
  *  @param mobileURLString  The mobile URL
  *  @param desktopURLString The desktop URL
  *  @param parameters       The parameters for the request (same as normal POST:)
- *  @param success          The retry block - called if a retry is executed. Use this to get the new operation.
+ *  @param retry            The retry block - called if a retry is executed. Use this to get the new operation.
  *  @param success          The success block (same as normal POST:)
  *  @param failure          The failure block (same as normal POST:)
  *

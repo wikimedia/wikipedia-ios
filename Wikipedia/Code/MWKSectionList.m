@@ -1,4 +1,4 @@
-#import "MWKSectionList.h"
+#import <WMF/MWKSectionList.h>
 #import <WMF/WMF-Swift.h>
 
 @interface MWKSection (MWKSectionHierarchyBuilder)

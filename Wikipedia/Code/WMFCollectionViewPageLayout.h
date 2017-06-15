@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit.UICollectionViewFlowLayout;
 
 @interface WMFCollectionViewPageLayout : UICollectionViewFlowLayout
 

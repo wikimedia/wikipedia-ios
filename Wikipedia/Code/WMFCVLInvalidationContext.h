@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit.UICollectionViewLayout;
 
 @interface WMFCVLInvalidationContext : UICollectionViewLayoutInvalidationContext
 

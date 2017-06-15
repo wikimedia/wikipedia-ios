@@ -72,7 +72,7 @@
 // Fuzzy
 "wikitext-upload-save-anonymously" = "រក្សាទុកជាអនាមិក";
 "wikitext-upload-save-terms-name" = "លក្ខខណ្ឌប្រើប្រាស់";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "open-link-title" = "បើកតំណភ្ជាប់";
 "open-link-cancel" = "បោះបង់";
 "search-searching" = "កំពុង​ស្វែងរក...";

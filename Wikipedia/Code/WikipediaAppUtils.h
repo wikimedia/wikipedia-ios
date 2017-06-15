@@ -1,6 +1,5 @@
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "NSString+WMFPageUtilities.h"
+@import Foundation;
+#import <WMF/WMFDeprecationMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

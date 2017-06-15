@@ -2,8 +2,9 @@
 #import "PaddedLabel.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "UIColor+WMFStyle.h"
 #import "BulletedLabel.h"
+@import WMF.Swift;
+@import WMF.WMFLocalization;
 
 typedef NS_ENUM(NSInteger, ViewType) {
     VIEW_TYPE_ICON,
@@ -82,7 +83,8 @@ typedef NS_ENUM(NSInteger, ViewType) {
                               @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? [UIColor wmf_red] : [UIColor wmf_orange]),
                               @"fontColor": [UIColor whiteColor],
                               @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
-                          }.mutableCopy];
+                          }
+                              .mutableCopy];
 
     UIColor *grayColor = [UIColor wmf_999999];
 
@@ -96,37 +98,43 @@ typedef NS_ENUM(NSInteger, ViewType) {
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-heading", nil, nil, @"This looks like an unconstructive edit, are you sure you want to publish it?", @"Header text for unconstructive edit warning"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": [UIColor darkGrayColor]
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_SUBHEADING),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-subheading", nil, nil, @"Your edit may contain one or more of the following:", @"Subheading text for potentially unconstructive edit warning"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-caps", nil, nil, @"Typing in ALL CAPS", @"Label text for typing in all capitals"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-blanking", nil, nil, @"Blanking articles or spamming", @"Label text for blanking articles or spamming"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-irrelevant", nil, nil, @"Irrelevant external links or images", @"Label text for irrelevant external links and images"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-warning-repeat", nil, nil, @"Repeeeeating characters", @"Label text for repeating characters"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy
+                                     }
+                                         .mutableCopy
                                   ]];
 
             break;
@@ -139,19 +147,22 @@ typedef NS_ENUM(NSInteger, ViewType) {
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-heading", nil, nil, @"You cannot publish this edit. Please go back and change it.", @"Header text for disallowed edit warning."),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": [UIColor darkGrayColor]
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-unconstructive", nil, nil, @"An automated filter has identified this edit as potentially unconstructive or a vandalism attempt.", @"Label text for unconstructive edit description"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy,
+                                     }
+                                         .mutableCopy,
                                      @{
                                          @"type": @(VIEW_TYPE_ITEM),
                                          @"string": WMFLocalizedStringWithDefaultValue(@"abuse-filter-disallow-notable", nil, nil, @"Wikipedia is an encyclopedia and only neutral, notable content belongs here.", @"Label text for notable content description"),
                                          @"backgroundColor": [UIColor whiteColor],
                                          @"fontColor": grayColor
-                                     }.mutableCopy
+                                     }
+                                         .mutableCopy
                                   ]];
 
             break;

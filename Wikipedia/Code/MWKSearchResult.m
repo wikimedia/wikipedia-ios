@@ -1,5 +1,9 @@
-#import "MWKSearchResult.h"
-#import "WMFArticle+Extensions.h"
+#import <WMF/MWKSearchResult.h>
+#import <WMF/WMFArticle+Extensions.h>
+#import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/WMFComparison.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @interface MWKSearchResult ()
 
@@ -126,11 +130,11 @@
         NSDictionary *coords = [value firstObject];
         NSNumber *lat = coords[@"lat"];
         NSNumber *lon = coords[@"lon"];
-        
+
         if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
             return nil;
         }
-        
+
         return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
     }];
 }
@@ -139,42 +143,42 @@
     static NSDictionary *geoTypeLookup;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        geoTypeLookup = @{@"country":@(WMFGeoTypeCountry),
-                          @"satellite":@(WMFGeoTypeSatellite),
-                          @"adm1st":@(WMFGeoTypeAdm1st),
-                          @"adm2nd":@(WMFGeoTypeAdm2nd),
-                          @"adm3rd":@(WMFGeoTypeAdm3rd),
-                          @"city":@(WMFGeoTypeCity),
-                          @"airport":@(WMFGeoTypeAirport),
-                          @"mountain":@(WMFGeoTypeMountain),
-                          @"isle":@(WMFGeoTypeIsle),
-                          @"waterbody":@(WMFGeoTypeWaterBody),
-                          @"forest":@(WMFGeoTypeForest),
-                          @"river":@(WMFGeoTypeRiver),
-                          @"glacier":@(WMFGeoTypeGlacier),
-                          @"event":@(WMFGeoTypeEvent),
-                          @"edu":@(WMFGeoTypeEdu),
-                          @"pass":@(WMFGeoTypePass),
-                          @"railwaystation":@(WMFGeoTypeRailwayStation),
-                          @"landmark":@(WMFGeoTypeLandmark)};
+        geoTypeLookup = @{ @"country": @(WMFGeoTypeCountry),
+                           @"satellite": @(WMFGeoTypeSatellite),
+                           @"adm1st": @(WMFGeoTypeAdm1st),
+                           @"adm2nd": @(WMFGeoTypeAdm2nd),
+                           @"adm3rd": @(WMFGeoTypeAdm3rd),
+                           @"city": @(WMFGeoTypeCity),
+                           @"airport": @(WMFGeoTypeAirport),
+                           @"mountain": @(WMFGeoTypeMountain),
+                           @"isle": @(WMFGeoTypeIsle),
+                           @"waterbody": @(WMFGeoTypeWaterBody),
+                           @"forest": @(WMFGeoTypeForest),
+                           @"river": @(WMFGeoTypeRiver),
+                           @"glacier": @(WMFGeoTypeGlacier),
+                           @"event": @(WMFGeoTypeEvent),
+                           @"edu": @(WMFGeoTypeEdu),
+                           @"pass": @(WMFGeoTypePass),
+                           @"railwaystation": @(WMFGeoTypeRailwayStation),
+                           @"landmark": @(WMFGeoTypeLandmark) };
     });
-    
+
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
                                                                  BOOL *success,
                                                                  NSError *__autoreleasing *error) {
         NSDictionary *coords = [value firstObject];
         NSString *type = coords[@"type"];
-        
+
         if (![type isKindOfClass:[NSString class]]) {
             return nil;
         }
-        
+
         type = [type lowercaseString];
-        
+
         if ([type hasPrefix:@"city"]) {
             type = @"city";
         }
-        
+
         return geoTypeLookup[type];
     }];
 }
@@ -190,26 +194,25 @@
                                                                  NSError *__autoreleasing *error) {
         NSDictionary *coords = [value firstObject];
         NSString *dim = coords[@"dim"];
-        
+
         if (![dim isKindOfClass:[NSString class]]) {
             return nil;
         }
-        
+
         NSString *dimToParse = [dim stringByTrimmingCharactersInSet:nonNumericCharacterSet];
         long long dimension = [dimToParse longLongValue];
         if (dimension == 0) {
             return nil;
         }
-        
+
         dim = [dim lowercaseString];
         if ([dim hasSuffix:@"km"]) {
             dimension = dimension * 1000;
         }
-        
+
         return @(dimension);
     }];
 }
-
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",

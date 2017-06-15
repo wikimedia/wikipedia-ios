@@ -1,5 +1,6 @@
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFNumberOfExtractCharacters.h"
+#import <WMF/NSDictionary+WMFCommonParams.h>
+#import <WMF/WMFNumberOfExtractCharacters.h>
+#import <WMF/UIScreen+WMFImageWidth.h>
 
 @implementation NSDictionary (WMFCommonParams)
 

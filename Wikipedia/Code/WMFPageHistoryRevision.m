@@ -1,10 +1,12 @@
 #import "WMFPageHistoryRevision.h"
-#import "NSString+WMFExtras.h"
+@import WMF.WMFComparison;
+@import WMF.NSString_WMFExtras;
+@import WMF.NSCalendar_WMFCommonCalendars;
 
 @implementation WMFPageHistoryRevision
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
-    NSDictionary *defaults = @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @NO};
+    NSDictionary *defaults = @{ WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @NO };
     dictionaryValue = [defaults mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
     return [super initWithDictionary:dictionaryValue error:error];
 }

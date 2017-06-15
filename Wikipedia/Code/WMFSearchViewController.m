@@ -1,30 +1,21 @@
 #import "WMFSearchViewController.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/NSUserActivity+WMFExtensions.h>
+#import <WMF/MWKLanguageLinkController.h>
+#import <WMF/MWKLanguageLink.h>
+@import Masonry;
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
-
-#import "SessionSingleton.h"
-
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKLanguageLinkController.h"
-#import "MWKLanguageLink.h"
-
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 #import "WMFSearchDataSource.h"
-
-#import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
-
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
-#import "UIImage+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
-
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFEmptyView.h"
 
@@ -504,7 +495,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
     return [WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
-        attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:18] }
+        attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
                    substitutionStrings:@[suggestion]
                 substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
