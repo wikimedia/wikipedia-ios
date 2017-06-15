@@ -80,5 +80,19 @@
 			<string>এইমাত্র</string>
 		</dict>
 	</dict>
+	<key>wikitext-upload-save-terms-cc-by-sa-and-gdfl</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
