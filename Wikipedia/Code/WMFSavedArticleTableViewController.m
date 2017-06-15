@@ -83,6 +83,16 @@
     return cell;
 }
 
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    deleteAction.backgroundColor = [UIColor wmf_red];
+    
+    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    shareAction.backgroundColor = [UIColor wmf_green];
+    return @[deleteAction, shareAction];
+}
+
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoSavedPages;
 }
