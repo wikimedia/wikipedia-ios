@@ -540,6 +540,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                   usingBlock:^(NSNotification *note) {
                                                       @strongify(self);
                                                       [self.collectionView reloadData];
+                                                      [self.notificationHeader updateFeedNotificationHeaderForNewDynamicTypeContentSize];
                                                   }];
 }
 
