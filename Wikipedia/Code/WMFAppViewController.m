@@ -1,26 +1,17 @@
 #import "WMFAppViewController.h"
+@import WMF;
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <Masonry/Masonry.h>
+@import Masonry;
+
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
-#import "PiwikTracker+WMFExtensions.h"
-
-// Utility
-#import "NSUserActivity+WMFExtensions.h"
-
-#import "MWKDataStore.h"
 
 // Networking
 #import "SavedArticlesFetcher.h"
-#import "SessionSingleton.h"
 #import "AssetsFileFetcher.h"
-
-// Model
-#import "MWKSearchResult.h"
-#import "MWKLanguageLinkController.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -40,11 +31,9 @@
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
-#import "WMFNotificationsController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "WMFArticleNavigationController.h"
@@ -331,12 +320,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if ([note object] != self.dataStore.feedContentController) {
         return;
     }
-    
+
     UIBackgroundTaskIdentifier currentTaskIdentifier = self.feedContentFetchBackgroundTaskIdentifier;
-    if (self.dataStore.feedContentController.isBusy &&  currentTaskIdentifier == UIBackgroundTaskInvalid) {
-        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content" expirationHandler:^{
-            [self.dataStore.feedContentController cancelAllFetches];
-        }];
+    if (self.dataStore.feedContentController.isBusy && currentTaskIdentifier == UIBackgroundTaskInvalid) {
+        self.feedContentFetchBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"com.wikipedia.background.task.feed.content"
+                                                                                                     expirationHandler:^{
+                                                                                                         [self.dataStore.feedContentController cancelAllFetches];
+                                                                                                     }];
     } else if (!self.dataStore.feedContentController.isBusy && currentTaskIdentifier != UIBackgroundTaskInvalid) {
         self.feedContentFetchBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
         [[UIApplication sharedApplication] endBackgroundTask:currentTaskIdentifier];
@@ -362,7 +352,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChangeWithNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [self showSplashView];
@@ -1086,7 +1076,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [placesNavigationController dismissViewControllerAnimated:NO completion:NULL];
     }
     [placesNavigationController popToRootViewControllerAnimated:NO];
-    
+
     [[self placesViewController] showNearbyArticles];
 }
 

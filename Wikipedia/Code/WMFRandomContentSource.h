@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-#import "WMFContentSource.h"
+#import <WMF/WMFContentSource.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

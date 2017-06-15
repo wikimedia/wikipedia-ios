@@ -1,3 +1,6 @@
+@import Foundation;
+#import <WMF/WMFBlockDefinitions.h>
+
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;

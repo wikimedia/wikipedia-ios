@@ -93,6 +93,7 @@
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
 "button-saved-remove" = "Remover do salvo";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
@@ -375,9 +376,8 @@
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-and-license" = "Publicando, você concorda com $1 e irrevogavelmente libera suas contribuições sobre a licensa $2.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";

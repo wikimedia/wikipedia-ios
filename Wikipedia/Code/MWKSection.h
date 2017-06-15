@@ -1,6 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "WMFSharing.h"
-#import "MWKSiteDataObject.h"
+#import <WMF/MWKSiteDataObject.h>
 
 @class MWKArticle;
 @class MWKImageList;

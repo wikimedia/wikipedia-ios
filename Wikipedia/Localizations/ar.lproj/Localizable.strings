@@ -90,6 +90,7 @@
 "button-save-for-later" = "احفظها لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
@@ -374,9 +375,8 @@
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-and-license" = "لو قمت بالحفظ، فأنت توافق على $1، وكذلك تنشر مساهماتك بموجب ترخيص $2 بشكل لا رجعة فيه.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";
 "zero-charged-verbiage" = "ويكيبيديا زيرو معطلة";
 "zero-charged-verbiage-extended" = "تحميل مقالات أخرى قد ينتج عنه احتساب رسوم استهلاك بيانات. المقالات المحفوظة المخزنة للاطلاع عليها دون اتصال بالإنترنت لا تستهلك البيانات وهي معفاة من الرسوم.";

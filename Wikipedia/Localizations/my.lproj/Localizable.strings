@@ -51,6 +51,7 @@
 "button-save-for-later" = "နောင်မှ သိမ်းဆည်းရန်";
 "button-saved-for-later" = "နောင်အတွက် သိမ်းဆည်းပြီး";
 "button-saved-remove" = "သိမ်းဆည်းမှုမှ ဖယ်ရှားပြီး";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ပိတ်ရန်";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
@@ -221,9 +222,8 @@
 "wikitext-upload-result-unknown" = "ဝီကီစာသားတင်မှုရလဒ်အား ဆုံးဖြတ်နိုင်ခြင်း မရှိပါ။";
 "wikitext-upload-save" = "လွှင့်တင်နေသည်...";
 "wikitext-upload-save-anonymously-warning" = "တည်းဖြတ်မှုကို သင့်စက်၏ အိုင်ပီလိပ်စာအနေဖြင့် မှတ်သားမည်။ အကယ်၍ သင် $1 လျှင် သင့်အတွက် လုံခြုံမှု ပိုရနိုင်သည်။";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "အကောင့်ဝင်ရန်";
-"wikitext-upload-save-terms-and-license" = "လွှင့်တင်ခြင်းဖြင့် သင်သည် $1 ကို သဘောတူညီပြီး သင့်ဆောင်ရွက်ချက်များအား $2 လိုင်စင်ဖြင့် ဖြန့်ချီခြင်းကို ယတိပြတ် သဘောတူညီပြီး ဖြစ်ရမည်။";
 "wikitext-upload-save-terms-name" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
 "zero-charged-verbiage" = "ဝီကီပီးဒီးယားသုညကို ပိတ်ထားသည်";
 "zero-charged-verbiage-extended" = "အခြားဆောင်းပါးများ ရယူရာတွင် ဒေတာအသုံးပြုခ ကျသင့်နိုင်သည်။ သိမ်းဆည်းထားသော ဆောင်းပါးသည် ဒေတာမသုံးသလို အခမဲ့လည်း ဖြစ်သည်။";

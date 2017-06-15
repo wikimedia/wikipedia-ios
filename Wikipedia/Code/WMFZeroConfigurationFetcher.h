@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
+#import <WMF/WMFBlockDefinitions.h>
 
 @interface WMFZeroConfigurationFetcher : NSObject
 

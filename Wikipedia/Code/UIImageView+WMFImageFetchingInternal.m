@@ -1,12 +1,11 @@
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
+@import FLAnimatedImage;
 #import "UIImageView+WMFImageFetchingInternal.h"
-#import "UIImageView+WMFImageFetching.h"
+#import <WMF/UIImageView+WMFImageFetching.h>
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
-#import "CIDetector+WMFFaceDetection.h"
-#import "WMFFaceDetectionCache.h"
-#import "UIImageView+WMFPlaceholder.h"
+#import <WMF/CIDetector+WMFFaceDetection.h>
+#import <WMF/WMFFaceDetectionCache.h>
+#import <WMF/UIImageView+WMFPlaceholder.h>
 #import <WMF/WMF-Swift.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
@@ -101,7 +100,10 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
-    [self.wmf_imageController fetchImageWithURL:imageURL priority:0.5 failure:failure success:^(WMFImageDownload * _Nonnull download) {
+    [self.wmf_imageController fetchImageWithURL:imageURL
+                                       priority:0.5
+                                        failure:failure
+                                        success:^(WMFImageDownload *_Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {

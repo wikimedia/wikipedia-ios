@@ -1,5 +1,4 @@
 #import "WMFPopoverBackgroundView.h"
-#import "UIColor+WMFStyle.h"
 
 @interface WMFPopoverBackgroundView ()
 

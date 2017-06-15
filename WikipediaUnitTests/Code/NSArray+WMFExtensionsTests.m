@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "Wikipedia-Swift.h"
 #define HC_SHORTHAND 1
@@ -23,22 +22,6 @@
     self.array = nil;
     self.otherArray = nil;
     [super tearDown];
-}
-
-- (void)test_wmf_safeObjectAtIndex_findExpectedObject {
-    assertThat([self.array wmf_safeObjectAtIndex:0], is(@"one"));
-}
-
-- (void)test_wmf_safeObjectAtIndex_outOfRangeReturnsNil {
-    assertThat([self.array wmf_safeObjectAtIndex:2], is(nilValue()));
-}
-
-- (void)test_wmf_safeObjectAtIndex_NegativeReturnsNil {
-    assertThat([self.array wmf_safeObjectAtIndex:-100], is(nilValue()));
-}
-
-- (void)test_wmf_safeObjectAtIndex_emptyOutOfRangeReturnsNil {
-    assertThat([@[] wmf_safeObjectAtIndex:1], is(nilValue()));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_ZeroReturnsEmpty {

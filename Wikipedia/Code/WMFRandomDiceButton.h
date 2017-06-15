@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit.UIButton;
 
 @interface WMFRandomDiceButton : UIButton
 

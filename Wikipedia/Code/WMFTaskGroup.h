@@ -1,10 +1,9 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface WMFTaskGroup : NSObject
 
 - (void)enter;
 - (void)leave;
-
 
 - (void)waitInBackgroundAndNotifyOnQueue:(nonnull dispatch_queue_t)queue withBlock:(nonnull dispatch_block_t)block;
 

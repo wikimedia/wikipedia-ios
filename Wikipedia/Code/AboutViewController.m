@@ -1,12 +1,12 @@
 #import "AboutViewController.h"
-#import "WikipediaAppUtils.h"
+#import <WMF/WikipediaAppUtils.h>
 #import "WKWebView+LoadAssetsHtml.h"
-#import "NSString+WMFExtras.h"
-#import "NSBundle+WMFInfoUtils.h"
+#import <WMF/NSString+WMFExtras.h>
+#import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
-#import <Masonry/Masonry.h>
+@import Masonry;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -225,7 +225,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
         LibrariesUsedViewController *vc = [LibrariesUsedViewController wmf_viewControllerFromStoryboardNamed:LibrariesUsedViewController.storyboardName];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
-        
+
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 

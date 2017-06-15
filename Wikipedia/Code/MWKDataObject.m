@@ -1,3 +1,6 @@
+#import <WMF/MWKDataObject.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+
 @implementation MWKDataObject
 
 - (id)dataExport;

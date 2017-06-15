@@ -1,5 +1,4 @@
 import XCTest
-@testable import Wikipedia
 
 class QuadKeyTests: XCTestCase {
 

@@ -73,6 +73,7 @@
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
 "button-saved-remove" = "Padamkan dari disimpan";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
@@ -96,6 +97,7 @@
 "explore-another-random" = "Rencana sembarang lainnya";
 "explore-because-you-read" = "Kerana anda membaca";
 "explore-continue-reading-heading" = "Teruskan membaca";
+"explore-enable-location-title" = "Jelajahi artikel berhampiran lokasi semasa anda";
 "explore-featured-article-heading" = "Rencana pilihan";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -145,6 +147,7 @@
 "forgot-password-instructions" = "Isikan dalam salah satu medan di bawah untuk menerima arahan set semula kata laluan melalui e-mel";
 "forgot-password-title" = "Set semula kata laluan";
 "forgot-password-username-or-email-title" = "Atau";
+"gdfl" = "GDFL";
 "history-clear-all" = "Padamkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua butir terbaru anda?";
@@ -368,9 +371,9 @@
 "wikitext-upload-result-unknown" = "Hasil muat naikan teks wiki tidak dapat ditentukan.";
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Log masuk";
-"wikitext-upload-save-terms-and-license" = "Dengan menerbitkan, anda akur kepada $1 dan melepaskan sumbangan anda di bawah lesen $2 tanpa boleh menarik baliknya.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Dengan menyiarkan perubahan, anda bersetuju dengan $1 dan bersetuju untuk melepaskan sumbangan anda di bawah lesen $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero off";
 "zero-charged-verbiage-extended" = "Tindakan memuatkan rencana lain mungkin dikenakan caj data. Rencana-rencana yang tersimpan secara 'offline' tidak menelan data, dan oleh itu percuma.";

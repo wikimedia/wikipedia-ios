@@ -1,10 +1,8 @@
 #import "WMFSearchResultsTableViewController.h"
 #import "WMFArticleListTableViewCell+WMFSearch.h"
-#import "UIView+WMFDefaultNib.h"
-#import "MWKSearchResult.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
-#import "NSString+WMFExtras.h"
+@import WMF;
 
 @implementation WMFSearchResultsTableViewController
 

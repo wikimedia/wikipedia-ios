@@ -56,6 +56,7 @@
 "button-next" = "Далей";
 "button-save-for-later" = "Захаваць на пазьней";
 "button-saved-for-later" = "Захаваная на пазьней";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрыць";
 "compass-direction" = "на $1 гадзін(аў)";
 "edit-summary-choice-fixed-grammar" = "Выпраўленая артаграфія";
@@ -204,10 +205,8 @@
 // Fuzzy
 "wikitext-upload-save" = "Захаваньне...";
 "wikitext-upload-save-anonymously-warning" = "Рэдагаваньні будуць зьвязаны з IP-адрасам Вашага прыстасаваньня. Калі Вы $1, Вы атрымаеце больш высокі ўзровень прыватнасьці.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Увайсьці";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Пры захаваньні Вы пагаджаецеся з $1, і безумоўна разьмяшчаеце Ваш унёсак згодна з умовамі ліцэнзіі $2.";
 "wikitext-upload-save-terms-name" = "Умовы выкарыстаньня";
 "zero-charged-verbiage" = "Вікіпэдыя Zero адключаная";
 "zero-charged-verbiage-extended" = "Падчас загрузкі іншых артыкулаў можа брацца аплата. Прагляд захаваных оф-лайн артыкулаў не патрабуе выкарыстаньня перадачы зьвестак і таму зьяўляецца бясплатным.";

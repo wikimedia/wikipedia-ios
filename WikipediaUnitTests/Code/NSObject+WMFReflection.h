@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 #import <objc/runtime.h>
 
 typedef void (^WMFObjCPropertyEnumerator)(objc_property_t, BOOL *stop);

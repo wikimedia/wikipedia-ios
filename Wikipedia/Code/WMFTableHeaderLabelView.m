@@ -1,5 +1,7 @@
 #import "WMFTableHeaderLabelView.h"
 
+@import WMF.Swift;
+
 @interface WMFTableHeaderLabelView ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
@@ -73,6 +75,7 @@
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
     [self removeAllClearButtonTargets];
     self.clearButtonHidden = YES;
 }

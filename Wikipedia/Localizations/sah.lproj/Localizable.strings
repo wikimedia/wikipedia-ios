@@ -69,6 +69,7 @@
 "button-save-for-later" = "Хойутуу";
 "button-saved-for-later" = "Кэлин бигэргэтиэм";
 "button-saved-remove" = "Бигэргэммиттэн сот";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Сап";
 "compass-direction" = "$1 чааска";
 "continue-reading-empty-description" = "Бикипиэдьийэни чинчийэн өссө элбэх сэргиир ыстатыйаҕын бул";
@@ -271,9 +272,8 @@
 "wikitext-upload-result-unknown" = "Биики-тиэкис хачайдаммыт түмүгүн быһаарар сатаммата.";
 "wikitext-upload-save" = "Бэчээттээһин...";
 "wikitext-upload-save-anonymously-warning" = "Көннөрүүҥ IP-аадырыскынан бэлиэтэниэ. Өскөтө $1 буоллаххына, айпигын кистиир кыахтаныаҥ.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Киир";
-"wikitext-upload-save-terms-and-license" = "Бигэргэттэххинэ $1 усулуобуйатын кытта толору сөбүлэһэҕин, суруйбуккун $2 лиссиэнсийэнэн бэчээттиири көҥүллүүгүн.";
 "wikitext-upload-save-terms-name" = "Туһаныы сиэрэ";
 "zero-charged-verbiage" = "Wikipedia Zero арахсыбыт";
 "zero-charged-verbiage-extended" = "Ыстатыйаны хачайдаан ыларга төлөбүр ылыахтарын сөп. Эрдэ хараллыбыт ыстатыйалары хачайдыыр ирдэммэт, онон босхо.";

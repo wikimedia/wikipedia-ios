@@ -39,6 +39,7 @@
 "button-report-a-bug" = "ತೊಂದರೆನ್ ತೆರಿಪಾಲೆ";
 "button-save-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಲೆ";
 "button-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
@@ -181,7 +182,7 @@
 "wikitext-download-success" = "ಮಾಹಿತಿ ದಿಂಜಿಂಡ್.";
 "wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
 "zero-charged-verbiage" = "ವಿಕಿಪೀಡಿಯ ಝೀರೋ ಬಂದ್ ಅಂಡ್";

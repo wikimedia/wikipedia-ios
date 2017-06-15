@@ -1,12 +1,9 @@
-@import UIKit;
-#import "MWKArticle.h"
-#import "WebViewController.h"
-#import "WMFTableOfContentsDisplay.h"
-
+@import WMF;
 @class MWKDataStore;
-
 @class WMFShareFunnel;
 @class WMFArticleViewController;
+#import "WMFTableOfContentsDisplay.h"
+#import "WebViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

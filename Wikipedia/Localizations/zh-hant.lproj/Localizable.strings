@@ -84,6 +84,7 @@
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
 "button-saved-remove" = "從已保存移除";
+"cc-by-sa-3.0" = "CC 姓名標示-相同方式分享 3.0";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
@@ -156,6 +157,7 @@
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
 "forgot-password-title" = "重設密碼";
 "forgot-password-username-or-email-title" = "或";
+"gdfl" = "GDFL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您確定要刪除所有近期項目嗎？";
@@ -379,9 +381,9 @@
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
-"wikitext-upload-save-license-name" = "CC 姓名標示-相同方式分享 3.0";
+"cc-by-sa-3.0" = "CC 姓名標示-相同方式分享 3.0";
 "wikitext-upload-save-sign-in" = "登入";
-"wikitext-upload-save-terms-and-license" = "要進行發佈，代表您同意 $1 以 $2 授權條款發佈您的貢獻。";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";

@@ -1,4 +1,4 @@
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 
 @implementation UITableViewCell (WMFEdgeToEdgeSeparator)
 

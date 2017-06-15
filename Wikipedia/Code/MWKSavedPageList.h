@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 @class WMFArticle, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -63,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Migration
 
 - (void)migrateLegacyDataIfNeeded;
-
 
 @end
 

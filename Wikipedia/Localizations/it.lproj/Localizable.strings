@@ -88,6 +88,7 @@
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
 "button-saved-remove" = "Rimuovi dai salvati";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "a ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
@@ -348,9 +349,8 @@
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Accedi";
-"wikitext-upload-save-terms-and-license" = "Con la pubblicazione, accetti le nostre $1, e accetti irrevocabilmente di rilasciare i tuoi contributi con licenza $2.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";

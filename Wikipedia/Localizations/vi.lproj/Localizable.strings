@@ -74,6 +74,7 @@
 "button-save-for-later" = "Lưu để đọc sau";
 "button-saved-for-later" = "Đã lưu";
 "button-saved-remove" = "Xóa khỏi Đã lưu";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Đóng";
 "compass-direction" = "hướng $1 giờ";
 "continue-reading-empty-description" = "Kiếm thêm bài Wikipedia để đọc";
@@ -326,9 +327,8 @@
 "wikitext-upload-result-unknown" = "Không thể xác định kết quả tải lên mã wiki.";
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
-"wikitext-upload-save-terms-and-license" = "Với việc đăng tải, bạn chấp nhận các $1 và phát hành, một cách không thể hủy bỏ, các đóng góp của bạn theo giấy phép $2.";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
 "zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
 "zero-charged-verbiage-extended" = "Nếu tải các bài khác, bạn có thể phải trả phí dữ liệu. Các bài được lưu ngoại tuyến không tốn dữ liệu và được xem miễn phí.";

@@ -62,7 +62,7 @@
 "wikitext-upload-save-anonymously" = "ଅଜଣା ଭାବେ ସାଇତିବେ";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "ଏଥିରେ କମ ଗୋପନୀୟତା ରହିଛି । ଆପଣଙ୍କ ସମ୍ପାଦନା IP ଠିକଣା ସହ ଦେଖାଯିବ ।";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "search-searching" = "ଖୋଜୁଛି...";
 "search-no-matches" = "ଖୋଜା ଶବ୍ଦରୁ କିଛି ଫଳାଫଳ ମିଳିଲା ନାହିଁ ।";
 "search-field-placeholder-text" = "ଉଇକିପିଡ଼ିଆରେ ଖୋଜନ୍ତୁ";

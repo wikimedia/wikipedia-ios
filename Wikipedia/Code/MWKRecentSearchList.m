@@ -1,5 +1,5 @@
-#import "MWKRecentSearchList.h"
-#import "MWKList+Subclass.h"
+#import <WMF/MWKRecentSearchList.h>
+#import <WMF/MWKList+Subclass.h>
 #import <WMF/WMF-Swift.h>
 
 @interface MWKRecentSearchList ()

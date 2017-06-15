@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-
+@import UIKit.UICollectionView;
 @class WMFCVLColumn;
 @class WMFCVLSection;
 @class WMFCVLAttributes;

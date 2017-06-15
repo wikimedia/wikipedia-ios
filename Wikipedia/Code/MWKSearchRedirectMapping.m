@@ -1,4 +1,5 @@
 #import "MWKSearchRedirectMapping.h"
+@import WMF.WMFComparison;
 
 NS_ASSUME_NONNULL_BEGIN
 

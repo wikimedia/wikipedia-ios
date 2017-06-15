@@ -1,5 +1,6 @@
 // Messages for Shan (လိၵ်ႈတႆး)
 // Exported from translatewiki.net
+// Author: Nemo bis
 // Author: Saimawnkham
 
 "about-content-license" = "ဝႂ်ၶႂၢင်း ၶေႃႈၼႂ်း";
@@ -68,6 +69,7 @@
 "button-save-for-later" = "သိမ်းဝႆႉတႃႇဝၢႆးလင်";
 "button-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
 "button-saved-remove" = "ထွၼ်ပႅတ်ႈၵႃႈတီႈ သိမ်းဝႆႉ";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ႁပ်း";
 "compass-direction" = "မိူဝ်ႈ $1 မူင်း";
 "continue-reading-empty-description" = "ပိုတ်ႇႁႃ ဝီႇၶီႇၽီးတီးယႃး တွၼ်ႈတႃႇလူ ပွင်ႇလိၵ်ႈထႅင်ႈ";
@@ -360,9 +362,8 @@
 "wikitext-upload-result-unknown" = "ဢမ်ႇၸၢင်ႈ​တႅပ်ႈတတ်း ၽွၼ်းလႆႈလွင်ႈလူတ်ႇၶိုၼ်ႈ လိၵ်ႈဝီႇၶီႇ။";
 "wikitext-upload-save" = "တိုၵ်ႉပိုၼ်ဢွၵ်ႇယူႇ...";
 "wikitext-upload-save-anonymously-warning" = "လွင်ႈမႄးထတ်း တေမၢႆဢဝ် ႁဵင်းလိၵ်ႈဢၢႆႇၽီႇ ၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႉဝႃႈ ၸဝ်ႈၵဝ်ႇ $1 ၸဝ်ႈၵဝ်ႇ တေမီးပၢႆးႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လိူဝ်။";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "လွၵ်ႉဢိၼ်ႇ";
-"wikitext-upload-save-terms-and-license" = "ယွၼ်ႉလွင်ႈပိုၼ်ဢွၵ်ႇလႄႈ ၸဝ်ႈၵဝ်ႇ ၽွမ်ႉၸႂ်တင်း $1 သေ ၵမ်းလိုၼ်းသုတ်းမႃး တေပိုၼ်ဢွၵ်ႇ လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵ်ႇ ၽၢႆႇတႂ်ႈ ဝႂ်ၶႂၢင်း $2 ၼႆႉဢေႃႈ။";
 "wikitext-upload-save-terms-name" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";
 "zero-charged-verbiage" = "ဢိုတ်းဝႆႉ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
 "zero-charged-verbiage-extended" = "လွင်ႈထုတ်ႇပိုတ်ႇ ပွင်ႈလိၵ်ႈတၢင်ႇၸိူဝ်း ၼႆႉ တေၸၢင်ႈၵိၼ်ငိုၼ်းၶေႃႈမုၼ်း။  ပွင်ႈလိၵ်ႈၸိူဝ်းသိမ်းဝႆႉ တႃႇဢွပ်ႉၾ်လၢႆးၼႆႉ မၼ်းတေဢမ်ႇၸႂ်ႉ သၢႆၶေႃမုၼ်းလႄႈ မၼ်းပဵၼ်ဢၼ်ၸႂ်ႉလႆႈ လၢႆလၢႆ။";

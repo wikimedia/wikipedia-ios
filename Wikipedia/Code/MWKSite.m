@@ -1,5 +1,7 @@
-#import "MWKSite.h"
-#import "MWKTitle.h"
+#import <WMF/MWKSite.h>
+#import <WMF/MWKTitle.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMFComparison.h>
 
 static NSString *const MWKSiteSchemaVersionKey = @"siteSchemaVersion";
 

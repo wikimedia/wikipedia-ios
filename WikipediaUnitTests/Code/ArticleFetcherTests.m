@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFArticleFetcher.h"
 #import "MWKDataStore+TemporaryDataStore.h"
@@ -80,7 +79,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
 
     [fetcher fetchArticleForURL:dummyArticleURL
-      saveToDisk:YES
+        saveToDisk:YES
         progress:NULL
         failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
@@ -97,7 +96,7 @@
                                                 }];
 
             [fetcher fetchArticleForURL:dummyArticleURL
-                             saveToDisk:YES
+                saveToDisk:YES
                 progress:NULL
                 failure:^(NSError *erorr) {
                     XCTFail(@"Recieved error");

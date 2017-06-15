@@ -1,5 +1,6 @@
-#import "WMFRelatedSearchResults.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFRelatedSearchResults.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @interface WMFRelatedSearchResults ()
 

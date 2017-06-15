@@ -1,8 +1,9 @@
 #import "PreviewHtmlFetcher.h"
-#import <AFNetworking/AFNetworking.h>
-#import "MWNetworkActivityIndicatorManager.h"
-#import "SessionSingleton.h"
+@import AFNetworking;
 #import "NSObject+WMFExtras.h"
+@import WMF.SessionSingleton;
+@import WMF.MWNetworkActivityIndicatorManager;
+@import WMF.NSURL_WMFLinkParsing;
 
 @implementation PreviewHtmlFetcher
 
@@ -79,7 +80,8 @@
         @"prop": @"text",
         @"text": (wikiText ? wikiText : @""),
         @"format": @"json"
-    }.mutableCopy;
+    }
+        .mutableCopy;
 }
 
 - (NSString *)getSanitizedResponse:(NSDictionary *)rawResponse {

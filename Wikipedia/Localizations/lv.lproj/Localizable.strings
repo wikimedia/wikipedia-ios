@@ -39,6 +39,7 @@
 "button-publish" = "Publicēt";
 "button-read-now" = "Lasīt tagad";
 "button-report-a-bug" = "Ziņot par kļūdu";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Aizvērt";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
@@ -178,7 +179,7 @@
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Pieslēgties";
 "wikitext-upload-save-terms-name" = "Izmantošanas noteikumi";
 "zero-charged-verbiage" = "Vikipēdija Zero ir izslēgts";

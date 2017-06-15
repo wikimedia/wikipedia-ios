@@ -5,11 +5,11 @@
 #endif
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
-#import "SessionSingleton.h"
+#import <WMF/SessionSingleton.h>
 
 //AFNetworking
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
 
@@ -21,9 +21,9 @@
 #import "Wikipedia-Swift.h"
 
 //Models
-#import "MWKSectionList.h"
-#import "MWKSection.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import <WMF/MWKSectionList.h>
+#import <WMF/MWKSection.h>
+#import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import "WMFArticleBaseFetcher_Testing.h"
 
 NS_ASSUME_NONNULL_BEGIN

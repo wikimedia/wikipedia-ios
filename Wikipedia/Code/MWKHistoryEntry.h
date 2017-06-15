@@ -1,5 +1,6 @@
-#import "MWKSiteDataObject.h"
-#import "MWKList.h"
+@import CoreGraphics;
+#import <WMF/MWKSiteDataObject.h>
+#import <WMF/MWKList.h>
 
 @interface MWKHistoryEntry : MWKSiteDataObject <MWKListObject>
 

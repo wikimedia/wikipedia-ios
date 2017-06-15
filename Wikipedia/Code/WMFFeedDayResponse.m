@@ -1,8 +1,9 @@
-#import "WMFFeedDayResponse.h"
-#import "WMFFeedArticlePreview.h"
-#import "WMFFeedImage.h"
-#import "WMFFeedTopReadResponse.h"
-#import "WMFFeedNewsStory.h"
+#import <WMF/WMFFeedDayResponse.h>
+#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/WMFFeedImage.h>
+#import <WMF/WMFFeedTopReadResponse.h>
+#import <WMF/WMFFeedNewsStory.h>
+#import <WMF/WMFComparison.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedDayResponse

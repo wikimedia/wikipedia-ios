@@ -1,5 +1,5 @@
-#import "MWKDataObject.h"
-
+#import <WMF/MWKDataObject.h>
+@class MWKArticle;
 @class MWKSection;
 
 @interface MWKSectionList : MWKDataObject <NSFastEnumeration>

@@ -56,7 +56,7 @@
 "login-password-placeholder-text" = "Κωδικός";
 "wikitext-downloading" = "Γίνεται φόρτωση περιεχομένου...";
 "wikitext-download-success" = "Το περιεχόμενο φορτώθηκε";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "search-title" = "Αναζήτηση";
 "search-field-placeholder-text" = "Αναζήτηση στη Βικιπαίδεια";
 "search-field-placeholder-text-zero" = "Αναζήτηση στο Wikipedia Zero";

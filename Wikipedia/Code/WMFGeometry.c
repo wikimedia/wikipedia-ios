@@ -1,4 +1,4 @@
-#import "WMFGeometry.h"
+#import <WMF/WMFGeometry.h>
 #include <CoreGraphics/CGAffineTransform.h>
 
 #pragma mark - Aggregate Operations

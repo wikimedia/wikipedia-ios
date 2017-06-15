@@ -1,6 +1,6 @@
-#import "UIKit/UIKit.h"
-#import "WMFImageURLParsing.h"
-#import "WMFGeometry.h"
+#import <WMF/MWKImage.h>
+#import <WMF/WMFImageURLParsing.h>
+#import <WMF/WMFGeometry.h>
 #import <WMF/WMF-Swift.h>
 
 @interface MWKImage ()

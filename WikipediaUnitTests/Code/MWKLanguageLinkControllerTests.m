@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"

@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-#import "FetcherBase.h"
+#import <WMF/FetcherBase.h>
 
 typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
     WIKITEXT_UPLOAD_ERROR_UNKNOWN = 0,

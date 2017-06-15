@@ -1,4 +1,6 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
+
+@class MWKArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 

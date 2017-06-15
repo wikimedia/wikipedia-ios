@@ -1,4 +1,4 @@
-#import "MWKList.h"
+#import <WMF/MWKList.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

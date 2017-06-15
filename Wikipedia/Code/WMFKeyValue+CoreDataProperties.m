@@ -1,9 +1,9 @@
-#import "WMFKeyValue+CoreDataProperties.h"
+#import <WMF/WMFKeyValue+CoreDataProperties.h>
 
 @implementation WMFKeyValue (CoreDataProperties)
 
 + (NSFetchRequest<WMFKeyValue *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFKeyValue"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFKeyValue"];
 }
 
 @dynamic key;

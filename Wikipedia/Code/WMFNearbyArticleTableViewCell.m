@@ -10,14 +10,11 @@
 #import "WMFCompassView.h"
 
 // Utils
-#import "WMFGeometry.h"
-#import "NSString+WMFDistance.h"
-#import "UIColor+WMFStyle.h"
+#import <WMF/WMFGeometry.h>
+#import <WMF/NSString+WMFDistance.h>
 #import "UIFont+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
-#import "UIImageView+WMFPlaceholder.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFNearbyArticleTableViewCell ()
@@ -126,7 +123,6 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.paragraphSpacingBefore = 2.0;
     paragraphStyle.lineHeightMultiple = 1.05;
-
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{

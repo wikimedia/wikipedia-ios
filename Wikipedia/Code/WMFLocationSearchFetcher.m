@@ -1,15 +1,19 @@
-#import "WMFLocationSearchFetcher.h"
+#import <WMF/WMFLocationSearchFetcher.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/WMFLocalization.h>
+#import <WMF/UIScreen+WMFImageWidth.h>
 
 //Networking
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFSearchResponseSerializer.h"
-#import <Mantle/Mantle.h>
-#import "WMFBaseRequestSerializer.h"
+#import <WMF/MWNetworkActivityIndicatorManager.h>
+#import <WMF/AFHTTPSessionManager+WMFConfig.h>
+#import <WMF/WMFSearchResponseSerializer.h>
+@import Mantle;
+#import <WMF/WMFBaseRequestSerializer.h>
 
 //Models
-#import "WMFLocationSearchResults.h"
-#import "MWKLocationSearchResult.h"
+#import <WMF/WMFLocationSearchResults.h>
+#import <WMF/MWKLocationSearchResult.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -129,7 +133,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             if (failure) {
                 if (![[error domain] isEqualToString:NSURLErrorDomain]) {
-                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
+                    error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeNoResults userInfo:@{ NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results") }];
                 }
                 failure(error);
             }
@@ -158,7 +162,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
         if (params.searchTerm) {
             [gsrSearchArray addObject:params.searchTerm];
         }
-        CLLocationDistance radius = MAX(1,ceil(params.region.radius));
+        CLLocationDistance radius = MAX(1, ceil(params.region.radius));
         NSString *nearcoord = [NSString stringWithFormat:@"nearcoord:%.0fm,%.3f,%.3f", radius, params.region.center.latitude, params.region.center.longitude];
         [gsrSearchArray addObject:nearcoord];
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];

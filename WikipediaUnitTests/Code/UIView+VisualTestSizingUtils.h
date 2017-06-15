@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @interface UIView (VisualTestSizingUtils)
 
 - (void)wmf_sizeToFitWindowWidth;

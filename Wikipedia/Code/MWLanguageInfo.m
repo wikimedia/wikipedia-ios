@@ -1,4 +1,6 @@
-#import "MWLanguageInfo.h"
+#import <WMF/MWLanguageInfo.h>
+#import <WMF/MWKArticle.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @implementation MWLanguageInfo
 
@@ -18,9 +20,9 @@
         return NO;
     }
     return [[MWLanguageInfo languageInfoForCode:
-             article.url.wmf_language]
-            .dir
-            isEqualToString:@"rtl"];
+                                article.url.wmf_language]
+                .dir
+        isEqualToString:@"rtl"];
 }
 
 + (NSString *)codeForCode:(NSString *)code {

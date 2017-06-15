@@ -1,4 +1,8 @@
+@import Foundation;
+
 extern NSString *const WMFNetworkingErrorDomain;
+
+extern NSString *const WMFNetworkRequestBeganNotification;
 
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError,
@@ -24,7 +28,9 @@ extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
  */
 extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion);
 
-#import "FetcherBase.h"
+#import <WMF/FetcherBase.h>
+
+extern void wmf_postNetworkRequestBeganNotification(NSString *method, NSString *URLString);
 
 @interface NSError (WMFFetchFinalStatus)
 

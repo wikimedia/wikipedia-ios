@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import CoreData;
 
 @interface WMFChange : NSObject
 @property (nonatomic) NSFetchedResultsChangeType type;

@@ -64,6 +64,7 @@
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
 "button-saved-remove" = "Remove from saved";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
@@ -87,6 +88,7 @@
 "explore-another-random" = "Another random article";
 "explore-because-you-read" = "Because you read";
 "explore-continue-reading-heading" = "Continue reading";
+"explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
@@ -136,6 +138,7 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"gdfl" = "GDFL";
 "history-clear-all" = "Clear";
 "history-clear-cancel" = "Cancel";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
@@ -359,9 +362,8 @@
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
 "wikitext-upload-save" = "Publishing...";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Log in";
-"wikitext-upload-save-terms-and-license" = "By publishing, you agree to the $1, and to irrevocably release your contributions under the $2 license.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "By publishing changes, you agree to the $1and agree to release your contribution under the $2 and $3 license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";

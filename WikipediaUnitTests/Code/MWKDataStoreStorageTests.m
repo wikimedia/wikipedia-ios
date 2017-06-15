@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
 #import "MWKArticleStoreTestCase.h"
@@ -19,7 +18,7 @@
     XCTAssertNoThrow([self.dataStore saveArticle:article]);
     XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
     XCTAssertEqual(article, article2);
-    
+
     XCTAssertNoThrow([self.dataStore addArticleToMemoryCache:article]);
     XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
     XCTAssertEqualObjects(article, article2);

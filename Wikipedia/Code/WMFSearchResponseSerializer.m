@@ -1,5 +1,5 @@
-#import "WMFSearchResponseSerializer.h"
-#import "MWKSearchResult.h"
+#import <WMF/WMFSearchResponseSerializer.h>
+#import <WMF/MWKSearchResult.h>
 
 @implementation WMFSearchResponseSerializer
 

@@ -1,3 +1,5 @@
+@import Foundation;
+
 extern NSString *const WMFLoggingEndpoint;
 
 @interface EventLogger : NSObject

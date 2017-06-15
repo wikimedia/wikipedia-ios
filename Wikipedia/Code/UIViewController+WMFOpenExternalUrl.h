@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import UIKit.UIViewController;
 
 @interface UIViewController (WMFOpenExternalLinkDelegate)
 

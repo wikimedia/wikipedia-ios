@@ -1,4 +1,5 @@
-#import <Mantle/Mantle.h>
+@import UIKit;
+@import Mantle;
 
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemDisclosureType) {
     WMFSettingsMenuItemDisclosureType_None,

@@ -1,13 +1,9 @@
 #import "WMFLanguagesViewController.h"
-#import "MWKLanguageLinkController.h"
-#import "MWKLanguageFilter.h"
+@import WMF;
+@import Masonry;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
-#import "UIColor+WMFStyle.h"
-#import "MWKLanguageLink.h"
-#import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"

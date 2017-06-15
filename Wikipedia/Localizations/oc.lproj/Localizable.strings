@@ -54,6 +54,7 @@
 "button-save-for-later" = "Enregistrar per mai tard";
 "button-saved-for-later" = "Enregistrat per mai tard";
 "button-saved-remove" = "Suprimir dels enregistraments";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tampar";
 "compass-direction" = "a $1 oras";
 "continue-reading-empty-title" = "Cap d'articles pas legits recentament";
@@ -221,7 +222,7 @@
 "wikitext-download-success" = "Contengut cargat.";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
 "zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";

@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
-#import "FetcherBase.h"
+@import WMF.FetcherBase;
+@import WMF.WMFAssetsFile;
 
 @class AFHTTPSessionManager;
 

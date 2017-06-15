@@ -1,6 +1,8 @@
 #import "BITHockeyManager+WMFExtensions.h"
-#import "NSBundle+WMFInfoUtils.h"
+@import WMF.NSBundle_WMFInfoUtils;
+@import WMF.WMFLocalization;
 #import "DDLog+WMFLogger.h"
+#import "WMFQuoteMacros.h"
 
 // See also:
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios
@@ -36,9 +38,7 @@ static NSString *const WMFHockeyAppIdentifier = @QUOTE(WMF_HOCKEYAPP_IDENTIFIER)
 #else
     [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelError;
 #endif
-    [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
     [BITHockeyManager sharedHockeyManager].metricsManager.disabled = NO;
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     //We always wnat usrs to have the chance to send a crash report.
     if ([[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus == BITCrashManagerStatusDisabled) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
@@ -79,7 +79,7 @@ NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
                                                               crashMetaData.userProvidedDescription = [[[customAlertView textFields] firstObject] text];
                                                               [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
                                                           }]];
-        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat: WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, nil, @"%1$@ privacy", @"Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"hockeyapp-alert-privacy", nil, nil, @"%1$@ privacy", @"Alert dialog button text for HockeyApp privacy policy. %1$@ will be replaced programmatically with the constant string 'HockeyApp'"), WMFHockeyAppServiceName]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *_Nonnull action) {
                                                               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockeyAppPrivacyUrl]];

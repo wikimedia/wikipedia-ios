@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit.UIToolbar;
 
 @interface UIToolbar (WMFStyling)
 
