@@ -194,6 +194,10 @@
 		B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		B0AB16371C7E5762002E566A /* UINavigationBar+WMFTransparency.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */; };
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
+		B0B423471EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */; };
+		B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */; };
+		B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -3270,6 +3274,10 @@
 		B0B0CADA1D234927009CE8ED /* WMFImageTagList+ImageURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTagList+ImageURLs.h"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.h"; sourceTree = SOURCE_ROOT; };
 		B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFImageTagList+ImageURLs.m"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.m"; sourceTree = SOURCE_ROOT; };
 		B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsMenuItem.m; path = Wikipedia/Code/WMFSettingsMenuItem.m; sourceTree = SOURCE_ROOT; };
+		B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedOnThisDayEvent.h; sourceTree = "<group>"; };
+		B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeedOnThisDayEvent.m; sourceTree = "<group>"; };
+		B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayEventsFetcher.h; sourceTree = "<group>"; };
+		B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayEventsFetcher.m; sourceTree = "<group>"; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -5070,6 +5078,8 @@
 				0E19B9A71DA7D52A00239F3A /* WMFFeedImage.m */,
 				0E19B9A91DA7D77600239F3A /* WMFFeedNewsStory.h */,
 				0E19B9AA1DA7D77600239F3A /* WMFFeedNewsStory.m */,
+				B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */,
+				B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */,
 			);
 			name = "Feed Models";
 			path = ../Wikipedia/Code;
@@ -6028,6 +6038,15 @@
 				B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */,
 			);
 			name = UINavigationBar;
+			sourceTree = "<group>";
+		};
+		B0B423491EF204C200D3DC4C /* On This Day */ = {
+			isa = PBXGroup;
+			children = (
+				B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */,
+				B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */,
+			);
+			name = "On This Day";
 			sourceTree = "<group>";
 		};
 		B0C6BE4D1E45255D0033BD6E /* Change Password */ = {
@@ -7546,6 +7565,7 @@
 				0E728D271DAEE3200074EB4B /* Feed */,
 				0E728D511DAEEF5F0074EB4B /* Site Info */,
 				0E03E27E1B82EF7600C1FBD7 /* Nearby */,
+				B0B423491EF204C200D3DC4C /* On This Day */,
 				0E2691041B86BBD1009B8605 /* Related */,
 				0E52FD681DA40FA300587426 /* Random */,
 				0E28C4641D74AAB0000C5919 /* User DataStore */,
@@ -7952,6 +7972,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B423471EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h in Headers */,
 				D8FA19011E1BDA5B009675C3 /* UIView+WMFDefaultNib.h in Headers */,
 				0EB4108C1DBFA55600A26CE1 /* PiwikTracker+WMFExtensions.h in Headers */,
 				D849D64E1D6CC7D200D06FC8 /* WMFImageTag+TargetImageWidthURL.h in Headers */,
@@ -7999,6 +8020,7 @@
 				D801C93C1EB9404A001FA294 /* WMFLocalization.h in Headers */,
 				0E728D4C1DAEEE910074EB4B /* CLLocation+WMFComparison.h in Headers */,
 				0E728D2D1DAEE8FF0074EB4B /* WMFMainPageContentSource.h in Headers */,
+				B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */,
 				D844D9F01D6CC01C0042D692 /* MWKLicense.h in Headers */,
 				D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */,
 				0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */,
@@ -10181,6 +10203,7 @@
 				D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */,
 				D8FA18DE1E1BD8A3009675C3 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
+				B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
 				D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */,
@@ -10255,6 +10278,7 @@
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
 				D8FA18F51E1BDA3C009675C3 /* WMFSparklineView.swift in Sources */,
 				D844D9F41D6CC0220042D692 /* MWKImageInfo+MWKImageComparison.m in Sources */,
+				B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */,
 				D8D365151E953C7100593A38 /* ImageControllerCompletionManager.swift in Sources */,
 				D8FA18FD1E1BDA4C009675C3 /* UIImageView+WMFImageFetching.m in Sources */,
 				D8FA18FE1E1BDA4C009675C3 /* UIColor+WMFStyle.m in Sources */,

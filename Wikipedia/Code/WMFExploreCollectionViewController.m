@@ -27,12 +27,38 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 
+
+
+
+
+// TEMP testing code
+#import "WMFOnThisDayEventsFetcher.h"
+#import "WMFFeedOnThisDayEvent.h"
+
+
+
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate>
+
+
+
+
+
+
+// TEMP testing code
+@property (nonatomic, strong) WMFOnThisDayEventsFetcher *onThisDayEventsFetcher;
+
+
+
+
+
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -580,6 +606,70 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)didReceiveMemoryWarning {
     [self resetLayoutCache];
     [super didReceiveMemoryWarning];
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+// TEMP testing code
+// TODO: BC years are negative - find out if numberformatter can show appropriate "BC" for lang for these...
+    self.onThisDayEventsFetcher = [[WMFOnThisDayEventsFetcher alloc] init];
+    [self.onThisDayEventsFetcher
+     fetchOnThisDayEventsForURL:[self currentSiteURL]
+     month:1
+     day:30
+     failure:^(NSError *_Nonnull error) {
+         NSLog(@"FAIL = %@", error);
+     }
+     success:^(NSArray<WMFFeedOnThisDayEvent *> *events) {
+         for (WMFFeedOnThisDayEvent* event in events) {
+             
+             NSString* articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
+                 return [NSString stringWithFormat:@""
+                         "\n\t\tTitle: %@"
+                         "\n\t\t\tDescription: %@"
+                         "\n\t\t\tExtract: %@",
+                         articlePreview.displayTitle,
+                         articlePreview.wikidataDescription,
+                         articlePreview.snippet];
+             }] componentsJoinedByString:@"\n"];
+             
+             NSString* eventString = [NSString stringWithFormat:@""
+                                      "\nEvent"
+                                      "\n\tYear: %@"
+                                      "\n\tDesciption: %@"
+                                      "\n\tArticles: %@",
+                                      event.year,
+                                      event.text,
+                                      articlesString
+                                      ];
+             NSLog(@"\n\n\n%@\n\n\n", eventString);
+         }
+     }];
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+
+    
 }
 
 #pragma mark - Offline Handling
