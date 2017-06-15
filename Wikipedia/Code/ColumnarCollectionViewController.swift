@@ -2,12 +2,8 @@ import UIKit
 
 @objc(WMFColumnarCollectionViewController)
 class ColumnarCollectionViewController: UICollectionViewController {
-    private static let headerReuseIdentifier = "org.wikimedia.columnarCollectionVC.header"
-    private static let footerReuseIdentifier = "org.wikimedia.columnarCollectionVC.footer"
-    
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
 
-    
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -19,8 +15,6 @@ class ColumnarCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .wmf_settingsBackground
-        register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ColumnarCollectionViewController.headerReuseIdentifier)
-        register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: ColumnarCollectionViewController.footerReuseIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,13 +76,6 @@ class ColumnarCollectionViewController: UICollectionViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
-    }
-    
-    // MARK - UICollectionViewDataSource
-    
-    override open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let reuseIdentifier = kind == UICollectionElementKindSectionHeader ? ColumnarCollectionViewController.headerReuseIdentifier : ColumnarCollectionViewController.footerReuseIdentifier
-        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifier, for: indexPath)
     }
 }
 

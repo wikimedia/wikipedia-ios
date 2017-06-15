@@ -23,8 +23,10 @@ class NewsViewController: ColumnarCollectionViewController {
         register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
         register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
     }
+}
 
-    // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
+extension NewsViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return stories.count
@@ -44,7 +46,7 @@ class NewsViewController: ColumnarCollectionViewController {
         return newsCell
     }
     
-    override open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NewsViewController.headerReuseIdentifier, for: indexPath)
@@ -54,7 +56,7 @@ class NewsViewController: ColumnarCollectionViewController {
             header.label.text = headerTitle(for: indexPath.section)
             return header
         default:
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+            return UICollectionReusableView()
         }
     }
     
