@@ -72,31 +72,6 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [self canDeleteItemAtIndexPath:indexPath];
-//}
-//
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self deleteItemAtIndexPath:indexPath];
-//}
-
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSURL *url = [self urlAtIndexPath:indexPath];
-        UIActivityViewController *shareActivityController = [self shareActivityController:url];
-        
-        [self shareArticle:shareActivityController];
-    }];
-    shareAction.backgroundColor = [UIColor wmf_green];
-    
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [self deleteItemAtIndexPath:indexPath];
-    }];
-    deleteAction.backgroundColor = [UIColor wmf_red];
-    return @[deleteAction,shareAction];
-}
-
 #pragma mark - Previewing
 
 - (void)registerForPreviewingIfAvailable {
@@ -316,6 +291,32 @@
 
 - (void)shareArticle:(UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+#pragma mark - Row actions
+
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        
+        UIActivityViewController *shareActivityController = [self shareActivityController:url];
+        
+        [self shareArticle:shareActivityController];
+    }];
+}
+
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+}
+
+- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Save"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+        [savedPageList addSavedPageWithURL:url];
+    }];
 }
 
 @end

@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateEmptyAndDeleteState;
 
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath;
+
 @end
 
 NS_ASSUME_NONNULL_END
