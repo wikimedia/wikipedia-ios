@@ -80,6 +80,7 @@
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-remove" = "সংরক্ষণ থেকে সরান";
+"cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
@@ -149,6 +150,7 @@
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
+"gdfl" = "GDFL";
 "history-clear-all" = "পরিষ্কার করুন";
 "history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
@@ -350,7 +352,7 @@
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
-"wikitext-upload-save-terms-and-license" = "প্রকাশ করার দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 লাইসেন্সের অধীনে অপরিবর্তনীয় প্রকাশে সম্মত হচ্ছেন।";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 $3 অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
 "zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";

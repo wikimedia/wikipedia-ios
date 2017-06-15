@@ -83,6 +83,7 @@
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
 "button-saved-remove" = "Hapus dari tersimpan";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
@@ -106,6 +107,7 @@
 "explore-another-random" = "Artikel sembarang lainnya";
 "explore-because-you-read" = "Karena Anda membaca";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
+"explore-enable-location-title" = "Jelajahi artikel di dekat lokasi Anda saat ini";
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-main-page-description" = "Halaman utama proyek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -155,6 +157,7 @@
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
+"gdfl" = "GDFL";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
@@ -380,7 +383,7 @@
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Masuk log";
-"wikitext-upload-save-terms-and-license" = "Dengan menerbitkan, Anda setuju terhadap $1, dan melepas kontribusi Anda di bawah lisensi $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";

@@ -87,6 +87,7 @@
 "button-save-for-later" = "Enregistrer pour plus tard";
 "button-saved-for-later" = "Enregistré pour plus tard";
 "button-saved-remove" = "Supprimer des enregistrements";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
@@ -110,6 +111,7 @@
 "explore-another-random" = "Un autre article au hasard";
 "explore-because-you-read" = "Parce que vous avez lu";
 "explore-continue-reading-heading" = "Continuer à lire";
+"explore-enable-location-title" = "Explorer les articles proches de votre emplacement actuel";
 "explore-featured-article-heading" = "Article vedette";
 "explore-main-page-description" = "Page principale des projets Wikimedia";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
@@ -159,6 +161,7 @@
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-username-or-email-title" = "Ou";
+"gdfl" = "GDFL";
 "history-clear-all" = "Effacer";
 "history-clear-cancel" = "Annuler";
 "history-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments récents ?";
@@ -384,7 +387,7 @@
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Se connecter";
-"wikitext-upload-save-terms-and-license" = "En publiant, vous acceptez les $1, et placez de façon irrévocable vos contributions sous la licence $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "En publiant les modifications, vous acceptez les $1 et de mettre votre contribution sous les licences $2 et $3.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "zero-charged-verbiage" = "Wikipédia Zéro est désactivé";
 "zero-charged-verbiage-extended" = "Charger d’autres articles pourrait augmenter les frais de données. Les articles enregistrés hors connexion ne consomment pas de données et sont gratuits.";

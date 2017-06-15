@@ -76,6 +76,7 @@
 "button-save-for-later" = "Сачувај за касније";
 "button-saved-for-later" = "Сачувано за касније";
 "button-saved-remove" = "Уклони из спремљених";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "у $1 ч.";
 "continue-reading-empty-description" = "Истражи Википедију за још чланака за прочитати";
@@ -365,8 +366,8 @@
 "wikitext-upload-save" = "Објављујем...";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси Вашег уређаја. Ако кликнете на дугме $1, имаћете више приватности.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
-"wikitext-upload-save-terms-and-license" = "Објављивањем измена, слажете се са $1 и неопозиво прихватате објављивање вашег доприноса под лиценцом $2.";
 "wikitext-upload-save-terms-name" = "условима коришћења";
 "zero-charged-verbiage" = "Wikipedia Zero је искључена";
 "zero-charged-verbiage-extended" = "Учитавање других чланака могло би да узрокује сношење трошкова. Спремљени чланци за читање офлајн не користе податке и бесплатни су.";

@@ -91,6 +91,7 @@
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
 "button-saved-remove" = "Kaydedildikten sonra kaldırıldı";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla makale okumak için Vikipedi'yi keşfedin";
@@ -385,7 +386,6 @@
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Oturum aç";
-"wikitext-upload-save-terms-and-license" = "Yayınladığınızda, $1nı ve katkılarınızı geri dönülemez şekilde $2 lisansıyla yayımlamayı kabul etmiş olursunuz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";
 "zero-charged-verbiage-extended" = "Diğer maddeleri yüklemek veri ücretlendirmesine neden olabilir. Kaydedilen maddeler çevrim dışı olarak saklanır, veri harcamaz ve ücretsizdir.";

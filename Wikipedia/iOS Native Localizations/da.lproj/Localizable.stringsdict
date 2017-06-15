@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d plaats gevonden</string>
+			<string>%1$d sted fundet</string>
 			<key>other</key>
-			<string>%1$d plaatsen gevonden</string>
+			<string>%1$d steder fundet</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -31,7 +31,7 @@
 			<key>one</key>
 			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d artikler</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -45,11 +45,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Gisteren</string>
+			<string>I går</string>
 			<key>other</key>
-			<string>%1$d dagen gelden</string>
+			<string>%1$d dage siden</string>
 			<key>zero</key>
-			<string>Vandaag</string>
+			<string>I dag</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -63,11 +63,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d uur geleden</string>
+			<string>%1$d time siden</string>
 			<key>other</key>
-			<string>%1$d uur geleden</string>
+			<string>%1$d timer siden</string>
 			<key>zero</key>
-			<string>Recent</string>
+			<string>For nyligt</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -81,11 +81,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d minuut geleden</string>
+			<string>%1$d minut siden</string>
 			<key>other</key>
-			<string>%1$d minuten geleden</string>
+			<string>%1$d minutter siden</string>
 			<key>zero</key>
-			<string>Nu</string>
+			<string>Lige nu</string>
 		</dict>
 	</dict>
 </dict>
