@@ -84,6 +84,7 @@
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-saved-remove" = "Uit opgeslagen verwijderen";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
@@ -148,6 +149,7 @@
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
 "find-in-page-button-label" = "Op pagina zoeken";
+"find-in-page-number-matches" = "$1 van $2";
 "find-in-page-popover-description" = "Tekst zoeken in pagina's";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
@@ -245,19 +247,25 @@
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
+"places-empty-search-title" = "Zoek naar Wikipedia-artikelen met geografische locaties";
 "places-filter-list-title" = "Zoekfilters";
 "places-filter-no-saved-places" = "U heeft geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 plaats|$1 plaatsen}} gevonden";
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
-// Fuzzy
-"places-search-default-text" = "Zoeken";
+"places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
+"places-search-articles-that-match" = "$1 die overeenkomen met \"$2\"";
+"places-search-default-text" = "Plaatsen zoeken";
 "places-search-did-you-mean" = "Bedoelde u $1?";
 "places-search-recently-searched-header" = "Recente zoekopdrachten";
 "places-search-saved-articles" = "Alle opgeslagen pagina's";
 "places-search-suggested-searches-header" = "Zoeksuggesties";
 "places-search-this-area" = "Resultaten binnen dit gebied";
 "places-search-top-articles" = "Alle meest gelezen pagina's";
+"places-search-top-articles-that-match-scope" = "In de buurt";
+"places-search-your-current-location" = "Uw huidige locatie";
+"places-show-filter-list-accessibility-label" = "Zoekfilters weergeven";
 "places-title" = "Plaatsen";
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
@@ -267,6 +275,9 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
 "reference-title" = "Referentie $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|Gisteren|$1 dagen gelden}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "save-action" = "Opslaan";
 "saved-clear-all" = "Wissen";
@@ -284,6 +295,9 @@
 "search-recent-title" = "Recente zoekopdrachten";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
+"settings-clear-cache" = "Cache legen";
+"settings-clear-cache-are-you-sure-message" = "Door het legen van de cache komt er $1 beschikbaar. Er worden geen opgeslagen pagina's verwijderd.";
+"settings-clear-cache-are-you-sure-title" = "Cache legen?";
 "settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
 "settings-help-and-feedback" = "Hulp en feedback";
@@ -321,6 +335,8 @@
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-see-more" = "Meer meest gelezen pagina's bekijken";
 "two-factor-login-continue" = "Doorgaan met aanmelden";
+"two-factor-login-instructions" = "Tweetrapsauthenticatiecode invullen";
+"two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "unsave-action" = "Opslaan ongedaan maken";
@@ -345,6 +361,8 @@
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
+"wikitext-preview-link-preview-description" = "Deze link leidt naar '$1'";
+"wikitext-preview-link-preview-title" = "Linkvoorvertoning";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
@@ -352,7 +370,6 @@
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-"wikitext-upload-save-terms-and-license" = "Door te publiceren gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de licentie $2.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
 "zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";

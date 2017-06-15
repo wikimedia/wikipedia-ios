@@ -1,5 +1,6 @@
 // Messages for Welsh (Cymraeg)
 // Exported from translatewiki.net
+// Author: Nemo bis
 // Author: Robin Owain
 
 "account-creation-create-account" = "Creer y cyfrif";
@@ -23,6 +24,7 @@
 "button-read-now" = "Darllen nawr";
 "button-save-for-later" = "Arbed ar gyfer eto";
 "button-saved-for-later" = "Arbedwyd";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Cau";
 "edit-summary-choice-fixed-grammar" = "Trwsiwyd y ramadeg";
 "edit-summary-choice-fixed-typos" = "Trwsiwyd rhai gwallau teipio";

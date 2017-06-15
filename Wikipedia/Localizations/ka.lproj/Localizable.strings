@@ -60,6 +60,7 @@
 "button-save-for-later" = "შეინახეთ";
 "button-saved-for-later" = "შენახულია";
 "button-saved-remove" = "შენახულიდან წაშლა";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "დახურვა";
 "compass-direction" = "$1 საათზე";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
@@ -261,7 +262,6 @@
 "wikitext-upload-save-anonymously-warning" = "რედაქტორებს მიენიჭებათ თქვენი მოწყობილობის IP მისამართი. თუ თქვენ $1, იქნებით ინფორმაციულად უფრო დაცული.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "შესვლა";
-"wikitext-upload-save-terms-and-license" = "გამოქვეყნებით, თქვენ ეთანხმებით $1-ს, და თქვენი წვლილის გაშვებას $2 ლიცენზიით.";
 "wikitext-upload-save-terms-name" = "გამოყენების პირობები";
 "zero-charged-verbiage" = "ვიკიპედია ზერო გამორთულია";
 "zero-free-verbiage" = "ვიკიპედიაზე უფასო წვდომა თქვენი მობილური ოპერატორიდან.";

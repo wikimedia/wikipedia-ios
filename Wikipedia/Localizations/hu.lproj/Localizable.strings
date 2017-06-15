@@ -76,6 +76,7 @@
 "button-save-for-later" = "Elmentés későbbre";
 "button-saved-for-later" = "Elmentve későbbre";
 "button-saved-remove" = "Eltávolítás a mentettek közül";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
@@ -365,7 +366,6 @@
 "wikitext-upload-save-anonymously-warning" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. A $1 nagyobb adatvédelmet biztosít.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Bejelentkezés";
-"wikitext-upload-save-terms-and-license" = "A közzététellel elfogadod a $1et és visszavonhatatlanul közzéteszed a közreműködésedet a $2 licenc alatt.";
 "wikitext-upload-save-terms-name" = "Felhasználási feltételek";
 "zero-charged-verbiage" = "A Wikipédia Zéró ki van kapcsolva";
 "zero-charged-verbiage-extended" = "Más szócikkek betöltése adatforgalmi díjakkal járhat. Az elmentett szócikkek kapcsolat nélkül is elérhetőek, így ingyen megtekinthetőek.";

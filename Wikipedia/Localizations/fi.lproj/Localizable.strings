@@ -81,6 +81,7 @@
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-saved-remove" = "Poista tallennetuista";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -269,6 +270,7 @@
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-this-area" = "Hae tällä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
+"places-search-your-current-location" = "Nykyinen sijaintisi";
 "places-show-filter-list-accessibility-label" = "Näytä hakusuodattimet";
 "places-title" = "Paikat";
 "places-unknown-distance" = "tuntematon etäisyys";
@@ -373,7 +375,6 @@
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-"wikitext-upload-save-terms-and-license" = "Julkaisemalla hyväksyt $1 ja peruuttamattomasti julkaiset muokkauksesi $2 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";
