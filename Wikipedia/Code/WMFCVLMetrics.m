@@ -24,6 +24,8 @@
     copy.interItemSpacing = self.interItemSpacing;
     copy.columnWeights = self.columnWeights;
     copy.shouldMatchColumnHeights = self.shouldMatchColumnHeights;
+    copy.hasHeaders = self.hasHeaders;
+    copy.hasFooters = self.hasFooters;
     return copy;
 }
 
@@ -46,6 +48,8 @@
     metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
+    metrics.hasHeaders = YES;
+    metrics.hasFooters = YES;
     return metrics;
 }
 
@@ -64,6 +68,8 @@
     metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
+    metrics.hasHeaders = !collapseSectionSpacing;
+    metrics.hasFooters = NO;
     return metrics;
 }
 @end
