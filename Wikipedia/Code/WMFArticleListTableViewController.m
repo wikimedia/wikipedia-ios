@@ -3,6 +3,7 @@
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
+#import "TUSafariActivity.h"
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -82,7 +83,10 @@
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSLog(@"In share action");
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        UIActivityViewController *shareActivityController = [self shareActivityController:url];
+        
+        [self shareArticle:shareActivityController];
     }];
     shareAction.backgroundColor = [UIColor blueColor];
     
@@ -271,6 +275,47 @@
     dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
         [self updateEmptyAndDeleteState];
     });
+}
+
+#pragma mark - Sharing
+
+- (UIActivityViewController *)shareActivityController:(NSURL *)url {
+    WMFArticle *article = [self.userDataStore fetchArticleWithURL:url];
+    NSMutableArray *items = [NSMutableArray array];
+    
+    
+    // TODO: Use WMFArticleTextActivitySource
+    NSString *text =  [NSString stringWithFormat:@"\"%@\" on @Wikipedia", [article displayTitle]];
+    [items addObject:text];
+    
+    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:url];
+    if (desktopURL) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
+        components.queryItems = @[queryItem];
+        
+        NSURL *componentsURL = components.URL;
+        if (componentsURL) {
+            [items addObject:componentsURL];
+        }
+    }
+    
+    MKMapItem *mapItem = [article mapItem];
+    if (mapItem) {
+        [items addObject:mapItem];
+    }
+
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                                              applicationActivities:
+                                                             @[[[TUSafariActivity alloc] init],
+                                                               [[WMFOpenInMapsActivity alloc] init],
+                                                               [[WMFGetDirectionsInMapsActivity alloc] init]]];
+    return vc;
+}
+
+- (void)shareArticle:(UIActivityViewController *)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 @end
