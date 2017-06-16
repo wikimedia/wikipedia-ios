@@ -1,6 +1,5 @@
 #import "WMFFeedNotificationHeader.h"
 #import "WMFLeadingImageTrailingTextButton.h"
-#import "Wikipedia-Swift.h"
 @import WMF.WMFLocalization;
 
 @implementation WMFFeedNotificationHeader
