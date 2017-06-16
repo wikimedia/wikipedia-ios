@@ -64,14 +64,14 @@ extension NewsViewController {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
-        cell.newsDelegate = self
+        cell.selectionDelegate = self
     }
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
-        cell.newsDelegate = nil
+        cell.selectionDelegate = nil
     }
     
     static let headerDateFormatter: DateFormatter = {
@@ -102,9 +102,9 @@ extension NewsViewController {
     }
 }
 
-// MARK: - NewsCollectionViewCellDelegate
-extension NewsViewController: NewsCollectionViewCellDelegate {
-    func newsCollectionViewCell(_ newsCollectionViewCell: NewsCollectionViewCell, didSelectNewsArticleWithURL articleURL: URL) {
+// MARK: - SideScrollingCollectionViewCellDelegate
+extension NewsViewController: SideScrollingCollectionViewCellDelegate {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }

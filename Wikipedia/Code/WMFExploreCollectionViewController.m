@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -882,7 +882,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
         WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
-        newsCell.newsDelegate = self;
+        newsCell.selectionDelegate = self;
     }
 
     if ([WMFLocationManager isAuthorized]) {
@@ -905,7 +905,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
         WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
-        newsCell.newsDelegate = nil;
+        newsCell.selectionDelegate = nil;
     }
 }
 
@@ -1921,7 +1921,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 #pragma mark - News Delegate
 
-- (void)newsCollectionViewCell:(WMFNewsCollectionViewCell *)cell didSelectNewsArticleWithURL:(NSURL *)articleURL {
+- (void)sideScrollingCollectionViewCell:(WMFSideScrollingCollectionViewCell *)cell didSelectArticleWithURL:(NSURL *)articleURL {
     if (articleURL == nil) {
         return;
     }

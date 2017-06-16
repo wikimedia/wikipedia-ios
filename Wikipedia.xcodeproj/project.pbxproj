@@ -200,6 +200,11 @@
 		B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */; };
 		B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */; };
 		B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */; };
+		B0B423531EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
+		B0B423541EF47DDA00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
+		B0B423551EF47DDA00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
+		B0B423561EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
+		B0B423571EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -3282,6 +3287,7 @@
 		B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayEventsFetcher.m; sourceTree = "<group>"; };
 		B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayContentSource.h; sourceTree = "<group>"; };
 		B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayContentSource.m; sourceTree = "<group>"; };
+		B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideScrollingCollectionViewCell.swift; path = Wikipedia/Code/SideScrollingCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -6787,6 +6793,7 @@
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
 				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
 				D89845281ECC8A1700849DA4 /* NewsCollectionViewCell.swift */,
+				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
@@ -9585,6 +9592,7 @@
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
+				B0B423531EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */,
 				B0E803C81C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				B0E803C31C0CDC4D0065EBC0 /* WMFArticlePreviewTableViewCell.m in Sources */,
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
@@ -10160,6 +10168,7 @@
 				D80ED39A1EE57F4800CE8C50 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */,
 				D80ED39B1EE57F4800CE8C50 /* WMFAlertManager.swift in Sources */,
 				D80ED39C1EE57F4800CE8C50 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
+				B0B423571EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */,
 				D88C701C1EE595E90022A26A /* MapView.swift in Sources */,
 				D80ED39D1EE57F4800CE8C50 /* AlignedImageButton.swift in Sources */,
 				D80ED39E1EE57F4800CE8C50 /* LoginFunnel.m in Sources */,
@@ -10633,6 +10642,7 @@
 				D8A42B241E815A9C00D8E281 /* WMFArticleNavigationController.m in Sources */,
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
 				D8A42B261E815A9C00D8E281 /* UITableView+DynamicCellHeight.m in Sources */,
+				B0B423561EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */,
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
 				D8733C901ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8A42B281E815A9C00D8E281 /* String?+WMFExtras.swift in Sources */,
@@ -11055,6 +11065,7 @@
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE26091E698E2400DAE2E0 /* AlignedImageButton.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* LoginFunnel.m in Sources */,
+				B0B423541EF47DDA00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
 				D8CE260B1E698E2400DAE2E0 /* TabularScrollView.m in Sources */,
 				B34B0EE31EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
@@ -11269,6 +11280,7 @@
 				D8EC3E801E9BDA35006712EB /* WMFRandomArticleViewController.m in Sources */,
 				D8EC3E811E9BDA35006712EB /* SSSection.m in Sources */,
 				D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
+				B0B423551EF47DDA00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */,
 				D8EC3E821E9BDA35006712EB /* WMFArticleViewController.m in Sources */,
 				D8EC3E831E9BDA35006712EB /* SSCoreDataSource.m in Sources */,
 				D8EC3E841E9BDA35006712EB /* NSAttributedString+WMFTrim.m in Sources */,
