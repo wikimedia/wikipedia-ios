@@ -1122,6 +1122,22 @@
 		D83FA6B81D74CDEE008CAB00 /* ReadingActionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805841C0CE2C60065EBC0 /* ReadingActionFunnel.m */; };
 		D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
 		D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
+		D83FD28D1EF4724700532B15 /* FeaturedArticleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83FD28C1EF4724700532B15 /* FeaturedArticleWidget.swift */; };
+		D83FD2901EF4724700532B15 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83FD28E1EF4724700532B15 /* MainInterface.storyboard */; };
+		D83FD2941EF4724700532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D83FD2A31EF472AF00532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D83FD2A41EF472B600532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D83FD2A51EF472E100532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
+		D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
+		D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
+		D83FD2B11EF4745300532B15 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
+		D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
+		D83FD2B31EF4746400532B15 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
+		D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
+		D83FD2B51EF4746F00532B15 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
+		D83FD2B61EF4747800532B15 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */; };
 		D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */; };
 		D84448221DDB60FF00425630 /* WMFArticle+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D84448201DDB60FF00425630 /* WMFArticle+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D84448211DDB60FF00425630 /* WMFArticle+Extensions.m */; };
@@ -2829,6 +2845,34 @@
 			remoteGlobalIDString = D895D0821D9C1EB8005418C1;
 			remoteInfo = InTheNewsNotification;
 		};
+		D83FD2921EF4724700532B15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
+		D83FD2A91EF473E300532B15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
+		D83FD2AB1EF473E600532B15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
+		D83FD2AD1EF473F200532B15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
 		D85D34CE1D74D07500845125 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2932,6 +2976,7 @@
 				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
+				D83FD2941EF4724700532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2942,6 +2987,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D83FD2A51EF472E100532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D80ED4261EE57F4800CE8C50 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D80ED4271EE57F4800CE8C50 /* TopReadWidget.appex in Embed App Extensions */,
 				D80ED4281EE57F4800CE8C50 /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -2997,6 +3043,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D83FD2A31EF472AF00532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D8CE26A11E698E2400DAE2E0 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D8CE26A21E698E2400DAE2E0 /* TopReadWidget.appex in Embed App Extensions */,
 				D8CE26A31E698E2400DAE2E0 /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -3021,6 +3068,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D83FD2A41EF472B600532B15 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D8EC3FA11E9BDA35006712EB /* InTheNewsNotification.appex in Embed App Extensions */,
 				D8EC3FA21E9BDA35006712EB /* TopReadWidget.appex in Embed App Extensions */,
 				D8EC3FA31E9BDA35006712EB /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -4246,6 +4294,10 @@
 		D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAnimatedImage.framework; path = Carthage/Build/iOS/FLAnimatedImage.framework; sourceTree = SOURCE_ROOT; };
 		D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLegacyContentGroup.h; sourceTree = "<group>"; };
 		D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyContentGroup.m; sourceTree = "<group>"; };
+		D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeaturedArticleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83FD28C1EF4724700532B15 /* FeaturedArticleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedArticleWidget.swift; sourceTree = "<group>"; };
+		D83FD28F1EF4724700532B15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D83FD2911EF4724700532B15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D844480E1DDA33D900425630 /* Wikipedia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wikipedia.xcdatamodel; sourceTree = "<group>"; };
 		D84448201DDB60FF00425630 /* WMFArticle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticle+Extensions.h"; sourceTree = "<group>"; };
 		D84448211DDB60FF00425630 /* WMFArticle+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticle+Extensions.m"; sourceTree = "<group>"; };
@@ -4588,6 +4640,23 @@
 				D80ED3C61EE57F4800CE8C50 /* Foundation.framework in Frameworks */,
 				D80ED3C71EE57F4800CE8C50 /* MapKit.framework in Frameworks */,
 				D8E9AD1E1EF07CDD005A9F7A /* HockeySDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D83FD2861EF4724700532B15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */,
+				D83FD2B51EF4746F00532B15 /* CocoaLumberjackSwift.framework in Frameworks */,
+				D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */,
+				D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */,
+				D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */,
+				D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */,
+				D83FD2B11EF4745300532B15 /* Masonry.framework in Frameworks */,
+				D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */,
+				D83FD2B31EF4746400532B15 /* Piwik.framework in Frameworks */,
+				D83FD2B61EF4747800532B15 /* AFNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7320,6 +7389,7 @@
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
 				D87021611EBA63EF000D02D6 /* Localization */,
+				D83FD28B1EF4724700532B15 /* FeaturedArticleWidget */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
@@ -7339,6 +7409,7 @@
 				D8EC3FB41E9BDA35006712EB /* Wikipedia Beta.app */,
 				D87021601EBA63EE000D02D6 /* localization */,
 				D80ED4381EE57F4800CE8C50 /* Wikipedia OSM.app */,
+				D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7490,6 +7561,16 @@
 				D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */,
 			);
 			path = Carthage;
+			sourceTree = "<group>";
+		};
+		D83FD28B1EF4724700532B15 /* FeaturedArticleWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D83FD28C1EF4724700532B15 /* FeaturedArticleWidget.swift */,
+				D83FD28E1EF4724700532B15 /* MainInterface.storyboard */,
+				D83FD2911EF4724700532B15 /* Info.plist */,
+			);
+			path = FeaturedArticleWidget;
 			sourceTree = "<group>";
 		};
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
@@ -8181,6 +8262,7 @@
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
 				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
+				D83FD2931EF4724700532B15 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -8205,11 +8287,29 @@
 				D80ED2671EE57F4800CE8C50 /* PBXTargetDependency */,
 				D80ED2691EE57F4800CE8C50 /* PBXTargetDependency */,
 				D80ED26B1EE57F4800CE8C50 /* PBXTargetDependency */,
+				D83FD2AE1EF473F200532B15 /* PBXTargetDependency */,
 			);
 			name = "Wikipedia OSM";
 			productName = "Wikipedia-iOS";
 			productReference = D80ED4381EE57F4800CE8C50 /* Wikipedia OSM.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D83FD2881EF4724700532B15 /* FeaturedArticleWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D83FD2A21EF4724800532B15 /* Build configuration list for PBXNativeTarget "FeaturedArticleWidget" */;
+			buildPhases = (
+				D83FD2851EF4724700532B15 /* Sources */,
+				D83FD2861EF4724700532B15 /* Frameworks */,
+				D83FD2871EF4724700532B15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeaturedArticleWidget;
+			productName = FeaturedArticleWidget;
+			productReference = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		D844D96B1D6CB2600042D692 /* WMF */ = {
 			isa = PBXNativeTarget;
@@ -8321,6 +8421,7 @@
 				D8CE24DA1E698E2400DAE2E0 /* PBXTargetDependency */,
 				D8CE24DC1E698E2400DAE2E0 /* PBXTargetDependency */,
 				D8CE24DE1E698E2400DAE2E0 /* PBXTargetDependency */,
+				D83FD2AA1EF473E300532B15 /* PBXTargetDependency */,
 			);
 			name = "Wikipedia Alpha";
 			productName = "Wikipedia-iOS";
@@ -8345,6 +8446,7 @@
 				D8EC3DD11E9BDA35006712EB /* PBXTargetDependency */,
 				D8EC3DD31E9BDA35006712EB /* PBXTargetDependency */,
 				D8EC3DD51E9BDA35006712EB /* PBXTargetDependency */,
+				D83FD2AC1EF473E600532B15 /* PBXTargetDependency */,
 			);
 			name = "Wikipedia Beta";
 			productName = "Wikipedia-iOS";
@@ -8402,6 +8504,11 @@
 					};
 					D80ED2641EE57F4800CE8C50 = {
 						DevelopmentTeam = AKK7J2GV64;
+					};
+					D83FD2881EF4724700532B15 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AKK7J2GV64;
+						ProvisioningStyle = Automatic;
 					};
 					D844D96B1D6CB2600042D692 = {
 						CreatedOnToolsVersion = 8.0;
@@ -8601,6 +8708,7 @@
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
 				D85D34C41D74D07500845125 /* TopReadWidget */,
+				D83FD2881EF4724700532B15 /* FeaturedArticleWidget */,
 				D844D96B1D6CB2600042D692 /* WMF */,
 				D870215F1EBA63EE000D02D6 /* localization */,
 			);
@@ -8819,6 +8927,14 @@
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				D80ED4231EE57F4800CE8C50 /* WMFFontSliderViewController.xib in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D83FD2871EF4724700532B15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D83FD2901EF4724700532B15 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10158,6 +10274,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D83FD2851EF4724700532B15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D83FD28D1EF4724700532B15 /* FeaturedArticleWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D844D9671D6CB2600042D692 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -11420,6 +11544,26 @@
 			target = D895D0821D9C1EB8005418C1 /* InTheNewsNotification */;
 			targetProxy = D80ED26C1EE57F4800CE8C50 /* PBXContainerItemProxy */;
 		};
+		D83FD2931EF4724700532B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D83FD2921EF4724700532B15 /* PBXContainerItemProxy */;
+		};
+		D83FD2AA1EF473E300532B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D83FD2A91EF473E300532B15 /* PBXContainerItemProxy */;
+		};
+		D83FD2AC1EF473E600532B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D83FD2AB1EF473E600532B15 /* PBXContainerItemProxy */;
+		};
+		D83FD2AE1EF473F200532B15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D83FD2AD1EF473F200532B15 /* PBXContainerItemProxy */;
+		};
 		D85D34CF1D74D07500845125 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D85D34C41D74D07500845125 /* TopReadWidget */;
@@ -11740,6 +11884,14 @@
 				D8497F5D1EE027D700100CBD /* hrx */,
 			);
 			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		D83FD28E1EF4724700532B15 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D83FD28F1EF4724700532B15 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		D85D34CA1D74D07500845125 /* MainInterface.storyboard */ = {
@@ -13780,6 +13932,335 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = BetaClusterDebug;
+		};
+		D83FD2951EF4724800532B15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D83FD2961EF4724800532B15 /* OSMDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = OSMDebug;
+		};
+		D83FD2971EF4724800532B15 /* UserTestingDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = UserTestingDebug;
+		};
+		D83FD2981EF4724800532B15 /* BetaDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaDebug;
+		};
+		D83FD2991EF4724800532B15 /* BetaClusterDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaClusterDebug;
+		};
+		D83FD29A1EF4724800532B15 /* AlphaDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = AlphaDebug;
+		};
+		D83FD29B1EF4724800532B15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		D83FD29C1EF4724800532B15 /* OSMRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = OSMRelease;
+		};
+		D83FD29D1EF4724800532B15 /* UserTestingRelease */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = UserTestingRelease;
+		};
+		D83FD29E1EF4724800532B15 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Beta;
+		};
+		D83FD29F1EF4724800532B15 /* BetaCluster */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = BetaCluster;
+		};
+		D83FD2A01EF4724800532B15 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Test;
+		};
+		D83FD2A11EF4724800532B15 /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FeaturedArticleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Alpha;
 		};
 		D844D9751D6CB2600042D692 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -17339,6 +17820,25 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D83FD2A21EF4724800532B15 /* Build configuration list for PBXNativeTarget "FeaturedArticleWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D83FD2951EF4724800532B15 /* Debug */,
+				D83FD2961EF4724800532B15 /* OSMDebug */,
+				D83FD2971EF4724800532B15 /* UserTestingDebug */,
+				D83FD2981EF4724800532B15 /* BetaDebug */,
+				D83FD2991EF4724800532B15 /* BetaClusterDebug */,
+				D83FD29A1EF4724800532B15 /* AlphaDebug */,
+				D83FD29B1EF4724800532B15 /* Release */,
+				D83FD29C1EF4724800532B15 /* OSMRelease */,
+				D83FD29D1EF4724800532B15 /* UserTestingRelease */,
+				D83FD29E1EF4724800532B15 /* Beta */,
+				D83FD29F1EF4724800532B15 /* BetaCluster */,
+				D83FD2A01EF4724800532B15 /* Test */,
+				D83FD2A11EF4724800532B15 /* Alpha */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D844D97B1D6CB2600042D692 /* Build configuration list for PBXNativeTarget "WMF" */ = {
 			isa = XCConfigurationList;
