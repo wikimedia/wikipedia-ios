@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return [UIImage imageNamed:@"in-the-news-mini"];
         case WMFContentGroupKindOnThisDay:
-//TODO: get and use proper asset for this...
+            //TODO: get and use proper asset for this...
             return [UIImage imageNamed:@"in-the-news-mini"];
         case WMFContentGroupKindNotification:
             break;
@@ -378,7 +378,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return WMFFeedDisplayTypeStory;
         case WMFContentGroupKindOnThisDay:
-            return WMFFeedDisplayTypeStory;
+            return WMFFeedDisplayTypeEvent;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -483,7 +483,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return WMFFeedDetailTypeStory;
         case WMFContentGroupKindOnThisDay:
-            return WMFFeedDetailTypeStory;
+            return WMFFeedDetailTypeEvent;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:

@@ -9,6 +9,7 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
+    WMFFeedDisplayTypeEvent,
     WMFFeedDisplayTypeAnnouncement,
     WMFFeedDisplayTypeRelatedPagesSourceArticle,
     WMFFeedDisplayTypeRelatedPages,
@@ -23,7 +24,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory
+    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeEvent
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {

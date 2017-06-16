@@ -707,7 +707,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self configureNewsCell:cell withContentGroup:contentGroup layoutOnly:NO];
             return cell;
         } break;
-
+        case WMFFeedDisplayTypeEvent: {
+            WMFOnThisDayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFOnThisDayCollectionViewCell" forIndexPath:indexPath];
+            [self configureOnThisDayCell:cell withContentGroup:contentGroup layoutOnly:NO];
+            return cell;
+        } break;
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
             [self configureAnouncementCell:cell withSection:contentGroup atIndexPath:indexPath];
@@ -741,6 +745,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeStory:
             reuseIdentifier = @"WMFNewsCollectionViewCell";
             break;
+        case WMFFeedDisplayTypeEvent:
+            reuseIdentifier = @"WMFOnThisDayCollectionViewCell";
+            break;
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRandom:
@@ -766,6 +773,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeRanked:
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeStory:
+        case WMFFeedDisplayTypeEvent:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
         case WMFFeedDisplayTypePageWithPreview:
@@ -773,7 +781,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
             WMFArticle *article = [self articleForIndexPath:indexPath];
-            NSString *key = displayType == WMFFeedDisplayTypeStory ? section.key : article.key;
+            NSString *key = (displayType == WMFFeedDisplayTypeStory || displayType == WMFFeedDisplayTypeEvent) ? section.key : article.key;
 
             NSString *reuseIdentifier = [self reuseIdentifierForCellAtIndexPath:indexPath displayType:displayType];
             NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%@-%lli", reuseIdentifier, (long long)displayType, key, (long long)columnWidth];
@@ -790,6 +798,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     WMFNewsCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureNewsCell:cell withContentGroup:section layoutOnly:YES];
 
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    estimate.height = size.height;
+                    break;
+                }
+                case WMFFeedDisplayTypeEvent: {
+                    WMFOnThisDayCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                    [self configureOnThisDayCell:cell withContentGroup:section layoutOnly:YES];
+                    
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -1177,6 +1193,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
 
+    [self registerClass:[WMFOnThisDayCollectionViewCell class] forCellWithReuseIdentifier:@"WMFOnThisDayCollectionViewCell"];
+
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
@@ -1213,6 +1231,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFFeedNewsStory *story = [stories firstObject];
     if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
         [cell configureWithStory:story dataStore:self.userStore layoutOnly:layoutOnly];
+    }
+}
+
+- (void)configureOnThisDayCell:(WMFOnThisDayCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
+    NSArray *events = contentGroup.content;
+    WMFFeedOnThisDayEvent *event = [events firstObject];
+    if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+        [cell configureWithOnThisDayEvent:event dataStore:self.userStore layoutOnly:layoutOnly];
     }
 }
 
