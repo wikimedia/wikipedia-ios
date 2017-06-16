@@ -50,6 +50,9 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
+@property (nonatomic) BOOL hasHeaders;
+@property (nonatomic) BOOL hasFooters;
+
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing; // ratios should add up to 2
 + (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing;
