@@ -1445,6 +1445,52 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedMoreTypeNews: {
             [self showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)group.content date:group.date animated:YES];
         } break;
+        case WMFFeedMoreTypeOnThisDay: {
+
+            
+            
+            
+            
+            
+            
+// TEMP testing code
+// TODO: hook up detail controller here instead of printing event here
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.content;
+            
+            for (WMFFeedOnThisDayEvent* event in events) {
+                
+                NSString* articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
+                    return [NSString stringWithFormat:@""
+                            "\n\t\tTitle: %@"
+                            "\n\t\t\tDescription: %@"
+                            "\n\t\t\tExtract: %@",
+                            articlePreview.displayTitle,
+                            articlePreview.wikidataDescription,
+                            articlePreview.snippet];
+                }] componentsJoinedByString:@"\n"];
+                
+                NSString* eventString = [NSString stringWithFormat:@""
+                                         "\nEvent"
+                                         "\n\tYear: %@"
+                                         "\n\tDesciption: %@"
+                                         "\n\tArticles: %@",
+                                         event.year,
+                                         event.text,
+                                         articlesString
+                                         ];
+                NSLog(@"\n\n\n%@\n\n\n", eventString);
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+        } break;
         default:
             NSAssert(false, @"Unknown More Type");
             break;

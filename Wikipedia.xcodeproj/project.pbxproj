@@ -198,6 +198,8 @@
 		B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */; };
 		B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */; };
 		B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */; };
+		B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */; };
+		B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -3278,6 +3280,8 @@
 		B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeedOnThisDayEvent.m; sourceTree = "<group>"; };
 		B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayEventsFetcher.h; sourceTree = "<group>"; };
 		B0B4234B1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayEventsFetcher.m; sourceTree = "<group>"; };
+		B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayContentSource.h; sourceTree = "<group>"; };
+		B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayContentSource.m; sourceTree = "<group>"; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -5427,6 +5431,8 @@
 				0E19B9B51DAC574E00239F3A /* WMFRandomContentSource.m */,
 				0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */,
 				0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */,
+				B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */,
+				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 			);
 			name = "Content Sources";
 			path = ../Wikipedia/Code;
@@ -8036,6 +8042,7 @@
 				D8FA19041E1BDA66009675C3 /* UIImageView+WMFPlaceholder.h in Headers */,
 				D8FA18D81E1BD899009675C3 /* NSURL+WMFLinkParsing.h in Headers */,
 				D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */,
+				B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */,
 				D844D9F21D6CC01C0042D692 /* MWKImage+CanonicalFilenames.h in Headers */,
 				D84448581DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h in Headers */,
 				D8FA18BB1E1BD891009675C3 /* NSFileManager+WMFGroup.h in Headers */,
@@ -10215,6 +10222,7 @@
 				D8FA18FB1E1BDA4C009675C3 /* UIImage+WMFStyle.m in Sources */,
 				D8FA18F31E1BDA35009675C3 /* UIImageView+WMFContentOffset.m in Sources */,
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
+				B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */,
 				D8FA18F81E1BDA4C009675C3 /* WMFArticlePreviewViewController.swift in Sources */,
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
 				0E728D2E1DAEE8FF0074EB4B /* WMFMainPageContentSource.m in Sources */,

@@ -53,6 +53,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;
 + (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location;
 + (nullable NSURL *)locationPlaceholderContentGroupURL;
 
