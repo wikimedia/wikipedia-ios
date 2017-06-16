@@ -205,6 +205,11 @@
 		B0B423551EF47DDA00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
 		B0B423561EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
 		B0B423571EF47DDB00D3DC4C /* SideScrollingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */; };
+		B0B4235A1EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */; };
+		B0B4235B1EF4845900D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */; };
+		B0B4235C1EF4845A00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */; };
+		B0B4235D1EF4845A00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */; };
+		B0B4235E1EF4845B00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -3288,6 +3293,7 @@
 		B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayContentSource.h; sourceTree = "<group>"; };
 		B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOnThisDayContentSource.m; sourceTree = "<group>"; };
 		B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideScrollingCollectionViewCell.swift; path = Wikipedia/Code/SideScrollingCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayCollectionViewCell.swift; path = Wikipedia/Code/OnThisDayCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -6793,6 +6799,7 @@
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
 				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
 				D89845281ECC8A1700849DA4 /* NewsCollectionViewCell.swift */,
+				B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */,
 				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
@@ -9731,6 +9738,7 @@
 				D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */,
 				B0E804411C0CDF850065EBC0 /* MenuButton.m in Sources */,
 				D8BBBCDA1D9456AC00DECA36 /* NSLocale+WMFExtras.swift in Sources */,
+				B0B4235A1EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				B0E804BA1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D84692E01D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift in Sources */,
 				B0E8070A1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m in Sources */,
@@ -10143,6 +10151,7 @@
 				D80ED3841EE57F4800CE8C50 /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
 				D80ED3861EE57F4800CE8C50 /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				B0B4235E1EF4845B00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				D80ED3871EE57F4800CE8C50 /* NSAttributedString+WMFModify.m in Sources */,
 				D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */,
 				D80ED3881EE57F4800CE8C50 /* WMFSettingsViewController.m in Sources */,
@@ -10752,6 +10761,7 @@
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
 				D8A42B991E815A9C00D8E281 /* UIScrollView+WMFScrollsToTop.m in Sources */,
+				B0B4235D1EF4845A00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11040,6 +11050,7 @@
 				D8CE25EF1E698E2400DAE2E0 /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				D8CE25F01E698E2400DAE2E0 /* WMFAccountCreationViewController.swift in Sources */,
 				D8CE25F11E698E2400DAE2E0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				B0B4235B1EF4845900D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				D8CE25F31E698E2400DAE2E0 /* NSAttributedString+WMFModify.m in Sources */,
 				D8CE25F41E698E2400DAE2E0 /* WMFSettingsViewController.m in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
@@ -11103,6 +11114,7 @@
 				D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				B3D889451E9E8F8900F08F53 /* PlaceSearchFilterListController.swift in Sources */,
 				D8EC3DDB1E9BDA35006712EB /* AFHTTPSessionManager+WMFAPI.swift in Sources */,
+				B0B4235C1EF4845A00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				D8EC3DDC1E9BDA35006712EB /* BulletedLabel.m in Sources */,
 				D8EC3DDD1E9BDA35006712EB /* WMFArticleResponseSerializer.m in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
