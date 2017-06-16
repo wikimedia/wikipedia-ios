@@ -311,9 +311,9 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 #pragma mark - Debug
 
 - (void)debugChaos {
+    BOOL needsTeardown = arc4random_uniform(2) > 0;
+    NSManagedObjectContext *moc = needsTeardown ? self.dataStore.feedImportContext : self.dataStore.viewContext;
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation * _Nonnull op) {
-        BOOL needsTeardown = arc4random_uniform(2) > 0;
-        NSManagedObjectContext *moc = needsTeardown ? self.dataStore.feedImportContext : self.dataStore.viewContext;
         [moc performBlock:^{
             NSFetchRequest *request = [WMFContentGroup fetchRequest];
             NSInteger count = [moc countForFetchRequest:request error:nil];
@@ -325,23 +325,14 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                 int32_t random = (15 - (int32_t)arc4random_uniform(30));
                 switch (seed) {
                     case 0:
-                        group.dailySortPriority = group.dailySortPriority + random;
-                        break;
-                    case 1:
                         group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400*random];
                         group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
                         group.date = [group.date dateByAddingTimeInterval:86400*random];
                         break;
-                    case 2:
+                    case 1:
                         [moc deleteObject:group];
                     default:
-                    {
-                        [moc createGroupOfKind:group.contentGroupKind forDate:[group.date dateByAddingTimeInterval:86400*random] withSiteURL:group.siteURL associatedContent:group.content customizationBlock:^(WMFContentGroup * _Nonnull newGroup) {
-                            newGroup.location = group.location;
-                            newGroup.placemark = group.placemark;
-                            newGroup.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
-                        }];
-                    }
+                        group.dailySortPriority = group.dailySortPriority + random;
                         break;
                 }
             }
