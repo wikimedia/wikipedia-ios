@@ -27,18 +27,8 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 
-
-
-
-
 // TEMP testing code
-#import "WMFOnThisDayEventsFetcher.h"
 #import "WMFFeedOnThisDayEvent.h"
-
-
-
-
-
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,19 +36,6 @@ static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyH
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate>
-
-
-
-
-
-
-// TEMP testing code
-@property (nonatomic, strong) WMFOnThisDayEventsFetcher *onThisDayEventsFetcher;
-
-
-
-
-
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -223,14 +200,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
         }];
-    } else if ([group contentType] == WMFContentTypeStory) {
-        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
-        }];
-    } else if ([group contentType] == WMFContentTypeOnThisDayEvent) {
-        content = [content wmf_map:^id(WMFFeedOnThisDayEvent *obj) {
-            return [[[obj articlePreviews] firstObject] articleURL];
-        }];
     } else if ([group contentType] != WMFContentTypeURL) {
         content = nil;
     }
@@ -267,18 +236,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
         return content[indexPath.row];
 
-    } else if ([section contentType] == WMFContentTypeStory) {
-        NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
-            return nil;
-        }
-        return [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
-    } else if ([section contentType] == WMFContentTypeOnThisDayEvent) {
-        NSArray<WMFFeedOnThisDayEvent *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
-            return nil;
-        }
-        return [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
     } else {
         return nil;
     }
@@ -323,13 +280,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             articleURL = nil;
         }
         articleURL = [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
-        width = self.traitCollection.wmf_nearbyThumbnailWidth;
-    } else if ([section contentType] == WMFContentTypeOnThisDayEvent) {
-        NSArray<WMFFeedOnThisDayEvent *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
-            articleURL = nil;
-        }
-        articleURL = [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
         width = self.traitCollection.wmf_nearbyThumbnailWidth;
     } else {
         return nil;
@@ -623,70 +573,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)didReceiveMemoryWarning {
     [self resetLayoutCache];
     [super didReceiveMemoryWarning];
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-// TEMP testing code
-// TODO: BC years are negative - find out if numberformatter can show appropriate "BC" for lang for these...
-    self.onThisDayEventsFetcher = [[WMFOnThisDayEventsFetcher alloc] init];
-    [self.onThisDayEventsFetcher
-     fetchOnThisDayEventsForURL:[self currentSiteURL]
-     month:1
-     day:30
-     failure:^(NSError *_Nonnull error) {
-         NSLog(@"FAIL = %@", error);
-     }
-     success:^(NSArray<WMFFeedOnThisDayEvent *> *events) {
-         for (WMFFeedOnThisDayEvent* event in events) {
-             
-             NSString* articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
-                 return [NSString stringWithFormat:@""
-                         "\n\t\tTitle: %@"
-                         "\n\t\t\tDescription: %@"
-                         "\n\t\t\tExtract: %@",
-                         articlePreview.displayTitle,
-                         articlePreview.wikidataDescription,
-                         articlePreview.snippet];
-             }] componentsJoinedByString:@"\n"];
-             
-             NSString* eventString = [NSString stringWithFormat:@""
-                                      "\nEvent"
-                                      "\n\tYear: %@"
-                                      "\n\tDesciption: %@"
-                                      "\n\tArticles: %@",
-                                      event.year,
-                                      event.text,
-                                      articlesString
-                                      ];
-             NSLog(@"\n\n\n%@\n\n\n", eventString);
-         }
-     }];
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-
-    
 }
 
 #pragma mark - Offline Handling
@@ -1422,8 +1308,53 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
+
+    switch (group.moreType) {
+        case WMFFeedMoreTypePageWithRandomButton: {
+            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
+            [self.navigationController pushViewController:vc animated:animated];
+            return;
+        }
+        case WMFFeedMoreTypeNews: {
+            [self showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)group.content date:group.date animated:YES];
+            return;
+        }
+        case WMFFeedMoreTypeOnThisDay: {
+
+            // TEMP testing code
+            // TODO: hook up detail controller here instead of printing event here
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.content;
+
+            for (WMFFeedOnThisDayEvent *event in events) {
+
+                NSString *articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
+                    return [NSString stringWithFormat:@""
+                                                       "\n\t\tTitle: %@"
+                                                       "\n\t\t\tDescription: %@"
+                                                       "\n\t\t\tExtract: %@",
+                                                      articlePreview.displayTitle,
+                                                      articlePreview.wikidataDescription,
+                                                      articlePreview.snippet];
+                }] componentsJoinedByString:@"\n"];
+
+                NSString *eventString = [NSString stringWithFormat:@""
+                                                                    "\nEvent"
+                                                                    "\n\tYear: %@"
+                                                                    "\n\tDesciption: %@"
+                                                                    "\n\tArticles: %@",
+                                                                   event.year,
+                                                                   event.text,
+                                                                   articlesString];
+                NSLog(@"\n\n\n%@\n\n\n", eventString);
+            }
+            return;
+        }
+        default:
+            break;
+    }
+
     NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
-    NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with somehting other than URLs");
+    NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with something other than URLs");
     if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
         return;
     }
@@ -1433,68 +1364,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
             vc.title = group.moreTitle;
             [self.navigationController pushViewController:vc animated:animated];
-        } break;
+            return;
+        }
         case WMFFeedMoreTypePageListWithLocation: {
             WMFArticleLocationCollectionViewController *vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
             [self.navigationController pushViewController:vc animated:animated];
-        } break;
-        case WMFFeedMoreTypePageWithRandomButton: {
-            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
-            [self.navigationController pushViewController:vc animated:animated];
-        } break;
-        case WMFFeedMoreTypeNews: {
-            [self showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)group.content date:group.date animated:YES];
-        } break;
-        case WMFFeedMoreTypeOnThisDay: {
-
-            
-            
-            
-            
-            
-            
-// TEMP testing code
-// TODO: hook up detail controller here instead of printing event here
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.content;
-            
-            for (WMFFeedOnThisDayEvent* event in events) {
-                
-                NSString* articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
-                    return [NSString stringWithFormat:@""
-                            "\n\t\tTitle: %@"
-                            "\n\t\t\tDescription: %@"
-                            "\n\t\t\tExtract: %@",
-                            articlePreview.displayTitle,
-                            articlePreview.wikidataDescription,
-                            articlePreview.snippet];
-                }] componentsJoinedByString:@"\n"];
-                
-                NSString* eventString = [NSString stringWithFormat:@""
-                                         "\nEvent"
-                                         "\n\tYear: %@"
-                                         "\n\tDesciption: %@"
-                                         "\n\tArticles: %@",
-                                         event.year,
-                                         event.text,
-                                         articlesString
-                                         ];
-                NSLog(@"\n\n\n%@\n\n\n", eventString);
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
-        } break;
+            return;
+        }
         default:
-            NSAssert(false, @"Unknown More Type");
             break;
     }
+    NSAssert(false, @"Unknown More Type");
 }
 
 - (void)presentMoreViewControllerForSectionAtIndex:(NSUInteger)sectionIndex animated:(BOOL)animated {
@@ -1506,6 +1386,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+
+    /*
+ TODO: handle on this day case here
+ https://github.com/wikimedia/wikipedia-ios/pull/1545/files#r122498247
+*/
 
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
