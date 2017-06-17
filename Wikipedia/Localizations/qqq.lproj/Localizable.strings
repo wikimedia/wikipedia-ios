@@ -274,6 +274,7 @@
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
+"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
