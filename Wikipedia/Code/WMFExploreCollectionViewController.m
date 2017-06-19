@@ -568,6 +568,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
+    [self sizeNotificationHeader];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
