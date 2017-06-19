@@ -105,6 +105,7 @@
 "explore-another-random" = "其他随机条目";
 "explore-because-you-read" = "因为您阅读";
 "explore-continue-reading-heading" = "继续阅读";
+"explore-enable-location-title" = "浏览您当前位置附近的条目";
 "explore-featured-article-heading" = "特色条目";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -154,6 +155,7 @@
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
 "forgot-password-title" = "重置密码";
 "forgot-password-username-or-email-title" = "或";
+"gdfl" = "GDFL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
@@ -377,8 +379,8 @@
 "wikitext-upload-result-unknown" = "无法确定wikitext上传结果。";
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
-"cc-by-sa-3.0" = "知识共享 署名-相同方式共享 3.0";
 "wikitext-upload-save-sign-in" = "登录";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "通过发布更改，您同意$1并同意将您的贡献根据$2{{PLURAL:$3|许可协议}}发布。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
