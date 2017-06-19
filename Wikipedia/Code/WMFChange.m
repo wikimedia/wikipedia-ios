@@ -2,33 +2,39 @@
 
 @implementation WMFChange
 
-- (NSString *)debugDescription {
+- (NSString *)description {
+    NSString *superDescription = [super description];
+    NSString *changeTypeString = nil;
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
-            return @"insert";
+            changeTypeString = @"insert";
+            break;
         case NSFetchedResultsChangeDelete:
-            return @"delete";
+            changeTypeString = @"delete";
+            break;
         case NSFetchedResultsChangeMove:
-            return @"move";
+            changeTypeString = @"move";
+            break;
         default:
-            return @"update";
+            changeTypeString = @"update";
     }
+    return [NSString stringWithFormat:@"%@ %@", superDescription, changeTypeString];
 }
 
 @end
 
 @implementation WMFSectionChange
 
-- (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@ section %li", [super debugDescription], self.sectionIndex];
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ section %li", [super description], self.sectionIndex];
 }
 
 @end
 
 @implementation WMFObjectChange
 
-- (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@ object %@ to %@", [super debugDescription], self.fromIndexPath, self.toIndexPath];
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ object %@ to %@", [super description], self.fromIndexPath, self.toIndexPath];
 }
 
 @end
