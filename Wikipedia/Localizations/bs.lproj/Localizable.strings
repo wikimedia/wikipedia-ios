@@ -95,6 +95,7 @@
 "explore-another-random" = "Drugi nasumični članak";
 "explore-because-you-read" = "Budući da ste pročitali";
 "explore-continue-reading-heading" = "Nastavi s čitanjem";
+"explore-enable-location-title" = "Istražite članke o stvarima u blizini Vaše trenutne lokacije";
 "explore-featured-article-heading" = "Odabrani članak";
 "explore-main-page-description" = "Početna stranica Wikimedijinih projekata";
 "explore-main-page-heading" = "Danas na Wikipediji";
@@ -368,7 +369,6 @@
 "wikitext-upload-result-unknown" = "Ne mogu utvrditi rezultat postavljanja wikiteksta.";
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";

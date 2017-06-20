@@ -278,7 +278,7 @@
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
-"welcome-languages-title" = "Idiomas";
+"welcome-languages-title" = "Línguas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
@@ -297,7 +297,6 @@
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do texto wiki.";
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-terms-name" = "Condições de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";

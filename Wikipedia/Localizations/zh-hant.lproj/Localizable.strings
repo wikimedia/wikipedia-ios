@@ -108,6 +108,7 @@
 "explore-another-random" = "其他隨機條目";
 "explore-because-you-read" = "因為您讀了";
 "explore-continue-reading-heading" = "繼續閱讀";
+"explore-enable-location-title" = "瀏覽接近您目前位置的條目";
 "explore-featured-article-heading" = "特色條目";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -381,7 +382,6 @@
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
-"cc-by-sa-3.0" = "CC 姓名標示-相同方式分享 3.0";
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";

@@ -110,6 +110,7 @@
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-because-you-read" = "Porque leíste";
 "explore-continue-reading-heading" = "Continuar leyendo";
+"explore-enable-location-title" = "Explora artículos cernanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -159,6 +160,7 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
+"gdfl" = "GDFL";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todos los elementos recientes?";
@@ -382,8 +384,8 @@
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Acceder";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";

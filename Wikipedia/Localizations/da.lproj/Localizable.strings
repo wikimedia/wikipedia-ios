@@ -374,7 +374,6 @@
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
