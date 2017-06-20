@@ -395,24 +395,15 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
     
-    NSDate *newsDate = newsStory.midnightUTCMonthAndDay;
-    if (newsDate) {
-        NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
-        NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
-        NSDateComponents *nowComponents = [utcCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightUTCDate];
-        NSDateComponents *newsComponents = [utcCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:newsDate];
-        NSInteger year = nowComponents.year;
-        if (nowComponents.month == 1 && newsComponents.month == 12) {
-            year--;
-        }
-        newsComponents.year = year;
-        newsDate = [utcCalendar dateFromComponents:newsComponents];
-        if (newsDate && midnightUTCDate && [utcCalendar wmf_daysFromDate:newsDate toDate:midnightUTCDate] > 1) {
-            done();
-            return;
-        }
+    NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
+    NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
+    // Ensure the news date is no more than a day old (if it has a date at all)
+    if (newsMonthAndDay && midnightUTCDate && [utcCalendar wmf_daysFromMonthAndDay:newsMonthAndDay toDate:midnightUTCDate] > 1) {
+        done();
+        return;
     }
-   
+
     WMFArticle *articlePreviewToNotifyAbout = nil;
     WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;
     if (!articlePreview) {
