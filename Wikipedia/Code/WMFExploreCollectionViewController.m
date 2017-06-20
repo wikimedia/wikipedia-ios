@@ -26,8 +26,6 @@
 #import "WMFCVLAttributes.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
-
-// TEMP testing code
 #import "WMFFeedOnThisDayEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -1347,33 +1345,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return;
         }
         case WMFFeedMoreTypeOnThisDay: {
-
-            // TEMP testing code
-            // TODO: hook up detail controller here instead of printing event here
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.content;
-
-            for (WMFFeedOnThisDayEvent *event in events) {
-
-                NSString *articlesString = [[event.articlePreviews wmf_map:^id(WMFFeedArticlePreview *articlePreview) {
-                    return [NSString stringWithFormat:@""
-                                                       "\n\t\tTitle: %@"
-                                                       "\n\t\t\tDescription: %@"
-                                                       "\n\t\t\tExtract: %@",
-                                                      articlePreview.displayTitle,
-                                                      articlePreview.wikidataDescription,
-                                                      articlePreview.snippet];
-                }] componentsJoinedByString:@"\n"];
-
-                NSString *eventString = [NSString stringWithFormat:@""
-                                                                    "\nEvent"
-                                                                    "\n\tYear: %@"
-                                                                    "\n\tDesciption: %@"
-                                                                    "\n\tArticles: %@",
-                                                                   event.year,
-                                                                   event.text,
-                                                                   articlesString];
-                NSLog(@"\n\n\n%@\n\n\n", eventString);
-            }
+            [self showOnThisDayForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)group.content date:group.date animated:YES];
             return;
         }
         default:
@@ -1452,6 +1424,25 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:group.date];
             return vc;
         } break;
+        case WMFFeedDetailTypeEvent: {
+            NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
+            if (indexPath.item >= events.count) {
+                return nil;
+            }
+            if (indexPath.length > 2) {
+                WMFFeedOnThisDayEvent *event = events[indexPath.item];
+                NSInteger articleIndex = [indexPath indexAtPosition:2];
+                if (articleIndex < event.articlePreviews.count) {
+                    WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
+                    NSURL *articleURL = preview.articleURL;
+                    if (articleURL) {
+                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                    }
+                }
+            }
+            WMFOnThisDayViewController *vc = [self onThisDayViewControllerForEvents:events date:group.date];
+            return vc;
+        } break;
         case WMFFeedDetailTypeNone:
             break;
         default:
@@ -1482,6 +1473,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self presentViewController:vc animated:animated completion:nil];
         } break;
         case WMFFeedDetailTypeStory: {
+            [self.navigationController pushViewController:vc animated:animated];
+        } break;
+        case WMFFeedDetailTypeEvent: {
             [self.navigationController pushViewController:vc animated:animated];
         } break;
         default:
@@ -1581,12 +1575,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
 
-    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) { // If possible, sub-item support should be made into a protocol rather than checking the specific class
-        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
-        CGPoint pointInCellCoordinates = [self.collectionView convertPoint:location toView:newsCell];
-        NSInteger index = [newsCell subItemIndexAtPoint:pointInCellCoordinates];
+    if ([cell isKindOfClass:[WMFSideScrollingCollectionViewCell class]]) { // If possible, sub-item support should be made into a protocol rather than checking the specific class
+        WMFSideScrollingCollectionViewCell *sideScrollingCell = (WMFSideScrollingCollectionViewCell *)cell;
+        CGPoint pointInCellCoordinates = [self.collectionView convertPoint:location toView:sideScrollingCell];
+        NSInteger index = [sideScrollingCell subItemIndexAtPoint:pointInCellCoordinates];
         if (index != NSNotFound) {
-            UIView *view = [newsCell viewForSubItemAtIndex:index];
+            UIView *view = [sideScrollingCell viewForSubItemAtIndex:index];
             CGRect sourceRect = [view convertRect:view.bounds toView:self.collectionView];
             previewingContext.sourceRect = sourceRect;
             NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, index};
@@ -1659,6 +1653,19 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated {
     WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:date];
+    [self.navigationController pushViewController:vc animated:animated];
+}
+
+#pragma mark - On This Day
+
+- (WMFOnThisDayViewController *)onThisDayViewControllerForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)events date:(nullable NSDate *)date {
+    WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore];
+    vc.title = WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
+    return vc;
+}
+
+- (void)showOnThisDayForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)events date:(nullable NSDate *)date animated:(BOOL)animated {
+    WMFOnThisDayViewController *vc = [self onThisDayViewControllerForEvents:events date:date];
     [self.navigationController pushViewController:vc animated:animated];
 }
 
