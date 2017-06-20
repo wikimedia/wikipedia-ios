@@ -93,6 +93,7 @@
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
+"explore-enable-location-title" = "Entdeckt Artikelen an der aktueller Noperschaft.";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -360,8 +361,8 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Aloggen";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";
