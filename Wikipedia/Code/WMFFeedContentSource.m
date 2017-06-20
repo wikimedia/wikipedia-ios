@@ -390,18 +390,36 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     WMFFeedNewsStory *newsStory = feedDay.newsStories.firstObject;
-
     if (!newsStory) {
         done();
         return;
     }
-
+    
+    NSDate *newsDate = newsStory.midnightUTCMonthAndDay;
+    if (newsDate) {
+        NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
+        NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
+        NSDateComponents *nowComponents = [utcCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightUTCDate];
+        NSDateComponents *newsComponents = [utcCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:newsDate];
+        NSInteger year = nowComponents.year;
+        if (nowComponents.month == 1 && newsComponents.month == 12) {
+            year--;
+        }
+        newsComponents.year = year;
+        newsDate = [utcCalendar dateFromComponents:newsComponents];
+        if (newsDate && midnightUTCDate && [utcCalendar wmf_daysFromDate:newsDate toDate:midnightUTCDate] > 1) {
+            done();
+            return;
+        }
+    }
+   
     WMFArticle *articlePreviewToNotifyAbout = nil;
     WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;
     if (!articlePreview) {
         done();
         return;
     }
+    
 
     NSURL *articleURL = articlePreview.articleURL;
     if (!articleURL) {
