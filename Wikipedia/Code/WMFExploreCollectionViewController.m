@@ -806,7 +806,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 case WMFFeedDisplayTypeEvent: {
                     WMFOnThisDayCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureOnThisDayCell:cell withContentGroup:section layoutOnly:YES];
-                    
+
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -897,9 +897,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
-        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
-        newsCell.selectionDelegate = self;
+    if ([cell isKindOfClass:[WMFSideScrollingCollectionViewCell class]]) {
+        WMFSideScrollingCollectionViewCell *sideScrollingCell = (WMFSideScrollingCollectionViewCell *)cell;
+        sideScrollingCell.selectionDelegate = self;
     }
 
     if ([WMFLocationManager isAuthorized]) {
@@ -920,9 +920,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    if ([cell isKindOfClass:[WMFNewsCollectionViewCell class]]) {
-        WMFNewsCollectionViewCell *newsCell = (WMFNewsCollectionViewCell *)cell;
-        newsCell.selectionDelegate = nil;
+    if ([cell isKindOfClass:[WMFSideScrollingCollectionViewCell class]]) {
+        WMFSideScrollingCollectionViewCell *sideScrollingCell = (WMFSideScrollingCollectionViewCell *)cell;
+        sideScrollingCell.selectionDelegate = nil;
     }
 }
 
