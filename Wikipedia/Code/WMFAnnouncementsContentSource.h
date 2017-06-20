@@ -1,6 +1,6 @@
 #import "WMFContentSource.h"
 
-@interface WMFAnnouncementsContentSource : NSObject <WMFContentSource>
+@interface WMFAnnouncementsContentSource : NSObject <WMFContentSource, WMFOptionalNewContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 

@@ -1,7 +1,7 @@
-#import "WMFFeedNotificationHeader.h"
+#import "WMFFeedNotificationCell.h"
 #import "WMFLeadingImageTrailingTextButton.h"
 
-@implementation WMFFeedNotificationHeader
+@implementation WMFFeedNotificationCell
 
 - (instancetype)init {
     self = [super init];
@@ -29,6 +29,8 @@
     self.textLabel.attributedText = attributedText;
     self.textLabel.numberOfLines = 0;
     [self.enableNotificationsButton configureAsNotifyTrendingButton];
+    
+    [self.enableNotificationsButton addTarget:self action:@selector(enableNotifications:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)layoutSubviews {
@@ -39,12 +41,8 @@
     }
 }
 
-- (NSString *)analyticsContext {
-    return @"notification";
-}
-
-- (NSString *)analyticsContentType {
-    return @"current events";
+- (IBAction)enableNotifications:(id)sender {
+    [self.notificationCellDelegate feedNotificationCellDidRequestEnableNotifications:self];
 }
 
 @end
