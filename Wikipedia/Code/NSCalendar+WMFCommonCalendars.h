@@ -34,6 +34,16 @@
 - (NSInteger)wmf_daysFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
 /**
+ *  Used for getting the number of calendar days between dates. For example, if you compare 12 PM on a day to 9 AM on the following day, you would get 1 day between those dates despite the fact that there's less than 24 hours between the dates.
+ *
+ *  @param fromDate the earlier date - the year on this date can be invalid
+ *  @param toDate the later date - this date's year will be used to infer a date for fromDate
+ *
+ *  @return The number of days between the dates.
+ */
+- (NSInteger)wmf_daysFromMonthAndDay:(NSDate *)fromDate toDate:(NSDate *)toDate;
+
+/**
  *  Used for getting the number of calendar years, month, days, hours, minutes, and/or seconds between dates.
  *
  *  @param unitFlags the unit flags to request
