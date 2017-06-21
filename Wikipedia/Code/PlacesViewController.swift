@@ -218,6 +218,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
+            mapListToggle.selectedSegmentIndex = 1
         } else {
             viewMode = .map
         }
