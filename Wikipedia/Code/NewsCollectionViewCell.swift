@@ -6,7 +6,7 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     @objc(configureWithStory:dataStore:layoutOnly:)
     func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []
-        storyHTML = story.storyHTML
+        descriptionHTML = story.storyHTML
         
         articles = previews.map { (articlePreview) -> CellArticle in
             let articleLanguage = (articlePreview.articleURL as NSURL?)?.wmf_language
@@ -15,7 +15,7 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         }
         
         let articleLanguage = (story.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
-        storyLabel.accessibilityLanguage = articleLanguage
+        descriptionLabel.accessibilityLanguage = articleLanguage
         semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         let imageWidthToRequest = traitCollection.wmf_potdImageWidth
@@ -28,5 +28,31 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
             isImageViewHidden = true
         }
         setNeedsLayout()
+    }
+    
+    static let descriptionTextStyle = UIFontTextStyle.subheadline
+    var descriptionFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
+    var descriptionLinkFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        descriptionFont = UIFont.preferredFont(forTextStyle: NewsCollectionViewCell.descriptionTextStyle)
+        descriptionLinkFont = UIFont.boldSystemFont(ofSize: descriptionFont.pointSize)
+        updateDescriptionHTMLStyle()
+    }
+    
+    func updateDescriptionHTMLStyle() {
+        guard let descriptionHTML = descriptionHTML else {
+            descriptionLabel.text = nil
+            return
+        }
+        let attributedString = descriptionHTML.wmf_attributedStringByRemovingHTML(with: descriptionFont, linkFont: descriptionLinkFont)
+        descriptionLabel.attributedText = attributedString
+    }
+    
+    var descriptionHTML: String? {
+        didSet {
+            updateDescriptionHTMLStyle()
+        }
     }
 }

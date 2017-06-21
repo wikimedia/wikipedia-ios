@@ -18,7 +18,9 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     
     weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     let imageView = UIImageView()
-    let storyLabel = UILabel()
+    let titleLabel = UILabel()
+    let subTitleLabel = UILabel()
+    let descriptionLabel = UILabel()
     var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
@@ -26,7 +28,9 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
-            storyLabel.semanticContentAttribute = semanticContentAttributeOverride
+            titleLabel.semanticContentAttribute = semanticContentAttributeOverride
+            subTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
+            descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
         }
     }
@@ -36,7 +40,9 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     override open func setup() {
         addSubview(prototypeCell)
         addSubview(imageView)
-        addSubview(storyLabel)
+        addSubview(titleLabel)
+        addSubview(subTitleLabel)
+        addSubview(descriptionLabel)
         addSubview(collectionView)
         
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
@@ -48,8 +54,9 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
-        storyLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 1
+        subTitleLabel.numberOfLines = 1
+        descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
         collectionView.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: SideScrollingCollectionViewCell.articleCellIdentifier)
         collectionView.dataSource = self
@@ -88,9 +95,19 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             }
             origin.y += imageViewHeight
         }
+
+        if titleLabel.wmf_hasAnyText {
+            origin.y += spacing
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        }
+        
+        if subTitleLabel.wmf_hasAnyText {
+            origin.y += 0
+            origin.y += subTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        }
         
         origin.y += spacing
-        origin.y += storyLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         
         let collectionViewSpacing: CGFloat = 10
         let height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
@@ -105,32 +122,6 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
 
         origin.y += margins.bottom
         return CGSize(width: size.width, height: origin.y)
-    }
-    
-    static let textStyle = UIFontTextStyle.subheadline
-    var font = UIFont.preferredFont(forTextStyle: textStyle)
-    var linkFont = UIFont.preferredFont(forTextStyle: textStyle)
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        font = UIFont.preferredFont(forTextStyle: SideScrollingCollectionViewCell.textStyle)
-        linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-        updateStoryHTMLStyle()
-    }
-    
-    func updateStoryHTMLStyle() {
-        guard let storyHTML = storyHTML else {
-            storyLabel.text = nil
-            return
-        }
-        let attributedString = storyHTML.wmf_attributedStringByRemovingHTML(with: font, linkFont: linkFont)
-        storyLabel.attributedText = attributedString
-    }
-    
-    var storyHTML: String? {
-        didSet {
-            updateStoryHTMLStyle()
-        }
     }
 }
 

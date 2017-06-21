@@ -11,6 +11,9 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         
         let currentYear = Calendar.current.component(.year, from: Date())
         
+        titleLabel.textColor = .wmf_blue
+        subTitleLabel.textColor = .wmf_customGray
+        
 //TODO:
 // - format `eventYear` so negative `BC` years use lang appropriate `BC` string instead of negative dash
 // - use proper number formatter on `yearsSinceEvent` so number formatting is localized, has commas etc.
@@ -19,7 +22,9 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
         let yearsSinceEvent = currentYear - eventYear
 
-        storyHTML = "\(eventYear)\n\(String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(), yearsSinceEvent))\n\(onThisDayEvent.text!)"
+        titleLabel.text = "\(eventYear)"
+        subTitleLabel.text = String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(), yearsSinceEvent)
+        descriptionLabel.text = onThisDayEvent.text
         
         articles = previews.map { (articlePreview) -> CellArticle in
             let articleLanguage = (articlePreview.articleURL as NSURL?)?.wmf_language
@@ -28,11 +33,27 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         }
         
         let articleLanguage = (onThisDayEvent.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
-        storyLabel.accessibilityLanguage = articleLanguage
+        descriptionLabel.accessibilityLanguage = articleLanguage
         semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         isImageViewHidden = true
 
         setNeedsLayout()
+    }
+    
+    static let descriptionTextStyle = UIFontTextStyle.subheadline
+    var descriptionFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
+    
+    static let titleTextStyle = UIFontTextStyle.title3
+    var titleFont = UIFont.preferredFont(forTextStyle: titleTextStyle)
+    
+    static let subTitleTextStyle = UIFontTextStyle.subheadline
+    var subTitleFont = UIFont.preferredFont(forTextStyle: subTitleTextStyle)
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleLabel.font = titleFont
+        subTitleLabel.font = subTitleFont
+        descriptionLabel.font = descriptionFont
     }
 }
