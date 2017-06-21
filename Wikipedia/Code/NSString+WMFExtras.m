@@ -54,6 +54,7 @@
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }
 
+// TODO: Fix - returns nil if self contains no HTML.
 - (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
     if (self.length == 0) {
         return [[NSAttributedString alloc] initWithString:self attributes:nil];
@@ -68,19 +69,14 @@
                                                                error:nil];
     });
 
-    // HAX: Was returning nothing if self contained no HTML, so added surrounding `div`.
-    // TODO: Fix in less hacky way. Don't forget the leading whitespace trimming and
-    // `wmf_string...` methods (in use below) if you return early if no HTML found.
-    NSString *stringToExamine = [NSString stringWithFormat:@"<div>%@</div>", self];
-
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
     __block BOOL shouldTrimLeadingWhitespace = YES;
-    [tagRegex enumerateMatchesInString:stringToExamine
+    [tagRegex enumerateMatchesInString:self
                                options:0
-                                 range:NSMakeRange(0, stringToExamine.length)
+                                 range:NSMakeRange(0, self.length)
                             usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                 *stop = false;
-                                NSString *tagContents = [[[[[tagRegex replacementStringForResult:result inString:stringToExamine offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLNonBreakingSpaces] wmf_stringByDecodingHTMLAndpersands] wmf_stringByDecodingHTMLLessThanAndGreaterThan];
+                                NSString *tagContents = [[[[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLNonBreakingSpaces] wmf_stringByDecodingHTMLAndpersands] wmf_stringByDecodingHTMLLessThanAndGreaterThan];
                                 if (!tagContents) {
                                     return;
                                 }
@@ -92,7 +88,7 @@
                                         range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
                                     }
                                 }
-                                NSString *tag = [[tagRegex replacementStringForResult:result inString:stringToExamine offset:0 template:@"$1"] lowercaseString];
+                                NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
                                 NSDictionary *attributes = nil;
                                 if ([tag hasPrefix:@"<a"] && linkFont) {
                                     attributes = @{NSFontAttributeName: linkFont};
