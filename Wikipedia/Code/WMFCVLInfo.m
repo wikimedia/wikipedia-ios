@@ -83,7 +83,7 @@
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         NSInteger itemIndex = indexPath.item;
         if (itemIndex < 0 || itemIndex >= section.headers.count) {
-            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];;
+            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.headers[itemIndex];
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
@@ -92,6 +92,8 @@
             return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.footers[itemIndex];
+    } else {
+        attributes = [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     assert(attributes != nil);
