@@ -75,6 +75,7 @@ import Foundation
                      (.topReadPreview, _),
                      (.story, _),
                      (.image, _),
+                     (.notification, _),
                      (.announcement, _):
                     break
                     
