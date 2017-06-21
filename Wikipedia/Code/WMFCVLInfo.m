@@ -74,7 +74,7 @@
 - (nonnull WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     NSInteger sectionIndex = indexPath.section;
     if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
-        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];;
+        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     WMFCVLSection *section = self.sections[sectionIndex];
