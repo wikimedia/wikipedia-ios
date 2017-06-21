@@ -218,6 +218,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
+            mapListToggle.selectedSegmentIndex = 1
         } else {
             viewMode = .map
         }
@@ -2823,5 +2824,27 @@ extension PlacesViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - Accessibility
+
+extension PlacesViewController {
+    override func accessibilityPerformEscape() -> Bool {
+        switch viewMode {
+        case .search:
+            closeSearch(self)
+            return true
+        default:
+            if isSearchFilterDropDownShowing {
+                toggleSearchFilterDropDown(self)
+                return true
+            } else if selectedArticlePopover != nil {
+                deselectAllAnnotations()
+                return true
+            } else {
+                return false
+            }
+        }
     }
 }
