@@ -303,6 +303,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (url == nil) {
         return nil;
     }
+    NSLog(@"articleForIndexPath: %@", url);
     return [self.userStore fetchArticleWithURL:url];
 }
 
@@ -690,6 +691,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
+            NSLog(@"article: %@", article.displayTitle);
+            NSLog(@"displayType: %lu", (unsigned long)displayType);
             NSString *reuseIdentifier = [self reuseIdentifierForCellAtIndexPath:indexPath displayType:displayType];
             WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:NO];
@@ -1117,7 +1120,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
+//    [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Cells, Headers and Footers
@@ -1191,9 +1194,25 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
+    NSLog(@"configureArticleCell for: %@", article.displayTitle);
     [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
+    
+    if (displayType == WMFFeedDisplayTypeRanked) {
+        cell.userInteractionEnabled = YES;
+        [cell addGestureRecognizer: [self swipeGesture]];
+    }
+}
+
+- (void) handleSwipe:(UISwipeGestureRecognizer *)gr {
+    NSLog(@"handleSwipe");
+}
+
+- (UISwipeGestureRecognizer *) swipeGesture {
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    return swipe;
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
