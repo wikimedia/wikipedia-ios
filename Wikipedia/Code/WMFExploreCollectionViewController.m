@@ -1386,11 +1386,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
 
-    /*
- TODO: handle on this day case here
- https://github.com/wikimedia/wikipedia-ios/pull/1545/files#r122498247
-*/
-
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
