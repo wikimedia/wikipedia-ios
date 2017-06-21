@@ -30,7 +30,7 @@
 
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
-#import "WMFFeedNotificationHeader.h"
+#import "WMFFeedNotificationCell.h"
 
 #import "WMFLeadingImageTrailingTextButton.h"
 
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFNewsCollectionViewCellDelegate, WMFFeedNotificationCellDelegate>
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -71,8 +71,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong, nullable) WMFContentGroup *groupForPreviewedCell;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-
-@property (nonatomic, strong, nullable) WMFFeedNotificationHeader *notificationHeader;
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
@@ -352,117 +350,25 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.refreshControl endRefreshing];
 }
 
-#pragma mark - Notification
+#pragma mark - WMFFeedNotificationCellDelegate
 
-- (void)sizeNotificationHeader {
-
-    WMFFeedNotificationHeader *header = self.notificationHeader;
-    if (!header.superview) {
-        return;
-    }
-
-    //First layout pass to get height
-    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(-136));
-        make.leading.trailing.equalTo(self.collectionView.superview);
-    }];
-
-    [header sizeToFit];
-    [header setNeedsLayout];
-    [header layoutIfNeeded];
-
-    CGRect f = header.frame;
-
-    //Second layout pass to reset the top constraint
-    [header mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(-f.size.height));
-        make.height.equalTo(@(f.size.height));
-        make.leading.trailing.equalTo(self.collectionView.superview);
-    }];
-
-    [header sizeToFit];
-    [header setNeedsLayout];
-    [header layoutIfNeeded];
-
-    UIEdgeInsets insets = self.collectionView.contentInset;
-    self.topInsetBeforeHeader = insets.top;
-    insets.top = f.size.height;
-    self.collectionView.contentInset = insets;
-}
-
-- (void)setNotificationHeaderBasedOnSizeClass {
-    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
-        self.notificationHeader = [WMFFeedNotificationHeader wmf_viewFromClassNib];
-    } else {
-        self.notificationHeader = [[[UINib nibWithNibName:@"WmfFeedNotificationHeaderiPad" bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
-    }
-}
-
-- (void)showNotificationHeader {
-
-    if (self.notificationHeader) {
-        [self.notificationHeader removeFromSuperview];
-        self.notificationHeader = nil;
-    }
-
-    [self setNotificationHeaderBasedOnSizeClass];
-
-    WMFFeedNotificationHeader *header = self.notificationHeader;
-    [self.collectionView addSubview:self.notificationHeader];
-    [self sizeNotificationHeader];
-
-    [header.enableNotificationsButton addTarget:self action:@selector(enableNotificationsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-
-    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowNewsNotificationCardInFeed:YES];
-
-    if (self.isScrolledToTop) {
-        [self.collectionView setContentOffset:CGPointMake(0, 0 - header.frame.size.height) animated:YES];
-    }
-}
-
-- (void)enableNotificationsButtonPressed {
-    [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:self.notificationHeader contentType:self.notificationHeader];
+- (void)feedNotificationCellDidRequestEnableNotifications:(WMFFeedNotificationCell *)cell {
+    [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:@"notification" contentType:@"current events"];
     [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
         if (error) {
             [self wmf_showAlertWithError:error];
         }
     }];
     [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
-    [self showHideNotificationIfNeccesaryUserInitiated:YES];
-}
-
-- (void)showHideNotificationIfNeccesaryUserInitiated:(BOOL)userInitiated {
-    if (self.numberOfSectionsInExploreFeed == 0) {
-        return;
-    }
-
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
-        return;
-    }
-
-    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled] && ![[NSUserDefaults wmf_userDefaults] wmf_didShowNewsNotificationCardInFeed]) {
-        [self showNotificationHeader];
-
-    } else if (userInitiated) {
-
-        if (self.notificationHeader) {
-
-            [UIView animateWithDuration:0.3
-                animations:^{
-
-                    UIEdgeInsets insets = self.collectionView.contentInset;
-                    insets.top = self.topInsetBeforeHeader;
-                    self.collectionView.contentInset = insets;
-
-                    self.notificationHeader.alpha = 0.0;
-
-                }
-                completion:^(BOOL finished) {
-
-                    [self.notificationHeader removeFromSuperview];
-                    self.notificationHeader = nil;
-
-                }];
+    NSURL *groupURL = [WMFContentGroup notificationContentGroupURL];
+    NSManagedObjectContext *moc = self.userStore.viewContext;
+    WMFContentGroup *group = [moc contentGroupForURL:groupURL];
+    if (group) {
+        [moc deleteObject:group];
+        NSError *contentGroupSaveError = nil;
+        [self.userStore save:&contentGroupSaveError];
+        if (contentGroupSaveError) {
+            DDLogError(@"Error saving after enabling notifications: %@", contentGroupSaveError);
         }
     }
 }
@@ -495,7 +401,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                              [self resetRefreshControl];
 
                                                              if (date == nil) { //only hide on a new content update
-                                                                 [self showHideNotificationIfNeccesaryUserInitiated:wasUserInitiated];
                                                                  [self startMonitoringReachabilityIfNeeded];
                                                                  [self showOfflineEmptyViewIfNeeded];
                                                              }
@@ -530,7 +435,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    [self showHideNotificationIfNeccesaryUserInitiated:NO];
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
@@ -586,13 +490,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    if (self.notificationHeader) {
-        [self showNotificationHeader];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -737,6 +634,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
             return cell;
         } break;
+        case WMFFeedDisplayTypeNotification: {
+            WMFFeedNotificationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName] forIndexPath:indexPath];
+            cell.notificationCellDelegate = self;
+            return cell;
+        } break;
         default:
             NSAssert(false, @"Unknown Display Type");
             return nil;
@@ -843,6 +745,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
             cell.frame = frameToFit;
             [self configureAnouncementCell:cell withSection:section atIndexPath:indexPath];
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
+        } break;
+        case WMFFeedDisplayTypeNotification: {
+            WMFFeedNotificationCell *cell = [self placeholderCellForIdentifier:[WMFFeedNotificationCell wmf_nibName]];
+            cell.notificationCellDelegate = self;
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
             WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
             attributesToFit.frame = frameToFit;
             UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
@@ -1203,6 +1115,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
+    
+    [self registerNib:[WMFFeedNotificationCell wmf_classNib] forCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName]];
 }
 
 - (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section displayType:(WMFFeedDisplayType)displayType withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
