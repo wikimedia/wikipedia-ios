@@ -1165,7 +1165,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)endRefreshing {
     if (self.pullToRefresh.isRefreshing) {
-        [self.pullToRefresh endRefreshing];
+        @try { // TODO: REMOVE AFTER DROPPING iOS 9
+            [self.pullToRefresh endRefreshing];
+        } @catch (NSException *exception) {
+            DDLogError(@"Caught exception while ending refreshing: %@", exception);
+        }
     }
 }
 
