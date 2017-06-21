@@ -2836,7 +2836,7 @@ extension PlacesViewController {
             closeSearch(self)
             return true
         default:
-            if self.isSearchFilterDropDownShowing {
+            if isSearchFilterDropDownShowing {
                 toggleSearchFilterDropDown(self)
                 return true
             } else if selectedArticlePopover != nil {
