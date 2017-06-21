@@ -280,23 +280,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     NSURL *articleURL = nil;
     NSInteger width = 0;
-    if ([section contentType] == WMFContentTypeTopReadPreview) {
-
-        NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
-
-        if (indexPath.row >= [content count]) {
-            articleURL = nil;
-        }
-
-        articleURL = [content[indexPath.row] articleURL];
+    NSArray<NSCoding> *content = [self contentForSectionAtIndex:indexPath.section];
+    if (indexPath.row >= [content count]) {
+        return nil;
+    }
+    NSObject *object = content[indexPath.row];
+    if ([section contentType] == WMFContentTypeTopReadPreview  && [object isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
+        articleURL = [(WMFFeedTopReadArticlePreview *)object articleURL];
         width = self.traitCollection.wmf_listThumbnailWidth;
-    } else if ([section contentType] == WMFContentTypeURL) {
-
-        NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
-            articleURL = nil;
-        }
-        articleURL = content[indexPath.row];
+    } else if ([section contentType] == WMFContentTypeURL  && [object isKindOfClass:[NSURL class]]) {
+        articleURL = (NSURL *)object;
         switch (section.contentGroupKind) {
             case WMFContentGroupKindRelatedPages:
             case WMFContentGroupKindPictureOfTheDay:
@@ -309,12 +302,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 break;
         }
 
-    } else if ([section contentType] == WMFContentTypeStory) {
-        NSArray<WMFFeedNewsStory *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
-            articleURL = nil;
-        }
-        articleURL = [[content[indexPath.row] featuredArticlePreview] articleURL] ?: [[[content[indexPath.row] articlePreviews] firstObject] articleURL];
+    } else if ([section contentType] == WMFContentTypeStory && [object isKindOfClass:[WMFFeedNewsStory class]]) {
+        WMFFeedNewsStory *newsStory = (WMFFeedNewsStory *)object;
+        articleURL = [[newsStory featuredArticlePreview] articleURL] ?: [[[newsStory articlePreviews] firstObject] articleURL];
         width = self.traitCollection.wmf_nearbyThumbnailWidth;
     } else {
         return nil;

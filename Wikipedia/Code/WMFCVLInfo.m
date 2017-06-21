@@ -53,17 +53,17 @@
     [self.columns enumerateObjectsUsingBlock:block];
 }
 
-- (nullable WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (nonnull WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger sectionIndex = indexPath.section;
 
     if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
     }
 
     WMFCVLSection *section = self.sections[sectionIndex];
     NSInteger itemIndex = indexPath.item;
     if (itemIndex < 0 || itemIndex >= section.items.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
     }
 
     WMFCVLAttributes *attributes = section.items[itemIndex];
@@ -71,10 +71,10 @@
     return attributes;
 }
 
-- (nullable WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+- (nonnull WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     NSInteger sectionIndex = indexPath.section;
     if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     WMFCVLSection *section = self.sections[sectionIndex];
@@ -83,15 +83,17 @@
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         NSInteger itemIndex = indexPath.item;
         if (itemIndex < 0 || itemIndex >= section.headers.count) {
-            return nil;
+            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.headers[itemIndex];
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
         NSInteger itemIndex = indexPath.item;
         if (itemIndex < 0 || itemIndex >= section.footers.count) {
-            return nil;
+            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.footers[itemIndex];
+    } else {
+        attributes = [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     assert(attributes != nil);
