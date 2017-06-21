@@ -104,7 +104,7 @@
     WMFContentGroup *group = [moc contentGroupForURL:URL];
     if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         if (!group) {
-           group = [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+            [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         }
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     } else if (shouldAddNewContent) { // shoulAddNewContent represents a user-initiated refresh
