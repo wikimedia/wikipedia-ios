@@ -86,6 +86,9 @@
         case WMFContentGroupKindAnnouncement:
             self.contentType = WMFContentTypeAnnouncement;
             break;
+        case WMFContentGroupKindNotification:
+            self.contentType = WMFContentTypeNotification;
+            break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
         case WMFContentGroupKindRelatedPages:
@@ -93,7 +96,6 @@
         case WMFContentGroupKindLocationPlaceholder:
         case WMFContentGroupKindRandom:
         case WMFContentGroupKindFeaturedArticle:
-        case WMFContentGroupKindNotification:
         default:
             self.contentType = WMFContentTypeURL;
             break;
@@ -101,18 +103,17 @@
 }
 
 - (void)updateDailySortPriority {
-    BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
     switch (self.contentGroupKind) {
         case WMFContentGroupKindUnknown:
             break;
         case WMFContentGroupKindContinueReading:
-            self.dailySortPriority = isPad ? 1 : 0;
+            self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = isPad ? 0 : 6;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindRelatedPages:
-            self.dailySortPriority = isPad ? 2 : 1;
+            self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
             self.dailySortPriority = 8;
@@ -121,19 +122,19 @@
             self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = isPad ? 6 : 5;
+            self.dailySortPriority = 5;
             break;
         case WMFContentGroupKindRandom:
             self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            self.dailySortPriority = isPad ? 3 : 2;
+            self.dailySortPriority = 2;
             break;
         case WMFContentGroupKindTopRead:
-            self.dailySortPriority = isPad ? 4 : 3;
+            self.dailySortPriority = 3;
             break;
         case WMFContentGroupKindNews:
-            self.dailySortPriority = isPad ? 5 : 4;
+            self.dailySortPriority = 4;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;

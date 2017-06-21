@@ -30,18 +30,29 @@
     return _fetcher;
 }
 
-- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
+- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
+    
+}
+
+- (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
+    [self loadContentForDate:[NSDate date] inManagedObjectContext:moc force:force addNewContent:NO completion:completion];
+}
+
+- (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
     if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {
-        if (completion) {
-            completion();
-        }
+        [moc performBlock:^{
+            [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
+            if (completion) {
+                completion();
+            }
+        }];
         return;
     }
     [self.fetcher fetchAnnouncementsForURL:self.siteURL
         force:force
         failure:^(NSError *_Nonnull error) {
             [moc performBlock:^{
-                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
+                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
                 if (completion) {
                     completion();
                 }
@@ -51,7 +62,7 @@
             [self saveAnnouncements:announcements
                 inManagedObjectContext:moc
                             completion:^{
-                                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc];
+                                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
                                 if (completion) {
                                     completion();
                                 }
@@ -59,7 +70,7 @@
         }];
 }
 
-- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
 }
 
@@ -83,7 +94,31 @@
     }];
 }
 
-- (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
+        return;
+    }
+    
+    NSURL *URL = [WMFContentGroup notificationContentGroupURL];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    WMFContentGroup *group = [moc contentGroupForURL:URL];
+    if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+        if (!group) {
+           group = [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        }
+        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
+    } else if (shouldAddNewContent) { // shoulAddNewContent represents a user-initiated refresh
+        if (group) {
+           [moc deleteObject:group];
+        }
+    } else {
+        group.date = [NSDate date];
+    }
+}
+
+- (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
+    [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
+    
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {
