@@ -2826,3 +2826,25 @@ extension PlacesViewController {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
+
+// MARK: - Accessibility
+
+extension PlacesViewController {
+    override func accessibilityPerformEscape() -> Bool {
+        switch viewMode {
+        case .search:
+            closeSearch(self)
+            return true
+        default:
+            if self.isSearchFilterDropDownShowing {
+                toggleSearchFilterDropDown(self)
+                return true
+            } else if selectedArticlePopover != nil {
+                deselectAllAnnotations()
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+}
