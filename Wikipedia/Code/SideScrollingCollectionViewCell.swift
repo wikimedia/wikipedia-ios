@@ -69,7 +69,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     
     override open func reset() {
         super.reset()
-        collectionView.contentOffset = .zero
+        collectionView.contentOffset = CGPoint.init(x: -collectionView.contentInset.left, y: 0)
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
@@ -116,7 +116,8 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
-            collectionView.frame = CGRect(x: origin.x, y: origin.y, width: size.width - origin.x, height: height)
+            collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
+            collectionView.contentInset = UIEdgeInsets.init(top: 0, left: origin.x, bottom: 0, right: 0)
             collectionView.reloadData()
         }
         origin.y += height
