@@ -331,8 +331,9 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                         break;
                     case 1:
                         [moc deleteObject:group];
-                    default:
+                    case 2:
                         group.dailySortPriority = group.dailySortPriority + random;
+                    default:
                         break;
                 }
             }
