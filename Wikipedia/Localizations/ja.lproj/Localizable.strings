@@ -19,6 +19,7 @@
 // Author: Surgical21
 // Author: Takot
 // Author: Thibaut120094
+// Author: Wicklo
 // Author: WwLMvmT
 // Author: おはぐろ蜻蛉
 // Author: ネイ
@@ -59,7 +60,10 @@
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
 "account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
+"action-read" = "読む";
 "action-save" = "保存";
+"action-saved" = "保存済み";
+"action-share" = "共有";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "不要です";
 "article-about-title" = "この記事について";
@@ -103,12 +107,14 @@
 "explore-another-random" = "おまかせで別の記事";
 "explore-continue-reading-heading" = "続けて読む";
 "explore-featured-article-heading" = "秀逸な記事";
+"explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
 "explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
 "explore-most-read-generic-heading" = "よく読まれている記事";
 "explore-most-read-heading" = "$1 版ウィキペディアでよく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
+"explore-nearby-placeholder-cancel" = "キャンセル";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-potd-heading" = "今日の一枚";
 "explore-random-article-heading" = "おまかせ記事";
@@ -129,9 +135,9 @@
 "find-in-page-button-label" = "ページ内検索";
 "find-in-page-popover-description" = "記事内のテキストを検索します";
 "history-clear-all" = "消去";
-"history-clear-cancel" = "中止";
+"history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "最近の項目をすべて削除しても構いませんか?";
-"history-clear-delete-all" = "すべて削除します";
+"history-clear-delete-all" = "すべて削除";
 "history-section-today" = "今日";
 "history-section-yesterday" = "昨日";
 "history-title" = "履歴";
@@ -145,7 +151,7 @@
 "home-button-explore-accessibility-label" = "ウィキペディア、探してみように戻る";
 "home-button-history-accessibility-label" = "ウィキペディア、履歴に戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
-"home-hide-suggestion-cancel" = "中止";
+"home-hide-suggestion-cancel" = "キャンセル";
 "home-hide-suggestion-prompt" = "提案を隠す";
 "home-more-like-footer" = "$1 なども読まれています";
 "home-nearby-footer" = "付近の記事";
@@ -167,6 +173,10 @@
 "languages-title" = "言語を変更";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "license-footer-text" = "特に記載がない限り、コンテンツは$1のライセンスで利用できます。";
+"login-forgot-password" = "パスワードをお忘れですか？";
+"login-join-wikipedia" = "ウィキペディアに参加する。";
+"login-no-account" = "アカウントをお持ちではありませんか？$1";
+"login-title" = "自分のアカウントにログイン";
 "main-menu-about" = "アプリについて";
 "main-menu-account-login" = "ログイン";
 "main-menu-account-logout" = "ログアウト";
@@ -201,6 +211,7 @@
 "page-history-title" = "記事の履歴";
 "page-issues" = "ページの問題点";
 "page-last-edited" = "最終編集日: $1日前";
+"page-location" = "地図で見る";
 "page-protected-autoconfirmed" = "このページは半保護されています。";
 "page-protected-can-not-edit" = "このページを編集する権限がありません";
 "page-protected-can-not-edit-title" = "このページは保護されています";
@@ -209,6 +220,20 @@
 "page-read-in-other-languages" = "他に$1つの言語で利用可能";
 "page-similar-titles" = "類似したページ";
 "places-accessibility-show-more" = "さらに記事を見る";
+"places-dismiss-filter-list-accessibility-label" = "検索フィルターを隠す";
+"places-empty-search-description" = "街、国、大陸、自然のランドマーク、歴史上の出来事、建物、その他いろんなものを探しましょう";
+"places-empty-search-title" = "ウィキペディアの記事を場所で検索";
+"places-enable-location-action-button-title" = "位置情報を有効にする";
+"places-enable-location-description" = "位置情報にアクセスできるのは、アプリまたはアプリの機能の一部が画面上に表示されている間に限られます。";
+"places-enable-location-title" = "位置情報アクセスを有効にして近くの記事を探しましょう";
+"places-filter-list-title" = "フィルター";
+"places-filter-saved-articles" = "保存済みの記事";
+"places-filter-saved-articles-count" = "{{PLURAL:$1|$1件}}";
+"places-filter-top-articles" = "よく読まれている記事";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
+"places-search-default-text" = "場所を検索";
+"places-search-this-area" = "このエリアの結果";
+"places-show-filter-list-accessibility-label" = "検索フィルターを表示";
 "potd-description-prefix" = "$1日の写真";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
@@ -223,7 +248,7 @@
 "saved-clear-all" = "消去";
 "saved-pages-clear-cancel" = "キャンセル";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
-"saved-pages-clear-delete-all" = "すべて削除します";
+"saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-title" = "保存済み";
 "search-did-you-mean" = "もしかして: $1";
@@ -235,6 +260,11 @@
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
+"settings-clear-cache" = "キャッシュを消去";
+"settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
+"settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか？";
+"settings-clear-cache-cancel" = "キャンセル";
+"settings-clear-cache-ok" = "消去";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
 "settings-language-bar" = "検索結果に表示する言語";
 "settings-my-languages" = "お使いになる言語";
@@ -252,7 +282,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
 "share-as-image" = "画像を共有";
 "share-as-text" = "テキストとして共有";
-"share-cancel" = "中止";
+"share-cancel" = "キャンセル";
 "share-custom-menu-item" = "共有...";
 "share-on-twitter-sign-off" = "@Wikipedia から";
 "status-saved-for-later" = "保存しました";
@@ -266,6 +296,8 @@
 "top-read-header-with-language" = "$1ウィキペディア";
 "unsave-action" = "保存しない";
 "welcome-explore-continue-button" = "次へ";
+"welcome-explore-new-ways-sub-title" = "新しい通知とウィジェットで、面白い記事がもっと見つけやすくなりました";
+"welcome-explore-new-ways-title" = "New ways to explore";
 "welcome-explore-tell-me-more" = "もっと詳しく";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
 "welcome-languages-add-button" = "言語を追加";
@@ -273,6 +305,7 @@
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
 "welcome-languages-title" = "言語";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";
+"welcome-send-data-sub-title" = "このアプリの使用状況をウィキメディア財団に送信して、このアプリの改善にご協力ください。データは匿名で収集されます。";
 "welcome-send-data-title" = "匿名データを送信";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
 "welcome-volunteer-thanks" = "$1 ありがとうございます!";
