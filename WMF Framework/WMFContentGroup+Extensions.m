@@ -91,6 +91,9 @@
         case WMFContentGroupKindAnnouncement:
             self.contentType = WMFContentTypeAnnouncement;
             break;
+        case WMFContentGroupKindNotification:
+            self.contentType = WMFContentTypeNotification;
+            break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
         case WMFContentGroupKindRelatedPages:
@@ -98,7 +101,6 @@
         case WMFContentGroupKindLocationPlaceholder:
         case WMFContentGroupKindRandom:
         case WMFContentGroupKindFeaturedArticle:
-        case WMFContentGroupKindNotification:
         default:
             self.contentType = WMFContentTypeURL;
             break;
