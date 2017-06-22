@@ -42,7 +42,9 @@
 "action-read" = "Read";
 "action-save" = "Save";
 "action-saved" = "Saved";
+"action-saved-accessibility" = "Saved. Activate to unsave.";
 "action-share" = "Share";
+"action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
 "article-about-title" = "About this article";

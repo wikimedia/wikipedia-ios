@@ -238,7 +238,7 @@
         for (NSInteger columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
             WMFCVLColumn *column = self.columns[columnIndex];
             CGFloat columnHeight = column.frame.size.height;
-            if (columnHeight < shortestColumnHeight) {
+            if (columnHeight <= shortestColumnHeight) { // <= to defer to the narrower column if it's equally short
                 shortestColumn = column;
                 shortestColumnHeight = columnHeight;
             }
