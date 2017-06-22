@@ -10,12 +10,8 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
-<<<<<<< HEAD
-#import "WMFFeedNotificationHeader.h"
-=======
 #import "WMFFeedNotificationCell.h"
 
->>>>>>> b54feaba82c27f8c2af7f1c1f41a6fec592f3eaa
 #import "WMFLeadingImageTrailingTextButton.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
@@ -260,10 +256,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     NSObject *object = content[indexPath.row];
-    if ([section contentType] == WMFContentTypeTopReadPreview  && [object isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
+    if ([section contentType] == WMFContentTypeTopReadPreview && [object isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
         articleURL = [(WMFFeedTopReadArticlePreview *)object articleURL];
         width = self.traitCollection.wmf_listThumbnailWidth;
-    } else if ([section contentType] == WMFContentTypeURL  && [object isKindOfClass:[NSURL class]]) {
+    } else if ([section contentType] == WMFContentTypeURL && [object isKindOfClass:[NSURL class]]) {
         articleURL = (NSURL *)object;
         switch (section.contentGroupKind) {
             case WMFContentGroupKindRelatedPages:
@@ -1093,7 +1089,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
-    
+
     [self registerNib:[WMFFeedNotificationCell wmf_classNib] forCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName]];
 }
 
