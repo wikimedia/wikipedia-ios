@@ -1654,7 +1654,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 #pragma mark - On This Day
 
 - (WMFOnThisDayViewController *)onThisDayViewControllerForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)events date:(nullable NSDate *)date {
-    WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore];
+//TODO: test for nil dates - maybe adjust date nullability
+    WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:date];
     vc.title = WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
     return vc;
 }

@@ -56,6 +56,9 @@ extension NewsViewController {
             header.label.text = headerTitle(for: indexPath.section)
             return header
         default:
+            
+//FIXME: According to docs looks like this will crash - "The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:"
+            
             return UICollectionReusableView()
         }
     }

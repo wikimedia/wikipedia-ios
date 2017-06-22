@@ -1,15 +1,19 @@
 @objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
-    fileprivate static let headerReuseIdentifier = "OnThisDayCollectionViewHeader"
+    fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
+    fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
     
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
+    let date: Date
     
-    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore) {
+    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, date: Date) {
         self.events = events
         self.dataStore = dataStore
+        self.date = date
         super.init()
+
         title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
@@ -21,9 +25,15 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.backgroundColor = .white
         register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier)
         register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier)
+        register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier)
     }
+}
+
+class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -48,17 +58,17 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionElementKindSectionHeader:
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath)
-            guard let header = view as? OnThisDayCollectionViewHeader else {
-                return view
-            }
-            header.label.text = headerTitle(for: indexPath.section)
-            return header
-        default:
-            return UICollectionReusableView()
+        guard
+            indexPath.section == 0,
+            kind == UICollectionElementKindSectionHeader,
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader
+        else {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
+        
+        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, date: date)
+        
+        return header
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -74,29 +84,31 @@ extension OnThisDayViewController {
         }
         cell.selectionDelegate = nil
     }
-    /*
-    static let headerDateFormatter: DateFormatter = {
-        let headerDateFormatter = DateFormatter()
-        headerDateFormatter.locale = Locale.autoupdatingCurrent
-        headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        headerDateFormatter.setLocalizedDateFormatFromTemplate("dMMMM") // Year is invalid on news content dates, we can only show month and day
-        return headerDateFormatter
-    }()
-    */
-    func headerTitle(for section: Int) -> String? {
-        let event = events[section]
-        guard let year = event.year else {
+}
+
+extension WMFFeedOnThisDayEvent {
+    // Returns year 'era' string - i.e. '1000 AD' or '200 BC'. (Negative years are 'BC')
+    func yearWithEraString() -> String? {
+        var components = DateComponents()
+        components.year = year?.intValue
+        guard let date = Calendar.current.date(from: components) else {
             return nil
         }
-        return "\(year)"
-        //return OnThisDayViewController.headerDateFormatter.string(from: date)
+        return WMFFeedOnThisDayEvent.yearWithEraDateFormatter.string(from: date)
     }
+    private static let yearWithEraDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.autoupdatingCurrent
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.setLocalizedDateFormatFromTemplate("y G")
+        return dateFormatter
+    }()
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension OnThisDayViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return headerTitle(for: section) == nil ? 0 : 50
+        return section == 0 ? 150 : 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
