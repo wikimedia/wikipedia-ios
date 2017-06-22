@@ -363,7 +363,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return WMFFeedDisplayTypeStory;
         case WMFContentGroupKindNotification:
-            break;
+            return WMFFeedDisplayTypeNotification;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
@@ -429,7 +429,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return YES;
         case WMFContentGroupKindNotification:
-            break;
+            return YES;
         case WMFContentGroupKindAnnouncement:
             return YES;
         case WMFContentGroupKindUnknown:
