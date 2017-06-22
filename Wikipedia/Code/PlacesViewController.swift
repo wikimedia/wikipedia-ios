@@ -1681,7 +1681,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             articleVC.descriptionLabel.text = nil
         }
-        
+
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
     
@@ -1695,14 +1695,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         selectedArticleKey = articleKey
         
         adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
+        
+        articleVC.update()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+        
         articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
         }
-        
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
 
         tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
@@ -2346,6 +2348,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let article = articleFetchedResultsController.object(at: indexPath)
         
+        cell.accessibilityTraits = UIAccessibilityTraitLink
         cell.titleText = article.displayTitle
         cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.setImageURL(article.thumbnailURL)
