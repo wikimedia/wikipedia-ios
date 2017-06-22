@@ -25,8 +25,8 @@
 		0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
 		0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */; };
 		0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
-		0E5386981DB834DE0046E0F9 /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
+		0E5386961DB834B70046E0F9 /* WMFFeedNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */; };
+		0E5386981DB834DE0046E0F9 /* WMFFeedNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */; };
 		0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E61C4871CD00984000B11B3 /* WMFHelpViewController.m */; };
 		0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		0E6A6F531D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
@@ -111,7 +111,6 @@
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
-		0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
 		192275501E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
 		192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
@@ -694,7 +693,7 @@
 		D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
 		D80ED2CF1EE57F4800CE8C50 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CA1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift */; };
-		D80ED2D01EE57F4800CE8C50 /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
+		D80ED2D01EE57F4800CE8C50 /* WMFFeedNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */; };
 		D80ED2D11EE57F4800CE8C50 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D80ED2D21EE57F4800CE8C50 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
 		D80ED2D31EE57F4800CE8C50 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */; };
@@ -936,7 +935,7 @@
 		D80ED3C51EE57F4800CE8C50 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D80ED3C61EE57F4800CE8C50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D80ED3C71EE57F4800CE8C50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
-		D80ED3CA1EE57F4800CE8C50 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
+		D80ED3C81EE57F4800CE8C50 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D80ED3CB1EE57F4800CE8C50 /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */; };
 		D80ED3CC1EE57F4800CE8C50 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		D80ED3CD1EE57F4800CE8C50 /* WMFAnnouncementCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */; };
@@ -1010,7 +1009,7 @@
 		D80ED4111EE57F4800CE8C50 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */; };
 		D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		D80ED4131EE57F4800CE8C50 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B018D41EBD15C300BE7F21 /* Explore.storyboard */; };
-		D80ED4141EE57F4800CE8C50 /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
+		D80ED4141EE57F4800CE8C50 /* WMFFeedNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */; };
 		D80ED4151EE57F4800CE8C50 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D80ED4171EE57F4800CE8C50 /* WMFLanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E806B21C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard */; };
@@ -1511,7 +1510,7 @@
 		D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		D8A42AB51E815A9C00D8E281 /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
+		D8A42AB51E815A9C00D8E281 /* WMFFeedNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */; };
 		D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
 		D8A42AB81E815A9C00D8E281 /* WMFReferencePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */; };
@@ -1734,7 +1733,7 @@
 		D8A42BAE1E815A9C00D8E281 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D8A42BAF1E815A9C00D8E281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D8A42BB01E815A9C00D8E281 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
-		D8A42BB31E815A9C00D8E281 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
+		D8A42BB11E815A9C00D8E281 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D8A42BB51E815A9C00D8E281 /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */; };
 		D8A42BB61E815A9C00D8E281 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		D8A42BB71E815A9C00D8E281 /* WMFAnnouncementCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */; };
@@ -1802,7 +1801,7 @@
 		D8A42C021E815A9C00D8E281 /* RecentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806E81C0CEBA40065EBC0 /* RecentSearchCell.xib */; };
 		D8A42C031E815A9C00D8E281 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */; };
 		D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8A42C061E815A9C00D8E281 /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
+		D8A42C061E815A9C00D8E281 /* WMFFeedNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */; };
 		D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8A42C0B1E815A9C00D8E281 /* WMFLanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E806B21C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard */; };
@@ -1938,7 +1937,7 @@
 		D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		D8CE253D1E698E2400DAE2E0 /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
+		D8CE253D1E698E2400DAE2E0 /* WMFFeedNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */; };
 		D8CE253E1E698E2400DAE2E0 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
 		D8CE253F1E698E2400DAE2E0 /* WMFReferencePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */; };
 		D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
@@ -2159,7 +2158,7 @@
 		D8CE26341E698E2400DAE2E0 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D8CE26361E698E2400DAE2E0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
-		D8CE263A1E698E2400DAE2E0 /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
+		D8CE26371E698E2400DAE2E0 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D8CE263C1E698E2400DAE2E0 /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */; };
 		D8CE263D1E698E2400DAE2E0 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		D8CE263E1E698E2400DAE2E0 /* WMFAnnouncementCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */; };
@@ -2227,7 +2226,7 @@
 		D8CE26891E698E2400DAE2E0 /* RecentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806E81C0CEBA40065EBC0 /* RecentSearchCell.xib */; };
 		D8CE268A1E698E2400DAE2E0 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */; };
 		D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8CE268D1E698E2400DAE2E0 /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
+		D8CE268D1E698E2400DAE2E0 /* WMFFeedNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */; };
 		D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8CE26921E698E2400DAE2E0 /* WMFLanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E806B21C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard */; };
@@ -2394,7 +2393,7 @@
 		D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
-		D8EC3E341E9BDA35006712EB /* WMFFeedNotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */; };
+		D8EC3E341E9BDA35006712EB /* WMFFeedNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */; };
 		D8EC3E351E9BDA35006712EB /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
 		D8EC3E361E9BDA35006712EB /* WMFReferencePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A3B1D8BC9BA00D973CF /* WMFReferencePopoverBackgroundView.m */; };
 		D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
@@ -2627,7 +2626,7 @@
 		D8EC3F351E9BDA35006712EB /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D8EC3F371E9BDA35006712EB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
-		D8EC3F3A1E9BDA35006712EB /* WmfFeedNotificationHeaderiPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */; };
+		D8EC3F381E9BDA35006712EB /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB181DF0AAFF00DDF311 /* HockeySDK.framework */; };
 		D8EC3F3C1E9BDA35006712EB /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */; };
 		D8EC3F3D1E9BDA35006712EB /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		D8EC3F3E1E9BDA35006712EB /* WMFAnnouncementCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FA190E1E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib */; };
@@ -2695,7 +2694,7 @@
 		D8EC3F891E9BDA35006712EB /* RecentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806E81C0CEBA40065EBC0 /* RecentSearchCell.xib */; };
 		D8EC3F8A1E9BDA35006712EB /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */; };
 		D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8EC3F8D1E9BDA35006712EB /* WMFFeedNotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */; };
+		D8EC3F8D1E9BDA35006712EB /* WMFFeedNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */; };
 		D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8EC3F921E9BDA35006712EB /* WMFLanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E806B21C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard */; };
@@ -3122,9 +3121,9 @@
 		0E4B5FC41C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFArticlePresentation.h"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.h"; sourceTree = SOURCE_ROOT; };
 		0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFArticlePresentation.m"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.m"; sourceTree = SOURCE_ROOT; };
 		0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFLanguageCell.xib; sourceTree = "<group>"; };
-		0E5386941DB834B70046E0F9 /* WMFFeedNotificationHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFeedNotificationHeader.h; path = Wikipedia/Code/WMFFeedNotificationHeader.h; sourceTree = SOURCE_ROOT; };
-		0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFeedNotificationHeader.m; path = Wikipedia/Code/WMFFeedNotificationHeader.m; sourceTree = SOURCE_ROOT; };
-		0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFeedNotificationHeader.xib; path = Wikipedia/Code/WMFFeedNotificationHeader.xib; sourceTree = SOURCE_ROOT; };
+		0E5386941DB834B70046E0F9 /* WMFFeedNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFeedNotificationCell.h; path = Wikipedia/Code/WMFFeedNotificationCell.h; sourceTree = SOURCE_ROOT; };
+		0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFeedNotificationCell.m; path = Wikipedia/Code/WMFFeedNotificationCell.m; sourceTree = SOURCE_ROOT; };
+		0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFeedNotificationCell.xib; path = Wikipedia/Code/WMFFeedNotificationCell.xib; sourceTree = SOURCE_ROOT; };
 		0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavedPageSpotlightManager.swift; path = ../Wikipedia/Code/SavedPageSpotlightManager.swift; sourceTree = "<group>"; };
 		0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserActivity+WMFExtensions.h"; path = "../Wikipedia/Code/NSUserActivity+WMFExtensions.h"; sourceTree = "<group>"; };
 		0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSUserActivity+WMFExtensions.m"; path = "../Wikipedia/Code/NSUserActivity+WMFExtensions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -3184,7 +3183,6 @@
 		0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFEmptyView.xib; path = Wikipedia/Code/WMFEmptyView.xib; sourceTree = SOURCE_ROOT; };
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
-		0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WmfFeedNotificationHeaderiPad.xib; path = Wikipedia/Code/WmfFeedNotificationHeaderiPad.xib; sourceTree = SOURCE_ROOT; };
 		1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTitledExploreSectionFooter.swift; path = Wikipedia/Code/WMFTitledExploreSectionFooter.swift; sourceTree = SOURCE_ROOT; };
 		1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFTitledExploreSectionFooter.xib; path = Wikipedia/Code/WMFTitledExploreSectionFooter.xib; sourceTree = SOURCE_ROOT; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
@@ -5408,10 +5406,9 @@
 		0E52FD671DA40F8000587426 /* Headers and Footers */ = {
 			isa = PBXGroup;
 			children = (
-				0E5386941DB834B70046E0F9 /* WMFFeedNotificationHeader.h */,
-				0E5386951DB834B70046E0F9 /* WMFFeedNotificationHeader.m */,
-				0E5386971DB834DD0046E0F9 /* WMFFeedNotificationHeader.xib */,
-				0EFC9C211DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib */,
+				0E5386941DB834B70046E0F9 /* WMFFeedNotificationCell.h */,
+				0E5386951DB834B70046E0F9 /* WMFFeedNotificationCell.m */,
+				0E5386971DB834DD0046E0F9 /* WMFFeedNotificationCell.xib */,
 				B0E803291C0CD6E10065EBC0 /* WMFExploreSectionHeader.h */,
 				B0E8032A1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m */,
 				B0E8032B1C0CD6E10065EBC0 /* WMFExploreSectionHeader.xib */,
@@ -8700,7 +8697,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EFC9C221DBA8F4900E80420 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */,
 				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8FA19101E1BDD8A009675C3 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
@@ -8775,7 +8771,7 @@
 				D87A55A41D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D51EBD15C300BE7F21 /* Explore.storyboard in Resources */,
-				0E5386981DB834DE0046E0F9 /* WMFFeedNotificationHeader.xib in Resources */,
+				0E5386981DB834DE0046E0F9 /* WMFFeedNotificationCell.xib in Resources */,
 				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				B0E806B81C0CEB160065EBC0 /* WMFLanguagesViewController.storyboard in Resources */,
@@ -8799,7 +8795,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D80ED3CA1EE57F4800CE8C50 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D80ED3CB1EE57F4800CE8C50 /* ShareOptions.xib in Resources */,
 				D80ED3CC1EE57F4800CE8C50 /* WMFCaptchaViewController.storyboard in Resources */,
 				D80ED3CD1EE57F4800CE8C50 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
@@ -8876,7 +8871,7 @@
 				D80ED4111EE57F4800CE8C50 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D80ED4131EE57F4800CE8C50 /* Explore.storyboard in Resources */,
-				D80ED4141EE57F4800CE8C50 /* WMFFeedNotificationHeader.xib in Resources */,
+				D80ED4141EE57F4800CE8C50 /* WMFFeedNotificationCell.xib in Resources */,
 				D80ED4151EE57F4800CE8C50 /* NotificationSettingsViewController.xib in Resources */,
 				D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */,
 				D80ED4171EE57F4800CE8C50 /* WMFLanguagesViewController.storyboard in Resources */,
@@ -8918,7 +8913,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A42BB31E815A9C00D8E281 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D8A42BB51E815A9C00D8E281 /* ShareOptions.xib in Resources */,
 				D8A42BB61E815A9C00D8E281 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8A42BB71E815A9C00D8E281 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
@@ -8993,7 +8987,7 @@
 				D8A42C031E815A9C00D8E281 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D81EBD15C300BE7F21 /* Explore.storyboard in Resources */,
-				D8A42C061E815A9C00D8E281 /* WMFFeedNotificationHeader.xib in Resources */,
+				D8A42C061E815A9C00D8E281 /* WMFFeedNotificationCell.xib in Resources */,
 				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
 				D8A42C0B1E815A9C00D8E281 /* WMFLanguagesViewController.storyboard in Resources */,
@@ -9017,7 +9011,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CE263A1E698E2400DAE2E0 /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D8CE263C1E698E2400DAE2E0 /* ShareOptions.xib in Resources */,
 				D8CE263D1E698E2400DAE2E0 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8CE263E1E698E2400DAE2E0 /* WMFAnnouncementCollectionViewCell.xib in Resources */,
@@ -9092,7 +9085,7 @@
 				D8CE268A1E698E2400DAE2E0 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D61EBD15C300BE7F21 /* Explore.storyboard in Resources */,
-				D8CE268D1E698E2400DAE2E0 /* WMFFeedNotificationHeader.xib in Resources */,
+				D8CE268D1E698E2400DAE2E0 /* WMFFeedNotificationCell.xib in Resources */,
 				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				D8CE26921E698E2400DAE2E0 /* WMFLanguagesViewController.storyboard in Resources */,
@@ -9116,7 +9109,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EC3F3A1E9BDA35006712EB /* WmfFeedNotificationHeaderiPad.xib in Resources */,
 				D8EC3F3C1E9BDA35006712EB /* ShareOptions.xib in Resources */,
 				D8EC3F3D1E9BDA35006712EB /* WMFCaptchaViewController.storyboard in Resources */,
 				D8EC3F3E1E9BDA35006712EB /* WMFAnnouncementCollectionViewCell.xib in Resources */,
@@ -9191,7 +9183,7 @@
 				D8EC3F8A1E9BDA35006712EB /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D71EBD15C300BE7F21 /* Explore.storyboard in Resources */,
-				D8EC3F8D1E9BDA35006712EB /* WMFFeedNotificationHeader.xib in Resources */,
+				D8EC3F8D1E9BDA35006712EB /* WMFFeedNotificationCell.xib in Resources */,
 				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				D8EC3F921E9BDA35006712EB /* WMFLanguagesViewController.storyboard in Resources */,
@@ -9671,7 +9663,7 @@
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				B3B018CB1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
-				0E5386961DB834B70046E0F9 /* WMFFeedNotificationHeader.m in Sources */,
+				0E5386961DB834B70046E0F9 /* WMFFeedNotificationCell.m in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8733C8D1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
@@ -10006,7 +9998,7 @@
 				D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */,
 				D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				D80ED2CF1EE57F4800CE8C50 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
-				D80ED2D01EE57F4800CE8C50 /* WMFFeedNotificationHeader.m in Sources */,
+				D80ED2D01EE57F4800CE8C50 /* WMFFeedNotificationCell.m in Sources */,
 				D80ED2D11EE57F4800CE8C50 /* RoundedCornerView.swift in Sources */,
 				D80ED2D21EE57F4800CE8C50 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D80ED2D31EE57F4800CE8C50 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
@@ -10575,7 +10567,7 @@
 				D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */,
 				B3B018CE1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
 				D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
-				D8A42AB51E815A9C00D8E281 /* WMFFeedNotificationHeader.m in Sources */,
+				D8A42AB51E815A9C00D8E281 /* WMFFeedNotificationCell.m in Sources */,
 				D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */,
 				D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8A42AB81E815A9C00D8E281 /* WMFReferencePopoverBackgroundView.m in Sources */,
@@ -10908,7 +10900,7 @@
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
-				D8CE253D1E698E2400DAE2E0 /* WMFFeedNotificationHeader.m in Sources */,
+				D8CE253D1E698E2400DAE2E0 /* WMFFeedNotificationCell.m in Sources */,
 				D8CE253E1E698E2400DAE2E0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8CE253F1E698E2400DAE2E0 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */,
@@ -11249,7 +11241,7 @@
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
-				D8EC3E341E9BDA35006712EB /* WMFFeedNotificationHeader.m in Sources */,
+				D8EC3E341E9BDA35006712EB /* WMFFeedNotificationCell.m in Sources */,
 				D8EC3E351E9BDA35006712EB /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8EC3E361E9BDA35006712EB /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D84DAA221EEEF527008E4B18 /* TSMessage.m in Sources */,

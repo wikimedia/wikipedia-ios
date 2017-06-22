@@ -395,8 +395,16 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     WMFFeedNewsStory *newsStory = feedDay.newsStories.firstObject;
-
     if (!newsStory) {
+        done();
+        return;
+    }
+    
+    NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
+    NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
+    // Ensure the news date is no more than a day old (if it has a date at all)
+    if (newsMonthAndDay && midnightUTCDate && [utcCalendar wmf_daysFromMonthAndDay:newsMonthAndDay toDate:midnightUTCDate] > 1) {
         done();
         return;
     }
@@ -407,6 +415,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         done();
         return;
     }
+    
 
     NSURL *articleURL = articlePreview.articleURL;
     if (!articleURL) {

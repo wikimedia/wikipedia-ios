@@ -69,6 +69,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     
     override open func reset() {
         super.reset()
+        collectionView.contentOffset = .zero
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()

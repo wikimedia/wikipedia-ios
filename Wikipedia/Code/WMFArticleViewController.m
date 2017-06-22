@@ -1170,12 +1170,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     });
 }
 
+- (void)endRefreshing {
+    if (self.pullToRefresh.isRefreshing) {
+        @try { // TODO: REMOVE AFTER DROPPING iOS 9
+            [self.pullToRefresh endRefreshing];
+        } @catch (NSException *exception) {
+            DDLogError(@"Caught exception while ending refreshing: %@", exception);
+        }
+    }
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
-        [self.pullToRefresh endRefreshing];
+        [self endRefreshing];
         [self articleDidLoad];
         return;
     }
@@ -1198,7 +1208,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-            [self.pullToRefresh endRefreshing];
+            [self endRefreshing];
             [self hideProgressViewAnimated:YES];
             [self.delegate articleControllerDidLoadArticle:self];
 
@@ -1240,7 +1250,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
-            [self.pullToRefresh endRefreshing];
+            [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
             self.article = article;
             self.articleFetcherPromise = nil;

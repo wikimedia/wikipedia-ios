@@ -2,7 +2,6 @@ import UIKit
 
 @objc(WMFNewsCollectionViewCell)
 class NewsCollectionViewCell: SideScrollingCollectionViewCell {
-
     @objc(configureWithStory:dataStore:layoutOnly:)
     func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []

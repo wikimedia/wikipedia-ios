@@ -218,6 +218,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
+            mapListToggle.selectedSegmentIndex = 1
         } else {
             viewMode = .map
         }
@@ -1680,7 +1681,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             articleVC.descriptionLabel.text = nil
         }
-        
+
         articleVC.view.alpha = 0
         addChildViewController(articleVC)
     
@@ -1694,14 +1695,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         selectedArticleKey = articleKey
         
         adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
+        
+        articleVC.update()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+        
         articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
         }
-        
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
 
         tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
@@ -2345,6 +2348,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let article = articleFetchedResultsController.object(at: indexPath)
         
+        cell.accessibilityTraits = UIAccessibilityTraitLink
         cell.titleText = article.displayTitle
         cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.setImageURL(article.thumbnailURL)
@@ -2364,7 +2368,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}") : WMFLocalizedString("action-saved", value:"Saved", comment:"Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}")
+        let title = article.savedDate == nil ? SaveButton.shortSaveTitle : SaveButton.shortSavedTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -2374,6 +2378,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
+        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
         saveForLaterAction.backgroundColor = .wmf_darkBlue
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
@@ -2823,5 +2828,27 @@ extension PlacesViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - Accessibility
+
+extension PlacesViewController {
+    override func accessibilityPerformEscape() -> Bool {
+        switch viewMode {
+        case .search:
+            closeSearch(self)
+            return true
+        default:
+            if isSearchFilterDropDownShowing {
+                toggleSearchFilterDropDown(self)
+                return true
+            } else if selectedArticlePopover != nil {
+                deselectAllAnnotations()
+                return true
+            } else {
+                return false
+            }
+        }
     }
 }
