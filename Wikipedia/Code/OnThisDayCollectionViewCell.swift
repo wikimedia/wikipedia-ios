@@ -3,14 +3,12 @@ import UIKit
 @objc(WMFOnThisDayCollectionViewCell)
 class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
-    let timelineView = UIView()
+    let timelineView = OnThisDayTimelineView()
 
     @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:)
     func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
         let currentYear = Calendar.current.component(.year, from: Date())
-        
-        timelineView.backgroundColor = .red
         
         titleLabel.textColor = .wmf_blue
         subTitleLabel.textColor = .wmf_customGray
@@ -70,5 +68,32 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         super.setup()
         collectionView.backgroundColor = .clear
         insertSubview(timelineView, belowSubview: collectionView)
+    }
+}
+
+class OnThisDayTimelineView: UIView {
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    open func setup() {
+        backgroundColor = .clear
+    }
+    
+    override func draw(_ rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        context.setLineWidth(1.0)
+        context.setStrokeColor(UIColor.wmf_blue.cgColor)
+        context.move(to: CGPoint.init(x: rect.midX, y: rect.minY))
+        context.addLine(to: CGPoint.init(x: rect.midX, y: rect.maxY))
+        context.strokePath()
     }
 }
