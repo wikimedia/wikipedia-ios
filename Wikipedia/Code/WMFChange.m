@@ -26,7 +26,7 @@
 @implementation WMFSectionChange
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ section %li", [super description], self.sectionIndex];
+    return [NSString stringWithFormat:@"%@ section %li", [super description], (long)self.sectionIndex];
 }
 
 @end
