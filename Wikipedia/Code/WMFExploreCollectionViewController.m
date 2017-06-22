@@ -463,7 +463,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
-    [self sizeNotificationHeader];
 }
 
 - (void)didReceiveMemoryWarning {
