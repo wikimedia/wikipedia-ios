@@ -3,10 +3,14 @@ import UIKit
 @objc(WMFOnThisDayCollectionViewCell)
 class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
+    let timelineView = UIView()
+
     @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:)
     func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
         let currentYear = Calendar.current.component(.year, from: Date())
+        
+        timelineView.backgroundColor = .red
         
         titleLabel.textColor = .wmf_blue
         subTitleLabel.textColor = .wmf_customGray
@@ -54,7 +58,17 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        margins.left = 66
+
+        let timelineWidth:CGFloat = 66.0
+        timelineView.frame = CGRect.init(x: bounds.origin.x, y: bounds.origin.y, width: timelineWidth, height: bounds.size.height)
+        
+        margins.left = timelineWidth
         return super.sizeThatFits(size, apply: apply)
+    }
+    
+    override open func setup() {
+        super.setup()
+        collectionView.backgroundColor = .clear
+        insertSubview(timelineView, belowSubview: collectionView)
     }
 }
