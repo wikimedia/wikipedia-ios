@@ -52,4 +52,9 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         subTitleLabel.font = subTitleFont
         descriptionLabel.font = descriptionFont
     }
+    
+    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        margins.left = 66
+        return super.sizeThatFits(size, apply: apply)
+    }
 }
