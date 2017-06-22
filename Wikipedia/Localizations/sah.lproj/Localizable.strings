@@ -3,6 +3,7 @@
 // Author: HalanTul
 // Author: Nemo bis
 // Author: Ай-Куо
+// Author: Алгыс
 // Author: Марианна
 // Author: Туллук
 
@@ -35,7 +36,10 @@
 "abuse-filter-warning-irrelevant" = "Сөп түбэспэт тас сигэлэр биитэр ойуулар бааллар";
 "abuse-filter-warning-repeat" = "Хатыланааааар буукубалар бааллар";
 "abuse-filter-warning-subheading" = "Көннөрүүҥ мантан бииригэр эбэтэр хаһыгар да сөп түбэһиэн сөп:";
+"account-creation-captcha-cannot-see-image" = " $ 1 ойууну кыайан көрбөккүн дуо?";
 "account-creation-captcha-obtaining" = "Саҥа капчаны ылыы...";
+"account-creation-captcha-request-account" = "Бэлиэтэниллибит ааты ыйытыктаа";
+"account-creation-captcha-title" = "CAPTCHA куттала суоҕун тургутуу";
 "account-creation-create-account" = "Саҥа ааты бэлиэтииргэ";
 "account-creation-have-account" = "Бэлиэтэммитиҥ дуо? $1.";
 "account-creation-log-in" = "Киир";
@@ -89,23 +93,53 @@
 "empty-no-saved-pages-message" = "Билигин хааллардаххына, кэлин ситимэ да суох ааҕыаххын сөп";
 "empty-no-saved-pages-title" = "Хараллыбыт сирэй суох эбит";
 "empty-no-search-results-message" = "Туох да көстүбэтэ";
+"error-unknown" = "Биллибэт сыыһа таҕыста";
 "explore-another-random" = "Атын түбэспиччэ ыстатыйа";
+"explore-because-you-read" = "Тоҕо диэтэххэ ыстатыйаны аахпыккын";
 "explore-continue-reading-heading" = "Салгыы ааҕыы";
+"explore-enable-location-title" = "Билигин баар сиргэр ыстатыйалары үөрэт";
 "explore-featured-article-heading" = "Бастыҥ ыстатыйалар";
+"explore-main-page-description" = "Бикимиэдьийэ бырайыагын сүрүн сирэйэ";
 "explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
 "explore-most-read-footer-for-date" = "Манна $1 элбэхтэ ааҕыллар ыстатыйалар барыта";
 "explore-most-read-generic-heading" = "Элбэхтэ ааҕыллар";
 "explore-most-read-heading" = "$1 Бикипиэдьийэҕэ элбэхтэ ааҕыллар";
 "explore-most-read-more-list-title-for-date" = "Манна $1 элбэхтэ ааҕыллар";
 "explore-nearby-heading" = "Чугастааҕы сирдэр";
+"explore-nearby-placeholder-cancel" = "Бигэргэтимэ";
+"explore-nearby-placeholder-dismiss" = "Сап";
+"explore-nearby-placeholder-heading" = "Миэстэ";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Бикипиэдьийэ";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Бикипиэдьийэ";
 "explore-nearby-sub-heading-your-location" = "Баар сириҥ";
 "explore-potd-heading" = "Күннээҕи ойуу";
 "explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
 "explore-randomizer" = "Рандомизатор";
-// Fuzzy
 "feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
+"field-alert-captcha-invalid" = "Сыыһа CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Аһарыктарыҥ сөп түбэспэтилэр";
+"field-alert-password-invalid" = "аһарыгын сыыһа";
+"field-alert-token-invalid" = "куодун сыыһа";
+"field-alert-username-unavailable" = "анал аатын аһаҕаһа суох";
+"field-backup-token-title" = "Код үкчү киэбин оҥоруу";
+"field-captcha-placeholder" = "Captcha көмөтө";
+"field-new-password-confirm-title" = "Аһарыккын бигэргэт";
+"field-new-password-placeholder" = "Саҥа аһарыккын суруй";
+"field-new-password-title" = "Саҥа аһарык:";
+"field-password-confirm-placeholder" = "аһарыккын иккистээн суруй";
+"field-password-confirm-title" = "Аһарыккын бигэргэт";
+"field-password-placeholder" = "Саҥа аһарыккын суруй";
+"field-password-title" = "Аһарык";
+"field-token-title" = "Куоду бигэргэт";
+"field-username-placeholder" = "Кыттааччы аата:";
+"field-username-title" = "Бэлиэ-аат";
 "find-in-page-button-label" = "Бу сирэйтэн бул";
+"find-in-page-number-matches" = "$1 манна $2";
 "find-in-page-popover-description" = "Ыстатыйалартан тиэкиһи булуу";
+"forgot-password-button-title" = "Саҥаттан";
+"forgot-password-title" = "Киирии тылы саҥардыы";
+"forgot-password-username-or-email-title" = "ЭБЭТЭР";
+"gdfl" = "GDFL";
 "history-clear-all" = "Сот";
 "history-clear-cancel" = "Салҕаама";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
@@ -116,18 +150,19 @@
 "hockeyapp-alert-always-send" = "Куруук ыытар буол";
 "hockeyapp-alert-do-not-send" = "Ыытыма";
 "hockeyapp-alert-privacy" = "Бүк охсунуу $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Бикимиэдьийэ Пуондата эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын дуо?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Бикимиэдьийэ Пуондата эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын дуо? Бука диэн, туох моһуокка тиэрдибитин сабаҕалыыргын суруй:";
+"hockeyapp-alert-question" = "Бикимиэдьийэ Пуондата эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын?";
+"hockeyapp-alert-question-with-response-field" = "Бикимиэдьийэ Пуондатын эн моһуогурбуккун үөрэтэрин туһугар отчуот манна $1 ыытыаххын баҕараҕын ? Бука диэн, туох моһуокка тиэрдибитин сабаҕалыыргын суруй:";
 "hockeyapp-alert-send-report" = "Отчуоту ыыт";
 "hockeyapp-alert-title" = "Хомойуох иһин, ааспыкка дьибилгэт моһуогура сылдьыбыт";
+"home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
 "home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
+"home-button-saved-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн.";
 "home-hide-suggestion-cancel" = "Бигэргэтимэ";
 "home-hide-suggestion-prompt" = "Бу этиини кистээ";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
 "home-nearby-footer" = "Эйигиттэн чугас эбии туох баарый";
 "home-nearby-location-footer" = "Мантан чугас, эбии $1";
+"home-news-footer" = "Улахан сонуннарга.";
 "home-title" = "Чинчий!";
 "icon-shortcut-continue-reading-title" = "Салгыы ааҕыы";
 "icon-shortcut-nearby-title" = "Чугас туох баарый";
@@ -141,11 +176,14 @@
 "in-the-news-title" = "Сонуннарга ахтыллар";
 "in-the-news-title-for-date" = "$1 сонуннара";
 "info-box-close-text" = "Сап";
-// Fuzzy
-"info-box-title" = "Кылгас чахчылар";
+"info-box-title" = "Кылгас чахчы";
 "languages-title" = "Тылын уларыт";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Иһинээҕитэ $1 лиссиэнсийэнэн тарҕанар";
+"login-forgot-password" = "Аһарык тылгын санаттараҕын дуо?";
+"login-join-wikipedia" = "Бикипиэдьийэҕэ киирин";
+"login-no-account" = "Бэлиэтэнэ иликкин дуо? '''$1'''.";
+"login-title" = "Бэлиэтэммит ааккар киир";
 "main-menu-about" = "Дьибилгэт туһунан";
 "main-menu-account-login" = "Киирии";
 "main-menu-account-logout" = "Тахсыы";
@@ -170,6 +208,8 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миилэ";
+"new-password-instructions" = "Быстах кэмҥэ туттуллар киирии тылынан киирдиҥ.\nТүмүктүүргэ саҥа киирии тылы суруйуохтааххын:";
+"new-password-title" = "Аһарыккын суруй";
 "no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
@@ -180,6 +220,7 @@
 "page-history-title" = "Сирэй устуоруйата";
 "page-issues" = "Сирэйгэ ыйытыылар";
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
+"page-location" = "Каартаҕа көр";
 "page-protected-autoconfirmed" = "Бу сирэй ситэтэ суохтук хатанна.";
 "page-protected-can-not-edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
 "page-protected-can-not-edit-title" = "Бу сирэй хатанан турар";
@@ -187,9 +228,20 @@
 "page-protected-sysop" = "Бу сирэй толору хатанна.";
 "page-read-in-other-languages" = "Атын $1 тылынан ааҕыахха сөп";
 "page-similar-titles" = "Майгынныыр сирэйдэр";
+"pictured" = "ойууланна";
+"places-accessibility-clear-saved-searches" = "Тиһиликтэн бүтэһик көрдөөһүннэри соттор";
+"places-accessibility-close-search" = "Көрдөөһүнү сабан кээс";
+"places-accessibility-group" = "$1 ыстатыйа";
+"places-accessibility-recenter-map-on-user-location" = "Каарта киинигэр баар миэстэбин көрдөр";
+"places-accessibility-show-as-list" = "Испиһиэк курдук көрдөр";
+"places-accessibility-show-as-map" = "Каарта курдук көрдөр";
+"places-accessibility-show-more" = "Элбэх ыстатыйаны көрдөр";
+"places-dismiss-filter-list-accessibility-label" = "Көрдүүр фильтртан аккаастанабын";
+"places-search-top-articles" = "Элбэхтэ ааҕыллар ыстатыйалар барыта";
+"places-search-top-articles-that-match-scope" = "чугас";
+"places-title" = "Миэстэ";
 "potd-description-prefix" = "Күннээҕи ойуу $1";
 "potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
-// Fuzzy
 "preference-summary-eventlogging-opt-in" = "Дьибилгэти туһанар туһунан Викимедиаҕа ыытары көҥүллээтэххинэ дьибилгэти тупсарарга көмөлөһүөҥ.";
 "preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
 "rank-accessibility-label" = "Ахсаана $1";
@@ -212,6 +264,8 @@
 "search-recent-title" = "Кэлиҥҥи көрдөөһүннэр";
 "search-result-redirected-from" = "(Мантан: $1  утаарылынна)";
 "search-title" = "Бул";
+"settings-clear-cache-cancel" = "Таҕыс";
+"settings-clear-cache-ok" = "кэшкын ыраастаа";
 "settings-help-and-feedback" = "К6м6 уонна ситим";
 "settings-language-bar" = "Көрдүүргэ омугун тылын көрдөрөр буол";
 "settings-my-languages" = "Мин тылларым";
@@ -232,7 +286,9 @@
 "share-as-text" = "Тиэкис быһыытынан тарҕат";
 "share-cancel" = "Бигэргэтимэ";
 "share-custom-menu-item" = "Тарҕат...";
+"share-get-directions-in-maps" = "Суолу салҕаа";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
+"share-open-in-maps" = "Каартаҕа арый";
 "status-saved-for-later" = "Хойут бигэргэтэргэ хаалларыллыбыт";
 "status-saving-for-later" = "Кэлин бигэргэтэргэ...";
 "table-of-contents-button-label" = "Иһинээҕитэ";
@@ -244,6 +300,8 @@
 "top-read-header-generic" = "Бикипиэдьийэ";
 "top-read-header-with-language" = "$1 Бикипиэдьийэ";
 "top-read-see-more" = "Элбэхтэ ааҕыллары көрүү";
+"two-factor-login-continue" = "Киириини салҕаа";
+"two-factor-login-title" = "Бэйэн анал ааккар киир";
 "unsave-action" = "Бигэргэммэтэх";
 "welcome-explore-continue-button" = "Саҕалыырга";
 "welcome-explore-new-ways-sub-title" = "Саҥа биллэрии уонна ҕааддьыт сэргэх ыстатыйалары буларга көмөлөһүө";
