@@ -41,7 +41,7 @@
 "account-creation-title" = "Title for account creation interface";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
-"action-saved" = "Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}";
+"action-saved" = "Title for the save button in the 'Saved' state - Indicates the article is saved\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
 "action-unsave" = "Title for the 'Unsave' action\n{{Identical|Saved}}";

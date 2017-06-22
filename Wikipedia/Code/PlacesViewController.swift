@@ -2368,7 +2368,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}") : WMFLocalizedString("action-saved", value:"Saved", comment:"Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}")
+        let title = article.savedDate == nil ? SaveButton.shortSaveTitle : SaveButton.shortSavedTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -2378,6 +2378,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
+        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
         saveForLaterAction.backgroundColor = .wmf_darkBlue
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
