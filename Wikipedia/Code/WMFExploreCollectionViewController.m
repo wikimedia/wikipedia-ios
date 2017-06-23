@@ -1201,18 +1201,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     
     if (displayType == WMFFeedDisplayTypeRanked) {
         cell.userInteractionEnabled = YES;
-        [cell addGestureRecognizer: [self swipeGesture]];
+        [cell addGestureRecognizer: [self panGesture]];
     }
 }
 
-- (void) handleSwipe:(UISwipeGestureRecognizer *)gr {
-    NSLog(@"handleSwipe");
+- (void) handlePan:(UIPanGestureRecognizer *)gr {
+    NSLog(@"handlePan");
 }
 
-- (UISwipeGestureRecognizer *) swipeGesture {
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-    swipe.direction = UISwipeGestureRecognizerDirectionLeft;
-    return swipe;
+- (UIPanGestureRecognizer *) panGesture {
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    return pan;
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
