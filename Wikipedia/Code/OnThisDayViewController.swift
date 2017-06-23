@@ -19,6 +19,10 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
     }
     
+    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
