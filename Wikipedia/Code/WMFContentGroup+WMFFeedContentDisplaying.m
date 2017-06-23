@@ -29,8 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return [UIImage imageNamed:@"in-the-news-mini"];
         case WMFContentGroupKindOnThisDay:
-            //TODO: get and use proper asset for this...
-            return [UIImage imageNamed:@"in-the-news-mini"];
+            return [UIImage imageNamed:@"on-this-day-mini"];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -55,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_yellow];
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_blue];
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_blue];
         default:
             return [UIColor wmf_exploreSectionHeaderIconTint];
     }
@@ -71,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_lightRed];
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_lightYellow];
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_lightBlue];
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_lightBlue];
         default:
