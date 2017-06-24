@@ -94,31 +94,28 @@ class OnThisDayTimelineView: UIView {
         // Shift the "full-width dot" point up a bit - otherwise it's in the vertical center of screen.
         let yOffset = containerView.bounds.size.height * 0.18
 
-        var thisRadiusNormal = dotRadiusNormal(with: dotY + yOffset, in: containerView)
+        var radiusNormal = dotRadiusNormal(with: dotY + yOffset, in: containerView)
 
         // Reminder: can reduce precision to 1 (significant digit) to reduce how often dot radii are updated.
         let precision: CGFloat = 2
         let roundingNumber = pow(10, precision)
-        thisRadiusNormal = (thisRadiusNormal * roundingNumber).rounded(.up) / roundingNumber
+        radiusNormal = (radiusNormal * roundingNumber).rounded(.up) / roundingNumber
         
-        guard thisRadiusNormal != lastDotRadiusNormal else {
+        guard radiusNormal != lastDotRadiusNormal else {
             return
         }
         
         let dotCenter = CGPoint(x: frame.midX, y: dotY)
-        updateDotsRadii(with: dotCenter, radiusNormal: thisRadiusNormal)
-        
-        lastDotRadiusNormal = thisRadiusNormal
-    }
-    
-    private func updateDotsRadii(with center: CGPoint, radiusNormal: CGFloat) {
         let baseRadius:CGFloat = 9.0
-        let endAngle:CGFloat = CGFloat.pi * 2.0
+        outerDotShapeLayer.updateDotRadius(baseRadius * max(radiusNormal, 0.4), center: dotCenter)
+        innerDotShapeLayer.updateDotRadius(baseRadius * max((radiusNormal - 0.4), 0.0), center: dotCenter)
         
-        let outerDotRadius = baseRadius * max(radiusNormal, 0.4)
-        outerDotShapeLayer.path = UIBezierPath(arcCenter: center, radius: outerDotRadius, startAngle: 0.0, endAngle:endAngle, clockwise: true).cgPath
-        
-        let innerDotRadius = baseRadius * max((radiusNormal - 0.4), 0.0)
-        innerDotShapeLayer.path = UIBezierPath(arcCenter: center, radius: innerDotRadius, startAngle: 0.0, endAngle:endAngle, clockwise: true).cgPath
+        lastDotRadiusNormal = radiusNormal
+    }
+}
+
+extension CAShapeLayer {
+    func updateDotRadius(_ radius: CGFloat, center: CGPoint) {
+        path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle:CGFloat.pi * 2.0, clockwise: true).cgPath
     }
 }
