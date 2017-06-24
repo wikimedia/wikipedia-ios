@@ -115,7 +115,7 @@ class OnThisDayTimelineView: UIView {
 }
 
 extension CAShapeLayer {
-    func updateDotRadius(_ radius: CGFloat, center: CGPoint) {
+    fileprivate func updateDotRadius(_ radius: CGFloat, center: CGPoint) {
         path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle:CGFloat.pi * 2.0, clockwise: true).cgPath
     }
 }
