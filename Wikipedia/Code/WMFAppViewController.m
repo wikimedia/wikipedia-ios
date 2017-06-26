@@ -112,6 +112,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
 
+@property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
+
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
 /// Use @c rootTabBarController instead.
@@ -516,7 +518,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         });
     };
 
-    if (self.unprocessedUserActivity) {
+    if (self.notificationUserInfoToShow) {
+        [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+        self.notificationUserInfoToShow = nil;
+        done();
+    } else if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity completion:done];
     } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem
@@ -1276,6 +1282,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showInTheNewsForNotificationInfo:(NSDictionary *)info {
+    if (!self.isMigrationComplete) {
+        self.notificationUserInfoToShow = info;
+        return;
+    }
     NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
     NSURL *articleURL = [NSURL URLWithString:articleURLString];
     NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];

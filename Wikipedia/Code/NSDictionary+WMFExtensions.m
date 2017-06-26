@@ -44,7 +44,7 @@
 
 - (NSDictionary *)wmf_dictionaryByRemovingNullObjects {
     return [self wmf_reject:^BOOL(id key, id obj) {
-        return [obj isKindOfClass:[NSNull class]];
+        return obj == [NSNull null];
     }];
 }
 
