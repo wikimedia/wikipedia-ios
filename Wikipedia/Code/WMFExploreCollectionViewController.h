@@ -2,6 +2,7 @@
 #import "WMFContentSource.h"
 
 @class MWKDataStore;
+@class WMFNewsViewController;
 @protocol WMFExploreCollectionViewControllerDelegate;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
@@ -20,11 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)numberOfSectionsInExploreFeed;
 
-- (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
-
-- (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated;
-
-- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated;
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nonnull dispatch_block_t)completion;
 
 @end
 

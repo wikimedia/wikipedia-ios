@@ -1,9 +1,72 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
+#import "WMFFirstRandomViewController.h"
+#import "Wikipedia-Swift.h"
+#import "WMFFeedNewsStory.h"
+#import "WMFContentGroup+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
+
+- (nullable NSArray<NSURL *> *)contentURLs {
+    NSArray<NSCoding> *content = [self content];
+    if ([self contentType] == WMFContentTypeTopReadPreview) {
+        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
+            return [obj articleURL];
+        }];
+    } else if ([self contentType] == WMFContentTypeStory) {
+        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+        }];
+    } else if ([self contentType] != WMFContentTypeURL) {
+        content = nil;
+    }
+    return content;
+}
+
+- (nullable UIViewController *)detailViewControllerWithDataStore:(MWKDataStore *)dataStore siteURL:(NSURL *)siteURL {
+    WMFFeedMoreType moreType = [self moreType];
+    switch (moreType) {
+        case WMFFeedMoreTypePageList:
+        case WMFFeedMoreTypePageListWithLocation: {
+            NSArray<NSURL *> *URLs = (NSArray<NSURL *> *)[self contentURLs];
+            if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
+                NSAssert(false, @"Invalid Content");
+                return nil;
+            }
+            if (moreType == WMFFeedMoreTypePageListWithLocation) {
+                return [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+            } else {
+                WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+                vc.title = [self moreTitle];
+                return vc;
+            }
+            } break;
+        case WMFFeedMoreTypeNews: {
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[self content];
+            if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
+                NSAssert(false, @"Invalid Content");
+                return nil;
+            }
+            return [WMFContentGroup inTheNewsViewControllerForStories:stories dataStore:dataStore];
+        } break;
+        default:
+            NSAssert(false, @"Unknown More Type");
+            return nil;
+    }
+}
+
+#pragma mark - In The News
+
++ (nullable WMFNewsViewController *)inTheNewsViewControllerForStories:(NSArray<WMFFeedNewsStory *> *)stories dataStore:(MWKDataStore *)dataStore {
+    WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
+    //Keeping this translation around until we're sure we don't need it
+    //NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, nil, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
+    vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
+    vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
+    return vc;
+}
 
 - (nullable UIImage *)headerIcon {
     switch (self.contentGroupKind) {
