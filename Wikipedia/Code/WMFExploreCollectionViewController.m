@@ -1536,12 +1536,43 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                     [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:deletedIndex]];
                     [deletedSections addIndex:deletedIndex];
                 } break;
+                case NSFetchedResultsChangeUpdate: {
+                    if (change.toIndexPath && change.fromIndexPath && ![change.toIndexPath isEqual:change.fromIndexPath]) {
+                        if ([deletedSections containsIndex:change.fromIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        } else {
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:change.fromIndexPath.row]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:change.toIndexPath.row]];
+                        }
+                    } else {
+                        NSIndexPath *updatedIndexPath = change.toIndexPath ?: change.fromIndexPath;
+                        NSInteger sectionIndex = updatedIndexPath.row;
+                        if ([insertedSections containsIndex:updatedIndexPath.row]) {
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        } else {
+                            NSInteger previousCount = [previousSectionCounts[sectionIndex] integerValue];
+                            NSInteger currentCount = [self.sectionCounts[sectionIndex] integerValue];
+                            if (previousCount == currentCount) {
+                                [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                continue;
+                            }
+
+                            while (previousCount > currentCount) {
+                                [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount - 1 inSection:sectionIndex]]];
+                                previousCount--;
+                            }
+
+                            while (previousCount < currentCount) {
+                                [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:previousCount inSection:sectionIndex]]];
+                                previousCount++;
+                            }
+
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                        }
+                    }
+                } break;
                 case NSFetchedResultsChangeMove:
                     [self.collectionView moveSection:change.fromIndexPath.row toSection:change.toIndexPath.row];
-                    break;
-                case NSFetchedResultsChangeUpdate:
-                default:
-                    NSAssert(false, @"Update should trigger a reload");
                     break;
             }
         }
@@ -1570,7 +1601,6 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                 sectionDelta--;
                 break;
             case NSFetchedResultsChangeUpdate:
-                shouldReload = YES;
                 break;
             case NSFetchedResultsChangeMove:
                 break;
