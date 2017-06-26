@@ -477,11 +477,11 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSError *JSONError = nil;
-    NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError];
+    NSMutableDictionary *JSONDictionary = [[MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError] mutableCopy];
     if (JSONError) {
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
-
+    
     NSString *articleURLString = articlePreview.URL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
@@ -490,7 +490,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (!storyHTML || !articleURLString || !displayTitle || !JSONDictionary) {
         return NO;
     }
-
+    
+    // Workaround for inablity to specify which reverse transform to use on WMFFeedNewsStory for storyHTML (it uses the date instead of the story)
+    JSONDictionary[@"story"] = storyHTML;
+    
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
     info[WMFNotificationInfoArticleTitleKey] = displayTitle;
     info[WMFNotificationInfoViewCountsKey] = viewCounts;
