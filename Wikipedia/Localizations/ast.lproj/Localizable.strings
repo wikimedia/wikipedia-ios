@@ -50,7 +50,9 @@
 "action-read" = "Lleer";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
+"action-saved-accessibility" = "Guardao. Activa pa recuperar.";
 "action-share" = "Compartir";
+"action-unsave" = "Nun guardar";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Non, gracies";
 "article-about-title" = "Tocante a esti artículu";

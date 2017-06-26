@@ -66,7 +66,9 @@
 "action-read" = "خواندن";
 "action-save" = "ذخیره";
 "action-saved" = "ذخیره شد";
+"action-saved-accessibility" = "ذخیره شد. به صورت ذخیره نشده فعال شد.";
 "action-share" = "به اشتراک گذاشتن";
+"action-unsave" = "ذخیره‌نشده";
 "alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "نه ممنون";
 "article-about-title" = "دربارهٔ این مقاله";
@@ -112,6 +114,7 @@
 "explore-another-random" = "مقاله تصادفی دیگر";
 "explore-because-you-read" = "چون شما مطالعه می‌کنید";
 "explore-continue-reading-heading" = "ادامه دادن به خواندن";
+"explore-enable-location-title" = "جستجوی مقالهٔ نزدیک به موقعیت شما";
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
@@ -161,6 +164,7 @@
 "forgot-password-instructions" = "برای دریافت گذرواژهٔ جدید به وسیلهٔ ایمیل یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
+"gdfl" = "GDFL";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
@@ -385,6 +389,7 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-sign-in" = "ورود";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";
