@@ -13545,7 +13545,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
+				WMF_HOCKEYAPP_IDENTIFIER = c7ab1c41a3eb4b7581a0057624730467;
 			};
 			name = BetaClusterDebug;
 		};
@@ -14789,7 +14789,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
+				WMF_HOCKEYAPP_IDENTIFIER = c7ab1c41a3eb4b7581a0057624730467;
 			};
 			name = Beta;
 		};
@@ -15075,7 +15075,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
+				WMF_HOCKEYAPP_IDENTIFIER = c7ab1c41a3eb4b7581a0057624730467;
 			};
 			name = BetaDebug;
 		};
@@ -16605,7 +16605,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
-				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
+				WMF_HOCKEYAPP_IDENTIFIER = c7ab1c41a3eb4b7581a0057624730467;
 			};
 			name = BetaCluster;
 		};
