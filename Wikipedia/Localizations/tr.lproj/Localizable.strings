@@ -69,7 +69,9 @@
 "action-read" = "Oku";
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedilenler";
+"action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
 "action-share" = "Paylaş";
+"action-unsave" = "Kaydedilenlerden çıkar";
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Hayır, teşekkürler";
 "article-about-title" = "Bu madde hakkında";
@@ -115,6 +117,7 @@
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-because-you-read" = "Okuduklarına benzer";
 "explore-continue-reading-heading" = "Okumaya devam et";
+"explore-enable-location-title" = "Mevcut konumunuzun yakınındaki maddeleri keşfedin";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -164,6 +167,7 @@
 "forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
+"gdfl" = "GDFL";
 "history-clear-all" = "Temizle";
 "history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
@@ -261,6 +265,7 @@
 "places-accessibility-show-as-list" = "Liste olarak göster";
 "places-accessibility-show-as-map" = "Harita olarak göster";
 "places-accessibility-show-more" = "Daha fazla madde göster";
+"places-dismiss-filter-list-accessibility-label" = "Arama süzgeçlerini kapat";
 "places-empty-search-description" = "Şehirleri, ülkeleri, kıtaları, doğa harikalarını, tarihi olayları, yapıları ve daha fazlasını keşfedin.";
 "places-empty-search-title" = "Coğrafi konumu olan Vikipedi maddelerini ara";
 "places-enable-location-action-button-title" = "Konumu etkinleştir";
@@ -274,14 +279,16 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
-// Fuzzy
-"places-search-default-text" = "Ara";
+"places-search-default-text" = "Yerleri ara";
 "places-search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "places-search-recently-searched-header" = "Son arananlar";
 "places-search-saved-articles" = "Kaydedilmiş maddelerin hepsi";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-this-area" = "Bu bölgedeki sonuçlar";
 "places-search-top-articles" = "En çok okunan tüm maddeler";
+"places-search-top-articles-that-match-scope" = "Yakınındakiler";
+"places-search-your-current-location" = "Mevcut konumunuz";
+"places-show-filter-list-accessibility-label" = "Arama süzgeçlerini göster";
 "places-title" = "Yerler";
 "places-unknown-distance" = "bilinmeyen uzaklık";
 "potd-description-prefix" = "$1 tarihli günün resmi";
@@ -385,6 +392,7 @@
 "wikitext-upload-save" = "Paylaşılıyor...";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-sign-in" = "Oturum aç";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Değişikliklerinizi kaydederek $1 kabul etmiş sayılırsınız ve bu değişiklikler $2 ve $3 lisansı altında yayınlanır.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";
 "zero-charged-verbiage-extended" = "Diğer maddeleri yüklemek veri ücretlendirmesine neden olabilir. Kaydedilen maddeler çevrim dışı olarak saklanır, veri harcamaz ve ücretsizdir.";
