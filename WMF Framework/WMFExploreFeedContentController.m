@@ -6,6 +6,7 @@
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
 #import <WMF/WMFAnnouncementsContentSource.h>
+#import <WMF/WMFOnThisDayContentSource.h>
 #import <WMF/WMFAssertions.h>
 #import <WMF/WMF-Swift.h>
 
@@ -88,7 +89,8 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                                                   dataStore:self.dataStore],
             feedContentSource,
             [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]]
+            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]],
+            [[WMFOnThisDayContentSource alloc] initWithSiteURL:[self siteURL]]
         ];
     }
     return _contentSources;

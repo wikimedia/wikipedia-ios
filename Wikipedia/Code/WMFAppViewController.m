@@ -1292,7 +1292,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    UIViewController *vc = [WMFContentGroup inTheNewsViewControllerForStories:@[feedNewsStory] dataStore:self.dataStore];
+    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore];
     if (!vc) {
         return;
     }
