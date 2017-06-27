@@ -23,8 +23,8 @@ class OnThisDayTimelineView: UIView {
         }
     }
 
-    let dotRadius:CGFloat = 9.0
-    let dotMinRadiusNormal:CGFloat = 0.4
+    private let dotRadius:CGFloat = 9.0
+    private let dotMinRadiusNormal:CGFloat = 0.4
     
     public var topDotsY: CGFloat = 0 {
         didSet {
@@ -53,7 +53,7 @@ class OnThisDayTimelineView: UIView {
         return shape
     }()
 
-    lazy var outerDotShapeLayer: CAShapeLayer = {
+    private lazy var outerDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
         shape.strokeColor = UIColor.wmf_blue.cgColor
@@ -62,7 +62,7 @@ class OnThisDayTimelineView: UIView {
         return shape
     }()
 
-    lazy var innerDotShapeLayer: CAShapeLayer = {
+    private lazy var innerDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.wmf_blue.cgColor
         shape.strokeColor = UIColor.wmf_blue.cgColor
