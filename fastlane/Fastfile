@@ -227,7 +227,7 @@ platform :ios do
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
-      beta_app_feedback_email: "ci-apps@wikimedia.org"
+      beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
     )
     
     tag(
