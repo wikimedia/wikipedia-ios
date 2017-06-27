@@ -6,6 +6,12 @@
 - (NSArray<NSNumber *> *)wmf_pageViewsSortedByDate {
     NSArray *keys = self.allKeys;
     keys = [keys sortedArrayUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
+        if ([obj1 isKindOfClass:[NSString class]]) {
+            obj1 = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:obj1];
+        }
+        if ([obj2 isKindOfClass:[NSString class]]) {
+            obj2 = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:obj2];
+        }
         BOOL obj1IsDate = [obj1 isKindOfClass:[NSDate class]];
         BOOL obj2IsDate = [obj2 isKindOfClass:[NSDate class]];
 
