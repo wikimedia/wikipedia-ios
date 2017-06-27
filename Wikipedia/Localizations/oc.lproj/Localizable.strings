@@ -35,6 +35,7 @@
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
+"action-unsave" = "Pas enregistrat";
 "announcements-dismiss" = "Non mercé";
 "article-about-title" = "A prepaus d'aqueste article";
 "article-languages-filter-placeholder" = "Trobar la lenga";

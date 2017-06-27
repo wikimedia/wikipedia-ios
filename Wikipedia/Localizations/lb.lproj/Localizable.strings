@@ -48,6 +48,7 @@
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
 "action-share" = "Deelen";
+"action-unsave" = "Läschen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
 "announcements-dismiss" = "Nee, merci";
 "article-about-title" = "Iwwer dësen Artikel";

@@ -53,6 +53,7 @@
 "action-read" = "Đọc";
 "action-save" = "Lưu";
 "action-share" = "Chia sẻ";
+"action-unsave" = "Bỏ lưu";
 "alert-no-internet" = "Không có kết nối Internet";
 "announcements-dismiss" = "Thôi";
 "article-about-title" = "Thông tin về bài viết";
