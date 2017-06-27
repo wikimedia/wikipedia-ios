@@ -64,6 +64,7 @@
 "action-save" = "저장";
 "action-saved" = "저장됨";
 "action-share" = "공유";
+"action-unsave" = "저장하지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "괜찮습니다";
 "article-about-title" = "이 문서의 정보";

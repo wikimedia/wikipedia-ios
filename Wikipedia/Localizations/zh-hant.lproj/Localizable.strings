@@ -62,7 +62,9 @@
 "action-read" = "閱讀";
 "action-save" = "儲存";
 "action-saved" = "已儲存";
+"action-saved-accessibility" = "已儲存。啟用來取消儲存。";
 "action-share" = "分享";
+"action-unsave" = "未儲存";
 "alert-no-internet" = "無網路連線";
 "announcements-dismiss" = "不用了，謝謝";
 "article-about-title" = "關於此條目";
