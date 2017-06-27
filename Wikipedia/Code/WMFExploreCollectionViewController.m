@@ -1141,7 +1141,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSArray *events = contentGroup.content;
     WMFFeedOnThisDayEvent *event = [events firstObject];
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-        [cell configureWithOnThisDayEvent:event dataStore:self.userStore layoutOnly:layoutOnly];
+        WMFFeedOnThisDayEvent* firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
+            return event.year != thisEvent.year;
+        }];
+        [cell configureForExploreWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
     }
 }
 

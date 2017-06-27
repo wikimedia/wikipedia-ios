@@ -5,6 +5,13 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
     let timelineView = OnThisDayTimelineView()
 
+    @objc(configureForExploreWithOnThisDayEvent:previousEvent:dataStore:layoutOnly:)
+    func configureForExplore(with onThisDayEvent: WMFFeedOnThisDayEvent,  previousEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
+        bottomTitleLabel.textColor = .wmf_blue
+        bottomTitleLabel.text = previousEvent.yearWithEraString()
+        configure(with: onThisDayEvent, dataStore: dataStore, layoutOnly: layoutOnly)
+    }
+    
     @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:)
     func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
@@ -51,6 +58,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = titleFont
+        bottomTitleLabel.font = titleFont
         subTitleLabel.font = subTitleFont
         descriptionLabel.font = descriptionFont
     }
@@ -90,6 +98,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        timelineView.dotY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
+        timelineView.topDotsY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
+        timelineView.bottomDotY = bottomTitleLabel.convert(bottomTitleLabel.bounds, to: timelineView).midY
     }
 }
