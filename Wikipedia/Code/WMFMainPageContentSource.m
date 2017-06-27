@@ -5,7 +5,6 @@
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFArticle+Extensions.h>
-#import <WMF/WMF-Swift.h>
 
 @interface WMFMainPageContentSource ()
 
@@ -104,10 +103,7 @@
                             WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
                             [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                             section.content = @[data.mainPageURL];
-                            if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateMainPageDailySortPriority]) {
-                                [section updateDailySortPriority];
-                                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateMainPageDailySortPriority:YES];
-                            }
+                            [section updateDailySortPriority];
                             [self cleanupOldSectionsInManagedObjectContext:moc];
 
                             if (completion) {
