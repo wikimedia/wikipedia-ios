@@ -36,7 +36,7 @@
         return;
     }
 
-    NSURL *url = [siteURL wmf_URLWithPath:[NSString stringWithFormat:@"/api/rest_v1/feed/onthisday/events/%ld/%ld", month, day] isMobile:NO];
+    NSURL *url = [siteURL wmf_URLWithPath:[NSString stringWithFormat:@"/api/rest_v1/feed/onthisday/events/%lu/%lu", (unsigned long)month, (unsigned long)day] isMobile:NO];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil
