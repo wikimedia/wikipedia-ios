@@ -85,7 +85,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override var isHidden: Bool {
         didSet {
-            timelineView.pauseDotsAnimation = isHidden
+            pauseDotsAnimation = isHidden
         }
     }
     
