@@ -11,7 +11,7 @@ then
 fi
 
 export CARTHAGE="$SRCROOT/Carthage"
-export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
+export CARTHAGE_SHA="$SRCROOT/scripts/carthage_sha"
 export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 
 if [ "$1" == "force" ]
