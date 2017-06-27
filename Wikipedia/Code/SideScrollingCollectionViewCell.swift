@@ -183,7 +183,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 2
-        layer.shadowColor = UIColor.wmf_cellArticleCellShadow.cgColor
+        layer.shadowColor = UIColor.wmf_sideScrollingArticleCellShadow.cgColor
         layer.masksToBounds = false
         backgroundColor = .clear
         titleTextStyle = .subheadline
