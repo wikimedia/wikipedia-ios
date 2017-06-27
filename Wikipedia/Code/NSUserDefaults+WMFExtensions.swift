@@ -11,6 +11,7 @@ let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 let WMFMigrateToFixArticleCacheKey = "WMFMigrateToFixArticleCacheKey3"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 let WMFDidMigrateToCoreDataFeedKey = "WMFDidMigrateToCoreDataFeedKey"
+let WMFDidMigrateMainPageDailySortPriorityKey = "WMFDidMigrateMainPageDailySortPriorityKey"
 let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
@@ -380,5 +381,14 @@ public extension UserDefaults {
     
     public func wmf_didShowNewsNotificationCardInFeed() -> Bool {
         return self.bool(forKey: WMFDidShowNewsNotificatonInFeedKey)
+    }
+
+    public func wmf_setDidMigrateMainPageDailySortPriority(_ didMigrate: Bool) {
+        self.set(didMigrate, forKey: WMFDidMigrateMainPageDailySortPriorityKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateMainPageDailySortPriority() -> Bool {
+        return self.bool(forKey: WMFDidMigrateMainPageDailySortPriorityKey)
     }
 }
