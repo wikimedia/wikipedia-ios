@@ -266,20 +266,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: -
     
-    @objc(updateFeedSourcesUserInitiated:)
-    public func updateFeedSources(userInitiated wasUserInitiated: Bool) {
-        self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated)
-    }
-    
-    @objc(showInTheNewsForStory:date:animated:)
-    public func showInTheNews(for story: WMFFeedNewsStory, date: Date?, animated: Bool)
-    {
-        self.collectionViewController.showInTheNews(forStories: [story], date: date, animated: animated)
-    }
-    
-    @objc(presentMoreViewControllerForGroup:animated:)
-    public func presentMoreViewController(for group: WMFContentGroup, animated: Bool)
-    {
-        self.collectionViewController.presentMoreViewController(for: group, animated: animated)
+    @objc(updateFeedSourcesUserInitiated:completion:)
+    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping (Void) -> Void) {
+        self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
     }
 }

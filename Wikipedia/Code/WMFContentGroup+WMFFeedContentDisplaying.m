@@ -1,10 +1,72 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
 @import WMF;
+#import "WMFFirstRandomViewController.h"
+#import "Wikipedia-Swift.h"
+#import "WMFFeedNewsStory.h"
+#import "WMFContentGroup+Extensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
+
+- (nullable NSArray<NSURL *> *)contentURLs {
+    NSArray<NSCoding> *content = [self content];
+    if ([self contentType] == WMFContentTypeTopReadPreview) {
+        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
+            return [obj articleURL];
+        }];
+    } else if ([self contentType] == WMFContentTypeStory) {
+        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
+            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
+        }];
+    } else if ([self contentType] != WMFContentTypeURL) {
+        content = nil;
+    }
+    return content;
+}
+
+- (nullable UIViewController *)detailViewControllerWithDataStore:(MWKDataStore *)dataStore siteURL:(NSURL *)siteURL {
+    WMFFeedMoreType moreType = [self moreType];
+    switch (moreType) {
+        case WMFFeedMoreTypePageList:
+        case WMFFeedMoreTypePageListWithLocation: {
+            NSArray<NSURL *> *URLs = (NSArray<NSURL *> *)[self contentURLs];
+            if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
+                NSAssert(false, @"Invalid Content");
+                return nil;
+            }
+            if (moreType == WMFFeedMoreTypePageListWithLocation) {
+                return [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+            } else {
+                WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+                vc.title = [self moreTitle];
+                return vc;
+            }
+            } break;
+        case WMFFeedMoreTypeNews: {
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[self content];
+            if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
+                NSAssert(false, @"Invalid Content");
+                return nil;
+            }
+            return [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
+        } break;
+        case WMFFeedMoreTypeOnThisDay: {
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)[self content];
+            if (![[events firstObject] isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+                NSAssert(false, @"Invalid Content");
+                return nil;
+            }
+            return [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
+        } break;
+        default:
+            NSAssert(false, @"Unknown More Type");
+            return nil;
+    }
+}
+
+#pragma mark - In The News
 
 - (nullable UIImage *)headerIcon {
     switch (self.contentGroupKind) {
@@ -28,6 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIImage imageNamed:@"trending-mini"];
         case WMFContentGroupKindNews:
             return [UIImage imageNamed:@"in-the-news-mini"];
+        case WMFContentGroupKindOnThisDay:
+            return [UIImage imageNamed:@"on-this-day-mini"];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -52,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_yellow];
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_blue];
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_blue];
         default:
             return [UIColor wmf_exploreSectionHeaderIconTint];
     }
@@ -68,6 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_lightRed];
         case WMFContentGroupKindFeaturedArticle:
             return [UIColor wmf_lightYellow];
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_lightBlue];
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_lightBlue];
         default:
@@ -97,6 +165,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-heading", nil, nil, @"Top read on %1$@ Wikipedia", @"Text for 'Most read articles' explore section header. %1$@ is substituted for the localized language name (e.g. 'English' or 'Espanol').") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present")];
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
+        case WMFContentGroupKindOnThisDay:
+            return WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -162,6 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
             return dateString;
         }
         case WMFContentGroupKindNews:
+        case WMFContentGroupKindOnThisDay:
             return [self localDateDisplayString];
         case WMFContentGroupKindNotification:
             break;
@@ -196,6 +267,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNews:
             return [UIColor wmf_exploreSectionHeaderTitle];
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -229,7 +302,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNews:
             return [UIColor wmf_exploreSectionHeaderTitle];
-
+        case WMFContentGroupKindOnThisDay:
+            return [UIColor wmf_exploreSectionHeaderTitle];
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -262,6 +336,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindOnThisDay:
             break;
         case WMFContentGroupKindNotification:
             break;
@@ -296,6 +372,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedHeaderActionTypeOpenMore;
         case WMFContentGroupKindNews:
             return WMFFeedHeaderActionTypeOpenFirstItem;
+        case WMFContentGroupKindOnThisDay:
+            return WMFFeedHeaderActionTypeOpenFirstItem;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -328,6 +406,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindOnThisDay:
             break;
         case WMFContentGroupKindNotification:
             break;
@@ -362,6 +442,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeRanked;
         case WMFContentGroupKindNews:
             return WMFFeedDisplayTypeStory;
+        case WMFContentGroupKindOnThisDay:
+            return WMFFeedDisplayTypeEvent;
         case WMFContentGroupKindNotification:
             return WMFFeedDisplayTypeNotification;
         case WMFContentGroupKindAnnouncement:
@@ -395,6 +477,8 @@ NS_ASSUME_NONNULL_BEGIN
             return 5;
         case WMFContentGroupKindNews:
             return 5;
+        case WMFContentGroupKindOnThisDay:
+            break;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -427,6 +511,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
+            return YES;
+        case WMFContentGroupKindOnThisDay:
             return YES;
         case WMFContentGroupKindNotification:
             return YES;
@@ -461,8 +547,10 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindNews:
             return WMFFeedDetailTypeStory;
+        case WMFContentGroupKindOnThisDay:
+            return WMFFeedDetailTypeEvent;
         case WMFContentGroupKindNotification:
-            break;
+            return WMFFeedDetailTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindUnknown:
@@ -511,6 +599,8 @@ NS_ASSUME_NONNULL_BEGIN
         }
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More in the news", @"Footer for presenting user option to see longer list of news stories.");
+        case WMFContentGroupKindOnThisDay:
+            return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles.");
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -544,6 +634,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedMoreTypePageList;
         case WMFContentGroupKindNews:
             return WMFFeedMoreTypeNews;
+        case WMFContentGroupKindOnThisDay:
+            return WMFFeedMoreTypeOnThisDay;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -581,6 +673,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [self topReadMoreTitleForDate:self.contentMidnightUTCDate];
         case WMFContentGroupKindNews:
             break;
+        case WMFContentGroupKindOnThisDay:
+            break;
         case WMFContentGroupKindNotification:
             break;
         case WMFContentGroupKindAnnouncement:
@@ -613,6 +707,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindOnThisDay:
             break;
         case WMFContentGroupKindNotification:
             break;
@@ -662,6 +758,8 @@ NS_ASSUME_NONNULL_BEGIN
             return @"Most Read";
         case WMFContentGroupKindNews:
             return @"In The News";
+        case WMFContentGroupKindOnThisDay:
+            return @"On This Day";
         case WMFContentGroupKindNotification:
             return @"Notifications";
         case WMFContentGroupKindAnnouncement:
@@ -694,6 +792,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             break;
         case WMFContentGroupKindNews:
+            break;
+        case WMFContentGroupKindOnThisDay:
             break;
         case WMFContentGroupKindNotification:
             return WMFFeedHeaderTypeNone;
