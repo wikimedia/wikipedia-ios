@@ -57,7 +57,9 @@
 "action-read" = "קריאה";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
+"action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
 "action-share" = "שיתוף";
+"action-unsave" = "ביטול שמירה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "לא, תודה";
 "article-about-title" = "מידע על הערך הזה";

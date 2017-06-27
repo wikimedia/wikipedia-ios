@@ -9,11 +9,11 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     func configureForExplore(with onThisDayEvent: WMFFeedOnThisDayEvent,  previousEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
         bottomTitleLabel.textColor = .wmf_blue
         bottomTitleLabel.text = previousEvent.yearWithEraString()
-        configure(with: onThisDayEvent, dataStore: dataStore, layoutOnly: layoutOnly)
+        configure(with: onThisDayEvent, dataStore: dataStore, layoutOnly: layoutOnly, shouldAnimateDots: false)
     }
     
-    @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:)
-    func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
+    @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:shouldAnimateDots:)
+    func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool, shouldAnimateDots: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
         let currentYear = Calendar.current.component(.year, from: Date())
         
@@ -40,6 +40,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         isImageViewHidden = true
+        timelineView.shouldAnimateDots = shouldAnimateDots
 
         setNeedsLayout()
     }
@@ -84,13 +85,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override var isHidden: Bool {
         didSet {
-            timelineView.pauseDotsAnimation = isHidden
-        }
-    }
-
-    var shouldAnimateDots: Bool = false {
-        didSet {
-            timelineView.shouldAnimateDots = shouldAnimateDots
+            pauseDotsAnimation = isHidden
         }
     }
     

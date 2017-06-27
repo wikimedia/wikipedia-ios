@@ -59,6 +59,7 @@
 "action-save" = "সংরক্ষণ";
 "action-saved" = "সংরক্ষিত";
 "action-share" = "বণ্টন";
+"action-unsave" = "অসংরক্ষিত";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
 "announcements-dismiss" = "না ধন্যবাদ";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
@@ -144,6 +145,7 @@
 "field-username-placeholder" = "ব্যবহারকারী নাম লিখুন";
 "field-username-title" = "ব্যবহারকারী নাম";
 "find-in-page-button-label" = "পাতায় খুঁজুন";
+"find-in-page-number-matches" = "$1 / $2";
 "find-in-page-popover-description" = "নিবন্ধে পাঠ্যাংশ অনুসন্ধান করুন";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";

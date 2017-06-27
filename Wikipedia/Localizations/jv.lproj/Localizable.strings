@@ -48,7 +48,9 @@
 "action-read" = "Waca";
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
+"action-saved-accessibility" = "Disimpen. Aktifake kanggo batal simpen.";
 "action-share" = "Dum";
+"action-unsave" = "Ora nyimpen";
 "alert-no-internet" = "Ora ana gayutan Internèt";
 "announcements-dismiss" = "Ora, matur nuwun";
 "article-about-title" = "Ngenani artikel iki";

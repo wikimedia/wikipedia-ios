@@ -51,7 +51,9 @@
 "action-read" = "Lesen";
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
+"action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
 "action-share" = "Teilen";
+"action-unsave" = "Löschen";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Nein, danke";
 "article-about-title" = "Über diesen Artikel";
@@ -342,7 +344,7 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unsave-action" = "Speichern abbrechen";
+"unsave-action" = "Löschen";
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-explore-new-ways-sub-title" = "Neue Benachrichtigungen und Widgets, die dir beim Entdecken interessanter Artikel helfen.";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";

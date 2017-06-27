@@ -57,8 +57,7 @@ extension OnThisDayViewController {
             return cell
         }
         let event = events[indexPath.section]
-        onThisDayCell.configure(with: event, dataStore: dataStore, layoutOnly: false)
-        onThisDayCell.shouldAnimateDots = true
+        onThisDayCell.configure(with: event, dataStore: dataStore, layoutOnly: false, shouldAnimateDots: true)
         return onThisDayCell
     }
     
