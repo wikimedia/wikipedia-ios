@@ -229,6 +229,7 @@
 		B0B423751EFE20ED00D3DC4C /* OnThisDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */; };
 		B0B423761EFE20ED00D3DC4C /* OnThisDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */; };
 		B0B423771EFE20EE00D3DC4C /* OnThisDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */; };
+		B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423781F0211A000D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -3312,6 +3313,7 @@
 		B0B423661EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnThisDayViewControllerHeader.swift; sourceTree = "<group>"; };
 		B0B423671EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnThisDayViewControllerHeader.xib; sourceTree = "<group>"; };
 		B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayTimelineView.swift; path = Wikipedia/Code/OnThisDayTimelineView.swift; sourceTree = SOURCE_ROOT; };
+		B0B423781F0211A000D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFFeedArticlePreview+DescriptionOrSnippet.swift"; sourceTree = "<group>"; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -5108,6 +5110,7 @@
 				0E19B9A41DA7CE4400239F3A /* WMFFeedTopReadResponse.m */,
 				0E19B9A01DA7CB8200239F3A /* WMFFeedArticlePreview.h */,
 				0E19B9A11DA7CB8200239F3A /* WMFFeedArticlePreview.m */,
+				B0B423781F0211A000D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift */,
 				0E19B9A61DA7D52A00239F3A /* WMFFeedImage.h */,
 				0E19B9A71DA7D52A00239F3A /* WMFFeedImage.m */,
 				0E19B9A91DA7D77600239F3A /* WMFFeedNewsStory.h */,
@@ -10313,6 +10316,7 @@
 				D844D9A41D6CB7060042D692 /* MWKImage.m in Sources */,
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
+				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
 				D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */,
 				D844D9E71D6CBFB00042D692 /* MWKArticle+WMFSharing.m in Sources */,

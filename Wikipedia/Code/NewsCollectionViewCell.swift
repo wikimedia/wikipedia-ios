@@ -8,9 +8,7 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         descriptionHTML = story.storyHTML
         
         articles = previews.map { (articlePreview) -> CellArticle in
-            let articleLanguage = (articlePreview.articleURL as NSURL?)?.wmf_language
-            let description = articlePreview.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: articleLanguage)
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: description, imageURL: articlePreview.thumbnailURL)
+            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet(), imageURL: articlePreview.thumbnailURL)
         }
         
         let articleLanguage = (story.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
