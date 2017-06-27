@@ -345,4 +345,18 @@ platform :ios do
     )
   end
   
+  lane :dsyms_beta_app do |options|
+    app_identifier = "org.wikimedia.wikipedia.tfbeta"
+    hockey_app_id = "c7ab1c41a3eb4b7581a0057624730467"
+    ipa_path = "build/Wikipedia.ipa"
+    version = options[:version] || get_version_number
+    dsyms(
+      app_identifier: app_identifier,
+      version: version,
+      build_number: options[:build_number] || options[:build],
+      hockey_app_id: hockey_app_id,
+      ipa_path: ipa_path
+    )
+  end
+  
 end
