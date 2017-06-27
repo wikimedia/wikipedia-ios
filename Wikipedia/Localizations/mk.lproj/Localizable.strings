@@ -50,7 +50,9 @@
 "action-read" = "Прочитај";
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
+"action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
 "action-share" = "Сподели";
+"action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Не, благодарам";
 "article-about-title" = "Уреди ја статијава";

@@ -54,6 +54,7 @@
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
 "action-share" = "Compartir";
+"action-unsave" = "Non gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Non, grazas";
 "article-about-title" = "Acerca deste artigo";

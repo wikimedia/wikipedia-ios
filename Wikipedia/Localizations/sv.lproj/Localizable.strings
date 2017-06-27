@@ -61,7 +61,9 @@
 "action-read" = "Läs";
 "action-save" = "Spara";
 "action-saved" = "Sparades";
+"action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
 "action-share" = "Dela";
+"action-unsave" = "Spara inte";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Nej tack";
 "article-about-title" = "Om den här artikeln";

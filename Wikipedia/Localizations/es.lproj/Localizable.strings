@@ -6,6 +6,7 @@
 // Author: Indiralena
 // Author: Irus
 // Author: Javiersanp
+// Author: Josecurioso
 // Author: Koavf
 // Author: Luzcaru
 // Author: Macofe
@@ -65,6 +66,7 @@
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-share" = "Compartir";
+"action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "No, gracias";
 "article-about-title" = "Acerca de este artículo";
@@ -110,7 +112,7 @@
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-because-you-read" = "Porque leíste";
 "explore-continue-reading-heading" = "Continuar leyendo";
-"explore-enable-location-title" = "Explora artículos cernanos a tu ubicación actual";
+"explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
