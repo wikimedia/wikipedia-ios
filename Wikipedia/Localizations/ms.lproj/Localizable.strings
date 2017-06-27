@@ -51,7 +51,9 @@
 "action-read" = "Baca";
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
+"action-saved-accessibility" = "Disimpan. Aktifkan untuk batal menyimpan.";
 "action-share" = "Kongsi";
+"action-unsave" = "Nyahsimpan";
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Tak apalah";
 "article-about-title" = "Mengenai rencana ini";

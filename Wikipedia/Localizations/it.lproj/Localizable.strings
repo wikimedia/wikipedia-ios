@@ -19,6 +19,7 @@
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
+// Author: Redredsonia
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
@@ -67,6 +68,7 @@
 "action-save" = "Salva";
 "action-saved" = "Salvato";
 "action-share" = "Condividi";
+"action-unsave" = "Annulla salvataggio";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "No, grazie";
 "article-about-title" = "Su questa voce";

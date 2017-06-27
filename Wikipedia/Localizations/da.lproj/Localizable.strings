@@ -54,6 +54,7 @@
 "action-save" = "Gem";
 "action-saved" = "Gemt";
 "action-share" = "Del";
+"action-unsave" = "Gem ikke";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
 "article-about-title" = "Om denne artikel";
