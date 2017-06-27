@@ -1,5 +1,6 @@
 #import <WMF/NSDictionary+WMFPageViewsSortedByDate.h>
 #import <WMF/NSArray+WMFMapping.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 
 @implementation NSDictionary (WMFPageViewsSortedByDate)
 
