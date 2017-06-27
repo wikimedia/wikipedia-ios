@@ -51,6 +51,14 @@ platform :ios do
      sim: 'iPhone 6s (10.3)',
     )
   end
+  
+  desc "Runs tests against the beta cluster to check for upstream changes."
+  lane :beta_cluster_tests do
+    verify(
+     sim: 'iPhone 6s (10.3)',
+     scheme: "Beta Cluster Tests"
+    )
+  end
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
