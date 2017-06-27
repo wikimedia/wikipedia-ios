@@ -115,7 +115,15 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         origin.y += descriptionLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         
         let collectionViewSpacing: CGFloat = 10
-        let height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
+        var height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
+
+        assert(collectionView.numberOfSections == 1, "Expected one section")
+        if collectionView.numberOfSections == 1 {
+            if collectionView.numberOfItems(inSection: 0) == 0 {
+                height = 0
+            }
+        }
+
         if (apply) {
             flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
