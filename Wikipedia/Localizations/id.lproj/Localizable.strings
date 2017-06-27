@@ -61,7 +61,9 @@
 "action-read" = "Baca";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
+"action-saved-accessibility" = "Disimpan. Aktifkan untuk tidak menyimpannya.";
 "action-share" = "Bagikan";
+"action-unsave" = "Jangan simpan";
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tidak, terima kasih";
 "article-about-title" = "Mengenai artikel ini";

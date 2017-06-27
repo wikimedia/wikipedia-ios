@@ -66,6 +66,7 @@
 "action-save" = "Enregistrer";
 "action-saved" = "Enregistré";
 "action-share" = "Partager";
+"action-unsave" = "Non enregistré";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Non merci";
 "article-about-title" = "À propos de cet article";

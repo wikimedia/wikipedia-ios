@@ -59,6 +59,7 @@
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
 "action-share" = "साझा करें";
+"action-unsave" = "न सहेजें";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
 "announcements-dismiss" = "नहीं धन्यवाद";
 "article-about-title" = "इस लेख के बारे में";

@@ -59,7 +59,9 @@
 "action-read" = "阅读";
 "action-save" = "保存";
 "action-saved" = "已保存";
+"action-saved-accessibility" = "已保存。激活以取消保存。";
 "action-share" = "分享";
+"action-unsave" = "未保存";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "不用了，谢谢";
 "article-about-title" = "关于此条目";
