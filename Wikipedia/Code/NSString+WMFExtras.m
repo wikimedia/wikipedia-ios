@@ -54,8 +54,8 @@
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }
 
+// TODO: Fix - returns nil if self contains no HTML.
 - (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
-    // Strips html from string with xpath / hpple.
     if (self.length == 0) {
         return [[NSAttributedString alloc] initWithString:self attributes:nil];
     }

@@ -11,6 +11,7 @@ typedef NS_ENUM(int16_t, WMFContentType) {
     WMFContentTypeTopReadPreview = 3,
     WMFContentTypeStory = 4,
     WMFContentTypeAnnouncement = 5,
+    WMFContentTypeOnThisDayEvent = 6,
     WMFContentTypeNotification = 7
 };
 
@@ -27,7 +28,8 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
     WMFContentGroupKindNews = 9,
     WMFContentGroupKindNotification = 10,
     WMFContentGroupKindAnnouncement = 11,
-    WMFContentGroupKindLocationPlaceholder = 12
+    WMFContentGroupKindLocationPlaceholder = 12,
+    WMFContentGroupKindOnThisDay = 13
 };
 
 @interface WMFContentGroup (Extensions)
@@ -52,6 +54,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;
 + (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location;
 + (nullable NSURL *)locationPlaceholderContentGroupURL;
 + (nullable NSURL *)notificationContentGroupURL;
