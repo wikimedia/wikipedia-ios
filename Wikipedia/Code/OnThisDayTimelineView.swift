@@ -94,10 +94,19 @@ class OnThisDayTimelineView: UIView {
         drawVerticalLine(in: context, rect: rect)
     }
     
+    public var extendTimelineAboveTopDot: Bool = true {
+        didSet {
+            if oldValue != extendTimelineAboveTopDot {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
     private func drawVerticalLine(in context: CGContext, rect: CGRect){
         context.setLineWidth(1.0)
         context.setStrokeColor(UIColor.wmf_blue.cgColor)
-        context.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        let lineTopY = extendTimelineAboveTopDot ? rect.minY : topDotsY
+        context.move(to: CGPoint(x: rect.midX, y: lineTopY))
         context.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
         context.strokePath()
     }
