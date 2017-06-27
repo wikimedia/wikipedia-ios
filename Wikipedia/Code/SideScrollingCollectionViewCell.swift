@@ -25,6 +25,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let bottomTitleLabel = UILabel()
     let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
@@ -32,6 +33,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             subTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
+            bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
         }
     }
     
@@ -44,6 +46,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         addSubview(subTitleLabel)
         addSubview(descriptionLabel)
         addSubview(collectionView)
+        addSubview(bottomTitleLabel)
         
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
@@ -55,6 +58,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         titleLabel.numberOfLines = 1
+        bottomTitleLabel.numberOfLines = 1
         subTitleLabel.numberOfLines = 1
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
@@ -122,6 +126,11 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         }
         origin.y += height
 
+        if bottomTitleLabel.wmf_hasAnyText {
+            origin.y += spacing
+            origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        }
+        
         origin.y += margins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
