@@ -101,6 +101,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
 
+@property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
+
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
 /// Use @c rootTabBarController instead.
@@ -506,7 +508,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         });
     };
 
-    if (self.unprocessedUserActivity) {
+    if (self.notificationUserInfoToShow) {
+        [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+        self.notificationUserInfoToShow = nil;
+        done();
+    } else if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity completion:done];
     } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem
@@ -546,7 +552,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInitiated:NO];
+        [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{}];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -738,7 +744,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
-
+    
     WMFUserActivityType type = [activity wmf_type];
     switch (type) {
         case WMFUserActivityTypeExplore:
@@ -755,12 +761,30 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         } break;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
             [navController popToRootViewControllerAnimated:NO];
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-            [self.exploreViewController presentMoreViewControllerForGroup:group animated:NO];
+            if (group) {
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
+                if (vc) {
+                    [navController pushViewController:vc animated:NO];
+                }
+            } else {
+                [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
+                        if (group) {
+                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
+                            if (vc) {
+                                [navController pushViewController:vc animated:NO];
+                            }
+                        }
+                    });
+                    
+                }];
+            }
+            
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
@@ -1248,6 +1272,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showInTheNewsForNotificationInfo:(NSDictionary *)info {
+    if (!self.isMigrationComplete) {
+        self.notificationUserInfoToShow = info;
+        return;
+    }
     NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
     NSURL *articleURL = [NSURL URLWithString:articleURLString];
     NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
@@ -1259,7 +1287,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    [self.exploreViewController showInTheNewsForStory:feedNewsStory date:nil animated:NO];
+    
+    if (!feedNewsStory) {
+        return;
+    }
+
+    UIViewController *vc = [WMFContentGroup inTheNewsViewControllerForStories:@[feedNewsStory] dataStore:self.dataStore];
+    if (!vc) {
+        return;
+    }
+    
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    [navController popToRootViewControllerAnimated:NO];
+    [navController pushViewController:vc animated:NO];
 }
 
 #pragma mark - Perma Random Mode
