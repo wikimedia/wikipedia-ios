@@ -135,12 +135,19 @@ class OnThisDayTimelineView: UIView {
         
         updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: frame.midX, y: topDotsY))
         
+        // Progressively fade the inner dot when it gets tiny.
+        innerDotShapeLayer.opacity = easeInOutQuart(number: Float(radiusNormal))
+        
         lastDotRadiusNormal = radiusNormal
     }
     
     private func updateTopDotsRadii(to radiusNormal: CGFloat, at center: CGPoint){
         outerDotShapeLayer.updateDotRadius(dotRadius * max(radiusNormal, dotMinRadiusNormal), center: center)
         innerDotShapeLayer.updateDotRadius(dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0), center: center)
+    }
+    
+    private func easeInOutQuart(number:Float) -> Float {
+        return number < 0.5 ? 8.0 * pow(number, 4) : 1.0 - 8.0 * (number - 1.0) * pow(number, 3)
     }
 }
 
