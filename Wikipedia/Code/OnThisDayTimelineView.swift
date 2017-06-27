@@ -53,7 +53,7 @@ class OnThisDayTimelineView: UIView {
         return shape
     }()
 
-    private lazy var outerDotShapeLayer: CAShapeLayer = {
+    private lazy var topOuterDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
         shape.strokeColor = UIColor.wmf_blue.cgColor
@@ -62,7 +62,7 @@ class OnThisDayTimelineView: UIView {
         return shape
     }()
 
-    private lazy var innerDotShapeLayer: CAShapeLayer = {
+    private lazy var topInnerDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.wmf_blue.cgColor
         shape.strokeColor = UIColor.wmf_blue.cgColor
@@ -136,14 +136,14 @@ class OnThisDayTimelineView: UIView {
         updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: frame.midX, y: topDotsY))
         
         // Progressively fade the inner dot when it gets tiny.
-        innerDotShapeLayer.opacity = easeInOutQuart(number: Float(radiusNormal))
+        topInnerDotShapeLayer.opacity = easeInOutQuart(number: Float(radiusNormal))
         
         lastDotRadiusNormal = radiusNormal
     }
     
     private func updateTopDotsRadii(to radiusNormal: CGFloat, at center: CGPoint){
-        outerDotShapeLayer.updateDotRadius(dotRadius * max(radiusNormal, dotMinRadiusNormal), center: center)
-        innerDotShapeLayer.updateDotRadius(dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0), center: center)
+        topOuterDotShapeLayer.updateDotRadius(dotRadius * max(radiusNormal, dotMinRadiusNormal), center: center)
+        topInnerDotShapeLayer.updateDotRadius(dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0), center: center)
     }
     
     private func easeInOutQuart(number:Float) -> Float {
