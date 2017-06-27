@@ -3,6 +3,7 @@
 
 @class WMFNewsViewController;
 @class MWKDataStore;
+@class WMFFeedNewsStory;
 
 NS_ASSUME_NONNULL_BEGIN
 
