@@ -12126,8 +12126,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12161,8 +12161,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12200,8 +12200,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12240,8 +12240,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12414,8 +12414,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12449,8 +12449,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12484,8 +12484,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12519,8 +12519,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12554,8 +12554,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12589,8 +12589,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12624,8 +12624,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12667,8 +12667,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12702,8 +12702,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12737,8 +12737,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12772,8 +12772,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12807,8 +12807,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12842,8 +12842,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -12956,8 +12956,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -12991,8 +12991,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13026,8 +13026,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13060,8 +13060,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13095,8 +13095,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13158,8 +13158,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13377,8 +13377,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -13412,8 +13412,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -13447,8 +13447,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -13481,8 +13481,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -13516,8 +13516,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -13575,8 +13575,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13787,8 +13787,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13850,8 +13850,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14209,8 +14209,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -14252,8 +14252,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -14439,8 +14439,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14481,8 +14481,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14890,8 +14890,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -14921,8 +14921,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -14948,8 +14948,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -14975,8 +14975,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15002,8 +15002,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15029,8 +15029,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15056,8 +15056,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15083,8 +15083,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15110,8 +15110,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15137,8 +15137,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15164,8 +15164,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15191,8 +15191,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15218,8 +15218,8 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaBetaClusterTests/Info.plist;
@@ -15389,8 +15389,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -15424,8 +15424,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -15483,8 +15483,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15677,8 +15677,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15712,8 +15712,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15775,8 +15775,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15906,8 +15906,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15940,8 +15940,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -15974,8 +15974,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16008,8 +16008,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16050,8 +16050,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16084,8 +16084,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16118,8 +16118,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16152,8 +16152,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16186,8 +16186,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16296,8 +16296,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16331,8 +16331,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16365,8 +16365,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -16424,8 +16424,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16617,8 +16617,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16652,8 +16652,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16686,8 +16686,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16749,8 +16749,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16881,8 +16881,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16916,8 +16916,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16951,8 +16951,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16994,8 +16994,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17029,8 +17029,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17064,8 +17064,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17175,8 +17175,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17210,8 +17210,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17269,8 +17269,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17392,8 +17392,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17427,8 +17427,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17462,8 +17462,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17497,8 +17497,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17532,8 +17532,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -17575,8 +17575,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17610,8 +17610,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17645,8 +17645,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17680,8 +17680,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17715,8 +17715,8 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -17750,8 +17750,8 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Wikipedia/Frameworks",
+					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
+					"\"$(PROJECT_DIR)/Wikipedia/Frameworks\"",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
