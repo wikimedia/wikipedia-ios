@@ -176,7 +176,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button\n{{Identical|Share}}";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "languages-title" = "Title for language picker\n{{Identical|Language}}";

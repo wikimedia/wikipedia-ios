@@ -190,19 +190,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return [self contentForGroup:section];
 }
 
-- (nullable NSArray<NSURL *> *)contentURLsForGroup:(WMFContentGroup *)group {
-    NSArray<id> *content = group.content;
-
-    if ([group contentType] == WMFContentTypeTopReadPreview) {
-        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
-            return [obj articleURL];
-        }];
-    } else if ([group contentType] != WMFContentTypeURL) {
-        content = nil;
-    }
-    return content;
-}
-
 - (nullable NSURL *)contentURLForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     WMFFeedDisplayType displayType = [section displayTypeForItemAtIndex:indexPath.item];
@@ -374,7 +361,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                          }];
 }
 
-- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated {
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nonnull dispatch_block_t)completion {
     if (self.isLoadingNewContent) {
         return;
     }
@@ -389,11 +376,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                       userInitiated:wasUserInitiated
                          completion:^{
                              self.loadingNewContent = NO;
+                             completion();
                          }];
 }
 
 - (void)refreshControlActivated {
-    [self updateFeedSourcesUserInitiated:YES];
+    [self updateFeedSourcesUserInitiated:YES completion:^{}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -480,7 +468,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSourcesUserInitiated:NO];
+                        [self updateFeedSourcesUserInitiated:NO completion:^{}];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -1241,46 +1229,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
 
-    switch (group.moreType) {
-        case WMFFeedMoreTypePageWithRandomButton: {
-            WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self currentSiteURL] dataStore:self.userStore];
-            [self.navigationController pushViewController:vc animated:animated];
-            return;
-        }
-        case WMFFeedMoreTypeNews: {
-            [self showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)group.content date:group.date animated:YES];
-            return;
-        }
-        case WMFFeedMoreTypeOnThisDay: {
-            [self showOnThisDayForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)group.content date:group.date animated:YES];
-            return;
-        }
-        default:
-            break;
-    }
-
-    NSArray<NSURL *> *URLs = [self contentURLsForGroup:group];
-    NSAssert([[URLs firstObject] isKindOfClass:[NSURL class]], @"Attempting to present More VC with something other than URLs");
-    if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
+    UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL]];
+    if (!vc) {
+        NSAssert(false, @"Missing VC for group: %@", group);
         return;
     }
-
-    switch (group.moreType) {
-        case WMFFeedMoreTypePageList: {
-            WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
-            vc.title = group.moreTitle;
-            [self.navigationController pushViewController:vc animated:animated];
-            return;
-        }
-        case WMFFeedMoreTypePageListWithLocation: {
-            WMFArticleLocationCollectionViewController *vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:self.userStore];
-            [self.navigationController pushViewController:vc animated:animated];
-            return;
-        }
-        default:
-            break;
-    }
-    NSAssert(false, @"Unknown More Type");
+    [self.navigationController pushViewController:vc animated:animated];
 }
 
 - (void)presentMoreViewControllerForSectionAtIndex:(NSUInteger)sectionIndex animated:(BOOL)animated {
@@ -1323,7 +1277,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:group.date];
+            WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
             return vc;
         } break;
         case WMFFeedDetailTypeEvent: {
@@ -1342,7 +1296,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFOnThisDayViewController *vc = [self onThisDayViewControllerForEvents:events date:group.date];
+            WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
             return vc;
         } break;
         case WMFFeedDetailTypeNone:
@@ -1541,35 +1495,6 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
-}
-
-#pragma mark - In The News
-
-- (WMFNewsViewController *)inTheNewsViewControllerForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date {
-    WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
-    //Keeping this translation around until we're sure we don't need it
-    //NSString *format = WMFLocalizedStringWithDefaultValue(@"in-the-news-title-for-date", nil, nil, @"News on %1$@", @"Title for news on a given date - %1$@ is replaced with the date");
-    vc.title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
-    return vc;
-}
-
-- (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated {
-    WMFNewsViewController *vc = [self inTheNewsViewControllerForStories:stories date:date];
-    [self.navigationController pushViewController:vc animated:animated];
-}
-
-#pragma mark - On This Day
-
-- (WMFOnThisDayViewController *)onThisDayViewControllerForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)events date:(nullable NSDate *)date {
-//TODO: test for nil dates - maybe adjust date nullability
-    WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:date];
-    vc.title = WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
-    return vc;
-}
-
-- (void)showOnThisDayForEvents:(NSArray<WMFFeedOnThisDayEvent *> *)events date:(nullable NSDate *)date animated:(BOOL)animated {
-    WMFOnThisDayViewController *vc = [self onThisDayViewControllerForEvents:events date:date];
-    [self.navigationController pushViewController:vc animated:animated];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

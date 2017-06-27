@@ -145,6 +145,11 @@ fastlane ios dsyms_alpha
 fastlane ios dsyms_beta
 ```
 
+### ios dsyms_beta_app
+```
+fastlane ios dsyms_beta_app
+```
+
 
 ----
 
