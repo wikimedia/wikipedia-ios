@@ -14889,6 +14889,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -14919,6 +14920,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -14945,6 +14947,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -14971,6 +14974,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -14997,6 +15001,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15023,6 +15028,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15049,6 +15055,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15075,6 +15082,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15101,6 +15109,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15127,6 +15136,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15153,6 +15163,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15179,6 +15190,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -15205,6 +15217,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Wikipedia/Frameworks",
 				);
@@ -17948,6 +17961,7 @@
 				D88B92AE1F02AD0F00F5DD40 /* Alpha */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */ = {
 			isa = XCConfigurationList;
