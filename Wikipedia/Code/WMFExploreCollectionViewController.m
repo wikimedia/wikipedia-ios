@@ -582,7 +582,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return cell;
         } break;
         case WMFFeedDisplayTypeEvent: {
-            WMFOnThisDayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFOnThisDayCollectionViewCell" forIndexPath:indexPath];
+            WMFOnThisDayExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFOnThisDayExploreCollectionViewCell" forIndexPath:indexPath];
             [self configureOnThisDayCell:cell withContentGroup:contentGroup layoutOnly:NO];
             return cell;
         } break;
@@ -625,7 +625,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             reuseIdentifier = @"WMFNewsCollectionViewCell";
             break;
         case WMFFeedDisplayTypeEvent:
-            reuseIdentifier = @"WMFOnThisDayCollectionViewCell";
+            reuseIdentifier = @"WMFOnThisDayExploreCollectionViewCell";
             break;
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
@@ -682,7 +682,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     break;
                 }
                 case WMFFeedDisplayTypeEvent: {
-                    WMFOnThisDayCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
+                    WMFOnThisDayExploreCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureOnThisDayCell:cell withContentGroup:section layoutOnly:YES];
 
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
@@ -1082,7 +1082,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerClass:[WMFNewsCollectionViewCell class] forCellWithReuseIdentifier:@"WMFNewsCollectionViewCell"];
 
-    [self registerClass:[WMFOnThisDayCollectionViewCell class] forCellWithReuseIdentifier:@"WMFOnThisDayCollectionViewCell"];
+    [self registerClass:[WMFOnThisDayExploreCollectionViewCell class] forCellWithReuseIdentifier:@"WMFOnThisDayExploreCollectionViewCell"];
 
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
@@ -1125,14 +1125,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-- (void)configureOnThisDayCell:(WMFOnThisDayCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
+- (void)configureOnThisDayCell:(WMFOnThisDayExploreCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
     NSArray *events = contentGroup.content;
     WMFFeedOnThisDayEvent *event = [events firstObject];
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
         WMFFeedOnThisDayEvent* firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
             return event.year != thisEvent.year;
         }];
-        [cell configureForExploreWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
+        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
     }
 }
 
