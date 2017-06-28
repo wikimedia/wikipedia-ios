@@ -14,7 +14,7 @@ extension UIView {
         if semanticContentAttribute == .forceRightToLeft {
             actualX = point.x + size.width - actualWidth
         }
-        let fitFrame = CGRect(x: actualX, y: point.y, width: actualWidth, height: viewSize.height)
+        let fitFrame = CGRect(x: round(actualX), y: round(point.y), width: ceil(actualWidth), height: ceil(viewSize.height))
         if apply {
             frame = fitFrame
         }
