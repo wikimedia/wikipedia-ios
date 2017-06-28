@@ -72,11 +72,14 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        
         let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
         bottomTitleLabel.font = titleFont
-        subTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        
+        let subTitleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        subTitleLabel.font = subTitleFont
+        descriptionLabel.font = subTitleFont
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
