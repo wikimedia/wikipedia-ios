@@ -1035,7 +1035,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)registerClass:(nullable Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
-    UICollectionViewCell *placeholderCell = [[cellClass alloc] initWithFrame:CGRectZero];
+    UICollectionViewCell *placeholderCell = [[cellClass alloc] initWithFrame:self.view.bounds];
     if (!placeholderCell) {
         return;
     }
