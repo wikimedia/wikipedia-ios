@@ -27,19 +27,31 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         setNeedsLayout()
     }
     
-    static let descriptionTextStyle = UIFontTextStyle.subheadline
-    var descriptionFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
-    var descriptionLinkFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
+    override func setup() {
+        super.setup()
+        updateDescriptionFonts()
+    }
+    
+    var descriptionFont:UIFont? = nil
+    var descriptionLinkFont:UIFont? = nil
+
+    private func updateDescriptionFonts() {
+        descriptionFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        descriptionLinkFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        descriptionFont = UIFont.preferredFont(forTextStyle: NewsCollectionViewCell.descriptionTextStyle)
-        descriptionLinkFont = UIFont.boldSystemFont(ofSize: descriptionFont.pointSize)
+        updateDescriptionFonts()
         updateDescriptionHTMLStyle()
     }
     
     func updateDescriptionHTMLStyle() {
-        guard let descriptionHTML = descriptionHTML else {
+        guard
+            let descriptionHTML = descriptionHTML,
+            let descriptionFont = descriptionFont,
+            let descriptionLinkFont = descriptionLinkFont
+        else {
             descriptionLabel.text = nil
             return
         }
