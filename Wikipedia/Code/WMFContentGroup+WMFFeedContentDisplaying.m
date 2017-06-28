@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return [WMFContentGroup inTheNewsViewControllerForStories:stories dataStore:dataStore];
         } break;
+        case WMFFeedMoreTypePageWithRandomButton: {
+            return [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
+        } break;
         default:
             NSAssert(false, @"Unknown More Type");
             return nil;
