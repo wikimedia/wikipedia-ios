@@ -381,7 +381,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)refreshControlActivated {
-    [self updateFeedSourcesUserInitiated:YES completion:^{}];
+    [self updateFeedSourcesUserInitiated:YES
+                              completion:^{
+                              }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -468,7 +470,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 switch (status) {
                     case AFNetworkReachabilityStatusReachableViaWWAN:
                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                        [self updateFeedSourcesUserInitiated:NO completion:^{}];
+                        [self updateFeedSourcesUserInitiated:NO
+                                                  completion:^{
+                                                  }];
                     } break;
                     case AFNetworkReachabilityStatusNotReachable: {
                         [self showOfflineEmptyViewIfNeeded];
@@ -1129,7 +1133,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSArray *events = contentGroup.content;
     WMFFeedOnThisDayEvent *event = [events firstObject];
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-        WMFFeedOnThisDayEvent* firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
+        WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
             return event.year != thisEvent.year;
         }];
         [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
