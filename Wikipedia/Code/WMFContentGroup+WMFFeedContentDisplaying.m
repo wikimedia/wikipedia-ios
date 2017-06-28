@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
         } break;
+        case WMFFeedMoreTypePageWithRandomButton: {
+            return [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
+        } break;
         default:
             NSAssert(false, @"Unknown More Type");
             return nil;
