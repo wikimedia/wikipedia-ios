@@ -37,7 +37,7 @@ puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 `git checkout twn`
 `git pull`
 path = `pwd`
-`scripts/localization #{path} import`
+`scripts/localization #{path}`
 `git commit -a -m "Import localizations from TWN on #{time_string}"`
 `git push`
 `scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
