@@ -105,7 +105,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
 
         if titleLabel.wmf_hasAnyText {
             origin.y += spacing
-            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 0.4 * spacing, apply: apply)
         }
         
         if subTitleLabel.wmf_hasAnyText {
