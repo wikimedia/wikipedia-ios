@@ -11,7 +11,7 @@ class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     }
 
     private lazy var whiteTopAndBottomGradientLayer: CAGradientLayer = {
-        let layer = CAGradientLayer.init()
+        let layer = CAGradientLayer()
         let white = UIColor.white.cgColor
         let clear = UIColor(white: 1, alpha: 0).cgColor // https://stackoverflow.com/a/24895385
         layer.colors = [white, clear, clear, white, white]
