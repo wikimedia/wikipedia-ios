@@ -27,13 +27,18 @@
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (NSArray*)supportedLanguages {
-    return @[@"en", @"de", @"sv", @"fr"];
++ (NSSet<NSString *> *)supportedLanguages {
+    static dispatch_once_t onceToken;
+    static NSSet<NSString *> *supportedLanguages;
+    dispatch_once(&onceToken, ^{
+        supportedLanguages = [NSSet setWithObjects:@"en", @"de", @"sv", @"fr", nil];
+    });
+    return supportedLanguages;
 }
 
 - (void)fetchOnThisDayEventsForURL:(NSURL *)siteURL month:(NSUInteger)month day:(NSUInteger)day failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFFeedOnThisDayEvent *> *announcements))success {
     NSParameterAssert(siteURL);
-    if (siteURL == nil || siteURL.wmf_language == nil || ![[self supportedLanguages] containsObject:siteURL.wmf_language] || month < 1 || day < 1) {
+    if (siteURL == nil || siteURL.wmf_language == nil || ![[WMFOnThisDayEventsFetcher supportedLanguages] containsObject:siteURL.wmf_language] || month < 1 || day < 1) {
         NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
                                            userInfo:nil];
         failure(error);
