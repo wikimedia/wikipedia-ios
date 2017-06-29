@@ -1,3 +1,17 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Amire80
+// Author: Brion
+// Author: Liuxinyu970226
+// Author: Minh Nguyen
+// Author: Nemo bis
+// Author: Purodha
+// Author: Robby
+// Author: Shirayuki
+// Author: Siebrand
+// Author: Tacsipacsi
+// Author: Woytecr
+
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
@@ -176,7 +190,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button\n{{Identical|Share}}";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"in-the-news-title-for-date" = "Title for news on a given date - $1 is replaced with the date";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "languages-title" = "Title for language picker\n{{Identical|Language}}";
@@ -216,6 +229,11 @@
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.\n{{Identical|$1k}}";
+"on-this-day-detail-header-date-range" = "Text for 'On this day' detail view events 'year range' label - $1 is replaced with string version of the most recent event year - i.e. '2006 AD', $2 is replaced with string version of the oldest event year - i.e. '300 BC',";
+"on-this-day-detail-header-day" = "Text for 'On this day' detail view 'day' label - $1 is replaced with string version of the given day - i.e. 'January 23'";
+"on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occured on the given day";
+"on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles.";
+"on-this-day-title" = "Title for the 'On this day' feed section";
 "onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
@@ -249,7 +267,7 @@
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles\n{{Identical|Article}}";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
@@ -259,7 +277,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
-"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
+"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles\n{{Identical|Nearby}}";
 "places-search-your-current-location" = "A search suggestion for showing articles near your current location.";
 "places-show-filter-list-accessibility-label" = "Accessibility title for the button that shows search filters";
 "places-title" = "Title of the Places screen shown on the places tab.";
@@ -274,6 +292,7 @@
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
+"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";

@@ -193,7 +193,6 @@
 "in-the-news-notification-save-for-later-action-title" = "保存以供日后使用";
 "in-the-news-notification-share-action-title" = "分享...";
 "in-the-news-title" = "新闻动态";
-"in-the-news-title-for-date" = "$1上的新闻";
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
 "languages-title" = "更改语言";
@@ -233,6 +232,11 @@
 "number-billions" = "$1十亿";
 "number-millions" = "$1百万";
 "number-thousands" = "$1千";
+"on-this-day-detail-header-date-range" = "从$1到$2";
+"on-this-day-detail-header-day" = "于$1";
+"on-this-day-detail-header-title" = "$1个历史事件";
+"on-this-day-footer" = "这一天的更多历史事件";
+"on-this-day-title" = "历史上的今天";
 "onboarding-wikipedia" = "维基百科";
 "open-link-cancel" = "取消";
 "page-edit-history" = "完整编辑历史";
@@ -291,6 +295,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=刚刚|$1分钟前}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "save-action" = "保存";
 "saved-clear-all" = "清除";

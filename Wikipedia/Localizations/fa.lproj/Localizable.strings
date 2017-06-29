@@ -200,7 +200,6 @@
 "in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
 "in-the-news-notification-share-action-title" = "به اشتراک گذاشتن...";
 "in-the-news-title" = "در اخبار";
-"in-the-news-title-for-date" = "اخبار $1";
 "info-box-close-text" = "بستن";
 "info-box-title" = "اطلاعات اجمالی";
 "languages-title" = "تغییر زبان";
@@ -240,6 +239,11 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "از $1 - $2";
+"on-this-day-detail-header-day" = "در $1";
+"on-this-day-detail-header-title" = "$1 رویداد تاریخی";
+"on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
+"on-this-day-title" = "در این روز";
 "onboarding-wikipedia" = "ویکی‌پدیا";
 "open-link-cancel" = "لغو";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
@@ -298,6 +302,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=امروز|دیروز|$1 روز پیش}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "save-action" = "ذخیره";
 "saved-clear-all" = "پاک‌کردن";
