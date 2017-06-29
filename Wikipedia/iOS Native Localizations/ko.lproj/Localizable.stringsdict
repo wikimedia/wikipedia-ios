@@ -84,5 +84,23 @@
 			<string>방금 전</string>
 		</dict>
 	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>지난해</string>
+			<key>other</key>
+			<string>%1$d년 전</string>
+			<key>zero</key>
+			<string>올해</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
