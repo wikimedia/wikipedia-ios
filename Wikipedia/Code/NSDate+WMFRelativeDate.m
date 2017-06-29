@@ -3,10 +3,11 @@
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 
-@interface WMFLocalizedDateFormatStrings : NSObject
-@end
-
 @implementation WMFLocalizedDateFormatStrings
+
++ (NSString *)yearsAgo {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", nil, nil, @"{{PLURAL:%1$d|0=This year|Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year");
+}
 
 + (NSString *)daysAgo {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-days-ago", nil, nil, @"{{PLURAL:%1$d|0=Today|Yesterday|%1$d days ago}}", @"Relative days ago. 0 = today, singular = yesterday");

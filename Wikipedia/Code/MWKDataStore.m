@@ -639,6 +639,8 @@ static uint64_t bundleHash() {
                         contentGroupKind = WMFContentGroupKindNotification;
                     } else if ([key hasPrefix:@"wikipedia://content/news/"]) {
                         contentGroupKind = WMFContentGroupKindNews;
+                    } else if ([key hasPrefix:@"wikipedia://content/on-this-day/"]) {
+                        contentGroupKind = WMFContentGroupKindOnThisDay;
                     } else if ([key hasPrefix:@"wikipedia://content/top-read/"]) {
                         contentGroupKind = WMFContentGroupKindTopRead;
                     } else if ([key hasPrefix:@"wikipedia://content/related-pages/"]) {

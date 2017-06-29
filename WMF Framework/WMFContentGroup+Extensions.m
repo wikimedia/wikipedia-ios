@@ -61,6 +61,9 @@
         case WMFContentGroupKindNews:
             URL = [WMFContentGroup newsContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
+        case WMFContentGroupKindOnThisDay:
+            URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
+            break;
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
@@ -83,6 +86,9 @@
             break;
         case WMFContentGroupKindNews:
             self.contentType = WMFContentTypeStory;
+            break;
+        case WMFContentGroupKindOnThisDay:
+            self.contentType = WMFContentTypeOnThisDayEvent;
             break;
         case WMFContentGroupKindUnknown:
             assert(false);
@@ -108,18 +114,17 @@
 }
 
 - (void)updateDailySortPriority {
-    BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
     switch (self.contentGroupKind) {
         case WMFContentGroupKindUnknown:
             break;
         case WMFContentGroupKindContinueReading:
-            self.dailySortPriority = isPad ? 1 : 0;
+            self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = isPad ? 0 : 6;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindRelatedPages:
-            self.dailySortPriority = isPad ? 2 : 1;
+            self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
             self.dailySortPriority = 8;
@@ -128,19 +133,23 @@
             self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = isPad ? 6 : 5;
+            self.dailySortPriority = 5;
             break;
         case WMFContentGroupKindRandom:
             self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            self.dailySortPriority = isPad ? 3 : 2;
+            self.dailySortPriority = 2;
             break;
         case WMFContentGroupKindTopRead:
-            self.dailySortPriority = isPad ? 4 : 3;
+            self.dailySortPriority = 3;
             break;
         case WMFContentGroupKindNews:
-            self.dailySortPriority = isPad ? 5 : 4;
+            self.dailySortPriority = 4;
+            break;
+        case WMFContentGroupKindOnThisDay:
+//TODO: figure out the right value(s) for this...
+            self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
@@ -288,6 +297,10 @@
 
 + (nullable NSURL *)newsContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
     return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"news"];
+}
+
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"on-this-day"];
 }
 
 + (nullable NSURL *)notificationContentGroupURL {

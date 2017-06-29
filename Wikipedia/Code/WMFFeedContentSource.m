@@ -195,6 +195,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindPictureOfTheDay];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindNews];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
 }
 
 #pragma mark - Save Groups
@@ -354,6 +355,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
 }
 
+- (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
+}
+
 #pragma mark - Notifications
 
 - (void)scheduleNotificationsForFeedDay:(WMFFeedDayResponse *)feedDay onDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -477,32 +482,48 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSError *JSONError = nil;
-    NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError];
+    NSMutableDictionary *JSONDictionary = [[MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError] mutableCopy];
     if (JSONError) {
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
-
+    
     NSString *articleURLString = articlePreview.URL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
-    NSDictionary *viewCounts = articlePreview.pageViews;
+    NSDictionary *originalViewCounts = articlePreview.pageViews;
 
+    
     if (!storyHTML || !articleURLString || !displayTitle || !JSONDictionary) {
         return NO;
     }
-
-    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
-    info[WMFNotificationInfoArticleTitleKey] = displayTitle;
-    info[WMFNotificationInfoViewCountsKey] = viewCounts;
-    info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
-    info[WMFNotificationInfoFeedNewsStoryKey] = JSONDictionary;
+    
+    NSMutableDictionary *viewCounts = [NSMutableDictionary dictionaryWithCapacity:originalViewCounts.count];
+    [originalViewCounts enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (![key isKindOfClass:[NSDate class]]) {
+            return;
+        }
+        NSString *dateString = [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:key];
+        if (!dateString) {
+            return;
+        }
+        viewCounts[dateString] = obj;
+    }];
+    
+    // Workaround for inablity to specify which reverse transform to use on WMFFeedNewsStory for storyHTML (it uses the date instead of the story)
+    JSONDictionary[@"story"] = storyHTML;
+    
+    NSMutableDictionary *mutableInfo = [NSMutableDictionary dictionaryWithCapacity:4];
+    mutableInfo[WMFNotificationInfoArticleTitleKey] = displayTitle;
+    mutableInfo[WMFNotificationInfoViewCountsKey] = viewCounts;
+    mutableInfo[WMFNotificationInfoArticleURLStringKey] = articleURLString;
+    mutableInfo[WMFNotificationInfoFeedNewsStoryKey] = JSONDictionary;
     NSString *thumbnailURLString = articlePreview.thumbnailURL.absoluteString;
     if (thumbnailURLString) {
-        info[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
+        mutableInfo[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
     }
     NSString *snippet = articlePreview.wikidataDescription ?: articlePreview.snippet;
     if (snippet) {
-        info[WMFNotificationInfoArticleExtractKey] = snippet;
+        mutableInfo[WMFNotificationInfoArticleExtractKey] = snippet;
     }
 
     NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
@@ -511,7 +532,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSDate *notificationDate = [NSDate date];
     NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
     NSDateComponents *notificationDateComponents = [userCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-
+    NSDictionary *info = [mutableInfo wmf_dictionaryByRecursivelyRemovingNullObjects];
     if (force) {
         // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
         notificationDateComponents = nil;
