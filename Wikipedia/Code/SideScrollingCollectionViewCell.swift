@@ -34,6 +34,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
             bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
+            resetCollectionViewScrollPosition()
         }
     }
     
@@ -75,10 +76,15 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     
     override open func reset() {
         super.reset()
-        collectionView.contentOffset = CGPoint.init(x: -collectionView.contentInset.left, y: 0)
+        resetCollectionViewScrollPosition()
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
+    }
+    
+    func resetCollectionViewScrollPosition() {
+        let offsetX = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width - collectionView.contentInset.right : -collectionView.contentInset.left
+        collectionView.contentOffset = CGPoint(x: offsetX, y: 0)
     }
     
     var isImageViewHidden = false {
