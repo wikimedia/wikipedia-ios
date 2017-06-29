@@ -4,62 +4,17 @@ import UIKit
 class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
     let timelineView = OnThisDayTimelineView()
-
-    @objc(configureForExploreWithOnThisDayEvent:previousEvent:dataStore:layoutOnly:)
-    func configureForExplore(with onThisDayEvent: WMFFeedOnThisDayEvent,  previousEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool) {
-        bottomTitleLabel.textColor = .wmf_blue
-        bottomTitleLabel.text = previousEvent.yearWithEraString()
-        configure(with: onThisDayEvent, dataStore: dataStore, layoutOnly: layoutOnly, shouldAnimateDots: false)
-    }
-    
-    @objc(configureWithOnThisDayEvent:dataStore:layoutOnly:shouldAnimateDots:)
-    func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, layoutOnly: Bool, shouldAnimateDots: Bool) {
-        let previews = onThisDayEvent.articlePreviews ?? []
-        let currentYear = Calendar.current.component(.year, from: Date())
         
-        titleLabel.textColor = .wmf_blue
-        subTitleLabel.textColor = .wmf_customGray
-        
-        titleLabel.text = onThisDayEvent.yearWithEraString()
-
-        if let eventYear = onThisDayEvent.year {
-            let yearsSinceEvent = currentYear - eventYear.intValue
-            subTitleLabel.text = String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.yearsAgo(), yearsSinceEvent)
-        } else {
-            subTitleLabel.text = nil
-        }
-            
-        descriptionLabel.text = onThisDayEvent.text
-        
-        articles = previews.map { (articlePreview) -> CellArticle in
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet(), imageURL: articlePreview.thumbnailURL)
-        }
-        
-        let articleLanguage = (onThisDayEvent.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
-        descriptionLabel.accessibilityLanguage = articleLanguage
-        semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        
-        isImageViewHidden = true
-        timelineView.shouldAnimateDots = shouldAnimateDots
-
-        setNeedsLayout()
-    }
-    
-    static let descriptionTextStyle = UIFontTextStyle.subheadline
-    var descriptionFont = UIFont.preferredFont(forTextStyle: descriptionTextStyle)
-    
-    static let titleTextStyle = UIFontTextStyle.title3
-    var titleFont = UIFont.preferredFont(forTextStyle: titleTextStyle)
-    
-    static let subTitleTextStyle = UIFontTextStyle.subheadline
-    var subTitleFont = UIFont.preferredFont(forTextStyle: subTitleTextStyle)
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        
+        let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
         bottomTitleLabel.font = titleFont
+        
+        let subTitleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
         subTitleLabel.font = subTitleFont
-        descriptionLabel.font = descriptionFont
+        descriptionLabel.font = subTitleFont
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

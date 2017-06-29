@@ -34,6 +34,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
             bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
+            resetCollectionViewScrollPosition()
         }
     }
     
@@ -48,6 +49,8 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         addSubview(collectionView)
         addSubview(bottomTitleLabel)
         
+        wmf_configureSubviewsForDynamicType()
+
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
 
@@ -73,10 +76,15 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     
     override open func reset() {
         super.reset()
-        collectionView.contentOffset = CGPoint.init(x: -collectionView.contentInset.left, y: 0)
+        resetCollectionViewScrollPosition()
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
+    }
+    
+    func resetCollectionViewScrollPosition() {
+        let offsetX = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width - collectionView.contentInset.right : -collectionView.contentInset.left
+        collectionView.contentOffset = CGPoint(x: offsetX, y: 0)
     }
     
     var isImageViewHidden = false {
@@ -103,7 +111,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
 
         if titleLabel.wmf_hasAnyText {
             origin.y += spacing
-            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 0.4 * spacing, apply: apply)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
         }
         
         if subTitleLabel.wmf_hasAnyText {
@@ -117,11 +125,8 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         let collectionViewSpacing: CGFloat = 10
         var height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
 
-        assert(collectionView.numberOfSections == 1, "Expected one section")
-        if collectionView.numberOfSections == 1 {
-            if collectionView.numberOfItems(inSection: 0) == 0 {
-                height = 0
-            }
+        if articles.count == 0 {
+            height = 0
         }
 
         if (apply) {
