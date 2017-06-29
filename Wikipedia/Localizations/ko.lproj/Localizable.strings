@@ -193,7 +193,6 @@
 "in-the-news-notification-save-for-later-action-title" = "나중을 위해 저장";
 "in-the-news-notification-share-action-title" = "공유...";
 "in-the-news-title" = "새로 들어온 소식";
-"in-the-news-title-for-date" = "$1 소식";
 "info-box-close-text" = "닫기";
 "info-box-title" = "빠른 사실";
 "languages-title" = "언어 변경";
@@ -233,6 +232,9 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-day" = "$1";
+"on-this-day-detail-header-title" = "$1개의 역사적 사건";
+"on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "onboarding-wikipedia" = "위키백과";
 "open-link-cancel" = "취소";
 "page-edit-history" = "전체 편집 내역";
@@ -287,6 +289,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=오늘|어제|$1일 전}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=올해|지난해|$1년 전}}";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "save-action" = "저장";
 "saved-clear-all" = "지우기";

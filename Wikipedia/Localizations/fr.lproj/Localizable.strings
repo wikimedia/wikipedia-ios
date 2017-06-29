@@ -65,6 +65,7 @@
 "action-read" = "Lire";
 "action-save" = "Enregistrer";
 "action-saved" = "Enregistré";
+"action-saved-accessibility" = "Enregistré. Activer pour supprimer la sauvegarde.";
 "action-share" = "Partager";
 "action-unsave" = "Non enregistré";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
@@ -198,7 +199,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Enregistrer pour plus tard";
 "in-the-news-notification-share-action-title" = "Partager…";
 "in-the-news-title" = "Dans l’actualité";
-"in-the-news-title-for-date" = "Actualités sur $1";
 "info-box-close-text" = "Fermer";
 "info-box-title" = "Faits en bref";
 "languages-title" = "Changer de langue";

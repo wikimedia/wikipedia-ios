@@ -185,7 +185,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
 "in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-title" = "In den Nachrichten";
-"in-the-news-title-for-date" = "Nachrichten auf $1";
 "info-box-close-text" = "Schließen";
 "info-box-title" = "Schnelle Fakten";
 "languages-title" = "Sprache ändern";
@@ -225,6 +224,11 @@
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
+"on-this-day-detail-header-date-range" = "von $1 bis $2";
+"on-this-day-detail-header-day" = "am $1";
+"on-this-day-detail-header-title" = "$1 historische Ereignisse";
+"on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
+"on-this-day-title" = "Heute";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Abbrechen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
@@ -283,6 +287,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|Letztes Jahr|Vor $1 Jahren}}";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "save-action" = "Speichern";
 "saved-clear-all" = "Löschen";
