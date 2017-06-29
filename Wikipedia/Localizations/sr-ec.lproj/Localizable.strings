@@ -127,7 +127,7 @@
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни код";
 "field-captcha-placeholder" = "Текст CAPTCHA";
-"field-captcha-title" = "Унесите текст који видите изнад";
+"field-captcha-title" = "Унесите текст горе";
 "field-email-placeholder" = "primer@primer.org";
 "field-email-title" = "Имејл";
 "field-email-title-optional" = "Имејл (необавезно)";
@@ -185,7 +185,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Сачувај за касније";
 "in-the-news-notification-share-action-title" = "Дели...";
 "in-the-news-title" = "У вестима";
-"in-the-news-title-for-date" = "Вести на датум $1";
 "info-box-close-text" = "Затвори";
 "info-box-title" = "Кратке чињенице";
 "languages-title" = "Промени језик";
