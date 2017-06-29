@@ -128,10 +128,7 @@
     if (collectionView == nil) {
         return;
     }
-    if (context.boundsDidChange) {
-        [self resetColumns];
-        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil];
-    } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
+    if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
         NSIndexPath *indexPath = originalAttributes.indexPath;
