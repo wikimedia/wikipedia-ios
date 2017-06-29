@@ -75,6 +75,7 @@
 "button-save-for-later" = "Guardar para mais tarde";
 "button-saved-for-later" = "Guardado para depois";
 "button-saved-remove" = "Remover dos gravados";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
@@ -151,7 +152,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Guardar para mais tarde";
 "in-the-news-notification-share-action-title" = "Partilhar...";
 "in-the-news-title" = "Nas notícias";
-"in-the-news-title-for-date" = "Notícias em $1";
 "info-box-close-text" = "Fechar";
 // Fuzzy
 "info-box-title" = "Factos rápidos";
@@ -277,7 +277,7 @@
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
-"welcome-languages-title" = "Idiomas";
+"welcome-languages-title" = "Línguas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
@@ -296,9 +296,7 @@
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do texto wiki.";
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-and-license" = "Ao publicar, concorda com $1, e em irrevogavelmente publicar a sua contribuição ao abrigo da licença $2.";
 "wikitext-upload-save-terms-name" = "Condições de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos pode resultar em encargos de transferência de dados. Artigos gravados e armazenados off-line não geram tráfego de dados e o seu acesso é gratuito.";

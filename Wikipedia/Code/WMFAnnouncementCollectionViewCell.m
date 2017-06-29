@@ -84,7 +84,7 @@
         self.captionTextView.attributedText = nil;
         return;
     }
-    
+
     NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
     pStyle.lineBreakMode = NSLineBreakByWordWrapping;
     pStyle.baseWritingDirection = NSWritingDirectionNatural;
@@ -97,7 +97,6 @@
     [self.captionTextView setNeedsLayout];
     [self.captionTextView layoutIfNeeded];
 }
-
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     [self.delegate announcementCell:self didTapLinkURL:URL];

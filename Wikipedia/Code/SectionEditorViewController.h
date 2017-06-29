@@ -1,4 +1,5 @@
-#import "FetcherBase.h"
+@import UIKit;
+@import WMF.FetcherBase;
 #import "EditFunnel.h"
 #import "SavedPagesFunnel.h"
 

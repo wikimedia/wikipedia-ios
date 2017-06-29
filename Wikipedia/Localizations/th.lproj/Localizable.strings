@@ -48,7 +48,7 @@
 "wikitext-upload-save-anonymously" = "บันทึกแบบนิรนาม";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้เมื่อแก้ไข";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "search-searching" = "กำลังค้นหา...";
 "search-no-matches" = "ไม่มีผลลัพธ์ตรงกับคำค้นหา";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";

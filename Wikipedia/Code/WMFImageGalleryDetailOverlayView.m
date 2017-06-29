@@ -6,6 +6,7 @@
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
 @import Masonry;
+@import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
@@ -142,7 +143,7 @@
     [self.ownerStackView addArrangedSubview:ownerLabel];
 }
 
-- (UILabel*)newLicenseLabel {
+- (UILabel *)newLicenseLabel {
     UILabel *label = [[UILabel alloc] init];
     [label wmf_configureSubviewsForDynamicType];
     label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];

@@ -57,7 +57,9 @@
 "action-read" = "קריאה";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
+"action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
 "action-share" = "שיתוף";
+"action-unsave" = "ביטול שמירה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "לא, תודה";
 "article-about-title" = "מידע על הערך הזה";
@@ -79,6 +81,7 @@
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
 "button-saved-remove" = "להסיר משמורים";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
@@ -102,6 +105,7 @@
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-because-you-read" = "כי קראת";
 "explore-continue-reading-heading" = "המשך קריאה";
+"explore-enable-location-title" = "לחקור ערכים ליד המיקום הנוכחי שלך";
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -151,6 +155,7 @@
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";
 "forgot-password-title" = "אתחול ססמה";
 "forgot-password-username-or-email-title" = "או";
+"gdfl" = "GDFL";
 "history-clear-all" = "ניקוי";
 "history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
@@ -186,7 +191,6 @@
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-notification-share-action-title" = "לשתף...";
 "in-the-news-title" = "בחדשות";
-"in-the-news-title-for-date" = "חדשות ב־$1";
 "info-box-close-text" = "סגירה";
 "info-box-title" = "עובדות מהירות";
 "languages-title" = "שינוי שפה";
@@ -374,9 +378,8 @@
 "wikitext-upload-result-unknown" = "לא ניתן להסיק את התוצאה של העלאת קוד ויקי.";
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "כניסה";
-"wikitext-upload-save-terms-and-license" = "פרסום מהווה את הסכמתך ל$1 ולשחרור בלתי־חוזר של התרומות שלך לפי תנאי רישיון $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
 "zero-charged-verbiage-extended" = "טעינת ערכים אחרים עשויה לגרום לחיוב זמן אוויר על נתונים. ערכים שמורים שמאוחסנים באופן בלתי־מקוון אינם מתמשים בנתונים וזמינים חינם.";

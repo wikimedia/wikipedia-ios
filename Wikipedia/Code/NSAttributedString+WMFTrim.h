@@ -1,3 +1,4 @@
+@import Foundation.NSAttributedString;
 
 @interface NSAttributedString (WMFTrim)
 

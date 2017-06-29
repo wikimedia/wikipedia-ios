@@ -1,6 +1,7 @@
 // Messages for Sundanese (Basa Sunda)
 // Exported from translatewiki.net
 // Author: Dipusparaga
+// Author: Nemo bis
 // Author: Uchup19
 // Author: WikiKaruhun
 
@@ -65,6 +66,7 @@
 "button-save-for-later" = "Simpen jang engké";
 "button-saved-for-later" = "Disimpen jang engké";
 "button-saved-remove" = "Pupus tina simpenan";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "jam $1 pas";
 "continue-reading-empty-description" = "Langlang Wikipédia pikeun artikel bacaeun lianna";
@@ -166,7 +168,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Simpen jang engké";
 "in-the-news-notification-share-action-title" = "Bagikeun...";
 "in-the-news-title" = "Dina warta";
-"in-the-news-title-for-date" = "Warta na $1";
 "info-box-close-text" = "Tutup";
 "info-box-title" = "Fakta Singget";
 "languages-title" = "Robah basa";
@@ -330,7 +331,6 @@
 "wikitext-upload-captcha-needed" = "Merlukeun vérifikasi CAPTCHA.";
 "wikitext-upload-result-unknown" = "Teu bisa nangtukeun hasil unjalan téks wiki.";
 "wikitext-upload-save" = "Midangkeun...";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Asup log";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";
 "zero-charged-verbiage" = "Wikipédia Zéro dipaéhan";

@@ -19,6 +19,7 @@
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
+// Author: Redredsonia
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
@@ -67,6 +68,7 @@
 "action-save" = "Salva";
 "action-saved" = "Salvato";
 "action-share" = "Condividi";
+"action-unsave" = "Annulla salvataggio";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "No, grazie";
 "article-about-title" = "Su questa voce";
@@ -88,6 +90,7 @@
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
 "button-saved-remove" = "Rimuovi dai salvati";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "a ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
@@ -189,7 +192,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
 "in-the-news-notification-share-action-title" = "Condividi...";
 "in-the-news-title" = "Novità";
-"in-the-news-title-for-date" = "Novità del $1";
 "info-box-close-text" = "Chiudi";
 "info-box-title" = "Fatti in breve";
 "languages-title" = "Cambia lingua";
@@ -229,6 +231,11 @@
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1 mila";
+"on-this-day-detail-header-date-range" = "dal $1 al $2";
+"on-this-day-detail-header-day" = "il $1";
+"on-this-day-detail-header-title" = "$1 eventi storici";
+"on-this-day-footer" = "Alti eventi storici in questo giorno";
+"on-this-day-title" = "In questo giorno";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annulla";
 "page-edit-history" = "Cronologia completa";
@@ -272,6 +279,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|Ieri|$1 giorni fa}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "save-action" = "Salva";
 "saved-clear-all" = "Pulisci";
@@ -348,9 +356,7 @@
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Accedi";
-"wikitext-upload-save-terms-and-license" = "Con la pubblicazione, accetti le nostre $1, e accetti irrevocabilmente di rilasciare i tuoi contributi con licenza $2.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";

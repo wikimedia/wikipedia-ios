@@ -1,4 +1,4 @@
-#import "NSError+WMFExtensions.h"
+#import <WMF/NSError+WMFExtensions.h>
 
 NSString *const WMFErrorDomain = @"WMFErrorDomain";
 NSString *const WMFRedirectTitleKey = @"WMFRedirectTitleKey";

@@ -1,5 +1,6 @@
 #import "WMFArticleNavigationController.h"
 #import <objc/runtime.h>
+@import WMF.WMFLocalization;
 
 static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimationDuration = 0.3;
 

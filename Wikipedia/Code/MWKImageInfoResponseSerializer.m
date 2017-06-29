@@ -1,6 +1,5 @@
 #import "MWKImageInfoResponseSerializer.h"
-#import "MWKImageInfo.h"
-#import "NSString+WMFHTMLParsing.h"
+@import WMF;
 
 /// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
 static NSString *const ExtMetadataImageDescriptionKey = @"ImageDescription";

@@ -80,7 +80,7 @@
 "wikitext-upload-save-anonymously" = "বেনামীভাৱে সাঁচি থওক";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনাসমূহ আপোনাৰ আই পি ঠিকনাত আৰোপ কৰা হ'ব। যদি আপুনি $1 কৰে তেন্তে আপুনি অধিক গোপনীয়তা লাভ কৰিব।";
 "wikitext-upload-save-terms-name" = "ব্যৱহাৰৰ চৰ্তাৱলী";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "open-link-title" = "সংযোগ খোলক";
 "open-link-cancel" = "বাতিল";
 "search-searching" = "সন্ধান কৰা হৈছে...";

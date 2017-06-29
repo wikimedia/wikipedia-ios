@@ -11,22 +11,33 @@ then
 fi
 
 export CARTHAGE="$SRCROOT/Carthage"
-if ! cmp -s "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
+export CARTHAGE_SHA=`"$SRCROOT/scripts/carthage_sha"`
+export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
+
+if [ "$1" == "force" ]
 then
-	export CARTHAGE_SHA=`shasum -a 256 $SRCROOT/Cartfile.resolved |  awk 'match($0, /^[0-9a-f]*/) { print substr($0, RSTART, RLENGTH) }'`
-	export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
+	echo "Removing prebuilt dependencies..."
+	rm -rf "$CARTHAGE"
+	rm -rf "$CARTHAGE_CACHE"
+fi
+
+echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
+if ! cmp -s "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
+then
 	rm -rf "$CARTHAGE"
 	if [ -d "$CARTHAGE_CACHE" ] && [ ! -d "$CARTHAGE" ]
 	then
 		cp -R "$CARTHAGE_CACHE" "$CARTHAGE"
 	else
 		brew upgrade carthage 2> /dev/null
-		carthage bootstrap --platform iOS 2> /dev/null
-		cp "$SRCROOT/Cartfile.resolved" "$CARTHAGE/Cartfile.resolved_at_last_bootstrap"
+		carthage bootstrap --platform iOS --cache-builds 2> /dev/null
+		mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
 			mkdir -p "$CACHEROOT"
 			cp -R "$CARTHAGE" "$CARTHAGE_CACHE"
 		fi
 	fi
+else
+	rm "$SRCROOT/Cartfile.hash"
 fi

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0900"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -68,16 +68,6 @@
                   Identifier = "WMFSearchFetcherTests">
                </Test>
             </SkippedTests>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D84580F31D67572D00B09640"
-               BuildableName = "WMFKitTests.xctest"
-               BlueprintName = "WMFKitTests"
-               ReferencedContainer = "container:Wikipedia.xcodeproj">
-            </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>

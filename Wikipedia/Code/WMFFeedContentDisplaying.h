@@ -1,4 +1,5 @@
 @import UIKit;
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,13 +9,15 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
+    WMFFeedDisplayTypeEvent,
     WMFFeedDisplayTypeAnnouncement,
     WMFFeedDisplayTypeRelatedPagesSourceArticle,
     WMFFeedDisplayTypeRelatedPages,
     WMFFeedDisplayTypeContinueReading,
     WMFFeedDisplayTypeMainPage,
     WMFFeedDisplayTypeRandom,
-    WMFFeedDisplayTypeRanked
+    WMFFeedDisplayTypeRanked,
+    WMFFeedDisplayTypeNotification
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -22,7 +25,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory
+    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeEvent
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {
@@ -44,13 +48,14 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePageList,
     WMFFeedMoreTypePageListWithLocation,
     WMFFeedMoreTypeLocationAuthorization,
-    WMFFeedMoreTypeNews
+    WMFFeedMoreTypeNews,
+    WMFFeedMoreTypeOnThisDay
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     WMFFeedBlacklistOptionNone = 0,
-    WMFFeedBlacklistOptionContent = 1 << 0, //blacklist specific section content
-    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist this section
+    WMFFeedBlacklistOptionContent = 1 << 0,    //blacklist specific section content
+    WMFFeedBlacklistOptionSection = 1 << 1,    //blacklist this section
     WMFFeedBlacklistOptionAllSections = 1 << 2 // blacklist all sections of this type
 };
 

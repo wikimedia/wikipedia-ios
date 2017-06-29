@@ -103,8 +103,6 @@
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.boundsDidChange = YES;
-    self.metrics = [self.delegate metricsWithBoundsSize:newBounds.size];
-    [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }
 
@@ -125,7 +123,7 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
+    if (context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange) {
         self.layoutValid = NO;
     }
     [super invalidateLayoutWithContext:context];

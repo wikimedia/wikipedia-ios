@@ -1,6 +1,7 @@
 @import UIKit;
-#import "WMFContentSource.h"
+@import WMF.Swift;
 
+@class WMFContentGroup;
 @class MWKDataStore;
 @protocol WMFExploreCollectionViewControllerDelegate;
 
@@ -20,15 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)numberOfSectionsInExploreFeed;
 
-- (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated;
-
-- (void)showInTheNewsForStories:(NSArray<WMFFeedNewsStory *> *)stories date:(nullable NSDate *)date animated:(BOOL)animated;
-
-- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated;
+- (void)updateFeedSourcesUserInitiated:(BOOL)wasUserInitiated completion:(nonnull dispatch_block_t)completion;
 
 @end
 
-@protocol WMFExploreCollectionViewControllerDelegate<NSObject>
+@protocol WMFExploreCollectionViewControllerDelegate <NSObject>
 
 @optional
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didEndScrolling:(UIScrollView *)scrollView;
@@ -41,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScrollToTop:(UIScrollView *)scrollView;
-
 
 @end
 

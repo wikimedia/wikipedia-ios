@@ -1,7 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
-#import "NSUserActivity+WMFExtensions.h"
+#import <WMF/NSUserActivity+WMFExtensions.h>
 
 // Frameworks
 @import Masonry;
@@ -12,7 +12,7 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "MWKLanguageLinkController.h"
+#import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
 #import "UIViewController+WMFSearch.h"
@@ -23,18 +23,18 @@
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import <WMF/PiwikTracker+WMFExtensions.h>
 
 // Model
-#import "MWKDataStore.h"
-#import "MWKSavedPageList.h"
-#import "MWKArticle+WMFSharing.h"
-#import "MWKHistoryEntry.h"
-#import "MWKHistoryList.h"
-#import "MWKProtectionStatus.h"
-#import "MWKSectionList.h"
-#import "MWKHistoryList.h"
-#import "MWKLanguageLink.h"
+#import <WMF/MWKDataStore.h>
+#import <WMF/MWKSavedPageList.h>
+#import <WMF/MWKArticle+WMFSharing.h>
+#import <WMF/MWKHistoryEntry.h>
+#import <WMF/MWKHistoryList.h>
+#import <WMF/MWKProtectionStatus.h>
+#import <WMF/MWKSectionList.h>
+#import <WMF/MWKHistoryList.h>
+#import <WMF/MWKLanguageLink.h>
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -50,7 +50,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
-#import "NSString+WMFPageUtilities.h"
+#import <WMF/NSString+WMFPageUtilities.h>
 #import "UIToolbar+WMFStyling.h"
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
@@ -249,6 +249,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
                                                    }];
+            NSURL *articleURL = self.articleURL;
+            if (articleURL && self.isAddingArticleToHistoryListEnabled) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataStore.historyList addPageToHistoryWithURL:articleURL];
+                });
+            }
         }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
@@ -258,6 +264,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self updateToolbar];
     [self setupTableOfContentsViewController];
     [self updateTableOfContentsForFootersIfNeeded];
+    
+
 
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
@@ -1162,12 +1170,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     });
 }
 
+- (void)endRefreshing {
+    if (self.pullToRefresh.isRefreshing) {
+        @try { // TODO: REMOVE AFTER DROPPING iOS 9
+            [self.pullToRefresh endRefreshing];
+        } @catch (NSException *exception) {
+            DDLogError(@"Caught exception while ending refreshing: %@", exception);
+        }
+    }
+}
+
 - (void)fetchArticleForce:(BOOL)force {
     // ** Always call articleDidLoad after the article loads or fails & before returning from this method **
     WMFAssertMainThread(@"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
-        [self.pullToRefresh endRefreshing];
+        [self endRefreshing];
         [self articleDidLoad];
         return;
     }
@@ -1190,7 +1208,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-            [self.pullToRefresh endRefreshing];
+            [self endRefreshing];
             [self hideProgressViewAnimated:YES];
             [self.delegate articleControllerDidLoadArticle:self];
 
@@ -1232,7 +1250,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
-            [self.pullToRefresh endRefreshing];
+            [self endRefreshing];
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
             self.article = article;
             self.articleFetcherPromise = nil;
@@ -1388,7 +1406,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-        if(error){
+        if (error) {
             // Reminder: an error is *expected* here when 1st loading an article. This is
             // because 'saveOpenArticleTitleWithCurrentlyOnscreenFragment' is also called
             // by 'viewDidAppear' (so the 'Continue reading' widget is kept up-to-date even
@@ -1425,10 +1443,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if (section) {
             self.currentSection = section;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        }else{
+        } else {
             [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
                 @strongify(self);
-                if(index){
+                if (index) {
                     [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
                 }
             }];

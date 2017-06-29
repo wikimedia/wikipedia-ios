@@ -33,7 +33,7 @@
     [self wmf_configureSubviewsForDynamicType];
     [self addGestureRecognizer:tapGR];
 }
-    
+
 - (void)handleTapGesture:(UIGestureRecognizer *)tapGR {
     if (tapGR.state != UIGestureRecognizerStateRecognized) {
         return;

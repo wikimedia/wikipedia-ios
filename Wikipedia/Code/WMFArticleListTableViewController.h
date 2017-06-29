@@ -2,6 +2,7 @@
 #import "WMFTableViewUpdater.h"
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsContext;
 - (NSString *)analyticsContentType;
- 
+
 - (WMFEmptyViewType)emptyViewType;
 
 - (BOOL)showsDeleteAllButton;

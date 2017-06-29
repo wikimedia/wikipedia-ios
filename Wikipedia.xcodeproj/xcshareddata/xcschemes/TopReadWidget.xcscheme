@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0900"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D85D34C41D74D07500845125"
-            BuildableName = "TopReadWidget.appex"
-            BlueprintName = "TopReadWidget"
+            BlueprintIdentifier = "D4991434181D51DE00E6073C"
+            BuildableName = "Wikipedia.app"
+            BlueprintName = "Wikipedia"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

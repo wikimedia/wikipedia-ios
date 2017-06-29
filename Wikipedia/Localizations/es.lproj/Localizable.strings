@@ -6,6 +6,7 @@
 // Author: Indiralena
 // Author: Irus
 // Author: Javiersanp
+// Author: Josecurioso
 // Author: Koavf
 // Author: Luzcaru
 // Author: Macofe
@@ -65,6 +66,7 @@
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-share" = "Compartir";
+"action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "No, gracias";
 "article-about-title" = "Acerca de este artículo";
@@ -86,6 +88,7 @@
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
 "button-saved-remove" = "Quitar de los guardados";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
@@ -109,6 +112,7 @@
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-because-you-read" = "Porque leíste";
 "explore-continue-reading-heading" = "Continuar leyendo";
+"explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -158,6 +162,7 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
+"gdfl" = "GDFL";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todos los elementos recientes?";
@@ -193,7 +198,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-title" = "Actualidad";
-"in-the-news-title-for-date" = "Noticias del $1";
 "info-box-close-text" = "Cerrar";
 "info-box-title" = "Datos rápidos";
 "languages-title" = "Cambiar idioma";
@@ -381,9 +385,8 @@
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Acceder";
-"wikitext-upload-save-terms-and-license" = "Al publicar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";

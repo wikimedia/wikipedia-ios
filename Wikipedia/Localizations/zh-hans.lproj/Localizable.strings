@@ -59,7 +59,9 @@
 "action-read" = "阅读";
 "action-save" = "保存";
 "action-saved" = "已保存";
+"action-saved-accessibility" = "已保存。激活以取消保存。";
 "action-share" = "分享";
+"action-unsave" = "未保存";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "不用了，谢谢";
 "article-about-title" = "关于此条目";
@@ -81,6 +83,7 @@
 "button-save-for-later" = "保存以供日后使用";
 "button-saved-for-later" = "已保存以供日后使用";
 "button-saved-remove" = "从已保存内容中移除";
+"cc-by-sa-3.0" = "知识共享 署名-相同方式共享 3.0";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
@@ -104,6 +107,7 @@
 "explore-another-random" = "其他随机条目";
 "explore-because-you-read" = "因为您阅读";
 "explore-continue-reading-heading" = "继续阅读";
+"explore-enable-location-title" = "浏览您当前位置附近的条目";
 "explore-featured-article-heading" = "特色条目";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -153,6 +157,7 @@
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
 "forgot-password-title" = "重置密码";
 "forgot-password-username-or-email-title" = "或";
+"gdfl" = "GDFL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
@@ -188,7 +193,6 @@
 "in-the-news-notification-save-for-later-action-title" = "保存以供日后使用";
 "in-the-news-notification-share-action-title" = "分享...";
 "in-the-news-title" = "新闻动态";
-"in-the-news-title-for-date" = "$1上的新闻";
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
 "languages-title" = "更改语言";
@@ -228,6 +232,11 @@
 "number-billions" = "$1十亿";
 "number-millions" = "$1百万";
 "number-thousands" = "$1千";
+"on-this-day-detail-header-date-range" = "从$1到$2";
+"on-this-day-detail-header-day" = "于$1";
+"on-this-day-detail-header-title" = "$1个历史事件";
+"on-this-day-footer" = "这一天的更多历史事件";
+"on-this-day-title" = "历史上的今天";
 "onboarding-wikipedia" = "维基百科";
 "open-link-cancel" = "取消";
 "page-edit-history" = "完整编辑历史";
@@ -286,6 +295,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=刚刚|$1分钟前}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "save-action" = "保存";
 "saved-clear-all" = "清除";
@@ -376,9 +386,8 @@
 "wikitext-upload-result-unknown" = "无法确定wikitext上传结果。";
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
-"wikitext-upload-save-license-name" = "知识共享 署名-相同方式共享 3.0";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-and-license" = "通过发布，即表明您同意遵守$1，并根据$2许可协议发表您的贡献，该授权不可撤回。";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "通过发布更改，您同意$1并同意将您的贡献根据$2{{PLURAL:$3|许可协议}}发布。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";

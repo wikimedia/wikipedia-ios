@@ -1,4 +1,4 @@
-#import "NSCalendar+WMFCommonCalendars.h"
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
 
 @implementation NSCalendar (WMFCommonCalendars)
 
@@ -25,14 +25,14 @@
     if (!fromDate || !toDate) {
         return nil;
     }
-    
+
     NSDateComponents *fromDateComponents = [self components:unitFlags fromDate:fromDate];
     NSDateComponents *toDateComponents = [self components:unitFlags fromDate:toDate];
-    
+
     if (!fromDateComponents || !toDateComponents) {
         return nil;
     }
-    
+
     return [self components:unitFlags fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly];
 }
 
@@ -50,6 +50,18 @@
     }
 
     return [self components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly].day;
+}
+
+- (NSInteger)wmf_daysFromMonthAndDay:(NSDate *)fromDate toDate:(NSDate *)toDate {
+    NSDateComponents *fromComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:fromDate];
+    NSDateComponents *toComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:toDate];
+    NSInteger year = toComponents.year;
+    if (toComponents.month == 1 && fromComponents.month == 12) {
+        year--;
+    }
+    fromComponents.year = year;
+    fromDate = [self dateFromComponents:fromComponents];
+    return [self wmf_daysFromDate:fromDate toDate:toDate];
 }
 
 @end

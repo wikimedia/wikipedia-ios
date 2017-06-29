@@ -62,6 +62,7 @@
 "button-report-a-bug" = "Pranešti apie klaidą";
 "button-save-for-later" = "Išsaugoti ateičiai";
 "button-saved-for-later" = "Išsaugoti ateičiai";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Uždaryti";
 "compass-direction" = "$1 valandą";
 "continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
@@ -144,7 +145,6 @@
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienose";
-"in-the-news-title-for-date" = "Naujienos apie $1";
 "info-box-close-text" = "Uždaryti";
 // Fuzzy
 "info-box-title" = "Trumpi faktai";
@@ -269,7 +269,6 @@
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";
 "wikitext-upload-save" = "Publikuojama...";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Prisijungti";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
 "zero-charged-verbiage" = "Vikipedija Zero išjungtas";

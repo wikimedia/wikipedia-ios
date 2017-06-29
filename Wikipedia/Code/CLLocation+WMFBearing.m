@@ -1,5 +1,5 @@
-#import "CLLocation+WMFBearing.h"
-#import "WMFGeometry.h"
+#import <WMF/CLLocation+WMFBearing.h>
+#import <WMF/WMFGeometry.h>
 
 @implementation CLLocation (WMFBearing)
 

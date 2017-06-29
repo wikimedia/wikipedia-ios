@@ -1,6 +1,4 @@
 #import "WMFArticlePlaceholderTableViewCell.h"
-#import "UIColor+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
 #import "WMFTitleInsetRespectingButton.h"
 #import "Wikipedia-Swift.h"
 

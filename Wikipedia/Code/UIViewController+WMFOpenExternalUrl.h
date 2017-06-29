@@ -1,3 +1,4 @@
+@import UIKit.UIViewController;
 
 @interface UIViewController (WMFOpenExternalLinkDelegate)
 

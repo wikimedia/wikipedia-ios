@@ -1,4 +1,4 @@
-#import "WMFArticlePreviewFetcher.h"
+#import <WMF/WMFArticlePreviewFetcher.h>
 #import <Mantle/Mantle.h>
 #import <WMF/WMF-Swift.h>
 

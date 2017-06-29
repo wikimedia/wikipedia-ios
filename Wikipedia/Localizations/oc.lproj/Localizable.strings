@@ -35,6 +35,7 @@
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
+"action-unsave" = "Pas enregistrat";
 "announcements-dismiss" = "Non mercé";
 "article-about-title" = "A prepaus d'aqueste article";
 "article-languages-filter-placeholder" = "Trobar la lenga";
@@ -54,6 +55,7 @@
 "button-save-for-later" = "Enregistrar per mai tard";
 "button-saved-for-later" = "Enregistrat per mai tard";
 "button-saved-remove" = "Suprimir dels enregistraments";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tampar";
 "compass-direction" = "a $1 oras";
 "continue-reading-empty-title" = "Cap d'articles pas legits recentament";
@@ -108,7 +110,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Enregistrar per mai tard";
 "in-the-news-notification-share-action-title" = "Partejar...";
 "in-the-news-title" = "Dins l'actualitat";
-"in-the-news-title-for-date" = "Actualitats sus $1";
 "info-box-close-text" = "Tampar";
 // Fuzzy
 "info-box-title" = "Faits en brèu";
@@ -221,7 +222,6 @@
 "wikitext-download-success" = "Contengut cargat.";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
 "zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";

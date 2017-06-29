@@ -1,4 +1,5 @@
-#import <Mantle/Mantle.h>
+@import Mantle.MTLModel;
+@import Mantle.MTLJSONAdapter;
 
 @class WMFFeedArticlePreview;
 

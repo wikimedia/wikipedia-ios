@@ -5,16 +5,16 @@
 
 // View
 #import "WMFArticlePreviewTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
+#import <WMF/UIView+WMFDefaultNib.h>
 
 // Fetcher
-#import "WMFArticlePreviewFetcher.h"
+#import <WMF/WMFArticlePreviewFetcher.h>
 
 // Model
-#import "MWKArticle.h"
-#import "MWKSearchResult.h"
-#import "MWKHistoryEntry.h"
-#import "MWKDataStore.h"
+#import <WMF/MWKArticle.h>
+#import <WMF/MWKSearchResult.h>
+#import <WMF/MWKHistoryEntry.h>
+#import <WMF/MWKDataStore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

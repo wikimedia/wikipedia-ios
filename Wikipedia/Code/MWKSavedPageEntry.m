@@ -1,7 +1,7 @@
-#import "MWKSavedPageEntry+ImageMigration.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
-#import "WMFComparison.h"
+#import <WMF/MWKSavedPageEntry+ImageMigration.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSMutableDictionary+WMFMaybeSet.h>
+#import <WMF/WMFComparison.h>
 
 typedef NS_ENUM(NSUInteger, MWKSavedPageEntrySchemaVersion) {
     MWKSavedPageEntrySchemaVersionUnknown = 0,

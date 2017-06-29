@@ -71,7 +71,9 @@
 "action-read" = "Ler";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
+"action-saved-accessibility" = "Salvou. Ative para não se proteger.";
 "action-share" = "Compartilhar";
+"action-unsave" = "Não salvo";
 "alert-no-internet" = "Não há conexão com a internet";
 "announcements-dismiss" = "Não, obrigado";
 "article-about-title" = "Sobre este artigo";
@@ -93,6 +95,7 @@
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
 "button-saved-remove" = "Remover do salvo";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
@@ -112,9 +115,11 @@
 "empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
+"error-unknown" = "Ocorreu um erro desconhecido";
 "explore-another-random" = "Outro artigo aleatório";
 "explore-because-you-read" = "Porque você leu";
 "explore-continue-reading-heading" = "Continue lendo";
+"explore-enable-location-title" = "Explore artigos perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -164,6 +169,7 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"gdfl" = "GDFL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
@@ -186,6 +192,7 @@
 "home-more-like-footer" = "Mais como $1";
 "home-nearby-footer" = "Mais das redondezas de sua localização";
 "home-nearby-location-footer" = "Mais perto de $1";
+"home-news-footer" = "Mais na notícia";
 "home-title" = "explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
 "icon-shortcut-continue-reading-title" = "Continue lendo";
@@ -198,7 +205,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Salvar para mais tarde";
 "in-the-news-notification-share-action-title" = "Compartilhar...";
 "in-the-news-title" = "Eventos recentes";
-"in-the-news-title-for-date" = "Notícias em $1";
 "info-box-close-text" = "Fechar";
 "info-box-title" = "Fatos rápidos";
 "languages-title" = "Alterar idioma";
@@ -252,6 +258,7 @@
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-similar-titles" = "Páginas similares";
+"pictured" = "Retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";
 "places-accessibility-close-search" = "Fechar pesquisa";
 "places-accessibility-group" = "$1 artigos";
@@ -259,6 +266,7 @@
 "places-accessibility-show-as-list" = "Mostrar como lista";
 "places-accessibility-show-as-map" = "Mostra como mapa";
 "places-accessibility-show-more" = "Mostrar mais artigos";
+"places-dismiss-filter-list-accessibility-label" = "Ignorar filtros de pesquisa";
 "places-empty-search-description" = "Explore cidades, países, continentes, marcos naturais, eventos históricos, edifícios e muito mais.";
 "places-empty-search-title" = "Pesquisar artigos da Wikipédia com localizações geográficas";
 "places-enable-location-action-button-title" = "Ativar localização";
@@ -272,13 +280,17 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos salvos tem informações de localização";
 "places-search-articles-that-match" = "$1 coincidindo “$2”";
-// Fuzzy
-"places-search-default-text" = "Procurar";
+"places-search-default-text" = "Pesquisar lugares";
+"places-search-did-you-mean" = "Você quis dizer $1?";
 "places-search-recently-searched-header" = "Procurado recentemente";
 "places-search-saved-articles" = "Todos os artigos salvos";
 "places-search-suggested-searches-header" = "Pesquisas sugeridas";
 "places-search-this-area" = "Resultados nesta área";
 "places-search-top-articles" = "Todos os principais artigos";
+"places-search-top-articles-that-match-scope" = "Próximo";
+"places-search-your-current-location" = "A sua localização atual";
+"places-show-filter-list-accessibility-label" = "Mostrar filtros de pesquisa";
+"places-title" = "Lugares";
 "places-unknown-distance" = "distância desconhecida";
 "potd-description-prefix" = "Imagem do dia de $1";
 "potd-empty-error-description" = "Erro ao baixar imagem do dia de $1";
@@ -370,14 +382,13 @@
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-preview-changes" = "Recuperando um prewie de suas mudanças...";
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
+"wikitext-preview-link-preview-title" = "Visualização do link";
 "wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-and-license" = "Publicando, você concorda com $1 e irrevogavelmente libera suas contribuições sobre a licensa $2.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";

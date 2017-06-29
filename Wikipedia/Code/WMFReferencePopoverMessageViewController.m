@@ -1,6 +1,6 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WebViewController+WMFReferencePopover.h"
-#import "UIColor+WMFHexColor.h"
+#import <WMF/UIColor+WMFHexColor.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
@@ -49,7 +49,7 @@
 
     self.titleLabel.attributedText =
         [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
-            attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:13] }
+            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                        substitutionStrings:@[self.reference.text]
                     substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
 }
@@ -68,6 +68,7 @@
                                     "<base href='%@' target='_self'>"
                                     "<style>"
                                     " *{"
+                                    "     line-height:27px;"
                                     "     font-family:'-apple-system';"
                                     "     font-size:16px;"
                                     "     -webkit-text-size-adjust:%ld%%;"
@@ -75,6 +76,14 @@
                                     "     text-decoration:none;"
                                     "     direction:%@;"
                                     " }"
+                                    " sup {"
+                                    "     line-height:12px;"
+                                    "     font-size:12px;"
+                                    "}"
+                                    " sup * {"
+                                    "     line-height:12px;"
+                                    "     font-size:12px;"
+                                    "}"
                                     "</style>"
                                     "</head>"
                                     "<body>"

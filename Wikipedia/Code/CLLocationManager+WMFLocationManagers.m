@@ -1,4 +1,4 @@
-#import "CLLocationManager+WMFLocationManagers.h"
+#import <WMF/CLLocationManager+WMFLocationManagers.h>
 
 @implementation CLLocationManager (WMFLocationManagers)
 

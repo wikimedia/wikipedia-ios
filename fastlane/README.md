@@ -45,6 +45,11 @@ Runs linting (and eventually static analysis)
 fastlane ios verify_test_platforms
 ```
 Runs tests on the primary platforms and configurations
+### ios beta_cluster_tests
+```
+fastlane ios beta_cluster_tests
+```
+Runs tests against the beta cluster to check for upstream changes.
 ### ios verify_pull_request
 ```
 fastlane ios verify_pull_request
@@ -143,6 +148,11 @@ fastlane ios dsyms_alpha
 ### ios dsyms_beta
 ```
 fastlane ios dsyms_beta
+```
+
+### ios dsyms_beta_app
+```
+fastlane ios dsyms_beta_app
 ```
 
 

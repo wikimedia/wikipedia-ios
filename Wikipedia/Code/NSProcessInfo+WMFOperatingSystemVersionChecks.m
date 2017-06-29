@@ -1,4 +1,4 @@
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+#import <WMF/NSProcessInfo+WMFOperatingSystemVersionChecks.h>
 
 @implementation NSProcessInfo (WMFOperatingSystemVersionChecks)
 

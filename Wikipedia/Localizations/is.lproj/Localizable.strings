@@ -58,6 +58,7 @@
 "button-next" = "Áfram";
 "button-save-for-later" = "Vista til síðari tíma";
 "button-saved-for-later" = "Vistað til síðari tíma brúks";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Loka";
 "compass-direction" = "klukkan $1 á áttavita";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
@@ -220,10 +221,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Vistar...";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Innskrá";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Með því að vista samþykkir þú okkar $1, og að þú gefur út framlög þín undir leyfinu $2.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";
 "zero-charged-verbiage" = "Slökkt er á Wikipedia Zero";
 "zero-charged-verbiage-extended" = "Að hlaða aðrar greinar gæti stofnað til gagnakostnaðs. Vistaðar greinar, sem eru aðgengilegar án nettengingar, nota ekki gagnamagn og eru þá ókeypis.";

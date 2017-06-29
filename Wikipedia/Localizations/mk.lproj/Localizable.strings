@@ -50,7 +50,9 @@
 "action-read" = "Прочитај";
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
+"action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
 "action-share" = "Сподели";
+"action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Не, благодарам";
 "article-about-title" = "Уреди ја статијава";
@@ -72,6 +74,7 @@
 "button-save-for-later" = "Зачувај за подоцна";
 "button-saved-for-later" = "Зачувано за подоцна";
 "button-saved-remove" = "Отстрани од зачувани";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
@@ -95,6 +98,7 @@
 "explore-another-random" = "Друга случајна статија";
 "explore-because-you-read" = "Бидејќи читавте";
 "explore-continue-reading-heading" = "Продолжете со читање";
+"explore-enable-location-title" = "Истражете статии околу вашето тековно наоѓалиште";
 "explore-featured-article-heading" = "Избрани статии";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -144,6 +148,7 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-username-or-email-title" = "Или";
+"gdfl" = "ГЛСД";
 "history-clear-all" = "Исчисти";
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
@@ -179,7 +184,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
 "in-the-news-notification-share-action-title" = "Сподели...";
 "in-the-news-title" = "Вести";
-"in-the-news-title-for-date" = "Вести на $1";
 "info-box-close-text" = "Затвори";
 "info-box-title" = "Кратки факти";
 "languages-title" = "Смени јазик";
@@ -219,6 +223,11 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";
+"on-this-day-detail-header-date-range" = "од $1 - $2";
+"on-this-day-detail-header-day" = "на $1";
+"on-this-day-detail-header-title" = "$1 историски настани";
+"on-this-day-footer" = "Повеќе историски настани на денешен ден";
+"on-this-day-title" = "На денешен ден";
 "onboarding-wikipedia" = "Википедија";
 "open-link-cancel" = "Откажи";
 "page-edit-history" = "Цела историја на уредувања";
@@ -277,6 +286,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|вчера|пред $1 дена}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "save-action" = "Зачувај";
 "saved-clear-all" = "Исчисти";
@@ -367,9 +377,8 @@
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
-"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Најава";
-"wikitext-upload-save-terms-and-license" = "Објавувајќи ги промените, се согласувате со $1 и дека неотповикливо ги објавувате на вашите придонеси под лиценцата $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3 license.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";

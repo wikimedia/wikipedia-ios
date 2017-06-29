@@ -14,8 +14,8 @@
 
 // Storyboard name for the receiver, defaults to NSStringFromClass(self).
 + (NSString *)wmf_classStoryboardName {
-    NSString* name = NSStringFromClass(self);
-    if([name containsString:@"."]){ // Remove module prefix (added when invoked via Swift)
+    NSString *name = NSStringFromClass(self);
+    if ([name containsString:@"."]) { // Remove module prefix (added when invoked via Swift)
         name = [name componentsSeparatedByString:@"."].lastObject;
     }
     return name;

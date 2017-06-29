@@ -1,6 +1,11 @@
 #import "MWKSection+DisplayHtml.h"
-#import "SessionSingleton.h"
-#import "NSString+WMFExtras.h"
+@import WMF.SessionSingleton;
+@import WMF.NSString_WMFExtras;
+@import WMF.MWKArticle;
+@import WMF.WMFMath;
+@import WMF.NSURL_WMFLinkParsing;
+@import WMF.WMFLocalization;
+@import WMF.WMFLogging;
 
 @implementation MWKSection (DisplayHtml)
 
@@ -69,7 +74,7 @@
 
 - (NSString *)getEditPencilAnchor {
     return [NSString stringWithFormat:
-                         @"<a class='edit_section_button' data-action='edit_section' data-id='%d' id='edit_section_button_%d'></a>",
+                         @"<a class='edit_section_button' data-action='edit_section' onclick='window.webkit.messageHandlers.editClicked.postMessage({ sectionId: %d }); return false;' id='edit_section_button_%d'></a>",
                          self.sectionId,
                          self.sectionId];
 }

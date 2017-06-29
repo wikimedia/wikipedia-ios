@@ -1,4 +1,3 @@
-
 @import Quick;
 
 #define resetTimeZoneAfterEach() afterEach(^{ \

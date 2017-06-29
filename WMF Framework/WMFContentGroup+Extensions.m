@@ -1,10 +1,10 @@
-#import "WMFContentGroup+Extensions.h"
+#import <WMF/WMFContentGroup+Extensions.h>
 #import "WMFAnnouncement.h"
 @import UIKit;
-#import "NSURL+WMFLinkParsing.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "NSDateFormatter+WMFExtensions.h"
-#import "WMFLogging.h"
+#import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/WMFLogging.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -61,6 +61,9 @@
         case WMFContentGroupKindNews:
             URL = [WMFContentGroup newsContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
+        case WMFContentGroupKindOnThisDay:
+            URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
+            break;
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
@@ -84,12 +87,18 @@
         case WMFContentGroupKindNews:
             self.contentType = WMFContentTypeStory;
             break;
+        case WMFContentGroupKindOnThisDay:
+            self.contentType = WMFContentTypeOnThisDayEvent;
+            break;
         case WMFContentGroupKindUnknown:
             assert(false);
             self.contentType = WMFContentTypeUnknown;
             break;
         case WMFContentGroupKindAnnouncement:
             self.contentType = WMFContentTypeAnnouncement;
+            break;
+        case WMFContentGroupKindNotification:
+            self.contentType = WMFContentTypeNotification;
             break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
@@ -98,7 +107,6 @@
         case WMFContentGroupKindLocationPlaceholder:
         case WMFContentGroupKindRandom:
         case WMFContentGroupKindFeaturedArticle:
-        case WMFContentGroupKindNotification:
         default:
             self.contentType = WMFContentTypeURL;
             break;
@@ -106,18 +114,17 @@
 }
 
 - (void)updateDailySortPriority {
-    BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
     switch (self.contentGroupKind) {
         case WMFContentGroupKindUnknown:
             break;
         case WMFContentGroupKindContinueReading:
-            self.dailySortPriority = isPad ? 1 : 0;
+            self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = isPad ? 0 : 6;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindRelatedPages:
-            self.dailySortPriority = isPad ? 2 : 1;
+            self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
             self.dailySortPriority = 8;
@@ -126,19 +133,23 @@
             self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = isPad ? 6 : 5;
+            self.dailySortPriority = 5;
             break;
         case WMFContentGroupKindRandom:
             self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            self.dailySortPriority = isPad ? 3 : 2;
+            self.dailySortPriority = 2;
             break;
         case WMFContentGroupKindTopRead:
-            self.dailySortPriority = isPad ? 4 : 3;
+            self.dailySortPriority = 3;
             break;
         case WMFContentGroupKindNews:
-            self.dailySortPriority = isPad ? 5 : 4;
+            self.dailySortPriority = 4;
+            break;
+        case WMFContentGroupKindOnThisDay:
+//TODO: figure out the right value(s) for this...
+            self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
@@ -241,7 +252,7 @@
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
     return url;
 }
-    
+
 + (nullable NSURL *)locationPlaceholderContentGroupURL {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby-placeholder"];
     return url;
@@ -286,6 +297,10 @@
 
 + (nullable NSURL *)newsContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
     return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"news"];
+}
+
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate {
+    return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"on-this-day"];
 }
 
 + (nullable NSURL *)notificationContentGroupURL {
@@ -421,12 +436,12 @@
     if (!URL) {
         return nil;
     }
-    
+
     NSString *key = [WMFContentGroup databaseKeyForURL:URL];
     if (!key) {
         return nil;
     }
-    
+
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     fetchRequest.fetchLimit = 1;
@@ -491,7 +506,6 @@
     return contentGroups;
 }
 
-
 - (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self];
     group.date = date;
@@ -499,11 +513,11 @@
     group.contentGroupKind = kind;
     group.siteURLString = siteURL.absoluteString;
     group.content = associatedContent;
-    
+
     if (customizationBlock) {
         customizationBlock(group);
     }
-    
+
     if (URL) {
         group.URL = URL;
     } else {
@@ -511,7 +525,7 @@
     }
     [group updateContentType];
     [group updateDailySortPriority];
-    
+
     return group;
 }
 
@@ -524,7 +538,7 @@
 }
 
 - (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    
+
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
         group.date = date;
@@ -538,7 +552,7 @@
     } else {
         group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
     }
-    
+
     return group;
 }
 
@@ -565,17 +579,17 @@
 - (nullable WMFContentGroup *)locationContentGroupWithinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
-                            withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                CLLocation *groupLocation = group.location;
-                                if (!groupLocation) {
-                                    return;
-                                }
-                                CLLocationDistance distance = [groupLocation distanceFromLocation:location];
-                                if (distance <= meters) {
-                                    locationContentGroup = group;
-                                    *stop = YES;
-                                }
-                            }];
+                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
+                                 CLLocation *groupLocation = group.location;
+                                 if (!groupLocation) {
+                                     return;
+                                 }
+                                 CLLocationDistance distance = [groupLocation distanceFromLocation:location];
+                                 if (distance <= meters) {
+                                     locationContentGroup = group;
+                                     *stop = YES;
+                                 }
+                             }];
     return locationContentGroup;
 }
 

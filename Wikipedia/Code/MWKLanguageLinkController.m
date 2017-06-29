@@ -1,4 +1,4 @@
-#import "MWKLanguageLinkController_Private.h"
+#import <WMF/MWKLanguageLinkController_Private.h>
 #import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -181,10 +181,10 @@ static id _sharedInstance;
     NSArray<NSString *> *osLanguages = [self readOSPreferredLanguageCodes];
 
     if (preferredLanguages.count == 0) {
-        [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse
+        [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {
-                                              [preferredLanguages insertObject:obj atIndex:0];
+                                              [preferredLanguages addObject:obj];
                                           }
                                       }];
     }

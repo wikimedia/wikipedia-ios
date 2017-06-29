@@ -88,7 +88,7 @@ metamacro_foreach(ext_strongify_,, __VA_ARGS__) \
 _Pragma("clang diagnostic pop")
 
 /*** implementation details follow ***/
-typedef void (^ext_cleanupBlock_t)();
+typedef void (^ext_cleanupBlock_t)(void);
 
 void ext_executeCleanupBlock (__strong ext_cleanupBlock_t *block);
 

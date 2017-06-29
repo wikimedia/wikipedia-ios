@@ -60,3 +60,5 @@ node_modules/
 *.orig
 *.cer
 .env.default
+
+Cartfile.hash

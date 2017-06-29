@@ -1,4 +1,4 @@
-#import "MWKSectionMetaData.h"
+#import <WMF/MWKSectionMetaData.h>
 #import "MTLValueTransformer+WMFNumericValueTransformer.h"
 #import <WMF/WMF-Swift.h>
 
@@ -9,9 +9,9 @@
         NSArray *indexes = [value componentsSeparatedByString:@"."];
 
         NSIndexPath *indexPath = [indexes wmf_reduce:[NSIndexPath new]
-                                          withBlock:^id(NSIndexPath *sum, NSString *obj) {
-                                              return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
-                                          }];
+                                           withBlock:^id(NSIndexPath *sum, NSString *obj) {
+                                               return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
+                                           }];
 
         return indexPath;
     }];

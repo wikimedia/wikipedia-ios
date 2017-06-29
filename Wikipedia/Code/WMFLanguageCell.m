@@ -1,6 +1,6 @@
 #import "WMFLanguageCell.h"
 #import "UILabel+WMFStyling.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFLanguageCell ()

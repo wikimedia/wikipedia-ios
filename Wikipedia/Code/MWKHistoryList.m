@@ -1,5 +1,5 @@
-#import "MWKHistoryList.h"
-#import "NSDateFormatter+WMFExtensions.h"
+#import <WMF/MWKHistoryList.h>
+#import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100
@@ -154,6 +154,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSDate *now = [NSDate date];
 
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
+    
+    if (!article.displayTitle) {
+        return;
+    }
+        
     article.viewedDate = now;
     [article updateViewedDateWithoutTime];
 

@@ -1,3 +1,5 @@
+@import UIKit;
+
 @interface PageHistoryResultCell : UITableViewCell
 
 - (void)setName:(NSString *)name
