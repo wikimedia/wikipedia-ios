@@ -83,11 +83,21 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-
         let timelineViewWidth:CGFloat = 66.0
-        timelineView.frame = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: timelineViewWidth, height: bounds.size.height)
+        let x: CGFloat
         
-        margins.left = timelineViewWidth
+        if semanticContentAttributeOverride == .forceRightToLeft {
+            margins.right = timelineViewWidth
+            x = size.width - timelineViewWidth
+        } else {
+            margins.left = timelineViewWidth
+            x = 0
+        }
+        
+        if apply {
+            timelineView.frame = CGRect(x: x, y: 0, width: timelineViewWidth, height: size.height)
+        }
+        
         return super.sizeThatFits(size, apply: apply)
     }
     
