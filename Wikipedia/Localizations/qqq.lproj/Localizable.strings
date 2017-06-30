@@ -202,7 +202,7 @@
 "main-menu-terms-of-use" = "Button text for showing site terms of use\n{{Identical|Terms of use}}";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
-"menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
+"menu-cancel-accessibility-label-1" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
