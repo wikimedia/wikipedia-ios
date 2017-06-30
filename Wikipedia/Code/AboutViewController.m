@@ -95,7 +95,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
 
-    self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button\n{{Identical|Cancel}}");
+    self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label-1", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button\n{{Identical|Cancel}}");
     self.buttonCaretLeft.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
 
     [self updateNavigationBar];
