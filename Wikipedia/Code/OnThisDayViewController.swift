@@ -57,6 +57,9 @@ extension OnThisDayViewController {
             return cell
         }
         let event = events[indexPath.section]
+        
+        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
+        
         onThisDayCell.configure(with: event, dataStore: dataStore, layoutOnly: false, shouldAnimateDots: true)
         return onThisDayCell
     }
