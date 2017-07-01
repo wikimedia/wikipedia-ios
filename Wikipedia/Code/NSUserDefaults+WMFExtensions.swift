@@ -255,14 +255,14 @@ public extension UserDefaults {
         self.synchronize()
     }
     
-    public func wmf_setDidShowTableOfContentsAndFindInPageIconPopovers(_ shown: Bool) {
-        self.set(NSNumber(value: shown as Bool), forKey: "ShowTableOfContentsAndFindInPageIconPopovers")
+    public func wmf_setDidShowWIconPopover(_ shown: Bool) {
+        self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
         self.synchronize()
         
     }
     
-    public func wmf_didShowTableOfContentsAndFindInPageIconPopovers() -> Bool {
-        if let enabled = self.object(forKey: "ShowTableOfContentsAndFindInPageIconPopovers") as? NSNumber {
+    public func wmf_didShowWIconPopover() -> Bool {
+        if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
             return enabled.boolValue
         }else{
             return false
