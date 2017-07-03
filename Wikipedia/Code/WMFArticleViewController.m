@@ -57,6 +57,7 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
+#import "WMFMediaViewController.h"
 
 #import "Wikipedia-Swift.h"
 
@@ -1368,6 +1369,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    }
+}
+
+- (void)webViewController:(WebViewController *)controller didTapMediaWithTitles:(NSString *)titles {
+    WMFMediaViewController *mediaViewController = [[WMFMediaViewController alloc] initWithTitles:titles];
+    if (mediaViewController) {
+        [self presentViewController:mediaViewController animated:YES completion:nil];
     }
 }
 

@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text;
 - (void)webViewController:(WebViewController *)controller didTapShareWithSelectedText:(NSString *)text;
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
+- (void)webViewController:(WebViewController *)controller didTapMediaWithTitles:(NSString *)titles;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item;

@@ -12,10 +12,11 @@ wmf.tables = require('./js/transforms/collapseTables')
 wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
+wmf.media = require('./js/transforms/media')
 
 window.wmf = wmf
 
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/media":11,"./js/transforms/relocateFirstParagraph":12,"./js/transforms/widenImages":13,"./js/utilities":14,"wikimedia-page-library":15}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -144,7 +145,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":14,"wikimedia-page-library":15}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -470,7 +471,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":14}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":15}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -817,6 +818,35 @@ exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
 },{}],11:[function(require,module,exports){
 
+function sendMediaWithTarget(target) {
+  window.webkit.messageHandlers.mediaClicked.postMessage({'media':target.alt})
+}
+
+function handleMediaClickEvent(event){
+  const target = event.target;
+  if(!target) {
+    return
+  }
+  const file = target.getAttribute('alt');
+  if(!file) {
+    return
+  }
+  sendMediaWithTarget(target)
+}
+
+function install() {
+  Array.prototype.slice.call(document.querySelectorAll('img[alt^="File:"],[alt$=".ogv"]')).forEach(function(element){
+    element.addEventListener('click',function(event){
+      event.preventDefault();
+      handleMediaClickEvent(event)
+    },false)
+  })
+}
+
+exports.install = install;
+
+},{}],12:[function(require,module,exports){
+
 function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
@@ -896,7 +926,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -913,7 +943,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":14}],13:[function(require,module,exports){
+},{"wikimedia-page-library":15}],14:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -1515,4 +1545,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);

@@ -92,6 +92,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageImageClicked:
             [self handleImageClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageMediaClicked:
+            [self handleMediaClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageReferenceClicked:
             [self handleReferenceClickedScriptMessage:safeMessageBody];
             break;
@@ -282,6 +285,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            }
                                        }];
                                    }];
+}
+
+- (void)handleMediaClickedScriptMessage:(NSDictionary *)messageDict {
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        NSString *titles = messageDict[@"media"];
+        NSCParameterAssert(titles.length);
+        if (!titles.length) {
+            DDLogError(@"Media clicked callback invoked with empty titles: %@", messageDict);
+            return;
+        }
+        [self.delegate webViewController:self didTapMediaWithTitles:titles];
+    }];
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString *)messageString {
@@ -569,6 +584,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"lateJavascriptTransform",
         @"peek",
         @"linkClicked",
+        @"mediaClicked",
         @"imageClicked",
         @"referenceClicked",
         @"editClicked",
@@ -589,6 +605,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            "window.wmf.filePages.disableFilePageEdit( document );"
                                            "window.wmf.images.widenImages( document );"
                                            "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
+                                           "window.wmf.media.install( document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
