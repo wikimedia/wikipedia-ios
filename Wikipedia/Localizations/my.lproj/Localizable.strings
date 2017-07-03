@@ -30,6 +30,10 @@
 "account-creation-passwords-mismatched" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ။";
 "account-creation-saving" = "သိမ်းဆည်းနေသည်...";
 "account-creation-title" = "အကောင့်အသစ်တစ်ခု ဖန်တီးပါ";
+"action-read" = "ဖတ်ရန်";
+"action-save" = "သိမ်းရန်";
+"action-saved" = "သိမ်းဆည်းပြီး";
+"action-share" = "မျှဝေ";
 "alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
 "announcements-dismiss" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";

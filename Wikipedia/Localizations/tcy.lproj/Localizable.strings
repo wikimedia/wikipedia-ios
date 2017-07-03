@@ -123,6 +123,9 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "ನೆತ್ತ್ $1 - $2";
+"on-this-day-detail-header-day" = "ನೆತ್ತಾನಿ $1";
+"on-this-day-title" = "ಇ ದಿನೋ";
 "onboarding-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "open-link-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "page-history-title" = "ಲೇಕನೋತಾ ಇತಿಹಾಸೊ";

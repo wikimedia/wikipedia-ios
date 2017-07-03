@@ -221,6 +221,11 @@
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 éwu";
+"on-this-day-detail-header-date-range" = "saka $1 - $2";
+"on-this-day-detail-header-day" = "ing $1";
+"on-this-day-detail-header-title" = "$1 kadadéan sajarah";
+"on-this-day-footer" = "Kadadéan sajarah liyane nèng dina iki";
+"on-this-day-title" = "Nèng dina iki";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Wurung";
 "page-edit-history" = "Sujarah besutan wutuh";
@@ -279,6 +284,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|Wingi|$1 dina kepungkur}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bubar|$1 jam kepungkur|$1 jam kepungkur}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mung saiki|$1 menit kepungkur|$1 menit kepungkur}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|Pungkasan taun|$1 taun kepungkur}}";
 "request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
 "save-action" = "Simpen";
 "saved-clear-all" = "Busak";
