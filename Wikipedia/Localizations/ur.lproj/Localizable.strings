@@ -59,6 +59,7 @@
 "button-report-a-bug" = "بگ کی رپورٹ کریں";
 "button-save-for-later" = "بعد کے لیے محفوظ کیا گیا";
 "button-saved-for-later" = "بعد کے لیے محفوظ کیا گیا";
+"cc-by-sa-3.0" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "close-button-accessibility-label" = "بند";
 "compass-direction" = "$1 بجے پر";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
@@ -223,10 +224,7 @@
 // Fuzzy
 "wikitext-upload-save" = "محفوظ ہو رہا ہے...";
 "wikitext-upload-save-anonymously-warning" = "ترامیم کا انتساب آپ کے آلے کے دستور شبکی پتے کو جائے گا۔ اگر آپ $1 آپ کے پاس زیادہ نجی حیثیت رہے گی۔";
-"cc-by-sa-3.0" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "wikitext-upload-save-sign-in" = "داخل ہوں";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "محفوظ کرتے ہوئے آپ $1 کو تسلیم کرتے ہیں، اور ناقابل تلافی حد تک آپ کے تعاون کو $2 اجازہ کے تحت جاری کرتے ہیں۔";
 "wikitext-upload-save-terms-name" = "استعمال کے شرائط";
 "zero-charged-verbiage" = "ویکیپیڈیا زیرو ختم ہو چکا ہے۔";
 "zero-charged-verbiage-extended" = "دیگر مضامین کو لوڈ کرنے سے ڈاٹا شرحوں کو نافذ کیا جاسکتا ہے۔ محفوظ مضامین کو جنہیں آفلائن رکھا گیا ہے ڈاٹا کے استعمال کی ضرورت نہیں پڑتی اور یہ مفت ہیں۔";

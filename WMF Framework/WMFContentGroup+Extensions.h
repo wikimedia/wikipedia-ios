@@ -10,7 +10,9 @@ typedef NS_ENUM(int16_t, WMFContentType) {
     WMFContentTypeImage = 2,
     WMFContentTypeTopReadPreview = 3,
     WMFContentTypeStory = 4,
-    WMFContentTypeAnnouncement = 5
+    WMFContentTypeAnnouncement = 5,
+    WMFContentTypeOnThisDayEvent = 6,
+    WMFContentTypeNotification = 7
 };
 
 typedef NS_ENUM(int32_t, WMFContentGroupKind) {
@@ -26,7 +28,8 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
     WMFContentGroupKindNews = 9,
     WMFContentGroupKindNotification = 10,
     WMFContentGroupKindAnnouncement = 11,
-    WMFContentGroupKindLocationPlaceholder = 12
+    WMFContentGroupKindLocationPlaceholder = 12,
+    WMFContentGroupKindOnThisDay = 13
 };
 
 @interface WMFContentGroup (Extensions)
@@ -51,8 +54,10 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url;
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier;
 + (nullable NSURL *)randomContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
++ (nullable NSURL *)onThisDayContentGroupURLForSiteURL:(NSURL *)url midnightUTCDate:(NSDate *)midnightUTCDate;
 + (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location;
 + (nullable NSURL *)locationPlaceholderContentGroupURL;
++ (nullable NSURL *)notificationContentGroupURL;
 
 - (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone

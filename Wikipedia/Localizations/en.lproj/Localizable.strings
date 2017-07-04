@@ -42,7 +42,9 @@
 "action-read" = "Read";
 "action-save" = "Save";
 "action-saved" = "Saved";
+"action-saved-accessibility" = "Saved. Activate to unsave.";
 "action-share" = "Share";
+"action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
 "article-about-title" = "About this article";
@@ -174,7 +176,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
 "in-the-news-notification-share-action-title" = "Share...";
 "in-the-news-title" = "In the news";
-"in-the-news-title-for-date" = "News on $1";
 "info-box-close-text" = "Close";
 "info-box-title" = "Quick Facts";
 "languages-title" = "Change language";
@@ -214,6 +215,11 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "from $1 - $2";
+"on-this-day-detail-header-day" = "on $1";
+"on-this-day-detail-header-title" = "$1 historical events";
+"on-this-day-footer" = "More historical events on this day";
+"on-this-day-title" = "On this day";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancel";
 "page-edit-history" = "Full edit history";
@@ -272,6 +278,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=This year|Last year|$1 years ago}}";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "save-action" = "Save";
 "saved-clear-all" = "Clear";

@@ -1,8 +1,9 @@
-#import "WMFFeedNotificationHeader.h"
+#import "WMFFeedNotificationCell.h"
 #import "WMFLeadingImageTrailingTextButton.h"
 @import WMF.WMFLocalization;
+@import WMF.Swift;
 
-@implementation WMFFeedNotificationHeader
+@implementation WMFFeedNotificationCell
 
 - (instancetype)init {
     self = [super init];
@@ -17,8 +18,6 @@
 
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"You can now receive notifications about Wikipedia articles trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")];
 
-    [attributedText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, attributedText.length)];
-
     [attributedText addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedText.length)];
 
     NSMutableParagraphStyle *p = [[NSMutableParagraphStyle alloc] init];
@@ -32,6 +31,11 @@
     [self.enableNotificationsButton configureAsNotifyTrendingButton];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    self.textLabel.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystem withTextStyle:UIFontTextStyleBody compatibleWithTraitCollection:self.traitCollection];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.textLabel.preferredMaxLayoutWidth != self.textLabel.frame.size.width) {
@@ -40,12 +44,8 @@
     }
 }
 
-- (NSString *)analyticsContext {
-    return @"notification";
-}
-
-- (NSString *)analyticsContentType {
-    return @"current events";
+- (IBAction)enableNotifications:(id)sender {
+    [self.notificationCellDelegate feedNotificationCellDidRequestEnableNotifications:self];
 }
 
 @end

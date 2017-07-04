@@ -56,6 +56,7 @@
 "button-report-a-bug" = "Ene Fähler mälde";
 "button-save-for-later" = "För schpääder faßjehallde";
 "button-saved-for-later" = "För schpääder faßjehallde";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zohmaache";
 "compass-direction" = "öm $1 Uhr";
 "edit-summary-choice-fixed-grammar" = "Jrammatek reparrehrt";
@@ -218,10 +219,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Enlogge";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Dosch et Faßhalle schemms de dä $1 zoh, un deihjs Dinge Beijdraach onwidderohflessch unger dä $2 Lezänz öffentlesch maache.";
 "wikitext-upload-save-terms-name" = "Bedengonge för der Jebruch";
 "zero-charged-verbiage" = "De Wikkiphedija Zero es ußjeschalldt";
 "zero-charged-verbiage-extended" = "Annder Sigge lahde kann Jäld koste för de övverdrahre Dahte. Offlain faßjehalldde Siggebruche kein Dahte mih un sin ömmesöns.";

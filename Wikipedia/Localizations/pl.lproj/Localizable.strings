@@ -6,6 +6,7 @@
 // Author: Chrumps
 // Author: Debeet
 // Author: Devwebtel
+// Author: InternerowyGołąb
 // Author: Jacenty359
 // Author: Krottyianock
 // Author: Mazab IZW
@@ -59,6 +60,7 @@
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
 "action-save" = "Zapisz";
+"action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Nie, dziękuję";
@@ -77,6 +79,7 @@
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
 "button-report-a-bug" = "Zgłoś błąd";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zamknij";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
@@ -129,6 +132,7 @@
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
+"gdfl" = "GDFL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
@@ -189,6 +193,11 @@
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
+"on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
+"on-this-day-detail-header-day" = "w $1";
+"on-this-day-detail-header-title" = "$1 wydarzeń historycznych";
+"on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
+"on-this-day-title" = "W tym dniu...";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Anuluj";
 "page-edit-history" = "Pełna historia edycji";
@@ -280,9 +289,7 @@
 "wikitext-upload-result-unknown" = "Nie można określić wyniku pobierania wiki tekstu.";
 "wikitext-upload-save" = "Publikowanie...";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
-"wikitext-upload-save-terms-and-license" = "Publikując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";
 "zero-free-verbiage" = "Bezpłatny dostęp do Wikipedii u twojego operatora telefonii komórkowej (uchylona opłata za ruch)";

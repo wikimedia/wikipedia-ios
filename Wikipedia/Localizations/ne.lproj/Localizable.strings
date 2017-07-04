@@ -40,6 +40,7 @@
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "button-saved-remove" = "सङ्ग्रह गरिएकोबाट हटाउनुहोस् \\";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "टाइपो ठीक गरियो";
@@ -85,7 +86,6 @@
 "in-the-news-notification-save-for-later-action-title" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
 "in-the-news-title" = "समाचारमा";
-"in-the-news-title-for-date" = "$1को विषयमा समाचारहरू";
 "info-box-close-text" = "बन्द गर्नुहोस्";
 // Fuzzy
 "info-box-title" = "शीध्रगामी तथ्यहरू";
@@ -172,7 +172,6 @@
 "welcome-volunteer-thanks" = "$1 तपाईँलाई धन्यवाद!";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
 "zero-charged-verbiage" = "विकिपीडिया शुन्य बन्द भयो";

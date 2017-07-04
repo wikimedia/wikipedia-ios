@@ -56,6 +56,7 @@
 "button-report-a-bug" = "गणकदोष अहवाल द्या";
 "button-save-for-later" = "नंतरसाठी जतन करा";
 "button-saved-for-later" = "नंतरसाठी जतन केले";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बंद करा";
 "compass-direction" = "$1 वाजता";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिकठाक केले";
@@ -220,9 +221,7 @@
 "wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";
 "wikitext-upload-save" = "प्रकाशन करीत आहे...";
 "wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
-"wikitext-upload-save-terms-and-license" = "प्रकाशित करण्याने आपण $1 मान्य करता,व न परताव्याच्या अटींवर आपले योगदान $2 परवान्यांतर्गत विमोचित करता.";
 "wikitext-upload-save-terms-name" = "वापराच्या अटी";
 "zero-charged-verbiage" = "विकिपीडिया झिरो बंद आहे";
 "zero-charged-verbiage-extended" = "इतर लेखांचे प्रभारण केल्याने आपणास डाटा चार्जेस लागू शकतात.विनाजाल जतन केलेले लेख डाटा वापरत नाहीत व मुक्त आहेत.";

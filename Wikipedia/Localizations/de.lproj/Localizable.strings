@@ -51,7 +51,9 @@
 "action-read" = "Lesen";
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
+"action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
 "action-share" = "Teilen";
+"action-unsave" = "Löschen";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Nein, danke";
 "article-about-title" = "Über diesen Artikel";
@@ -73,6 +75,7 @@
 "button-save-for-later" = "Für später speichern";
 "button-saved-for-later" = "Für später gespeichert";
 "button-saved-remove" = "Von gespeichert entfernen";
+"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "close-button-accessibility-label" = "Schließen";
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
@@ -96,6 +99,7 @@
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-because-you-read" = "Weil du liest";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
+"explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Vorgestellter Artikel";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -145,6 +149,7 @@
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
+"gdfl" = "GFDL";
 "history-clear-all" = "Löschen";
 "history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
@@ -180,7 +185,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Für später speichern";
 "in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-title" = "In den Nachrichten";
-"in-the-news-title-for-date" = "Nachrichten auf $1";
 "info-box-close-text" = "Schließen";
 "info-box-title" = "Schnelle Fakten";
 "languages-title" = "Sprache ändern";
@@ -220,6 +224,11 @@
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
+"on-this-day-detail-header-date-range" = "von $1 bis $2";
+"on-this-day-detail-header-day" = "am $1";
+"on-this-day-detail-header-title" = "$1 historische Ereignisse";
+"on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
+"on-this-day-title" = "Heute";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Abbrechen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
@@ -278,6 +287,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|Letztes Jahr|Vor $1 Jahren}}";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "save-action" = "Speichern";
 "saved-clear-all" = "Löschen";
@@ -339,7 +349,7 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unsave-action" = "Speichern abbrechen";
+"unsave-action" = "Löschen";
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-explore-new-ways-sub-title" = "Neue Benachrichtigungen und Widgets, die dir beim Entdecken interessanter Artikel helfen.";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";
@@ -368,9 +378,8 @@
 "wikitext-upload-result-unknown" = "Das Ergebnis deines Wikitext-Uploads konnte nicht ermittelt werden.";
 "wikitext-upload-save" = "Veröffentliche …";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
-"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Anmelden";
-"wikitext-upload-save-terms-and-license" = "Mit dem Veröffentlichen stimmst du den $1 und der unwiderruflichen Veröffentlichung deiner Beiträge unter der $2-Lizenz zu.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Durch das Veröffentlichen von Änderungen stimmst du den $1 und der Veröffentlichung deines Beitrags unter den Lizenzen $2 und $3 zu.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ist aus";
 "zero-charged-verbiage-extended" = "Das Laden weiterer Artikel kann Datenübertragungsgebühren verursachen. Offline gespeicherte Artikel verwenden keine Daten und sind kostenlos.";

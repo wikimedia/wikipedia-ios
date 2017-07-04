@@ -9,13 +9,15 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
+    WMFFeedDisplayTypeEvent,
     WMFFeedDisplayTypeAnnouncement,
     WMFFeedDisplayTypeRelatedPagesSourceArticle,
     WMFFeedDisplayTypeRelatedPages,
     WMFFeedDisplayTypeContinueReading,
     WMFFeedDisplayTypeMainPage,
     WMFFeedDisplayTypeRandom,
-    WMFFeedDisplayTypeRanked
+    WMFFeedDisplayTypeRanked,
+    WMFFeedDisplayTypeNotification
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -23,7 +25,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory
+    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeEvent
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {
@@ -45,7 +48,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePageList,
     WMFFeedMoreTypePageListWithLocation,
     WMFFeedMoreTypeLocationAuthorization,
-    WMFFeedMoreTypeNews
+    WMFFeedMoreTypeNews,
+    WMFFeedMoreTypeOnThisDay
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {

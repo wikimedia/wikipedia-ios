@@ -62,6 +62,7 @@
 "button-next" = "Артабан";
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
 "button-saved-for-later" = "Киләсәккә һаҡланды";
+"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
 "edit-summary-choice-fixed-grammar" = "Дөрөҫ яҙыу төҙәтелгән";
@@ -221,10 +222,7 @@
 // Fuzzy
 "wikitext-upload-save" = "Һаҡлана";
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге конфиденциаллек алығыҙ";
-"cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Инеү";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Һаҡлап,  $1 лицензияһы аҫтында үҙегеҙҙең өлөштө урынлаштырыу менән килешәһегеҙ";
 "wikitext-upload-save-terms-name" = "Ҡулланыу шарттары";
 "zero-charged-verbiage" = "Zero Википедияһы һүндерелгән";
 "zero-charged-verbiage-extended" = "Башҡа мәҡәләләрҙе күсергәндә, мәғлүмәт ебәргән өсөн түләтеүҙәре ихтимал. Айырым һаҡланған мәҡәләләр мәғлүмәт биреүҙе талап итмәй, шуға күрә бушлай.";

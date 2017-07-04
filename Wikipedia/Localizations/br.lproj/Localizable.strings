@@ -54,6 +54,7 @@
 "action-save" = "Enrollañ";
 "action-saved" = "Enrollet";
 "action-share" = "Rannañ";
+"action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
 "announcements-dismiss" = "Ne'm bo ket, trugarez";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
@@ -75,6 +76,7 @@
 "button-save-for-later" = "Enrollañ evit diwezhatoc'h";
 "button-saved-for-later" = "Enrollet evit diwezhatoc'h";
 "button-saved-remove" = "Lemel enroladennoù";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Serriñ";
 "compass-direction" = "da $1 eur";
 "continue-reading-empty-description" = "Explorer Wikipedia evit kaout muioc'h a bennadoù da lenn";
@@ -178,7 +180,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
 "in-the-news-notification-share-action-title" = "Rannañ...";
 "in-the-news-title" = "Er C'heleier";
-"in-the-news-title-for-date" = "Keleier war $1";
 "info-box-close-text" = "Serriñ";
 "info-box-title" = "Fedoù berr-ha-berr";
 "languages-title" = "Cheñch yezh";
@@ -356,9 +357,7 @@
 "wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-save" = "Oc'h embann...";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Kevreañ";
-"wikitext-upload-save-terms-and-license" = "Pa'z embannit e tegemerit ar $1, hag e lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
 "zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";
 "zero-charged-verbiage-extended" = "Kargañ pennadoù all a c'hallfe kreskiñ ar mizoù. Ne vez ket bevezet roadennoù gant ar pennadoù enrollet ezlinenn ha digoust int.";

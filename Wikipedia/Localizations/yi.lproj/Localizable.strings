@@ -32,6 +32,7 @@
 "button-ok" = "יאָ";
 "button-publish" = "פֿאַרעפֿנטלעכן";
 "button-read-now" = "לייענען אצינד";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "פארמאכן";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
@@ -98,8 +99,7 @@
 "page-protected-sysop" = "דער בלאט איז געווארן גאנג געשיצט.";
 "page-similar-titles" = "ענלעכע בלעטער";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 אַרטיקל|$1 אַרטיקלען}}";
-// Fuzzy
-"places-search-default-text" = "זוכן";
+"places-search-default-text" = "זוכן ערטער";
 "preference-summary-eventlogging-opt-in" = "דערלויבן די וויקימעדיע פֿונדאציע צו זאמלען אינפארמאציע וויאזוי איר ניצט דעם אפ כדי צו פארבעסערן דעם אפ";
 "preference-title-eventlogging-opt-in" = "שיקן ניצונג־באריכטן";
 "rank-accessibility-label" = "נומער $1";
@@ -142,7 +142,6 @@
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
 "wikitext-preview-changes-none" = "קיין ענדערונגען נישט געמאכט פאראויסצוזען.";
 "wikitext-upload-save" = "פֿארעפֿנטלעכן…";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";
 "zero-charged-verbiage" = "וויקיפעדיע זערא איז אויס";

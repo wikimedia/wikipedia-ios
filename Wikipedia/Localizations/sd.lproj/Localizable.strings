@@ -49,6 +49,7 @@
 "action-save" = "سانڍيو";
 "action-saved" = "سانڍيل";
 "action-share" = "ونڊيو";
+"action-unsave" = "اڻسانڍيو";
 "alert-no-internet" = "باهمڄار ڳانڍاپو نہ آهي";
 "announcements-dismiss" = "نہ مھرباني";
 "article-about-title" = "هن مضمون بابت";
@@ -70,6 +71,7 @@
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
 "button-saved-remove" = "سانڍيلن مان ھٽايو";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "بند ڪريو";
 "compass-direction" = " $1 بجي";
 "continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
@@ -175,7 +177,6 @@
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
 "in-the-news-notification-share-action-title" = "ونڊيو...";
 "in-the-news-title" = "خبرن ۾";
-"in-the-news-title-for-date" = "$1 تي خبرون";
 "info-box-close-text" = "بند ڪريو";
 "info-box-title" = "ترت ڄاڻ";
 "languages-title" = "ٻولي تبديل ڪريو";
@@ -356,9 +357,7 @@
 "wikitext-upload-result-unknown" = "وڪي ٽيڪسٽ چاڙھہ جو نتيجو حاصل ڪرڻ کان قاصر.";
 "wikitext-upload-save" = "ڇاپيندي...";
 "wikitext-upload-save-anonymously-warning" = "ترميمون توھان جي ڊوائيس جي آءِپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "داخل ٿيو";
-"wikitext-upload-save-terms-and-license" = "ڇاپڻ سان، توھان $1 سان راضپو ڏيکاريو ٿا، ۽ اھو بہ تہ بغير ڪنھن شرط جي پنھنجون ڀاڱيداريون $2 لائسنس جي تحت ڏيو ٿا.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
 "zero-charged-verbiage" = "وڪيپيڊيا زيرو بند آهي";
 "zero-charged-verbiage-extended" = "ٻيا مضمون لوڊ ڪرڻ سان ڊيٽا رقمون لاڳو ٿي سگهن ٿيون. سانڍيل يا آف لائيل جمع ڪيل ڊيٽا استعمال نٿا ڪن ۽ مفت آهن.";

@@ -103,6 +103,7 @@
                             WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
                             [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
                             section.content = @[data.mainPageURL];
+                            [section updateDailySortPriority];
                             [self cleanupOldSectionsInManagedObjectContext:moc];
 
                             if (completion) {

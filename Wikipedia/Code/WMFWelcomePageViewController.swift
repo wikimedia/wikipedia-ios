@@ -74,11 +74,11 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     fileprivate func backgroundGradient() -> WMFGradientView {
-        let gradient = WMFGradientView.init()
+        let gradient = WMFGradientView()
         gradient.gradientLayer.locations = [0, 1]
         gradient.gradientLayer.colors =  [UIColor.wmf_welcomeBackgroundGradientBottom.cgColor, UIColor.wmf_welcomeBackgroundGradientTop.cgColor]
-        gradient.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 1.0)
-        gradient.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 0.0)
+        gradient.gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
         gradient.isUserInteractionEnabled = false
         return gradient
     }

@@ -1,6 +1,7 @@
 // Messages for Bosnian (bosanski)
 // Exported from translatewiki.net
 // Author: Edinwiki
+// Author: Nemo bis
 // Author: Semso98
 // Author: Srdjan m
 
@@ -48,7 +49,9 @@
 "action-read" = "Čitaj";
 "action-save" = "Sačuvaj";
 "action-saved" = "Sačuvano";
+"action-saved-accessibility" = "Sačuvano. Aktivirajte da biste obrisali.";
 "action-share" = "Podijeli";
+"action-unsave" = "Obriši";
 "alert-no-internet" = "Niste povezani na internet";
 "announcements-dismiss" = "Ne, hvala";
 "article-about-title" = "O ovom članku";
@@ -70,6 +73,7 @@
 "button-save-for-later" = "Sačuvaj za kasnije";
 "button-saved-for-later" = "Sačuvano za kasnije";
 "button-saved-remove" = "Ukloni iz sačuvanih";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zatvori";
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
@@ -93,6 +97,7 @@
 "explore-another-random" = "Drugi nasumični članak";
 "explore-because-you-read" = "Budući da ste pročitali";
 "explore-continue-reading-heading" = "Nastavi s čitanjem";
+"explore-enable-location-title" = "Istražite članke o stvarima u blizini Vaše trenutne lokacije";
 "explore-featured-article-heading" = "Odabrani članak";
 "explore-main-page-description" = "Početna stranica Wikimedijinih projekata";
 "explore-main-page-heading" = "Danas na Wikipediji";
@@ -142,6 +147,7 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";
 "forgot-password-title" = "Ponovno postavljanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
+"gdfl" = "GDFL";
 "history-clear-all" = "Očisti";
 "history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve nedavne stavke?";
@@ -177,7 +183,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Sačuvaj za kasnije";
 "in-the-news-notification-share-action-title" = "Podijeli...";
 "in-the-news-title" = "Vijesti";
-"in-the-news-title-for-date" = "Vijesti na datum $1";
 "info-box-close-text" = "Zatvori";
 "info-box-title" = "Kratke činjenice";
 "languages-title" = "Promijeni jezik";
@@ -350,7 +355,7 @@
 "welcome-notifications-tell-me-more-storage" = "Postavke o obavještenjima čuvaju se na uređaj i ne zasnivaju se na ličnim podacima ili aktivnosti.";
 "welcome-notifications-tell-me-more-title" = "Više o obavještenjima";
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Wikimedia da poboljša aplikaciju tako što ćete nam poslati podatke o tom kako je koristite. Prikupljeni podaci su anonimni.";
-"welcome-send-data-title" = "Pošalji anonimne podatke";
+"welcome-send-data-title" = "Šalji anonimne podatke";
 "welcome-volunteer-send-usage-reports" = "Šalji izvještaje o korištenju";
 "welcome-volunteer-thanks" = "$1 Hvala!";
 "wikitext-download-failed" = "Ne mogu dobiti najnoviju izmjenu.";
@@ -365,10 +370,9 @@
 "wikitext-upload-result-unknown" = "Ne mogu utvrditi rezultat postavljanja wikiteksta.";
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-license" = "Objavljivanjem izmjena, slažete se s $1 i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $2.";
-"wikitext-upload-save-terms-name" = "uslovima korištenja";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
+"wikitext-upload-save-terms-name" = "uslove korištenja";
 "zero-charged-verbiage" = "Wikipedia Zero je isključena";
 "zero-charged-verbiage-extended" = "Učitavanje drugih članaka moglo bi sa sobom povući troškove za podatkovni promet. Sačuvani članci na uređaju ne koriste podatkovni promet i besplatni su.";
 "zero-free-verbiage" = "Besplatan pristup Wikipediji preko Vašeg mobilnog operatera (internetski saobraćaj se ne naplaćuje)";

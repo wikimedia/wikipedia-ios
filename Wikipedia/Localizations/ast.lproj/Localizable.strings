@@ -50,7 +50,9 @@
 "action-read" = "Lleer";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
+"action-saved-accessibility" = "Guardao. Activa pa recuperar.";
 "action-share" = "Compartir";
+"action-unsave" = "Nun guardar";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Non, gracies";
 "article-about-title" = "Tocante a esti artículu";
@@ -72,6 +74,7 @@
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zarrar";
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
@@ -95,6 +98,7 @@
 "explore-another-random" = "Otru artículu al debalu";
 "explore-because-you-read" = "Porque lleísti";
 "explore-continue-reading-heading" = "Siguir lleyendo";
+"explore-enable-location-title" = "Esplorar artículos cercanos al to allugamientu actual";
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
@@ -144,6 +148,7 @@
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
+"gdfl" = "GDFL";
 "history-clear-all" = "Llimpiar";
 "history-clear-cancel" = "Encaboxar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
@@ -179,7 +184,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
 "in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-title" = "Actualidá";
-"in-the-news-title-for-date" = "Noticies del $1";
 "info-box-close-text" = "Zarrar";
 "info-box-title" = "Datos rápidos";
 "languages-title" = "Camudar llingua";
@@ -367,9 +371,8 @@
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
-"wikitext-upload-save-terms-and-license" = "Al espublizar, aceutes les $1 y lliberar les tos collaboraciones baxo la llicencia $2.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";
