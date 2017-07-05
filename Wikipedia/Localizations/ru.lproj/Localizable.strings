@@ -245,6 +245,11 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
 "number-thousands" = "$1 тыс.";
+"on-this-day-detail-header-date-range" = "С $1 — $2";
+"on-this-day-detail-header-day" = "на $1";
+"on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
+"on-this-day-footer" = "Больше исторических событий этого дня";
+"on-this-day-title" = "В этот день…";
 "onboarding-wikipedia" = "Википедия";
 "open-link-cancel" = "Отмена";
 "page-edit-history" = "Полная история редактирования";
@@ -303,6 +308,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=этот год|прошлый год|$1 года назад|$1 лет назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "save-action" = "Сохранить";
 "saved-clear-all" = "Очистить";

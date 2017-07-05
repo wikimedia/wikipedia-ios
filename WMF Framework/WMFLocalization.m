@@ -29,24 +29,35 @@
     return bundle;
 }
 
+- (nullable NSBundle *)wmf_fallbackLanguageBundle {
+    static dispatch_once_t onceToken;
+    static NSBundle *wmf_fallbackLanguageBundle;
+    dispatch_once(&onceToken, ^{
+        NSString *path = [self pathForResource:@"en" ofType:@"lproj"];
+        wmf_fallbackLanguageBundle = [NSBundle bundleWithPath:path];
+    });
+    return wmf_fallbackLanguageBundle;
+}
+
 @end
 
 NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL *_Nullable url, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
     if (bundle == nil) {
         bundle = NSBundle.wmf_localizationBundle;
     }
+    
     NSString *language = url.wmf_language;
+    NSString *translation = nil;
     if (language == nil) {
-        return [bundle localizedStringForKey:key value:value table:nil];
+        translation = [bundle localizedStringForKey:key value:nil table:nil];
+    } else {
+        NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:language];
+        translation = [languageBundle localizedStringForKey:key value:nil table:nil];
     }
 
-    NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:language];
-    NSString *translation = nil;
-    if (languageBundle) {
-        translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
-    }
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-        return [bundle localizedStringForKey:key value:value table:nil];
+        translation = [[bundle wmf_fallbackLanguageBundle] localizedStringForKey:key value:value table:nil];
     }
+    
     return translation ? translation : @"";
 }

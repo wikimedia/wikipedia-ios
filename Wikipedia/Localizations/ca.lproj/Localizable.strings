@@ -156,6 +156,7 @@
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
+"gdfl" = "GDFL";
 "history-clear-all" = "Neteja";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
@@ -230,6 +231,8 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
+"on-this-day-detail-header-day" = "el $1";
+"on-this-day-detail-header-title" = "1$ esdeveniments històrics";
 "onboarding-wikipedia" = "Viquipèdia";
 "open-link-cancel" = "Cancel·la";
 "page-edit-history" = "Historial complet";
@@ -245,6 +248,7 @@
 "page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-similar-titles" = "Pàgines similars";
 "pictured" = "retratat";
+"places-accessibility-clear-saved-searches" = "Neteja les cerques desades";
 "places-accessibility-close-search" = "Tanca la cerca";
 "places-accessibility-group" = "$1 articles";
 "places-accessibility-recenter-map-on-user-location" = "Torneu a centrar en la vostra ubicació";
