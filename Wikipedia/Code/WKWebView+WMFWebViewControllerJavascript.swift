@@ -22,12 +22,13 @@ import WebKit
     
     private func localizedTitle(with article: MWKArticle) -> String {
         var title = ""
+        let language = article.url.wmf_language
         switch self {
-        case .languages: title = WMFLocalizedStringWithDefaultValue("page-read-in-other-languages", article.url, Bundle.wmf_localization, "Available in %1$@ other languages", "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
-        case .lastEdited: title = WMFLocalizedStringWithDefaultValue("page-last-edited", article.url, Bundle.wmf_localization, "Edited %1$@ days ago", "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
-        case .pageIssues: title = WMFLocalizedStringWithDefaultValue("page-issues", article.url, Bundle.wmf_localization, "Page issues", "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
-        case .disambiguation: title = WMFLocalizedStringWithDefaultValue("page-similar-titles", article.url, Bundle.wmf_localization, "Similar pages", "Label for button that shows a list of similar titles (disambiguation) for the current page")
-        case .coordinate: title = WMFLocalizedStringWithDefaultValue("page-location", article.url, Bundle.wmf_localization, "View on a map", "Label for button used to show an article on the map")
+        case .languages: title = WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
+        case .lastEdited: title = WMFLocalizedString("page-last-edited",  language: language, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
+        case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
+        case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
+        case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
         }
         return title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
     }
@@ -47,7 +48,7 @@ import WebKit
     
     private func localizedSubtitle(with article: MWKArticle) -> String {
         switch self {
-        case .lastEdited: return WMFLocalizedStringWithDefaultValue("page-edit-history", article.url, Bundle.wmf_localization, "Full edit history", "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        case .lastEdited: return WMFLocalizedString("page-edit-history", language: article.url.wmf_language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         default:
             return ""
         }
@@ -94,7 +95,7 @@ import WebKit
 extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
-        let heading = WMFLocalizedStringWithDefaultValue("article-about-title", article.url, Bundle.wmf_localization, "About this article", "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
+        let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
 
         let itemsJS = [
@@ -111,8 +112,8 @@ extension WKWebView {
     }
 
     public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
-        let licenseString = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("license-footer-text", article.url, Bundle.wmf_localization, "Content is available under %1$@ unless otherwise noted.", "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
-        let licenseSubstitutionString = WMFLocalizedStringWithDefaultValue("license-footer-name", article.url, Bundle.wmf_localization, "CC BY-SA 3.0", "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: article.url.wmf_language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
+        let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: article.url.wmf_language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let licenseLinkClickHandler =
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
@@ -129,7 +130,7 @@ extension WKWebView {
             return
         }
         
-        let heading = WMFLocalizedStringWithDefaultValue("article-read-more-title", article.url, Bundle.wmf_localization, "Read more", "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
+        let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
 
         let saveForLaterString = SaveButton.saveTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()

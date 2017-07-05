@@ -726,7 +726,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
-            let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
         } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
@@ -744,10 +744,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                     }
                 }
                 let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = resultURL?.wmf_articleDatabaseKey
             } else {
                 let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = firstResultURL?.wmf_articleDatabaseKey
             }
         }
         
@@ -756,7 +756,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var sort = 1
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
-                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                let articleURL = siteURL.wmf_URL(withTitle: displayTitle),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
@@ -2155,8 +2155,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let title = result.displayTitle,
-                let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
-                let key = (url as NSURL).wmf_articleDatabaseKey,
+                let url = self.siteURL.wmf_URL(withTitle: title),
+                let key = url.wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
             }
@@ -2182,13 +2182,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     public func showArticleURL(_ articleURL: URL) {
-        guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
+        guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation
             return
         }
         let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {

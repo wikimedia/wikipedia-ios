@@ -100,9 +100,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return false
         }
         
-        let fragment = article.viewedFragment
-        
-        guard let newArticleURL = (article.url as NSURL?)?.wmf_URL(withFragment: fragment) else {
+        guard let fragment = article.viewedFragment, let newArticleURL = article.url?.wmf_URL(withFragment: fragment) else {
             return false
         }
         
