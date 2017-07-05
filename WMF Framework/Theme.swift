@@ -12,9 +12,9 @@ public class ThemeColors: NSObject {
     fileprivate static let exosphere = UIColor.wmf_color(withHex: 0x27292D)!
     fileprivate static let accent = UIColor.wmf_color(withHex: 0x00AF89)!
     
-    fileprivate static let dark = ThemeColors(baseBackground: ThemeColors.base10, midBackground: ThemeColors.exosphere, paperBackground: ThemeColors.thermosphere, chromeBackground: ThemeColors.mesophere, primaryText: ThemeColors.base90, secondaryText: ThemeColors.base70, chromeText: ThemeColors.base90, link: ThemeColors.stratosphere, accent: ThemeColors.accent, icon: ThemeColors.base70, border: ThemeColors.mesophere, shadow: ThemeColors.mesophere)
+    fileprivate static let dark = ThemeColors(baseBackground: ThemeColors.base10, midBackground: ThemeColors.exosphere, paperBackground: ThemeColors.thermosphere, chromeBackground: ThemeColors.mesophere, primaryText: ThemeColors.base90, secondaryText: ThemeColors.base70, chromeText: ThemeColors.base90, link: ThemeColors.stratosphere, accent: ThemeColors.accent, border: ThemeColors.mesophere, shadow: ThemeColors.mesophere, icon: ThemeColors.base70, iconBackground: ThemeColors.exosphere)
     
-    fileprivate static let light = ThemeColors(baseBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paperBackground: .white, chromeBackground: .white, primaryText: .black, secondaryText: .wmf_customGray, chromeText: .wmf_navigationGray, link: .wmf_blue, accent: .wmf_green, icon: ThemeColors.base10, border: ThemeColors.base10 , shadow: ThemeColors.base10)
+    fileprivate static let light = ThemeColors(baseBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paperBackground: .white, chromeBackground: .white, primaryText: .black, secondaryText: .wmf_customGray, chromeText: .wmf_navigationGray, link: .wmf_blue, accent: .wmf_green, border: ThemeColors.base10 , shadow: ThemeColors.base10, icon: nil, iconBackground: nil)
     
     public let baseBackground: UIColor
     public let midBackground: UIColor
@@ -27,13 +27,14 @@ public class ThemeColors: NSObject {
     
     public let link: UIColor
     public let accent: UIColor
-    
-    public let icon: UIColor
+
     public let border: UIColor
     public let shadow: UIColor
     
+    public let icon: UIColor?
+    public let iconBackground: UIColor?
     
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, icon: UIColor, border: UIColor, shadow: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, icon: UIColor?, iconBackground: UIColor?) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.paperBackground = paperBackground
@@ -46,9 +47,11 @@ public class ThemeColors: NSObject {
         self.link = link
         self.accent = accent
         
-        self.icon = icon
         self.border = border
         self.shadow = shadow
+        
+        self.icon = icon
+        self.iconBackground = iconBackground
     }
 }
 
