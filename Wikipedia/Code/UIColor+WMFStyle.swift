@@ -46,7 +46,7 @@ public extension UIColor {
     public static let wmf_welcomeBackgroundGradientTop: UIColor = .wmf_color(withHex: 0x3366cc)
     public static let wmf_welcomeBackgroundGradientBottom: UIColor = .wmf_color(withHex: 0x0af89)
     public static let wmf_primaryLanguageLabelBackground: UIColor = .wmf_color(withHex: 0xcccccc)
-    public static let wmf_barButtonItemPopoverMessageBackground: UIColor = .wmf_color(withHex: 0x000000, alpha: 0.8)
+    public static let wmf_barButtonItemPopoverMessageBackground: UIColor = .wmf_color(withHex: 0x43464a, alpha: 1.0)
     public static let wmf_referencePopoverBackground: UIColor = .white
     public static let wmf_referencePopoverLink: UIColor = .wmf_color(withHex: 0x3366cc)
     public static let wmf_referencePopoverText: UIColor = .black
