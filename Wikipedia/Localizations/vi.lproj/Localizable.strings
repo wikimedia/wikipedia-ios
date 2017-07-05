@@ -258,11 +258,11 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
-"settings-clear-cache" = "Xoá dữ liệu đệm";
-"settings-clear-cache-are-you-sure-message" = "Xoá dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xoá trang bạn đã lưu.";
-"settings-clear-cache-are-you-sure-title" = "Xoá dữ liệu đệm?";
-"settings-clear-cache-cancel" = "Huỷ bỏ";
-"settings-clear-cache-ok" = "Xoá bộ đệm";
+"settings-clear-cache" = "Xóa dữ liệu đệm";
+"settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
+"settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
+"settings-clear-cache-cancel" = "Hủy bỏ";
+"settings-clear-cache-ok" = "Xóa bộ đệm";
 "settings-help-and-feedback" = "Trợ giúp và phản hồi";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-my-languages" = "Ngôn ngữ của tôi";

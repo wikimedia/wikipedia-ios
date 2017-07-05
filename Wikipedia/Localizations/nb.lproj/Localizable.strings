@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
+// Author: Pmt
 // Author: SuperPotato
 // Author: Tsaetre
 
@@ -221,6 +222,7 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";
 "number-thousands" = "$1 tusen";
+"on-this-day-title" = "På denne dag";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Avbryt";
 "page-edit-history" = "Fullstendig redigeringshistorikk";

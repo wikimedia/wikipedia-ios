@@ -230,6 +230,11 @@
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "מ־$1 עד $2";
+"on-this-day-detail-header-day" = "ב־$1";
+"on-this-day-detail-header-title" = "$1 אירועים היסטוריים";
+"on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
+"on-this-day-title" = "ביום הזה";
 "onboarding-wikipedia" = "ויקיפדיה";
 "open-link-cancel" = "ביטול";
 "page-edit-history" = "היסטוריית עריכה מלאה";
@@ -288,6 +293,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|3=לפני יומיים|לפני $1 ימים}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "save-action" = "שמירה";
 "saved-clear-all" = "ניקוי";

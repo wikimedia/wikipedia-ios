@@ -9,6 +9,7 @@
 "about-libraries" = "Izmantotās bibliotēkas";
 "about-libraries-complete-list" = "Pilns saraksts";
 "about-libraries-license" = "Licence";
+"about-repositories-app-source-license" = "Pirmkods pieejams zem $1.";
 "about-repositories-app-source-license-mit" = "MIT licence";
 "about-title" = "Par";
 "about-translators" = "Tulkotāji";
