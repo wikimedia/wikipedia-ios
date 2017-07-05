@@ -466,7 +466,7 @@ function footerDivClickCallback(container) {
 }
 
 function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
-  tableCollapser.collapseTables(document, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
+  tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
 }
 
 exports.hideTables = hideTables
