@@ -36,6 +36,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, WMFFeedNotificationCellDelegate>
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -328,11 +330,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // self.view is a wrapper view (Apple's, not ours), so we need to set the collectionView explicitly
-    self.view.backgroundColor = [UIColor wmf_settingsBackground];
-    self.collectionView.backgroundColor = [UIColor wmf_settingsBackground];
-    self.view.tintColor = [UIColor wmf_blue];
-    self.collectionView.tintColor = [UIColor wmf_blue];
     [self registerCellsAndViews];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -566,6 +563,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSString *reuseIdentifier = [self reuseIdentifierForCellAtIndexPath:indexPath displayType:displayType];
             WMFArticleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
             [self configureArticleCell:cell withSection:contentGroup displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:NO];
+            [cell applyTheme:self.theme];
             return (UICollectionViewCell *)cell;
         } break;
         case WMFFeedDisplayTypePageWithLocation: {
@@ -599,6 +597,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeNotification: {
             WMFFeedNotificationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName] forIndexPath:indexPath];
             cell.notificationCellDelegate = self;
+            [cell applyTheme:self.theme];
             return cell;
         } break;
         default:
@@ -836,10 +835,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     header.imageBackgroundColor = [section headerIconBackgroundColor];
 
     header.title = [[section headerTitle] mutableCopy];
-    [header setTitleColor:[section headerTitleColor]];
-
     header.subTitle = [[section headerSubTitle] mutableCopy];
-    [header setSubTitleColor:[section headerSubTitleColor]];
+    
+    [header applyTheme:self.theme];
 
     @weakify(self);
     header.whenTapped = ^{
@@ -963,7 +961,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
             footer.enableLocationButton.tag = indexPath.section;
             [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
+            [footer applyTheme:self.theme];
             return footer;
         }
         default: {
@@ -980,6 +978,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
             };
+            [footer applyTheme:self.theme];
             return footer;
         }
     }
@@ -1785,6 +1784,17 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 }
 
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.collectionView.backgroundColor = theme.farBackground;
+    self.view.backgroundColor = theme.farBackground;
+    self.view.tintColor = theme.link;
+    self.collectionView.tintColor = theme.link;
+    [self.collectionView reloadData];
+}
+
 #pragma mark - News Delegate
 
 - (void)sideScrollingCollectionViewCell:(WMFSideScrollingCollectionViewCell *)cell didSelectArticleWithURL:(NSURL *)articleURL {
@@ -1794,7 +1804,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore animated:YES];
 }
 
-#if DEBUG
+#if DEBUG && DEBUG_CHAOS
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
         [super motionEnded:motion withEvent:event];

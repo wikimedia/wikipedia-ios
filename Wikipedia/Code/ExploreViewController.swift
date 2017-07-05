@@ -271,3 +271,11 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
     }
 }
+
+extension ExploreViewController: Themeable {
+    func apply(theme: Theme) {
+        if let cvc = collectionViewController as Themeable? {
+            cvc.apply(theme: theme)
+        }
+    }
+}

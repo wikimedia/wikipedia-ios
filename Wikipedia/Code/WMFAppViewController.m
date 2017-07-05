@@ -5,6 +5,8 @@
 // Frameworks
 @import Masonry;
 
+#define DEBUG_THEMES 1
+
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
@@ -105,6 +107,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -118,6 +122,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.theme = [WMFTheme light];
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -195,6 +200,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)configureExploreViewController {
     [self.exploreViewController setUserStore:self.dataStore];
+    [self.exploreViewController applyTheme:self.theme];
 }
 
 - (void)configurePlacesViewController {
@@ -1305,7 +1311,24 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Perma Random Mode
 
-#if WMF_TWEAKS_ENABLED
+#if DEBUG && DEBUG_THEMES
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+    
+    if (self.theme == [WMFTheme light]) {
+        self.theme = [WMFTheme dark];
+    } else {
+        self.theme = [WMFTheme light];
+    }
+    
+    [[self exploreViewController] applyTheme:self.theme];
+}
+#elif WMF_TWEAKS_ENABLED
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
         [super motionEnded:motion withEvent:event];

@@ -1,6 +1,7 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFExploreSectionHeader : UICollectionReusableView
+@interface WMFExploreSectionHeader : UICollectionReusableView <WMFThemeable>
 
 - (void)setImage:(UIImage *)image;
 - (void)setImageTintColor:(UIColor *)imageTintColor;

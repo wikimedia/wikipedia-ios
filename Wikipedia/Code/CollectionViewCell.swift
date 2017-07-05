@@ -10,7 +10,7 @@ import UIKit
 //     it could do a rough estimate pass, and then update the content size as the user scrolls.)
 
 @objc(WMFCollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell, Themeable {
+open class CollectionViewCell: UICollectionViewCell {
     // MARK - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
@@ -95,15 +95,5 @@ open class CollectionViewCell: UICollectionViewCell, Themeable {
         } else {
             return layoutAttributes
         }
-    }
-    
-    public var theme: Theme = Theme.current {
-        didSet {
-            themeDidChange()
-        }
-    }
-
-    public func themeDidChange() {
-        
     }
 }

@@ -29,4 +29,10 @@
     }
 }
 
+- (void)applyTheme:(WMFTheme *)theme {
+    self.visibleBackgroundView.backgroundColor = theme.midBackground;
+    self.moreLabel.textColor = theme.secondaryText;
+    self.moreLabel.backgroundColor = theme.midBackground;
+}
+
 @end

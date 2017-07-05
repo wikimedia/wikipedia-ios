@@ -1,6 +1,7 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFExploreSectionFooter : UICollectionReusableView
+@interface WMFExploreSectionFooter : UICollectionReusableView <WMFThemeable>
 
 @property (strong, nonatomic) IBOutlet UILabel *moreLabel;
 @property (strong, nonatomic) IBOutlet UIView *visibleBackgroundView;

@@ -3,17 +3,18 @@ import Foundation
 @objc(WMFTheme)
 public class Theme: NSObject {
    
-    let farBackground: UIColor
-    let midBackground: UIColor
-    let paper: UIColor
-    let chrome: UIColor
+    public let farBackground: UIColor
+    public let midBackground: UIColor
+    public let paper: UIColor
+    public let chrome: UIColor
     
-    let text: UIColor
-    let secondaryText: UIColor
-    let link: UIColor
-    let accent: UIColor
+    public let text: UIColor
+    public let secondaryText: UIColor
+    public let link: UIColor
+    public let accent: UIColor
     
-    public static var current = Theme(farBackground: .gray, midBackground: .lightGray, paper: .white, chrome: .white, text: .black, secondaryText: .gray, link: .blue, accent: .green)
+    public static var light = Theme(farBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paper: .white, chrome: .white, text: .black, secondaryText: .wmf_customGray, link: .wmf_blue, accent: .wmf_green)
+    public static var dark = Theme(farBackground: .darkGray, midBackground: .gray, paper: .black, chrome: .darkGray, text: .white, secondaryText: .lightGray, link: .wmf_orange, accent: .wmf_green)
     
     init(farBackground: UIColor, midBackground: UIColor, paper: UIColor, chrome: UIColor, text: UIColor, secondaryText: UIColor, link: UIColor, accent: UIColor) {
         self.farBackground = farBackground
@@ -29,62 +30,6 @@ public class Theme: NSObject {
 
 @objc(WMFThemeable)
 public protocol Themeable : NSObjectProtocol {
-    var theme: Theme { get set }
-    func themeDidChange()
+    @objc(applyTheme:)
+    func apply(theme: Theme)
 }
-
-
-@objc(WMFView)
-class View: UIView, Themeable {
-    public var theme: Theme = Theme.current {
-        didSet {
-            themeDidChange()
-        }
-    }
-    
-    func themeDidChange() {
-        
-    }
-}
-
-@objc(WMFViewController)
-class ViewController: UIViewController, Themeable {
-    public var theme: Theme = Theme.current {
-        didSet {
-            themeDidChange()
-        }
-    }
-    
-    func themeDidChange() {
-        
-    }
-}
-
-
-@objc(WMFTableViewController)
-class TableViewController: UITableViewController, Themeable {
-    public var theme: Theme = Theme.current {
-        didSet {
-            themeDidChange()
-        }
-    }
-    
-    func themeDidChange() {
-        
-    }
-}
-
-
-@objc(WMFCollectionViewController)
-class CollectionViewController: UICollectionViewController, Themeable {
-    public var theme: Theme = Theme.current {
-        didSet {
-            themeDidChange()
-        }
-    }
-    
-    func themeDidChange() {
-        
-    }
-}
-
