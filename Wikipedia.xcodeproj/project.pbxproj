@@ -171,6 +171,11 @@
 		B04034461F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		B04034471F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		B04034481F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		B040344A1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		B040344B1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		B040344C1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		B040344D1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */; };
+		B040344E1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
 		B0484FEF1E74B77F003A0E28 /* UIColor+WMFStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0484FEA1E73CDB2003A0E28 /* UIColor+WMFStyle.swift */; };
 		B0484FF01E74BA30003A0E28 /* UIImageView+WMFPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */; };
@@ -3278,6 +3283,7 @@
 		B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayExploreCollectionViewCell.swift; path = Wikipedia/Code/OnThisDayExploreCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
+		B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageTagParserTests.m; sourceTree = "<group>"; };
 		B0484FEA1E73CDB2003A0E28 /* UIColor+WMFStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+WMFStyle.swift"; path = "Wikipedia/Code/UIColor+WMFStyle.swift"; sourceTree = SOURCE_ROOT; };
 		B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array<UITextField>+WMFAllFieldsFilled.swift"; path = "Wikipedia/Code/Array<UITextField>+WMFAllFieldsFilled.swift"; sourceTree = SOURCE_ROOT; };
@@ -6873,17 +6879,18 @@
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
 				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
 				D89845281ECC8A1700849DA4 /* NewsCollectionViewCell.swift */,
+				B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */,
-				B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */,
 				B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */,
+				B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */,
 				B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
+				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
 				D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */,
 				D8497F631EE09BE600100CBD /* CircledRankView.swift */,
-				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */,
 				D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */,
 				B0E803BB1C0CDC360065EBC0 /* WMFArticleListTableViewCell+WMFSearch.h */,
@@ -9970,6 +9977,7 @@
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
+				B040344A1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -10040,6 +10048,7 @@
 				D80ED2971EE57F4800CE8C50 /* NotificationSettingsViewController.swift in Sources */,
 				D80ED2981EE57F4800CE8C50 /* PlaceSearchSuggestionController.swift in Sources */,
 				D80ED2991EE57F4800CE8C50 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
+				B040344E1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D80ED29A1EE57F4800CE8C50 /* WMFNearbyArticleTableViewCell.m in Sources */,
 				D80ED29B1EE57F4800CE8C50 /* WMFPageHistoryRevision.m in Sources */,
 				D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
@@ -10682,6 +10691,7 @@
 				D8A42AB51E815A9C00D8E281 /* WMFFeedNotificationCell.m in Sources */,
 				D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */,
 				D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */,
+				B040344D1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8A42AB81E815A9C00D8E281 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
@@ -10960,6 +10970,7 @@
 				D8CE25061E698E2400DAE2E0 /* WMFShareOptionsView.m in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
+				B040344B1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				D8CE250A1E698E2400DAE2E0 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				D813FDA11EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift in Sources */,
@@ -11304,6 +11315,7 @@
 				D8EC3DFB1E9BDA35006712EB /* WMFPageCollectionViewController.m in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D8EC3DFD1E9BDA35006712EB /* WMFShareOptionsView.m in Sources */,
+				B040344C1F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8EC3DFE1E9BDA35006712EB /* PlaceSearch.swift in Sources */,
 				D8EC3DFF1E9BDA35006712EB /* NotificationSettingsViewController.swift in Sources */,
 				D8EC3E001E9BDA35006712EB /* PlaceSearchSuggestionController.swift in Sources */,
