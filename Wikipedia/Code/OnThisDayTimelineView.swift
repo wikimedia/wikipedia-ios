@@ -31,7 +31,7 @@ class OnThisDayTimelineView: UIView {
             guard shouldAnimateDots == false else {
                 return
             }
-            updateTopDotsRadii(to: 1.0, at: CGPoint(x: frame.midX, y: topDotsY))
+            updateTopDotsRadii(to: 1.0, at: CGPoint(x: bounds.midX, y: topDotsY))
         }
     }
 
@@ -40,7 +40,7 @@ class OnThisDayTimelineView: UIView {
             guard shouldAnimateDots == false else {
                 return
             }
-            bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: frame.midX, y: bottomDotY))
+            bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: bounds.midX, y: bottomDotY))
         }
     }
 
@@ -142,7 +142,7 @@ class OnThisDayTimelineView: UIView {
             return
         }
         
-        updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: frame.midX, y: topDotsY))
+        updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: bounds.midX, y: topDotsY))
         
         // Progressively fade the inner dot when it gets tiny.
         topInnerDotShapeLayer.opacity = easeInOutQuart(number: Float(radiusNormal))
