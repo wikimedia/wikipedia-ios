@@ -11,8 +11,8 @@ extension OnThisDayCollectionViewCell {
         
         titleLabel.text = onThisDayEvent.yearWithEraString
 
-        let articleSiteURL =  (onThisDayEvent.articlePreviews?.first?.articleURL as NSURL?)?.wmf_site
-        let articleLanguage = (articleSiteURL as NSURL?)?.wmf_language
+        let articleSiteURL = onThisDayEvent.siteURL
+        let articleLanguage = onThisDayEvent.language
         
         if let eventYear = onThisDayEvent.year {
             let yearsSinceEvent = currentYear - eventYear.intValue
