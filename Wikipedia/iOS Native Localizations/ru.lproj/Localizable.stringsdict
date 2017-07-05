@@ -11,11 +11,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>%1$@ историческое событие</string>
+			<string>%1$d историческое событие</string>
 			<key>other</key>
-			<string>%1$@ исторических событий</string>
+			<string>%1$d исторических событий</string>
 		</dict>
 	</dict>
 	<key>places-filter-saved-articles-count</key>
