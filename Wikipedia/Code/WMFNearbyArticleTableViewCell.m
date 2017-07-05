@@ -31,7 +31,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self configureImageViewWithPlaceholder];
     self.articleImageView.layer.cornerRadius = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
     self.articleImageView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
@@ -48,15 +47,10 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self configureImageViewWithPlaceholder];
     self.descriptionText = nil;
     self.titleText = nil;
     self.titleLabel.text = nil;
     self.distanceLabel.text = nil;
-}
-
-- (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_showPlaceholder];
 }
 
 + (CGFloat)estimatedRowHeight {

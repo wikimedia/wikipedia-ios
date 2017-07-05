@@ -78,7 +78,6 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         super.reset()
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
     }
     
     var isImageViewHidden = false {

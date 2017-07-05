@@ -18,14 +18,9 @@
     return 60.f;
 }
 
-- (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_showPlaceholder];
-}
-
 - (void)configureCell {
     [self configureContentView];
     [self wmf_addSelectedBackgroundView];
-    [self configureImageViewWithPlaceholder];
 }
 
 - (void)configureContentView {
@@ -37,22 +32,14 @@
     [super prepareForReuse];
     self.titleLabel.text = nil;
     self.descriptionLabel.text = nil;
-    [self configureImageViewWithPlaceholder];
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self configureImageViewWithPlaceholder];
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
     self.descriptionLabel.textAlignment = NSTextAlignmentNatural;
     // apply customizations for base class only
-    if ([self isMemberOfClass:[WMFArticleListTableViewCell class]]) {
-        // need to aspect-fit placeholder since our image view is too small
-        self.articleImageView.wmf_placeholderView.contentMode = UIViewContentModeScaleAspectFit;
-        // use clear background, gray default looks bad w/ this cell
-        self.articleImageView.wmf_placeholderView.backgroundColor = [UIColor whiteColor];
-    }
     [self wmf_configureSubviewsForDynamicType];
 }
 

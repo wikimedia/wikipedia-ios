@@ -15,7 +15,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
@@ -46,7 +45,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageViewDimension = 70
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
     }
     
     deinit {
