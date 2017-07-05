@@ -26,4 +26,19 @@ extension DateFormatter {
         yearWithEraDateFormatterCache[wikipediaLanguage] = dateFormatter
         return dateFormatter
     }
+    
+    private static var monthNameDayNumberFormatterCache: [String: DateFormatter] = [:]
+    
+    public static func monthNameDayNumberFormatter(for wikipediaLanguage: String?) -> DateFormatter {
+        let wikipediaLanguage = wikipediaLanguage ?? "en"
+        if let formatter = monthNameDayNumberFormatterCache[wikipediaLanguage] {
+            return formatter
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale.wmf_locale(for: wikipediaLanguage)
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d")
+        return dateFormatter
+    }
 }

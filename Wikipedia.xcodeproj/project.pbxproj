@@ -1159,7 +1159,7 @@
 		D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D830D2451DEF3E50005ACB0E /* WMFLegacyContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */; };
-		D837B5A81F06E5C600DCB9CD /* DateFormatter+Era.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A71F06E5C600DCB9CD /* DateFormatter+Era.swift */; };
+		D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */; };
 		D837B5AA1F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
@@ -4324,7 +4324,7 @@
 		D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAnimatedImage.framework; path = Carthage/Build/iOS/FLAnimatedImage.framework; sourceTree = SOURCE_ROOT; };
 		D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLegacyContentGroup.h; sourceTree = "<group>"; };
 		D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyContentGroup.m; sourceTree = "<group>"; };
-		D837B5A71F06E5C600DCB9CD /* DateFormatter+Era.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Era.swift"; sourceTree = "<group>"; };
+		D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+WikipediaLanguage.swift"; sourceTree = "<group>"; };
 		D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFFeedOnThisDayEvent+LocalizedDates.swift"; path = "WMF Framework/WMFFeedOnThisDayEvent+LocalizedDates.swift"; sourceTree = SOURCE_ROOT; };
 		D844480E1DDA33D900425630 /* Wikipedia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wikipedia.xcdatamodel; sourceTree = "<group>"; };
 		D84448201DDB60FF00425630 /* WMFArticle+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticle+Extensions.h"; sourceTree = "<group>"; };
@@ -8019,7 +8019,7 @@
 				B0E804901C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m */,
 				0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */,
 				0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */,
-				D837B5A71F06E5C600DCB9CD /* DateFormatter+Era.swift */,
+				D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */,
 				D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */,
 				D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */,
 				D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */,
@@ -10355,7 +10355,7 @@
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
 				B0484FF01E74BA30003A0E28 /* UIImageView+WMFPlaceholder.m in Sources */,
-				D837B5A81F06E5C600DCB9CD /* DateFormatter+Era.swift in Sources */,
+				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
