@@ -956,7 +956,11 @@ exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
 },{}],14:[function(require,module,exports){
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.pagelib = factory());
+}(this, (function () { 'use strict';
 
 // This file exists for CSS packaging only. It imports the CSS which is to be
 // packaged in the override CSS build product.
@@ -969,7 +973,7 @@ exports.findClosest = findClosest
  * @param {!string} selector Selector to look for
  * @return {!boolean} Whether the element matches the selector
  */
-var matchesSelectorCompat = function matchesSelectorCompat(el, selector) {
+var matchesSelector = function matchesSelector(el, selector) {
   if (el.matches) {
     return el.matches(selector);
   }
@@ -982,6 +986,20 @@ var matchesSelectorCompat = function matchesSelectorCompat(el, selector) {
   return false;
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+// Required by Android API 16 AOSP Nexus S emulator.
+// eslint-disable-next-line no-undef
+var CustomEvent = typeof window !== 'undefined' && window.CustomEvent || function (type) {
+  var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { bubbles: false, cancelable: false, detail: undefined };
+
+  // eslint-disable-next-line no-undef
+  var event = document.createEvent('CustomEvent');
+  event.initCustomEvent(type, parameters.bubbles, parameters.cancelable, parameters.detail);
+  return event;
+};
+
+var Polyfill = { matchesSelector: matchesSelector, CustomEvent: CustomEvent };
+
 /**
  * Returns closest ancestor of element which matches selector.
  * Similar to 'closest' methods as seen here:
@@ -993,7 +1011,7 @@ var matchesSelectorCompat = function matchesSelectorCompat(el, selector) {
  */
 var findClosestAncestor = function findClosestAncestor(el, selector) {
   var parentElement = void 0;
-  for (parentElement = el.parentElement; parentElement && !matchesSelectorCompat(parentElement, selector); parentElement = parentElement.parentElement) {
+  for (parentElement = el.parentElement; parentElement && !Polyfill.matchesSelector(parentElement, selector); parentElement = parentElement.parentElement) {
     // Intentionally empty.
   }
   return parentElement;
@@ -1009,10 +1027,11 @@ var isNestedInTable = function isNestedInTable(el) {
 };
 
 var elementUtilities = {
-  matchesSelectorCompat: matchesSelectorCompat,
   findClosestAncestor: findClosestAncestor,
   isNestedInTable: isNestedInTable
 };
+
+var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
 
 /**
  * Find an array of table header (TH) contents. If there are no TH elements in
@@ -1078,7 +1097,7 @@ var getTableHeader = function getTableHeader(element, pageTitle) {
  *     })
  * @this HTMLElement
  * @param {?FooterDivClickCallback} footerDivClickCallback
- * @return {void}
+ * @return {boolean} true if collapsed, false if expanded.
  */
 var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
   var container = this.parentNode;
@@ -1086,7 +1105,8 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
   var table = container.children[1];
   var footer = container.children[2];
   var caption = header.querySelector('.app_table_collapsed_caption');
-  if (table.style.display !== 'none') {
+  var collapsed = table.style.display !== 'none';
+  if (collapsed) {
     table.style.display = 'none';
     header.classList.remove('app_table_collapse_close'); // todo: use app_table_collapsed_collapsed
     header.classList.remove('app_table_collapse_icon'); // todo: use app_table_collapsed_icon
@@ -1109,6 +1129,7 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     }
     footer.style.display = 'block';
   }
+  return collapsed;
 };
 
 /**
@@ -1181,38 +1202,40 @@ var newCaption = function newCaption(title, headerText) {
 };
 
 /**
- * @param {!Document} document
+ * @param {!Window} window
  * @param {!Element} content
  * @param {?string} pageTitle
  * @param {?boolean} isMainPage
  * @param {?string} infoboxTitle
  * @param {?string} otherTitle
  * @param {?string} footerTitle
+ * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {void}
  */
-var collapseTables = function collapseTables(document, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
   if (isMainPage) {
     return;
   }
 
   var tables = content.querySelectorAll('table');
-  for (var i = 0; i < tables.length; ++i) {
+
+  var _loop = function _loop(i) {
     var table = tables[i];
 
     if (elementUtilities.findClosestAncestor(table, '.app_table_container') || !shouldTableBeCollapsed(table)) {
-      continue;
+      return 'continue';
     }
 
     // todo: this is actually an array
     var headerText = getTableHeader(table, pageTitle);
     if (!headerText.length && !isInfobox(table)) {
-      continue;
+      return 'continue';
     }
     var caption = newCaption(isInfobox(table) ? infoboxTitle : otherTitle, headerText);
 
     // create the container div that will contain both the original table
     // and the collapsed version.
-    var containerDiv = document.createElement('div');
+    var containerDiv = window.document.createElement('div');
     containerDiv.className = 'app_table_container';
     table.parentNode.insertBefore(containerDiv, table);
     table.parentNode.removeChild(table);
@@ -1222,10 +1245,10 @@ var collapseTables = function collapseTables(document, content, pageTitle, isMai
     table.style.marginTop = '0px';
     table.style.marginBottom = '0px';
 
-    var collapsedHeaderDiv = newCollapsedHeaderDiv(document, caption);
+    var collapsedHeaderDiv = newCollapsedHeaderDiv(window.document, caption);
     collapsedHeaderDiv.style.display = 'block';
 
-    var collapsedFooterDiv = newCollapsedFooterDiv(document, footerTitle);
+    var collapsedFooterDiv = newCollapsedFooterDiv(window.document, footerTitle);
     collapsedFooterDiv.style.display = 'none';
 
     // add our stuff to the container
@@ -1236,9 +1259,29 @@ var collapseTables = function collapseTables(document, content, pageTitle, isMai
     // set initial visibility
     table.style.display = 'none';
 
+    // eslint-disable-next-line require-jsdoc, no-loop-func
+    var dispatchSectionToggledEvent = function dispatchSectionToggledEvent(collapsed) {
+      return (
+        // eslint-disable-next-line no-undef
+        window.dispatchEvent(new Polyfill.CustomEvent(SECTION_TOGGLED_EVENT_TYPE, { collapsed: collapsed }))
+      );
+    };
+
     // assign click handler to the collapsed divs
-    collapsedHeaderDiv.onclick = toggleCollapseClickCallback.bind(collapsedHeaderDiv);
-    collapsedFooterDiv.onclick = toggleCollapseClickCallback.bind(collapsedFooterDiv, footerDivClickCallback);
+    collapsedHeaderDiv.onclick = function () {
+      var collapsed = toggleCollapseClickCallback.bind(collapsedHeaderDiv)();
+      dispatchSectionToggledEvent(collapsed);
+    };
+    collapsedFooterDiv.onclick = function () {
+      var collapsed = toggleCollapseClickCallback.bind(collapsedFooterDiv, footerDivClickCallback)();
+      dispatchSectionToggledEvent(collapsed);
+    };
+  };
+
+  for (var i = 0; i < tables.length; ++i) {
+    var _ret = _loop(i);
+
+    if (_ret === 'continue') continue;
   }
 };
 
@@ -1267,6 +1310,7 @@ var expandCollapsedTableIfItContainsElement = function expandCollapsedTableIfItC
 };
 
 var CollapseTable = {
+  SECTION_TOGGLED_EVENT_TYPE: SECTION_TOGGLED_EVENT_TYPE,
   toggleCollapseClickCallback: toggleCollapseClickCallback,
   collapseTables: collapseTables,
   expandCollapsedTableIfItContainsElement: expandCollapsedTableIfItContainsElement,
@@ -1294,10 +1338,10 @@ var configureRedLinkTemplate = function configureRedLinkTemplate(span, anchor) {
 /**
  * Finds red links in a document or document fragment.
  * @param {!(Document|DocumentFragment)} content Document or fragment in which to seek red links.
- * @return {!NodeList} Nodelist of zero or more red link anchors.
+ * @return {!HTMLAnchorElement[]} Array of zero or more red link anchors.
  */
 var redLinkAnchorsInContent = function redLinkAnchorsInContent(content) {
-  return content.querySelectorAll('a.new');
+  return Array.prototype.slice.call(content.querySelectorAll('a.new'));
 };
 
 /**
@@ -1458,7 +1502,7 @@ var pagelib$1 = {
   RedLinks: RedLinks,
   WidenImage: WidenImage,
   test: {
-    ElementUtilities: elementUtilities
+    ElementUtilities: elementUtilities, Polyfill: Polyfill
   }
 };
 
@@ -1466,7 +1510,9 @@ var pagelib$1 = {
 // JavaScript index file, which also exists only for packaging, as well as the
 // real JavaScript, transform/index, it simply re-exports.
 
-module.exports = pagelib$1;
+return pagelib$1;
+
+})));
 
 
 },{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
