@@ -225,6 +225,8 @@
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
+"on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
+"on-this-day-title" = "আজকের এই দিনে";
 "onboarding-wikipedia" = "উইকিপিডিয়া";
 "open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";

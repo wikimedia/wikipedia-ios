@@ -88,5 +88,23 @@
 			<string>Xusto agora</string>
 		</dict>
 	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>O último ano</string>
+			<key>other</key>
+			<string>hai %1$d anos</string>
+			<key>zero</key>
+			<string>Este ano</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
