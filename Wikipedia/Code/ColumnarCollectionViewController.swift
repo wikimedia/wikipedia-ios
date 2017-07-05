@@ -1,9 +1,10 @@
 import UIKit
 
 @objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: UICollectionViewController {
+class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
-
+    var theme: Theme = Theme.light
+    
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -76,6 +77,11 @@ class ColumnarCollectionViewController: UICollectionViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        self.collectionView?.reloadData()
     }
 }
 
