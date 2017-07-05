@@ -22,7 +22,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
         
         onLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-day", value:"on %1$@", comment:"Text for 'On this day' detail view 'day' label - %1$@ is replaced with string version of the given day - i.e. 'January 23'"), onDayString)
         
-        if let firstEventEraString = firstEvent?.yearWithEraString(), let lastEventEraString = lastEvent?.yearWithEraString() {
+        if let firstEventEraString = firstEvent?.yearWithEraString, let lastEventEraString = lastEvent?.yearWithEraString {
             fromLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-date-range", value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the most recent event year - i.e. '2006 AD', %2$@ is replaced with string version of the oldest event year - i.e. '300 BC', "), firstEventEraString, lastEventEraString)
         } else {
             fromLabel.text = nil

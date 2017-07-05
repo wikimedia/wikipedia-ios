@@ -6,6 +6,7 @@
 @import MobileCoreServices;
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation NSString (WMFExtras)
 
@@ -152,50 +153,11 @@
     if (self.length > 1) {
         NSString *firstChar = [self substringToIndex:1];
         NSString *remainingChars = [self substringFromIndex:1];
-        NSLocale *locale = [self getLocaleForWikipediaLanguage:wikipediaLanguage];
+        NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:wikipediaLanguage];
         firstChar = [firstChar capitalizedStringWithLocale:locale];
         return [firstChar stringByAppendingString:remainingChars];
     }
     return self;
-}
-
-- (NSLocale *)getLocaleForWikipediaLanguage:(NSString *)wikipediaLanguage {
-    if (!wikipediaLanguage) {
-        return [NSLocale autoupdatingCurrentLocale];
-    }
-
-    static dispatch_once_t onceToken;
-    static NSMutableDictionary *localeCache;
-    dispatch_once(&onceToken, ^{
-        localeCache = [NSMutableDictionary dictionaryWithCapacity:1];
-    });
-
-    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:wikipediaLanguage];
-
-    NSString *code = languageInfo.code;
-
-    NSLocale *locale = nil;
-
-    if (!code) {
-        return [NSLocale autoupdatingCurrentLocale];
-    }
-
-    locale = [localeCache objectForKey:code];
-    if (locale) {
-        return locale;
-    }
-
-    if ([[NSLocale availableLocaleIdentifiers] containsObject:code]) {
-        locale = [[NSLocale alloc] initWithLocaleIdentifier:code];
-    }
-
-    if (!locale) {
-        locale = [NSLocale autoupdatingCurrentLocale];
-    }
-
-    [localeCache setObject:locale forKey:code];
-
-    return locale;
 }
 
 - (BOOL)wmf_containsString:(NSString *)string {

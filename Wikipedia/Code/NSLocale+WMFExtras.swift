@@ -5,6 +5,34 @@ let wmf_acceptLanguageHeaderForPreferredLanguagesGloabl: String = {
 }()
 
 extension NSLocale {
+    
+    fileprivate static var localeCache: [String: Locale] = [:]
+    
+    @objc(wmf_localeForWikipediaLanguage:)
+    public static func wmf_locale(for wikipediaLanguage: String?) -> Locale {
+        guard let language = wikipediaLanguage else {
+            return Locale.autoupdatingCurrent
+        }
+        
+        let languageInfo = MWLanguageInfo(forCode: language)
+        let code = languageInfo.code
+        
+        var locale = localeCache[code]
+        if let locale = locale {
+            return locale
+        }
+        
+        if Locale.availableIdentifiers.contains(code) {
+            locale = Locale(identifier: code)
+        } else {
+            locale = Locale.autoupdatingCurrent
+        }
+        
+        localeCache[code] = locale
+        
+        return locale ?? Locale.autoupdatingCurrent
+    }
+    
     public static func wmf_isCurrentLocaleEnglish() -> Bool {
         guard let langCode = (NSLocale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
             return false
