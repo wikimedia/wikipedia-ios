@@ -264,8 +264,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self updateToolbar];
     [self setupTableOfContentsViewController];
     [self updateTableOfContentsForFootersIfNeeded];
-    
-
 
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
@@ -1869,7 +1867,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showWIconPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForSourceRect:[self.titleButton convertRect:self.titleButton.bounds toView:self.view]
                                                            withTitle:WMFLocalizedStringWithDefaultValue(@"home-button-popover-title", nil, nil, @"Tap to go home", @"Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
-                                                             message:WMFLocalizedStringWithDefaultValue(@"home-button-popover-description", nil, nil, @"Tap on the 'W' to return to the Explore feed", @"Descriptigit aon for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
+                                                             message:WMFLocalizedStringWithDefaultValue(@"home-button-popover-description", nil, nil, @"Tap on the 'W' to return to the Explore feed", @"Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
                                                                width:230.0f
                                                             duration:3.0];
 }
