@@ -8,8 +8,8 @@ enum WikidataFetcherError: Error {
 
 class WikidataFetcher: NSObject {
     func wikidata(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
-        guard let title = (articleURL as NSURL).wmf_title,
-            let language = (articleURL as NSURL).wmf_language else {
+        guard let title = articleURL.wmf_title,
+            let language = articleURL.wmf_language else {
                 failure(WikidataFetcherError.genericError)
                 return
         }

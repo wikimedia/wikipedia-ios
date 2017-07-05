@@ -2,11 +2,12 @@
 #import <WMF/WMFLocalization.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 @implementation WMFLocalizedDateFormatStrings
 
 + (NSString *)yearsAgoForSiteURL:(nullable NSURL *)siteURL {
-    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", siteURL, nil, @"{{PLURAL:%1$d|0=This year|Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year");
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-years-ago", siteURL.wmf_language, nil, @"{{PLURAL:%1$d|0=This year|Last year|%1$d years ago}}", @"Relative years ago. 0 = this year, singular = last year");
 }
 
 + (NSString *)daysAgo {
