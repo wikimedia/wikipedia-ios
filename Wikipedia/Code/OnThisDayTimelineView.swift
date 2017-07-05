@@ -43,6 +43,22 @@ class OnThisDayTimelineView: UIView {
             bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: bounds.midX, y: bottomDotY))
         }
     }
+    
+    override var tintColor: UIColor! {
+        didSet {
+            bottomDotShapeLayer.strokeColor = tintColor.cgColor
+            topOuterDotShapeLayer.strokeColor = tintColor.cgColor
+            topInnerDotShapeLayer.fillColor = tintColor.cgColor
+            topInnerDotShapeLayer.strokeColor = tintColor.cgColor
+        }
+    }
+    
+    override var backgroundColor: UIColor? {
+        didSet {
+            bottomDotShapeLayer.fillColor = backgroundColor?.cgColor
+            topOuterDotShapeLayer.fillColor = backgroundColor?.cgColor
+        }
+    }
 
     private lazy var bottomDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
@@ -104,7 +120,7 @@ class OnThisDayTimelineView: UIView {
     
     private func drawVerticalLine(in context: CGContext, rect: CGRect){
         context.setLineWidth(1.0)
-        context.setStrokeColor(UIColor.wmf_blue.cgColor)
+        context.setStrokeColor(tintColor.cgColor)
         let lineTopY = extendTimelineAboveTopDot ? rect.minY : topDotsY
         context.move(to: CGPoint(x: rect.midX, y: lineTopY))
         context.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))

@@ -15,6 +15,7 @@ protocol SideScrollingCollectionViewCellDelegate {
 @objc(WMFSideScrollingCollectionViewCell)
 class SideScrollingCollectionViewCell: CollectionViewCell {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
+    var theme: Theme = Theme.light
     
     weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     let imageView = UIImageView()
@@ -51,12 +52,10 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         wmf_configureSubviewsForDynamicType()
 
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
-        prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, layoutOnly: true)
+        prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, theme: self.theme, layoutOnly: true)
 
         prototypeCell.isHidden = true
-        
-        backgroundColor = .white
-        
+
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         titleLabel.numberOfLines = 1
@@ -67,7 +66,6 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         collectionView.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: SideScrollingCollectionViewCell.articleCellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = backgroundColor
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
@@ -148,6 +146,8 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         
         return CGSize(width: size.width, height: origin.y)
     }
+    
+    
 }
 
 extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
@@ -175,22 +175,23 @@ extension SideScrollingCollectionViewCell: UICollectionViewDataSource {
             return cell
         }
         let articleForCell = articles[indexPath.item]
-        articleCell.configure(with: articleForCell, semanticContentAttribute: semanticContentAttributeOverride, layoutOnly: false)
+        articleCell.configure(with: articleForCell, semanticContentAttribute: semanticContentAttributeOverride, theme: self.theme, layoutOnly: false)
         return articleCell
     }
 }
 
 fileprivate extension ArticleRightAlignedImageCollectionViewCell {
-    func configure(with cellArticle: CellArticle, semanticContentAttribute: UISemanticContentAttribute, layoutOnly: Bool) {
+    func configure(with cellArticle: CellArticle, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, layoutOnly: Bool) {
+        apply(theme: theme)
+        backgroundColor = .clear
+        contentView.backgroundColor = theme.colors.paperBackground
         contentView.layer.cornerRadius = 5
         contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .white
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 2
-        layer.shadowColor = UIColor.wmf_sideScrollingArticleCellShadow.cgColor
+        layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
-        backgroundColor = .clear
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
@@ -238,5 +239,19 @@ extension SideScrollingCollectionViewCell {
             return nil
         }
         return cell
+    }
+}
+
+extension SideScrollingCollectionViewCell: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        contentView.backgroundColor = theme.colors.paperBackground
+        titleLabel.textColor = theme.colors.primaryText
+        titleLabel.backgroundColor = theme.colors.paperBackground
+        descriptionLabel.textColor = theme.colors.primaryText
+        descriptionLabel.backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
+        descriptionLabel.textColor = theme.colors.primaryText
+        collectionView.reloadData()
     }
 }

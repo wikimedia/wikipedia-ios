@@ -2,25 +2,38 @@ import UIKit
 
 @objc(WMFOnThisDayExploreCollectionViewCell)
 class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
-
-    private lazy var whiteTopAndBottomGradientLayer: CAGradientLayer = {
-        let layer = CAGradientLayer()
-        let white = UIColor.white.cgColor
-        let clear = UIColor(white: 1, alpha: 0).cgColor // https://stackoverflow.com/a/24895385
-        layer.colors = [white, clear, clear, white, white]
-        layer.locations = [0.0, 0.07, 0.77, 0.97, 1.0]
-        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        return layer
-    }()
-
+    fileprivate var topGradientView: WMFGradientView = WMFGradientView()
+    fileprivate var bottomGradientView: WMFGradientView = WMFGradientView()
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        whiteTopAndBottomGradientLayer.frame = bounds
+        if (apply) {
+            let topGradientHeight: CGFloat = ceil(0.07*size.height)
+            let bottomGradientHeight: CGFloat = ceil(0.23*size.height)
+            let topGradientSize = CGSize(width: size.width, height: topGradientHeight)
+            let bottomGradientSize = CGSize(width: size.width, height: bottomGradientHeight)
+            topGradientView.frame = CGRect(origin: .zero, size: topGradientSize)
+            bottomGradientView.frame = CGRect(origin: CGPoint(x: 0, y: size.height - bottomGradientHeight), size: bottomGradientSize)
+        }
         return super.sizeThatFits(size, apply: apply)
     }
 
     override open func setup() {
         super.setup()
-        layer.addSublayer(whiteTopAndBottomGradientLayer)
+        addSubview(topGradientView)
+        addSubview(bottomGradientView)
+        topGradientView.startPoint = CGPoint(x: 0.5, y: 0)
+        topGradientView.endPoint = CGPoint(x: 0.5, y: 1)
+        bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
+        bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.77)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        let opaque = theme.colors.paperBackground
+        let clear = opaque.withAlphaComponent(0)
+        topGradientView.startColor = opaque
+        topGradientView.endColor = clear
+        bottomGradientView.startColor = clear
+        bottomGradientView.endColor = opaque
     }
 }

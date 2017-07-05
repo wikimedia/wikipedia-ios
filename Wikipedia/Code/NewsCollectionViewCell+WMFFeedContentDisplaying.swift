@@ -1,8 +1,8 @@
 import UIKit
 
 extension NewsCollectionViewCell {
-    @objc(configureWithStory:dataStore:layoutOnly:)
-    func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, layoutOnly: Bool) {
+    @objc(configureWithStory:dataStore:theme: layoutOnly:)
+    func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []
         descriptionHTML = story.storyHTML
         
@@ -23,6 +23,7 @@ extension NewsCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        apply(theme: theme)
         setNeedsLayout()
     }    
 }

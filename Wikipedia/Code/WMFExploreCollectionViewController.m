@@ -1123,7 +1123,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSArray *stories = contentGroup.content;
     WMFFeedNewsStory *story = [stories firstObject];
     if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
-        [cell configureWithStory:story dataStore:self.userStore layoutOnly:layoutOnly];
+        [cell configureWithStory:story dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
@@ -1134,7 +1134,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
             return event.year != thisEvent.year;
         }];
-        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
+        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
