@@ -1787,10 +1787,10 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    self.collectionView.backgroundColor = theme.farBackground;
-    self.view.backgroundColor = theme.farBackground;
-    self.view.tintColor = theme.link;
-    self.collectionView.tintColor = theme.link;
+    self.collectionView.backgroundColor = theme.colors.baseBackground;
+    self.view.backgroundColor = theme.colors.baseBackground;
+    self.view.tintColor = theme.colors.link;
+    self.collectionView.tintColor = theme.colors.link;
     [self.collectionView reloadData];
 }
 

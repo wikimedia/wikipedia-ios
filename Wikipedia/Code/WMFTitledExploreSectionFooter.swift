@@ -11,9 +11,9 @@ class WMFTitledExploreSectionFooter: WMFExploreCollectionReusableView, Themeable
     }
     
     func apply(theme: Theme) {
-        titleLabel.textColor = theme.text
-        descriptionLabel.textColor = theme.secondaryText
-        backgroundColor = theme.midBackground
-        enableLocationButton.borderColor = theme.link
+        titleLabel.textColor = theme.colors.primaryText
+        descriptionLabel.textColor = theme.colors.secondaryText
+        backgroundColor = theme.colors.midBackground
+        enableLocationButton.borderColor = theme.colors.link
     }
 }

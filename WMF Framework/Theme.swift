@@ -1,34 +1,69 @@
 import Foundation
 
-@objc(WMFTheme)
-public class Theme: NSObject {
-   
-    public let farBackground: UIColor
+@objc(WMFThemeColors)
+public class ThemeColors: NSObject {
+    fileprivate static let base10 = UIColor.wmf_color(withHex: 0x222222)!
+    fileprivate static let base70 = UIColor.wmf_color(withHex: 0xC8CCD1)!
+    fileprivate static let base90 = UIColor.wmf_color(withHex: 0xF8F9FA)!
+    
+    fileprivate static let mesophere = UIColor.wmf_color(withHex: 0x43464A)!
+    fileprivate static let thermosphere = UIColor.wmf_color(withHex: 0x2E3136)!
+    fileprivate static let stratosphere = UIColor.wmf_color(withHex: 0x6699FF)!
+    fileprivate static let exosphere = UIColor.wmf_color(withHex: 0x27292D)!
+    fileprivate static let accent = UIColor.wmf_color(withHex: 0x00AF89)!
+    
+    fileprivate static let dark = ThemeColors(baseBackground: ThemeColors.base10, midBackground: ThemeColors.exosphere, paperBackground: ThemeColors.thermosphere, chromeBackground: ThemeColors.mesophere, primaryText: ThemeColors.base90, secondaryText: ThemeColors.base70, chromeText: ThemeColors.base90, link: ThemeColors.stratosphere, accent: ThemeColors.accent, icon: ThemeColors.base70, border: ThemeColors.mesophere, shadow: ThemeColors.mesophere)
+    
+    fileprivate static let light = ThemeColors(baseBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paperBackground: .white, chromeBackground: .white, primaryText: .black, secondaryText: .wmf_customGray, chromeText: .wmf_navigationGray, link: .wmf_blue, accent: .wmf_green, icon: ThemeColors.base10, border: ThemeColors.base10 , shadow: ThemeColors.base10)
+    
+    public let baseBackground: UIColor
     public let midBackground: UIColor
-    public let paper: UIColor
-    public let chrome: UIColor
+    public let paperBackground: UIColor
+    public let chromeBackground: UIColor
+    
+    public let primaryText: UIColor
+    public let secondaryText: UIColor
     public let chromeText: UIColor
     
-    public let text: UIColor
-    public let secondaryText: UIColor
     public let link: UIColor
     public let accent: UIColor
     
-    public let preferredStatusBarStyle: UIStatusBarStyle
+    public let icon: UIColor
+    public let border: UIColor
+    public let shadow: UIColor
     
-    public static var light = Theme(farBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paper: .white, chrome: .white, chromeText: .wmf_navigationGray, text: .black, secondaryText: .wmf_customGray, link: .wmf_blue, accent: .wmf_green, preferredStatusBarStyle: .default)
-    public static var dark = Theme(farBackground: UIColor.wmf_color(withHex: 0x222222), midBackground: UIColor.wmf_color(withHex: 0x303030), paper: .black, chrome: .black, chromeText: UIColor.wmf_color(withHex: 0xf8f9fa), text: UIColor.wmf_color(withHex: 0xf8f9fa), secondaryText: .lightGray, link: UIColor.wmf_color(withHex: 0x6087d7), accent: UIColor.wmf_color(withHex: 0x00af89), preferredStatusBarStyle: .lightContent)
     
-    init(farBackground: UIColor, midBackground: UIColor, paper: UIColor, chrome: UIColor, chromeText: UIColor, text: UIColor, secondaryText: UIColor, link: UIColor, accent: UIColor, preferredStatusBarStyle: UIStatusBarStyle) {
-        self.farBackground = farBackground
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, icon: UIColor, border: UIColor, shadow: UIColor) {
+        self.baseBackground = baseBackground
         self.midBackground = midBackground
-        self.paper = paper
-        self.chrome = chrome
-        self.chromeText = chromeText
-        self.text = text
+        self.paperBackground = paperBackground
+        self.chromeBackground = chromeBackground
+        
+        self.primaryText = primaryText
         self.secondaryText = secondaryText
+        self.chromeText = chromeText
+
         self.link = link
         self.accent = accent
+        
+        self.icon = icon
+        self.border = border
+        self.shadow = shadow
+    }
+}
+
+@objc(WMFTheme)
+public class Theme: NSObject {
+    
+    public let colors: ThemeColors
+    
+    public let preferredStatusBarStyle: UIStatusBarStyle
+    
+    public static let light = Theme(colors: ThemeColors.light, preferredStatusBarStyle: .default)
+    public static let dark = Theme(colors: ThemeColors.dark, preferredStatusBarStyle: .lightContent)
+    
+    init(colors: ThemeColors, preferredStatusBarStyle: UIStatusBarStyle) {
+        self.colors = colors
         self.preferredStatusBarStyle = preferredStatusBarStyle
     }
 }

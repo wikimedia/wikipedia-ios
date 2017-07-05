@@ -122,13 +122,13 @@
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
-    self.containerView.backgroundColor = theme.paper;
-    self.titleLabel.textColor = theme.secondaryText;
-    self.titleLabel.backgroundColor = theme.paper;
-    self.subTitleLabel.textColor = theme.secondaryText;
-    self.subTitleLabel.backgroundColor = theme.paper;
-    self.rightButton.backgroundColor = theme.paper;
-    self.backgroundColor = theme.paper;
+    self.containerView.backgroundColor = theme.colors.paperBackground;
+    self.titleLabel.textColor = theme.colors.secondaryText;
+    self.titleLabel.backgroundColor = theme.colors.paperBackground;
+    self.subTitleLabel.textColor = theme.colors.secondaryText;
+    self.subTitleLabel.backgroundColor = theme.colors.paperBackground;
+    self.rightButton.backgroundColor = theme.colors.paperBackground;
+    self.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

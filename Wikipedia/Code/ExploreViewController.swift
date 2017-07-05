@@ -274,7 +274,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
 extension ExploreViewController: Themeable {
     func apply(theme: Theme) {
-        extendedNavBarView.backgroundColor = theme.chrome
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
         }

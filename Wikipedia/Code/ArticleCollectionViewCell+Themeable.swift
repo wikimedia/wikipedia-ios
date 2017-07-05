@@ -1,10 +1,10 @@
 extension ArticleCollectionViewCell: Themeable {
     public func apply(theme: Theme) {
-        backgroundColor = theme.paper
-        titleLabel.textColor = theme.text
-        descriptionLabel.textColor = theme.text
-        extractLabel?.textColor = theme.text
-        tintColor = theme.link
+        backgroundColor = theme.colors.paperBackground
+        titleLabel.textColor = theme.colors.primaryText
+        descriptionLabel.textColor = theme.colors.primaryText
+        extractLabel?.textColor = theme.colors.primaryText
+        tintColor = theme.colors.link
     }
     
     open override var backgroundColor: UIColor? {
