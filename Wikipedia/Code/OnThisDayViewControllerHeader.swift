@@ -27,7 +27,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
         
         eventsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-title", siteURL: siteURL, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occured on the given day"), eventCount).uppercased(with: locale)
         
-        let onDayString = DateFormatter.monthNameDayNumberFormatter(for: language).string(from: date)
+        let onDayString = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: date)
         
         onLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-day", siteURL: siteURL, value:"on %1$@", comment:"Text for 'On this day' detail view 'day' label - %1$@ is replaced with string version of the given day - i.e. 'January 23'"), onDayString)
         

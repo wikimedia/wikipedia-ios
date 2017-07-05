@@ -2,20 +2,21 @@ import Foundation
 
 extension DateFormatter {
     // Returns year 'era' string - i.e. '1000 AD' or '200 BC'. (Negative years are 'BC')
-    class func yearWithEraString(for year: Int, with wikipediaLanguage: String?) -> String? {
+    class func wmf_yearWithEraString(for year: Int, with wikipediaLanguage: String?) -> String? {
         var components = DateComponents()
         components.year = year
-        guard let date = Calendar.current.date(from: components) else {
+        let calendar = NSCalendar.wmf_utcGregorian()
+        guard let date = calendar?.date(from: components) else {
             return nil
         }
-        return DateFormatter.yearWithEraDateFormatter(for: wikipediaLanguage).string(from: date)
+        return DateFormatter.wmf_yearWithEraGMTDateFormatter(for: wikipediaLanguage).string(from: date)
     }
     
-    private static var yearWithEraDateFormatterCache: [String: DateFormatter] = [:]
+    private static var wmf_yearWithEraGMTDateFormatterCache: [String: DateFormatter] = [:]
     
-    private static func yearWithEraDateFormatter(for wikipediaLanguage: String?) -> DateFormatter {
+    public static func wmf_yearWithEraGMTDateFormatter(for wikipediaLanguage: String?) -> DateFormatter {
         let wikipediaLanguage = wikipediaLanguage ?? "en"
-        if let formatter = yearWithEraDateFormatterCache[wikipediaLanguage] {
+        if let formatter = wmf_yearWithEraGMTDateFormatterCache[wikipediaLanguage] {
             return formatter
         }
         
@@ -23,15 +24,15 @@ extension DateFormatter {
         dateFormatter.locale = NSLocale.wmf_locale(for: wikipediaLanguage)
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.setLocalizedDateFormatFromTemplate("y G")
-        yearWithEraDateFormatterCache[wikipediaLanguage] = dateFormatter
+        wmf_yearWithEraGMTDateFormatterCache[wikipediaLanguage] = dateFormatter
         return dateFormatter
     }
     
-    private static var monthNameDayNumberFormatterCache: [String: DateFormatter] = [:]
+    private static var wmf_monthNameDayNumberGMTFormatterCache: [String: DateFormatter] = [:]
     
-    public static func monthNameDayNumberFormatter(for wikipediaLanguage: String?) -> DateFormatter {
+    public static func wmf_monthNameDayNumberGMTFormatter(for wikipediaLanguage: String?) -> DateFormatter {
         let wikipediaLanguage = wikipediaLanguage ?? "en"
-        if let formatter = monthNameDayNumberFormatterCache[wikipediaLanguage] {
+        if let formatter = wmf_monthNameDayNumberGMTFormatterCache[wikipediaLanguage] {
             return formatter
         }
         
@@ -39,6 +40,7 @@ extension DateFormatter {
         dateFormatter.locale = NSLocale.wmf_locale(for: wikipediaLanguage)
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d")
+        wmf_monthNameDayNumberGMTFormatterCache[wikipediaLanguage] = dateFormatter
         return dateFormatter
     }
 }
