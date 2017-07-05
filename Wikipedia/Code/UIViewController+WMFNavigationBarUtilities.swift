@@ -23,7 +23,7 @@ extension UIViewController {
         if (removeUnderline) {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
+            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "transparent-pixel"), for: .default)
         } else {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = nil

@@ -18,9 +18,7 @@
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIFont+WMFStyle.h"
-#import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
 #import "WMFSearchViewController.h"
@@ -122,7 +120,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [WMFTheme light];
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -141,7 +138,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    return self.theme.preferredStatusBarStyle;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -149,10 +146,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
-        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
-        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
-    }
+    [self applyTheme:self.theme];
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -181,6 +175,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }];
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
+    [self applyTheme:[WMFTheme light]];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -348,9 +343,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
-    WMFStyleManager *manager = [WMFStyleManager new];
-    [manager applyStyleToWindow:window];
-    [WMFStyleManager setSharedStyleManager:manager];
 
     [window setRootViewController:self];
     [window makeKeyAndVisible];
@@ -1320,14 +1312,71 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     
-    if (self.theme == [WMFTheme light]) {
-        self.theme = [WMFTheme dark];
+    WMFTheme *theme = self.theme;
+    if (theme == [WMFTheme light]) {
+        theme = [WMFTheme dark];
     } else {
-        self.theme = [WMFTheme light];
+        theme = [WMFTheme light];
+    }
+    [self applyTheme:theme];
+
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    
+    self.view.window.backgroundColor = theme.farBackground;
+    self.view.window.tintColor = theme.link;
+    
+    [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
+    [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    
+    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
+    
+    [[UINavigationBar appearance] setTintColor:theme.text];
+    [[UINavigationBar appearance] setBarTintColor:theme.chrome];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UITabBar appearance] setTranslucent:NO];
+    
+    [[UITabBar appearance] setBarTintColor:theme.chrome];
+    [[UITabBar appearance] setTranslucent:NO];
+    [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
+    
+    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.chromeText, NSFontAttributeName: tabBarItemFont};
+    NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.link, NSFontAttributeName: tabBarItemFont};
+    [[UITabBarItem appearance] setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
+    
+    [[UITabBar appearance] setTintColor:theme.link];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:theme.link];
+    
+    [[UISwitch appearance] setOnTintColor:theme.accent];
+    [[self exploreViewController] view];
+    [[self exploreViewController] applyTheme:theme];
+    
+    NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
+    
+    for (UINavigationController *nc in navigationControllers) {
+        nc.navigationBar.barTintColor = theme.chrome;
+        nc.navigationBar.translucent = NO;
+        nc.navigationBar.tintColor = theme.chromeText;
     }
     
-    [[self exploreViewController] applyTheme:self.theme];
+    UITabBar *tabBar = self.rootTabBarController.tabBar;
+    tabBar.barTintColor = theme.chrome;
+    tabBar.tintColor = theme.link;
+    for (UITabBarItem *item in tabBar.items) {
+        [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
+        [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
+    }
+    
+    [self setNeedsStatusBarAppearanceUpdate];
 }
+
 #elif WMF_TWEAKS_ENABLED
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
