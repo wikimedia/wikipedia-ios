@@ -53,6 +53,7 @@
 "action-read" = "Ler";
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
+"action-saved-accessibility" = "Gardado. Activar para eliminar o gardado.";
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
@@ -225,6 +226,11 @@
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1 mil";
+"on-this-day-detail-header-date-range" = "de $1 a $2";
+"on-this-day-detail-header-day" = "en $1";
+"on-this-day-detail-header-title" = "$1 acontecementos históricos";
+"on-this-day-footer" = "Máis acontecementos históricos deste día";
+"on-this-day-title" = "Neste día";
 "onboarding-wikipedia" = "Galipedia";
 "open-link-cancel" = "Cancelar";
 "page-edit-history" = "Historial de edición completo";
@@ -283,6 +289,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoxe|Onte|Hai $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Hai $1 hora|Hai $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|O último ano|hai $1 anos}}";
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
 "save-action" = "Gardar";
 "saved-clear-all" = "Limpar";

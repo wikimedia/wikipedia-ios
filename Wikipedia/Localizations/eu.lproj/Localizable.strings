@@ -3,6 +3,7 @@
 // Author: An13sa
 // Author: Fitoschido
 // Author: Gorkaazk
+// Author: Mikel Ibaiba
 // Author: Nemo bis
 // Author: Sator
 // Author: Subi
@@ -128,6 +129,8 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
+"on-this-day-title" = "Gaurkoan";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Utzi";
 "page-history-title" = "Artikuluaren historia";

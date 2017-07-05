@@ -234,6 +234,11 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "från $1 - $2";
+"on-this-day-detail-header-day" = "den $1";
+"on-this-day-detail-header-title" = "$1 historiska händelser";
+"on-this-day-footer" = "Fler historiska händelser på denna dag";
+"on-this-day-title" = "På denna dag";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Avbryt";
 "page-edit-history" = "Full redigeringshistorik";
@@ -292,6 +297,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dagar sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|Senaste året|$1 år sedan}}";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "save-action" = "Spara";
 "saved-clear-all" = "Rensa";
