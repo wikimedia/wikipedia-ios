@@ -18,7 +18,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     var wikipediaLanguage: String? = "en"
     var siteURL: URL? = nil {
         didSet {
-            wikipediaLanguage = (siteURL as NSURL?)?.wmf_language
+            wikipediaLanguage = siteURL?.wmf_language
         }
     }
     
