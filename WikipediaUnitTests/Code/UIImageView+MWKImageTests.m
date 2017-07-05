@@ -33,7 +33,7 @@
     NSString *testURLString = @"http://test/request.png";
     self.testURL = [NSURL URLWithString:testURLString];
 
-    UIImage *testImage = [UIImage imageNamed:@"image-placeholder"];
+    UIImage *testImage = [UIImage imageNamed:@"places-save"];
     self.stubbedData = UIImagePNGRepresentation(testImage);
 
     [[LSNocilla sharedInstance] start];
