@@ -1149,11 +1149,6 @@
 		D830D2451DEF3E50005ACB0E /* WMFLegacyContentGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D830D2461DEF3E50005ACB0E /* WMFLegacyContentGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */; };
 		D837B5A61F06AA8C00DCB9CD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A51F06AA8C00DCB9CD /* Theme.swift */; };
-		D837B5AC1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */; };
-		D837B5AD1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */; };
-		D837B5AE1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */; };
-		D837B5AF1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */; };
-		D837B5B01F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */; };
 		D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */; };
 		D837B5AA1F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */; };
 		D837B5B21F0D68B800DCB9CD /* URL+WMFLinkParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5B11F0D68B800DCB9CD /* URL+WMFLinkParsing.swift */; };
@@ -4292,7 +4287,6 @@
 		D830D2431DEF3E50005ACB0E /* WMFLegacyContentGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLegacyContentGroup.h; sourceTree = "<group>"; };
 		D830D2441DEF3E50005ACB0E /* WMFLegacyContentGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyContentGroup.m; sourceTree = "<group>"; };
 		D837B5A51F06AA8C00DCB9CD /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "Wikipedia/Code/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
 		D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+WikipediaLanguage.swift"; sourceTree = "<group>"; };
 		D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFFeedOnThisDayEvent+LocalizedDates.swift"; path = "WMF Framework/WMFFeedOnThisDayEvent+LocalizedDates.swift"; sourceTree = SOURCE_ROOT; };
 		D837B5B11F0D68B800DCB9CD /* URL+WMFLinkParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+WMFLinkParsing.swift"; path = "Wikipedia/Code/URL+WMFLinkParsing.swift"; sourceTree = SOURCE_ROOT; };
@@ -6849,7 +6843,6 @@
 				B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
 				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
-				D837B5AB1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift */,
 				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
 				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
 				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
@@ -9788,7 +9781,6 @@
 				B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
-				D837B5AC1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				B34B0EE21EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D82014BC1E686B9C00BA8579 /* SSBaseCollectionCell.m in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
@@ -10051,7 +10043,6 @@
 				D80ED2D11EE57F4800CE8C50 /* RoundedCornerView.swift in Sources */,
 				D80ED2D21EE57F4800CE8C50 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D80ED2D31EE57F4800CE8C50 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
-				D837B5B01F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				D80ED2D41EE57F4800CE8C50 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D80ED2D51EE57F4800CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				D80ED2D61EE57F4800CE8C50 /* MWKImageInfoFetcher.m in Sources */,
@@ -10295,7 +10286,6 @@
 				0E728D4E1DAEEEA00074EB4B /* WMFRandomArticleFetcher.m in Sources */,
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
-				B0484FF01E74BA30003A0E28 /* UIImageView+WMFPlaceholder.m in Sources */,
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
@@ -10688,7 +10678,6 @@
 				B04C809D1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				D8A42AE51E815A9C00D8E281 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8A42AE61E815A9C00D8E281 /* WMFAccountCreator.swift in Sources */,
-				D837B5AF1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				D8A42AE71E815A9C00D8E281 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8A42AE81E815A9C00D8E281 /* WMFCollectionViewPageLayout.m in Sources */,
 				D8A42AE91E815A9C00D8E281 /* WeakScriptMessageDelegate.swift in Sources */,
@@ -10970,7 +10959,6 @@
 				D8CE253F1E698E2400DAE2E0 /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D8CE25401E698E2400DAE2E0 /* MWKImageInfoFetcher.m in Sources */,
 				D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */,
-				D837B5AD1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				D8733C8E1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8CE25421E698E2400DAE2E0 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D8CE25441E698E2400DAE2E0 /* WMFAccountLogin.swift in Sources */,
@@ -11311,7 +11299,6 @@
 				D8EC3E361E9BDA35006712EB /* WMFReferencePopoverBackgroundView.m in Sources */,
 				D84DAA221EEEF527008E4B18 /* TSMessage.m in Sources */,
 				D8EC3E371E9BDA35006712EB /* MWKImageInfoFetcher.m in Sources */,
-				D837B5AE1F0D2E0B00DCB9CD /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				D8733C8F1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
