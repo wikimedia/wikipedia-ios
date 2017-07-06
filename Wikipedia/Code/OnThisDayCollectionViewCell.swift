@@ -64,7 +64,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         timelineView.backgroundColor = theme.colors.paperBackground
         bottomTitleLabel.textColor = theme.colors.link
         titleLabel.textColor = theme.colors.link
-        subTitleLabel.textColor = theme.colors.secondaryText
+        subTitleLabel.textColor = theme.colors.tertiaryText
         collectionView.backgroundColor = .clear
     }
 }

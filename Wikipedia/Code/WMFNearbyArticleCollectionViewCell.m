@@ -31,7 +31,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self applyTheme:[WMFTheme light]];
+    [self applyTheme:[WMFTheme standard]];
     self.articleImageView.layer.cornerRadius = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
@@ -127,7 +127,7 @@
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_subtitle],
-                                               NSForegroundColorAttributeName: self.theme.colors.secondaryText,
+                                               NSForegroundColorAttributeName: self.theme.colors.tertiaryText,
                                                NSParagraphStyleAttributeName: paragraphStyle
                                            }];
 }
@@ -190,9 +190,9 @@
     self.theme = theme;
     self.contentView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = theme.colors.primaryText;
-    self.distanceLabel.textColor = theme.colors.secondaryText;
+    self.distanceLabel.textColor = theme.colors.tertiaryText;
     self.articleImageView.layer.borderColor = theme.colors.border.CGColor;
-    self.distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.CGColor;
+    self.distanceLabelBackground.layer.borderColor = theme.colors.tertiaryText.CGColor;
 }
 
 @end

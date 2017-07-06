@@ -21,6 +21,7 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var readButton: UIButton!
     
     @IBOutlet weak var articleSummaryView: UIView!
+    @IBOutlet weak var buttonContainerView: UIView!
     
     let article: WMFArticle
     
@@ -157,4 +158,18 @@ class ArticlePopoverViewController: UIViewController {
     
 }
 
+
+extension ArticlePopoverViewController: Themeable {
+    func apply(theme: Theme) {
+        view.tintColor = theme.colors.link
+        titleLabel.textColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.secondaryText
+        descriptionLabel.textColor = theme.colors.tertiaryText
+        articleSummaryView.backgroundColor = theme.colors.chromeBackground
+        buttonContainerView.backgroundColor = theme.colors.midBackground
+        saveButton.backgroundColor = theme.colors.chromeBackground
+        shareButton.backgroundColor = theme.colors.chromeBackground
+        readButton.backgroundColor = theme.colors.chromeBackground
+    }
+}
 

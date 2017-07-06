@@ -774,7 +774,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self applyTheme:[WMFTheme light]];
+    [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
     self.automaticallyAdjustsScrollViewInsets = NO;
 

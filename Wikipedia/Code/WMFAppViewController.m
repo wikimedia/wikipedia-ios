@@ -175,7 +175,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }];
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
-    [self applyTheme:[WMFTheme light]];
+    [self applyTheme:[WMFTheme standard]];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];

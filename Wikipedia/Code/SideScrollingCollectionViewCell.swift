@@ -15,7 +15,7 @@ protocol SideScrollingCollectionViewCellDelegate {
 @objc(WMFSideScrollingCollectionViewCell)
 class SideScrollingCollectionViewCell: CollectionViewCell {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
-    var theme: Theme = Theme.light
+    var theme: Theme = Theme.standard
     
     weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     let imageView = UIImageView()

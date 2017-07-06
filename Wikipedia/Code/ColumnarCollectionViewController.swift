@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFColumnarCollectionViewController)
 class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
-    var theme: Theme = Theme.light
+    var theme: Theme = Theme.standard
     
     init() {
         super.init(collectionViewLayout: layout)

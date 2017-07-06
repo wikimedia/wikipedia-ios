@@ -7,7 +7,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        apply(theme: Theme.light)
+        apply(theme: Theme.standard)
         wmf_configureSubviewsForDynamicType()
     }
     
@@ -40,6 +40,6 @@ extension OnThisDayViewControllerHeader: Themeable {
         backgroundColor = theme.colors.midBackground
         eventsLabel.textColor = theme.colors.primaryText
         onLabel.textColor = theme.colors.link
-        fromLabel.textColor = theme.colors.secondaryText
+        fromLabel.textColor = theme.colors.tertiaryText
     }
 }

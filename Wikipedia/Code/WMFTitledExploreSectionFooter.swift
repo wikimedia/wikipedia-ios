@@ -12,7 +12,7 @@ class WMFTitledExploreSectionFooter: WMFExploreCollectionReusableView, Themeable
     
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.secondaryText
+        descriptionLabel.textColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.midBackground
         enableLocationButton.borderColor = theme.colors.link
     }

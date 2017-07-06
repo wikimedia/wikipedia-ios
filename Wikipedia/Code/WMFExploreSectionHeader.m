@@ -123,9 +123,9 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.containerView.backgroundColor = theme.colors.paperBackground;
-    self.titleLabel.textColor = theme.colors.secondaryText;
+    self.titleLabel.textColor = theme.colors.tertiaryText;
     self.titleLabel.backgroundColor = theme.colors.paperBackground;
-    self.subTitleLabel.textColor = theme.colors.secondaryText;
+    self.subTitleLabel.textColor = theme.colors.tertiaryText;
     self.subTitleLabel.backgroundColor = theme.colors.paperBackground;
     self.rightButton.backgroundColor = theme.colors.paperBackground;
     self.backgroundColor = theme.colors.paperBackground;

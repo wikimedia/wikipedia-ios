@@ -31,7 +31,7 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.visibleBackgroundView.backgroundColor = theme.colors.midBackground;
-    self.moreLabel.textColor = theme.colors.secondaryText;
+    self.moreLabel.textColor = theme.colors.tertiaryText;
     self.moreLabel.backgroundColor = theme.colors.midBackground;
 }
 

@@ -99,6 +99,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    fileprivate var theme = Theme.standard
+    
     lazy fileprivate var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
     }()
@@ -1667,6 +1669,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         articleVC.delegate = self
         articleVC.view.tintColor = view.tintColor
         articleVC.configureView(withTraitCollection: traitCollection)
+        articleVC.apply(theme: theme)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         if locationManager.isUpdating {
@@ -1988,7 +1991,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, filterDropDownContainerView)
             accessibilityLabel = WMFLocalizedString("places-dismiss-filter-list-accessibility-label", value:"Dismiss search filters", comment:"Accessibility title for the button that dismisses search filters")
             title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
-            image = UIImage(cgImage: #imageLiteral(resourceName: "chevron-down-large").cgImage!, scale: 1.0, orientation: .down) // `.down` is 180 rotation, yielding a chevron pointing up
+            image = #imageLiteral(resourceName: "chevron-up-large")
         } else {
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, searchBar)
             accessibilityLabel = WMFLocalizedString("places-show-filter-list-accessibility-label", value:"Show search filters", comment:"Accessibility title for the button that shows search filters")
@@ -2857,9 +2860,11 @@ extension PlacesViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        self.theme = theme
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         titleViewSearchBar.barTintColor = theme.colors.chromeBackground
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
-        
+        selectedArticlePopover?.apply(theme: theme)
+        updateSearchFilterTitle()
     }
 }
