@@ -7,8 +7,8 @@ class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         if (apply) {
-            let topGradientHeight: CGFloat = ceil(0.07*size.height)
-            let bottomGradientHeight: CGFloat = ceil(0.23*size.height)
+            let topGradientHeight: CGFloat = ceil(0.1*size.height)
+            let bottomGradientHeight: CGFloat = ceil(0.2*size.height)
             let topGradientSize = CGSize(width: size.width, height: topGradientHeight)
             let bottomGradientSize = CGSize(width: size.width, height: bottomGradientHeight)
             topGradientView.frame = CGRect(origin: .zero, size: topGradientSize)

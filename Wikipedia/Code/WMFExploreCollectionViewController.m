@@ -1106,6 +1106,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     cell.titleText = article.displayTitle;
     cell.descriptionText = article.capitalizedWikidataDescription;
     [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
+    [cell applyTheme:self.theme];
     [self updateLocationCell:cell location:article.location];
 }
 
