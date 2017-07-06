@@ -225,6 +225,7 @@
 "number-thousands" = "$1 илј.";
 "on-this-day-detail-header-date-range" = "од $1 - $2";
 "on-this-day-detail-header-day" = "на $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 историски настани";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-title" = "На денешен ден";

@@ -26,6 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
     return 1;
 }
 
+- (nullable NSURL *)siteURL {
+    return self.articlePreviews.firstObject.articleURL.wmf_siteURL;
+}
+
+- (nullable NSString *)language {
+    return self.siteURL.wmf_language;
+}
+
+
 @end
 
 NS_ASSUME_NONNULL_END

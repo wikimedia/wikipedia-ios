@@ -223,6 +223,12 @@
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "de $1 a $2";
+"on-this-day-detail-header-day" = "el $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 acontecimientos históricos";
+"on-this-day-footer" = "Más socesos históricos d'esti día";
+"on-this-day-title" = "Tal día como güei";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Encaboxar";
 "page-edit-history" = "Historial d'edición completu";
@@ -281,6 +287,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Güei|Ayeri|Hai $1 díes}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|L'añu pasáu|hai $1 años}}";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "save-action" = "Guardar";
 "saved-clear-all" = "Llimpiar";

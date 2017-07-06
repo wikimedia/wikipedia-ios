@@ -34,7 +34,6 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
             bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
-            resetCollectionViewScrollPosition()
         }
     }
     
@@ -71,20 +70,15 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         collectionView.backgroundColor = backgroundColor
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
         super.setup()
     }
     
     override open func reset() {
         super.reset()
-        resetCollectionViewScrollPosition()
         margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
         imageView.wmf_showPlaceholder()
-    }
-    
-    func resetCollectionViewScrollPosition() {
-        let offsetX = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width - collectionView.contentInset.right : -collectionView.contentInset.left
-        collectionView.contentOffset = CGPoint(x: offsetX, y: 0)
     }
     
     var isImageViewHidden = false {
@@ -134,8 +128,15 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
-            collectionView.contentInset = UIEdgeInsets.init(top: 0, left: origin.x - 10, bottom: 0, right: 0)
+            if semanticContentAttributeOverride == .forceRightToLeft {
+                collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: margins.right - collectionViewSpacing)
+            } else {
+                collectionView.contentInset = UIEdgeInsets(top: 0, left: margins.left - collectionViewSpacing, bottom: 0, right: 0)
+            }
             collectionView.reloadData()
+            collectionView.layoutIfNeeded()
+            let x: CGFloat = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width + collectionView.contentInset.right : -collectionView.contentInset.left
+            collectionView.contentOffset = CGPoint(x: x, y: 0)
         }
         origin.y += height
 

@@ -5,8 +5,8 @@
 // Author: NoiX180
 
 "about-content-license" = "Lisènsi kontèn";
-"about-content-license-details" = "Kajaba digunakake kasebut, isi cumawis wonten ing $1.";
-"about-content-license-details-share-alike-license" = "Lisensi Atribusi-BerbagiSerupa Creative Commons";
+"about-content-license-details" = "Isi cumepak kanthi pangayoman $1, kajaba ana katerangan liyané.";
+"about-content-license-details-share-alike-license" = "Lisènsi Atribusi-DumSaèmper Creative Commons";
 "about-contributors" = "Panyumbang";
 "about-libraries" = "Pustaka digunakake";
 "about-libraries-complete-list" = "Pratélan wutuh";
@@ -156,7 +156,7 @@
 "history-title" = "Sujarah";
 "hockeyapp-alert-always-send" = "Tansah ngirim";
 "hockeyapp-alert-do-not-send" = "Aja ngirim";
-"hockeyapp-alert-privacy" = "Privasi $1";
+"hockeyapp-alert-privacy" = "Priangga $1";
 "hockeyapp-alert-question" = "Panjenengan apa arep ngirim lapuran masalah nyang $1 supaya Yeyasan Wikimédia bisa mriksa masalahé?";
 "hockeyapp-alert-question-with-response-field" = "Panjenengan apa arep ngirim lapuran masalah nyang $1 supaya Yeyasan Wikimédia bisa mriksa masalahé? Mangga wedharaké apa sing kadadèn lan kapan masalahé muncul:";
 "hockeyapp-alert-send-report" = "Kirim lapuran";
@@ -186,7 +186,7 @@
 "info-box-title" = "Kasunyatan Rikat";
 "languages-title" = "Ganti basa";
 "license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Isi cumepak ing $1, kajaba ana katerangan liyané.";
+"license-footer-text" = "Isi cumepak kanthi pangayoman $1, kajaba ana katerangan liyané.";
 "login-forgot-password" = "Lali tembung wadining sampéyan?";
 "login-join-wikipedia" = "Mèlu Wikipédia.";
 "login-no-account" = "Durung duwé akun? $1";
@@ -200,10 +200,10 @@
 "main-menu-debug-crash" = "Rusak";
 "main-menu-debug-tweaks" = "Setèlan pangembang";
 "main-menu-heading-debug" = "Dhebug";
-"main-menu-heading-legal" = "Privasi lan Paugeran";
+"main-menu-heading-legal" = "Priangga lan Paugeran";
 "main-menu-heading-zero" = "Wikipédia Zéro";
 "main-menu-nearby" = "Cedhak kéné";
-"main-menu-privacy-policy" = "Paugeran privasi";
+"main-menu-privacy-policy" = "Pranatan bab priangga";
 "main-menu-rate-app" = "Biji aplikasiné";
 "main-menu-terms-of-use" = "Bebakuning Pangguna";
 "main-menu-title" = "Liyané";
@@ -221,6 +221,12 @@
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 éwu";
+"on-this-day-detail-header-date-range" = "saka $1 - $2";
+"on-this-day-detail-header-day" = "ing $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 kadadéan sajarah";
+"on-this-day-footer" = "Kadadéan sajarah liyane nèng dina iki";
+"on-this-day-title" = "Nèng dina iki";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Wurung";
 "page-edit-history" = "Sujarah besutan wutuh";
@@ -279,6 +285,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dina iki|Wingi|$1 dina kepungkur}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bubar|$1 jam kepungkur|$1 jam kepungkur}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mung saiki|$1 menit kepungkur|$1 menit kepungkur}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|Pungkasan taun|$1 taun kepungkur}}";
 "request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
 "save-action" = "Simpen";
 "saved-clear-all" = "Busak";

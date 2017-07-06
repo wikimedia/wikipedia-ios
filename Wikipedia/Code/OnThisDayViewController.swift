@@ -1,3 +1,5 @@
+import WMF;
+
 @objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
@@ -93,25 +95,6 @@ extension OnThisDayViewController {
         cell.selectionDelegate = nil
         cell.pauseDotsAnimation = true
     }
-}
-
-extension WMFFeedOnThisDayEvent {
-    // Returns year 'era' string - i.e. '1000 AD' or '200 BC'. (Negative years are 'BC')
-    func yearWithEraString() -> String? {
-        var components = DateComponents()
-        components.year = year?.intValue
-        guard let date = Calendar.current.date(from: components) else {
-            return nil
-        }
-        return WMFFeedOnThisDayEvent.yearWithEraDateFormatter.string(from: date)
-    }
-    private static let yearWithEraDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.autoupdatingCurrent
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.setLocalizedDateFormatFromTemplate("y G")
-        return dateFormatter
-    }()
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate

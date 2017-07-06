@@ -140,11 +140,11 @@
 "field-email-placeholder" = "contoh@contoh.org";
 "field-email-title" = "Surel";
 "field-email-title-optional" = "Alamat surel (Opsional)";
-"field-new-password-confirm-placeholder" = "masukan kembali kata sandi baru";
+"field-new-password-confirm-placeholder" = "masukkan kembali kata sandi baru";
 "field-new-password-confirm-title" = "Konfirmasi kata sandi baru";
-"field-new-password-placeholder" = "masukan kata sandi baru";
+"field-new-password-placeholder" = "masukkan kata sandi baru";
 "field-new-password-title" = "Kata sandi baru";
-"field-password-confirm-placeholder" = "masukan kembali kata sandi";
+"field-password-confirm-placeholder" = "masukkan kembali kata sandi";
 "field-password-confirm-title" = "Konfirmasi kata sandi";
 "field-password-placeholder" = "masukkan kata sandi";
 "field-password-title" = "Kata sandi";
@@ -234,6 +234,12 @@
 "number-billions" = "$1 miliar";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
+"on-this-day-detail-header-date-range" = "dari $1 - $2";
+"on-this-day-detail-header-day" = "pada $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 peristiwa bersejarah";
+"on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
+"on-this-day-title" = "Pada hari ini";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Batal";
 "page-edit-history" = "Semua riwayat suntingan";
@@ -292,6 +298,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|Kemarin|$1 hari yang lalu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lalu|$1 tahun yang lalu}}";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "save-action" = "Simpan";
 "saved-clear-all" = "Kosongkan";

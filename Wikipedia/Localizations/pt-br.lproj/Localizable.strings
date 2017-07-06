@@ -244,6 +244,12 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "de $1 - $2";
+"on-this-day-detail-header-day" = "Só $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 eventos históricos";
+"on-this-day-footer" = "Mais eventos históricos neste dia";
+"on-this-day-title" = "Neste dia";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Cancelar";
 "page-edit-history" = "Histórico de edição completo";
@@ -299,6 +305,10 @@
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
 "reference-title" = "Referências $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Today|Ontem|$1 dias atrás}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|$1 minuto atrás|$1 minutos atrás}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|Ano passado|$1 anos atrás}}";
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "save-action" = "Salvar";
 "saved-clear-all" = "Limpar";
@@ -382,6 +392,7 @@
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-preview-changes" = "Recuperando um prewie de suas mudanças...";
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";
+"wikitext-preview-link-preview-description" = "Este link leva a '$1'";
 "wikitext-preview-link-preview-title" = "Visualização do link";
 "wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
@@ -389,6 +400,7 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";

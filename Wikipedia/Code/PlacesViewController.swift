@@ -726,7 +726,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
-            let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
         } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
@@ -744,10 +744,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                     }
                 }
                 let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = resultURL?.wmf_articleDatabaseKey
             } else {
                 let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = firstResultURL?.wmf_articleDatabaseKey
             }
         }
         
@@ -756,7 +756,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var sort = 1
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
-                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                let articleURL = siteURL.wmf_URL(withTitle: displayTitle),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
@@ -1820,6 +1820,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        let navBarHeight = extendedNavBarView.frame.height
     
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
         let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
@@ -1832,13 +1833,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let right = annotationCenter.x + totalWidth - viewSize.width
         
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
-        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
+        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing + navBarHeight
 
         let canFitTopOrBottom = viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
-        let fitsTop = top < 0 && canFitTopOrBottom
+        let fitsTop = top < -navBarHeight && canFitTopOrBottom
         let fitsBottom = bottom < 0 && canFitTopOrBottom
         
-        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y - navBarHeight > 0.5*popoverSize.height
         let fitsLeft = left < 0 && canFitLeftOrRight
         let fitsRight = right < 0 && canFitLeftOrRight
         
@@ -1847,22 +1848,22 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             didFitPreferredLocation = true
             if preferredLocation == .top && fitsTop {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y - totalHeight
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && fitsBottom {
                 x = annotationCenter.x - 0.5 * popoverSize.width
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && fitsLeft {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
                 y = annotationCenter.y - 0.5 * popoverSize.height
             } else if preferredLocation == .right && fitsRight {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if preferredLocation == .top && top < 0 {
-                y = annotationCenter.y - totalHeight
+            } else if preferredLocation == .top && top < -navBarHeight {
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && bottom < 0 {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && left < 0 {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if preferredLocation == .right && right < 0 {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             } else {
@@ -1877,16 +1878,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         if (!didFitPreferredLocation) {
             if (fitsTop || fitsBottom) {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
+                y = annotationCenter.y + (top < bottom ? 0 - popoverDistanceFromAnnotationCenterY - popoverSize.height : popoverDistanceFromAnnotationCenterY)
             } else if (fitsLeft || fitsRight) {
-                x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+                x = annotationCenter.x + (left < right ? 0 - popoverDistanceFromAnnotationCenterX - popoverSize.width : popoverDistanceFromAnnotationCenterX)
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if (top < 0) {
-                y = annotationCenter.y - totalHeight
+            } else if (top < -navBarHeight) {
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if (bottom < 0) {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if (left < 0) {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if (right < 0) {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             }
@@ -2155,8 +2156,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let title = result.displayTitle,
-                let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
-                let key = (url as NSURL).wmf_articleDatabaseKey,
+                let url = self.siteURL.wmf_URL(withTitle: title),
+                let key = url.wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
             }
@@ -2182,13 +2183,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     public func showArticleURL(_ articleURL: URL) {
-        guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
+        guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation
             return
         }
         let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
