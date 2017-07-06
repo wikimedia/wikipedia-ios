@@ -6833,21 +6833,6 @@
 		BC550B081B977C730082F298 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
-				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
-				D89845281ECC8A1700849DA4 /* NewsCollectionViewCell.swift */,
-				B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */,
-				B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */,
-				B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */,
-				B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */,
-				B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */,
-				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
-				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
-				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
-				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
-				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
-				D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */,
-				D8497F631EE09BE600100CBD /* CircledRankView.swift */,
 				D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */,
 				D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */,
 				B0E803BB1C0CDC360065EBC0 /* WMFArticleListTableViewCell+WMFSearch.h */,
@@ -6946,6 +6931,7 @@
 		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				D83F5C051F0E5111006130FF /* Views */,
 				BC45D5451C31E092007C72F3 /* Application */,
 				BC45D5471C31E1EA007C72F3 /* Common */,
 				D810C34C1DF1C36F003427DA /* Third Party */,
@@ -7565,6 +7551,76 @@
 				D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */,
 			);
 			path = Carthage;
+			sourceTree = "<group>";
+		};
+		D83F5C051F0E5111006130FF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
+				D83F5C061F0E511C006130FF /* Collection View Cells */,
+				D83F5C0B1F0E51E4006130FF /* Accessory Views */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D83F5C061F0E511C006130FF /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
+				D83F5C081F0E5177006130FF /* Article */,
+				D83F5C071F0E514B006130FF /* Side Scrolling */,
+			);
+			name = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		D83F5C071F0E514B006130FF /* Side Scrolling */ = {
+			isa = PBXGroup;
+			children = (
+				B0B423521EF47DCD00D3DC4C /* SideScrollingCollectionViewCell.swift */,
+				D89845281ECC8A1700849DA4 /* NewsCollectionViewCell.swift */,
+				B0B423591EF4845500D3DC4C /* OnThisDayCollectionViewCell.swift */,
+				B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */,
+				D83F5C0A1F0E5192006130FF /* Extensions */,
+			);
+			name = "Side Scrolling";
+			sourceTree = "<group>";
+		};
+		D83F5C081F0E5177006130FF /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */,
+				D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */,
+				D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */,
+				D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */,
+				D83F5C091F0E5187006130FF /* Extensions */,
+			);
+			name = Article;
+			sourceTree = "<group>";
+		};
+		D83F5C091F0E5187006130FF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D8733C8C1ECA14DD0011E379 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D83F5C0A1F0E5192006130FF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */,
+				B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */,
+				B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D83F5C0B1F0E51E4006130FF /* Accessory Views */ = {
+			isa = PBXGroup;
+			children = (
+				D8497F631EE09BE600100CBD /* CircledRankView.swift */,
+			);
+			name = "Accessory Views";
 			sourceTree = "<group>";
 		};
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
