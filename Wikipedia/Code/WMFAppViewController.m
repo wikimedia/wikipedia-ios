@@ -550,7 +550,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{}];
+        [self.exploreViewController updateFeedSourcesUserInitiated:NO
+                                                        completion:^{
+                                                        }];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -742,7 +744,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
-    
+
     WMFUserActivityType type = [activity wmf_type];
     switch (type) {
         case WMFUserActivityTypeExplore:
@@ -769,20 +771,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                     [navController pushViewController:vc animated:NO];
                 }
             } else {
-                [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-                        if (group) {
-                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
-                            if (vc) {
-                                [navController pushViewController:vc animated:NO];
-                            }
-                        }
-                    });
-                    
-                }];
+                [self.exploreViewController updateFeedSourcesUserInitiated:NO
+                                                                completion:^{
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
+                                                                        if (group) {
+                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                                                                            if (vc) {
+                                                                                [navController pushViewController:vc animated:NO];
+                                                                            }
+                                                                        }
+                                                                    });
+
+                                                                }];
             }
-            
+
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
@@ -1285,7 +1288,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    
+
     if (!feedNewsStory) {
         return;
     }
@@ -1294,7 +1297,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (!vc) {
         return;
     }
-    
+
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     [navController popToRootViewControllerAnimated:NO];
@@ -1311,7 +1314,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (event.subtype != UIEventSubtypeMotionShake) {
         return;
     }
-    
+
     WMFTheme *theme = self.theme;
     if (theme == [WMFTheme light]) {
         theme = [WMFTheme dark];
@@ -1319,58 +1322,60 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         theme = [WMFTheme light];
     }
     [self applyTheme:theme];
-
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.view.window.backgroundColor = theme.colors.baseBackground;
     self.view.window.tintColor = theme.colors.link;
-    
+
     [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
     [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
     [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    
+
     UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
-    
+
+    NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
     [[UINavigationBar appearance] setTintColor:theme.colors.primaryText];
     [[UINavigationBar appearance] setBarTintColor:theme.colors.chromeBackground];
+    [[UINavigationBar appearance] setTitleTextAttributes:navBarTitleTextAttributes];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setTranslucent:NO];
-    
+
     [[UITabBar appearance] setBarTintColor:theme.colors.chromeBackground];
     [[UITabBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
-    
+
     UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     [[UITabBarItem appearance] setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
-    
+
     [[UITabBar appearance] setTintColor:theme.colors.link];
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:theme.colors.link];
-    
+
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
     [[self exploreViewController] view];
     [[self exploreViewController] applyTheme:theme];
-    
+
     NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
-    
+
     for (UINavigationController *nc in navigationControllers) {
         nc.navigationBar.barTintColor = theme.colors.chromeBackground;
         nc.navigationBar.translucent = NO;
         nc.navigationBar.tintColor = theme.colors.chromeText;
+        [nc.navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
-                [(id <WMFThemeable>)vc applyTheme:theme];
+                [(id<WMFThemeable>)vc applyTheme:theme];
             }
         }
     }
-    
+
     UITabBar *tabBar = self.rootTabBarController.tabBar;
     tabBar.barTintColor = theme.colors.chromeBackground;
     tabBar.tintColor = theme.colors.link;
@@ -1378,7 +1383,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
-    
+
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
