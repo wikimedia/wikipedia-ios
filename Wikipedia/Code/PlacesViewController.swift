@@ -1820,6 +1820,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        let navBarHeight = extendedNavBarView.frame.height
     
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
         let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
@@ -1835,7 +1836,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
 
         let canFitTopOrBottom = viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
-        let fitsTop = top < 0 && canFitTopOrBottom
+        let fitsTop = top < -navBarHeight && canFitTopOrBottom
         let fitsBottom = bottom < 0 && canFitTopOrBottom
         
         let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
@@ -1857,7 +1858,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             } else if preferredLocation == .right && fitsRight {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if preferredLocation == .top && top < 0 {
+            } else if preferredLocation == .top && top < -navBarHeight {
                 y = annotationCenter.y - totalHeight
             } else if preferredLocation == .bottom && bottom < 0 {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
@@ -1881,7 +1882,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             } else if (fitsLeft || fitsRight) {
                 x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if (top < 0) {
+            } else if (top < -navBarHeight) {
                 y = annotationCenter.y - totalHeight
             } else if (bottom < 0) {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
