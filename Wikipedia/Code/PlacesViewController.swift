@@ -1848,22 +1848,22 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             didFitPreferredLocation = true
             if preferredLocation == .top && fitsTop {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y - totalHeight
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && fitsBottom {
                 x = annotationCenter.x - 0.5 * popoverSize.width
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && fitsLeft {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
                 y = annotationCenter.y - 0.5 * popoverSize.height
             } else if preferredLocation == .right && fitsRight {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
                 y = annotationCenter.y - 0.5 * popoverSize.height
             } else if preferredLocation == .top && top < -navBarHeight {
-                y = annotationCenter.y - totalHeight
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && bottom < 0 {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && left < 0 {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if preferredLocation == .right && right < 0 {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             } else {
@@ -1878,16 +1878,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         if (!didFitPreferredLocation) {
             if (fitsTop || fitsBottom) {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
+                y = annotationCenter.y + (top < bottom ? 0 - popoverDistanceFromAnnotationCenterY - popoverSize.height : popoverDistanceFromAnnotationCenterY)
             } else if (fitsLeft || fitsRight) {
-                x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+                x = annotationCenter.x + (left < right ? 0 - popoverDistanceFromAnnotationCenterX - popoverSize.width : popoverDistanceFromAnnotationCenterX)
                 y = annotationCenter.y - 0.5 * popoverSize.height
             } else if (top < -navBarHeight) {
-                y = annotationCenter.y - totalHeight
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if (bottom < 0) {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if (left < 0) {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if (right < 0) {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             }
