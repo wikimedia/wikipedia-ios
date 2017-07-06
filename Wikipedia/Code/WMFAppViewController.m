@@ -1429,7 +1429,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     WMFTheme *theme = self.theme;
-    if (theme == [WMFTheme light]) {
+    if (theme == [WMFTheme standard]) {
         theme = [WMFTheme dark];
     } else {
         theme = [WMFTheme light];
