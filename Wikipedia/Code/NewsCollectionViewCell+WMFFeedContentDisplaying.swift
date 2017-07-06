@@ -10,7 +10,7 @@ extension NewsCollectionViewCell {
             return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet(), imageURL: articlePreview.thumbnailURL)
         }
         
-        let articleLanguage = (story.articlePreviews?.first?.articleURL as NSURL?)?.wmf_language
+        let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_language
         descriptionLabel.accessibilityLanguage = articleLanguage
         semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         

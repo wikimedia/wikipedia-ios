@@ -16,7 +16,7 @@ open class WMFTableOfContentsHeader: UIView {
     }
     
     open func headerTextForURL(_ url: URL) -> String {
-        let headerString = WMFLocalizedStringWithDefaultValue("table-of-contents-heading", url, Bundle.wmf_localization, "Contents", "Header text appearing above the first section in the table of contents\n{{Identical|Content}}")
+        let headerString = WMFLocalizedString("table-of-contents-heading", language: url.wmf_language, value: "Contents", comment: "Header text appearing above the first section in the table of contents\n{{Identical|Content}}")
         if (NSLocale.wmf_isCurrentLocaleEnglish()) {
             return headerString.uppercased(with: Locale.current)
         } else {

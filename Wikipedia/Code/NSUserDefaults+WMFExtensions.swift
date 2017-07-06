@@ -167,7 +167,7 @@ public extension UserDefaults {
             self.synchronize()
             return
         }
-        guard !(url as NSURL).wmf_isNonStandardURL else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         
@@ -247,7 +247,7 @@ public extension UserDefaults {
             self.synchronize()
             return
         }
-        guard !(url as NSURL).wmf_isNonStandardURL else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         

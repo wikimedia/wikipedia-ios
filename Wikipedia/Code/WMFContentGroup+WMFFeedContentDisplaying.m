@@ -223,7 +223,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindPictureOfTheDay:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
+            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL.wmf_language, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
         case WMFContentGroupKindFeaturedArticle:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindTopRead: {

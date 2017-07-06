@@ -41,17 +41,16 @@
 
 @end
 
-NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSURL *_Nullable url, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
+NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable wikipediaLanguage, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
     if (bundle == nil) {
         bundle = NSBundle.wmf_localizationBundle;
     }
     
-    NSString *language = url.wmf_language;
     NSString *translation = nil;
-    if (language == nil) {
+    if (wikipediaLanguage == nil) {
         translation = [bundle localizedStringForKey:key value:nil table:nil];
     } else {
-        NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:language];
+        NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:wikipediaLanguage];
         translation = [languageBundle localizedStringForKey:key value:nil table:nil];
     }
 

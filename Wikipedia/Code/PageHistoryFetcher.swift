@@ -41,7 +41,7 @@ open class HistoryFetchResults: NSObject {
     fileprivate var revisionsByDay: RevisionsByDay
     
     open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
-        return PageHistoryRequestParameters(title: (articleURL as NSURL).wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
+        return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
     open func items() -> [PageHistorySection]  {
