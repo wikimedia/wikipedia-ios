@@ -226,6 +226,7 @@
 "number-thousands" = "$1 ribu";
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-day" = "pada $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 peristiwa sejarah";
 "on-this-day-footer" = "Lebih banyak peristiwa bersejarah pada hari ini";
 "on-this-day-title" = "Pada hari ini";

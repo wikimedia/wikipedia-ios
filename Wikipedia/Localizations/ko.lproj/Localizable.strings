@@ -233,6 +233,7 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-day" = "$1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1개의 역사적 사건";
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "onboarding-wikipedia" = "위키백과";
