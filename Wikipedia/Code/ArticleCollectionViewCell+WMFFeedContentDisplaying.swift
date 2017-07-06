@@ -6,7 +6,7 @@ extension ArticleCollectionViewCell: Themeable {
         titleLabel.backgroundColor = theme.colors.paperBackground
         descriptionLabel.backgroundColor = theme.colors.paperBackground
         extractLabel?.backgroundColor = theme.colors.paperBackground
-        imageView.backgroundColor = theme.colors.paperBackground
+        imageView.backgroundColor = theme.colors.midBackground
         contentView.backgroundColor = theme.colors.paperBackground
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.primaryText
