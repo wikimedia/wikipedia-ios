@@ -5737,7 +5737,6 @@
 				0E03E2861B83948B00C1FBD7 /* Views */,
 				D86706C01D3D4AD3003AB2FC /* Layout */,
 				0E52FD631DA4008A00587426 /* Content Display */,
-				D8940CEA1DB56C0500E17F9E /* In The News */,
 				B0B4235F1EF9D65F00D3DC4C /* On This Day */,
 			);
 			name = Feed;
@@ -6247,7 +6246,6 @@
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D818D37F1ED725240076110D /* View Controllers */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				BC45D5561C31EEBE007C72F3 /* Error Handling */,
 				BC45D5591C31EFF8007C72F3 /* i18n */,
@@ -6931,6 +6929,7 @@
 		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				D818D37F1ED725240076110D /* View Controllers */,
 				D83F5C051F0E5111006130FF /* Views */,
 				BC45D5451C31E092007C72F3 /* Application */,
 				BC45D5471C31E1EA007C72F3 /* Common */,
@@ -7480,6 +7479,7 @@
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
+				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

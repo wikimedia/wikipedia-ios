@@ -81,6 +81,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.collectionView?.backgroundColor = theme.colors.baseBackground
         self.collectionView?.reloadData()
     }
 }

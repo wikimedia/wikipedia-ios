@@ -42,7 +42,7 @@ extension NewsViewController {
             return cell
         }
         let story = stories[indexPath.section]
-        newsCell.configure(with: story, dataStore: dataStore, theme: self.theme, layoutOnly: false)
+        newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell
     }
     

@@ -1232,7 +1232,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
 
-    UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL]];
+    UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     if (!vc) {
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
@@ -1249,20 +1249,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-
+    
+    UIViewController *vc = nil;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
-            return vc;
+            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
-            return vc;
+            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeGallery: {
-            return [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
+            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];
@@ -1280,8 +1279,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
-            return vc;
+            vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
@@ -1299,8 +1297,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
-            return vc;
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
         } break;
         case WMFFeedDetailTypeNone:
             break;
@@ -1308,7 +1305,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSAssert(false, @"Unknown Detail Type");
             break;
     }
-    return nil;
+    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id <WMFThemeable>)vc applyTheme:self.theme];
+    }
+    return vc;
 }
 
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {

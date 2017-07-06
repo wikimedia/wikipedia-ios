@@ -764,7 +764,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
                 if (vc) {
                     [navController pushViewController:vc animated:NO];
                 }
@@ -773,7 +773,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
                         if (group) {
-                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
+                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
                             if (vc) {
                                 [navController pushViewController:vc animated:NO];
                             }
@@ -1364,6 +1364,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         nc.navigationBar.barTintColor = theme.colors.chromeBackground;
         nc.navigationBar.translucent = NO;
         nc.navigationBar.tintColor = theme.colors.chromeText;
+        for (UIViewController *vc in nc.viewControllers) {
+            if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+                [(id <WMFThemeable>)vc applyTheme:theme];
+            }
+        }
     }
     
     UITabBar *tabBar = self.rootTabBarController.tabBar;
