@@ -7,7 +7,7 @@ extension ArticleCollectionViewCell: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.primaryText
         extractLabel?.textColor = theme.colors.primaryText
-        tintColor = theme.colors.link
+        saveButton.setTitleColor(theme.colors.link, for: .normal)
     }
     
     fileprivate var contentBackgroundColor: UIColor? {
@@ -110,7 +110,7 @@ public extension RankedArticleCollectionViewCell {
     override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, theme: Theme, layoutOnly: Bool) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(count)
-        rankView.tintColor = Gradient.wmf_blueToGreenGradient.color(at: percent)
+        rankView.tintColor = theme.colors.linkToAccent.color(at: percent)
         super.configure(article: article, displayType: displayType, index: index, count: count, theme: theme, layoutOnly: layoutOnly)
     }
 }

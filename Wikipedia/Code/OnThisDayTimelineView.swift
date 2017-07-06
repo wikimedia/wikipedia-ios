@@ -12,7 +12,6 @@ class OnThisDayTimelineView: UIView {
     }
     
     open func setup() {
-        backgroundColor = .clear
     }
 
     public var shouldAnimateDots: Bool = false
@@ -44,13 +43,13 @@ class OnThisDayTimelineView: UIView {
         }
     }
     
-    override var tintColor: UIColor! {
-        didSet {
-            bottomDotShapeLayer.strokeColor = tintColor.cgColor
-            topOuterDotShapeLayer.strokeColor = tintColor.cgColor
-            topInnerDotShapeLayer.fillColor = tintColor.cgColor
-            topInnerDotShapeLayer.strokeColor = tintColor.cgColor
-        }
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        bottomDotShapeLayer.strokeColor = tintColor.cgColor
+        topOuterDotShapeLayer.strokeColor = tintColor.cgColor
+        topInnerDotShapeLayer.fillColor = tintColor.cgColor
+        topInnerDotShapeLayer.strokeColor = tintColor.cgColor
+        setNeedsDisplay()
     }
     
     override var backgroundColor: UIColor? {
@@ -63,7 +62,7 @@ class OnThisDayTimelineView: UIView {
     private lazy var bottomDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
@@ -72,7 +71,7 @@ class OnThisDayTimelineView: UIView {
     private lazy var topOuterDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
@@ -80,8 +79,8 @@ class OnThisDayTimelineView: UIView {
 
     private lazy var topInnerDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
-        shape.fillColor = UIColor.wmf_blue.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.fillColor = UIColor.blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape

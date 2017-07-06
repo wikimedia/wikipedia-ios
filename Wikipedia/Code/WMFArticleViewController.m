@@ -1879,7 +1879,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.progressView.trackTintColor = [UIColor clearColor];
-    self.progressView.tintColor = theme.colors.link;
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;

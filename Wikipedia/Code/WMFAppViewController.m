@@ -1311,12 +1311,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     self.view.window.backgroundColor = theme.colors.baseBackground;
     self.view.window.tintColor = theme.colors.link;
-
-    [[self exploreViewController] view];
-    [[self exploreViewController] applyTheme:theme];
+    
+    self.view.backgroundColor = theme.colors.baseBackground;
 
     // Navigation controllers
-    
     NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
 
     NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
@@ -1346,7 +1344,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
     UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     for (UINavigationBar *navigationBar in navigationBars) {
-        navigationBar.barTintColor = theme.colors.chromeBackground;
+        //navigationBar.barTintColor = theme.colors.chromeBackground;
         navigationBar.translucent = NO;
         navigationBar.tintColor = theme.colors.chromeText;
         [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -1372,7 +1370,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
         tabBar.barTintColor = theme.colors.chromeBackground;
-        tabBar.tintColor = theme.colors.link;
+        //tabBar.tintColor = theme.colors.link;
         tabBar.translucent = NO;
         tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
         if (tabBar.items.count > 0) {
@@ -1393,9 +1391,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
-    [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
-    [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
-    [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
 
     [self setNeedsStatusBarAppearanceUpdate];
 }

@@ -138,9 +138,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        
-        view.tintColor = .wmf_blue
-        
         wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
@@ -183,7 +180,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapListToggle.setImage(list, forSegmentAt: 1)
         mapListToggle.selectedSegmentIndex = 0
         mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        mapListToggle.tintColor = .wmf_blue
         
         // Setup close search button
         closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
@@ -2021,7 +2017,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blue, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: view.tintColor, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
@@ -2387,7 +2383,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)
         }
-        shareAction.backgroundColor = .wmf_blue
+        shareAction.backgroundColor = view.tintColor
         return [saveForLaterAction, shareAction]
     }
     
@@ -2851,5 +2847,19 @@ extension PlacesViewController {
                 return false
             }
         }
+    }
+}
+
+// MARK: - Themeable
+
+extension PlacesViewController: Themeable {
+    func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        titleViewSearchBar.barTintColor = theme.colors.chromeBackground
+        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        
     }
 }

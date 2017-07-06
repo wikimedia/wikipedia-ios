@@ -11,27 +11,21 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        tintColor = UIColor.wmf_blue
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
-        descriptionLabel.textColor = UIColor.wmf_customGray
         addSubview(saveButton)
-        saveButton.tintColor = UIColor.wmf_blue
-        saveButton.setTitleColor(UIColor.wmf_blue, for: .normal)
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
-        backgroundColor = .white
         super.setup()
     }
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
-        backgroundColor = .white
         titleFontFamily = .georgia
         titleTextStyle = .title1
         descriptionFontFamily = .system

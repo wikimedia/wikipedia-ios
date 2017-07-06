@@ -61,6 +61,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        timelineView.backgroundColor = theme.colors.paperBackground
         bottomTitleLabel.textColor = theme.colors.link
         titleLabel.textColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText

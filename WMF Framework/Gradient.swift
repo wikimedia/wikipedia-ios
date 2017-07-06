@@ -26,8 +26,4 @@ public class Gradient: NSObject {
         let a = a1 + percentage * (a2 - a1)
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
-    
-    public static var wmf_blueToGreenGradient: Gradient = {
-        return Gradient(startColor: UIColor.wmf_blue, endColor: UIColor.wmf_green)
-    }()
 }

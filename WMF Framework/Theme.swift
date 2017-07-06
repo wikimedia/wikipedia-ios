@@ -34,6 +34,8 @@ public class ThemeColors: NSObject {
     public let icon: UIColor?
     public let iconBackground: UIColor?
     
+    public let linkToAccent: Gradient
+    
     init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, icon: UIColor?, iconBackground: UIColor?) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
@@ -52,6 +54,8 @@ public class ThemeColors: NSObject {
         
         self.icon = icon
         self.iconBackground = iconBackground
+        
+        self.linkToAccent = Gradient(startColor: link, endColor: accent)
     }
 }
 

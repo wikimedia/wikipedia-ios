@@ -76,9 +76,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .wmf_settingsBackground
-        self.view.tintColor = .wmf_blue
-        
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         self.collectionViewController.willMove(toParentViewController: self)
@@ -274,6 +271,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
 extension ExploreViewController: Themeable {
     func apply(theme: Theme) {
+        view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
