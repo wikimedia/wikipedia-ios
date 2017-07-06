@@ -228,6 +228,7 @@
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 történelmi események";
 "on-this-day-footer" = "Több történelmi események ezen a napon";
 "on-this-day-title" = "Ezen a napon";

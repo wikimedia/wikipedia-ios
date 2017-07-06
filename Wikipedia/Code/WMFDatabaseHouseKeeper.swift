@@ -35,7 +35,7 @@ import Foundation
                 continue
             }
             
-            if let articleURLDatabaseKey = (group.articleURL as NSURL?)?.wmf_articleDatabaseKey {
+            if let articleURLDatabaseKey = group.articleURL?.wmf_articleDatabaseKey {
                 referencedArticleKeys.insert(articleURLDatabaseKey)
             }
             
