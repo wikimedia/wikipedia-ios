@@ -1839,7 +1839,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let fitsTop = top < -navBarHeight && canFitTopOrBottom
         let fitsBottom = bottom < 0 && canFitTopOrBottom
         
-        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.height
         let fitsLeft = left < 0 && canFitLeftOrRight
         let fitsRight = right < 0 && canFitLeftOrRight
         
