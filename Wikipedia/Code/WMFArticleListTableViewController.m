@@ -306,7 +306,7 @@
 }
 
 - (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [self deleteItemAtIndexPath:indexPath];
     }];
 }
