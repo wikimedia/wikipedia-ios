@@ -68,7 +68,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -1304,25 +1304,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [navController pushViewController:vc animated:NO];
 }
 
-#pragma mark - Perma Random Mode
-
-#if DEBUG && DEBUG_THEMES
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion withEvent:event];
-    }
-    if (event.subtype != UIEventSubtypeMotionShake) {
-        return;
-    }
-
-    WMFTheme *theme = self.theme;
-    if (theme == [WMFTheme light]) {
-        theme = [WMFTheme dark];
-    } else {
-        theme = [WMFTheme light];
-    }
-    [self applyTheme:theme];
-}
+#pragma mark - Themeable
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
@@ -1387,7 +1369,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-#elif WMF_TWEAKS_ENABLED
+#pragma mark - Perma Random Mode
+
+#if WMF_TWEAKS_ENABLED
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
         [super motionEnded:motion withEvent:event];
@@ -1408,6 +1392,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
+}
+#else
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+
+    WMFTheme *theme = self.theme;
+    if (theme == [WMFTheme light]) {
+        theme = [WMFTheme dark];
+    } else {
+        theme = [WMFTheme light];
+    }
+    [self applyTheme:theme];
 }
 #endif
 
