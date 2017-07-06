@@ -247,6 +247,7 @@
 "number-thousands" = "$1 тыс.";
 "on-this-day-detail-header-date-range" = "С $1 — $2";
 "on-this-day-detail-header-day" = "на $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-title" = "В этот день…";

@@ -180,6 +180,7 @@
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
 "number-thousands" = "$1 tūkst.";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai}}";
 "onboarding-wikipedia" = "Vikipedija";
 "open-link-cancel" = "Atšaukti";
 "page-edit-history" = "Pilna keitimų istorija";

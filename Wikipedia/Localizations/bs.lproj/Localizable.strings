@@ -224,6 +224,7 @@
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "od $1 do $2";
 "on-this-day-detail-header-day" = "na $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 historijskih događaja";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";

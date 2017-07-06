@@ -228,6 +228,7 @@
 "number-thousands" = "$1 mil";
 "on-this-day-detail-header-date-range" = "de $1 a $2";
 "on-this-day-detail-header-day" = "en $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 acontecementos históricos";
 "on-this-day-footer" = "Máis acontecementos históricos deste día";
 "on-this-day-title" = "Neste día";

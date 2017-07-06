@@ -65,6 +65,7 @@
 "action-read" = "Leer";
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
+"action-saved-accessibility" = "Guardado. Actívalo para borrarlo.";
 "action-share" = "Compartir";
 "action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
@@ -237,6 +238,12 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "de $1 - $2";
+"on-this-day-detail-header-day" = "un $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 acontecimientos históricos";
+"on-this-day-footer" = "Más acontecimientos históricos en este día";
+"on-this-day-title" = "Un día como hoy";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancelar";
 "page-edit-history" = "Historial de edición completo";
@@ -295,6 +302,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "save-action" = "Guardar";
 "saved-clear-all" = "Vaciar";
