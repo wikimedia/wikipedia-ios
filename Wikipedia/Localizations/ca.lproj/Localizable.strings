@@ -232,6 +232,7 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
 "on-this-day-detail-header-day" = "el $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "1$ esdeveniments històrics";
 "onboarding-wikipedia" = "Viquipèdia";
 "open-link-cancel" = "Cancel·la";
