@@ -1312,59 +1312,90 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.view.window.backgroundColor = theme.colors.baseBackground;
     self.view.window.tintColor = theme.colors.link;
 
-    [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
-    [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
-    [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-
-    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
-
-    NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
-    [[UINavigationBar appearance] setTintColor:theme.colors.primaryText];
-    [[UINavigationBar appearance] setBarTintColor:theme.colors.chromeBackground];
-    [[UINavigationBar appearance] setTitleTextAttributes:navBarTitleTextAttributes];
-    [[UINavigationBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setTranslucent:NO];
-
-    [[UITabBar appearance] setBarTintColor:theme.colors.chromeBackground];
-    [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
-
-    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
-    NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText, NSFontAttributeName: tabBarItemFont};
-    NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
-    [[UITabBarItem appearance] setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
-
-    [[UITabBar appearance] setTintColor:theme.colors.link];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:theme.colors.link];
-
-    [[UISwitch appearance] setOnTintColor:theme.colors.accent];
     [[self exploreViewController] view];
     [[self exploreViewController] applyTheme:theme];
 
+    // Navigation controllers
+    
     NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
 
+    NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    NSMutableArray<UIToolbar *> *toolbars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    
     for (UINavigationController *nc in navigationControllers) {
-        nc.navigationBar.barTintColor = theme.colors.chromeBackground;
-        nc.navigationBar.translucent = NO;
-        nc.navigationBar.tintColor = theme.colors.chromeText;
-        [nc.navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
                 [(id<WMFThemeable>)vc applyTheme:theme];
             }
         }
+        UIToolbar *toolbar = nc.toolbar;
+        if (toolbar) {
+            [toolbars addObject:toolbar];
+        }
+        
+        UINavigationBar *navbar = nc.navigationBar;
+        if (navbar) {
+            [navigationBars addObject:navbar];
+        }
+    }
+    
+    // Navigation bars
+    
+    [navigationBars addObject:[UINavigationBar appearance]];
+    UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
+    NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
+    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    for (UINavigationBar *navigationBar in navigationBars) {
+        navigationBar.barTintColor = theme.colors.chromeBackground;
+        navigationBar.translucent = NO;
+        navigationBar.tintColor = theme.colors.chromeText;
+        [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
+        [navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
+        [navigationBar setBackIndicatorImage:backChevron];
+        [navigationBar setBackIndicatorTransitionMaskImage:backChevron];
+    }
+    
+    
+    // Tool bars
+    
+    [toolbars addObject:[UIToolbar appearance]];
+    for (UIToolbar *toolbar in toolbars) {
+        toolbar.barTintColor = theme.colors.chromeBackground;
+        [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
     }
 
-    UITabBar *tabBar = self.rootTabBarController.tabBar;
-    tabBar.barTintColor = theme.colors.chromeBackground;
-    tabBar.tintColor = theme.colors.link;
-    for (UITabBarItem *item in tabBar.items) {
+    
+    // Tab bars
+    
+    NSArray<UITabBar *> *tabBars = @[self.rootTabBarController.tabBar, [UITabBar appearance]];
+    NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
+    for (UITabBar *tabBar in tabBars) {
+        tabBar.barTintColor = theme.colors.chromeBackground;
+        tabBar.tintColor = theme.colors.link;
+        tabBar.translucent = NO;
+        tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
+        if (tabBar.items.count > 0) {
+            [tabBarItems addObjectsFromArray:tabBar.items];
+        }
+    }
+    
+    
+    // Tab bar items
+    
+    [tabBarItems addObject:[UITabBarItem appearance]];
+    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText, NSFontAttributeName: tabBarItemFont};
+    NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
+    for (UITabBarItem *item in tabBarItems) {
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
+    
+    [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+    [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
+    [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
 
     [self setNeedsStatusBarAppearanceUpdate];
 }

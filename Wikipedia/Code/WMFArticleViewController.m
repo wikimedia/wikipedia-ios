@@ -51,7 +51,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import <WMF/NSString+WMFPageUtilities.h>
-#import "UIToolbar+WMFStyling.h"
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
@@ -314,8 +313,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_progressView) {
         UIProgressView *progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         progress.translatesAutoresizingMaskIntoConstraints = NO;
-        progress.trackTintColor = [UIColor clearColor];
-        progress.tintColor = [UIColor wmf_blue];
         _progressView = progress;
     }
 
@@ -330,7 +327,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height = 10;
 
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_articleBackground];
 
         UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
         headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
@@ -349,7 +345,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha
-        _headerImageView.backgroundColor = [UIColor whiteColor];
+        
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
@@ -778,12 +774,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
-
+    [self applyTheme:[WMFTheme light]];
     [self setUpTitleBarButton];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
@@ -1881,6 +1874,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                   width:230.0f
                                                                duration:3.0];
 }
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.progressView.trackTintColor = [UIColor clearColor];
+    self.progressView.tintColor = theme.colors.link;
+    self.headerView.backgroundColor = theme.colors.paperBackground;
+    self.view.backgroundColor = theme.colors.paperBackground;
+    self.headerImageView.backgroundColor = theme.colors.paperBackground;
+}
+
 
 @end
 
