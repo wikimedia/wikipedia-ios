@@ -241,6 +241,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "از $1 - $2";
 "on-this-day-detail-header-day" = "در $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 رویداد تاریخی";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-title" = "در این روز";

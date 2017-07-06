@@ -236,6 +236,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "från $1 - $2";
 "on-this-day-detail-header-day" = "den $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 historiska händelser";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-title" = "På denna dag";

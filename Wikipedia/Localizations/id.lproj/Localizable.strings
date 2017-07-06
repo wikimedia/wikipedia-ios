@@ -140,11 +140,11 @@
 "field-email-placeholder" = "contoh@contoh.org";
 "field-email-title" = "Surel";
 "field-email-title-optional" = "Alamat surel (Opsional)";
-"field-new-password-confirm-placeholder" = "masukan kembali kata sandi baru";
+"field-new-password-confirm-placeholder" = "masukkan kembali kata sandi baru";
 "field-new-password-confirm-title" = "Konfirmasi kata sandi baru";
-"field-new-password-placeholder" = "masukan kata sandi baru";
+"field-new-password-placeholder" = "masukkan kata sandi baru";
 "field-new-password-title" = "Kata sandi baru";
-"field-password-confirm-placeholder" = "masukan kembali kata sandi";
+"field-password-confirm-placeholder" = "masukkan kembali kata sandi";
 "field-password-confirm-title" = "Konfirmasi kata sandi";
 "field-password-placeholder" = "masukkan kata sandi";
 "field-password-title" = "Kata sandi";
@@ -236,6 +236,7 @@
 "number-thousands" = "$1 ribu";
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-day" = "pada $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 peristiwa bersejarah";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-title" = "Pada hari ini";
