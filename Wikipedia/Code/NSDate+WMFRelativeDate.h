@@ -1,8 +1,10 @@
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFLocalizedDateFormatStrings : NSObject
 
-+ (NSString *)yearsAgo;
++ (NSString *)yearsAgoForSiteURL:(nullable NSURL *)siteURL;
 
 @end
 
@@ -15,3 +17,5 @@
 - (NSString *)wmf_localizedRelativeDateFromMidnightUTCDate;
 
 @end
+
+NS_ASSUME_NONNULL_END
