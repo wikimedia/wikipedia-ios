@@ -295,8 +295,20 @@
 
 #pragma mark - Row actions
 
+- (NSString *)deleteActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-delete", nil, nil, @"Delete", @"Text of the article list row action shown on swipe which deletes the article");
+}
+
+- (NSString *)shareActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
+}
+
+- (NSString *)saveActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-save", nil, nil, @"Save", @"Text of the article list row action shown on swipe which allows the user to save the article");
+}
+
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Share" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSURL *url = [self urlAtIndexPath:indexPath];
         
         UIActivityViewController *shareActivityController = [self shareActivityController:url];
@@ -306,13 +318,13 @@
 }
 
 - (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [self deleteItemAtIndexPath:indexPath];
     }];
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Save"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
