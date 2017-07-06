@@ -240,6 +240,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-day" = "le $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "événements historiques de $1";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
 "on-this-day-title" = "Ce jour";

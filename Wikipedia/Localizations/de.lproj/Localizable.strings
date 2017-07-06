@@ -226,7 +226,7 @@
 "number-thousands" = "$1 T";
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
 "on-this-day-detail-header-day" = "am $1";
-"on-this-day-detail-header-title" = "$1 historische Ereignisse";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
 "on-this-day-title" = "Heute";
 "onboarding-wikipedia" = "Wikipedia";

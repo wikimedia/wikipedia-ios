@@ -232,6 +232,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-day" = "ב־$1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 אירועים היסטוריים";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-title" = "ביום הזה";
