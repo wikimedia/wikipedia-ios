@@ -60,7 +60,7 @@
                 <outlet property="moreLabel" destination="CED-ZN-Pd2" id="AiJ-dp-p36"/>
                 <outlet property="visibleBackgroundView" destination="hIg-YX-yCN" id="sVi-9Z-5hS"/>
             </connections>
-            <point key="canvasLocation" x="1053" y="-236.5"/>
+            <point key="canvasLocation" x="1053" y="-237"/>
         </view>
     </objects>
     <resources>

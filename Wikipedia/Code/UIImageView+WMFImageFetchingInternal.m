@@ -5,7 +5,6 @@
 #import "UIImage+WMFNormalization.h"
 #import <WMF/CIDetector+WMFFaceDetection.h>
 #import <WMF/WMFFaceDetectionCache.h>
-#import <WMF/UIImageView+WMFPlaceholder.h>
 #import <WMF/WMF-Swift.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
@@ -183,10 +182,8 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     }
 
     dispatch_block_t animations = ^{
-        [self wmf_hidePlaceholder];
+        self.image = image;
     };
-
-    self.image = image;
 
     if ([self isKindOfClass:[FLAnimatedImageView class]] && animatedImage) {
         FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView *)self);
@@ -195,6 +192,8 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     if (animated) {
         [UIView animateWithDuration:[CATransaction animationDuration]
+                              delay:0
+                            options:UIViewAnimationOptionTransitionCrossDissolve
                          animations:animations
                          completion:^(BOOL finished) {
                              success();

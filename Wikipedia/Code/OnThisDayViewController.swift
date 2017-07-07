@@ -31,7 +31,6 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .white
         register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier)
         register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier)
         register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier)
@@ -62,7 +61,7 @@ extension OnThisDayViewController {
         
         onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
         
-        onThisDayCell.configure(with: event, dataStore: dataStore, layoutOnly: false, shouldAnimateDots: true)
+        onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         return onThisDayCell
     }
     
@@ -76,6 +75,7 @@ extension OnThisDayViewController {
         }
         
         header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, date: date)
+        header.apply(theme: theme)
         
         return header
     }

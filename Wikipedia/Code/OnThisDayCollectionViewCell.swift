@@ -38,7 +38,6 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override open func setup() {
         super.setup()
-        collectionView.backgroundColor = .clear
         insertSubview(timelineView, belowSubview: collectionView)
     }
     
@@ -58,5 +57,16 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         super.layoutSublayers(of: layer)
         timelineView.topDotsY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
         timelineView.bottomDotY = bottomTitleLabel.convert(bottomTitleLabel.bounds, to: timelineView).midY
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        timelineView.backgroundColor = theme.colors.paperBackground
+        titleLabel.textColor = theme.colors.link
+        titleLabel.backgroundColor = theme.colors.paperBackground
+        bottomTitleLabel.textColor = theme.colors.link
+        bottomTitleLabel.backgroundColor = theme.colors.paperBackground
+        subTitleLabel.textColor = theme.colors.tertiaryText
+        collectionView.backgroundColor = .clear
     }
 }

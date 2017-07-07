@@ -171,7 +171,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import <WMF/UIColor+WMFStyle.h>
 #import <WMF/UIImage+WMFStyle.h>
-#import <WMF/UIImageView+WMFPlaceholder.h>
 #import <WMF/UIColor+WMFHexColor.h>
 #import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import <WMF/UIView+WMFDefaultNib.h>

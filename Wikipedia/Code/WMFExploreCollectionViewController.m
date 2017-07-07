@@ -36,6 +36,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, WMFFeedNotificationCellDelegate>
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -328,11 +330,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // self.view is a wrapper view (Apple's, not ours), so we need to set the collectionView explicitly
-    self.view.backgroundColor = [UIColor wmf_settingsBackground];
-    self.collectionView.backgroundColor = [UIColor wmf_settingsBackground];
-    self.view.tintColor = [UIColor wmf_blue];
-    self.collectionView.tintColor = [UIColor wmf_blue];
     [self registerCellsAndViews];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -599,6 +596,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeNotification: {
             WMFFeedNotificationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName] forIndexPath:indexPath];
             cell.notificationCellDelegate = self;
+            [cell applyTheme:self.theme];
             return cell;
         } break;
         default:
@@ -836,10 +834,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     header.imageBackgroundColor = [section headerIconBackgroundColor];
 
     header.title = [[section headerTitle] mutableCopy];
-    [header setTitleColor:[section headerTitleColor]];
-
     header.subTitle = [[section headerSubTitle] mutableCopy];
-    [header setSubTitleColor:[section headerSubTitleColor]];
+    
+    [header applyTheme:self.theme];
 
     @weakify(self);
     header.whenTapped = ^{
@@ -963,7 +960,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
             footer.enableLocationButton.tag = indexPath.section;
             [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
+            [footer applyTheme:self.theme];
             return footer;
         }
         default: {
@@ -980,6 +977,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
             };
+            [footer applyTheme:self.theme];
             return footer;
         }
     }
@@ -1099,7 +1097,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] layoutOnly:layoutOnly];
+    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] theme:self.theme layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
@@ -1108,6 +1106,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     cell.titleText = article.displayTitle;
     cell.descriptionText = article.capitalizedWikidataDescription;
     [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
+    [cell applyTheme:self.theme];
     [self updateLocationCell:cell location:article.location];
 }
 
@@ -1125,7 +1124,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSArray *stories = contentGroup.content;
     WMFFeedNewsStory *story = [stories firstObject];
     if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
-        [cell configureWithStory:story dataStore:self.userStore layoutOnly:layoutOnly];
+        [cell configureWithStory:story dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
@@ -1136,7 +1135,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
             return event.year != thisEvent.year;
         }];
-        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore layoutOnly:layoutOnly];
+        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
@@ -1233,7 +1232,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
 
-    UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL]];
+    UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     if (!vc) {
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
@@ -1250,20 +1249,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-
+    
+    UIViewController *vc = nil;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
-            return vc;
+            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFRandomArticleViewController *vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
-            return vc;
+            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeGallery: {
-            return [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
+            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];
@@ -1281,8 +1279,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFNewsViewController *vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
-            return vc;
+            vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
@@ -1300,8 +1297,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            WMFOnThisDayViewController *vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
-            return vc;
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
         } break;
         case WMFFeedDetailTypeNone:
             break;
@@ -1309,7 +1305,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSAssert(false, @"Unknown Detail Type");
             break;
     }
-    return nil;
+    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id <WMFThemeable>)vc applyTheme:self.theme];
+    }
+    return vc;
 }
 
 - (void)presentDetailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
@@ -1785,6 +1784,15 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 }
 
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.collectionView.backgroundColor = theme.colors.baseBackground;
+    self.view.backgroundColor = theme.colors.baseBackground;
+    [self.collectionView reloadData];
+}
+
 #pragma mark - News Delegate
 
 - (void)sideScrollingCollectionViewCell:(WMFSideScrollingCollectionViewCell *)cell didSelectArticleWithURL:(NSURL *)articleURL {
@@ -1794,7 +1802,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore animated:YES];
 }
 
-#if DEBUG
+#if DEBUG && DEBUG_CHAOS
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
         [super motionEnded:motion withEvent:event];
