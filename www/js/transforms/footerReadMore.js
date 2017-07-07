@@ -68,7 +68,7 @@ class WMFPageFragment {
 
     var description = null
     if(wmfPage.terms){
-      description = wmfPage.terms.description
+      description = wmfPage.terms.description[0]
     }
     if((description === null || description.length < 10) && wmfPage.extract){
       description = cleanExtract(wmfPage.extract)
