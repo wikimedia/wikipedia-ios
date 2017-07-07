@@ -1021,7 +1021,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
+    [self presentDetailViewControllerForItemAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Cells, Headers and Footers
