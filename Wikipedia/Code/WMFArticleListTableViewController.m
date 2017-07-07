@@ -22,7 +22,7 @@
 
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    
+
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -31,6 +31,8 @@
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
+
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
