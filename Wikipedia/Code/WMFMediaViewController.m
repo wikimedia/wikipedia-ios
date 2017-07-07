@@ -68,7 +68,7 @@
 }
 
 - (void)wmf_MediaSuccess:(WMFMedia *)media {
-    self.mediaObject = media.lowQualityMediaObject;
+    self.mediaObject = media.highQualityMediaObject;
     [self.view setNeedsLayout];
     self.playerView.sourceURL = self.mediaObject.url;
     [self.playerView play];

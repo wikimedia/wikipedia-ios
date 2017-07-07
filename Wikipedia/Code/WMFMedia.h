@@ -10,6 +10,7 @@
 @interface WMFMedia : NSObject
 
 @property (nonatomic, readonly) WMFMediaObject *lowQualityMediaObject;
+@property (nonatomic, readonly) WMFMediaObject *highQualityMediaObject;
 
 @property (nonatomic, readonly) NSArray<WMFMediaObject *> *sortedMediaObjects;
 

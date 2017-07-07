@@ -50,6 +50,10 @@ NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&tit
     return self.sortedMediaObjects.firstObject;
 }
 
+- (WMFMediaObject *)highQualityMediaObject {
+    return self.sortedMediaObjects.lastObject;
+}
+
 - (NSURLSessionTask *)createURLSessionTaskFor:(NSString *)titles {
     @weakify(self)
     void (^handler)(NSData *data, NSURLResponse *response, NSError *error);
