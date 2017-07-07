@@ -895,7 +895,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 1;
+            self.webViewController.contentWidthPercentage = 0.91;
             break;
     }
 

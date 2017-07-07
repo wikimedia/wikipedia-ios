@@ -302,7 +302,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
@@ -410,21 +410,27 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
-- (void)updateWebContentMarginForSize:(CGSize)size {
+- (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
     CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
-    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+    if (force || ABS(self.marginWidth - newMarginWidth) >= 0.5) {
         self.marginWidth = newMarginWidth;
-        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        NSString *jsFormat = @""
+            "var contentDiv = document.getElementById('content');"
+            "contentDiv.style.marginLeft='%ipx';"
+            "contentDiv.style.marginRight='%ipx';"
+            "window.wmf.footerContainer.updateLeftAndRightMargin(%i);"
+        ;
+        
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self updateWebContentMarginForSize:self.view.bounds.size];
+    [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1070,7 +1076,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
     }
 }
 
