@@ -744,18 +744,31 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     WMFLayoutEstimate estimate;
     WMFContentGroup *group = [self sectionAtIndex:section];
-    if ([group headerType] == WMFFeedHeaderTypeNone) {
-        estimate.height = 0;
-        estimate.precalculated = YES;
-    } else {
-        WMFExploreSectionHeader *header = (WMFExploreSectionHeader *)[self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
-        [self configureHeader:header withContentGroup:group forSectionAtIndex:section];
-        CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
-        WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-        attributesToFit.frame = frameToFit;
-        WMFCVLAttributes *attributes = (WMFCVLAttributes *)[header preferredLayoutAttributesFittingAttributes:attributesToFit];
-        estimate.height = attributes.frame.size.height;
-        estimate.precalculated = YES;
+    WMFFeedHeaderType headerType = group.headerType;
+    switch (headerType) {
+        case WMFFeedHeaderTypeNone:
+            estimate.height = 0;
+            estimate.precalculated = YES;
+            break;
+        default: {
+            NSString *reuseIdentifier = [WMFExploreSectionHeader wmf_nibName];
+            NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%lli", reuseIdentifier, (long long)headerType, (long long)columnWidth]; //Only need to cache one value - height is isn't different from section to section, only from dynamic type differences
+            NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
+            if (cachedValue) {
+                estimate.height = [cachedValue doubleValue];
+                estimate.precalculated = YES;
+                break;
+            }
+            WMFExploreSectionHeader *header = (WMFExploreSectionHeader *)[self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseIdentifier];
+            [self configureHeader:header withContentGroup:group forSectionAtIndex:section];
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            WMFCVLAttributes *attributes = (WMFCVLAttributes *)[header preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
+            [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
+        } break;
     }
     return estimate;
 }
@@ -763,28 +776,40 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     WMFLayoutEstimate estimate;
     WMFContentGroup *group = [self sectionAtIndex:section];
-    if ([group moreType] == WMFFeedMoreTypeNone) {
-        estimate.height = 0;
-        estimate.precalculated = YES;
-    } else {
-        CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
-        NSString *reuseIdentifier = nil;
-        if (group.moreType == WMFFeedMoreTypeLocationAuthorization) {
-            reuseIdentifier = [WMFTitledExploreSectionFooter wmf_nibName];
-        } else {
-            reuseIdentifier = [WMFExploreSectionFooter wmf_nibName];
-        }
-        WMFExploreCollectionReusableView *footer = [self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifier];
-        if ([footer isKindOfClass:[WMFTitledExploreSectionFooter class]]) {
-            [self configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:section];
-        } else {
-            [self configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:group];
-        }
-        WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-        attributesToFit.frame = frameToFit;
-        WMFCVLAttributes *attributes = (WMFCVLAttributes *)[footer preferredLayoutAttributesFittingAttributes:attributesToFit];
-        estimate.height = attributes.frame.size.height;
-        estimate.precalculated = YES;
+    WMFFeedMoreType moreType = group.moreType;
+    switch (moreType) {
+        case WMFFeedMoreTypeNone:
+            estimate.height = 0;
+            estimate.precalculated = YES;
+            break;
+        default: {
+            NSString *reuseIdentifier = nil;
+            if (group.moreType == WMFFeedMoreTypeLocationAuthorization) {
+                reuseIdentifier = [WMFTitledExploreSectionFooter wmf_nibName];
+            } else {
+                reuseIdentifier = [WMFExploreSectionFooter wmf_nibName];
+            }
+            NSString *cacheKey = [NSString stringWithFormat:@"%@-%lli-%lli", reuseIdentifier, (long long)moreType, (long long)columnWidth];
+            NSNumber *cachedValue = [self.cachedHeights objectForKey:cacheKey];
+            if (cachedValue) {
+                estimate.height = [cachedValue doubleValue];
+                estimate.precalculated = YES;
+                break;
+            }
+            CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
+            WMFExploreCollectionReusableView *footer = [self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifier];
+            if ([footer isKindOfClass:[WMFTitledExploreSectionFooter class]]) {
+                [self configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:section];
+            } else {
+                [self configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:group];
+            }
+            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+            attributesToFit.frame = frameToFit;
+            WMFCVLAttributes *attributes = (WMFCVLAttributes *)[footer preferredLayoutAttributesFittingAttributes:attributesToFit];
+            estimate.height = attributes.frame.size.height;
+            estimate.precalculated = YES;
+            [self.cachedHeights setObject:@(estimate.height) forKey:cacheKey];
+        } break;
     }
     return estimate;
 }
@@ -868,10 +893,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     header.image = [[group headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     header.imageTintColor = [group headerIconTintColor];
     header.imageBackgroundColor = [group headerIconBackgroundColor];
-    
+
     header.title = [[group headerTitle] mutableCopy];
     header.subTitle = [[group headerSubTitle] mutableCopy];
-    
+
     if (([group blackListOptions] & WMFFeedBlacklistOptionSection) || (([group blackListOptions] & WMFFeedBlacklistOptionContent) && [group headerContentURL])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
@@ -882,7 +907,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         header.rightButtonEnabled = NO;
         [header.rightButton removeTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
+
     [header applyTheme:self.theme];
 }
 
@@ -1079,7 +1104,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     placeholderView.hidden = YES;
     [self.view insertSubview:placeholderView atIndex:0]; // so that the trait collections are updated
-    [self.placeholderViews setObject:placeholderView forKey:[self placeholderKeyForSupplementaryViewOfKind: kind withReuseIdentifier:identifier]];
+    [self.placeholderViews setObject:placeholderView forKey:[self placeholderKeyForSupplementaryViewOfKind:kind withReuseIdentifier:identifier]];
 }
 
 - (void)registerClass:(nullable Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
@@ -1285,7 +1310,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    
+
     UIViewController *vc = nil;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
@@ -1342,7 +1367,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             break;
     }
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id <WMFThemeable>)vc applyTheme:self.theme];
+        [(id<WMFThemeable>)vc applyTheme:self.theme];
     }
     return vc;
 }
