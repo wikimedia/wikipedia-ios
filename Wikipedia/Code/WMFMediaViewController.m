@@ -4,8 +4,8 @@
 @import OGVKit;
 
 @interface WMFMediaViewController () <WMFMediaDelegate, OGVPlayerDelegate>
-@property (weak, nonatomic) IBOutlet OGVPlayerView *playerView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet OGVPlayerView *playerView;
 @property (nonatomic) WMFMediaObject *mediaObject;
 @property (nonatomic) WMFMedia *media;
 @end
@@ -51,19 +51,16 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    if (self.mediaObject)
-        [self layoutPlayer];
-}
-
-- (void)layoutPlayer {
-    CGRect bounds = self.view.bounds;
-    CGFloat scaleWidth = bounds.size.width / self.mediaObject.width;
-    CGFloat scaleHeight = bounds.size.height / self.mediaObject.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    [UIView performWithoutAnimation:^{
-        self.playerView.frame = CGRectMake(0, 0, self.mediaObject.width * minScale, self.mediaObject.height * minScale);
-        self.playerView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-    }];
+    if (self.mediaObject) {
+        CGRect bounds = self.view.bounds;
+        CGFloat scaleWidth = bounds.size.width / self.mediaObject.width;
+        CGFloat scaleHeight = bounds.size.height / self.mediaObject.height;
+        CGFloat minScale = MIN(scaleWidth, scaleHeight);
+        [UIView performWithoutAnimation:^{
+            self.playerView.frame = CGRectMake(0, 0, self.mediaObject.width * minScale, self.mediaObject.height * minScale);
+            self.playerView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+        }];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -72,7 +69,7 @@
 
 - (void)wmf_MediaSuccess:(WMFMedia *)media {
     self.mediaObject = media.lowQualityMediaObject;
-    [self layoutPlayer];
+    [self.view setNeedsLayout];
     self.playerView.sourceURL = self.mediaObject.url;
     [self.playerView play];
 }
