@@ -5,9 +5,8 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
     let timelineView = OnThisDayTimelineView()
         
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
         let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
         bottomTitleLabel.font = titleFont

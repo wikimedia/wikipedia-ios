@@ -79,20 +79,9 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             setNeedsLayout()
         }
     }
-    
-    open override func setNeedsLayout() {
-        updateLabelFonts()
-        super.setNeedsLayout()
-    }
-    
-    // MARK - Dynamic type
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateLabelFonts()
-    }
-    
-    open func updateLabelFonts() {
+
+    open override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(titleFontFamily, withTextStyle: titleTextStyle, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(descriptionFontFamily, withTextStyle:  descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         extractLabel?.font = UIFont.wmf_preferredFontForFontFamily(extractFontFamily, withTextStyle: extractTextStyle, compatibleWithTraitCollection: traitCollection)
