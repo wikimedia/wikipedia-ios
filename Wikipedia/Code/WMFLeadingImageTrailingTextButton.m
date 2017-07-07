@@ -183,6 +183,7 @@
 - (void)applyTintColor {
     self.textLabel.textColor = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
     self.iconImageView.tintColor = self.tintColor;
+    self.layer.borderColor = self.tintColor.CGColor;
 }
 
 #pragma mark - UIControl
@@ -242,17 +243,17 @@
 }
 
 - (void)configureAsNotifyTrendingButton {
-    self.layer.borderColor = [UIColor wmf_blue].CGColor;
+    self.layer.borderColor = self.tintColor.CGColor;
     self.layer.borderWidth = 1.0;
     self.layer.cornerRadius = 5.0;
     self.spaceBetweenIconAndText = 5.0;
     self.edgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.iconImage = [UIImage imageNamed:@"notificationsIconV1"
+    self.iconImage = [[UIImage imageNamed:@"notificationsIconV1"
                                 inBundle:[NSBundle bundleForClass:[self class]]
-           compatibleWithTraitCollection:self.traitCollection];
+            compatibleWithTraitCollection:self.traitCollection] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.labelText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
 
-    self.textLabel.textColor = [UIColor wmf_blue];
+    self.textLabel.textColor = self.tintColor;
     self.textLabel.adjustsFontSizeToFitWidth = YES;
 
     self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");

@@ -48,4 +48,10 @@
     [self.notificationCellDelegate feedNotificationCellDidRequestEnableNotifications:self];
 }
 
+- (void)applyTheme:(WMFTheme *)theme {
+    self.visibleBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.textLabel.textColor = theme.colors.primaryText;
+    self.textLabel.backgroundColor = theme.colors.midBackground;
+}
+
 @end

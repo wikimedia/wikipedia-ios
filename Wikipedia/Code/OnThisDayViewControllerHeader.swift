@@ -7,10 +7,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .wmf_lightGrayCellBackground
-        eventsLabel.textColor = .black
-        onLabel.textColor = .wmf_blue
-        fromLabel.textColor = .wmf_customGray
+        apply(theme: Theme.standard)
         wmf_configureSubviewsForDynamicType()
     }
     
@@ -36,6 +33,13 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
             fromLabel.text = nil
         }
     }
-    
+}
 
+extension OnThisDayViewControllerHeader: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.midBackground
+        eventsLabel.textColor = theme.colors.primaryText
+        onLabel.textColor = theme.colors.link
+        fromLabel.textColor = theme.colors.tertiaryText
+    }
 }

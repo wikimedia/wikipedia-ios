@@ -73,6 +73,9 @@ extension ArticleLocationCollectionViewController {
         articleCell.setImageURL(article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth))
         articleCell.articleLocation = article.location
         articleCell.update(userLocation: userLocation, heading: userHeading)
+        if let ac = articleCell as Themeable? {
+            ac.apply(theme: theme)
+        }
         return articleCell
     }
 }

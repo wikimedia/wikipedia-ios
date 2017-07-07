@@ -99,6 +99,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    fileprivate var theme = Theme.standard
+    
     lazy fileprivate var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
     }()
@@ -138,9 +140,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        
-        view.tintColor = .wmf_blue
-        
         wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
@@ -162,13 +161,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
         // Setup Redo search button
         redoSearchButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        redoSearchButton.backgroundColor = view.tintColor
         redoSearchButton.setTitleColor(.white, for: .normal)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
         
         // Setup Did You Mean button
-        didYouMeanButton.backgroundColor = view.tintColor
         didYouMeanButton.setTitleColor(.white, for: .normal)
         didYouMeanButton.isHidden = true
         didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -183,7 +180,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapListToggle.setImage(list, forSegmentAt: 1)
         mapListToggle.selectedSegmentIndex = 0
         mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        mapListToggle.tintColor = .wmf_blue
         
         // Setup close search button
         closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
@@ -222,7 +218,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             viewMode = .map
         }
-
+        
+        apply(theme: theme)
         self.view.layoutIfNeeded()
     }
     
@@ -1282,7 +1279,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func promptForLocationAccess() {
         let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
-        enableLocationVC.view.tintColor = view.tintColor
+        enableLocationVC.apply(theme: theme)
         enableLocationVC.modalPresentationStyle = .popover
         enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
         enableLocationVC.popoverPresentationController?.delegate = self
@@ -1669,7 +1666,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
-        articleVC.view.tintColor = view.tintColor
+        articleVC.view.alpha = 0
+        articleVC.apply(theme: theme)
         articleVC.configureView(withTraitCollection: traitCollection)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -1681,10 +1679,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             articleVC.descriptionLabel.text = nil
         }
-
-        articleVC.view.alpha = 0
+       
         addChildViewController(articleVC)
-    
         view.insertSubview(articleVC.view, belowSubview: extendedNavBarView)
         articleVC.didMove(toParentViewController: self)
         
@@ -1992,7 +1988,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, filterDropDownContainerView)
             accessibilityLabel = WMFLocalizedString("places-dismiss-filter-list-accessibility-label", value:"Dismiss search filters", comment:"Accessibility title for the button that dismisses search filters")
             title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
-            image = UIImage(cgImage: #imageLiteral(resourceName: "chevron-down-large").cgImage!, scale: 1.0, orientation: .down) // `.down` is 180 rotation, yielding a chevron pointing up
+            image = #imageLiteral(resourceName: "chevron-up-large")
         } else {
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, searchBar)
             accessibilityLabel = WMFLocalizedString("places-show-filter-list-accessibility-label", value:"Show search filters", comment:"Accessibility title for the button that shows search filters")
@@ -2021,11 +2017,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blue, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.link, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.primaryText, range: NSMakeRange(0, attributedTitle.length))
         }
         
         UIView.performWithoutAnimation {
@@ -2355,6 +2351,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         cell.setImageURL(article.thumbnailURL)
         cell.articleLocation = article.location
         
+        if let themeable = cell as Themeable? {
+            themeable.apply(theme: theme)
+        }
+        
         var userLocation: CLLocation?
         var userHeading: CLHeading?
         
@@ -2387,7 +2387,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)
         }
-        shareAction.backgroundColor = .wmf_blue
+        shareAction.backgroundColor = theme.colors.link
         return [saveForLaterAction, shareAction]
     }
     
@@ -2851,5 +2851,29 @@ extension PlacesViewController {
                 return false
             }
         }
+    }
+}
+
+// MARK: - Themeable
+
+extension PlacesViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        listAndSearchOverlayContainerView.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.baseBackground
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        titleViewSearchBar.barTintColor = theme.colors.chromeBackground
+        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        selectedArticlePopover?.apply(theme: theme)
+        mapView.mapType = theme.preferredStatusBarStyle == .default ? .standard : .hybrid
+        redoSearchButton.backgroundColor = theme.colors.link
+        didYouMeanButton.backgroundColor = theme.colors.link
+        updateSearchFilterTitle()
+        listView.backgroundColor = theme.colors.baseBackground
+        listView.separatorColor = theme.colors.midBackground
+        listView.reloadData()
     }
 }
