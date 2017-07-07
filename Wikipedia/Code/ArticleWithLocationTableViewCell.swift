@@ -7,15 +7,18 @@ class ArticleWithLocationTableViewCell: ContainerTableViewCell {
     
     override func setup() {
         collectionViewCell = WMFNearbyArticleCollectionViewCell.wmf_classNib().instantiate(withOwner: nil, options: nil).first as! WMFNearbyArticleCollectionViewCell
-        contentView.addSubview(collectionViewCell)
-        collectionViewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionViewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionViewCell.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        collectionViewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        bounds = collectionViewCell.bounds
+        addSubview(collectionViewCell)
+        addConstraints([collectionViewCell.leadingAnchor.constraint(equalTo: leadingAnchor), trailingAnchor.constraint(equalTo: trailingAnchor), collectionViewCell.topAnchor.constraint(equalTo: topAnchor), collectionViewCell.bottomAnchor.constraint(equalTo: bottomAnchor)])
         super.setup()
     }
     
     class var estimatedRowHeight: CGFloat {
         return WMFNearbyArticleCollectionViewCell.estimatedRowHeight()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionViewCell.frame = bounds
     }
 }
