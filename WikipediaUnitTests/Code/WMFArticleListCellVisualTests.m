@@ -1,6 +1,7 @@
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIView+VisualTestSizingUtils.h"
+#import "Wikipedia-Swift.h"
 
 static NSString *const ShortSearchResultTitle = @"One line title";
 
@@ -79,7 +80,7 @@ static NSString *const LongSearchResultDescription =
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString *)titleText searchQuery:(NSString *)query {
-    [self.searchResultCell wmf_setTitleText:titleText highlightingText:query locale:nil];
+    [self.searchResultCell setTitleText:titleText highlightingText:query locale:nil];
 }
 
 @end
