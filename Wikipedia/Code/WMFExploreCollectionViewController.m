@@ -54,8 +54,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableArray<WMFObjectChange *> *objectChanges;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *sectionCounts;
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, UICollectionViewCell *> *placeholderCells;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderFooters;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionViewCell *> *placeholderCells;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFExploreCollectionReusableView *> *placeholderViews;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
@@ -77,7 +77,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
     self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
-    self.placeholderFooters = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.placeholderViews = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
     self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
 }
@@ -741,31 +741,52 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return estimate;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
-    WMFContentGroup *sectionObject = [self sectionAtIndex:section];
-    if ([sectionObject headerType] == WMFFeedHeaderTypeNone) {
-        return 0.0;
+- (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+    WMFLayoutEstimate estimate;
+    WMFContentGroup *group = [self sectionAtIndex:section];
+    if ([group headerType] == WMFFeedHeaderTypeNone) {
+        estimate.height = 0;
+        estimate.precalculated = YES;
     } else {
-        return 69.0;
-    }
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
-    WMFContentGroup *sectionObject = [self sectionAtIndex:section];
-    if ([sectionObject moreType] == WMFFeedMoreTypeNone) {
-        return 0.0;
-    } else if ([sectionObject moreType] == WMFFeedMoreTypeLocationAuthorization) {
-        CGRect frameToFit = CGRectMake(0, 0, columnWidth, 170);
-        WMFExploreCollectionReusableView *footer = [self placeholderFooterForIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
-        footer.frame = frameToFit;
+        WMFExploreSectionHeader *header = (WMFExploreSectionHeader *)[self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
+        [self configureHeader:header withContentGroup:group forSectionAtIndex:section];
+        CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
         WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
         attributesToFit.frame = frameToFit;
-        UICollectionViewLayoutAttributes *attributes = [footer preferredLayoutAttributesFittingAttributes:attributesToFit];
-        CGFloat height = attributes.frame.size.height;
-        return height;
-    } else {
-        return 50.0;
+        WMFCVLAttributes *attributes = (WMFCVLAttributes *)[header preferredLayoutAttributesFittingAttributes:attributesToFit];
+        estimate.height = attributes.frame.size.height;
+        estimate.precalculated = YES;
     }
+    return estimate;
+}
+
+- (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+    WMFLayoutEstimate estimate;
+    WMFContentGroup *group = [self sectionAtIndex:section];
+    if ([group moreType] == WMFFeedMoreTypeNone) {
+        estimate.height = 0;
+        estimate.precalculated = YES;
+    } else {
+        CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
+        NSString *reuseIdentifier = nil;
+        if (group.moreType == WMFFeedMoreTypeLocationAuthorization) {
+            reuseIdentifier = [WMFTitledExploreSectionFooter wmf_nibName];
+        } else {
+            reuseIdentifier = [WMFExploreSectionFooter wmf_nibName];
+        }
+        WMFExploreCollectionReusableView *footer = [self placeholderForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:reuseIdentifier];
+        if ([footer isKindOfClass:[WMFTitledExploreSectionFooter class]]) {
+            [self configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:section];
+        } else {
+            [self configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:group];
+        }
+        WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
+        attributesToFit.frame = frameToFit;
+        WMFCVLAttributes *attributes = (WMFCVLAttributes *)[footer preferredLayoutAttributesFittingAttributes:attributesToFit];
+        estimate.height = attributes.frame.size.height;
+        estimate.precalculated = YES;
+    }
+    return estimate;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView prefersWiderColumnForSectionAtIndex:(NSUInteger)index {
@@ -817,49 +838,52 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
-    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    NSParameterAssert(section);
-
-    if ([section headerType] == WMFFeedHeaderTypeNone) {
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+    NSParameterAssert(group);
+    if ([group headerType] == WMFFeedHeaderTypeNone) {
         return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
     }
-    NSParameterAssert([section headerIcon]);
-    NSParameterAssert([section headerTitle]);
-    NSParameterAssert([section headerSubTitle]);
 
     WMFExploreSectionHeader *header = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName] forIndexPath:indexPath];
 
-    header.image = [[section headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    header.imageTintColor = [section headerIconTintColor];
-    header.imageBackgroundColor = [section headerIconBackgroundColor];
-
-    header.title = [[section headerTitle] mutableCopy];
-    header.subTitle = [[section headerSubTitle] mutableCopy];
-    
-    [header applyTheme:self.theme];
+    [self configureHeader:header withContentGroup:group forSectionAtIndex:indexPath.section];
 
     @weakify(self);
     header.whenTapped = ^{
         @strongify(self);
-        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:section];
+        NSIndexPath *indexPathForSection = [self.fetchedResultsController indexPathForObject:group];
         if (!indexPathForSection) {
             return;
         }
         [self didTapHeaderInSection:indexPathForSection.row];
     };
 
-    if (([section blackListOptions] & WMFFeedBlacklistOptionSection) || (([section blackListOptions] & WMFFeedBlacklistOptionContent) && [section headerContentURL])) {
+    return header;
+}
+
+- (void)configureHeader:(WMFExploreSectionHeader *)header withContentGroup:(WMFContentGroup *)group forSectionAtIndex:(NSInteger)index {
+    NSParameterAssert([group headerIcon]);
+    NSParameterAssert([group headerTitle]);
+    NSParameterAssert([group headerSubTitle]);
+    header.image = [[group headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    header.imageTintColor = [group headerIconTintColor];
+    header.imageBackgroundColor = [group headerIconBackgroundColor];
+    
+    header.title = [[group headerTitle] mutableCopy];
+    header.subTitle = [[group headerSubTitle] mutableCopy];
+    
+    if (([group blackListOptions] & WMFFeedBlacklistOptionSection) || (([group blackListOptions] & WMFFeedBlacklistOptionContent) && [group headerContentURL])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
         [header.rightButton removeTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        header.rightButton.tag = indexPath.section;
+        header.rightButton.tag = index;
         [header.rightButton addTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         header.rightButtonEnabled = NO;
         [header.rightButton removeTarget:self action:@selector(headerRightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
-
-    return header;
+    
+    [header applyTheme:self.theme];
 }
 
 - (void)headerRightButtonPressed:(UIButton *)sender {
@@ -946,6 +970,23 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+- (void)configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:(NSInteger)index {
+    footer.titleLabel.text = [EnableLocationViewController localizedEnableLocationExploreTitle];
+    footer.descriptionLabel.text = [EnableLocationViewController localizedEnableLocationDescription];
+    [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
+    [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
+    footer.enableLocationButton.tag = index;
+    [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [footer applyTheme:self.theme];
+}
+
+- (void)configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:(WMFContentGroup *)group {
+    footer.visibleBackgroundView.alpha = 1.0;
+    footer.moreLabel.text = [group footerText];
+    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
+    [footer applyTheme:self.theme];
+}
+
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     NSParameterAssert(group);
@@ -954,20 +995,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier forIndexPath:indexPath];
         case WMFFeedMoreTypeLocationAuthorization: {
             WMFTitledExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-            footer.titleLabel.text = [EnableLocationViewController localizedEnableLocationExploreTitle];
-            footer.descriptionLabel.text = [EnableLocationViewController localizedEnableLocationDescription];
-            [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
-            [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
-            footer.enableLocationButton.tag = indexPath.section;
-            [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            [footer applyTheme:self.theme];
+            [self configureTitledExploreSectionFooter:footer forSectionAtIndex:indexPath.section];
             return footer;
         }
         default: {
             WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-            footer.visibleBackgroundView.alpha = 1.0;
-            footer.moreLabel.text = [group footerText];
-            footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
+            [self configureFooter:footer withContentGroup:group];
             @weakify(self);
             footer.whenTapped = ^{
                 @strongify(self);
@@ -977,7 +1010,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 [self presentMoreViewControllerForSectionAtIndex:indexPathForSection.row animated:YES];
             };
-            [footer applyTheme:self.theme];
             return footer;
         }
     }
@@ -1035,9 +1067,24 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.placeholderCells setObject:placeholderCell forKey:identifier];
 }
 
+- (NSString *)placeholderKeyForSupplementaryViewOfKind:(nonnull NSString *)kind withReuseIdentifier:(nonnull NSString *)identifier {
+    return [@[kind, identifier] componentsJoinedByString:@"-"];
+}
+
+- (void)registerNib:(UINib *)nib forSupplementaryViewOfKind:(nonnull NSString *)kind withReuseIdentifier:(nonnull NSString *)identifier {
+    [self.collectionView registerNib:nib forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+    WMFExploreCollectionReusableView *placeholderView = [[nib instantiateWithOwner:nil options:nil] firstObject];
+    if (!placeholderView) {
+        return;
+    }
+    placeholderView.hidden = YES;
+    [self.view insertSubview:placeholderView atIndex:0]; // so that the trait collections are updated
+    [self.placeholderViews setObject:placeholderView forKey:[self placeholderKeyForSupplementaryViewOfKind: kind withReuseIdentifier:identifier]];
+}
+
 - (void)registerClass:(nullable Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
-    UICollectionViewCell *placeholderCell = [[cellClass alloc] initWithFrame:self.view.bounds];
+    WMFExploreCollectionViewCell *placeholderCell = [[cellClass alloc] initWithFrame:self.view.bounds];
     if (!placeholderCell) {
         return;
     }
@@ -1050,27 +1097,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return self.placeholderCells[identifier];
 }
 
-- (void)registerNib:(UINib *)nib forFooterWithReuseIdentifier:(NSString *)identifier {
-    [self.collectionView registerNib:nib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:identifier];
-    WMFExploreCollectionReusableView *placeholderView = [[nib instantiateWithOwner:nil options:nil] firstObject];
-    if (!placeholderView) {
-        return;
-    }
-    placeholderView.hidden = YES;
-    [self.view insertSubview:placeholderView atIndex:0];
-    [self.placeholderFooters setObject:placeholderView forKey:identifier];
-}
-
-- (id)placeholderFooterForIdentifier:(NSString *)identifier {
-    return self.placeholderFooters[identifier];
+- (id)placeholderForSupplementaryViewOfKind:(nonnull NSString *)kind withReuseIdentifier:(nonnull NSString *)identifier {
+    return self.placeholderViews[[self placeholderKeyForSupplementaryViewOfKind:kind withReuseIdentifier:identifier]];
 }
 
 - (void)registerCellsAndViews {
-    [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
+    [self registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+    [self registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
-    [self registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forFooterWithReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
+    [self registerNib:[WMFTitledExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFTitledExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
