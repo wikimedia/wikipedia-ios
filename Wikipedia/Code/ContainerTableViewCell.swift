@@ -19,6 +19,10 @@ class ContainerTableViewCell: UITableViewCell {
         super.setHighlighted(highlighted, animated: animated)
         collectionViewCell.isHighlighted = highlighted
     }
+    
+    override func prepareForReuse() {
+        collectionViewCell.prepareForReuse()
+    }
 
     // MARK - Initializers
     // Don't override these initializers, use setup() instead

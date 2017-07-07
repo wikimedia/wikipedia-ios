@@ -34,7 +34,6 @@
 #import "UIViewController+WMFSearch.h"
 
 // Views
-#import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"

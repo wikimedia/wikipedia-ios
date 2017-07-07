@@ -4,7 +4,6 @@
 #import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
-#import "WMFSaveButtonController.h"
 #import "WMFColumnarCollectionViewLayout.h"
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
