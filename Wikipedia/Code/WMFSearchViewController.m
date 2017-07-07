@@ -28,6 +28,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFTheme *theme;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
@@ -141,6 +142,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Setup
 
 - (void)configureArticleList {
+    [self.resultsListController applyTheme:self.theme];
     self.resultsListController.userDataStore = self.dataStore;
     self.resultsListController.delegate = self;
 }
@@ -563,6 +565,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.resultsListController applyTheme:theme];
+    if ([self viewIfLoaded] == nil) {
+        return;
+    }
+    self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
+    self.searchField.textColor = theme.colors.chromeText;
 }
 
 @end

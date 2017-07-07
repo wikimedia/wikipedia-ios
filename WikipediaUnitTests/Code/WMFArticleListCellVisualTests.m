@@ -1,6 +1,4 @@
 #import "FBSnapshotTestCase+WMFConvenience.h"
-#import "WMFArticleListTableViewCell.h"
-#import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIView+VisualTestSizingUtils.h"
 
@@ -27,7 +25,7 @@ static NSString *const LongSearchResultDescription =
     [super setUp];
     self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
-    self.searchResultCell = [WMFArticleListTableViewCell wmf_viewFromClassNib];
+    self.searchResultCell = [[WMFArticleListTableViewCell alloc] init];
 }
 
 - (void)tearDown {
@@ -81,7 +79,7 @@ static NSString *const LongSearchResultDescription =
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString *)titleText searchQuery:(NSString *)query {
-    [self.searchResultCell wmf_setTitleText:titleText highlightingText:query];
+    [self.searchResultCell wmf_setTitleText:titleText highlightingText:query locale:nil];
 }
 
 @end

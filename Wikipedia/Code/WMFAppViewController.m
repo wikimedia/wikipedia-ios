@@ -27,7 +27,6 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
@@ -37,6 +36,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "WMFArticleNavigationController.h"
+#import "WMFSearchButton.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -107,6 +107,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic, strong) WMFSearchViewController *searchViewController;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -125,6 +127,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showSearch:)
+                                                 name:WMFShowSearchNotification
                                                object:nil];
 
     @weakify(self);
@@ -181,7 +188,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
-    [[self class] wmf_setSearchButtonDataStore:self.dataStore];
 }
 
 - (void)configureTabController {
@@ -582,6 +588,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
 
+    self.searchViewController = nil;
+
     [self.savedArticlesFetcher stop];
     [self.dataStore.feedContentController stopContentSources];
 
@@ -632,6 +640,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [super didReceiveMemoryWarning];
+    self.searchViewController = nil;
     [self.dataStore clearMemoryCache];
 }
 
@@ -681,7 +690,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self showSearchAnimated:NO];
+        [self switchToExploreAndShowSearchAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
@@ -796,15 +805,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypeSearch:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            [self switchToExploreAndShowSearchAnimated:NO];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
-            [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
+            [self switchToExploreAndShowSearchAnimated:NO];
+            [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
             NSURL *URL = [activity wmf_articleURL];
@@ -1072,13 +1077,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Show Search
 
-- (void)showSearchAnimated:(BOOL)animated {
+- (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    [self.exploreViewController wmf_showSearchAnimated:animated];
+    [self showSearchAnimated:animated];
 }
 
 #pragma mark - App Shortcuts
@@ -1168,6 +1173,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]]) {
+        WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
+        viewController.navigationItem.rightBarButtonItem = searchButton;
+    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
@@ -1313,7 +1322,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.view.window.tintColor = theme.colors.link;
     
     self.view.backgroundColor = theme.colors.baseBackground;
-
+    
+    [self.searchViewController applyTheme:theme];
+    
     // Navigation controllers
     NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
 
@@ -1395,6 +1406,27 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+#pragma mark - Search
+
+- (void)showSearch:(NSNotification *)note {
+    [self showSearchAnimated:YES];
+}
+
+- (void)showSearch {
+    [self showSearchAnimated:YES];
+}
+
+- (void)showSearchAnimated:(BOOL)animated {
+    NSParameterAssert(self.dataStore);
+    
+    if (!self.searchViewController) {
+        WMFSearchViewController *searchVC =
+        [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
+        [searchVC applyTheme:self.theme];
+        self.searchViewController = searchVC;
+    }
+    [self presentViewController:self.searchViewController animated:animated completion:nil];
+}
 #pragma mark - Perma Random Mode
 
 #if WMF_TWEAKS_ENABLED

@@ -31,7 +31,6 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
-#import "UIViewController+WMFSearch.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"
@@ -41,6 +40,7 @@
 #import "WMFColumnarCollectionViewLayout.h"
 #import "WMFCVLAttributes.h"
 #import "WMFCVLMetrics.h"
+#import "WMFSearchButton.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

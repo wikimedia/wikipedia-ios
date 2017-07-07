@@ -211,6 +211,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
             isImageViewHidden = true
         }
         
+        updateFonts(with: traitCollection)
         setNeedsLayout()
     }
 }

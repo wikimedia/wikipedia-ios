@@ -1,6 +1,6 @@
 import UIKit
 
-class ContainerTableViewCell: UITableViewCell {
+class ContainerTableViewCell: SSBaseTableCell {
 
     var collectionViewCell: UICollectionViewCell!
     
@@ -21,6 +21,7 @@ class ContainerTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         collectionViewCell.prepareForReuse()
     }
 

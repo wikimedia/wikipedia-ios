@@ -43,12 +43,15 @@
                                           UITableView *tableView,
                                           NSIndexPath *indexPath) {
             @strongify(self);
+            [cell applyTheme:self.theme];
             NSURL *articleURL = [self.dataSource urlForIndexPath:indexPath];
-            [cell setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm];
-            cell.articleCell.titleLabel.accessibilityLanguage = self.dataSource.searchSiteURL.wmf_language;
+            NSString *language = self.dataSource.searchSiteURL.wmf_language;
+            NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:language];
+            [cell setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm locale:locale];
+            cell.articleCell.titleLabel.accessibilityLanguage = language;
             cell.descriptionText = [self descriptionForSearchResult:result];
             // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
-            cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSiteURL.wmf_language : nil;
+            cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? language : nil;
             [cell setImageURL:result.thumbnailURL];
         };
     }

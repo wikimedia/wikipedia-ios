@@ -1,6 +1,5 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
-#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
 
@@ -23,8 +22,6 @@
 
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
     
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];

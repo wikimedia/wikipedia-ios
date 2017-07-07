@@ -14,7 +14,6 @@
 #import "WMFLanguagesViewController.h"
 #import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
-#import "UIViewController+WMFSearch.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
 #import "WMFPageIssuesViewController.h"
@@ -778,8 +777,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
     self.automaticallyAdjustsScrollViewInsets = NO;
-
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];

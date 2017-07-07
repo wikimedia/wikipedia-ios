@@ -10,7 +10,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var searchBarButtonItem: WMFSearchButton?
     private var longTitleButton: UIButton?
     private var shortTitleButton: UIButton?
     
@@ -69,8 +68,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.navigationItem.titleView = titleView
         self.navigationItem.isAccessibilityElement = true
         self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
-        
-        self.searchBarButtonItem = self.wmf_searchBarButtonItem()
     }
     
     override func viewDidLoad() {
@@ -86,7 +83,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.collectionViewController.didMove(toParentViewController: self)
 
         self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
-        self.navigationItem.rightBarButtonItem = self.searchBarButtonItem
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
         
@@ -119,7 +115,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     private func updateNavigationBar(newOffset extNavBarOffset: CGFloat) {
         let extNavBarHeight = extendedNavBarView.frame.size.height
         let percentHidden: CGFloat = extNavBarOffset / extNavBarHeight
-        self.searchBarButtonItem?.alpha = percentHidden
+        self.navigationItem.rightBarButtonItem?.customView?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
         self.searchBar.alpha = max(1 - (percentHidden * 1.5), 0)
@@ -247,7 +243,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        self.wmf_showSearch(animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name.WMFShowSearch, object: nil)
         return false
     }
     

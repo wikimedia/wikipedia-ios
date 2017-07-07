@@ -20,10 +20,10 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         articleCell.margins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         articleCell.titleTextStyle = .subheadline
         articleCell.descriptionTextStyle = .footnote
+        articleCell.updateFonts(with: traitCollection)
     }
 
     static var estimatedRowHeight: CGFloat = 50
-    static var identifier = "WMFArticleListTableViewCell"
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -76,20 +76,21 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         }
     }
     
-    @objc(setTitleText:highlightingText:)
-    func set(titleText: String?, highlightingText: String?) {
-        guard let titleText = titleText else {
+    @objc(setTitleText:highlightingText:locale:)
+    func set(titleTextToAttribute: String?, highlightingText: String?, locale: Locale?) {
+        guard let titleTextToAttribute = titleTextToAttribute, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline) else {
             self.titleText = nil
             return
         }
-        
-        let attributedTitle = NSMutableAttributedString(string: titleText, attributes: [NSFontAttributeName: articleCell.titleLabel.font])
+        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSFontAttributeName: titleFont])
         if let highlightingText = highlightingText {
-            let range = (titleText as NSString).range(of: highlightingText)
-            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(articleCell.titleFontFamily, withTextStyle: articleCell.titleTextStyle) {
-                attributedTitle.addAttributes([NSFontAttributeName: boldFont], range: range)
+            let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
+            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
+                attributedTitle.setAttributes([NSFontAttributeName: boldFont], range: range)
             }
         }
+        articleCell.titleTextStyle = nil
+        articleCell.titleFontFamily = nil
         articleCell.titleLabel.attributedText = attributedTitle
     }
 
