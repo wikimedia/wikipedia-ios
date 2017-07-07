@@ -12,9 +12,12 @@ public class ThemeColors: NSObject {
     fileprivate static let exosphere = UIColor.wmf_color(withHex: 0x27292D)!
     fileprivate static let accent = UIColor.wmf_color(withHex: 0x00AF89)!
     
+    fileprivate static let battleshipGray = UIColor.wmf_color(withHex: 0x72777D)!
+    fileprivate static let x555555 = UIColor.wmf_color(withHex: 0x555555)!
+
     fileprivate static let dark = ThemeColors(baseBackground: ThemeColors.base10, midBackground: ThemeColors.exosphere, paperBackground: ThemeColors.thermosphere, chromeBackground: ThemeColors.mesophere, primaryText: ThemeColors.base90, secondaryText: ThemeColors.base90, tertiaryText: ThemeColors.base70, chromeText: ThemeColors.base90, link: ThemeColors.stratosphere, accent: ThemeColors.accent, border: ThemeColors.mesophere, shadow: ThemeColors.mesophere, icon: ThemeColors.base70, iconBackground: ThemeColors.exosphere)
     
-    fileprivate static let light = ThemeColors(baseBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paperBackground: .white, chromeBackground: .white, primaryText: .black, secondaryText: UIColor.wmf_color(withHex: 0x555555), tertiaryText: .wmf_customGray, chromeText: .wmf_navigationGray, link: .wmf_blue, accent: .wmf_green, border: ThemeColors.base10 , shadow: ThemeColors.base10, icon: nil, iconBackground: nil)
+    fileprivate static let light = ThemeColors(baseBackground: .wmf_settingsBackground, midBackground: .wmf_lightGrayCellBackground, paperBackground: .white, chromeBackground: .white, primaryText: .black, secondaryText: ThemeColors.x555555, tertiaryText: ThemeColors.battleshipGray, chromeText: .wmf_navigationGray, link: .wmf_blue, accent: .wmf_green, border: ThemeColors.base10 , shadow: ThemeColors.base10, icon: nil, iconBackground: nil)
     
     public let baseBackground: UIColor
     public let midBackground: UIColor
