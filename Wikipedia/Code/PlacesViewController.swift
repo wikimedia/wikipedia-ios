@@ -194,8 +194,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         // Setup list view
         listView.dataSource = self
         listView.delegate = self
-        listView.register(WMFNearbyArticleTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFNearbyArticleTableViewCell.identifier())
-        listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
+        listView.register(ArticleWithLocationTableViewCell.self, forCellReuseIdentifier: "ArticleWithLocationTableViewCell")
+        listView.estimatedRowHeight = ArticleWithLocationTableViewCell.estimatedRowHeight
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
@@ -2339,19 +2339,19 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFNearbyArticleTableViewCell.identifier(), for: indexPath) as? WMFNearbyArticleTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleWithLocationTableViewCell", for: indexPath) as? ArticleWithLocationTableViewCell else {
             return UITableViewCell()
         }
         
         let article = articleFetchedResultsController.object(at: indexPath)
         
-        cell.accessibilityTraits = UIAccessibilityTraitLink
-        cell.titleText = article.displayTitle
-        cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
-        cell.setImageURL(article.thumbnailURL)
-        cell.articleLocation = article.location
+        cell.articleWithLocationCollectionViewCell.accessibilityTraits = UIAccessibilityTraitLink
+        cell.articleWithLocationCollectionViewCell.titleText = article.displayTitle
+        cell.articleWithLocationCollectionViewCell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
+        cell.articleWithLocationCollectionViewCell.setImageURL(article.thumbnailURL)
+        cell.articleWithLocationCollectionViewCell.articleLocation = article.location
         
-        if let themeable = cell as Themeable? {
+        if let themeable = cell.articleWithLocationCollectionViewCell as Themeable? {
             themeable.apply(theme: theme)
         }
         
@@ -2409,10 +2409,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let heading = locationManager.heading
         let location = locationManager.location
         for cell in listView.visibleCells {
-            guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
+            guard let locationCell = cell as? ArticleWithLocationTableViewCell else {
                 continue
             }
-            locationCell.update(userLocation: location, heading: heading)
+            locationCell.articleWithLocationCollectionViewCell.update(userLocation: location, heading: heading)
         }
     }
 

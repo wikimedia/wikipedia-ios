@@ -37,7 +37,6 @@
 #import "WMFArticleListTableViewCell.h"
 #import "WMFTableHeaderLabelView.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
-#import "WMFNearbyArticleTableViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFColumnarCollectionViewLayout.h"
