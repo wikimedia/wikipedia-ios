@@ -26,11 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.playerView.delegate = self;
-
-    self.navigationBar.backgroundColor = [UIColor clearColor];
-    self.navigationBar.shadowImage = [[UIImage alloc] init];
-    [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-
+    [self.navigationBar setBackgroundImage:[UIImage new]
+                             forBarMetrics:UIBarMetricsDefault];
+    self.navigationBar.shadowImage = [UIImage new];
+    self.navigationBar.translucent = YES;
     [self setupNavigationBarImages];
 }
 

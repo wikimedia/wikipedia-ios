@@ -11,6 +11,5 @@ wmf.tables = require('./js/transforms/collapseTables')
 wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
-wmf.media = require('./js/transforms/media')
 
 window.wmf = wmf

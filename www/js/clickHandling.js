@@ -1,6 +1,7 @@
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
+const isMedia = require('./media')
 
 /**
  * Type of items users can click which we may need to handle.
@@ -10,7 +11,8 @@ const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
-  reference: 3
+  reference: 3,
+  media: 4
 }
 
 /**
@@ -32,6 +34,8 @@ class ClickedItem {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
+    } else if (isMedia(this.href)) {
+      return ItemType.media
     } else if (this.href) {
       return ItemType.link
     }
@@ -55,6 +59,9 @@ function sendMessageForClickedItem(item){
   case ItemType.reference:
     sendMessageForReferenceWithTarget(item.target)
     break
+  case ItemType.media:
+    sendMessageForMediaWithTarget(item.target)
+    break
   default:
     return false
   }
@@ -71,6 +78,12 @@ function sendMessageForLinkWithHref(href){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
   window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+}
+
+function sendMessageForMediaWithTarget(target) {
+  const anchor = utilities.findClosest(target, 'A')
+  const image  = anchor.previousElementSibling
+  window.webkit.messageHandlers.mediaClicked.postMessage({ 'titles': image.alt })
 }
 
 /**

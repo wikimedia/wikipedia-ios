@@ -30,6 +30,7 @@
                 <navigationBar autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-aD-gpF">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <items>
                         <navigationItem id="TJO-aG-Vex">
                             <barButtonItem key="leftBarButtonItem" style="plain" id="HYK-1B-uGJ">
