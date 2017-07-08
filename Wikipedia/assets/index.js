@@ -498,7 +498,7 @@ function disableFilePageEdit( content ) {
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],8:[function(require,module,exports){
 function updateBottomPaddingToAllowReadMoreToScrollToTop() {
-  var div = document.getElementById('footer_container_dynamic_bottom_padding')
+  var div = document.getElementById('footer_container_ensure_can_scroll_to_top')
   var currentPadding = parseInt(div.style.paddingBottom)
   if (isNaN(currentPadding)) {currentPadding = 0}
   var height = div.clientHeight - currentPadding
