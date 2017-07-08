@@ -1,10 +1,12 @@
 
 #import "WMFMediaViewController.h"
 #import "WMFMedia.h"
+@import NYTPhotoViewer;
 @import OGVKit;
 
 @interface WMFMediaViewController () <WMFMediaDelegate, OGVPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeItem;
 @property (weak, nonatomic) IBOutlet OGVPlayerView *playerView;
 @property (nonatomic) WMFMediaObject *mediaObject;
 @property (nonatomic) WMFMedia *media;
@@ -24,10 +26,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.playerView.delegate = self;
-    [self.navigationBar setBackgroundImage:[UIImage new]
-                             forBarMetrics:UIBarMetricsDefault];
-    self.navigationBar.shadowImage = [UIImage new];
-    self.navigationBar.translucent = YES;
+
+    self.navigationBar.backgroundColor = [UIColor clearColor];
+    self.navigationBar.shadowImage = [[UIImage alloc] init];
+    [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+
+    [self setupNavigationBarImages];
+}
+
+- (void)setupNavigationBarImages {
+    NSBundle *photoFramework = [NSBundle bundleForClass:[NYTPhotoViewController class]];
+    NSString *photoBundlePath = [photoFramework pathForResource:@"NYTPhotoViewer" ofType:@"bundle"];
+    NSBundle *photoBundle = [NSBundle bundleWithPath:photoBundlePath];
+    self.closeItem.image = [UIImage imageNamed:@"NYTPhotoViewerCloseButtonX"
+                                      inBundle:photoBundle
+                 compatibleWithTraitCollection:nil];
+    self.closeItem.landscapeImagePhone = [UIImage imageNamed:@"NYTPhotoViewerCloseButtonXLandscape"
+                                                    inBundle:photoBundle
+                               compatibleWithTraitCollection:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
