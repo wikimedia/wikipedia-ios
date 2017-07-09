@@ -16,10 +16,10 @@
 
 - (instancetype)initWithTitles:(NSString *)titles {
     NSParameterAssert(titles);
-    if (!titles)
-        return nil;
-    if (self = [super init])
+    if (!titles) { return nil; }
+    if (self = [super init]) {
         _media = [[WMFMedia alloc] initWithTitles:titles withAsyncDelegate:self];
+    }
     return self;
 }
 

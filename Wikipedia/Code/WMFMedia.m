@@ -2,7 +2,7 @@
 #import "WMFMedia.h"
 @import WMF;
 
-NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&titles=%@&prop=videoinfo&viprop=derivatives&format=json";
+NSString *const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&titles=%@&prop=videoinfo&viprop=derivatives&format=json";
 
 @interface WMFMedia ()
 @property (nonatomic) NSURLSessionTask *apiTask;
@@ -22,25 +22,24 @@ NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&tit
 - (NSArray<WMFMediaObject *> *)translateToMediaObjects:(NSData *)apiResponse;
 @end
 
-# pragma mark - media container
+#pragma mark - media container
 
 @implementation WMFMedia
 
 - (instancetype)initWithJSONData:(NSData *)json {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _sortedMediaObjects = [[WMFMediaJSONParser alloc] translateToMediaObjects:json];
-        if (!_sortedMediaObjects)
+        if (!_sortedMediaObjects) {
             return nil;
+        }
     }
     return self;
 }
 
 - (instancetype)initWithTitles:(NSString *)titles withAsyncDelegate:(id<WMFMediaDelegate>)delegate {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _delegate = delegate;
-        _apiTask  = [self createURLSessionTaskFor:titles];
+        _apiTask = [self createURLSessionTaskFor:titles];
         [_apiTask resume];
     }
     return self;
@@ -55,17 +54,16 @@ NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&tit
 }
 
 - (NSURLSessionTask *)createURLSessionTaskFor:(NSString *)titles {
-    @weakify(self)
-    void (^handler)(NSData *data, NSURLResponse *response, NSError *error);
-    handler = ^(NSData *data, NSURLResponse *response, NSError *error) {
-        @strongify(self)
-        [self handleApiResponse:data];
-        self.apiTask = nil;
-    };
     NSString *urlString = [NSString stringWithFormat:API_URL, titles];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *apiTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:handler];
+    @weakify(self)
+        NSURLSessionDataTask *apiTask = [[NSURLSession sharedSession] dataTaskWithRequest:request
+                                                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                            @strongify(self)
+                                                                                [self handleApiResponse:data];
+                                                                            self.apiTask = nil;
+                                                                        }];
     apiTask.priority = NSURLSessionTaskPriorityLow;
     return apiTask;
 }
@@ -113,10 +111,11 @@ NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&tit
         id derivatives = [info objectForKey:@"derivatives"];
         for (id derivative in derivatives) {
             WMFMediaObject *obj = [[WMFMediaObject alloc] initWithJSON:derivative];
-            if (obj)
+            if (obj) {
                 [mediaObjs addObject:obj];
-            else
+            } else {
                 return nil;
+            }
         }
     }
     return mediaObjs;
@@ -129,15 +128,14 @@ NSString * const API_URL = @"https://en.wikipedia.org/w/api.php?action=query&tit
 @implementation WMFMediaObject
 
 - (instancetype)initWithJSON:(NSDictionary *)derivative {
-    self = [super init];
-    if (self) {
+    if ([super init]) {
         _url = [NSURL URLWithString:[derivative objectForKey:@"src"]];
         if (!_url) {
             return nil;
         }
         _bandwidth = [[derivative objectForKey:@"bandwidth"] integerValue];
         _height = [[derivative objectForKey:@"height"] integerValue];
-        _width  = [[derivative objectForKey:@"width"] integerValue];
+        _width = [[derivative objectForKey:@"width"] integerValue];
     }
     return self;
 }
