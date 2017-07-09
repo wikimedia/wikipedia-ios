@@ -1554,7 +1554,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]]) {
+    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
+               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
