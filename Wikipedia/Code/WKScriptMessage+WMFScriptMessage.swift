@@ -14,6 +14,7 @@ import WebKit
     case footerReadMoreTitlesShown
     case footerMenuItemClicked
     case footerLegalLicenseLinkClicked
+    case mediaClicked
 }
 
 extension WKScriptMessage {
@@ -44,6 +45,8 @@ extension WKScriptMessage {
             return .footerMenuItemClicked
         case "footerLegalLicenseLinkClicked":
             return .footerLegalLicenseLinkClicked
+        case "mediaClicked":
+            return .mediaClicked
         default:
             return .unknown
         }
@@ -53,6 +56,7 @@ extension WKScriptMessage {
         switch type {
         case .linkClicked,
              .imageClicked,
+             .mediaClicked,
              .referenceClicked,
              .editClicked,
              .javascriptConsoleLog,

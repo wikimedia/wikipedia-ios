@@ -17,3 +17,4 @@ github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
 github "Quick/Quick" ~> 1.1.0
 github "Quick/Nimble" ~> 7.0.1
+github "https://github.com/brion/OGVKit" "0.5.11"

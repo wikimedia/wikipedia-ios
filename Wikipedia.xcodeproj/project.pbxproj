@@ -2769,6 +2769,10 @@
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FEECCA1DE3715300B883F0 /* WMFTableViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECC91DE3715300B883F0 /* WMFTableViewUpdater.m */; };
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
+		F5512C8F1F0C39C500B824F9 /* OGVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5512C8E1F0C39C500B824F9 /* OGVKit.framework */; };
+		F5C5EB171F0D29A300601459 /* WMFMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C5EB161F0D29A300601459 /* WMFMedia.m */; };
+		F5C5EB1C1F0D40E800601459 /* WMFMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C5EB1A1F0D40E800601459 /* WMFMediaViewController.m */; };
+		F5C5EB1D1F0D40E800601459 /* WMFMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C5EB1B1F0D40E800601459 /* WMFMediaViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -4496,6 +4500,12 @@
 		D8FEECC91DE3715300B883F0 /* WMFTableViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTableViewUpdater.m; sourceTree = "<group>"; };
 		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
+		F5512C8E1F0C39C500B824F9 /* OGVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OGVKit.framework; path = Build/iOS/OGVKit.framework; sourceTree = "<group>"; };
+		F5C5EB151F0D29A300601459 /* WMFMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFMedia.h; sourceTree = "<group>"; };
+		F5C5EB161F0D29A300601459 /* WMFMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMedia.m; sourceTree = "<group>"; };
+		F5C5EB191F0D40E800601459 /* WMFMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFMediaViewController.h; sourceTree = "<group>"; };
+		F5C5EB1A1F0D40E800601459 /* WMFMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMediaViewController.m; sourceTree = "<group>"; };
+		F5C5EB1B1F0D40E800601459 /* WMFMediaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFMediaViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4551,6 +4561,7 @@
 				D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
 				D82FDADA1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
+				F5512C8F1F0C39C500B824F9 /* OGVKit.framework in Frameworks */,
 				D82FDAE31DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -6181,6 +6192,7 @@
 				BC45D54E1C31EAD6007C72F3 /* UI Components */,
 				BC45D58B1C32FC15007C72F3 /* Utilities */,
 				0E281A0E1DC1391900FA1AB1 /* Housekeeping */,
+				F5C5EB181F0D407F00601459 /* Media */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -6681,6 +6693,7 @@
 				04CCA0BD19830837000E982A /* References */,
 				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
 				04478625185145090050563B /* WebView */,
+				F5C5EB121F0D27CA00601459 /* MediaView */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -7447,6 +7460,7 @@
 		D82FDAD81DF0A96E00DDF311 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				F5512C8E1F0C39C500B824F9 /* OGVKit.framework */,
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
 				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
@@ -8004,6 +8018,25 @@
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		F5C5EB121F0D27CA00601459 /* MediaView */ = {
+			isa = PBXGroup;
+			children = (
+				F5C5EB151F0D29A300601459 /* WMFMedia.h */,
+				F5C5EB161F0D29A300601459 /* WMFMedia.m */,
+			);
+			name = MediaView;
+			sourceTree = "<group>";
+		};
+		F5C5EB181F0D407F00601459 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				F5C5EB191F0D40E800601459 /* WMFMediaViewController.h */,
+				F5C5EB1A1F0D40E800601459 /* WMFMediaViewController.m */,
+				F5C5EB1B1F0D40E800601459 /* WMFMediaViewController.xib */,
+			);
+			name = Media;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -8733,6 +8766,7 @@
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236D1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
+				F5C5EB1D1F0D40E800601459 /* WMFMediaViewController.xib in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				0E06FD5F1CC2D5B2002F3A72 /* WMFPreferredLanguagesViewController.storyboard in Resources */,
 				192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */,
@@ -9268,13 +9302,21 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OGVKit.framework",
+				"$(SRCROOT)/Carthage/Checkouts/OGVKit/Example/Pods/libvpx/VPX.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/libopus.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/nestegg.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ogg.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/oggz.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/theora.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/vorbis.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "FILE=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Carthage-Installation-Flag\"\nif [ -f \"$FILE\" ]; then\nexit 0\nfi\ntouch \"$FILE\"\n/usr/local/bin/carthage copy-frameworks";
 		};
 		D87021721EBA69B7000D02D6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9713,6 +9755,7 @@
 				D818D3AB1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
+				F5C5EB1C1F0D40E800601459 /* WMFMediaViewController.m in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
@@ -9812,6 +9855,7 @@
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* WMFSearchButton.m in Sources */,
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
+				F5C5EB171F0D29A300601459 /* WMFMedia.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,

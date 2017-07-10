@@ -15,10 +15,11 @@ wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
 
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/transforms/relocateFirstParagraph":12,"./js/transforms/widenImages":13,"./js/utilities":14,"wikimedia-page-library":15}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
+const isMedia = require('./media')
 
 /**
  * Type of items users can click which we may need to handle.
@@ -28,7 +29,8 @@ const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
-  reference: 3
+  reference: 3,
+  media: 4
 }
 
 /**
@@ -50,6 +52,8 @@ class ClickedItem {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
+    } else if (isMedia(this.href)) {
+      return ItemType.media
     } else if (this.href) {
       return ItemType.link
     }
@@ -73,6 +77,9 @@ function sendMessageForClickedItem(item){
   case ItemType.reference:
     sendMessageForReferenceWithTarget(item.target)
     break
+  case ItemType.media:
+    sendMessageForMediaWithTarget(item.target)
+    break
   default:
     return false
   }
@@ -89,6 +96,12 @@ function sendMessageForLinkWithHref(href){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
   window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+}
+
+function sendMessageForMediaWithTarget(target) {
+  const anchor = utilities.findClosest(target, 'A')
+  const image  = anchor.previousElementSibling
+  window.webkit.messageHandlers.mediaClicked.postMessage({ 'titles': image.alt })
 }
 
 /**
@@ -144,7 +157,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],3:[function(require,module,exports){
+},{"./media":5,"./refs":6,"./utilities":14,"wikimedia-page-library":15}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -311,6 +324,11 @@ exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForS
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
 },{}],5:[function(require,module,exports){
+module.exports = function (href) {
+  return href.endsWith('.ogv')
+}
+
+},{}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -455,7 +473,7 @@ exports.isEndnote = isEndnote
 exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
-},{"./elementLocation":3}],6:[function(require,module,exports){
+},{"./elementLocation":3}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -470,7 +488,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":14}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":15}],8:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -496,7 +514,7 @@ function disableFilePageEdit( content ) {
 }
 
 exports.disableFilePageEdit = disableFilePageEdit
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
   var container = document.getElementById(containerID)
@@ -522,7 +540,7 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
 }
 
 exports.add = add
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 // var thisType = IconTypeEnum.languages;
 // var iconClass = IconTypeEnum.properties[thisType].iconClass;
@@ -602,7 +620,7 @@ function setHeading(headingString, headingID) {
 exports.IconTypeEnum = IconTypeEnum
 exports.setHeading = setHeading
 exports.addItem = addItem
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 var _saveButtonClickHandler = null
 var _titlesShownHandler = null
@@ -815,7 +833,7 @@ function setHeading(headingString, headingID) {
 exports.setHeading = setHeading
 exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 function moveFirstGoodParagraphUp( content ) {
     /*
@@ -896,7 +914,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -913,7 +931,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":14}],13:[function(require,module,exports){
+},{"wikimedia-page-library":15}],14:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -955,7 +973,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1515,4 +1533,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
