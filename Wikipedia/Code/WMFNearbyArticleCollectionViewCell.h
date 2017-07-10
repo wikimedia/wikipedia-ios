@@ -1,10 +1,10 @@
 #import "WMFExploreCollectionViewCell.h"
-@import WMF.WMFBlockDefinitions;
 @import CoreLocation;
+@import WMF;
 
 @class MWKImage;
 
-@interface WMFNearbyArticleCollectionViewCell : WMFExploreCollectionViewCell
+@interface WMFNearbyArticleCollectionViewCell : WMFExploreCollectionViewCell <WMFThemeable>
 
 @property (nonatomic, copy) NSString *titleText;
 

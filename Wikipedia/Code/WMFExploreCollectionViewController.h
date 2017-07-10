@@ -9,7 +9,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFExploreCollectionViewController : UICollectionViewController <WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding>
+@interface WMFExploreCollectionViewController : UICollectionViewController <WMFAnalyticsViewNameProviding, WMFAnalyticsContextProviding, WMFThemeable>
 
 @property (nonatomic, strong) MWKDataStore *userStore;
 

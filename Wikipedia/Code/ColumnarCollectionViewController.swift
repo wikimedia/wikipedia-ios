@@ -1,9 +1,10 @@
 import UIKit
 
 @objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: UICollectionViewController {
+class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
-
+    var theme: Theme = Theme.standard
+    
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -77,6 +78,13 @@ class ColumnarCollectionViewController: UICollectionViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
     }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.collectionView?.backgroundColor = theme.colors.baseBackground
+        self.collectionView?.reloadData()
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -94,12 +102,12 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
         return index % 2 == 0
     }
     
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return 0
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return 0
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {

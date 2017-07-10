@@ -153,7 +153,6 @@
 "field-username-title" = "Nama pengguna";
 "find-in-page-button-label" = "Cari di halaman";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Cari teks di artikel";
 "forgot-password-button-title" = "Atur ulang";
 "forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
@@ -176,6 +175,8 @@
 "hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
 "home-button-explore-accessibility-label" = "Wikipedia, kembali ke halaman Jelajah";
 "home-button-history-accessibility-label" = "Wikipedia, kembali ke Riwayat";
+"home-button-popover-description" = "Ketuk 'W' untuk kembali ke umpan Jelajahi";
+"home-button-popover-title" = "Ketuk untuk pergi ke halaman utama";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
 "home-hide-suggestion-cancel" = "Batal";
 "home-hide-suggestion-prompt" = "Sembunyikan saran ini";
@@ -236,8 +237,7 @@
 "number-thousands" = "$1 ribu";
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-day" = "pada $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 peristiwa bersejarah";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-title" = "Pada hari ini";
 "onboarding-wikipedia" = "Wikipedia";
@@ -350,7 +350,6 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
-"table-of-contents-popover-description" = "Dapatkan ringkasan dari artikel";
 "table-title-other" = "Informasi lebih lanjut";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";

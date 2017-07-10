@@ -146,7 +146,6 @@
 "field-username-title" = "ব্যবহারকারী নাম";
 "find-in-page-button-label" = "পাতায় খুঁজুন";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "নিবন্ধে পাঠ্যাংশ অনুসন্ধান করুন";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
@@ -320,7 +319,6 @@
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
-"table-of-contents-popover-description" = "নিবন্ধের একটি আলোকপাত পান";
 "table-title-other" = "আরও তথ্য";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";

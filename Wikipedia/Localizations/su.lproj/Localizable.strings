@@ -131,7 +131,6 @@
 "field-username-title" = "Sandiasma";
 "find-in-page-button-label" = "Panggihan dina kaca";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Paluruh téks na artikel";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";
 "forgot-password-title" = "Setél ulang kecap sandi";
@@ -298,7 +297,6 @@
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daptar eusi";
 "table-of-contents-heading" = "Eusi";
-"table-of-contents-popover-description" = "Cokot tingkesan tina artikel";
 "table-title-other" = "Informasi leuwih jero";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";

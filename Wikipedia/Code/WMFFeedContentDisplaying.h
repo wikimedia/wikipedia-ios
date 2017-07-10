@@ -90,20 +90,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
 - (nullable UIColor *)headerIconBackgroundColor;
 
 /**
- *  Color of section's header title
- *
- *  @return A color
- */
-- (nullable UIColor *)headerTitleColor;
-
-/**
- *  Color of section's header subTitle
- *
- *  @return A color
- */
-- (nullable UIColor *)headerSubTitleColor;
-
-/**
  *  The text to be displayed on the first line of the header.
  *  Additional styling will be added before display time.
  *

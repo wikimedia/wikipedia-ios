@@ -15,8 +15,8 @@ import UIKit
     static let shortSaveTitle = WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}")
     static let savedTitle = WMFLocalizedString("button-saved-for-later", value:"Saved for later", comment:"Longer button text for already saved button used in various places.")
     static let saveTitle = WMFLocalizedString("button-save-for-later", value:"Save for later", comment:"Longer button text for save button used in various places.")
-    static let saveImage = #imageLiteral(resourceName: "places-save")
-    static let savedImage = #imageLiteral(resourceName: "places-unsave")
+    static let saveImage = #imageLiteral(resourceName: "places-save").withRenderingMode(.alwaysTemplate)
+    static let savedImage = #imageLiteral(resourceName: "places-unsave").withRenderingMode(.alwaysTemplate)
     
     public var analyticsContext = "unknown"
     public var analyticsContentType = "unknown"

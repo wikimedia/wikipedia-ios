@@ -153,7 +153,6 @@
 "field-username-title" = "Användarnamn";
 "find-in-page-button-label" = "Sök på sidan";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Sök efter text i artiklar";
 "forgot-password-button-title" = "Återställ";
 "forgot-password-email-sent" = "Ett e-postmeddelande med instruktioner om lösenordsåterställning skickades";
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";
@@ -176,6 +175,8 @@
 "hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
 "home-button-explore-accessibility-label" = "Wikipedia, tillbaka till Utforska";
 "home-button-history-accessibility-label" = "Wikipedia, tillbaka till Historik";
+"home-button-popover-description" = "Tryck på \"W\" för att gå tillbaka till Utforskningsflödet";
+"home-button-popover-title" = "Tryck för att gå tillbaka";
 "home-button-saved-accessibility-label" = "Wikipedia, tillbaka till Sparade";
 "home-hide-suggestion-cancel" = "Avbryt";
 "home-hide-suggestion-prompt" = "Dölj detta förslag";
@@ -236,8 +237,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "från $1 - $2";
 "on-this-day-detail-header-day" = "den $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 historiska händelser";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-title" = "På denna dag";
 "onboarding-wikipedia" = "Wikipedia";
@@ -350,7 +350,6 @@
 "table-of-contents-close-accessibility-hint" = "Stäng";
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
-"table-of-contents-popover-description" = "Få en översikt över artiklar";
 "table-title-other" = "Mer information";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

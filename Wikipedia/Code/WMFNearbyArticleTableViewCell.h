@@ -1,10 +1,10 @@
 #import "SSDataSources.h"
 @import CoreLocation;
-@import WMF.WMFBlockDefinitions;
+@import WMF;
 
 @class MWKImage;
 
-@interface WMFNearbyArticleTableViewCell : SSBaseTableCell
+@interface WMFNearbyArticleTableViewCell : SSBaseTableCell <WMFThemeable>
 
 @property (nonatomic, copy) NSString *titleText;
 
