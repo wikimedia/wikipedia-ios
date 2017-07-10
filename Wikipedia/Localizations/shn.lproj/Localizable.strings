@@ -136,7 +136,6 @@
 "field-username-title" = "ၸိုဝ်ႈၽူႈၸႂ်ႉတိုဝ်း";
 "find-in-page-button-label" = "သွၵ်ႈႁႃ တီႈၼႂ်း ၼႃႈလိၵ်ႈ";
 "find-in-page-number-matches" = "$1 တီႈ $2";
-"find-in-page-popover-description" = "ၶူၼ်ႉႁႃလိၵ်ႈ တီႈၼႂ်း ပွင်ႈလိၵ်ႈ";
 "forgot-password-button-title" = "ၶိုၼ်းတင်ႈ";
 "forgot-password-email-sent" = "ဢီးမေးလ် ဢၼ်မီး ၶေႃႈၸီႉသင်ႇ တႃႇၶိုၼ်းတင်ႈ ၶေႃႈလပ်ႉၼၼ်ႉ ထုၵ်ႇသူင်ႇၵႂႃႇယဝ်ႉ";
 "forgot-password-instructions" = "ထႅမ်သႂ်ႇၼႂ်းလွၵ်းၽၢႆႇတႂ်ႈ တွၼ်ႈတႃႇ ႁပ်ႉဢဝ်လႆႈ ၶေႃႈၸီႉသင် ၵၢၼ်တင်ႈၶိုၼ်း ၶေႃႈလပ်ႉ ၵႃႈတီႈ ဢီးမေးလ်";
@@ -322,7 +321,6 @@
 "table-of-contents-close-accessibility-hint" = "ႁပ်း";
 "table-of-contents-close-accessibility-label" = "ႁပ်းလမ်းၼႂ်း";
 "table-of-contents-heading" = "ၼမ်းၼႂ်း";
-"table-of-contents-popover-description" = "ဢဝ်ၶေႃႈလိုမ်ႉၶွင်ပွင်ႈလိၵ်ႈ";
 "table-title-other" = "လွၼ်ႉၶၢဝ်ႇ ၼမ်လိူဝ်";
 "top-read-header-generic" = "ဝီႇၶီႇၽီးတီးယႃး";
 "top-read-header-with-language" = "တီႈ $1 ဝီႇၶီႇၽီးတီးယႃး";

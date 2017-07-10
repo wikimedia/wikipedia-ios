@@ -142,7 +142,6 @@
 "field-username-title" = "Корисничко име";
 "find-in-page-button-label" = "Најди на страницата";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Пребарај текст во статиите";
 "forgot-password-button-title" = "Задај нова лозинка";
 "forgot-password-email-sent" = "На е-пошта ви се испратени напатствија за задавање на нова лозинка";
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
@@ -165,6 +164,8 @@
 "hockeyapp-alert-title" = "За жал, прилогот се урна минатиот пат";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
 "home-button-history-accessibility-label" = "Википедија, назад на Историја";
+"home-button-popover-description" = "Допрете го „W“ за да се вратите на каналот „Истражи“";
+"home-button-popover-title" = "Допрете за да се вратите на почетната";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-hide-suggestion-cancel" = "Откажи";
 "home-hide-suggestion-prompt" = "Скриј го предлогов";
@@ -225,8 +226,7 @@
 "number-thousands" = "$1 илј.";
 "on-this-day-detail-header-date-range" = "од $1 - $2";
 "on-this-day-detail-header-day" = "на $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 историски настани";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-title" = "На денешен ден";
 "onboarding-wikipedia" = "Википедија";
@@ -339,7 +339,6 @@
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
-"table-of-contents-popover-description" = "Се појавува краток преглед на статиите";
 "table-title-other" = "Повеќе информации";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";

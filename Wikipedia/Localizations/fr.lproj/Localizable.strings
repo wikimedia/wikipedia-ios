@@ -157,7 +157,6 @@
 "field-username-title" = "Nom d’utilisateur";
 "find-in-page-button-label" = "Trouver dans la page";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Rechercher le texte dans les articles";
 "forgot-password-button-title" = "Réinitialiser";
 "forgot-password-email-sent" = "Un courriel avec les instructions de réinitialisation du mot de passe a été envoyé";
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
@@ -180,6 +179,8 @@
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
 "home-button-explore-accessibility-label" = "Wikipédia, revenir à Explorer";
 "home-button-history-accessibility-label" = "Wikipédia, revenir à Historique";
+"home-button-popover-description" = "Taper sur 'W' pour retourner au fil de Explore";
+"home-button-popover-title" = "Taper pour aller à l’accueil";
 "home-button-saved-accessibility-label" = "Wikipédia, revenir à Enregistrés";
 "home-hide-suggestion-cancel" = "Annuler";
 "home-hide-suggestion-prompt" = "Masquer cette suggestion";
@@ -240,8 +241,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-day" = "le $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "événements historiques de $1";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
 "on-this-day-title" = "Ce jour";
 "onboarding-wikipedia" = "Wikipédia";
@@ -354,7 +354,6 @@
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
-"table-of-contents-popover-description" = "Obtenir une vue d’ensemble des articles";
 "table-title-other" = "Plus d’information";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia en $1";

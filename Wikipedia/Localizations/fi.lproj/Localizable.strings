@@ -149,7 +149,6 @@
 "field-username-title" = "Käyttäjänimi";
 "find-in-page-button-label" = "Etsi sivulta";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Etsi artikkelien teksteistä";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
@@ -335,7 +334,6 @@
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
-"table-of-contents-popover-description" = "Yleiskatsaus artikkeleista";
 "table-title-other" = "Lisätietoja";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

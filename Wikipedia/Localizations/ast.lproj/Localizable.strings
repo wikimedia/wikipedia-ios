@@ -142,7 +142,6 @@
 "field-username-title" = "Nome d'usuariu";
 "find-in-page-button-label" = "Alcontrar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Buscar un testu nos artículos";
 "forgot-password-button-title" = "Reaniciar";
 "forgot-password-email-sent" = "Unvióse un corréu electrónicu con instrucciones pa reaniciar la contraseña";
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
@@ -339,7 +338,6 @@
 "table-of-contents-close-accessibility-hint" = "Zarrar";
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-heading" = "Conteníu";
-"table-of-contents-popover-description" = "Recibir un resumen de los artículos";
 "table-title-other" = "Más información";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
