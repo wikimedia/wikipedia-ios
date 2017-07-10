@@ -143,7 +143,6 @@
 "field-username-title" = "Бэлиэ-аат";
 "find-in-page-button-label" = "Бу сирэйтэн бул";
 "find-in-page-number-matches" = "$1 манна $2";
-"find-in-page-popover-description" = "Ыстатыйалартан тиэкиһи булуу";
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
@@ -321,7 +320,6 @@
 "table-of-contents-close-accessibility-hint" = "Сап";
 "table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";
 "table-of-contents-heading" = "Иһинээҕитэ";
-"table-of-contents-popover-description" = "Ыстатыйалар туһунан кылгас суруйууну ылыы";
 "table-title-other" = "Сиһилии";
 "top-read-header-generic" = "Бикипиэдьийэ";
 "top-read-header-with-language" = "$1 Бикипиэдьийэ";

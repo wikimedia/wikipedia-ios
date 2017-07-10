@@ -161,7 +161,6 @@
 "field-username-title" = "Kullanıcı adı";
 "find-in-page-button-label" = "Sayfada bul";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Maddelerde metin ara";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
@@ -184,6 +183,8 @@
 "hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
+"home-button-popover-description" = "Keşfet bölümüne dönmek için 'W'ye dokunun";
+"home-button-popover-title" = "An sayfaya gitmek için dokunun";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
 "home-hide-suggestion-cancel" = "Geri al";
 "home-hide-suggestion-prompt" = "Bu öneriyi gizle";
@@ -242,6 +243,11 @@
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1B";
+"on-this-day-detail-header-date-range" = "$2-$1 döneminde";
+"on-this-day-detail-header-day" = "$1 tarihinde";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
+"on-this-day-footer" = "Bu günden daha fazla tarihi olay";
+"on-this-day-title" = "Tarihte bugün";
 "onboarding-wikipedia" = "Vikipedi";
 "open-link-cancel" = "İptal";
 "page-edit-history" = "Bütün düzenleme geçmişi";
@@ -300,6 +306,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|Dün|$1 gün önce}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "save-action" = "Kaydet";
 "saved-clear-all" = "Temizle";
@@ -351,7 +358,6 @@
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
-"table-of-contents-popover-description" = "Makalelere genel bir bakın";
 "table-title-other" = "Daha fazla bilgi";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";

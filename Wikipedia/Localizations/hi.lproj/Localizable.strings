@@ -148,7 +148,6 @@
 "field-username-title" = "सदस्यनाम";
 "find-in-page-button-label" = "पेज में ढूंढें";
 "find-in-page-number-matches" = "$1/$2";
-"find-in-page-popover-description" = "लेखों में टेक्स्ट खोजें";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
@@ -337,7 +336,6 @@
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
 "table-of-contents-heading" = "सामग्री";
-"table-of-contents-popover-description" = "लेखों का ओवरव्यू प्राप्त करें";
 "table-title-other" = "अधिक जानकारी";
 "top-read-header-generic" = "विकिपीडिया";
 "top-read-header-with-language" = "$1 विकिपीडिया";

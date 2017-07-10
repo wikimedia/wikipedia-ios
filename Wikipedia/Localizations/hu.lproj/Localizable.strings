@@ -147,7 +147,6 @@
 "field-username-title" = "Szerkesztőnév";
 "find-in-page-button-label" = "Keresés a lapon";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Szöveg keresése szócikkekben";
 "forgot-password-button-title" = "Visszaállítás";
 "forgot-password-email-sent" = "Elküldtük az e-mailt a jelszó-visszaállítási utasításokkal";
 "forgot-password-instructions" = "Töltsd ki a lenti mezők egyikét, hogy megkapd a jelszó-visszaállítási utasításokat e-mailben";
@@ -341,7 +340,6 @@
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
-"table-of-contents-popover-description" = "Szócikkek áttekintése";
 "table-title-other" = "További információk";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";

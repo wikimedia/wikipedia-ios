@@ -141,7 +141,6 @@
 "field-username-title" = "Korisničko ime";
 "find-in-page-button-label" = "Pronađi na stranici";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Pretraži tekst u člancima";
 "forgot-password-button-title" = "Postavi novu";
 "forgot-password-email-sent" = "Na e-poštu su poslana uputstva za ponovno postavljanje lozinke";
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";
@@ -164,6 +163,8 @@
 "hockeyapp-alert-title" = "Izvinjavamo se, aplikacija se srušila prethodni put";
 "home-button-explore-accessibility-label" = "Wikipedia, nazad na ekran Istraži";
 "home-button-history-accessibility-label" = "Wikipedia, nazad na ekran Historija";
+"home-button-popover-description" = "Dodirnite 'W' da se vratite na ekran 'Istraži'";
+"home-button-popover-title" = "Dodirnite da se vratite na početak";
 "home-button-saved-accessibility-label" = "Wikipedia, nazad na ekran Sačuvano";
 "home-hide-suggestion-cancel" = "Otkaži";
 "home-hide-suggestion-prompt" = "Sakrij ovaj prijedlog";
@@ -224,8 +225,7 @@
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "od $1 do $2";
 "on-this-day-detail-header-day" = "na $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 historijskih događaja";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
 "onboarding-wikipedia" = "Wikipedia";
@@ -338,7 +338,6 @@
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";
 "table-of-contents-heading" = "Sadržaj";
-"table-of-contents-popover-description" = "Lahko pregledajte članke";
 "table-title-other" = "Više informacija";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia ($1)";

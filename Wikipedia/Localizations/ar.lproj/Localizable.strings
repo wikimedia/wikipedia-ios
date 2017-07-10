@@ -156,7 +156,6 @@
 "field-username-title" = "اسم المستخدم";
 "find-in-page-button-label" = "البحث في الصفحة";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "ابحث عن نص في المقالات";
 "forgot-password-button-title" = "أعد الضبط";
 "forgot-password-email-sent" = "أُرسل بريد إلكتروني يتضمن تعليمات إعادة تعيين كلمة السر";
 "forgot-password-instructions" = "أدخل أحد الحقول أدناه لتستقبل تعليمات إعادة ضبط كلمة السر عبر البريد الإلكتروني";
@@ -339,7 +338,6 @@
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
-"table-of-contents-popover-description" = "احصل على نظرة عامة عن المقالات";
 "table-title-other" = "مزيد من المعلومات";
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";

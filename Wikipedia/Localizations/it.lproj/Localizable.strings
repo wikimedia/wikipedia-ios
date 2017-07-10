@@ -155,7 +155,6 @@
 "field-username-title" = "Nome utente";
 "find-in-page-button-label" = "Trova nella pagina";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Ricerca testo nelle voci";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
@@ -325,7 +324,6 @@
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
-"table-of-contents-popover-description" = "Ottieni una panoramica delle voci";
 "table-title-other" = "Ulteriori informazioni";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in $1";

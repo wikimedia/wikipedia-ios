@@ -145,7 +145,6 @@
 "field-username-title" = "Nome de usuario";
 "find-in-page-button-label" = "Atopar na páxina";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Buscar o texto non artigos";
 "forgot-password-button-title" = "Restablecer";
 "forgot-password-email-sent" = "Enviouse un correo electrónico coas instrucións para restablecer o contrasinal";
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
@@ -168,6 +167,8 @@
 "hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver a Historico";
+"home-button-popover-description" = "Prema na 'W' para volver ó fío de Explore";
+"home-button-popover-title" = "Prema para ir á páxina principal";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-hide-suggestion-prompt" = "Ocultar esta suxestión";
@@ -228,8 +229,7 @@
 "number-thousands" = "$1 mil";
 "on-this-day-detail-header-date-range" = "de $1 a $2";
 "on-this-day-detail-header-day" = "en $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 acontecementos históricos";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecemento histórico|$1 acontecementos históricos}}";
 "on-this-day-footer" = "Máis acontecementos históricos deste día";
 "on-this-day-title" = "Neste día";
 "onboarding-wikipedia" = "Galipedia";
@@ -342,7 +342,6 @@
 "table-of-contents-close-accessibility-hint" = "Pechar";
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-heading" = "Contidos";
-"table-of-contents-popover-description" = "Obter unha vista xeral dos artigos";
 "table-title-other" = "Máis información";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
