@@ -131,7 +131,6 @@
 "field-username-title" = "Používateľské meno";
 "find-in-page-button-label" = "Nájsť na stránke";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Hľadanie textu v článku";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-title" = "Obnoviť heslo";
 "forgot-password-username-or-email-title" = "Alebo";
@@ -284,7 +283,6 @@
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-heading" = "Obsah";
-"table-of-contents-popover-description" = "Zobrazovať náhľad článkov";
 "table-title-other" = "Viac informácií";
 "top-read-header-generic" = "Wikipédia";
 "top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";

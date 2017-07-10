@@ -105,7 +105,7 @@
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-because-you-read" = "כי קראת";
 "explore-continue-reading-heading" = "המשך קריאה";
-"explore-enable-location-title" = "לחקור ערכים ליד המיקום הנוכחי שלך";
+"explore-enable-location-title" = "לגלות ערכים ליד המיקום הנוכחי שלך";
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -149,7 +149,6 @@
 "field-username-title" = "שם משתמש";
 "find-in-page-button-label" = "למצוא בדף";
 "find-in-page-number-matches" = "$1 מתוך $2";
-"find-in-page-popover-description" = "חיפוש טקסט בערכים";
 "forgot-password-button-title" = "אתחול";
 "forgot-password-email-sent" = "נשלח מכתב עם הוראות אתחול ססמה";
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";
@@ -170,8 +169,10 @@
 "hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שקרן ויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
 "hockeyapp-alert-send-report" = "שליחת דיווח";
 "hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
-"home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לחקור\"";
+"home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לגלות\"";
 "home-button-history-accessibility-label" = "ויקיפדיה, חזרה ל\"היסטוריה\"";
+"home-button-popover-description" = "יש ללחוץ על ה־W כדי לחזור להזנת \"לגלות\"";
+"home-button-popover-title" = "ללחוץ כאן כדי לחזור לבית";
 "home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
 "home-hide-suggestion-cancel" = "ביטול";
 "home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
@@ -179,8 +180,8 @@
 "home-nearby-footer" = "עוד דברים בסביבה";
 "home-nearby-location-footer" = "עוד בסביבת $1";
 "home-news-footer" = "עוד בחדשות";
-"home-title" = "לחקור";
-"home-title-accessibility-label" = "ויקיפדיה, גלילה עד למעלה ב\"לחקור\"";
+"home-title" = "לגלות";
+"home-title-accessibility-label" = "ויקיפדיה, גלילה עד למעלה ב\"לגלות\"";
 "icon-shortcut-continue-reading-title" = "המשך קריאה";
 "icon-shortcut-nearby-title" = "ערכים בסביבה";
 "icon-shortcut-random-title" = "ערך אקראי";
@@ -232,8 +233,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-day" = "ב־$1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 אירועים היסטוריים";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-title" = "ביום הזה";
 "onboarding-wikipedia" = "ויקיפדיה";
@@ -259,11 +259,11 @@
 "places-accessibility-show-as-map" = "להציג כמפה";
 "places-accessibility-show-more" = "הצגת ערכים נוספים";
 "places-dismiss-filter-list-accessibility-label" = "ביטול מסנני חיפוש";
-"places-empty-search-description" = "חיפוש ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
+"places-empty-search-description" = "לגלות ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
 "places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";
 "places-enable-location-action-button-title" = "להפעיל מיקום";
 "places-enable-location-description" = "גישה למיקומך אפשרית רק כשהאפליקציה או אחת התכונות שלה נראות על המסך.";
-"places-enable-location-title" = "אפשר לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
+"places-enable-location-title" = "לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
 "places-filter-list-title" = "מסנני חיפוש";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
@@ -327,7 +327,7 @@
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
 "settings-notifications-trending" = "נושאים אקטואליים חמים";
 "settings-primary-language" = "ראשית";
-"settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לחקור\".";
+"settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לגלות\".";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-title" = "הגדרות";
 "share-a-fact-share-menu-item" = "שיתוף עובדה";
@@ -346,7 +346,6 @@
 "table-of-contents-close-accessibility-hint" = "סגירה";
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
-"table-of-contents-popover-description" = "קבלת סקירה של ערכים";
 "table-title-other" = "מידע נוסף";
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
@@ -359,7 +358,7 @@
 "unsave-action" = "ביטול שמירה";
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-new-ways-sub-title" = "עדכונים ווידג׳טים שעוזרים לך לגלות ערכים מעניינים";
-"welcome-explore-new-ways-title" = "דרכים חדשות לחקור";
+"welcome-explore-new-ways-title" = "דרכים חדשות לגלות";
 "welcome-explore-tell-me-more" = "ספרו לי עוד";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
 "welcome-languages-add-button" = "הוספת שפה אחרת";

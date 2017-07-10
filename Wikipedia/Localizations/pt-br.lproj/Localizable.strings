@@ -163,7 +163,6 @@
 "field-username-title" = "Nome de usuário";
 "find-in-page-button-label" = "Localizar na página";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Pesquisa de texto em artigos";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um e-mail com instruções de redefinição de senha";
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
@@ -360,7 +359,6 @@
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
-"table-of-contents-popover-description" = "Obter um resumo dos artigos";
 "table-title-other" = "Mais informações";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";

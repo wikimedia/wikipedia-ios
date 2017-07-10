@@ -150,7 +150,6 @@
 "field-username-title" = "Gebruikersnaam";
 "find-in-page-button-label" = "Op pagina zoeken";
 "find-in-page-number-matches" = "$1 van $2";
-"find-in-page-popover-description" = "Tekst zoeken in pagina's";
 "forgot-password-button-title" = "Opnieuw instellen";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
@@ -328,7 +327,6 @@
 "table-of-contents-close-accessibility-hint" = "Sluiten";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
-"table-of-contents-popover-description" = "Een overzicht van de pagina krijgen";
 "table-title-other" = "Meer informatie";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in het $1";

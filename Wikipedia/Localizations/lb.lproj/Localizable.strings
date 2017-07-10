@@ -138,7 +138,6 @@
 "field-username-title" = "Benotzernumm";
 "find-in-page-button-label" = "Op der Säit sichen";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Text an den Artikele sichen";
 "forgot-password-button-title" = "Zrécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
@@ -218,6 +217,8 @@
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 D";
+"on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
 "on-this-day-title" = "Op dësem Dag";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Ofbriechen";
@@ -325,7 +326,6 @@
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
-"table-of-contents-popover-description" = "Eng Iwwersiicht iwwer d'Artikele kréien";
 "table-title-other" = "Méi Informatiounen";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

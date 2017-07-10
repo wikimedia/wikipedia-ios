@@ -143,7 +143,6 @@
 "field-username-title" = "Brukernavn";
 "find-in-page-button-label" = "Finn på siden";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Søk etter tekst i artikler";
 "forgot-password-button-title" = "Tilbakestill";
 "forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";
 "forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";
@@ -324,7 +323,6 @@
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-heading" = "Innhold";
-"table-of-contents-popover-description" = "Få en oversikt over artikler";
 "table-title-other" = "Mer informasjon";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia på $1";

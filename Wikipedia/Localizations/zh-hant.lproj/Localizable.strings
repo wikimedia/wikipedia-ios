@@ -154,7 +154,6 @@
 "field-username-title" = "使用者名稱";
 "find-in-page-button-label" = "在頁面裡找尋";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "搜尋條目裡的文字內容";
 "forgot-password-button-title" = "重設";
 "forgot-password-email-sent" = "一封帶有密碼重設說明的電郵已寄出";
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
@@ -351,7 +350,6 @@
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
-"table-of-contents-popover-description" = "獲得一個條目的概要";
 "table-title-other" = "更多資訊";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";

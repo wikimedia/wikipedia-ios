@@ -15,6 +15,7 @@
 "about-libraries" = "کتێبخانە بەکارھاتووەکان";
 "about-libraries-complete-list" = "پێڕستی تەواو";
 "about-libraries-license" = "مۆڵەت";
+"about-libraries-licenses-title" = "ئێمە نەرمامێری سەرچاوە کراوەی $1 بە دڵە";
 "about-product-of" = "دروست کراوە لەلایەن $1 بە یارمەتی خۆبەخشانی وەک تۆ";
 "about-repositories" = "عەمبارەکان";
 "about-repositories-app-source-license" = "سەرچاوەی کۆدەکان بەردەستن لەژێر $1";
@@ -143,7 +144,6 @@
 "field-username-title" = "ناوی بەکارھێنەر";
 "find-in-page-button-label" = "دۆزینەوە لەنێو پەڕە";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "گەڕان بەدوای نووسین لە وتار";
 "forgot-password-button-title" = "دووبارە ڕێکخستنەوە";
 "forgot-password-email-sent" = "پۆستێکی ئەلیکترۆنی کە فێرکاری ڕێکخستنەوەی تێپەڕوشە لەخۆ دەگرێت نێردرا";
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
@@ -166,6 +166,8 @@
 "hockeyapp-alert-title" = "ببوورە، ئاپ لە جاری پێشوو تێکچوو";
 "home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
 "home-button-history-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ مێژوو";
+"home-button-popover-description" = "کرتە بکە لەسەر «W» بۆ گەڕانەوە بۆ بەشی «گەڕان»";
+"home-button-popover-title" = "کرتە بکە بۆ گەڕانەوە بۆ پەڕەی سەرەکی";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
 "home-hide-suggestion-cancel" = "ھەڵوەشاندنەوە";
 "home-hide-suggestion-prompt" = "ئەم پێشنیارە بشارەوە";
@@ -202,6 +204,7 @@
 "main-menu-account-title-logged-in" = "چووە ناوەوە وەکوو $1";
 "main-menu-debug-crash" = "تێکشکان";
 "main-menu-debug-tweaks" = "ڕێکخستنەکانی گەشەپێدەر";
+"main-menu-heading-debug" = "دیبەگ";
 "main-menu-heading-legal" = "تایبەتێتی و مەرجەکان";
 "main-menu-heading-zero" = "ویکیپیدیا زیرۆ";
 "main-menu-nearby" = "لەم نزیکانە";
@@ -223,6 +226,11 @@
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1";
+"on-this-day-detail-header-date-range" = "لە $1 بۆ $2";
+"on-this-day-detail-header-day" = "لە $1";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
+"on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
+"on-this-day-title" = "لەم ڕۆژەدا";
 "onboarding-wikipedia" = "ویکیپیدیا";
 "open-link-cancel" = "ھەڵوەشاندنەوە";
 "page-edit-history" = "مێژووی دەستکاری تەواو";
@@ -281,6 +289,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=ئەمڕۆ|دوێنێ|$1 ڕۆژ لەمەوبەر}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=لەم ماوەیەدا|$1 سەعات لەمەوبەر|$1 سەعات لەمەوبەر}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ھەر ئێستا|$1 دەقە لەمەوبەر|$1 دەقە لەمەوبەر}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=ئەم ساڵ|Last year|$1 ساڵ لەمەوبەر}}";
 "request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
 "save-action" = "خەزێنەکردن";
 "saved-clear-all" = "سڕینەوە";
@@ -332,7 +341,6 @@
 "table-of-contents-close-accessibility-hint" = "داخستن";
 "table-of-contents-close-accessibility-label" = "داخستنی خشتەی ناوەڕۆکەکان";
 "table-of-contents-heading" = "ناوەڕۆکەکان";
-"table-of-contents-popover-description" = "کورتەیەکی وتارەکان بەدەست بھێنە";
 "table-title-other" = "زانیاریی زیاتر";
 "top-read-header-generic" = "ویکیپیدیا";
 "top-read-header-with-language" = "$1 ویکیپیدیا";
@@ -368,6 +376,7 @@
 "wikitext-preview-link-preview-title" = "پێشبینی بەستەر";
 "wikitext-upload-captcha-error" = "ھەڵە لە دڵنیاکردنەوەی کاپچا";
 "wikitext-upload-captcha-needed" = "پێویستت بە دووپاتکردنەوەی کاپچایە";
+"wikitext-upload-result-unknown" = "نەتواندر ئەنجامی ویکیدەقی بارکراو بەدەست بھێندرێت.";
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
