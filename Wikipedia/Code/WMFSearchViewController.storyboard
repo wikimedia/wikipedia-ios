@@ -21,15 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z9C-Lg-eam">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="67a-h2-5a6">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
@@ -178,18 +169,14 @@
                         <constraints>
                             <constraint firstItem="d0q-nT-gUD" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" id="7kG-Bz-jqW"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" constant="64" id="8MZ-d6-S5y"/>
-                            <constraint firstAttribute="trailing" secondItem="z9C-Lg-eam" secondAttribute="trailing" id="ApT-ET-2Yn"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="bottom" id="GFD-6d-3AS"/>
                             <constraint firstItem="d0q-nT-gUD" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Iip-mE-iu2"/>
-                            <constraint firstAttribute="bottom" secondItem="z9C-Lg-eam" secondAttribute="bottom" id="OIV-aR-Y7z"/>
                             <constraint firstItem="aQA-T5-obx" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Orn-cl-5bS"/>
                             <constraint firstAttribute="trailing" secondItem="aQA-T5-obx" secondAttribute="trailing" id="QBp-a6-Ct3"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="SKm-w2-ofm"/>
                             <constraint firstAttribute="trailing" secondItem="d0q-nT-gUD" secondAttribute="trailing" id="Yqh-4E-GDY"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="aQA-T5-obx" secondAttribute="bottom" id="b0J-5p-Iwt"/>
                             <constraint firstAttribute="trailing" secondItem="RWd-Ft-cEc" secondAttribute="trailing" id="bg1-t7-VLE"/>
-                            <constraint firstItem="z9C-Lg-eam" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" id="oMl-7j-x0b"/>
-                            <constraint firstItem="z9C-Lg-eam" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="qWq-Wf-LE1"/>
                             <constraint firstItem="aQA-T5-obx" firstAttribute="top" secondItem="d0q-nT-gUD" secondAttribute="bottom" id="zd2-MM-y2b"/>
                         </constraints>
                         <variation key="default">
