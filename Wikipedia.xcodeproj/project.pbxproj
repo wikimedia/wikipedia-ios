@@ -537,6 +537,8 @@
 		B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A341EE1F69E0075953E /* EventLoggingService.swift */; };
 		B3632E801EE5F98F007A2464 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A331EE1F69E0075953E /* EventCapsule.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
+		B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */; };
+		B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
 		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */; };
@@ -3927,6 +3929,8 @@
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
 		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSTextAttachment+WMFExtras.swift"; path = "../../../WMF Framework/NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
+		B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLoggingServiceTests.swift; sourceTree = "<group>"; };
+		B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockNetworkReachabilityManager.swift; path = WikipediaUnitTests/Code/MockNetworkReachabilityManager.swift; sourceTree = SOURCE_ROOT; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
 		B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWKArticle+MKMapItem.swift"; sourceTree = "<group>"; };
@@ -7061,6 +7065,7 @@
 				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
 				BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */,
 				BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */,
+				B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */,
 			);
 			name = Utilities;
 			path = WikipediaUnitTests/Code/Utilities;
@@ -7265,6 +7270,7 @@
 				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
+				B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9590,6 +9596,7 @@
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				B0E808821C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m in Sources */,
+				B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B31C0D16EA0065EBC0 /* MWKSite+Random.m in Sources */,
 				B0E809251C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m in Sources */,
@@ -9614,6 +9621,7 @@
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
 				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
+				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
 				B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */,
