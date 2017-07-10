@@ -16,11 +16,11 @@ import UIKit
     static let savedTitle:String = SaveButton.savedTitle(language: nil)
     static let saveTitle:String = SaveButton.saveTitle(language: nil)
     
-    static public func savedTitle(language: String? = nil) -> String {
+    static public func savedTitle(language: String?) -> String {
         return WMFLocalizedString("button-saved-for-later", language: language, value:"Saved for later", comment:"Longer button text for already saved button used in various places.")
     }
     
-    static public func saveTitle(language: String? = nil) -> String {
+    static public func saveTitle(language: String?) -> String {
         return WMFLocalizedString("button-save-for-later", language: language, value:"Save for later", comment:"Longer button text for save button used in various places.")
     }
 
