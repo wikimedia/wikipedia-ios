@@ -4,12 +4,14 @@ import Foundation
     func searchLanguagesBarViewController(_ controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
-class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate {
+class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
     weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
+    
+    var theme: Theme = Theme.standard
     
     fileprivate var hidden: Bool = false {
         didSet {
@@ -47,11 +49,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        for button in languageButtons {
-            button.tintColor = .wmf_blue
-        }
-        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor.white), for: UIControlState())
-        otherLanguagesButton?.setBackgroundImage(UIImage.wmf_image(from: UIColor(white: 0.9, alpha: 1.0)), for: .highlighted)
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: UIControlState())
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
@@ -74,6 +71,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                 }
             }
         }
+        apply(theme: theme)
     }
 
     deinit {
@@ -145,5 +143,16 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         
         currentlySelectedSearchLanguage = language
         controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
+        for languageButton in languageButtons {
+            languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
+        }
     }
 }

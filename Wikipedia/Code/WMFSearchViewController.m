@@ -42,6 +42,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIView *recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIImageView *searchIconView;
+@property (weak, nonatomic) IBOutlet UIView *languagesBarContainer;
+@property (weak, nonatomic) IBOutlet UIView *searchBottomSeparatorView;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
 
@@ -155,7 +158,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)configureSearchField {
     self.searchField.textAlignment = NSTextAlignmentNatural;
     [self setSeparatorViewHidden:YES animated:NO];
-    [self.searchField setPlaceholder:WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text")];
 }
 
 #pragma mark - UIViewController
@@ -174,8 +176,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
 
+    [self applyTheme:self.theme];
+
     [self updateUIWithResults:nil];
-    [self updateRecentSearchesVisibility:NO];
+    [self updateRecentSearchesVisibility:NO];    
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -476,8 +480,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSAttributedString *title =
         [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
     [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
-    [self.view setNeedsUpdateConstraints];
-    [self.view layoutIfNeeded];
+    [self.viewIfLoaded setNeedsUpdateConstraints];
+    [self.viewIfLoaded layoutIfNeeded];
 }
 
 - (CGFloat)searchFieldHeightForCurrentTraitCollection {
@@ -572,11 +576,27 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     [self.resultsListController applyTheme:theme];
+    [self.recentSearchesViewController applyTheme:theme];
+    [self.searchLanguagesBarViewController applyTheme:theme];
     if ([self viewIfLoaded] == nil) {
         return;
     }
+    self.view.backgroundColor = theme.colors.midBackground;
+    self.searchContentContainer.backgroundColor = theme.colors.midBackground;
+    self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
+    
     self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
+    self.searchField.backgroundColor = theme.colors.chromeBackground;
     self.searchField.textColor = theme.colors.chromeText;
+    self.separatorView.backgroundColor = theme.colors.midBackground;
+    self.closeButton.tintColor = theme.colors.chromeText;
+    self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
+    self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
+    self.searchIconView.tintColor = theme.colors.chromeText;
+    
+    NSAttributedString *attributedPlaceholder = [[NSAttributedString alloc] initWithString:WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text") attributes:@{NSForegroundColorAttributeName: theme.colors.tertiaryText}];
+    self.searchField.attributedPlaceholder = attributedPlaceholder;
+                                                                                                                                                                                                                                            
 }
 
 @end
