@@ -2,15 +2,6 @@
 
 @implementation UIImage (WMFStyle)
 
-+ (UIImage *)wmf_placeholderImage {
-    static UIImage *img;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        img = [[UIImage imageNamed:@"image-placeholder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    });
-    return img;
-}
-
 + (instancetype)wmf_imageFromColor:(UIColor *)color {
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);

@@ -23,7 +23,7 @@ class WMFImageControllerTests: XCTestCase {
     
     func testReceivingDataResponseResolves() {
         let testURL = URL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.main.scale))x.png")!
-        let testImage = UIImage(named: "image-placeholder")!
+        let testImage = #imageLiteral(resourceName: "places-save")
         let stubbedData = UIImagePNGRepresentation(testImage)
         
         LSNocilla.sharedInstance().start()
@@ -79,7 +79,7 @@ class WMFImageControllerTests: XCTestCase {
     }
     
     func testCancellationDoesNotAffectRetry() {
-        let testImage = UIImage(named: "image-placeholder")!
+        let testImage = #imageLiteral(resourceName: "places-save")
         let stubbedData = UIImagePNGRepresentation(testImage)!
         let scale = Int(UIScreen.main.scale)
         let testURLString = "https://example.com/foo@\(scale)x.png"

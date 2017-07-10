@@ -286,7 +286,9 @@
         BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
                                                  withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                      if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                         headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                         WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                         attributes.precalculated = estimate.precalculated;
+                                                         headerHeight = estimate.height;
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
                                                      } else {
                                                          headerHeight = existingFrame.size.height;
@@ -346,7 +348,9 @@
         didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
                                             withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                 if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                    footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                    WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                    attributes.precalculated = estimate.precalculated;
+                                                    footerHeight = estimate.height;
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
                                                 } else {
                                                     footerHeight = existingFrame.size.height;

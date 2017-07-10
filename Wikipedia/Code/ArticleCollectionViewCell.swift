@@ -11,28 +11,21 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        tintColor = UIColor.wmf_blue
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.wmf_showPlaceholder()
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
-        descriptionLabel.textColor = UIColor.wmf_customGray
         addSubview(saveButton)
-        saveButton.tintColor = UIColor.wmf_blue
-        saveButton.setTitleColor(UIColor.wmf_blue, for: .normal)
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
-        backgroundColor = .white
         super.setup()
     }
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
-        backgroundColor = .white
         titleFontFamily = .georgia
         titleTextStyle = .title1
         descriptionFontFamily = .system
@@ -46,7 +39,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageViewDimension = 70
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
-        imageView.wmf_showPlaceholder()
     }
     
     deinit {
@@ -87,20 +79,9 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             setNeedsLayout()
         }
     }
-    
-    open override func setNeedsLayout() {
-        updateLabelFonts()
-        super.setNeedsLayout()
-    }
-    
-    // MARK - Dynamic type
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateLabelFonts()
-    }
-    
-    open func updateLabelFonts() {
+
+    open override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(titleFontFamily, withTextStyle: titleTextStyle, compatibleWithTraitCollection: traitCollection)
         descriptionLabel.font = UIFont.wmf_preferredFontForFontFamily(descriptionFontFamily, withTextStyle:  descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         extractLabel?.font = UIFont.wmf_preferredFontForFontFamily(extractFontFamily, withTextStyle: extractTextStyle, compatibleWithTraitCollection: traitCollection)

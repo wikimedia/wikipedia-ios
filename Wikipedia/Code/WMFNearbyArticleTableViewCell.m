@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -31,16 +32,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self configureImageViewWithPlaceholder];
+    [self applyTheme:[WMFTheme standard]];
     self.articleImageView.layer.cornerRadius = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
-    self.articleImageView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
     self.distanceLabelBackground.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
-    self.distanceLabelBackground.layer.borderColor = [UIColor wmf_customGray].CGColor;
     self.distanceLabelBackground.backgroundColor = [UIColor clearColor];
     self.distanceLabel.font = [UIFont wmf_nearbyDistanceFont];
-    self.distanceLabel.textColor = [UIColor wmf_customGray];
     [self wmf_addSelectedBackgroundView];
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self wmf_configureSubviewsForDynamicType];
@@ -48,15 +46,10 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self configureImageViewWithPlaceholder];
     self.descriptionText = nil;
     self.titleText = nil;
     self.titleLabel.text = nil;
     self.distanceLabel.text = nil;
-}
-
-- (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_showPlaceholder];
 }
 
 + (CGFloat)estimatedRowHeight {
@@ -182,6 +175,17 @@
         titleAndDescription = self.titleText;
     }
     return [NSString stringWithFormat:@"%@, %@ %@", titleAndDescription, self.distanceLabel.text, self.compassView.accessibilityLabel];
+}
+
+#pragma mark - Theme
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.contentView.backgroundColor = theme.colors.paperBackground;
+    self.titleLabel.textColor = theme.colors.primaryText;
+    self.distanceLabel.textColor = theme.colors.tertiaryText;
+    self.articleImageView.layer.borderColor = theme.colors.border.CGColor;
+    self.distanceLabelBackground.layer.borderColor = theme.colors.tertiaryText.CGColor;
 }
 
 @end
