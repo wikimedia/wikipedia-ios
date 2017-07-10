@@ -2,6 +2,7 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
+#import "TUSafariActivity.h"
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -69,12 +70,17 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self canDeleteItemAtIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self deleteItemAtIndexPath:indexPath];
+- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
+    return [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            if (handler) {
+                handler(action, indexPath);
+            }
+        }];
+        [self.tableView setEditing:NO animated:YES];
+        [CATransaction commit];
+    }];
 }
 
 #pragma mark - Previewing
@@ -255,6 +261,85 @@
     dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
         [self updateEmptyAndDeleteState];
     });
+}
+
+#pragma mark - Sharing
+
+- (UIActivityViewController *)shareActivityController:(NSURL *)url {
+    WMFArticle *article = [self.userDataStore fetchArticleWithURL:url];
+    NSMutableArray *items = [NSMutableArray array];
+    
+    
+    // TODO: Use WMFArticleTextActivitySource
+    NSString *text =  [NSString stringWithFormat:@"\"%@\" on @Wikipedia", [article displayTitle]];
+    [items addObject:text];
+    
+    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:url];
+    if (desktopURL) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        
+        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
+        components.queryItems = @[queryItem];
+        
+        NSURL *componentsURL = components.URL;
+        if (componentsURL) {
+            [items addObject:componentsURL];
+        }
+    }
+    
+    MKMapItem *mapItem = [article mapItem];
+    if (mapItem) {
+        [items addObject:mapItem];
+    }
+
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                                              applicationActivities:
+                                                             @[[[TUSafariActivity alloc] init],
+                                                               [[WMFOpenInMapsActivity alloc] init],
+                                                               [[WMFGetDirectionsInMapsActivity alloc] init]]];
+    return vc;
+}
+
+- (void)shareArticle:(UIActivityViewController *)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+#pragma mark - Row actions
+
+- (NSString *)deleteActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-delete", nil, nil, @"Delete", @"Text of the article list row action shown on swipe which deletes the article");
+}
+
+- (NSString *)shareActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
+}
+
+- (NSString *)saveActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-save", nil, nil, @"Save", @"Text of the article list row action shown on swipe which allows the user to save the article");
+}
+
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        
+        UIActivityViewController *shareActivityController = [self shareActivityController:url];
+        
+        [self shareArticle:shareActivityController];
+    }];
+}
+
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+}
+
+- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+        [savedPageList addSavedPageWithURL:url];
+    }];
 }
 
 #pragma mark - WMFThemeable
