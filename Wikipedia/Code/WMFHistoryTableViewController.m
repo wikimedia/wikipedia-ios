@@ -108,10 +108,26 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
+    
+    [tableView setEditing:NO animated:YES];
 
     [self configureCell:cell forRowAtIndexPath:indexPath];
 
     return cell;
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+        
+    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    deleteAction.backgroundColor = [UIColor wmf_red];
+    
+    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    shareAction.backgroundColor = [UIColor wmf_green];
+
+    UITableViewRowAction *saveAction = [self saveAction:indexPath];
+    saveAction.backgroundColor = [UIColor wmf_blue];
+
+    return @[deleteAction, shareAction, saveAction];
 }
 
 #pragma mark - WMFArticleListTableViewController
