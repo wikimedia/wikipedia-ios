@@ -72,6 +72,19 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
+- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
+    return [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            if (handler) {
+                handler(action, indexPath);
+            }
+        }];
+        [self.tableView setEditing:NO animated:YES];
+        [CATransaction commit];
+    }];
+}
+
 #pragma mark - Previewing
 
 - (void)registerForPreviewingIfAvailable {
