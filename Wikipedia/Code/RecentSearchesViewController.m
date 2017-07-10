@@ -31,7 +31,7 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
     [self updateTrashButtonEnabledState];
     [self updateHeaderVisibility];
     [self.view wmf_configureSubviewsForDynamicType];
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -157,17 +157,17 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
     [self wmf_hideKeyboard];
 }
 
-
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     if (self.viewIfLoaded == nil) {
         return;
     }
-    
+
     self.headerContainer.backgroundColor = theme.colors.midBackground;
     self.trashButton.tintColor = theme.colors.tertiaryText;
     self.table.backgroundColor = theme.colors.midBackground;
-    
+    self.headingLabel.textColor = theme.colors.secondaryText;
+
     [self.table reloadData];
 }
 

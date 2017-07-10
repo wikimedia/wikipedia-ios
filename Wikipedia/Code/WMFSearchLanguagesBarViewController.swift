@@ -153,6 +153,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         view.backgroundColor = theme.colors.paperBackground
         for languageButton in languageButtons {
             languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
+            languageButton.tintColor = theme.colors.link
         }
     }
 }
