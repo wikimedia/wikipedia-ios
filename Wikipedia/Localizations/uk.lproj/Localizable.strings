@@ -143,7 +143,6 @@
 "field-username-placeholder" = "введіть ім'я користувача";
 "field-username-title" = "Ім'я користувача";
 "find-in-page-button-label" = "Знайти на сторінці";
-"find-in-page-popover-description" = "Шукати текст у статтях";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
@@ -317,7 +316,6 @@
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
-"table-of-contents-popover-description" = "Отримати огляд статей";
 "table-title-other" = "Більше інформації";
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";

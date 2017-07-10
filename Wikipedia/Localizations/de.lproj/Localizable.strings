@@ -143,7 +143,6 @@
 "field-username-title" = "Benutzername";
 "find-in-page-button-label" = "In Seite finden";
 "find-in-page-number-matches" = "$1 von $2";
-"find-in-page-popover-description" = "Text in Artikeln suchen";
 "forgot-password-button-title" = "Zurücksetzen";
 "forgot-password-email-sent" = "Es wurde eine E-Mail mit Anweisungen zur Zurücksetzung des Passworts an dich versandt.";
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
@@ -166,6 +165,8 @@
 "hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zurück zu Verlauf";
+"home-button-popover-description" = "Tippe auf das „W“, um zum Entdecken-Feed zurückzukehren.";
+"home-button-popover-title" = "Tippen, um zur Startseite zu gehen";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
 "home-hide-suggestion-cancel" = "Abbrechen";
 "home-hide-suggestion-prompt" = "Diesen Vorschlag ausblenden";
@@ -339,7 +340,6 @@
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
-"table-of-contents-popover-description" = "Eine Übersicht der Artikel erhalten";
 "table-title-other" = "Weitere Informationen";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

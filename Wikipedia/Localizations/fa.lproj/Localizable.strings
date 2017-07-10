@@ -158,7 +158,6 @@
 "field-username-title" = "نام کاربری";
 "find-in-page-button-label" = "در صفحه پیدا کنید";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "جستجوی متن در مقالات";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
 "forgot-password-instructions" = "برای دریافت گذرواژهٔ جدید به وسیلهٔ ایمیل یکی از بخش‌های زیر را پر کنید.";
@@ -181,6 +180,8 @@
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به کاوش";
 "home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
+"home-button-popover-description" = "بر روی «W» برای کاوش خوراک‌ها بزنید";
+"home-button-popover-title" = "برای رفتن به خانه بر روی صفحه بزنید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
 "home-hide-suggestion-cancel" = "لغو";
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
@@ -241,8 +242,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "از $1 - $2";
 "on-this-day-detail-header-day" = "در $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 رویداد تاریخی";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-title" = "در این روز";
 "onboarding-wikipedia" = "ویکی‌پدیا";
@@ -355,7 +355,6 @@
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
-"table-of-contents-popover-description" = "دریافت نظرکلی مقالات";
 "table-title-other" = "اطلاعات بیشتر";
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";

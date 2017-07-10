@@ -1,6 +1,5 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
-#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
 
@@ -24,17 +23,16 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
-
-    self.tableView.backgroundColor = [UIColor wmf_articleListBackground];
-    self.tableView.separatorColor = [UIColor wmf_lightGray];
-    self.tableView.estimatedRowHeight = 64.0;
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
+
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -257,6 +255,17 @@
     dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
         [self updateEmptyAndDeleteState];
     });
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if ([self viewIfLoaded] == nil) {
+        return;
+    }
+    self.tableView.backgroundColor = theme.colors.baseBackground;
+    [self.tableView reloadData];
 }
 
 @end

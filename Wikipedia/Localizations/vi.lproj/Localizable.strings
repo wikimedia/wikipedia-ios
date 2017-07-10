@@ -133,7 +133,6 @@
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
 "find-in-page-button-label" = "Tìm trong trang";
-"find-in-page-popover-description" = "Tìm văn bản trong bài viết";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
@@ -292,7 +291,6 @@
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-heading" = "Mục lục";
-"table-of-contents-popover-description" = "Xem cấu trúc bài viết";
 "table-title-other" = "Thêm thông tin";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";

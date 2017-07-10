@@ -111,7 +111,6 @@
 "feed-news-notification-button-text" = "Ativar as notificações";
 "feed-news-notification-text" = "Agora pode ativar notificações de artigos da Wikipédia que sejam notícia.";
 "find-in-page-button-label" = "Localizar na página";
-"find-in-page-popover-description" = "Pesquisa de texto em artigos";
 "forgot-password-button-title" = "Redefinir";
 "forgot-password-email-sent" = "Foi enviado um email com instruções de redefinição da palavra-passe";
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por email";
@@ -261,7 +260,6 @@
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-heading" = "Índice";
-"table-of-contents-popover-description" = "Obter um resumo dos artigos";
 "table-title-other" = "Mais informação";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia em $1";

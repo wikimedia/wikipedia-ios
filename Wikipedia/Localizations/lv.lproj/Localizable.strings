@@ -52,6 +52,7 @@
 "explore-continue-reading-heading" = "Turpini lasīt";
 "explore-main-page-heading" = "Šodien Vikipēdijā";
 "explore-nearby-placeholder-cancel" = "Atcelt";
+"explore-nearby-placeholder-heading" = "Vietas";
 "explore-nearby-sub-heading-your-location" = "Tava atrašanās vieta";
 "explore-potd-heading" = "Dienas attēls";
 "explore-random-article-heading" = "Nejauša lapa";
@@ -67,9 +68,12 @@
 "field-new-password-title" = "Jaunā parole";
 "field-password-placeholder" = "ievadi paroli";
 "field-password-title" = "Parole";
+"field-token-title" = "Verifikācijas kods";
+"field-username-placeholder" = "ievadi lietotājvārdu";
 "field-username-title" = "Lietotājvārds";
 "find-in-page-button-label" = "Atrast lapā";
-"find-in-page-popover-description" = "Meklēt tekstu rakstos";
+"forgot-password-button-title" = "Atiestatīt";
+"forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";
 "history-clear-all" = "Notīrīt";
 "history-clear-cancel" = "Atcelt";
@@ -130,6 +134,7 @@
 "places-search-default-text" = "Meklēt";
 "places-search-saved-articles" = "Visi saglabātie raksti";
 "places-search-top-articles-that-match-scope" = "Tuvumā";
+"places-title" = "Vietas";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
 "reference-title" = "Atsauce $1";
@@ -138,6 +143,7 @@
 "saved-pages-clear-cancel" = "Atcelt";
 "saved-pages-clear-delete-all" = "Jā, dzēst visu";
 "saved-title" = "Saglabāts";
+"search-did-you-mean" = "Vai tu domāji $1?";
 "search-field-placeholder-text" = "Meklēt Vikipēdijā";
 "search-recent-clear-cancel" = "Atcelt";
 "search-recent-clear-delete-all" = "Dzēst visu";
@@ -162,7 +168,6 @@
 "table-of-contents-close-accessibility-hint" = "Aizvērt";
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
-"table-of-contents-popover-description" = "Iegūt pārskatu par rakstiem";
 "table-title-other" = "Vairāk informācijas";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
@@ -177,6 +182,7 @@
 "welcome-volunteer-thanks" = "$1 Paldies!";
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";
+"wikitext-preview-link-preview-title" = "Saites pirmskats";
 "wikitext-upload-captcha-error" = "CAPTCHA verifikācijas kļūda.";
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";

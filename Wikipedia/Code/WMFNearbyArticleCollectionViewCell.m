@@ -165,7 +165,7 @@
 }
 
 - (void)setImage:(MWKImage *)image {
-    [self setImage:image failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+    //[self setImage:image failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 #pragma mark - Accessibility
@@ -191,7 +191,8 @@
     self.contentView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = theme.colors.primaryText;
     self.distanceLabel.textColor = theme.colors.tertiaryText;
-    self.articleImageView.layer.borderColor = theme.colors.border.CGColor;
+    self.articleImageView.layer.borderColor = theme.colors.midBackground.CGColor;
+    self.articleImageView.backgroundColor = theme.colors.midBackground;
     self.distanceLabelBackground.layer.borderColor = theme.colors.tertiaryText.CGColor;
 }
 

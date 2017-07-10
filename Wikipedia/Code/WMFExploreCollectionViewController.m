@@ -4,7 +4,6 @@
 #import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
-#import "WMFSaveButtonController.h"
 #import "WMFColumnarCollectionViewLayout.h"
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
@@ -17,7 +16,6 @@
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIViewController+WMFSearch.h"
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "WMFRandomArticleViewController.h"
@@ -1554,7 +1552,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]]) {
+    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
+               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];

@@ -164,7 +164,6 @@
 "field-username-title" = "Имя участника";
 "find-in-page-button-label" = "Найти на странице";
 "find-in-page-number-matches" = "$1 из $2";
-"find-in-page-popover-description" = "Поиск текста в статьях";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -187,6 +186,8 @@
 "hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
 "home-button-explore-accessibility-label" = "Википедия, вернуться к разделу Исследуйте";
 "home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
+"home-button-popover-description" = "Коснитесь «W» для возвращения к ленте исследования";
+"home-button-popover-title" = "Коснитесь для возвращения в начало";
 "home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
@@ -247,7 +248,6 @@
 "number-thousands" = "$1 тыс.";
 "on-this-day-detail-header-date-range" = "С $1 — $2";
 "on-this-day-detail-header-day" = "на $1";
-// Fuzzy
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-title" = "В этот день…";
@@ -361,7 +361,6 @@
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
-"table-of-contents-popover-description" = "Получить обзор статей";
 "table-title-other" = "Подробнее";
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "$1 Википедия";
