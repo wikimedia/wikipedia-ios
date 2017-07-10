@@ -144,7 +144,6 @@
 "field-username-title" = "Корисничко име";
 "find-in-page-button-label" = "Пронађи на страници";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Претрага текста у чланцима";
 "forgot-password-button-title" = "Поново постави";
 "forgot-password-email-sent" = "Инструкције за поновно постављање имејла са лозинком су послате";
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили инструкције за поновно постављање лозинке путем имејла";
@@ -329,7 +328,6 @@
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
-"table-of-contents-popover-description" = "Преузми преглед чланака";
 "table-title-other" = "Детаљније";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";

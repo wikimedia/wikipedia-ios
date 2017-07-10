@@ -110,7 +110,6 @@
 "field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
 "field-username-title" = "მომხმარებლის სახელი";
 "find-in-page-button-label" = "გვერდში ძიება";
-"find-in-page-popover-description" = "ტექსტის ძიება სტატიებში";
 "history-clear-all" = "გასუფთავება";
 "history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
@@ -235,7 +234,6 @@
 "table-of-contents-close-accessibility-hint" = "დახურვა";
 "table-of-contents-close-accessibility-label" = "სარჩევის დახურვა";
 "table-of-contents-heading" = "შინაარსი";
-"table-of-contents-popover-description" = "სტატიების მიმოხილვის მიღება";
 "table-title-other" = "მეტი ინფორმაცია";
 "top-read-header-generic" = "ვიკიპედია";
 "top-read-header-with-language" = "$1 ვიკიპედია";

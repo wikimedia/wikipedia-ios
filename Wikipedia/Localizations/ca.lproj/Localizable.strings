@@ -151,7 +151,6 @@
 "field-username-title" = "Nom d'usuari";
 "find-in-page-button-label" = "Busca una pàgina";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Cerca text als articles";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-title" = "Restablir contrasenya";
@@ -337,7 +336,6 @@
 "table-of-contents-close-accessibility-hint" = "Tanca";
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
-"table-of-contents-popover-description" = "Mostra la previsualització dels articles";
 "table-title-other" = "Més informació";
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";

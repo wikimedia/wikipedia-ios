@@ -138,7 +138,6 @@
 "field-username-title" = "واهپيندڙ جو نالو (يوزر نيم)";
 "find-in-page-button-label" = "صفحي ۾ لھو";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "مضمونن ۾ متن ڳوليو";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
@@ -321,7 +320,6 @@
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فهرست";
-"table-of-contents-popover-description" = "مضمونن جي نظرثاني حاصل ڪريو";
 "table-title-other" = "وڌيڪ معلومات";
 "top-read-header-generic" = "وڪيپيڊيا";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";

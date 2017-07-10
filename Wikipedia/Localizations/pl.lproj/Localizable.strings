@@ -128,7 +128,6 @@
 "field-username-title" = "Nazwa użytkownika";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
@@ -147,6 +146,7 @@
 "hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
 "hockeyapp-alert-send-report" = "Wyślij raport";
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
+"home-button-popover-title" = "Dotknij by wrócić do strony domowej";
 "home-hide-suggestion-cancel" = "Anuluj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
