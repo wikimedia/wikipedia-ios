@@ -319,7 +319,7 @@
 }
 
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSURL *url = [self urlAtIndexPath:indexPath];
         
         UIActivityViewController *shareActivityController = [self shareActivityController:url];
@@ -329,13 +329,13 @@
 }
 
 - (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         [self deleteItemAtIndexPath:indexPath];
     }];
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
