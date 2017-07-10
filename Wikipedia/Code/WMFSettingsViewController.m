@@ -50,7 +50,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) WMFTheme *theme;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
@@ -80,6 +81,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
+    
+    [self applyTheme:self.theme];
 }
 
 - (void)dealloc {
@@ -130,12 +133,16 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.elementDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
         return NO;
     };
-
+    
     @weakify(self)
-        self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
+    self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         @strongify(self)
-            cell.title = menuItem.title;
-        cell.iconColor = menuItem.iconColor;
+        cell.title = menuItem.title;
+        [cell applyTheme:self.theme];
+        if (!self.theme.colors.icon) {
+            cell.iconColor = [UIColor whiteColor];
+            cell.iconBackgroundColor = menuItem.iconColor;
+        }
         cell.iconName = menuItem.iconName;
         cell.disclosureType = menuItem.disclosureType;
         cell.disclosureText = menuItem.disclosureText;
@@ -468,7 +475,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #endif
 }
 
-#pragma - KVO
+#pragma mark - KVO
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
@@ -477,6 +484,15 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.tableView.backgroundColor = theme.colors.baseBackground;
+    [self.tableView reloadData];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
