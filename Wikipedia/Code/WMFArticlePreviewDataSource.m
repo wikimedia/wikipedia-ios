@@ -4,7 +4,6 @@
 #import "Wikipedia-Swift.h"
 
 // View
-#import "WMFArticlePreviewTableViewCell.h"
 #import <WMF/UIView+WMFDefaultNib.h>
 
 // Fetcher
@@ -51,10 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
         self.siteURL = siteURL;
         self.titlesSearchFetcher = fetcher;
 
-        self.cellClass = [WMFArticlePreviewTableViewCell class];
+        self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell *cell,
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
                                     MWKSearchResult *searchResult,
                                     UITableView *tableView,
                                     NSIndexPath *indexPath) {
@@ -63,10 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
             cell.titleText = URL.wmf_title;
             cell.descriptionText = searchResult.wikidataDescription;
-            cell.snippetText = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
-
-            [cell setSaveableURL:URL savedPageList:self.savedPageList];
         };
     }
     return self;
@@ -78,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setTableView:(nullable UITableView *)tableView {
     [super setTableView:tableView];
-    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 }
 
 #pragma mark - Fetching

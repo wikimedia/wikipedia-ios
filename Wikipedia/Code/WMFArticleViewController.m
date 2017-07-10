@@ -14,12 +14,10 @@
 #import "WMFLanguagesViewController.h"
 #import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
-#import "WMFSaveButtonController.h"
-#import "UIViewController+WMFSearch.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
 #import "WMFPageIssuesViewController.h"
-
+#import "SSArrayDataSource.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
@@ -143,9 +141,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
-@property (nonatomic, strong) WMFSaveButtonController *saveButtonController;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
@@ -343,7 +341,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha
-        
+
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
@@ -372,6 +370,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)applicationWillResignActiveWithNotification:(NSNotification *)note {
     [self saveWebViewScrollOffset];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+}
+
+- (void)articleWasUpdatedWithNotification:(NSNotification *)note {
+    WMFArticle *article = [note object];
+    NSString *articleKey = article.key;
+    NSString *myDatabaseKey = self.articleURL.wmf_articleDatabaseKey;
+    if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
+        [self updateSaveButtonStateForSaved:article.savedDate != nil];
+    }
 }
 
 #pragma mark - Public
@@ -505,10 +512,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateToolbarItemsIfNeeded {
 
-    if (!self.saveButtonController) {
-        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages url:self.articleURL];
-    }
-
     NSArray<UIBarButtonItem *> *toolbarItems = [self articleToolBarItems];
 
     if (![self.toolbarItems isEqualToArray:toolbarItems]) {
@@ -555,7 +558,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleSave:)];
     }
     return _saveToolbarItem;
 }
@@ -772,13 +775,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
 
     [self setupWebView];
     [self addProgressView];
@@ -1288,6 +1291,28 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController showFindInPage];
+}
+
+#pragma mark - Save
+
+- (void)toggleSave:(id)sender {
+    BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
+    if (isSaved) {
+        [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+    }
+}
+
+- (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
+    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFSaveButton accessibilitySavedTitle] : [WMFSaveButton saveTitle];
+    if (isSaved) {
+        self.saveToolbarItem.image = [UIImage imageNamed:@"save-filled"];
+    } else {
+        self.saveToolbarItem.image = [UIImage imageNamed:@"save"];
+    }
 }
 
 #pragma mark - Font Size
@@ -1872,7 +1897,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
 }
-
 
 @end
 

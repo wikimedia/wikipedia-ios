@@ -12,6 +12,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.reset()
         titleFontFamily = .system
         titleTextStyle = .body
+        updateFonts(with: traitCollection)
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

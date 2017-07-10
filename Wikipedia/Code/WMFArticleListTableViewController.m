@@ -1,6 +1,5 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
-#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
 #import "TUSafariActivity.h"
@@ -25,17 +24,16 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
-
-    self.tableView.backgroundColor = [UIColor wmf_articleListBackground];
-    self.tableView.separatorColor = [UIColor wmf_lightGray];
-    self.tableView.estimatedRowHeight = 64.0;
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
+
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,19 +68,6 @@
         return;
     }
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
-}
-
-- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
-    return [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            if (handler) {
-                handler(action, indexPath);
-            }
-        }];
-        [self.tableView setEditing:NO animated:YES];
-        [CATransaction commit];
-    }];
 }
 
 #pragma mark - Previewing
@@ -265,6 +250,7 @@
     });
 }
 
+<<<<<<< HEAD
 #pragma mark - Sharing
 
 - (UIActivityViewController *)shareActivityController:(NSURL *)url {
@@ -342,6 +328,17 @@
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
     }];
+=======
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if ([self viewIfLoaded] == nil) {
+        return;
+    }
+    self.tableView.backgroundColor = theme.colors.baseBackground;
+    [self.tableView reloadData];
+>>>>>>> upstream/develop
 }
 
 @end

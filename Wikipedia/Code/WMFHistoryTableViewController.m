@@ -1,6 +1,6 @@
 #import "WMFHistoryTableViewController.h"
-#import "WMFArticleListTableViewCell.h"
 #import "WMFTableViewUpdater.h"
+#import "Wikipedia-Swift.h"
 @import WMF;
 
 @interface WMFHistoryTableViewController ()
@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
@@ -103,6 +103,7 @@
     cell.titleText = entry.displayTitle;
     cell.descriptionText = entry.capitalizedWikidataDescription;
     [cell setImageURL:entry.thumbnailURL];
+    [cell applyTheme:self.theme];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
