@@ -10,6 +10,11 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         super.setup()
     }
     
+    override open func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        rankView.labelBackgroundColor = labelBackgroundColor
+    }
+    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right

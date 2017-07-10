@@ -2,24 +2,14 @@ import Foundation
 
 extension ArticleCollectionViewCell: Themeable {
     public func apply(theme: Theme) {
-        contentBackgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.paperBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         imageView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.tertiaryText
         extractLabel?.textColor = theme.colors.secondaryText
         saveButton.setTitleColor(theme.colors.link, for: .normal)
-    }
-    
-    fileprivate var contentBackgroundColor: UIColor? {
-        set {
-            contentView.backgroundColor = newValue
-            titleLabel.backgroundColor = newValue
-            descriptionLabel.backgroundColor = newValue
-            extractLabel?.backgroundColor = newValue
-        }
-        get {
-            return contentView.backgroundColor
-        }
+        updateSelectedOrHighlighted()
     }
 }
 
@@ -69,7 +59,9 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
-            contentBackgroundColor = theme.colors.midBackground
+            backgroundView?.backgroundColor = theme.colors.midBackground
+            selectedBackgroundView?.backgroundColor = theme.colors.baseBackground
+            updateSelectedOrHighlighted()
             imageViewDimension = 150
             extractLabel?.text = nil
             isSaveButtonHidden = true

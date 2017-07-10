@@ -11,13 +11,29 @@ class ContainerTableViewCell: SSBaseTableCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
         collectionViewCell.isSelected = selected
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
         collectionViewCell.isHighlighted = highlighted
+    }
+    
+    override var isHighlighted: Bool {
+        get {
+            return collectionViewCell.isHighlighted
+        }
+        set {
+            collectionViewCell.isHighlighted = newValue
+        }
+    }
+    
+    override var isSelected: Bool {
+        get {
+            return collectionViewCell.isSelected
+        }
+        set {
+            collectionViewCell.isSelected = newValue
+        }
     }
     
     override func prepareForReuse() {

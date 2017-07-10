@@ -14,12 +14,19 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        
+        titleLabel.isOpaque = true
+        descriptionLabel.isOpaque = true
+        imageView.isOpaque = true
+        saveButton.isOpaque = true
+        
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(saveButton)
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
+        
         super.setup()
     }
     
@@ -40,6 +47,16 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         updateFonts(with: traitCollection)
+    }
+    
+    override open func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        let labelBackgroundColor = self.labelBackgroundColor
+        titleLabel.backgroundColor = labelBackgroundColor
+        descriptionLabel.backgroundColor = labelBackgroundColor
+        extractLabel?.backgroundColor = labelBackgroundColor
+        saveButton.backgroundColor = labelBackgroundColor
+        saveButton.titleLabel?.backgroundColor = labelBackgroundColor
     }
     
     deinit {

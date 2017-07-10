@@ -15,12 +15,34 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
         reset()
         layoutSubviews()
     }
     
     open func reset() {
+
+    }
+    
+    var labelBackgroundColor: UIColor? {
+        return isSelected || isHighlighted ? selectedBackgroundView?.backgroundColor : backgroundView?.backgroundColor
+    }
+    
+    open func updateSelectedOrHighlighted() {
         
+    }
+    
+    open override var isHighlighted: Bool {
+        didSet {
+            updateSelectedOrHighlighted()
+        }
+    }
+    
+    open override var isSelected: Bool {
+        didSet {
+            updateSelectedOrHighlighted()
+        }
     }
     
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
@@ -65,6 +87,9 @@ open class CollectionViewCell: UICollectionViewCell {
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {
+                guard view !== backgroundView, view !== selectedBackgroundView else {
+                    continue
+                }
                 assert(view.autoresizingMask == [])
                 assert(view.constraints == [])
             }
