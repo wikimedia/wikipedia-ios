@@ -1,3 +1,5 @@
+import WMF;
+
 @objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
@@ -29,7 +31,6 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .white
         register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier)
         register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier)
         register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier)
@@ -60,7 +61,7 @@ extension OnThisDayViewController {
         
         onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
         
-        onThisDayCell.configure(with: event, dataStore: dataStore, layoutOnly: false, shouldAnimateDots: true)
+        onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         return onThisDayCell
     }
     
@@ -74,6 +75,7 @@ extension OnThisDayViewController {
         }
         
         header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, date: date)
+        header.apply(theme: theme)
         
         return header
     }
@@ -95,29 +97,10 @@ extension OnThisDayViewController {
     }
 }
 
-extension WMFFeedOnThisDayEvent {
-    // Returns year 'era' string - i.e. '1000 AD' or '200 BC'. (Negative years are 'BC')
-    func yearWithEraString() -> String? {
-        var components = DateComponents()
-        components.year = year?.intValue
-        guard let date = Calendar.current.date(from: components) else {
-            return nil
-        }
-        return WMFFeedOnThisDayEvent.yearWithEraDateFormatter.string(from: date)
-    }
-    private static let yearWithEraDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.autoupdatingCurrent
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.setLocalizedDateFormatFromTemplate("y G")
-        return dateFormatter
-    }()
-}
-
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension OnThisDayViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return section == 0 ? 150 : 0
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: section == 0 ? 150 : 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {

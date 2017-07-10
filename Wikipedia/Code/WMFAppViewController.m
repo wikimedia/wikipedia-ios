@@ -5,6 +5,8 @@
 // Frameworks
 @import Masonry;
 
+#define DEBUG_THEMES 1
+
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
@@ -16,9 +18,7 @@
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIFont+WMFStyle.h"
-#import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import "UITabBarItem+WMFStyling.h"
 
 // View Controllers
 #import "WMFSearchViewController.h"
@@ -68,7 +68,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -105,6 +105,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -136,7 +138,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    return self.theme.preferredStatusBarStyle;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -144,10 +146,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 }
 
 - (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    for (UITabBarItem *item in self.rootTabBarController.tabBar.items) {
-        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateNormal] forState:UIControlStateNormal];
-        [item setTitleTextAttributes:[UITabBarItem wmf_rootTabBarItemStyleForState:UIControlStateSelected] forState:UIControlStateSelected];
-    }
+    [self applyTheme:self.theme];
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -176,6 +175,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }];
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
+    [self applyTheme:[WMFTheme standard]];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -195,6 +195,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)configureExploreViewController {
     [self.exploreViewController setUserStore:self.dataStore];
+    [self.exploreViewController applyTheme:self.theme];
 }
 
 - (void)configurePlacesViewController {
@@ -342,9 +343,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
-    WMFStyleManager *manager = [WMFStyleManager new];
-    [manager applyStyleToWindow:window];
-    [WMFStyleManager setSharedStyleManager:manager];
 
     [window setRootViewController:self];
     [window makeKeyAndVisible];
@@ -552,7 +550,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
 
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{}];
+        [self.exploreViewController updateFeedSourcesUserInitiated:NO
+                                                        completion:^{
+                                                        }];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -744,7 +744,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
-    
+
     WMFUserActivityType type = [activity wmf_type];
     switch (type) {
         case WMFUserActivityTypeExplore:
@@ -766,25 +766,26 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
                 if (vc) {
                     [navController pushViewController:vc animated:NO];
                 }
             } else {
-                [self.exploreViewController updateFeedSourcesUserInitiated:NO completion:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-                        if (group) {
-                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL]];
-                            if (vc) {
-                                [navController pushViewController:vc animated:NO];
-                            }
-                        }
-                    });
-                    
-                }];
+                [self.exploreViewController updateFeedSourcesUserInitiated:NO
+                                                                completion:^{
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
+                                                                        if (group) {
+                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                                                                            if (vc) {
+                                                                                [navController pushViewController:vc animated:NO];
+                                                                            }
+                                                                        }
+                                                                    });
+
+                                                                }];
             }
-            
+
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
@@ -1287,7 +1288,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    
+
     if (!feedNewsStory) {
         return;
     }
@@ -1296,11 +1297,102 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (!vc) {
         return;
     }
-    
+
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     [navController popToRootViewControllerAnimated:NO];
     [navController pushViewController:vc animated:NO];
+}
+
+#pragma mark - Themeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+
+    self.view.window.backgroundColor = theme.colors.baseBackground;
+    self.view.window.tintColor = theme.colors.link;
+    
+    self.view.backgroundColor = theme.colors.baseBackground;
+
+    // Navigation controllers
+    NSArray<UINavigationController *> *navigationControllers = @[[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent]];
+
+    NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    NSMutableArray<UIToolbar *> *toolbars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    
+    for (UINavigationController *nc in navigationControllers) {
+        for (UIViewController *vc in nc.viewControllers) {
+            if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+                [(id<WMFThemeable>)vc applyTheme:theme];
+            }
+        }
+        UIToolbar *toolbar = nc.toolbar;
+        if (toolbar) {
+            [toolbars addObject:toolbar];
+        }
+        
+        UINavigationBar *navbar = nc.navigationBar;
+        if (navbar) {
+            [navigationBars addObject:navbar];
+        }
+    }
+    
+    // Navigation bars
+    
+    [navigationBars addObject:[UINavigationBar appearance]];
+    UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
+    NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
+    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    for (UINavigationBar *navigationBar in navigationBars) {
+        //navigationBar.barTintColor = theme.colors.chromeBackground;
+        navigationBar.translucent = NO;
+        navigationBar.tintColor = theme.colors.chromeText;
+        [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
+        [navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
+        [navigationBar setBackIndicatorImage:backChevron];
+        [navigationBar setBackIndicatorTransitionMaskImage:backChevron];
+    }
+    
+    
+    // Tool bars
+    
+    [toolbars addObject:[UIToolbar appearance]];
+    for (UIToolbar *toolbar in toolbars) {
+        toolbar.barTintColor = theme.colors.chromeBackground;
+        [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
+    }
+
+    
+    // Tab bars
+    
+    NSArray<UITabBar *> *tabBars = @[self.rootTabBarController.tabBar, [UITabBar appearance]];
+    NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
+    for (UITabBar *tabBar in tabBars) {
+        tabBar.barTintColor = theme.colors.chromeBackground;
+        //tabBar.tintColor = theme.colors.link;
+        tabBar.translucent = NO;
+        tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
+        if (tabBar.items.count > 0) {
+            [tabBarItems addObjectsFromArray:tabBar.items];
+        }
+    }
+    
+    
+    // Tab bar items
+    
+    [tabBarItems addObject:[UITabBarItem appearance]];
+    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText, NSFontAttributeName: tabBarItemFont};
+    NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
+    for (UITabBarItem *item in tabBarItems) {
+        [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
+        [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
+    }
+    
+    [[UISwitch appearance] setOnTintColor:theme.colors.accent];
+
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - Perma Random Mode
@@ -1326,6 +1418,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
+}
+#else
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion withEvent:event];
+    }
+    if (event.subtype != UIEventSubtypeMotionShake) {
+        return;
+    }
+
+    WMFTheme *theme = self.theme;
+    if (theme == [WMFTheme standard]) {
+        theme = [WMFTheme dark];
+    } else {
+        theme = [WMFTheme light];
+    }
+    [self applyTheme:theme];
 }
 #endif
 

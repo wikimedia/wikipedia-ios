@@ -23,11 +23,9 @@ extension UIViewController {
         if (removeUnderline) {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
         } else {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = nil
-            navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         }
         
         // this little dance is to force the navigation bar to redraw. Without it,

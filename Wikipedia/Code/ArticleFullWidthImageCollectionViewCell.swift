@@ -40,11 +40,21 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += descriptionFrame.layoutHeight(with: spacing)
-
+        
+        if (apply) {
+            titleLabel.isHidden = !titleLabel.wmf_hasText
+            descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
+        }
+        
         if let extractLabel = extractLabel, extractLabel.wmf_hasText {
             origin.y += spacing // double spacing before extract
             let extractFrame = extractLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += extractFrame.layoutHeight(with: spacing)
+            if (apply) {
+                extractLabel.isHidden = false
+            }
+        } else if (apply) {
+            extractLabel?.isHidden = true
         }
 
         if !isSaveButtonHidden {

@@ -42,7 +42,7 @@ extension NewsViewController {
             return cell
         }
         let story = stories[indexPath.section]
-        newsCell.configure(with: story, dataStore: dataStore, layoutOnly: false)
+        newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell
     }
     
@@ -96,8 +96,8 @@ extension NewsViewController {
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension NewsViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return headerTitle(for: section) == nil ? 0 : 50
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 50)
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {

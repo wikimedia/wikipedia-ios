@@ -7,33 +7,39 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .wmf_lightGrayCellBackground
-        eventsLabel.textColor = .black
-        onLabel.textColor = .wmf_blue
-        fromLabel.textColor = .wmf_customGray
+        apply(theme: Theme.standard)
         wmf_configureSubviewsForDynamicType()
     }
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, date: Date) {
+    
+        let language = firstEvent?.language
+        let locale = NSLocale.wmf_locale(for: language)
         
-        eventsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-title", value:"%1$@ historical events", comment:"Title for 'On this day' detail view - %1$@ is replaced with the number of historical events which occured on the given day"), "\(eventCount)").uppercased(with: Locale.current)
+        semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+        eventsLabel.semanticContentAttribute = semanticContentAttribute
+        onLabel.semanticContentAttribute = semanticContentAttribute
+        fromLabel.semanticContentAttribute = semanticContentAttribute
         
-        let onDayString = OnThisDayViewControllerHeader.monthNameDayNumberFormatter.string(from: date)
+        eventsLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occured on the given day"), eventCount).uppercased(with: locale)
         
-        onLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-day", value:"on %1$@", comment:"Text for 'On this day' detail view 'day' label - %1$@ is replaced with string version of the given day - i.e. 'January 23'"), onDayString)
+        let onDayString = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: date)
         
-        if let firstEventEraString = firstEvent?.yearWithEraString(), let lastEventEraString = lastEvent?.yearWithEraString() {
-            fromLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-date-range", value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the most recent event year - i.e. '2006 AD', %2$@ is replaced with string version of the oldest event year - i.e. '300 BC', "), firstEventEraString, lastEventEraString)
+        onLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-day", language: language, value:"on %1$@", comment:"Text for 'On this day' detail view 'day' label - %1$@ is replaced with string version of the given day - i.e. 'January 23'"), onDayString)
+        
+        if let firstEventEraString = firstEvent?.yearWithEraString, let lastEventEraString = lastEvent?.yearWithEraString {
+            fromLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the most recent event year - i.e. '2006 AD', %2$@ is replaced with string version of the oldest event year - i.e. '300 BC', "), firstEventEraString, lastEventEraString)
         } else {
             fromLabel.text = nil
         }
     }
-    
-    private static let monthNameDayNumberFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.autoupdatingCurrent
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d")
-        return dateFormatter
-    }()
+}
+
+extension OnThisDayViewControllerHeader: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.midBackground
+        eventsLabel.textColor = theme.colors.primaryText
+        onLabel.textColor = theme.colors.link
+        fromLabel.textColor = theme.colors.tertiaryText
+    }
 }

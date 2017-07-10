@@ -80,6 +80,7 @@
             <connections>
                 <outlet property="enableNotificationsButton" destination="oKI-Cg-ucN" id="Syv-6S-ypL"/>
                 <outlet property="textLabel" destination="7uy-b7-3tZ" id="6cL-eY-7ei"/>
+                <outlet property="visibleBackgroundView" destination="iN0-l3-epB" id="x4G-s7-Off"/>
             </connections>
             <point key="canvasLocation" x="-414" y="-139"/>
         </collectionViewCell>

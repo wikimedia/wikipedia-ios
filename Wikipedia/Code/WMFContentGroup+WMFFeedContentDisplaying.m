@@ -26,8 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
     return content;
 }
 
-- (nullable UIViewController *)detailViewControllerWithDataStore:(MWKDataStore *)dataStore siteURL:(NSURL *)siteURL {
+- (nullable UIViewController *)detailViewControllerWithDataStore:(MWKDataStore *)dataStore siteURL:(NSURL *)siteURL theme:(WMFTheme *)theme {
     WMFFeedMoreType moreType = [self moreType];
+    UIViewController *vc = nil;
     switch (moreType) {
         case WMFFeedMoreTypePageList:
         case WMFFeedMoreTypePageListWithLocation: {
@@ -37,11 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
                 return nil;
             }
             if (moreType == WMFFeedMoreTypePageListWithLocation) {
-                return [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+                vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
             } else {
-                WMFArticleCollectionViewController *vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+                vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
                 vc.title = [self moreTitle];
-                return vc;
             }
             } break;
         case WMFFeedMoreTypeNews: {
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
                 NSAssert(false, @"Invalid Content");
                 return nil;
             }
-            return [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
+            vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
         } break;
         case WMFFeedMoreTypeOnThisDay: {
             NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)[self content];
@@ -58,15 +58,19 @@ NS_ASSUME_NONNULL_BEGIN
                 NSAssert(false, @"Invalid Content");
                 return nil;
             }
-            return [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
-            return [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
+            vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
         } break;
         default:
             NSAssert(false, @"Unknown More Type");
             return nil;
     }
+    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id <WMFThemeable>)vc applyTheme:theme];
+    }
+    return vc;
 }
 
 #pragma mark - In The News
@@ -223,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindPictureOfTheDay:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindRandom:
-            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
+            return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL.wmf_language, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
         case WMFContentGroupKindFeaturedArticle:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindTopRead: {
@@ -246,76 +250,6 @@ NS_ASSUME_NONNULL_BEGIN
             break;
     }
     return [[NSString alloc] init];
-}
-
-- (nullable UIColor *)headerTitleColor {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindContinueReading:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindMainPage:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindLocation:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindLocationPlaceholder:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindRandom:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindTopRead:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindNews:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindOnThisDay:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindNotification:
-            break;
-        case WMFContentGroupKindAnnouncement:
-            break;
-        case WMFContentGroupKindUnknown:
-        default:
-            break;
-    }
-    return [UIColor blackColor];
-}
-
-- (nullable UIColor *)headerSubTitleColor {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindContinueReading:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindMainPage:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindRelatedPages:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindLocation:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindLocationPlaceholder:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindRandom:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_exploreSectionHeaderSubTitle];
-        case WMFContentGroupKindTopRead:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindNews:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindOnThisDay:
-            return [UIColor wmf_exploreSectionHeaderTitle];
-        case WMFContentGroupKindNotification:
-            break;
-        case WMFContentGroupKindAnnouncement:
-            break;
-        case WMFContentGroupKindUnknown:
-        default:
-            break;
-    }
-    return [UIColor grayColor];
 }
 
 - (nullable NSURL *)headerContentURL {

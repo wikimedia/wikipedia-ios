@@ -1,5 +1,28 @@
 import Foundation
 
+extension ArticleCollectionViewCell: Themeable {
+    public func apply(theme: Theme) {
+        contentBackgroundColor = theme.colors.paperBackground
+        imageView.backgroundColor = theme.colors.midBackground
+        titleLabel.textColor = theme.colors.primaryText
+        descriptionLabel.textColor = theme.colors.tertiaryText
+        extractLabel?.textColor = theme.colors.secondaryText
+        saveButton.setTitleColor(theme.colors.link, for: .normal)
+    }
+    
+    fileprivate var contentBackgroundColor: UIColor? {
+        set {
+            contentView.backgroundColor = newValue
+            titleLabel.backgroundColor = newValue
+            descriptionLabel.backgroundColor = newValue
+            extractLabel?.backgroundColor = newValue
+        }
+        get {
+            return contentView.backgroundColor
+        }
+    }
+}
+
 public extension ArticleCollectionViewCell {
     fileprivate func adjustMargins(for index: Int, count: Int) {
         var newMargins = margins ?? UIEdgeInsets.zero
@@ -13,7 +36,9 @@ public extension ArticleCollectionViewCell {
         margins = newMargins
     }
     
-    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
+    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, theme: Theme, layoutOnly: Bool) {
+        apply(theme: theme)
+        
         let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
@@ -23,10 +48,9 @@ public extension ArticleCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
-        let articleLanguage = (article.url as NSURL?)?.wmf_language
+        let articleLanguage = article.url?.wmf_language
         titleLabel.text = article.displayTitle
         
-
         switch displayType {
         case .random:
             imageViewDimension = 196
@@ -45,7 +69,7 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
-            backgroundColor = .wmf_lightGrayCellBackground
+            contentBackgroundColor = theme.colors.midBackground
             imageViewDimension = 150
             extractLabel?.text = nil
             isSaveButtonHidden = true
@@ -83,10 +107,10 @@ public extension ArticleCollectionViewCell {
 }
 
 public extension RankedArticleCollectionViewCell {
-    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, layoutOnly: Bool) {
+    override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, theme: Theme, layoutOnly: Bool) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(count)
-        rankView.tintColor = Gradient.wmf_blueToGreenGradient.color(at: percent)
-        super.configure(article: article, displayType: displayType, index: index, count: count, layoutOnly: layoutOnly)
+        rankView.tintColor = theme.colors.linkToAccent.color(at: percent)
+        super.configure(article: article, displayType: displayType, index: index, count: count, theme: theme, layoutOnly: layoutOnly)
     }
 }

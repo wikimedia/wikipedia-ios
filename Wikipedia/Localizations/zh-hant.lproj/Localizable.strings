@@ -72,7 +72,7 @@
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
-"article-read-more-title" = "閱讀更多";
+"article-read-more-title" = "延伸閱讀";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back" = "返回";
@@ -237,6 +237,7 @@
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "從 $1 到 $2";
 "on-this-day-detail-header-day" = "在 $1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1 個歷史事件";
 "on-this-day-footer" = "更多歷史上的今天事件";
 "on-this-day-title" = "歷史上的今天";
@@ -400,6 +401,6 @@
 "zero-interstitial-leave-app" = "可能產生資料資料費用。要繼續前往外部網站嗎？";
 "zero-interstitial-title" = "離開 Wikipedia Zero";
 "zero-learn-more" = "此維基百科應用程式可免除資料費用。";
-"zero-learn-more-learn-more" = "閱讀更多";
+"zero-learn-more-learn-more" = "延伸閱讀";
 "zero-learn-more-no-thanks" = "關閉";
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";

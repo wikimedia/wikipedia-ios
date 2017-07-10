@@ -132,7 +132,15 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
         ]
     ]
 }()
-
+public extension UITraitCollection {
+    var wmf_preferredContentSizeCategory: UIContentSizeCategory {
+        if #available(iOSApplicationExtension 10.0, *) {
+            return preferredContentSizeCategory
+        } else {
+            return UIContentSizeCategory.medium
+        }
+    }
+}
 public extension UIFont {
 
     public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
@@ -150,10 +158,7 @@ public extension UIFont {
         }
         
         
-        var preferredContentSizeCategory = UIContentSizeCategory.medium
-        if #available(iOSApplicationExtension 10.0, *) {
-            preferredContentSizeCategory = traitCollection.preferredContentSizeCategory
-        }
+        let preferredContentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
         
         let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]

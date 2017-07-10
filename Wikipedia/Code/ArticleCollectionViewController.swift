@@ -46,7 +46,7 @@ extension ArticleCollectionViewController {
         guard let article = dataStore.fetchArticle(with: url) else {
             return articleCell
         }
-        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, layoutOnly: false)
+        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, theme: theme, layoutOnly: false)
         return articleCell
     }
 }

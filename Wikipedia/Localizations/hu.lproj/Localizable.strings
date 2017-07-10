@@ -1,6 +1,7 @@
 // Messages for Hungarian (magyar)
 // Exported from translatewiki.net
 // Author: BanKris
+// Author: Bencemac
 // Author: Csega
 // Author: Dj
 // Author: Misibacsi
@@ -227,6 +228,10 @@
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
+// Fuzzy
+"on-this-day-detail-header-title" = "$1 történelmi események";
+"on-this-day-footer" = "Több történelmi események ezen a napon";
+"on-this-day-title" = "Ezen a napon";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Mégse";
 "page-edit-history" = "Teljes laptörténet";
@@ -285,6 +290,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|Tegnap|$1 napja}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Ez évben|Tavaly|$1 évvel ezelőtt}}";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "save-action" = "Mentés";
 "saved-clear-all" = "Törlés";

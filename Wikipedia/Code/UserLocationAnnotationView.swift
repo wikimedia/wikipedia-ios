@@ -42,7 +42,7 @@ public class UserLocationAnnotationView: MapAnnotationView {
         shapeLayer.isHidden = true
         shapeLayer.frame = layer.bounds
         shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.wmf_blue.cgColor
+        shapeLayer.fillColor = tintColor.cgColor
         layer.addSublayer(shapeLayer)
         
         dotLayer.bounds = CGRect(x: 0, y: 0, width: dotImage.size.width, height: dotImage.size.height)

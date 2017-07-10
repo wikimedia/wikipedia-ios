@@ -12,7 +12,6 @@ class OnThisDayTimelineView: UIView {
     }
     
     open func setup() {
-        backgroundColor = .clear
     }
 
     public var shouldAnimateDots: Bool = false
@@ -31,7 +30,7 @@ class OnThisDayTimelineView: UIView {
             guard shouldAnimateDots == false else {
                 return
             }
-            updateTopDotsRadii(to: 1.0, at: CGPoint(x: frame.midX, y: topDotsY))
+            updateTopDotsRadii(to: 1.0, at: CGPoint(x: bounds.midX, y: topDotsY))
         }
     }
 
@@ -40,14 +39,30 @@ class OnThisDayTimelineView: UIView {
             guard shouldAnimateDots == false else {
                 return
             }
-            bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: frame.midX, y: bottomDotY))
+            bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: bounds.midX, y: bottomDotY))
+        }
+    }
+    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        bottomDotShapeLayer.strokeColor = tintColor.cgColor
+        topOuterDotShapeLayer.strokeColor = tintColor.cgColor
+        topInnerDotShapeLayer.fillColor = tintColor.cgColor
+        topInnerDotShapeLayer.strokeColor = tintColor.cgColor
+        setNeedsDisplay()
+    }
+    
+    override var backgroundColor: UIColor? {
+        didSet {
+            bottomDotShapeLayer.fillColor = backgroundColor?.cgColor
+            topOuterDotShapeLayer.fillColor = backgroundColor?.cgColor
         }
     }
 
     private lazy var bottomDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
@@ -56,7 +71,7 @@ class OnThisDayTimelineView: UIView {
     private lazy var topOuterDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
         shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
@@ -64,8 +79,8 @@ class OnThisDayTimelineView: UIView {
 
     private lazy var topInnerDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
-        shape.fillColor = UIColor.wmf_blue.cgColor
-        shape.strokeColor = UIColor.wmf_blue.cgColor
+        shape.fillColor = UIColor.blue.cgColor
+        shape.strokeColor = UIColor.blue.cgColor
         shape.lineWidth = 1.0
         self.layer.addSublayer(shape)
         return shape
@@ -104,7 +119,7 @@ class OnThisDayTimelineView: UIView {
     
     private func drawVerticalLine(in context: CGContext, rect: CGRect){
         context.setLineWidth(1.0)
-        context.setStrokeColor(UIColor.wmf_blue.cgColor)
+        context.setStrokeColor(tintColor.cgColor)
         let lineTopY = extendTimelineAboveTopDot ? rect.minY : topDotsY
         context.move(to: CGPoint(x: rect.midX, y: lineTopY))
         context.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
@@ -142,7 +157,7 @@ class OnThisDayTimelineView: UIView {
             return
         }
         
-        updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: frame.midX, y: topDotsY))
+        updateTopDotsRadii(to: radiusNormal, at: CGPoint(x: bounds.midX, y: topDotsY))
         
         // Progressively fade the inner dot when it gets tiny.
         topInnerDotShapeLayer.opacity = easeInOutQuart(number: Float(radiusNormal))

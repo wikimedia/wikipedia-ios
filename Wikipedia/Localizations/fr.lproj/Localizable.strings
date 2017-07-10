@@ -238,6 +238,12 @@
 "number-billions" = "$1G";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "de $1 - $2";
+"on-this-day-detail-header-day" = "le $1";
+// Fuzzy
+"on-this-day-detail-header-title" = "événements historiques de $1";
+"on-this-day-footer" = "Plus d’événements historiques de ce jour";
+"on-this-day-title" = "Ce jour";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Annuler";
 "page-edit-history" = "Historique complet des modifications";
@@ -296,6 +302,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|Hier|Il y a $1 jours}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|L’année passée|Il y a $1 ans}}";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "save-action" = "Enregistrer";
 "saved-clear-all" = "Effacer";

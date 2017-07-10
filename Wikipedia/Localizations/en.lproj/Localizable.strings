@@ -134,7 +134,6 @@
 "field-username-title" = "Username";
 "find-in-page-button-label" = "Find in page";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Search text in articles";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
@@ -157,6 +156,8 @@
 "hockeyapp-alert-title" = "Sorry, app crashed last time";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
 "home-button-history-accessibility-label" = "Wikipedia, return to History";
+"home-button-popover-description" = "Tap on the 'W' to return to the Explore feed";
+"home-button-popover-title" = "Tap to go home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-hide-suggestion-prompt" = "Hide this suggestion";
@@ -217,7 +218,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "from $1 - $2";
 "on-this-day-detail-header-day" = "on $1";
-"on-this-day-detail-header-title" = "$1 historical events";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "More historical events on this day";
 "on-this-day-title" = "On this day";
 "onboarding-wikipedia" = "Wikipedia";
@@ -330,7 +331,6 @@
 "table-of-contents-close-accessibility-hint" = "Close";
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
-"table-of-contents-popover-description" = "Get an overview of articles";
 "table-title-other" = "More information";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";

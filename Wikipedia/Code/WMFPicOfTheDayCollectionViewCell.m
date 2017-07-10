@@ -35,7 +35,6 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.potdImageView wmf_showPlaceholder];
     [self.potdImageView addObserver:self forKeyPath:WMF_SAFE_KEYPATH(self.potdImageView, image) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image];
     [self wmf_configureSubviewsForDynamicType];
 }
@@ -43,7 +42,6 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 - (void)prepareForReuse {
     [super awakeFromNib];
     self.displayTitleLabel.text = @"";
-    [self.potdImageView wmf_showPlaceholder];
 }
 
 #pragma mark - KVO

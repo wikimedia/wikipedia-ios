@@ -234,6 +234,7 @@
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "从$1到$2";
 "on-this-day-detail-header-day" = "于$1";
+// Fuzzy
 "on-this-day-detail-header-title" = "$1个历史事件";
 "on-this-day-footer" = "这一天的更多历史事件";
 "on-this-day-title" = "历史上的今天";

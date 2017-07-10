@@ -96,4 +96,31 @@ open class CollectionViewCell: UICollectionViewCell {
             return layoutAttributes
         }
     }
+    
+    // MARK - Dynamic Type
+    // Only applies new fonts if the content size category changes
+    
+    open override func setNeedsLayout() {
+        maybeUpdateFonts(with: traitCollection)
+        super.setNeedsLayout()
+    }
+    
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        maybeUpdateFonts(with: traitCollection)
+    }
+    
+    var contentSizeCategory: UIContentSizeCategory?
+    fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+            return
+        }
+        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        updateFonts(with: traitCollection)
+    }
+    
+    // Override this method and call super
+    open func updateFonts(with traitCollection: UITraitCollection) {
+        
+    }
 }
