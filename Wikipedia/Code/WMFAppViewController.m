@@ -1384,14 +1384,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
     }
+
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        window.tintColor = theme.colors.link;
-    }
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
@@ -1433,6 +1431,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        window.tintColor = theme.colors.link;
+        for (UIView *view in window.subviews) {
+            [view removeFromSuperview];
+            [window addSubview:view]; //Removing and re-adding the view forces UIAppearance update
+        }
+    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
