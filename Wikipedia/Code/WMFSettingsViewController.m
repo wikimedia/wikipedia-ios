@@ -81,7 +81,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -133,11 +133,11 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.elementDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
         return NO;
     };
-    
+
     @weakify(self)
-    self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
+        self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         @strongify(self)
-        cell.title = menuItem.title;
+            cell.title = menuItem.title;
         [cell applyTheme:self.theme];
         if (!self.theme.colors.icon) {
             cell.iconColor = [UIColor whiteColor];
@@ -490,7 +490,22 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
-    [self.tableView reloadData];
+    [self.elementDataSource reloadData];
+    [self recursivelyApplyTheme:theme toView:self.tableView isInHeaderOrFooter:NO];
+}
+
+// Workaround. Don't re-use this method of themeing.
+- (void)recursivelyApplyTheme:(WMFTheme *)theme toView:(UIView *)view isInHeaderOrFooter:(BOOL)isInHeaderOrFooter {
+    for (UIView *subview in view.subviews) {
+        if ([subview isKindOfClass:[UITableViewHeaderFooterView class]]) {
+            [[(UITableViewHeaderFooterView *)subview contentView] setBackgroundColor:theme.colors.baseBackground];
+            [self recursivelyApplyTheme:theme toView:subview isInHeaderOrFooter:YES];
+        } else if (isInHeaderOrFooter && [subview isKindOfClass:[UILabel class]]) {
+            [(UILabel *)subview setTextColor:theme.colors.secondaryText];
+        } else {
+            [self recursivelyApplyTheme:theme toView:subview isInHeaderOrFooter:isInHeaderOrFooter];
+        }
+    }
 }
 
 @end
