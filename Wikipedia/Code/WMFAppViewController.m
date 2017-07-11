@@ -1387,7 +1387,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.theme = theme;
 
     for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        window.backgroundColor = theme.colors.baseBackground;
         window.tintColor = theme.colors.link;
     }
 

@@ -7,10 +7,12 @@ struct WMFAuthLinkLabelStrings {
     var substitutionString: String
 }
 
-class WMFAuthLinkLabel: UILabel {
+class WMFAuthLinkLabel: UILabel, Themeable {
+    fileprivate var theme = Theme.standard
+    
     override open func awakeFromNib() {
         super.awakeFromNib()
-        textColor = UIColor.wmf_blue
+        textColor = theme.colors.link
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
@@ -33,6 +35,10 @@ class WMFAuthLinkLabel: UILabel {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        update()
+    }
+    
+    fileprivate func update() {
         guard let strings = strings else {
             if let boldSubheadlineFont = boldSubheadlineFont {
                 font = boldSubheadlineFont
@@ -45,12 +51,12 @@ class WMFAuthLinkLabel: UILabel {
     fileprivate func combinedAttributedString(from strings: WMFAuthLinkLabelStrings) -> NSAttributedString {
         // Combine and style 'dollarSignString' and 'substitutionString': https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
         
-        var dollarSignStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.black]
+        var dollarSignStringAttributes: [String:Any] = [NSForegroundColorAttributeName : theme.colors.primaryText]
         if let subheadlineFont = subheadlineFont {
             dollarSignStringAttributes[NSFontAttributeName] = subheadlineFont
         }
 
-        var substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : UIColor.wmf_blue]
+        var substitutionStringAttributes: [String:Any] = [NSForegroundColorAttributeName : theme.colors.link]
         if let boldSubheadlineFont = boldSubheadlineFont {
             substitutionStringAttributes[NSFontAttributeName] = boldSubheadlineFont
         }
@@ -58,5 +64,10 @@ class WMFAuthLinkLabel: UILabel {
         assert(strings.dollarSignString.contains("%1$@"), "Expected dollar sign substitution placeholder not found")
         
         return strings.dollarSignString.attributedString(attributes: dollarSignStringAttributes, substitutionStrings: [strings.substitutionString], substitutionAttributes: [substitutionStringAttributes])
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        update()
     }
 }
