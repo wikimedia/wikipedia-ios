@@ -2863,6 +2863,13 @@ extension PlacesViewController: Themeable {
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         titleViewSearchBar.barTintColor = theme.colors.chromeBackground
+        titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
+            textField.textColor = theme.colors.primaryText
+        }
+        listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+        }
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)
         mapView.mapType = theme.preferredStatusBarStyle == .default ? .standard : .hybrid

@@ -1431,13 +1431,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        window.tintColor = theme.colors.link;
-        for (UIView *view in window.subviews) {
-            [view removeFromSuperview];
-            [window addSubview:view]; //Removing and re-adding the view forces UIAppearance update
-        }
-    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
