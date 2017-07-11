@@ -93,11 +93,4 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         articleCell.titleFontFamily = nil
         articleCell.titleLabel.attributedText = attributedTitle
     }
-
-}
-
-extension ArticleListTableViewCell: Themeable {
-    func apply(theme: Theme) {
-        articleCell.apply(theme: theme)
-    }
 }

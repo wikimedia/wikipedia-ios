@@ -2350,10 +2350,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         cell.articleWithLocationCollectionViewCell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
         cell.articleWithLocationCollectionViewCell.setImageURL(article.thumbnailURL)
         cell.articleWithLocationCollectionViewCell.articleLocation = article.location
-        
-        if let themeable = cell.articleWithLocationCollectionViewCell as Themeable? {
-            themeable.apply(theme: theme)
-        }
+        cell.apply(theme: theme)
         
         var userLocation: CLLocation?
         var userHeading: CLHeading?

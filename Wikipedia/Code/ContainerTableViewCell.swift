@@ -7,33 +7,8 @@ class ContainerTableViewCell: SSBaseTableCell {
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     // Any forced unwrapped variables above must be set before calling super.setup()
     open func setup() {
-
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        collectionViewCell.isSelected = selected
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        collectionViewCell.isHighlighted = highlighted
-    }
-    
-    override var isHighlighted: Bool {
-        get {
-            return collectionViewCell.isHighlighted
-        }
-        set {
-            collectionViewCell.isHighlighted = newValue
-        }
-    }
-    
-    override var isSelected: Bool {
-        get {
-            return collectionViewCell.isSelected
-        }
-        set {
-            collectionViewCell.isSelected = newValue
-        }
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
     }
     
     override func prepareForReuse() {
@@ -52,5 +27,16 @@ class ContainerTableViewCell: SSBaseTableCell {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+}
+
+extension ContainerTableViewCell: Themeable {
+    func apply(theme: Theme) {
+        if let themeableCell = collectionViewCell as? Themeable {
+            themeableCell.apply(theme: theme)
+        }
+        backgroundView?.backgroundColor = collectionViewCell.backgroundView?.backgroundColor
+        selectedBackgroundView?.backgroundColor = collectionViewCell.selectedBackgroundView?.backgroundColor
+        
     }
 }
