@@ -1111,6 +1111,16 @@
 		D82E951E1F101D90007BD960 /* UILabel+FontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */; };
 		D82E951F1F101D90007BD960 /* UILabel+FontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */; };
 		D82E95201F101D90007BD960 /* UILabel+FontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */; };
+		D82E95221F140B11007BD960 /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95211F140B11007BD960 /* ThemableNavigationController.swift */; };
+		D82E95231F140B11007BD960 /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95211F140B11007BD960 /* ThemableNavigationController.swift */; };
+		D82E95241F140B11007BD960 /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95211F140B11007BD960 /* ThemableNavigationController.swift */; };
+		D82E95251F140B11007BD960 /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95211F140B11007BD960 /* ThemableNavigationController.swift */; };
+		D82E95261F140B11007BD960 /* ThemableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95211F140B11007BD960 /* ThemableNavigationController.swift */; };
+		D82E95281F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
+		D82E95291F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
+		D82E952A1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
+		D82E952B1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
+		D82E952C1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
 		D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806381C0CE7B00065EBC0 /* FetcherBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		D82FDADA1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */; };
@@ -4228,6 +4238,8 @@
 		D82E95071F0FD487007BD960 /* ArticleWithLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleWithLocationTableViewCell.swift; sourceTree = "<group>"; };
 		D82E950D1F0FE473007BD960 /* ArticleListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListTableViewCell.swift; sourceTree = "<group>"; };
 		D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+FontFamily.swift"; sourceTree = "<group>"; };
+		D82E95211F140B11007BD960 /* ThemableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemableNavigationController.swift; sourceTree = "<group>"; };
+		D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Theme.swift"; sourceTree = "<group>"; };
 		D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB191DF0AAFF00DDF311 /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = Carthage/Build/iOS/Masonry.framework; sourceTree = SOURCE_ROOT; };
@@ -7376,6 +7388,7 @@
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
+				D82E95211F140B11007BD960 /* ThemableNavigationController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7440,6 +7453,7 @@
 			isa = PBXGroup;
 			children = (
 				D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */,
+				D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -9593,6 +9607,7 @@
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderLabelView.m in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
+				D82E95221F140B11007BD960 /* ThemableNavigationController.swift in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0B423731EFE20E300D3DC4C /* OnThisDayTimelineView.swift in Sources */,
 				B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */,
@@ -9812,6 +9827,7 @@
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* WMFSearchButton.m in Sources */,
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
+				D82E95281F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
@@ -9945,12 +9961,14 @@
 				D80ED2A01EE57F4800CE8C50 /* SSArrayDataSource.m in Sources */,
 				D80ED2A11EE57F4800CE8C50 /* CollectionViewCell.swift in Sources */,
 				D80ED2A21EE57F4800CE8C50 /* WMFEmptyView.m in Sources */,
+				D82E952C1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D80ED2A31EE57F4800CE8C50 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				D82E95061F0FD308007BD960 /* ContainerTableViewCell.swift in Sources */,
 				D80ED2A41EE57F4800CE8C50 /* SavedArticlesFetcher.m in Sources */,
 				D80ED2A51EE57F4800CE8C50 /* SaveButton.swift in Sources */,
 				D80ED2A61EE57F4800CE8C50 /* WMFSettingsTableViewCell.m in Sources */,
 				D80ED2A71EE57F4800CE8C50 /* UIView+WMFSubviews.swift in Sources */,
+				D82E95261F140B11007BD960 /* ThemableNavigationController.swift in Sources */,
 				D80ED2A81EE57F4800CE8C50 /* WMFExploreCollectionViewCell.m in Sources */,
 				D80ED2A91EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D80ED2AA1EE57F4800CE8C50 /* WMFSearchFetcher.m in Sources */,
@@ -10503,6 +10521,7 @@
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8A42A761E815A9C00D8E281 /* NSDate+WMFPOTDTitle.m in Sources */,
 				B0B423641EF9D6A400D3DC4C /* OnThisDayViewController.swift in Sources */,
+				D82E95251F140B11007BD960 /* ThemableNavigationController.swift in Sources */,
 				D8A42A771E815A9C00D8E281 /* WMFTableHeaderLabelView.m in Sources */,
 				D8831D3C1EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				D8A42A781E815A9C00D8E281 /* PreviewHtmlFetcher.m in Sources */,
@@ -10722,6 +10741,7 @@
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
+				D82E952B1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
 				D8A42B4D1E815A9C00D8E281 /* WMFArticleFetcher.m in Sources */,
 				D8A42B4E1E815A9C00D8E281 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
@@ -10855,12 +10875,14 @@
 				D8CE250F1E698E2400DAE2E0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				D8CE25101E698E2400DAE2E0 /* WMFPopoverBackgroundView.m in Sources */,
 				D8733C971ECA48490011E379 /* CollectionViewCell.swift in Sources */,
+				D82E95291F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8CE25111E698E2400DAE2E0 /* SSArrayDataSource.m in Sources */,
 				D82E95031F0FD308007BD960 /* ContainerTableViewCell.swift in Sources */,
 				D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */,
 				D8CE25131E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				D8CE25141E698E2400DAE2E0 /* SavedArticlesFetcher.m in Sources */,
 				D8CE25151E698E2400DAE2E0 /* WMFSettingsTableViewCell.m in Sources */,
+				D82E95231F140B11007BD960 /* ThemableNavigationController.swift in Sources */,
 				D8CE25161E698E2400DAE2E0 /* UIView+WMFSubviews.swift in Sources */,
 				D8CE25171E698E2400DAE2E0 /* WMFExploreCollectionViewCell.m in Sources */,
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
@@ -11192,12 +11214,14 @@
 				B0B423631EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */,
 				D8EC3E041E9BDA35006712EB /* WMFCVLColumn.m in Sources */,
+				D82E952A1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8EC3E061E9BDA35006712EB /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				D8EC3E071E9BDA35006712EB /* WMFPopoverBackgroundView.m in Sources */,
 				D82E95041F0FD308007BD960 /* ContainerTableViewCell.swift in Sources */,
 				D8733C981ECA48490011E379 /* CollectionViewCell.swift in Sources */,
 				D8EC3E081E9BDA35006712EB /* SSArrayDataSource.m in Sources */,
 				D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */,
+				D82E95241F140B11007BD960 /* ThemableNavigationController.swift in Sources */,
 				D8EC3E0A1E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				D8EC3E0B1E9BDA35006712EB /* SavedArticlesFetcher.m in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
