@@ -1763,12 +1763,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             break
         case .share:
-            tracker?.wmf_logActionShare(inContext: context, contentType: article)
-            var activityItems : [Any] = [url]
-            if let mapItem = article.mapItem {
-                activityItems.append(mapItem)
-            }
-            let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+            let activityVC = ShareActivityController(article: article, context: context)
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
