@@ -265,8 +265,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
-        WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController: loginVC];
-        [themeableNavController applyTheme:self.theme];
+        WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:loginVC theme:self.theme];
         [self presentViewController:themeableNavController
                            animated:YES
                          completion:nil];

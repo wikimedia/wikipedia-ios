@@ -1194,6 +1194,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
     }
+    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)viewController applyTheme:self.theme];
+    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
@@ -1470,7 +1473,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     if (!self.settingsNavigationController) {
-        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController];
+        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         self.settingsNavigationController = navController;
     }

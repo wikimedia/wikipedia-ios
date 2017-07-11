@@ -238,8 +238,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-            let navigationController = ThemeableNavigationController.init(rootViewController: createAcctVC)
-            navigationController.apply(theme: self.theme)
+            let navigationController = ThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
