@@ -131,7 +131,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showSearch:)
                                                  name:WMFShowSearchNotification
@@ -597,7 +597,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
     self.searchViewController = nil;
     self.settingsViewController = nil;
-    
+
     [self.savedArticlesFetcher stop];
     [self.dataStore.feedContentController stopContentSources];
 
@@ -1096,12 +1096,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.presentedViewController) {
         [self dismissViewControllerAnimated:NO completion:NULL];
     }
-    
+
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    
+
     UINavigationController *placesNavigationController = [self navigationControllerForTab:WMFAppTabTypePlaces];
     if (placesNavigationController.presentedViewController) {
         [placesNavigationController dismissViewControllerAnimated:NO completion:NULL];
@@ -1118,7 +1118,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showNearbyAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    
+
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
     UINavigationController *placesNavigationController = [self navigationControllerForTab:WMFAppTabTypePlaces];
 
@@ -1335,7 +1335,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
     NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
     NSMutableArray<UIToolbar *> *toolbars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
-    
+
     for (UINavigationController *nc in navigationControllers) {
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
@@ -1346,19 +1346,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if (toolbar) {
             [toolbars addObject:toolbar];
         }
-        
+
         UINavigationBar *navbar = nc.navigationBar;
         if (navbar) {
             [navigationBars addObject:navbar];
         }
-        
+
         if ([nc conformsToProtocol:@protocol(WMFThemeable)]) {
             [(id<WMFThemeable>)nc applyTheme:theme];
         }
     }
-    
+
     // Navigation bars
-    
+
     [navigationBars addObject:[UINavigationBar appearance]];
     UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
@@ -1372,10 +1372,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [navigationBar setBackIndicatorImage:backChevron];
         [navigationBar setBackIndicatorTransitionMaskImage:backChevron];
     }
-    
-    
+
     // Tool bars
-    
+
     [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
@@ -1387,13 +1386,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
 
-    self.view.window.backgroundColor = theme.colors.baseBackground;
-    self.view.window.tintColor = theme.colors.link;
-    
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        window.backgroundColor = theme.colors.baseBackground;
+        window.tintColor = theme.colors.link;
+    }
+
     self.view.backgroundColor = theme.colors.baseBackground;
-    
+    self.view.tintColor = theme.colors.link;
+
     [self.searchViewController applyTheme:theme];
-    
+
     // Navigation controllers
     NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
     if (self.settingsNavigationController) {
@@ -1401,9 +1403,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [self applyTheme:theme toNavigationControllers:navigationControllers];
-    
+
     // Tab bars
-    
+
     NSArray<UITabBar *> *tabBars = @[self.rootTabBarController.tabBar, [UITabBar appearance]];
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
@@ -1415,10 +1417,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [tabBarItems addObjectsFromArray:tabBar.items];
         }
     }
-    
-    
+
     // Tab bar items
-    
+
     [tabBarItems addObject:[UITabBarItem appearance]];
     UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText, NSFontAttributeName: tabBarItemFont};
@@ -1427,7 +1428,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
-    
+
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self setNeedsStatusBarAppearanceUpdate];
@@ -1449,10 +1450,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSearchAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
-    
+
     if (!self.searchViewController) {
         WMFSearchViewController *searchVC =
-        [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
+            [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
         [searchVC applyTheme:self.theme];
         self.searchViewController = searchVC;
     }
@@ -1461,14 +1462,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSettingsAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
-    
+
     if (!self.settingsViewController) {
         WMFSettingsViewController *settingsVC =
-        [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
+            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
         self.settingsViewController = settingsVC;
     }
-    
+
     if (!self.settingsNavigationController) {
         WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
@@ -1493,7 +1494,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-    
+
     [self dismissPresentedViewControllers];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
