@@ -265,42 +265,43 @@
 
 #pragma mark - Sharing
 
-- (UIActivityViewController *)shareActivityController:(NSURL *)url {
-    WMFArticle *article = [self.userDataStore fetchArticleWithURL:url];
-    NSMutableArray *items = [NSMutableArray array];
-    
-    
-    // TODO: Use WMFArticleTextActivitySource
-    NSString *text =  [NSString stringWithFormat:@"\"%@\" on @Wikipedia", [article displayTitle]];
-    [items addObject:text];
-    
-    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:url];
-    if (desktopURL) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
-        components.queryItems = @[queryItem];
-        
-        NSURL *componentsURL = components.URL;
-        if (componentsURL) {
-            [items addObject:componentsURL];
-        }
-    }
-    
-    MKMapItem *mapItem = [article mapItem];
-    if (mapItem) {
-        [items addObject:mapItem];
-    }
+//- (UIActivityViewController *)shareActivityController:(NSURL *)url {
+//    WMFArticle *article = [self.userDataStore fetchArticleWithURL:url];
+//    NSMutableArray *items = [NSMutableArray array];
+//    
+//    
+//    // TODO: Use WMFArticleTextActivitySource
+//    NSString *text =  [NSString stringWithFormat:@"\"%@\" on @Wikipedia", [article displayTitle]];
+//    [items addObject:text];
+//    
+//    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:url];
+//    if (desktopURL) {
+//        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+//        
+//        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
+//        components.queryItems = @[queryItem];
+//        
+//        NSURL *componentsURL = components.URL;
+//        if (componentsURL) {
+//            [items addObject:componentsURL];
+//        }
+//    }
+//    
+//    MKMapItem *mapItem = [article mapItem];
+//    if (mapItem) {
+//        [items addObject:mapItem];
+//    }
+//
+//    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
+//                                                                                              applicationActivities:
+//                                                             @[[[TUSafariActivity alloc] init],
+//                                                               [[WMFOpenInMapsActivity alloc] init],
+//                                                               [[WMFGetDirectionsInMapsActivity alloc] init]]];
+//    return vc;
+//}
 
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                                              applicationActivities:
-                                                             @[[[TUSafariActivity alloc] init],
-                                                               [[WMFOpenInMapsActivity alloc] init],
-                                                               [[WMFGetDirectionsInMapsActivity alloc] init]]];
-    return vc;
-}
-
-- (void)shareArticle:(UIActivityViewController *)shareActivityController {
+- (void)shareArticle:(NSURL *)url {
+    WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWith:url userDataStore:self.userDataStore];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
@@ -322,9 +323,7 @@
     return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSURL *url = [self urlAtIndexPath:indexPath];
         
-        UIActivityViewController *shareActivityController = [self shareActivityController:url];
-        
-        [self shareArticle:shareActivityController];
+        [self shareArticle:url];
     }];
 }
 
