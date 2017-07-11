@@ -47,3 +47,6 @@
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+
+// Third Party
+#import "TUSafariActivity.h"
