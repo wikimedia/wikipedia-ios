@@ -168,6 +168,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)clearSearch:(id)sender {
     self.searchField.text = nil;
+    [self updateRecentSearchesVisibility];
 }
 
 #pragma mark - UIViewController
