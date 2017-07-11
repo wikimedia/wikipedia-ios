@@ -491,21 +491,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     [self.elementDataSource reloadData];
-    [self recursivelyApplyTheme:theme toView:self.tableView isInHeaderOrFooter:NO];
-}
-
-// Workaround. Don't re-use this method of themeing.
-- (void)recursivelyApplyTheme:(WMFTheme *)theme toView:(UIView *)view isInHeaderOrFooter:(BOOL)isInHeaderOrFooter {
-    for (UIView *subview in view.subviews) {
-        if ([subview isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            [[(UITableViewHeaderFooterView *)subview contentView] setBackgroundColor:theme.colors.baseBackground];
-            [self recursivelyApplyTheme:theme toView:subview isInHeaderOrFooter:YES];
-        } else if (isInHeaderOrFooter && [subview isKindOfClass:[UILabel class]]) {
-            [(UILabel *)subview setTextColor:theme.colors.secondaryText];
-        } else {
-            [self recursivelyApplyTheme:theme toView:subview isInHeaderOrFooter:isInHeaderOrFooter];
-        }
-    }
+    [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 
 @end
