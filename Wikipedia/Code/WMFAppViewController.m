@@ -1194,6 +1194,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
     }
+    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)viewController applyTheme:self.theme];
+    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
@@ -1381,14 +1384,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
     }
+
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        window.tintColor = theme.colors.link;
-    }
 
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
@@ -1470,7 +1471,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     if (!self.settingsNavigationController) {
-        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController];
+        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         self.settingsNavigationController = navController;
     }

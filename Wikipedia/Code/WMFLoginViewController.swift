@@ -1,8 +1,8 @@
 import UIKit
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable {
-    @IBOutlet fileprivate var usernameField: UITextField!
-    @IBOutlet fileprivate var passwordField: UITextField!
+    @IBOutlet fileprivate var usernameField: ThemeableTextField!
+    @IBOutlet fileprivate var passwordField: ThemeableTextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordAlertLabel: UILabel!
@@ -165,7 +165,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 case .wrongPassword:
                     self.passwordAlertLabel.text = error.localizedDescription
                     self.passwordAlertLabel.isHidden = false
-                    self.passwordField.textColor = self.theme.colors.destructive
+                    self.passwordField.textColor = self.theme.colors.error
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
@@ -233,12 +233,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("Expected view controller(s) not found")
             return
         }
+        createAcctVC.apply(theme: theme)
         funnel?.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-            let navigationController = ThemeableNavigationController.init(rootViewController: createAcctVC)
-            navigationController.apply(theme: self.theme)
+            let navigationController = ThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -294,16 +294,16 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard viewIfLoaded != nil else {
             return
         }
+        
         view.backgroundColor = theme.colors.baseBackground
+        view.tintColor = theme.colors.link
+
         let labels = [titleLabel, usernameTitleLabel, passwordTitleLabel]
         for label in labels {
             label?.textColor = theme.colors.secondaryText
         }
-        usernameField.textColor = theme.colors.primaryText
-        usernameField.backgroundColor = theme.colors.paperBackground
-
-        passwordField.textColor = theme.colors.primaryText
-        passwordField.backgroundColor = theme.colors.paperBackground
+        usernameField.apply(theme: theme)
+        passwordField.apply(theme: theme)
         
         usernameTitleLabel.textColor = theme.colors.primaryText
         passwordTitleLabel.textColor = theme.colors.primaryText
@@ -313,7 +313,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         captchaContainer.backgroundColor = theme.colors.baseBackground
         createAccountButton.apply(theme: theme)
         loginButton.apply(theme: theme)
-        passwordAlertLabel.textColor = theme.colors.destructive
+        passwordAlertLabel.textColor = theme.colors.error
         scrollContainer.backgroundColor = theme.colors.paperBackground
+        captchaViewController?.apply(theme: theme)
     }
 }

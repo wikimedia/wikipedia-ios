@@ -35,7 +35,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
-@property (strong, nonatomic) IBOutlet UITextField *searchField;
+@property (strong, nonatomic) IBOutlet WMFThemeableTextField *searchField;
 @property (strong, nonatomic) IBOutlet UIView *searchContentContainer;
 @property (strong, nonatomic) IBOutlet UIButton *searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView *resultsListContainerView;
@@ -156,19 +156,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
-    UIImage *clearImage = [UIImage imageNamed:@"clear-mini"];
-    UIButton *clearButton = [[UIButton alloc] initWithFrame:(CGRect){CGPointZero, clearImage.size}];
-    [clearButton addTarget:self action:@selector(clearSearch:) forControlEvents:UIControlEventTouchUpInside];
-    [clearButton setImage:clearImage forState:UIControlStateNormal];
-    self.searchField.rightView = clearButton;
-    self.searchField.rightViewMode = UITextFieldViewModeWhileEditing;
-    self.searchField.textAlignment = NSTextAlignmentNatural;
+    self.searchField.placeholder = WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text");
     [self setSeparatorViewHidden:YES animated:NO];
-}
-
-- (void)clearSearch:(id)sender {
-    self.searchField.text = nil;
-    [self updateRecentSearchesVisibility];
 }
 
 #pragma mark - UIViewController
@@ -597,18 +586,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.view.backgroundColor = theme.colors.midBackground;
     self.searchContentContainer.backgroundColor = theme.colors.midBackground;
     self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
-    self.searchField.rightView.tintColor = theme.colors.tertiaryText;
+    [self.searchField applyTheme:theme];
+    self.searchField.backgroundColor = theme.colors.chromeBackground;
+    
     self.separatorView.backgroundColor = theme.colors.tertiaryText;
     self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
-    self.searchField.backgroundColor = theme.colors.chromeBackground;
-    self.searchField.textColor = theme.colors.chromeText;
+    
     self.closeButton.tintColor = theme.colors.chromeText;
     self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
-
-    NSAttributedString *attributedPlaceholder = [[NSAttributedString alloc] initWithString:WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text") attributes:@{NSForegroundColorAttributeName: theme.colors.tertiaryText}];
-    self.searchField.attributedPlaceholder = attributedPlaceholder;
 }
 
 @end
