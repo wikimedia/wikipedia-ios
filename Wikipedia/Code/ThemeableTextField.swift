@@ -57,8 +57,8 @@ class ThemeableTextField: UITextField, Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         rightView?.tintColor = theme.colors.tertiaryText
-        backgroundColor = theme.colors.chromeBackground
-        textColor = theme.colors.chromeText
+        backgroundColor = theme.colors.paperBackground
+        textColor = theme.colors.primaryText
         placeholder = _placeholder
     }
     
