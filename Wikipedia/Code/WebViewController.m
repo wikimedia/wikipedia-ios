@@ -141,7 +141,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
+- (void)handleFooterMenuItemClickedScriptMessage:(NSDictionary *)messageDict {
+    NSString *messageString = messageDict[@"selection"];
+    NSArray *payload = messageDict[@"payload"];
+
     WMFArticleFooterMenuItem item;
     if ([messageString isEqualToString:@"languages"]) {
         item = WMFArticleFooterMenuItemLanguages;
@@ -157,7 +160,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
-    [self.delegate webViewController:self didTapFooterMenuItem:item];
+    [self.delegate webViewController:self didTapFooterMenuItem:item payload:payload];
 }
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
