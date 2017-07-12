@@ -42,14 +42,14 @@
 
     self.separatorHeightConstraint.constant =
         (separator) ? (1.0f / [UIScreen mainScreen].scale) : 0.0f;
-    
+
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
-    
+
     self.nameLabel.textColor = theme.colors.secondaryText;
     self.timeLabel.textColor = theme.colors.primaryText;
     self.summaryLabel.textColor = theme.colors.secondaryText;
-    self.userImageView.tintColor = theme.colors.paperBackground;
+    self.userImageView.tintColor = theme.colors.tertiaryText;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
