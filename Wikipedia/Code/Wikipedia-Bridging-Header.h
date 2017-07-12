@@ -20,6 +20,8 @@
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 
+#import "WMFArticleTextActivitySource.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
@@ -46,3 +48,6 @@
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+
+// Third Party
+#import "TUSafariActivity.h"
