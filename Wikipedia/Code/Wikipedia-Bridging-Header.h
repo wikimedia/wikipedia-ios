@@ -20,6 +20,8 @@
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 
+#import "WMFArticleTextActivitySource.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
