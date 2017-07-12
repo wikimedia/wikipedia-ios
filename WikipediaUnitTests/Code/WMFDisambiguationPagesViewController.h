@@ -1,10 +1,10 @@
 #import "WMFArticleListDataSourceTableViewController.h"
-@class MWKArticle;
 
 @interface WMFDisambiguationPagesViewController : WMFArticleListDataSourceTableViewController
 
-@property (nonatomic, strong, readonly) MWKArticle *article;
+@property (nonatomic, strong, readonly) NSArray *URLs;
+@property (nonatomic, strong, readonly) NSURL *siteURL;
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithURLs:(NSArray *)URLs siteURL:(NSURL*)siteURL dataStore:(MWKDataStore *)dataStore;
 
 @end
