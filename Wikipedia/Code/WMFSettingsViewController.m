@@ -343,7 +343,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    NotificationSettingsViewController *notificationSettingsVC = [[NotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 
@@ -491,7 +492,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
-    [self.elementDataSource reloadData];
+    [self.tableView reloadData];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 

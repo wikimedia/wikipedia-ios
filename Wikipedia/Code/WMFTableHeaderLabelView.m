@@ -6,7 +6,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
-@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *leadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;

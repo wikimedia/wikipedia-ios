@@ -22,10 +22,12 @@ struct NotificationSettingsSection {
     let items: [NotificationSettingsItem]
 }
 
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+@objc(WMFNotificationSettingsViewController)
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding, Themeable {
 
     @IBOutlet weak var tableView: UITableView!
     
+    fileprivate var theme = Theme.standard
     
     var sections = [NotificationSettingsSection]()
     var observationToken: NSObjectProtocol?
@@ -36,9 +38,11 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         observationToken = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             self?.updateSections()
         }
+        apply(theme: self.theme)
     }
     
     deinit {
@@ -152,6 +156,10 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         cell.title = item.title
         cell.iconName = nil
         
+        if let tc = cell as Themeable? {
+            tc.apply(theme: theme)
+        }
+        
         if let switchItem = item as? NotificationSettingsSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isOn = switchItem.switchChecker()
@@ -174,6 +182,8 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        header?.contentView.backgroundColor = theme.colors.baseBackground
+        header?.headerLabel?.textColor = theme.colors.secondaryText
         header?.text = sections[section].headerTitle
         return header;
     }
@@ -196,5 +206,15 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
     }
 }
