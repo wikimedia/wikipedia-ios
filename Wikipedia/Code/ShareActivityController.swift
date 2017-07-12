@@ -14,7 +14,10 @@ class ShareActivityController: UIActivityViewController {
             tracker?.wmf_logActionShare(inContext: context, contentType: article)
         }
         
-        if let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
+        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
+
+        if let url = components?.url {
             items.append(url)
         }
         
@@ -36,10 +39,16 @@ class ShareActivityController: UIActivityViewController {
             items.append(text)
         }
         
-        if let articleURL = article.url, let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
-            items.append(url)
+        if let articleURL = article.url {
+            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+            components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
+            
+            if let url = components?.url {
+                items.append(url)
+            }
+            
         }
-        
+
         if let mapItem = article.mapItem {
             items.append(mapItem)
         }
@@ -51,8 +60,14 @@ class ShareActivityController: UIActivityViewController {
         var items = [Any]()
         items.append(textActivitySource)
         
-        if let articleURL = article.url, let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
-            items.append(url)
+        if let articleURL = article.url {
+            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+            components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
+            
+            if let url = components?.url {
+                items.append(url)
+            }
+            
         }
         
         if let mapItem = article.mapItem {
@@ -63,20 +78,26 @@ class ShareActivityController: UIActivityViewController {
     }
     
     init(article: MWKArticle, image: UIImage?, title: String) {
-        var param: String
+        var queryItem: URLQueryItem
         var items = [Any]()
         
         items.append(title)
         
         if let image = image {
-            param = "wprov=sfii1"
+            queryItem = URLQueryItem(name: "wprov", value: "sfii1")
             items.append(image)
         } else {
-            param = "wprov=sfti1"
+            queryItem = URLQueryItem(name: "wprov", value: "sfti1")
         }
         
-        if article.url != nil, let url = URL(string: "\(article.url.absoluteString)?\(param)") {
-            items.append(url)
+        if let articleURL = article.url {
+            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+            components?.queryItems = [queryItem]
+            
+            if let url = components?.url {
+                items.append(url)
+            }
+            
         }
         
         super.init(activityItems: items, applicationActivities: [])
