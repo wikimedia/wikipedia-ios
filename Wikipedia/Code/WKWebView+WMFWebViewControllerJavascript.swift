@@ -60,13 +60,11 @@ import WebKit
         case .languages where !article.hasMultipleLanguages:
             return false
         case .pageIssues:
-            guard let issues = article.pageIssues(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no page issues found.
+            return true
         case .disambiguation:
-            guard let issues = article.disambiguationURLs(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no disambiguation titles found.
+            return true
         case .coordinate where !CLLocationCoordinate2DIsValid(article.coordinate):
             return false
         default:
