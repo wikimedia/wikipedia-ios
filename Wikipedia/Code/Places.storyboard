@@ -137,11 +137,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hlf-3Y-4oq">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                 <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ad-BuK">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ad-BuK">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
@@ -554,7 +554,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-oG-RBc">
                                                 <rect key="frame" x="8" y="5" width="224" height="50"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-saved-disabled" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-top" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
                                                         <rect key="frame" x="8" y="8" width="34" height="34"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="iao-2h-sq7" secondAttribute="height" multiplier="1:1" id="i7N-Ij-u2O"/>
@@ -667,7 +667,7 @@
     </scenes>
     <resources>
         <image name="close" width="18" height="18"/>
-        <image name="places-filter-saved-disabled" width="30" height="30"/>
+        <image name="places-filter-top" width="30" height="30"/>
         <image name="places-location-arrow" width="18" height="18"/>
         <image name="places-search-empty-state-overlay" width="336" height="272"/>
         <image name="places-slider" width="50" height="6"/>

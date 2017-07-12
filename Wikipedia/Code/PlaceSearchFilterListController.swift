@@ -65,16 +65,19 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
         if (indexPath.row == 0) {
             myCell.titleLabel.text = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
             myCell.subtitleLabel.text = String.localizedStringWithFormat(WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
-            myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
+            myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-top")
+            myCell.iconImageView?.tintColor = theme.colors.accent
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
             let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
             if (savedCount > 0) {
                 myCell.subtitleLabel.text =  String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved")
+                myCell.iconImageView?.tintColor = theme.colors.accent
             } else {
                 myCell.subtitleLabel.text = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved")
+                myCell.iconImageView?.tintColor = theme.colors.tertiaryText
             }
         }
     }
@@ -97,7 +100,7 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        tableView.backgroundColor = theme.colors.paperBackground
+        tableView.backgroundColor = theme.colors.chromeBackground
         tableView.reloadData()
     }
 }
@@ -118,7 +121,7 @@ class PlaceSearchFilterCell: UITableViewCell {
 
 extension PlaceSearchFilterCell: Themeable {
     func apply(theme: Theme) {
-        backgroundView?.backgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.chromeBackground
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.primaryText

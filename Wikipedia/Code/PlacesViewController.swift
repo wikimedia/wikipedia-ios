@@ -2880,6 +2880,7 @@ extension PlacesViewController: Themeable {
         }
         
         searchFilterListController.apply(theme: theme)
+        searchSuggestionController.apply(theme: theme)
         
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
@@ -2901,7 +2902,6 @@ extension PlacesViewController: Themeable {
         didYouMeanButton.backgroundColor = theme.colors.link
         updateSearchFilterTitle()
         listView.backgroundColor = theme.colors.baseBackground
-        listView.separatorColor = theme.colors.midBackground
         listView.reloadData()
     }
 }
