@@ -104,10 +104,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    // remove a 1px black border around the search field
-
-    self.languageFilterField.layer.borderWidth = 1.f;
-
     // stylize
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
@@ -370,7 +366,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
     self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
-    self.languageFilterField.layer.borderColor = [backgroundColor CGColor];
     self.languageFilterField.barTintColor = backgroundColor;
     self.editButtonItem.tintColor = theme.colors.link;
     [self.tableView reloadData];
