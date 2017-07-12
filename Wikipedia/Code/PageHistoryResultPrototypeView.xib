@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="334" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fUc-GS-qa2" id="RvZ-qs-wa2">
-                <rect key="frame" x="0.0" y="0.0" width="334" height="107"/>
+                <rect key="frame" x="0.0" y="0.0" width="334" height="107.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="999" horizontalCompressionResistancePriority="751" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSf-fV-fXN" userLabel="Time Label">
@@ -43,13 +43,6 @@
                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgf-YA-K8q" userLabel="Separator">
-                        <rect key="frame" x="0.0" y="106" width="334" height="1"/>
-                        <color key="backgroundColor" red="0.89437181122448983" green="0.89437181122448983" blue="0.89437181122448983" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="POC-K0-csn"/>
-                        </constraints>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-sleep" translatesAutoresizingMaskIntoConstraints="NO" id="2jE-fZ-qIN">
                         <rect key="frame" x="89" y="16.5" width="14" height="14"/>
                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,20 +52,16 @@
                         </constraints>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="QOP-WQ-T6H" firstAttribute="top" secondItem="RvZ-qs-wa2" secondAttribute="top" constant="16" id="44k-Sg-Ytm"/>
                     <constraint firstItem="2jE-fZ-qIN" firstAttribute="centerY" secondItem="aSf-fV-fXN" secondAttribute="centerY" id="DLd-qj-1oZ"/>
-                    <constraint firstAttribute="bottom" secondItem="Rgf-YA-K8q" secondAttribute="bottom" id="EAJ-DQ-6LQ"/>
                     <constraint firstItem="v0D-Yl-Ka2" firstAttribute="top" secondItem="QOP-WQ-T6H" secondAttribute="bottom" constant="8" id="ITb-kC-iJv"/>
                     <constraint firstItem="aSf-fV-fXN" firstAttribute="leading" secondItem="RvZ-qs-wa2" secondAttribute="leading" constant="10" id="JE5-H9-U8Z"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fdZ-td-0Go" secondAttribute="bottom" constant="16" id="M9N-ym-76e"/>
                     <constraint firstItem="aSf-fV-fXN" firstAttribute="top" secondItem="RvZ-qs-wa2" secondAttribute="top" constant="18" id="OUM-bL-tZi"/>
                     <constraint firstAttribute="trailing" secondItem="v0D-Yl-Ka2" secondAttribute="trailing" constant="20" id="QT2-Hw-bUf"/>
                     <constraint firstItem="2jE-fZ-qIN" firstAttribute="leading" secondItem="v0D-Yl-Ka2" secondAttribute="leading" id="SvL-ts-Skg"/>
-                    <constraint firstAttribute="trailing" secondItem="Rgf-YA-K8q" secondAttribute="trailing" id="VQA-pP-bzh"/>
                     <constraint firstItem="2jE-fZ-qIN" firstAttribute="leading" secondItem="aSf-fV-fXN" secondAttribute="trailing" constant="19" id="XdY-6K-J24"/>
-                    <constraint firstItem="Rgf-YA-K8q" firstAttribute="leading" secondItem="RvZ-qs-wa2" secondAttribute="leading" id="a4O-1b-uoH"/>
                     <constraint firstItem="fdZ-td-0Go" firstAttribute="top" secondItem="v0D-Yl-Ka2" secondAttribute="top" id="bX6-Dq-Dsa"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v0D-Yl-Ka2" secondAttribute="bottom" constant="13" id="ef4-v4-uvF"/>
                     <constraint firstItem="fdZ-td-0Go" firstAttribute="width" secondItem="aSf-fV-fXN" secondAttribute="width" id="iQa-VB-pH8"/>
@@ -85,7 +74,6 @@
             <connections>
                 <outlet property="deltaLabel" destination="fdZ-td-0Go" id="qeH-Ea-UEL"/>
                 <outlet property="nameLabel" destination="QOP-WQ-T6H" id="NUy-mv-O8s"/>
-                <outlet property="separatorHeightConstraint" destination="POC-K0-csn" id="RRc-dh-my0"/>
                 <outlet property="summaryLabel" destination="v0D-Yl-Ka2" id="s6n-Kk-sBi"/>
                 <outlet property="timeLabel" destination="aSf-fV-fXN" id="x7J-ha-2Vc"/>
                 <outlet property="userImageView" destination="2jE-fZ-qIN" id="xD1-1J-owa"/>

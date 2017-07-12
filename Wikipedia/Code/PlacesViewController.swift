@@ -32,6 +32,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
+    @IBOutlet weak var listAndSearchOverlaySliderSeparator: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchSeparator: UIView!
+
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerHeightConstraint: NSLayoutConstraint!
@@ -189,7 +192,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
-        listAndSearchOverlayContainerView.radius = 5
         
         // Setup list view
         listView.dataSource = self
@@ -1154,6 +1156,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             } else {
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
+            listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
             updateSearchFilterTitle()
         }
     }
@@ -2377,7 +2380,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             CATransaction.commit()
         }
         saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
-        saveForLaterAction.backgroundColor = .wmf_darkBlue
+        saveForLaterAction.backgroundColor = theme.colors.secondaryLink
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
@@ -2859,17 +2862,41 @@ extension PlacesViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        listAndSearchOverlayContainerView.backgroundColor = theme.colors.baseBackground
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        
+        titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
         titleViewSearchBar.barTintColor = theme.colors.chromeBackground
+        titleViewSearchBar.isTranslucent = false
         titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
         }
+        
+        listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchBar.isTranslucent = false
         listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
         }
+        
+        searchFilterListController.apply(theme: theme)
+        searchSuggestionController.apply(theme: theme)
+        
+        listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
+        
+        listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
+        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
+        
+        emptySearchOverlayView.backgroundColor = theme.colors.midBackground
+        emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.tertiaryText
+        
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)
         mapView.mapType = theme.preferredStatusBarStyle == .default ? .standard : .hybrid
@@ -2877,7 +2904,6 @@ extension PlacesViewController: Themeable {
         didYouMeanButton.backgroundColor = theme.colors.link
         updateSearchFilterTitle()
         listView.backgroundColor = theme.colors.baseBackground
-        listView.separatorColor = theme.colors.midBackground
         listView.reloadData()
     }
 }

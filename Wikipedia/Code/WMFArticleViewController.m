@@ -3,9 +3,6 @@
 
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
-// Frameworks
-@import Masonry;
-
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFImageGalleryViewController.h"
@@ -210,6 +207,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleURL = url;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+        self.extendedLayoutIncludesOpaqueBars = YES;
+        self.automaticallyAdjustsScrollViewInsets = NO;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
@@ -547,14 +547,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
-        UIImage *closeImage = [UIImage imageNamed:@"toc-close"];
+        UIImage *closeImage = [UIImage imageNamed:@"toc"];
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton setImage:closeImage forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
         closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
+        closeButton.layer.cornerRadius = 5;
+        closeButton.layer.masksToBounds = YES;
         _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
         _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
-        return _hideTableOfContentsToolbarItem;
     }
     return _hideTableOfContentsToolbarItem;
 }
@@ -648,12 +649,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [self.view addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressView.superview.mas_top);
-        make.left.equalTo(self.progressView.superview.mas_left);
-        make.right.equalTo(self.progressView.superview.mas_right);
-        make.height.equalTo(@2.0);
-    }];
+    [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
 }
 
 - (void)removeProgressView {
@@ -781,11 +777,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
-    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
 
+    self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
@@ -878,8 +874,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
-        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
-        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, self.topLayoutGuide.length, tocWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, self.topLayoutGuide.length, separatorWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
         self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
@@ -1070,11 +1066,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                         break;
                 }
 
-                if (self.tableOfContentsSeparatorView == nil) {
-                    self.tableOfContentsSeparatorView = [[UIView alloc] init];
-                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGray];
-                }
-
                 [self createTableOfContentsViewControllerIfNeeded];
                 self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
                 self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
@@ -1189,7 +1180,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     //only show a blank view if we have nothing to show
     if (!self.article) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank theme:self.theme];
         [self.view bringSubviewToFront:self.progressView];
     }
 
@@ -1220,7 +1211,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [self.view bringSubviewToFront:self.progressView];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
@@ -1514,14 +1505,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
-- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController *)viewController {
+- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
+    [viewController applyTheme:self.theme];
     WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
+
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
-    [articleListVC applyTheme:self.theme];
     articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
@@ -1908,6 +1900,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
+    [self.tableOfContentsViewController applyTheme:theme];
+    self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
+    self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
 }
 
 @end

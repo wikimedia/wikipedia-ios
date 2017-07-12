@@ -60,6 +60,7 @@ class ThemeableTextField: UITextField, Themeable {
         backgroundColor = theme.colors.paperBackground
         textColor = theme.colors.primaryText
         placeholder = _placeholder
+        keyboardAppearance = theme.keyboardAppearance
     }
     
 }

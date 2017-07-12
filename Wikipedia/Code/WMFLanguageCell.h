@@ -1,7 +1,8 @@
-#import "WMFCustomDeleteButtonTableViewCell.h"
+@import UIKit;
+@import WMF.Swift;
 
 /// Table cell designed for displaying a language autonym & a page title in that language.
-@interface WMFLanguageCell : WMFCustomDeleteButtonTableViewCell
+@interface WMFLanguageCell : UITableViewCell <WMFThemeable>
 
 @property (strong, nonatomic) NSString *localizedLanguageName;
 @property (strong, nonatomic) NSString *articleTitle;

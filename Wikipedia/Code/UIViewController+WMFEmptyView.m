@@ -1,6 +1,8 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
 #import <objc/runtime.h>
+@import WMF.Swift;
+
 @implementation UIViewController (WMFEmptyView)
 
 static const char *const WMFEmptyViewKey = "WMFEmptyView";
@@ -9,10 +11,10 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
-- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type {
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme {
     [self wmf_hideEmptyView];
-
-    UIView *view = nil;
+    
+    WMFEmptyView *view = nil;
     switch (type) {
         case WMFEmptyViewTypeBlank:
             view = [WMFEmptyView blankEmptyView];
@@ -35,7 +37,8 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         default:
             return;
     }
-
+    [view applyTheme:theme];
+    
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.frame = self.view.bounds;
 

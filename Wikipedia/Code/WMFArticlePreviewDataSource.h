@@ -1,5 +1,6 @@
 #import "SSArrayDataSource.h"
 #import "WMFTitleListDataSource.h"
+@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 @class MWKDataStore;
 
-@interface WMFArticlePreviewDataSource : SSArrayDataSource <WMFTitleListDataSource>
+@interface WMFArticlePreviewDataSource : SSArrayDataSource <WMFTitleListDataSource, WMFThemeable>
 
 @property (nonatomic, strong, readonly, nullable) NSArray<MWKSearchResult *> *previewResults;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
