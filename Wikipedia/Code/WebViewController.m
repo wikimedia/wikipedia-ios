@@ -294,6 +294,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
     } else if ([messageString isEqualToString:@"setPageProtected"]) {
         [self.webView wmf_setPageProtected:!self.article.editable];
+    } else if ([messageString isEqualToString:@"addFooterContainer"]) {
+        [self.webView wmf_addFooterContainer];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
@@ -421,7 +423,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             "var contentDiv = document.getElementById('content');"
             "contentDiv.style.marginLeft='%ipx';"
             "contentDiv.style.marginRight='%ipx';"
-            "window.wmf.footerContainer.updateLeftAndRightMargin(%i);"
+            "window.wmf.footerContainer.updateLeftAndRightMargin(document, %i);"
         ;
         
         CGFloat marginWidth = [self marginWidthForSize:size];
@@ -565,6 +567,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"collapseTables",
         @"setPageProtected",
         @"setLanguage",
+        @"addFooterContainer",
         @"addFooterReadMore",
         @"addFooterMenu",
         @"addFooterLegal"

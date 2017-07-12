@@ -92,6 +92,14 @@ import WebKit
 
 extension WKWebView {
     
+    public func wmf_addFooterContainer() {
+        let footerContainerJS =
+        "if (window.wmf.footerContainer.isContainerAttached(document) === false) {" +
+            "document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))" +
+        "}"
+        evaluateJavaScript(footerContainerJS, completionHandler: nil)
+    }
+    
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
@@ -128,7 +136,7 @@ extension WKWebView {
             return
         }
         
-        evaluateJavaScript("window.addEventListener('resize', window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop);", completionHandler: nil)
+        evaluateJavaScript("window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(document, window)});", completionHandler: nil)
         
         let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
@@ -144,7 +152,7 @@ extension WKWebView {
         let titlesShownHandler =
         "function(titles){" +
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles);" +
-            "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop();" +
+            "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(document, window);" +
         "}";
         
         evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)

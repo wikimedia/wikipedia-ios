@@ -432,6 +432,73 @@ var CollapseTable = {
 };
 
 /**
+ * Ensures the 'Read more' section header can always be scrolled to the top of the screen.
+ * @param {!Document} document
+ * @param {!Window} window
+ * @return {void}
+ */
+var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddingToAllowReadMoreToScrollToTop(document, window) {
+  var div = document.getElementById('footer_container_ensure_can_scroll_to_top');
+  var currentPadding = parseInt(div.style.paddingBottom, 10);
+  if (isNaN(currentPadding)) {
+    currentPadding = 0;
+  }
+  var height = div.clientHeight - currentPadding;
+  var newPadding = Math.max(0, window.innerHeight - height);
+  div.style.paddingBottom = newPadding + 'px';
+};
+
+/**
+ * Allows native code to adjust footer container margins without having to worry about
+ * implementation details.
+ * @param {!Document} document
+ * @param {!number} margin
+ * @return {void}
+ */
+var updateLeftAndRightMargin = function updateLeftAndRightMargin(document, margin) {
+  var elements = document.querySelectorAll('#footer_container_menu_heading, #footer_container_readmore, #footer_container_legal');
+  Array.from(elements).forEach(function (element) {
+    element.style.marginLeft = margin + 'px';
+    element.style.marginRight = margin + 'px';
+  });
+  var rightOrLeft = document.querySelector('html').dir === 'rtl' ? 'right' : 'left';
+  Array.from(document.querySelectorAll('.footer_menu_item')).forEach(function (element) {
+    element.style.backgroundPosition = rightOrLeft + ' ' + margin + 'px center';
+    element.style.paddingLeft = margin + 'px';
+    element.style.paddingRight = margin + 'px';
+  });
+};
+
+/**
+ * Returns a fragment containing structural footer html which may be inserted where needed.
+ * @param {!Document} document
+ * @return {!DocumentFragment}
+ */
+var containerFragment = function containerFragment(document) {
+  var containerDiv = document.createElement('div');
+  var containerFragment = document.createDocumentFragment();
+  containerFragment.appendChild(containerDiv);
+  containerDiv.innerHTML = '<div id=\'footer_container\' class=\'footer_container\'>\n    <div id=\'footer_container_section_0\'>\n      <div id=\'footer_container_menu\'>\n        <div id=\'footer_container_menu_heading\' class=\'footer_container_heading\'></div>\n        <div id=\'footer_container_menu_items\'></div>\n      </div>\n    </div>\n    <div id=\'footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'footer_container_section_1\'>\n        <div id=\'footer_container_readmore\'>\n          <div id=\'footer_container_readmore_heading\' class=\'footer_container_heading\'></div>\n          <div id=\'footer_container_readmore_pages\'></div>\n        </div>\n      </div>\n      <div id=\'footer_container_legal\'></div>\n    </div>\n  </div>';
+  return containerFragment;
+};
+
+/**
+ * Indicates whether container is has already been added.
+ * @param {!Document} document
+ * @return {boolean}
+ */
+var isContainerAttached = function isContainerAttached(document) {
+  return document.querySelector('#footer_container') !== null;
+};
+
+var FooterContainer = {
+  containerFragment: containerFragment,
+  isContainerAttached: isContainerAttached,
+  updateBottomPaddingToAllowReadMoreToScrollToTop: updateBottomPaddingToAllowReadMoreToScrollToTop,
+  updateLeftAndRightMargin: updateLeftAndRightMargin
+};
+
+/**
  * @typedef {function} FooterLegalClickCallback
  * @return {void}
  */
@@ -1162,6 +1229,7 @@ var WidenImage = {
 
 var pagelib$1 = {
   CollapseTable: CollapseTable,
+  FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
@@ -1190,7 +1258,7 @@ wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('./js/transforms/footerReadMore')
 wmf.footerMenu = require('./js/transforms/footerMenu')
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
-wmf.footerContainer = require('./js/transforms/footerContainer')
+wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.redLinks = require('wikimedia-page-library').RedLinks
@@ -1198,7 +1266,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerContainer":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/transforms/relocateFirstParagraph":12,"./js/transforms/widenImages":13,"./js/utilities":14,"wikimedia-page-library":1}],3:[function(require,module,exports){
+},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":1}],3:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -1327,7 +1395,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":14,"wikimedia-page-library":1}],4:[function(require,module,exports){
+},{"./refs":6,"./utilities":13,"wikimedia-page-library":1}],4:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -1680,33 +1748,6 @@ function disableFilePageEdit( content ) {
 
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],9:[function(require,module,exports){
-function updateBottomPaddingToAllowReadMoreToScrollToTop() {
-  var div = document.getElementById('footer_container_ensure_can_scroll_to_top')
-  var currentPadding = parseInt(div.style.paddingBottom)
-  if (isNaN(currentPadding)) {currentPadding = 0}
-  var height = div.clientHeight - currentPadding
-  var newPadding = Math.max(0, window.innerHeight - height)
-  div.style.paddingBottom = `${newPadding}px`
-}
-
-function updateLeftAndRightMargin(margin) {
-  Array.from(document.querySelectorAll('#footer_container_menu_heading, #footer_container_readmore, #footer_container_legal'))
-      .forEach(function(element) {
-        element.style.marginLeft = `${margin}px`
-        element.style.marginRight = `${margin}px`
-      })
-  var rightOrLeft = document.querySelector( 'html' ).dir == 'rtl' ? 'right' : 'left'
-  Array.from(document.querySelectorAll('.footer_menu_item'))
-        .forEach(function(element) {
-          element.style.backgroundPosition = `${rightOrLeft} ${margin}px center`
-          element.style.paddingLeft = `${margin}px`
-          element.style.paddingRight = `${margin}px`
-        })
-}
-
-exports.updateBottomPaddingToAllowReadMoreToScrollToTop = updateBottomPaddingToAllowReadMoreToScrollToTop
-exports.updateLeftAndRightMargin = updateLeftAndRightMargin
-},{}],10:[function(require,module,exports){
 
 function pageIssuesStringsArray() {
   const tables = document.querySelectorAll( 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)' )
@@ -1835,7 +1876,7 @@ function setHeading(headingString, headingID) {
 exports.MenuItemType = MenuItemType
 exports.setHeading = setHeading
 exports.maybeAddItem = maybeAddItem
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 var _saveButtonClickHandler = null
 var _titlesShownHandler = null
@@ -2048,7 +2089,7 @@ function setHeading(headingString, headingID) {
 exports.setHeading = setHeading
 exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 function moveFirstGoodParagraphUp( content ) {
     /*
@@ -2129,7 +2170,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -2146,7 +2187,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":1}],14:[function(require,module,exports){
+},{"wikimedia-page-library":1}],13:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -2188,4 +2229,4 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13]);
