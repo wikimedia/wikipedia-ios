@@ -547,14 +547,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
-        UIImage *closeImage = [UIImage imageNamed:@"toc-close"];
+        UIImage *closeImage = [UIImage imageNamed:@"toc"];
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton setImage:closeImage forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
         closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
+        closeButton.layer.cornerRadius = 5;
+        closeButton.layer.masksToBounds = YES;
         _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
         _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
-        return _hideTableOfContentsToolbarItem;
     }
     return _hideTableOfContentsToolbarItem;
 }
@@ -1900,6 +1901,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
     [self.tableOfContentsViewController applyTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
+    self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
 }
 
 @end
