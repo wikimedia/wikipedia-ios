@@ -2887,6 +2887,10 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
         
+        emptySearchOverlayView.backgroundColor = theme.colors.midBackground
+        emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.tertiaryText
+        
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)
         mapView.mapType = theme.preferredStatusBarStyle == .default ? .standard : .hybrid
