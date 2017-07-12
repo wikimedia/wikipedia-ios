@@ -141,7 +141,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
+- (void)handleFooterMenuItemClickedScriptMessage:(NSDictionary *)messageDict {
+    NSString *messageString = messageDict[@"selection"];
+    NSArray *payload = messageDict[@"payload"];
+
     WMFArticleFooterMenuItem item;
     if ([messageString isEqualToString:@"languages"]) {
         item = WMFArticleFooterMenuItemLanguages;
