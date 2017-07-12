@@ -16,30 +16,41 @@ function disambiguationTitlesArray() {
   return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(el => el.href)
 }
 
-// var thisType = IconTypeEnum.languages;
-// var iconClass = IconTypeEnum.properties[thisType].iconClass;
-// iconClass is 'footer_menu_icon_languages'
-var IconTypeEnum = {
+var ItemTypeEnum = {
   languages: 1,
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
   coordinate: 5,
-  properties: {
-    1: {iconClass: 'footer_menu_icon_languages'},
-    2: {iconClass: 'footer_menu_icon_last_edited'},
-    3: {iconClass: 'footer_menu_icon_page_issues'},
-    4: {iconClass: 'footer_menu_icon_disambiguation'},
-    5: {iconClass: 'footer_menu_icon_coordinate'}
+  iconClass: {
+    1: 'footer_menu_icon_languages',
+    2: 'footer_menu_icon_last_edited',
+    3: 'footer_menu_icon_page_issues',
+    4: 'footer_menu_icon_disambiguation',
+    5: 'footer_menu_icon_coordinate'
+  },
+  payloadExtractor: {
+    1: null,
+    2: null,
+    3: pageIssuesStringsArray,
+    4: disambiguationTitlesArray,
+    5: null
   }
 }
 
 class WMFMenuItem {
-  constructor(title, subtitle, iconType, clickHandler) {
+  constructor(title, subtitle, itemType, clickHandler) {
     this.title = title
     this.subtitle = subtitle
-    this.iconType = iconType
+    this.itemType = itemType
     this.clickHandler = clickHandler
+    this.payload = []
+  }
+  iconClass(){
+    return ItemTypeEnum.iconClass[this.itemType]
+  }
+  payloadExtractor(){
+    return ItemTypeEnum.payloadExtractor[this.itemType]
   }
 }
 
@@ -70,8 +81,8 @@ class WMFMenuItemFragment {
       containerAnchor.appendChild(subtitle)
     }
 
-    if(wmfMenuItem.iconType){
-      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass
+    var iconClass = wmfMenuItem.iconClass()
+    if(iconClass){
       item.classList.add(iconClass)
     }
 
@@ -91,6 +102,6 @@ function setHeading(headingString, headingID) {
   headingElement.title = headingString
 }
 
-exports.IconTypeEnum = IconTypeEnum
+exports.ItemTypeEnum = ItemTypeEnum
 exports.setHeading = setHeading
 exports.addItem = addItem
