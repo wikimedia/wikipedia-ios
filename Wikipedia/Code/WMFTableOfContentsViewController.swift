@@ -112,6 +112,9 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
         modalPresentationStyle = .custom
         transitioningDelegate = self.animator
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+        automaticallyAdjustsScrollViewInsets = true
                             
     }
     

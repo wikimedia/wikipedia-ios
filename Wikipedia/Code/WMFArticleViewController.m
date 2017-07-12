@@ -3,9 +3,6 @@
 
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
-// Frameworks
-@import Masonry;
-
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFImageGalleryViewController.h"
@@ -212,6 +209,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
+        self.automaticallyAdjustsScrollViewInsets = NO;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
@@ -650,12 +648,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [self.view addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressView.superview.mas_top);
-        make.left.equalTo(self.progressView.superview.mas_left);
-        make.right.equalTo(self.progressView.superview.mas_right);
-        make.height.equalTo(@2.0);
-    }];
+    [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
 }
 
 - (void)removeProgressView {
@@ -783,11 +776,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
-    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
 
+    self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
@@ -880,8 +873,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
-        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
-        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, self.topLayoutGuide.length, tocWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, self.topLayoutGuide.length, separatorWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
         self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
@@ -1070,11 +1063,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
                     default:
                         break;
-                }
-
-                if (self.tableOfContentsSeparatorView == nil) {
-                    self.tableOfContentsSeparatorView = [[UIView alloc] init];
-                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGray];
                 }
 
                 [self createTableOfContentsViewControllerIfNeeded];
@@ -1910,7 +1898,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
-    [self.tableOfContentsViewController applyTheme:self.theme];
+    [self.tableOfContentsViewController applyTheme:theme];
+    self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
 }
 
 @end
