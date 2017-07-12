@@ -32,6 +32,7 @@ public class ThemeColors: NSObject {
     
     public let link: UIColor
     public let accent: UIColor
+    public let secondaryLink: UIColor = .wmf_darkBlue
     public let destructive: UIColor = .wmf_red
     public let warning: UIColor = .wmf_red
     public let error: UIColor = .wmf_red

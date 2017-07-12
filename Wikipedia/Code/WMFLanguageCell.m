@@ -1,6 +1,5 @@
 #import "WMFLanguageCell.h"
 #import "UILabel+WMFStyling.h"
-#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFLanguageCell ()
@@ -49,7 +48,6 @@
     [self prepareForReuse];
     self.backgroundView = [UIView new];
     self.selectedBackgroundView = [UIView new];
-    [self wmf_makeCellDividerBeEdgeToEdge];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:[WMFTheme standard]];
 }
