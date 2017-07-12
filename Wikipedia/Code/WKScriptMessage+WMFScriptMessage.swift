@@ -62,7 +62,6 @@ extension WKScriptMessage {
             }
         case .lateJavascriptTransform,
              .articleState,
-             .footerMenuItemClicked,
              .footerLegalLicenseLinkClicked:
             if body is String {
                 return body
@@ -71,6 +70,21 @@ extension WKScriptMessage {
              .footerReadMoreTitlesShown:
             if body is Array<Any>{
                 return body
+            }
+        case .footerMenuItemClicked:
+            if
+                let body = body as? Dictionary<String, Any>,
+                let safeBody = (body as NSDictionary).wmf_dictionaryByRemovingNullObjects(),
+                let selection = safeBody["selection"] as? String,
+                let payload = safeBody["payload"] as? [String]
+            {
+                if selection == "disambiguation" {
+                    // WKScriptMessage's body doesn't auto-convert url strings to URL, so manually do so for
+                    // the disambiguation payload.
+                    return ["selection": selection, "payload": payload.flatMap{URL(string: $0)}]
+                }else{
+                    return safeBody
+                }
             }
         case .unknown:
             if body is NSNull{
