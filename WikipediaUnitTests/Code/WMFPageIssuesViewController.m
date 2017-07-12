@@ -4,7 +4,7 @@
 #import <WMF/EXTScope.h>
 @import WMF.WMFLocalization;
 
-@interface WMFPageIssuesViewController()
+@interface WMFPageIssuesViewController ()
 @property (nonatomic, strong) WMFTheme *theme;
 @end
 
@@ -19,7 +19,7 @@
     self.tableView.estimatedRowHeight = 90.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+
     @weakify(self);
     self.dataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, NSString *text, UITableView *tableView, NSIndexPath *indexPath) {
         @strongify(self);
@@ -40,7 +40,7 @@
 
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = xButton;
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -49,7 +49,7 @@
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
-    [self applyTheme:self.theme];
+    self.theme = theme;
     if (self.viewIfLoaded == nil) {
         return;
     }
