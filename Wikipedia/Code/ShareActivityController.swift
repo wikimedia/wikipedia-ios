@@ -49,7 +49,6 @@ class ShareActivityController: UIActivityViewController {
     
     init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
-        
         items.append(textActivitySource)
         
         if let url = article.url {
@@ -65,13 +64,12 @@ class ShareActivityController: UIActivityViewController {
     
     init(article: MWKArticle, image: UIImage?, title: String) {
         var param: String
-        
         var items = [Any]()
         
         items.append(title)
         
         //TODO: Is wprov param needed?
-        if image != nil {
+        if let image = image {
             param = "wprov=sfii1"
             items.append(image)
         }
