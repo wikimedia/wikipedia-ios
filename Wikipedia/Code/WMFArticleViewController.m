@@ -1189,7 +1189,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     //only show a blank view if we have nothing to show
     if (!self.article) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank theme:self.theme];
         [self.view bringSubviewToFront:self.progressView];
     }
 
@@ -1220,7 +1220,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [self.view bringSubviewToFront:self.progressView];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
@@ -1514,14 +1514,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
-- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController *)viewController {
+- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
+    [viewController applyTheme:self.theme];
     WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:navC animated:YES completion:nil];
 }
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
-    [articleListVC applyTheme:self.theme];
     articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
