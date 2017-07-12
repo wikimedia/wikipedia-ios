@@ -1480,7 +1480,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Footer menu
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item {
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
     switch (item) {
         case WMFArticleFooterMenuItemLanguages:
             [self showLanguages];
@@ -1489,10 +1489,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self showEditHistory];
             break;
         case WMFArticleFooterMenuItemPageIssues:
-            [self showPageIssues];
+            [self showPageIssues:payload];
             break;
         case WMFArticleFooterMenuItemDisambiguation:
-            [self showDisambiguationItems];
+            [self showDisambiguationPages:payload];
             break;
         case WMFArticleFooterMenuItemCoordinate:
             [self showLocation];
@@ -1511,8 +1511,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewController:navC animated:YES completion:nil];
 }
 
-- (void)showDisambiguationItems {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+
+- (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
     articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
@@ -1530,9 +1531,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewControllerEmbeddedInNavigationController:languagesVC];
 }
 
-- (void)showPageIssues {
+- (void)showPageIssues:(NSArray<NSString *> *)issueStrings {
     WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:issueStrings];
     [self presentViewControllerEmbeddedInNavigationController:issuesVC];
 }
 

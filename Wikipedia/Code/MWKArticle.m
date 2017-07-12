@@ -491,12 +491,4 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return htmlStr;
 }
 
-- (nullable NSArray<NSURL *> *)disambiguationURLs {
-    return [[self.sections.entries firstObject] disambiguationURLs];
-}
-
-- (nullable NSArray<NSString *> *)pageIssues {
-    return [[self.sections.entries firstObject] pageIssues];
-}
-
 @end

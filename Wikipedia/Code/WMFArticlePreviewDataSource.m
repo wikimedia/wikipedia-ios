@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSURL *URL = [self urlForIndexPath:indexPath];
             NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
             cell.titleText = URL.wmf_title;
-            cell.descriptionText = searchResult.wikidataDescription;
+            cell.descriptionText = [searchResult.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.siteURL.wmf_language];
             [cell setImageURL:searchResult.thumbnailURL];
             [cell applyTheme:self.theme];
         };
