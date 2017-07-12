@@ -6,7 +6,7 @@ import WebKit
     case languages, lastEdited, pageIssues, disambiguation, coordinate
     
     // Reminder: These are the strings used by the footerMenu JS transform:
-    private var footerMenuJSTransformEnumString: String {
+    private var menuItemTypeString: String {
         switch self {
         case .languages: return "languages"
         case .lastEdited: return "lastEdited"
@@ -16,8 +16,8 @@ import WebKit
         }
     }
     
-    private var footerMenuTransformJSEnumPath: String {
-        return "window.wmf.footerMenu.MenuItemType.\(footerMenuJSTransformEnumString)"
+    private var menuItemTypeJSPath: String {
+        return "window.wmf.footerMenu.MenuItemType.\(menuItemTypeString)"
     }
     
     private func localizedTitle(with article: MWKArticle) -> String {
@@ -83,10 +83,10 @@ import WebKit
         
         let itemSelectionHandler =
         "function(payload){" +
-            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(footerMenuJSTransformEnumString)', 'payload': payload});" +
+            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'footer_container_menu_items', \(itemSelectionHandler));"
     }
 }
 
