@@ -396,8 +396,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection = NO;
 
-    languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
     return languagesVC;
+}
+
+- (void)reloadDataSections {
+    [super reloadDataSections];
+    self.navigationItem.rightBarButtonItem = [MWKLanguageLinkController sharedInstance].preferredLanguages.count > 1 ? self.editButtonItem : nil;
 }
 
 - (void)viewDidLoad {
@@ -482,8 +486,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
-
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
+    if ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) {
+        [self setEditing:NO animated:YES];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
