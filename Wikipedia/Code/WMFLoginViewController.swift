@@ -133,6 +133,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         if textField == passwordField {
             passwordAlertLabel.isHidden = true
             passwordField.textColor = theme.colors.primaryText
+            passwordField.keyboardAppearance = theme.keyboardAppearance
         }
     }
 
@@ -166,6 +167,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     self.passwordAlertLabel.text = error.localizedDescription
                     self.passwordAlertLabel.isHidden = false
                     self.passwordField.textColor = self.theme.colors.error
+                    self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return

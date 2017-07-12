@@ -2870,6 +2870,7 @@ extension PlacesViewController: Themeable {
         titleViewSearchBar.isTranslucent = false
         titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
         }
         
         listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
@@ -2877,6 +2878,7 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchBar.isTranslucent = false
         listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
         }
         
         searchFilterListController.apply(theme: theme)
