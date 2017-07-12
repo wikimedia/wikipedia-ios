@@ -1,5 +1,6 @@
 @import UIKit;
 @import WMF.FetcherBase;
+@import WMF.Swift;
 #import "EditFunnel.h"
 #import "SavedPagesFunnel.h"
 
@@ -11,7 +12,7 @@
 
 @end
 
-@interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, FetchFinishedDelegate, UITextFieldDelegate>
+@interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, FetchFinishedDelegate, UITextFieldDelegate, WMFThemeable>
 
 @property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) EditFunnel *funnel;

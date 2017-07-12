@@ -8,7 +8,12 @@ import CocoaLumberjackSwift
     func tableOfContentsAnimatorDidTapBackground(_ controller: WMFTableOfContentsAnimator)
 }
 
-open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, WMFTableOfContentsPresentationControllerTapDelegate {
+open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, WMFTableOfContentsPresentationControllerTapDelegate, Themeable {
+    
+    fileprivate var theme = Theme.standard
+    public func apply(theme: Theme) {
+        self.theme = theme
+    }
     
     var displaySide = WMFTableOfContentsDisplaySide.left
     var displayMode = WMFTableOfContentsDisplayMode.modal
@@ -52,6 +57,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
             return nil
         }
         let presentationController = WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: self.presentingViewController, tapDelegate: self)
+        presentationController.apply(theme: theme)
         presentationController.displayMode = displayMode
         presentationController.displaySide = displaySide
         return presentationController

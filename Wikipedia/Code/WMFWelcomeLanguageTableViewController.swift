@@ -23,15 +23,8 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         UserDefaults.wmf_userDefaults().wmf_setShowSearchLanguageBar(MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateDeleteButtonsVisibility()
-    }
-    
-    fileprivate func updateDeleteButtonsVisibility(){
-        for cell in languageTableView.visibleCells as! [WMFWelcomeLanguageTableViewCell] {
-            cell.deleteButton.isHidden = (MWKLanguageLinkController.sharedInstance().preferredLanguages.count == 1)
-        }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +48,6 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
             let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
             MWKLanguageLinkController.sharedInstance().removePreferredLanguage(langLink)
             tableView.deleteRows(at: [indexPath], with:.automatic)
-            self.updateDeleteButtonsVisibility()
             self.useFirstPreferredLanguageAsSearchLanguage()
         }
     }

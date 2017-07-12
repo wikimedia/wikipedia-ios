@@ -1,4 +1,5 @@
 @import UIKit;
+@class WMFTheme;
 
 @interface PageHistoryResultCell : UITableViewCell
 
@@ -7,6 +8,7 @@
           delta:(NSNumber *)delta
          isAnon:(BOOL)isAnon
         summary:(NSString *)summary
-      separator:(BOOL)separator;
+      separator:(BOOL)separator
+          theme:(WMFTheme *)theme;
 
 @end

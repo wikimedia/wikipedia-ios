@@ -12,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *actionLabel;
 @property (strong, nonatomic) IBOutlet UIView *actionLine;
 @property (strong, nonatomic) CAShapeLayer *actionLineLayer;
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -19,7 +20,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
     [self wmf_configureSubviewsForDynamicType];
+    [self applyTheme:self.theme];
 }
 
 + (instancetype)emptyView {
@@ -107,13 +112,23 @@
 
     CAShapeLayer *shapelayer = [CAShapeLayer layer];
     shapelayer.frame = self.actionLine.bounds;
-    shapelayer.strokeColor = [UIColor wmf_emptyGrayText].CGColor;
+    shapelayer.strokeColor = self.theme.colors.tertiaryText.CGColor;
     shapelayer.lineWidth = 1.0;
     shapelayer.lineJoin = kCALineJoinMiter;
     shapelayer.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:2], nil];
     shapelayer.path = path.CGPath;
     [self.actionLine.layer addSublayer:shapelayer];
     self.actionLineLayer = shapelayer;
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.imageView.tintColor = theme.colors.tertiaryText;
+    self.titleLabel.textColor = theme.colors.primaryText;
+    self.messageLabel.textColor = theme.colors.tertiaryText;
+    self.actionLabel.textColor = theme.colors.tertiaryText;
+    self.backgroundColor = theme.colors.baseBackground;
+    [self setNeedsLayout];
 }
 
 @end

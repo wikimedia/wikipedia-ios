@@ -244,6 +244,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         guard passwordFieldsMatch() else {
             self.passwordRepeatField.textColor = theme.colors.warning
+            self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -258,9 +259,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         case usernameField:
             usernameAlertLabel.isHidden = true
             usernameField.textColor = theme.colors.primaryText
+            usernameField.keyboardAppearance = theme.keyboardAppearance
         case passwordRepeatField:
             passwordRepeatAlertLabel.isHidden = true
             passwordRepeatField.textColor = theme.colors.primaryText
+            passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
         default: break
         }
     }
@@ -278,6 +281,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     self.usernameAlertLabel.text = error.localizedDescription
                     self.usernameAlertLabel.isHidden = false
                     self.usernameField.textColor = self.theme.colors.error
+                    self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
@@ -314,7 +318,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             field?.apply(theme: theme)
         }
         scrollContainer.backgroundColor = theme.colors.paperBackground
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         loginButton.apply(theme: theme)
         createAccountButton.apply(theme: theme)

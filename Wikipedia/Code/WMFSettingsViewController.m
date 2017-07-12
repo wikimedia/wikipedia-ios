@@ -256,6 +256,14 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     return [NSURL URLWithString:url];
 }
 
+#pragma mark - Presentation
+
+- (void)presentViewControllerWrappedInNavigationController:(UIViewController *)viewController {
+    WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
+    [self presentViewController:themeableNavController animated:YES completion:nil];
+}
+
+
 #pragma mark - Log in and out
 
 - (void)showLoginOrLogout {
@@ -265,10 +273,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
-        WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:loginVC theme:self.theme];
-        [self presentViewController:themeableNavController
-                           animated:YES
-                         completion:nil];
+        [self presentViewControllerWrappedInNavigationController:loginVC];
     }
 }
 
@@ -324,9 +329,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)showLanguages {
     WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
     languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC]
-                       animated:YES
-                     completion:nil];
+    [languagesVC applyTheme:self.theme];
+    [self presentViewControllerWrappedInNavigationController:languagesVC];
 }
 
 - (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
@@ -343,7 +347,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    NotificationSettingsViewController *notificationSettingsVC = [[NotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 
@@ -491,7 +496,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
-    [self.elementDataSource reloadData];
+    [self.tableView reloadData];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 

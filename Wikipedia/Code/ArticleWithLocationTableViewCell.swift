@@ -9,7 +9,7 @@ class ArticleWithLocationTableViewCell: ContainerTableViewCell {
         collectionViewCell = WMFNearbyArticleCollectionViewCell.wmf_classNib().instantiate(withOwner: nil, options: nil).first as! WMFNearbyArticleCollectionViewCell
         bounds = collectionViewCell.bounds
         addSubview(collectionViewCell)
-        addConstraints([collectionViewCell.leadingAnchor.constraint(equalTo: leadingAnchor), trailingAnchor.constraint(equalTo: trailingAnchor), collectionViewCell.topAnchor.constraint(equalTo: topAnchor), collectionViewCell.bottomAnchor.constraint(equalTo: bottomAnchor)])
+        addConstraints([collectionViewCell.topAnchor.constraint(equalTo: topAnchor), collectionViewCell.bottomAnchor.constraint(equalTo: bottomAnchor)])
         super.setup()
     }
     

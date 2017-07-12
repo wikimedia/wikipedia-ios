@@ -1,6 +1,5 @@
 #import "WMFLanguageCell.h"
 #import "UILabel+WMFStyling.h"
-#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFLanguageCell ()
@@ -10,6 +9,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *languageNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *primaryLabel;
 @property (strong, nonatomic) IBOutlet UIView *primaryLabelContainerView;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -46,10 +46,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self prepareForReuse];
-    [self wmf_makeCellDividerBeEdgeToEdge];
-    self.localizedLanguageLabel.textColor = [UIColor wmf_777777];
-    self.articleTitleLabel.textColor = [UIColor wmf_777777];
+    self.backgroundView = [UIView new];
+    self.selectedBackgroundView = [UIView new];
     [self wmf_configureSubviewsForDynamicType];
+    [self applyTheme:[WMFTheme standard]];
 }
 
 - (void)prepareForReuse {
@@ -65,11 +65,25 @@
     _isPrimary = isPrimary;
     if (isPrimary) {
         self.primaryLabel.text = [WMFLocalizedStringWithDefaultValue(@"settings-primary-language", nil, nil, @"Primary", @"Label shown next to primary language\n{{Identical|Primary}}") uppercaseStringWithLocale:[NSLocale currentLocale]];
-        self.primaryLabelContainerView.backgroundColor = [UIColor wmf_primaryLanguageLabelBackground];
+        self.primaryLabelContainerView.backgroundColor = self.theme.colors.tertiaryText;
     } else {
         self.primaryLabel.text = nil;
         self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
     }
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.localizedLanguageLabel.textColor = theme.colors.tertiaryText;
+    self.articleTitleLabel.textColor = theme.colors.tertiaryText;
+    self.languageNameLabel.textColor = theme.colors.primaryText;
+    self.primaryLabel.textColor = theme.colors.paperBackground;
+    self.backgroundView.backgroundColor = theme.colors.paperBackground;
+    self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.localizedLanguageLabel.textColor = theme.colors.secondaryText;
+    self.articleTitleLabel.textColor = theme.colors.secondaryText;
+    [self setIsPrimary:_isPrimary];
+
 }
 
 @end

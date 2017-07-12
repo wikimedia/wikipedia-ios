@@ -27,17 +27,6 @@ public enum TableOfContentsItemType {
             }
         }
     }
-
-    var titleColor: UIColor {
-        get {
-            switch (self) {
-            case .primary:
-                return .wmf_tableOfContentsSectionText
-            case .secondary:
-                return .wmf_tableOfContentsSubsectionText
-            }
-        }
-    }
 }
 
 public enum TableOfContentsBorderType {
