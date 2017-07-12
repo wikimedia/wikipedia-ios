@@ -182,8 +182,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        header?.contentView.backgroundColor = theme.colors.baseBackground
-        header?.headerLabel?.textColor = theme.colors.secondaryText
+        if let th = header as Themeable? {
+            th.apply(theme: theme)
+        }
         header?.text = sections[section].headerTitle
         return header;
     }

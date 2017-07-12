@@ -16,15 +16,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    backgroundView.backgroundColor = [UIColor wmf_settingsBackground];
-    self.backgroundView = backgroundView;
-    self.titleLabel.textColor = [UIColor wmf_777777];
+      self.backgroundView = backgroundView;
     [self.addButton setTitle:WMFLocalizedStringWithDefaultValue(@"welcome-languages-add-button", nil, nil, @"Add another language", @"Title for button for adding another language")
                     forState:UIControlStateNormal];
-    [self.addButton setTitleColor:[UIColor wmf_blue] forState:UIControlStateNormal];
     [self wmf_configureSubviewsForDynamicType];
+    [self applyTheme:[WMFTheme standard]];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.backgroundView.backgroundColor = theme.colors.baseBackground;
+    self.titleLabel.textColor = theme.colors.secondaryText;
+    [self.addButton setTitleColor:theme.colors.link forState:UIControlStateNormal];
+    self.addButton.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

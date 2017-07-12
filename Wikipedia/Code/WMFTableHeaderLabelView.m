@@ -5,7 +5,7 @@
 @interface WMFTableHeaderLabelView ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
-
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *leadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
@@ -16,7 +16,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.headerLabel.textColor = [UIColor wmf_nearbyDescription];
+    [self applyTheme:[WMFTheme standard]];
 }
 
 - (void)setText:(NSString *)text {
@@ -77,6 +77,12 @@
     [super prepareForReuse];
     [self removeAllClearButtonTargets];
     self.clearButtonHidden = YES;
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.headerLabel.textColor = theme.colors.secondaryText;
+    self.contentView.backgroundColor = theme.colors.baseBackground;
+    self.clearButton.tintColor = theme.colors.tertiaryText;
 }
 
 @end

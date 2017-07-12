@@ -1,10 +1,10 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView
+@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView <WMFThemeable>
 @property (copy, nonatomic) NSString *text;
 - (CGFloat)heightWithExpectedWidth:(CGFloat)width;
 
-@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic, readonly) UIButton *clearButton;
 @property (nonatomic, getter=isClearButtonHidden) BOOL clearButtonHidden;
 @property (nonatomic, getter=isLabelVerticallyCentered) BOOL labelVerticallyCentered;
