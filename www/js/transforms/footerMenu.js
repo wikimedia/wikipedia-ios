@@ -90,10 +90,23 @@ class WMFMenuItemFragment {
   }
 }
 
-function addItem(title, subtitle, iconType, containerID, clickHandler) {
-  const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler)
-  const itemFragment = new WMFMenuItemFragment(itemModel)
-  document.getElementById(containerID).appendChild(itemFragment)
+function maybeAddItem(title, subtitle, itemType, containerID, clickHandler) {
+  const item = new WMFMenuItem(title, subtitle, itemType, clickHandler)
+
+  // Items are not added if they have a payload extractor which fails to extract anything.
+  if (item.payloadExtractor() !== null){
+    item.payload = item.payloadExtractor()()
+    if(item.payload.length === 0){
+      return
+    }
+  }
+
+  addItem(item, containerID)
+}
+
+function addItem(wmfMenuItem, containerID) {
+  const fragment = new WMFMenuItemFragment(wmfMenuItem)
+  document.getElementById(containerID).appendChild(fragment)
 }
 
 function setHeading(headingString, headingID) {
@@ -104,4 +117,4 @@ function setHeading(headingString, headingID) {
 
 exports.ItemTypeEnum = ItemTypeEnum
 exports.setHeading = setHeading
-exports.addItem = addItem
+exports.maybeAddItem = maybeAddItem
