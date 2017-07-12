@@ -7,7 +7,9 @@ protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
 }
 
-class PlaceSearchFilterListController: UITableViewController {
+class PlaceSearchFilterListController: UITableViewController, Themeable {
+    fileprivate var theme: Theme = Theme.standard
+    
     static var savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
     static var topArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
     
@@ -27,6 +29,11 @@ class PlaceSearchFilterListController: UITableViewController {
         super.init(style: .plain)
         self.delegate = delegate
         self.currentFilterType = .top
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        apply(theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +59,8 @@ class PlaceSearchFilterListController: UITableViewController {
         guard let myCell = cell as? PlaceSearchFilterCell else {
             return
         }
+        
+        myCell.apply(theme: theme)
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
@@ -82,11 +91,37 @@ class PlaceSearchFilterListController: UITableViewController {
             delegate.placeSearchFilterListController(self, didSelectFilterType: .saved)
         }
     }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.paperBackground
+        tableView.reloadData()
+    }
 }
 
 class PlaceSearchFilterCell: UITableViewCell {
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
+    }
+}
+
+extension PlaceSearchFilterCell: Themeable {
+    func apply(theme: Theme) {
+        backgroundView?.backgroundColor = theme.colors.paperBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        titleLabel.textColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.primaryText
+        containerView.backgroundColor = theme.colors.midBackground
+    }
 }

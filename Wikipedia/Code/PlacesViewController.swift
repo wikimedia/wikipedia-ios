@@ -2878,6 +2878,8 @@ extension PlacesViewController: Themeable {
             textField.textColor = theme.colors.primaryText
         }
         
+        searchFilterListController.apply(theme: theme)
+        
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground

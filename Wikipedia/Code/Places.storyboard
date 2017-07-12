@@ -595,6 +595,7 @@
                                         </constraints>
                                     </tableViewCellContentView>
                                     <connections>
+                                        <outlet property="containerView" destination="bcf-oG-RBc" id="ove-8p-0DG"/>
                                         <outlet property="iconImageView" destination="iao-2h-sq7" id="fgl-Ad-GQ9"/>
                                         <outlet property="subtitleLabel" destination="WV2-bO-ztx" id="bjs-8p-raw"/>
                                         <outlet property="titleLabel" destination="tnD-v2-lhQ" id="HDF-HS-Zw5"/>
@@ -650,7 +651,7 @@
                 <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby-selected" id="qMU-9n-S42"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HFz-Jz-Pn5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
