@@ -568,7 +568,7 @@ function disambiguationTitlesArray() {
   return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(el => el.href)
 }
 
-var ItemTypeEnum = {
+var MenuItemType = {
   languages: 1,
   lastEdited: 2,
   pageIssues: 3,
@@ -586,29 +586,29 @@ class WMFMenuItem {
   }
   iconClass(){
     switch(this.itemType){
-    case ItemTypeEnum.languages:
+    case MenuItemType.languages:
       return 'footer_menu_icon_languages'
-    case ItemTypeEnum.lastEdited:
+    case MenuItemType.lastEdited:
       return 'footer_menu_icon_last_edited'
-    case ItemTypeEnum.pageIssues:
+    case MenuItemType.pageIssues:
       return 'footer_menu_icon_page_issues'
-    case ItemTypeEnum.disambiguation:
+    case MenuItemType.disambiguation:
       return 'footer_menu_icon_disambiguation'
-    case ItemTypeEnum.coordinate:
+    case MenuItemType.coordinate:
       return 'footer_menu_icon_coordinate'
     }
   }
   payloadExtractor(){
     switch(this.itemType){
-    case ItemTypeEnum.languages:
+    case MenuItemType.languages:
       return null
-    case ItemTypeEnum.lastEdited:
+    case MenuItemType.lastEdited:
       return null
-    case ItemTypeEnum.pageIssues:
+    case MenuItemType.pageIssues:
       return pageIssuesStringsArray
-    case ItemTypeEnum.disambiguation:
+    case MenuItemType.disambiguation:
       return disambiguationTitlesArray
-    case ItemTypeEnum.coordinate:
+    case MenuItemType.coordinate:
       return null
     }
   }
@@ -675,7 +675,7 @@ function setHeading(headingString, headingID) {
   headingElement.title = headingString
 }
 
-exports.ItemTypeEnum = ItemTypeEnum
+exports.MenuItemType = MenuItemType
 exports.setHeading = setHeading
 exports.maybeAddItem = maybeAddItem
 },{}],11:[function(require,module,exports){
