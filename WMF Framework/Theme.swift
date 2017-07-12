@@ -75,15 +75,17 @@ public class Theme: NSObject {
     public let colors: ThemeColors
     
     public let preferredStatusBarStyle: UIStatusBarStyle
+    public let blurEffectStyle: UIBlurEffectStyle
     
-    public static let light = Theme(colors: ThemeColors.light, preferredStatusBarStyle: .default)
-    public static let dark = Theme(colors: ThemeColors.dark, preferredStatusBarStyle: .lightContent)
+    public static let light = Theme(colors: ThemeColors.light, preferredStatusBarStyle: .default, blurEffectStyle: .light)
+    public static let dark = Theme(colors: ThemeColors.dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark)
     
     public static let standard = Theme.light
     
-    init(colors: ThemeColors, preferredStatusBarStyle: UIStatusBarStyle) {
+    init(colors: ThemeColors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle) {
         self.colors = colors
         self.preferredStatusBarStyle = preferredStatusBarStyle
+        self.blurEffectStyle = blurEffectStyle
     }
 }
 

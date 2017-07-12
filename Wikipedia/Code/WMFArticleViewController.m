@@ -1908,6 +1908,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
+    [self.tableOfContentsViewController applyTheme:self.theme];
 }
 
 @end
