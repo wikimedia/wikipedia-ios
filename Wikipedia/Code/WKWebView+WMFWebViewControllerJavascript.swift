@@ -116,7 +116,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
