@@ -86,7 +86,7 @@ import WebKit
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(footerMenuJSTransformEnumString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
     }
 }
 
