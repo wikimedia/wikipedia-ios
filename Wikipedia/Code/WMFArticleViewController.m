@@ -1489,7 +1489,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Footer menu
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item {
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray*)payload {
     switch (item) {
         case WMFArticleFooterMenuItemLanguages:
             [self showLanguages];

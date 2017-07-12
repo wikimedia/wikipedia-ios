@@ -160,7 +160,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
-    [self.delegate webViewController:self didTapFooterMenuItem:item];
+    [self.delegate webViewController:self didTapFooterMenuItem:item payload:payload];
 }
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
