@@ -17,7 +17,7 @@ import WebKit
     }
     
     private var footerMenuTransformJSEnumPath: String {
-        return "window.wmf.footerMenu.IconTypeEnum.\(footerMenuJSTransformEnumString)"
+        return "window.wmf.footerMenu.ItemTypeEnum.\(footerMenuJSTransformEnumString)"
     }
     
     private func localizedTitle(with article: MWKArticle) -> String {
