@@ -17,6 +17,7 @@
 @property (assign, nonatomic) BOOL isLoadingData;
 @property (assign, nonatomic) BOOL batchComplete;
 @property (strong, nonatomic) PageHistoryRequestParameters *historyFetcherParams;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -38,7 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
     self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.url.wmf_title];
     self.pageHistoryFetcher = [PageHistoryFetcher new];
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
@@ -47,7 +50,6 @@
     self.pageHistoryDataArray = @[].mutableCopy;
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 10.0)];
-    self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"PageHistoryResultPrototypeView" bundle:nil]
          forCellReuseIdentifier:TABLE_CELL_ID];
@@ -56,6 +58,8 @@
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 75;
+    
+    [self applyTheme:self.theme];
 }
 
 - (void)closeButtonPressed {
@@ -119,12 +123,13 @@
             delta:@(row.revisionSize)
            isAnon:row.isAnon
           summary:row.parsedComment
-        separator:(section.items.count > 1)];
+        separator:(section.items.count > 1)
+            theme:self.theme];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = [UIColor wmf_settingsBackground];
+    view.backgroundColor = self.theme.colors.baseBackground;
     view.autoresizesSubviews = YES;
     PaddedLabel *label = [[PaddedLabel alloc] init];
 
@@ -134,9 +139,9 @@
     label.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemBold
                                           withTextStyle:UIFontTextStyleFootnote
                           compatibleWithTraitCollection:self.traitCollection];
-    label.textColor = [UIColor darkGrayColor];
+    label.textColor = self.theme.colors.secondaryText;
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.backgroundColor = [UIColor clearColor];
+    label.backgroundColor = self.theme.colors.baseBackground;
 
     label.textAlignment = NSTextAlignmentNatural;
 
@@ -169,6 +174,16 @@
     if ([self shouldLoadNewData]) {
         [self getPageHistoryData];
     }
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+    self.tableView.tableFooterView.backgroundColor = theme.colors.paperBackground;
+    self.tableView.backgroundColor = theme.colors.baseBackground;
+    [self.tableView reloadData];
 }
 
 @end

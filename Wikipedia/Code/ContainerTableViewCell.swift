@@ -37,6 +37,5 @@ extension ContainerTableViewCell: Themeable {
         }
         backgroundView?.backgroundColor = collectionViewCell.backgroundView?.backgroundColor
         selectedBackgroundView?.backgroundColor = collectionViewCell.selectedBackgroundView?.backgroundColor
-        
     }
 }

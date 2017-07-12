@@ -292,4 +292,11 @@
     return YES;
 }
 
+
+#pragma mark WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    
+}
+
 @end

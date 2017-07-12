@@ -26,10 +26,9 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
     func tableOfContentsDisplayModeIsModal() -> Bool;
 }
 
-open class WMFTableOfContentsViewController: UIViewController,
-                                               UITableViewDelegate,
-                                               UITableViewDataSource,
-                                               WMFTableOfContentsAnimatorDelegate {
+open class WMFTableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WMFTableOfContentsAnimatorDelegate, Themeable {
+    
+    fileprivate var theme = Theme.standard
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
@@ -96,7 +95,9 @@ open class WMFTableOfContentsViewController: UIViewController,
     public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
                          delegate: WMFTableOfContentsViewControllerDelegate,
-                         semanticContentAttribute: UISemanticContentAttribute) {
+                         semanticContentAttribute: UISemanticContentAttribute,
+                         theme: Theme) {
+        self.theme = theme
         self.semanticContentAttributeOverride = semanticContentAttribute
         self.items = items
         self.delegate = delegate
@@ -104,12 +105,16 @@ open class WMFTableOfContentsViewController: UIViewController,
         super.init(nibName: nil, bundle: nil)
         if let presentingViewController = presentingViewController {
             animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
+            animator?.apply(theme: theme)
             animator?.delegate = self
             animator?.displaySide = displaySide
             animator?.displayMode = displayMode
         }
         modalPresentationStyle = .custom
         transitioningDelegate = self.animator
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+        automaticallyAdjustsScrollViewInsets = true
                             
     }
     
@@ -216,13 +221,11 @@ open class WMFTableOfContentsViewController: UIViewController,
             _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
         
-        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
-            tableView.backgroundColor = .wmf_modalTableOfContentsBackground
-        } else {
-            tableView.backgroundColor = .wmf_inlineTableOfContentsBackground
-        }
+
 
         automaticallyAdjustsScrollViewInsets = false
+        
+        apply(theme: theme)
     }
 
     open override func viewWillAppear(_ animated: Bool) {
@@ -236,9 +239,6 @@ open class WMFTableOfContentsViewController: UIViewController,
         deselectAllRows()
     }
     
-    open override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .default
-    }
     
     // MARK: - UITableViewDataSource
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -263,7 +263,8 @@ open class WMFTableOfContentsViewController: UIViewController,
         cell.titleIndentationLevel = item.indentationLevel
         cell.titleLabel.text = item.titleText
         cell.titleLabel.font = UIFont.wmf_preferredFontForFontFamily(item.itemType.titleFontFamily, withTextStyle: item.itemType.titleFontTextStyle, compatibleWithTraitCollection: self.traitCollection)
-        cell.titleColor = item.itemType.titleColor
+        cell.selectionColor = theme.colors.link
+        cell.titleColor = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
         
         cell.setNeedsLayout()
 
@@ -282,6 +283,7 @@ open class WMFTableOfContentsViewController: UIViewController,
             header?.backgroundColor = tableView.backgroundColor
             header?.semanticContentAttribute = semanticContentAttributeOverride
             header?.contentsLabel.semanticContentAttribute = semanticContentAttributeOverride
+            header?.contentsLabel.textColor = theme.colors.tertiaryText
             return header
         } else {
             return nil
@@ -324,6 +326,19 @@ open class WMFTableOfContentsViewController: UIViewController,
     open override func accessibilityPerformMagicTap() -> Bool {
         return didRequestClose(nil)
     }
-
+    
+    public func apply(theme: Theme) {
+        self.theme = theme
+        self.animator?.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        if let delegate = delegate, delegate.tableOfContentsDisplayModeIsModal() {
+            tableView.backgroundColor = theme.colors.paperBackground
+        } else {
+            tableView.backgroundColor = theme.colors.midBackground
+        }
+        tableView.reloadData()
+    }
 }
 

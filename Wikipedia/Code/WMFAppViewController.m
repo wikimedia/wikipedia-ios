@@ -1190,9 +1190,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]]) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
+        if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
+            viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
+        }
     }
     if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)viewController applyTheme:self.theme];
@@ -1367,7 +1370,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
     UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     for (UINavigationBar *navigationBar in navigationBars) {
-        //navigationBar.barTintColor = theme.colors.chromeBackground;
+        navigationBar.barTintColor = theme.colors.chromeBackground;
         navigationBar.translucent = NO;
         navigationBar.tintColor = theme.colors.chromeText;
         [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -1381,8 +1384,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
-        [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
+        [toolbar setTranslucent:NO];
     }
 
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
@@ -1410,7 +1413,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
         tabBar.barTintColor = theme.colors.chromeBackground;
-        //tabBar.tintColor = theme.colors.link;
         tabBar.translucent = NO;
         tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
         if (tabBar.items.count > 0) {

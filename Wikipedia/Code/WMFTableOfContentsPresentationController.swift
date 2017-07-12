@@ -7,7 +7,8 @@ import Masonry
     func tableOfContentsPresentationControllerDidTapBackground(_ controller: WMFTableOfContentsPresentationController)
 }
 
-open class WMFTableOfContentsPresentationController: UIPresentationController {
+open class WMFTableOfContentsPresentationController: UIPresentationController, Themeable {
+    var theme = Theme.standard
     
     var displaySide = WMFTableOfContentsDisplaySide.left
     var displayMode = WMFTableOfContentsDisplayMode.modal
@@ -27,23 +28,27 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
     open var statusBarEstimatedHeight: CGFloat = 20.0
     
     // MARK: - Views
+    
+
+    
     lazy var statusBarBackground: UIView = {
         let view = UIView(frame: CGRect(x: self.containerView!.bounds.minX, y: self.containerView!.bounds.minY, width: self.containerView!.bounds.width, height: self.statusBarEstimatedHeight))
         view.autoresizingMask = .flexibleWidth
-        let statusBarBackgroundBottomBorder = UIView(frame: CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: 0.5))
-        statusBarBackgroundBottomBorder.autoresizingMask = .flexibleWidth
-        view.backgroundColor = UIColor.white
-        statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGray
-        view.addSubview(statusBarBackgroundBottomBorder)
-
+        self.statusBarBackgroundBottomBorder.frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: 0.5)
+        view.addSubview(self.statusBarBackgroundBottomBorder)
         return view
+    }()
+    
+    lazy var statusBarBackgroundBottomBorder: UIView = {
+        let statusBarBackgroundBottomBorder = UIView(frame: .zero)
+        statusBarBackgroundBottomBorder.autoresizingMask = .flexibleWidth
+        return statusBarBackgroundBottomBorder
     }()
     
     lazy var closeButton:UIButton = {
         let button = UIButton(frame: CGRect.zero)
         
         button.setImage(UIImage(named: "close"), for: UIControlState())
-        button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
@@ -62,7 +67,6 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
         view.addSubview(self.closeButton)
-        
         return view
     }()
     
@@ -103,6 +107,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
 
     // MARK: - UIPresentationController
     override open func presentationTransitionWillBegin() {
+        apply(theme: self.theme)
+        
         // Add the dimming view and the presented view to the heirarchy
         self.backgroundView.frame = self.containerView!.bounds
         self.containerView!.addSubview(self.backgroundView)
@@ -122,9 +128,10 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         case .center:
             self.presentedView?.layer.cornerRadius = 10
             self.presentedView?.clipsToBounds = true
-            self.presentedView?.layer.borderColor = UIColor.wmf_lightGray.cgColor
+            self.presentedView?.layer.borderColor = theme.colors.border.cgColor
             self.presentedView?.layer.borderWidth = 1.0
             self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
+            self.closeButton.tintColor = theme.colors.link
             self.statusBarBackground.isHidden = true
             break
         default:
@@ -235,5 +242,16 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             
             }, completion:nil)
 
+    }
+    
+    public func apply(theme: Theme) {
+        self.theme = theme
+        guard self.containerView != nil else {
+            return
+        }
+        self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)
+        self.statusBarBackgroundBottomBorder.backgroundColor = theme.colors.border
+        self.statusBarBackground.backgroundColor = theme.colors.paperBackground
+        self.closeButton.tintColor = theme.colors.primaryText
     }
 }

@@ -193,7 +193,7 @@
     if (!self.isEmpty) {
         [self wmf_hideEmptyView];
     } else {
-        [self wmf_showEmptyViewOfType:[self emptyViewType]];
+        [self wmf_showEmptyViewOfType:[self emptyViewType] theme:self.theme];
     }
 }
 

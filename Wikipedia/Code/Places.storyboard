@@ -137,11 +137,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hlf-3Y-4oq">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                 <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ad-BuK">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ad-BuK">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
@@ -436,12 +436,14 @@
                         <outlet property="listAndSearchOverlayFilterSelectorContainerHeightConstraint" destination="ZqO-YJ-9iB" id="NdX-sc-hcP"/>
                         <outlet property="listAndSearchOverlayFilterSelectorContainerView" destination="mRb-Te-D6R" id="pbn-Li-t6T"/>
                         <outlet property="listAndSearchOverlayHeightConstraint" destination="WjD-Ab-D2o" id="4pj-RB-IFd"/>
-                        <outlet property="listAndSearchOverlaySearchBar" destination="Ydg-ui-Zgi" id="s00-Le-D6x"/>
+                        <outlet property="listAndSearchOverlaySearchBar" destination="Ydg-ui-Zgi" id="7nx-Sm-A3Q"/>
                         <outlet property="listAndSearchOverlaySearchCancelButtonHideConstraint" destination="k81-pK-FAX" id="9RX-B5-5eL"/>
                         <outlet property="listAndSearchOverlaySearchCancelButtonShowConstraint" destination="BaF-Yx-zNo" id="e3B-Bk-zY7"/>
                         <outlet property="listAndSearchOverlaySearchContainerView" destination="i4l-Ze-Tv2" id="PeF-Dx-aVf"/>
                         <outlet property="listAndSearchOverlaySearchHeightConstraint" destination="blG-tM-6xp" id="1RT-v5-ekB"/>
+                        <outlet property="listAndSearchOverlaySearchSeparator" destination="x4d-gE-JMU" id="LQW-lH-rDE"/>
                         <outlet property="listAndSearchOverlaySliderHeightConstraint" destination="0Ku-oI-d8V" id="OWR-jH-qkm"/>
+                        <outlet property="listAndSearchOverlaySliderSeparator" destination="IVq-Mn-HaA" id="eEL-Pa-Rlm"/>
                         <outlet property="listAndSearchOverlaySliderView" destination="i0j-C1-Whj" id="F7F-6f-Zum"/>
                         <outlet property="listView" destination="S6C-ad-BuK" id="8an-Tu-TkD"/>
                         <outlet property="mapContainerView" destination="EsT-De-Ary" id="BuO-NA-3h4"/>
@@ -461,7 +463,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3Ik-kL-6c1">
-                            <rect key="frame" x="0.0" y="59.5" width="305" height="282.5"/>
+                            <rect key="frame" x="0.0" y="59" width="305" height="282.5"/>
                             <subviews>
                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="places-search-empty-state-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="g1Q-tu-jmG">
                                     <rect key="frame" x="68.5" y="8" width="168" height="150"/>
@@ -552,7 +554,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-oG-RBc">
                                                 <rect key="frame" x="8" y="5" width="224" height="50"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-saved-disabled" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-filter-top" translatesAutoresizingMaskIntoConstraints="NO" id="iao-2h-sq7">
                                                         <rect key="frame" x="8" y="8" width="34" height="34"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="iao-2h-sq7" secondAttribute="height" multiplier="1:1" id="i7N-Ij-u2O"/>
@@ -593,6 +595,7 @@
                                         </constraints>
                                     </tableViewCellContentView>
                                     <connections>
+                                        <outlet property="containerView" destination="bcf-oG-RBc" id="ove-8p-0DG"/>
                                         <outlet property="iconImageView" destination="iao-2h-sq7" id="fgl-Ad-GQ9"/>
                                         <outlet property="subtitleLabel" destination="WV2-bO-ztx" id="bjs-8p-raw"/>
                                         <outlet property="titleLabel" destination="tnD-v2-lhQ" id="HDF-HS-Zw5"/>
@@ -664,7 +667,7 @@
     </scenes>
     <resources>
         <image name="close" width="18" height="18"/>
-        <image name="places-filter-saved-disabled" width="30" height="30"/>
+        <image name="places-filter-top" width="30" height="30"/>
         <image name="places-location-arrow" width="18" height="18"/>
         <image name="places-search-empty-state-overlay" width="336" height="272"/>
         <image name="places-slider" width="50" height="6"/>

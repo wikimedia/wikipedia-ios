@@ -7,7 +7,9 @@ protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
 }
 
-class PlaceSearchFilterListController: UITableViewController {
+class PlaceSearchFilterListController: UITableViewController, Themeable {
+    fileprivate var theme: Theme = Theme.standard
+    
     static var savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
     static var topArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
     
@@ -27,6 +29,11 @@ class PlaceSearchFilterListController: UITableViewController {
         super.init(style: .plain)
         self.delegate = delegate
         self.currentFilterType = .top
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        apply(theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,19 +60,24 @@ class PlaceSearchFilterListController: UITableViewController {
             return
         }
         
+        myCell.apply(theme: theme)
+        
         if (indexPath.row == 0) {
             myCell.titleLabel.text = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
             myCell.subtitleLabel.text = String.localizedStringWithFormat(WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
-            myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-top")
+            myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-top")
+            myCell.iconImageView?.tintColor = theme.colors.accent
         } else if (indexPath.row == 1) {
             myCell.titleLabel.text = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
             let savedCount = delegate.placeSearchFilterListController(self, countForFilterType: .saved)
             if (savedCount > 0) {
                 myCell.subtitleLabel.text =  String.localizedStringWithFormat(WMFLocalizedString("places-filter-saved-articles-count", value:"{{PLURAL:%1$d|%1$d place|%1$d places}} found", comment:"Describes how many saved articles are found in the saved articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .saved))
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-suggestion-saved")
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved")
+                myCell.iconImageView?.tintColor = theme.colors.accent
             } else {
                 myCell.subtitleLabel.text = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
-                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved-disabled")
+                myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved")
+                myCell.iconImageView?.tintColor = theme.colors.tertiaryText
             }
         }
     }
@@ -82,11 +94,37 @@ class PlaceSearchFilterListController: UITableViewController {
             delegate.placeSearchFilterListController(self, didSelectFilterType: .saved)
         }
     }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.chromeBackground
+        tableView.reloadData()
+    }
 }
 
 class PlaceSearchFilterCell: UITableViewCell {
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
+    }
+}
+
+extension PlaceSearchFilterCell: Themeable {
+    func apply(theme: Theme) {
+        backgroundView?.backgroundColor = theme.colors.chromeBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        titleLabel.textColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.primaryText
+        containerView.backgroundColor = theme.colors.midBackground
+    }
 }
