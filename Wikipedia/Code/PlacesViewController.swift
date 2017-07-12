@@ -192,7 +192,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
-        listAndSearchOverlayContainerView.radius = 5
         
         // Setup list view
         listView.dataSource = self
@@ -1157,6 +1156,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             } else {
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
+            listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
             updateSearchFilterTitle()
         }
     }
