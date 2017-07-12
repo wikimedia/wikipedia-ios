@@ -2865,6 +2865,7 @@ extension PlacesViewController: Themeable {
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         
+        titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
         titleViewSearchBar.barTintColor = theme.colors.chromeBackground
         titleViewSearchBar.isTranslucent = false
         titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
