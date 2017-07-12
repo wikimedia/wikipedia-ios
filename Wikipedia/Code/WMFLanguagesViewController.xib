@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFLanguagesViewController">
+            <connections>
+                <outlet property="filterDividerHeightConstraint" destination="ZoU-Vi-b0B" id="i48-nB-YCe"/>
+                <outlet property="filterHeightConstraint" destination="7zY-5G-jag" id="c9B-ku-ULz"/>
+                <outlet property="languageFilterField" destination="dLG-ge-XZX" id="8wD-ag-09k"/>
+                <outlet property="languageFilterTopSpaceConstraint" destination="a45-tu-ZvP" id="fXS-SP-Ife"/>
+                <outlet property="tableView" destination="ePO-Lv-EbB" id="tb2-2S-EoM"/>
+                <outlet property="view" destination="7Ps-rI-pHj" id="nas-cb-bKz"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="7Ps-rI-pHj">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="dLG-ge-XZX">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="7zY-5G-jag"/>
+                    </constraints>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                </searchBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5OE-BT-G6q" userLabel="Divider">
+                    <rect key="frame" x="0.0" y="44" width="375" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="ZoU-Vi-b0B"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ePO-Lv-EbB">
+                    <rect key="frame" x="0.0" y="45" width="375" height="622"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="x5j-FM-izE"/>
+                        <outlet property="delegate" destination="-1" id="KHV-Oq-qvB"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="dLG-ge-XZX" secondAttribute="trailing" id="1jW-Z7-hCX"/>
+                <constraint firstItem="ePO-Lv-EbB" firstAttribute="top" secondItem="5OE-BT-G6q" secondAttribute="bottom" id="2kT-AZ-8ar"/>
+                <constraint firstItem="5OE-BT-G6q" firstAttribute="top" secondItem="dLG-ge-XZX" secondAttribute="bottom" id="8CG-jb-UWM"/>
+                <constraint firstAttribute="bottom" secondItem="ePO-Lv-EbB" secondAttribute="bottom" id="KuZ-BO-NGd"/>
+                <constraint firstAttribute="trailing" secondItem="5OE-BT-G6q" secondAttribute="trailing" id="UAf-49-uud"/>
+                <constraint firstItem="dLG-ge-XZX" firstAttribute="leading" secondItem="7Ps-rI-pHj" secondAttribute="leading" id="a3m-oc-Fxq"/>
+                <constraint firstItem="dLG-ge-XZX" firstAttribute="top" secondItem="7Ps-rI-pHj" secondAttribute="top" id="a45-tu-ZvP"/>
+                <constraint firstAttribute="trailing" secondItem="ePO-Lv-EbB" secondAttribute="trailing" id="bCG-gs-7o4"/>
+                <constraint firstItem="ePO-Lv-EbB" firstAttribute="leading" secondItem="7Ps-rI-pHj" secondAttribute="leading" id="ipv-ai-aGw"/>
+                <constraint firstItem="5OE-BT-G6q" firstAttribute="leading" secondItem="7Ps-rI-pHj" secondAttribute="leading" id="s2f-pl-OoP"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

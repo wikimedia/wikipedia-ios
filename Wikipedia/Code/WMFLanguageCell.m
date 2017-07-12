@@ -76,7 +76,6 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    [super applyTheme:theme];
     self.localizedLanguageLabel.textColor = theme.colors.tertiaryText;
     self.articleTitleLabel.textColor = theme.colors.tertiaryText;
     self.languageNameLabel.textColor = theme.colors.primaryText;

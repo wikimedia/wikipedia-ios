@@ -27,7 +27,6 @@
 #import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
-#import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
