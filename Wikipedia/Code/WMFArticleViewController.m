@@ -83,35 +83,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return nil;
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
+    
+    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
 
-    NSMutableArray *items = [NSMutableArray array];
-
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
-
-    NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
-
-    if (url) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
-        components.queryItems = @[queryItem];
-
-        NSURL *componentsURL = components.URL;
-        if (componentsURL) {
-            [items addObject:componentsURL];
-        }
-    }
-
-    MKMapItem *mapItem = [self mapItem];
-    if (mapItem) {
-        [items addObject:mapItem];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                     applicationActivities:
-                                                                         @[[[TUSafariActivity alloc] init],
-                                                                           [[WMFOpenInMapsActivity alloc] init],
-                                                                           [[WMFGetDirectionsInMapsActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
     return vc;
