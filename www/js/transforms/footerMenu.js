@@ -21,21 +21,7 @@ var ItemTypeEnum = {
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
-  coordinate: 5,
-  iconClass: {
-    1: 'footer_menu_icon_languages',
-    2: 'footer_menu_icon_last_edited',
-    3: 'footer_menu_icon_page_issues',
-    4: 'footer_menu_icon_disambiguation',
-    5: 'footer_menu_icon_coordinate'
-  },
-  payloadExtractor: {
-    1: null,
-    2: null,
-    3: pageIssuesStringsArray,
-    4: disambiguationTitlesArray,
-    5: null
-  }
+  coordinate: 5
 }
 
 class WMFMenuItem {
@@ -47,10 +33,32 @@ class WMFMenuItem {
     this.payload = []
   }
   iconClass(){
-    return ItemTypeEnum.iconClass[this.itemType]
+    switch(this.itemType){
+    case ItemTypeEnum.languages:
+      return 'footer_menu_icon_languages'
+    case ItemTypeEnum.lastEdited:
+      return 'footer_menu_icon_last_edited'
+    case ItemTypeEnum.pageIssues:
+      return 'footer_menu_icon_page_issues'
+    case ItemTypeEnum.disambiguation:
+      return 'footer_menu_icon_disambiguation'
+    case ItemTypeEnum.coordinate:
+      return 'footer_menu_icon_coordinate'
+    }
   }
   payloadExtractor(){
-    return ItemTypeEnum.payloadExtractor[this.itemType]
+    switch(this.itemType){
+    case ItemTypeEnum.languages:
+      return null
+    case ItemTypeEnum.lastEdited:
+      return null
+    case ItemTypeEnum.pageIssues:
+      return pageIssuesStringsArray
+    case ItemTypeEnum.disambiguation:
+      return disambiguationTitlesArray
+    case ItemTypeEnum.coordinate:
+      return null
+    }
   }
 }
 
