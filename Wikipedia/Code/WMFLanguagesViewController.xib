@@ -30,6 +30,9 @@
                         <constraint firstAttribute="height" constant="44" id="7zY-5G-jag"/>
                     </constraints>
                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="KMD-2O-Jxy"/>
+                    </connections>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5OE-BT-G6q" userLabel="Divider">
                     <rect key="frame" x="0.0" y="44" width="375" height="1"/>
