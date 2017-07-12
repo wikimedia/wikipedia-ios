@@ -85,7 +85,7 @@ class ShareActivityController: UIActivityViewController {
     init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
         var items = [Any]()
         
-        items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo),WMFImageURLActivitySource(info: imageInfo), imageDownload.image])
+        items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo),WMFImageURLActivitySource(info: imageInfo), imageDownload.image.staticImage])
         
         super.init(activityItems: items, applicationActivities: [])
     }
