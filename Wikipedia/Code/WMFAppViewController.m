@@ -1190,9 +1190,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]]) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
+        if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
+            viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
+        }
     }
     if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)viewController applyTheme:self.theme];
