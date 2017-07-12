@@ -1,21 +1,22 @@
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
-    init(url: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
-        let article = userDataStore.fetchArticle(with: url)
+    init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
+        let article = userDataStore.fetchArticle(with: articleURL)
         var items = [Any]()
-        let text: String
         
         if let article = article {
             if let title = article.displayTitle {
-                text = "\"\(title)\" on @Wikipedia"
+                let text = "\"\(title)\" on @Wikipedia"
                 items.append(text)
             }
             let tracker = PiwikTracker.sharedInstance()
             tracker?.wmf_logActionShare(inContext: context, contentType: article)
         }
         
-        items.append(url)
+        if let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
+            items.append(url)
+        }
         
         if let mapItem = article?.mapItem {
             items.append(mapItem)
@@ -29,14 +30,13 @@ class ShareActivityController: UIActivityViewController {
         tracker?.wmf_logActionShare(inContext: context, contentType: article)
         
         var items = [Any]()
-        let text: String
         
         if let title = article.displayTitle {
-            text = "\"\(title)\" on @Wikipedia"
+            let text = "\"\(title)\" on @Wikipedia"
             items.append(text)
         }
         
-        if let url = article.url {
+        if let articleURL = article.url, let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
             items.append(url)
         }
         
@@ -51,7 +51,7 @@ class ShareActivityController: UIActivityViewController {
         var items = [Any]()
         items.append(textActivitySource)
         
-        if let url = article.url {
+        if let articleURL = article.url, let url = URL(string: "\(articleURL.absoluteString)?wprov=sfti1") {
             items.append(url)
         }
         
@@ -68,13 +68,12 @@ class ShareActivityController: UIActivityViewController {
         
         items.append(title)
         
-        //TODO: Is wprov param needed?
         if let image = image {
             param = "wprov=sfii1"
             items.append(image)
+        } else {
+            param = "wprov=sfti1"
         }
-        
-        param = "wprov=sfti1"
         
         if article.url != nil, let url = URL(string: "\(article.url.absoluteString)?\(param)") {
             items.append(url)

@@ -266,7 +266,7 @@
 #pragma mark - Sharing
 
 - (void)shareArticle:(NSURL *)url {
-    WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithUrl:url userDataStore:self.userDataStore context:self];
+    WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
