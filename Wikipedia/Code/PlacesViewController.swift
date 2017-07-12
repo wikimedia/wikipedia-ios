@@ -2862,7 +2862,6 @@ extension PlacesViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        listAndSearchOverlayContainerView.backgroundColor = theme.colors.baseBackground
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         
@@ -2872,6 +2871,7 @@ extension PlacesViewController: Themeable {
             textField.textColor = theme.colors.primaryText
         }
         
+        listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.isTranslucent = false
         listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
@@ -2879,6 +2879,7 @@ extension PlacesViewController: Themeable {
         }
         
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
