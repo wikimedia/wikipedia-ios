@@ -61,7 +61,7 @@ class WMFMenuItemFragment {
 
     var containerAnchor = document.createElement('a')
     containerAnchor.addEventListener('click', function(){
-      wmfMenuItem.clickHandler()
+      wmfMenuItem.clickHandler(wmfMenuItem.payload)
     }, false)
 
     item.appendChild(containerAnchor)
