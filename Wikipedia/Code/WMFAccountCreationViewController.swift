@@ -318,7 +318,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             field?.apply(theme: theme)
         }
         scrollContainer.backgroundColor = theme.colors.paperBackground
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         loginButton.apply(theme: theme)
         createAccountButton.apply(theme: theme)
