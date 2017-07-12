@@ -15,6 +15,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     private var isUserScrolling = false
     
+    fileprivate var theme: Theme = Theme.standard
+    
     public var userStore: MWKDataStore? {
         didSet {
             guard let newValue = userStore else {
@@ -81,8 +83,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
-
-        self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
         
         self.wmf_addBottomShadow(view: extendedNavBarView)
         
@@ -100,14 +100,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.wmf_updateNavigationBar(removeUnderline: false)
     }
     
-    private func settingsBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(didTapSettingsButton(_:)))
-    }
-    
-    public func didTapSettingsButton(_ sender: UIBarButtonItem) {
-        showSettings()
-    }
-    
     private func updateNavigationBar() {
         updateNavigationBar(newOffset: abs(extendNavBarViewTopSpaceConstraint.constant))
     }
@@ -123,14 +115,13 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - Actions
     
-    public func showSettings() {
-        let settingsContainer = UINavigationController(rootViewController: WMFSettingsViewController.init(dataStore: self.userStore))
-        present(settingsContainer, animated: true, completion: nil)
-    }
-    
     public func titleBarButtonPressed() {
-        self.collectionViewController.collectionView?.setContentOffset(CGPoint.zero, animated: true)
         self.showSearchBar(animated: true)
+        
+        guard let cv = self.collectionViewController.collectionView else {
+            return
+        }
+        cv.setContentOffset(CGPoint(x: 0, y: -cv.contentInset.top), animated: true)
     }
     
     // MARK: - WMFExploreCollectionViewControllerDelegate
@@ -267,6 +258,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
 extension ExploreViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {

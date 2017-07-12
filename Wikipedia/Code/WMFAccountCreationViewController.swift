@@ -1,12 +1,14 @@
 
 import UIKit
 
-class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
-    @IBOutlet fileprivate var usernameField: UITextField!
+class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable {
+    @IBOutlet fileprivate var usernameField: ThemeableTextField!
+    @IBOutlet fileprivate var passwordRepeatField: ThemeableTextField!
+    @IBOutlet fileprivate var emailField: ThemeableTextField!
+    @IBOutlet fileprivate var passwordField: ThemeableTextField!
+    
     @IBOutlet fileprivate var usernameAlertLabel: UILabel!
-    @IBOutlet fileprivate var passwordField: UITextField!
-    @IBOutlet fileprivate var passwordRepeatField: UITextField!
-    @IBOutlet fileprivate var emailField: UITextField!
+
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
@@ -18,9 +20,13 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
 
+    @IBOutlet fileprivate weak var scrollContainer: UIView!
+    
     let accountCreationInfoFetcher = WMFAuthAccountCreationInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
     let accountCreator = WMFAccountCreator()
+    
+    fileprivate var theme = Theme.standard
     
     public var funnel: CreateAccountFunnel?
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -49,11 +55,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel].forEach{$0.textColor = .wmf_authTitle}
-        usernameAlertLabel.textColor = .wmf_red
-        passwordRepeatAlertLabel.textColor = .wmf_yellow
-
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
 
         createAccountButton.setTitle(WMFLocalizedString("account-creation-create-account", value:"Create your account", comment:"Text for create account button"), for: .normal)
@@ -84,6 +86,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         captchaViewController?.captchaDelegate = self
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        
+        apply(theme: theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -239,7 +243,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
 
         guard passwordFieldsMatch() else {
-            self.passwordRepeatField.textColor = .wmf_yellow
+            self.passwordRepeatField.textColor = theme.colors.warning
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -253,10 +257,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         switch textField {
         case usernameField:
             usernameAlertLabel.isHidden = true
-            usernameField.textColor = .black
+            usernameField.textColor = theme.colors.primaryText
         case passwordRepeatField:
             passwordRepeatAlertLabel.isHidden = true
-            passwordRepeatField.textColor = .black
+            passwordRepeatField.textColor = theme.colors.primaryText
         default: break
         }
     }
@@ -273,7 +277,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 case .usernameUnavailable:
                     self.usernameAlertLabel.text = error.localizedDescription
                     self.usernameAlertLabel.isHidden = false
-                    self.usernameField.textColor = .wmf_red
+                    self.usernameField.textColor = self.theme.colors.error
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
@@ -294,5 +298,27 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     self.login()
                 }, failure: creationFailure)
             }, failure: creationFailure)
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        for label in [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
+            label?.textColor = theme.colors.secondaryText
+        }
+        usernameAlertLabel.textColor = theme.colors.error
+        passwordRepeatAlertLabel.textColor = theme.colors.warning
+        for field in [usernameField, passwordRepeatField, emailField, passwordField] {
+            field?.apply(theme: theme)
+        }
+        scrollContainer.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.baseBackground
+        view.tintColor = theme.colors.link
+        loginButton.apply(theme: theme)
+        createAccountButton.apply(theme: theme)
+        captchaContainer.backgroundColor = theme.colors.paperBackground
+        captchaViewController?.apply(theme: theme)
     }
 }

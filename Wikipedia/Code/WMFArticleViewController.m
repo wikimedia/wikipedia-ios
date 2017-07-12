@@ -160,6 +160,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
+@property (strong, nonatomic, nullable) WMFTheme *theme;
+
 @end
 
 @implementation WMFArticleViewController
@@ -176,6 +178,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
@@ -585,7 +588,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showLanguagePicker {
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
@@ -760,6 +763,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -864,7 +868,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 1;
+            self.webViewController.contentWidthPercentage = 0.91;
             break;
     }
 
@@ -1484,30 +1488,35 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
+- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController *)viewController {
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
+    [self presentViewController:navC animated:YES completion:nil];
+}
+
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    [articleListVC applyTheme:self.theme];
     articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
-    [self presentViewController:navController animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:articleListVC];
 }
 
 - (void)showEditHistory {
     PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
     editHistoryVC.article = self.article;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:editHistoryVC];
 }
 
 - (void)showLanguages {
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
     languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
 }
 
 - (void)showPageIssues {
     WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:issuesVC];
 }
 
 #pragma mark - Header Tap Gesture
@@ -1539,8 +1548,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
         sectionEditVC.section = section;
         sectionEditVC.delegate = self;
-        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:sectionEditVC];
-        [self presentViewController:nc animated:YES completion:NULL];
+        [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
@@ -1866,6 +1874,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;

@@ -25,6 +25,10 @@ extension URL {
         return (self as NSURL).wmf_URL(withFragment: fragment)
     }
     
+    public func wmf_URL(withPath path: String, isMobile: Bool) -> URL? {
+        return (self as NSURL).wmf_URL(withPath: path, isMobile: isMobile)
+    }
+    
     public var wmf_isNonStandardURL: Bool {
         return (self as NSURL).wmf_isNonStandardURL
     }

@@ -98,6 +98,18 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        [(UITableViewHeaderFooterView *)view wmf_applyTheme:self.theme];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        [(UITableViewHeaderFooterView *)view wmf_applyTheme:self.theme];
+    }
+}
+
 - (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticle *entry = [self objectAtIndexPath:indexPath];
     cell.titleText = entry.displayTitle;
