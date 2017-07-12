@@ -82,8 +82,8 @@ import WebKit
         let subtitle = self.localizedSubtitle(with: article)
         
         let itemSelectionHandler =
-        "function(){" +
-            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
+        "function(payload){" +
+            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(footerMenuJSTransformEnumString)', 'payload': payload});" +
         "}"
         
         return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
