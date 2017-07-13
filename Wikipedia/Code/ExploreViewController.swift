@@ -83,8 +83,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
-        
-        self.wmf_addBottomShadow(view: extendedNavBarView)
+    
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
     }
@@ -264,5 +263,6 @@ extension ExploreViewController: Themeable {
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
         }
+        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
     }
 }

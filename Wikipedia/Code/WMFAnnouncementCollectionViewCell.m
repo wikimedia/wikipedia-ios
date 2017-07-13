@@ -19,7 +19,7 @@
     [super awakeFromNib];
     self.captionTextView.delegate = self;
     self.captionTextView.linkTextAttributes = @{
-        NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLink],
+        NSForegroundColorAttributeName: [UIColor wmf_blue],
         NSUnderlineStyleAttributeName: @1
     };
     self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;

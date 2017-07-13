@@ -3,7 +3,7 @@ import UIKit
 extension UIViewController {
     
     // TODO: make a static func?
-    public func wmf_addBottomShadow(view: UIView) {
+    public func wmf_addBottomShadow(view: UIView, theme: Theme) { // theme is intentionally ignored for now
         // Setup extended navigation bar
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
   

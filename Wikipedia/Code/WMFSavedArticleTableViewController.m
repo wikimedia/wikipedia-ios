@@ -90,7 +90,7 @@
     deleteAction.backgroundColor = self.theme.colors.destructive;
     
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
-    shareAction.backgroundColor = self.theme.colors.secondaryLink;
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
     return @[deleteAction, shareAction];
 }
 

@@ -21,11 +21,11 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     }
 
     var barOddColor: CGColor{
-        return UIColor.wmf_color(withHex: 0x4A90E2, alpha: 1.0).cgColor
+        return UIColor(0x4A90E2).cgColor
     }
     
     var barEvenColor: CGColor{
-        return UIColor.wmf_color(withHex: 0x2A4B8D, alpha: 1.0).cgColor
+        return UIColor(0x2A4B8D).cgColor
     }
 
     lazy var bar1: WelcomeBarShapeLayer = {

@@ -135,7 +135,7 @@
     self.disclosureLabel.textColor = theme.colors.secondaryText;
     self.iconBackgroundColor = theme.colors.iconBackground;
     self.iconColor = theme.colors.icon;
-    self.disclosureIcon.tintColor = theme.colors.tertiaryText;
+    self.disclosureIcon.tintColor = theme.colors.secondaryText;
 }
 
 @end

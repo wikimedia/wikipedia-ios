@@ -15,7 +15,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .wmf_settingsBackground
     }
     
     override func viewWillAppear(_ animated: Bool) {

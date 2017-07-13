@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
+
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -624,6 +626,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (!self.theme) {
+        self.theme = WMFTheme.standard;
+    }
+    
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -644,13 +650,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackground];
-    self.webView.backgroundColor = [UIColor wmf_articleBackground];
-    self.view.backgroundColor = [UIColor wmf_articleBackground];
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
 
+    [self applyTheme:self.theme];
+    
     [self displayArticle];
 }
 
@@ -1081,6 +1085,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
     }
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+    self.webView.scrollView.backgroundColor = theme.colors.paperBackground;
+    self.webView.backgroundColor = theme.colors.paperBackground;
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

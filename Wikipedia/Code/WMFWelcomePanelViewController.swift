@@ -1,6 +1,7 @@
 
 class WMFWelcomePanelViewController: UIViewController {
-
+    fileprivate var theme = Theme.standard
+    
     @IBOutlet fileprivate var containerView:UIView!
     @IBOutlet fileprivate var nextButton:UIButton!
     @IBOutlet fileprivate var titleLabel:UILabel!
@@ -13,7 +14,7 @@ class WMFWelcomePanelViewController: UIViewController {
         super.viewDidLoad()
         embedContainerControllerView()
         updateUIStrings()
-        nextButton.setTitleColor(.wmf_blue, for: UIControlState())
+        nextButton.setTitleColor(theme.colors.link, for: UIControlState())
         containerView.layer.borderWidth = 1.0 / UIScreen.main.scale
         self.view.wmf_configureSubviewsForDynamicType()
     }

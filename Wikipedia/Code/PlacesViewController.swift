@@ -143,7 +143,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         searchFilterListController = PlaceSearchFilterListController(delegate: self)
@@ -155,7 +154,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         touchOutsideOverlayView.delegate = self
 
         // config filter drop down
-        wmf_addBottomShadow(view: filterDropDownContainerView)
+     
 
         navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -2375,7 +2374,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             CATransaction.commit()
         }
         saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
-        saveForLaterAction.backgroundColor = theme.colors.secondaryLink
+        saveForLaterAction.backgroundColor = theme.colors.secondaryAction
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
@@ -2876,6 +2875,8 @@ extension PlacesViewController: Themeable {
             textField.keyboardAppearance = theme.keyboardAppearance
         }
         
+        wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
+        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
         searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         
@@ -2883,14 +2884,14 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
+        listAndSearchOverlaySliderView.tintColor = theme.colors.secondaryText
         
         listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
         
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
-        emptySearchOverlayView.detailLabel.textColor = theme.colors.tertiaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
         
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)
