@@ -49,7 +49,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 return
         }
         dismiss(animated: true, completion: {
-            presenter.present(UINavigationController.init(rootViewController: loginVC), animated: true, completion: nil)
+            loginVC.apply(theme: self.theme)
+            presenter.present(ThemeableNavigationController(rootViewController: loginVC, theme: self.theme), animated: true, completion: nil)
         })
     }
     
@@ -71,11 +72,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
-        
-        usernameField.wmf_addThinBottomBorder()
-        passwordField.wmf_addThinBottomBorder()
-        passwordRepeatField.wmf_addThinBottomBorder()
-        emailField.wmf_addThinBottomBorder()
 
         loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button\n{{Identical|Log in}}"))
         
@@ -309,7 +305,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         guard viewIfLoaded != nil else {
             return
         }
-        for label in [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
+        
+        titleLabel.textColor = theme.colors.primaryText
+        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
             label?.textColor = theme.colors.secondaryText
         }
         usernameAlertLabel.textColor = theme.colors.error

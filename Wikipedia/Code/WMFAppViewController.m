@@ -1339,15 +1339,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Themeable
 
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
-    NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
-    NSMutableArray<UIToolbar *> *toolbars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    NSMutableSet<UINavigationBar *> *navigationBars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
+    NSMutableSet<UIToolbar *> *toolbars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
+
+    NSMutableSet<UINavigationController *> *foundNavigationControllers = [NSMutableSet setWithCapacity:1];
 
     for (UINavigationController *nc in navigationControllers) {
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
                 [(id<WMFThemeable>)vc applyTheme:theme];
             }
+            if ([vc.presentedViewController isKindOfClass:[UINavigationController class]]) {
+                [foundNavigationControllers addObject:(UINavigationController *)vc.presentedViewController];
+            }
         }
+
+        if ([nc.presentedViewController isKindOfClass:[UINavigationController class]]) {
+            [foundNavigationControllers addObject:(UINavigationController *)nc.presentedViewController];
+        }
+
         UIToolbar *toolbar = nc.toolbar;
         if (toolbar) {
             [toolbars addObject:toolbar];
@@ -1389,6 +1399,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+
+    if ([foundNavigationControllers count] > 0) {
+        [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
+    }
 }
 
 - (void)applyTheme:(WMFTheme *)theme {

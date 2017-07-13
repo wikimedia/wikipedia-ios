@@ -65,7 +65,7 @@
     _isPrimary = isPrimary;
     if (isPrimary) {
         self.primaryLabel.text = [WMFLocalizedStringWithDefaultValue(@"settings-primary-language", nil, nil, @"Primary", @"Label shown next to primary language\n{{Identical|Primary}}") uppercaseStringWithLocale:[NSLocale currentLocale]];
-        self.primaryLabelContainerView.backgroundColor = self.theme.colors.tertiaryText;
+        self.primaryLabelContainerView.backgroundColor = self.theme.colors.secondaryText;
     } else {
         self.primaryLabel.text = nil;
         self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
@@ -74,8 +74,8 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    self.localizedLanguageLabel.textColor = theme.colors.tertiaryText;
-    self.articleTitleLabel.textColor = theme.colors.tertiaryText;
+    self.localizedLanguageLabel.textColor = theme.colors.secondaryText;
+    self.articleTitleLabel.textColor = theme.colors.secondaryText;
     self.languageNameLabel.textColor = theme.colors.primaryText;
     self.primaryLabel.textColor = theme.colors.paperBackground;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;

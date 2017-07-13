@@ -82,7 +82,7 @@
 - (void)applyTheme:(WMFTheme *)theme {
     self.headerLabel.textColor = theme.colors.secondaryText;
     self.contentView.backgroundColor = theme.colors.baseBackground;
-    self.clearButton.tintColor = theme.colors.tertiaryText;
+    self.clearButton.tintColor = theme.colors.secondaryText;
 }
 
 @end
