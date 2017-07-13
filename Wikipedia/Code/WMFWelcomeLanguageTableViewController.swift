@@ -1,6 +1,8 @@
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewControllerDelegate, UITableViewDataSource {
     
+    fileprivate var theme = Theme.standard
+    
     @IBOutlet fileprivate var languageTableView:UITableView!
     @IBOutlet fileprivate var moreLanguagesButton:UIButton!;
 
@@ -9,7 +11,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         languageTableView.isEditing = true
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-button", value:"Add another language", comment:"Title for button for adding another language"), for: UIControlState())
-        moreLanguagesButton.setTitleColor(.wmf_blue, for: UIControlState())
+        moreLanguagesButton.setTitleColor(theme.colors.link, for: UIControlState())
         
         languageTableView.rowHeight = UITableViewAutomaticDimension
         languageTableView.estimatedRowHeight = 38

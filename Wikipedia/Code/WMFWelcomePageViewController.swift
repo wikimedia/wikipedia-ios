@@ -13,6 +13,8 @@ public protocol WMFWelcomeNavigationDelegate: class{
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
 
+    fileprivate var theme = Theme.standard
+    
     var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
@@ -76,7 +78,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     fileprivate func backgroundGradient() -> WMFGradientView {
         let gradient = WMFGradientView()
         gradient.gradientLayer.locations = [0, 1]
-        gradient.gradientLayer.colors =  [UIColor.wmf_green.cgColor, UIColor.wmf_blue.cgColor]
+        gradient.gradientLayer.colors =  [theme.colors.accent, theme.colors.link]
         gradient.gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         gradient.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
         gradient.isUserInteractionEnabled = false
