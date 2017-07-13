@@ -526,6 +526,263 @@ var FooterLegal = {
   add: add
 };
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/**
+ * @typedef {function} FooterMenuItemPayloadExtractor
+ * @param {!Document} document
+ * @return {!string[]} Important - should return empty array if no payload strings.
+ */
+
+/**
+  * @typedef {function} FooterMenuItemClickCallback
+  * @param  {!string[]} payload Important - should return empty array if no payload strings.
+  * @return {void}
+  */
+
+/**
+ * Extracts array of no-html page issues strings from document.
+ * @type {FooterMenuItemPayloadExtractor}
+ */
+var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
+  var tables = document.querySelectorAll('div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
+  // Get the tables into a fragment so we can remove some elements without triggering a layout
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < tables.length; i++) {
+    fragment.appendChild(tables[i].cloneNode(true));
+  }
+  // Remove some element so their text doesn't appear when we use "innerText"
+  Array.from(fragment.querySelectorAll('.hide-when-compact, .collapsed')).forEach(function (el) {
+    return el.remove();
+  });
+  // Get the innerText
+  return Array.from(fragment.querySelectorAll('td[class$=mbox-text]')).map(function (el) {
+    return el.innerText;
+  });
+};
+
+/**
+ * Extracts array of disambiguation page urls from document.
+ * @type {FooterMenuItemPayloadExtractor}
+ */
+var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
+  return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(function (el) {
+    return el.href;
+  });
+};
+
+/**
+ * Type representing kinds of menu items.
+ * @type {Object}
+ */
+var MenuItemType = {
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5
+};
+
+/**
+ * Menu item model.
+ */
+
+var WMFMenuItem = function () {
+  /**
+   * WMFMenuItem constructor.
+   * @param  {!string} title
+   * @param  {?string} subtitle
+   * @param  {!MenuItemType} itemType
+   * @param  {FooterMenuItemClickCallback} clickHandler
+   * @return {void}
+   */
+  function WMFMenuItem(title, subtitle, itemType, clickHandler) {
+    classCallCheck(this, WMFMenuItem);
+
+    this.title = title;
+    this.subtitle = subtitle;
+    this.itemType = itemType;
+    this.clickHandler = clickHandler;
+    this.payload = [];
+  }
+
+  /**
+   * Returns icon CSS class for this menu item based on its type.
+   * @return {!string}
+   */
+
+
+  createClass(WMFMenuItem, [{
+    key: 'iconClass',
+    value: function iconClass() {
+      switch (this.itemType) {
+        case MenuItemType.languages:
+          return 'footer_menu_icon_languages';
+        case MenuItemType.lastEdited:
+          return 'footer_menu_icon_last_edited';
+        case MenuItemType.pageIssues:
+          return 'footer_menu_icon_page_issues';
+        case MenuItemType.disambiguation:
+          return 'footer_menu_icon_disambiguation';
+        case MenuItemType.coordinate:
+          return 'footer_menu_icon_coordinate';
+        default:
+          return '';
+      }
+    }
+
+    /**
+     * Returns reference to function for extracting payload when this menu item is tapped.
+     * @return {FooterMenuItemPayloadExtractor}
+     */
+
+  }, {
+    key: 'payloadExtractor',
+    value: function payloadExtractor() {
+      switch (this.itemType) {
+        case MenuItemType.languages:
+          return null;
+        case MenuItemType.lastEdited:
+          return null;
+        case MenuItemType.pageIssues:
+          return pageIssuesStringsArray;
+        case MenuItemType.disambiguation:
+          return disambiguationTitlesArray;
+        case MenuItemType.coordinate:
+          return null;
+        default:
+          return null;
+      }
+    }
+  }]);
+  return WMFMenuItem;
+}();
+
+/**
+ * Menu item fragment model.
+ */
+
+
+var WMFMenuItemFragment =
+/**
+ * WMFMenuItemFragment constructor.
+ * @param {!WMFMenuItem} wmfMenuItem
+ * @param {!Document} document
+ * @return {!DocumentFragment}
+ */
+function WMFMenuItemFragment(wmfMenuItem, document) {
+  classCallCheck(this, WMFMenuItemFragment);
+
+  var item = document.createElement('div');
+  item.className = 'footer_menu_item';
+
+  var containerAnchor = document.createElement('a');
+  containerAnchor.addEventListener('click', function () {
+    wmfMenuItem.clickHandler(wmfMenuItem.payload);
+  }, false);
+
+  item.appendChild(containerAnchor);
+
+  if (wmfMenuItem.title) {
+    var title = document.createElement('div');
+    title.className = 'footer_menu_item_title';
+    title.innerText = wmfMenuItem.title;
+    containerAnchor.title = wmfMenuItem.title;
+    containerAnchor.appendChild(title);
+  }
+
+  if (wmfMenuItem.subtitle) {
+    var subtitle = document.createElement('div');
+    subtitle.className = 'footer_menu_item_subtitle';
+    subtitle.innerText = wmfMenuItem.subtitle;
+    containerAnchor.appendChild(subtitle);
+  }
+
+  var iconClass = wmfMenuItem.iconClass();
+  if (iconClass) {
+    item.classList.add(iconClass);
+  }
+
+  return document.createDocumentFragment().appendChild(item);
+};
+
+/**
+ * Adds a WMFMenuItem to a container.
+ * @param {!WMFMenuItem} wmfMenuItem
+ * @param {!string} containerID
+ * @param {!Document} document
+ */
+
+
+var addItem = function addItem(wmfMenuItem, containerID, document) {
+  var fragment = new WMFMenuItemFragment(wmfMenuItem, document);
+  document.getElementById(containerID).appendChild(fragment);
+};
+
+/**
+ * Conditionally adds a WMFMenuItem to a container.
+ * @param  {!string} title
+ * @param  {!string} subtitle
+ * @param  {!MenuItemType} itemType
+ * @param  {!string} containerID
+ * @param  {FooterMenuItemClickCallback} clickHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID, clickHandler, document) {
+  var item = new WMFMenuItem(title, subtitle, itemType, clickHandler);
+
+  // Items are not added if they have a payload extractor which fails to extract anything.
+  if (item.payloadExtractor() !== null) {
+    item.payload = item.payloadExtractor()(document);
+    if (item.payload.length === 0) {
+      return;
+    }
+  }
+
+  addItem(item, containerID, document);
+};
+
+/**
+ * Sets heading element string.
+ * @param {!string} headingString
+ * @param {!string} headingID
+ * @param {!Document} document
+ */
+var setHeading = function setHeading(headingString, headingID, document) {
+  var headingElement = document.getElementById(headingID);
+  headingElement.innerText = headingString;
+  headingElement.title = headingString;
+};
+
+var FooterMenu = {
+  MenuItemType: MenuItemType,
+  setHeading: setHeading,
+  maybeAddItem: maybeAddItem
+};
+
 // CSS classes used to identify and present converted images. An image is only a member of one class
 // at a time depending on the current transform state. These class names should match the classes in
 // LazyLoadTransform.css.
@@ -738,30 +995,6 @@ var convertImagesToPlaceholders = function convertImagesToPlaceholders(document,
 };
 
 var LazyLoadTransform = { loadImage: loadImage, queryLazyLoadableImages: queryLazyLoadableImages, convertImagesToPlaceholders: convertImagesToPlaceholders };
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
 
 /** Function rate limiter. */
 var Throttle = function () {
@@ -1231,6 +1464,7 @@ var pagelib$1 = {
   CollapseTable: CollapseTable,
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
+  FooterMenu: FooterMenu,
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
   RedLinks: RedLinks,
@@ -1256,7 +1490,7 @@ wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
 wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('./js/transforms/footerReadMore')
-wmf.footerMenu = require('./js/transforms/footerMenu')
+wmf.footerMenu = require('wikimedia-page-library').FooterMenu
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
@@ -1266,7 +1500,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":1}],3:[function(require,module,exports){
+},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerReadMore":9,"./js/transforms/relocateFirstParagraph":10,"./js/transforms/widenImages":11,"./js/utilities":12,"wikimedia-page-library":1}],3:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -1395,7 +1629,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":13,"wikimedia-page-library":1}],4:[function(require,module,exports){
+},{"./refs":6,"./utilities":12,"wikimedia-page-library":1}],4:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -1749,135 +1983,6 @@ function disableFilePageEdit( content ) {
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],9:[function(require,module,exports){
 
-function pageIssuesStringsArray() {
-  const tables = document.querySelectorAll( 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)' )
-  // Get the tables into a fragment so we can remove some elements without triggering a layout
-  var fragment = document.createDocumentFragment()
-  for (var i = 0; i < tables.length; i++) {
-    fragment.appendChild(tables[i].cloneNode(true))
-  }
-  // Remove some element so their text doesn't appear when we use "innerText"
-  Array.from(fragment.querySelectorAll( '.hide-when-compact, .collapsed' )).forEach(el => el.remove())
-  // Get the innerText
-  return Array.from(fragment.querySelectorAll( 'td[class$=mbox-text]' )).map(el => el.innerText)
-}
-
-function disambiguationTitlesArray() {
-  return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(el => el.href)
-}
-
-var MenuItemType = {
-  languages: 1,
-  lastEdited: 2,
-  pageIssues: 3,
-  disambiguation: 4,
-  coordinate: 5
-}
-
-class WMFMenuItem {
-  constructor(title, subtitle, itemType, clickHandler) {
-    this.title = title
-    this.subtitle = subtitle
-    this.itemType = itemType
-    this.clickHandler = clickHandler
-    this.payload = []
-  }
-  iconClass(){
-    switch(this.itemType){
-    case MenuItemType.languages:
-      return 'footer_menu_icon_languages'
-    case MenuItemType.lastEdited:
-      return 'footer_menu_icon_last_edited'
-    case MenuItemType.pageIssues:
-      return 'footer_menu_icon_page_issues'
-    case MenuItemType.disambiguation:
-      return 'footer_menu_icon_disambiguation'
-    case MenuItemType.coordinate:
-      return 'footer_menu_icon_coordinate'
-    }
-  }
-  payloadExtractor(){
-    switch(this.itemType){
-    case MenuItemType.languages:
-      return null
-    case MenuItemType.lastEdited:
-      return null
-    case MenuItemType.pageIssues:
-      return pageIssuesStringsArray
-    case MenuItemType.disambiguation:
-      return disambiguationTitlesArray
-    case MenuItemType.coordinate:
-      return null
-    }
-  }
-}
-
-class WMFMenuItemFragment {
-  constructor(wmfMenuItem) {
-    var item = document.createElement('div')
-    item.className = 'footer_menu_item'
-
-    var containerAnchor = document.createElement('a')
-    containerAnchor.addEventListener('click', function(){
-      wmfMenuItem.clickHandler(wmfMenuItem.payload)
-    }, false)
-
-    item.appendChild(containerAnchor)
-
-    if(wmfMenuItem.title){
-      var title = document.createElement('div')
-      title.className = 'footer_menu_item_title'
-      title.innerText = wmfMenuItem.title
-      containerAnchor.title = wmfMenuItem.title
-      containerAnchor.appendChild(title)
-    }
-
-    if(wmfMenuItem.subtitle){
-      var subtitle = document.createElement('div')
-      subtitle.className = 'footer_menu_item_subtitle'
-      subtitle.innerText = wmfMenuItem.subtitle
-      containerAnchor.appendChild(subtitle)
-    }
-
-    var iconClass = wmfMenuItem.iconClass()
-    if(iconClass){
-      item.classList.add(iconClass)
-    }
-
-    return document.createDocumentFragment().appendChild(item)
-  }
-}
-
-function maybeAddItem(title, subtitle, itemType, containerID, clickHandler) {
-  const item = new WMFMenuItem(title, subtitle, itemType, clickHandler)
-
-  // Items are not added if they have a payload extractor which fails to extract anything.
-  if (item.payloadExtractor() !== null){
-    item.payload = item.payloadExtractor()()
-    if(item.payload.length === 0){
-      return
-    }
-  }
-
-  addItem(item, containerID)
-}
-
-function addItem(wmfMenuItem, containerID) {
-  const fragment = new WMFMenuItemFragment(wmfMenuItem)
-  document.getElementById(containerID).appendChild(fragment)
-}
-
-function setHeading(headingString, headingID) {
-  const headingElement = document.getElementById(headingID)
-  headingElement.innerText = headingString
-  headingElement.title = headingString
-}
-
-exports.MenuItemType = MenuItemType
-exports.setHeading = setHeading
-exports.maybeAddItem = maybeAddItem
-},{}],10:[function(require,module,exports){
-
 var _saveButtonClickHandler = null
 var _titlesShownHandler = null
 var _saveForLaterString = null
@@ -2089,7 +2194,7 @@ function setHeading(headingString, headingID) {
 exports.setHeading = setHeading
 exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 function moveFirstGoodParagraphUp( content ) {
     /*
@@ -2170,7 +2275,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -2187,7 +2292,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":1}],13:[function(require,module,exports){
+},{"wikimedia-page-library":1}],12:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -2229,4 +2334,4 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[2,3,4,5,6,7,8,9,10,11,12]);
