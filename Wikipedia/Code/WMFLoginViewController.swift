@@ -186,7 +186,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
             changePasswordVC?.apply(theme: self.theme)
-            let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            let navigationController = ThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -204,7 +204,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.password = self.passwordField!.text
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
-            let navigationController = UINavigationController.init(rootViewController: twoFactorViewController)
+            twoFactorViewController.apply(theme: self.theme)
+            let navigationController = ThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -219,7 +220,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC)
+            let navigationController = ThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme)
+            forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

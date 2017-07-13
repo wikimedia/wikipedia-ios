@@ -77,7 +77,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
     @IBAction func addLanguages(withSender sender: AnyObject) {
         let languagesVC = WMFLanguagesViewController.nonPreferred()
         languagesVC?.delegate = self
-        present(UINavigationController.init(rootViewController: languagesVC!), animated: true, completion: nil)
+        present(ThemeableNavigationController(rootViewController: languagesVC!, theme: Theme.standard), animated: true, completion: nil)
     }
     
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language:MWKLanguageLink){

@@ -311,7 +311,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         changePasswordVC.apply(theme: theme)
         dismiss(animated: true, completion: {
             changePasswordVC.userName = self.userName
-            let navigationController = UINavigationController.init(rootViewController: changePasswordVC)
+            let navigationController = ThemeableNavigationController(rootViewController: changePasswordVC, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
