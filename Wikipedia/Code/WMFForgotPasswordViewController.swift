@@ -121,9 +121,11 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         
-        let labels = [titleLabel, usernameTitleLabel, emailTitleLabel, orLabel]
+        titleLabel.textColor = theme.colors.primaryText
+        
+        let labels = [subTitleLabel, usernameTitleLabel, emailTitleLabel, orLabel]
         for label in labels {
-            label?.textColor = theme.colors.tertiaryText
+            label?.textColor = theme.colors.secondaryText
         }
         
         usernameField.apply(theme: theme, withBorder: true)

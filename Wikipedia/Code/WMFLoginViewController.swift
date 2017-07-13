@@ -298,15 +298,16 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
 
-        let labels = [titleLabel, usernameTitleLabel, passwordTitleLabel]
+        titleLabel.textColor = theme.colors.primaryText
+        
+        let labels = [usernameTitleLabel, passwordTitleLabel, passwordAlertLabel]
         for label in labels {
             label?.textColor = theme.colors.secondaryText
         }
+        
         usernameField.apply(theme: theme, withBorder: true)
         passwordField.apply(theme: theme, withBorder: true)
-        usernameTitleLabel.textColor = theme.colors.primaryText
-        passwordTitleLabel.textColor = theme.colors.primaryText
-        passwordAlertLabel.textColor = theme.colors.primaryText
+        
         titleLabel.textColor = theme.colors.primaryText
         forgotPasswordButton.textColor = theme.colors.link
         captchaContainer.backgroundColor = theme.colors.baseBackground

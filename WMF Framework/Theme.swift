@@ -18,8 +18,21 @@ public extension UIColor {
     }
 
     fileprivate static let base10 = UIColor(0x222222)
+    fileprivate static let base20 = UIColor(0x54595D)
+    fileprivate static let base30 = UIColor(0x72777D)
     fileprivate static let base70 = UIColor(0xC8CCD1)
+    fileprivate static let base80 = UIColor(0xEAECF0)
     fileprivate static let base90 = UIColor(0xF8F9FA)
+    fileprivate static let base100 = UIColor(0xFFFFFF)
+    
+    fileprivate static let red50 = UIColor(0xCC3333)
+    fileprivate static let yellow50 = UIColor(0xFFCC33)
+
+    
+    fileprivate static let green50 = UIColor(0x00AF89)
+    
+    fileprivate static let blue10 = UIColor(0x2A4B8D)
+    fileprivate static let blue50 = UIColor(0x3366CC)
     
     fileprivate static let mesophere = UIColor(0x43464A)
     fileprivate static let thermosphere = UIColor(0x2E3136)
@@ -31,7 +44,6 @@ public extension UIColor {
     fileprivate static let x555555 = UIColor(0x555555)
     
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
-    fileprivate static let yellow50 = UIColor(0xFFCC33)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
     
     public static let wmf_baseBackground = UIColor(0xEFEFF4)
@@ -74,10 +86,10 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .wmf_baseBackground, midBackground: .wmf_midBackground, paperBackground: .wmf_white, chromeBackground: .wmf_white, primaryText: .wmf_black, secondaryText: .wmf_midGray, tertiaryText: .battleshipGray, chromeText: .wmf_darkGray, link: .wmf_blue, accent: .wmf_green, border: .stratosphere , shadow: .base10, secondaryAction: .wmf_darkBlue, icon: nil, iconBackground: nil, destructive: .wmf_red, error: .wmf_red, warning: .wmf_yellow)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50)
 
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, primaryText: .base90, secondaryText: .base90, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .accent, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
     
     
     public let baseBackground: UIColor

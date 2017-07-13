@@ -304,7 +304,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         guard viewIfLoaded != nil else {
             return
         }
-        for label in [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
+        
+        titleLabel.textColor = theme.colors.primaryText
+        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
             label?.textColor = theme.colors.secondaryText
         }
         usernameAlertLabel.textColor = theme.colors.error
@@ -319,7 +321,5 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccountButton.apply(theme: theme)
         captchaContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
-        
-
     }
 }

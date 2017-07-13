@@ -334,9 +334,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             textField.apply(theme: theme, withBorder: false)
         }
         
-        let labels = [titleLabel, tokenLabel]
-        for label in labels {
-            label?.textColor = theme.colors.secondaryText
-        }
+        titleLabel.textColor = theme.colors.primaryText
+        tokenLabel.textColor = theme.colors.secondaryText
     }
 }
