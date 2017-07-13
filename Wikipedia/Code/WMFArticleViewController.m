@@ -811,7 +811,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    if ([self.presentedViewController isKindOfClass:[WMFFontSliderViewController class]]) {
+    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
     [self registerForPreviewingIfAvailable];
@@ -1290,7 +1290,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
 
-    WMFFontSliderViewController *vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
+    WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"WMFReadingThemesControlsViewController" bundle:nil];
     vc.preferredContentSize = vc.view.frame.size;
     vc.modalPresentationStyle = UIModalPresentationPopover;
     vc.delegate = self;
@@ -1310,7 +1310,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return UIModalPresentationNone;
 }
 
-- (void)sliderValueChangedInController:(WMFFontSliderViewController *)container value:(NSInteger)value {
+- (void)sliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
     NSArray *fontSizes = self.fontSizeMultipliers;
 
     if (value > fontSizes.count) {

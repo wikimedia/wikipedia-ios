@@ -2,10 +2,10 @@ import UIKit
 
 @objc public protocol WMFFontSliderViewControllerDelegate{
     
-    func sliderValueChangedInController(_ controller: WMFFontSliderViewController, value: Int)
+    func sliderValueChangedInController(_ controller: WMFReadingThemesControlsViewController, value: Int)
 }
 
-open class WMFFontSliderViewController: UIViewController {
+open class WMFReadingThemesControlsViewController: UIViewController {
 
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
