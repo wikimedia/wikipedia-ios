@@ -42,6 +42,7 @@
 #import "WMFCVLAttributes.h"
 #import "WMFCVLMetrics.h"
 #import "WMFSearchButton.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

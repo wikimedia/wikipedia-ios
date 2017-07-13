@@ -1294,6 +1294,11 @@
 		D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */; };
 		D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */; };
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
+		D84AFBCE1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */; };
+		D84AFBCF1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */; };
+		D84AFBD01F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */; };
+		D84AFBD11F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */; };
+		D84AFBD21F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */; };
 		D84B224D1DAFD0F7007C44AA /* WMFNotificationsController.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */; };
 		D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4259,6 +4264,8 @@
 		D8497F631EE09BE600100CBD /* CircledRankView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircledRankView.swift; path = Wikipedia/Code/CircledRankView.swift; sourceTree = SOURCE_ROOT; };
 		D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SizeThatFitsView.swift; path = Wikipedia/Code/SizeThatFitsView.swift; sourceTree = SOURCE_ROOT; };
 		D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankedArticleCollectionViewCell.swift; path = Wikipedia/Code/RankedArticleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		D84AFBCC1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCustomDeleteButtonTableViewCell.h; sourceTree = "<group>"; };
+		D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCustomDeleteButtonTableViewCell.m; sourceTree = "<group>"; };
 		D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
@@ -7411,6 +7418,8 @@
 				D82E95011F0FD308007BD960 /* ContainerTableViewCell.swift */,
 				D82E95071F0FD487007BD960 /* ArticleWithLocationTableViewCell.swift */,
 				D82E950D1F0FE473007BD960 /* ArticleListTableViewCell.swift */,
+				D84AFBCC1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.h */,
+				D84AFBCD1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -9735,6 +9744,7 @@
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */,
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
+				D84AFBCE1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D82014BE1E686B9C00BA8579 /* SSBaseDataSource.m in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0E804C11C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m in Sources */,
@@ -10073,6 +10083,7 @@
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D80ED3441EE57F4800CE8C50 /* WMFArticleNavigationController.m in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
+				D84AFBD21F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D80ED3461EE57F4800CE8C50 /* UITableView+DynamicCellHeight.m in Sources */,
 				D80ED3471EE57F4800CE8C50 /* ArticlePlace.swift in Sources */,
 				D80ED3481EE57F4800CE8C50 /* String?+WMFExtras.swift in Sources */,
@@ -10743,6 +10754,7 @@
 				D8A42B891E815A9C00D8E281 /* MapUtilities.swift in Sources */,
 				D84DAA1E1EEEF527008E4B18 /* TSBlurView.m in Sources */,
 				D8A42B8A1E815A9C00D8E281 /* WMFScrollable.swift in Sources */,
+				D84AFBD11F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
@@ -10982,6 +10994,7 @@
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8CE25AA1E698E2400DAE2E0 /* WMFArticleNavigationController.m in Sources */,
+				D84AFBCF1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
 				D8CE25AC1E698E2400DAE2E0 /* UITableView+DynamicCellHeight.m in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
@@ -11320,6 +11333,7 @@
 				D8EC3E9D1E9BDA35006712EB /* WMFBorderButton.m in Sources */,
 				D8EC3E9E1E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8EC3EA01E9BDA35006712EB /* SSBaseDataSource.m in Sources */,
+				D84AFBD01F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				D8EC3EA21E9BDA35006712EB /* MWKLicense+ToGlyph.m in Sources */,
 				D8EC3EA31E9BDA35006712EB /* PreviewWebViewContainer.m in Sources */,

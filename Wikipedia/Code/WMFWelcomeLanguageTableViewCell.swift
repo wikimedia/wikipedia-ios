@@ -1,5 +1,5 @@
 
-class WMFWelcomeLanguageTableViewCell: UITableViewCell {
+class WMFWelcomeLanguageTableViewCell: WMFCustomDeleteButtonTableViewCell {
     @IBOutlet var languageNameLabel:UILabel!
     var languageName: String? {
         set (newLanguageName){
@@ -9,6 +9,7 @@ class WMFWelcomeLanguageTableViewCell: UITableViewCell {
             return languageNameLabel.text
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         languageNameLabel.wmf_configureSubviewsForDynamicType()
