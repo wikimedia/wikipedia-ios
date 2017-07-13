@@ -136,7 +136,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             break
         default:
             //Add shadow to the presented view
-            self.presentedView?.layer.shadowOpacity = 0.5
+            self.presentedView?.layer.shadowOpacity = 0.8
+            self.presentedView?.layer.shadowColor = self.theme.colors.shadow.cgColor
             self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
             self.presentedView?.clipsToBounds = false
             self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())

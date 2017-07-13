@@ -143,7 +143,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         searchFilterListController = PlaceSearchFilterListController(delegate: self)
@@ -155,7 +154,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         touchOutsideOverlayView.delegate = self
 
         // config filter drop down
-        wmf_addBottomShadow(view: filterDropDownContainerView)
+     
 
         navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -2876,6 +2875,8 @@ extension PlacesViewController: Themeable {
             textField.keyboardAppearance = theme.keyboardAppearance
         }
         
+        wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
+        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
         searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         

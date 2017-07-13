@@ -205,7 +205,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         selectedBackgroundView?.layer.cornerRadius = 5
         selectedBackgroundView?.layer.masksToBounds = true
         layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.5
+        layer.shadowOpacity = 0.8
         layer.shadowRadius = 2
         layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
