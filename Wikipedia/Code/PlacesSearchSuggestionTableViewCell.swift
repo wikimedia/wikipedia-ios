@@ -18,7 +18,7 @@ extension PlacesSearchSuggestionTableViewCell: Themeable {
         backgroundView?.backgroundColor = theme.colors.paperBackground
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        detailLabel.textColor = theme.colors.tertiaryText
-        iconImageView.tintColor = theme.colors.tertiaryText
+        detailLabel.textColor = theme.colors.secondaryText
+        iconImageView.tintColor = theme.colors.secondaryText
     }
 }

@@ -2883,14 +2883,14 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
+        listAndSearchOverlaySliderView.tintColor = theme.colors.secondaryText
         
         listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
         
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
-        emptySearchOverlayView.detailLabel.textColor = theme.colors.tertiaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
         
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)

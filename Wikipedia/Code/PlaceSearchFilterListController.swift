@@ -77,7 +77,7 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
             } else {
                 myCell.subtitleLabel.text = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
                 myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-saved")
-                myCell.iconImageView?.tintColor = theme.colors.tertiaryText
+                myCell.iconImageView?.tintColor = theme.colors.secondaryText
             }
         }
     }

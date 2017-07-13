@@ -130,7 +130,7 @@
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_subtitle],
-                                               NSForegroundColorAttributeName: self.theme.colors.tertiaryText,
+                                               NSForegroundColorAttributeName: self.theme.colors.secondaryText,
                                                NSParagraphStyleAttributeName: paragraphStyle
                                            }];
 }

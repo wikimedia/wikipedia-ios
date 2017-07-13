@@ -11,6 +11,6 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        label.textColor = theme.colors.tertiaryText
+        label.textColor = theme.colors.secondaryText
     }
 }

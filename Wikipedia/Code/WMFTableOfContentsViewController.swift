@@ -283,7 +283,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
             header?.backgroundColor = tableView.backgroundColor
             header?.semanticContentAttribute = semanticContentAttributeOverride
             header?.contentsLabel.semanticContentAttribute = semanticContentAttributeOverride
-            header?.contentsLabel.textColor = theme.colors.tertiaryText
+            header?.contentsLabel.textColor = theme.colors.secondaryText
             return header
         } else {
             return nil
