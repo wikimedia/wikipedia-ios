@@ -1,28 +1,25 @@
 
 import UIKit
 
-class WMFForgotPasswordViewController: WMFScrollViewController {
+class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
 
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var usernameField: UITextField!
-    @IBOutlet fileprivate var emailField: UITextField!
+    @IBOutlet fileprivate var usernameField: ThemeableTextField!
+    @IBOutlet fileprivate var emailField: ThemeableTextField!
     @IBOutlet fileprivate var usernameTitleLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
     @IBOutlet fileprivate var orLabel: UILabel!
 
     @IBOutlet fileprivate var resetPasswordButton: WMFAuthButton!
 
+    fileprivate var theme = Theme.standard
+    
     let tokenFetcher = WMFAuthTokenFetcher()
     let passwordResetter = WMFPasswordResetter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let labels = [titleLabel, usernameTitleLabel, emailTitleLabel, orLabel]
-        for label in labels {
-            label?.textColor = .wmf_authTitle
-        }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
     
@@ -35,10 +32,9 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
         resetPasswordButton.setTitle(WMFLocalizedString("forgot-password-button-title", value:"Reset", comment:"Title for reset password button\n{{Identical|Reset}}"), for: .normal)
         orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}")
         
-        usernameField.wmf_addThinBottomBorder()
-        emailField.wmf_addThinBottomBorder()
-        
         view.wmf_configureSubviewsForDynamicType()
+        
+        apply(theme: theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,5 +110,25 @@ class WMFForgotPasswordViewController: WMFScrollViewController {
                     WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }, failure:failure)
         }, failure:failure)
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        view.backgroundColor = theme.colors.paperBackground
+        view.tintColor = theme.colors.link
+        
+        let labels = [titleLabel, usernameTitleLabel, emailTitleLabel, orLabel]
+        for label in labels {
+            label?.textColor = theme.colors.tertiaryText
+        }
+        
+        usernameField.apply(theme: theme, withBorder: true)
+        emailField.apply(theme: theme, withBorder: true)
+        
+        resetPasswordButton.apply(theme: theme)
     }
 }

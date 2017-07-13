@@ -1,7 +1,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WebViewController+WMFReferencePopover.h"
-#import <WMF/UIColor+WMFHexColor.h>
 #import "Wikipedia-Swift.h"
+@import WMF.Swift;
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
@@ -39,7 +39,7 @@
 
     [self.widthConstraint setConstant:self.width];
 
-    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLink]};
+    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_blue]};
 
     [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
 
@@ -51,7 +51,7 @@
         [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
             attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
                        substitutionStrings:@[self.reference.text]
-                    substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
+                    substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_black]}]];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -90,7 +90,7 @@
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverText] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_black] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {

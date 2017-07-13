@@ -9,17 +9,19 @@ class WMFAuthButton: UIButton, Themeable {
         }
     }
     fileprivate func borderColor(forIsEnabled enabled:Bool) -> CGColor{
-        return enabled ? tintColor.cgColor : theme.colors.border.cgColor
+        return enabled ? tintColor.cgColor : theme.colors.midBackground.cgColor
     }
     override open func awakeFromNib() {
         super.awakeFromNib()
         layer.borderWidth = 1.0
         layer.cornerRadius = 5
-        layer.borderColor = borderColor(forIsEnabled: isEnabled)
+        apply(theme: self.theme)
     }
     
     func apply(theme: Theme) {
         self.theme = theme
+        setTitleColor(theme.colors.midBackground, for: .disabled)
+        layer.borderColor = borderColor(forIsEnabled: isEnabled)
         setNeedsDisplay()
     }
 }

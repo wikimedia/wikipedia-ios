@@ -50,9 +50,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         titleLabel.text = WMFLocalizedString("login-title", value:"Log in to your account", comment:"Title for log in interface")
         usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
-
-        usernameField.wmf_addThinBottomBorder()
-        passwordField.wmf_addThinBottomBorder()
     
         view.wmf_configureSubviewsForDynamicType()
         
@@ -188,6 +185,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: {
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
+            changePasswordVC?.apply(theme: self.theme)
             let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -304,8 +302,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         for label in labels {
             label?.textColor = theme.colors.secondaryText
         }
-        usernameField.apply(theme: theme)
-        passwordField.apply(theme: theme)
+        usernameField.apply(theme: theme, withBorder: true)
+        passwordField.apply(theme: theme, withBorder: true)
         usernameTitleLabel.textColor = theme.colors.primaryText
         passwordTitleLabel.textColor = theme.colors.primaryText
         passwordAlertLabel.textColor = theme.colors.primaryText

@@ -83,7 +83,7 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
     popoverVC.message = message;
     popoverVC.width = width;
 
-    popoverVC.view.backgroundColor = [UIColor wmf_barButtonItemPopoverMessageBackground];
+    popoverVC.view.backgroundColor = [UIColor wmf_white];
 
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
 

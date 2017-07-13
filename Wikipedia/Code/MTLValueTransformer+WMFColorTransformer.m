@@ -7,7 +7,7 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
         unsigned int hexValue;
         if ([value isKindOfClass:[NSString class]] && [value length] > 1 && [value hasPrefix:@"#"] && [[NSScanner scannerWithString:[value substringFromIndex:1]] scanHexInt:&hexValue]) {
-            return [UIColor wmf_colorWithHex:hexValue alpha:1.0];
+            return [[UIColor alloc] initWithHexInteger:hexValue];
         } else {
             WMFSafeAssign(success, NO);
             WMFSafeAssign(error, [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);

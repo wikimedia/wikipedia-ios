@@ -190,7 +190,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         captcha = nil
         captchaTextFieldTitleLabel.text = WMFLocalizedString("field-captcha-title", value:"Enter the text you see above", comment: "Title for captcha field")
         captchaTextField.placeholder = WMFLocalizedString("field-captcha-placeholder", value:"CAPTCHA text", comment: "Placeholder text shown inside captcha field until user taps on it")
-        captchaTextField.wmf_addThinBottomBorder()
         titleLabel.text = WMFLocalizedString("account-creation-captcha-title", value:"CAPTCHA security check", comment: "Title for account creation CAPTCHA interface")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
@@ -250,7 +249,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         
         subTitleLabel.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        captchaTextField.apply(theme: theme)
+        captchaTextField.apply(theme: theme, withBorder: true)
         view.tintColor = theme.colors.link
     }
 }

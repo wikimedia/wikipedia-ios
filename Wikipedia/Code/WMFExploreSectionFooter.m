@@ -12,7 +12,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.visibleBackgroundView.backgroundColor = [UIColor wmf_lightGrayCellBackground];
     self.clipsToBounds = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];

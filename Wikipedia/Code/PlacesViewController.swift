@@ -2375,7 +2375,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             CATransaction.commit()
         }
         saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
-        saveForLaterAction.backgroundColor = theme.colors.secondaryLink
+        saveForLaterAction.backgroundColor = theme.colors.secondaryAction
         
         let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
             tableView.setEditing(false, animated: true)

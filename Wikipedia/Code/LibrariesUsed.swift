@@ -1,3 +1,4 @@
+import WMF
 
 public struct LibraryUsed {
     let title:String

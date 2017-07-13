@@ -44,7 +44,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     double diameter = rect.size.width;
     double radius = diameter / 2.0f;
 
-    CGColorRef tickColor = [UIColor wmf_nearbyTick].CGColor;
+    CGColorRef tickColor = [UIColor wmf_green].CGColor;
     CGContextSetFillColorWithColor(ctx, tickColor);
     CGContextSetStrokeColorWithColor(ctx, tickColor);
 
@@ -57,7 +57,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
                                size:CGSizeMake(WMFCompassLineWidth / scale, compassLineLength)
                               count:WMFCompassLineCount];
 
-    CGColorRef arrowColor = [UIColor wmf_nearbyArrow].CGColor;
+    CGColorRef arrowColor = [UIColor wmf_green].CGColor;
     CGContextSetFillColorWithColor(ctx, arrowColor);
     CGContextSetStrokeColorWithColor(ctx, arrowColor);
 

@@ -1005,7 +1005,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:(WMFContentGroup *)group {
     footer.visibleBackgroundView.alpha = 1.0;
     footer.moreLabel.text = [group footerText];
-    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
     [footer applyTheme:self.theme];
 }
 
