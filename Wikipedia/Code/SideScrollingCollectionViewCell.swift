@@ -266,7 +266,7 @@ extension SideScrollingCollectionViewCell: Themeable {
         backgroundView?.backgroundColor = theme.colors.paperBackground
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        subTitleLabel.textColor = theme.colors.tertiaryText
+        subTitleLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.primaryText
         collectionView.backgroundColor = theme.colors.paperBackground
         descriptionLabel.textColor = theme.colors.primaryText
