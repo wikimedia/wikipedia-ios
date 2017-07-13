@@ -200,7 +200,7 @@
 		B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */; };
 		B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
-		B09B03F51CE0FB7700009083 /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
+		B09B03F51CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */; };
 		B09B03F61CE0FB7700009083 /* WMFReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* WMFReadingThemesControlsViewController.xib */; };
 		B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
 		B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
@@ -894,7 +894,7 @@
 		D80ED3A21EE57F4800CE8C50 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8035D1C0CD8580065EBC0 /* WMFImageInfoController.m */; };
 		D80ED3A41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
-		D80ED3A51EE57F4800CE8C50 /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
+		D80ED3A51EE57F4800CE8C50 /* WMFReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */; };
 		D80ED3A61EE57F4800CE8C50 /* WMFTableOfContentsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036E1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift */; };
 		D80ED3A71EE57F4800CE8C50 /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
 		D80ED3A81EE57F4800CE8C50 /* WMFWelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift */; };
@@ -1716,7 +1716,7 @@
 		D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8035D1C0CD8580065EBC0 /* WMFImageInfoController.m */; };
 		D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
-		D8A42B8E1E815A9C00D8E281 /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
+		D8A42B8E1E815A9C00D8E281 /* WMFReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */; };
 		D8A42B8F1E815A9C00D8E281 /* WMFTableOfContentsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036E1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift */; };
 		D8A42B901E815A9C00D8E281 /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
 		D8A42B911E815A9C00D8E281 /* WMFWelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift */; };
@@ -2115,7 +2115,7 @@
 		D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8035D1C0CD8580065EBC0 /* WMFImageInfoController.m */; };
 		D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
-		D8CE26111E698E2400DAE2E0 /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
+		D8CE26111E698E2400DAE2E0 /* WMFReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */; };
 		D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036E1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift */; };
 		D8CE26131E698E2400DAE2E0 /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
 		D8CE26141E698E2400DAE2E0 /* WMFWelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift */; };
@@ -2554,7 +2554,7 @@
 		D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8035D1C0CD8580065EBC0 /* WMFImageInfoController.m */; };
 		D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
-		D8EC3F101E9BDA35006712EB /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */; };
+		D8EC3F101E9BDA35006712EB /* WMFReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */; };
 		D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8036E1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift */; };
 		D8EC3F121E9BDA35006712EB /* WMFTitledExploreSectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1922754E1E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift */; };
 		D8EC3F131E9BDA35006712EB /* WMFWelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift */; };
@@ -3252,7 +3252,7 @@
 		B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPSessionManager+WMFCancelAll.h"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFCancelAll.h"; sourceTree = SOURCE_ROOT; };
 		B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+WMFCancelAll.m"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFCancelAll.m"; sourceTree = SOURCE_ROOT; };
 		B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PageHistoryFetcher.swift; path = Wikipedia/Code/PageHistoryFetcher.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFFontSliderContainer.swift; path = Wikipedia/Code/WMFFontSliderContainer.swift; sourceTree = SOURCE_ROOT; };
+		B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFReadingThemesControlsViewController.swift; path = Wikipedia/Code/WMFReadingThemesControlsViewController.swift; sourceTree = SOURCE_ROOT; };
 		B09B03F41CE0FB7700009083 /* WMFReadingThemesControlsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFReadingThemesControlsViewController.xib; path = Wikipedia/Code/WMFReadingThemesControlsViewController.xib; sourceTree = SOURCE_ROOT; };
 		B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFStoryboardUtilities.swift"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.swift"; sourceTree = SOURCE_ROOT; };
 		B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFWelcomeStoryboard.swift"; path = "Wikipedia/Code/UIViewController+WMFWelcomeStoryboard.swift"; sourceTree = SOURCE_ROOT; };
@@ -6098,7 +6098,7 @@
 		BAD738751F17A9AE003D14E8 /* Reading Themes Controls */ = {
 			isa = PBXGroup;
 			children = (
-				B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */,
+				B09B03F31CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift */,
 				B09B03F41CE0FB7700009083 /* WMFReadingThemesControlsViewController.xib */,
 			);
 			name = "Reading Themes Controls";
@@ -9856,7 +9856,7 @@
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
 				B0E8035E1C0CD8580065EBC0 /* WMFImageInfoController.m in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
-				B09B03F51CE0FB7700009083 /* WMFFontSliderContainer.swift in Sources */,
+				B09B03F51CE0FB7700009083 /* WMFReadingThemesControlsViewController.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				192275501E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				B0F7CB541C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
@@ -10194,7 +10194,7 @@
 				D80ED3A21EE57F4800CE8C50 /* WKWebView+ElementLocation.m in Sources */,
 				D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */,
 				D80ED3A41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
-				D80ED3A51EE57F4800CE8C50 /* WMFFontSliderContainer.swift in Sources */,
+				D80ED3A51EE57F4800CE8C50 /* WMFReadingThemesControlsViewController.swift in Sources */,
 				D80ED3A61EE57F4800CE8C50 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				D80ED3A71EE57F4800CE8C50 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				D80ED3A81EE57F4800CE8C50 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
@@ -10768,7 +10768,7 @@
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
-				D8A42B8E1E815A9C00D8E281 /* WMFFontSliderContainer.swift in Sources */,
+				D8A42B8E1E815A9C00D8E281 /* WMFReadingThemesControlsViewController.swift in Sources */,
 				D8A42B8F1E815A9C00D8E281 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				D8A42B901E815A9C00D8E281 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				D8A42B911E815A9C00D8E281 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
@@ -11107,7 +11107,7 @@
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
 				B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
-				D8CE26111E698E2400DAE2E0 /* WMFFontSliderContainer.swift in Sources */,
+				D8CE26111E698E2400DAE2E0 /* WMFReadingThemesControlsViewController.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				D8CE26131E698E2400DAE2E0 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				D8CE26141E698E2400DAE2E0 /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
@@ -11446,7 +11446,7 @@
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,
 				B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
-				D8EC3F101E9BDA35006712EB /* WMFFontSliderContainer.swift in Sources */,
+				D8EC3F101E9BDA35006712EB /* WMFReadingThemesControlsViewController.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */,
 				D8EC3F121E9BDA35006712EB /* WMFTitledExploreSectionFooter.swift in Sources */,
 				D8EC3F131E9BDA35006712EB /* WMFWelcomeAnimationShapeLayers.swift in Sources */,
