@@ -29,14 +29,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    
+
     self.backgroundView = [UIView new];
     self.selectedBackgroundView = [UIView new];
-    
+
     self.articleImageView.layer.cornerRadius = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
@@ -192,10 +192,10 @@
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.titleLabel.textColor = theme.colors.primaryText;
-    self.distanceLabel.textColor = theme.colors.tertiaryText;
+    self.distanceLabel.textColor = theme.colors.secondaryText;
     self.articleImageView.layer.borderColor = theme.colors.midBackground.CGColor;
     self.articleImageView.backgroundColor = theme.colors.midBackground;
-    self.distanceLabelBackground.layer.borderColor = theme.colors.tertiaryText.CGColor;
+    self.distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.CGColor;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
 }
