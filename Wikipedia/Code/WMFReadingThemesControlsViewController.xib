@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
+                <outlet property="darkThemeButton" destination="EWG-tp-jny" id="n6D-j6-BXG"/>
+                <outlet property="defaultThemeButton" destination="qZ3-3K-fnR" id="GBT-f9-Czw"/>
+                <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="OOY-ns-B7N"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
             </connections>
@@ -28,6 +32,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="aRN-lG-3zD"/>
                     </constraints>
+                    <connections>
+                        <action selector="brightnessSliderValueChanged:" destination="-1" eventType="valueChanged" id="bxg-il-yhC"/>
+                    </connections>
                 </slider>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
                     <rect key="frame" x="267" y="14" width="12" height="15"/>

@@ -6,10 +6,17 @@ import UIKit
 }
 
 open class WMFReadingThemesControlsViewController: UIViewController {
-
+    
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
+    
+    @IBOutlet weak var brightnessSlider: UISlider!
+    
+    @IBOutlet weak var defaultThemeButton: UIButton!
+    @IBOutlet weak var sepiaThemeButton: UIButton!
+    @IBOutlet weak var darkThemeButton: UIButton!
+    
     
     var visible = false
     
@@ -24,6 +31,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
                 self.currentValue = nil
             }
         }
+        
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -44,6 +52,11 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
+    }
+    
+    
+    @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
+        UIScreen.main.brightness = CGFloat(brightnessSlider.value)
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
