@@ -24,25 +24,18 @@ public extension UIColor {
     fileprivate static let base80 = UIColor(0xEAECF0)
     fileprivate static let base90 = UIColor(0xF8F9FA)
     fileprivate static let base100 = UIColor(0xFFFFFF)
-    
     fileprivate static let red50 = UIColor(0xCC3333)
     fileprivate static let yellow50 = UIColor(0xFFCC33)
-
-    
     fileprivate static let green50 = UIColor(0x00AF89)
-    
     fileprivate static let blue10 = UIColor(0x2A4B8D)
     fileprivate static let blue50 = UIColor(0x3366CC)
-    
     fileprivate static let mesophere = UIColor(0x43464A)
     fileprivate static let thermosphere = UIColor(0x2E3136)
     fileprivate static let stratosphere = UIColor(0x6699FF)
     fileprivate static let exosphere = UIColor(0x27292D)
     fileprivate static let accent = UIColor(0x00AF89)
-    
     fileprivate static let battleshipGray = UIColor(0x72777D)
     fileprivate static let x555555 = UIColor(0x555555)
-    
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
     
