@@ -211,7 +211,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="top" secondItem="8Qz-4P-2EZ" secondAttribute="top" constant="30" id="HNF-Zh-UpN"/>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="centerX" secondItem="8Qz-4P-2EZ" secondAttribute="centerX" id="QUh-Hg-lLt"/>
