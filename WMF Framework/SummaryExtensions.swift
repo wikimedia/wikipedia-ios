@@ -50,7 +50,7 @@ extension URLSession {
     }
     
     public func wmf_summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_title else {
+        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderScores else {
             return nil
         }
         let path = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", title])

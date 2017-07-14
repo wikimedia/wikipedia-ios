@@ -164,7 +164,7 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
     }
 
     self.headerContainer.backgroundColor = theme.colors.midBackground;
-    self.trashButton.tintColor = theme.colors.tertiaryText;
+    self.trashButton.tintColor = theme.colors.secondaryText;
     self.table.backgroundColor = theme.colors.midBackground;
     self.headingLabel.textColor = theme.colors.secondaryText;
 

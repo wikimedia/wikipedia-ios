@@ -7,7 +7,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.arrowColor = [UIColor wmf_barButtonItemPopoverMessageBackground];
+        self.arrowColor = [UIColor wmf_white];
     }
     return self;
 }

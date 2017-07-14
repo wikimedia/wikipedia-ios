@@ -9,6 +9,10 @@ extension URL {
         return (self as NSURL).wmf_title
     }
     
+    public var wmf_titleWithUnderScores: String? {
+        return (self as NSURL).wmf_titleWithUnderScores
+    }
+    
     public var wmf_articleDatabaseKey: String? {
         return (self as NSURL).wmf_articleDatabaseKey
     }

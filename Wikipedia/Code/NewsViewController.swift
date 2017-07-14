@@ -54,6 +54,7 @@ extension NewsViewController {
                 return view
             }
             header.label.text = headerTitle(for: indexPath.section)
+            header.apply(theme: theme)
             return header
         default:
             
