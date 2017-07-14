@@ -97,7 +97,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
-                                        WMFFontSliderViewControllerDelegate,
+                                        WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate>
@@ -1293,7 +1293,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] init];
     vc.preferredContentSize = vc.view.frame.size;
     vc.modalPresentationStyle = UIModalPresentationPopover;
-    vc.fontSliderDelegate = self;
+    vc.delegate = self;
     
     [vc setValuesWithSteps:fontSizes.count current:index];
 

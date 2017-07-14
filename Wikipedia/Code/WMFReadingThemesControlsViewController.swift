@@ -1,6 +1,6 @@
 import UIKit
 
-@objc public protocol WMFFontSliderViewControllerDelegate {
+@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
     
     func sliderValueChangedInController(_ controller: WMFReadingThemesControlsViewController, value: Int)
 }
@@ -22,7 +22,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     var visible = false
     
-    open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
+    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
-        if let delegate = self.fontSliderDelegate, visible {
+        if let delegate = self.delegate, visible {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }
     }
