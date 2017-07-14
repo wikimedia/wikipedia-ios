@@ -13,6 +13,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     fileprivate var theme = Theme.standard
     public func apply(theme: Theme) {
         self.theme = theme
+        self.presentationController?.apply(theme: theme)
     }
     
     var displaySide = WMFTableOfContentsDisplaySide.left
@@ -52,6 +53,9 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     }
     
     // MARK: - UIViewControllerTransitioningDelegate
+    
+    weak var presentationController: WMFTableOfContentsPresentationController?
+    
     open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard presented == self.presentedViewController else {
             return nil
@@ -60,6 +64,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         presentationController.apply(theme: theme)
         presentationController.displayMode = displayMode
         presentationController.displaySide = displaySide
+        self.presentationController = presentationController
         return presentationController
     }
     
