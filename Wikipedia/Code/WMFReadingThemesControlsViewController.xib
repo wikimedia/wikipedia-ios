@@ -26,8 +26,8 @@
             <rect key="frame" x="0.0" y="0.0" width="289" height="385"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
-                    <rect key="frame" x="13" y="17" width="12" height="15"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minimumBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
+                    <rect key="frame" x="13" y="17" width="15" height="15"/>
                 </imageView>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eFI-oH-KYO" userLabel="Brightness Slider">
                     <rect key="frame" x="12" y="21" width="265" height="45"/>
@@ -38,8 +38,8 @@
                         <action selector="brightnessSliderValueChanged:" destination="-1" eventType="valueChanged" id="bxg-il-yhC"/>
                     </connections>
                 </slider>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
-                    <rect key="frame" x="267" y="14" width="12" height="15"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maximumBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
+                    <rect key="frame" x="258" y="14" width="21" height="21"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsr-d6-D5m" userLabel="Separator 1">
                     <rect key="frame" x="0.0" y="89" width="289" height="2"/>
@@ -254,5 +254,7 @@
     <resources>
         <image name="T-large" width="12" height="15"/>
         <image name="T-small" width="12" height="15"/>
+        <image name="maximumBrightness" width="21" height="21"/>
+        <image name="minimumBrightness" width="15" height="15"/>
     </resources>
 </document>
