@@ -32,17 +32,12 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
 
     
     lazy var statusBarBackground: UIView = {
-        let view = UIView(frame: CGRect(x: self.containerView!.bounds.minX, y: self.containerView!.bounds.minY, width: self.containerView!.bounds.width, height: self.statusBarEstimatedHeight))
+        let view = UIView(frame: CGRect.zero)
         view.autoresizingMask = .flexibleWidth
-        self.statusBarBackgroundBottomBorder.frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: 0.5)
-        view.addSubview(self.statusBarBackgroundBottomBorder)
+        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOffset = CGSize(width: 0, height: 5)
+        view.clipsToBounds = false
         return view
-    }()
-    
-    lazy var statusBarBackgroundBottomBorder: UIView = {
-        let statusBarBackgroundBottomBorder = UIView(frame: .zero)
-        statusBarBackgroundBottomBorder.autoresizingMask = .flexibleWidth
-        return statusBarBackgroundBottomBorder
     }()
     
     lazy var closeButton:UIButton = {
@@ -107,11 +102,15 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
 
     // MARK: - UIPresentationController
     override open func presentationTransitionWillBegin() {
-        apply(theme: self.theme)
+        guard let containerView = self.containerView, let presentedView = self.presentedView else {
+            return
+        }
         
         // Add the dimming view and the presented view to the heirarchy
-        self.backgroundView.frame = self.containerView!.bounds
-        self.containerView!.addSubview(self.backgroundView)
+        self.backgroundView.frame = containerView.bounds
+        self.statusBarBackground.frame = CGRect(x: self.backgroundView.bounds.minX, y: self.backgroundView.bounds.minY, width: self.backgroundView.bounds.width, height: self.statusBarEstimatedHeight)
+
+        containerView.addSubview(self.backgroundView)
         
         if(self.traitCollection.verticalSizeClass == .compact){
             self.statusBarBackground.isHidden = true
@@ -119,30 +118,12 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         
         updateButtonConstraints()
 
-        self.containerView!.addSubview(self.presentedView!)
-        
+        containerView.addSubview(presentedView)
+
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
-        switch displaySide {
-        case .center:
-            self.presentedView?.layer.cornerRadius = 10
-            self.presentedView?.clipsToBounds = true
-            self.presentedView?.layer.borderColor = theme.colors.border.cgColor
-            self.presentedView?.layer.borderWidth = 1.0
-            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
-            self.closeButton.tintColor = theme.colors.link
-            self.statusBarBackground.isHidden = true
-            break
-        default:
-            //Add shadow to the presented view
-            self.presentedView?.layer.shadowOpacity = 0.8
-            self.presentedView?.layer.shadowColor = self.theme.colors.shadow.cgColor
-            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
-            self.presentedView?.clipsToBounds = false
-            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
-            self.statusBarBackground.isHidden = false
-        }
+        apply(theme: theme)
         
         // Fade in the dimming view alongside the transition
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
@@ -192,6 +173,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         }
         
         frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5;
+        frame.size.height -= frame.origin.y;
         
         switch displaySide {
         case .center:
@@ -250,9 +232,32 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         guard self.containerView != nil else {
             return
         }
+        
+        switch displaySide {
+        case .center:
+            self.presentedView?.layer.cornerRadius = 10
+            self.presentedView?.clipsToBounds = true
+            self.presentedView?.layer.borderColor = theme.colors.border.cgColor
+            self.presentedView?.layer.borderWidth = 1.0
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
+            self.closeButton.tintColor = theme.colors.link
+            self.statusBarBackground.isHidden = true
+            break
+        default:
+            //Add shadow to the presented view
+            self.presentedView?.layer.shadowOpacity = 0.8
+            self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
+            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
+            self.presentedView?.clipsToBounds = false
+            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
+            self.statusBarBackground.isHidden = false
+        }
+        
         self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)
-        self.statusBarBackgroundBottomBorder.backgroundColor = theme.colors.border
+        
         self.statusBarBackground.backgroundColor = theme.colors.paperBackground
+        self.statusBarBackground.layer.shadowColor = theme.colors.shadow.cgColor
+
         self.closeButton.tintColor = theme.colors.primaryText
     }
 }
