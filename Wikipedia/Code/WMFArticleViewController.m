@@ -98,7 +98,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
-                                        WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate>
@@ -1291,11 +1290,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
 
-    WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"WMFReadingThemesControlsViewController" bundle:nil];
+    WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] init];
     vc.preferredContentSize = vc.view.frame.size;
     vc.modalPresentationStyle = UIModalPresentationPopover;
     vc.fontSliderDelegate = self;
-
+    
     [vc setValuesWithSteps:fontSizes.count current:index];
 
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
@@ -1305,10 +1304,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
     [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (void)darkThemeButtonPressedInController:(WMFReadingThemesControlsViewController *)controller {
-    NSLog(@"darkThemeButtonPressedInController in ArticleViewController");
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {

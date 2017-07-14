@@ -37,6 +37,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
                 self.currentValue = nil
             }
         }
+        brightnessSlider.value = Float(UIScreen.main.brightness)
         
     }
     
@@ -72,7 +73,9 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
+        print("darkThemeButtonPressed in WMFReadingThemesControlsViewController")
         if let delegate = self.readingThemesControlsDelegate, visible {
+            print("win")
             delegate.darkThemeButtonPressedInController(self)
         }
     }
