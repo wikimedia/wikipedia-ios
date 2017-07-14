@@ -292,11 +292,12 @@
     return YES;
 }
 
-
 #pragma mark WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    
+    self.editTextView.backgroundColor = theme.colors.paperBackground;
+    self.editTextView.textColor = theme.colors.primaryText;
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end
