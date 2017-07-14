@@ -1,8 +1,13 @@
 import UIKit
 
-@objc public protocol WMFFontSliderViewControllerDelegate{
+@objc public protocol WMFFontSliderViewControllerDelegate {
     
     func sliderValueChangedInController(_ controller: WMFReadingThemesControlsViewController, value: Int)
+}
+
+@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
+    
+    func darkThemeButtonPressedInController(_ controller: WMFReadingThemesControlsViewController)
 }
 
 open class WMFReadingThemesControlsViewController: UIViewController {
@@ -20,7 +25,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     var visible = false
     
-    open weak var delegate: WMFFontSliderViewControllerDelegate?
+    open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,11 +61,11 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
-        UIScreen.main.brightness = CGFloat(brightnessSlider.value)
+        UIScreen.main.brightness = CGFloat(sender.value)
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
-        if let delegate = self.delegate, visible {
+        if let delegate = self.fontSliderDelegate, visible {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }
     }

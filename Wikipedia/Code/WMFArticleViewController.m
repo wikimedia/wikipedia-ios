@@ -1293,7 +1293,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"WMFReadingThemesControlsViewController" bundle:nil];
     vc.preferredContentSize = vc.view.frame.size;
     vc.modalPresentationStyle = UIModalPresentationPopover;
-    vc.delegate = self;
+    vc.fontSliderDelegate = self;
 
     [vc setValuesWithSteps:fontSizes.count current:index];
 
