@@ -9,6 +9,8 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     
+    fileprivate var theme = Theme.standard
+    
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
@@ -119,6 +121,20 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         removeBorderFrom(lightThemeButton)
         
         NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+    }
+    
+}
+
+// MARK: - Themeable
+
+extension WMFReadingThemesControlsViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        //TODO: apply colors when theme work is merged
     }
     
 }

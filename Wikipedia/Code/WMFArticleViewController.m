@@ -1294,6 +1294,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     vc.preferredContentSize = vc.view.frame.size;
     vc.modalPresentationStyle = UIModalPresentationPopover;
     vc.delegate = self;
+    [vc applyTheme:self.theme];
     
     [vc setValuesWithSteps:fontSizes.count current:index];
 
