@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
+@property (weak, nonatomic) IBOutlet UIView *previewLabelContainer;
 
 @property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
 @property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
@@ -191,7 +192,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    
+
     self.previewLicenseView.previewLicenseViewDelegate = self;
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
@@ -388,7 +389,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // any existing value (in case user taps "Other" again)
     summaryVC.summaryText = self.summaryText;
     summaryVC.previewVC = self;
-    [summaryVC applyTheme: self.theme];
+    [summaryVC applyTheme:self.theme];
     [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:summaryVC theme:self.theme] animated:YES completion:nil];
 }
 
@@ -706,16 +707,18 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
 
     [self.previewLicenseView applyTheme:theme];
-    
+
     self.scrollContainer.backgroundColor = theme.colors.paperBackground;
     self.editSummaryContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaContainer.backgroundColor = theme.colors.paperBackground;
     self.captchaScrollContainer.backgroundColor = theme.colors.paperBackground;
     self.previewWebViewContainer.webView.backgroundColor = theme.colors.paperBackground;
-    
-    self.previewLabel.backgroundColor = theme.colors.paperBackground;
+
+    self.previewLabel.backgroundColor = theme.colors.midBackground;
     self.previewLabel.textColor = theme.colors.secondaryText;
-    self.previewWebViewContainer.backgroundColor = theme.colors.paperBackground
+    self.previewLabelContainer.backgroundColor = theme.colors.midBackground;
+
+    self.previewWebViewContainer.backgroundColor = theme.colors.paperBackground;
 }
 
 @end
