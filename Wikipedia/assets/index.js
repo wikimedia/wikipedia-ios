@@ -668,17 +668,17 @@ var WMFMenuItem = function () {
     value: function payloadExtractor() {
       switch (this.itemType) {
         case MenuItemType.languages:
-          return null;
+          return undefined;
         case MenuItemType.lastEdited:
-          return null;
+          return undefined;
         case MenuItemType.pageIssues:
           return pageIssuesStringsArray;
         case MenuItemType.disambiguation:
           return disambiguationTitlesArray;
         case MenuItemType.coordinate:
-          return null;
+          return undefined;
         default:
-          return null;
+          return undefined;
       }
     }
   }]);
@@ -760,7 +760,7 @@ var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID,
   var item = new WMFMenuItem(title, subtitle, itemType, clickHandler);
 
   // Items are not added if they have a payload extractor which fails to extract anything.
-  if (item.payloadExtractor() !== null) {
+  if (item.payloadExtractor() !== undefined) {
     item.payload = item.payloadExtractor()(document);
     if (item.payload.length === 0) {
       return;
@@ -811,8 +811,8 @@ var FooterMenu = {
  * @return {void}
  */
 
-var _saveForLaterString = null;
-var _savedForLaterString = null;
+var _saveForLaterString = '';
+var _savedForLaterString = '';
 var _saveButtonIDPrefix = 'readmore:save:';
 
 /**
@@ -824,10 +824,10 @@ var _saveButtonIDPrefix = 'readmore:save:';
  */
 var safelyRemoveEnclosures = function safelyRemoveEnclosures(string, opener, closer) {
   var enclosureRegex = new RegExp('\\s?[' + opener + '][^' + opener + closer + ']+[' + closer + ']', 'g');
-  var previousString = null;
   var counter = 0;
   var safeMaxTries = 30;
   var stringToClean = string;
+  var previousString = '';
   do {
     previousString = stringToClean;
     stringToClean = stringToClean.replace(enclosureRegex, '');
@@ -915,11 +915,11 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
     innerDivContainer.appendChild(title);
   }
 
-  var description = null;
+  var description = void 0;
   if (wmfPage.terms) {
     description = wmfPage.terms.description[0];
   }
-  if ((description === null || description.length < 10) && wmfPage.extract) {
+  if ((description === undefined || description.length < 10) && wmfPage.extract) {
     description = cleanExtract(wmfPage.extract);
   }
   if (description) {
@@ -1046,7 +1046,7 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
   xhr.onerror = function (e) {
     fetchErrorHandler(xhr.statusText);
   };
-  xhr.send(null);
+  xhr.send();
 };
 
 /**
