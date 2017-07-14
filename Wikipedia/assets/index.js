@@ -29,6 +29,15 @@ var matchesSelector = function matchesSelector(el, selector) {
   return false;
 };
 
+/**
+ * @param {!Element} element
+ * @param {!string} selector
+ * @return {!Element[]}
+ */
+var querySelectorAll = function querySelectorAll(element, selector) {
+  return Array.prototype.slice.call(element.querySelectorAll(selector));
+};
+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
 // Required by Android API 16 AOSP Nexus S emulator.
 // eslint-disable-next-line no-undef
@@ -41,7 +50,7 @@ var CustomEvent = typeof window !== 'undefined' && window.CustomEvent || functio
   return event;
 };
 
-var Polyfill = { matchesSelector: matchesSelector, CustomEvent: CustomEvent };
+var Polyfill = { matchesSelector: matchesSelector, querySelectorAll: querySelectorAll, CustomEvent: CustomEvent };
 
 /**
  * Returns closest ancestor of element which matches selector.
@@ -433,16 +442,12 @@ var CollapseTable = {
 
 /**
  * Ensures the 'Read more' section header can always be scrolled to the top of the screen.
- * @param {!Document} document
  * @param {!Window} window
  * @return {void}
  */
-var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddingToAllowReadMoreToScrollToTop(document, window) {
-  var div = document.getElementById('pagelib_footer_container_ensure_can_scroll_to_top');
-  var currentPadding = parseInt(div.style.paddingBottom, 10);
-  if (isNaN(currentPadding)) {
-    currentPadding = 0;
-  }
+var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddingToAllowReadMoreToScrollToTop(window) {
+  var div = window.document.getElementById('pagelib_footer_container_ensure_can_scroll_to_top');
+  var currentPadding = parseInt(div.style.paddingBottom, 10) || 0;
   var height = div.clientHeight - currentPadding;
   var newPadding = Math.max(0, window.innerHeight - height);
   div.style.paddingBottom = newPadding + 'px';
@@ -456,13 +461,13 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(document, margin) {
-  var elements = document.querySelectorAll('\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
+  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
   Array.from(elements).forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
   });
   var rightOrLeft = document.querySelector('html').dir === 'rtl' ? 'right' : 'left';
-  Array.from(document.querySelectorAll('.pagelib_footer_menu_item')).forEach(function (element) {
+  Array.from(Polyfill.querySelectorAll(document, '.pagelib_footer_menu_item')).forEach(function (element) {
     element.style.backgroundPosition = rightOrLeft + ' ' + margin + 'px center';
     element.style.paddingLeft = margin + 'px';
     element.style.paddingRight = margin + 'px';
@@ -567,18 +572,18 @@ var createClass = function () {
  * @type {FooterMenuItemPayloadExtractor}
  */
 var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
-  var tables = document.querySelectorAll('div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
+  var tables = Polyfill.querySelectorAll(document, 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
   // Get the tables into a fragment so we can remove some elements without triggering a layout
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < tables.length; i++) {
     fragment.appendChild(tables[i].cloneNode(true));
   }
   // Remove some element so their text doesn't appear when we use "innerText"
-  Array.from(fragment.querySelectorAll('.hide-when-compact, .collapsed')).forEach(function (el) {
+  Array.from(Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed')).forEach(function (el) {
     return el.remove();
   });
   // Get the innerText
-  return Array.from(fragment.querySelectorAll('td[class$=mbox-text]')).map(function (el) {
+  return Array.from(Polyfill.querySelectorAll(fragment, 'td[class$=mbox-text]')).map(function (el) {
     return el.innerText;
   });
 };
@@ -588,7 +593,7 @@ var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
  * @type {FooterMenuItemPayloadExtractor}
  */
 var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
-  return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(function (el) {
+  return Array.from(Polyfill.querySelectorAll(document, 'div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(function (el) {
     return el.href;
   });
 };
