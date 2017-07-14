@@ -49,8 +49,6 @@
 
     self.pageHistoryDataArray = @[].mutableCopy;
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0, 10.0)];
-
     [self.tableView registerNib:[UINib nibWithNibName:@"PageHistoryResultPrototypeView" bundle:nil]
          forCellReuseIdentifier:TABLE_CELL_ID];
 
@@ -58,7 +56,7 @@
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 75;
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -181,7 +179,6 @@
     if (self.viewIfLoaded == nil) {
         return;
     }
-    self.tableView.tableFooterView.backgroundColor = theme.colors.paperBackground;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     [self.tableView reloadData];
 }
