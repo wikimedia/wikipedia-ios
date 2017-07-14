@@ -121,22 +121,22 @@
             self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = 6;
+            self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindRelatedPages:
             self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
-            self.dailySortPriority = 8;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            self.dailySortPriority = 8;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             self.dailySortPriority = 5;
             break;
         case WMFContentGroupKindRandom:
-            self.dailySortPriority = 7;
+            self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindFeaturedArticle:
             self.dailySortPriority = 2;

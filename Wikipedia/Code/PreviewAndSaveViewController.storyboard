@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -150,9 +150,11 @@
                         <outlet property="captchaScrollView" destination="w3I-Dk-osW" id="l8P-Gg-hc7"/>
                         <outlet property="editSummaryContainer" destination="S0n-wB-7Lg" id="Av3-yX-D59"/>
                         <outlet property="previewLabel" destination="LfM-01-aCF" id="bp1-cZ-ePP"/>
+                        <outlet property="previewLabelContainer" destination="Fdd-cK-gLF" id="25g-VM-kTn"/>
                         <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="AY6-fH-AiY"/>
                         <outlet property="previewWebViewContainer" destination="EhD-15-Yw7" id="aJa-95-1bI"/>
                         <outlet property="previewWebViewHeightConstraint" destination="B1F-i9-AK6" id="4Hg-QS-eBF"/>
+                        <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="EqT-xw-cDe"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
                     </connections>
                 </viewController>
