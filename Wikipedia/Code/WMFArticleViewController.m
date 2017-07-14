@@ -1310,7 +1310,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return UIModalPresentationNone;
 }
 
-- (void)sliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
+- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
     NSArray *fontSizes = self.fontSizeMultipliers;
 
     if (value > fontSizes.count) {

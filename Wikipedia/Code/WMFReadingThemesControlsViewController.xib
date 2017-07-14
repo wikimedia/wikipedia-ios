@@ -109,7 +109,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="changeThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="Iwk-hk-V6z"/>
+                                <action selector="standardThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="F6T-WK-jTb"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
@@ -133,7 +133,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="changeThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="qbw-mQ-bKA"/>
+                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="J0N-LK-iId"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">
@@ -157,7 +157,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="changeThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="xdu-tp-4oz"/>
+                                <action selector="darkThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="1Fa-H3-A16"/>
                             </connections>
                         </button>
                     </subviews>
