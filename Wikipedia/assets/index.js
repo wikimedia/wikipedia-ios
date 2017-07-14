@@ -783,6 +783,340 @@ var FooterMenu = {
   maybeAddItem: maybeAddItem
 };
 
+/**
+ * @typedef {function} SaveButtonClickHandler
+ * @param {!string} title
+ * @return {void}
+ */
+
+/**
+  * @typedef {function} TitlesShownHandler
+  * @param {!string[]} titles
+  * @return {void}
+  */
+
+/**
+   * Display fetched read more pages.
+   * @typedef {function} ShownReadMoreHandler
+   * @param {!Object[]} pages
+   * @param {!Document} document
+   * @param {!string} containerID
+   * @param {SaveButtonClickHandler} saveButtonClickHandler
+   * @param {TitlesShownHandler} titlesShownHandler
+   * @return {void}
+   */
+
+var _saveForLaterString = null;
+var _savedForLaterString = null;
+var _saveButtonIDPrefix = 'readmore:save:';
+
+/**
+ * Removes parenthetical enclosures from string. 
+ * @param {!string} string
+ * @param {!string} opener
+ * @param {!string} closer
+ * @return {!string}
+ */
+var safelyRemoveEnclosures = function safelyRemoveEnclosures(string, opener, closer) {
+  var enclosureRegex = new RegExp('\\s?[' + opener + '][^' + opener + closer + ']+[' + closer + ']', 'g');
+  var previousString = null;
+  var counter = 0;
+  var safeMaxTries = 30;
+  var stringToClean = string;
+  do {
+    previousString = stringToClean;
+    stringToClean = stringToClean.replace(enclosureRegex, '');
+    counter++;
+  } while (previousString !== stringToClean && counter < safeMaxTries);
+  return stringToClean;
+};
+
+/**
+ * Removes '(...)' and '/.../' parenthetical enclosures from string. 
+ * @param {!string} string
+ * @return {!string}
+ */
+var cleanExtract = function cleanExtract(string) {
+  var stringToClean = string;
+  stringToClean = safelyRemoveEnclosures(stringToClean, '(', ')');
+  stringToClean = safelyRemoveEnclosures(stringToClean, '/', '/');
+  return stringToClean;
+};
+
+/**
+ * Read more page model.
+ */
+
+var WMFPage =
+/**
+ * WMFPage constructor.
+ * @param {!string} title
+ * @param {?string} thumbnail
+ * @param {?Object} terms
+ * @param {?string} extract
+ * @return {void}
+ */
+function WMFPage(title, thumbnail, terms, extract) {
+  classCallCheck(this, WMFPage);
+
+  this.title = title;
+  this.thumbnail = thumbnail;
+  this.terms = terms;
+  this.extract = extract;
+};
+
+/**
+ * Read more page fragment model.
+ */
+
+
+var WMFPageFragment =
+/**
+ * WMFPageFragment constructor.
+ * @param {!WMFPage} wmfPage
+ * @param {!number} index
+ * @param {!Document} document
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @return {!DocumentFragment}
+ */
+function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
+  classCallCheck(this, WMFPageFragment);
+
+
+  var outerAnchorContainer = document.createElement('a');
+  outerAnchorContainer.id = index;
+  outerAnchorContainer.className = 'footer_readmore_page';
+
+  var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;
+  if (hasImage) {
+    var image = document.createElement('div');
+    image.style.backgroundImage = 'url(' + wmfPage.thumbnail.source + ')';
+    image.classList.add('footer_readmore_page_image');
+    outerAnchorContainer.appendChild(image);
+  }
+
+  var innerDivContainer = document.createElement('div');
+  innerDivContainer.classList.add('footer_readmore_page_container');
+  outerAnchorContainer.appendChild(innerDivContainer);
+  outerAnchorContainer.href = '/wiki/' + encodeURI(wmfPage.title);
+
+  if (wmfPage.title) {
+    var title = document.createElement('div');
+    title.id = index;
+    title.className = 'footer_readmore_page_title';
+    var displayTitle = wmfPage.title.replace(/_/g, ' ');
+    title.innerHTML = displayTitle;
+    outerAnchorContainer.title = displayTitle;
+    innerDivContainer.appendChild(title);
+  }
+
+  var description = null;
+  if (wmfPage.terms) {
+    description = wmfPage.terms.description[0];
+  }
+  if ((description === null || description.length < 10) && wmfPage.extract) {
+    description = cleanExtract(wmfPage.extract);
+  }
+  if (description) {
+    var descriptionEl = document.createElement('div');
+    descriptionEl.id = index;
+    descriptionEl.className = 'footer_readmore_page_description';
+    descriptionEl.innerHTML = description;
+    innerDivContainer.appendChild(descriptionEl);
+  }
+
+  var saveButton = document.createElement('div');
+  saveButton.id = '' + _saveButtonIDPrefix + encodeURI(wmfPage.title);
+  saveButton.innerText = _saveForLaterString;
+  saveButton.title = _saveForLaterString;
+  saveButton.className = 'footer_readmore_page_save';
+  saveButton.addEventListener('click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    saveButtonClickHandler(wmfPage.title);
+  }, false);
+  innerDivContainer.appendChild(saveButton);
+
+  return document.createDocumentFragment().appendChild(outerAnchorContainer);
+};
+
+/**
+ * @type {ShownReadMoreHandler}
+ */
+
+
+var showReadMore = function showReadMore(pages, document, containerID, saveButtonClickHandler, titlesShownHandler) {
+  var shownTitles = [];
+  var container = document.getElementById(containerID);
+  pages.forEach(function (page, index) {
+    var title = page.title.replace(/ /g, '_');
+    shownTitles.push(title);
+    var pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
+    var pageFragment = new WMFPageFragment(pageModel, index, document, saveButtonClickHandler);
+    container.appendChild(pageFragment);
+  });
+  titlesShownHandler(shownTitles);
+};
+
+/**
+ * Makes 'Read more' query parameters object for a title.
+ * @param {!string} title
+ * @param {!number} count
+ * @return {!Object}
+ */
+var queryParameters = function queryParameters(title, count) {
+  return {
+    action: 'query',
+    continue: '',
+    exchars: 256,
+    exintro: 1,
+    exlimit: count,
+    explaintext: '',
+    format: 'json',
+    generator: 'search',
+    gsrinfo: '',
+    gsrlimit: count,
+    gsrnamespace: 0,
+    gsroffset: 0,
+    gsrprop: 'redirecttitle',
+    gsrsearch: 'morelike:' + title,
+    gsrwhat: 'text',
+    ns: 'ppprop',
+    pilimit: count,
+    piprop: 'thumbnail',
+    pithumbsize: 120,
+    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
+    rrvlimit: 1,
+    rvprop: 'ids',
+    wbptterms: 'description',
+    formatversion: 2
+  };
+};
+
+/**
+ * Converts query parameter object to string.
+ * @param {!Object} parameters
+ * @return {!string}
+ */
+var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
+  return Object.keys(parameters).map(function (key) {
+    return encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]);
+  }).join('&');
+};
+
+/**
+ * URL for retrieving 'Read more' items for a given title.
+ * @param {!string} title
+ * @param {?string} baseURL
+ * @return {!sring}
+ */
+var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
+  var readMoreItemFetchCount = 3;
+  var readMoreQueryParameterString = stringFromQueryParameters(queryParameters(title, readMoreItemFetchCount));
+  var baseURLToUse = baseURL;
+  if (baseURLToUse === null) {
+    baseURLToUse = '';
+  }
+  return baseURLToUse + '/w/api.php?' + readMoreQueryParameterString;
+};
+
+/**
+ * Fetch error handler.
+ * @param {!string} statusText
+ * @return {void}
+ */
+var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(baseURL, title, showReadMoreHandler, containerID, saveButtonClickHandler, titlesShownHandler, document) {
+  var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+  xhr.open('GET', readMoreQueryURL(title, baseURL), true);
+  xhr.onload = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        showReadMoreHandler(JSON.parse(xhr.responseText).query.pages, document, containerID, saveButtonClickHandler, titlesShownHandler);
+      } else {
+        fetchErrorHandler(xhr.statusText);
+      }
+    }
+  };
+  xhr.onerror = function (e) {
+    fetchErrorHandler(xhr.statusText);
+  };
+  xhr.send(null);
+};
+
+/**
+ * Updates save button text for saved state.
+ * @param {!HTMLDivElement} button
+ * @param {!string} title
+ * @param {!Boolean} isSaved
+ * @return {void}
+ */
+var updateSaveButtonText = function updateSaveButtonText(button, title, isSaved) {
+  var text = isSaved ? _savedForLaterString : _saveForLaterString;
+  button.innerText = text;
+  button.title = text;
+};
+
+/**
+ * Updates save button bookmark icon for saved state.
+ * @param {!HTMLDivElement} button
+ * @param {!string} title
+ * @param {!Boolean} isSaved
+ * @return {void}
+ */
+var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, title, isSaved) {
+  button.classList.remove('footer_readmore_bookmark_unfilled');
+  button.classList.remove('footer_readmore_bookmark_filled');
+  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled');
+};
+
+/**
+ * Updates save button text and bookmark icon for saved state.
+ * @param {!string} title
+ * @param {!Boolean} isSaved
+ * @param {!Document} document
+ * @return {void}
+*/
+var setTitleIsSaved = function setTitleIsSaved(title, isSaved, document) {
+  var saveButton = document.getElementById('' + _saveButtonIDPrefix + title);
+  updateSaveButtonText(saveButton, title, isSaved);
+  updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
+};
+
+/**
+ * Adds 'Read more' to 'containerID' element.
+ * @param {!Document} document
+ * @param {?string} baseURL
+ * @param {!string} title
+ * @param {!string} saveForLaterString
+ * @param {!string} savedForLaterString
+ * @param {!string} containerID
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {TitlesShownHandler} titlesShownHandler
+ */
+var add$1 = function add(document, baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
+  _saveForLaterString = saveForLaterString;
+  _savedForLaterString = savedForLaterString;
+  fetchReadMore(baseURL, title, showReadMore, containerID, saveButtonClickHandler, titlesShownHandler, document);
+};
+
+/**
+ * Sets heading element string.
+ * @param {!string} headingString
+ * @param {!string} headingID
+ * @param {!Document} document
+ */
+var setHeading$1 = function setHeading(headingString, headingID, document) {
+  var headingElement = document.getElementById(headingID);
+  headingElement.innerText = headingString;
+  headingElement.title = headingString;
+};
+
+var FooterReadMore = {
+  setHeading: setHeading$1,
+  setTitleIsSaved: setTitleIsSaved,
+  add: add$1
+};
+
 // CSS classes used to identify and present converted images. An image is only a member of one class
 // at a time depending on the current transform state. These class names should match the classes in
 // LazyLoadTransform.css.
@@ -1465,6 +1799,7 @@ var pagelib$1 = {
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
+  FooterReadMore: FooterReadMore,
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
   RedLinks: RedLinks,
@@ -1489,7 +1824,7 @@ var wmf = {}
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
 wmf.findInPage = require('./js/findInPage')
-wmf.footerReadMore = require('./js/transforms/footerReadMore')
+wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
 wmf.footerMenu = require('wikimedia-page-library').FooterMenu
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
@@ -1500,7 +1835,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/footerReadMore":9,"./js/transforms/relocateFirstParagraph":10,"./js/transforms/widenImages":11,"./js/utilities":12,"wikimedia-page-library":1}],3:[function(require,module,exports){
+},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":1}],3:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -1629,7 +1964,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":12,"wikimedia-page-library":1}],4:[function(require,module,exports){
+},{"./refs":6,"./utilities":11,"wikimedia-page-library":1}],4:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -1983,219 +2318,6 @@ function disableFilePageEdit( content ) {
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],9:[function(require,module,exports){
 
-var _saveButtonClickHandler = null
-var _titlesShownHandler = null
-var _saveForLaterString = null
-var _savedForLaterString = null
-var _saveButtonIDPrefix = 'readmore:save:'
-var _readMoreContainer = null
-
-var shownTitles = []
-
-function safelyRemoveEnclosures(string, opener, closer) {
-  const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g')
-  var previousString = null
-  var counter = 0
-  const safeMaxTries = 30
-  do {
-    previousString = string
-    string = string.replace(enclosureRegex, '')
-    counter++
-  } while (previousString !== string && counter < safeMaxTries)
-  return string
-}
-
-function cleanExtract(string){
-  string = safelyRemoveEnclosures(string, '(', ')')
-  string = safelyRemoveEnclosures(string, '/', '/')
-  return string
-}
-
-class WMFPage {
-  constructor(title, thumbnail, terms, extract) {
-    this.title = title
-    this.thumbnail = thumbnail
-    this.terms = terms
-    this.extract = extract
-  }
-}
-
-class WMFPageFragment {
-  constructor(wmfPage, index) {
-
-    var outerAnchorContainer = document.createElement('a')
-    outerAnchorContainer.id = index
-    outerAnchorContainer.className = 'footer_readmore_page'
-
-    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
-    if(hasImage){
-      var image = document.createElement('div')
-      image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
-      image.classList.add('footer_readmore_page_image')
-      outerAnchorContainer.appendChild(image)
-    }
-
-    var innerDivContainer = document.createElement('div')
-    innerDivContainer.classList.add('footer_readmore_page_container')
-    outerAnchorContainer.appendChild(innerDivContainer)
-    outerAnchorContainer.href = `/wiki/${encodeURI(wmfPage.title)}`
-
-    if(wmfPage.title){
-      var title = document.createElement('div')
-      title.id = index
-      title.className = 'footer_readmore_page_title'
-      var displayTitle = wmfPage.title.replace(/_/g, ' ')
-      title.innerHTML = displayTitle
-      outerAnchorContainer.title = displayTitle
-      innerDivContainer.appendChild(title)
-    }
-
-    var description = null
-    if(wmfPage.terms){
-      description = wmfPage.terms.description[0]
-    }
-    if((description === null || description.length < 10) && wmfPage.extract){
-      description = cleanExtract(wmfPage.extract)
-    }
-    if(description){
-      var descriptionEl = document.createElement('div')
-      descriptionEl.id = index
-      descriptionEl.className = 'footer_readmore_page_description'
-      descriptionEl.innerHTML = description
-      innerDivContainer.appendChild(descriptionEl)
-    }
-
-    var saveButton = document.createElement('div')
-    saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`
-    saveButton.innerText = _saveForLaterString
-    saveButton.title = _saveForLaterString
-    saveButton.className = 'footer_readmore_page_save'
-    saveButton.addEventListener('click', function(event){
-      event.stopPropagation()
-      event.preventDefault()
-      _saveButtonClickHandler(wmfPage.title)
-    }, false)
-    innerDivContainer.appendChild(saveButton)
-
-    return document.createDocumentFragment().appendChild(outerAnchorContainer)
-  }
-}
-
-function showReadMore(pages){
-  shownTitles.length = 0
-
-  pages.forEach(function(page, index){
-
-    const title = page.title.replace(/ /g, '_')
-    shownTitles.push(title)
-
-    const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract)
-    const pageFragment = new WMFPageFragment(pageModel, index)
-    _readMoreContainer.appendChild(pageFragment)
-  })
-
-  _titlesShownHandler(shownTitles)
-}
-
-// Leave 'baseURL' null if you don't need to deal with proxying.
-function fetchReadMore(baseURL, title, showReadMoreHandler) {
-  var xhr = new XMLHttpRequest()
-  if (baseURL === null) {
-    baseURL = ''
-  }
-
-  const pageCountToFetch = 3
-  const params = {
-    action: 'query',
-    continue: '',
-    exchars: 256,
-    exintro: 1,
-    exlimit: pageCountToFetch,
-    explaintext: '',
-    format: 'json',
-    generator: 'search',
-    gsrinfo: '',
-    gsrlimit: pageCountToFetch,
-    gsrnamespace: 0,
-    gsroffset: 0,
-    gsrprop: 'redirecttitle',
-    gsrsearch: `morelike:${title}`,
-    gsrwhat: 'text',
-    ns: 'ppprop',
-    pilimit: pageCountToFetch,
-    piprop: 'thumbnail',
-    pithumbsize: 120,
-    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
-    rrvlimit: 1,
-    rvprop: 'ids',
-    wbptterms: 'description',
-    formatversion: 2
-  }
-
-  const paramsString = Object.keys(params)
-      .map(function(key){
-        return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
-      })
-      .join('&')
-
-  xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true)
-  xhr.onload = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        showReadMoreHandler(JSON.parse(xhr.responseText).query.pages)
-      } else {
-          // console.error(xhr.statusText);
-      }
-    }
-  }
-    /*
-    xhr.onerror = function(e) {
-      console.log(`${e}`);
-      // console.error(xhr.statusText);
-    }
-    */
-  xhr.send(null)
-}
-
-function updateSaveButtonText(button, title, isSaved){
-  const text = isSaved ? _savedForLaterString : _saveForLaterString
-  button.innerText = text
-  button.title = text
-}
-
-function updateSaveButtonBookmarkIcon(button, title, isSaved){
-  button.classList.remove('footer_readmore_bookmark_unfilled')
-  button.classList.remove('footer_readmore_bookmark_filled')
-  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled')
-}
-
-function setTitleIsSaved(title, isSaved){
-  const saveButton = document.getElementById(`${_saveButtonIDPrefix}${title}`)
-  updateSaveButtonText(saveButton, title, isSaved)
-  updateSaveButtonBookmarkIcon(saveButton, title, isSaved)
-}
-
-function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
-  _readMoreContainer = document.getElementById(containerID)
-  _saveButtonClickHandler = saveButtonClickHandler
-  _titlesShownHandler = titlesShownHandler
-  _saveForLaterString = saveForLaterString
-  _savedForLaterString = savedForLaterString
-
-  fetchReadMore(baseURL, title, showReadMore)
-}
-
-function setHeading(headingString, headingID) {
-  const headingElement = document.getElementById(headingID)
-  headingElement.innerText = headingString
-  headingElement.title = headingString
-}
-
-exports.setHeading = setHeading
-exports.setTitleIsSaved = setTitleIsSaved
-exports.add = add
-},{}],10:[function(require,module,exports){
-
 function moveFirstGoodParagraphUp( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
@@ -2275,7 +2397,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -2292,7 +2414,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":1}],12:[function(require,module,exports){
+},{"wikimedia-page-library":1}],11:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -2334,4 +2456,4 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[2,3,4,5,6,7,8,9,10,11]);

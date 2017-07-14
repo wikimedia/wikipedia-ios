@@ -171,7 +171,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
     NSString *title = [url.absoluteString.lastPathComponent wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     if (title) {
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@, document)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
 
