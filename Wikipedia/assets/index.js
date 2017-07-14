@@ -509,16 +509,16 @@ var FooterContainer = {
  * @param {?string} licenseString
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
- * @param {?FooterLegalClickCallback} licenceLinkClickHandler
+ * @param {?FooterLegalClickCallback} licenseLinkClickHandler
  */
-var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
+var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
   var container = content.querySelector('#' + containerID);
   var licenseStringHalves = licenseString.split('$1');
 
-  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_licence\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_licence_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
+  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
 
-  container.querySelector('.pagelib_footer_legal_licence_link').addEventListener('click', function () {
-    licenceLinkClickHandler();
+  container.querySelector('.pagelib_footer_legal_license_link').addEventListener('click', function () {
+    licenseLinkClickHandler();
   }, false);
 };
 
