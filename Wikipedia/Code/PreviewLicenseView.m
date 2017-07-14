@@ -13,6 +13,8 @@
 @property (nonatomic) BOOL hideTopDivider;
 @property (nonatomic) BOOL hideBottomDivider;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @end
 
 @implementation PreviewLicenseView
@@ -20,6 +22,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.hideTopDivider = YES;
         self.hideBottomDivider = YES;
     }
@@ -32,7 +35,7 @@
     self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0];
     self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0];
 
-    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-cc-by-sa-and-gdfl", nil, nil, @"By publishing changes, you agree to the %1$@and agree to release your contribution under the %2$@ and %3$@ license.", @"Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2");
+    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-cc-by-sa-and-gdfl", nil, nil, @"By publishing changes, you agree to the %1$@ and agree to release your contribution under the %2$@ and %3$@ license.", @"Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2");
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
@@ -68,18 +71,19 @@
 - (void)styleLinks:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName: label.textColor,
-           NSFontAttributeName: label.font
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
         };
 
     NSDictionary *linkAttributes =
         @{
-           //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName: [UIColor wmf_blue]
+            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+            NSForegroundColorAttributeName: self.theme.colors.link
         };
 
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
-                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle] substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
+                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle]
+                                               substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
 }
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {
@@ -91,14 +95,14 @@
 - (void)underlineSignIn:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName: label.textColor,
-           NSFontAttributeName: label.font
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
         };
 
     NSDictionary *substitutionAttributes =
         @{
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: [UIColor wmf_blue]
+            NSForegroundColorAttributeName: self.theme.colors.link
         };
 
     label.attributedText =
@@ -111,9 +115,15 @@
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
-                                               NSForegroundColorAttributeName: [UIColor wmf_blue],
+                                               NSForegroundColorAttributeName: self.theme.colors.link,
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];
 }
 
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.backgroundColor = theme.colors.paperBackground;
+}
 @end
