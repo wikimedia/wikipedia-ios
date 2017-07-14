@@ -562,10 +562,10 @@ var createClass = function () {
  */
 
 /**
-  * @typedef {function} FooterMenuItemClickCallback
-  * @param  {!string[]} payload Important - should return empty array if no payload strings.
-  * @return {void}
-  */
+ * @typedef {function} FooterMenuItemClickCallback
+ * @param {!string[]} payload Important - should return empty array if no payload strings.
+ * @return {void}
+ */
 
 /**
  * Extracts array of no-html page issues strings from document.
@@ -617,10 +617,10 @@ var MenuItemType = {
 var WMFMenuItem = function () {
   /**
    * WMFMenuItem constructor.
-   * @param  {!string} title
-   * @param  {?string} subtitle
-   * @param  {!MenuItemType} itemType
-   * @param  {FooterMenuItemClickCallback} clickHandler
+   * @param {!string} title
+   * @param {?string} subtitle
+   * @param {!MenuItemType} itemType
+   * @param {FooterMenuItemClickCallback} clickHandler
    * @return {void}
    */
   function WMFMenuItem(title, subtitle, itemType, clickHandler) {
@@ -748,11 +748,11 @@ var addItem = function addItem(wmfMenuItem, containerID, document) {
 
 /**
  * Conditionally adds a WMFMenuItem to a container.
- * @param  {!string} title
- * @param  {!string} subtitle
- * @param  {!MenuItemType} itemType
- * @param  {!string} containerID
- * @param  {FooterMenuItemClickCallback} clickHandler
+ * @param {!string} title
+ * @param {!string} subtitle
+ * @param {!MenuItemType} itemType
+ * @param {!string} containerID
+ * @param {FooterMenuItemClickCallback} clickHandler
  * @param {!Document} document
  * @return {void}
  */
@@ -795,21 +795,21 @@ var FooterMenu = {
  */
 
 /**
-  * @typedef {function} TitlesShownHandler
-  * @param {!string[]} titles
-  * @return {void}
-  */
+ * @typedef {function} TitlesShownHandler
+ * @param {!string[]} titles
+ * @return {void}
+ */
 
 /**
-   * Display fetched read more pages.
-   * @typedef {function} ShownReadMoreHandler
-   * @param {!Object[]} pages
-   * @param {!Document} document
-   * @param {!string} containerID
-   * @param {SaveButtonClickHandler} saveButtonClickHandler
-   * @param {TitlesShownHandler} titlesShownHandler
-   * @return {void}
-   */
+ * Display fetched read more pages.
+ * @typedef {function} ShownReadMoreHandler
+ * @param {!Object[]} pages
+ * @param {!Document} document
+ * @param {!string} containerID
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {TitlesShownHandler} titlesShownHandler
+ * @return {void}
+ */
 
 var _saveForLaterString = null;
 var _savedForLaterString = null;
@@ -1034,7 +1034,8 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
   xhr.open('GET', readMoreQueryURL(title, baseURL), true);
   xhr.onload = function () {
-    if (xhr.readyState === 4) {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      // eslint-disable-line no-undef
       if (xhr.status === 200) {
         showReadMoreHandler(JSON.parse(xhr.responseText).query.pages, document, containerID, saveButtonClickHandler, titlesShownHandler);
       } else {
