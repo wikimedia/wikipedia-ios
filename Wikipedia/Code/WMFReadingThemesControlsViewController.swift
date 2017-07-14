@@ -21,6 +21,8 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var lightThemeButton: UIButton!
     @IBOutlet weak var darkThemeButton: UIButton!
     
+    @IBOutlet weak var autoNightModeSwitch: UISwitch!
+    @IBOutlet weak var imageDimmingSwitch: UISwitch!
     
     var visible = false
     
@@ -37,8 +39,11 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        // TODO: Enable when theme is implemented
+        // TODO: Enable when implemented
         lightThemeButton.isEnabled = false
+        
+        autoNightModeSwitch.isEnabled = false
+        imageDimmingSwitch.isEnabled = false
     }
     
     func applyBorder(to button: UIButton) {

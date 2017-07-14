@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="autoNightModeSwitch" destination="i2a-zf-eRu" id="MQ6-c0-32U"/>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
+                <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
                 <outlet property="lightThemeButton" destination="x0K-vq-CgH" id="8Xb-ab-S29"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="standardThemeButton" destination="qZ3-3K-fnR" id="4lO-vW-NHS"/>
@@ -175,7 +177,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2a-zf-eRu">
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="i2a-zf-eRu">
                     <rect key="frame" x="228" y="292" width="51" height="31"/>
                 </switch>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1w-Qo-awL" userLabel="Separator 4">
