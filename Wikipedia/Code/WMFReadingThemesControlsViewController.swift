@@ -34,7 +34,8 @@ open class WMFReadingThemesControlsViewController: UIViewController {
             }
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
-
+        // TODO: Enable when theme is implemented
+        lightThemeButton.isEnabled = false
         
         
     }
