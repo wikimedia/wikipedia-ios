@@ -1504,13 +1504,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)changeTheme:(NSNotification *)note {
     NSLog(@"changeTheme in AppViewController");
 
-    WMFTheme *theme = self.theme;
-    if (theme == [WMFTheme standard]) {
-        theme = [WMFTheme dark];
-    } else {
-        theme = [WMFTheme light];
+    NSDictionary* userInfo = note.userInfo;
+    WMFTheme* theme = (WMFTheme*)userInfo[@"theme"];
+    
+    if (self.theme != theme) {
+        NSLog(@"changeTheme in AppViewController: asking for a different theme");
+        [self applyTheme:theme];
     }
-    [self applyTheme:theme];
 }
 
 #pragma mark - Perma Random Mode

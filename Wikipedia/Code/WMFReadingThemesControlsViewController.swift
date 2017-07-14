@@ -15,11 +15,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var brightnessSlider: UISlider!
     
-    @IBOutlet weak var defaultThemeButton: UIButton!
-    @IBOutlet weak var sepiaThemeButton: UIButton!
-    @IBOutlet weak var darkThemeButton: UIButton!
-    
-    
     var visible = false
     
     open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
@@ -68,10 +63,20 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
     }
     
-    @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: [Theme.dark])
+    @IBAction func changeThemeButtonPressed(_ sender: UIButton) {
+        var theme = [String: Theme]()
+        
+        switch sender.tag {
+        case 0:
+            theme["theme"] = Theme.standard
+        case 1:
+            theme["theme"] = Theme.light
+        case 2:
+            theme["theme"] = Theme.dark
+        default:
+            break
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
     }
-    
-    
 }
-
