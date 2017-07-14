@@ -1510,6 +1510,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme) {
         NSLog(@"changeTheme in AppViewController: asking for a different theme");
         [self applyTheme:theme];
+        
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:@"blurb"];
+        
+//        [[NSUserDefaults wmf_userDefaults] setObject:theme forKey:@"theme"];
+//        [[NSUserDefaults wmf_userDefaults] synchronize];
     }
 }
 
