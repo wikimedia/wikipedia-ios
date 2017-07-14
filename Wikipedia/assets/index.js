@@ -438,7 +438,7 @@ var CollapseTable = {
  * @return {void}
  */
 var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddingToAllowReadMoreToScrollToTop(document, window) {
-  var div = document.getElementById('footer_container_ensure_can_scroll_to_top');
+  var div = document.getElementById('pagelib_footer_container_ensure_can_scroll_to_top');
   var currentPadding = parseInt(div.style.paddingBottom, 10);
   if (isNaN(currentPadding)) {
     currentPadding = 0;
@@ -456,13 +456,13 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(document, margin) {
-  var elements = document.querySelectorAll('#footer_container_menu_heading, #footer_container_readmore, #footer_container_legal');
+  var elements = document.querySelectorAll('\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
   Array.from(elements).forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
   });
   var rightOrLeft = document.querySelector('html').dir === 'rtl' ? 'right' : 'left';
-  Array.from(document.querySelectorAll('.footer_menu_item')).forEach(function (element) {
+  Array.from(document.querySelectorAll('.pagelib_footer_menu_item')).forEach(function (element) {
     element.style.backgroundPosition = rightOrLeft + ' ' + margin + 'px center';
     element.style.paddingLeft = margin + 'px';
     element.style.paddingRight = margin + 'px';
@@ -478,7 +478,7 @@ var containerFragment = function containerFragment(document) {
   var containerDiv = document.createElement('div');
   var containerFragment = document.createDocumentFragment();
   containerFragment.appendChild(containerDiv);
-  containerDiv.innerHTML = '<div id=\'footer_container\' class=\'footer_container\'>\n    <div id=\'footer_container_section_0\'>\n      <div id=\'footer_container_menu\'>\n        <div id=\'footer_container_menu_heading\' class=\'footer_container_heading\'></div>\n        <div id=\'footer_container_menu_items\'></div>\n      </div>\n    </div>\n    <div id=\'footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'footer_container_section_1\'>\n        <div id=\'footer_container_readmore\'>\n          <div id=\'footer_container_readmore_heading\' class=\'footer_container_heading\'></div>\n          <div id=\'footer_container_readmore_pages\'></div>\n        </div>\n      </div>\n      <div id=\'footer_container_legal\'></div>\n    </div>\n  </div>';
+  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div \n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
   return containerFragment;
 };
 
@@ -488,7 +488,7 @@ var containerFragment = function containerFragment(document) {
  * @return {boolean}
  */
 var isContainerAttached = function isContainerAttached(document) {
-  return document.querySelector('#footer_container') !== null;
+  return document.querySelector('#pagelib_footer_container') !== null;
 };
 
 var FooterContainer = {
@@ -515,9 +515,9 @@ var add = function add(content, licenseString, licenseSubstitutionString, contai
   var container = content.querySelector('#' + containerID);
   var licenseStringHalves = licenseString.split('$1');
 
-  container.innerHTML = '<div class=\'footer_legal_contents\'>\n    <hr class=\'footer_legal_divider\'>\n    <span class=\'footer_legal_licence\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'footer_legal_licence_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
+  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_licence\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_licence_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
 
-  container.querySelector('.footer_legal_licence_link').addEventListener('click', function () {
+  container.querySelector('.pagelib_footer_legal_licence_link').addEventListener('click', function () {
     licenceLinkClickHandler();
   }, false);
 };
@@ -639,15 +639,15 @@ var WMFMenuItem = function () {
     value: function iconClass() {
       switch (this.itemType) {
         case MenuItemType.languages:
-          return 'footer_menu_icon_languages';
+          return 'pagelib_footer_menu_icon_languages';
         case MenuItemType.lastEdited:
-          return 'footer_menu_icon_last_edited';
+          return 'pagelib_footer_menu_icon_last_edited';
         case MenuItemType.pageIssues:
-          return 'footer_menu_icon_page_issues';
+          return 'pagelib_footer_menu_icon_page_issues';
         case MenuItemType.disambiguation:
-          return 'footer_menu_icon_disambiguation';
+          return 'pagelib_footer_menu_icon_disambiguation';
         case MenuItemType.coordinate:
-          return 'footer_menu_icon_coordinate';
+          return 'pagelib_footer_menu_icon_coordinate';
         default:
           return '';
       }
@@ -696,7 +696,7 @@ function WMFMenuItemFragment(wmfMenuItem, document) {
   classCallCheck(this, WMFMenuItemFragment);
 
   var item = document.createElement('div');
-  item.className = 'footer_menu_item';
+  item.className = 'pagelib_footer_menu_item';
 
   var containerAnchor = document.createElement('a');
   containerAnchor.addEventListener('click', function () {
@@ -707,7 +707,7 @@ function WMFMenuItemFragment(wmfMenuItem, document) {
 
   if (wmfMenuItem.title) {
     var title = document.createElement('div');
-    title.className = 'footer_menu_item_title';
+    title.className = 'pagelib_footer_menu_item_title';
     title.innerText = wmfMenuItem.title;
     containerAnchor.title = wmfMenuItem.title;
     containerAnchor.appendChild(title);
@@ -715,7 +715,7 @@ function WMFMenuItemFragment(wmfMenuItem, document) {
 
   if (wmfMenuItem.subtitle) {
     var subtitle = document.createElement('div');
-    subtitle.className = 'footer_menu_item_subtitle';
+    subtitle.className = 'pagelib_footer_menu_item_subtitle';
     subtitle.innerText = wmfMenuItem.subtitle;
     containerAnchor.appendChild(subtitle);
   }
@@ -885,25 +885,25 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
 
   var outerAnchorContainer = document.createElement('a');
   outerAnchorContainer.id = index;
-  outerAnchorContainer.className = 'footer_readmore_page';
+  outerAnchorContainer.className = 'pagelib_footer_readmore_page';
 
   var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;
   if (hasImage) {
     var image = document.createElement('div');
     image.style.backgroundImage = 'url(' + wmfPage.thumbnail.source + ')';
-    image.classList.add('footer_readmore_page_image');
+    image.classList.add('pagelib_footer_readmore_page_image');
     outerAnchorContainer.appendChild(image);
   }
 
   var innerDivContainer = document.createElement('div');
-  innerDivContainer.classList.add('footer_readmore_page_container');
+  innerDivContainer.classList.add('pagelib_footer_readmore_page_container');
   outerAnchorContainer.appendChild(innerDivContainer);
   outerAnchorContainer.href = '/wiki/' + encodeURI(wmfPage.title);
 
   if (wmfPage.title) {
     var title = document.createElement('div');
     title.id = index;
-    title.className = 'footer_readmore_page_title';
+    title.className = 'pagelib_footer_readmore_page_title';
     var displayTitle = wmfPage.title.replace(/_/g, ' ');
     title.innerHTML = displayTitle;
     outerAnchorContainer.title = displayTitle;
@@ -920,7 +920,7 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
   if (description) {
     var descriptionEl = document.createElement('div');
     descriptionEl.id = index;
-    descriptionEl.className = 'footer_readmore_page_description';
+    descriptionEl.className = 'pagelib_footer_readmore_page_description';
     descriptionEl.innerHTML = description;
     innerDivContainer.appendChild(descriptionEl);
   }
@@ -929,7 +929,7 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
   saveButton.id = '' + _saveButtonIDPrefix + encodeURI(wmfPage.title);
   saveButton.innerText = _saveForLaterString;
   saveButton.title = _saveForLaterString;
-  saveButton.className = 'footer_readmore_page_save';
+  saveButton.className = 'pagelib_footer_readmore_page_save';
   saveButton.addEventListener('click', function (event) {
     event.stopPropagation();
     event.preventDefault();
@@ -1064,9 +1064,11 @@ var updateSaveButtonText = function updateSaveButtonText(button, title, isSaved)
  * @return {void}
  */
 var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, title, isSaved) {
-  button.classList.remove('footer_readmore_bookmark_unfilled');
-  button.classList.remove('footer_readmore_bookmark_filled');
-  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled');
+  var unfilledClass = 'pagelib_footer_readmore_bookmark_unfilled';
+  var filledClass = 'pagelib_footer_readmore_bookmark_filled';
+  button.classList.remove(unfilledClass);
+  button.classList.remove(filledClass);
+  button.classList.add(isSaved ? filledClass : unfilledClass);
 };
 
 /**

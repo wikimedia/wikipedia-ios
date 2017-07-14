@@ -86,7 +86,7 @@ import WebKit
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'footer_container_menu_items', \(itemSelectionHandler), document);"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'pagelib_footer_container_menu_items', \(itemSelectionHandler), document);"
     }
 }
 
@@ -102,7 +102,7 @@ extension WKWebView {
     
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading', document);", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'pagelib_footer_container_menu_heading', document);", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -124,7 +124,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
@@ -139,7 +139,7 @@ extension WKWebView {
         evaluateJavaScript("window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(document, window)});", completionHandler: nil)
         
         let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading', document);", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'pagelib_footer_container_readmore_heading', document);", completionHandler: nil)
 
         let saveForLaterString = SaveButton.saveTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let savedForLaterString = SaveButton.savedTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
@@ -155,7 +155,7 @@ extension WKWebView {
             "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(document, window);" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add(document, '\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerReadMore.add(document, '\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'pagelib_footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
 }
