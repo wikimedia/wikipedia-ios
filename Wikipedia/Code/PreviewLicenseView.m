@@ -13,6 +13,8 @@
 @property (nonatomic) BOOL hideTopDivider;
 @property (nonatomic) BOOL hideBottomDivider;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @end
 
 @implementation PreviewLicenseView
@@ -20,6 +22,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.hideTopDivider = YES;
         self.hideBottomDivider = YES;
     }
@@ -75,7 +78,7 @@
     NSDictionary *linkAttributes =
         @{
            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName: [UIColor wmf_blue]
+           NSForegroundColorAttributeName: self.theme.colors.link
         };
 
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
@@ -98,7 +101,7 @@
     NSDictionary *substitutionAttributes =
         @{
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: [UIColor wmf_blue]
+            NSForegroundColorAttributeName: self.theme.colors.link
         };
 
     label.attributedText =
@@ -111,9 +114,18 @@
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
-                                               NSForegroundColorAttributeName: [UIColor wmf_blue],
+                                               NSForegroundColorAttributeName: self.theme.colors.link,
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];
 }
 
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.backgroundColor = theme.colors.paperBackground;
+    self.licenseTitleLabel.textColor = theme.colors.primaryText;
+    self.licenseLoginLabel.textColor = theme.colors.primaryText;
+    
+}
 @end
