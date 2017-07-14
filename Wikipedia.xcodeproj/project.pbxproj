@@ -14109,8 +14109,7 @@
 					"WMF_APP_EXTENSION=0",
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
-					"NS_BLOCK_ASSERTIONS=1,",
-					"WMF_TWEAKS_ENABLED=1",
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
