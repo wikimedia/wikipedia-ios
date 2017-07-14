@@ -92,7 +92,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
 
     
     func didTap(_ tap: UITapGestureRecognizer) {
-        self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
+        self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self)
     }
     
     // MARK: - Accessibility
@@ -164,7 +164,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     }
     
     override open var frameOfPresentedViewInContainerView : CGRect {
-        var frame = self.containerView!.bounds;
+        var frame = self.containerView!.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
         if(tocWidth > self.maximumTableOfContentsWidth){
@@ -172,8 +172,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             bgWidth = frame.size.width - tocWidth
         }
         
-        frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5;
-        frame.size.height -= frame.origin.y;
+        frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5
+        frame.size.height -= frame.origin.y
         
         switch displaySide {
         case .center:
@@ -211,13 +211,13 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         
         if newCollection.verticalSizeClass == .compact
         {
-            self.statusBarBackground.isHidden = true;
+            self.statusBarBackground.isHidden = true
             
         }
         
         if newCollection.verticalSizeClass == .regular
         {
-            self.statusBarBackground.isHidden = false;
+            self.statusBarBackground.isHidden = false
         }
         
         coordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
