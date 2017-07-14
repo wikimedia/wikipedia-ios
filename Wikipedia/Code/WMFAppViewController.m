@@ -1458,6 +1458,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)changeTheme:(NSNotification *)note {
+    NSDictionary* userInfo = note.userInfo;
+    WMFTheme* theme = (WMFTheme*)userInfo[@"theme"];
+    
+    if (self.theme != theme) {
+        [self applyTheme:theme];
+        
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme.name];
+    }
+}
+
 #pragma mark - Search
 
 - (void)showSearch:(NSNotification *)note {
@@ -1500,20 +1511,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         self.settingsNavigationController = navController;
     }
     [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
-}
-
-- (void)changeTheme:(NSNotification *)note {
-    NSLog(@"changeTheme in AppViewController");
-
-    NSDictionary* userInfo = note.userInfo;
-    WMFTheme* theme = (WMFTheme*)userInfo[@"theme"];
-    
-    if (self.theme != theme) {
-        NSLog(@"changeTheme in AppViewController: asking for a different theme");
-        [self applyTheme:theme];
-        
-        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme.name];
-    }
 }
 
 #pragma mark - Perma Random Mode
