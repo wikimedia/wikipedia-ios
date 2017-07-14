@@ -153,6 +153,9 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="darkThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="0Xg-4h-TFF"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

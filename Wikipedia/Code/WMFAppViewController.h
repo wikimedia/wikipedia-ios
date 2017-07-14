@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
+- (void)test;
+
 @end
 
 NS_ASSUME_NONNULL_END

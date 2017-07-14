@@ -26,6 +26,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     var visible = false
     
     open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
+    open weak var readingThemesControlsDelegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,12 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
         if let delegate = self.fontSliderDelegate, visible {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
+        }
+    }
+    
+    @IBAction func darkThemeButtonPressed(_ sender: Any) {
+        if let delegate = self.readingThemesControlsDelegate, visible {
+            delegate.darkThemeButtonPressedInController(self)
         }
     }
     

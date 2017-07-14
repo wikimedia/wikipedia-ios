@@ -1494,6 +1494,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
 }
 
+- (void)test {
+    WMFTheme *theme = self.theme;
+    if (theme == [WMFTheme standard]) {
+        theme = [WMFTheme dark];
+    } else {
+        theme = [WMFTheme light];
+    }
+    [self applyTheme:theme];
+}
+
 #pragma mark - Perma Random Mode
 
 #if WMF_TWEAKS_ENABLED

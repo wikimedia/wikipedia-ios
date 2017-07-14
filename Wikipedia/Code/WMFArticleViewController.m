@@ -98,6 +98,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
+                                        WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate>
@@ -1304,6 +1305,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)darkThemeButtonPressedInController:(WMFReadingThemesControlsViewController *)controller {
+    NSLog(@"darkThemeButtonPressedInController in ArticleViewController");
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
