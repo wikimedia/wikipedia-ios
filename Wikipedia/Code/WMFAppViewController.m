@@ -69,7 +69,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFReadingThemesControlsViewControllerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -112,8 +112,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
-@property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesControlsController;
-
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -138,6 +136,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showSearch:)
                                                  name:WMFShowSearchNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeTheme:)
+                                                 name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
 
     @weakify(self);
@@ -187,13 +190,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
     
-    
-    self.readingThemesControlsController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"WMFReadingThemesControlsViewController" bundle:nil];
-    
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
     [self applyTheme:[WMFTheme standard]];
-    [self configureReadingThemesControlsController];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -210,10 +209,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         navigationController.delegate = self;
         navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-}
-
-- (void)configureReadingThemesControlsController {
-    self.readingThemesControlsController.readingThemesControlsDelegate = self;
 }
 
 - (void)configureExploreViewController {
@@ -1506,8 +1501,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
 }
 
-- (void)darkThemeButtonPressedInController:(WMFReadingThemesControlsViewController *)controller {
-    NSLog(@"darkThemeButtonPressedInController in AppViewController");
+- (void)changeTheme:(NSNotification *)note {
+    NSLog(@"changeTheme in AppViewController");
 
     WMFTheme *theme = self.theme;
     if (theme == [WMFTheme standard]) {

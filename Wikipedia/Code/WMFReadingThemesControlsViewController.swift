@@ -5,12 +5,9 @@ import UIKit
     func sliderValueChangedInController(_ controller: WMFReadingThemesControlsViewController, value: Int)
 }
 
-@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
-    
-    func darkThemeButtonPressedInController(_ controller: WMFReadingThemesControlsViewController)
-}
-
 open class WMFReadingThemesControlsViewController: UIViewController {
+    
+    static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
@@ -26,7 +23,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     var visible = false
     
     open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
-    open weak var readingThemesControlsDelegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +69,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        print("darkThemeButtonPressed in WMFReadingThemesControlsViewController")
-        if let delegate = self.readingThemesControlsDelegate, visible {
-            print("win")
-            delegate.darkThemeButtonPressedInController(self)
-        }
+        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: [Theme.dark])
     }
     
     
