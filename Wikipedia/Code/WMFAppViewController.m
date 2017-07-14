@@ -193,6 +193,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
     [self applyTheme:[WMFTheme standard]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:self.theme.name];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -1511,10 +1512,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSLog(@"changeTheme in AppViewController: asking for a different theme");
         [self applyTheme:theme];
         
-        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:@"blurb"];
-        
-//        [[NSUserDefaults wmf_userDefaults] setObject:theme forKey:@"theme"];
-//        [[NSUserDefaults wmf_userDefaults] synchronize];
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme.name];
     }
 }
 

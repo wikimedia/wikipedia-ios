@@ -12,7 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
+                <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
+                <outlet property="lightThemeButton" destination="x0K-vq-CgH" id="8Xb-ab-S29"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
+                <outlet property="standardThemeButton" destination="qZ3-3K-fnR" id="4lO-vW-NHS"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
             </connections>
         </placeholder>

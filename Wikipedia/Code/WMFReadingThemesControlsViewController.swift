@@ -15,6 +15,11 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var brightnessSlider: UISlider!
     
+    @IBOutlet weak var standardThemeButton: UIButton!
+    @IBOutlet weak var lightThemeButton: UIButton!
+    @IBOutlet weak var darkThemeButton: UIButton!
+    
+    
     var visible = false
     
     open weak var fontSliderDelegate: WMFFontSliderViewControllerDelegate?
@@ -29,7 +34,18 @@ open class WMFReadingThemesControlsViewController: UIViewController {
             }
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
+
         
+        
+    }
+    
+    func applyBorder(to button: UIButton) {
+        button.borderColor = UIColor.wmf_blue
+        button.borderWidth = 2
+    }
+    
+    func removeBorderFrom(_ button: UIButton) {
+        button.borderWidth = 0
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -50,6 +66,22 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
+        
+        let defaultThemeName = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppThemeName")
+        print("viewDidAppear WMFAppThemeName \(defaultThemeName)")
+        
+        if let name = defaultThemeName {
+            switch name {
+            case "standard":
+                applyBorder(to: standardThemeButton)
+            case "light":
+                applyBorder(to: lightThemeButton)
+            case "dark":
+                applyBorder(to: darkThemeButton)
+            default:
+                break
+            }
+        }
     }
     
     
@@ -64,19 +96,54 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func changeThemeButtonPressed(_ sender: UIButton) {
+        
+        let defaultThemeName = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppThemeName")
+        print("changeThemeButtonPressed WMFAppThemeName \(defaultThemeName)")
+        
         var theme = [String: Theme]()
         
         switch sender.tag {
         case 0:
             theme["theme"] = Theme.standard
+            applyBorder(to: standardThemeButton)
+            removeBorderFrom(lightThemeButton)
+            removeBorderFrom(darkThemeButton)
         case 1:
             theme["theme"] = Theme.light
+            applyBorder(to: lightThemeButton)
+            removeBorderFrom(standardThemeButton)
+            removeBorderFrom(darkThemeButton)
         case 2:
             theme["theme"] = Theme.dark
+            applyBorder(to: darkThemeButton)
+            removeBorderFrom(standardThemeButton)
+            removeBorderFrom(lightThemeButton)
         default:
             break
         }
         
         NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+        
+        let newThemeName = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppThemeName")
+        print("after notification WMFAppThemeName \(newThemeName)")
+        
+        if let name = newThemeName {
+            switch name {
+            case "standard":
+                applyBorder(to: standardThemeButton)
+                removeBorderFrom(lightThemeButton)
+                removeBorderFrom(darkThemeButton)
+            case "light":
+                applyBorder(to: lightThemeButton)
+                removeBorderFrom(standardThemeButton)
+                removeBorderFrom(darkThemeButton)
+            case "dark":
+                applyBorder(to: darkThemeButton)
+                removeBorderFrom(standardThemeButton)
+                removeBorderFrom(lightThemeButton)
+            default:
+                break
+            }
+        }
     }
 }

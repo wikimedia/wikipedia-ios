@@ -151,16 +151,19 @@ public class Theme: NSObject {
     public let blurEffectStyle: UIBlurEffectStyle
     public let keyboardAppearance: UIKeyboardAppearance
     
-    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light)
-    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark)
+    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "light")
+    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "dark")
     
     public static let standard = Theme.light
     
-    init(colors: Colors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle, keyboardAppearance: UIKeyboardAppearance) {
+    public let name: String
+    
+    init(colors: Colors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle, keyboardAppearance: UIKeyboardAppearance, name: String) {
         self.colors = colors
         self.preferredStatusBarStyle = preferredStatusBarStyle
         self.blurEffectStyle = blurEffectStyle
         self.keyboardAppearance = keyboardAppearance
+        self.name = name
     }
 }
 
