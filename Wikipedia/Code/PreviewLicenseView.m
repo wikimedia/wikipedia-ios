@@ -82,7 +82,8 @@
         };
 
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
-                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle] substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
+                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle]
+                                               substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
 }
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {
@@ -124,8 +125,5 @@
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.backgroundColor = theme.colors.paperBackground;
-    self.licenseTitleLabel.textColor = theme.colors.primaryText;
-    self.licenseLoginLabel.textColor = theme.colors.primaryText;
-    
 }
 @end
