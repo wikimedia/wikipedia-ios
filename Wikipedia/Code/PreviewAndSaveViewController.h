@@ -1,4 +1,5 @@
 #import "Wikipedia-Swift.h"
+@import WMF.Swift;
 
 @class MWKSection, SavedPagesFunnel, EditFunnel, PreviewAndSaveViewController;
 
@@ -8,7 +9,7 @@
 
 @end
 
-@interface PreviewAndSaveViewController : UIViewController
+@interface PreviewAndSaveViewController : UIViewController <WMFThemeable>
 
 @property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) NSString *wikiText;

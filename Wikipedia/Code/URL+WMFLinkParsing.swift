@@ -1,5 +1,13 @@
 import Foundation
 
+extension CharacterSet {
+    static let wmf_urlPathComponentAllowed: CharacterSet = {
+        var baseSet = CharacterSet.urlPathAllowed
+        baseSet.remove(charactersIn: "/")
+        return baseSet
+    }()
+}
+
 extension URL {
     public var wmf_language: String? {
         return (self as NSURL).wmf_language
