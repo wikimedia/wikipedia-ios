@@ -58,6 +58,10 @@ extension URLSession {
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
         let path = NSString.path(withComponents: ["api", "rest_v1", "page", "summary", encodedTitle])
     
+        // /wiki/ URLs can handle / in the title, /api/rest_v1/ URLs can't
+        // as a result, this must be constructed manually using the encoded title
+        // and an absolute string
+        
         guard let summaryURL = URL(string: "\(siteURL.absoluteString)/\(path)") else {
             return nil
         }
