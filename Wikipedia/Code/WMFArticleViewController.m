@@ -108,7 +108,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 // Children
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
 @property (nonatomic, strong) WebViewController *webViewController;
-//TODO: is this a child?
+
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
@@ -1300,7 +1300,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSUInteger index = self.indexOfCurrentFontSize;
 
     self.readingThemesViewController.delegate = self;
-//    [vc applyTheme:self.theme];
     
     self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
