@@ -614,17 +614,17 @@ var MenuItemType = {
  * Menu item model.
  */
 
-var WMFMenuItem = function () {
+var MenuItem = function () {
   /**
-   * WMFMenuItem constructor.
+   * MenuItem constructor.
    * @param {!string} title
    * @param {?string} subtitle
    * @param {!MenuItemType} itemType
    * @param {FooterMenuItemClickCallback} clickHandler
    * @return {void}
    */
-  function WMFMenuItem(title, subtitle, itemType, clickHandler) {
-    classCallCheck(this, WMFMenuItem);
+  function MenuItem(title, subtitle, itemType, clickHandler) {
+    classCallCheck(this, MenuItem);
 
     this.title = title;
     this.subtitle = subtitle;
@@ -639,7 +639,7 @@ var WMFMenuItem = function () {
    */
 
 
-  createClass(WMFMenuItem, [{
+  createClass(MenuItem, [{
     key: 'iconClass',
     value: function iconClass() {
       switch (this.itemType) {
@@ -682,7 +682,7 @@ var WMFMenuItem = function () {
       }
     }
   }]);
-  return WMFMenuItem;
+  return MenuItem;
 }();
 
 /**
@@ -690,42 +690,42 @@ var WMFMenuItem = function () {
  */
 
 
-var WMFMenuItemFragment =
+var MenuItemFragment =
 /**
- * WMFMenuItemFragment constructor.
- * @param {!WMFMenuItem} wmfMenuItem
+ * MenuItemFragment constructor.
+ * @param {!MenuItem} menuItem
  * @param {!Document} document
  * @return {!DocumentFragment}
  */
-function WMFMenuItemFragment(wmfMenuItem, document) {
-  classCallCheck(this, WMFMenuItemFragment);
+function MenuItemFragment(menuItem, document) {
+  classCallCheck(this, MenuItemFragment);
 
   var item = document.createElement('div');
   item.className = 'pagelib_footer_menu_item';
 
   var containerAnchor = document.createElement('a');
   containerAnchor.addEventListener('click', function () {
-    wmfMenuItem.clickHandler(wmfMenuItem.payload);
+    menuItem.clickHandler(menuItem.payload);
   }, false);
 
   item.appendChild(containerAnchor);
 
-  if (wmfMenuItem.title) {
+  if (menuItem.title) {
     var title = document.createElement('div');
     title.className = 'pagelib_footer_menu_item_title';
-    title.innerText = wmfMenuItem.title;
-    containerAnchor.title = wmfMenuItem.title;
+    title.innerText = menuItem.title;
+    containerAnchor.title = menuItem.title;
     containerAnchor.appendChild(title);
   }
 
-  if (wmfMenuItem.subtitle) {
+  if (menuItem.subtitle) {
     var subtitle = document.createElement('div');
     subtitle.className = 'pagelib_footer_menu_item_subtitle';
-    subtitle.innerText = wmfMenuItem.subtitle;
+    subtitle.innerText = menuItem.subtitle;
     containerAnchor.appendChild(subtitle);
   }
 
-  var iconClass = wmfMenuItem.iconClass();
+  var iconClass = menuItem.iconClass();
   if (iconClass) {
     item.classList.add(iconClass);
   }
@@ -734,20 +734,20 @@ function WMFMenuItemFragment(wmfMenuItem, document) {
 };
 
 /**
- * Adds a WMFMenuItem to a container.
- * @param {!WMFMenuItem} wmfMenuItem
+ * Adds a MenuItem to a container.
+ * @param {!MenuItem} menuItem
  * @param {!string} containerID
  * @param {!Document} document
  */
 
 
-var addItem = function addItem(wmfMenuItem, containerID, document) {
-  var fragment = new WMFMenuItemFragment(wmfMenuItem, document);
+var addItem = function addItem(menuItem, containerID, document) {
+  var fragment = new MenuItemFragment(menuItem, document);
   document.getElementById(containerID).appendChild(fragment);
 };
 
 /**
- * Conditionally adds a WMFMenuItem to a container.
+ * Conditionally adds a MenuItem to a container.
  * @param {!string} title
  * @param {!string} subtitle
  * @param {!MenuItemType} itemType
@@ -757,7 +757,7 @@ var addItem = function addItem(wmfMenuItem, containerID, document) {
  * @return {void}
  */
 var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID, clickHandler, document) {
-  var item = new WMFMenuItem(title, subtitle, itemType, clickHandler);
+  var item = new MenuItem(title, subtitle, itemType, clickHandler);
 
   // Items are not added if they have a payload extractor which fails to extract anything.
   if (item.payloadExtractor() !== undefined) {
@@ -802,7 +802,7 @@ var FooterMenu = {
 
 /**
  * Display fetched read more pages.
- * @typedef {function} ShownReadMoreHandler
+ * @typedef {function} ShownReadMorePagesHandler
  * @param {!Object[]} pages
  * @param {!Document} document
  * @param {!string} containerID
@@ -852,17 +852,17 @@ var cleanExtract = function cleanExtract(string) {
  * Read more page model.
  */
 
-var WMFPage =
+var ReadMorePage =
 /**
- * WMFPage constructor.
+ * ReadMorePage constructor.
  * @param {!string} title
  * @param {?string} thumbnail
  * @param {?Object} terms
  * @param {?string} extract
  * @return {void}
  */
-function WMFPage(title, thumbnail, terms, extract) {
-  classCallCheck(this, WMFPage);
+function ReadMorePage(title, thumbnail, terms, extract) {
+  classCallCheck(this, ReadMorePage);
 
   this.title = title;
   this.thumbnail = thumbnail;
@@ -875,27 +875,27 @@ function WMFPage(title, thumbnail, terms, extract) {
  */
 
 
-var WMFPageFragment =
+var ReadMorePageFragment =
 /**
- * WMFPageFragment constructor.
- * @param {!WMFPage} wmfPage
+ * ReadMorePageFragment constructor.
+ * @param {!ReadMorePage} readMorePage
  * @param {!number} index
  * @param {!Document} document
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @return {!DocumentFragment}
  */
-function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
-  classCallCheck(this, WMFPageFragment);
+function ReadMorePageFragment(readMorePage, index, document, saveButtonClickHandler) {
+  classCallCheck(this, ReadMorePageFragment);
 
 
   var outerAnchorContainer = document.createElement('a');
   outerAnchorContainer.id = index;
   outerAnchorContainer.className = 'pagelib_footer_readmore_page';
 
-  var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source;
+  var hasImage = readMorePage.thumbnail && readMorePage.thumbnail.source;
   if (hasImage) {
     var image = document.createElement('div');
-    image.style.backgroundImage = 'url(' + wmfPage.thumbnail.source + ')';
+    image.style.backgroundImage = 'url(' + readMorePage.thumbnail.source + ')';
     image.classList.add('pagelib_footer_readmore_page_image');
     outerAnchorContainer.appendChild(image);
   }
@@ -903,24 +903,24 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
   var innerDivContainer = document.createElement('div');
   innerDivContainer.classList.add('pagelib_footer_readmore_page_container');
   outerAnchorContainer.appendChild(innerDivContainer);
-  outerAnchorContainer.href = '/wiki/' + encodeURI(wmfPage.title);
+  outerAnchorContainer.href = '/wiki/' + encodeURI(readMorePage.title);
 
-  if (wmfPage.title) {
+  if (readMorePage.title) {
     var title = document.createElement('div');
     title.id = index;
     title.className = 'pagelib_footer_readmore_page_title';
-    var displayTitle = wmfPage.title.replace(/_/g, ' ');
+    var displayTitle = readMorePage.title.replace(/_/g, ' ');
     title.innerHTML = displayTitle;
     outerAnchorContainer.title = displayTitle;
     innerDivContainer.appendChild(title);
   }
 
   var description = void 0;
-  if (wmfPage.terms) {
-    description = wmfPage.terms.description[0];
+  if (readMorePage.terms) {
+    description = readMorePage.terms.description[0];
   }
-  if ((description === undefined || description.length < 10) && wmfPage.extract) {
-    description = cleanExtract(wmfPage.extract);
+  if ((description === undefined || description.length < 10) && readMorePage.extract) {
+    description = cleanExtract(readMorePage.extract);
   }
   if (description) {
     var descriptionEl = document.createElement('div');
@@ -931,14 +931,14 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
   }
 
   var saveButton = document.createElement('div');
-  saveButton.id = '' + _saveButtonIDPrefix + encodeURI(wmfPage.title);
+  saveButton.id = '' + _saveButtonIDPrefix + encodeURI(readMorePage.title);
   saveButton.innerText = _saveForLaterString;
   saveButton.title = _saveForLaterString;
   saveButton.className = 'pagelib_footer_readmore_page_save';
   saveButton.addEventListener('click', function (event) {
     event.stopPropagation();
     event.preventDefault();
-    saveButtonClickHandler(wmfPage.title);
+    saveButtonClickHandler(readMorePage.title);
   }, false);
   innerDivContainer.appendChild(saveButton);
 
@@ -946,18 +946,18 @@ function WMFPageFragment(wmfPage, index, document, saveButtonClickHandler) {
 };
 
 /**
- * @type {ShownReadMoreHandler}
+ * @type {ShownReadMorePagesHandler}
  */
 
 
-var showReadMore = function showReadMore(pages, document, containerID, saveButtonClickHandler, titlesShownHandler) {
+var showReadMorePages = function showReadMorePages(pages, document, containerID, saveButtonClickHandler, titlesShownHandler) {
   var shownTitles = [];
   var container = document.getElementById(containerID);
   pages.forEach(function (page, index) {
     var title = page.title.replace(/ /g, '_');
     shownTitles.push(title);
-    var pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract);
-    var pageFragment = new WMFPageFragment(pageModel, index, document, saveButtonClickHandler);
+    var pageModel = new ReadMorePage(title, page.thumbnail, page.terms, page.extract);
+    var pageFragment = new ReadMorePageFragment(pageModel, index, document, saveButtonClickHandler);
     container.appendChild(pageFragment);
   });
   titlesShownHandler(shownTitles);
@@ -1010,7 +1010,7 @@ var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
 };
 
 /**
- * URL for retrieving 'Read more' items for a given title.
+ * URL for retrieving 'Read more' pages for a given title.
  * @param {!string} title
  * @param {?string} baseURL
  * @return {!sring}
@@ -1030,14 +1030,14 @@ var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
  * @param {!string} statusText
  * @return {void}
  */
-var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(baseURL, title, showReadMoreHandler, containerID, saveButtonClickHandler, titlesShownHandler, document) {
+var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(baseURL, title, showReadMorePagesHandler, containerID, saveButtonClickHandler, titlesShownHandler, document) {
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
   xhr.open('GET', readMoreQueryURL(title, baseURL), true);
   xhr.onload = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       // eslint-disable-line no-undef
       if (xhr.status === 200) {
-        showReadMoreHandler(JSON.parse(xhr.responseText).query.pages, document, containerID, saveButtonClickHandler, titlesShownHandler);
+        showReadMorePagesHandler(JSON.parse(xhr.responseText).query.pages, document, containerID, saveButtonClickHandler, titlesShownHandler);
       } else {
         fetchErrorHandler(xhr.statusText);
       }
@@ -1104,7 +1104,7 @@ var setTitleIsSaved = function setTitleIsSaved(title, isSaved, document) {
 var add$1 = function add(document, baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
   _saveForLaterString = saveForLaterString;
   _savedForLaterString = savedForLaterString;
-  fetchReadMore(baseURL, title, showReadMore, containerID, saveButtonClickHandler, titlesShownHandler, document);
+  fetchReadMore(baseURL, title, showReadMorePages, containerID, saveButtonClickHandler, titlesShownHandler, document);
 };
 
 /**
