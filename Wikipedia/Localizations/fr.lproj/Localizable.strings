@@ -71,11 +71,14 @@
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Non merci";
 "article-about-title" = "À propos de cet article";
+"article-delete" = "Supprimer";
 "article-languages-filter-placeholder" = "Trouver la langue";
 "article-languages-label" = "Choisir langue";
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En savoir plus";
+"article-save" = "Enregistrer";
+"article-share" = "Partager";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "back" = "Retour";
@@ -393,6 +396,7 @@
 "wikitext-upload-save" = "Publication en cours…";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-sign-in" = "Se connecter";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "En publiant les modifications, vous acceptez les $1 et de mettre votre contribution sous les licences $2 et $3.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "zero-charged-verbiage" = "Wikipédia Zéro est désactivé";

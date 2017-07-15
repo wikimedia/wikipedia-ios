@@ -63,11 +63,14 @@
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "לא, תודה";
 "article-about-title" = "מידע על הערך הזה";
+"article-delete" = "מחיקה";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
+"article-save" = "שמירה";
+"article-share" = "שיתוף";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "back" = "חזרה";
@@ -385,6 +388,7 @@
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
