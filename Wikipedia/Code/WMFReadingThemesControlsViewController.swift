@@ -139,11 +139,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
     }
     
-    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        print("viewTransitionedToSize")
-    }
-    
 }
 
 // MARK: - Themeable
@@ -151,8 +146,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
 extension WMFReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
-        
-        print("Applying \(theme.name) theme...")
         
         view.backgroundColor = theme.colors.midBackground
         
