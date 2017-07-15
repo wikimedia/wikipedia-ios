@@ -1298,6 +1298,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Font Size
 
 - (void)showFontSizePopup {
+    
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
     
@@ -1312,6 +1313,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.readingThemesPopoverPresenter.delegate = self;
     self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    
+    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
