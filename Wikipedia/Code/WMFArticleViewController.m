@@ -108,6 +108,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 // Children
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
 @property (nonatomic, strong) WebViewController *webViewController;
+//TODO: is this a child?
+@property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -237,6 +239,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateToolbar];
     [self setupTableOfContentsViewController];
+    [self setupReadingThemesControls];
     [self updateTableOfContentsForFootersIfNeeded];
 
     if (_article && self.shouldShareArticleOnLoad) {
@@ -1284,27 +1287,33 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+#pragma mark - Reading Themes Controls
+
+- (void)setupReadingThemesControls {
+    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] init];
+}
+
 #pragma mark - Font Size
 
 - (void)showFontSizePopup {
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
 
-    WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] init];
-    vc.preferredContentSize = vc.view.frame.size;
-    vc.modalPresentationStyle = UIModalPresentationPopover;
-    vc.delegate = self;
-    [vc applyTheme:self.theme];
+    self.readingThemesViewController.delegate = self;
+//    [vc applyTheme:self.theme];
     
-    [vc setValuesWithSteps:fontSizes.count current:index];
+    self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
+    self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
+    
+    [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
 
-    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+    UIPopoverPresentationController *presenter = [self.readingThemesViewController popoverPresentationController];
     presenter.delegate = self;
-    presenter.backgroundColor = vc.view.backgroundColor;
+    presenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
     presenter.barButtonItem = self.fontSizeToolbarItem;
     presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
-    [self presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
@@ -1876,6 +1885,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
     [self.tableOfContentsViewController applyTheme:theme];
+    [self.readingThemesViewController applyTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
 }
