@@ -456,11 +456,11 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
 /**
  * Allows native code to adjust footer container margins without having to worry about
  * implementation details.
- * @param {!Document} document
  * @param {!number} margin
+ * @param {!Document} document
  * @return {void}
  */
-var updateLeftAndRightMargin = function updateLeftAndRightMargin(document, margin) {
+var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
   var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
   Array.from(elements).forEach(function (element) {
     element.style.marginLeft = margin + 'px';
@@ -993,6 +993,7 @@ var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
 
 /**
  * URL for retrieving 'Read more' pages for a given title.
+ * Leave 'baseURL' null if you don't need to deal with proxying.
  * @param {!string} title
  * @param {?string} baseURL
  * @return {!sring}
@@ -1012,7 +1013,7 @@ var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
  * @param {!string} statusText
  * @return {void}
  */
-var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(baseURL, title, showReadMorePagesHandler, containerID, saveButtonClickHandler, titlesShownHandler, document) {
+var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
   xhr.open('GET', readMoreQueryURL(title, baseURL), true);
   xhr.onload = function () {
@@ -1061,16 +1062,17 @@ var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, is
 };
 
 /**
- * Adds 'Read more' to 'containerID' element.
- * @param {!Document} document
- * @param {?string} baseURL
+ * Adds 'Read more' for 'title' to 'containerID' element.
+ * Leave 'baseURL' null if you don't need to deal with proxying.
  * @param {!string} title
  * @param {!string} containerID
+ * @param {?string} baseURL
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
  */
-var add$1 = function add(document, baseURL, title, containerID, saveButtonClickHandler, titlesShownHandler) {
-  fetchReadMore(baseURL, title, showReadMorePages, containerID, saveButtonClickHandler, titlesShownHandler, document);
+var add$1 = function add(title, containerID, baseURL, saveButtonClickHandler, titlesShownHandler, document) {
+  fetchReadMore(title, containerID, baseURL, showReadMorePages, saveButtonClickHandler, titlesShownHandler, document);
 };
 
 /**

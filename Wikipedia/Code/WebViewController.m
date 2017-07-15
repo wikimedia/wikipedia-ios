@@ -428,7 +428,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             "var contentDiv = document.getElementById('content');"
             "contentDiv.style.marginLeft='%ipx';"
             "contentDiv.style.marginRight='%ipx';"
-            "window.wmf.footerContainer.updateLeftAndRightMargin(document, %i);"
+            "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
         ;
         
         CGFloat marginWidth = [self marginWidthForSize:size];
