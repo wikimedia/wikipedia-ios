@@ -806,8 +806,6 @@ var FooterMenu = {
  * @return {void}
  */
 
-var _saveForLaterString = '';
-var _savedForLaterString = '';
 var _saveButtonIDPrefix = 'readmore:save:';
 
 /**
@@ -920,8 +918,6 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
 
   var saveButton = document.createElement('div');
   saveButton.id = '' + _saveButtonIDPrefix + encodeURI(readMorePage.title);
-  saveButton.innerText = _saveForLaterString;
-  saveButton.title = _saveForLaterString;
   saveButton.className = 'pagelib_footer_readmore_page_save';
   saveButton.addEventListener('click', function (event) {
     event.stopPropagation();
@@ -1036,26 +1032,12 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
 };
 
 /**
- * Updates save button text for saved state.
- * @param {!HTMLDivElement} button
- * @param {!string} title
- * @param {!Boolean} isSaved
- * @return {void}
- */
-var updateSaveButtonText = function updateSaveButtonText(button, title, isSaved) {
-  var text = isSaved ? _savedForLaterString : _saveForLaterString;
-  button.innerText = text;
-  button.title = text;
-};
-
-/**
  * Updates save button bookmark icon for saved state.
  * @param {!HTMLDivElement} button
- * @param {!string} title
  * @param {!Boolean} isSaved
  * @return {void}
  */
-var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, title, isSaved) {
+var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, isSaved) {
   var unfilledClass = 'pagelib_footer_readmore_bookmark_unfilled';
   var filledClass = 'pagelib_footer_readmore_bookmark_filled';
   button.classList.remove(unfilledClass);
@@ -1066,14 +1048,16 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 /**
  * Updates save button text and bookmark icon for saved state.
  * @param {!string} title
+ * @param {!string} text
  * @param {!Boolean} isSaved
  * @param {!Document} document
  * @return {void}
 */
-var setTitleIsSaved = function setTitleIsSaved(title, isSaved, document) {
+var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
   var saveButton = document.getElementById('' + _saveButtonIDPrefix + title);
-  updateSaveButtonText(saveButton, title, isSaved);
-  updateSaveButtonBookmarkIcon(saveButton, title, isSaved);
+  saveButton.innerText = text;
+  saveButton.title = text;
+  updateSaveButtonBookmarkIcon(saveButton, isSaved);
 };
 
 /**
@@ -1081,15 +1065,11 @@ var setTitleIsSaved = function setTitleIsSaved(title, isSaved, document) {
  * @param {!Document} document
  * @param {?string} baseURL
  * @param {!string} title
- * @param {!string} saveForLaterString
- * @param {!string} savedForLaterString
  * @param {!string} containerID
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
  */
-var add$1 = function add(document, baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
-  _saveForLaterString = saveForLaterString;
-  _savedForLaterString = savedForLaterString;
+var add$1 = function add(document, baseURL, title, containerID, saveButtonClickHandler, titlesShownHandler) {
   fetchReadMore(baseURL, title, showReadMorePages, containerID, saveButtonClickHandler, titlesShownHandler, document);
 };
 
@@ -1106,9 +1086,9 @@ var setHeading$1 = function setHeading(headingString, headingID, document) {
 };
 
 var FooterReadMore = {
+  add: add$1,
   setHeading: setHeading$1,
-  setTitleIsSaved: setTitleIsSaved,
-  add: add$1
+  updateSaveButtonForTitle: updateSaveButtonForTitle
 };
 
 // CSS classes used to identify and present converted images. An image is only a member of one class
