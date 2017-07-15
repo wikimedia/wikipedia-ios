@@ -16,9 +16,19 @@
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
                 <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
                 <outlet property="lightThemeButton" destination="x0K-vq-CgH" id="8Xb-ab-S29"/>
+                <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
+                <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="standardThemeButton" destination="qZ3-3K-fnR" id="4lO-vW-NHS"/>
+                <outlet property="tLargeImageView" destination="Ycr-G6-Fi3" id="5nX-hh-UCh"/>
+                <outlet property="tSmallImageView" destination="vkB-ph-elW" id="zTO-Cg-lOB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
+                <outletCollection property="separatorViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="cr4-7k-sen"/>
+                <outletCollection property="separatorViews" destination="XEj-MD-7hS" collectionClass="NSMutableArray" id="wMe-lS-9ae"/>
+                <outletCollection property="separatorViews" destination="Uxd-TY-6pz" collectionClass="NSMutableArray" id="KSW-Ap-Ngw"/>
+                <outletCollection property="separatorViews" destination="s1w-Qo-awL" collectionClass="NSMutableArray" id="LMo-j3-60h"/>
+                <outletCollection property="textLabels" destination="VmK-ow-0Kg" collectionClass="NSMutableArray" id="jp5-cq-pFS"/>
+                <outletCollection property="textLabels" destination="gUU-a2-QwO" collectionClass="NSMutableArray" id="uyV-7V-rCC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,7 +36,7 @@
             <rect key="frame" x="0.0" y="0.0" width="289" height="385"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minimumBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
                     <rect key="frame" x="13" y="17" width="15" height="15"/>
                 </imageView>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eFI-oH-KYO" userLabel="Brightness Slider">
@@ -38,7 +48,7 @@
                         <action selector="brightnessSliderValueChanged:" destination="-1" eventType="valueChanged" id="bxg-il-yhC"/>
                     </connections>
                 </slider>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maximumBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maxBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
                     <rect key="frame" x="258" y="14" width="21" height="21"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsr-d6-D5m" userLabel="Separator 1">
@@ -93,6 +103,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZ3-3K-fnR" userLabel="Aa Default">
                             <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="65" id="Uf9-QY-mBe"/>
                                 <constraint firstAttribute="height" constant="65" id="hBr-gh-wNS"/>
@@ -254,7 +265,7 @@
     <resources>
         <image name="T-large" width="12" height="15"/>
         <image name="T-small" width="12" height="15"/>
-        <image name="maximumBrightness" width="21" height="21"/>
-        <image name="minimumBrightness" width="15" height="15"/>
+        <image name="maxBrightness" width="21" height="21"/>
+        <image name="minBrightness" width="15" height="15"/>
     </resources>
 </document>

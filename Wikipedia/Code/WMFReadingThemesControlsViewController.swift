@@ -24,6 +24,18 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var autoNightModeSwitch: UISwitch!
     @IBOutlet weak var imageDimmingSwitch: UISwitch!
     
+    @IBOutlet var separatorViews: [UIView]!
+    
+    
+    @IBOutlet weak var minBrightnessImageView: UIImageView!
+    @IBOutlet weak var maxBrightnessImageView: UIImageView!
+    
+    @IBOutlet weak var tSmallImageView: UIImageView!
+    @IBOutlet weak var tLargeImageView: UIImageView!
+    
+    @IBOutlet var textLabels: [UILabel]!
+    
+    
     var visible = false
     
     open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
@@ -139,7 +151,25 @@ extension WMFReadingThemesControlsViewController: Themeable {
             return
         }
         
-        //TODO: apply colors when theme work is merged
+        view.backgroundColor = theme.colors.midBackground
+        
+        for separator in separatorViews {
+            separator.backgroundColor = theme.colors.baseBackground
+        }
+        
+        slider.backgroundColor = theme.colors.midBackground
+        
+        for label in textLabels {
+            label.textColor = theme.colors.primaryText
+        }
+        
+        if theme.name == "dark" {
+            minBrightnessImageView.image = UIImage(named: "minBrightness-darkMode")
+            maxBrightnessImageView.image = UIImage(named: "maxBrightness-darkMode")
+            tSmallImageView.image = UIImage(named: "t-small-darkMode")
+            tLargeImageView.image = UIImage(named: "t-large-darkMode")
+        }
+        
     }
     
 }
