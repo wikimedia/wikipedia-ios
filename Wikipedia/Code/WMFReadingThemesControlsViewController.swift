@@ -26,7 +26,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet var separatorViews: [UIView]!
     
-    
     @IBOutlet weak var minBrightnessImageView: UIImageView!
     @IBOutlet weak var maxBrightnessImageView: UIImageView!
     
@@ -138,6 +137,11 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         removeBorderFrom(lightThemeButton)
         
         NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+    }
+    
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        print("viewTransitionedToSize")
     }
     
 }

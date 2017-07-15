@@ -110,6 +110,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) WebViewController *webViewController;
 
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
+@property (nonatomic, strong) UIPopoverPresentationController *readingThemesPopoverPresenter;
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -177,7 +178,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
-        self.theme = [WMFTheme standard];
+        self.theme = [WMFTheme dark];
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
@@ -752,7 +753,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    [self applyTheme:[WMFTheme standard]];
+    [self applyTheme:[WMFTheme dark]];
     [self setUpTitleBarButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -1298,22 +1299,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showFontSizePopup {
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
-
-    self.readingThemesViewController.delegate = self;
     
     self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
+
+    self.readingThemesViewController.delegate = self;
     
     [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
 
-    UIPopoverPresentationController *presenter = [self.readingThemesViewController popoverPresentationController];
-    presenter.delegate = self;
-    presenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
-    presenter.barButtonItem = self.fontSizeToolbarItem;
-    presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
+    self.readingThemesPopoverPresenter.delegate = self;
+    self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
+    self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
+
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
@@ -1879,6 +1880,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.viewIfLoaded == nil) {
         return;
     }
+    
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
@@ -1887,6 +1889,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.readingThemesViewController applyTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
+    // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
+    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
 }
 
 @end
