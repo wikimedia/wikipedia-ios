@@ -799,10 +799,10 @@ var FooterMenu = {
  * Display fetched read more pages.
  * @typedef {function} ShownReadMorePagesHandler
  * @param {!Object[]} pages
- * @param {!Document} document
  * @param {!string} containerID
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
  * @return {void}
  */
 
@@ -867,13 +867,13 @@ function ReadMorePage(title, thumbnail, terms, extract) {
  * Makes document fragment for a read more page.
  * @param {!ReadMorePage} readMorePage
  * @param {!number} index
- * @param {!Document} document
  * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!Document} document
  * @return {!DocumentFragment}
  */
 
 
-var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(readMorePage, index, document, saveButtonClickHandler) {
+var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(readMorePage, index, saveButtonClickHandler, document) {
   var outerAnchorContainer = document.createElement('a');
   outerAnchorContainer.id = index;
   outerAnchorContainer.className = 'pagelib_footer_readmore_page';
@@ -932,14 +932,14 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
 /**
  * @type {ShownReadMorePagesHandler}
  */
-var showReadMorePages = function showReadMorePages(pages, document, containerID, saveButtonClickHandler, titlesShownHandler) {
+var showReadMorePages = function showReadMorePages(pages, containerID, saveButtonClickHandler, titlesShownHandler, document) {
   var shownTitles = [];
   var container = document.getElementById(containerID);
   pages.forEach(function (page, index) {
     var title = page.title.replace(/ /g, '_');
     shownTitles.push(title);
     var pageModel = new ReadMorePage(title, page.thumbnail, page.terms, page.extract);
-    var pageFragment = documentFragmentForReadMorePage(pageModel, index, document, saveButtonClickHandler);
+    var pageFragment = documentFragmentForReadMorePage(pageModel, index, saveButtonClickHandler, document);
     container.appendChild(pageFragment);
   });
   titlesShownHandler(shownTitles);
@@ -1020,7 +1020,7 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
     if (xhr.readyState === XMLHttpRequest.DONE) {
       // eslint-disable-line no-undef
       if (xhr.status === 200) {
-        showReadMorePagesHandler(JSON.parse(xhr.responseText).query.pages, document, containerID, saveButtonClickHandler, titlesShownHandler);
+        showReadMorePagesHandler(JSON.parse(xhr.responseText).query.pages, containerID, saveButtonClickHandler, titlesShownHandler, document);
       } else {
         fetchErrorHandler(xhr.statusText);
       }
