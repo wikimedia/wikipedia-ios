@@ -815,9 +815,10 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
-        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+    //TODO: Is this needed? iBooks doesn't dismiss the popover on rotation.
+    //    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+    //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    //    }
     [self registerForPreviewingIfAvailable];
     NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -1310,6 +1311,7 @@ WMFArticlePreviewingActionsDelegate>
     [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
     
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
+    
     self.readingThemesPopoverPresenter.delegate = self;
     self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
@@ -1318,7 +1320,6 @@ WMFArticlePreviewingActionsDelegate>
     
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
-
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
