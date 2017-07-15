@@ -568,6 +568,10 @@ var createClass = function () {
  */
 
 /**
+ * @typedef {number} MenuItemType
+ */
+
+/**
  * Extracts array of no-html page issues strings from document.
  * @type {FooterMenuItemPayloadExtractor}
  */
@@ -600,7 +604,7 @@ var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
 
 /**
  * Type representing kinds of menu items.
- * @type {Object}
+ * @enum {MenuItemType}
  */
 var MenuItemType = {
   languages: 1,
@@ -686,20 +690,14 @@ var MenuItem = function () {
 }();
 
 /**
- * Menu item fragment model.
- */
-
-
-var MenuItemFragment =
-/**
- * MenuItemFragment constructor.
+ * Makes document fragment for a menu item.
  * @param {!MenuItem} menuItem
  * @param {!Document} document
  * @return {!DocumentFragment}
  */
-function MenuItemFragment(menuItem, document) {
-  classCallCheck(this, MenuItemFragment);
 
+
+var documentFragmentForMenuItem = function documentFragmentForMenuItem(menuItem, document) {
   var item = document.createElement('div');
   item.className = 'pagelib_footer_menu_item';
 
@@ -739,11 +737,8 @@ function MenuItemFragment(menuItem, document) {
  * @param {!string} containerID
  * @param {!Document} document
  */
-
-
 var addItem = function addItem(menuItem, containerID, document) {
-  var fragment = new MenuItemFragment(menuItem, document);
-  document.getElementById(containerID).appendChild(fragment);
+  document.getElementById(containerID).appendChild(documentFragmentForMenuItem(menuItem, document));
 };
 
 /**
@@ -871,23 +866,16 @@ function ReadMorePage(title, thumbnail, terms, extract) {
 };
 
 /**
- * Read more page fragment model.
- */
-
-
-var ReadMorePageFragment =
-/**
- * ReadMorePageFragment constructor.
+ * Makes document fragment for a read more page.
  * @param {!ReadMorePage} readMorePage
  * @param {!number} index
  * @param {!Document} document
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @return {!DocumentFragment}
  */
-function ReadMorePageFragment(readMorePage, index, document, saveButtonClickHandler) {
-  classCallCheck(this, ReadMorePageFragment);
 
 
+var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(readMorePage, index, document, saveButtonClickHandler) {
   var outerAnchorContainer = document.createElement('a');
   outerAnchorContainer.id = index;
   outerAnchorContainer.className = 'pagelib_footer_readmore_page';
@@ -948,8 +936,6 @@ function ReadMorePageFragment(readMorePage, index, document, saveButtonClickHand
 /**
  * @type {ShownReadMorePagesHandler}
  */
-
-
 var showReadMorePages = function showReadMorePages(pages, document, containerID, saveButtonClickHandler, titlesShownHandler) {
   var shownTitles = [];
   var container = document.getElementById(containerID);
@@ -957,7 +943,7 @@ var showReadMorePages = function showReadMorePages(pages, document, containerID,
     var title = page.title.replace(/ /g, '_');
     shownTitles.push(title);
     var pageModel = new ReadMorePage(title, page.thumbnail, page.terms, page.extract);
-    var pageFragment = new ReadMorePageFragment(pageModel, index, document, saveButtonClickHandler);
+    var pageFragment = documentFragmentForReadMorePage(pageModel, index, document, saveButtonClickHandler);
     container.appendChild(pageFragment);
   });
   titlesShownHandler(shownTitles);
