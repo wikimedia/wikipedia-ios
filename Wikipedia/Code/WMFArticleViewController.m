@@ -178,7 +178,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
-        self.theme = [WMFTheme dark];
+        self.theme = [WMFTheme standard];
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
@@ -753,7 +753,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    [self applyTheme:[WMFTheme dark]];
+    [self applyTheme:[WMFTheme standard]];
     [self setUpTitleBarButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -1292,6 +1292,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)setupReadingThemesControls {
     self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] init];
+    [self.readingThemesViewController applyTheme:self.theme];
 }
 
 #pragma mark - Font Size

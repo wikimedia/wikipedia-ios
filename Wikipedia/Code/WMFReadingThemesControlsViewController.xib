@@ -208,7 +208,6 @@
                     <rect key="frame" x="230" y="339.5" width="51" height="31"/>
                 </switch>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Uxd-TY-6pz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="25h-uP-Vut"/>
                 <constraint firstItem="VmK-ow-0Kg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="29y-uF-w12"/>

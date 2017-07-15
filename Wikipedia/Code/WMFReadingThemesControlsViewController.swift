@@ -9,7 +9,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     
-    fileprivate var theme = Theme.standard
+    var theme: Theme?
     
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
@@ -151,9 +151,8 @@ open class WMFReadingThemesControlsViewController: UIViewController {
 extension WMFReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
+        
+        print("Applying \(theme.name) theme...")
         
         view.backgroundColor = theme.colors.midBackground
         
