@@ -112,6 +112,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -135,6 +136,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showSearch:)
                                                  name:WMFShowSearchNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeTheme:)
+                                                 name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
 
     @weakify(self);
@@ -183,9 +189,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
+    
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
     [self applyTheme:[WMFTheme standard]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:self.theme.name];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -1448,6 +1456,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)changeTheme:(NSNotification *)note {
+    NSDictionary* userInfo = note.userInfo;
+    WMFTheme* theme = (WMFTheme*)userInfo[@"theme"];
+    
+    if (self.theme != theme) {
+        [self applyTheme:theme];
+        
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme.name];
+    }
 }
 
 #pragma mark - Search
