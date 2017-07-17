@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="autoNightModeSwitch" destination="i2a-zf-eRu" id="MQ6-c0-32U"/>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
