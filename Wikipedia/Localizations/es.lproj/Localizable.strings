@@ -71,11 +71,14 @@
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "No, gracias";
 "article-about-title" = "Acerca de este artículo";
+"article-delete" = "Borrar";
 "article-languages-filter-placeholder" = "Seleccionar idioma";
 "article-languages-label" = "Elige un idioma";
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Más información";
+"article-save" = "Guardar";
+"article-share" = "Compartir";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back" = "Volver";
@@ -179,6 +182,8 @@
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
+"home-button-popover-description" = "Pulsa en \"W\" para volver al feed de Explorar";
+"home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
@@ -239,8 +244,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-day" = "un $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 acontecimientos históricos";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
 "on-this-day-title" = "Un día como hoy";
 "onboarding-wikipedia" = "Wikipedia";
@@ -392,6 +396,7 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-sign-in" = "Acceder";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";

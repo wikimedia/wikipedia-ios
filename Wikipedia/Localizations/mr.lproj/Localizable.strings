@@ -3,6 +3,7 @@
 // Author: Abhinavgarule
 // Author: NehalDaveND
 // Author: Nemo bis
+// Author: Rupalichinchure
 // Author: V.narsikar
 // Author: अभय नातू
 // Author: संतोष दहिवळ
@@ -41,6 +42,7 @@
 "account-creation-saving" = "जतन करीत आहे...";
 "alert-no-internet" = "तिथे जाल अनुबंध नाही";
 "article-about-title" = "या लेखाबद्दल";
+"article-delete" = "हटवा";
 "article-languages-filter-placeholder" = "भाषा शोधा";
 "article-languages-label" = "भाषा निवडा";
 "article-languages-others" = "इतर भाषा";
@@ -98,6 +100,7 @@
 "hockeyapp-alert-privacy" = "$1 गुप्तता";
 "hockeyapp-alert-send-report" = "अहवाल पाठवा";
 "hockeyapp-alert-title" = "माफ करा, मागील वेळी अॲप क्रॲश झाले होते";
+"home-button-popover-title" = "मुख्य पानावर जाण्यासाठी येथे दाबा";
 "home-hide-suggestion-cancel" = "रद्द करा";
 "home-hide-suggestion-prompt" = "ही सुचवणी लपवा";
 "home-more-like-footer" = "अधिक $1 सारखे";

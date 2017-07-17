@@ -71,6 +71,8 @@
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
+"article-save" = "Desa";
+"article-share" = "Comparteix";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back" = "Enrere";
@@ -108,6 +110,7 @@
 "explore-another-random" = "Un altre article a l'atzar";
 "explore-because-you-read" = "Perquè vau llegir";
 "explore-continue-reading-heading" = "Continua llegint";
+"explore-enable-location-title" = "Explora articles prop de la vostra ubicació actual";
 "explore-featured-article-heading" = "Article destacat";
 "explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
@@ -172,6 +175,7 @@
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
+"home-button-popover-title" = "Toca per a anar l'inici";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
 "home-hide-suggestion-cancel" = "Cancel·la";
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
@@ -230,9 +234,11 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
+"on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-day" = "el $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "1$ esdeveniments històrics";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
+"on-this-day-footer" = "Més esdeveniments històrics aquest dia";
+"on-this-day-title" = "Aquest dia";
 "onboarding-wikipedia" = "Viquipèdia";
 "open-link-cancel" = "Cancel·la";
 "page-edit-history" = "Historial complet";

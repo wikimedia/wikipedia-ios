@@ -65,11 +65,14 @@
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "不用了，谢谢";
 "article-about-title" = "关于此条目";
+"article-delete" = "删除";
 "article-languages-filter-placeholder" = "查找语言";
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
 "article-languages-yours" = "您的语言";
 "article-read-more-title" = "阅读更多";
+"article-save" = "保存";
+"article-share" = "分享";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "back" = "返回";
@@ -387,7 +390,7 @@
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "通过发布更改，您同意$1并同意将您的贡献根据$2{{PLURAL:$3|许可协议}}发布。";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "通过发布更改，您同意$1并同意将您的贡献根据$2和$3许可协议发布。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";

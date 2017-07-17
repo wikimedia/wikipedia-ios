@@ -1,4 +1,4 @@
-// Messages for Central Kurdish (کوردیی ناوەندی)
+// Messages for Central Kurdish (کوردی)
 // Exported from translatewiki.net
 // Author: Asoxor
 // Author: Diyariq
@@ -380,6 +380,7 @@
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "بە پاشەکەوتکردنی گۆڕانکارییەکان، تۆ $1 پەسەند دەکەیت و ڕازی دەبیت بە بڵاوکردنەوەی بەشدارییەکانت لەژێر مۆڵەتنامەکانی $2 و $3.";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";
 "zero-charged-verbiage" = "ویکیپیدیا زیرۆ کوژاوەتەوە";

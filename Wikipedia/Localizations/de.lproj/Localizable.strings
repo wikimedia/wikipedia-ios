@@ -57,11 +57,14 @@
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Nein, danke";
 "article-about-title" = "Über diesen Artikel";
+"article-delete" = "Löschen";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
+"article-save" = "Speichern";
+"article-share" = "Teilen";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back" = "Zurück";

@@ -397,6 +397,7 @@
 "wikitext-upload-save" = "Paylaşılıyor...";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-sign-in" = "Oturum aç";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Değişikliklerinizi kaydederek $1 kabul etmiş sayılırsınız ve bu değişiklikler $2 ve $3 lisansı altında yayınlanır.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";
