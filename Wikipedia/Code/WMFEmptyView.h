@@ -1,6 +1,7 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFEmptyView : UIView
+@interface WMFEmptyView : UIView <WMFThemeable>
 
 + (instancetype)blankEmptyView;
 + (instancetype)noFeedEmptyView;

@@ -6,6 +6,7 @@ wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('./js/transforms/footerReadMore')
 wmf.footerMenu = require('./js/transforms/footerMenu')
 wmf.footerLegal = require('./js/transforms/footerLegal')
+wmf.footerContainer = require('./js/transforms/footerContainer')
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.redLinks = require('wikimedia-page-library').RedLinks

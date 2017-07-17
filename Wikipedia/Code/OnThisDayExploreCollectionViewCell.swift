@@ -7,8 +7,8 @@ class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         if (apply) {
-            let topGradientHeight: CGFloat = ceil(0.1*size.height)
-            let bottomGradientHeight: CGFloat = ceil(0.2*size.height)
+            let topGradientHeight: CGFloat = 17
+            let bottomGradientHeight: CGFloat = 53
             let topGradientSize = CGSize(width: size.width, height: topGradientHeight)
             let bottomGradientSize = CGSize(width: size.width, height: bottomGradientHeight)
             topGradientView.frame = CGRect(origin: .zero, size: topGradientSize)
@@ -24,13 +24,13 @@ class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         topGradientView.startPoint = CGPoint(x: 0.5, y: 0)
         topGradientView.endPoint = CGPoint(x: 0.5, y: 1)
         bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
-        bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.77)
+        bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.8)
     }
     
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        let opaque = theme.colors.paperBackground
-        let clear = opaque.withAlphaComponent(0)
+    override func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        let opaque = labelBackgroundColor
+        let clear = opaque?.withAlphaComponent(0)
         topGradientView.startColor = opaque
         topGradientView.endColor = clear
         bottomGradientView.startColor = clear

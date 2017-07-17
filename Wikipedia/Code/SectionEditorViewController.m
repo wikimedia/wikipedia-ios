@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -30,7 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
+    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
@@ -60,6 +65,8 @@
     }
 
     self.viewKeyboardRect = CGRectNull;
+    
+    [self applyTheme:self.theme];
 }
 
 - (void)xButtonPressed {
@@ -185,6 +192,7 @@
                                         attributes:@{
                                             NSParagraphStyleAttributeName: paragraphStyle,
                                             NSFontAttributeName: EDIT_TEXT_VIEW_FONT,
+                                            NSForegroundColorAttributeName: self.theme.colors.primaryText
                                         }];
 }
 
@@ -195,6 +203,7 @@
     previewVC.funnel = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;
     previewVC.delegate = self;
+    [previewVC applyTheme: self.theme];
     [self.navigationController pushViewController:previewVC animated:YES];
 }
 
@@ -290,6 +299,18 @@
 - (BOOL)accessibilityPerformEscape {
     [self.navigationController popViewControllerAnimated:YES];
     return YES;
+}
+
+#pragma mark WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+    self.editTextView.backgroundColor = theme.colors.paperBackground;
+    self.editTextView.textColor = theme.colors.primaryText;
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

@@ -13,33 +13,33 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
+    
     if (self.deleteButton.superview.subviews.lastObject != self.deleteButton) {
         [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
     }
-
+    
     self.cellWhiteLayer.frame = self.bounds;
     self.deleteButtonWhiteLayer.frame = self.deleteButton.bounds;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-
+    
     self.deleteButton = [self wmf_deleteButton];
     [self.contentView.superview addSubview:self.deleteButton];
     [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(50));
-
+        
         // Attach leading edge to contentView so it tracks horizonally
         // with cell animations such as when enabling table view editing with
         // animations.
         make.leading.equalTo(self.contentView).offset(-40);
-
+        
         // Use offsets for top and bottom so as not to overlap separators.
         make.top.equalTo(self.deleteButton.superview).offset(1);
         make.bottom.equalTo(self.deleteButton.superview).offset(-1);
     }];
-
+    
     self.cellWhiteLayer = [self whiteLayer];
     [self.layer insertSublayer:self.cellWhiteLayer atIndex:0];
 }
@@ -52,10 +52,10 @@
     button.tintColor = [UIColor redColor];
     [button setImage:[UIImage imageNamed:@"language-delete"] forState:UIControlStateNormal];
     button.imageView.backgroundColor = [UIColor whiteColor];
-
+    
     self.deleteButtonWhiteLayer = [self whiteLayer];
     [button.layer insertSublayer:self.deleteButtonWhiteLayer atIndex:0];
-
+    
     return button;
 }
 
@@ -67,6 +67,14 @@
     CALayer *layer = [CALayer layer];
     layer.backgroundColor = [UIColor whiteColor].CGColor;
     return layer;
+}
+
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.cellWhiteLayer.backgroundColor = theme.colors.paperBackground.CGColor;
+    self.deleteButton.tintColor = theme.colors.destructive;
+    self.deleteButton.imageView.backgroundColor = theme.colors.paperBackground;
+    self.deleteButtonWhiteLayer.backgroundColor = self.cellWhiteLayer.backgroundColor;
 }
 
 @end

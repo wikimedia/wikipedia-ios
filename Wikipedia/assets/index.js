@@ -7,6 +7,7 @@ wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('./js/transforms/footerReadMore')
 wmf.footerMenu = require('./js/transforms/footerMenu')
 wmf.footerLegal = require('./js/transforms/footerLegal')
+wmf.footerContainer = require('./js/transforms/footerContainer')
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.redLinks = require('wikimedia-page-library').RedLinks
@@ -14,8 +15,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerLegal":8,"./js/transforms/footerMenu":9,"./js/transforms/footerReadMore":10,"./js/transforms/relocateFirstParagraph":11,"./js/transforms/widenImages":12,"./js/utilities":13,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerContainer":8,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/transforms/relocateFirstParagraph":12,"./js/transforms/widenImages":13,"./js/utilities":14,"wikimedia-page-library":15}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -144,7 +144,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":13,"wikimedia-page-library":14}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":14,"wikimedia-page-library":15}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -470,7 +470,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":14}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":15}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -497,6 +497,33 @@ function disableFilePageEdit( content ) {
 
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],8:[function(require,module,exports){
+function updateBottomPaddingToAllowReadMoreToScrollToTop() {
+  var div = document.getElementById('footer_container_ensure_can_scroll_to_top')
+  var currentPadding = parseInt(div.style.paddingBottom)
+  if (isNaN(currentPadding)) {currentPadding = 0}
+  var height = div.clientHeight - currentPadding
+  var newPadding = Math.max(0, window.innerHeight - height)
+  div.style.paddingBottom = `${newPadding}px`
+}
+
+function updateLeftAndRightMargin(margin) {
+  Array.from(document.querySelectorAll('#footer_container_menu_heading, #footer_container_readmore, #footer_container_legal'))
+      .forEach(function(element) {
+        element.style.marginLeft = `${margin}px`
+        element.style.marginRight = `${margin}px`
+      })
+  var rightOrLeft = document.querySelector( 'html' ).dir == 'rtl' ? 'right' : 'left'
+  Array.from(document.querySelectorAll('.footer_menu_item'))
+        .forEach(function(element) {
+          element.style.backgroundPosition = `${rightOrLeft} ${margin}px center`
+          element.style.paddingLeft = `${margin}px`
+          element.style.paddingRight = `${margin}px`
+        })
+}
+
+exports.updateBottomPaddingToAllowReadMoreToScrollToTop = updateBottomPaddingToAllowReadMoreToScrollToTop
+exports.updateLeftAndRightMargin = updateLeftAndRightMargin
+},{}],9:[function(require,module,exports){
 
 function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
   var container = document.getElementById(containerID)
@@ -522,32 +549,68 @@ function add(licenseString, licenseSubstitutionString, containerID, licenceLinkC
 }
 
 exports.add = add
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
-// var thisType = IconTypeEnum.languages;
-// var iconClass = IconTypeEnum.properties[thisType].iconClass;
-// iconClass is 'footer_menu_icon_languages'
-var IconTypeEnum = {
+function pageIssuesStringsArray() {
+  const tables = document.querySelectorAll( 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)' )
+  // Get the tables into a fragment so we can remove some elements without triggering a layout
+  var fragment = document.createDocumentFragment()
+  for (var i = 0; i < tables.length; i++) {
+    fragment.appendChild(tables[i].cloneNode(true))
+  }
+  // Remove some element so their text doesn't appear when we use "innerText"
+  Array.from(fragment.querySelectorAll( '.hide-when-compact, .collapsed' )).forEach(el => el.remove())
+  // Get the innerText
+  return Array.from(fragment.querySelectorAll( 'td[class$=mbox-text]' )).map(el => el.innerText)
+}
+
+function disambiguationTitlesArray() {
+  return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(el => el.href)
+}
+
+var MenuItemType = {
   languages: 1,
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
-  coordinate: 5,
-  properties: {
-    1: {iconClass: 'footer_menu_icon_languages'},
-    2: {iconClass: 'footer_menu_icon_last_edited'},
-    3: {iconClass: 'footer_menu_icon_page_issues'},
-    4: {iconClass: 'footer_menu_icon_disambiguation'},
-    5: {iconClass: 'footer_menu_icon_coordinate'}
-  }
+  coordinate: 5
 }
 
 class WMFMenuItem {
-  constructor(title, subtitle, iconType, clickHandler) {
+  constructor(title, subtitle, itemType, clickHandler) {
     this.title = title
     this.subtitle = subtitle
-    this.iconType = iconType
+    this.itemType = itemType
     this.clickHandler = clickHandler
+    this.payload = []
+  }
+  iconClass(){
+    switch(this.itemType){
+    case MenuItemType.languages:
+      return 'footer_menu_icon_languages'
+    case MenuItemType.lastEdited:
+      return 'footer_menu_icon_last_edited'
+    case MenuItemType.pageIssues:
+      return 'footer_menu_icon_page_issues'
+    case MenuItemType.disambiguation:
+      return 'footer_menu_icon_disambiguation'
+    case MenuItemType.coordinate:
+      return 'footer_menu_icon_coordinate'
+    }
+  }
+  payloadExtractor(){
+    switch(this.itemType){
+    case MenuItemType.languages:
+      return null
+    case MenuItemType.lastEdited:
+      return null
+    case MenuItemType.pageIssues:
+      return pageIssuesStringsArray
+    case MenuItemType.disambiguation:
+      return disambiguationTitlesArray
+    case MenuItemType.coordinate:
+      return null
+    }
   }
 }
 
@@ -558,7 +621,7 @@ class WMFMenuItemFragment {
 
     var containerAnchor = document.createElement('a')
     containerAnchor.addEventListener('click', function(){
-      wmfMenuItem.clickHandler()
+      wmfMenuItem.clickHandler(wmfMenuItem.payload)
     }, false)
 
     item.appendChild(containerAnchor)
@@ -578,8 +641,8 @@ class WMFMenuItemFragment {
       containerAnchor.appendChild(subtitle)
     }
 
-    if(wmfMenuItem.iconType){
-      var iconClass = IconTypeEnum.properties[wmfMenuItem.iconType].iconClass
+    var iconClass = wmfMenuItem.iconClass()
+    if(iconClass){
       item.classList.add(iconClass)
     }
 
@@ -587,10 +650,23 @@ class WMFMenuItemFragment {
   }
 }
 
-function addItem(title, subtitle, iconType, containerID, clickHandler) {
-  const itemModel = new WMFMenuItem(title, subtitle, iconType, clickHandler)
-  const itemFragment = new WMFMenuItemFragment(itemModel)
-  document.getElementById(containerID).appendChild(itemFragment)
+function maybeAddItem(title, subtitle, itemType, containerID, clickHandler) {
+  const item = new WMFMenuItem(title, subtitle, itemType, clickHandler)
+
+  // Items are not added if they have a payload extractor which fails to extract anything.
+  if (item.payloadExtractor() !== null){
+    item.payload = item.payloadExtractor()()
+    if(item.payload.length === 0){
+      return
+    }
+  }
+
+  addItem(item, containerID)
+}
+
+function addItem(wmfMenuItem, containerID) {
+  const fragment = new WMFMenuItemFragment(wmfMenuItem)
+  document.getElementById(containerID).appendChild(fragment)
 }
 
 function setHeading(headingString, headingID) {
@@ -599,10 +675,10 @@ function setHeading(headingString, headingID) {
   headingElement.title = headingString
 }
 
-exports.IconTypeEnum = IconTypeEnum
+exports.MenuItemType = MenuItemType
 exports.setHeading = setHeading
-exports.addItem = addItem
-},{}],10:[function(require,module,exports){
+exports.maybeAddItem = maybeAddItem
+},{}],11:[function(require,module,exports){
 
 var _saveButtonClickHandler = null
 var _titlesShownHandler = null
@@ -673,7 +749,7 @@ class WMFPageFragment {
 
     var description = null
     if(wmfPage.terms){
-      description = wmfPage.terms.description
+      description = wmfPage.terms.description[0]
     }
     if((description === null || description.length < 10) && wmfPage.extract){
       description = cleanExtract(wmfPage.extract)
@@ -815,7 +891,7 @@ function setHeading(headingString, headingID) {
 exports.setHeading = setHeading
 exports.setTitleIsSaved = setTitleIsSaved
 exports.add = add
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 function moveFirstGoodParagraphUp( content ) {
     /*
@@ -896,7 +972,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -913,7 +989,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":14}],13:[function(require,module,exports){
+},{"wikimedia-page-library":15}],14:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -955,7 +1031,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1026,9 +1102,73 @@ var isNestedInTable = function isNestedInTable(el) {
   return Boolean(findClosestAncestor(el, 'table'));
 };
 
+/**
+ * @param {!HTMLElement} element
+ * @return {!boolean} true if element affects layout, false otherwise.
+ */
+var isVisible = function isVisible(element) {
+  return (
+    // https://github.com/jquery/jquery/blob/305f193/src/css/hiddenVisibleSelectors.js#L12
+    Boolean(element.offsetWidth || element.offsetHeight || element.getClientRects().length)
+  );
+};
+
+/**
+ * Move attributes from source to destination as data-* attributes.
+ * @param {!HTMLElement} source
+ * @param {!HTMLElement} destination
+ * @param {!string[]} attributes
+ * @return {void}
+ */
+var moveAttributesToDataAttributes = function moveAttributesToDataAttributes(source, destination, attributes) {
+  attributes.forEach(function (attribute) {
+    if (source.hasAttribute(attribute)) {
+      destination.setAttribute('data-' + attribute, source.getAttribute(attribute));
+      source.removeAttribute(attribute);
+    }
+  });
+};
+
+/**
+ * Move data-* attributes from source to destination as attributes.
+ * @param {!HTMLElement} source
+ * @param {!HTMLElement} destination
+ * @param {!string[]} attributes
+ * @return {void}
+ */
+var moveDataAttributesToAttributes = function moveDataAttributesToAttributes(source, destination, attributes) {
+  attributes.forEach(function (attribute) {
+    var dataAttribute = 'data-' + attribute;
+    if (source.hasAttribute(dataAttribute)) {
+      destination.setAttribute(attribute, source.getAttribute(dataAttribute));
+      source.removeAttribute(dataAttribute);
+    }
+  });
+};
+
+/**
+ * Copy data-* attributes from source to destination as attributes.
+ * @param {!HTMLElement} source
+ * @param {!HTMLElement} destination
+ * @param {!string[]} attributes
+ * @return {void}
+ */
+var copyDataAttributesToAttributes = function copyDataAttributesToAttributes(source, destination, attributes) {
+  attributes.forEach(function (attribute) {
+    var dataAttribute = 'data-' + attribute;
+    if (source.hasAttribute(dataAttribute)) {
+      destination.setAttribute(attribute, source.getAttribute(dataAttribute));
+    }
+  });
+};
+
 var elementUtilities = {
   findClosestAncestor: findClosestAncestor,
-  isNestedInTable: isNestedInTable
+  isNestedInTable: isNestedInTable,
+  isVisible: isVisible,
+  moveAttributesToDataAttributes: moveAttributesToDataAttributes,
+  moveDataAttributesToAttributes: moveDataAttributesToAttributes,
+  copyDataAttributesToAttributes: copyDataAttributesToAttributes
 };
 
 var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
@@ -1324,6 +1464,547 @@ var CollapseTable = {
   }
 };
 
+// CSS classes used to identify and present converted images. An image is only a member of one class
+// at a time depending on the current transform state. These class names should match the classes in
+// LazyLoadTransform.css.
+var PENDING_CLASS = 'pagelib-lazy-load-image-pending'; // Download pending or started.
+var LOADED_CLASS = 'pagelib-lazy-load-image-loaded'; // Download completed.
+
+// Attributes saved via data-* attributes for later restoration. These attributes can cause files to
+// be downloaded when set so they're temporarily preserved and removed. Additionally, `style.width`
+// and `style.height` are saved with their priorities. In the rare case that a conflicting data-*
+// attribute already exists, it is overwritten.
+var PRESERVE_ATTRIBUTES = ['src', 'srcset'];
+var PRESERVE_STYLE_WIDTH_VALUE = 'data-width-value';
+var PRESERVE_STYLE_HEIGHT_VALUE = 'data-height-value';
+var PRESERVE_STYLE_WIDTH_PRIORITY = 'data-width-priority';
+var PRESERVE_STYLE_HEIGHT_PRIORITY = 'data-height-priority';
+
+// A transparent single pixel gif via https://stackoverflow.com/a/15960901/970346.
+var PLACEHOLDER_URI = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAI=';
+
+// Small images, especially icons, are quickly downloaded and may appear in many places. Lazily
+// loading these images degrades the experience with little gain. Always eagerly load these images.
+// Example: flags in the medal count for the "1896 Summer Olympics medal table."
+// https://en.m.wikipedia.org/wiki/1896_Summer_Olympics_medal_table?oldid=773498394#Medal_count
+var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
+  px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
+  ex: 10, // ''
+  em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
+
+
+  /**
+   * @param {!string} value
+   * @return {!string[]} A value-unit tuple.
+   */
+};var splitStylePropertyValue = function splitStylePropertyValue(value) {
+  var matchValueUnit = value.match(/(\d+)(\D+)/) || [];
+  return [matchValueUnit[1] || '', matchValueUnit[2] || ''];
+};
+
+/**
+ * @param {!HTMLImageElement} image The image to be consider.
+ * @return {!boolean} true if image download can be deferred, false if image should be eagerly
+ *                    loaded.
+*/
+var isLazyLoadable = function isLazyLoadable(image) {
+  return ['width', 'height'].every(function (dimension) {
+    // todo: remove `|| ''` when https://github.com/fgnass/domino/issues/98 is fixed.
+    var valueUnitString = image.style.getPropertyValue(dimension) || '';
+
+    if (!valueUnitString && image.hasAttribute(dimension)) {
+      valueUnitString = image.getAttribute(dimension) + 'px';
+    }
+
+    var valueUnit = splitStylePropertyValue(valueUnitString);
+    return !valueUnit[0] || valueUnit[0] >= UNIT_TO_MINIMUM_LAZY_LOAD_SIZE[valueUnit[1]];
+  });
+};
+
+/**
+ * Replace image data with placeholder content.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The image to be updated.
+ * @return {void}
+ */
+var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+  // There are a number of possible implementations including:
+  //
+  // - [Previous] Replace the original image with a span and append a new downloaded image to the
+  //   span.
+  //   This option has the best cross-fading and extensibility but makes the CSS rules for the
+  //   appended image impractical.
+  //
+  // - [MobileFrontend] Replace the original image with a span and replace the span with a new
+  //   downloaded image.
+  //   This option has a good fade-in but has some CSS concerns for the placeholder, particularly
+  //   `max-width`.
+  //
+  // - [Current] Replace the original image's source with a transparent image and update the source
+  //   from a new downloaded image.
+  //   This option has a good fade-in but minimal CSS concerns for the placeholder and image.
+  //
+  // Minerva's tricky image dimension CSS rule cannot be disinherited:
+  //
+  //   .content a > img {
+  //     max-width: 100% !important;
+  //     height: auto !important;
+  //   }
+  //
+  // This forces an image to be bound to screen width and to appear (with scrollbars) proportionally
+  // when it is too large. For the current implementation, unfortunately, the transparent
+  // placeholder image rarely matches the original's aspect ratio and `height: auto !important`
+  // forces this ratio to be used instead of the original's. MobileFrontend uses spans for
+  // placeholders and the CSS rule does not apply. This implementation sets the dimensions as an
+  // inline style with height as `!important` to override MobileFrontend. For images that are capped
+  // by `max-width`, this usually causes the height of the placeholder and the height of the loaded
+  // image to mismatch which causes a reflow. To stimulate this issue, go to the "Pablo Picasso"
+  // article and set the screen width to be less than the image width. When placeholders are
+  // replaced with images, the image height reduces dramatically. MobileFrontend has the same
+  // limitation with spans. Note: clientWidth is unavailable since this conversion occurs in a
+  // separate Document.
+  //
+  // Reflows also occur in this and MobileFrontend when the image width or height do not match the
+  // actual file dimensions. e.g., see the image captioned "Obama and his wife Michelle at the Civil
+  // Rights Summit..." on the "Barack Obama" article.
+  //
+  // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/skins.minerva.content.styles/images.less;e15c49de788cd451abe648497123480da1c9c9d4$55
+  // https://en.m.wikipedia.org/wiki/Barack_Obama?oldid=789232530
+  // https://en.m.wikipedia.org/wiki/Pablo_Picasso?oldid=788122694
+  var width = image.style.getPropertyValue('width');
+  if (width) {
+    image.setAttribute(PRESERVE_STYLE_WIDTH_VALUE, width);
+    image.setAttribute(PRESERVE_STYLE_WIDTH_PRIORITY, image.style.getPropertyPriority('width'));
+  } else if (image.hasAttribute('width')) {
+    width = image.getAttribute('width') + 'px';
+  }
+  // !important priority for WidenImage (`width: 100% !important` and placeholder is 1px wide).
+  if (width) {
+    image.style.setProperty('width', width, 'important');
+  }
+
+  var height = image.style.getPropertyValue('height');
+  if (height) {
+    image.setAttribute(PRESERVE_STYLE_HEIGHT_VALUE, height);
+    image.setAttribute(PRESERVE_STYLE_HEIGHT_PRIORITY, image.style.getPropertyPriority('height'));
+  } else if (image.hasAttribute('height')) {
+    height = image.getAttribute('height') + 'px';
+  }
+  // !important priority for Minerva.
+  if (height) {
+    image.style.setProperty('height', height, 'important');
+  }
+
+  elementUtilities.moveAttributesToDataAttributes(image, image, PRESERVE_ATTRIBUTES);
+  image.setAttribute('src', PLACEHOLDER_URI);
+
+  image.classList.add(PENDING_CLASS);
+};
+
+/**
+ * @param {!HTMLImageElement} image
+ * @return {void}
+ */
+var loadImageCallback = function loadImageCallback(image) {
+  if (image.hasAttribute(PRESERVE_STYLE_WIDTH_VALUE)) {
+    image.style.setProperty('width', image.getAttribute(PRESERVE_STYLE_WIDTH_VALUE), image.getAttribute(PRESERVE_STYLE_WIDTH_PRIORITY));
+  } else {
+    image.style.removeProperty('width');
+  }
+
+  if (image.hasAttribute(PRESERVE_STYLE_HEIGHT_VALUE)) {
+    image.style.setProperty('height', image.getAttribute(PRESERVE_STYLE_HEIGHT_VALUE), image.getAttribute(PRESERVE_STYLE_HEIGHT_PRIORITY));
+  } else {
+    image.style.removeProperty('height');
+  }
+};
+
+/**
+ * Start downloading image resources associated with a given image element and update the
+ * placeholder with the original content when available.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The old image element showing placeholder content. This element
+ *                                  will be updated when the new image resources finish downloading.
+ * @return {!HTMLElement} A new image element for downloading the resources.
+ */
+var loadImage = function loadImage(document, image) {
+  var download = document.createElement('img');
+
+  // Add the download listener prior to setting the src attribute to avoid missing the load event.
+  download.addEventListener('load', function () {
+    image.classList.add(LOADED_CLASS);
+    image.classList.remove(PENDING_CLASS);
+
+    // Add the restoration listener prior to setting the src attribute to avoid missing the load
+    // event.
+    image.addEventListener('load', function () {
+      return loadImageCallback(image);
+    }, { once: true });
+
+    // Set src and other attributes, triggering a download from cache which still takes time on
+    // older devices. Waiting until the image is loaded prevents an unnecessary potential reflow due
+    // to the call to style.removeProperty('height')`.
+    elementUtilities.moveDataAttributesToAttributes(image, image, PRESERVE_ATTRIBUTES);
+  }, { once: true });
+
+  // Set src and other attributes, triggering a download.
+  elementUtilities.copyDataAttributesToAttributes(image, download, PRESERVE_ATTRIBUTES);
+
+  return download;
+};
+
+/**
+ * @param {!Element} element
+ * @return {!HTMLImageElement[]} Convertible images descendent from but not including element.
+ */
+var queryLazyLoadableImages = function queryLazyLoadableImages(element) {
+  return Array.prototype.slice.call(element.querySelectorAll('img')).filter(function (image) {
+    return isLazyLoadable(image);
+  });
+};
+
+/**
+ * Convert images with placeholders. The transformation is inverted by calling loadImage().
+ * @param {!Document} document
+ * @param {!HTMLImageElement[]} images The images to lazily load.
+ * @return {void}
+ */
+var convertImagesToPlaceholders = function convertImagesToPlaceholders(document, images) {
+  return images.forEach(function (image) {
+    return convertImageToPlaceholder(document, image);
+  });
+};
+
+var LazyLoadTransform = { loadImage: loadImage, queryLazyLoadableImages: queryLazyLoadableImages, convertImagesToPlaceholders: convertImagesToPlaceholders };
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/** Function rate limiter. */
+var Throttle = function () {
+  createClass(Throttle, null, [{
+    key: "wrap",
+
+    /**
+     * Wraps a function in a Throttle.
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     * @return {!function} A function wrapped in a Throttle.
+     */
+    value: function wrap(window, period, funktion) {
+      var throttle = new Throttle(window, period, funktion);
+      var throttled = function Throttled() {
+        return throttle.queue(this, arguments);
+      };
+      throttled.result = function () {
+        return throttle.result;
+      };
+      throttled.pending = function () {
+        return throttle.pending();
+      };
+      throttled.delay = function () {
+        return throttle.delay();
+      };
+      throttled.cancel = function () {
+        return throttle.cancel();
+      };
+      throttled.reset = function () {
+        return throttle.reset();
+      };
+      return throttled;
+    }
+
+    /**
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     */
+
+  }]);
+
+  function Throttle(window, period, funktion) {
+    classCallCheck(this, Throttle);
+
+    this._window = window;
+    this._period = period;
+    this._function = funktion;
+
+    // The upcoming invocation's context and arguments.
+    this._context = undefined;
+    this._arguments = undefined;
+
+    // The previous invocation's result, timeout identifier, and last run timestamp.
+    this._result = undefined;
+    this._timeout = 0;
+    this._timestamp = 0;
+  }
+
+  /**
+   * The return value of the initial run is always undefined. The return value of subsequent runs is
+   * always a previous result. The context and args used by a future invocation are always the most
+   * recently supplied. Invocations, even if immediately eligible, are dispatched.
+   * @param {?any} context
+   * @param {?any} args The arguments passed to the underlying function.
+   * @return {?any} The cached return value of the underlying function.
+   */
+
+
+  createClass(Throttle, [{
+    key: "queue",
+    value: function queue(context, args) {
+      var _this = this;
+
+      // Always update the this and arguments to the latest supplied.
+      this._context = context;
+      this._arguments = args;
+
+      if (!this.pending()) {
+        // Queue a new invocation.
+        this._timeout = this._window.setTimeout(function () {
+          _this._timeout = 0;
+          _this._timestamp = Date.now();
+          _this._result = _this._function.apply(_this._context, _this._arguments);
+        }, this.delay());
+      }
+
+      // Always return the previous result.
+      return this.result;
+    }
+
+    /** @return {?any} The cached return value of the underlying function. */
+
+  }, {
+    key: "pending",
+
+
+    /** @return {!boolean} true if an invocation is queued. */
+    value: function pending() {
+      return Boolean(this._timeout);
+    }
+
+    /**
+     * @return {!number} The nonnegative number of milliseconds until an invocation is eligible to
+     *                   run.
+     */
+
+  }, {
+    key: "delay",
+    value: function delay() {
+      if (!this._timestamp) {
+        return 0;
+      }
+      return Math.max(0, this._period - (Date.now() - this._timestamp));
+    }
+
+    /**
+     * Clears any pending invocation but doesn't clear time last invoked or prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      if (this._timeout) {
+        this._window.clearTimeout(this._timeout);
+      }
+      this._timeout = 0;
+    }
+
+    /**
+     * Clears any pending invocation, time last invoked, and prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.cancel();
+      this._result = undefined;
+      this._timestamp = 0;
+    }
+  }, {
+    key: "result",
+    get: function get$$1() {
+      return this._result;
+    }
+  }]);
+  return Throttle;
+}();
+
+var EVENT_TYPES = ['scroll', 'resize', CollapseTable.SECTION_TOGGLED_EVENT_TYPE];
+var THROTTLE_PERIOD_MILLISECONDS = 100;
+
+/**
+ * This class subscribes to key page events, applying lazy load transforms or inversions as
+ * applicable. It has external dependencies on the section-toggled custom event and the following
+ * standard browser events: resize, scroll.
+ */
+
+var _class = function () {
+  /**
+   * @param {!Window} window
+   * @param {!number} loadDistanceMultiplier Images within this multiple of the screen height are
+   *                                         loaded in either direction.
+   */
+  function _class(window, loadDistanceMultiplier) {
+    var _this = this;
+
+    classCallCheck(this, _class);
+
+    this._window = window;
+    this._loadDistanceMultiplier = loadDistanceMultiplier;
+
+    this._pendingImages = [];
+    this._registered = false;
+    this._throttledLoadImages = Throttle.wrap(window, THROTTLE_PERIOD_MILLISECONDS, function () {
+      return _this._loadImages();
+    });
+  }
+
+  /**
+   * Convert images with placeholders. Calling this function may register this instance to listen to
+   * page events.
+   * @param {!Element} element
+   * @return {void}
+   */
+
+
+  createClass(_class, [{
+    key: 'convertImagesToPlaceholders',
+    value: function convertImagesToPlaceholders(element) {
+      var images = LazyLoadTransform.queryLazyLoadableImages(element);
+      LazyLoadTransform.convertImagesToPlaceholders(this._window.document, images);
+      this._pendingImages = this._pendingImages.concat(images);
+      this._register();
+    }
+
+    /**
+     * Manually trigger a load images check. Calling this function may deregister this instance from
+     * listening to page events.
+     * @return {void}
+     */
+
+  }, {
+    key: 'loadImages',
+    value: function loadImages() {
+      this._throttledLoadImages();
+    }
+
+    /**
+     * This method may be safely called even when already unregistered. This function clears the
+     * record of placeholders.
+     * @return {void}
+     */
+
+  }, {
+    key: 'deregister',
+    value: function deregister() {
+      var _this2 = this;
+
+      if (!this._registered) {
+        return;
+      }
+
+      EVENT_TYPES.forEach(function (eventType) {
+        return _this2._window.removeEventListener(eventType, _this2._throttledLoadImages);
+      });
+
+      this._pendingImages = [];
+      this._registered = false;
+    }
+
+    /**
+     * This method may be safely called even when already registered.
+     * @return {void}
+     */
+
+  }, {
+    key: '_register',
+    value: function _register() {
+      var _this3 = this;
+
+      if (this._registered || !this._pendingImages.length) {
+        return;
+      }
+      this._registered = true;
+
+      EVENT_TYPES.forEach(function (eventType) {
+        return _this3._window.addEventListener(eventType, _this3._throttledLoadImages);
+      });
+    }
+
+    /** @return {void} */
+
+  }, {
+    key: '_loadImages',
+    value: function _loadImages() {
+      var _this4 = this;
+
+      this._pendingImages = this._pendingImages.filter(function (image) {
+        var pending = true;
+        if (_this4._isImageEligibleToLoad(image)) {
+          LazyLoadTransform.loadImage(_this4._window.document, image);
+          pending = false;
+        }
+        return pending;
+      });
+
+      if (this._pendingImages.length === 0) {
+        this.deregister();
+      }
+    }
+
+    /**
+     * @param {!HTMLSpanElement} image
+     * @return {!boolean}
+     */
+
+  }, {
+    key: '_isImageEligibleToLoad',
+    value: function _isImageEligibleToLoad(image) {
+      return elementUtilities.isVisible(image) && this._isImageWithinLoadDistance(image);
+    }
+
+    /**
+     * @param {!HTMLSpanElement} image
+     * @return {!boolean}
+     */
+
+  }, {
+    key: '_isImageWithinLoadDistance',
+    value: function _isImageWithinLoadDistance(image) {
+      var bounds = image.getBoundingClientRect();
+      var range = this._window.innerHeight * this._loadDistanceMultiplier;
+      return !(bounds.top > range || bounds.bottom < -range);
+    }
+  }]);
+  return _class;
+}();
+
 /**
  * Configures span to be suitable replacement for red link anchor.
  * @param {!HTMLSpanElement} span The span element to configure as anchor replacement.
@@ -1454,25 +2135,12 @@ var shouldWidenImage = function shouldWidenImage(image) {
 };
 
 /**
- * Removes barriers to images widening taking effect.
- * @param  {!HTMLElement} image   The image in question
- * @return {void}
- */
-var makeRoomForImageWidening = function makeRoomForImageWidening(image) {
-  widenAncestors(image);
-
-  // Remove width and height attributes so wideImageOverride width percentages can take effect.
-  image.removeAttribute('width');
-  image.removeAttribute('height');
-};
-
-/**
  * Widens the image.
  * @param  {!HTMLElement} image   The image in question
  * @return {void}
  */
 var widenImage = function widenImage(image) {
-  makeRoomForImageWidening(image);
+  widenAncestors(image);
   image.classList.add('wideImageOverride');
 };
 
@@ -1499,10 +2167,12 @@ var WidenImage = {
 
 var pagelib$1 = {
   CollapseTable: CollapseTable,
+  LazyLoadTransform: LazyLoadTransform,
+  LazyLoadTransformer: _class,
   RedLinks: RedLinks,
   WidenImage: WidenImage,
   test: {
-    ElementUtilities: elementUtilities, Polyfill: Polyfill
+    ElementUtilities: elementUtilities, Polyfill: Polyfill, Throttle: Throttle
   }
 };
 
@@ -1515,4 +2185,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);

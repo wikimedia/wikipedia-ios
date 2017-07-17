@@ -1,5 +1,5 @@
 @import UIKit;
-@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
+@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView, WMFTheme;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CGFloat contentWidthPercentage;
 @property (nonatomic, readonly) CGFloat marginWidth;
+
+@property (nonatomic, readonly) WMFTheme *theme;
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
@@ -65,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item;
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray*)payload;
 
 @end
 

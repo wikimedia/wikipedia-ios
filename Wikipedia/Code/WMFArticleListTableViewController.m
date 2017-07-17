@@ -1,8 +1,8 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
-#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import <WMF/PiwikTracker+WMFExtensions.h>
+#import "TUSafariActivity.h"
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -24,17 +24,16 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
-
-    self.tableView.backgroundColor = [UIColor wmf_articleListBackground];
-    self.tableView.separatorColor = [UIColor wmf_lightGray];
-    self.tableView.estimatedRowHeight = 64.0;
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
+
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,12 +70,17 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self canDeleteItemAtIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self deleteItemAtIndexPath:indexPath];
+- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
+    return [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            if (handler) {
+                handler(action, indexPath);
+            }
+        }];
+        [self.tableView setEditing:NO animated:YES];
+        [CATransaction commit];
+    }];
 }
 
 #pragma mark - Previewing
@@ -189,7 +193,7 @@
     if (!self.isEmpty) {
         [self wmf_hideEmptyView];
     } else {
-        [self wmf_showEmptyViewOfType:[self emptyViewType]];
+        [self wmf_showEmptyViewOfType:[self emptyViewType] theme:self.theme];
     }
 }
 
@@ -257,6 +261,61 @@
     dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
         [self updateEmptyAndDeleteState];
     });
+}
+
+#pragma mark - Sharing
+
+- (void)shareArticle:(NSURL *)url {
+    WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
+    [self presentViewController:shareActivityController animated:YES completion:NULL];
+}
+
+#pragma mark - Row actions
+
+- (NSString *)deleteActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-delete", nil, nil, @"Delete", @"Text of the article list row action shown on swipe which deletes the article");
+}
+
+- (NSString *)shareActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
+}
+
+- (NSString *)saveActionText {
+    return WMFLocalizedStringWithDefaultValue(@"article-save", nil, nil, @"Save", @"Text of the article list row action shown on swipe which allows the user to save the article");
+}
+
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        
+        [self shareArticle:url];
+    }];
+}
+
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+}
+
+- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+        [savedPageList addSavedPageWithURL:url];
+    }];
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if ([self viewIfLoaded] == nil) {
+        return;
+    }
+    self.tableView.backgroundColor = theme.colors.baseBackground;
+    [self.tableView reloadData];
+    [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 
 @end

@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIButton *)titleButton;
 
+@property (strong, nonatomic, nullable, readonly) WMFTheme *theme;
+
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)

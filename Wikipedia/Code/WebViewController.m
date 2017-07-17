@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
+
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -141,7 +143,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
+- (void)handleFooterMenuItemClickedScriptMessage:(NSDictionary *)messageDict {
+    NSString *messageString = messageDict[@"selection"];
+    NSArray *payload = messageDict[@"payload"];
+
     WMFArticleFooterMenuItem item;
     if ([messageString isEqualToString:@"languages"]) {
         item = WMFArticleFooterMenuItemLanguages;
@@ -157,7 +162,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
-    [self.delegate webViewController:self didTapFooterMenuItem:item];
+    [self.delegate webViewController:self didTapFooterMenuItem:item payload:payload];
 }
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
@@ -302,7 +307,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
@@ -410,21 +415,27 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
-- (void)updateWebContentMarginForSize:(CGSize)size {
+- (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
     CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
-    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+    if (force || ABS(self.marginWidth - newMarginWidth) >= 0.5) {
         self.marginWidth = newMarginWidth;
-        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        NSString *jsFormat = @""
+            "var contentDiv = document.getElementById('content');"
+            "contentDiv.style.marginLeft='%ipx';"
+            "contentDiv.style.marginRight='%ipx';"
+            "window.wmf.footerContainer.updateLeftAndRightMargin(%i);"
+        ;
+        
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self updateWebContentMarginForSize:self.view.bounds.size];
+    [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -615,6 +626,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (!self.theme) {
+        self.theme = WMFTheme.standard;
+    }
+    
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -635,13 +650,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackground];
-    self.webView.backgroundColor = [UIColor wmf_articleBackground];
-    self.view.backgroundColor = [UIColor wmf_articleBackground];
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
 
+    [self applyTheme:self.theme];
+    
     [self displayArticle];
 }
 
@@ -1070,8 +1083,20 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
     }
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+    self.webView.scrollView.backgroundColor = theme.colors.paperBackground;
+    self.webView.backgroundColor = theme.colors.paperBackground;
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

@@ -28,19 +28,23 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) WMFTheme *theme;
 
 @property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
-@property (strong, nonatomic) IBOutlet UITextField *searchField;
+@property (strong, nonatomic) IBOutlet WMFThemeableTextField *searchField;
 @property (strong, nonatomic) IBOutlet UIView *searchContentContainer;
 @property (strong, nonatomic) IBOutlet UIButton *searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView *resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView *recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIImageView *searchIconView;
+@property (weak, nonatomic) IBOutlet UIView *languagesBarContainer;
+@property (weak, nonatomic) IBOutlet UIView *searchBottomSeparatorView;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
 
@@ -141,6 +145,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Setup
 
 - (void)configureArticleList {
+    [self.resultsListController applyTheme:self.theme];
     self.resultsListController.userDataStore = self.dataStore;
     self.resultsListController.delegate = self;
 }
@@ -151,9 +156,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
-    self.searchField.textAlignment = NSTextAlignmentNatural;
+    self.searchField.placeholder = WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text");
     [self setSeparatorViewHidden:YES animated:NO];
-    [self.searchField setPlaceholder:WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text")];
 }
 
 #pragma mark - UIViewController
@@ -171,6 +175,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
 
     self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
+
+    [self applyTheme:self.theme];
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
@@ -258,7 +264,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)setSeparatorViewHidden:(BOOL)hidden animated:(BOOL)animated {
     [UIView animateWithDuration:animated ? 0.25 : 0.0
                      animations:^{
-                         self.separatorView.alpha = hidden ? 0.0 : 1.0;
+                         CGFloat alpha = hidden ? 0.0 : 1.0;
+                         self.separatorView.alpha = alpha;
+                         self.searchField.rightView.alpha = alpha;
                      }];
 }
 
@@ -387,7 +395,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
             if ([searchTerm isEqualToString:self.searchField.text]) {
-                [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
+                [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 DDLogError(@"Encountered search error: %@", error);
             }
@@ -401,7 +409,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                 if (results.results.count == 0) {
                     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
                         //Without the delay there is a weird animation due to the table also reloading simultaneously
-                        [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
+                        [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
                     });
                 }
             }
@@ -474,8 +482,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSAttributedString *title =
         [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
     [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
-    [self.view setNeedsUpdateConstraints];
-    [self.view layoutIfNeeded];
+    [self.viewIfLoaded setNeedsUpdateConstraints];
+    [self.viewIfLoaded layoutIfNeeded];
 }
 
 - (CGFloat)searchFieldHeightForCurrentTraitCollection {
@@ -563,6 +571,31 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.resultsListController applyTheme:theme];
+    [self.recentSearchesViewController applyTheme:theme];
+    [self.searchLanguagesBarViewController applyTheme:theme];
+    if ([self viewIfLoaded] == nil) {
+        return;
+    }
+    self.view.backgroundColor = theme.colors.midBackground;
+    self.searchContentContainer.backgroundColor = theme.colors.midBackground;
+    self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
+    [self.searchField applyTheme:theme];
+    self.searchField.backgroundColor = theme.colors.chromeBackground;
+    
+    self.separatorView.backgroundColor = theme.colors.tertiaryText;
+    self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
+    
+    self.closeButton.tintColor = theme.colors.chromeText;
+    self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
+    self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
+    self.searchIconView.tintColor = theme.colors.chromeText;
 }
 
 @end

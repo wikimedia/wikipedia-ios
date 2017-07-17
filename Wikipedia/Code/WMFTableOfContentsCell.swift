@@ -14,11 +14,14 @@ open class WMFTableOfContentsCell: UITableViewCell {
         }
     }
     
-    open var titleColor: UIColor = UIColor.black {
+    open var titleColor: UIColor = Theme.standard.colors.primaryText {
         didSet {
             titleLabel.textColor = titleColor
         }
     }
+    
+    open var selectionColor: UIColor = Theme.standard.colors.link
+    
     
     // MARK: - Init
 
@@ -69,7 +72,7 @@ open class WMFTableOfContentsCell: UITableViewCell {
     
     open func setTitleLabelHighlighted(_ highlighted: Bool) {
         if highlighted {
-            titleLabel.textColor = .wmf_tableOfContentsSelectionIndicator
+            titleLabel.textColor = selectionColor
         } else {
             titleLabel.textColor = titleColor
         }
@@ -77,7 +80,7 @@ open class WMFTableOfContentsCell: UITableViewCell {
     
     open func setSelectionIndicatorVisible(_ visible: Bool) {
         if (visible) {
-            selectedSectionIndicator.backgroundColor = .wmf_tableOfContentsSelectionIndicator
+            selectedSectionIndicator.backgroundColor = selectionColor
             selectedSectionIndicator.alpha = 1.0
         } else {
             selectedSectionIndicator.alpha = 0.0

@@ -5,6 +5,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     override open func setup() {
         let extractLabel = UILabel()
+        extractLabel.isOpaque = true
         extractLabel.numberOfLines = 4
         addSubview(extractLabel)
         self.extractLabel = extractLabel

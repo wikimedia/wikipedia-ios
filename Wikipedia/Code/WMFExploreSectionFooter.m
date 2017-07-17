@@ -12,7 +12,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.visibleBackgroundView.backgroundColor = [UIColor wmf_lightGrayCellBackground];
     self.clipsToBounds = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -31,7 +30,7 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.visibleBackgroundView.backgroundColor = theme.colors.midBackground;
-    self.moreLabel.textColor = theme.colors.tertiaryText;
+    self.moreLabel.textColor = theme.colors.secondaryText;
     self.moreLabel.backgroundColor = theme.colors.midBackground;
 }
 

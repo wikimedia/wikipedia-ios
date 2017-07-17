@@ -4,7 +4,6 @@
 #import "Wikipedia-Swift.h"
 
 // View
-#import "WMFArticlePreviewTableViewCell.h"
 #import <WMF/UIView+WMFDefaultNib.h>
 
 // Fetcher
@@ -28,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @end
 
 @implementation WMFArticlePreviewDataSource
@@ -46,15 +47,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(siteURL);
     self = [super initWithItems:nil];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.dataStore = dataStore;
         self.urls = articleURLs;
         self.siteURL = siteURL;
         self.titlesSearchFetcher = fetcher;
 
-        self.cellClass = [WMFArticlePreviewTableViewCell class];
+        self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell *cell,
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
                                     MWKSearchResult *searchResult,
                                     UITableView *tableView,
                                     NSIndexPath *indexPath) {
@@ -62,11 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
             NSURL *URL = [self urlForIndexPath:indexPath];
             NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
             cell.titleText = URL.wmf_title;
-            cell.descriptionText = searchResult.wikidataDescription;
-            cell.snippetText = searchResult.extract;
+            cell.descriptionText = [searchResult.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.siteURL.wmf_language];
             [cell setImageURL:searchResult.thumbnailURL];
-
-            [cell setSaveableURL:URL savedPageList:self.savedPageList];
+            [cell applyTheme:self.theme];
         };
     }
     return self;
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setTableView:(nullable UITableView *)tableView {
     [super setTableView:tableView];
-    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 }
 
 #pragma mark - Fetching
@@ -120,6 +120,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {
     return NO;
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.tableView reloadData];
 }
 
 @end

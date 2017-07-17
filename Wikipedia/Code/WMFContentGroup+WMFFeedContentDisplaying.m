@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindOnThisDay:
             return [UIColor wmf_blue];
         default:
-            return [UIColor wmf_exploreSectionHeaderIconTint];
+            return [UIColor wmf_lightGray];
     }
 }
 
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindTopRead:
             return [UIColor wmf_lightBlue];
         default:
-            return [UIColor wmf_exploreSectionHeaderIconBackground];
+            return [UIColor wmf_lightestGray];
     }
 }
 

@@ -46,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
         [self.tableView reloadData];
     }
 
+    if ([_dataSource conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id)_dataSource applyTheme:self.theme];
+    }
     [self updateEmptyAndDeleteState];
 }
 
@@ -92,6 +95,13 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateEmptyAndDeleteState];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    [super applyTheme:theme];
+    if ([_dataSource conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id)_dataSource applyTheme:self.theme];
     }
 }
 @end

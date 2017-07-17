@@ -10,11 +10,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var searchBarButtonItem: WMFSearchButton?
     private var longTitleButton: UIButton?
     private var shortTitleButton: UIButton?
     
     private var isUserScrolling = false
+    
+    fileprivate var theme: Theme = Theme.standard
     
     public var userStore: MWKDataStore? {
         didSet {
@@ -69,8 +70,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.navigationItem.titleView = titleView
         self.navigationItem.isAccessibilityElement = true
         self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
-        
-        self.searchBarButtonItem = self.wmf_searchBarButtonItem()
     }
     
     override func viewDidLoad() {
@@ -84,11 +83,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
-
-        self.navigationItem.leftBarButtonItem = settingsBarButtonItem()
-        self.navigationItem.rightBarButtonItem = self.searchBarButtonItem
-        
-        self.wmf_addBottomShadow(view: extendedNavBarView)
+    
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
     }
@@ -104,14 +99,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.wmf_updateNavigationBar(removeUnderline: false)
     }
     
-    private func settingsBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(didTapSettingsButton(_:)))
-    }
-    
-    public func didTapSettingsButton(_ sender: UIBarButtonItem) {
-        showSettings()
-    }
-    
     private func updateNavigationBar() {
         updateNavigationBar(newOffset: abs(extendNavBarViewTopSpaceConstraint.constant))
     }
@@ -119,7 +106,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     private func updateNavigationBar(newOffset extNavBarOffset: CGFloat) {
         let extNavBarHeight = extendedNavBarView.frame.size.height
         let percentHidden: CGFloat = extNavBarOffset / extNavBarHeight
-        self.searchBarButtonItem?.alpha = percentHidden
+        self.navigationItem.rightBarButtonItem?.customView?.alpha = percentHidden
         self.shortTitleButton?.alpha = percentHidden
         self.longTitleButton?.alpha = 1 - percentHidden
         self.searchBar.alpha = max(1 - (percentHidden * 1.5), 0)
@@ -127,14 +114,13 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - Actions
     
-    public func showSettings() {
-        let settingsContainer = UINavigationController(rootViewController: WMFSettingsViewController.init(dataStore: self.userStore))
-        present(settingsContainer, animated: true, completion: nil)
-    }
-    
     public func titleBarButtonPressed() {
-        self.collectionViewController.collectionView?.setContentOffset(CGPoint.zero, animated: true)
         self.showSearchBar(animated: true)
+        
+        guard let cv = self.collectionViewController.collectionView else {
+            return
+        }
+        cv.setContentOffset(CGPoint(x: 0, y: -cv.contentInset.top), animated: true)
     }
     
     // MARK: - WMFExploreCollectionViewControllerDelegate
@@ -247,7 +233,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        self.wmf_showSearch(animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name.WMFShowSearch, object: nil)
         return false
     }
     
@@ -271,10 +257,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
 extension ExploreViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
         }
+        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
     }
 }

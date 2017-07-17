@@ -1,10 +1,8 @@
 #import "WMFExploreCollectionViewController.h"
-@import Masonry;
 @import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
-#import "WMFSaveButtonController.h"
 #import "WMFColumnarCollectionViewLayout.h"
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFEmptyView.h"
@@ -17,7 +15,6 @@
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIViewController+WMFSearch.h"
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
 #import "WMFRandomArticleViewController.h"
@@ -499,7 +496,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
 
         [self.refreshControl endRefreshing];
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme];
     }
 }
 
@@ -1008,7 +1005,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:(WMFContentGroup *)group {
     footer.visibleBackgroundView.alpha = 1.0;
     footer.moreLabel.text = [group footerText];
-    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
     [footer applyTheme:self.theme];
 }
 

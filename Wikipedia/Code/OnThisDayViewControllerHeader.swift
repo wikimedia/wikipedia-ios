@@ -40,6 +40,6 @@ extension OnThisDayViewControllerHeader: Themeable {
         backgroundColor = theme.colors.midBackground
         eventsLabel.textColor = theme.colors.primaryText
         onLabel.textColor = theme.colors.link
-        fromLabel.textColor = theme.colors.tertiaryText
+        fromLabel.textColor = theme.colors.secondaryText
     }
 }

@@ -1,6 +1,7 @@
 @class MWKDataStore;
+@class WMFThemeable;
 
-@interface WMFSettingsViewController : UIViewController
+@interface WMFSettingsViewController : UIViewController <WMFThemeable>
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 

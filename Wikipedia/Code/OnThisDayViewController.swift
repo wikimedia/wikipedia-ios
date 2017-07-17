@@ -95,6 +95,14 @@ extension OnThisDayViewController {
         cell.selectionDelegate = nil
         cell.pauseDotsAnimation = true
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
