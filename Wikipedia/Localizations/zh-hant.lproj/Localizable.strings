@@ -68,11 +68,14 @@
 "alert-no-internet" = "無網路連線";
 "announcements-dismiss" = "不用了，謝謝";
 "article-about-title" = "關於此條目";
+"article-delete" = "刪除";
 "article-languages-filter-placeholder" = "尋找語言";
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
 "article-languages-yours" = "您的語言";
 "article-read-more-title" = "延伸閱讀";
+"article-save" = "儲存";
+"article-share" = "分享";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back" = "返回";
@@ -176,6 +179,8 @@
 "hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
 "home-button-history-accessibility-label" = "維基百科，返回歷史清單";
+"home-button-popover-description" = "輕觸「W」來返回探索訊息來源";
+"home-button-popover-title" = "輕觸來返回首頁";
 "home-button-saved-accessibility-label" = "維基百科，返回已儲存條目";
 "home-hide-suggestion-cancel" = "取消";
 "home-hide-suggestion-prompt" = "隱藏此建議";
@@ -236,8 +241,7 @@
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "從 $1 到 $2";
 "on-this-day-detail-header-day" = "在 $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 個歷史事件";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
 "on-this-day-title" = "歷史上的今天";
 "onboarding-wikipedia" = "維基百科";

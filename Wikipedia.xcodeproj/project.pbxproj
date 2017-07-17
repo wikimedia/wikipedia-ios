@@ -4164,6 +4164,7 @@
 		D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreFeedContentController.m; sourceTree = "<group>"; };
 		D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+SystemSettings.swift"; path = "Wikipedia/Code/UIApplication+SystemSettings.swift"; sourceTree = SOURCE_ROOT; };
 		D81E5F891E5F949B00E1A80C /* WMFAssertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAssertions.h; path = Wikipedia/Code/WMFAssertions.h; sourceTree = SOURCE_ROOT; };
+		D81EF2D61F1D2F0500D26D3F /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D81FB25B1D47B5830000C685 /* WMFCVLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLInfo.h; path = Wikipedia/Code/WMFCVLInfo.h; sourceTree = SOURCE_ROOT; };
 		D81FB25C1D47B5830000C685 /* WMFCVLInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInfo.m; path = Wikipedia/Code/WMFCVLInfo.m; sourceTree = SOURCE_ROOT; };
 		D81FB25E1D47B5940000C685 /* WMFCVLColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLColumn.h; path = Wikipedia/Code/WMFCVLColumn.h; sourceTree = SOURCE_ROOT; };
@@ -11815,6 +11816,7 @@
 				D80877961EDE1F3300CCA97E /* ja */,
 				D80877971EDE1F4F00CCA97E /* nl */,
 				D8497F5D1EE027D700100CBD /* hrx */,
+				D81EF2D61F1D2F0500D26D3F /* cs */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

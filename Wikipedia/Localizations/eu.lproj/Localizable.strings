@@ -28,11 +28,14 @@
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Ez, eskerrik asko";
 "article-about-title" = "Artikulu honi buruz";
+"article-delete" = "Ezabatu";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-others" = "Beste hizkuntzak";
 "article-languages-yours" = "Zure hizkuntzak";
 "article-read-more-title" = "Irakurri gehiago";
+"article-save" = "Gorde";
+"article-share" = "Partekatu";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "back" = "Atzera";
 "back-button-accessibility-label" = "Atzera";

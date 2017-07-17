@@ -372,6 +372,7 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";

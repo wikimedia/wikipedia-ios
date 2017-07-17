@@ -10,6 +10,7 @@
 // Author: Juandev
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
+// Author: Meliganai
 // Author: Mirek2
 // Author: Mormegil
 // Author: Nemo bis
@@ -160,6 +161,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "no-email-account-alert" = "Prosím, nastavte na vašem přístroji e-mailový účet a zkuste to znovu.";
 "number-thousands" = "$1 tisíc";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události}}";
 "onboarding-wikipedia" = "Wikipedie";
 "open-link-cancel" = "Zrušit";
 "page-history-title" = "Historie článku";

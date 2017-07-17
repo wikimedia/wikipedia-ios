@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: FabianRM
+// Author: Festina90
 // Author: Hex
 // Author: JurgenNL
 // Author: Macofe
@@ -366,6 +367,7 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
 "zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";
