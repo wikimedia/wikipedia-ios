@@ -62,6 +62,10 @@ open class ReadingThemesControlsViewController: UIViewController {
         
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func applyBorder(to button: UIButton) {
         button.borderColor = UIColor.wmf_blue
         button.borderWidth = 2
