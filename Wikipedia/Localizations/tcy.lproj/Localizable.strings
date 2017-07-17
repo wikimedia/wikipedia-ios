@@ -23,11 +23,14 @@
 "action-saved" = "ಒರಿಪಾಂಡ್";
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "article-about-title" = "ಈ ಲೇಕನೋತ ಬಗ್ಗೆ";
+"article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆ";
 "article-read-more-title" = "ನನಲಾ ಓದುಲೇ";
+"article-save" = "ಒರಿಪಾಲೆ";
+"article-share" = "ಪಟ್ಟ್‍ಲೆ";
 "article-unable-to-load-article" = "ಈ ಲೇಖನನ್ ದಿಂಜಾವರೆ ಆವೊಂದಿಜ್ಜಿ";
 "back" = "ಪಿರವು";
 "back-button-accessibility-label" = "ಪಿರ";

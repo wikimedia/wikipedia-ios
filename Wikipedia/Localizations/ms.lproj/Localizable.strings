@@ -57,11 +57,14 @@
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Tak apalah";
 "article-about-title" = "Mengenai rencana ini";
+"article-delete" = "Hapuskan";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lain";
 "article-languages-yours" = "Bahasa anda";
 "article-read-more-title" = "Selanjutnya";
+"article-save" = "Simpan";
+"article-share" = "Kongsi";
 "article-unable-to-load-article" = "Rencana tidak dapat dimuatkan.";
 "article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
 "back" = "Kembali";
@@ -379,6 +382,7 @@
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Dengan menyiarkan perubahan, anda bersetuju dengan $1 dan bersetuju untuk melepaskan sumbangan anda di bawah lesen $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero off";
