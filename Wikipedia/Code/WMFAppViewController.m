@@ -192,8 +192,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
-    [self applyTheme:[WMFTheme standard]];
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:self.theme.name];
+    
+    NSString *themeName = [[NSUserDefaults wmf_userDefaults] wmf_appThemeName];
+    
+    NSArray *themes = @[WMFTheme.light, WMFTheme.sepia, WMFTheme.dark];
+    
+    WMFTheme *themeToApply = WMFTheme.standard;
+    for (WMFTheme *theme in themes) {
+        if ([themeName isEqualToString:theme.name]) {
+            themeToApply = theme;
+            break;
+        }
+    }
+    
+    [self applyTheme:themeToApply];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -1464,8 +1476,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     
     if (self.theme != theme) {
         [self applyTheme:theme];
-        
-        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme.name];
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppThemeName:theme.name];
     }
 }
 
@@ -1548,6 +1559,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFTheme *theme = self.theme;
     if (theme == [WMFTheme standard]) {
         theme = [WMFTheme dark];
+    } else if (theme == [WMFTheme dark]) {
+        theme = [WMFTheme sepia];
     } else {
         theme = [WMFTheme light];
     }

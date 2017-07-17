@@ -15,11 +15,11 @@
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
                 <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
-                <outlet property="lightThemeButton" destination="x0K-vq-CgH" id="8Xb-ab-S29"/>
+                <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="h5L-1e-bDr"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
+                <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="n57-Po-a7M"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
-                <outlet property="standardThemeButton" destination="qZ3-3K-fnR" id="4lO-vW-NHS"/>
                 <outlet property="tLargeImageView" destination="Ycr-G6-Fi3" id="5nX-hh-UCh"/>
                 <outlet property="tSmallImageView" destination="vkB-ph-elW" id="zTO-Cg-lOB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
@@ -122,7 +122,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="standardThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="F6T-WK-jTb"/>
+                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="M4Y-zp-rJW"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
@@ -147,6 +147,7 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="J0N-LK-iId"/>
+                                <action selector="stepiaThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="QBE-z7-Aje"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">

@@ -17,8 +17,8 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var brightnessSlider: UISlider!
     
-    @IBOutlet weak var standardThemeButton: UIButton!
     @IBOutlet weak var lightThemeButton: UIButton!
+    @IBOutlet weak var sepiaThemeButton: UIButton!
     @IBOutlet weak var darkThemeButton: UIButton!
     
     @IBOutlet weak var autoNightModeSwitch: UISwitch!
@@ -84,18 +84,23 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
-        
-        if let name = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppThemeName") {
-            switch name {
-            case "standard":
-                applyBorder(to: standardThemeButton)
-            case "light":
-                applyBorder(to: lightThemeButton)
-            case "dark":
-                applyBorder(to: darkThemeButton)
-            default:
-                break
-            }
+        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appThemeName ?? Theme.light.name
+        updateThemeButtons(with: currentThemeName)
+    }
+    
+    func updateThemeButtons(with currentThemeName: String) {
+        removeBorderFrom(lightThemeButton)
+        removeBorderFrom(darkThemeButton)
+        removeBorderFrom(sepiaThemeButton)
+        switch currentThemeName {
+        case Theme.sepia.name:
+            applyBorder(to: sepiaThemeButton)
+        case Theme.light.name:
+            applyBorder(to: lightThemeButton)
+        case Theme.dark.name:
+            applyBorder(to: darkThemeButton)
+        default:
+            break
         }
     }
     
@@ -109,36 +114,23 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
     }
     
-    @IBAction func standardThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.standard]
-        
-        applyBorder(to: standardThemeButton)
-        removeBorderFrom(lightThemeButton)
-        removeBorderFrom(darkThemeButton)
-        
-        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+    func userDidSelect(theme: Theme) {
+        let userInfo = ["theme": theme]
+        updateThemeButtons(with: theme.name)
+        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+    }
+    
+    @IBAction func stepiaThemeButtonPressed(_ sender: Any) {
+       userDidSelect(theme: Theme.sepia)
     }
     
     @IBAction func lightThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.light]
-        
-        applyBorder(to: lightThemeButton)
-        removeBorderFrom(standardThemeButton)
-        removeBorderFrom(darkThemeButton)
-        
-        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+        userDidSelect(theme: Theme.light)
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.dark]
-        
-        applyBorder(to: darkThemeButton)
-        removeBorderFrom(standardThemeButton)
-        removeBorderFrom(lightThemeButton)
-        
-        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+        userDidSelect(theme: Theme.dark)
     }
-    
 }
 
 // MARK: - Themeable

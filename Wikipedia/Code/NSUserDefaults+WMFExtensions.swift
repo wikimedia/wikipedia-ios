@@ -112,7 +112,11 @@ public extension UserDefaults {
         self.synchronize()
     }
     
-    public func wmf_setAppTheme(_ themeName: String) {
+    public var wmf_appThemeName: String? {
+        return self.string(forKey: WMFAppThemeName)
+    }
+    
+    public func wmf_setAppThemeName(_ themeName: String) {
         self.set(themeName, forKey: WMFAppThemeName)
         self.synchronize
     }

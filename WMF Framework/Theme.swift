@@ -24,6 +24,7 @@ public extension UIColor {
     fileprivate static let base80 = UIColor(0xEAECF0)
     fileprivate static let base90 = UIColor(0xF8F9FA)
     fileprivate static let base100 = UIColor(0xFFFFFF)
+    fileprivate static let red30 = UIColor(0xB32424)
     fileprivate static let red50 = UIColor(0xCC3333)
     fileprivate static let yellow50 = UIColor(0xFFCC33)
     fileprivate static let green50 = UIColor(0x00AF89)
@@ -38,6 +39,13 @@ public extension UIColor {
     fileprivate static let x555555 = UIColor(0x555555)
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
+    
+    fileprivate static let amate = UIColor(0xE1DAD1)
+    fileprivate static let parchment = UIColor(0xF8F1E3)
+    fileprivate static let masi = UIColor(0x646059)
+    fileprivate static let papyrus = UIColor(0xF0E6D6)
+    fileprivate static let kraft = UIColor(0xCBC8C1)
+    fileprivate static let osage = UIColor(0xFF9500)
     
     public static let wmf_baseBackground = UIColor(0xEFEFF4)
     public static let wmf_midBackground = UIColor(0xF8F9FA)
@@ -81,6 +89,7 @@ public extension UIColor {
 public class Colors: NSObject {
     fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50)
 
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, primaryText: .base10, secondaryText: .masi, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage)
     
     fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
     
@@ -152,6 +161,9 @@ public class Theme: NSObject {
     public let keyboardAppearance: UIKeyboardAppearance
     
     public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "standard")
+    
+    public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "sepia")
+    
     public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "dark")
     
     public static let standard = Theme.light
