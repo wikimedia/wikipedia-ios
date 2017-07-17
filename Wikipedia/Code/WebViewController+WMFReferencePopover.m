@@ -71,8 +71,8 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
         presenterConfigurationBlock(presenter);
     }
 
-    presenter.popoverBackgroundViewClass = [WMFReferencePopoverBackgroundView class];
-
+    presenter.backgroundColor = self.theme.colors.paperBackground;
+    
     return popoverVC;
 }
 
