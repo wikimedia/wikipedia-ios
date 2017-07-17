@@ -462,12 +462,12 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
   var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
-  Array.from(elements).forEach(function (element) {
+  elements.forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
   });
   var rightOrLeft = document.querySelector('html').dir === 'rtl' ? 'right' : 'left';
-  Array.from(Polyfill.querySelectorAll(document, '.pagelib_footer_menu_item')).forEach(function (element) {
+  Polyfill.querySelectorAll(document, '.pagelib_footer_menu_item').forEach(function (element) {
     element.style.backgroundPosition = rightOrLeft + ' ' + margin + 'px center';
     element.style.paddingLeft = margin + 'px';
     element.style.paddingRight = margin + 'px';
@@ -524,7 +524,7 @@ var add = function add(content, licenseString, licenseSubstitutionString, contai
 
   container.querySelector('.pagelib_footer_legal_license_link').addEventListener('click', function () {
     licenseLinkClickHandler();
-  }, false);
+  });
 };
 
 var FooterLegal = {
@@ -583,11 +583,11 @@ var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
     fragment.appendChild(tables[i].cloneNode(true));
   }
   // Remove some element so their text doesn't appear when we use "innerText"
-  Array.from(Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed')).forEach(function (el) {
+  Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed').forEach(function (el) {
     return el.remove();
   });
   // Get the innerText
-  return Array.from(Polyfill.querySelectorAll(fragment, 'td[class$=mbox-text]')).map(function (el) {
+  return Polyfill.querySelectorAll(fragment, 'td[class$=mbox-text]').map(function (el) {
     return el.innerText;
   });
 };
@@ -597,7 +597,7 @@ var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
  * @type {FooterMenuItemPayloadExtractor}
  */
 var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
-  return Array.from(Polyfill.querySelectorAll(document, 'div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(function (el) {
+  return Polyfill.querySelectorAll(document, 'div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])').map(function (el) {
     return el.href;
   });
 };
@@ -704,7 +704,7 @@ var documentFragmentForMenuItem = function documentFragmentForMenuItem(menuItem,
   var containerAnchor = document.createElement('a');
   containerAnchor.addEventListener('click', function () {
     menuItem.clickHandler(menuItem.payload);
-  }, false);
+  });
 
   item.appendChild(containerAnchor);
 
@@ -923,7 +923,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
     event.stopPropagation();
     event.preventDefault();
     saveButtonClickHandler(readMorePage.title);
-  }, false);
+  });
   innerDivContainer.appendChild(saveButton);
 
   return document.createDocumentFragment().appendChild(outerAnchorContainer);
@@ -1001,11 +1001,7 @@ var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
 var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
   var readMoreItemFetchCount = 3;
   var readMoreQueryParameterString = stringFromQueryParameters(queryParameters(title, readMoreItemFetchCount));
-  var baseURLToUse = baseURL;
-  if (baseURLToUse === null) {
-    baseURLToUse = '';
-  }
-  return baseURLToUse + '/w/api.php?' + readMoreQueryParameterString;
+  return (baseURL || '') + '/w/api.php?' + readMoreQueryParameterString;
 };
 
 /**
