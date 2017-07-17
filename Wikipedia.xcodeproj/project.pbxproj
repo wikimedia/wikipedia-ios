@@ -149,7 +149,6 @@
 		B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A271D8B747A00D973CF /* WebViewController+WMFReferencePopover.m */; };
 		B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */; };
 		B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */; };
-		B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		B04034381F059243001B837B /* OnThisDayExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */; };
 		B04034391F059243001B837B /* OnThisDayExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */; };
 		B040343A1F059243001B837B /* OnThisDayExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */; };
@@ -647,7 +646,6 @@
 		D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B025D8C81EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift */; };
 		D80ED29D1EE57F4800CE8C50 /* WMFCVLColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB25F1D47B5940000C685 /* WMFCVLColumn.m */; };
 		D80ED29E1EE57F4800CE8C50 /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */; };
-		D80ED29F1EE57F4800CE8C50 /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		D80ED2A01EE57F4800CE8C50 /* SSArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */; };
 		D80ED2A11EE57F4800CE8C50 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C951ECA48490011E379 /* CollectionViewCell.swift */; };
 		D80ED2A21EE57F4800CE8C50 /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
@@ -1491,7 +1489,6 @@
 		D8A42A821E815A9C00D8E281 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8A42A841E815A9C00D8E281 /* WMFCVLColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB25F1D47B5940000C685 /* WMFCVLColumn.m */; };
 		D8A42A861E815A9C00D8E281 /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */; };
-		D8A42A871E815A9C00D8E281 /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		D8A42A881E815A9C00D8E281 /* SSArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */; };
 		D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		D8A42A8A1E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m */; };
@@ -1893,7 +1890,6 @@
 		D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8CE250D1E698E2400DAE2E0 /* WMFCVLColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB25F1D47B5940000C685 /* WMFCVLColumn.m */; };
 		D8CE250F1E698E2400DAE2E0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */; };
-		D8CE25101E698E2400DAE2E0 /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		D8CE25111E698E2400DAE2E0 /* SSArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */; };
 		D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		D8CE25131E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m */; };
@@ -2322,7 +2318,6 @@
 		D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8EC3E041E9BDA35006712EB /* WMFCVLColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB25F1D47B5940000C685 /* WMFCVLColumn.m */; };
 		D8EC3E061E9BDA35006712EB /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */; };
-		D8EC3E071E9BDA35006712EB /* WMFPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */; };
 		D8EC3E081E9BDA35006712EB /* SSArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D82014A71E686B9C00BA8579 /* SSArrayDataSource.m */; };
 		D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		D8EC3E0A1E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m */; };
@@ -3189,8 +3184,6 @@
 		B0379A291D8B756C00D973CF /* WMFReferencePopoverMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFReferencePopoverMessageViewController.h; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.h; sourceTree = SOURCE_ROOT; };
 		B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFReferencePopoverMessageViewController.m; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.m; sourceTree = SOURCE_ROOT; };
 		B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFReferencePopoverMessageViewController.storyboard; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.storyboard; sourceTree = SOURCE_ROOT; };
-		B0379A381D8BC83800D973CF /* WMFPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPopoverBackgroundView.h; sourceTree = "<group>"; };
-		B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFPopoverBackgroundView.m; sourceTree = "<group>"; };
 		B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayExploreCollectionViewCell.swift; path = Wikipedia/Code/OnThisDayExploreCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
@@ -6009,8 +6002,6 @@
 				B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */,
 				B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */,
 				B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */,
-				B0379A381D8BC83800D973CF /* WMFPopoverBackgroundView.h */,
-				B0379A391D8BC83800D973CF /* WMFPopoverBackgroundView.m */,
 			);
 			name = "UIBarButtonItem Popover Message";
 			sourceTree = "<group>";
@@ -9566,7 +9557,6 @@
 				B025D8C91EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D81FB2601D47B5940000C685 /* WMFCVLColumn.m in Sources */,
 				B0E806711C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
-				B0379A3A1D8BC83800D973CF /* WMFPopoverBackgroundView.m in Sources */,
 				D82014BB1E686B9C00BA8579 /* SSArrayDataSource.m in Sources */,
 				D8733C961ECA48490011E379 /* CollectionViewCell.swift in Sources */,
 				0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */,
@@ -9900,7 +9890,6 @@
 				D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D80ED29D1EE57F4800CE8C50 /* WMFCVLColumn.m in Sources */,
 				D80ED29E1EE57F4800CE8C50 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
-				D80ED29F1EE57F4800CE8C50 /* WMFPopoverBackgroundView.m in Sources */,
 				D80ED2A01EE57F4800CE8C50 /* SSArrayDataSource.m in Sources */,
 				D80ED2A11EE57F4800CE8C50 /* CollectionViewCell.swift in Sources */,
 				D80ED2A21EE57F4800CE8C50 /* WMFEmptyView.m in Sources */,
@@ -10476,7 +10465,6 @@
 				D8A42A821E815A9C00D8E281 /* WMFPageHistoryRevision.m in Sources */,
 				D8A42A841E815A9C00D8E281 /* WMFCVLColumn.m in Sources */,
 				D8A42A861E815A9C00D8E281 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
-				D8A42A871E815A9C00D8E281 /* WMFPopoverBackgroundView.m in Sources */,
 				D8A42A881E815A9C00D8E281 /* SSArrayDataSource.m in Sources */,
 				D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */,
 				D8A42A8A1E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
@@ -10809,7 +10797,6 @@
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
 				D8CE250D1E698E2400DAE2E0 /* WMFCVLColumn.m in Sources */,
 				D8CE250F1E698E2400DAE2E0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
-				D8CE25101E698E2400DAE2E0 /* WMFPopoverBackgroundView.m in Sources */,
 				D8733C971ECA48490011E379 /* CollectionViewCell.swift in Sources */,
 				D82E95291F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8CE25111E698E2400DAE2E0 /* SSArrayDataSource.m in Sources */,
@@ -11150,7 +11137,6 @@
 				D8EC3E041E9BDA35006712EB /* WMFCVLColumn.m in Sources */,
 				D82E952A1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8EC3E061E9BDA35006712EB /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
-				D8EC3E071E9BDA35006712EB /* WMFPopoverBackgroundView.m in Sources */,
 				D82E95041F0FD308007BD960 /* ContainerTableViewCell.swift in Sources */,
 				D8733C981ECA48490011E379 /* CollectionViewCell.swift in Sources */,
 				D8EC3E081E9BDA35006712EB /* SSArrayDataSource.m in Sources */,
