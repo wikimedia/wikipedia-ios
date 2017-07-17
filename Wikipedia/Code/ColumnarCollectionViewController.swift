@@ -5,6 +5,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
     var theme: Theme = Theme.standard
     
+    fileprivate var placeholderCells: [String:UICollectionViewCell] = [:]
+    
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -28,10 +30,24 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     }
     
     // MARK - Cell & View Registration
+   
+    final public func placeholder(forCellWithReuseIdentifier identifier: String) -> UICollectionViewCell? {
+        return placeholderCells[identifier]
+    }
     
-    @objc(registerCellClass:forCellWithReuseIdentifier:)
-    final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String) {
+    @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)
+    final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String, addPlaceholder: Bool) {
         collectionView?.register(cellClass, forCellWithReuseIdentifier: identifier)
+        guard addPlaceholder else {
+            return
+        }
+        guard let cellClass = cellClass as? UICollectionViewCell.Type else {
+            return
+        }
+        let cell = cellClass.init(frame: view.bounds)
+        cell.isHidden = true
+        view.insertSubview(cell, at: 0) // so that the trait collections are updated
+        placeholderCells[identifier] = cell
     }
     
     @objc(registerNib:forCellWithReuseIdentifier:)
