@@ -56,6 +56,9 @@ open class ReadingThemesControlsViewController: UIViewController {
         
         autoNightModeSwitch.isEnabled = false
         imageDimmingSwitch.isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
+        
     }
     
     func applyBorder(to button: UIButton) {
@@ -98,6 +101,10 @@ open class ReadingThemesControlsViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    func screenBrightnessChangedInApp(notification: Notification){
+        brightnessSlider.value = Float(UIScreen.main.brightness)
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
