@@ -9,6 +9,7 @@ import UIKit
 open class ReadingThemesControlsViewController: UIViewController {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme: Theme?
     
@@ -122,17 +123,17 @@ open class ReadingThemesControlsViewController: UIViewController {
         
         switch sender.tag {
         case 0:
-            theme["theme"] = Theme.standard
+            theme[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey] = Theme.standard
             applyBorder(to: standardThemeButton)
             removeBorderFrom(lightThemeButton)
             removeBorderFrom(darkThemeButton)
         case 1:
-            theme["theme"] = Theme.light
+            theme[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey] = Theme.light
             applyBorder(to: lightThemeButton)
             removeBorderFrom(standardThemeButton)
             removeBorderFrom(darkThemeButton)
         case 2:
-            theme["theme"] = Theme.dark
+            theme[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey] = Theme.dark
             applyBorder(to: darkThemeButton)
             removeBorderFrom(standardThemeButton)
             removeBorderFrom(lightThemeButton)
