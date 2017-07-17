@@ -50,9 +50,6 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        // TODO: Enable when implemented
-        lightThemeButton.isEnabled = false
-        
         autoNightModeSwitch.isEnabled = false
         imageDimmingSwitch.isEnabled = false
     }
@@ -60,10 +57,12 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     func applyBorder(to button: UIButton) {
         button.borderColor = UIColor.wmf_blue
         button.borderWidth = 2
+        button.isEnabled = false
     }
     
     func removeBorderFrom(_ button: UIButton) {
         button.borderWidth = 0
+        button.isEnabled = true
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
