@@ -50,6 +50,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
+        // TODO: Enable when implemented
         autoNightModeSwitch.isEnabled = false
         imageDimmingSwitch.isEnabled = false
     }
