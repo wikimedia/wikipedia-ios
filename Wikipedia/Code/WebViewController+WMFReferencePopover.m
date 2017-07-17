@@ -32,6 +32,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     WMFReferencePopoverMessageViewController *popoverVC = [self wmf_referencePopoverViewControllerWithReference:reference
                                                                                                           width:width
                                                                                 withPresenterConfigurationBlock:presenterConfigurationBlock];
+    [popoverVC applyTheme:self.theme];
 
     [self presentViewController:popoverVC
                        animated:NO
@@ -53,6 +54,8 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     WMFReferencePopoverMessageViewController *popoverVC =
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
+    [popoverVC applyTheme:self.theme];
+    
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
     popoverVC.reference = reference;
     popoverVC.width = width;
