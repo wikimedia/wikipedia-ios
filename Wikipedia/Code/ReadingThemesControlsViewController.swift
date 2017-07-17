@@ -117,35 +117,88 @@ open class ReadingThemesControlsViewController: UIViewController {
         }
     }
     
-    @IBAction func standardThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.standard]
+    @IBAction func themeButtonPressed(_ sender: UIButton) {
+        var theme = [String: Theme]()
         
-        applyBorder(to: standardThemeButton)
-        removeBorderFrom(lightThemeButton)
-        removeBorderFrom(darkThemeButton)
+        switch sender.tag {
+        case 0:
+            theme["theme"] = Theme.standard
+            applyBorder(to: standardThemeButton)
+            removeBorderFrom(lightThemeButton)
+            removeBorderFrom(darkThemeButton)
+        case 1:
+            theme["theme"] = Theme.light
+            applyBorder(to: lightThemeButton)
+            removeBorderFrom(standardThemeButton)
+            removeBorderFrom(darkThemeButton)
+        case 2:
+            theme["theme"] = Theme.dark
+            applyBorder(to: darkThemeButton)
+            removeBorderFrom(standardThemeButton)
+            removeBorderFrom(lightThemeButton)
+        default:
+            break
+        }
         
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
     }
     
-    @IBAction func lightThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.light]
-        
-        applyBorder(to: lightThemeButton)
-        removeBorderFrom(standardThemeButton)
-        removeBorderFrom(darkThemeButton)
-        
-        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
-    }
+//    @IBAction func themeButtonPressed(_ sender: UIButton) {
+//        var theme = [String: Theme]()
+//        
+//        switch sender.tag {
+//        case 0:
+//            theme["theme"] = Theme.standard
+//            applyBorder(to: standardThemeButton)
+//            removeBorderFrom(lightThemeButton)
+//            removeBorderFrom(darkThemeButton)
+//        case 1:
+//            theme["theme"] = Theme.light
+//            applyBorder(to: lightThemeButton)
+//            removeBorderFrom(standardThemeButton)
+//            removeBorderFrom(darkThemeButton)
+//        case 2:
+//            theme["theme"] = Theme.dark
+//            applyBorder(to: darkThemeButton)
+//            removeBorderFrom(standardThemeButton)
+//            removeBorderFrom(lightThemeButton)
+//        default:
+//            break
+//        }
+//        
+//        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+//        
+//    }
     
-    @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        let theme = ["theme": Theme.dark]
-        
-        applyBorder(to: darkThemeButton)
-        removeBorderFrom(standardThemeButton)
-        removeBorderFrom(lightThemeButton)
-        
-        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
-    }
+//    @IBAction func standardThemeButtonPressed(_ sender: Any) {
+//        let theme = ["theme": Theme.standard]
+//        
+//        applyBorder(to: standardThemeButton)
+//        removeBorderFrom(lightThemeButton)
+//        removeBorderFrom(darkThemeButton)
+//        
+//        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+//    }
+//
+//    @IBAction func lightThemeButtonPressed(_ sender: Any) {
+//        let theme = ["theme": Theme.light]
+//        
+//        applyBorder(to: lightThemeButton)
+//        removeBorderFrom(standardThemeButton)
+//        removeBorderFrom(darkThemeButton)
+//        
+//        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+//    }
+//    
+//    @IBAction func darkThemeButtonPressed(_ sender: Any) {
+//        let theme = ["theme": Theme.dark]
+//        
+//        applyBorder(to: darkThemeButton)
+//        removeBorderFrom(standardThemeButton)
+//        removeBorderFrom(lightThemeButton)
+//        
+//        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: theme)
+//    }
     
 }
 

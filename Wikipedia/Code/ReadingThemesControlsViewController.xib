@@ -122,7 +122,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="standardThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="F6T-WK-jTb"/>
+                                <action selector="themeButtonPressed:" destination="-1" eventType="touchUpInside" id="iio-Nx-cd0"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
@@ -145,9 +145,6 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="J0N-LK-iId"/>
-                            </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">
                             <rect key="frame" x="190" y="0.0" width="65" height="65"/>
@@ -169,9 +166,6 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="darkThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="1Fa-H3-A16"/>
-                            </connections>
                         </button>
                     </subviews>
                 </stackView>
