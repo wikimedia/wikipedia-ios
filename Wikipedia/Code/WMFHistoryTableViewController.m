@@ -129,16 +129,13 @@
 }
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSMutableArray<UITableViewRowAction *> *actions = [NSMutableArray new];
-        
     UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
     deleteAction.backgroundColor = self.theme.colors.destructive;
     
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
     
-    [actions addObject:deleteAction];
-    [actions addObject:shareAction];
+    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects: deleteAction, shareAction, nil];
     
     if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
         UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
