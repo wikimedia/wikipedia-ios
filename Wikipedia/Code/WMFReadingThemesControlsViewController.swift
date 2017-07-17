@@ -120,7 +120,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
-    @IBAction func stepiaThemeButtonPressed(_ sender: Any) {
+    @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
        userDidSelect(theme: Theme.sepia)
     }
     

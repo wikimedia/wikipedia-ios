@@ -15,7 +15,7 @@
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
                 <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
-                <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="h5L-1e-bDr"/>
+                <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="29j-20-f8V"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
                 <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="n57-Po-a7M"/>
@@ -122,7 +122,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="M4Y-zp-rJW"/>
+                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="c0W-Zy-2XB"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
@@ -146,8 +146,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="lightThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="J0N-LK-iId"/>
-                                <action selector="stepiaThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="QBE-z7-Aje"/>
+                                <action selector="sepiaThemeButtonPressed:" destination="-1" eventType="touchUpInside" id="Rfy-hB-NVV"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">
