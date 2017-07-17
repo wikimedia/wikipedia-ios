@@ -67,7 +67,7 @@
                     <rect key="frame" x="13" y="10" width="15" height="15"/>
                 </imageView>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eFI-oH-KYO" userLabel="Brightness Slider">
-                    <rect key="frame" x="12" y="13" width="265" height="45"/>
+                    <rect key="frame" x="12" y="20" width="265" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="aRN-lG-3zD"/>
                     </constraints>
@@ -262,11 +262,11 @@
                 </constraint>
                 <constraint firstItem="XEj-MD-7hS" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="mLf-pZ-udW"/>
                 <constraint firstAttribute="trailing" secondItem="D23-3R-cK9" secondAttribute="trailing" constant="10" id="qc5-8N-v7R"/>
-                <constraint firstItem="Tsr-d6-D5m" firstAttribute="top" secondItem="eFI-oH-KYO" secondAttribute="bottom" constant="24" id="sD9-2N-VsP">
-                    <variation key="heightClass=compact-widthClass=compact" constant="6"/>
+                <constraint firstItem="Tsr-d6-D5m" firstAttribute="top" secondItem="eFI-oH-KYO" secondAttribute="bottom" constant="10" id="sD9-2N-VsP">
+                    <variation key="heightClass=compact-widthClass=compact" constant="-1"/>
                 </constraint>
-                <constraint firstItem="eFI-oH-KYO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="21" id="tzN-mq-J9B">
-                    <variation key="heightClass=compact-widthClass=compact" constant="13"/>
+                <constraint firstItem="eFI-oH-KYO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="34" id="tzN-mq-J9B">
+                    <variation key="heightClass=compact-widthClass=compact" constant="20"/>
                 </constraint>
                 <constraint firstItem="Ycr-G6-Fi3" firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="-7" id="x8H-8H-Ush"/>
                 <constraint firstItem="qZ3-3K-fnR" firstAttribute="top" secondItem="XEj-MD-7hS" secondAttribute="bottom" constant="15" id="zaP-FM-1ry">
