@@ -20,6 +20,7 @@ let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocationAuthorization"
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
+let WMFAppThemeName = "WMFAppThemeName"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -109,6 +110,11 @@ public extension UserDefaults {
     public func wmf_setLocationAuthorized(_ authorized: Bool) {
         self.set(authorized, forKey: WMFLocationAuthorizedKey)
         self.synchronize()
+    }
+    
+    public func wmf_setAppTheme(_ themeName: String) {
+        self.set(themeName, forKey: WMFAppThemeName)
+        self.synchronize
     }
     
     public func wmf_locationAuthorized() -> Bool {

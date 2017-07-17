@@ -56,11 +56,14 @@
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Не, благодарам";
 "article-about-title" = "Уреди ја статијава";
+"article-delete" = "Избриши";
 "article-languages-filter-placeholder" = "Најди јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
+"article-save" = "Зачувај";
+"article-share" = "Сподели";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "back" = "Назад";

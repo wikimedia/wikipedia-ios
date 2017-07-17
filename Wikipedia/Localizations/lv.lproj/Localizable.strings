@@ -27,11 +27,14 @@
 "action-share" = "Dalīties";
 "announcements-dismiss" = "Nē, paldies";
 "article-about-title" = "Par šo rakstu";
+"article-delete" = "Dzēst";
 "article-languages-filter-placeholder" = "Atrast valodu";
 "article-languages-label" = "Izvēlies valodu";
 "article-languages-others" = "Citas valodas";
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
+"article-save" = "Saglabāt";
+"article-share" = "Dalīties";
 "back" = "Atpakaļ";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-done" = "Gatavs";

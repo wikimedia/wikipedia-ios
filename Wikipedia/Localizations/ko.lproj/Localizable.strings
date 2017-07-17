@@ -1,6 +1,7 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
 // Author: Alex00728
+// Author: CYAN
 // Author: Ellif
 // Author: Garam
 // Author: HDNua
@@ -68,11 +69,14 @@
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "괜찮습니다";
 "article-about-title" = "이 문서의 정보";
+"article-delete" = "삭제";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
 "article-languages-yours" = "사용자 언어";
 "article-read-more-title" = "더 읽어보기";
+"article-save" = "저장";
+"article-share" = "공유";
 "article-unable-to-load-article" = "문서를 불러올 수 없습니다.";
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "back" = "뒤로";
@@ -108,7 +112,9 @@
 "empty-no-search-results-message" = "결과가 없습니다.";
 "error-unknown" = "알 수 없는 오류가 발생했습니다";
 "explore-another-random" = "다른 임의 문서";
+"explore-because-you-read" = "당신이 읽었기 때문입니다";
 "explore-continue-reading-heading" = "계속 읽기";
+"explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
@@ -377,6 +383,7 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";

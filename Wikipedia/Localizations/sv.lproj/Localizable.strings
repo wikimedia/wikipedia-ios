@@ -67,11 +67,14 @@
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Nej tack";
 "article-about-title" = "Om den här artikeln";
+"article-delete" = "Radera";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
+"article-save" = "Spara";
+"article-share" = "Dela";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "back" = "Tillbaka";
@@ -389,6 +392,7 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";

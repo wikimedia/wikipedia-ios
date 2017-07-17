@@ -8,6 +8,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Fate Kage
+// Author: Hendra ibaraki1
 // Author: Hidayatsrf
 // Author: Iwan Novirion
 // Author: Kenrick95
@@ -67,11 +68,14 @@
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tidak, terima kasih";
 "article-about-title" = "Mengenai artikel ini";
+"article-delete" = "Hapus";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lainnya";
 "article-languages-yours" = "Bahasa Anda";
 "article-read-more-title" = "Baca lebih lanjut";
+"article-save" = "Simpan";
+"article-share" = "Bagikan";
 "article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "back" = "Kembali";
@@ -175,7 +179,7 @@
 "hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
 "home-button-explore-accessibility-label" = "Wikipedia, kembali ke halaman Jelajah";
 "home-button-history-accessibility-label" = "Wikipedia, kembali ke Riwayat";
-"home-button-popover-description" = "Ketuk 'W' untuk kembali ke umpan Jelajahi";
+"home-button-popover-description" = "Ketuk 'W' untuk kembali ke umpan Jelajah";
 "home-button-popover-title" = "Ketuk untuk pergi ke halaman utama";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
 "home-hide-suggestion-cancel" = "Batal";
@@ -389,6 +393,7 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero dimatikan";

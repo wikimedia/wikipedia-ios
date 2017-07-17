@@ -65,11 +65,14 @@
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Nie, dziękuję";
 "article-about-title" = "O tym artykule";
+"article-delete" = "Usuń";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
+"article-save" = "Zapisz";
+"article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "back" = "Wstecz";
@@ -146,6 +149,7 @@
 "hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
 "hockeyapp-alert-send-report" = "Wyślij raport";
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
+"home-button-popover-description" = "Naciśnij \"W: by wrócić do feedu Explore";
 "home-button-popover-title" = "Dotknij by wrócić do strony domowej";
 "home-hide-suggestion-cancel" = "Anuluj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
@@ -195,8 +199,7 @@
 "number-thousands" = "$1 tys.";
 "on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
 "on-this-day-detail-header-day" = "w $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 wydarzeń historycznych";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
 "on-this-day-title" = "W tym dniu...";
 "onboarding-wikipedia" = "Wikipedia";
