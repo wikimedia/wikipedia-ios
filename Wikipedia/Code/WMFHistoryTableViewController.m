@@ -129,18 +129,29 @@
 }
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray<UITableViewRowAction *> *actions = [NSMutableArray new];
         
     UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
     deleteAction.backgroundColor = self.theme.colors.destructive;
     
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
+    
+    [actions addObject:deleteAction];
+    [actions addObject:shareAction];
+    
+    if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
+        UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
+        unsaveAction.backgroundColor = [UIColor wmf_blue];
+        [actions addObject:unsaveAction];
+    } else {
+        UITableViewRowAction *saveAction = [self saveAction:indexPath];
+        //TODO: should it be using a theme color?
+        saveAction.backgroundColor = [UIColor wmf_blue];
+        [actions addObject:saveAction];
+    }
 
-    UITableViewRowAction *saveAction = [self saveAction:indexPath];
-    //TODO: should it be using a theme color?
-    saveAction.backgroundColor = [UIColor wmf_blue];
-
-    return @[deleteAction, shareAction, saveAction];
+    return actions;
 }
 
 #pragma mark - WMFArticleListTableViewController

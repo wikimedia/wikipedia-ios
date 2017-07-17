@@ -58,6 +58,7 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
+"article-unsave" = "Text of the article list row action shown on swipe which allows the user to unsave the article";
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
