@@ -233,6 +233,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [self presentViewController:tweaksVC animated:YES completion:nil];
 #endif
         }
+        case WMFSettingsMenuItemType_Appearance: {
+            [self showLanguages];
+        }
         default:
             break;
     }

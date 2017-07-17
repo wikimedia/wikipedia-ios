@@ -76,6 +76,16 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_Appearance: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
+                                             iconName:@"settings-appearance"
+                                            iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
