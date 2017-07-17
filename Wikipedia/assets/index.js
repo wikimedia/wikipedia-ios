@@ -493,7 +493,7 @@ var containerFragment = function containerFragment(document) {
  * @return {boolean}
  */
 var isContainerAttached = function isContainerAttached(document) {
-  return document.querySelector('#pagelib_footer_container') !== null;
+  return Boolean(document.querySelector('#pagelib_footer_container'));
 };
 
 var FooterContainer = {
@@ -664,7 +664,7 @@ var MenuItem = function () {
 
     /**
      * Returns reference to function for extracting payload when this menu item is tapped.
-     * @return {FooterMenuItemPayloadExtractor}
+     * @return {?FooterMenuItemPayloadExtractor}
      */
 
   }, {
@@ -755,7 +755,7 @@ var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID,
   var item = new MenuItem(title, subtitle, itemType, clickHandler);
 
   // Items are not added if they have a payload extractor which fails to extract anything.
-  if (item.payloadExtractor() !== undefined) {
+  if (item.payloadExtractor()) {
     item.payload = item.payloadExtractor()(document);
     if (item.payload.length === 0) {
       return;
@@ -995,13 +995,12 @@ var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
  * URL for retrieving 'Read more' pages for a given title.
  * Leave 'baseURL' null if you don't need to deal with proxying.
  * @param {!string} title
+ * @param {!number} count Number of `Read more` items to fetch for this title
  * @param {?string} baseURL
  * @return {!sring}
  */
-var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
-  var readMoreItemFetchCount = 3;
-  var readMoreQueryParameterString = stringFromQueryParameters(queryParameters(title, readMoreItemFetchCount));
-  return (baseURL || '') + '/w/api.php?' + readMoreQueryParameterString;
+var readMoreQueryURL = function readMoreQueryURL(title, count, baseURL) {
+  return (baseURL || '') + '/w/api.php?' + stringFromQueryParameters(queryParameters(title, count));
 };
 
 /**
@@ -1009,9 +1008,9 @@ var readMoreQueryURL = function readMoreQueryURL(title, baseURL) {
  * @param {!string} statusText
  * @return {void}
  */
-var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
+var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
-  xhr.open('GET', readMoreQueryURL(title, baseURL), true);
+  xhr.open('GET', readMoreQueryURL(title, count, baseURL), true);
   xhr.onload = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       // eslint-disable-line no-undef
@@ -1061,14 +1060,15 @@ var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, is
  * Adds 'Read more' for 'title' to 'containerID' element.
  * Leave 'baseURL' null if you don't need to deal with proxying.
  * @param {!string} title
+ * @param {!number} count
  * @param {!string} containerID
  * @param {?string} baseURL
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
  */
-var add$1 = function add(title, containerID, baseURL, saveButtonClickHandler, titlesShownHandler, document) {
-  fetchReadMore(title, containerID, baseURL, showReadMorePages, saveButtonClickHandler, titlesShownHandler, document);
+var add$1 = function add(title, count, containerID, baseURL, saveButtonClickHandler, titlesShownHandler, document) {
+  fetchReadMore(title, count, containerID, baseURL, showReadMorePages, saveButtonClickHandler, titlesShownHandler, document);
 };
 
 /**

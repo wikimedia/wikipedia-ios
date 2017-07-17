@@ -152,7 +152,8 @@ extension WKWebView {
             "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
+        let readMoreItemCount = 3
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
     
 }
