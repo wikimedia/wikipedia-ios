@@ -131,12 +131,13 @@
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
         
     UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
-    deleteAction.backgroundColor = [UIColor wmf_red];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
     
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
-    shareAction.backgroundColor = [UIColor wmf_green];
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
 
     UITableViewRowAction *saveAction = [self saveAction:indexPath];
+    //TODO: should it be using a theme color?
     saveAction.backgroundColor = [UIColor wmf_blue];
 
     return @[deleteAction, shareAction, saveAction];
