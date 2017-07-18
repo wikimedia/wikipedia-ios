@@ -50,8 +50,13 @@ var CustomEvent = typeof window !== 'undefined' && window.CustomEvent || functio
   return event;
 };
 
-var Polyfill = { matchesSelector: matchesSelector, querySelectorAll: querySelectorAll, CustomEvent: CustomEvent };
+var Polyfill = {
+  matchesSelector: matchesSelector,
+  querySelectorAll: querySelectorAll,
+  CustomEvent: CustomEvent
+};
 
+// todo: drop ancestor consideration and move to Polyfill.closest().
 /**
  * Returns closest ancestor of element which matches selector.
  * Similar to 'closest' methods as seen here:
@@ -70,9 +75,23 @@ var findClosestAncestor = function findClosestAncestor(el, selector) {
 };
 
 /**
+ * @param {?Element} element
+ * @param {!string} property
+ * @return {?Element} The inclusive first element with an inline style or undefined.
+ */
+var closestInlineStyle = function closestInlineStyle(element, property) {
+  for (var el = element; el; el = el.parentElement) {
+    if (el.style[property]) {
+      return el;
+    }
+  }
+  return undefined;
+};
+
+/**
  * Determines if element has a table ancestor.
  * @param  {!Element}  el   Element
- * @return {boolean}        Whether table ancestor of 'el' is found
+ * @return {!boolean}       Whether table ancestor of 'el' is found
  */
 var isNestedInTable = function isNestedInTable(el) {
   return Boolean(findClosestAncestor(el, 'table'));
@@ -141,6 +160,7 @@ var copyDataAttributesToAttributes = function copyDataAttributesToAttributes(sou
 var elementUtilities = {
   findClosestAncestor: findClosestAncestor,
   isNestedInTable: isNestedInTable,
+  closestInlineStyle: closestInlineStyle,
   isVisible: isVisible,
   moveAttributesToDataAttributes: moveAttributesToDataAttributes,
   moveDataAttributesToAttributes: moveDataAttributesToAttributes,
@@ -438,6 +458,48 @@ var CollapseTable = {
     newCollapsedFooterDiv: newCollapsedFooterDiv,
     newCaption: newCaption
   }
+};
+
+var COMPATIBILITY = {
+  FILTER: 'pagelib-compatibility-filter'
+};
+
+/**
+ * @param {!Document} document
+ * @param {!string[]} properties
+ * @param {!string} value
+ * @return {void}
+ */
+var isStyleSupported = function isStyleSupported(document, properties, value) {
+  var element = document.createElement('span');
+  return properties.some(function (property) {
+    element.style[property] = value;
+    return element.style.cssText;
+  });
+};
+
+/**
+ * @param {!Document} document
+ * @return {void}
+ */
+var isFilterSupported = function isFilterSupported(document) {
+  return isStyleSupported(document, ['webkitFilter', 'filter'], 'blur(0)');
+};
+
+/**
+ * @param {!Document} document
+ * @return {void}
+ */
+var enableSupport = function enableSupport(document) {
+  var html = document.querySelector('html');
+  if (!isFilterSupported(document)) {
+    html.classList.add(COMPATIBILITY.FILTER);
+  }
+};
+
+var CompatibilityTransform = {
+  COMPATIBILITY: COMPATIBILITY,
+  enableSupport: enableSupport
 };
 
 /**
@@ -1283,7 +1345,7 @@ var loadImage = function loadImage(document, image) {
  * @return {!HTMLImageElement[]} Convertible images descendent from but not including element.
  */
 var queryLazyLoadableImages = function queryLazyLoadableImages(element) {
-  return Array.prototype.slice.call(element.querySelectorAll('img')).filter(function (image) {
+  return Polyfill.querySelectorAll(element, 'img').filter(function (image) {
     return isLazyLoadable(image);
   });
 };
@@ -1300,7 +1362,11 @@ var convertImagesToPlaceholders = function convertImagesToPlaceholders(document,
   });
 };
 
-var LazyLoadTransform = { loadImage: loadImage, queryLazyLoadableImages: queryLazyLoadableImages, convertImagesToPlaceholders: convertImagesToPlaceholders };
+var LazyLoadTransform = {
+  loadImage: loadImage,
+  queryLazyLoadableImages: queryLazyLoadableImages,
+  convertImagesToPlaceholders: convertImagesToPlaceholders
+};
 
 /** Function rate limiter. */
 var Throttle = function () {
@@ -1623,7 +1689,7 @@ var configureRedLinkTemplate = function configureRedLinkTemplate(span, anchor) {
  * @return {!HTMLAnchorElement[]} Array of zero or more red link anchors.
  */
 var redLinkAnchorsInContent = function redLinkAnchorsInContent(content) {
-  return Array.prototype.slice.call(content.querySelectorAll('a.new'));
+  return Polyfill.querySelectorAll(content, 'a.new');
 };
 
 /**
@@ -1673,6 +1739,62 @@ var RedLinks = {
     newRedLinkTemplate: newRedLinkTemplate,
     replaceAnchorWithSpan: replaceAnchorWithSpan
   }
+};
+
+// Elements marked with either of these classes indicate certain ancestry constraints that are
+// difficult to describe as CSS selectors.
+var CONSTRAINT = {
+  IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
+  IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
+};
+
+// Theme to CSS classes.
+var THEME = {
+  DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+};
+
+/**
+ * @param {!Document} document
+ * @param {!string} theme
+ * @return {void}
+ */
+var setTheme = function setTheme(document, theme) {
+  var html = document.querySelector('html');
+
+  // Set the new theme.
+  html.classList.add(theme);
+
+  // Clear any previous theme.
+  for (var key in THEME) {
+    if (Object.prototype.hasOwnProperty.call(THEME, key) && THEME[key] !== theme) {
+      html.classList.remove(THEME[key]);
+    }
+  }
+};
+
+/**
+ * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
+ * theme-dependent so classification only need only occur once after the content is loaded, not
+ * every time the theme changes.
+ * @param {!Element} element
+ * @return {void}
+ */
+var classifyElements = function classifyElements(element) {
+  Polyfill.querySelectorAll(element, 'img').forEach(function (image) {
+    if (!elementUtilities.closestInlineStyle(image, 'background')) {
+      image.classList.add(CONSTRAINT.IMAGE_NO_BACKGROUND);
+    }
+    if (!elementUtilities.isNestedInTable(image)) {
+      image.classList.add(CONSTRAINT.IMAGE_NONTABULAR);
+    }
+  });
+};
+
+var ThemeTransform = {
+  CONSTRAINT: CONSTRAINT,
+  THEME: THEME,
+  setTheme: setTheme,
+  classifyElements: classifyElements
 };
 
 /**
@@ -1768,6 +1890,7 @@ var WidenImage = {
 
 var pagelib$1 = {
   CollapseTable: CollapseTable,
+  CompatibilityTransform: CompatibilityTransform,
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
@@ -1775,6 +1898,7 @@ var pagelib$1 = {
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
   RedLinks: RedLinks,
+  ThemeTransform: ThemeTransform,
   WidenImage: WidenImage,
   test: {
     ElementUtilities: elementUtilities, Polyfill: Polyfill, Throttle: Throttle
