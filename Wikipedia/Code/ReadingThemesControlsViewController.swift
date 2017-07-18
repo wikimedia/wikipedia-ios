@@ -93,7 +93,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
-        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appThemeName ?? Theme.light.name
+        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appTheme.name
         updateThemeButtons(with: currentThemeName)
     }
     

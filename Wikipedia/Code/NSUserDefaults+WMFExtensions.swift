@@ -112,13 +112,13 @@ public extension UserDefaults {
         self.synchronize()
     }
     
-    public var wmf_appThemeName: String? {
-        return self.string(forKey: WMFAppThemeName)
+    public var wmf_appTheme: Theme {
+        return Theme.theme(with: string(forKey: WMFAppThemeName))
     }
     
-    public func wmf_setAppThemeName(_ themeName: String) {
-        self.set(themeName, forKey: WMFAppThemeName)
-        self.synchronize
+    public func wmf_setAppTheme(_ theme: Theme) {
+        set(theme.name, forKey: WMFAppThemeName)
+        synchronize()
     }
     
     public func wmf_locationAuthorized() -> Bool {

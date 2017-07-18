@@ -193,8 +193,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
     
-    NSString *themeName = [[NSUserDefaults wmf_userDefaults] wmf_appThemeName];
-    WMFTheme *theme = [WMFTheme themeWithName:themeName];
+    WMFTheme *theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
     [self applyTheme:theme];
     
     [self configureTabController];
@@ -1466,7 +1465,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     
     if (self.theme != theme) {
         [self applyTheme:theme];
-        [[NSUserDefaults wmf_userDefaults] wmf_setAppThemeName:theme.name];
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
     }
 }
 
@@ -1554,6 +1553,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else {
         theme = [WMFTheme light];
     }
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
     [self applyTheme:theme];
 }
 #endif
