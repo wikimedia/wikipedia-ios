@@ -47,6 +47,7 @@
 "action-unsave" = "Title for the 'Unsave' action\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";

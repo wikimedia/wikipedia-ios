@@ -47,6 +47,7 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
+"appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
 "article-languages-filter-placeholder" = "Find language";

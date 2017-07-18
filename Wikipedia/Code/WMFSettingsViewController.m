@@ -198,6 +198,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
             break;
+        case WMFSettingsMenuItemType_Appearance: {
+            [self showAppearance];
+            break;
+        }
         case WMFSettingsMenuItemType_Support:
             [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
             break;
@@ -232,9 +236,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             tweaksVC.tweaksDelegate = self;
             [self presentViewController:tweaksVC animated:YES completion:nil];
 #endif
-        }
-        case WMFSettingsMenuItemType_Appearance: {
-            [self showLanguages];
         }
         default:
             break;
@@ -353,6 +354,16 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+}
+
+#pragma mark - Appearance
+
+- (void)showAppearance {
+    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+    //TODO: apply theme
+    //TODO: update string description
+    appearanceSettingsVC.title = WMFLocalizedStringWithDefaultValue(@"appearance-settings-title", nil, nil, @"Reading themes", @"Title of the Appearance view in Settings.");
+    [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
 #pragma mark - Debugging

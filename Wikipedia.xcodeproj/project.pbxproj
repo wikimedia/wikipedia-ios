@@ -551,6 +551,14 @@
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */; };
+		BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
+		BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
+		BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
+		BAC6EECB1F1E519C00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
+		BAC6EECC1F1E519F00228AD0 /* AppearanceSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */; };
+		BAC6EECD1F1E51A000228AD0 /* AppearanceSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */; };
+		BAC6EECE1F1E51A100228AD0 /* AppearanceSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */; };
+		BAC6EECF1F1E51A100228AD0 /* AppearanceSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */; };
 		BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
 		BAFCE8441F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */; };
 		BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */; };
@@ -8834,6 +8842,7 @@
 				D80ED3E21EE57F4800CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D80ED3E31EE57F4800CE8C50 /* WikiFont-Glyphs.ttf in Resources */,
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
+				BAC6EECF1F1E51A100228AD0 /* AppearanceSettingsViewController.xib in Resources */,
 				D80ED3E51EE57F4800CE8C50 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0B423711EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D80ED3E61EE57F4800CE8C50 /* Tharlon-Regular.ttf in Resources */,
@@ -8977,6 +8986,7 @@
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BEF1E815A9C00D8E281 /* ShareCard.xib in Resources */,
 				D8A42BF11E815A9C00D8E281 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
+				BAC6EECE1F1E51A100228AD0 /* AppearanceSettingsViewController.xib in Resources */,
 				D8A42BF41E815A9C00D8E281 /* WMFTableOfContentsHeader.xib in Resources */,
 				D8A42BF61E815A9C00D8E281 /* WMFExploreSectionHeader.xib in Resources */,
 				D8A42BF71E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
@@ -9067,6 +9077,7 @@
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26761E698E2400DAE2E0 /* ShareCard.xib in Resources */,
 				D8CE26781E698E2400DAE2E0 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
+				BAC6EECC1F1E519F00228AD0 /* AppearanceSettingsViewController.xib in Resources */,
 				D8CE267B1E698E2400DAE2E0 /* WMFTableOfContentsHeader.xib in Resources */,
 				D8CE267D1E698E2400DAE2E0 /* WMFExploreSectionHeader.xib in Resources */,
 				D8CE267E1E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
@@ -9157,6 +9168,7 @@
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F761E9BDA35006712EB /* ShareCard.xib in Resources */,
 				D8EC3F781E9BDA35006712EB /* NotificationBackgroundWarningIcon@2x.png in Resources */,
+				BAC6EECD1F1E51A000228AD0 /* AppearanceSettingsViewController.xib in Resources */,
 				D8EC3F7B1E9BDA35006712EB /* WMFTableOfContentsHeader.xib in Resources */,
 				D8EC3F7D1E9BDA35006712EB /* WMFExploreSectionHeader.xib in Resources */,
 				D8EC3F7E1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
@@ -10107,6 +10119,7 @@
 				D80ED3491EE57F4800CE8C50 /* WMFSavedArticleTableViewController.m in Sources */,
 				D80ED34A1EE57F4800CE8C50 /* WMFSearchResults.m in Sources */,
 				D80ED34B1EE57F4800CE8C50 /* WMFExploreCollectionViewController.m in Sources */,
+				BAC6EECB1F1E519C00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95891F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D80ED34C1EE57F4800CE8C50 /* WMFAnnouncementCollectionViewCell.m in Sources */,
 				D80ED34D1EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
@@ -10788,6 +10801,7 @@
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
 				D8A42B991E815A9C00D8E281 /* UIScrollView+WMFScrollsToTop.m in Sources */,
+				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				B0B4235D1EF4845A00D3DC4C /* OnThisDayCollectionViewCell.swift in Sources */,
 				D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */,
 			);
@@ -11018,6 +11032,7 @@
 				D8CE25AE1E698E2400DAE2E0 /* WMFSavedArticleTableViewController.m in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				D8CE25B01E698E2400DAE2E0 /* WMFAnnouncementCollectionViewCell.m in Sources */,
+				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				D8CE25B21E698E2400DAE2E0 /* PaddedLabel.m in Sources */,
@@ -11357,6 +11372,7 @@
 				D8EC3EA51E9BDA35006712EB /* WMFMapsActivity.swift in Sources */,
 				D8EC3EA61E9BDA35006712EB /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8EC3EA71E9BDA35006712EB /* WMFArticleNavigationController.m in Sources */,
+				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
 				D8EC3EA91E9BDA35006712EB /* UITableView+DynamicCellHeight.m in Sources */,
