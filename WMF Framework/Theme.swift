@@ -166,6 +166,16 @@ public class Theme: NSObject {
     
     public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "dark")
     
+    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia]
+    
+    @objc(themeWithName:)
+    public class func theme(with name: String?) -> Theme {
+        guard let name = name else {
+            return Theme.standard
+        }
+        return themesByName[name] ?? Theme.standard
+    }
+    
     public static let standard = Theme.light
     
     public let name: String

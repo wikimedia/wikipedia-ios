@@ -194,18 +194,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.rootTabBarController = tabBar;
     
     NSString *themeName = [[NSUserDefaults wmf_userDefaults] wmf_appThemeName];
+    WMFTheme *theme = [WMFTheme themeWithName:themeName];
+    [self applyTheme:theme];
     
-    NSArray *themes = @[WMFTheme.light, WMFTheme.sepia, WMFTheme.dark];
-    
-    WMFTheme *themeToApply = WMFTheme.standard;
-    for (WMFTheme *theme in themes) {
-        if ([themeName isEqualToString:theme.name]) {
-            themeToApply = theme;
-            break;
-        }
-    }
-    
-    [self applyTheme:themeToApply];
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
