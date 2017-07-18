@@ -2,12 +2,14 @@ import UIKit
 
 @objc public protocol WMFReadingThemesControlsViewControllerDelegate {
     
-    func fontSizeSliderValueChangedInController(_ controller: WMFReadingThemesControlsViewController, value: Int)
+    func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
 }
 
-open class WMFReadingThemesControlsViewController: UIViewController {
+@objc(WMFReadingThemesControlsViewController)
+open class ReadingThemesControlsViewController: UIViewController {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme: Theme?
     
@@ -53,6 +55,13 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         // TODO: Enable when implemented
         autoNightModeSwitch.isEnabled = false
         imageDimmingSwitch.isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func applyBorder(to button: UIButton) {
@@ -104,6 +113,10 @@ open class WMFReadingThemesControlsViewController: UIViewController {
         }
     }
     
+    func screenBrightnessChangedInApp(notification: Notification){
+        brightnessSlider.value = Float(UIScreen.main.brightness)
+    }
+    
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
     }
@@ -117,7 +130,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         updateThemeButtons(with: theme.name)
-        NotificationCenter.default.post(name: Notification.Name(WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
@@ -135,7 +148,7 @@ open class WMFReadingThemesControlsViewController: UIViewController {
 
 // MARK: - Themeable
 
-extension WMFReadingThemesControlsViewController: Themeable {
+extension ReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         
