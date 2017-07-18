@@ -1,5 +1,25 @@
 import UIKit
 
+protocol AppearanceSettingsItem {
+    var title: String { get }
+}
+
+struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
+    let title: String
+    let switchChecker: () -> Bool
+    let switchAction: (Bool) -> Void
+}
+
+struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
+    let title: String
+    let buttonAction: () -> Void
+}
+
+struct AppearanceSettingsSection {
+    let headerTitle: String
+    let items: [AppearanceSettingsItem]
+}
+
 @objc(WMFAppearanceSettingsViewController)
 //TODO: add Themeable extension
 class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -13,6 +33,10 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+    }
+    
+    func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
+        return [AppearanceSettingsSection(headerTitle:)]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
