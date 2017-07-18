@@ -1,5 +1,4 @@
-
-import Foundation
+import WMF
 
 extension UIViewController {
     class func wmf_viewControllerFromReferencePanelsStoryboard() -> Self {
@@ -12,17 +11,27 @@ extension UIViewController {
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController)
 }
 
-class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource, Themeable {
     var lastClickedReferencesIndex:Int = 0
     var lastClickedReferencesGroup = [WMFReference]()
     
     weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
+    var theme = Theme.standard
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+    }
+
     fileprivate lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
         
         for reference in self.lastClickedReferencesGroup {
             let panel = WMFReferencePanelViewController.wmf_viewControllerFromReferencePanelsStoryboard()
+            panel.apply(theme: self.theme)
             panel.reference = reference
             controllers.append(panel)
         }
@@ -49,6 +58,8 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
+        
+        apply(theme: theme)
     }
     
     fileprivate func addBackgroundView() {
@@ -105,4 +116,5 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         super.willTransition(to: newCollection, with: coordinator)
         self.presentingViewController?.dismiss(animated: false, completion: nil)
     }
+    
 }

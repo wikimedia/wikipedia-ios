@@ -1,7 +1,16 @@
+import WMF
 
-import Foundation
-
-class WMFReferencePanelViewController: UIViewController {
+class WMFReferencePanelViewController: UIViewController, Themeable {
+    var theme = Theme.standard
+    
+    @objc(applyTheme:)
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+    }
     
     @IBOutlet fileprivate var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var containerView:UIView!
@@ -11,6 +20,7 @@ class WMFReferencePanelViewController: UIViewController {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
         embedContainerControllerView()
+        apply(theme: self.theme)
     }
 
     func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
@@ -37,6 +47,9 @@ class WMFReferencePanelViewController: UIViewController {
     
     fileprivate lazy var containerController: WMFReferencePopoverMessageViewController = {
         let referenceVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard()
+        if let trc = referenceVC as Themeable? {
+            trc.apply(theme: self.theme)
+        }
         referenceVC?.reference = self.reference
         return referenceVC!
     }()
