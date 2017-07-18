@@ -6,8 +6,20 @@ protocol AppearanceSettingsItem {
 
 struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
     let title: String
-    let switchChecker: () -> Bool
-    let switchAction: (Bool) -> Void
+    //TODO: change types
+    // () -> Bool
+    // (Bool) -> Void
+    let switchChecker: Bool
+    let switchAction: Bool
+}
+
+struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
+    let title: String
+    //TODO: change types
+    // () -> Bool
+    // (Bool) -> Void
+    let checkmarkChecker: Bool
+    let checkmarkAction: Bool
 }
 
 struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
@@ -26,6 +38,8 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     @IBOutlet weak var tableView: UITableView!
     
+    var sections = [AppearanceSettingsSection]()
+    
     override func viewDidLoad() {
          super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -33,14 +47,21 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        sections = sectionsForAppearanceSettings()
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
-        return [AppearanceSettingsSection(headerTitle:)]
+        
+        let readingThemesSection =
+        AppearanceSettingsSection(headerTitle: "Reading themes", items: [AppearanceSettingsCheckmarkItem(title: "Default", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", checkmarkChecker: false, checkmarkAction: false)])
+        
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
+        
+        return [readingThemesSection, themeOptionsSection]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
