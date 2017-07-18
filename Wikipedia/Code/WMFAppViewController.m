@@ -112,7 +112,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
-
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -137,7 +136,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                              selector:@selector(showSearch:)
                                                  name:WMFShowSearchNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeTheme:)
                                                  name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
@@ -189,13 +188,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
-    
+
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
-    
+
     WMFTheme *theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
     [self applyTheme:theme];
-    
+
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -1461,8 +1460,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)changeTheme:(NSNotification *)note {
-    WMFTheme* theme = (WMFTheme*)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
-    
+    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+
     if (self.theme != theme) {
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
@@ -1535,26 +1534,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
-}
-#else
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion withEvent:event];
-    }
-    if (event.subtype != UIEventSubtypeMotionShake) {
-        return;
-    }
-
-    WMFTheme *theme = self.theme;
-    if (theme == [WMFTheme standard]) {
-        theme = [WMFTheme dark];
-    } else if (theme == [WMFTheme dark]) {
-        theme = [WMFTheme sepia];
-    } else {
-        theme = [WMFTheme light];
-    }
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
-    [self applyTheme:theme];
 }
 #endif
 
