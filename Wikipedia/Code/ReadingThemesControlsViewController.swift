@@ -13,6 +13,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     var theme: Theme?
     
+    @IBOutlet weak var imageDimmingLabel: UILabel!
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
@@ -23,7 +24,6 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var sepiaThemeButton: UIButton!
     @IBOutlet weak var darkThemeButton: UIButton!
     
-    @IBOutlet weak var autoNightModeSwitch: UISwitch!
     @IBOutlet weak var imageDimmingSwitch: UISwitch!
     
     @IBOutlet var separatorViews: [UIView]!
@@ -52,10 +52,8 @@ open class ReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        // TODO: Enable when implemented
-        autoNightModeSwitch.isEnabled = false
-        imageDimmingSwitch.isEnabled = false
-        
+        imageDimmingLabel.text = WMFLocalizedString("image-dimming", value: "Image Dimming", comment: "Label for image dimming setting")
+    
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
     }
@@ -90,22 +88,34 @@ open class ReadingThemesControlsViewController: UIViewController {
         self.slider.value = current
     }
     
+    @IBAction func dimmingSwitchValueChanged(_ sender: Any) {
+        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        userDidSelect(theme: currentTheme.withDimmingEnabled(imageDimmingSwitch.isOn))
+    }
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         visible = true
-        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appTheme.name
-        updateThemeButtons(with: currentThemeName)
+        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        updateThemeButtons(with: currentTheme)
     }
     
-    func updateThemeButtons(with currentThemeName: String) {
+    func updateThemeButtons(with theme: Theme) {
         removeBorderFrom(lightThemeButton)
         removeBorderFrom(darkThemeButton)
         removeBorderFrom(sepiaThemeButton)
-        switch currentThemeName {
+        imageDimmingSwitch.isEnabled = true
+        imageDimmingSwitch.isOn = theme.imageOpacity < 1
+        switch theme.name {
+        case Theme.sepiaDimmed.name:
+            fallthrough
         case Theme.sepia.name:
             applyBorder(to: sepiaThemeButton)
         case Theme.light.name:
+            imageDimmingSwitch.isEnabled = false
             applyBorder(to: lightThemeButton)
+        case Theme.darkDimmed.name:
+            fallthrough
         case Theme.dark.name:
             applyBorder(to: darkThemeButton)
         default:
@@ -129,12 +139,12 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
-        updateThemeButtons(with: theme.name)
+        updateThemeButtons(with: theme)
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
-       userDidSelect(theme: Theme.sepia)
+        userDidSelect(theme:  Theme.sepia.withDimmingEnabled(imageDimmingSwitch.isOn))
     }
     
     @IBAction func lightThemeButtonPressed(_ sender: Any) {
@@ -142,7 +152,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.dark)
+        userDidSelect(theme: Theme.dark.withDimmingEnabled(imageDimmingSwitch.isOn))
     }
 }
 

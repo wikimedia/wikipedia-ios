@@ -113,7 +113,7 @@ public extension UserDefaults {
     }
     
     public var wmf_appTheme: Theme {
-        return Theme.theme(with: string(forKey: WMFAppThemeName))
+        return Theme.withName(string(forKey: WMFAppThemeName))
     }
     
     public func wmf_setAppTheme(_ theme: Theme) {
