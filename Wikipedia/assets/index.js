@@ -32,7 +32,7 @@ var matchesSelector = function matchesSelector(el, selector) {
 /**
  * @param {!Element} element
  * @param {!string} selector
- * @return {!Element[]}
+ * @return {!Array.<Element>}
  */
 var querySelectorAll = function querySelectorAll(element, selector) {
   return Array.prototype.slice.call(element.querySelectorAll(selector));
@@ -112,7 +112,7 @@ var isVisible = function isVisible(element) {
  * Move attributes from source to destination as data-* attributes.
  * @param {!HTMLElement} source
  * @param {!HTMLElement} destination
- * @param {!string[]} attributes
+ * @param {!Array.<string>} attributes
  * @return {void}
  */
 var moveAttributesToDataAttributes = function moveAttributesToDataAttributes(source, destination, attributes) {
@@ -128,7 +128,7 @@ var moveAttributesToDataAttributes = function moveAttributesToDataAttributes(sou
  * Move data-* attributes from source to destination as attributes.
  * @param {!HTMLElement} source
  * @param {!HTMLElement} destination
- * @param {!string[]} attributes
+ * @param {!Array.<string>} attributes
  * @return {void}
  */
 var moveDataAttributesToAttributes = function moveDataAttributesToAttributes(source, destination, attributes) {
@@ -145,7 +145,7 @@ var moveDataAttributesToAttributes = function moveDataAttributesToAttributes(sou
  * Copy data-* attributes from source to destination as attributes.
  * @param {!HTMLElement} source
  * @param {!HTMLElement} destination
- * @param {!string[]} attributes
+ * @param {!Array.<string>} attributes
  * @return {void}
  */
 var copyDataAttributesToAttributes = function copyDataAttributesToAttributes(source, destination, attributes) {
@@ -316,7 +316,7 @@ var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
 
 /**
  * @param {!string} title
- * @param {!string[]} headerText
+ * @param {!Array.<string>} headerText
  * @return {!string} HTML string.
  */
 var newCaption = function newCaption(title, headerText) {
@@ -466,7 +466,7 @@ var COMPATIBILITY = {
 
 /**
  * @param {!Document} document
- * @param {!string[]} properties
+ * @param {!Array.<string>} properties
  * @param {!string} value
  * @return {void}
  */
@@ -577,6 +577,7 @@ var FooterContainer = {
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
  * @param {?FooterLegalClickCallback} licenseLinkClickHandler
+ * @return {void}
  */
 var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
   var container = content.querySelector('#' + containerID);
@@ -620,12 +621,12 @@ var createClass = function () {
 /**
  * @typedef {function} FooterMenuItemPayloadExtractor
  * @param {!Document} document
- * @return {!string[]} Important - should return empty array if no payload strings.
+ * @return {!Array.<string>} Important - should return empty array if no payload strings.
  */
 
 /**
  * @typedef {function} FooterMenuItemClickCallback
- * @param {!string[]} payload Important - should return empty array if no payload strings.
+ * @param {!Array.<string>} payload Important - should return empty array if no payload strings.
  * @return {void}
  */
 
@@ -633,6 +634,7 @@ var createClass = function () {
  * @typedef {number} MenuItemType
  */
 
+// eslint-disable-next-line
 /**
  * Extracts array of no-html page issues strings from document.
  * @type {FooterMenuItemPayloadExtractor}
@@ -654,6 +656,7 @@ var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
   });
 };
 
+// eslint-disable-next-line
 /**
  * Extracts array of disambiguation page urls from document.
  * @type {FooterMenuItemPayloadExtractor}
@@ -798,6 +801,7 @@ var documentFragmentForMenuItem = function documentFragmentForMenuItem(menuItem,
  * @param {!MenuItem} menuItem
  * @param {!string} containerID
  * @param {!Document} document
+ * @return {void}
  */
 var addItem = function addItem(menuItem, containerID, document) {
   document.getElementById(containerID).appendChild(documentFragmentForMenuItem(menuItem, document));
@@ -832,6 +836,7 @@ var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID,
  * @param {!string} headingString
  * @param {!string} headingID
  * @param {!Document} document
+ * @return {void}
  */
 var setHeading = function setHeading(headingString, headingID, document) {
   var headingElement = document.getElementById(headingID);
@@ -853,14 +858,14 @@ var FooterMenu = {
 
 /**
  * @typedef {function} TitlesShownHandler
- * @param {!string[]} titles
+ * @param {!Array.<string>} titles
  * @return {void}
  */
 
 /**
  * Display fetched read more pages.
  * @typedef {function} ShownReadMorePagesHandler
- * @param {!Object[]} pages
+ * @param {!Array.<object>} pages
  * @param {!string} containerID
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
@@ -912,7 +917,7 @@ var ReadMorePage =
  * ReadMorePage constructor.
  * @param {!string} title
  * @param {?string} thumbnail
- * @param {?Object} terms
+ * @param {?object} terms
  * @param {?string} extract
  * @return {void}
  */
@@ -991,6 +996,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
   return document.createDocumentFragment().appendChild(outerAnchorContainer);
 };
 
+// eslint-disable-next-line
 /**
  * @type {ShownReadMorePagesHandler}
  */
@@ -1011,7 +1017,7 @@ var showReadMorePages = function showReadMorePages(pages, containerID, saveButto
  * Makes 'Read more' query parameters object for a title.
  * @param {!string} title
  * @param {!number} count
- * @return {!Object}
+ * @return {!object}
  */
 var queryParameters = function queryParameters(title, count) {
   return {
@@ -1044,7 +1050,7 @@ var queryParameters = function queryParameters(title, count) {
 
 /**
  * Converts query parameter object to string.
- * @param {!Object} parameters
+ * @param {!object} parameters
  * @return {!string}
  */
 var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
@@ -1092,7 +1098,7 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
 /**
  * Updates save button bookmark icon for saved state.
  * @param {!HTMLDivElement} button
- * @param {!Boolean} isSaved
+ * @param {!boolean} isSaved
  * @return {void}
  */
 var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, isSaved) {
@@ -1107,7 +1113,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
  * Updates save button text and bookmark icon for saved state.
  * @param {!string} title
  * @param {!string} text
- * @param {!Boolean} isSaved
+ * @param {!boolean} isSaved
  * @param {!Document} document
  * @return {void}
 */
@@ -1128,6 +1134,7 @@ var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, is
  * @param {SaveButtonClickHandler} saveButtonClickHandler
  * @param {TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
+ * @return {void}
  */
 var add$1 = function add(title, count, containerID, baseURL, saveButtonClickHandler, titlesShownHandler, document) {
   fetchReadMore(title, count, containerID, baseURL, showReadMorePages, saveButtonClickHandler, titlesShownHandler, document);
@@ -1138,6 +1145,7 @@ var add$1 = function add(title, count, containerID, baseURL, saveButtonClickHand
  * @param {!string} headingString
  * @param {!string} headingID
  * @param {!Document} document
+ * @return {void}
  */
 var setHeading$1 = function setHeading(headingString, headingID, document) {
   var headingElement = document.getElementById(headingID);
@@ -1182,7 +1190,7 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
 
 /**
  * @param {!string} value
- * @return {!string[]} A value-unit tuple.
+ * @return {!Array.<string>} A value-unit tuple.
  */
 var splitStylePropertyValue = function splitStylePropertyValue(value) {
   var matchValueUnit = value.match(/(\d+)(\D+)/) || [];
@@ -1342,7 +1350,7 @@ var loadImage = function loadImage(document, image) {
 
 /**
  * @param {!Element} element
- * @return {!HTMLImageElement[]} Convertible images descendent from but not including element.
+ * @return {!Array.<HTMLImageElement>} Convertible images descendent from but not including element.
  */
 var queryLazyLoadableImages = function queryLazyLoadableImages(element) {
   return Polyfill.querySelectorAll(element, 'img').filter(function (image) {
@@ -1353,7 +1361,7 @@ var queryLazyLoadableImages = function queryLazyLoadableImages(element) {
 /**
  * Convert images with placeholders. The transformation is inverted by calling loadImage().
  * @param {!Document} document
- * @param {!HTMLImageElement[]} images The images to lazily load.
+ * @param {!Array.<HTMLImageElement>} images The images to lazily load.
  * @return {void}
  */
 var convertImagesToPlaceholders = function convertImagesToPlaceholders(document, images) {
@@ -1686,7 +1694,7 @@ var configureRedLinkTemplate = function configureRedLinkTemplate(span, anchor) {
 /**
  * Finds red links in a document or document fragment.
  * @param {!(Document|DocumentFragment)} content Document or fragment in which to seek red links.
- * @return {!HTMLAnchorElement[]} Array of zero or more red link anchors.
+ * @return {!Array.<HTMLAnchorElement>} Array of zero or more red link anchors.
  */
 var redLinkAnchorsInContent = function redLinkAnchorsInContent(content) {
   return Polyfill.querySelectorAll(content, 'a.new');
