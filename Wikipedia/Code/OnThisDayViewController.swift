@@ -22,7 +22,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     }
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true, separatorWidth: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {
