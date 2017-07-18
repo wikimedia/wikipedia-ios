@@ -1156,7 +1156,11 @@ var setHeading$1 = function setHeading(headingString, headingID, document) {
 var FooterReadMore = {
   add: add$1,
   setHeading: setHeading$1,
-  updateSaveButtonForTitle: updateSaveButtonForTitle
+  updateSaveButtonForTitle: updateSaveButtonForTitle,
+  test: {
+    cleanExtract: cleanExtract,
+    safelyRemoveEnclosures: safelyRemoveEnclosures
+  }
 };
 
 // CSS classes used to identify and present converted images. An image is only a member of one class
