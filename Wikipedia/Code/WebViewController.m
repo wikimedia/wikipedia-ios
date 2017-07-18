@@ -937,6 +937,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFReferencePageViewController *vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
     vc.delegate = self;
     vc.appearanceDelegate = self;
+    [vc applyTheme:self.theme];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     vc.lastClickedReferencesIndex = selectedIndex;

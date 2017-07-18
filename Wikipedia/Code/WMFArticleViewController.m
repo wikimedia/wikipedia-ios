@@ -1292,7 +1292,7 @@ WMFArticlePreviewingActionsDelegate>
 #pragma mark - Reading Themes Controls
 
 - (void)setupReadingThemesControls {
-    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] init];
+    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
     [self.readingThemesViewController applyTheme:self.theme];
 }
 
@@ -1882,10 +1882,10 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
+    [self.webViewController applyTheme:theme];
     if (self.viewIfLoaded == nil) {
         return;
     }
-    
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;

@@ -1174,6 +1174,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     } else {
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
+    [cell applyTheme:self.theme];
     //    self.referenceImageView = cell.potdImageView;
 }
 

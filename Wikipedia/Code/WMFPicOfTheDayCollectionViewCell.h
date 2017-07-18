@@ -1,6 +1,7 @@
 #import "WMFExploreCollectionViewCell.h"
+@import WMF.Swift;
 
-@interface WMFPicOfTheDayCollectionViewCell : WMFExploreCollectionViewCell
+@interface WMFPicOfTheDayCollectionViewCell : WMFExploreCollectionViewCell <WMFThemeable>
 
 /**
  *  Do not use this to set the image url, this is only exposed
