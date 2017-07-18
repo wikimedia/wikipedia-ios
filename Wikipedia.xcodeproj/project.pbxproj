@@ -569,7 +569,6 @@
 		BCCB814B1C110A65008BC602 /* MWKImageInfoSerializationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB814A1C110A65008BC602 /* MWKImageInfoSerializationTest.m */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */; };
-		BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */; };
 		BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
@@ -3910,7 +3909,6 @@
 		BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimeZone+WMFTestingUtils.m"; path = "WikipediaUnitTests/Code/NSTimeZone+WMFTestingUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCD3200B1C737E0000317D08 /* NSNumber+MWKTitleNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+MWKTitleNamespace.h"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.h"; sourceTree = SOURCE_ROOT; };
 		BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+MWKTitleNamespace.m"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.m"; sourceTree = SOURCE_ROOT; };
-		BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTextualSaveButtonLayoutVisualTests.m; sourceTree = "<group>"; };
 		BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplication+VisualTestUtils.h"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.h"; sourceTree = SOURCE_ROOT; };
 		BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+VisualTestUtils.m"; path = "WikipediaUnitTests/Code/UIApplication+VisualTestUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -7129,7 +7127,6 @@
 				BC318E121C1A34A500DACD9D /* SessionSingletonTests.m */,
 				BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */,
 				B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */,
-				BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */,
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
@@ -9391,7 +9388,6 @@
 				B0E8087A1C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m in Sources */,
 				BC318E131C1A34A500DACD9D /* SessionSingletonTests.m in Sources */,
 				B0E808CA1C0D178E0065EBC0 /* MWKRecentSearchDataStoreTests.m in Sources */,
-				BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
 				B0E8094D1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m in Sources */,
