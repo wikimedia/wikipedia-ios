@@ -16,14 +16,14 @@ class ArticleListTableViewCell: ContainerTableViewCell {
     
     func reset() {
         articleCell.isSaveButtonHidden = true
-        articleCell.imageViewDimension = 30
+        articleCell.imageViewDimension = 40
         articleCell.margins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         articleCell.titleTextStyle = .subheadline
         articleCell.descriptionTextStyle = .footnote
         articleCell.updateFonts(with: traitCollection)
     }
 
-    static var estimatedRowHeight: CGFloat = 50
+    static var estimatedRowHeight: CGFloat = 60
     
     override func prepareForReuse() {
         super.prepareForReuse()
