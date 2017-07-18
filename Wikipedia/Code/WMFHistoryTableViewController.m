@@ -138,9 +138,9 @@
     NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects: deleteAction, shareAction, nil];
     
     if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
-        UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
-        unsaveAction.backgroundColor = self.theme.colors.link;
-        [actions addObject:unsaveAction];
+        UITableViewRowAction *savedAction = [self savedAction:indexPath];
+        savedAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:savedAction];
     } else {
         UITableViewRowAction *saveAction = [self saveAction:indexPath];
         saveAction.backgroundColor = self.theme.colors.link;

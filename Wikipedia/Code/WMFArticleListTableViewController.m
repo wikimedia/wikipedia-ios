@@ -302,8 +302,8 @@
     }];
 }
 
-- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortUnsaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList removeEntryWithURL:url];
