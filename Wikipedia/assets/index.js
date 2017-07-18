@@ -634,7 +634,7 @@ var createClass = function () {
  * @typedef {number} MenuItemType
  */
 
-// eslint-disable-next-line
+// eslint-disable-next-line valid-jsdoc
 /**
  * Extracts array of no-html page issues strings from document.
  * @type {FooterMenuItemPayloadExtractor}
@@ -656,7 +656,7 @@ var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
   });
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line valid-jsdoc
 /**
  * Extracts array of disambiguation page urls from document.
  * @type {FooterMenuItemPayloadExtractor}
@@ -821,8 +821,9 @@ var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID,
   var item = new MenuItem(title, subtitle, itemType, clickHandler);
 
   // Items are not added if they have a payload extractor which fails to extract anything.
-  if (item.payloadExtractor()) {
-    item.payload = item.payloadExtractor()(document);
+  var extractor = item.payloadExtractor();
+  if (extractor) {
+    item.payload = extractor(document);
     if (item.payload.length === 0) {
       return;
     }
@@ -873,7 +874,7 @@ var FooterMenu = {
  * @return {void}
  */
 
-var _saveButtonIDPrefix = 'readmore:save:';
+var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
 
 /**
  * Removes parenthetical enclosures from string. 
@@ -972,7 +973,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
   if (readMorePage.terms) {
     description = readMorePage.terms.description[0];
   }
-  if ((description === undefined || description.length < 10) && readMorePage.extract) {
+  if ((!description || description.length < 10) && readMorePage.extract) {
     description = cleanExtract(readMorePage.extract);
   }
   if (description) {
@@ -984,7 +985,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
   }
 
   var saveButton = document.createElement('div');
-  saveButton.id = '' + _saveButtonIDPrefix + encodeURI(readMorePage.title);
+  saveButton.id = '' + SAVE_BUTTON_ID_PREFIX + encodeURI(readMorePage.title);
   saveButton.className = 'pagelib_footer_readmore_page_save';
   saveButton.addEventListener('click', function (event) {
     event.stopPropagation();
@@ -996,7 +997,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
   return document.createDocumentFragment().appendChild(outerAnchorContainer);
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line valid-jsdoc
 /**
  * @type {ShownReadMorePagesHandler}
  */
@@ -1089,8 +1090,8 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
       }
     }
   };
-  xhr.onerror = function (e) {
-    fetchErrorHandler(xhr.statusText);
+  xhr.onerror = function () {
+    return fetchErrorHandler(xhr.statusText);
   };
   xhr.send();
 };
@@ -1104,8 +1105,7 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
 var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, isSaved) {
   var unfilledClass = 'pagelib_footer_readmore_bookmark_unfilled';
   var filledClass = 'pagelib_footer_readmore_bookmark_filled';
-  button.classList.remove(unfilledClass);
-  button.classList.remove(filledClass);
+  button.classList.remove(filledClass, unfilledClass);
   button.classList.add(isSaved ? filledClass : unfilledClass);
 };
 
@@ -1118,7 +1118,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
  * @return {void}
 */
 var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
-  var saveButton = document.getElementById('' + _saveButtonIDPrefix + title);
+  var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + title);
   saveButton.innerText = text;
   saveButton.title = text;
   updateSaveButtonBookmarkIcon(saveButton, isSaved);
