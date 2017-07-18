@@ -1292,7 +1292,7 @@ WMFArticlePreviewingActionsDelegate>
 #pragma mark - Reading Themes Controls
 
 - (void)setupReadingThemesControls {
-    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] init];
+    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
     [self.readingThemesViewController applyTheme:self.theme];
 }
 

@@ -1459,8 +1459,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)changeTheme:(NSNotification *)note {
-    NSDictionary* userInfo = note.userInfo;
-    WMFTheme* theme = (WMFTheme*)userInfo[@"theme"];
+    WMFTheme* theme = (WMFTheme*)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
     
     if (self.theme != theme) {
         [self applyTheme:theme];
