@@ -139,12 +139,11 @@
     
     if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
         UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
-        unsaveAction.backgroundColor = [UIColor wmf_blue];
+        unsaveAction.backgroundColor = self.theme.colors.link;
         [actions addObject:unsaveAction];
     } else {
         UITableViewRowAction *saveAction = [self saveAction:indexPath];
-        //TODO: should it be using a theme color?
-        saveAction.backgroundColor = [UIColor wmf_blue];
+        saveAction.backgroundColor = self.theme.colors.link;
         [actions addObject:saveAction];
     }
 

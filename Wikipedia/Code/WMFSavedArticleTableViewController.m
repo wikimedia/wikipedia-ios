@@ -87,7 +87,7 @@
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
-    unsaveAction.backgroundColor = [UIColor wmf_blue];
+    unsaveAction.backgroundColor = self.theme.colors.link;
     
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
