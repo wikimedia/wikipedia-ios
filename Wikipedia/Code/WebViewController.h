@@ -1,5 +1,7 @@
 @import UIKit;
-@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView, WMFTheme;
+@import WMF.Swift;
+
+@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
@@ -7,10 +9,7 @@ typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebViewController : UIViewController <UIWebViewDelegate,
-                                                 UIScrollViewDelegate,
-                                                 UIGestureRecognizerDelegate,
-                                                 UIAlertViewDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate,  UIAlertViewDelegate, WMFThemeable>
 
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;
 @property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
