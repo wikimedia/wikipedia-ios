@@ -2,14 +2,18 @@ import UIKit
 
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
+    let separator = UIView()
     
     override open func setup() {
         imageView.cornerRadius = 3
+        separator.isOpaque = true
+        addSubview(separator)
         super.setup()
     }
     
     open override func reset() {
         super.reset()
+        separator.isHidden = true
         titleFontFamily = .system
         titleTextStyle = .body
         updateFonts(with: traitCollection)
@@ -50,6 +54,11 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             origin.y += saveButtonFrame.height
         }
         origin.y += margins.bottom
+        
+        if (apply) {
+            separator.frame = CGRect(x: 0, y: origin.y - 0.5, width: size.width, height: 0.5)
+        }
+        
         let height = isImageViewHidden ? origin.y : max(origin.y, imageViewDimension + margins.top + margins.bottom)
         return CGSize(width: size.width, height: height)
     }
