@@ -1,7 +1,6 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFBarButtonItemPopoverBackgroundView.h"
 @import WMF;
 
 typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentationController *presenter);
@@ -83,18 +82,28 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
     popoverVC.message = message;
     popoverVC.width = width;
 
-    popoverVC.view.backgroundColor = [UIColor wmf_white];
-
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
-
+    
     presenter.delegate = popoverVC;
     presenter.passthroughViews = @[self.view];
-
+    
     if (presenterConfigurationBlock) {
         presenterConfigurationBlock(presenter);
     }
+    
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ([self respondsToSelector:@selector(theme)]) {
+        id maybeTheme = [(id)self performSelector:@selector(theme)];
+        if ([maybeTheme isKindOfClass:[WMFTheme class]]) {
+            [popoverVC applyTheme:maybeTheme];
+            presenter.backgroundColor = [(WMFTheme *)maybeTheme colors].paperBackground;
+        }
+    }
+    #pragma clang diagnostic pop
+    
+  
 
-    presenter.popoverBackgroundViewClass = [WMFBarButtonItemPopoverBackgroundView class];
 
     return popoverVC;
 }
