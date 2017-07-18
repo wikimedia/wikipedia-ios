@@ -56,12 +56,6 @@
 @interface WMFLeadingImageTrailingTextButton (WMFConfiguration)
 
 /**
- *  Configured button with save icon and text
- *
- */
-- (void)configureAsSaveButton;
-
-/**
  *  Configured button with bug icon and text
  */
 - (void)configureAsReportBugButton;

@@ -284,7 +284,6 @@
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
-"save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -343,7 +342,6 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
-"unsave-action" = "Accessibility action description for 'Unsave'";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
 "welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
 "welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
