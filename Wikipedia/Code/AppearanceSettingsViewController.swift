@@ -29,6 +29,7 @@ struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
 
 struct AppearanceSettingsSection {
     let headerTitle: String
+    let footerText: String?
     let items: [AppearanceSettingsItem]
 }
 
@@ -41,27 +42,31 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     var sections = [AppearanceSettingsSection]()
     
     override func viewDidLoad() {
-         super.viewDidLoad()
+        super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         sections = sectionsForAppearanceSettings()
+        print("sections counts: \(sections.count)")
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-        AppearanceSettingsSection(headerTitle: "Reading themes", items: [AppearanceSettingsCheckmarkItem(title: "Default", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", checkmarkChecker: false, checkmarkAction: false)])
+            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", checkmarkChecker: false, checkmarkAction: false)])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am  ", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
         return [readingThemesSection, themeOptionsSection]
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Appearance sections[section].items.count: \(sections[section].items.count)")
         return sections[section].items.count
     }
     
@@ -70,14 +75,25 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return UITableViewCell()
         }
         
+        let section = sections[indexPath.section]
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
         
+        
         if let switchItem = item as? AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
-            cell.disclosureSwitch.isOn = false
-            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleSwitchValueChange(_:)), for: .valueChanged)
+            // disable until implemented
+            cell.disclosureSwitch.isEnabled = false
+            if switchItem.title == "Image dimming" {
+                //TODO: get a real icon
+                cell.iconName = "settings-notifications"
+                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+            } else {
+                //TODO: get a real icon
+                cell.iconName = "settings-notifications"
+                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutoNightModeSwitchValueChange(_:)), for: .valueChanged)
+            }
         } else {
             cell.disclosureType = .viewController
         }
@@ -85,17 +101,40 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
-    func handleSwitchValueChange(_ sender: UISwitch) {
-        print("handleSwitchValueChange")
+    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+        print("handleImageDimmingSwitchValueChange")
+    }
+    
+    func handleAutoNightModeSwitchValueChange(_ sender: UISwitch) {
+        print("handleAutoNightModeSwitchValueChange")
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-//        if let th = header as Themeable? {
-//            th.apply(theme: theme)
-//        }
+        //        if let th = header as Themeable? {
+        //            th.apply(theme: theme)
+        //        }
         header?.text = sections[section].headerTitle
-        return header;
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        //        if let th = header as Themeable? {
+        //            th.apply(theme: theme)
+        //        }
+        footer?.text = sections[section].footerText
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let footerText = sections[section].footerText else {
+            return 0
+        }
+        
+        let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        footer?.text = footerText
+        return footer!.height(withExpectedWidth: self.view.frame.width)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -103,5 +142,5 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         header?.text = sections[section].headerTitle
         return header!.height(withExpectedWidth: self.view.frame.width)
     }
-
+    
 }
