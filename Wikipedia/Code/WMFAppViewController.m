@@ -1437,7 +1437,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     for (UITabBar *tabBar in tabBars) {
         tabBar.barTintColor = theme.colors.chromeBackground;
         if ([tabBar respondsToSelector:@selector(setUnselectedItemTintColor:)]) {
-            [tabBar setUnselectedItemTintColor:theme.colors.secondaryText];
+            [tabBar setUnselectedItemTintColor:theme.colors.unselected];
         }
         tabBar.translucent = NO;
         tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
