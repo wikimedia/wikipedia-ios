@@ -121,7 +121,6 @@
             delta:@(row.revisionSize)
            isAnon:row.isAnon
           summary:row.parsedComment
-        separator:(section.items.count > 1)
             theme:self.theme];
 }
 
@@ -181,6 +180,7 @@
     }
     self.tableView.tableFooterView.backgroundColor = theme.colors.paperBackground;
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.tableView.separatorColor = theme.colors.border;
     [self.tableView reloadData];
 }
 
