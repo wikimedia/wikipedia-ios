@@ -47,6 +47,8 @@ extension ArticleCollectionViewController {
             return articleCell
         }
         articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, theme: theme, layoutOnly: false)
+        articleCell.separator.isHidden = false
+        articleCell.separator.backgroundColor = theme.colors.border
         return articleCell
     }
 }

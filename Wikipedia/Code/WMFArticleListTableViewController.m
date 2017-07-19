@@ -23,8 +23,7 @@
     
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    
-    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -318,6 +317,8 @@
         return;
     }
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = theme.colors.border;
     [self.tableView reloadData];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }

@@ -54,11 +54,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PageHistoryResultPrototypeView" bundle:nil]
          forCellReuseIdentifier:TABLE_CELL_ID];
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 75;
-    
+
     [self applyTheme:self.theme];
 }
 
