@@ -20,7 +20,7 @@ struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     // () -> Bool
     // (Bool) -> Void
     let checkmarkChecker: Bool
-    let checkmarkAction: Bool
+    let checkmarkAction: () -> Void
 }
 
 struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
@@ -63,7 +63,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkChecker: false, checkmarkAction: false)])
+            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
@@ -93,12 +93,6 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             cell.contentView.addSubview(customViewItem.view)
         }
         
-        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appTheme.name
-        
-        if let checkmarkItem = item as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == currentThemeName {
-
-        }
-        
         if let switchItem = item as? AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
             // disable until implemented
@@ -117,6 +111,20 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         }
         
         return cell
+    }
+    
+    func userDidSelect(theme: Theme) {
+        let userInfo = ["theme": theme]
+        //TODO: move WMFUserDidSelectThemeNotification
+        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem else {
+            return
+        }
+        
+        item.checkmarkAction()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
