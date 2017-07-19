@@ -736,16 +736,10 @@ var MenuItem = function () {
     key: 'payloadExtractor',
     value: function payloadExtractor() {
       switch (this.itemType) {
-        case MenuItemType.languages:
-          return undefined;
-        case MenuItemType.lastEdited:
-          return undefined;
         case MenuItemType.pageIssues:
           return pageIssuesStringsArray;
         case MenuItemType.disambiguation:
           return disambiguationTitlesArray;
-        case MenuItemType.coordinate:
-          return undefined;
         default:
           return undefined;
       }
