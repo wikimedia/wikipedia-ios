@@ -13,9 +13,7 @@ class FontSizeSliderViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
-        
+    
         if let max = self.maximumValue {
             if let current = self.currentValue {
                 self.setValues(0, maximum: max, current: current)
@@ -23,6 +21,11 @@ class FontSizeSliderViewController: UIViewController {
                 self.currentValue = nil
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
     }
 
     func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -43,6 +46,8 @@ class FontSizeSliderViewController: UIViewController {
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
         print("fontSliderValueChanged")
         
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        
         if slider.value > fontSizeMultipliers.count {
             return
         }
@@ -50,10 +55,12 @@ class FontSizeSliderViewController: UIViewController {
         
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
+
     }
     
     func indexOfCurrentFontSize() -> Int {
-        return UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int ?? fontSizeMultipliers.count / 2
+        //TODO: get from WMFArticleViewController
+        return fontSizeMultipliers.count / 2
     }
     
 //    func fontSizeMultipliers() -> [WMFFontSizeMultiplier] {
