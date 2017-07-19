@@ -758,6 +758,10 @@ WMFArticlePreviewingActionsDelegate>
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleFontSizeWasUpdated:)
+                                                 name:FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
+                                               object:nil];
     
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
@@ -1323,6 +1327,12 @@ WMFArticlePreviewingActionsDelegate>
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
+}
+
+- (void)articleFontSizeWasUpdated:(NSNotification *)note {
+    NSLog(@"articleFontSizeWasUpdated");
+    NSNumber *multiplier = note.userInfo[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
+    NSLog(@"WMFArticleFontSizeMultiplierKey: %@", multiplier);
 }
 
 - (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {

@@ -122,6 +122,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+        print("fontSliderValueChanged in ReadingThemesControls")
         if let delegate = self.delegate, visible {
             delegate.fontSizeSliderValueChangedInController(self, value: self.slider.value)
         }

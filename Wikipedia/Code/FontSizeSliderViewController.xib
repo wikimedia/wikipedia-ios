@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FontSizeSliderViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="slider" destination="oct-cl-fAm" id="Ju1-pM-WKt"/>
                 <outlet property="view" destination="ZBJ-Ip-owm" id="8Wg-2X-b6K"/>
             </connections>
         </placeholder>
@@ -45,6 +46,9 @@
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="fontSliderValueChanged:" destination="-1" eventType="valueChanged" id="CzV-Zw-3xI"/>
+                    </connections>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="gOm-kn-fOm">
                     <rect key="frame" x="361" y="17" width="12" height="15"/>
