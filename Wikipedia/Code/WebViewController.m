@@ -173,7 +173,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
     NSString *title = [url.absoluteString.lastPathComponent wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     if (title) {
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+        NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
+        NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle) wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
 
@@ -296,6 +299,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
     } else if ([messageString isEqualToString:@"setPageProtected"]) {
         [self.webView wmf_setPageProtected:!self.article.editable];
+    } else if ([messageString isEqualToString:@"addFooterContainer"]) {
+        [self.webView wmf_addFooterContainer];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
@@ -429,7 +434,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             "var contentDiv = document.getElementById('content');"
             "contentDiv.style.marginLeft='%ipx';"
             "contentDiv.style.marginRight='%ipx';"
-            "window.wmf.footerContainer.updateLeftAndRightMargin(%i);"
+            "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
         ;
         
         CGFloat marginWidth = [self marginWidthForSize:size];
@@ -573,6 +578,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"collapseTables",
         @"setPageProtected",
         @"setLanguage",
+        @"addFooterContainer",
         @"addFooterReadMore",
         @"addFooterMenu",
         @"addFooterLegal",
@@ -834,7 +840,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"footer_container_section_"
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
