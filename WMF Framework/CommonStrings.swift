@@ -1,6 +1,6 @@
 import Foundation
 
-// Utilize this class to define localied strings that are used in multiple places in similar contexts.
+// Utilize this class to define localized strings that are used in multiple places in similar contexts.
 // There should only be one WMFLocalizedString() function in code for every localization key.
 // If the same string value is used in different contexts, use different localization keys.
 
