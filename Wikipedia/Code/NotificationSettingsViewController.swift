@@ -144,6 +144,8 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Notifications sections[section].items.count: \(sections[section].items.count)")
+
         return sections[section].items.count
     }
     

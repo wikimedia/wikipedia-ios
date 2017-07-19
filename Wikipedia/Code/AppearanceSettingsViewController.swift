@@ -61,6 +61,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Appearance sections[section].items.count: \(sections[section].items.count)")
         return sections[section].items.count
     }
     
@@ -69,7 +70,38 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return UITableViewCell()
         }
         
+        let item = sections[indexPath.section].items[indexPath.item]
+        cell.title = item.title
+        cell.iconName = nil
+        
+        if let switchItem = item as? AppearanceSettingsSwitchItem {
+            cell.disclosureType = .switch
+            cell.disclosureSwitch.isOn = false
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleSwitchValueChange(_:)), for: .valueChanged)
+        } else {
+            cell.disclosureType = .viewController
+        }
+        
         return cell
+    }
+    
+    func handleSwitchValueChange(_ sender: UISwitch) {
+        print("handleSwitchValueChange")
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+//        if let th = header as Themeable? {
+//            th.apply(theme: theme)
+//        }
+        header?.text = sections[section].headerTitle
+        return header;
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        header?.text = sections[section].headerTitle
+        return header!.height(withExpectedWidth: self.view.frame.width)
     }
 
 }
