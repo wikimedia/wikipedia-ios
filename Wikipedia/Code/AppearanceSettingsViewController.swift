@@ -15,6 +15,7 @@ struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
 
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let title: String?
+    let themeName: String
     //TODO: change types
     // () -> Bool
     // (Bool) -> Void
@@ -60,7 +61,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", checkmarkChecker: false, checkmarkAction: false)])
+            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkChecker: false, checkmarkAction: false)])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
@@ -82,7 +83,6 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return UITableViewCell()
         }
         
-        
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
@@ -91,6 +91,11 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             cell.contentView.addSubview(customViewItem.view)
         }
         
+        let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appTheme.name
+        
+        if let checkmarkItem = item as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == currentThemeName {
+            cell.accessoryType = .checkmark
+        }
         
         if let switchItem = item as? AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
@@ -124,9 +129,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return
         }
         
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .checkmark
-        }
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -134,9 +137,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return
         }
         
-        if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryType = .none
-        }
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
