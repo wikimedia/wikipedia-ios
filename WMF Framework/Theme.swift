@@ -160,11 +160,11 @@ public class Theme: NSObject {
     public let blurEffectStyle: UIBlurEffectStyle
     public let keyboardAppearance: UIKeyboardAppearance
     
-    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "standard")
+    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "Default")
     
-    public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "sepia")
+    public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "Sepia")
     
-    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "dark")
+    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "Dark")
     
     fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia]
     
