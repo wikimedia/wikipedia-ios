@@ -1295,13 +1295,11 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)setupReadingThemesControls {
     self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
-    [self.readingThemesViewController applyTheme:self.theme];
 }
 
 #pragma mark - Font Size
 
 - (void)showFontSizePopup {
-    
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
     
@@ -1313,6 +1311,8 @@ WMFArticlePreviewingActionsDelegate>
     [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
     
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
+    
+    [self.readingThemesViewController applyTheme:self.theme];
     
     self.readingThemesPopoverPresenter.delegate = self;
     self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;

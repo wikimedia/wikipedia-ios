@@ -173,13 +173,10 @@ extension ReadingThemesControlsViewController: Themeable {
             label.textColor = theme.colors.primaryText
         }
         
-        if theme.name == "dark" {
-            minBrightnessImageView.image = UIImage(named: "minBrightness-darkMode")
-            maxBrightnessImageView.image = UIImage(named: "maxBrightness-darkMode")
-            tSmallImageView.image = UIImage(named: "t-small-darkMode")
-            tLargeImageView.image = UIImage(named: "t-large-darkMode")
-        }
-        
+        minBrightnessImageView.tintColor = theme.colors.secondaryText
+        maxBrightnessImageView.tintColor = theme.colors.secondaryText
+        tSmallImageView.tintColor = theme.colors.secondaryText
+        tLargeImageView.tintColor = theme.colors.secondaryText
     }
     
 }
