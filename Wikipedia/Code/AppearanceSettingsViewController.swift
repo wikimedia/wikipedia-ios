@@ -16,10 +16,6 @@ struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let title: String?
     let themeName: String
-    //TODO: change types
-    // () -> Bool
-    // (Bool) -> Void
-    let checkmarkChecker: Bool
     let checkmarkAction: () -> Void
 }
 
@@ -63,7 +59,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkChecker: false, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
+            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
