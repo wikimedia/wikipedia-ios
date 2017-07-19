@@ -90,11 +90,12 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBAction func dimmingSwitchValueChanged(_ sender: Any) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = imageDimmingSwitch.isOn
         userDidSelect(theme: currentTheme.withDimmingEnabled(imageDimmingSwitch.isOn))
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         updateThemeButtons(with: currentTheme)
@@ -104,19 +105,17 @@ open class ReadingThemesControlsViewController: UIViewController {
         removeBorderFrom(lightThemeButton)
         removeBorderFrom(darkThemeButton)
         removeBorderFrom(sepiaThemeButton)
-        imageDimmingSwitch.isEnabled = true
-        imageDimmingSwitch.isOn = theme.imageOpacity < 1
+        imageDimmingSwitch.isEnabled = false
+        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
         switch theme.name {
-        case Theme.sepiaDimmed.name:
-            fallthrough
         case Theme.sepia.name:
             applyBorder(to: sepiaThemeButton)
         case Theme.light.name:
-            imageDimmingSwitch.isEnabled = false
             applyBorder(to: lightThemeButton)
         case Theme.darkDimmed.name:
             fallthrough
         case Theme.dark.name:
+            imageDimmingSwitch.isEnabled = true
             applyBorder(to: darkThemeButton)
         default:
             break
@@ -144,7 +143,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme:  Theme.sepia.withDimmingEnabled(imageDimmingSwitch.isOn))
+        userDidSelect(theme:  Theme.sepia)
     }
     
     @IBAction func lightThemeButtonPressed(_ sender: Any) {
@@ -152,7 +151,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.dark.withDimmingEnabled(imageDimmingSwitch.isOn))
+        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
     }
 }
 
@@ -174,13 +173,10 @@ extension ReadingThemesControlsViewController: Themeable {
             label.textColor = theme.colors.primaryText
         }
         
-        if theme.name == "dark" {
-            minBrightnessImageView.image = UIImage(named: "minBrightness-darkMode")
-            maxBrightnessImageView.image = UIImage(named: "maxBrightness-darkMode")
-            tSmallImageView.image = UIImage(named: "t-small-darkMode")
-            tLargeImageView.image = UIImage(named: "t-large-darkMode")
-        }
-        
+        minBrightnessImageView.tintColor = theme.colors.secondaryText
+        maxBrightnessImageView.tintColor = theme.colors.secondaryText
+        tSmallImageView.tintColor = theme.colors.secondaryText
+        tLargeImageView.tintColor = theme.colors.secondaryText
     }
     
 }

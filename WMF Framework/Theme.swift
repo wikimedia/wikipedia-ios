@@ -164,20 +164,18 @@ public class Theme: NSObject {
     
     public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, name: "sepia")
     
-    public static let sepiaDimmed = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 0.8, name: "sepia-dimmed")
-    
     public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, name: "dark")
     
-    public static let darkDimmed = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 0.8, name: "dark-dimmed")
+    public static let darkDimmed = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 0.65, name: "dark-dimmed")
     
-    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed, Theme.sepiaDimmed.name: Theme.sepiaDimmed]
+    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed]
     
     @objc(withName:)
-    public class func withName(_ name: String?) -> Theme {
+    public class func withName(_ name: String?) -> Theme? {
         guard let name = name else {
-            return Theme.standard
+            return nil
         }
-        return themesByName[name] ?? Theme.standard
+        return themesByName[name]
     }
     
     public static let standard = Theme.light
@@ -195,9 +193,10 @@ public class Theme: NSObject {
     
     public func withDimmingEnabled(_ isDimmingEnabled: Bool) -> Theme {
         guard let baseName = name.components(separatedBy: "-").first else {
-            return Theme.standard
+            return self
         }
-        return Theme.withName(isDimmingEnabled ? "\(baseName)-dimmed" : baseName)
+        let adjustedName = isDimmingEnabled ? "\(baseName)-dimmed" : baseName
+        return Theme.withName(adjustedName) ?? self
     }
 }
 
