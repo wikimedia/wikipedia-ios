@@ -1,5 +1,6 @@
 import UIKit
 
+@objc(WMFFontSizeSliderViewController)
 class FontSizeSliderViewController: UIViewController {
     
     @IBOutlet fileprivate var slider: SWStepSlider!
@@ -46,15 +47,15 @@ class FontSizeSliderViewController: UIViewController {
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
         print("fontSliderValueChanged")
         
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
-        
         if slider.value > fontSizeMultipliers.count {
+            print("will be returning :(")
             return
         }
         let multiplier = fontSizeMultipliers[slider.value]
         
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
+        print("after posting :)")
 
     }
     
@@ -62,9 +63,5 @@ class FontSizeSliderViewController: UIViewController {
         //TODO: get from WMFArticleViewController
         return fontSizeMultipliers.count / 2
     }
-    
-//    func fontSizeMultipliers() -> [WMFFontSizeMultiplier] {
-//        return [WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
-//    }
 
 }

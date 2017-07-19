@@ -760,7 +760,7 @@ WMFArticlePreviewingActionsDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleFontSizeWasUpdated:)
-                                                 name:FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
+                                                 name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
                                                object:nil];
     
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
@@ -1331,8 +1331,8 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)articleFontSizeWasUpdated:(NSNotification *)note {
     NSLog(@"articleFontSizeWasUpdated");
-    NSNumber *multiplier = note.userInfo[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
-    NSLog(@"WMFArticleFontSizeMultiplierKey: %@", multiplier);
+//    NSNumber *multiplier = note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
+//    NSLog(@"WMFArticleFontSizeMultiplierKey: %@", multiplier);
 }
 
 - (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {

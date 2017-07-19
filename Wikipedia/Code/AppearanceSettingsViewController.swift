@@ -26,7 +26,7 @@ struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
 
 struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
     let title: String?
-    let view: UIView
+    let viewController: UIViewController
 }
 
 struct AppearanceSettingsSection {
@@ -43,7 +43,6 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     var sections = [AppearanceSettingsSection]()
     
-    var lastSelection: IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +62,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, view: FontSizeSliderViewController().view)])
+        let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
         
         return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
@@ -85,8 +84,8 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         cell.title = item.title
         cell.iconName = nil
         
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem {
-            cell.contentView.addSubview(customViewItem.view)
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
+            cell.contentView.addSubview(view)
         }
         
         if let switchItem = item as? AppearanceSettingsSwitchItem {
@@ -138,7 +137,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
             return tableView.rowHeight
         }
-        return item.view.frame.height
+        return item.viewController.view.frame.height
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
