@@ -82,14 +82,7 @@ extension FontSizeSliderViewController: Themeable {
         
         view.backgroundColor = theme.colors.midBackground
         slider.backgroundColor = theme.colors.midBackground
-        
-        if theme.name == "dark" {
-            //FIXME: T icon is smaller for this mode
-            tSmallImageView.image = UIImage(named: "t-small-darkMode")
-            tLargeImageView.image = UIImage(named: "t-large-darkMode")
-        } else {
-            tSmallImageView.image = UIImage(named: "T-small")
-            tLargeImageView.image = UIImage(named: "T-large")
-        }
+        tSmallImageView.tintColor = theme.colors.secondaryText
+        tLargeImageView.tintColor = theme.colors.secondaryText
     }
 }
