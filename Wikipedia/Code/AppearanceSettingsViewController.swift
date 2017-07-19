@@ -37,7 +37,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     var sections = [AppearanceSettingsSection]()
     
     fileprivate var theme = Theme.standard
-
+    
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
     static var disclosureText: String {
@@ -49,7 +49,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         } else if currentTheme == Theme.dark {
             text = "Dark"
         }
-
+        
         return text
     }
     
@@ -162,27 +162,25 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
-        print("handleImageDimmingSwitchValueChange")
     }
     
     func handleAutoNightModeSwitchValueChange(_ sender: UISwitch) {
-        print("handleAutoNightModeSwitchValueChange")
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-                if let th = header as Themeable? {
-                    th.apply(theme: theme)
-                }
+        if let th = header as Themeable? {
+            th.apply(theme: theme)
+        }
         header?.text = sections[section].headerTitle
         return header
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-                if let th = footer as Themeable? {
-                    th.apply(theme: theme)
-                }
+        if let th = footer as Themeable? {
+            th.apply(theme: theme)
+        }
         footer?.setShortTextAsProse(sections[section].footerText)
         return footer
     }
