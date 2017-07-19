@@ -41,6 +41,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
     
+    
     static var disclosureText: String {
         var text = "Default"
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
@@ -109,8 +110,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if item is AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
+            cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
+            let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+            switch currentAppTheme {
+            case Theme.dark, Theme.darkDimmed:
+                cell.disclosureSwitch.isEnabled = true
+                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+            default:
+                break
+            }
             cell.iconName = "settings-notifications"
-            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
         } else {
             cell.disclosureType = .none
         }
