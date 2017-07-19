@@ -160,32 +160,43 @@ public class Theme: NSObject {
     public let blurEffectStyle: UIBlurEffectStyle
     public let keyboardAppearance: UIKeyboardAppearance
     
-    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "standard")
+    public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, name: "standard")
     
-    public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, name: "sepia")
+    public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, name: "sepia")
     
-    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, name: "dark")
+    public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, name: "dark")
     
-    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia]
+    public static let darkDimmed = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 0.65, name: "dark-dimmed")
     
-    @objc(themeWithName:)
-    public class func theme(with name: String?) -> Theme {
+    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed]
+    
+    @objc(withName:)
+    public class func withName(_ name: String?) -> Theme? {
         guard let name = name else {
-            return Theme.standard
+            return nil
         }
-        return themesByName[name] ?? Theme.standard
+        return themesByName[name]
     }
     
     public static let standard = Theme.light
-    
+    public let imageOpacity: CGFloat
     public let name: String
     
-    init(colors: Colors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle, keyboardAppearance: UIKeyboardAppearance, name: String) {
+    init(colors: Colors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle, keyboardAppearance: UIKeyboardAppearance, imageOpacity: CGFloat, name: String) {
         self.colors = colors
         self.preferredStatusBarStyle = preferredStatusBarStyle
         self.blurEffectStyle = blurEffectStyle
         self.keyboardAppearance = keyboardAppearance
+        self.imageOpacity = imageOpacity
         self.name = name
+    }
+    
+    public func withDimmingEnabled(_ isDimmingEnabled: Bool) -> Theme {
+        guard let baseName = name.components(separatedBy: "-").first else {
+            return self
+        }
+        let adjustedName = isDimmingEnabled ? "\(baseName)-dimmed" : baseName
+        return Theme.withName(adjustedName) ?? self
     }
 }
 

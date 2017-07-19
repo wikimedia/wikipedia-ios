@@ -63,6 +63,8 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 - (void)applyTheme:(WMFTheme *)theme {
     self.potdImageView.backgroundColor = [UIColor clearColor];
     self.contentView.backgroundColor = theme.colors.midBackground;
+    self.potdImageView.alpha  = theme.imageOpacity;
+
 }
 
 @end
