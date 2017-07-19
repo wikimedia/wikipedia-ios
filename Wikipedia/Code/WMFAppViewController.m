@@ -137,6 +137,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                                  name:WMFShowSearchNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeTheme:)
+                                                 name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
+                                               object:nil];
+
     @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                       object:nil
@@ -183,9 +188,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
+
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
-    [self applyTheme:[WMFTheme standard]];
+
+    WMFTheme *theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
+    [self applyTheme:theme];
+
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
@@ -1190,9 +1199,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]]) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
+        if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
+            viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
+        }
     }
     if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)viewController applyTheme:self.theme];
@@ -1336,15 +1348,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Themeable
 
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
-    NSMutableArray<UINavigationBar *> *navigationBars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
-    NSMutableArray<UIToolbar *> *toolbars = [NSMutableArray arrayWithCapacity:navigationControllers.count + 1];
+    NSMutableSet<UINavigationBar *> *navigationBars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
+    NSMutableSet<UIToolbar *> *toolbars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
+
+    NSMutableSet<UINavigationController *> *foundNavigationControllers = [NSMutableSet setWithCapacity:1];
 
     for (UINavigationController *nc in navigationControllers) {
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
                 [(id<WMFThemeable>)vc applyTheme:theme];
             }
+            if ([vc.presentedViewController isKindOfClass:[UINavigationController class]]) {
+                [foundNavigationControllers addObject:(UINavigationController *)vc.presentedViewController];
+            }
         }
+
+        if ([nc.presentedViewController isKindOfClass:[UINavigationController class]]) {
+            [foundNavigationControllers addObject:(UINavigationController *)nc.presentedViewController];
+        }
+
         UIToolbar *toolbar = nc.toolbar;
         if (toolbar) {
             [toolbars addObject:toolbar];
@@ -1367,7 +1389,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
     UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     for (UINavigationBar *navigationBar in navigationBars) {
-        //navigationBar.barTintColor = theme.colors.chromeBackground;
+        navigationBar.barTintColor = theme.colors.chromeBackground;
         navigationBar.translucent = NO;
         navigationBar.tintColor = theme.colors.chromeText;
         [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -1381,11 +1403,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
-        [toolbar setBackgroundImage:chromeBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
+        [toolbar setTranslucent:NO];
     }
 
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+
+    if ([foundNavigationControllers count] > 0) {
+        [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
+    }
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
@@ -1410,7 +1436,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
         tabBar.barTintColor = theme.colors.chromeBackground;
-        //tabBar.tintColor = theme.colors.link;
         tabBar.translucent = NO;
         tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
         if (tabBar.items.count > 0) {
@@ -1432,6 +1457,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)changeTheme:(NSNotification *)note {
+    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+
+    if (self.theme != theme) {
+        [self applyTheme:theme];
+        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
+    }
 }
 
 #pragma mark - Search
@@ -1500,23 +1534,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
     [exploreNavController pushViewController:vc animated:YES];
-}
-#else
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion withEvent:event];
-    }
-    if (event.subtype != UIEventSubtypeMotionShake) {
-        return;
-    }
-
-    WMFTheme *theme = self.theme;
-    if (theme == [WMFTheme standard]) {
-        theme = [WMFTheme dark];
-    } else {
-        theme = [WMFTheme light];
-    }
-    [self applyTheme:theme];
 }
 #endif
 

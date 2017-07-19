@@ -50,9 +50,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         titleLabel.text = WMFLocalizedString("login-title", value:"Log in to your account", comment:"Title for log in interface")
         usernameTitleLabel.text = WMFLocalizedString("field-username-title", value:"Username", comment:"Title for username field\n{{Identical|Username}}")
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field\n{{Identical|Password}}")
-
-        usernameField.wmf_addThinBottomBorder()
-        passwordField.wmf_addThinBottomBorder()
     
         view.wmf_configureSubviewsForDynamicType()
         
@@ -133,6 +130,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         if textField == passwordField {
             passwordAlertLabel.isHidden = true
             passwordField.textColor = theme.colors.primaryText
+            passwordField.keyboardAppearance = theme.keyboardAppearance
         }
     }
 
@@ -166,6 +164,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     self.passwordAlertLabel.text = error.localizedDescription
                     self.passwordAlertLabel.isHidden = false
                     self.passwordField.textColor = self.theme.colors.error
+                    self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
@@ -186,7 +185,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: {
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
-            let navigationController = UINavigationController.init(rootViewController: changePasswordVC!)
+            changePasswordVC?.apply(theme: self.theme)
+            let navigationController = ThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -204,7 +204,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.password = self.passwordField!.text
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
-            let navigationController = UINavigationController.init(rootViewController: twoFactorViewController)
+            twoFactorViewController.apply(theme: self.theme)
+            let navigationController = ThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -219,7 +220,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = UINavigationController.init(rootViewController: forgotPasswordVC)
+            let navigationController = ThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme)
+            forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -295,19 +297,19 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
 
-        let labels = [titleLabel, usernameTitleLabel, passwordTitleLabel]
+        titleLabel.textColor = theme.colors.primaryText
+        
+        let labels = [usernameTitleLabel, passwordTitleLabel, passwordAlertLabel]
         for label in labels {
             label?.textColor = theme.colors.secondaryText
         }
-        usernameField.apply(theme: theme)
-        passwordField.apply(theme: theme)
         
-        usernameTitleLabel.textColor = theme.colors.primaryText
-        passwordTitleLabel.textColor = theme.colors.primaryText
-        passwordAlertLabel.textColor = theme.colors.primaryText
+        usernameField.apply(theme: theme, withBorder: true)
+        passwordField.apply(theme: theme, withBorder: true)
+        
         titleLabel.textColor = theme.colors.primaryText
         forgotPasswordButton.textColor = theme.colors.link
         captchaContainer.backgroundColor = theme.colors.baseBackground

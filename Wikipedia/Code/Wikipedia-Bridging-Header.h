@@ -20,6 +20,8 @@
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 
+#import "WMFArticleTextActivitySource.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
@@ -27,7 +29,6 @@
 #import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
-#import "WMFCustomDeleteButtonTableViewCell.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
@@ -41,9 +42,13 @@
 #import "WMFCVLAttributes.h"
 #import "WMFCVLMetrics.h"
 #import "WMFSearchButton.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 #import "LoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+
+// Third Party
+#import "TUSafariActivity.h"

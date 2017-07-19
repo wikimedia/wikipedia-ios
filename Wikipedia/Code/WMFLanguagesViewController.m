@@ -7,7 +7,6 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
@@ -40,7 +39,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @synthesize languageFilter = _languageFilter;
 
 + (instancetype)languagesViewController {
-    WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
     languagesVC.title = WMFLocalizedStringWithDefaultValue(@"article-languages-label", nil, nil, @"Choose language", @"Header label for per-article language selector screen.\n{{Identical|Choose language}}");
@@ -49,7 +48,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 + (instancetype)nonPreferredLanguagesViewController {
-    WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
     languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
@@ -59,11 +58,23 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return languagesVC;
 }
 
+- (void)setup {
+    _showNonPreferredLanguages = YES;
+    _showPreferredLanguages = YES;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _showNonPreferredLanguages = YES;
-        _showPreferredLanguages = YES;
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self setup];
     }
     return self;
 }
@@ -71,8 +82,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        _showNonPreferredLanguages = YES;
-        _showPreferredLanguages = YES;
+        [self setup];
     }
     return self;
 }
@@ -84,7 +94,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    
+
     NSAssert(self.title, @"Don't forget to set a title!");
 
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
@@ -93,10 +103,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
-    // remove a 1px black border around the search field
-
-    self.languageFilterField.layer.borderWidth = 1.f;
 
     // stylize
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
@@ -114,7 +120,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.editing = self.editing;
     self.hideLanguageFilter = self.hideLanguageFilter;
     self.disableSelection = self.disableSelection;
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -251,8 +257,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (void)updateDeleteButtonsVisibility {
-    for (WMFWelcomeLanguageTableViewCell *cell in self.tableView.visibleCells) {
-        cell.deleteButton.alpha = [self alphaForDeleteButton];
+    for (UITableViewCell *cell in self.tableView.visibleCells) {
+        if ([cell isKindOfClass:[WMFWelcomeLanguageTableViewCell class]]) {
+            [(WMFWelcomeLanguageTableViewCell *)cell deleteButton].alpha = [self alphaForDeleteButton];
+        }
     }
 }
 
@@ -370,8 +378,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
     self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
-    self.languageFilterField.layer.borderColor = [backgroundColor CGColor];
     self.languageFilterField.barTintColor = backgroundColor;
+    self.editButtonItem.tintColor = theme.colors.link;
     [self.tableView reloadData];
 }
 
@@ -386,7 +394,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @dynamic delegate;
 
 + (instancetype)preferredLanguagesViewController {
-    WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFPreferredLanguagesViewController *languagesVC = [[WMFPreferredLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
     languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
@@ -394,9 +402,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection = NO;
-    
-    languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
+
     return languagesVC;
+}
+
+- (void)reloadDataSections {
+    [super reloadDataSections];
+    self.navigationItem.rightBarButtonItem = [MWKLanguageLinkController sharedInstance].preferredLanguages.count > 1 ? self.editButtonItem : nil;
 }
 
 - (void)viewDidLoad {
@@ -466,6 +478,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [MWKLanguageLinkController sharedInstance].preferredLanguages.count > 1;
+}
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     MWKLanguageLink *langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
@@ -479,8 +495,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
-
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
+    if ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) {
+        [self setEditing:NO animated:YES];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -503,7 +522,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 + (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL *)url {
     NSParameterAssert(url.wmf_title);
 
-    WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFArticleLanguagesViewController *languagesVC = [[WMFArticleLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
     languagesVC.articleURL = url;

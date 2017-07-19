@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @end
 
 @implementation WMFArticlePreviewDataSource
@@ -45,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(siteURL);
     self = [super initWithItems:nil];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.dataStore = dataStore;
         self.urls = articleURLs;
         self.siteURL = siteURL;
@@ -61,8 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
             NSURL *URL = [self urlForIndexPath:indexPath];
             NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
             cell.titleText = URL.wmf_title;
-            cell.descriptionText = searchResult.wikidataDescription;
+            cell.descriptionText = [searchResult.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.siteURL.wmf_language];
             [cell setImageURL:searchResult.thumbnailURL];
+            [cell applyTheme:self.theme];
         };
     }
     return self;
@@ -116,6 +120,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {
     return NO;
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.tableView reloadData];
 }
 
 @end

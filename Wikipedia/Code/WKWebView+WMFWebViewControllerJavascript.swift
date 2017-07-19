@@ -1,12 +1,13 @@
 
 import WebKit
+import WMF
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
     case languages, lastEdited, pageIssues, disambiguation, coordinate
     
     // Reminder: These are the strings used by the footerMenu JS transform:
-    private var footerMenuJSTransformEnumString: String {
+    private var menuItemTypeString: String {
         switch self {
         case .languages: return "languages"
         case .lastEdited: return "lastEdited"
@@ -16,8 +17,8 @@ import WebKit
         }
     }
     
-    private var footerMenuTransformJSEnumPath: String {
-        return "window.wmf.footerMenu.IconTypeEnum.\(footerMenuJSTransformEnumString)"
+    private var menuItemTypeJSPath: String {
+        return "window.wmf.footerMenu.MenuItemType.\(menuItemTypeString)"
     }
     
     private func localizedTitle(with article: MWKArticle) -> String {
@@ -60,13 +61,11 @@ import WebKit
         case .languages where !article.hasMultipleLanguages:
             return false
         case .pageIssues:
-            guard let issues = article.pageIssues(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no page issues found.
+            return true
         case .disambiguation:
-            guard let issues = article.disambiguationURLs(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no disambiguation titles found.
+            return true
         case .coordinate where !CLLocationCoordinate2DIsValid(article.coordinate):
             return false
         default:
@@ -84,11 +83,11 @@ import WebKit
         let subtitle = self.localizedSubtitle(with: article)
         
         let itemSelectionHandler =
-        "function(){" +
-            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
+        "function(payload){" +
+            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'footer_container_menu_items', \(itemSelectionHandler));"
     }
 }
 
@@ -135,8 +134,8 @@ extension WKWebView {
         let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
         evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
 
-        let saveForLaterString = SaveButton.saveTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let savedForLaterString = SaveButton.savedTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let saveForLaterString = CommonStrings.saveTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let savedForLaterString = CommonStrings.savedTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
 
         let saveButtonTapHandler =
         "function(title){" +
@@ -152,4 +151,26 @@ extension WKWebView {
         evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
     }
     
+    public func wmf_enableCompatibilityTransformSupport(){
+        evaluateJavaScript("window.wmf.compatibility.enableSupport(document);", completionHandler: nil)
+    }
+
+    public func wmf_classifyThemeElements(){
+        evaluateJavaScript("window.wmf.themes.classifyElements(document);", completionHandler: nil)
+    }
+    
+    public func wmf_applyTheme(_ theme: Theme){
+        var jsThemeConstant = "DEFAULT"
+        switch theme.name {
+        case Theme.sepia.name:
+           jsThemeConstant = "SEPIA"
+        case Theme.darkDimmed.name:
+            fallthrough
+        case Theme.dark.name:
+            jsThemeConstant = "DARK"
+        default:
+            break
+        }
+        evaluateJavaScript("window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));", completionHandler: nil)
+    }
 }

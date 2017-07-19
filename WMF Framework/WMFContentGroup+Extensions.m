@@ -121,22 +121,22 @@
             self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = 6;
+            self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindRelatedPages:
             self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
-            self.dailySortPriority = 8;
+            self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            self.dailySortPriority = 8;
+            self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             self.dailySortPriority = 5;
             break;
         case WMFContentGroupKindRandom:
-            self.dailySortPriority = 7;
+            self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindFeaturedArticle:
             self.dailySortPriority = 2;
@@ -148,8 +148,7 @@
             self.dailySortPriority = 4;
             break;
         case WMFContentGroupKindOnThisDay:
-//TODO: figure out the right value(s) for this...
-            self.dailySortPriority = 9;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;

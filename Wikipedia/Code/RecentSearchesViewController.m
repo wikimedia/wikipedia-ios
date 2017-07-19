@@ -163,10 +163,14 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
         return;
     }
 
-    self.headerContainer.backgroundColor = theme.colors.midBackground;
-    self.trashButton.tintColor = theme.colors.tertiaryText;
     self.table.backgroundColor = theme.colors.midBackground;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.table.separatorColor = theme.colors.border;
+
+    self.headerContainer.backgroundColor = theme.colors.midBackground;
     self.headingLabel.textColor = theme.colors.secondaryText;
+
+    self.trashButton.tintColor = theme.colors.secondaryText;
 
     [self.table reloadData];
 }

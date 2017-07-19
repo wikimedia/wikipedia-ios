@@ -1,8 +1,8 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import "TUSafariActivity.h"
+@import WMF;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -20,19 +20,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
+    
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
-
+    
     [self applyTheme:self.theme];
 }
 
@@ -49,7 +48,7 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self.tableView reloadData];
     }
@@ -91,9 +90,9 @@
         self.previewingContext = [self registerForPreviewingWithDelegate:self
                                                               sourceView:self.tableView];
     }
-        unavailable:^{
-            [self unregisterPreviewing];
-        }];
+                        unavailable:^{
+                            [self unregisterPreviewing];
+                        }];
 }
 
 - (void)unregisterPreviewing {
@@ -111,14 +110,14 @@
     if (!previewIndexPath) {
         return nil;
     }
-
+    
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
-
+    
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-
+    
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
-
+    
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
@@ -162,7 +161,7 @@
         if (self.navigationItem.leftBarButtonItem == nil) {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonPressed:)];
         }
-
+        
         if (!self.isEmpty) {
             self.navigationItem.leftBarButtonItem.enabled = YES;
         } else {
@@ -193,7 +192,7 @@
     if (!self.isEmpty) {
         [self wmf_hideEmptyView];
     } else {
-        [self wmf_showEmptyViewOfType:[self emptyViewType]];
+        [self wmf_showEmptyViewOfType:[self emptyViewType] theme:self.theme];
     }
 }
 
@@ -265,42 +264,8 @@
 
 #pragma mark - Sharing
 
-- (UIActivityViewController *)shareActivityController:(NSURL *)url {
-    WMFArticle *article = [self.userDataStore fetchArticleWithURL:url];
-    NSMutableArray *items = [NSMutableArray array];
-    
-    
-    // TODO: Use WMFArticleTextActivitySource
-    NSString *text =  [NSString stringWithFormat:@"\"%@\" on @Wikipedia", [article displayTitle]];
-    [items addObject:text];
-    
-    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:url];
-    if (desktopURL) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
-        components.queryItems = @[queryItem];
-        
-        NSURL *componentsURL = components.URL;
-        if (componentsURL) {
-            [items addObject:componentsURL];
-        }
-    }
-    
-    MKMapItem *mapItem = [article mapItem];
-    if (mapItem) {
-        [items addObject:mapItem];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                                              applicationActivities:
-                                                             @[[[TUSafariActivity alloc] init],
-                                                               [[WMFOpenInMapsActivity alloc] init],
-                                                               [[WMFGetDirectionsInMapsActivity alloc] init]]];
-    return vc;
-}
-
-- (void)shareArticle:(UIActivityViewController *)shareActivityController {
+- (void)shareArticle:(NSURL *)url {
+    WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
@@ -314,17 +279,11 @@
     return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
 }
 
-- (NSString *)saveActionText {
-    return WMFLocalizedStringWithDefaultValue(@"article-save", nil, nil, @"Save", @"Text of the article list row action shown on swipe which allows the user to save the article");
-}
-
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
     return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSURL *url = [self urlAtIndexPath:indexPath];
         
-        UIActivityViewController *shareActivityController = [self shareActivityController:url];
-        
-        [self shareArticle:shareActivityController];
+        [self shareArticle:url];
     }];
 }
 
@@ -335,10 +294,18 @@
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
+    }];
+}
+
+- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+        [savedPageList removeEntryWithURL:url];
     }];
 }
 
@@ -350,6 +317,8 @@
         return;
     }
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = theme.colors.border;
     [self.tableView reloadData];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }

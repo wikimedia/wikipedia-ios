@@ -6,9 +6,10 @@ extension ArticleCollectionViewCell: Themeable {
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         imageView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.tertiaryText
-        extractLabel?.textColor = theme.colors.secondaryText
+        descriptionLabel.textColor = theme.colors.secondaryText
+        extractLabel?.textColor = theme.colors.primaryText
         saveButton.setTitleColor(theme.colors.link, for: .normal)
+        imageView.alpha = theme.imageOpacity
         updateSelectedOrHighlighted()
     }
 }

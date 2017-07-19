@@ -208,21 +208,6 @@
 
 @implementation WMFLeadingImageTrailingTextButton (WMFConfiguration)
 
-- (void)configureAsSaveButton {
-    self.iconImage = [UIImage imageNamed:@"save-mini"
-                                inBundle:[NSBundle bundleForClass:[self class]]
-           compatibleWithTraitCollection:self.traitCollection];
-    self.selectedIconImage = [UIImage imageNamed:@"save-filled-mini"
-                                        inBundle:[NSBundle bundleForClass:[self class]]
-                   compatibleWithTraitCollection:self.traitCollection];
-
-    self.labelText = [WMFSaveButton saveTitle];
-    self.selectedLabelText = [WMFSaveButton savedTitle];
-
-    self.selectedActionText = WMFLocalizedStringWithDefaultValue(@"unsave-action", nil, self.bundleForLocalization, @"Unsave", @"Accessibility action description for 'Unsave'");
-    self.deselectedActionText = WMFLocalizedStringWithDefaultValue(@"save-action", nil, self.bundleForLocalization, @"Save", @"Accessibility action description for 'Save'\n{{Identical|Save}}");
-}
-
 - (void)configureAsReportBugButton {
     self.spaceBetweenIconAndText = 5.0;
     self.iconImage = [UIImage imageNamed:@"settings-feedback"

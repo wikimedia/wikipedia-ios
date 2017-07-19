@@ -1,8 +1,9 @@
 import UIKit
 
 @objc(WMFThemeableTextField)
-class ThemeableTextField: UITextField, Themeable {
+public class ThemeableTextField: UITextField, Themeable {
     var theme = Theme.standard
+    var hasBorder = false
     
     func setup() {
         let image = #imageLiteral(resourceName: "clear-mini")
@@ -19,13 +20,13 @@ class ThemeableTextField: UITextField, Themeable {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
     fileprivate var _placeholder: String?
-    override var placeholder: String? {
+    override public var placeholder: String? {
         didSet {
             _placeholder = placeholder
             guard let newPlaceholder = placeholder else {
@@ -53,13 +54,25 @@ class ThemeableTextField: UITextField, Themeable {
         _clear()
     }
     
+    
     @objc(applyTheme:)
-    func apply(theme: Theme) {
+    public func apply(theme: Theme) {
+        apply(theme: theme, withBorder: false)
+    }
+ 
+    func apply(theme: Theme, withBorder: Bool) {
         self.theme = theme
         rightView?.tintColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.paperBackground
         textColor = theme.colors.primaryText
         placeholder = _placeholder
+        keyboardAppearance = theme.keyboardAppearance
+        borderStyle = .none
+        layer.backgroundColor = backgroundColor?.cgColor
+        layer.masksToBounds = false
+        layer.shadowColor = theme.colors.tertiaryText.cgColor
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 0.0
     }
-    
 }

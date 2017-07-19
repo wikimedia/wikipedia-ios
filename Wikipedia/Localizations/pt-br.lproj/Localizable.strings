@@ -77,11 +77,14 @@
 "alert-no-internet" = "Não há conexão com a internet";
 "announcements-dismiss" = "Não, obrigado";
 "article-about-title" = "Sobre este artigo";
+"article-delete" = "Deletar";
 "article-languages-filter-placeholder" = "Encontrar idioma";
 "article-languages-label" = "Escolha um idioma";
 "article-languages-others" = "Outros idiomas";
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
+"article-save" = "Salvar";
+"article-share" = "Compartilhar";
 "article-unable-to-load-article" = "Não foi possível carregar o artigo.";
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "back" = "Voltar";
@@ -185,6 +188,8 @@
 "hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, voltar para História";
+"home-button-popover-description" = "Toque no 'W' Para retornar ao feed de Explorar";
+"home-button-popover-title" = "Toque para ir para casa";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
 "home-hide-suggestion-cancel" = "Cancelar";
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";
@@ -245,8 +250,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-day" = "Só $1";
-// Fuzzy
-"on-this-day-detail-header-title" = "$1 eventos históricos";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 evento histórico|$1 eventos históricos}}";
 "on-this-day-footer" = "Mais eventos históricos neste dia";
 "on-this-day-title" = "Neste dia";
 "onboarding-wikipedia" = "Wikipédia";

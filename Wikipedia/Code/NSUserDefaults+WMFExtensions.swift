@@ -20,6 +20,8 @@ let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocationAuthorization"
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
+let WMFAppThemeName = "WMFAppThemeName"
+let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -109,6 +111,25 @@ public extension UserDefaults {
     public func wmf_setLocationAuthorized(_ authorized: Bool) {
         self.set(authorized, forKey: WMFLocationAuthorizedKey)
         self.synchronize()
+    }
+    
+    public var wmf_appTheme: Theme {
+        return Theme.withName(string(forKey: WMFAppThemeName)) ?? Theme.standard
+    }
+    
+    public func wmf_setAppTheme(_ theme: Theme) {
+        set(theme.name, forKey: WMFAppThemeName)
+        synchronize()
+    }
+    
+    public var wmf_isImageDimmingEnabled: Bool {
+        get {
+             return bool(forKey: WMFIsImageDimmingEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFIsImageDimmingEnabled)
+            synchronize()
+        }
     }
     
     public func wmf_locationAuthorized() -> Bool {

@@ -49,14 +49,23 @@ extension URLSession {
         })
     }
     
+    
     public func wmf_summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_title else {
+        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderScores else {
             return nil
         }
-        let path = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", title])
-        guard let summaryURL = siteURL.wmf_URL(withPath: path, isMobile: false) else {
+        
+        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
+        let path = NSString.path(withComponents: ["api", "rest_v1", "page", "summary", encodedTitle])
+    
+        // /wiki/ URLs can handle / in the title, /api/rest_v1/ URLs can't
+        // as a result, this must be constructed manually using the encoded title
+        // and an absolute string
+        
+        guard let summaryURL = URL(string: "\(siteURL.absoluteString)/\(path)") else {
             return nil
         }
+
         var request = URLRequest(url: summaryURL)
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")

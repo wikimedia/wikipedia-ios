@@ -49,7 +49,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 return
         }
         dismiss(animated: true, completion: {
-            presenter.present(UINavigationController.init(rootViewController: loginVC), animated: true, completion: nil)
+            loginVC.apply(theme: self.theme)
+            presenter.present(ThemeableNavigationController(rootViewController: loginVC, theme: self.theme), animated: true, completion: nil)
         })
     }
     
@@ -71,11 +72,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
-        
-        usernameField.wmf_addThinBottomBorder()
-        passwordField.wmf_addThinBottomBorder()
-        passwordRepeatField.wmf_addThinBottomBorder()
-        emailField.wmf_addThinBottomBorder()
 
         loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button\n{{Identical|Log in}}"))
         
@@ -244,6 +240,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
         guard passwordFieldsMatch() else {
             self.passwordRepeatField.textColor = theme.colors.warning
+            self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubView(toTop: self.passwordTitleLabel, offset: 6, animated: true)
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -258,9 +255,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         case usernameField:
             usernameAlertLabel.isHidden = true
             usernameField.textColor = theme.colors.primaryText
+            usernameField.keyboardAppearance = theme.keyboardAppearance
         case passwordRepeatField:
             passwordRepeatAlertLabel.isHidden = true
             passwordRepeatField.textColor = theme.colors.primaryText
+            passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
         default: break
         }
     }
@@ -278,6 +277,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     self.usernameAlertLabel.text = error.localizedDescription
                     self.usernameAlertLabel.isHidden = false
                     self.usernameField.textColor = self.theme.colors.error
+                    self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
                     self.funnel?.logError(error.localizedDescription)
                     WMFAlertManager.sharedInstance.dismissAlert()
                     return
@@ -305,7 +305,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         guard viewIfLoaded != nil else {
             return
         }
-        for label in [titleLabel, usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
+        
+        titleLabel.textColor = theme.colors.primaryText
+        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
             label?.textColor = theme.colors.secondaryText
         }
         usernameAlertLabel.textColor = theme.colors.error
@@ -314,7 +316,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             field?.apply(theme: theme)
         }
         scrollContainer.backgroundColor = theme.colors.paperBackground
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         loginButton.apply(theme: theme)
         createAccountButton.apply(theme: theme)

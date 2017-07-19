@@ -12,8 +12,6 @@
 #import <WMF/WMFGeometry.h>
 #import <WMF/NSString+WMFDistance.h>
 #import "UIFont+WMFStyle.h"
-#import "UITableViewCell+SelectedBackground.h"
-#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import "Wikipedia-Swift.h"
 
 @interface WMFNearbyArticleCollectionViewCell ()
@@ -31,7 +29,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self applyTheme:[WMFTheme standard]];
+
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
+
+    self.backgroundView = [UIView new];
+    self.selectedBackgroundView = [UIView new];
+
     self.articleImageView.layer.cornerRadius = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
@@ -39,8 +44,6 @@
     self.distanceLabelBackground.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
     self.distanceLabelBackground.backgroundColor = [UIColor clearColor];
     self.distanceLabel.font = [UIFont wmf_nearbyDistanceFont];
-    [self wmf_addSelectedBackgroundView];
-    [self wmf_makeCellDividerBeEdgeToEdge];
     [self wmf_configureSubviewsForDynamicType];
 }
 
@@ -127,7 +130,7 @@
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{
                                                NSFontAttributeName: [UIFont wmf_subtitle],
-                                               NSForegroundColorAttributeName: self.theme.colors.tertiaryText,
+                                               NSForegroundColorAttributeName: self.theme.colors.secondaryText,
                                                NSParagraphStyleAttributeName: paragraphStyle
                                            }];
 }
@@ -188,12 +191,14 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    self.contentView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = theme.colors.primaryText;
-    self.distanceLabel.textColor = theme.colors.tertiaryText;
+    self.distanceLabel.textColor = theme.colors.secondaryText;
     self.articleImageView.layer.borderColor = theme.colors.midBackground.CGColor;
     self.articleImageView.backgroundColor = theme.colors.midBackground;
-    self.distanceLabelBackground.layer.borderColor = theme.colors.tertiaryText.CGColor;
+    self.distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.CGColor;
+    self.backgroundView.backgroundColor = theme.colors.paperBackground;
+    self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.articleImageView.alpha  = theme.imageOpacity;
 }
 
 @end

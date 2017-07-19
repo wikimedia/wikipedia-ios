@@ -496,7 +496,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
 
         [self.refreshControl endRefreshing];
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme];
     }
 }
 
@@ -1005,7 +1005,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)configureFooter:(WMFExploreSectionFooter *)footer withContentGroup:(WMFContentGroup *)group {
     footer.visibleBackgroundView.alpha = 1.0;
     footer.moreLabel.text = [group footerText];
-    footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterText];
     [footer applyTheme:self.theme];
 }
 
@@ -1175,6 +1174,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     } else {
         [cell setDisplayTitle:imageInfo.canonicalPageTitle];
     }
+    [cell applyTheme:self.theme];
     //    self.referenceImageView = cell.potdImageView;
 }
 
