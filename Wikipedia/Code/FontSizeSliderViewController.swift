@@ -4,6 +4,10 @@ import UIKit
 class FontSizeSliderViewController: UIViewController {
     
     @IBOutlet fileprivate var slider: SWStepSlider!
+
+    @IBOutlet weak var tSmallImageView: UIImageView!
+    @IBOutlet weak var tLargeImageView: UIImageView!
+    
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
     
@@ -51,13 +55,13 @@ class FontSizeSliderViewController: UIViewController {
         if slider.value > fontSizeMultipliers.count {
             return
         }
+        
         let multiplier = fontSizeMultipliers[slider.value].rawValue
         
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
-
     }
     
     func indexOfCurrentFontSize() -> Int {
@@ -66,7 +70,6 @@ class FontSizeSliderViewController: UIViewController {
         }
         return fontSizeMultipliers.count / 2
     }
-
 }
 
 extension FontSizeSliderViewController: Themeable {
@@ -77,6 +80,16 @@ extension FontSizeSliderViewController: Themeable {
             return
         }
         
+        view.backgroundColor = theme.colors.midBackground
         slider.backgroundColor = theme.colors.midBackground
+        
+        if theme.name == "dark" {
+            //FIXME: T icon is smaller for this mode
+            tSmallImageView.image = UIImage(named: "t-small-darkMode")
+            tLargeImageView.image = UIImage(named: "t-large-darkMode")
+        } else {
+            tSmallImageView.image = UIImage(named: "T-small")
+            tLargeImageView.image = UIImage(named: "T-large")
+        }
     }
 }

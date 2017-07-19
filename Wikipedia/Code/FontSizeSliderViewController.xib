@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FontSizeSliderViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="slider" destination="oct-cl-fAm" id="Ju1-pM-WKt"/>
+                <outlet property="tLargeImageView" destination="gOm-kn-fOm" id="naT-OM-hK1"/>
+                <outlet property="tSmallImageView" destination="lRM-uR-Nrj" id="lfl-37-x0O"/>
                 <outlet property="view" destination="ZBJ-Ip-owm" id="8Wg-2X-b6K"/>
             </connections>
         </placeholder>

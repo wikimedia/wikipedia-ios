@@ -35,6 +35,8 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     fileprivate var theme = Theme.standard
     
+    var fontSliderViewController: FontSizeSliderViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -80,7 +82,9 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             tc.apply(theme: theme)
         }
         
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
+            self.fontSliderViewController = vc
+            vc.apply(theme: self.theme)
             var frame = view.frame
             frame.size.width = cell.frame.width
             view.frame = frame
@@ -190,8 +194,9 @@ extension AppearanceSettingsViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
+        self.fontSliderViewController?.apply(theme: theme)
+
     }
 }
