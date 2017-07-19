@@ -47,6 +47,8 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     var sections = [AppearanceSettingsSection]()
     
+    var lastSelection: IndexPath!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -94,7 +96,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         let currentThemeName = UserDefaults.wmf_userDefaults().wmf_appTheme.name
         
         if let checkmarkItem = item as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == currentThemeName {
-            cell.accessoryType = .checkmark
+
         }
         
         if let switchItem = item as? AppearanceSettingsSwitchItem {
@@ -117,27 +119,18 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == UserDefaults.wmf_userDefaults().wmf_appTheme.name {
+            cell.setSelected(true, animated: false)
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
             return tableView.rowHeight
         }
         return item.view.frame.height
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
-            return
-        }
-        
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
-            return
-        }
-        
-        tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
@@ -182,4 +175,11 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return header!.height(withExpectedWidth: self.view.frame.width)
     }
     
+}
+
+extension WMFSettingsTableViewCell {
+    override open func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        self.accessoryType = selected ? .checkmark : .none
+    }
 }
