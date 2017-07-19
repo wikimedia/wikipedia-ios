@@ -20,19 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-
+    
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-
+    
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
-
+    
     [self applyTheme:self.theme];
 }
 
@@ -49,7 +49,7 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self.tableView reloadData];
     }
@@ -91,9 +91,9 @@
         self.previewingContext = [self registerForPreviewingWithDelegate:self
                                                               sourceView:self.tableView];
     }
-        unavailable:^{
-            [self unregisterPreviewing];
-        }];
+                        unavailable:^{
+                            [self unregisterPreviewing];
+                        }];
 }
 
 - (void)unregisterPreviewing {
@@ -111,14 +111,14 @@
     if (!previewIndexPath) {
         return nil;
     }
-
+    
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
-
+    
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-
+    
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
-
+    
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
@@ -162,7 +162,7 @@
         if (self.navigationItem.leftBarButtonItem == nil) {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonPressed:)];
         }
-
+        
         if (!self.isEmpty) {
             self.navigationItem.leftBarButtonItem.enabled = YES;
         } else {
@@ -280,10 +280,6 @@
     return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
 }
 
-- (NSString *)saveActionText {
-    return WMFLocalizedStringWithDefaultValue(@"article-save", nil, nil, @"Save", @"Text of the article list row action shown on swipe which allows the user to save the article");
-}
-
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
     return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSURL *url = [self urlAtIndexPath:indexPath];
@@ -299,10 +295,18 @@
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self saveActionText]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
+    }];
+}
+
+- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+        [savedPageList removeEntryWithURL:url];
     }];
 }
 
