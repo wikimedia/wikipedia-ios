@@ -47,7 +47,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         if currentAppTheme == Theme.sepia {
             text = "Sepia"
-        } else if currentAppTheme == Theme.dark {
+        } else if currentAppTheme == Theme.dark || currentAppTheme == Theme.darkDimmed {
             text = "Dark"
         }
         
