@@ -87,15 +87,16 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, subCellBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, primaryText: .base10, secondaryText: .masi, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, subCellBackground: .papyrus, primaryText: .base10, secondaryText: .masi, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, subCellBackground: .exosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
     
     
     public let baseBackground: UIColor
     public let midBackground: UIColor
+    public let subCellBackground: UIColor
     public let paperBackground: UIColor
     public let chromeBackground: UIColor
     
@@ -121,9 +122,10 @@ public class Colors: NSObject {
     public let linkToAccent: Gradient
     
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, subCellBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
+        self.subCellBackground = subCellBackground
         self.paperBackground = paperBackground
         self.chromeBackground = chromeBackground
         

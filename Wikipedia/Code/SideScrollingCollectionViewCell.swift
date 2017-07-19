@@ -198,10 +198,10 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
     func configure(with cellArticle: CellArticle, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
         backgroundColor = .clear
-        backgroundView?.backgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.subCellBackground
         backgroundView?.layer.cornerRadius = 5
         backgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.backgroundColor = theme.colors.paperBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         selectedBackgroundView?.layer.cornerRadius = 5
         selectedBackgroundView?.layer.masksToBounds = true
         layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -209,6 +209,8 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         layer.shadowRadius = 2
         layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
+        titleLabel.backgroundColor = backgroundView?.backgroundColor
+        descriptionLabel.backgroundColor = backgroundView?.backgroundColor
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
