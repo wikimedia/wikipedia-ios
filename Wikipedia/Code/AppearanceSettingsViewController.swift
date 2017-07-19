@@ -124,7 +124,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = self.theme.colors.secondaryText
             cell.iconColor = self.theme.colors.paperBackground
-            cell.icon
         } else {
             cell.disclosureType = .none
         }

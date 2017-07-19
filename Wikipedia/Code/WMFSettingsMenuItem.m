@@ -83,7 +83,6 @@
                                              iconName:@"settings-appearance"
                                             iconColor:[UIColor wmf_colorWithHex:0x000000]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                        //TODO: add theme name
                                        disclosureText:WMFAppearanceSettingsViewController.disclosureText
                                            isSwitchOn:NO];
         }
