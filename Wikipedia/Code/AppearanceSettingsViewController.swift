@@ -76,7 +76,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             return UITableViewCell()
         }
         
-        
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil

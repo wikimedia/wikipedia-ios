@@ -3,8 +3,6 @@ import UIKit
 @objc public protocol WMFReadingThemesControlsViewControllerDelegate {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
-    
-    func themeChangedInArticleControls(_ controller: ReadingThemesControlsViewController, theme: Theme)
 }
 
 @objc(WMFReadingThemesControlsViewController)
@@ -134,9 +132,6 @@ open class ReadingThemesControlsViewController: UIViewController {
         let userInfo = ["theme": theme]
         updateThemeButtons(with: theme.name)
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
-        if let delegate = self.delegate {
-            delegate.themeChangedInArticleControls(self, theme: theme)
-        }
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {

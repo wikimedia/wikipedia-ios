@@ -44,7 +44,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #if WMF_TWEAKS_ENABLED
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 #else
-@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, WMFAppearanceSettingsViewControllerDelegate, WMFReadingThemesControlsViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, WMFAppearanceSettingsViewControllerDelegate>
 #endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -370,17 +370,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)themeCangedInController:(WMFAppearanceSettingsViewController *)controller theme:(WMFTheme *)theme {
     [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
-}
-
-- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *)controller theme:(WMFTheme *)theme {
-    NSLog(@"themeChangedInArticleControls");
-    WMFReadingThemesControlsViewController *readingThemesControlsVC = [WMFAppearanceSettingsViewController init];
-    readingThemesControlsVC.delegate = self;
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
-}
-
-- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)controller value:(NSInteger)value {
 }
 
 #pragma mark - Debugging
