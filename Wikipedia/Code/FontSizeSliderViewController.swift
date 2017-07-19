@@ -51,7 +51,7 @@ class FontSizeSliderViewController: UIViewController {
             print("will be returning :(")
             return
         }
-        let multiplier = fontSizeMultipliers[slider.value]
+        let multiplier = fontSizeMultipliers[slider.value].rawValue
         
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
