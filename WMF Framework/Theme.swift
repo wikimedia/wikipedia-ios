@@ -38,7 +38,6 @@ public extension UIColor {
     fileprivate static let accent = UIColor(0x00AF89)
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
-    
     fileprivate static let amate = UIColor(0xE1DAD1)
     fileprivate static let parchment = UIColor(0xF8F1E3)
     fileprivate static let masi = UIColor(0x646059)
@@ -46,22 +45,27 @@ public extension UIColor {
     fileprivate static let kraft = UIColor(0xCBC8C1)
     fileprivate static let osage = UIColor(0xFF9500)
     
-    public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
-    public static let wmf_lightGray = UIColor(0x9AA0A7)
     public static let wmf_darkGray = UIColor(0x4D4D4B)
-    public static let wmf_blue = UIColor(0x3366CC)
-    public static let wmf_green = UIColor(0x00AF89)
-    public static let wmf_darkBlue = UIColor(0x2A4B8D)
-    public static let wmf_red = UIColor(0xCC3333)
+    public static let wmf_lightGray = UIColor(0x9AA0A7)
+    public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
+
+    public static let wmf_darkBlue = UIColor.blue10
+    public static let wmf_blue = UIColor.blue50
+    public static let wmf_lightBlue = UIColor(0xEAF3FF)
+
+    public static let wmf_green = UIColor.green50
+    public static let wmf_lightGreen = UIColor(0xD5FDF4)
+
+    public static let wmf_red = UIColor.red50
     public static let wmf_lightRed = UIColor(0xFFE7E6)
-    public static let wmf_yellow = UIColor(0xFFCC33)
+    
+    public static let wmf_yellow = UIColor.yellow50
     public static let wmf_lightYellow = UIColor(0xFEF6E7)
+    
     public static let wmf_orange = UIColor(0xFF5B00)
+    
     public static let wmf_purple = UIColor(0x7F4AB3)
     public static let wmf_lightPurple = UIColor(0xF3E6FF)
-    public static let wmf_lightBlue = UIColor(0xEAF3FF)
-    public static let wmf_lightGreen = UIColor(0xD5FDF4)
-    public static let wmf_777777 = UIColor(0x777777)
 
     public func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
