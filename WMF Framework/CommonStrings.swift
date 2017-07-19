@@ -4,15 +4,15 @@ import Foundation
 // There should only be one WMFLocalizedString() function in code for every localization key.
 // If the same string value is used in different contexts, use different localization keys.
 
-@objc(WMFLocalizedStrings)
-public class LocalizedStrings: NSObject {
+@objc(WMFCommonStrings)
+public class CommonStrings: NSObject {
     public static let shortSavedTitle = WMFLocalizedString("action-saved", value:"Saved", comment:"Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}")
     public static let accessibilitySavedTitle = WMFLocalizedString("action-saved-accessibility", value:"Saved. Activate to unsave.", comment:"Accessibility title for the 'Unsave' action\n{{Identical|Saved}}")
     public static let shortUnsaveTitle = WMFLocalizedString("action-unsave", value:"Unsave", comment:"Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}")
     
     public static let shortSaveTitle = WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}")
-    public static let savedTitle:String = LocalizedStrings.savedTitle(language: nil)
-    public static let saveTitle:String = LocalizedStrings.saveTitle(language: nil)
+    public static let savedTitle:String = CommonStrings.savedTitle(language: nil)
+    public static let saveTitle:String = CommonStrings.saveTitle(language: nil)
     
     static public func savedTitle(language: String?) -> String {
         return WMFLocalizedString("button-saved-for-later", language: language, value:"Saved for later", comment:"Longer button text for already saved button used in various places.")

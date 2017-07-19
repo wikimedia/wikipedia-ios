@@ -295,7 +295,7 @@
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFLocalizedStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
@@ -303,7 +303,7 @@
 }
 
 - (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFLocalizedStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList removeEntryWithURL:url];

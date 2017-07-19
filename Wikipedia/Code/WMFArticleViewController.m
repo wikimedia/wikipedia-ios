@@ -1268,7 +1268,7 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
-    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFLocalizedStrings accessibilitySavedTitle] : [WMFLocalizedStrings saveTitle];
+    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFCommonStrings accessibilitySavedTitle] : [WMFCommonStrings saveTitle];
     if (isSaved) {
         self.saveToolbarItem.image = [UIImage imageNamed:@"save-filled"];
     } else {
@@ -1704,7 +1704,7 @@ WMFArticlePreviewingActionsDelegate>
                              }];
     
     UIPreviewAction *saveAction =
-    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFLocalizedStrings saveTitle]
+    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFCommonStrings saveTitle]
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction *_Nonnull action,
                                        UIViewController *_Nonnull previewViewController) {

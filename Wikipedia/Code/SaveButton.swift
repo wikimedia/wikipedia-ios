@@ -21,23 +21,23 @@ import WMF
             let saveImage: UIImage
             switch saveButtonState {
             case .longSaved:
-                saveTitle = LocalizedStrings.savedTitle
+                saveTitle = CommonStrings.savedTitle
                 saveImage = SaveButton.savedImage
-                accessibilityLabel = LocalizedStrings.accessibilitySavedTitle
+                accessibilityLabel = CommonStrings.accessibilitySavedTitle
             case .longSave:
-                saveTitle = LocalizedStrings.saveTitle
+                saveTitle = CommonStrings.saveTitle
                 saveImage = SaveButton.saveImage
-                accessibilityLabel = LocalizedStrings.saveTitle
+                accessibilityLabel = CommonStrings.saveTitle
             case .shortSaved:
-                saveTitle = LocalizedStrings.shortSavedTitle
+                saveTitle = CommonStrings.shortSavedTitle
                 saveImage = SaveButton.savedImage
-                accessibilityLabel = LocalizedStrings.accessibilitySavedTitle
+                accessibilityLabel = CommonStrings.accessibilitySavedTitle
             case .shortSave:
                 fallthrough
             default:
-                saveTitle = LocalizedStrings.shortSaveTitle
+                saveTitle = CommonStrings.shortSaveTitle
                 saveImage = SaveButton.saveImage
-                accessibilityLabel = LocalizedStrings.saveTitle
+                accessibilityLabel = CommonStrings.saveTitle
             }
             UIView.performWithoutAnimation {
                 setTitle(saveTitle, for: .normal)

@@ -6,8 +6,8 @@ protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
 }
 
 class ArticlePopoverViewController: UIViewController {
-    fileprivate static let readActionString = LocalizedStrings.shortReadTitle
-    fileprivate static let shareActionString = LocalizedStrings.shortShareTitle
+    fileprivate static let readActionString = CommonStrings.shortReadTitle
+    fileprivate static let shareActionString = CommonStrings.shortShareTitle
     
     weak var delegate: ArticlePopoverViewControllerDelegate?
     
@@ -95,7 +95,7 @@ class ArticlePopoverViewController: UIViewController {
         if showSaveAndShareTitles {
             saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
         }
-        let saveTitle = article.savedDate == nil ? LocalizedStrings.shortSaveTitle : LocalizedStrings.shortUnsaveTitle
+        let saveTitle = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
         let saveAction = UIAccessibilityCustomAction(name: saveTitle, target: self, selector: #selector(save))
         let shareAction = UIAccessibilityCustomAction(name: ArticlePopoverViewController.shareActionString, target: self, selector: #selector(share))
         
