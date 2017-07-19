@@ -753,7 +753,9 @@ WMFArticlePreviewingActionsDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    [self applyTheme:[WMFTheme standard]];
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
     [self setUpTitleBarButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
