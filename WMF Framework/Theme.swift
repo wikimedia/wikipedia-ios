@@ -48,10 +48,6 @@ public extension UIColor {
     fileprivate static let kraft = UIColor(0xCBC8C1)
     fileprivate static let osage = UIColor(0xFF9500)
     
-    public static let wmf_baseBackground = UIColor(0xEFEFF4)
-    public static let wmf_midBackground = UIColor(0xF8F9FA)
-    public static let wmf_white = UIColor(0xFFFFFF)
-    public static let wmf_black = UIColor(0x000000)
     public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
     public static let wmf_lightGray = UIColor(0x9AA0A7)
     public static let wmf_midGray = UIColor(0x555555)
