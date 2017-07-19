@@ -10,6 +10,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UITextView *captionTextView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
+@property (strong, nonatomic) WMFTheme *theme;
+
 
 @end
 
@@ -17,19 +19,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundView = [UIView new];
+    self.selectedBackgroundView = [UIView new];
+    
     self.captionTextView.delegate = self;
-    self.captionTextView.linkTextAttributes = @{
-        NSForegroundColorAttributeName: [UIColor wmf_blue],
-        NSUnderlineStyleAttributeName: @1
-    };
-    self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
     [self.dismissButton setTitle:WMFLocalizedStringWithDefaultValue(@"announcements-dismiss", nil, nil, @"No thanks", @"Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}") forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
-    [self.dismissButton setTitleColor:[UIColor wmf_777777] forState:UIControlStateNormal];
 
     [self wmf_configureSubviewsForDynamicType];
 }
@@ -79,6 +78,7 @@
 }
 
 - (void)setCaption:(NSAttributedString *)text {
+    _caption = [text copy];
     NSMutableAttributedString *mutableText = [text mutableCopy];
     if (!mutableText || mutableText.length == 0) {
         self.captionTextView.attributedText = nil;
@@ -90,7 +90,7 @@
     pStyle.baseWritingDirection = NSWritingDirectionNatural;
     pStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
-                                 NSForegroundColorAttributeName: [UIColor wmf_777777],
+                                 NSForegroundColorAttributeName: self.theme.colors.secondaryText,
                                  NSParagraphStyleAttributeName: pStyle};
     [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
     self.captionTextView.attributedText = mutableText;
@@ -113,6 +113,25 @@
 
 + (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
     return 250 + (withImage ? 150 : 0);
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.actionButton.layer.borderColor = theme.colors.link.CGColor;
+
+    self.captionTextView.linkTextAttributes = @{
+                                                NSForegroundColorAttributeName: theme.colors.link,
+                                                NSUnderlineStyleAttributeName: @1
+                                                };
+    [self.dismissButton setTitleColor:theme.colors.secondaryText forState:UIControlStateNormal];
+    
+    self.caption = _caption; // Applies the theme color
+    
+    self.messageLabel.textColor = theme.colors.primaryText;
+    
+    self.imageView.backgroundColor = theme.colors.midBackground;
+    self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.backgroundView.backgroundColor = theme.colors.paperBackground;
 }
 
 @end
