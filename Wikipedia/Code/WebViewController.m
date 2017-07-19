@@ -302,6 +302,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterLegal"]) {
         [self.webView wmf_addFooterLegalForArticle:self.article];
+    } else if ([messageString isEqualToString:@"enableCompatibilitySupport"]) {
+        [self.webView wmf_enableCompatibilityTransformSupport];
+    } else if ([messageString isEqualToString:@"classifyThemeElements"]) {
+        [self.webView wmf_classifyThemeElements];
+    } else if ([messageString isEqualToString:@"applyTheme"]) {
+        [self.webView wmf_applyTheme:self.theme];
     }
 }
 
@@ -569,7 +575,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"setLanguage",
         @"addFooterReadMore",
         @"addFooterMenu",
-        @"addFooterLegal"
+        @"addFooterLegal",
+        @"enableCompatibilitySupport",
+        @"classifyThemeElements",
+        @"applyTheme"
     ];
     for (NSString *transformName in lateTransformNames) {
         NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
@@ -1098,6 +1107,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.scrollView.backgroundColor = theme.colors.paperBackground;
     self.webView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_applyTheme:theme];
 }
 
 @end
