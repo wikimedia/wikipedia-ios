@@ -119,13 +119,17 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem else {
             return
         }
-        
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         item.checkmarkAction()
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == UserDefaults.wmf_userDefaults().wmf_appTheme.name {
-            cell.setSelected(true, animated: false)
+            cell.accessoryType = .checkmark
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }
     }
@@ -179,11 +183,4 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return header!.height(withExpectedWidth: self.view.frame.width)
     }
     
-}
-
-extension WMFSettingsTableViewCell {
-    override open func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        self.accessoryType = selected ? .checkmark : .none
-    }
 }
