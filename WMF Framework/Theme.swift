@@ -36,8 +36,6 @@ public extension UIColor {
     fileprivate static let stratosphere = UIColor(0x6699FF)
     fileprivate static let exosphere = UIColor(0x27292D)
     fileprivate static let accent = UIColor(0x00AF89)
-    fileprivate static let battleshipGray = UIColor(0x72777D)
-    fileprivate static let x555555 = UIColor(0x555555)
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
     
@@ -50,7 +48,6 @@ public extension UIColor {
     
     public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
     public static let wmf_lightGray = UIColor(0x9AA0A7)
-    public static let wmf_midGray = UIColor(0x555555)
     public static let wmf_darkGray = UIColor(0x4D4D4B)
     public static let wmf_blue = UIColor(0x3366CC)
     public static let wmf_green = UIColor(0x00AF89)
