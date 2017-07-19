@@ -232,13 +232,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     controller.userDataStore = self.dataStore;
 }
 
-//TODO: mooove
-
-- (void)articleFontSizeWasUpdated:(NSNotification *)note {
-    NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
-}
-
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
@@ -1476,10 +1469,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     if (self.theme != theme) {
         [self applyTheme:theme];
-        NSLog(@"Changing theme to %@", theme.name);
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
     }
+}
+
+#pragma mark - Appearance
+
+- (void)articleFontSizeWasUpdated:(NSNotification *)note {
+    NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
+    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Search

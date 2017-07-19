@@ -40,13 +40,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
+    
     static var disclosureText: String {
         var text = "Default"
+        let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         
-        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        if currentTheme == Theme.sepia {
+        if currentAppTheme == Theme.sepia {
             text = "Sepia"
-        } else if currentTheme == Theme.dark {
+        } else if currentAppTheme == Theme.dark {
             text = "Dark"
         }
         
@@ -127,7 +128,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
-        //TODO: move WMFUserDidSelectThemeNotification
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
         
         if let delegate = self.delegate {

@@ -57,8 +57,8 @@ class FontSizeSliderViewController: UIViewController {
         }
         
         let multiplier = fontSizeMultipliers[slider.value].rawValue
-        
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
+        
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
