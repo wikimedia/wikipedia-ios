@@ -7,6 +7,8 @@ class FontSizeSliderViewController: UIViewController {
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
     
+    fileprivate var theme = Theme.standard
+    
     static let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
     static let WMFArticleFontSizeUpdatedNotification = "WMFArticleFontSizeUpdatedNotification"
     
@@ -22,6 +24,7 @@ class FontSizeSliderViewController: UIViewController {
                 currentValue = nil
             }
         }
+        apply(theme: self.theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,4 +67,16 @@ class FontSizeSliderViewController: UIViewController {
         return fontSizeMultipliers.count / 2
     }
 
+}
+
+extension FontSizeSliderViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        slider.backgroundColor = theme.colors.midBackground
+    }
 }

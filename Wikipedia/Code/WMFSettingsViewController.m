@@ -360,7 +360,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 - (void)showAppearance {
     WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
-    //TODO: apply theme
+    [appearanceSettingsVC applyTheme:self.theme];
     //TODO: update string description
     appearanceSettingsVC.title = WMFLocalizedStringWithDefaultValue(@"appearance-settings-title", nil, nil, @"Reading themes", @"Title of the Appearance view in Settings.");
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];

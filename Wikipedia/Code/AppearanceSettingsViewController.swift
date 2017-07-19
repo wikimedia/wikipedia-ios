@@ -33,6 +33,8 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     var sections = [AppearanceSettingsSection]()
     
+    fileprivate var theme = Theme.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -41,6 +43,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         tableView.dataSource = self
         tableView.separatorStyle = .none
         sections = sectionsForAppearanceSettings()
+        apply(theme: self.theme)
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
@@ -68,9 +71,14 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return UITableViewCell()
         }
         
+        
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
+        
+        if let tc = cell as Themeable? {
+            tc.apply(theme: theme)
+        }
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
             var frame = view.frame
@@ -141,18 +149,18 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        //        if let th = header as Themeable? {
-        //            th.apply(theme: theme)
-        //        }
+                if let th = header as Themeable? {
+                    th.apply(theme: theme)
+                }
         header?.text = sections[section].headerTitle
         return header
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        //        if let th = header as Themeable? {
-        //            th.apply(theme: theme)
-        //        }
+                if let th = footer as Themeable? {
+                    th.apply(theme: theme)
+                }
         footer?.setShortTextAsProse(sections[section].footerText)
         return footer
     }
@@ -173,4 +181,17 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return header!.height(withExpectedWidth: self.view.frame.width)
     }
     
+}
+
+extension AppearanceSettingsViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.reloadData()
+    }
 }
