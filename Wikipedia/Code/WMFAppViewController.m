@@ -235,7 +235,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 //TODO: mooove
 
 - (void)articleFontSizeWasUpdated:(NSNotification *)note {
-    NSLog(@"articleFontSizeWasUpdated");
     NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }

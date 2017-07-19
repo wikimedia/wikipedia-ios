@@ -10,7 +10,7 @@ class FontSizeSliderViewController: UIViewController {
     static let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
     static let WMFArticleFontSizeUpdatedNotification = "WMFArticleFontSizeUpdatedNotification"
     
-    let fontSizeMultipliers = [WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
+    let fontSizeMultipliers = [WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,22 +45,22 @@ class FontSizeSliderViewController: UIViewController {
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
-        print("fontSliderValueChanged")
-        
         if slider.value > fontSizeMultipliers.count {
-            print("will be returning :(")
             return
         }
         let multiplier = fontSizeMultipliers[slider.value].rawValue
         
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
-        print("after posting :)")
+        
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
 
     }
     
     func indexOfCurrentFontSize() -> Int {
-        //TODO: get from WMFArticleViewController
+        if let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
+            return fontSizeMultipliers.index(of: multiplier)!
+        }
         return fontSizeMultipliers.count / 2
     }
 
