@@ -111,6 +111,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
+            
             let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
             switch currentAppTheme {
             case Theme.dark, Theme.darkDimmed:
@@ -119,7 +120,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             default:
                 break
             }
-            cell.iconName = "settings-notifications"
+            
+            cell.iconName = "settings-image-dimming"
+            cell.iconBackgroundColor = self.theme.colors.secondaryText
+            cell.iconColor = self.theme.colors.paperBackground
+            cell.icon
         } else {
             cell.disclosureType = .none
         }

@@ -80,8 +80,7 @@
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
                                                 title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
-                                            //TODO: change the icon
-                                             iconName:@"font-size"
+                                             iconName:@"settings-appearance"
                                             iconColor:[UIColor wmf_colorWithHex:0x000000]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
                                         //TODO: add theme name
