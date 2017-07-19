@@ -203,15 +203,15 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
 
-        // Setup search bar
+        // Setup search bars
+        let searchPlaceholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
-        titleViewSearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
-        
+        titleViewSearchBar.placeholder = searchPlaceholder
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        listAndSearchOverlaySearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
+        listAndSearchOverlaySearchBar.placeholder = searchPlaceholder
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
@@ -2363,7 +2363,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? SaveButton.shortSaveTitle : SaveButton.shortSavedTitle
+        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortSavedTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -2373,10 +2373,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
-        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle;
+        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle;
         saveForLaterAction.backgroundColor = theme.colors.secondaryAction
         
-        let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
+        let shareAction = UITableViewRowAction(style: .default, title: CommonStrings.shortShareTitle) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)

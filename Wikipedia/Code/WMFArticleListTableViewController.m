@@ -1,8 +1,8 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import "TUSafariActivity.h"
+@import WMF;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -295,7 +295,7 @@
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
@@ -303,7 +303,7 @@
 }
 
 - (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList removeEntryWithURL:url];

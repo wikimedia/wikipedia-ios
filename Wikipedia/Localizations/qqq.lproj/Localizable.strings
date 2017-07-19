@@ -41,10 +41,10 @@
 "account-creation-title" = "Title for account creation interface";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
-"action-saved" = "Title for the save button in the 'Saved' state - Indicates the article is saved\n{{Identical|Saved}}";
+"action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
-"action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
-"action-unsave" = "Title for the 'Unsave' action\n{{Identical|Saved}}";
+"action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
