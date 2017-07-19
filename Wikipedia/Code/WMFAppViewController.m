@@ -1432,6 +1432,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.view.tintColor = theme.colors.link;
 
     [self.searchViewController applyTheme:theme];
+    [self.settingsViewController applyTheme:theme];
 
     // Navigation controllers
     NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
@@ -1475,6 +1476,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     if (self.theme != theme) {
         [self applyTheme:theme];
+        NSLog(@"Changing theme to %@", theme.name);
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
     }
 }

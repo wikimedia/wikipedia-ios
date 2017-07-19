@@ -1,5 +1,9 @@
 import UIKit
 
+@objc public protocol WMFAppearanceSettingsViewControllerDelegate {
+    func themeCangedInController(_ controller: AppearanceSettingsViewController, theme: Theme)
+}
+
 protocol AppearanceSettingsItem {
     var title: String? { get }
 }
@@ -26,17 +30,19 @@ struct AppearanceSettingsSection {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var sections = [AppearanceSettingsSection]()
     
     fileprivate var theme = Theme.standard
-    
+    //remove
     var fontSliderViewController: FontSizeSliderViewController?
     
-    override func viewDidLoad() {
+    open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
+    
+    override open func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
@@ -59,15 +65,15 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
@@ -114,9 +120,13 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         let userInfo = ["theme": theme]
         //TODO: move WMFUserDidSelectThemeNotification
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        
+        if let delegate = self.delegate {
+            delegate.themeCangedInController(self, theme: theme)
+        }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem else {
             return
         }
@@ -124,18 +134,18 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         item.checkmarkAction()
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.theme == UserDefaults.wmf_userDefaults().wmf_appTheme {
             cell.accessoryType = .checkmark
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
             return tableView.rowHeight
         }
@@ -150,7 +160,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         print("handleAutoNightModeSwitchValueChange")
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
                 if let th = header as Themeable? {
                     th.apply(theme: theme)
@@ -159,7 +169,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return header
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
                 if let th = footer as Themeable? {
                     th.apply(theme: theme)
@@ -168,7 +178,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return footer
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         guard let footerText = sections[section].footerText else {
             return 0
         }
@@ -178,7 +188,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         return footer!.height(withExpectedWidth: self.view.frame.width)
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
         header?.text = sections[section].headerTitle
         return header!.height(withExpectedWidth: self.view.frame.width)
@@ -187,7 +197,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
 }
 
 extension AppearanceSettingsViewController: Themeable {
-    func apply(theme: Theme) {
+    public func apply(theme: Theme) {
         self.theme = theme
         
         guard viewIfLoaded != nil else {
