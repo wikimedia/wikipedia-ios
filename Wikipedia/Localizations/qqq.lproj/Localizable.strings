@@ -41,10 +41,10 @@
 "account-creation-title" = "Title for account creation interface";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
-"action-saved" = "Title for the save button in the 'Saved' state - Indicates the article is saved\n{{Identical|Saved}}";
+"action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
-"action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
-"action-unsave" = "Title for the 'Unsave' action\n{{Identical|Saved}}";
+"action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
@@ -54,7 +54,6 @@
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
-"article-save" = "Text of the article list row action shown on swipe which allows the user to save the article";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
@@ -174,6 +173,7 @@
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
+"image-dimming" = "Label for image dimming setting";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";

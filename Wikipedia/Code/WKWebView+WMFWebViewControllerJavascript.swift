@@ -1,5 +1,6 @@
 
 import WebKit
+import WMF
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
@@ -156,4 +157,26 @@ extension WKWebView {
         evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
     
+    public func wmf_enableCompatibilityTransformSupport(){
+        evaluateJavaScript("window.wmf.compatibility.enableSupport(document);", completionHandler: nil)
+    }
+
+    public func wmf_classifyThemeElements(){
+        evaluateJavaScript("window.wmf.themes.classifyElements(document);", completionHandler: nil)
+    }
+    
+    public func wmf_applyTheme(_ theme: Theme){
+        var jsThemeConstant = "DEFAULT"
+        switch theme.name {
+        case Theme.sepia.name:
+           jsThemeConstant = "SEPIA"
+        case Theme.darkDimmed.name:
+            fallthrough
+        case Theme.dark.name:
+            jsThemeConstant = "DARK"
+        default:
+            break
+        }
+        evaluateJavaScript("window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));", completionHandler: nil)
+    }
 }

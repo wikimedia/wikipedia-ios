@@ -54,7 +54,6 @@
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
-"article-save" = "Save";
 "article-share" = "Share";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
@@ -174,6 +173,7 @@
 "icon-shortcut-nearby-title" = "Nearby articles";
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
+"image-dimming" = "Image Dimming";
 "image-gallery-unknown-owner" = "Author unknown.";
 "in-the-news-currently-trending" = "Currently trending";
 "in-the-news-notification-read-now-action-title" = "Read Now";
