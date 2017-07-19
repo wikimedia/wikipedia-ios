@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="autoNightModeSwitch" destination="i2a-zf-eRu" id="MQ6-c0-32U"/>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
+                <outlet property="imageDimmingLabel" destination="gUU-a2-QwO" id="vxW-ss-dl7"/>
                 <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
                 <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="29j-20-f8V"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
@@ -25,9 +25,7 @@
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
                 <outletCollection property="separatorViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="cr4-7k-sen"/>
                 <outletCollection property="separatorViews" destination="XEj-MD-7hS" collectionClass="NSMutableArray" id="wMe-lS-9ae"/>
-                <outletCollection property="separatorViews" destination="Uxd-TY-6pz" collectionClass="NSMutableArray" id="KSW-Ap-Ngw"/>
                 <outletCollection property="separatorViews" destination="s1w-Qo-awL" collectionClass="NSMutableArray" id="LMo-j3-60h"/>
-                <outletCollection property="textLabels" destination="VmK-ow-0Kg" collectionClass="NSMutableArray" id="jp5-cq-pFS"/>
                 <outletCollection property="textLabels" destination="gUU-a2-QwO" collectionClass="NSMutableArray" id="uyV-7V-rCC"/>
             </connections>
         </placeholder>
@@ -175,48 +173,28 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uxd-TY-6pz" userLabel="Separator 3">
-                    <rect key="frame" x="0.0" y="218" width="289" height="2"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="2" id="IX0-Ay-DT7"/>
-                    </constraints>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-night mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmK-ow-0Kg">
-                    <rect key="frame" x="10" y="229" width="130" height="20.5"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="i2a-zf-eRu">
-                    <rect key="frame" x="228" y="224" width="51" height="31"/>
-                </switch>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1w-Qo-awL" userLabel="Separator 4">
-                    <rect key="frame" x="0.0" y="259.5" width="289" height="2"/>
+                    <rect key="frame" x="0.0" y="218" width="289" height="2"/>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="2" id="qQe-m6-dWP"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image dimming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUU-a2-QwO">
-                    <rect key="frame" x="10" y="270.5" width="117.5" height="20.5"/>
+                    <rect key="frame" x="10" y="229" width="117.5" height="20.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D23-3R-cK9">
-                    <rect key="frame" x="230" y="265.5" width="51" height="31"/>
+                    <rect key="frame" x="230" y="224" width="51" height="31"/>
+                    <connections>
+                        <action selector="dimmingSwitchValueChanged:" destination="-1" eventType="valueChanged" id="569-gt-BRU"/>
+                    </connections>
                 </switch>
             </subviews>
             <constraints>
-                <constraint firstItem="Uxd-TY-6pz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="25h-uP-Vut"/>
-                <constraint firstItem="VmK-ow-0Kg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="29y-uF-w12"/>
-                <constraint firstItem="Uxd-TY-6pz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="3C7-US-ZX6"/>
                 <constraint firstItem="YZG-9J-e1O" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="6vx-hg-Wz9"/>
-                <constraint firstItem="VmK-ow-0Kg" firstAttribute="top" secondItem="Uxd-TY-6pz" secondAttribute="bottom" constant="15" id="7Bt-2W-083">
-                    <variation key="heightClass=compact-widthClass=compact" constant="9"/>
-                </constraint>
-                <constraint firstItem="s1w-Qo-awL" firstAttribute="top" secondItem="VmK-ow-0Kg" secondAttribute="bottom" constant="10" id="7sG-tr-Idy"/>
                 <constraint firstItem="eFI-oH-KYO" firstAttribute="width" secondItem="YZG-9J-e1O" secondAttribute="width" id="9ph-wb-WhN"/>
                 <constraint firstItem="vkB-ph-elW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="AFX-qM-HyA"/>
                 <constraint firstItem="YZG-9J-e1O" firstAttribute="top" secondItem="Ycr-G6-Fi3" secondAttribute="bottom" id="DjR-Cb-E6n">
@@ -239,14 +217,10 @@
                     <variation key="heightClass=compact-widthClass=compact" constant="7"/>
                 </constraint>
                 <constraint firstItem="gUU-a2-QwO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Rnh-7a-ns1"/>
-                <constraint firstItem="i2a-zf-eRu" firstAttribute="centerY" secondItem="VmK-ow-0Kg" secondAttribute="centerY" id="SEj-dE-nSQ"/>
                 <constraint firstItem="YZG-9J-e1O" firstAttribute="top" secondItem="vkB-ph-elW" secondAttribute="bottom" id="Uc7-ez-KGR">
                     <variation key="heightClass=compact-widthClass=compact" constant="-7"/>
                 </constraint>
-                <constraint firstItem="Uxd-TY-6pz" firstAttribute="top" secondItem="56n-xZ-69v" secondAttribute="bottom" constant="15" id="Y20-Im-Bgp">
-                    <variation key="heightClass=compact-widthClass=compact" constant="10"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="i2a-zf-eRu" secondAttribute="trailing" constant="12" id="YJ0-ml-jpA"/>
+                <constraint firstItem="s1w-Qo-awL" firstAttribute="top" secondItem="56n-xZ-69v" secondAttribute="bottom" constant="10" id="cr5-bT-R14"/>
                 <constraint firstItem="D23-3R-cK9" firstAttribute="centerY" secondItem="gUU-a2-QwO" secondAttribute="centerY" id="d1j-Bl-dNp"/>
                 <constraint firstItem="eFI-oH-KYO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="dhR-KN-8X0"/>
                 <constraint firstAttribute="trailing" secondItem="EEq-pY-jEm" secondAttribute="trailing" constant="10" id="eJs-dX-g1V"/>
