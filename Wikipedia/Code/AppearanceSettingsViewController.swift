@@ -163,6 +163,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = sender.isOn
+        userDidSelect(theme: currentTheme.withDimmingEnabled(sender.isOn))
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
