@@ -37,9 +37,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     var sections = [AppearanceSettingsSection]()
     
     fileprivate var theme = Theme.standard
-    //remove
-    var fontSliderViewController: FontSizeSliderViewController?
-    
+
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
     override open func viewDidLoad() {
@@ -88,7 +86,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
-            self.fontSliderViewController = vc
             vc.apply(theme: self.theme)
             var frame = view.frame
             frame.size.width = cell.frame.width
@@ -205,7 +202,5 @@ extension AppearanceSettingsViewController: Themeable {
         }
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
-        self.fontSliderViewController?.apply(theme: theme)
-
     }
 }

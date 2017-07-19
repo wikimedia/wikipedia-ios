@@ -1478,6 +1478,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         NSLog(@"Changing theme to %@", theme.name);
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
+        [self.settingsViewController reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
     }
 }
 
