@@ -106,7 +106,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
                 cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutoNightModeSwitchValueChange(_:)), for: .valueChanged)
             }
         } else {
-            cell.disclosureType = .viewController
+            cell.disclosureType = .none
         }
         
         return cell
@@ -117,6 +117,26 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return tableView.rowHeight
         }
         return item.view.frame.height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
+            return
+        }
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .checkmark
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
+            return
+        }
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .none
+        }
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
