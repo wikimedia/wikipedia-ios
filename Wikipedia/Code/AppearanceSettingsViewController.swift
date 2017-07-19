@@ -6,22 +6,12 @@ protocol AppearanceSettingsItem {
 
 struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
     let title: String?
-    //TODO: change types
-    // () -> Bool
-    // (Bool) -> Void
-    let switchChecker: Bool
-    let switchAction: Bool
 }
 
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let title: String?
     let themeName: String
     let checkmarkAction: () -> Void
-}
-
-struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
-    let title: String?
-    let buttonAction: () -> Void
 }
 
 struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
@@ -43,7 +33,6 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     
     var sections = [AppearanceSettingsSection]()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -52,7 +41,6 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         tableView.dataSource = self
         tableView.separatorStyle = .none
         sections = sectionsForAppearanceSettings()
-        print("sections counts: \(sections.count)")
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
@@ -60,7 +48,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming"), AppearanceSettingsSwitchItem(title: "Auto-night mode")])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
         
@@ -85,6 +73,9 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         cell.iconName = nil
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
+            var frame = view.frame
+            frame.size.width = cell.frame.width
+            view.frame = frame
             cell.contentView.addSubview(view)
         }
         

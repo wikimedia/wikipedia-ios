@@ -15,11 +15,11 @@ class FontSizeSliderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        if let max = self.maximumValue {
-            if let current = self.currentValue {
-                self.setValues(0, maximum: max, current: current)
-                self.maximumValue = nil
-                self.currentValue = nil
+        if let max = maximumValue {
+            if let current = currentValue {
+                setValues(0, maximum: max, current: current)
+                maximumValue = nil
+                currentValue = nil
             }
         }
     }
@@ -31,17 +31,17 @@ class FontSizeSliderViewController: UIViewController {
 
     func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
-            self.setValues(0, maximum: steps-1, current: current)
+            setValues(0, maximum: steps - 1, current: current)
         } else {
-            maximumValue = steps-1
+            maximumValue = steps - 1
             currentValue = current
         }
     }
     
     func setValues(_ minimum: Int, maximum: Int, current: Int){
-        self.slider.minimumValue = minimum
-        self.slider.maximumValue = maximum
-        self.slider.value = current
+        slider.minimumValue = minimum
+        slider.maximumValue = maximum
+        slider.value = current
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
