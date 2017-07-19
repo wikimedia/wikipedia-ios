@@ -1,4 +1,5 @@
 #import "WMFExploreCollectionViewCell.h"
+@import WMF.Swift;
 
 @class WMFAnnouncementCollectionViewCell;
 
@@ -10,14 +11,15 @@
 
 @end
 
-@interface WMFAnnouncementCollectionViewCell : WMFExploreCollectionViewCell
+@interface WMFAnnouncementCollectionViewCell : WMFExploreCollectionViewCell <WMFThemeable>
 
 @property (nonatomic, weak) id<WMFAnnouncementCollectionViewCellDelegate> delegate;
 
 - (void)setImageURL:(NSURL *)imageURL;
 - (void)setMessageText:(NSString *)text;
 - (void)setActionText:(NSString *)text;
-- (void)setCaption:(NSAttributedString *)text;
+
+@property (nonatomic, copy) NSAttributedString *caption;
 
 + (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage;
 

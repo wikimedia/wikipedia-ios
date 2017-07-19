@@ -1207,6 +1207,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [cell setMessageText:announcement.text];
     [cell setActionText:announcement.actionTitle];
     [cell setCaption:announcement.caption];
+    [cell applyTheme:self.theme];
     cell.delegate = self;
 }
 
