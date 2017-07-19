@@ -5,10 +5,10 @@ wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
 wmf.findInPage = require('./js/findInPage')
-wmf.footerReadMore = require('./js/transforms/footerReadMore')
-wmf.footerMenu = require('./js/transforms/footerMenu')
-wmf.footerLegal = require('./js/transforms/footerLegal')
-wmf.footerContainer = require('./js/transforms/footerContainer')
+wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
+wmf.footerMenu = require('wikimedia-page-library').FooterMenu
+wmf.footerLegal = require('wikimedia-page-library').FooterLegal
+wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
@@ -17,7 +17,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/footerContainer":8,"./js/transforms/footerLegal":9,"./js/transforms/footerMenu":10,"./js/transforms/footerReadMore":11,"./js/transforms/relocateFirstParagraph":12,"./js/transforms/widenImages":13,"./js/utilities":14,"wikimedia-page-library":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -146,7 +146,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":14,"wikimedia-page-library":15}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":10,"wikimedia-page-library":11}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -472,7 +472,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":15}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":11}],7:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -499,401 +499,6 @@ function disableFilePageEdit( content ) {
 
 exports.disableFilePageEdit = disableFilePageEdit
 },{}],8:[function(require,module,exports){
-function updateBottomPaddingToAllowReadMoreToScrollToTop() {
-  var div = document.getElementById('footer_container_ensure_can_scroll_to_top')
-  var currentPadding = parseInt(div.style.paddingBottom)
-  if (isNaN(currentPadding)) {currentPadding = 0}
-  var height = div.clientHeight - currentPadding
-  var newPadding = Math.max(0, window.innerHeight - height)
-  div.style.paddingBottom = `${newPadding}px`
-}
-
-function updateLeftAndRightMargin(margin) {
-  Array.from(document.querySelectorAll('#footer_container_menu_heading, #footer_container_readmore, #footer_container_legal'))
-      .forEach(function(element) {
-        element.style.marginLeft = `${margin}px`
-        element.style.marginRight = `${margin}px`
-      })
-  var rightOrLeft = document.querySelector( 'html' ).dir == 'rtl' ? 'right' : 'left'
-  Array.from(document.querySelectorAll('.footer_menu_item'))
-        .forEach(function(element) {
-          element.style.backgroundPosition = `${rightOrLeft} ${margin}px center`
-          element.style.paddingLeft = `${margin}px`
-          element.style.paddingRight = `${margin}px`
-        })
-}
-
-exports.updateBottomPaddingToAllowReadMoreToScrollToTop = updateBottomPaddingToAllowReadMoreToScrollToTop
-exports.updateLeftAndRightMargin = updateLeftAndRightMargin
-},{}],9:[function(require,module,exports){
-
-function add(licenseString, licenseSubstitutionString, containerID, licenceLinkClickHandler) {
-  var container = document.getElementById(containerID)
-  var licenseStringHalves = licenseString.split('$1')
-
-
-  container.innerHTML =
-  `<div class='footer_legal_contents'>
-    <hr class='footer_legal_divider'>
-    <span class='footer_legal_licence'>
-      ${licenseStringHalves[0]}
-      <a class='footer_legal_licence_link'>
-        ${licenseSubstitutionString}
-      </a>
-      ${licenseStringHalves[1]}
-    </span>
-  </div>`
-
-  container.querySelector('.footer_legal_licence_link')
-           .addEventListener('click', function(){
-             licenceLinkClickHandler()
-           }, false)
-}
-
-exports.add = add
-},{}],10:[function(require,module,exports){
-
-function pageIssuesStringsArray() {
-  const tables = document.querySelectorAll( 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)' )
-  // Get the tables into a fragment so we can remove some elements without triggering a layout
-  var fragment = document.createDocumentFragment()
-  for (var i = 0; i < tables.length; i++) {
-    fragment.appendChild(tables[i].cloneNode(true))
-  }
-  // Remove some element so their text doesn't appear when we use "innerText"
-  Array.from(fragment.querySelectorAll( '.hide-when-compact, .collapsed' )).forEach(el => el.remove())
-  // Get the innerText
-  return Array.from(fragment.querySelectorAll( 'td[class$=mbox-text]' )).map(el => el.innerText)
-}
-
-function disambiguationTitlesArray() {
-  return Array.from(document.querySelectorAll('div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])')).map(el => el.href)
-}
-
-var MenuItemType = {
-  languages: 1,
-  lastEdited: 2,
-  pageIssues: 3,
-  disambiguation: 4,
-  coordinate: 5
-}
-
-class WMFMenuItem {
-  constructor(title, subtitle, itemType, clickHandler) {
-    this.title = title
-    this.subtitle = subtitle
-    this.itemType = itemType
-    this.clickHandler = clickHandler
-    this.payload = []
-  }
-  iconClass(){
-    switch(this.itemType){
-    case MenuItemType.languages:
-      return 'footer_menu_icon_languages'
-    case MenuItemType.lastEdited:
-      return 'footer_menu_icon_last_edited'
-    case MenuItemType.pageIssues:
-      return 'footer_menu_icon_page_issues'
-    case MenuItemType.disambiguation:
-      return 'footer_menu_icon_disambiguation'
-    case MenuItemType.coordinate:
-      return 'footer_menu_icon_coordinate'
-    }
-  }
-  payloadExtractor(){
-    switch(this.itemType){
-    case MenuItemType.languages:
-      return null
-    case MenuItemType.lastEdited:
-      return null
-    case MenuItemType.pageIssues:
-      return pageIssuesStringsArray
-    case MenuItemType.disambiguation:
-      return disambiguationTitlesArray
-    case MenuItemType.coordinate:
-      return null
-    }
-  }
-}
-
-class WMFMenuItemFragment {
-  constructor(wmfMenuItem) {
-    var item = document.createElement('div')
-    item.className = 'footer_menu_item'
-
-    var containerAnchor = document.createElement('a')
-    containerAnchor.addEventListener('click', function(){
-      wmfMenuItem.clickHandler(wmfMenuItem.payload)
-    }, false)
-
-    item.appendChild(containerAnchor)
-
-    if(wmfMenuItem.title){
-      var title = document.createElement('div')
-      title.className = 'footer_menu_item_title'
-      title.innerText = wmfMenuItem.title
-      containerAnchor.title = wmfMenuItem.title
-      containerAnchor.appendChild(title)
-    }
-
-    if(wmfMenuItem.subtitle){
-      var subtitle = document.createElement('div')
-      subtitle.className = 'footer_menu_item_subtitle'
-      subtitle.innerText = wmfMenuItem.subtitle
-      containerAnchor.appendChild(subtitle)
-    }
-
-    var iconClass = wmfMenuItem.iconClass()
-    if(iconClass){
-      item.classList.add(iconClass)
-    }
-
-    return document.createDocumentFragment().appendChild(item)
-  }
-}
-
-function maybeAddItem(title, subtitle, itemType, containerID, clickHandler) {
-  const item = new WMFMenuItem(title, subtitle, itemType, clickHandler)
-
-  // Items are not added if they have a payload extractor which fails to extract anything.
-  if (item.payloadExtractor() !== null){
-    item.payload = item.payloadExtractor()()
-    if(item.payload.length === 0){
-      return
-    }
-  }
-
-  addItem(item, containerID)
-}
-
-function addItem(wmfMenuItem, containerID) {
-  const fragment = new WMFMenuItemFragment(wmfMenuItem)
-  document.getElementById(containerID).appendChild(fragment)
-}
-
-function setHeading(headingString, headingID) {
-  const headingElement = document.getElementById(headingID)
-  headingElement.innerText = headingString
-  headingElement.title = headingString
-}
-
-exports.MenuItemType = MenuItemType
-exports.setHeading = setHeading
-exports.maybeAddItem = maybeAddItem
-},{}],11:[function(require,module,exports){
-
-var _saveButtonClickHandler = null
-var _titlesShownHandler = null
-var _saveForLaterString = null
-var _savedForLaterString = null
-var _saveButtonIDPrefix = 'readmore:save:'
-var _readMoreContainer = null
-
-var shownTitles = []
-
-function safelyRemoveEnclosures(string, opener, closer) {
-  const enclosureRegex = new RegExp(`\\s?[${opener}][^${opener}${closer}]+[${closer}]`, 'g')
-  var previousString = null
-  var counter = 0
-  const safeMaxTries = 30
-  do {
-    previousString = string
-    string = string.replace(enclosureRegex, '')
-    counter++
-  } while (previousString !== string && counter < safeMaxTries)
-  return string
-}
-
-function cleanExtract(string){
-  string = safelyRemoveEnclosures(string, '(', ')')
-  string = safelyRemoveEnclosures(string, '/', '/')
-  return string
-}
-
-class WMFPage {
-  constructor(title, thumbnail, terms, extract) {
-    this.title = title
-    this.thumbnail = thumbnail
-    this.terms = terms
-    this.extract = extract
-  }
-}
-
-class WMFPageFragment {
-  constructor(wmfPage, index) {
-
-    var outerAnchorContainer = document.createElement('a')
-    outerAnchorContainer.id = index
-    outerAnchorContainer.className = 'footer_readmore_page'
-
-    var hasImage = wmfPage.thumbnail && wmfPage.thumbnail.source
-    if(hasImage){
-      var image = document.createElement('div')
-      image.style.backgroundImage = `url(${wmfPage.thumbnail.source})`
-      image.classList.add('footer_readmore_page_image')
-      outerAnchorContainer.appendChild(image)
-    }
-
-    var innerDivContainer = document.createElement('div')
-    innerDivContainer.classList.add('footer_readmore_page_container')
-    outerAnchorContainer.appendChild(innerDivContainer)
-    outerAnchorContainer.href = `/wiki/${encodeURI(wmfPage.title)}`
-
-    if(wmfPage.title){
-      var title = document.createElement('div')
-      title.id = index
-      title.className = 'footer_readmore_page_title'
-      var displayTitle = wmfPage.title.replace(/_/g, ' ')
-      title.innerHTML = displayTitle
-      outerAnchorContainer.title = displayTitle
-      innerDivContainer.appendChild(title)
-    }
-
-    var description = null
-    if(wmfPage.terms){
-      description = wmfPage.terms.description[0]
-    }
-    if((description === null || description.length < 10) && wmfPage.extract){
-      description = cleanExtract(wmfPage.extract)
-    }
-    if(description){
-      var descriptionEl = document.createElement('div')
-      descriptionEl.id = index
-      descriptionEl.className = 'footer_readmore_page_description'
-      descriptionEl.innerHTML = description
-      innerDivContainer.appendChild(descriptionEl)
-    }
-
-    var saveButton = document.createElement('div')
-    saveButton.id = `${_saveButtonIDPrefix}${encodeURI(wmfPage.title)}`
-    saveButton.innerText = _saveForLaterString
-    saveButton.title = _saveForLaterString
-    saveButton.className = 'footer_readmore_page_save'
-    saveButton.addEventListener('click', function(event){
-      event.stopPropagation()
-      event.preventDefault()
-      _saveButtonClickHandler(wmfPage.title)
-    }, false)
-    innerDivContainer.appendChild(saveButton)
-
-    return document.createDocumentFragment().appendChild(outerAnchorContainer)
-  }
-}
-
-function showReadMore(pages){
-  shownTitles.length = 0
-
-  pages.forEach(function(page, index){
-
-    const title = page.title.replace(/ /g, '_')
-    shownTitles.push(title)
-
-    const pageModel = new WMFPage(title, page.thumbnail, page.terms, page.extract)
-    const pageFragment = new WMFPageFragment(pageModel, index)
-    _readMoreContainer.appendChild(pageFragment)
-  })
-
-  _titlesShownHandler(shownTitles)
-}
-
-// Leave 'baseURL' null if you don't need to deal with proxying.
-function fetchReadMore(baseURL, title, showReadMoreHandler) {
-  var xhr = new XMLHttpRequest()
-  if (baseURL === null) {
-    baseURL = ''
-  }
-
-  const pageCountToFetch = 3
-  const params = {
-    action: 'query',
-    continue: '',
-    exchars: 256,
-    exintro: 1,
-    exlimit: pageCountToFetch,
-    explaintext: '',
-    format: 'json',
-    generator: 'search',
-    gsrinfo: '',
-    gsrlimit: pageCountToFetch,
-    gsrnamespace: 0,
-    gsroffset: 0,
-    gsrprop: 'redirecttitle',
-    gsrsearch: `morelike:${title}`,
-    gsrwhat: 'text',
-    ns: 'ppprop',
-    pilimit: pageCountToFetch,
-    piprop: 'thumbnail',
-    pithumbsize: 120,
-    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
-    rrvlimit: 1,
-    rvprop: 'ids',
-    wbptterms: 'description',
-    formatversion: 2
-  }
-
-  const paramsString = Object.keys(params)
-      .map(function(key){
-        return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
-      })
-      .join('&')
-
-  xhr.open('GET', `${baseURL}/w/api.php?${paramsString}`, true)
-  xhr.onload = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        showReadMoreHandler(JSON.parse(xhr.responseText).query.pages)
-      } else {
-          // console.error(xhr.statusText);
-      }
-    }
-  }
-    /*
-    xhr.onerror = function(e) {
-      console.log(`${e}`);
-      // console.error(xhr.statusText);
-    }
-    */
-  xhr.send(null)
-}
-
-function updateSaveButtonText(button, title, isSaved){
-  const text = isSaved ? _savedForLaterString : _saveForLaterString
-  button.innerText = text
-  button.title = text
-}
-
-function updateSaveButtonBookmarkIcon(button, title, isSaved){
-  button.classList.remove('footer_readmore_bookmark_unfilled')
-  button.classList.remove('footer_readmore_bookmark_filled')
-  button.classList.add(isSaved ? 'footer_readmore_bookmark_filled' : 'footer_readmore_bookmark_unfilled')
-}
-
-function setTitleIsSaved(title, isSaved){
-  const saveButton = document.getElementById(`${_saveButtonIDPrefix}${title}`)
-  updateSaveButtonText(saveButton, title, isSaved)
-  updateSaveButtonBookmarkIcon(saveButton, title, isSaved)
-}
-
-function add(baseURL, title, saveForLaterString, savedForLaterString, containerID, saveButtonClickHandler, titlesShownHandler) {
-  _readMoreContainer = document.getElementById(containerID)
-  _saveButtonClickHandler = saveButtonClickHandler
-  _titlesShownHandler = titlesShownHandler
-  _saveForLaterString = saveForLaterString
-  _savedForLaterString = savedForLaterString
-
-  fetchReadMore(baseURL, title, showReadMore)
-}
-
-function setHeading(headingString, headingID) {
-  const headingElement = document.getElementById(headingID)
-  headingElement.innerText = headingString
-  headingElement.title = headingString
-}
-
-exports.setHeading = setHeading
-exports.setTitleIsSaved = setTitleIsSaved
-exports.add = add
-},{}],12:[function(require,module,exports){
 
 function moveFirstGoodParagraphUp( content ) {
     /*
@@ -974,7 +579,7 @@ function moveFirstGoodParagraphUp( content ) {
 }
 
 exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],13:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -991,7 +596,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":15}],14:[function(require,module,exports){
+},{"wikimedia-page-library":11}],10:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -1033,7 +638,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],15:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1695,6 +1300,636 @@ var ElementGeometry = function () {
   }]);
   return ElementGeometry;
 }();
+
+/**
+ * Ensures the 'Read more' section header can always be scrolled to the top of the screen.
+ * @param {!Window} window
+ * @return {void}
+ */
+var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddingToAllowReadMoreToScrollToTop(window) {
+  var div = window.document.getElementById('pagelib_footer_container_ensure_can_scroll_to_top');
+  var currentPadding = parseInt(div.style.paddingBottom, 10) || 0;
+  var height = div.clientHeight - currentPadding;
+  var newPadding = Math.max(0, window.innerHeight - height);
+  div.style.paddingBottom = newPadding + 'px';
+};
+
+/**
+ * Allows native code to adjust footer container margins without having to worry about
+ * implementation details.
+ * @param {!number} margin
+ * @param {!Document} document
+ * @return {void}
+ */
+var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
+  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
+  elements.forEach(function (element) {
+    element.style.marginLeft = margin + 'px';
+    element.style.marginRight = margin + 'px';
+  });
+  var rightOrLeft = document.querySelector('html').dir === 'rtl' ? 'right' : 'left';
+  Polyfill.querySelectorAll(document, '.pagelib_footer_menu_item').forEach(function (element) {
+    element.style.backgroundPosition = rightOrLeft + ' ' + margin + 'px center';
+    element.style.paddingLeft = margin + 'px';
+    element.style.paddingRight = margin + 'px';
+  });
+};
+
+/**
+ * Returns a fragment containing structural footer html which may be inserted where needed.
+ * @param {!Document} document
+ * @return {!DocumentFragment}
+ */
+var containerFragment = function containerFragment(document) {
+  var containerDiv = document.createElement('div');
+  var containerFragment = document.createDocumentFragment();
+  containerFragment.appendChild(containerDiv);
+  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div \n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
+  return containerFragment;
+};
+
+/**
+ * Indicates whether container is has already been added.
+ * @param {!Document} document
+ * @return {boolean}
+ */
+var isContainerAttached = function isContainerAttached(document) {
+  return Boolean(document.querySelector('#pagelib_footer_container'));
+};
+
+var FooterContainer = {
+  containerFragment: containerFragment,
+  isContainerAttached: isContainerAttached,
+  updateBottomPaddingToAllowReadMoreToScrollToTop: updateBottomPaddingToAllowReadMoreToScrollToTop,
+  updateLeftAndRightMargin: updateLeftAndRightMargin
+};
+
+/**
+ * @typedef {function} FooterLegalClickCallback
+ * @return {void}
+ */
+
+/**
+ * Adds legal footer html to 'containerID' element.
+ * @param {!Element} content
+ * @param {?string} licenseString
+ * @param {?string} licenseSubstitutionString
+ * @param {!string} containerID
+ * @param {?FooterLegalClickCallback} licenseLinkClickHandler
+ * @return {void}
+ */
+var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
+  var container = content.querySelector('#' + containerID);
+  var licenseStringHalves = licenseString.split('$1');
+
+  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
+
+  container.querySelector('.pagelib_footer_legal_license_link').addEventListener('click', function () {
+    licenseLinkClickHandler();
+  });
+};
+
+var FooterLegal = {
+  add: add
+};
+
+/**
+ * @typedef {function} FooterMenuItemPayloadExtractor
+ * @param {!Document} document
+ * @return {!Array.<string>} Important - should return empty array if no payload strings.
+ */
+
+/**
+ * @typedef {function} FooterMenuItemClickCallback
+ * @param {!Array.<string>} payload Important - should return empty array if no payload strings.
+ * @return {void}
+ */
+
+/**
+ * @typedef {number} MenuItemType
+ */
+
+// eslint-disable-next-line valid-jsdoc
+/**
+ * Extracts array of no-html page issues strings from document.
+ * @type {FooterMenuItemPayloadExtractor}
+ */
+var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
+  var tables = Polyfill.querySelectorAll(document, 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
+  // Get the tables into a fragment so we can remove some elements without triggering a layout
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < tables.length; i++) {
+    fragment.appendChild(tables[i].cloneNode(true));
+  }
+  // Remove some element so their text doesn't appear when we use "innerText"
+  Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed').forEach(function (el) {
+    return el.remove();
+  });
+  // Get the innerText
+  return Polyfill.querySelectorAll(fragment, 'td[class$=mbox-text]').map(function (el) {
+    return el.innerText;
+  });
+};
+
+// eslint-disable-next-line valid-jsdoc
+/**
+ * Extracts array of disambiguation page urls from document.
+ * @type {FooterMenuItemPayloadExtractor}
+ */
+var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
+  return Polyfill.querySelectorAll(document, 'div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])').map(function (el) {
+    return el.href;
+  });
+};
+
+/**
+ * Type representing kinds of menu items.
+ * @enum {MenuItemType}
+ */
+var MenuItemType = {
+  languages: 1,
+  lastEdited: 2,
+  pageIssues: 3,
+  disambiguation: 4,
+  coordinate: 5
+
+  /**
+   * Menu item model.
+   */
+};
+var MenuItem = function () {
+  /**
+   * MenuItem constructor.
+   * @param {!string} title
+   * @param {?string} subtitle
+   * @param {!MenuItemType} itemType
+   * @param {FooterMenuItemClickCallback} clickHandler
+   * @return {void}
+   */
+  function MenuItem(title, subtitle, itemType, clickHandler) {
+    classCallCheck(this, MenuItem);
+
+    this.title = title;
+    this.subtitle = subtitle;
+    this.itemType = itemType;
+    this.clickHandler = clickHandler;
+    this.payload = [];
+  }
+
+  /**
+   * Returns icon CSS class for this menu item based on its type.
+   * @return {!string}
+   */
+
+
+  createClass(MenuItem, [{
+    key: 'iconClass',
+    value: function iconClass() {
+      switch (this.itemType) {
+        case MenuItemType.languages:
+          return 'pagelib_footer_menu_icon_languages';
+        case MenuItemType.lastEdited:
+          return 'pagelib_footer_menu_icon_last_edited';
+        case MenuItemType.pageIssues:
+          return 'pagelib_footer_menu_icon_page_issues';
+        case MenuItemType.disambiguation:
+          return 'pagelib_footer_menu_icon_disambiguation';
+        case MenuItemType.coordinate:
+          return 'pagelib_footer_menu_icon_coordinate';
+        default:
+          return '';
+      }
+    }
+
+    /**
+     * Returns reference to function for extracting payload when this menu item is tapped.
+     * @return {?FooterMenuItemPayloadExtractor}
+     */
+
+  }, {
+    key: 'payloadExtractor',
+    value: function payloadExtractor() {
+      switch (this.itemType) {
+        case MenuItemType.pageIssues:
+          return pageIssuesStringsArray;
+        case MenuItemType.disambiguation:
+          return disambiguationTitlesArray;
+        default:
+          return undefined;
+      }
+    }
+  }]);
+  return MenuItem;
+}();
+
+/**
+ * Makes document fragment for a menu item.
+ * @param {!MenuItem} menuItem
+ * @param {!Document} document
+ * @return {!DocumentFragment}
+ */
+
+
+var documentFragmentForMenuItem = function documentFragmentForMenuItem(menuItem, document) {
+  var item = document.createElement('div');
+  item.className = 'pagelib_footer_menu_item';
+
+  var containerAnchor = document.createElement('a');
+  containerAnchor.addEventListener('click', function () {
+    menuItem.clickHandler(menuItem.payload);
+  });
+
+  item.appendChild(containerAnchor);
+
+  if (menuItem.title) {
+    var title = document.createElement('div');
+    title.className = 'pagelib_footer_menu_item_title';
+    title.innerText = menuItem.title;
+    containerAnchor.title = menuItem.title;
+    containerAnchor.appendChild(title);
+  }
+
+  if (menuItem.subtitle) {
+    var subtitle = document.createElement('div');
+    subtitle.className = 'pagelib_footer_menu_item_subtitle';
+    subtitle.innerText = menuItem.subtitle;
+    containerAnchor.appendChild(subtitle);
+  }
+
+  var iconClass = menuItem.iconClass();
+  if (iconClass) {
+    item.classList.add(iconClass);
+  }
+
+  return document.createDocumentFragment().appendChild(item);
+};
+
+/**
+ * Adds a MenuItem to a container.
+ * @param {!MenuItem} menuItem
+ * @param {!string} containerID
+ * @param {!Document} document
+ * @return {void}
+ */
+var addItem = function addItem(menuItem, containerID, document) {
+  document.getElementById(containerID).appendChild(documentFragmentForMenuItem(menuItem, document));
+};
+
+/**
+ * Conditionally adds a MenuItem to a container.
+ * @param {!string} title
+ * @param {!string} subtitle
+ * @param {!MenuItemType} itemType
+ * @param {!string} containerID
+ * @param {FooterMenuItemClickCallback} clickHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID, clickHandler, document) {
+  var item = new MenuItem(title, subtitle, itemType, clickHandler);
+
+  // Items are not added if they have a payload extractor which fails to extract anything.
+  var extractor = item.payloadExtractor();
+  if (extractor) {
+    item.payload = extractor(document);
+    if (item.payload.length === 0) {
+      return;
+    }
+  }
+
+  addItem(item, containerID, document);
+};
+
+/**
+ * Sets heading element string.
+ * @param {!string} headingString
+ * @param {!string} headingID
+ * @param {!Document} document
+ * @return {void}
+ */
+var setHeading = function setHeading(headingString, headingID, document) {
+  var headingElement = document.getElementById(headingID);
+  headingElement.innerText = headingString;
+  headingElement.title = headingString;
+};
+
+var FooterMenu = {
+  MenuItemType: MenuItemType,
+  setHeading: setHeading,
+  maybeAddItem: maybeAddItem
+};
+
+/**
+ * @typedef {function} SaveButtonClickHandler
+ * @param {!string} title
+ * @return {void}
+ */
+
+/**
+ * @typedef {function} TitlesShownHandler
+ * @param {!Array.<string>} titles
+ * @return {void}
+ */
+
+/**
+ * Display fetched read more pages.
+ * @typedef {function} ShownReadMorePagesHandler
+ * @param {!Array.<object>} pages
+ * @param {!string} containerID
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+
+var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
+
+/**
+ * Removes parenthetical enclosures from string. 
+ * @param {!string} string
+ * @param {!string} opener
+ * @param {!string} closer
+ * @return {!string}
+ */
+var safelyRemoveEnclosures = function safelyRemoveEnclosures(string, opener, closer) {
+  var enclosureRegex = new RegExp('\\s?[' + opener + '][^' + opener + closer + ']+[' + closer + ']', 'g');
+  var counter = 0;
+  var safeMaxTries = 30;
+  var stringToClean = string;
+  var previousString = '';
+  do {
+    previousString = stringToClean;
+    stringToClean = stringToClean.replace(enclosureRegex, '');
+    counter++;
+  } while (previousString !== stringToClean && counter < safeMaxTries);
+  return stringToClean;
+};
+
+/**
+ * Removes '(...)' and '/.../' parenthetical enclosures from string. 
+ * @param {!string} string
+ * @return {!string}
+ */
+var cleanExtract = function cleanExtract(string) {
+  var stringToClean = string;
+  stringToClean = safelyRemoveEnclosures(stringToClean, '(', ')');
+  stringToClean = safelyRemoveEnclosures(stringToClean, '/', '/');
+  return stringToClean;
+};
+
+/**
+ * Read more page model.
+ */
+
+var ReadMorePage =
+/**
+ * ReadMorePage constructor.
+ * @param {!string} title
+ * @param {?string} thumbnail
+ * @param {?object} terms
+ * @param {?string} extract
+ * @return {void}
+ */
+function ReadMorePage(title, thumbnail, terms, extract) {
+  classCallCheck(this, ReadMorePage);
+
+  this.title = title;
+  this.thumbnail = thumbnail;
+  this.terms = terms;
+  this.extract = extract;
+};
+
+/**
+ * Makes document fragment for a read more page.
+ * @param {!ReadMorePage} readMorePage
+ * @param {!number} index
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!Document} document
+ * @return {!DocumentFragment}
+ */
+
+
+var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(readMorePage, index, saveButtonClickHandler, document) {
+  var outerAnchorContainer = document.createElement('a');
+  outerAnchorContainer.id = index;
+  outerAnchorContainer.className = 'pagelib_footer_readmore_page';
+
+  var hasImage = readMorePage.thumbnail && readMorePage.thumbnail.source;
+  if (hasImage) {
+    var image = document.createElement('div');
+    image.style.backgroundImage = 'url(' + readMorePage.thumbnail.source + ')';
+    image.classList.add('pagelib_footer_readmore_page_image');
+    outerAnchorContainer.appendChild(image);
+  }
+
+  var innerDivContainer = document.createElement('div');
+  innerDivContainer.classList.add('pagelib_footer_readmore_page_container');
+  outerAnchorContainer.appendChild(innerDivContainer);
+  outerAnchorContainer.href = '/wiki/' + encodeURI(readMorePage.title);
+
+  if (readMorePage.title) {
+    var title = document.createElement('div');
+    title.id = index;
+    title.className = 'pagelib_footer_readmore_page_title';
+    var displayTitle = readMorePage.title.replace(/_/g, ' ');
+    title.innerHTML = displayTitle;
+    outerAnchorContainer.title = displayTitle;
+    innerDivContainer.appendChild(title);
+  }
+
+  var description = void 0;
+  if (readMorePage.terms) {
+    description = readMorePage.terms.description[0];
+  }
+  if ((!description || description.length < 10) && readMorePage.extract) {
+    description = cleanExtract(readMorePage.extract);
+  }
+  if (description) {
+    var descriptionEl = document.createElement('div');
+    descriptionEl.id = index;
+    descriptionEl.className = 'pagelib_footer_readmore_page_description';
+    descriptionEl.innerHTML = description;
+    innerDivContainer.appendChild(descriptionEl);
+  }
+
+  var saveButton = document.createElement('div');
+  saveButton.id = '' + SAVE_BUTTON_ID_PREFIX + encodeURI(readMorePage.title);
+  saveButton.className = 'pagelib_footer_readmore_page_save';
+  saveButton.addEventListener('click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    saveButtonClickHandler(readMorePage.title);
+  });
+  innerDivContainer.appendChild(saveButton);
+
+  return document.createDocumentFragment().appendChild(outerAnchorContainer);
+};
+
+// eslint-disable-next-line valid-jsdoc
+/**
+ * @type {ShownReadMorePagesHandler}
+ */
+var showReadMorePages = function showReadMorePages(pages, containerID, saveButtonClickHandler, titlesShownHandler, document) {
+  var shownTitles = [];
+  var container = document.getElementById(containerID);
+  pages.forEach(function (page, index) {
+    var title = page.title.replace(/ /g, '_');
+    shownTitles.push(title);
+    var pageModel = new ReadMorePage(title, page.thumbnail, page.terms, page.extract);
+    var pageFragment = documentFragmentForReadMorePage(pageModel, index, saveButtonClickHandler, document);
+    container.appendChild(pageFragment);
+  });
+  titlesShownHandler(shownTitles);
+};
+
+/**
+ * Makes 'Read more' query parameters object for a title.
+ * @param {!string} title
+ * @param {!number} count
+ * @return {!object}
+ */
+var queryParameters = function queryParameters(title, count) {
+  return {
+    action: 'query',
+    continue: '',
+    exchars: 256,
+    exintro: 1,
+    exlimit: count,
+    explaintext: '',
+    format: 'json',
+    generator: 'search',
+    gsrinfo: '',
+    gsrlimit: count,
+    gsrnamespace: 0,
+    gsroffset: 0,
+    gsrprop: 'redirecttitle',
+    gsrsearch: 'morelike:' + title,
+    gsrwhat: 'text',
+    ns: 'ppprop',
+    pilimit: count,
+    piprop: 'thumbnail',
+    pithumbsize: 120,
+    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
+    rrvlimit: 1,
+    rvprop: 'ids',
+    wbptterms: 'description',
+    formatversion: 2
+  };
+};
+
+/**
+ * Converts query parameter object to string.
+ * @param {!object} parameters
+ * @return {!string}
+ */
+var stringFromQueryParameters = function stringFromQueryParameters(parameters) {
+  return Object.keys(parameters).map(function (key) {
+    return encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]);
+  }).join('&');
+};
+
+/**
+ * URL for retrieving 'Read more' pages for a given title.
+ * Leave 'baseURL' null if you don't need to deal with proxying.
+ * @param {!string} title
+ * @param {!number} count Number of `Read more` items to fetch for this title
+ * @param {?string} baseURL
+ * @return {!sring}
+ */
+var readMoreQueryURL = function readMoreQueryURL(title, count, baseURL) {
+  return (baseURL || '') + '/w/api.php?' + stringFromQueryParameters(queryParameters(title, count));
+};
+
+/**
+ * Fetch error handler.
+ * @param {!string} statusText
+ * @return {void}
+ */
+var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
+  var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+  xhr.open('GET', readMoreQueryURL(title, count, baseURL), true);
+  xhr.onload = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      // eslint-disable-line no-undef
+      if (xhr.status === 200) {
+        showReadMorePagesHandler(JSON.parse(xhr.responseText).query.pages, containerID, saveButtonClickHandler, titlesShownHandler, document);
+      } else {
+        fetchErrorHandler(xhr.statusText);
+      }
+    }
+  };
+  xhr.onerror = function () {
+    return fetchErrorHandler(xhr.statusText);
+  };
+  xhr.send();
+};
+
+/**
+ * Updates save button bookmark icon for saved state.
+ * @param {!HTMLDivElement} button
+ * @param {!boolean} isSaved
+ * @return {void}
+ */
+var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button, isSaved) {
+  var unfilledClass = 'pagelib_footer_readmore_bookmark_unfilled';
+  var filledClass = 'pagelib_footer_readmore_bookmark_filled';
+  button.classList.remove(filledClass, unfilledClass);
+  button.classList.add(isSaved ? filledClass : unfilledClass);
+};
+
+/**
+ * Updates save button text and bookmark icon for saved state.
+ * @param {!string} title
+ * @param {!string} text
+ * @param {!boolean} isSaved
+ * @param {!Document} document
+ * @return {void}
+*/
+var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
+  var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + title);
+  saveButton.innerText = text;
+  saveButton.title = text;
+  updateSaveButtonBookmarkIcon(saveButton, isSaved);
+};
+
+/**
+ * Adds 'Read more' for 'title' to 'containerID' element.
+ * Leave 'baseURL' null if you don't need to deal with proxying.
+ * @param {!string} title
+ * @param {!number} count
+ * @param {!string} containerID
+ * @param {?string} baseURL
+ * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+var add$1 = function add(title, count, containerID, baseURL, saveButtonClickHandler, titlesShownHandler, document) {
+  fetchReadMore(title, count, containerID, baseURL, showReadMorePages, saveButtonClickHandler, titlesShownHandler, document);
+};
+
+/**
+ * Sets heading element string.
+ * @param {!string} headingString
+ * @param {!string} headingID
+ * @param {!Document} document
+ * @return {void}
+ */
+var setHeading$1 = function setHeading(headingString, headingID, document) {
+  var headingElement = document.getElementById(headingID);
+  headingElement.innerText = headingString;
+  headingElement.title = headingString;
+};
+
+var FooterReadMore = {
+  add: add$1,
+  setHeading: setHeading$1,
+  updateSaveButtonForTitle: updateSaveButtonForTitle,
+  test: {
+    cleanExtract: cleanExtract,
+    safelyRemoveEnclosures: safelyRemoveEnclosures
+  }
+};
 
 // CSS classes used to identify and present lazily loaded images. Placeholders are members of
 // PLACEHOLDER_CLASS and one state class: pending, loading, or error. Images are members of either
@@ -2389,6 +2624,10 @@ var WidenImage = {
 var pagelib$1 = {
   CollapseTable: CollapseTable,
   CompatibilityTransform: CompatibilityTransform,
+  FooterContainer: FooterContainer,
+  FooterLegal: FooterLegal,
+  FooterMenu: FooterMenu,
+  FooterReadMore: FooterReadMore,
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
   RedLinks: RedLinks,
@@ -2408,4 +2647,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10]);

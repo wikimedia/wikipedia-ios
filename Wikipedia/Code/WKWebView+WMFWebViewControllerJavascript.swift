@@ -87,15 +87,23 @@ import WMF
             "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'footer_container_menu_items', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'pagelib_footer_container_menu_items', \(itemSelectionHandler), document);"
     }
 }
 
 extension WKWebView {
     
+    public func wmf_addFooterContainer() {
+        let footerContainerJS =
+        "if (window.wmf.footerContainer.isContainerAttached(document) === false) {" +
+            "document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))" +
+        "}"
+        evaluateJavaScript(footerContainerJS, completionHandler: nil)
+    }
+    
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'pagelib_footer_container_menu_heading', document);", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -117,7 +125,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
@@ -129,13 +137,10 @@ extension WKWebView {
             return
         }
         
-        evaluateJavaScript("window.addEventListener('resize', window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop);", completionHandler: nil)
+        evaluateJavaScript("window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)});", completionHandler: nil)
         
         let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
-
-        let saveForLaterString = CommonStrings.saveTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let savedForLaterString = CommonStrings.savedTitle(language:article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'pagelib_footer_container_readmore_heading', document);", completionHandler: nil)
 
         let saveButtonTapHandler =
         "function(title){" +
@@ -145,10 +150,11 @@ extension WKWebView {
         let titlesShownHandler =
         "function(titles){" +
             "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles);" +
-            "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop();" +
+            "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        let readMoreItemCount = 3
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
     
     public func wmf_enableCompatibilityTransformSupport(){
