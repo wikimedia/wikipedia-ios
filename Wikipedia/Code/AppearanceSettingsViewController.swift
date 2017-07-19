@@ -1,11 +1,11 @@
 import UIKit
 
 protocol AppearanceSettingsItem {
-    var title: String { get }
+    var title: String? { get }
 }
 
 struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
-    let title: String
+    let title: String?
     //TODO: change types
     // () -> Bool
     // (Bool) -> Void
@@ -14,7 +14,7 @@ struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
 }
 
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
-    let title: String
+    let title: String?
     //TODO: change types
     // () -> Bool
     // (Bool) -> Void
@@ -23,8 +23,13 @@ struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
 }
 
 struct AppearanceSettingsButtonItem: AppearanceSettingsItem {
-    let title: String
+    let title: String?
     let buttonAction: () -> Void
+}
+
+struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
+    let title: String?
+    let view: UIView
 }
 
 struct AppearanceSettingsSection {
@@ -57,9 +62,11 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Sepia", checkmarkChecker: false, checkmarkAction: false), AppearanceSettingsCheckmarkItem(title: "Dark", checkmarkChecker: false, checkmarkAction: false)])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am  ", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming", switchChecker: false, switchAction: false), AppearanceSettingsSwitchItem(title: "Auto-night mode", switchChecker: false, switchAction: false)])
         
-        return [readingThemesSection, themeOptionsSection]
+        let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, view: FontSizeSliderViewController().view)])
+        
+        return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,10 +82,14 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
             return UITableViewCell()
         }
         
-        let section = sections[indexPath.section]
+        
         let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem {
+            cell.contentView.addSubview(customViewItem.view)
+        }
         
         
         if let switchItem = item as? AppearanceSettingsSwitchItem {
@@ -99,6 +110,13 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
+            return tableView.rowHeight
+        }
+        return item.view.frame.height
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
@@ -123,7 +141,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
         //        if let th = header as Themeable? {
         //            th.apply(theme: theme)
         //        }
-        footer?.text = sections[section].footerText
+        footer?.setShortTextAsProse(sections[section].footerText)
         return footer
     }
     
