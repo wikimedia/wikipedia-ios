@@ -203,15 +203,15 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
 
-        // Setup search bar
+        // Setup search bars
+        let searchPlaceholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
-        titleViewSearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
-        
+        titleViewSearchBar.placeholder = searchPlaceholder
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        listAndSearchOverlaySearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
+        listAndSearchOverlaySearchBar.placeholder = searchPlaceholder
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
