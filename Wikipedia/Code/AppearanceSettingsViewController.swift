@@ -40,6 +40,19 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
 
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
+    static var disclosureText: String {
+        var text = "Default"
+        
+        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        if currentTheme == Theme.sepia {
+            text = "Sepia"
+        } else if currentTheme == Theme.dark {
+            text = "Dark"
+        }
+
+        return text
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
