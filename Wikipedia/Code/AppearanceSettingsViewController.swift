@@ -70,7 +70,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming"), AppearanceSettingsSwitchItem(title: "Auto-night mode")])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming")])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
         
@@ -106,19 +106,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.contentView.addSubview(view)
         }
         
-        if let switchItem = item as? AppearanceSettingsSwitchItem {
+        if item is AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
-            // disable until implemented
             cell.disclosureSwitch.isEnabled = false
-            if switchItem.title == "Image dimming" {
-                //TODO: get a real icon
-                cell.iconName = "settings-notifications"
-                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
-            } else {
-                //TODO: get a real icon
-                cell.iconName = "settings-notifications"
-                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutoNightModeSwitchValueChange(_:)), for: .valueChanged)
-            }
+            cell.iconName = "settings-notifications"
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
         } else {
             cell.disclosureType = .none
         }
@@ -162,9 +154,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
-    }
-    
-    func handleAutoNightModeSwitchValueChange(_ sender: UISwitch) {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
