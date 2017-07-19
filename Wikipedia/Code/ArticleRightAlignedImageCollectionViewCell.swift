@@ -55,8 +55,9 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         }
         origin.y += margins.bottom
         
-        if (apply) {
-            separator.frame = CGRect(x: 0, y: origin.y - 0.5, width: size.width, height: 0.5)
+        if (apply && !separator.isHidden) {
+            let singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+            separator.frame = CGRect(x: 0, y: origin.y - singlePixelDimension, width: size.width, height: singlePixelDimension)
         }
         
         let height = isImageViewHidden ? origin.y : max(origin.y, imageViewDimension + margins.top + margins.bottom)
