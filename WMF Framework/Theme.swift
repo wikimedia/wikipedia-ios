@@ -20,6 +20,7 @@ public extension UIColor {
     fileprivate static let base10 = UIColor(0x222222)
     fileprivate static let base20 = UIColor(0x54595D)
     fileprivate static let base30 = UIColor(0x72777D)
+    fileprivate static let base50 = UIColor(0xA2A9B1)
     fileprivate static let base70 = UIColor(0xC8CCD1)
     fileprivate static let base80 = UIColor(0xEAECF0)
     fileprivate static let base90 = UIColor(0xF8F9FA)
@@ -35,11 +36,8 @@ public extension UIColor {
     fileprivate static let stratosphere = UIColor(0x6699FF)
     fileprivate static let exosphere = UIColor(0x27292D)
     fileprivate static let accent = UIColor(0x00AF89)
-    fileprivate static let battleshipGray = UIColor(0x72777D)
-    fileprivate static let x555555 = UIColor(0x555555)
     fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
-    
     fileprivate static let amate = UIColor(0xE1DAD1)
     fileprivate static let parchment = UIColor(0xF8F1E3)
     fileprivate static let masi = UIColor(0x646059)
@@ -47,27 +45,27 @@ public extension UIColor {
     fileprivate static let kraft = UIColor(0xCBC8C1)
     fileprivate static let osage = UIColor(0xFF9500)
     
-    public static let wmf_baseBackground = UIColor(0xEFEFF4)
-    public static let wmf_midBackground = UIColor(0xF8F9FA)
-    public static let wmf_white = UIColor(0xFFFFFF)
-    public static let wmf_black = UIColor(0x000000)
-    public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
-    public static let wmf_lightGray = UIColor(0x9AA0A7)
-    public static let wmf_midGray = UIColor(0x555555)
     public static let wmf_darkGray = UIColor(0x4D4D4B)
-    public static let wmf_blue = UIColor(0x3366CC)
-    public static let wmf_green = UIColor(0x00AF89)
-    public static let wmf_darkBlue = UIColor(0x2A4B8D)
-    public static let wmf_red = UIColor(0xCC3333)
+    public static let wmf_lightGray = UIColor(0x9AA0A7)
+    public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
+
+    public static let wmf_darkBlue = UIColor.blue10
+    public static let wmf_blue = UIColor.blue50
+    public static let wmf_lightBlue = UIColor(0xEAF3FF)
+
+    public static let wmf_green = UIColor.green50
+    public static let wmf_lightGreen = UIColor(0xD5FDF4)
+
+    public static let wmf_red = UIColor.red50
     public static let wmf_lightRed = UIColor(0xFFE7E6)
-    public static let wmf_yellow = UIColor(0xFFCC33)
+    
+    public static let wmf_yellow = UIColor.yellow50
     public static let wmf_lightYellow = UIColor(0xFEF6E7)
+    
     public static let wmf_orange = UIColor(0xFF5B00)
+    
     public static let wmf_purple = UIColor(0x7F4AB3)
     public static let wmf_lightPurple = UIColor(0xF3E6FF)
-    public static let wmf_lightBlue = UIColor(0xEAF3FF)
-    public static let wmf_lightGreen = UIColor(0xD5FDF4)
-    public static let wmf_777777 = UIColor(0x777777)
 
     public func wmf_hexStringIncludingAlpha(_ includeAlpha: Bool) -> String {
         var r: CGFloat = 0
@@ -87,15 +85,16 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100, subCellBackground: .base100, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, primaryText: .base10, secondaryText: .masi, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, subCellBackground: .papyrus, primaryText: .base10, secondaryText: .masi, tertiaryText: .base70, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, subCellBackground: .exosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
     
     
     public let baseBackground: UIColor
     public let midBackground: UIColor
+    public let subCellBackground: UIColor
     public let paperBackground: UIColor
     public let chromeBackground: UIColor
     
@@ -111,7 +110,8 @@ public class Colors: NSObject {
     public let destructive: UIColor
     public let warning: UIColor
     public let error: UIColor
-    
+    public let unselected: UIColor
+
     public let border: UIColor
     public let shadow: UIColor
     
@@ -121,9 +121,10 @@ public class Colors: NSObject {
     public let linkToAccent: Gradient
     
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, subCellBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
+        self.subCellBackground = subCellBackground
         self.paperBackground = paperBackground
         self.chromeBackground = chromeBackground
         
@@ -148,6 +149,7 @@ public class Colors: NSObject {
         self.warning = warning
         self.destructive = destructive
         self.secondaryAction = secondaryAction
+        self.unselected = unselected
     }
 }
 

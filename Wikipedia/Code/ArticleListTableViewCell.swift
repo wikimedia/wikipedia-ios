@@ -15,6 +15,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
     }
     
     func reset() {
+        separatorInset = .zero
         articleCell.isSaveButtonHidden = true
         articleCell.imageViewDimension = 40
         articleCell.margins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
