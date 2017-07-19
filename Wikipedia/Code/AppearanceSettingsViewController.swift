@@ -10,7 +10,7 @@ struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
 
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let title: String?
-    let themeName: String
+    let theme: Theme
     let checkmarkAction: () -> Void
 }
 
@@ -26,7 +26,6 @@ struct AppearanceSettingsSection {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-//TODO: add Themeable extension
 class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -51,7 +50,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", themeName: "standard", checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", themeName: "sepia", checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", themeName: "dark", checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
+            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming"), AppearanceSettingsSwitchItem(title: "Auto-night mode")])
         
@@ -130,7 +129,7 @@ class AppearanceSettingsViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.themeName == UserDefaults.wmf_userDefaults().wmf_appTheme.name {
+        if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.theme == UserDefaults.wmf_userDefaults().wmf_appTheme {
             cell.accessoryType = .checkmark
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }

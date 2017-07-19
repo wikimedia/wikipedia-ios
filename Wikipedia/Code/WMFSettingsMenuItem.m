@@ -85,7 +85,7 @@
                                             iconColor:[UIColor wmf_colorWithHex:0x000000]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
                                         //TODO: add theme name
-                                       disclosureText:nil
+                                       disclosureText:[[NSUserDefaults wmf_userDefaults] wmf_appTheme].name
                                            isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
