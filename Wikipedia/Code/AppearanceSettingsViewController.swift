@@ -41,15 +41,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
     
-    
     static var disclosureText: String {
-        var text = "Default"
+        var text = WMFLocalizedString("default-theme-display-name", value: "Default", comment: "Default theme name presented to the user")
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         
         if currentAppTheme == Theme.sepia {
-            text = "Sepia"
+            text = WMFLocalizedString("sepia-theme-display-name", value: "Sepia", comment: "Sepia theme name presented to the user")
         } else if currentAppTheme == Theme.dark || currentAppTheme == Theme.darkDimmed {
-            text = "Dark"
+            text = WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user")
         }
         
         return text
@@ -66,14 +65,26 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         apply(theme: self.theme)
     }
     
+    func defaultThemeDisplayName() -> String {
+        return WMFLocalizedString("default-theme-display-name", value: "Default", comment: "Default theme name presented to the user")
+    }
+    
+    func sepiaThemeDisplayName() -> String {
+        return WMFLocalizedString("sepia-theme-display-name", value: "Sepia", comment: "Sepia theme name presented to the user")
+    }
+    
+    func darkThemeDisplayName() -> String {
+        return WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user")
+    }
+    
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: "Reading themes", footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: "Default", theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: "Sepia", theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: "Dark", theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: defaultThemeDisplayName(), theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: sepiaThemeDisplayName(), theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: darkThemeDisplayName(), theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: "Theme options", footerText: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", items: [AppearanceSettingsSwitchItem(title: "Image dimming")])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("theme-options-footer", value: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", comment: "Footer of the Theme options section in Appearance settings"), items: [AppearanceSettingsSwitchItem(title: WMFLocalizedString("image-dimming", value: "Image dimming", comment: "Title of the image dimming switch in Appearance settings"))])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: "Adjust text sizing", footerText: "Drag the slider above", items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("adjust-text-sizing", value: "Adjust text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: WMFLocalizedString("adjust-text-sizing-footer", value: "Drag the slider above", comment: "Footer of the Adjust text sizing section in Appearance settings"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
         
         return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
@@ -114,7 +125,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             
             let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
             switch currentAppTheme {
-            case Theme.dark, Theme.darkDimmed:
+            case  Theme.darkDimmed:
+                fallthrough
+            case Theme.dark:
                 cell.disclosureSwitch.isEnabled = true
                 cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
             default:
@@ -153,9 +166,15 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem, checkmarkItem.theme == UserDefaults.wmf_userDefaults().wmf_appTheme {
+        let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
+            if (checkmarkItem.theme == currentAppTheme) {
             cell.accessoryType = .checkmark
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            } else if (currentAppTheme == Theme.darkDimmed && checkmarkItem.title == "Dark") {
+                cell.accessoryType = .checkmark
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
         }
     }
     
