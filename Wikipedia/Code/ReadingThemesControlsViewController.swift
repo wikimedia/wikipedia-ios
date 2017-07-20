@@ -28,6 +28,8 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet var separatorViews: [UIView]!
     
+    @IBOutlet var textSizeSliderViews: [UIView]!
+    
     @IBOutlet weak var minBrightnessImageView: UIImageView!
     @IBOutlet weak var maxBrightnessImageView: UIImageView!
     
@@ -35,7 +37,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var tLargeImageView: UIImageView!
     
     @IBOutlet var textLabels: [UILabel]!
-    
+    @IBOutlet var stackView: UIStackView!
     
     var visible = false
     
@@ -56,6 +58,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
+        preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
     
     deinit {
@@ -70,6 +73,19 @@ open class ReadingThemesControlsViewController: UIViewController {
     func removeBorderFrom(_ button: UIButton) {
         button.borderWidth = 0
         button.isEnabled = true
+    }
+    
+    var isTextSizeSliderHidden: Bool {
+        set {
+            let _ = self.view //ensure view is loaded
+            for slideView in textSizeSliderViews {
+                slideView.isHidden = newValue
+            }
+            preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        }
+        get {
+            return textSizeSliderViews.first?.isHidden ?? false
+        }
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {

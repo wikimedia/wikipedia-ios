@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingThemesControlsViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadingThemesControlsViewController">
             <connections>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
@@ -20,6 +20,7 @@
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
                 <outlet property="sepiaThemeButton" destination="x0K-vq-CgH" id="n57-Po-a7M"/>
                 <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
+                <outlet property="stackView" destination="KZU-5g-iSy" id="R0I-tr-o0b"/>
                 <outlet property="tLargeImageView" destination="Ycr-G6-Fi3" id="5nX-hh-UCh"/>
                 <outlet property="tSmallImageView" destination="vkB-ph-elW" id="zTO-Cg-lOB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
@@ -27,6 +28,9 @@
                 <outletCollection property="separatorViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="cr4-7k-sen"/>
                 <outletCollection property="textLabels" destination="gUU-a2-QwO" collectionClass="NSMutableArray" id="uyV-7V-rCC"/>
                 <outletCollection property="separatorViews" destination="s1w-Qo-awL" collectionClass="NSMutableArray" id="LMo-j3-60h"/>
+                <outletCollection property="textSizeSliderViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="sj5-O6-6fO"/>
+                <outletCollection property="textSizeSliderViews" destination="vzF-dw-OTG" collectionClass="NSMutableArray" id="Idy-T2-2cy"/>
+                <outletCollection property="textSizeSliderViews" destination="wIV-PE-rcx" collectionClass="NSMutableArray" id="FYN-nL-R8f"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

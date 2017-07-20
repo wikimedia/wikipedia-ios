@@ -98,16 +98,31 @@
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
     }
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+
+    NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
+    WMFContentGroup *themeGroup = [moc contentGroupForURL:themeContentGroupURL];
+    if (!userDefaults.wmf_didShowThemeCardInFeed) {
+        if (!themeGroup) {
+            [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        }
+        userDefaults.wmf_didShowThemeCardInFeed = YES;
+    } else if (shouldAddNewContent) { // shouldAddNewContent represents a user-initiated refresh
+        if (themeGroup) {
+            [moc deleteObject:themeGroup];
+        }
+    } else {
+        themeGroup.date = [NSDate date];
+    }
     
     NSURL *URL = [WMFContentGroup notificationContentGroupURL];
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
     WMFContentGroup *group = [moc contentGroupForURL:URL];
     if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         if (!group) {
             [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         }
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
-    } else if (shouldAddNewContent) { // shoulAddNewContent represents a user-initiated refresh
+    } else if (shouldAddNewContent) { // shouldAddNewContent represents a user-initiated refresh
         if (group) {
            [moc deleteObject:group];
         }

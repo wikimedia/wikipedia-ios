@@ -67,6 +67,9 @@
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
+        case WMFContentGroupKindTheme:
+            URL = [WMFContentGroup themeContentGroupURL];
+            break;
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.content.firstObject identifier]];
         default:
@@ -99,6 +102,9 @@
             break;
         case WMFContentGroupKindNotification:
             self.contentType = WMFContentTypeNotification;
+            break;
+        case WMFContentGroupKindTheme:
+            self.contentType = WMFContentTypeTheme;
             break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
@@ -153,8 +159,11 @@
         case WMFContentGroupKindNotification:
             self.dailySortPriority = -1;
             break;
-        case WMFContentGroupKindAnnouncement:
+        case WMFContentGroupKindTheme:
             self.dailySortPriority = -2;
+            break;
+        case WMFContentGroupKindAnnouncement:
+            self.dailySortPriority = -3;
             break;
         default:
             break;
@@ -304,6 +313,10 @@
 
 + (nullable NSURL *)notificationContentGroupURL {
     return [[self baseURL] URLByAppendingPathComponent:@"notification"];
+}
+
++ (nullable NSURL *)themeContentGroupURL {
+    return [[self baseURL] URLByAppendingPathComponent:@"theme"];
 }
 
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {
