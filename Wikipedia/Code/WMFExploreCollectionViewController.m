@@ -1734,16 +1734,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     if (group.contentGroupKind == WMFContentGroupKindTheme) {
-        WMFReadingThemesControlsViewController *vc = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
-        vc.isTextSizeSliderHidden = YES;
-        vc.modalPresentationStyle = UIModalPresentationPopover;
-        [vc applyTheme:self.theme];
-        UIPopoverPresentationController *popover = [vc popoverPresentationController];
-        popover.backgroundColor = vc.view.backgroundColor;
-        popover.delegate = self;
-        popover.sourceView = cell.actionButton;
-        popover.sourceRect = cell.actionButton.bounds;
-        [self presentViewController:vc animated:YES completion:NULL];
+        //Placeholder until we can navigate to theme settings
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_settingsViewActivity]];
     } else {
         [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
         NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
