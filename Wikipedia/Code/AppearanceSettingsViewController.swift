@@ -153,13 +153,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
         }
     }
-//    
-//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
-//            return tableView.rowHeight
-//        }
-//        return item.viewController.view.frame.height
-//    }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
