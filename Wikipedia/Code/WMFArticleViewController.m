@@ -2,6 +2,8 @@
 #import "Wikipedia-Swift.h"
 @import WMF;
 
+#import "WMFEmptyView.h"
+
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFImageGalleryViewController.h"
@@ -1146,7 +1148,6 @@ WMFArticlePreviewingActionsDelegate>
     
     //only show a blank view if we have nothing to show
     if (!self.article) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank theme:self.theme];
         [self.view bringSubviewToFront:self.progressView];
     }
     
@@ -1873,6 +1874,7 @@ WMFArticlePreviewingActionsDelegate>
     if (self.viewIfLoaded == nil) {
         return;
     }
+    [[self wmf_emptyView] applyTheme:self.theme];
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
