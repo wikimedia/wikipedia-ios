@@ -141,10 +141,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                              selector:@selector(changeTheme:)
                                                  name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleFontSizeWasUpdated:)
-                                                 name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
-                                               object:nil];
 
     @weakify(self);
     [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
@@ -1476,13 +1472,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
     }
-}
-
-#pragma mark - Appearance
-
-- (void)articleFontSizeWasUpdated:(NSNotification *)note {
-    NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Search

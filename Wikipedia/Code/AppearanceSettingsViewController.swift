@@ -18,11 +18,6 @@ struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let checkmarkAction: () -> Void
 }
 
-struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
-    let title: String?
-    let viewController: UIViewController
-}
-
 struct AppearanceSettingsSection {
     let headerTitle: String
     let footerText: String?
@@ -39,7 +34,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     fileprivate var theme = Theme.standard
     
     open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
-    
     
     static var disclosureText: String {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
@@ -64,9 +58,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("theme-options-footer", value: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", comment: "Footer of the Theme options section in Appearance settings"), items: [AppearanceSettingsSwitchItem(title: WMFLocalizedString("image-dimming", value: "Image dimming", comment: "Title of the image dimming switch in Appearance settings"))])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-adjust-text-sizing-footer", value: "Drag the slider above", comment: "Footer of the Adjust text sizing section in Appearance settings"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
-        
-        return [readingThemesSection, themeOptionsSection, textSizingSection]
+        return [readingThemesSection, themeOptionsSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,14 +80,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
-        }
-        
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
-            vc.apply(theme: self.theme)
-            var frame = view.frame
-            frame.size.width = cell.frame.width
-            view.frame = frame
-            cell.contentView.addSubview(view)
         }
         
         if item is AppearanceSettingsSwitchItem {
@@ -169,13 +153,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
         }
     }
-    
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
-            return tableView.rowHeight
-        }
-        return item.viewController.view.frame.height
-    }
+//    
+//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
+//            return tableView.rowHeight
+//        }
+//        return item.viewController.view.frame.height
+//    }
     
     func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme

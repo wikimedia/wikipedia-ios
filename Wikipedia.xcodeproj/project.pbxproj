@@ -547,16 +547,6 @@
 		B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
-		BA2E742D1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */; };
-		BA2E742E1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */; };
-		BA2E742F1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */; };
-		BA2E74301F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */; };
-		BA2E74311F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */; };
-		BA2E74321F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */; };
-		BA2E74331F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */; };
-		BA2E74341F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */; };
-		BA2E74351F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */; };
-		BA2E74361F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */; };
 		BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */; };
 		BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
 		BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
@@ -3875,8 +3865,6 @@
 		B3B018D41EBD15C300BE7F21 /* Explore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
 		B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchFilterListController.swift; sourceTree = "<group>"; };
 		B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
-		BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSizeSliderViewController.swift; sourceTree = "<group>"; };
-		BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FontSizeSliderViewController.xib; path = Wikipedia/Code/FontSizeSliderViewController.xib; sourceTree = SOURCE_ROOT; };
 		BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareActivityController.swift; sourceTree = "<group>"; };
 		BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppearanceSettingsViewController.xib; sourceTree = "<group>"; };
@@ -6102,8 +6090,6 @@
 			children = (
 				BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */,
 				BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */,
-				BA2E742B1F1F0ECE00E22960 /* FontSizeSliderViewController.swift */,
-				BA2E742C1F1F0ECE00E22960 /* FontSizeSliderViewController.xib */,
 			);
 			name = Appearance;
 			sourceTree = "<group>";
@@ -8740,7 +8726,6 @@
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B014E99F1CD189F600A887D9 /* Tharlon-Regular.ttf in Resources */,
-				BA2E74321F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533ED91ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
@@ -8888,7 +8873,6 @@
 				D80ED4201EE57F4800CE8C50 /* TUSafariActivity.bundle in Resources */,
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
-				BA2E74361F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
 			);
@@ -8951,7 +8935,6 @@
 				D8A42BD11E815A9C00D8E281 /* WMFTableOfContentsCell.xib in Resources */,
 				D8A42BD21E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				D8A42BD31E815A9C00D8E281 /* Tharlon-Regular.ttf in Resources */,
-				BA2E74351F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */,
 				D8A42BD41E815A9C00D8E281 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD751EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDC1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
@@ -9043,7 +9026,6 @@
 				D8CE26581E698E2400DAE2E0 /* WMFTableOfContentsCell.xib in Resources */,
 				D8CE26591E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				D8CE265A1E698E2400DAE2E0 /* Tharlon-Regular.ttf in Resources */,
-				BA2E74331F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */,
 				D8CE265B1E698E2400DAE2E0 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD731EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDA1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
@@ -9135,7 +9117,6 @@
 				D8EC3F581E9BDA35006712EB /* WMFTableOfContentsCell.xib in Resources */,
 				D8EC3F591E9BDA35006712EB /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				D8EC3F5A1E9BDA35006712EB /* Tharlon-Regular.ttf in Resources */,
-				BA2E74341F1F0ECE00E22960 /* FontSizeSliderViewController.xib in Resources */,
 				D8EC3F5B1E9BDA35006712EB /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD741EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDB1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
@@ -9572,7 +9553,6 @@
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
-				BA2E742D1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */,
 				B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */,
 				D82014BF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -9910,7 +9890,6 @@
 				D80ED2811EE57F4800CE8C50 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D82E956E1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D80ED2821EE57F4800CE8C50 /* WMFDynamicTypeExtentions.swift in Sources */,
-				BA2E74311F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */,
 				D80ED2831EE57F4800CE8C50 /* SSBaseHeaderFooterView.m in Sources */,
 				D80ED2841EE57F4800CE8C50 /* WMFReferencePageBackgroundView.swift in Sources */,
 				D80ED2851EE57F4800CE8C50 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
@@ -10744,7 +10723,6 @@
 				D8A42B6D1E815A9C00D8E281 /* WMFAccountCreationViewController.swift in Sources */,
 				D8A42B6E1E815A9C00D8E281 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				D8A42B701E815A9C00D8E281 /* NSAttributedString+WMFModify.m in Sources */,
-				BA2E74301F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */,
 				D84DAA191EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				D8A42B711E815A9C00D8E281 /* WMFSettingsViewController.m in Sources */,
 				D8A42B731E815A9C00D8E281 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
@@ -10947,7 +10925,6 @@
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
 				D81EF2D71F1D4AE900D26D3F /* Theme.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
-				BA2E742E1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */,
 				D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */,
 				D8CE256E1E698E2400DAE2E0 /* WMFCollectionViewPageLayout.m in Sources */,
 				D898452A1ECC8A1700849DA4 /* NewsCollectionViewCell.swift in Sources */,
@@ -11159,7 +11136,6 @@
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D8EC3DEA1E9BDA35006712EB /* WMFTableOfContentsAnimator.swift in Sources */,
-				BA2E742F1F1F0ECE00E22960 /* FontSizeSliderViewController.swift in Sources */,
 				D8EC3DEB1E9BDA35006712EB /* WMFDynamicTypeExtentions.swift in Sources */,
 				D8EC3DEC1E9BDA35006712EB /* SSBaseHeaderFooterView.m in Sources */,
 				D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */,
