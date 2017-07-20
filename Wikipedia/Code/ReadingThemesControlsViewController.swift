@@ -54,7 +54,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        imageDimmingLabel.text = WMFLocalizedString("image-dimming", value: "Dim images", comment: "Label for image dimming setting")
+        imageDimmingLabel.text = CommonStrings.dimImagesTitle
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         

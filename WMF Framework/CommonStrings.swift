@@ -13,6 +13,7 @@ public class CommonStrings: NSObject {
     public static let shortSaveTitle = WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}")
     public static let savedTitle:String = CommonStrings.savedTitle(language: nil)
     public static let saveTitle:String = CommonStrings.saveTitle(language: nil)
+    public static let dimImagesTitle = WMFLocalizedString("dim-images", value: "Dim images", comment: "Label for image dimming setting")
     
     static public func savedTitle(language: String?) -> String {
         return WMFLocalizedString("button-saved-for-later", language: language, value:"Saved for later", comment:"Longer button text for already saved button used in various places.")

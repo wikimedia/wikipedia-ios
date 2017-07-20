@@ -47,7 +47,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
-"appearance-settings-dim-images" = "Title of the image dimming switch in Appearance settings";
+"appearance-settings-dim-images" = "Label for image dimming setting";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "appearance-settings-theme-options-footer" = "Footer of the Theme options section in Appearance settings";
@@ -182,7 +182,6 @@
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.\n{{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
-"image-dimming" = "Label for image dimming setting";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
