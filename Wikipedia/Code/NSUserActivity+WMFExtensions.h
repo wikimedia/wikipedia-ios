@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeGenericLink
 };
 
+extern NSString *const WMFNavigateToActivityNotification;
+
 @interface NSUserActivity (WMFExtensions)
 
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity;

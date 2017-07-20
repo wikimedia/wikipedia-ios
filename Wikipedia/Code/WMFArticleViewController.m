@@ -1289,7 +1289,6 @@ WMFArticlePreviewingActionsDelegate>
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
     
-    self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
     
     self.readingThemesViewController.delegate = self;
@@ -1304,7 +1303,7 @@ WMFArticlePreviewingActionsDelegate>
     self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
     
-    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
+    self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
     
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
@@ -1887,7 +1886,7 @@ WMFArticlePreviewingActionsDelegate>
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
-    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
+    self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
 }
 
 @end

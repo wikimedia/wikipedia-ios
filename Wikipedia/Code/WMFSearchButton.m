@@ -3,7 +3,6 @@
 @import WMF.SessionSingleton;
 #import "Wikipedia-Swift.h"
 
-NSString *const WMFShowSearchNotification = @"WMFShowSearchNotification";
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -233,7 +233,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        NotificationCenter.default.post(name: NSNotification.Name.WMFShowSearch, object: nil)
+        let searchActivity = NSUserActivity.wmf_searchView()
+        NotificationCenter.default.post(name: NSNotification.Name.WMFNavigateToActivity, object: searchActivity)
         return false
     }
     
