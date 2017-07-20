@@ -167,14 +167,19 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
-            if (checkmarkItem.theme == currentAppTheme) {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            } else if (currentAppTheme == Theme.darkDimmed && checkmarkItem.title == "Dark") {
+            
+            switch currentAppTheme {
+            case Theme.darkDimmed where checkmarkItem.title == "Dark":
+                fallthrough
+            case checkmarkItem.theme:
                 cell.accessoryType = .checkmark
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            default:
+                break
             }
+    
         }
     }
     
