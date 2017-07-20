@@ -1,9 +1,5 @@
 import UIKit
 
-@objc public protocol WMFAppearanceSettingsViewControllerDelegate {
-    func themeChangedInController(_ controller: AppearanceSettingsViewController, theme: Theme)
-}
-
 protocol AppearanceSettingsItem {
     var title: String? { get }
 }
@@ -32,8 +28,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     var sections = [AppearanceSettingsSection]()
     
     fileprivate var theme = Theme.standard
-    
-    open weak var delegate: WMFAppearanceSettingsViewControllerDelegate?
     
     static var disclosureText: String {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
@@ -111,10 +105,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
-        
-        if let delegate = self.delegate {
-            delegate.themeChangedInController(self, theme: theme)
-        }
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

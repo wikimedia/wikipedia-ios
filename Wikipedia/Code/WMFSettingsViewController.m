@@ -44,7 +44,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 #if WMF_TWEAKS_ENABLED
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 #else
-@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, WMFAppearanceSettingsViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate>
 #endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -360,15 +360,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 - (void)showAppearance {
     WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
-    appearanceSettingsVC.delegate = self;
     [appearanceSettingsVC applyTheme:self.theme];
     appearanceSettingsVC.title = WMFLocalizedStringWithDefaultValue(@"appearance-settings-title", nil, nil, @"Reading themes", @"Title of the Appearance view in Settings.");
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
-}
-
-- (void)themeChangedInController:(WMFAppearanceSettingsViewController *)controller theme:(WMFTheme *)theme {
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
 }
 
 #pragma mark - Debugging
