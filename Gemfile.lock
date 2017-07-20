@@ -30,7 +30,7 @@ GEM
     faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.45.0)
+    fastlane (2.47.0)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -71,8 +71,8 @@ GEM
       mime-types (~> 3.0)
       representable (~> 3.0)
       retriable (>= 2.0, < 4.0)
-    googleauth (0.5.1)
-      faraday (~> 0.9)
+    googleauth (0.5.2)
+      faraday (~> 0.12)
       jwt (~> 1.4)
       logging (~> 2.0)
       memoist (~> 0.12)
@@ -136,7 +136,7 @@ GEM
     xcode-install (2.1.1)
       claide (>= 0.9.1, < 1.1.0)
       fastlane (>= 2.1.0, < 3.0.0)
-    xcodeproj (1.5.0)
+    xcodeproj (1.5.1)
       CFPropertyList (~> 2.3.3)
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
@@ -156,4 +156,4 @@ DEPENDENCIES
   xcode-install
 
 BUNDLED WITH
-   1.15.1
+   1.15.2
