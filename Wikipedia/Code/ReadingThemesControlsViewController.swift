@@ -11,7 +11,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
-    var theme: Theme?
+    var theme = Theme.standard
     
     @IBOutlet weak var imageDimmingLabel: UILabel!
     @IBOutlet fileprivate var slider: SWStepSlider!
@@ -68,11 +68,14 @@ open class ReadingThemesControlsViewController: UIViewController {
     func applyBorder(to button: UIButton) {
         button.borderWidth = 2
         button.isEnabled = false
+        button.borderColor = theme.colors.link
+
     }
     
     func removeBorderFrom(_ button: UIButton) {
-        button.borderWidth = 0
+        button.borderWidth = 2
         button.isEnabled = true
+        button.borderColor = theme.colors.border
     }
     
     var isTextSizeSliderHidden: Bool {
@@ -176,21 +179,26 @@ extension ReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         
-        view.backgroundColor = theme.colors.midBackground
+        view.backgroundColor = theme.colors.popoverBackground
         
         for separator in separatorViews {
-            separator.backgroundColor = theme.colors.baseBackground
+            separator.backgroundColor = theme.colors.border
         }
         
-        slider.backgroundColor = theme.colors.midBackground
+        slider.backgroundColor = view.backgroundColor
         
         for label in textLabels {
             label.textColor = theme.colors.primaryText
         }
         
-        lightThemeButton.borderColor = theme.colors.link
-        darkThemeButton.borderColor = theme.colors.link
-        sepiaThemeButton.borderColor = theme.colors.link
+        let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
+        for button in buttons {
+            guard let button = button else {
+                continue
+            }
+            button.borderColor = button.isEnabled ? theme.colors.border : theme.colors.link
+        }
+
 
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText

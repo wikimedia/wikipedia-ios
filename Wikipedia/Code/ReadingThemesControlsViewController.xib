@@ -42,7 +42,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="287"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bml-xM-u2G">
                                     <rect key="frame" x="0.0" y="0.0" width="290" height="2"/>
@@ -86,14 +86,14 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsr-d6-D5m" userLabel="Separator 1">
-                                    <rect key="frame" x="0.0" y="78" width="290" height="2"/>
+                                    <rect key="frame" x="0.0" y="78" width="290" height="1"/>
                                     <color key="backgroundColor" red="0.95294117647058818" green="0.92549019607843142" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="2" id="oka-Wg-B7K"/>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="oka-Wg-B7K"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
-                                    <rect key="frame" x="0.0" y="80" width="290" height="32"/>
+                                    <rect key="frame" x="0.0" y="79" width="290" height="32"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="vkB-ph-elW">
                                             <rect key="frame" x="15" y="13" width="12" height="15"/>
@@ -111,7 +111,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIV-PE-rcx">
-                                    <rect key="frame" x="0.0" y="112" width="290" height="44"/>
+                                    <rect key="frame" x="0.0" y="111" width="290" height="44"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="8" y="0.0" width="274" height="44"/>
@@ -146,24 +146,24 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEj-MD-7hS" userLabel="Separator 2">
-                                    <rect key="frame" x="0.0" y="156" width="290" height="2"/>
+                                    <rect key="frame" x="0.0" y="155" width="290" height="1"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="2" id="tnv-ib-9vb"/>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="tnv-ib-9vb"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ick-Zb-dz8">
-                                    <rect key="frame" x="0.0" y="158" width="290" height="84"/>
+                                    <rect key="frame" x="0.0" y="156" width="290" height="84"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="56n-xZ-69v">
-                                            <rect key="frame" x="17" y="10" width="256" height="65"/>
+                                            <rect key="frame" x="17" y="10.5" width="256" height="64"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZ3-3K-fnR" userLabel="Aa Light">
-                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="65" id="Uf9-QY-mBe"/>
-                                                        <constraint firstAttribute="height" constant="65" id="hBr-gh-wNS"/>
+                                                        <constraint firstAttribute="width" constant="64" id="Uf9-QY-mBe"/>
+                                                        <constraint firstAttribute="height" constant="64" id="hBr-gh-wNS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -174,7 +174,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="33"/>
+                                                            <real key="value" value="32"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -183,11 +183,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
-                                                    <rect key="frame" x="95.5" y="0.0" width="65" height="65"/>
+                                                    <rect key="frame" x="96" y="0.0" width="64" height="64"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.94509803920000002" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="65" id="7Xj-F8-NFQ"/>
-                                                        <constraint firstAttribute="width" constant="65" id="Qkk-NW-Svx"/>
+                                                        <constraint firstAttribute="height" constant="64" id="7Xj-F8-NFQ"/>
+                                                        <constraint firstAttribute="width" constant="64" id="Qkk-NW-Svx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -198,7 +198,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="33"/>
+                                                            <real key="value" value="32"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -207,11 +207,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">
-                                                    <rect key="frame" x="191" y="0.0" width="65" height="65"/>
+                                                    <rect key="frame" x="192" y="0.0" width="64" height="64"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="65" id="5KZ-1d-ePj"/>
-                                                        <constraint firstAttribute="width" constant="65" id="Oin-AL-Ql1"/>
+                                                        <constraint firstAttribute="height" constant="64" id="5KZ-1d-ePj"/>
+                                                        <constraint firstAttribute="width" constant="64" id="Oin-AL-Ql1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -222,7 +222,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="33"/>
+                                                            <real key="value" value="32"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -241,14 +241,14 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1w-Qo-awL" userLabel="Separator 4">
-                                    <rect key="frame" x="0.0" y="242" width="290" height="2"/>
+                                    <rect key="frame" x="0.0" y="240" width="290" height="1"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="2" id="qQe-m6-dWP"/>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="qQe-m6-dWP"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p79-KV-3Ed">
-                                    <rect key="frame" x="0.0" y="244" width="290" height="44"/>
+                                    <rect key="frame" x="0.0" y="241" width="290" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image dimming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUU-a2-QwO">
                                             <rect key="frame" x="15" y="12.5" width="196" height="20.5"/>
@@ -273,7 +273,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-jq-kQg">
-                                    <rect key="frame" x="0.0" y="288" width="290" height="2"/>
+                                    <rect key="frame" x="0.0" y="285" width="290" height="2"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="2" id="d3c-Mz-kCj"/>
                                     </constraints>
