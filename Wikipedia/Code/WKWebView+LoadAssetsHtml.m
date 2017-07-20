@@ -44,11 +44,10 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     NSString *fontString = [NSString stringWithFormat:@"%ld%%", (long)fontSize.integerValue];
 
-    NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (7 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (7).\nNumber of percent-ampersands must match number of values passed to 'stringWithFormat:'");
+    NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (6 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (7).\nNumber of percent-ampersands must match number of values passed to 'stringWithFormat:'");
 
-    // index.html and preview.html have seven "%@" subsitition markers. Replace both of these with actual content.
-    NSString *backgroundColor = [theme.colors.paperBackground wmf_hexStringIncludingAlpha:NO];
-    NSString *templateAndContent = [NSString stringWithFormat:fileContents, fontString, backgroundColor, baseURL.absoluteString, @(padding.top), @(padding.left), @(padding.right), string];
+    // index.html and preview.html have 6 "%@" subsitition markers. Replace both of these with actual content.
+    NSString *templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(padding.top), @(padding.left), @(padding.right), string];
 
     NSUInteger hash = [[baseURL wmf_articleDatabaseKey] hash];
     NSString *requestPath = [NSString stringWithFormat:@"%lu-%@", (unsigned long)hash, fileName];
