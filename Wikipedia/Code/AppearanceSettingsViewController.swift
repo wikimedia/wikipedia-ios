@@ -183,38 +183,12 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         userDidSelect(theme: currentTheme.withDimmingEnabled(sender.isOn))
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        if let th = header as Themeable? {
-            th.apply(theme: theme)
-        }
-        header?.text = sections[section].headerTitle
-        return header
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].headerTitle
     }
     
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        if let th = footer as Themeable? {
-            th.apply(theme: theme)
-        }
-        footer?.setShortTextAsProse(sections[section].footerText)
-        return footer
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let footerText = sections[section].footerText else {
-            return 0
-        }
-        
-        let footer = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        footer?.text = footerText
-        return footer!.height(withExpectedWidth: self.view.frame.width)
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        header?.text = sections[section].headerTitle
-        return header!.height(withExpectedWidth: self.view.frame.width)
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return sections[section].footerText
     }
     
 }
