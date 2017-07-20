@@ -107,12 +107,6 @@
             [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         }
         userDefaults.wmf_didShowThemeCardInFeed = YES;
-    } else if (shouldAddNewContent) { // shouldAddNewContent represents a user-initiated refresh
-        if (themeGroup) {
-            [moc deleteObject:themeGroup];
-        }
-    } else {
-        themeGroup.date = [NSDate date];
     }
     
     NSURL *URL = [WMFContentGroup notificationContentGroupURL];
@@ -122,12 +116,6 @@
             [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         }
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
-    } else if (shouldAddNewContent) { // shouldAddNewContent represents a user-initiated refresh
-        if (group) {
-           [moc deleteObject:group];
-        }
-    } else {
-        group.date = [NSDate date];
     }
 }
 
