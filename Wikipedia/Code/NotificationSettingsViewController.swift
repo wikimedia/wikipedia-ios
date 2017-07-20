@@ -181,18 +181,22 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
+        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+            return nil
+        }
         if let th = header as Themeable? {
             th.apply(theme: theme)
         }
-        header?.text = sections[section].headerTitle
+        header.text = sections[section].headerTitle
         return header;
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let header = WMFTableHeaderLabelView.wmf_viewFromClassNib()
-        header?.text = sections[section].headerTitle
-        return header!.height(withExpectedWidth: self.view.frame.width)
+        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+            return 0
+        }
+        header.text = sections[section].headerTitle
+        return header.height(withExpectedWidth: self.view.frame.width)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
