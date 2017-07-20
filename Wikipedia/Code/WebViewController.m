@@ -893,7 +893,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
-    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
+    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
                                                           action:@selector(shareMenuItemTapped:)];
@@ -1110,8 +1110,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self.viewIfLoaded == nil) {
         return;
     }
-    self.webView.scrollView.backgroundColor = theme.colors.paperBackground;
-    self.webView.backgroundColor = theme.colors.paperBackground;
+    
+    self.webView.opaque = NO;
+    self.webView.backgroundColor = [UIColor clearColor];
+    self.webView.scrollView.backgroundColor = [UIColor clearColor];
+    self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_applyTheme:theme];
 }
