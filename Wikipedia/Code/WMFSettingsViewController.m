@@ -366,7 +366,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
-- (void)themeCangedInController:(WMFAppearanceSettingsViewController *)controller theme:(WMFTheme *)theme {
+- (void)themeChangedInController:(WMFAppearanceSettingsViewController *)controller theme:(WMFTheme *)theme {
     [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
 }

@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol WMFAppearanceSettingsViewControllerDelegate {
-    func themeCangedInController(_ controller: AppearanceSettingsViewController, theme: Theme)
+    func themeChangedInController(_ controller: AppearanceSettingsViewController, theme: Theme)
 }
 
 protocol AppearanceSettingsItem {
@@ -113,7 +113,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
         
         if let delegate = self.delegate {
-            delegate.themeCangedInController(self, theme: theme)
+            delegate.themeChangedInController(self, theme: theme)
         }
     }
     
