@@ -27,7 +27,7 @@
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.text = text;
         cell.userInteractionEnabled = NO;
-        cell.backgroundView.backgroundColor = self.theme.colors.paperBackground;
+        cell.backgroundColor = self.theme.colors.paperBackground;
         cell.selectedBackgroundView.backgroundColor = self.theme.colors.midBackground;
         cell.textLabel.textColor = self.theme.colors.primaryText;
     };
