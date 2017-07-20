@@ -1288,7 +1288,6 @@ WMFArticlePreviewingActionsDelegate>
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
     
-    self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
     
     self.readingThemesViewController.delegate = self;
