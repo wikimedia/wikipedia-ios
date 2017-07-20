@@ -47,7 +47,6 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
-"appearance-settings-dim-images" = "Label for image dimming setting";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "appearance-settings-theme-options-footer" = "Footer of the Theme options section in Appearance settings";
@@ -80,6 +79,7 @@
 "continue-reading-empty-title" = "No recently read articles";
 "dark-theme-display-name" = "Dark theme name presented to the user";
 "default-theme-display-name" = "Default theme name presented to the user";
+"dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
