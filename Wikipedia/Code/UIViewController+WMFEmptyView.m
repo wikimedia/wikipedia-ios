@@ -7,7 +7,7 @@
 
 static const char *const WMFEmptyViewKey = "WMFEmptyView";
 
-- (UIView *)wmf_emptyView {
+- (WMFEmptyView *)wmf_emptyView {
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
