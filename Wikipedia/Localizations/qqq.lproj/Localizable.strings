@@ -78,7 +78,6 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
 "dark-theme-display-name" = "Dark theme name presented to the user";
-"default-theme-display-name" = "Default theme name presented to the user";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
@@ -307,7 +306,6 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface.\n{{Identical|Search}}";
-"sepia-theme-display-name" = "Sepia theme name presented to the user";
 "settings-appearance" = "Title for button letting user choose appearance settings.";
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
@@ -344,6 +342,9 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"theme-dark-display-name" = "Dark theme name presented to the user";
+"theme-default-display-name" = "Default theme name presented to the user";
+"theme-sepia-display-name" = "Sepia theme name presented to the user";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
