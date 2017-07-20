@@ -133,8 +133,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showSearch:)
-                                                 name:WMFShowSearchNotification
+                                             selector:@selector(navigateToActivityNotification:)
+                                                 name:WMFNavigateToActivityNotification
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -533,7 +533,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         self.notificationUserInfoToShow = nil;
         done();
     } else if (self.unprocessedUserActivity) {
-        [self processUserActivity:self.unprocessedUserActivity completion:done];
+        [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
     } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem
                        completion:^(BOOL didProcess) {
@@ -759,7 +759,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     }
 }
 
-- (BOOL)processUserActivity:(NSUserActivity *)activity completion:(dispatch_block_t)done {
+- (void)navigateToActivityNotification:(NSNotification *)note {
+    id object = [note object];
+    if ([object isKindOfClass:[NSUserActivity class]]) {
+        [self processUserActivity:object animated:YES completion:^{}];
+    }
+}
+
+- (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done {
     if (![self canProcessUserActivity:activity]) {
         done();
         return NO;
@@ -776,11 +783,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     switch (type) {
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypePlaces: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
-            [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:NO];
+            [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
                 [[self placesViewController] showArticleURL:articleURL];
@@ -789,13 +796,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         case WMFUserActivityTypeContent: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-            [navController popToRootViewControllerAnimated:NO];
+            [navController popToRootViewControllerAnimated:animated];
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
                 UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
                 if (vc) {
-                    [navController pushViewController:vc animated:NO];
+                    [navController pushViewController:vc animated:animated];
                 }
             } else {
                 [self.exploreViewController updateFeedSourcesUserInitiated:NO
@@ -816,17 +823,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
-            [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
+            [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeHistory:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
-            [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
+            [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
-            [self switchToExploreAndShowSearchAnimated:NO];
+            [self switchToExploreAndShowSearchAnimated:animated];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self switchToExploreAndShowSearchAnimated:NO];
+            [self switchToExploreAndShowSearchAnimated:animated];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
@@ -835,14 +842,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                 done();
                 return NO;
             }
-            [self showArticleForURL:URL animated:NO completion:done];
+            [self showArticleForURL:URL animated:animated completion:done];
             // don't call done block before this return, wait for completion ^
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-            [self showSettingsAnimated:NO];
+            [self showSettingsAnimated:animated];
             break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
@@ -1095,7 +1102,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    if (self.rootTabBarController.selectedIndex != WMFAppTabTypeExplore) {
+        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    }
     [self showSearchAnimated:animated];
 }
 
@@ -1473,10 +1482,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 #pragma mark - Search
-
-- (void)showSearch:(NSNotification *)note {
-    [self showSearchAnimated:YES];
-}
 
 - (void)showSearch {
     [self showSearchAnimated:YES];

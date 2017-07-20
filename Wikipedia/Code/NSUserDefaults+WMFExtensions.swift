@@ -22,6 +22,7 @@ let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocatio
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
 let WMFAppThemeName = "WMFAppThemeName"
 let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
+let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -128,6 +129,16 @@ public extension UserDefaults {
         }
         set {
             set(newValue, forKey: WMFIsImageDimmingEnabled)
+            synchronize()
+        }
+    }
+    
+    public var wmf_didShowThemeCardInFeed: Bool {
+        get {
+            return bool(forKey: WMFDidShowThemeCardInFeed)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowThemeCardInFeed)
             synchronize()
         }
     }

@@ -9,8 +9,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UITextView *captionTextView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 @property (strong, nonatomic) WMFTheme *theme;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIView *captionContainerView;
 
 
 @end
@@ -61,12 +62,17 @@
     }
 }
 
+- (void)setImage:(UIImage *)image {
+    [self restoreImageToFullHeight];
+    self.imageView.image = image;
+}
+
 - (void)collapseImageHeightToZero {
-    self.imageHeightConstraint.constant = 0;
+    self.imageView.hidden = YES;
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = 150;
+    self.imageView.hidden = NO;
 }
 
 - (void)setMessageText:(NSString *)text {
@@ -78,24 +84,30 @@
 }
 
 - (void)setCaption:(NSAttributedString *)text {
-    _caption = [text copy];
-    NSMutableAttributedString *mutableText = [text mutableCopy];
-    if (!mutableText || mutableText.length == 0) {
-        self.captionTextView.attributedText = nil;
-        return;
+    if (text == nil) {
+        self.captionContainerView.hidden = YES;
+        self.captionTextView.text = nil;
+    } else {
+        self.captionContainerView.hidden = NO;
+        _caption = [text copy];
+        NSMutableAttributedString *mutableText = [text mutableCopy];
+        if (!mutableText || mutableText.length == 0) {
+            self.captionTextView.attributedText = nil;
+            return;
+        }
+        
+        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.alignment = NSTextAlignmentCenter;
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+                                     NSForegroundColorAttributeName: self.theme.colors.secondaryText,
+                                     NSParagraphStyleAttributeName: pStyle};
+        [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
+        self.captionTextView.attributedText = mutableText;
+        [self.captionTextView setNeedsLayout];
+        [self.captionTextView layoutIfNeeded];
     }
-
-    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-    pStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    pStyle.baseWritingDirection = NSWritingDirectionNatural;
-    pStyle.alignment = NSTextAlignmentCenter;
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
-                                 NSForegroundColorAttributeName: self.theme.colors.secondaryText,
-                                 NSParagraphStyleAttributeName: pStyle};
-    [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
-    self.captionTextView.attributedText = mutableText;
-    [self.captionTextView setNeedsLayout];
-    [self.captionTextView layoutIfNeeded];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
@@ -117,21 +129,28 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
+    [self.actionButton setTitleColor:theme.colors.link forState:UIControlStateNormal];
     self.actionButton.layer.borderColor = theme.colors.link.CGColor;
+    [self.actionButton setBackgroundColor:theme.colors.paperBackground];
 
     self.captionTextView.linkTextAttributes = @{
                                                 NSForegroundColorAttributeName: theme.colors.link,
                                                 NSUnderlineStyleAttributeName: @1
                                                 };
     [self.dismissButton setTitleColor:theme.colors.secondaryText forState:UIControlStateNormal];
+    [self.dismissButton setBackgroundColor:theme.colors.paperBackground];
     
     self.caption = _caption; // Applies the theme color
     
-    self.messageLabel.textColor = theme.colors.primaryText;
+    self.separatorView.backgroundColor = theme.colors.border;
     
+    self.messageLabel.textColor = theme.colors.primaryText;
+    self.messageLabel.backgroundColor = theme.colors.paperBackground;
     self.imageView.backgroundColor = theme.colors.midBackground;
-    self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.selectedBackgroundView.backgroundColor = theme.colors.paperBackground;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
+    self.captionTextView.backgroundColor = theme.colors.paperBackground;
+    self.imageView.alpha = theme.imageOpacity;
 }
 
 @end
