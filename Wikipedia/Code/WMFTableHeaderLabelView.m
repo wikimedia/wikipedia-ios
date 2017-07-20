@@ -29,6 +29,10 @@
     }
 }
 
+- (void)setShortTextAsProse:(NSString *)text {
+    self.headerLabel.text = text;
+}
+
 - (NSString *)text {
     return self.headerLabel.text;
 }

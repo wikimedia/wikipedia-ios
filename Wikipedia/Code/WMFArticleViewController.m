@@ -1324,6 +1324,9 @@ WMFArticlePreviewingActionsDelegate>
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
+- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController * _Nonnull)controller theme:(WMFTheme * _Nonnull)theme {
+}
+
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
 #if WMF_TWEAKS_ENABLED
     return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", WMFFontSizeMultiplierExtraSmall)),
