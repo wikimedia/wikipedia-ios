@@ -161,6 +161,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         item.checkmarkAction()
     }
     
+    public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
+            return nil
+        }
+        return indexPath
+    }
+    
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
