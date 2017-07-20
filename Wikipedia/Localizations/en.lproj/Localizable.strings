@@ -47,7 +47,6 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
-"appearance-settings-dim-images" = "Dim images";
 "appearance-settings-reading-themes" = "Reading themes";
 "appearance-settings-theme-options" = "Theme options";
 "appearance-settings-theme-options-footer" = "Automatically apply the ‘Dark’ reading theme between 8pm and 8am";
@@ -79,7 +78,7 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
 "dark-theme-display-name" = "Dark";
-"default-theme-display-name" = "Default";
+"dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
@@ -307,7 +306,6 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
-"sepia-theme-display-name" = "Sepia";
 "settings-appearance" = "Appearance";
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
@@ -344,6 +342,9 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"theme-dark-display-name" = "Dark";
+"theme-default-display-name" = "Default";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";

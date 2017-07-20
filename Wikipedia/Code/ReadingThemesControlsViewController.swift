@@ -73,9 +73,9 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     func removeBorderFrom(_ button: UIButton) {
-        button.borderWidth = 2
+        button.borderWidth = traitCollection.displayScale > 0.0 ? 1.0/traitCollection.displayScale : 0.5
         button.isEnabled = true
-        button.borderColor = theme.colors.border
+        button.borderColor = UIColor.wmf_lighterGray //intentionally unthemed
     }
     
     var isTextSizeSliderHidden: Bool {

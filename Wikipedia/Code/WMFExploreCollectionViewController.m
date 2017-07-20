@@ -1735,7 +1735,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     if (group.contentGroupKind == WMFContentGroupKindTheme) {
         //Placeholder until we can navigate to theme settings
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_settingsViewActivity]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
     } else {
         [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
         NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];

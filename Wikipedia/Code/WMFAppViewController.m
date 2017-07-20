@@ -734,6 +734,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
+        case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
             return YES;
         case WMFUserActivityTypeSearchResults:
@@ -851,6 +852,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             [self showSettingsAnimated:animated];
             break;
+        case WMFUserActivityTypeAppearanceSettings: {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+            [appearanceSettingsVC applyTheme:self.theme];
+            [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
+        } break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
@@ -1505,8 +1513,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self presentViewController:self.searchViewController animated:animated completion:nil];
 }
 
-- (void)showSettingsAnimated:(BOOL)animated {
+- (void)showSettingsWithSubViewController:(nullable UIViewController *)subViewController animated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
+    [self dismissPresentedViewControllers];
 
     if (!self.settingsViewController) {
         WMFSettingsViewController *settingsVC =
@@ -1520,7 +1529,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         self.settingsNavigationController = navController;
     }
+    
+    if (subViewController) {
+        [self.settingsNavigationController pushViewController:subViewController animated:NO];
+    }
+    
     [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
+}
+
+- (void)showSettingsAnimated:(BOOL)animated {
+    [self showSettingsWithSubViewController:nil animated:animated];
 }
 
 #pragma mark - Perma Random Mode

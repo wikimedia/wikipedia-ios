@@ -91,6 +91,11 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     return activity;
 }
 
++ (instancetype)wmf_appearanceSettingsActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"AppearanceSettings"];
+    return activity;
+}
+
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
     if (![url.scheme isEqualToString:@"wikipedia"] && ![url.scheme isEqualToString:@"wikipedia-official"]) {
         return nil;
@@ -180,6 +185,8 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
             return WMFUserActivityTypeHistory;
         } else if ([page isEqualToString:@"Search"]) {
             return WMFUserActivityTypeSearch;
+        } else if ([page isEqualToString:@"AppearanceSettings"]) {
+            return WMFUserActivityTypeAppearanceSettings;
         } else {
             return WMFUserActivityTypeSettings;
         }
@@ -246,6 +253,9 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
             break;
         case WMFUserActivityTypeSettings:
             host = @"settings";
+            break;
+        case WMFUserActivityTypeAppearanceSettings:
+            host = @"appearancesettings";
             break;
         case WMFUserActivityTypeContent:
             host = @"content";
