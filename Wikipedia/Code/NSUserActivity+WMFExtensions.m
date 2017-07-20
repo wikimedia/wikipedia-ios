@@ -4,6 +4,8 @@
 @import CoreSpotlight;
 @import MobileCoreServices;
 
+NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
+
 @implementation NSUserActivity (WMFExtensions)
 
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity {

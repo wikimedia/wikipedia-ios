@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)processShortcutItem:(UIApplicationShortcutItem *)item completion:(void (^)(BOOL))completion;
 
-- (BOOL)processUserActivity:(NSUserActivity *)activity completion:(dispatch_block_t)done;
+- (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done;
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
