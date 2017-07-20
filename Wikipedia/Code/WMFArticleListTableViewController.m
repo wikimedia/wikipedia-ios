@@ -1,8 +1,8 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import "TUSafariActivity.h"
+@import WMF;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
 
@@ -23,8 +23,7 @@
     
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    
-    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -295,7 +294,7 @@
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList addSavedPageWithURL:url];
@@ -303,7 +302,7 @@
 }
 
 - (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFSaveButton shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         NSURL *url = [self urlAtIndexPath:indexPath];
         MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
         [savedPageList removeEntryWithURL:url];
@@ -318,6 +317,8 @@
         return;
     }
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = theme.colors.border;
     [self.tableView reloadData];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }

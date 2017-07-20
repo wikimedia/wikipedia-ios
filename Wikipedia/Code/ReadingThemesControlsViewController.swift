@@ -63,7 +63,6 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     func applyBorder(to button: UIButton) {
-        button.borderColor = UIColor.wmf_blue
         button.borderWidth = 2
         button.isEnabled = false
     }
@@ -173,10 +172,16 @@ extension ReadingThemesControlsViewController: Themeable {
             label.textColor = theme.colors.primaryText
         }
         
+        lightThemeButton.borderColor = theme.colors.link
+        darkThemeButton.borderColor = theme.colors.link
+        sepiaThemeButton.borderColor = theme.colors.link
+
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText
         tLargeImageView.tintColor = theme.colors.secondaryText
+        
+        view.tintColor = theme.colors.link
     }
     
 }
