@@ -45,10 +45,10 @@
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
-"adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
-"adjust-text-sizing-footer" = "Footer of the Adjust text sizing section in Appearance settings";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
+"appearance-settings-adjust-text-sizing-footer" = "Footer of the Adjust text sizing section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article";

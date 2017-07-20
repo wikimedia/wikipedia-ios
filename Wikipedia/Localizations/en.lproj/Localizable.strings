@@ -45,10 +45,10 @@
 "action-saved-accessibility" = "Saved. Activate to unsave.";
 "action-share" = "Share";
 "action-unsave" = "Unsave";
-"adjust-text-sizing" = "Adjust text sizing";
-"adjust-text-sizing-footer" = "Drag the slider above";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
+"appearance-settings-adjust-text-sizing" = "Adjust text sizing";
+"appearance-settings-adjust-text-sizing-footer" = "Drag the slider above";
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";

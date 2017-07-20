@@ -42,16 +42,8 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     
     static var disclosureText: String {
-        var text = WMFLocalizedString("default-theme-display-name", value: "Default", comment: "Default theme name presented to the user")
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        
-        if currentAppTheme == Theme.sepia {
-            text = WMFLocalizedString("sepia-theme-display-name", value: "Sepia", comment: "Sepia theme name presented to the user")
-        } else if currentAppTheme == Theme.dark || currentAppTheme == Theme.darkDimmed {
-            text = WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user")
-        }
-        
-        return text
+        return currentAppTheme.displayName
     }
     
     override open func viewDidLoad() {
@@ -65,26 +57,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         apply(theme: self.theme)
     }
     
-    func defaultThemeDisplayName() -> String {
-        return WMFLocalizedString("default-theme-display-name", value: "Default", comment: "Default theme name presented to the user")
-    }
-    
-    func sepiaThemeDisplayName() -> String {
-        return WMFLocalizedString("sepia-theme-display-name", value: "Sepia", comment: "Sepia theme name presented to the user")
-    }
-    
-    func darkThemeDisplayName() -> String {
-        return WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user")
-    }
-    
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: WMFLocalizedString("reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: defaultThemeDisplayName(), theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: sepiaThemeDisplayName(), theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: darkThemeDisplayName(), theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("theme-options-footer", value: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", comment: "Footer of the Theme options section in Appearance settings"), items: [AppearanceSettingsSwitchItem(title: WMFLocalizedString("image-dimming", value: "Image dimming", comment: "Title of the image dimming switch in Appearance settings"))])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("adjust-text-sizing", value: "Adjust text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: WMFLocalizedString("adjust-text-sizing-footer", value: "Drag the slider above", comment: "Footer of the Adjust text sizing section in Appearance settings"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-adjust-text-sizing-footer", value: "Drag the slider above", comment: "Footer of the Adjust text sizing section in Appearance settings"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
         
         return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
