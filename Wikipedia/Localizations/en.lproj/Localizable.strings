@@ -47,6 +47,10 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
+"appearance-settings-dim-images" = "Dim images";
+"appearance-settings-reading-themes" = "Reading themes";
+"appearance-settings-theme-options" = "Theme options";
+"appearance-settings-theme-options-footer" = "Automatically apply the ‘Dark’ reading theme between 8pm and 8am";
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
@@ -176,7 +180,7 @@
 "icon-shortcut-nearby-title" = "Nearby articles";
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
-"image-dimming" = "Image Dimming";
+"image-dimming" = "Dim images";
 "image-gallery-unknown-owner" = "Author unknown.";
 "in-the-news-currently-trending" = "Currently trending";
 "in-the-news-notification-read-now-action-title" = "Read Now";
@@ -281,7 +285,6 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
-"reading-themes" = "Reading themes";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
@@ -340,8 +343,6 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
-"theme-options" = "Theme options";
-"theme-options-footer" = "Automatically apply the ‘Dark’ reading theme between 8pm and 8am";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";
