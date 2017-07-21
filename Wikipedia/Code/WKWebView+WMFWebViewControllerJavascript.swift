@@ -157,10 +157,14 @@ extension WKWebView {
         evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
 
+    static public func wmf_themeClassificationJavascript() -> String{
+        return "window.wmf.themes.classifyElements(document);"
+    }
+    
     public func wmf_classifyThemeElements(){
         // 'themes.classifyElements()' needs to happen once after body elements are present. it
         // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
-        evaluateJavaScript("window.wmf.themes.classifyElements(document);", completionHandler: nil)
+        evaluateJavaScript(WKWebView.wmf_themeClassificationJavascript(), completionHandler: nil)
     }
     
     static public func wmf_themeApplicationJavascript(with theme: Theme) -> String{
