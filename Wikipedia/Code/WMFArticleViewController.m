@@ -1,7 +1,8 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
+@import WMF;
 
-#import <WMF/NSUserActivity+WMFExtensions.h>
+#import "WMFEmptyView.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -9,7 +10,6 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
@@ -18,18 +18,6 @@
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
-
-// Model
-#import <WMF/MWKDataStore.h>
-#import <WMF/MWKSavedPageList.h>
-#import <WMF/MWKArticle+WMFSharing.h>
-#import <WMF/MWKHistoryEntry.h>
-#import <WMF/MWKHistoryList.h>
-#import <WMF/MWKProtectionStatus.h>
-#import <WMF/MWKSectionList.h>
-#import <WMF/MWKHistoryList.h>
-#import <WMF/MWKLanguageLink.h>
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -45,7 +33,6 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
-#import <WMF/NSString+WMFPageUtilities.h>
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
@@ -1161,7 +1148,6 @@ WMFArticlePreviewingActionsDelegate>
     
     //only show a blank view if we have nothing to show
     if (!self.article) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank theme:self.theme];
         [self.view bringSubviewToFront:self.progressView];
     }
     
@@ -1283,7 +1269,7 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
-    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFSaveButton accessibilitySavedTitle] : [WMFSaveButton saveTitle];
+    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFCommonStrings accessibilitySavedTitle] : [WMFCommonStrings saveTitle];
     if (isSaved) {
         self.saveToolbarItem.image = [UIImage imageNamed:@"save-filled"];
     } else {
@@ -1303,7 +1289,6 @@ WMFArticlePreviewingActionsDelegate>
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
     
-    self.readingThemesViewController.preferredContentSize = self.readingThemesViewController.view.frame.size;
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
     
     self.readingThemesViewController.delegate = self;
@@ -1318,7 +1303,7 @@ WMFArticlePreviewingActionsDelegate>
     self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
     
-    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
+    self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
     
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
@@ -1337,6 +1322,9 @@ WMFArticlePreviewingActionsDelegate>
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+}
+
+- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController * _Nonnull)controller theme:(WMFTheme * _Nonnull)theme {
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
@@ -1719,7 +1707,7 @@ WMFArticlePreviewingActionsDelegate>
                              }];
     
     UIPreviewAction *saveAction =
-    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFSaveButton saveTitle]
+    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFCommonStrings saveTitle]
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction *_Nonnull action,
                                        UIViewController *_Nonnull previewViewController) {
@@ -1888,6 +1876,7 @@ WMFArticlePreviewingActionsDelegate>
     if (self.viewIfLoaded == nil) {
         return;
     }
+    [[self wmf_emptyView] applyTheme:self.theme];
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
@@ -1897,7 +1886,7 @@ WMFArticlePreviewingActionsDelegate>
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
-    self.readingThemesPopoverPresenter.backgroundColor = self.readingThemesViewController.view.backgroundColor;
+    self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
 }
 
 @end

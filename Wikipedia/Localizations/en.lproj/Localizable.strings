@@ -47,6 +47,10 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "No thanks";
+"appearance-settings-reading-themes" = "Reading themes";
+"appearance-settings-theme-options" = "Theme options";
+"appearance-settings-theme-options-footer" = "Automatically apply the ‘Dark’ reading theme between 8pm and 8am";
+"appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
 "article-languages-filter-placeholder" = "Find language";
@@ -73,6 +77,8 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"dark-theme-display-name" = "Dark";
+"dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-linked-words" = "Added links";
@@ -167,13 +173,14 @@
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-location-footer" = "More nearby $1";
 "home-news-footer" = "More in the news";
+"home-themes-action-title" = "Manage preferences";
+"home-themes-prompt" = "Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.";
 "home-title" = "Explore";
 "home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "icon-shortcut-continue-reading-title" = "Continue reading";
 "icon-shortcut-nearby-title" = "Nearby articles";
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
-"image-dimming" = "Image Dimming";
 "image-gallery-unknown-owner" = "Author unknown.";
 "in-the-news-currently-trending" = "Currently trending";
 "in-the-news-notification-read-now-action-title" = "Read Now";
@@ -299,6 +306,7 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
+"settings-appearance" = "Appearance";
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
@@ -334,6 +342,9 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"theme-dark-display-name" = "Dark";
+"theme-default-display-name" = "Default";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "See more top read";

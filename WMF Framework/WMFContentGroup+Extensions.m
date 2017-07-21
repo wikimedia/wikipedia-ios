@@ -67,6 +67,9 @@
         case WMFContentGroupKindNotification:
             URL = [WMFContentGroup notificationContentGroupURL];
             break;
+        case WMFContentGroupKindTheme:
+            URL = [WMFContentGroup themeContentGroupURL];
+            break;
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.content.firstObject identifier]];
         default:
@@ -100,6 +103,9 @@
         case WMFContentGroupKindNotification:
             self.contentType = WMFContentTypeNotification;
             break;
+        case WMFContentGroupKindTheme:
+            self.contentType = WMFContentTypeTheme;
+            break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
         case WMFContentGroupKindRelatedPages:
@@ -121,40 +127,43 @@
             self.dailySortPriority = 0;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = 8;
+            self.dailySortPriority = 10;
             break;
         case WMFContentGroupKindRelatedPages:
             self.dailySortPriority = 1;
             break;
         case WMFContentGroupKindLocation:
-            self.dailySortPriority = 7;
+            self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            self.dailySortPriority = 7;
+            self.dailySortPriority = 8;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = 5;
+            self.dailySortPriority = 6;
             break;
         case WMFContentGroupKindRandom:
             self.dailySortPriority = 9;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            self.dailySortPriority = 2;
-            break;
-        case WMFContentGroupKindTopRead:
             self.dailySortPriority = 3;
             break;
-        case WMFContentGroupKindNews:
+        case WMFContentGroupKindTopRead:
             self.dailySortPriority = 4;
             break;
+        case WMFContentGroupKindNews:
+            self.dailySortPriority = 5;
+            break;
         case WMFContentGroupKindOnThisDay:
-            self.dailySortPriority = 6;
+            self.dailySortPriority = 7;
             break;
         case WMFContentGroupKindNotification:
-            self.dailySortPriority = -1;
+            self.dailySortPriority = 3;
+            break;
+        case WMFContentGroupKindTheme:
+            self.dailySortPriority = 2;
             break;
         case WMFContentGroupKindAnnouncement:
-            self.dailySortPriority = -2;
+            self.dailySortPriority = -1;
             break;
         default:
             break;
@@ -304,6 +313,10 @@
 
 + (nullable NSURL *)notificationContentGroupURL {
     return [[self baseURL] URLByAppendingPathComponent:@"notification"];
+}
+
++ (nullable NSURL *)themeContentGroupURL {
+    return [[self baseURL] URLByAppendingPathComponent:@"theme"];
 }
 
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {

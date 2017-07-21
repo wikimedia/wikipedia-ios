@@ -11,7 +11,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
-    var theme: Theme?
+    var theme = Theme.standard
     
     @IBOutlet weak var imageDimmingLabel: UILabel!
     @IBOutlet fileprivate var slider: SWStepSlider!
@@ -28,6 +28,8 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet var separatorViews: [UIView]!
     
+    @IBOutlet var textSizeSliderViews: [UIView]!
+    
     @IBOutlet weak var minBrightnessImageView: UIImageView!
     @IBOutlet weak var maxBrightnessImageView: UIImageView!
     
@@ -35,7 +37,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var tLargeImageView: UIImageView!
     
     @IBOutlet var textLabels: [UILabel]!
-    
+    @IBOutlet var stackView: UIStackView!
     
     var visible = false
     
@@ -52,10 +54,11 @@ open class ReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        imageDimmingLabel.text = WMFLocalizedString("image-dimming", value: "Image Dimming", comment: "Label for image dimming setting")
+        imageDimmingLabel.text = CommonStrings.dimImagesTitle
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
+        preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
     
     deinit {
@@ -63,14 +66,29 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     func applyBorder(to button: UIButton) {
-        button.borderColor = UIColor.wmf_blue
         button.borderWidth = 2
         button.isEnabled = false
+        button.borderColor = theme.colors.link
+
     }
     
     func removeBorderFrom(_ button: UIButton) {
-        button.borderWidth = 0
+        button.borderWidth = traitCollection.displayScale > 0.0 ? 1.0/traitCollection.displayScale : 0.5
         button.isEnabled = true
+        button.borderColor = UIColor.wmf_lighterGray //intentionally unthemed
+    }
+    
+    var isTextSizeSliderHidden: Bool {
+        set {
+            let _ = self.view //ensure view is loaded
+            for slideView in textSizeSliderViews {
+                slideView.isHidden = newValue
+            }
+            preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        }
+        get {
+            return textSizeSliderViews.first?.isHidden ?? false
+        }
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -161,22 +179,33 @@ extension ReadingThemesControlsViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         
-        view.backgroundColor = theme.colors.midBackground
+        view.backgroundColor = theme.colors.popoverBackground
         
         for separator in separatorViews {
-            separator.backgroundColor = theme.colors.baseBackground
+            separator.backgroundColor = theme.colors.border
         }
         
-        slider.backgroundColor = theme.colors.midBackground
+        slider.backgroundColor = view.backgroundColor
         
         for label in textLabels {
             label.textColor = theme.colors.primaryText
         }
         
+        let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
+        for button in buttons {
+            guard let button = button else {
+                continue
+            }
+            button.borderColor = button.isEnabled ? theme.colors.border : theme.colors.link
+        }
+
+
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText
         tLargeImageView.tintColor = theme.colors.secondaryText
+        
+        view.tintColor = theme.colors.link
     }
     
 }

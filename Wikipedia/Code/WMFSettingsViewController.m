@@ -198,6 +198,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
             break;
+        case WMFSettingsMenuItemType_Appearance: {
+            [self showAppearance];
+            break;
+        }
         case WMFSettingsMenuItemType_Support:
             [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
             break;
@@ -352,6 +356,14 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 
+#pragma mark - Appearance
+
+- (void)showAppearance {
+    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+    [appearanceSettingsVC applyTheme:self.theme];
+    [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
+}
+
 #pragma mark - Debugging
 
 + (void)generateTestCrash {
@@ -424,6 +436,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     SSSection *section = [SSSection sectionWithItems:items];
     section.header = nil;

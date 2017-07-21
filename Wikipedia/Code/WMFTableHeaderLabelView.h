@@ -13,4 +13,6 @@
 
 - (void)prepareForReuse;
 
+- (void)setShortTextAsProse:(NSString *)text;
+
 @end

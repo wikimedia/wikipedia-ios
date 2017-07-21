@@ -9,7 +9,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 @property (strong, nonatomic) IBOutlet UITextView *captionTextView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
+@property (strong, nonatomic) WMFTheme *theme;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIView *captionContainerView;
+
 
 @end
 
@@ -17,19 +20,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundView = [UIView new];
+    self.selectedBackgroundView = [UIView new];
+    
     self.captionTextView.delegate = self;
-    self.captionTextView.linkTextAttributes = @{
-        NSForegroundColorAttributeName: [UIColor wmf_blue],
-        NSUnderlineStyleAttributeName: @1
-    };
-    self.actionButton.layer.borderColor = self.actionButton.tintColor.CGColor;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
     [self.dismissButton setTitle:WMFLocalizedStringWithDefaultValue(@"announcements-dismiss", nil, nil, @"No thanks", @"Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}") forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
-    [self.dismissButton setTitleColor:[UIColor wmf_777777] forState:UIControlStateNormal];
 
     [self wmf_configureSubviewsForDynamicType];
 }
@@ -62,12 +62,17 @@
     }
 }
 
+- (void)setImage:(UIImage *)image {
+    [self restoreImageToFullHeight];
+    self.imageView.image = image;
+}
+
 - (void)collapseImageHeightToZero {
-    self.imageHeightConstraint.constant = 0;
+    self.imageView.hidden = YES;
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = 150;
+    self.imageView.hidden = NO;
 }
 
 - (void)setMessageText:(NSString *)text {
@@ -79,23 +84,30 @@
 }
 
 - (void)setCaption:(NSAttributedString *)text {
-    NSMutableAttributedString *mutableText = [text mutableCopy];
-    if (!mutableText || mutableText.length == 0) {
-        self.captionTextView.attributedText = nil;
-        return;
+    if (text == nil) {
+        self.captionContainerView.hidden = YES;
+        self.captionTextView.text = nil;
+    } else {
+        self.captionContainerView.hidden = NO;
+        _caption = [text copy];
+        NSMutableAttributedString *mutableText = [text mutableCopy];
+        if (!mutableText || mutableText.length == 0) {
+            self.captionTextView.attributedText = nil;
+            return;
+        }
+        
+        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.alignment = NSTextAlignmentCenter;
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
+                                     NSForegroundColorAttributeName: self.theme.colors.secondaryText,
+                                     NSParagraphStyleAttributeName: pStyle};
+        [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
+        self.captionTextView.attributedText = mutableText;
+        [self.captionTextView setNeedsLayout];
+        [self.captionTextView layoutIfNeeded];
     }
-
-    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-    pStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    pStyle.baseWritingDirection = NSWritingDirectionNatural;
-    pStyle.alignment = NSTextAlignmentCenter;
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote],
-                                 NSForegroundColorAttributeName: [UIColor wmf_777777],
-                                 NSParagraphStyleAttributeName: pStyle};
-    [mutableText addAttributes:attributes range:NSMakeRange(0, mutableText.length)];
-    self.captionTextView.attributedText = mutableText;
-    [self.captionTextView setNeedsLayout];
-    [self.captionTextView layoutIfNeeded];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
@@ -113,6 +125,32 @@
 
 + (CGFloat)estimatedRowHeightWithImage:(BOOL)withImage {
     return 250 + (withImage ? 150 : 0);
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.actionButton setTitleColor:theme.colors.link forState:UIControlStateNormal];
+    self.actionButton.layer.borderColor = theme.colors.link.CGColor;
+    [self.actionButton setBackgroundColor:theme.colors.paperBackground];
+
+    self.captionTextView.linkTextAttributes = @{
+                                                NSForegroundColorAttributeName: theme.colors.link,
+                                                NSUnderlineStyleAttributeName: @1
+                                                };
+    [self.dismissButton setTitleColor:theme.colors.secondaryText forState:UIControlStateNormal];
+    [self.dismissButton setBackgroundColor:theme.colors.paperBackground];
+    
+    self.caption = _caption; // Applies the theme color
+    
+    self.separatorView.backgroundColor = theme.colors.border;
+    
+    self.messageLabel.textColor = theme.colors.primaryText;
+    self.messageLabel.backgroundColor = theme.colors.paperBackground;
+    self.imageView.backgroundColor = theme.colors.midBackground;
+    self.selectedBackgroundView.backgroundColor = theme.colors.paperBackground;
+    self.backgroundView.backgroundColor = theme.colors.paperBackground;
+    self.captionTextView.backgroundColor = theme.colors.paperBackground;
+    self.imageView.alpha = theme.imageOpacity;
 }
 
 @end
