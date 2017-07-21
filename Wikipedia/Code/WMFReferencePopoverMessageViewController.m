@@ -128,11 +128,7 @@
         return;
     }
 
-<<<<<<< HEAD
-    self.view.backgroundColor = theme.colors.paperBackground;
-=======
     self.view.backgroundColor = theme.colors.popoverBackground;
->>>>>>> 68e72ccbe123b05cde87dd128aee13df61785aeb
 
     self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link};
 
