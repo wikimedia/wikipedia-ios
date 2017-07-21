@@ -162,6 +162,8 @@ extension WKWebView {
     }
 
     public func wmf_classifyThemeElements(){
+        // 'themes.classifyElements()' needs to happen once after body elements are present. it
+        // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
         evaluateJavaScript("window.wmf.themes.classifyElements(document);", completionHandler: nil)
     }
     
