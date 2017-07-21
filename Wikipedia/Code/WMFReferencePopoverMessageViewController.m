@@ -136,7 +136,7 @@
 
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
 
-    self.closeButton.tintColor = theme.colors.secondaryText;
+    self.closeButton.tintColor = theme.colors.border;
 
     self.titleLabel.textColor = theme.colors.secondaryText;
 
