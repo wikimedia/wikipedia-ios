@@ -130,6 +130,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         #else
             mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
+
             // Setup map view
             mapView.mapType = .standard
             mapView.showsBuildings = false
@@ -2895,7 +2896,6 @@ extension PlacesViewController: Themeable {
         
         recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
         selectedArticlePopover?.apply(theme: theme)
-        mapView.mapType = theme.preferredStatusBarStyle == .default ? .standard : .hybrid
         redoSearchButton.backgroundColor = theme.colors.link
         didYouMeanButton.backgroundColor = theme.colors.link
         updateSearchFilterTitle()
