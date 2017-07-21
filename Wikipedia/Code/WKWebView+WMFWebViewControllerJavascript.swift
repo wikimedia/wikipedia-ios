@@ -156,20 +156,18 @@ extension WKWebView {
         let readMoreItemCount = 3
         evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
-    
-    public func wmf_enableCompatibilityTransformSupport(){
-        evaluateJavaScript("window.wmf.compatibility.enableSupport(document);", completionHandler: nil)
-    }
 
     public func wmf_classifyThemeElements(){
+        // 'themes.classifyElements()' needs to happen once after body elements are present. it
+        // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
         evaluateJavaScript("window.wmf.themes.classifyElements(document);", completionHandler: nil)
     }
     
-    public func wmf_applyTheme(_ theme: Theme){
+    static public func wmf_themeApplicationJavascript(with theme: Theme) -> String{
         var jsThemeConstant = "DEFAULT"
         switch theme.name {
         case Theme.sepia.name:
-           jsThemeConstant = "SEPIA"
+            jsThemeConstant = "SEPIA"
         case Theme.darkDimmed.name:
             fallthrough
         case Theme.dark.name:
@@ -177,6 +175,11 @@ extension WKWebView {
         default:
             break
         }
-        evaluateJavaScript("window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));", completionHandler: nil)
+        return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));"
+    }
+    
+    public func wmf_applyTheme(_ theme: Theme){
+        let themeJS = WKWebView.wmf_themeApplicationJavascript(with: theme)
+        evaluateJavaScript(themeJS, completionHandler: nil)
     }
 }
