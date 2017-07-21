@@ -399,7 +399,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         done();
         return;
     }
-    
+
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
@@ -415,7 +415,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         done();
         return;
     }
-    
 
     NSURL *articleURL = articlePreview.articleURL;
     if (!articleURL) {
@@ -486,19 +485,18 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (JSONError) {
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
-    
+
     NSString *articleURLString = articlePreview.URL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
     NSDictionary *originalViewCounts = articlePreview.pageViews;
 
-    
     if (!storyHTML || !articleURLString || !displayTitle || !JSONDictionary) {
         return NO;
     }
-    
+
     NSMutableDictionary *viewCounts = [NSMutableDictionary dictionaryWithCapacity:originalViewCounts.count];
-    [originalViewCounts enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [originalViewCounts enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
         if (![key isKindOfClass:[NSDate class]]) {
             return;
         }
@@ -508,10 +506,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
         viewCounts[dateString] = obj;
     }];
-    
+
     // Workaround for inablity to specify which reverse transform to use on WMFFeedNewsStory for storyHTML (it uses the date instead of the story)
     JSONDictionary[@"story"] = storyHTML;
-    
+
     NSMutableDictionary *mutableInfo = [NSMutableDictionary dictionaryWithCapacity:4];
     mutableInfo[WMFNotificationInfoArticleTitleKey] = displayTitle;
     mutableInfo[WMFNotificationInfoViewCountsKey] = viewCounts;

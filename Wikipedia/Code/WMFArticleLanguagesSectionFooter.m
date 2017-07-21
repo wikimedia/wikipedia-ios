@@ -17,7 +17,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-      self.backgroundView = backgroundView;
+    self.backgroundView = backgroundView;
     [self.addButton setTitle:WMFLocalizedStringWithDefaultValue(@"welcome-languages-add-button", nil, nil, @"Add another language", @"Title for button for adding another language")
                     forState:UIControlStateNormal];
     [self wmf_configureSubviewsForDynamicType];

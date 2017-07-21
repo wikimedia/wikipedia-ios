@@ -588,10 +588,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
     [self.searchField applyTheme:theme];
     self.searchField.backgroundColor = theme.colors.chromeBackground;
-    
+
     self.separatorView.backgroundColor = theme.colors.tertiaryText;
     self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
-    
+
     self.closeButton.tintColor = theme.colors.chromeText;
     self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;

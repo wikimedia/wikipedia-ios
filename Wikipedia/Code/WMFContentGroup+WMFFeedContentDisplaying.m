@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                 vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
                 vc.title = [self moreTitle];
             }
-            } break;
+        } break;
         case WMFFeedMoreTypeNews: {
             NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[self content];
             if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
     }
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id <WMFThemeable>)vc applyTheme:theme];
+        [(id<WMFThemeable>)vc applyTheme:theme];
     }
     return vc;
 }

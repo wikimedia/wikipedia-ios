@@ -78,13 +78,13 @@
         }
         case WMFSettingsMenuItemType_Appearance: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
-                                             iconName:@"settings-appearance"
-                                            iconColor:[UIColor wmf_colorWithHex:0x000000]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:WMFAppearanceSettingsViewController.disclosureText
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
+                                                 iconName:@"settings-appearance"
+                                                iconColor:[UIColor wmf_colorWithHex:0x000000]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:WMFAppearanceSettingsViewController.disclosureText
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return

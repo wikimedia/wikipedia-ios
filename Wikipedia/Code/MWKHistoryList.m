@@ -154,11 +154,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSDate *now = [NSDate date];
 
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
-    
+
     if (!article.displayTitle) {
         return;
     }
-        
+
     article.viewedDate = now;
     [article updateViewedDateWithoutTime];
 

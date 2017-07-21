@@ -14,7 +14,7 @@
 
 @implementation WMFDisambiguationPagesViewController
 
-- (instancetype)initWithURLs:(NSArray *)URLs siteURL:(NSURL*)siteURL  dataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithURLs:(NSArray *)URLs siteURL:(NSURL *)siteURL dataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
         self.URLs = URLs;

@@ -198,7 +198,7 @@
     self.distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.CGColor;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
-    self.articleImageView.alpha  = theme.imageOpacity;
+    self.articleImageView.alpha = theme.imageOpacity;
 }
 
 @end

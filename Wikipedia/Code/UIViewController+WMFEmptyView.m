@@ -13,7 +13,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme {
     [self wmf_hideEmptyView];
-    
+
     WMFEmptyView *view = nil;
     switch (type) {
         case WMFEmptyViewTypeBlank:
@@ -38,7 +38,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             return;
     }
     [view applyTheme:theme];
-    
+
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.frame = self.view.bounds;
 

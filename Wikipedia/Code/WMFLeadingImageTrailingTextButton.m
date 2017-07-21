@@ -234,7 +234,7 @@
     self.spaceBetweenIconAndText = 5.0;
     self.edgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     self.iconImage = [[UIImage imageNamed:@"notificationsIconV1"
-                                inBundle:[NSBundle bundleForClass:[self class]]
+                                 inBundle:[NSBundle bundleForClass:[self class]]
             compatibleWithTraitCollection:self.traitCollection] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.labelText = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, self.bundleForLocalization, @"Turn on notifications", @"Text for button to turn on trending news notifications");
 
