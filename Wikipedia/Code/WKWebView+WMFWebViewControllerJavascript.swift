@@ -156,10 +156,6 @@ extension WKWebView {
         let readMoreItemCount = 3
         evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
     }
-    
-    public func wmf_enableCompatibilityTransformSupport(){
-        evaluateJavaScript("window.wmf.compatibility.enableSupport(document);", completionHandler: nil)
-    }
 
     public func wmf_classifyThemeElements(){
         // 'themes.classifyElements()' needs to happen once after body elements are present. it
