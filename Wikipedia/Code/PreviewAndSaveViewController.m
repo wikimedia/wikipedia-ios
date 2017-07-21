@@ -613,7 +613,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view addSubview:abuseFilterAlert];
 
-    NSDictionary *views = @{ @"abuseFilterAlert": abuseFilterAlert };
+    NSDictionary *views = @{@"abuseFilterAlert": abuseFilterAlert};
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[abuseFilterAlert]|"
                                                                       options:0
@@ -703,6 +703,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     if (self.viewIfLoaded == nil) {
         return;
     }
+
+    self.previewWebViewContainer.webView.opaque = NO;
+    self.previewWebViewContainer.webView.scrollView.backgroundColor = [UIColor clearColor];
+
     self.scrollView.backgroundColor = theme.colors.baseBackground;
     self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
 

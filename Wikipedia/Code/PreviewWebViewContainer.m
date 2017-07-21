@@ -41,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                    forMainFrameOnly:YES]];
 
+    [userContentController addUserScript:
+                               [[WKUserScript alloc] initWithSource:[WKWebView wmf_themeClassificationJavascript]
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                   forMainFrameOnly:YES]];
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"anchorClicked"];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
