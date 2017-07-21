@@ -1,0 +1,38 @@
+{
+  "stickers" : [
+    {
+      "filename" : "Schrödinger's cat.sticker"
+    },
+    {
+      "filename" : "Astronaut.sticker"
+    },
+    {
+      "filename" : "Scientific blackhole.sticker"
+    },
+    {
+      "filename" : "Citation needed .sticker"
+    },
+    {
+      "filename" : "Anatomical heart.sticker"
+    },
+    {
+      "filename" : "International space station.sticker"
+    },
+    {
+      "filename" : "Rabbit hole.sticker"
+    },
+    {
+      "filename" : "Blackhole.sticker"
+    },
+    {
+      "filename" : "Spacedog.sticker"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "grid-size" : "large"
+  }
+}
