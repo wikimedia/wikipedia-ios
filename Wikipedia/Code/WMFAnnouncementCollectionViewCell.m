@@ -13,7 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet UIView *captionContainerView;
 
-
 @end
 
 @implementation WMFAnnouncementCollectionViewCell
@@ -22,7 +21,7 @@
     [super awakeFromNib];
     self.backgroundView = [UIView new];
     self.selectedBackgroundView = [UIView new];
-    
+
     self.captionTextView.delegate = self;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
@@ -95,7 +94,7 @@
             self.captionTextView.attributedText = nil;
             return;
         }
-        
+
         NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
         pStyle.lineBreakMode = NSLineBreakByWordWrapping;
         pStyle.baseWritingDirection = NSWritingDirectionNatural;
@@ -134,16 +133,16 @@
     [self.actionButton setBackgroundColor:theme.colors.paperBackground];
 
     self.captionTextView.linkTextAttributes = @{
-                                                NSForegroundColorAttributeName: theme.colors.link,
-                                                NSUnderlineStyleAttributeName: @1
-                                                };
+        NSForegroundColorAttributeName: theme.colors.link,
+        NSUnderlineStyleAttributeName: @1
+    };
     [self.dismissButton setTitleColor:theme.colors.secondaryText forState:UIControlStateNormal];
     [self.dismissButton setBackgroundColor:theme.colors.paperBackground];
-    
+
     self.caption = _caption; // Applies the theme color
-    
+
     self.separatorView.backgroundColor = theme.colors.border;
-    
+
     self.messageLabel.textColor = theme.colors.primaryText;
     self.messageLabel.backgroundColor = theme.colors.paperBackground;
     self.imageView.backgroundColor = theme.colors.midBackground;

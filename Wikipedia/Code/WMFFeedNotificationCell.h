@@ -7,7 +7,7 @@
 
 @interface WMFFeedNotificationCell : WMFExploreCollectionViewCell <WMFThemeable>
 
-@property (weak, nonatomic) id <WMFFeedNotificationCellDelegate> notificationCellDelegate;
+@property (weak, nonatomic) id<WMFFeedNotificationCellDelegate> notificationCellDelegate;
 
 @property (strong, nonatomic) IBOutlet UILabel *textLabel;
 @property (strong, nonatomic) IBOutlet WMFLeadingImageTrailingTextButton *enableNotificationsButton;

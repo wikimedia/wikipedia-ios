@@ -83,7 +83,6 @@
     self.localizedLanguageLabel.textColor = theme.colors.secondaryText;
     self.articleTitleLabel.textColor = theme.colors.secondaryText;
     [self setIsPrimary:_isPrimary];
-
 }
 
 @end

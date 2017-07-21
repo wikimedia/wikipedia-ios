@@ -95,14 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
             }
             return;
         }
-        
+
         NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:date];
         NSInteger monthNumber = [components month];
         NSInteger dayNumber = [components day];
         @weakify(self)
             [self.fetcher fetchOnThisDayEventsForURL:self.siteURL
-                                               month:monthNumber
-                                                 day:dayNumber
+                month:monthNumber
+                day:dayNumber
                 failure:^(NSError *error) {
                     if (completion) {
                         completion();
@@ -116,26 +116,26 @@ NS_ASSUME_NONNULL_BEGIN
                         }
                         return;
                     }
-                    
+
                     [moc performBlock:^{
                         [onThisDayEvents enumerateObjectsUsingBlock:^(WMFFeedOnThisDayEvent *_Nonnull event, NSUInteger idx, BOOL *_Nonnull stop) {
                             [event.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                 [moc fetchOrCreateArticleWithURL:[obj articleURL] updatedWithFeedPreview:obj pageViews:nil];
                             }];
                         }];
-                        
+
                         WMFContentGroup *group = [self onThisDayForDate:date inManagedObjectContext:moc];
                         if (group == nil) {
                             [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:onThisDayEvents];
                         } else {
                             group.content = onThisDayEvents;
                         }
-                        
+
                         if (completion) {
                             completion();
                         }
                     }];
-                    
+
                 }];
     }];
 }
@@ -143,7 +143,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
 }
-
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
