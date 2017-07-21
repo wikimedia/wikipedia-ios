@@ -12,10 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Omo-L4-p2j" customClass="WMFAnnouncementCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="391" height="416"/>
+            <rect key="frame" x="0.0" y="0.0" width="391" height="429"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="391" height="416"/>
+                <rect key="frame" x="0.0" y="0.0" width="391" height="429"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mqt-gw-SHd">
@@ -77,15 +77,15 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Tn-d7-8qa">
-                                <rect key="frame" x="0.0" y="328" width="391" height="40"/>
+                                <rect key="frame" x="0.0" y="328" width="391" height="39"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oqu-fQ-sJt" customClass="WMFTitleInsetRespectingButton">
-                                        <rect key="frame" x="15" y="6" width="361" height="28"/>
+                                        <rect key="frame" x="15" y="6" width="361" height="27"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                         <color key="tintColor" red="0.32941176470588235" green="0.34901960784313724" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="No thanks"/>
+                                        <state key="normal" title="Dismiss"/>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -96,7 +96,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPl-im-Dla">
-                                <rect key="frame" x="0.0" y="368" width="391" height="48"/>
+                                <rect key="frame" x="0.0" y="367" width="391" height="62"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ri1-4x-iNi">
                                         <rect key="frame" x="0.0" y="0.0" width="391" height="1"/>
@@ -121,11 +121,11 @@
                                     <constraint firstAttribute="trailing" secondItem="DOa-Xf-ZAm" secondAttribute="trailing" constant="15" id="ZO7-4t-frn"/>
                                     <constraint firstItem="ri1-4x-iNi" firstAttribute="leading" secondItem="xPl-im-Dla" secondAttribute="leading" id="hog-HT-ITE"/>
                                     <constraint firstItem="DOa-Xf-ZAm" firstAttribute="leading" secondItem="xPl-im-Dla" secondAttribute="leading" constant="15" id="oXy-e2-rb0"/>
-                                    <constraint firstAttribute="bottom" secondItem="DOa-Xf-ZAm" secondAttribute="bottom" priority="750" constant="8" id="qwE-Jc-RW7"/>
+                                    <constraint firstAttribute="bottom" secondItem="DOa-Xf-ZAm" secondAttribute="bottom" priority="999" constant="8" id="qwE-Jc-RW7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Grp-uB-apq">
-                                <rect key="frame" x="0.0" y="416" width="391" height="0.0"/>
+                                <rect key="frame" x="0.0" y="429" width="391" height="0.0"/>
                             </view>
                         </subviews>
                     </stackView>
@@ -138,7 +138,7 @@
                 <constraint firstAttribute="bottom" secondItem="Mqt-gw-SHd" secondAttribute="bottom" id="KPN-Vr-5D2"/>
                 <constraint firstItem="Mqt-gw-SHd" firstAttribute="leading" secondItem="Omo-L4-p2j" secondAttribute="leading" id="iJL-bE-i80"/>
             </constraints>
-            <size key="customSize" width="391" height="416"/>
+            <size key="customSize" width="391" height="429"/>
             <connections>
                 <outlet property="actionButton" destination="4nw-U6-qlU" id="BR3-f4-Keb"/>
                 <outlet property="captionContainerView" destination="xPl-im-Dla" id="rrh-6B-53p"/>
@@ -147,8 +147,9 @@
                 <outlet property="imageView" destination="hwo-Nj-BUG" id="OqS-6c-EV4"/>
                 <outlet property="messageLabel" destination="dmz-qC-I85" id="9ek-51-bWy"/>
                 <outlet property="separatorView" destination="ri1-4x-iNi" id="ocm-MF-QZB"/>
+                <outlet property="stackView" destination="Mqt-gw-SHd" id="eEL-rW-Ote"/>
             </connections>
-            <point key="canvasLocation" x="-25.5" y="-80"/>
+            <point key="canvasLocation" x="-27.5" y="-65.5"/>
         </collectionViewCell>
     </objects>
 </document>

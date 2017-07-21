@@ -1,6 +1,7 @@
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "Wikipedia-Swift.h"
+@import WMF.Swift;
 
 @interface WMFAnnouncementCollectionViewCell () <UITextViewDelegate>
 
@@ -12,7 +13,7 @@
 @property (strong, nonatomic) WMFTheme *theme;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet UIView *captionContainerView;
-
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 
 @end
 
@@ -22,11 +23,11 @@
     [super awakeFromNib];
     self.backgroundView = [UIView new];
     self.selectedBackgroundView = [UIView new];
-    
+
     self.captionTextView.delegate = self;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
-    [self.dismissButton setTitle:WMFLocalizedStringWithDefaultValue(@"announcements-dismiss", nil, nil, @"No thanks", @"Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}") forState:UIControlStateNormal];
+    [self.dismissButton setTitle:WMFCommonStrings.dismissButtonTitle forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
@@ -69,10 +70,12 @@
 
 - (void)collapseImageHeightToZero {
     self.imageView.hidden = YES;
+    [self.stackView layoutIfNeeded];
 }
 
 - (void)restoreImageToFullHeight {
     self.imageView.hidden = NO;
+    [self.stackView layoutIfNeeded];
 }
 
 - (void)setMessageText:(NSString *)text {
@@ -95,7 +98,7 @@
             self.captionTextView.attributedText = nil;
             return;
         }
-        
+
         NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
         pStyle.lineBreakMode = NSLineBreakByWordWrapping;
         pStyle.baseWritingDirection = NSWritingDirectionNatural;
@@ -108,6 +111,7 @@
         [self.captionTextView setNeedsLayout];
         [self.captionTextView layoutIfNeeded];
     }
+    [self.stackView layoutIfNeeded];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
@@ -134,16 +138,16 @@
     [self.actionButton setBackgroundColor:theme.colors.paperBackground];
 
     self.captionTextView.linkTextAttributes = @{
-                                                NSForegroundColorAttributeName: theme.colors.link,
-                                                NSUnderlineStyleAttributeName: @1
-                                                };
+        NSForegroundColorAttributeName: theme.colors.link,
+        NSUnderlineStyleAttributeName: @1
+    };
     [self.dismissButton setTitleColor:theme.colors.secondaryText forState:UIControlStateNormal];
     [self.dismissButton setBackgroundColor:theme.colors.paperBackground];
-    
+
     self.caption = _caption; // Applies the theme color
-    
+
     self.separatorView.backgroundColor = theme.colors.border;
-    
+
     self.messageLabel.textColor = theme.colors.primaryText;
     self.messageLabel.backgroundColor = theme.colors.paperBackground;
     self.imageView.backgroundColor = theme.colors.midBackground;

@@ -123,26 +123,17 @@
     switch (self.contentGroupKind) {
         case WMFContentGroupKindUnknown:
             break;
+        case WMFContentGroupKindAnnouncement:
+            self.dailySortPriority = -1;
+            break;
         case WMFContentGroupKindContinueReading:
             self.dailySortPriority = 0;
-            break;
-        case WMFContentGroupKindMainPage:
-            self.dailySortPriority = 10;
             break;
         case WMFContentGroupKindRelatedPages:
             self.dailySortPriority = 1;
             break;
-        case WMFContentGroupKindLocation:
-            self.dailySortPriority = 9;
-            break;
-        case WMFContentGroupKindLocationPlaceholder:
-            self.dailySortPriority = 8;
-            break;
-        case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = 6;
-            break;
-        case WMFContentGroupKindRandom:
-            self.dailySortPriority = 9;
+        case WMFContentGroupKindTheme:
+            self.dailySortPriority = 2;
             break;
         case WMFContentGroupKindFeaturedArticle:
             self.dailySortPriority = 3;
@@ -153,17 +144,26 @@
         case WMFContentGroupKindNews:
             self.dailySortPriority = 5;
             break;
-        case WMFContentGroupKindOnThisDay:
+        case WMFContentGroupKindNotification:
+            self.dailySortPriority = 6;
+            break;
+        case WMFContentGroupKindPictureOfTheDay:
             self.dailySortPriority = 7;
             break;
-        case WMFContentGroupKindNotification:
-            self.dailySortPriority = 3;
+        case WMFContentGroupKindOnThisDay:
+            self.dailySortPriority = 8;
             break;
-        case WMFContentGroupKindTheme:
-            self.dailySortPriority = 2;
+        case WMFContentGroupKindLocationPlaceholder:
+            self.dailySortPriority = 9;
             break;
-        case WMFContentGroupKindAnnouncement:
-            self.dailySortPriority = -1;
+        case WMFContentGroupKindLocation:
+            self.dailySortPriority = 10;
+            break;
+        case WMFContentGroupKindRandom:
+            self.dailySortPriority = 11;
+            break;
+        case WMFContentGroupKindMainPage:
+            self.dailySortPriority = 12;
             break;
         default:
             break;
