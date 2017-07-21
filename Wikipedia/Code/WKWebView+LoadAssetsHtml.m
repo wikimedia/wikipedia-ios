@@ -79,6 +79,12 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     //      but changing themes doesn't require 'compatibility.enableSupport()' or
     //      'themes.classifyElements()' be called again.)
     //
+    // Reminder:
+    //      We don't want to use 'addUserScript:' with WKUserScriptInjectionTimeAtDocumentEnd for this because
+    //      it happens too late - at 'DocumentEnd'. We want the colors to be set before this so there is never
+    //      a flickering color change visible to the user. We can't use WKUserScriptInjectionTimeAtDocumentBegin
+    //      because this fires before any of the head tag contents are resolved, including references to our JS
+    //      libraries - we'd have to make a larger set of changes to make this work.
 
     return [NSString stringWithFormat:@""
                                        "\n<style type='text/css'>"
