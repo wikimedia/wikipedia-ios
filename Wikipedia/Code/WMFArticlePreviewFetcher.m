@@ -130,9 +130,9 @@ NS_ASSUME_NONNULL_BEGIN
         @"titles": [self barSeparatedTitlesStringFromURLs:params.articleURLs],
         @"pilimit": @(params.articleURLs.count),
     }];
-    
+
     baseParams[@"prop"] = [baseParams[@"prop"] stringByAppendingString:@"|coordinates"];
-    
+
     if (params.extractLength > 0) {
         baseParams[@"exlimit"] = @(params.articleURLs.count);
     }

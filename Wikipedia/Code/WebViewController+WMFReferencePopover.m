@@ -54,7 +54,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
     [popoverVC applyTheme:self.theme];
-    
+
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
     popoverVC.reference = reference;
     popoverVC.width = width;
@@ -71,7 +71,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     }
 
     presenter.backgroundColor = self.theme.colors.paperBackground;
-    
+
     return popoverVC;
 }
 
