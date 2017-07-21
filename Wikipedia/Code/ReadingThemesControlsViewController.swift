@@ -39,6 +39,8 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet var textLabels: [UILabel]!
     @IBOutlet var stackView: UIStackView!
     
+    var steps: Int?
+    
     var visible = false
     
     open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
@@ -63,6 +65,30 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        slider.addGestureRecognizer(tap)
+    }
+    
+    func handleTap(_ sender: UIGestureRecognizer) {
+        let pointTapped: CGPoint = sender.location(in: self.view)
+        
+        let positionOfSlider: CGPoint = slider.frame.origin
+        let widthOfSlider: CGFloat = slider.frame.size.width
+        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(slider.maximumValue) / widthOfSlider)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        slider.value = Int(newValue)
+        // Update UI without animation
+        slider.setNeedsLayout()
+        CATransaction.commit()
+        
+        
+        
     }
     
     func applyBorder(to button: UIButton) {
@@ -92,6 +118,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
+        self.steps = steps
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
