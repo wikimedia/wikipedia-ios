@@ -175,7 +175,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (title) {
         NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
         NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
-        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle) wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringByReplacingApostrophesWithBackslashApostrophes];
         [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
@@ -427,12 +427,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (force || ABS(self.marginWidth - newMarginWidth) >= 0.5) {
         self.marginWidth = newMarginWidth;
         NSString *jsFormat = @""
-            "var contentDiv = document.getElementById('content');"
-            "contentDiv.style.marginLeft='%ipx';"
-            "contentDiv.style.marginRight='%ipx';"
-            "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
-        ;
-        
+                              "var contentDiv = document.getElementById('content');"
+                              "contentDiv.style.marginLeft='%ipx';"
+                              "contentDiv.style.marginRight='%ipx';"
+                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);";
+
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
         NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
@@ -638,7 +637,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!self.theme) {
         self.theme = WMFTheme.standard;
     }
-    
+
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -663,7 +662,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.zeroStatusLabel.text = @"";
 
     [self applyTheme:self.theme];
-    
+
     [self displayArticle];
 }
 
@@ -1104,7 +1103,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self.viewIfLoaded == nil) {
         return;
     }
-    
+
     self.webView.opaque = NO;
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.scrollView.backgroundColor = [UIColor clearColor];

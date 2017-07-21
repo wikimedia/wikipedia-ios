@@ -31,7 +31,6 @@
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
-    
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -108,7 +107,7 @@
         }
         userDefaults.wmf_didShowThemeCardInFeed = YES;
     }
-    
+
     WMFContentGroup *newsGroup = [moc newestGroupOfKind:WMFContentGroupKindNews];
     if (newsGroup) {
         NSURL *URL = [WMFContentGroup notificationContentGroupURL];
@@ -124,7 +123,7 @@
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-    
+
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {

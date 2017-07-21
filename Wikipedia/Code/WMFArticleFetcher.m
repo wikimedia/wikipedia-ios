@@ -106,10 +106,11 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    [self.pageSummarySessionManager.session wmf_fetchSummaryWithArticleURL:articleURL completionHandler:^(NSDictionary<NSString *, id> * _Nullable summary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        summaryResponse = summary;
-        [taskGroup leave];
-    }];
+    [self.pageSummarySessionManager.session wmf_fetchSummaryWithArticleURL:articleURL
+                                                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                             summaryResponse = summary;
+                                                             [taskGroup leave];
+                                                         }];
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];

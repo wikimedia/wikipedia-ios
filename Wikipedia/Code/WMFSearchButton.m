@@ -3,7 +3,6 @@
 @import WMF.SessionSingleton;
 #import "Wikipedia-Swift.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchButton
