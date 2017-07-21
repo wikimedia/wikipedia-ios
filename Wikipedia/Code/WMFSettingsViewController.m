@@ -267,7 +267,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [self presentViewController:themeableNavController animated:YES completion:nil];
 }
 
-
 #pragma mark - Log in and out
 
 - (void)showLoginOrLogout {

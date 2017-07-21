@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
@@ -43,9 +43,8 @@
     NSAssert(self.textView.scrollEnabled == NO, @"scrollEnabled must be NO for 'preferredContentSize' calculations to correctly account for textView's contentSize height");
 
     [self.widthConstraint setConstant:self.width];
-    
-    [self applyTheme:self.theme];
 
+    [self applyTheme:self.theme];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -130,22 +129,22 @@
     }
 
     self.view.backgroundColor = theme.colors.paperBackground;
-    
+
     self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link};
-    
+
     [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
-    
+
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
-    
+
     self.closeButton.tintColor = theme.colors.secondaryText;
-    
+
     self.titleLabel.textColor = theme.colors.secondaryText;
-    
+
     self.titleLabel.attributedText =
-    [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
-     attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
-     substitutionStrings:@[self.reference.text]
-     substitutionAttributes:@[@{NSForegroundColorAttributeName: theme.colors.primaryText}]];
+        [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
+            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+                       substitutionStrings:@[self.reference.text]
+                    substitutionAttributes:@[@{NSForegroundColorAttributeName: theme.colors.primaryText}]];
 }
 
 @end
