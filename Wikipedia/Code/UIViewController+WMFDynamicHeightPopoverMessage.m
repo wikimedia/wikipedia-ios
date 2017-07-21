@@ -83,16 +83,16 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
     popoverVC.width = width;
 
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
-    
+
     presenter.delegate = popoverVC;
     presenter.passthroughViews = @[self.view];
-    
+
     if (presenterConfigurationBlock) {
         presenterConfigurationBlock(presenter);
     }
-    
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wundeclared-selector"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([self respondsToSelector:@selector(theme)]) {
         id maybeTheme = [(id)self performSelector:@selector(theme)];
         if ([maybeTheme isKindOfClass:[WMFTheme class]]) {
@@ -100,10 +100,7 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
             presenter.backgroundColor = [(WMFTheme *)maybeTheme colors].paperBackground;
         }
     }
-    #pragma clang diagnostic pop
-    
-  
-
+#pragma clang diagnostic pop
 
     return popoverVC;
 }

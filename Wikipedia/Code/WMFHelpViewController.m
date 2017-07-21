@@ -3,7 +3,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <WMF/WikipediaAppUtils.h>
 #import "Wikipedia-Swift.h"
-#import "WMFLeadingImageTrailingTextButton.h"
 #import "DDLog+WMFLogger.h"
 
 @import MessageUI;
@@ -48,9 +47,9 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (UIBarButtonItem *)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
-        WMFLeadingImageTrailingTextButton *button = [[WMFLeadingImageTrailingTextButton alloc] init];
+        WMFAlignedImageButton *button = [[WMFAlignedImageButton alloc] init];
+        [button setImage:[UIImage imageNamed:@"settings-feedback"] forState:UIControlStateNormal];
         button.tintColor = [UIColor wmf_blue];
-        [button configureAsReportBugButton];
         [button sizeToFit];
         [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
         _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];

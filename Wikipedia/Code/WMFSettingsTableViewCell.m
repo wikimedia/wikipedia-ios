@@ -38,7 +38,6 @@
     self.disclosureLabel.text = disclosureText;
 }
 
-
 - (UIImage *)backChevronImage {
     static dispatch_once_t once;
     static UIImage *image;

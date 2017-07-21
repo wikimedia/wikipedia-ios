@@ -8,12 +8,9 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
-#import "WMFFeedNotificationCell.h"
 
-#import "WMFLeadingImageTrailingTextButton.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
-#import "WMFAnnouncementCollectionViewCell.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleViewController.h"
 #import "WMFImageGalleryViewController.h"
@@ -31,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, WMFFeedNotificationCellDelegate, UIPopoverPresentationControllerDelegate>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -298,23 +295,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     [self.refreshControl endRefreshing];
-}
-
-#pragma mark - WMFFeedNotificationCellDelegate
-
-- (void)feedNotificationCellDidRequestEnableNotifications:(WMFFeedNotificationCell *)cell {
-    [[PiwikTracker sharedInstance] wmf_logActionEnableInContext:@"notification" contentType:@"current events"];
-    [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
-        if (error) {
-            [self wmf_showAlertWithError:error];
-        }
-    }];
-    [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
-    [self dismissNotificationCard];
-}
-
-- (void)feedNotificationCellDidDismiss:(WMFFeedNotificationCell *)cell {
-    [self dismissNotificationCard];
 }
 
 - (void)dismissNotificationCard {
@@ -592,22 +572,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self configureOnThisDayCell:cell withContentGroup:contentGroup layoutOnly:NO];
             return cell;
         } break;
+        case WMFFeedDisplayTypeTheme:
+        case WMFFeedDisplayTypeNotification:
         case WMFFeedDisplayTypeAnnouncement: {
-            WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureAnnouncementCell:cell withSection:contentGroup atIndexPath:indexPath];
+            WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFAnnouncementCollectionViewCell" forIndexPath:indexPath];
+            [self configureAnnouncementCell:cell withContentGroup:contentGroup atIndexPath:indexPath];
             return cell;
-        } break;
-        case WMFFeedDisplayTypeNotification: {
-            WMFFeedNotificationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName] forIndexPath:indexPath];
-            cell.notificationCellDelegate = self;
-            [cell applyTheme:self.theme];
-            return cell;
-        } break;
-        case WMFFeedDisplayTypeTheme: {
-            WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configureAnnouncementCellForThemes:cell];
-            return cell;
-        } break;
+        }
         default:
             NSAssert(false, @"Unknown Display Type");
             return nil;
@@ -687,7 +658,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 case WMFFeedDisplayTypeStory: {
                     WMFNewsCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureNewsCell:cell withContentGroup:section layoutOnly:YES];
-
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -695,7 +665,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 case WMFFeedDisplayTypeEvent: {
                     WMFOnThisDayExploreCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureOnThisDayCell:cell withContentGroup:section layoutOnly:YES];
-
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
                     estimate.height = size.height;
                     break;
@@ -719,32 +688,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             estimate.height = [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
         } break;
         case WMFFeedDisplayTypeTheme:
+        case WMFFeedDisplayTypeNotification:
         case WMFFeedDisplayTypeAnnouncement: {
-            WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
-            CGFloat estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:YES];
-            if (displayType == WMFFeedDisplayTypeAnnouncement) {
-                WMFAnnouncement *announcement = (WMFAnnouncement *)section.content.firstObject;
-                estimatedHeight = [WMFAnnouncementCollectionViewCell estimatedRowHeightWithImage:announcement.imageURL != nil];
-                [self configureAnnouncementCell:cell withSection:section atIndexPath:indexPath];
-            } else {
-                [self configureAnnouncementCellForThemes:cell];
-            }
-            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            CGRect frameToFit = CGRectMake(0, 0, columnWidth, estimatedHeight);
-            cell.frame = frameToFit;
-            attributesToFit.frame = frameToFit;
-            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
-            estimate.height = attributes.frame.size.height;
-            estimate.precalculated = YES;
-        } break;
-        case WMFFeedDisplayTypeNotification: {
-            WMFFeedNotificationCell *cell = [self placeholderCellForIdentifier:[WMFFeedNotificationCell wmf_nibName]];
-            cell.notificationCellDelegate = self;
-            CGRect frameToFit = CGRectMake(0, 0, columnWidth, UIViewNoIntrinsicMetric);
-            WMFCVLAttributes *attributesToFit = [WMFCVLAttributes new];
-            attributesToFit.frame = frameToFit;
-            UICollectionViewLayoutAttributes *attributes = [cell preferredLayoutAttributesFittingAttributes:attributesToFit];
-            estimate.height = attributes.frame.size.height;
+            WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:@"WMFAnnouncementCollectionViewCell"];
+            [self configureAnnouncementCell:cell withContentGroup:section atIndexPath:indexPath];
+            CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+            estimate.height = size.height;
             estimate.precalculated = YES;
         } break;
         default:
@@ -1148,7 +1097,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFFeedEmptyHeaderFooterReuseIdentifier];
 
-    [self registerNib:[WMFAnnouncementCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFAnnouncementCollectionViewCell wmf_nibName]];
+    [self registerClass:[WMFAnnouncementCollectionViewCell class] forCellWithReuseIdentifier:@"WMFAnnouncementCollectionViewCell"];
 
     [self registerClass:[WMFArticleRightAlignedImageCollectionViewCell class] forCellWithReuseIdentifier:@"WMFArticleRightAlignedImageCollectionViewCell"];
 
@@ -1163,8 +1112,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.collectionView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbyArticleCollectionViewCell wmf_nibName]];
 
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
-
-    [self registerNib:[WMFFeedNotificationCell wmf_classNib] forCellWithReuseIdentifier:[WMFFeedNotificationCell wmf_nibName]];
 }
 
 - (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section displayType:(WMFFeedDisplayType)displayType withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
@@ -1214,25 +1161,41 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-- (void)configureAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withSection:(WMFContentGroup *)section atIndexPath:(NSIndexPath *)indexPath {
-    NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:section];
-    if (indexPath.item >= announcements.count) {
-        return;
+- (void)configureAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup atIndexPath:(NSIndexPath *)indexPath {
+    WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
+    switch (displayType) {
+        case WMFFeedDisplayTypeAnnouncement: {
+            NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:contentGroup];
+            if (indexPath.item >= announcements.count) {
+                return;
+            }
+            WMFAnnouncement *announcement = announcements[indexPath.item];
+            if (announcement.imageURL) {
+                cell.isImageViewHidden = NO;
+                [cell.imageView wmf_setImageWithURL:announcement.imageURL detectFaces:NO failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+            } else {
+                cell.isImageViewHidden = YES;
+            }
+            cell.messageLabel.text = announcement.text;
+            [cell.actionButton setTitle:announcement.actionTitle forState:UIControlStateNormal];
+            cell.caption = announcement.caption;
+        } break;
+        case WMFFeedDisplayTypeNotification: {
+            cell.isImageViewHidden = YES;
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"You can now receive notifications about Wikipedia articles trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
+            [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, nil, @"Turn on notifications", @"Text for button to turn on trending news notifications") forState:UIControlStateNormal];
+            cell.isCaptionHidden = YES;
+        } break;
+        case WMFFeedDisplayTypeTheme: {
+            cell.isImageViewHidden = NO;
+            cell.imageView.image = [UIImage imageNamed:@"feed-card-themes"];
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.", @"Description on feed card that describes the themes feature.");
+            [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
+            cell.isCaptionHidden = YES;
+        } break;
+        default:
+            break;
     }
-    WMFAnnouncement *announcement = announcements[indexPath.item];
-    [cell setImageURL:announcement.imageURL];
-    [cell setMessageText:announcement.text];
-    [cell setActionText:announcement.actionTitle];
-    [cell setCaption:announcement.caption];
-    [cell applyTheme:self.theme];
-    cell.delegate = self;
-}
-
-- (void)configureAnnouncementCellForThemes:(WMFAnnouncementCollectionViewCell *)cell {
-    [cell setImage:[UIImage imageNamed:@"feed-card-themes"]];
-    [cell setMessageText:WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.", @"Description on feed card that describes the themes feature.")];
-    [cell setActionText:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.")];
-    cell.caption = nil;
     [cell applyTheme:self.theme];
     cell.delegate = self;
 }
@@ -1741,19 +1704,30 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 - (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    if (group.contentGroupKind == WMFContentGroupKindTheme) {
-        //Placeholder until we can navigate to theme settings
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
-    } else {
-        [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
-        NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
-        if (indexPath.item >= announcements.count) {
-            return;
-        }
-        WMFAnnouncement *announcement = announcements[indexPath.item];
-        NSURL *url = announcement.actionURL;
-        [self wmf_openExternalUrl:url];
-        [self dismissAnnouncementCell:cell];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
+    switch (group.contentGroupKind) {
+        case WMFContentGroupKindTheme: {
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
+        } break;
+        case WMFContentGroupKindNotification: {
+            [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
+                if (error) {
+                    [self wmf_showAlertWithError:error];
+                }
+            }];
+            [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
+            [self dismissNotificationCard];
+        } break;
+        default: {
+            NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
+            if (indexPath.item >= announcements.count) {
+                return;
+            }
+            WMFAnnouncement *announcement = announcements[indexPath.item];
+            NSURL *url = announcement.actionURL;
+            [self wmf_openExternalUrl:url];
+            [self dismissAnnouncementCell:cell];
+        } break;
     }
 }
 

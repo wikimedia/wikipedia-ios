@@ -33,7 +33,7 @@
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    
+
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItem = buttonX;
 
@@ -47,7 +47,7 @@
     self.summaryTextField.font = [UIFont systemFontOfSize:14.0];
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -117,9 +117,7 @@
         return;
     }
     self.view.backgroundColor = theme.colors.paperBackground;
-    [self.summaryTextField applyTheme: theme];
+    [self.summaryTextField applyTheme:theme];
 }
-
-
 
 @end

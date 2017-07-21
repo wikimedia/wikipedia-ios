@@ -129,7 +129,7 @@
     self.subTitleLabel.backgroundColor = theme.colors.paperBackground;
     self.rightButton.backgroundColor = theme.colors.paperBackground;
     self.backgroundColor = theme.colors.paperBackground;
-    
+
     if (theme.colors.iconBackground != nil) {
         self.iconContainerView.backgroundColor = theme.colors.iconBackground;
     }
