@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="width" constant="200" id="dl9-cl-hR1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Dismiss"/>
                                 <connections>
                                     <action selector="dismiss:" destination="20F-Cl-zlX" eventType="touchUpInside" id="nEc-CT-IBW"/>
