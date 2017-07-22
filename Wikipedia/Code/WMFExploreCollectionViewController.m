@@ -1181,8 +1181,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.caption = announcement.caption;
         } break;
         case WMFFeedDisplayTypeNotification: {
-            cell.isImageViewHidden = YES;
-            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"You can now receive notifications about Wikipedia articles trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
+            cell.isImageViewHidden = NO;
+            cell.imageView.image = [UIImage imageNamed:@"feed-card-notification"];
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"Enable notifications to be notified by Wikipeida when articles are trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, nil, @"Turn on notifications", @"Text for button to turn on trending news notifications") forState:UIControlStateNormal];
             cell.isCaptionHidden = YES;
         } break;
