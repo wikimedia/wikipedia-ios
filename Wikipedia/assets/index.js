@@ -10,6 +10,7 @@ wmf.footerMenu = require('wikimedia-page-library').FooterMenu
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.filePages = require('./js/transforms/disableFilePageEdit')
+wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.redLinks = require('wikimedia-page-library').RedLinks
@@ -17,6 +18,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
+
 },{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
