@@ -60,6 +60,7 @@
 "action-saved" = "Збережено";
 "action-share" = "Поділитися";
 "alert-no-internet" = "Не має з'єднання із інтернетом";
+// Fuzzy
 "announcements-dismiss" = "Ні, дякую";
 "article-about-title" = "Про цю статтю";
 "article-languages-filter-placeholder" = "Знайти мову";
@@ -269,7 +270,6 @@
 "readers-accessibility-label" = "$1 читачів";
 "reference-title" = "Посилання $1";
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
-"save-action" = "Зберегти";
 "saved-clear-all" = "Очистити";
 "saved-pages-clear-cancel" = "Скасувати";
 "saved-pages-clear-confirmation-heading" = "Ви дійсно хочете видалити всі збережені сторінки?";
@@ -325,7 +325,6 @@
 "two-factor-login-title" = "Вхід у Ваш обліковий запис";
 "two-factor-login-with-backup-code" = "Використати один з Ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
-"unsave-action" = "Не зберігати";
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-explore-new-ways-sub-title" = "Нові сповіщення і віджети, що допоможуть Вам відкрити для себе цікаві статті";
 "welcome-explore-new-ways-title" = "Нові способи дослідження";

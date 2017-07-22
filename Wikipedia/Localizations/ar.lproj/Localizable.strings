@@ -70,6 +70,7 @@
 "action-saved" = "محفوظة";
 "action-share" = "شارك";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
+// Fuzzy
 "announcements-dismiss" = "لا شكرًا";
 "article-about-title" = "حول المقال";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
@@ -289,7 +290,6 @@
 "readers-accessibility-label" = "$1 قارئ";
 "reference-title" = "$1 مرجع";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
-"save-action" = "احفظ";
 "saved-clear-all" = "امسح";
 "saved-pages-clear-cancel" = "إلغاء";
 "saved-pages-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع الصفحات المحفوظة؟";
@@ -347,7 +347,6 @@
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-with-backup-code" = "استخدم رمزًا من الرموز الاحتياطية";
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
-"unsave-action" = "تراجع عن الحفظ";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more" = "أطلعني على المزيد";

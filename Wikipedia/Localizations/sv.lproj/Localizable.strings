@@ -65,6 +65,7 @@
 "action-share" = "Dela";
 "action-unsave" = "Spara inte";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
+// Fuzzy
 "announcements-dismiss" = "Nej tack";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
@@ -73,7 +74,6 @@
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
-"article-save" = "Spara";
 "article-share" = "Dela";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
@@ -303,7 +303,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|Senaste året|$1 år sedan}}";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
-"save-action" = "Spara";
 "saved-clear-all" = "Rensa";
 "saved-pages-clear-cancel" = "Avbryt";
 "saved-pages-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina sparade objekt?";
@@ -362,7 +361,6 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
-"unsave-action" = "Spara inte";
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-explore-new-ways-sub-title" = "Nya notiser och widgets för att hjälpa dig att upptäcka intressanta artiklar";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
@@ -392,7 +390,6 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";

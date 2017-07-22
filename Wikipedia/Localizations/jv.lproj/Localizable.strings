@@ -52,6 +52,7 @@
 "action-share" = "Dum";
 "action-unsave" = "Wurung nyimpen";
 "alert-no-internet" = "Ora ana gayutan Internèt";
+// Fuzzy
 "announcements-dismiss" = "Ora, matur nuwun";
 "article-about-title" = "Ngenani artikel iki";
 "article-delete" = "Busak";
@@ -60,7 +61,6 @@
 "article-languages-others" = "Basa liyané";
 "article-languages-yours" = "Basané panjenengan";
 "article-read-more-title" = "Waca candhaké";
-"article-save" = "Simpen";
 "article-share" = "Dum";
 "article-unable-to-load-article" = "Ora bisa ngamot artikel.";
 "article-unable-to-load-section" = "Ora bisa ngamot pérangan iki. Jajal mot manèh kacané saperlu niliki yèn masalahé wis didandani apa durung.";
@@ -290,7 +290,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mentas waé|$1 menit kapungkur}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun iki|Taun wingi|$1 taun kapungkur}}";
 "request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
-"save-action" = "Simpen";
 "saved-clear-all" = "Busak";
 "saved-pages-clear-cancel" = "Wurung";
 "saved-pages-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh kaca simpenané panjenengan?";
@@ -349,7 +348,6 @@
 "two-factor-login-title" = "Mlebu log nyang akuné panjenengan";
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
-"unsave-action" = "Wurung simpen";
 "welcome-explore-continue-button" = "Miwiti";
 "welcome-explore-new-ways-sub-title" = "Wara-wara lan widgèt anyar kanggo mbiyantu panjenengan golèk artikel sing narik kawigatèn";
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
@@ -379,7 +377,6 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
 "zero-charged-verbiage" = "Wikipedia Zero mati";

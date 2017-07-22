@@ -65,6 +65,7 @@
 "action-saved" = "保存済み";
 "action-share" = "共有";
 "alert-no-internet" = "インターネットが接続されていません";
+// Fuzzy
 "announcements-dismiss" = "不要です";
 "article-about-title" = "この記事について";
 "article-languages-filter-placeholder" = "言語の絞り込み";
@@ -242,7 +243,6 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|昨日|$1日前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
-"save-action" = "保存";
 "saved-clear-all" = "消去";
 "saved-pages-clear-cancel" = "キャンセル";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
@@ -292,7 +292,6 @@
 "table-title-other" = "さらに見る";
 "top-read-header-generic" = "ウィキペディア";
 "top-read-header-with-language" = "$1ウィキペディア";
-"unsave-action" = "保存しない";
 "welcome-explore-continue-button" = "次へ";
 "welcome-explore-new-ways-sub-title" = "新しい通知とウィジェットで、面白い記事がもっと見つけやすくなりました";
 "welcome-explore-new-ways-title" = "New ways to explore";

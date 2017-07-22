@@ -45,6 +45,7 @@
 "action-saved" = "Bewaar";
 "action-share" = "Deel";
 "alert-no-internet" = "Daar is geen internetverbinding";
+// Fuzzy
 "announcements-dismiss" = "Nee dankie";
 "article-about-title" = "Oor hierdie artikel";
 "article-languages-filter-placeholder" = "Soek taal";
@@ -181,7 +182,6 @@
 "readers-accessibility-label" = "$1 lesers";
 "reference-title" = "Verwysing $1";
 "request-feedback-on-error" = "Die toep het ’n probleem ervaar waarvan ons ontwikkelaars meer wil weet. Tik hier om aan ons ’n e-pos met die foutbesonderhede te stuur.";
-"save-action" = "Bewaar";
 "saved-clear-all" = "Maak skoon";
 "saved-pages-clear-cancel" = "Kanselleer";
 "saved-pages-clear-confirmation-heading" = "Is u seker u wil al u bewaarde blaaie skrap?";

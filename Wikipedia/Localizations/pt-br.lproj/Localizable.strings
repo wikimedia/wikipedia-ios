@@ -75,6 +75,7 @@
 "action-share" = "Compartilhar";
 "action-unsave" = "Não salvo";
 "alert-no-internet" = "Não há conexão com a internet";
+// Fuzzy
 "announcements-dismiss" = "Não, obrigado";
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Deletar";
@@ -83,7 +84,6 @@
 "article-languages-others" = "Outros idiomas";
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
-"article-save" = "Salvar";
 "article-share" = "Compartilhar";
 "article-unable-to-load-article" = "Não foi possível carregar o artigo.";
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
@@ -313,7 +313,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|$1 minuto atrás|$1 minutos atrás}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|Ano passado|$1 anos atrás}}";
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
-"save-action" = "Salvar";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-confirmation-heading" = "Tem certeza que deseja apagar todas as suas páginas salvas?";
@@ -372,7 +371,6 @@
 "two-factor-login-title" = "Faça login na sua conta";
 "two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
-"unsave-action" = "Não salvar";
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-sub-title" = "Novas notificações e widgets para ajudá-lo a descobrir artigos interessantes";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";

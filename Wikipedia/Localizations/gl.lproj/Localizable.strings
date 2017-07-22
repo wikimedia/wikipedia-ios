@@ -57,6 +57,7 @@
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
+// Fuzzy
 "announcements-dismiss" = "Non, grazas";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
@@ -65,7 +66,6 @@
 "article-languages-others" = "Outras linguas";
 "article-languages-yours" = "As súas linguas";
 "article-read-more-title" = "Ler máis";
-"article-save" = "Gardar";
 "article-share" = "Compartir";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
@@ -295,7 +295,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|O último ano|hai $1 anos}}";
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
-"save-action" = "Gardar";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-confirmation-heading" = "Está seguro de que quere borrar todas as súas páxinas gardadas?";
@@ -354,7 +353,6 @@
 "two-factor-login-title" = "Comezar sesión na súa conta";
 "two-factor-login-with-backup-code" = "Usar un dos seus códigos de copia de seguridade";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
-"unsave-action" = "Anular o gardado";
 "welcome-explore-continue-button" = "Comezar";
 "welcome-explore-new-ways-sub-title" = "Novas notificacións e trebellos para axudarlle a descubrir artigos interesantes";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
@@ -384,7 +382,6 @@
 "wikitext-upload-save" = "Publicando...";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ó publicar cambios, vostede acepta os $1 e acepta liberar a súa contribución baixo as licenzas $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivada";

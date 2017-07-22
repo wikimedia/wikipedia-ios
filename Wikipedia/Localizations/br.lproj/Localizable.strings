@@ -57,6 +57,7 @@
 "action-share" = "Rannañ";
 "action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
+// Fuzzy
 "announcements-dismiss" = "Ne'm bo ket, trugarez";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
 "article-delete" = "Diverkañ";
@@ -65,7 +66,6 @@
 "article-languages-others" = "Yezhoù all";
 "article-languages-yours" = "Ho yezhoù";
 "article-read-more-title" = "Lenn muioc'h";
-"article-save" = "Enrollañ";
 "article-share" = "Rannañ";
 "article-unable-to-load-article" = "Ne c'haller ket kargañ ar pennad-mañ.";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
@@ -280,7 +280,6 @@
 "readers-accessibility-label" = "$1 lenner";
 "reference-title" = "Daveenn $1";
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
-"save-action" = "Enrollañ";
 "saved-clear-all" = "Diverkañ";
 "saved-pages-clear-cancel" = "Nullañ";
 "saved-pages-clear-confirmation-heading" = "Ha sur eo hoc'h eus c'hoant da lemel ho holl elfennoù enrollet ?";
@@ -339,7 +338,6 @@
 "two-factor-login-title" = "Kevreañ d'ho kont";
 "two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
-"unsave-action" = "Dienrollañ";
 "welcome-explore-continue-button" = "Kregiñ";
 "welcome-explore-new-ways-sub-title" = "Kemennadennoù nevez ha bitrakoù evit o skoazellañ da zizoleiñ pennadoù dedennus";
 "welcome-explore-new-ways-title" = "Hentoù nevez da vezañ ergerzhet";

@@ -70,6 +70,7 @@
 "action-share" = "Condividi";
 "action-unsave" = "Annulla salvataggio";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
+// Fuzzy
 "announcements-dismiss" = "No, grazie";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
@@ -78,7 +79,6 @@
 "article-languages-others" = "Altre lingue";
 "article-languages-yours" = "Le tue lingue";
 "article-read-more-title" = "Leggi altro";
-"article-save" = "Salva";
 "article-share" = "Condividi";
 "article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
@@ -283,7 +283,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
-"save-action" = "Salva";
 "saved-clear-all" = "Pulisci";
 "saved-pages-clear-cancel" = "Annulla";
 "saved-pages-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutte le pagine che hai salvato?";
@@ -335,7 +334,6 @@
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
-"unsave-action" = "Non salvare";
 "welcome-explore-continue-button" = "Inizia";
 "welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
 "welcome-explore-tell-me-more" = "Dimmi di più";
@@ -358,6 +356,7 @@
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";

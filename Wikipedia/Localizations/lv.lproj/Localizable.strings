@@ -25,6 +25,7 @@
 "action-save" = "Saglabāt";
 "action-saved" = "Saglabāts";
 "action-share" = "Dalīties";
+// Fuzzy
 "announcements-dismiss" = "Nē, paldies";
 "article-about-title" = "Par šo rakstu";
 "article-delete" = "Dzēst";
@@ -33,7 +34,6 @@
 "article-languages-others" = "Citas valodas";
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
-"article-save" = "Saglabāt";
 "article-share" = "Dalīties";
 "back" = "Atpakaļ";
 "back-button-accessibility-label" = "Atpakaļ";
@@ -65,8 +65,7 @@
 "field-alert-password-invalid" = "Nederīga parole";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
-// Fuzzy
-"field-email-title" = "E-pasta adrese (nav obligāta)";
+"field-email-title" = "E-pasts";
 "field-email-title-optional" = "E-pasts (nav obligāti)";
 "field-new-password-title" = "Jaunā parole";
 "field-password-placeholder" = "ievadi paroli";
@@ -97,7 +96,6 @@
 "in-the-news-notification-share-action-title" = "Dalīties...";
 "in-the-news-title" = "Ziņās";
 "info-box-close-text" = "Aizvērt";
-// Fuzzy
 "info-box-title" = "Ātrie fakti";
 "languages-title" = "Mainīt valodu";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -141,7 +139,6 @@
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
 "reference-title" = "Atsauce $1";
-"save-action" = "Saglabāt";
 "saved-clear-all" = "Notīrīt";
 "saved-pages-clear-cancel" = "Atcelt";
 "saved-pages-clear-delete-all" = "Jā, dzēst visu";

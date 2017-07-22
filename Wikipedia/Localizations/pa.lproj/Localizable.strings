@@ -45,6 +45,7 @@
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";
+// Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾ ਲੱਭੋ";
@@ -177,7 +178,6 @@
 "rank-accessibility-label" = "ਨੰਬਰ $1";
 "readers-accessibility-label" = "$1 ਪਡ਼੍ਹਨ ਵਾਲੇ";
 "reference-title" = "ਹਵਾਲਾ $1";
-"save-action" = "ਸੰਭਾਲੋ";
 "saved-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "saved-pages-clear-confirmation-heading" = "ਕੀ ਤੁਸੀੰ ਪੱਕਾ ਆਪਣੇ ਸਾਰੇ ਸਾੰਭੇ ਸਫੇ ਮਿਟਾਉਣੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?";
@@ -220,7 +220,6 @@
 "table-title-other" = "ਹੋਰ ਜਾਣਕਾਰੀ";
 "top-read-header-generic" = "ਵਿਕੀਪੀਡੀਆ";
 "top-read-header-with-language" = "$1 ਵਿਕੀਪੀਡੀਆ";
-"unsave-action" = "ਅਣ-ਸਾਂਭਿਆ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more" = "ਮੈਨੂੰ ਹੋਰ ਦੱਸੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";

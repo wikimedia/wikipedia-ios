@@ -54,12 +54,16 @@
 "account-creation-title" = "Title for account creation interface";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
-"action-saved" = "Title for the save button in the 'Saved' state - Indicates the article is saved\n{{Identical|Saved}}";
+"action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
-"action-share" = "Title for the 'Share' action\n{{Identical|Share}}";
-"action-unsave" = "Title for the 'Unsave' action\n{{Identical|Saved}}";
+"action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
+"appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
+"appearance-settings-theme-options-footer" = "Footer of the Theme options section in Appearance settings";
+"appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article\n{{Identical|Delete}}";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
@@ -67,7 +71,6 @@
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
-"article-save" = "Text of the article list row action shown on swipe which allows the user to save the article\n{{Identical|Save}}";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option\n{{Identical|Share}}";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
@@ -87,6 +90,8 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"dark-theme-display-name" = "Dark theme name presented to the user";
+"dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
@@ -181,6 +186,8 @@
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
 "home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
+"home-themes-action-title" = "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.";
+"home-themes-prompt" = "Description on feed card that describes the themes feature.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
@@ -297,7 +304,6 @@
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
-"save-action" = "Accessibility action description for 'Save'\n{{Identical|Save}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -313,6 +319,7 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface.\n{{Identical|Search}}";
+"settings-appearance" = "Title for button letting user choose appearance settings.";
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
@@ -348,6 +355,9 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"theme-dark-display-name" = "Dark theme name presented to the user\n{{Identical|Dark}}";
+"theme-default-display-name" = "Default theme name presented to the user\n{{Identical|Default}}";
+"theme-sepia-display-name" = "Sepia theme name presented to the user";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
@@ -356,7 +366,6 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
-"unsave-action" = "Accessibility action description for 'Unsave'";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
 "welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
 "welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
