@@ -49,7 +49,6 @@
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
-"appearance-settings-theme-options-footer" = "Footer of the Theme options section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article";
