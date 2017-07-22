@@ -1121,6 +1121,73 @@ var CompatibilityTransform = {
   enableSupport: enableSupport
 };
 
+var CLASS = 'pagelib_dim_images';
+
+/**
+ * @param {!Window} window
+ * @param {!boolean} enable
+ * @return {void}
+ */
+var dim = function dim(window, enable) {
+  window.document.querySelector('html').classList[enable ? 'add' : 'remove'](CLASS);
+};
+
+/**
+ * @param {!Window} window
+ * @return {boolean}
+ */
+var isDim = function isDim(window) {
+  return window.document.querySelector('html').classList.contains(CLASS);
+};
+
+var DimImagesTransform = {
+  CLASS: CLASS,
+  isDim: isDim,
+  dim: dim
+};
+
+var CLASS$1 = {
+  CONTAINER: 'pagelib_edit_section_link_container',
+  LINK: 'pagelib_edit_section_link',
+  PROTECTION: { UNPROTECTED: '', PROTECTED: 'page-protected', FORBIDDEN: 'no-editing' }
+};
+
+var DATA_ATTRIBUTE = { SECTION_INDEX: 'data-id', ACTION: 'data-action' };
+var ACTION_EDIT_SECTION = 'edit_section';
+
+/**
+ * @param {!Document} document
+ * @param {!number} index The zero-based index of the section.
+ * @return {!HTMLAnchorElement}
+ */
+var newEditSectionLink = function newEditSectionLink(document, index) {
+  var link = document.createElement('a');
+  link.setAttribute(DATA_ATTRIBUTE.SECTION_INDEX, index);
+  link.setAttribute(DATA_ATTRIBUTE.ACTION, ACTION_EDIT_SECTION);
+  link.classList.add(CLASS$1.LINK);
+  return link;
+};
+
+/**
+ * @param {!Document} document
+ * @param {!number} index The zero-based index of the section.
+ * @return {!HTMLSpanElement}
+ */
+var newEditSectionButton = function newEditSectionButton(document, index) {
+  var container = document.createElement('span');
+  container.classList.add(CLASS$1.CONTAINER);
+
+  var link = newEditSectionLink(document, index);
+  container.appendChild(link);
+
+  return container;
+};
+
+var EditTransform = {
+  CLASS: CLASS$1,
+  newEditSectionButton: newEditSectionButton
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1322,7 +1389,7 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
-  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
+  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading,\n    #pagelib_footer_container_readmore,\n    #pagelib_footer_container_legal\n  ');
   elements.forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
@@ -1344,7 +1411,7 @@ var containerFragment = function containerFragment(document) {
   var containerDiv = document.createElement('div');
   var containerFragment = document.createDocumentFragment();
   containerFragment.appendChild(containerDiv);
-  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div \n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
+  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div\n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
   return containerFragment;
 };
 
@@ -1645,7 +1712,7 @@ var FooterMenu = {
 var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
 
 /**
- * Removes parenthetical enclosures from string. 
+ * Removes parenthetical enclosures from string.
  * @param {!string} string
  * @param {!string} opener
  * @param {!string} closer
@@ -1666,7 +1733,7 @@ var safelyRemoveEnclosures = function safelyRemoveEnclosures(string, opener, clo
 };
 
 /**
- * Removes '(...)' and '/.../' parenthetical enclosures from string. 
+ * Removes '(...)' and '/.../' parenthetical enclosures from string.
  * @param {!string} string
  * @return {!string}
  */
@@ -2407,6 +2474,46 @@ var _class = function () {
   return _class;
 }();
 
+var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+
+  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+  /**
+   * @param {!Window} window
+   * @return {!boolean} true if the user agent is Android, false otherwise.
+   */
+};var isAndroid = function isAndroid(window) {
+  return (/android/i.test(window.navigator.userAgent)
+  );
+};
+
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is iOS, false otherwise.
+ */
+var isIOs = function isIOs(window) {
+  return (/ipad|iphone|ipod/i.test(window.navigator.userAgent)
+  );
+};
+
+/**
+ * @param {!Window} window
+ * @return {void}
+ */
+var classify = function classify(window) {
+  var html = window.document.querySelector('html');
+  if (isAndroid(window)) {
+    html.classList.add(CLASS$2.ANDROID);
+  }
+  if (isIOs(window)) {
+    html.classList.add(CLASS$2.IOS);
+  }
+};
+
+var PlatformTransform = {
+  CLASS: CLASS$2,
+  classify: classify
+};
+
 /**
  * Configures span to be suitable replacement for red link anchor.
  * @param {!HTMLSpanElement} span The span element to configure as anchor replacement.
@@ -2622,19 +2729,30 @@ var WidenImage = {
 };
 
 var pagelib$1 = {
+  // todo: rename CollapseTableTransform.
   CollapseTable: CollapseTable,
   CompatibilityTransform: CompatibilityTransform,
+  DimImagesTransform: DimImagesTransform,
+  EditTransform: EditTransform,
+  // todo: rename Footer.ContainerTransform, Footer.LegalTransform, Footer.MenuTransform,
+  //       Footer.ReadMoreTransform.
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
   FooterReadMore: FooterReadMore,
   LazyLoadTransform: LazyLoadTransform,
   LazyLoadTransformer: _class,
+  PlatformTransform: PlatformTransform,
+  // todo: rename RedLinkTransform.
   RedLinks: RedLinks,
   ThemeTransform: ThemeTransform,
+  // todo: rename WidenImageTransform.
   WidenImage: WidenImage,
   test: {
-    ElementGeometry: ElementGeometry, ElementUtilities: elementUtilities, Polyfill: Polyfill, Throttle: Throttle
+    ElementGeometry: ElementGeometry,
+    ElementUtilities: elementUtilities,
+    Polyfill: Polyfill,
+    Throttle: Throttle
   }
 };
 
