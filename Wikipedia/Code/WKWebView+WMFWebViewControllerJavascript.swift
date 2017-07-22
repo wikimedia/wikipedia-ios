@@ -169,17 +169,20 @@ extension WKWebView {
     
     static public func wmf_themeApplicationJavascript(with theme: Theme) -> String{
         var jsThemeConstant = "DEFAULT"
+        var isDim = false
         switch theme.name {
         case Theme.sepia.name:
             jsThemeConstant = "SEPIA"
         case Theme.darkDimmed.name:
+            isDim = true
             fallthrough
         case Theme.dark.name:
             jsThemeConstant = "DARK"
         default:
             break
         }
-        return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));"
+        return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));" +
+            "window.wmf.imageDimming.dim(window, \(isDim ? "true" : "false"));"
     }
     
     public func wmf_applyTheme(_ theme: Theme){
