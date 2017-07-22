@@ -1791,7 +1791,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 
     WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
-    if ((lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay) && lastGroupIndex > 0) { //News or On This Day can be added further back in the timeline, so don't use them as the date for this
+
+    while (lastGroupIndex > 0 && lastGroup != nil && (lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay || lastGroup.contentGroupKind == WMFContentGroupKindNotification) && lastGroupIndex > 0) { // News or On This Day can be added further back in the timeline, so don't use them as the date for this
         lastGroupIndex--;
         lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
     }
