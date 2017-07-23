@@ -85,7 +85,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                         <color key="tintColor" red="0.32941176470588235" green="0.34901960784313724" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="No thanks"/>
+                                        <state key="normal" title="Dismiss"/>
                                     </button>
                                 </subviews>
                                 <constraints>

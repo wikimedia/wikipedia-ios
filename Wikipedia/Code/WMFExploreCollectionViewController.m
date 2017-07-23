@@ -310,6 +310,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }];
     [[NSUserDefaults wmf_userDefaults] wmf_setInTheNewsNotificationsEnabled:YES];
+    [self dismissNotificationCard];
+}
+
+- (void)feedNotificationCellDidDismiss:(WMFFeedNotificationCell *)cell {
+    [self dismissNotificationCard];
+}
+
+- (void)dismissNotificationCard {
     NSURL *groupURL = [WMFContentGroup notificationContentGroupURL];
     NSManagedObjectContext *moc = self.userStore.viewContext;
     WMFContentGroup *group = [moc contentGroupForURL:groupURL];

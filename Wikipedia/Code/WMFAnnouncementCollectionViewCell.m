@@ -1,6 +1,7 @@
 #import "WMFAnnouncementCollectionViewCell.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "Wikipedia-Swift.h"
+@import WMF.Swift;
 
 @interface WMFAnnouncementCollectionViewCell () <UITextViewDelegate>
 
@@ -26,7 +27,7 @@
     self.captionTextView.delegate = self;
     [self.actionButton addTarget:self action:@selector(performAction) forControlEvents:UIControlEventTouchUpInside];
     self.captionTextView.textContainerInset = UIEdgeInsetsZero;
-    [self.dismissButton setTitle:WMFLocalizedStringWithDefaultValue(@"announcements-dismiss", nil, nil, @"No thanks", @"Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}") forState:UIControlStateNormal];
+    [self.dismissButton setTitle:WMFCommonStrings.dismissButtonTitle forState:UIControlStateNormal];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setNeedsLayout];
     [self.dismissButton layoutIfNeeded];
