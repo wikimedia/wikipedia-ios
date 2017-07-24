@@ -116,7 +116,7 @@
 "explore-random-article-heading" = "Random article";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
-"feed-news-notification-text" = "Enable notifications to be notified by Wikipeida when articles are trending in the news.";
+"feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 "field-alert-password-invalid" = "Invalid password";

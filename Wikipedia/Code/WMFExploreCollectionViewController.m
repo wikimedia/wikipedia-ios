@@ -1183,7 +1183,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeNotification: {
             cell.isImageViewHidden = NO;
             cell.imageView.image = [UIImage imageNamed:@"feed-card-notification"];
-            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"Enable notifications to be notified by Wikipeida when articles are trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"Enable notifications to be notified by Wikipedia when articles are trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, nil, @"Turn on notifications", @"Text for button to turn on trending news notifications") forState:UIControlStateNormal];
             cell.isCaptionHidden = YES;
         } break;
