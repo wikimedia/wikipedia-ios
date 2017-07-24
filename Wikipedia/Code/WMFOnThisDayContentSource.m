@@ -127,13 +127,13 @@ NS_ASSUME_NONNULL_BEGIN
                                 }
                                 [moc fetchOrCreateArticleWithURL:[articlePreview articleURL] updatedWithFeedPreview:articlePreview pageViews:nil];
                             }];
-                            event.imageCount = @(countOfImages);
+                            event.score = @(countOfImages);
                             event.index = @(idx);
                         }];
 
                         NSInteger featuredEventIndex = NSNotFound;
                         
-                        NSArray *eventsSortedByImageCount = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageCount" ascending:NO]]];
+                        NSArray *eventsSortedByImageCount = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
                         if (eventsSortedByImageCount.count > 0) {
                             NSInteger index = ((year % 10) % eventsSortedByImageCount.count);
                             WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByImageCount[index];
