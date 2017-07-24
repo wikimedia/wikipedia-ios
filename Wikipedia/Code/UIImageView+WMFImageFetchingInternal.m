@@ -183,6 +183,9 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     dispatch_block_t animations = ^{
         self.image = image;
+        if (image) {
+            self.backgroundColor = [UIColor whiteColor];
+        }
     };
 
     if ([self isKindOfClass:[FLAnimatedImageView class]] && animatedImage) {
