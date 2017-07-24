@@ -75,8 +75,10 @@
 "action-share" = "Compartilhar";
 "action-unsave" = "Não salvo";
 "alert-no-internet" = "Não há conexão com a internet";
-// Fuzzy
-"announcements-dismiss" = "Não, obrigado";
+"announcements-dismiss" = "Ignorar";
+"appearance-settings-reading-themes" = "Temas de leitura";
+"appearance-settings-theme-options" = "Opções de temas";
+"appearance-settings-title" = "Temas de leitura";
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Deletar";
 "article-languages-filter-placeholder" = "Encontrar idioma";
@@ -103,6 +105,8 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"dark-theme-display-name" = "Escuro";
+"dim-images" = "Imagens fracas";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
 "edit-summary-choice-fixed-typos" = "Ortográfia reduzida";
 "edit-summary-choice-linked-words" = "Links adicionados";
@@ -197,6 +201,7 @@
 "home-nearby-footer" = "Mais das redondezas de sua localização";
 "home-nearby-location-footer" = "Mais perto de $1";
 "home-news-footer" = "Mais na notícia";
+"home-themes-action-title" = "Gerenciar preferências";
 "home-title" = "explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
 "icon-shortcut-continue-reading-title" = "Continue lendo";
@@ -328,6 +333,7 @@
 "search-recent-title" = "recentemente Procurado";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
+"settings-appearance" = "Aparência";
 "settings-clear-cache" = "Limpar dados em cache";
 "settings-clear-cache-are-you-sure-message" = "A limpeza dos dados armazenados em cache $1 de espaço. Ele não excluirá suas páginas salvas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados em cache?";
@@ -363,6 +369,9 @@
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
 "table-title-other" = "Mais informações";
+"theme-dark-display-name" = "Escuro";
+"theme-default-display-name" = "Padrão";
+"theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";

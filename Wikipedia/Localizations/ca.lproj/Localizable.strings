@@ -64,9 +64,12 @@
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
 "alert-no-internet" = "No hi ha connexió a internet";
-// Fuzzy
-"announcements-dismiss" = "No, gràcies";
+"announcements-dismiss" = "Descarta";
+"appearance-settings-reading-themes" = "Temes de lectura";
+"appearance-settings-theme-options" = "Opcions del tema";
+"appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
+"article-delete" = "Elimina";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
@@ -91,6 +94,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"dark-theme-display-name" = "Fosc";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
@@ -183,6 +187,7 @@
 "home-nearby-footer" = "Més propers a la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";
 "home-news-footer" = "Novetats";
+"home-themes-action-title" = "Gestiona les preferències";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
@@ -313,6 +318,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
+"settings-appearance" = "Aparença";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
@@ -347,6 +353,9 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"theme-dark-display-name" = "Fosc";
+"theme-default-display-name" = "Per defecte";
+"theme-sepia-display-name" = "Sèpia";
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-see-more" = "Vegeu-ne més";

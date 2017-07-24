@@ -35,6 +35,7 @@
 "button-read-now" = "לייענען אצינד";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "פארמאכן";
+"dark-theme-display-name" = "טונקל";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-other" = "אַנדער";
@@ -119,6 +120,7 @@
 "search-recent-title" = "לעצטנס געזוכט";
 "search-result-redirected-from" = "אַריבערגעפֿירט פון $1";
 "search-title" = "זוכן";
+"settings-appearance" = "אויסזען";
 "settings-clear-cache-cancel" = "אַנולירן";
 "settings-help-and-feedback" = "הילף און פֿידבעק";
 "settings-language-bar" = "ווייזן שפראכן ביים זוך";
@@ -135,6 +137,8 @@
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";
 "table-title-other" = "נאך אינפארמאציע";
+"theme-dark-display-name" = "טונקל";
+"theme-default-display-name" = "גרונטלעך";
 "top-read-header-generic" = "וויקיפעדיע";
 "top-read-header-with-language" = "$1 וויקיפעדיע";
 "welcome-languages-title" = "שפראַכן";

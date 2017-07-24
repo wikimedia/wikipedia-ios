@@ -65,8 +65,10 @@
 "action-share" = "Dela";
 "action-unsave" = "Spara inte";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
-// Fuzzy
-"announcements-dismiss" = "Nej tack";
+"announcements-dismiss" = "Stäng";
+"appearance-settings-reading-themes" = "Lästeman";
+"appearance-settings-theme-options" = "Temaalternativ";
+"appearance-settings-title" = "Lästeman";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
 "article-languages-filter-placeholder" = "Hitta språk";
@@ -93,6 +95,8 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"dark-theme-display-name" = "Mörk";
+"dim-images" = "Mörklägg bilder";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
@@ -187,6 +191,8 @@
 "home-nearby-footer" = "Mer från i närheten av din plats";
 "home-nearby-location-footer" = "Mer i närheten av $1";
 "home-news-footer" = "Mer aktuellt";
+"home-themes-action-title" = "Hantera inställningar";
+"home-themes-prompt" = "Läs i mörkret eller begränsa hur du exponeras för blått ljus på kvällen med nya lästemat Mörk och Sepia. Justera dina läsinställningar (inklusive textstorlek och tema) från verktygsfältet eller i dina användarinställningar.";
 "home-title" = "Utforska";
 "home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
 "icon-shortcut-continue-reading-title" = "Fortsätt läsa";
@@ -318,6 +324,7 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
+"settings-appearance" = "Utseende";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
@@ -353,6 +360,9 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"theme-dark-display-name" = "Mörk";
+"theme-default-display-name" = "Standard";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se fler populära artiklar";

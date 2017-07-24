@@ -54,11 +54,9 @@
 "action-share" = "Сподели";
 "action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
-// Fuzzy
-"announcements-dismiss" = "Не, благодарам";
+"announcements-dismiss" = "Тргни";
 "appearance-settings-reading-themes" = "Теми за читање";
 "appearance-settings-theme-options" = "Тематски можности";
-"appearance-settings-theme-options-footer" = "Автоматски примени ја темата „Темна“ меѓу 20:00 и 8:00 ч.";
 "appearance-settings-title" = "Теми за читање";
 "article-about-title" = "Уреди ја статијава";
 "article-delete" = "Избриши";

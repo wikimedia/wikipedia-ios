@@ -91,7 +91,7 @@
 "empty-no-feed-message" = "Panjenengan bisa ndeleng artikel sing diprayogakaké nalika nggayut Internèt";
 "empty-no-feed-title" = "Ora Ana Gayutan Internet";
 "empty-no-history-message" = "Nglacak apa sing wis maca kene";
-"empty-no-history-title" = "Ora ana sujarah sing bisa dituduhaké";
+"empty-no-history-title" = "Ora ana sajarah sing bisa dituduhaké";
 "empty-no-saved-pages-message" = "Simpen kaca kanggo ndeleng mengko, malah offline";
 "empty-no-saved-pages-title" = "Ora ana kaca kasimpen";
 "empty-no-search-results-message" = "Ora ana asil";
@@ -155,7 +155,7 @@
 "history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-section-today" = "Dina iki";
 "history-section-yesterday" = "Wingi";
-"history-title" = "Sujarah";
+"history-title" = "Sajarah";
 "hockeyapp-alert-always-send" = "Tansah ngirim";
 "hockeyapp-alert-do-not-send" = "Aja ngirim";
 "hockeyapp-alert-privacy" = "Priangga $1";
@@ -164,7 +164,7 @@
 "hockeyapp-alert-send-report" = "Kirim lapuran";
 "hockeyapp-alert-title" = "Nyuwun pangapura, aplikasiné kena masalah dhèk pungkasan";
 "home-button-explore-accessibility-label" = "Wikipédia, bali nyang Dlajah";
-"home-button-history-accessibility-label" = "Wikipédia, bali nyang Sujarah";
+"home-button-history-accessibility-label" = "Wikipédia, bali nyang Sajarah";
 "home-button-popover-description" = "Tunyuk 'W' kanggo bali menyang umpan Jelajahi";
 "home-button-popover-title" = "Tunyuk kanggo mulih";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
@@ -232,8 +232,8 @@
 "on-this-day-title" = "Ing dina iki";
 "onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Wurung";
-"page-edit-history" = "Sujarah besutan wutuh";
-"page-history-title" = "Sujarah artikel";
+"page-edit-history" = "Sajarah besutan wutuh";
+"page-history-title" = "Sajarah artikel";
 "page-issues" = "Masalah kaca";
 "page-last-edited" = "Dibesut $1 dina kapungkur";
 "page-location" = "Deleng ing petha";

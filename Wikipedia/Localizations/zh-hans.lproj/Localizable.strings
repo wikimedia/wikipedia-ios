@@ -63,11 +63,9 @@
 "action-share" = "分享";
 "action-unsave" = "未保存";
 "alert-no-internet" = "当前无网络连接";
-// Fuzzy
-"announcements-dismiss" = "不用了，谢谢";
+"announcements-dismiss" = "关闭";
 "appearance-settings-reading-themes" = "正在读取主题";
 "appearance-settings-theme-options" = "主题选项";
-"appearance-settings-theme-options-footer" = "在晚上8点到次日早上8点间自动应用“夜间”阅读主题";
 "appearance-settings-title" = "正在读取主题";
 "article-about-title" = "关于此条目";
 "article-delete" = "删除";

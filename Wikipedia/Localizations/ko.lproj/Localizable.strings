@@ -67,8 +67,8 @@
 "action-share" = "공유";
 "action-unsave" = "저장하지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
-// Fuzzy
-"announcements-dismiss" = "괜찮습니다";
+"announcements-dismiss" = "숨기기";
+"appearance-settings-theme-options" = "테마 옵션";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
 "article-languages-filter-placeholder" = "언어 찾기";
@@ -313,6 +313,7 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
+"settings-appearance" = "보이기";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
 "settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";

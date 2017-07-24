@@ -54,11 +54,9 @@
 "action-share" = "Compartir";
 "action-unsave" = "Nun guardar";
 "alert-no-internet" = "Nun hai conexón a Internet";
-// Fuzzy
-"announcements-dismiss" = "Non, gracies";
+"announcements-dismiss" = "Descartar";
 "appearance-settings-reading-themes" = "Lleyendo temes";
 "appearance-settings-theme-options" = "Opciones de temes";
-"appearance-settings-theme-options-footer" = "Aplicar automáticamente'l tema de llectura 'Escuru' ente 8pm y 8am";
 "appearance-settings-title" = "Lleyendo temes";
 "article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";

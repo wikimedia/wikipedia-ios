@@ -9,6 +9,7 @@
 // Author: Nemo bis
 // Author: NickK
 // Author: Piramidion
+// Author: SimondR
 // Author: Sir-nik
 // Author: Visem
 // Author: Ата
@@ -60,14 +61,15 @@
 "action-saved" = "Збережено";
 "action-share" = "Поділитися";
 "alert-no-internet" = "Не має з'єднання із інтернетом";
-// Fuzzy
-"announcements-dismiss" = "Ні, дякую";
+"announcements-dismiss" = "Відхилити";
 "article-about-title" = "Про цю статтю";
+"article-delete" = "Видалити";
 "article-languages-filter-placeholder" = "Знайти мову";
 "article-languages-label" = "Вибрати мову";
 "article-languages-others" = "Інші мови";
 "article-languages-yours" = "Ваші мови";
 "article-read-more-title" = "Детальніше";
+"article-share" = "Поділитися";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "back" = "Назад";
@@ -171,6 +173,7 @@
 "home-more-like-footer" = "Більше схоже на $1";
 "home-nearby-footer" = "Більше про те, що неподалік від вас";
 "home-nearby-location-footer" = "Більше поблизу $1";
+"home-themes-action-title" = "Керування налаштуваннями";
 "home-title" = "Досліджуйте";
 "home-title-accessibility-label" = "Вікіпедія, прокрутити вгору розділу Досліджуйте";
 "icon-shortcut-continue-reading-title" = "Продовжити читання";
@@ -223,6 +226,8 @@
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
+"on-this-day-detail-header-day" = "на $1";
+"on-this-day-footer" = "Більше історичних подій цього дня";
 "onboarding-wikipedia" = "Вікіпедія";
 "open-link-cancel" = "Скасувати";
 "page-edit-history" = "Повна історія редагування";
@@ -285,6 +290,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";
 "settings-help-and-feedback" = "Допомога та зворотній зв'язок";
@@ -317,6 +323,8 @@
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
 "table-title-other" = "Більше інформації";
+"theme-default-display-name" = "За замовчуванням";
+"theme-sepia-display-name" = "Сепія";
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-see-more" = "Див. більше найкращих";
