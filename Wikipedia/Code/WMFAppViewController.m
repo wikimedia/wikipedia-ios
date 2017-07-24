@@ -1419,8 +1419,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     // Tool bars
-
-    [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
