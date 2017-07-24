@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-        NSInteger month= [components month];
+        NSInteger month = [components month];
         NSInteger day = [components day];
         NSInteger year = [components year];
         @weakify(self)
@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
                         }
                         return;
                     }
-                    
+
                     [moc performBlock:^{
                         [onThisDayEvents enumerateObjectsUsingBlock:^(WMFFeedOnThisDayEvent *_Nonnull event, NSUInteger idx, BOOL *_Nonnull stop) {
                             __block NSInteger countOfImages = 0;
@@ -132,11 +132,11 @@ NS_ASSUME_NONNULL_BEGIN
                         }];
 
                         NSInteger featuredEventIndex = NSNotFound;
-                        
-                        NSArray *eventsSortedByImageCount = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
-                        if (eventsSortedByImageCount.count > 0) {
-                            NSInteger index = ((year % 10) % eventsSortedByImageCount.count);
-                            WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByImageCount[index];
+
+                        NSArray *eventsSortedByScore = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+                        if (eventsSortedByScore.count > 0) {
+                            NSInteger index = ((year % 10) % eventsSortedByScore.count);
+                            WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByScore[index];
                             featuredEventIndex = featuredEvent.index.integerValue;
                         }
 
