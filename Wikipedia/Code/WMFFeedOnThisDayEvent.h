@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, readonly) NSString *language;
 
+@property (nullable, nonatomic, copy) NSNumber *imageCount;
+
+@property (nullable, nonatomic, copy) NSNumber *index;
+
 @end
 
 NS_ASSUME_NONNULL_END
