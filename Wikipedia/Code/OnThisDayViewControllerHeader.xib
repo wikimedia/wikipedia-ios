@@ -12,76 +12,40 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="OnThisDayViewControllerHeader" customModule="Wikipedia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="388" height="266"/>
+            <rect key="frame" x="0.0" y="0.0" width="388" height="204"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAd-lk-WI5" userLabel="Container view">
-                    <rect key="frame" x="74" y="90.5" width="240" height="85"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnL-0W-TZO">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="20.5"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                            <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6B-Ho-lKT">
-                            <rect key="frame" x="0.0" y="30.5" width="240" height="26.5"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNu-wz-uZm">
-                            <rect key="frame" x="0.0" y="67" width="240" height="18"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="DNu-wz-uZm" firstAttribute="leading" secondItem="HAd-lk-WI5" secondAttribute="leading" id="5qm-Q4-XQR"/>
-                        <constraint firstItem="Q6B-Ho-lKT" firstAttribute="leading" secondItem="HAd-lk-WI5" secondAttribute="leading" id="8o8-84-7f0"/>
-                        <constraint firstItem="xnL-0W-TZO" firstAttribute="leading" secondItem="HAd-lk-WI5" secondAttribute="leading" id="CNx-pM-7cP"/>
-                        <constraint firstAttribute="trailing" secondItem="xnL-0W-TZO" secondAttribute="trailing" id="FTv-J3-gho"/>
-                        <constraint firstAttribute="width" constant="240" id="JTo-3w-A3h"/>
-                        <constraint firstAttribute="trailing" secondItem="DNu-wz-uZm" secondAttribute="trailing" id="XPN-XO-F4c"/>
-                        <constraint firstItem="DNu-wz-uZm" firstAttribute="top" secondItem="Q6B-Ho-lKT" secondAttribute="bottom" constant="10" id="YqB-be-3s8"/>
-                        <constraint firstItem="Q6B-Ho-lKT" firstAttribute="top" secondItem="xnL-0W-TZO" secondAttribute="bottom" constant="10" id="aG2-sE-5zy"/>
-                        <constraint firstItem="xnL-0W-TZO" firstAttribute="top" secondItem="HAd-lk-WI5" secondAttribute="top" id="dNU-Jq-SkV"/>
-                        <constraint firstAttribute="trailing" secondItem="Q6B-Ho-lKT" secondAttribute="trailing" id="ebz-jK-CIn"/>
-                        <constraint firstAttribute="bottom" secondItem="DNu-wz-uZm" secondAttribute="bottom" id="l0O-4e-8CI"/>
-                    </constraints>
-                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from 2006 - 363 BC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1x8-Z7-u7U">
+                    <rect key="frame" x="34" y="133.5" width="161" height="20.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="47 HISTORICAL EVENTS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-hO-qka">
+                    <rect key="frame" x="34" y="113" width="195" height="21"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January 23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBW-Xz-UTy">
+                    <rect key="frame" x="34" y="50" width="222" height="48"/>
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="HAd-lk-WI5" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="0dk-He-vuk"/>
-                <constraint firstItem="HAd-lk-WI5" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="bbJ-UH-AbR"/>
+                <constraint firstItem="gsO-hO-qka" firstAttribute="top" secondItem="SBW-Xz-UTy" secondAttribute="bottom" constant="15" id="2mH-Oh-nYb"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1x8-Z7-u7U" secondAttribute="trailing" constant="34" id="ASi-zj-5a2"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SBW-Xz-UTy" secondAttribute="trailing" constant="34" id="AiP-YJ-euX"/>
+                <constraint firstItem="SBW-Xz-UTy" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="34" id="D85-jK-7Xt"/>
+                <constraint firstItem="1x8-Z7-u7U" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="34" id="EPV-zJ-MWD"/>
+                <constraint firstItem="gsO-hO-qka" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="34" id="J2M-YX-9X3"/>
+                <constraint firstItem="1x8-Z7-u7U" firstAttribute="top" secondItem="gsO-hO-qka" secondAttribute="bottom" id="JUy-G5-NrS"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gsO-hO-qka" secondAttribute="trailing" constant="34" id="agN-sX-7dH"/>
+                <constraint firstAttribute="bottom" secondItem="1x8-Z7-u7U" secondAttribute="bottom" priority="999" constant="50" id="oRx-j9-Mr5"/>
+                <constraint firstItem="SBW-Xz-UTy" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" priority="999" constant="50" id="s8F-gc-ian"/>
             </constraints>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -92,11 +56,11 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="eventsLabel" destination="xnL-0W-TZO" id="7AN-Q7-z5i"/>
-                <outlet property="fromLabel" destination="DNu-wz-uZm" id="A2t-gI-r5F"/>
-                <outlet property="onLabel" destination="Q6B-Ho-lKT" id="BZw-yP-Nf6"/>
+                <outlet property="eventsLabel" destination="gsO-hO-qka" id="x4B-RQ-wE0"/>
+                <outlet property="fromLabel" destination="1x8-Z7-u7U" id="zSa-98-TTC"/>
+                <outlet property="onLabel" destination="SBW-Xz-UTy" id="YCg-4z-gJa"/>
             </connections>
-            <point key="canvasLocation" x="-375" y="-157"/>
+            <point key="canvasLocation" x="-375" y="-177"/>
         </collectionReusableView>
     </objects>
 </document>

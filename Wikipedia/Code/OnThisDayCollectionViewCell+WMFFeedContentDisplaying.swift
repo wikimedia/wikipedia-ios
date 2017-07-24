@@ -8,7 +8,7 @@ extension OnThisDayCollectionViewCell {
         
         apply(theme: theme)
     
-        titleLabel.text = onThisDayEvent.yearWithEraString
+        titleLabel.text = onThisDayEvent.yearString
 
         let articleSiteURL = onThisDayEvent.siteURL
         let articleLanguage = onThisDayEvent.language
