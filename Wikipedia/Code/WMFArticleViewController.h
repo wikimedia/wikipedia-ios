@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *shareToolbarItem;
-@property (nonatomic, strong, readonly) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *readingThemesControlsToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *hideTableOfContentsToolbarItem;
 

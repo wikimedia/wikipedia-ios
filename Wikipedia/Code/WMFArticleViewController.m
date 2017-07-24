@@ -122,7 +122,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *readingThemesControlsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
@@ -420,7 +420,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing]],
 
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
-                              self.fontSizeToolbarItem,
+                              self.readingThemesControlsToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
 
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
@@ -487,7 +487,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateToolbarItemEnabledState {
-    self.fontSizeToolbarItem.enabled = [self canAdjustText];
+    self.readingThemesControlsToolbarItem.enabled = [self canAdjustText];
     self.shareToolbarItem.enabled = [self canShare];
     self.languagesToolbarItem.enabled = [self hasLanguages];
     self.showTableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -530,11 +530,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem *)fontSizeToolbarItem {
-    if (!_fontSizeToolbarItem) {
-        _fontSizeToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showFontSizePopup)];
+- (UIBarButtonItem *)readingThemesControlsToolbarItem {
+    if (!_readingThemesControlsToolbarItem) {
+        _readingThemesControlsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showFontSizePopup)];
     }
-    return _fontSizeToolbarItem;
+    return _readingThemesControlsToolbarItem;
 }
 
 - (UIBarButtonItem *)shareToolbarItem {
@@ -1283,7 +1283,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Font Size
 
-- (void)showFontSizePopup {
+- (void)showReadingThemesControlsPopup {
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
 
@@ -1298,7 +1298,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.readingThemesViewController applyTheme:self.theme];
 
     self.readingThemesPopoverPresenter.delegate = self;
-    self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
+    self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
