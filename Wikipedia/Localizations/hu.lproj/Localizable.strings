@@ -59,6 +59,7 @@
 "action-share" = "Megosztás";
 "action-unsave" = "Mentés eldobása";
 "alert-no-internet" = "Nincs internetkapcsolat";
+// Fuzzy
 "announcements-dismiss" = "Nem, köszönöm";
 "article-about-title" = "Erről a szócikkről";
 "article-languages-filter-placeholder" = "Nyelv keresése";
@@ -291,7 +292,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ez évben|Tavaly|$1 évvel ezelőtt}}";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
-"save-action" = "Mentés";
 "saved-clear-all" = "Törlés";
 "saved-pages-clear-cancel" = "Mégse";
 "saved-pages-clear-confirmation-heading" = "Biztosan törölni akarod az összes mentett lapot?";
@@ -349,7 +349,6 @@
 "two-factor-login-title" = "Bejelentkezés a fiókodba";
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
-"unsave-action" = "Nincs mentve";
 "welcome-explore-continue-button" = "Kezdés";
 "welcome-explore-new-ways-sub-title" = "Új értesítések és widgetek segítenek felfedezni érdekes szócikkeket";
 "welcome-explore-new-ways-title" = "Új módok a felfedezésre";

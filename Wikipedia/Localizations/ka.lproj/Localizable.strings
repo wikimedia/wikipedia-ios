@@ -40,6 +40,7 @@
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
 "alert-no-internet" = "ინტერნეტ-კავშირი არ არის";
+// Fuzzy
 "announcements-dismiss" = "არა, გმადლობთ";
 "article-about-title" = "ამ სტატიის შესახებ";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
@@ -199,7 +200,6 @@
 "preference-summary-eventlogging-opt-in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
 "preference-title-eventlogging-opt-in" = "გამოყენების ანგარიშის გაგზავნა";
 "reference-title" = "სქოლიო $1";
-"save-action" = "დამახსოვრება";
 "saved-clear-all" = "გასუფთავება";
 "saved-pages-clear-cancel" = "გაუქმება";
 "saved-pages-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ ყველა დამასხოვრებული გვერდის წაშლა?";
@@ -241,7 +241,6 @@
 "two-factor-login-instructions" = "გთხოვთ, შეიყვანოთ ორფაქტორიანი დადასტურების კოდი";
 "two-factor-login-title" = "თქვენ ანგარიშში შესვლა";
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
-"unsave-action" = "შენახულის გაუქმება";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more" = "მითხარით მეტი";
 "welcome-explore-tell-me-more-done-button" = "მიღება";

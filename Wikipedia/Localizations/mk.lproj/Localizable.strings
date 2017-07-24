@@ -54,7 +54,10 @@
 "action-share" = "Сподели";
 "action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
-"announcements-dismiss" = "Не, благодарам";
+"announcements-dismiss" = "Тргни";
+"appearance-settings-reading-themes" = "Теми за читање";
+"appearance-settings-theme-options" = "Тематски можности";
+"appearance-settings-title" = "Теми за читање";
 "article-about-title" = "Уреди ја статијава";
 "article-delete" = "Избриши";
 "article-languages-filter-placeholder" = "Најди јазик";
@@ -62,7 +65,6 @@
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
-"article-save" = "Зачувај";
 "article-share" = "Сподели";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
@@ -82,6 +84,8 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"dark-theme-display-name" = "Темна";
+"dim-images" = "Затемнети слики";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
@@ -176,6 +180,8 @@
 "home-nearby-footer" = "Уште од вашата близина";
 "home-nearby-location-footer" = "Повеќе околу $1";
 "home-news-footer" = "Повеќе новости";
+"home-themes-action-title" = "Упр. со поставки";
+"home-themes-prompt" = "Читајте во темница или ограничете ја вашата изложеност на сина светлина во вечерите со новите теми за читање „Темна“ и „Сипа“. Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања.";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
 "icon-shortcut-continue-reading-title" = "Продолжете со читање";
@@ -292,7 +298,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
-"save-action" = "Зачувај";
 "saved-clear-all" = "Исчисти";
 "saved-pages-clear-cancel" = "Откажи";
 "saved-pages-clear-confirmation-heading" = "Дали сте сигурни дека сакате ги избришам сите зачувани ставки?";
@@ -308,6 +313,7 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"settings-appearance" = "Изглед";
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
@@ -343,6 +349,9 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"theme-dark-display-name" = "Темен";
+"theme-default-display-name" = "Основен";
+"theme-sepia-display-name" = "Сипа";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Повеќе најчитани статии";
@@ -351,7 +360,6 @@
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
-"unsave-action" = "Одзачувај";
 "welcome-explore-continue-button" = "Започни";
 "welcome-explore-new-ways-sub-title" = "Нови известувања и додатоци што ви помагаат да откриете интересни статии";
 "welcome-explore-new-ways-title" = "Нови начини да се истражува";

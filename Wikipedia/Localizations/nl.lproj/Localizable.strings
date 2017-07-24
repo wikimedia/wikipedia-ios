@@ -50,11 +50,11 @@
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "account-creation-captcha-cannot-see-image" = "Kunt u de afbeelding niet zien? $1";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
-// Fuzzy
-"account-creation-captcha-request-account" = "Vraag een account aan.";
+"account-creation-captcha-request-account" = "Account aanvragen";
 "account-creation-captcha-title" = "CAPTCHA-veiligheidscontrole";
 "account-creation-create-account" = "Account aanmaken";
 "account-creation-have-account" = "Hebt u al een account? $1";
+"account-creation-log-in" = "Aanmelden.";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
@@ -63,15 +63,20 @@
 "action-read" = "Lezen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
+"action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
 "action-share" = "Delen";
+"action-unsave" = "Opslaan ongedaan maken";
 "alert-no-internet" = "Er is geen internetverbinding";
+// Fuzzy
 "announcements-dismiss" = "Nee, bedankt";
 "article-about-title" = "Over deze pagina";
+"article-delete" = "Verwijder";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
 "article-languages-yours" = "Uw talen";
 "article-read-more-title" = "Meer lezen";
+"article-share" = "Deel";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back" = "Terug";
@@ -109,7 +114,9 @@
 "explore-another-random" = "Andere willekeurig pagina";
 "explore-because-you-read" = "Omdat u hebt gelezen";
 "explore-continue-reading-heading" = "Verder lezen";
+"explore-enable-location-title" = "Zoek artikels nabij uw courante locatie";
 "explore-featured-article-heading" = "Uitgelichte pagina";
+"explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-generic-heading" = "Meest gelezen";
@@ -152,8 +159,11 @@
 "find-in-page-button-label" = "Op pagina zoeken";
 "find-in-page-number-matches" = "$1 van $2";
 "forgot-password-button-title" = "Opnieuw instellen";
+"forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
+"forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
+"gdfl" = "GDFL";
 "history-clear-all" = "Wissen";
 "history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
@@ -170,6 +180,8 @@
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
 "home-button-history-accessibility-label" = "Wikipedia, terug naar geschiedenis";
+"home-button-popover-description" = "Druk op de 'W' om terug te keren naar de ontdekkings-feed";
+"home-button-popover-title" = "Druk in om terug naar de hoofdpagina te gaan";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-hide-suggestion-cancel" = "Annuleren";
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
@@ -195,7 +207,9 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "login-forgot-password" = "Wachtwoord vergeten?";
+"login-join-wikipedia" = "Vervoeg Wikipedia.";
 "login-no-account" = "Nog geen account? $1";
+"login-title" = "Aanmelden bij uw account";
 "main-menu-about" = "Over de app";
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
@@ -220,11 +234,17 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 meter";
 "nearby-distance-label-miles" = "$1 mijl";
+"new-password-instructions" = "U bent aangemeld met een tijdelijk code die u per e-mail hebt ontvangen.\nOm het aanmelden te voltooien moet u hier een nieuw wachtwoord instellen.";
 "new-password-title" = "Wachtwoord instellen";
 "no-email-account-alert" = "Stel alstublieft een e-mailaccount in op uw apparaat en probeer het opnieuw.";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1k";
+"on-this-day-detail-header-date-range" = "Tussen $1 en $2";
+"on-this-day-detail-header-day" = "op $1";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
+"on-this-day-footer" = "Historische gebeurtenissen op deze dag";
+"on-this-day-title" = "Op deze dag";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annuleren";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
@@ -243,10 +263,16 @@
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-close-search" = "Zoeken sluiten";
 "places-accessibility-group" = "$1 pagina's";
+"places-accessibility-recenter-map-on-user-location" = "Recenter op uw locatie";
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
+"places-dismiss-filter-list-accessibility-label" = "Zet uw zoekfilters uit";
+"places-empty-search-description" = "Verken steden, landen, continenten, natuurlijk landmarkeringen, historicus gebeurtenissen, gebouwen en meer.";
 "places-empty-search-title" = "Zoek naar Wikipedia-artikelen met geografische locaties";
+"places-enable-location-action-button-title" = "locatie inschakelen";
+"places-enable-location-description" = "Toegang tot uw locatie is alleen beschikbaar als de app of een van de functies op uw scherm zichtbaar is.";
+"places-enable-location-title" = "Verken artikels in de buurt van uw locatie door Locatie Toegang te activeren";
 "places-filter-list-title" = "Zoekfilters";
 "places-filter-no-saved-places" = "U heeft geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
@@ -277,8 +303,8 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|Gisteren|$1 dagen gelden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
-"save-action" = "Opslaan";
 "saved-clear-all" = "Wissen";
 "saved-pages-clear-cancel" = "Annuleren";
 "saved-pages-clear-confirmation-heading" = "Weet u zeker dat u alle opgeslagen pagina's wilt verwijderen?";
@@ -337,7 +363,6 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
-"unsave-action" = "Opslaan ongedaan maken";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-sub-title" = "Nieuwe meldingen en widgets om u te helpen interessante pagina's te ontdekken";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";

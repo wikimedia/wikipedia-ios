@@ -69,7 +69,7 @@
 "action-share" = "Partager";
 "action-unsave" = "Non enregistré";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
-"announcements-dismiss" = "Non merci";
+"announcements-dismiss" = "Ignorer";
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
 "article-languages-filter-placeholder" = "Trouver la langue";
@@ -77,7 +77,6 @@
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En savoir plus";
-"article-save" = "Enregistrer";
 "article-share" = "Partager";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
@@ -97,6 +96,7 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
+"dark-theme-display-name" = "Sombre";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
@@ -191,6 +191,7 @@
 "home-nearby-footer" = "Davantage proche de là où vous êtes";
 "home-nearby-location-footer" = "Plus proche de $1";
 "home-news-footer" = "Davantage dans les nouvelles";
+"home-themes-action-title" = "Gérer les préférences";
 "home-title" = "Explorer";
 "home-title-accessibility-label" = "Wikipédia, faire défiler vers le haut pour Explorer";
 "icon-shortcut-continue-reading-title" = "Continuer à lire";
@@ -307,7 +308,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|L’année passée|Il y a $1 ans}}";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
-"save-action" = "Enregistrer";
 "saved-clear-all" = "Effacer";
 "saved-pages-clear-cancel" = "Annuler";
 "saved-pages-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments enregistrés ?";
@@ -323,6 +323,7 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";
+"settings-appearance" = "Apparence";
 "settings-clear-cache" = "Effacer les données en cache";
 "settings-clear-cache-are-you-sure-message" = "L’effacement des données en cache libérera environ $1 d’espace. Cela ne supprimera pas vos pages sauvegardées.";
 "settings-clear-cache-are-you-sure-title" = "Effacer les données en cache ?";
@@ -358,6 +359,9 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"theme-dark-display-name" = "Sombre";
+"theme-default-display-name" = "Par défaut";
+"theme-sepia-display-name" = "Sépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-see-more" = "Voir plus de pages les plus regardées";
@@ -366,7 +370,6 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
-"unsave-action" = "Annuler l’enregistrement";
 "welcome-explore-continue-button" = "Commencer";
 "welcome-explore-new-ways-sub-title" = "Nouvelles notifications et widgets pour vous aider à découvrir des articles intéressants";
 "welcome-explore-new-ways-title" = "Nouvelles voies à explorer";
@@ -396,7 +399,6 @@
 "wikitext-upload-save" = "Publication en cours…";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-sign-in" = "Se connecter";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "En publiant les modifications, vous acceptez les $1 et de mettre votre contribution sous les licences $2 et $3.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "zero-charged-verbiage" = "Wikipédia Zéro est désactivé";

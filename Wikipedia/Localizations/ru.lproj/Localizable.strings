@@ -76,6 +76,7 @@
 "action-share" = "Поделиться";
 "action-unsave" = "Не сохранено";
 "alert-no-internet" = "Нет соединения с интернетом";
+// Fuzzy
 "announcements-dismiss" = "Нет, спасибо";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
@@ -84,7 +85,6 @@
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
-"article-save" = "Сохранить";
 "article-share" = "Поделиться";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
@@ -314,7 +314,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=этот год|прошлый год|$1 года назад|$1 лет назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
-"save-action" = "Сохранить";
 "saved-clear-all" = "Очистить";
 "saved-pages-clear-cancel" = "Отмена";
 "saved-pages-clear-confirmation-heading" = "Вы уверены, что хотите удалить все сохранённые страницы?";
@@ -373,7 +372,6 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
-"unsave-action" = "Не сохранено";
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-sub-title" = "Новые уведомления и виджеты, чтобы помочь вам обнаружить интересные статьи";
 "welcome-explore-new-ways-title" = "Новые способы изучения";

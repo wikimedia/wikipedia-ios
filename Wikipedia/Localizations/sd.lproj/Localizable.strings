@@ -51,6 +51,7 @@
 "action-share" = "ونڊيو";
 "action-unsave" = "اڻسانڍيو";
 "alert-no-internet" = "باهمڄار ڳانڍاپو نہ آهي";
+// Fuzzy
 "announcements-dismiss" = "نہ مھرباني";
 "article-about-title" = "هن مضمون بابت";
 "article-languages-filter-placeholder" = "ٻولي لھو";
@@ -271,7 +272,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
-"save-action" = "سانڍيو";
 "saved-clear-all" = "ختم ڪريو";
 "saved-pages-clear-cancel" = "رد";
 "saved-pages-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان پنھنجا  سڀ سانڍيل صفحا ڊاھڻ چاھيو ٿا'";
@@ -328,7 +328,6 @@
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
-"unsave-action" = "اڻسانڍيو";
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-explore-new-ways-sub-title" = "دلچسپ مضمون لھڻ لاءِ توھان لاءِ نوان اطلاع ۽ وڊجيٽس";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";

@@ -53,6 +53,7 @@
 "action-share" = "Podijeli";
 "action-unsave" = "Obriši";
 "alert-no-internet" = "Niste povezani na internet";
+// Fuzzy
 "announcements-dismiss" = "Ne, hvala";
 "article-about-title" = "O ovom članku";
 "article-languages-filter-placeholder" = "Pronađi jezik";
@@ -288,7 +289,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Upravo|Prije $1 minute|Prije $1 minute|Prije $1 minuta}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|Prošle godine|Prije $1 godine|Prije $1 godina}}";
 "request-feedback-on-error" = "Aplikacija je naišla na problem za koji naši programeri želi doznati više. Dodirnite ovdje da biste nam poslali e-poruku s informacijama o grešci.";
-"save-action" = "Sačuvaj";
 "saved-clear-all" = "Očisti";
 "saved-pages-clear-cancel" = "Odustani";
 "saved-pages-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve sačuvane stranice?";
@@ -347,7 +347,6 @@
 "two-factor-login-title" = "Prijavite se na svoj račun";
 "two-factor-login-with-backup-code" = "Koristi jedan od rezervnih kodova";
 "two-factor-login-with-regular-code" = "Koristi potvrdni kod";
-"unsave-action" = "Poništi čuvanje";
 "welcome-explore-continue-button" = "Započni";
 "welcome-explore-new-ways-sub-title" = "Nova obavještenja i dodaci pomoći će Vam da otkrijete zanimljive članke";
 "welcome-explore-new-ways-title" = "Novi načini za istraživanje";

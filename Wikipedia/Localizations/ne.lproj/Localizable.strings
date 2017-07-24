@@ -26,6 +26,7 @@
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन";
 "about-wikipedia" = "विकिपीडिया";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
+// Fuzzy
 "announcements-dismiss" = "पर्दैन धन्यवाद";
 "article-languages-others" = "अन्य भाषाहरू";
 "article-read-more-title" = "थप पढ्ने";
@@ -127,7 +128,6 @@
 "rank-accessibility-label" = "नम्बर $1";
 "readers-accessibility-label" = "$1 को पाठकहरू";
 "reference-title" = "सन्दर्भ $1";
-"save-action" = "सङ्ग्रह गर्नुहोस्";
 "saved-clear-all" = "खाली गर्नुहोस्";
 "saved-pages-clear-cancel" = "रद्द गर्ने";
 "saved-pages-clear-delete-all" = "हो, सबै मेट्नुहोस्";
@@ -157,7 +157,6 @@
 "top-read-header-generic" = "विकिपिडिया";
 "top-read-header-with-language" = "$1 विकिपिडिया";
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस् \\";
-"unsave-action" = "सङ्ग्रह खारेज गर्नुहोस्";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-tell-me-more-done-button" = "मैले बुझेँ";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";

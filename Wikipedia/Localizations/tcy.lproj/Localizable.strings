@@ -22,6 +22,7 @@
 "action-save" = "ಒರಿಪಾಲೆ";
 "action-saved" = "ಒರಿಪಾಂಡ್";
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
+"action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
 "article-about-title" = "ಈ ಲೇಕನೋತ ಬಗ್ಗೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
@@ -29,7 +30,6 @@
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆ";
 "article-read-more-title" = "ನನಲಾ ಓದುಲೇ";
-"article-save" = "ಒರಿಪಾಲೆ";
 "article-share" = "ಪಟ್ಟ್‍ಲೆ";
 "article-unable-to-load-article" = "ಈ ಲೇಖನನ್ ದಿಂಜಾವರೆ ಆವೊಂದಿಜ್ಜಿ";
 "back" = "ಪಿರವು";
@@ -140,7 +140,6 @@
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
 "preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
-"save-action" = "ಒರಿಪಾಲೆ";
 "saved-clear-all" = "ಮಾಜಲೇ";
 "saved-pages-clear-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "saved-pages-clear-delete-all" = "ಅಂದ್, ಮಾನ್ತೆನ್ಲ ವಜಾ ಮಾನ್ಪಿ";
@@ -176,7 +175,6 @@
 "top-read-see-more" = "ಮಸ್ತು ಓದುನೆನ್ ತೂಲೆ";
 "two-factor-login-continue" = "ಲಾಗಿನ್ ಅದ್ ಮುಂದುವರಿಲೆ";
 "two-factor-login-title" = "ಇರೇನಾ ಖಾತೆಗ್ ಲಾಗಿನ್ ಅಲೇ";
-"unsave-action" = "ಒರಿಪಾತುಜಿ";
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
 "welcome-explore-tell-me-more" = "ಜಾಸ್ತಿ ತೆರಿಪಾಲೆ";
 "welcome-explore-tell-me-more-done-button" = "ಗೊತ್ತಂಡಾ";

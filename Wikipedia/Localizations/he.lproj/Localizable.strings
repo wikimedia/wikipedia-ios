@@ -61,7 +61,10 @@
 "action-share" = "שיתוף";
 "action-unsave" = "ביטול שמירה";
 "alert-no-internet" = "אין חיבור אינטרנט";
-"announcements-dismiss" = "לא, תודה";
+"announcements-dismiss" = "סגירה";
+"appearance-settings-reading-themes" = "ערכות נושא לקריאה";
+"appearance-settings-theme-options" = "אפשרויות ערכת נושא";
+"appearance-settings-title" = "ערכות נושא לקריאה";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
 "article-languages-filter-placeholder" = "מציאת שפה";
@@ -69,7 +72,6 @@
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
-"article-save" = "שמירה";
 "article-share" = "שיתוף";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
@@ -89,6 +91,8 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"dark-theme-display-name" = "חשוכה";
+"dim-images" = "עמעום תמונות";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-linked-words" = "הוספתי קישורים";
@@ -183,6 +187,8 @@
 "home-nearby-footer" = "עוד דברים בסביבה";
 "home-nearby-location-footer" = "עוד בסביבת $1";
 "home-news-footer" = "עוד בחדשות";
+"home-themes-action-title" = "ניהול העדפות";
+"home-themes-prompt" = "קִראו בחושך, או הַגבילו את החשיפה שלכם לאור כחול עם ערכות הנושא החדשות – חשוכה וספיה. קִבעו את העדפות הקריאה שלכם (כולל גודל האותיות וערכת הנושא) בסרגל הכלים או בהעדפות המשתמש שלכם.";
 "home-title" = "לגלות";
 "home-title-accessibility-label" = "ויקיפדיה, גלילה עד למעלה ב\"לגלות\"";
 "icon-shortcut-continue-reading-title" = "המשך קריאה";
@@ -299,7 +305,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
-"save-action" = "שמירה";
 "saved-clear-all" = "ניקוי";
 "saved-pages-clear-cancel" = "ביטול";
 "saved-pages-clear-confirmation-heading" = "האם באמת למחוק את כל הדפים השמורים שלך?";
@@ -315,6 +320,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+"settings-appearance" = "מראה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
@@ -350,6 +356,9 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"theme-dark-display-name" = "חשוכה";
+"theme-default-display-name" = "ברירת מחדל";
+"theme-sepia-display-name" = "ספיה";
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה בשפה $1";
 "top-read-see-more" = "צפייה בערכים פופולריים נוספים";
@@ -358,7 +367,6 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
-"unsave-action" = "ביטול שמירה";
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-new-ways-sub-title" = "עדכונים ווידג׳טים שעוזרים לך לגלות ערכים מעניינים";
 "welcome-explore-new-ways-title" = "דרכים חדשות לגלות";
@@ -388,7 +396,6 @@
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";

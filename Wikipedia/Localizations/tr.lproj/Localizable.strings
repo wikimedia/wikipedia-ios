@@ -73,6 +73,7 @@
 "action-share" = "Paylaş";
 "action-unsave" = "Kaydedilenlerden çıkar";
 "alert-no-internet" = "İnternet bağlantısı yok";
+// Fuzzy
 "announcements-dismiss" = "Hayır, teşekkürler";
 "article-about-title" = "Bu madde hakkında";
 "article-languages-filter-placeholder" = "Dil bul";
@@ -308,7 +309,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
-"save-action" = "Kaydet";
 "saved-clear-all" = "Temizle";
 "saved-pages-clear-cancel" = "İptal";
 "saved-pages-clear-confirmation-heading" = "Kayıtlı tüm sayfaları silmek istediğinizden emin misiniz?";
@@ -367,7 +367,6 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
-"unsave-action" = "Geri al";
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-explore-new-ways-sub-title" = "Yeni bildirimler ve araçlar ilginç makaleleri keşfetmenize yardımcı olacak";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";

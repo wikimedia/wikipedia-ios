@@ -55,6 +55,7 @@
 "action-save" = "Guardar";
 "action-share" = "Partilhar";
 "alert-no-internet" = "Sem ligação à Internet.";
+// Fuzzy
 "announcements-dismiss" = "Não, obrigado";
 "article-about-title" = "Sobre este artigo";
 "article-languages-filter-placeholder" = "Encontrar idioma";
@@ -217,7 +218,6 @@
 "readers-accessibility-label" = "$1 leitores";
 "reference-title" = "Referência $1";
 "request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";
-"save-action" = "Guardar";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-confirmation-heading" = "Tem a certeza de que pretende eliminar todas as páginas guardadas?";
@@ -266,7 +266,6 @@
 "top-read-see-more" = "Ver mais artigos dos mais lidos";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
 "two-factor-login-title" = "Inicie sessão na sua conta";
-"unsave-action" = "Desfazer Guardar";
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-sub-title" = "Novas notificações e widgets para ajudá-lo a descobrir artigos interessantes";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
