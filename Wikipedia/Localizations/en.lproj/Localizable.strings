@@ -58,6 +58,7 @@
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
 "article-share" = "Share";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "back" = "Back";
@@ -283,6 +284,12 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
+"reading-themes-controls-accessibility-dim-images-switch" = "Dim images";
+"reading-themes-controls-accessibility-light-theme-button" = "Light theme";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
+"reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
