@@ -5,6 +5,7 @@ import UIKit
     case systemBlack
     case systemMedium
     case systemBold
+    case systemHeavy
     case georgia
 }
 
@@ -70,6 +71,22 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 31
             ]
         ],
+        .systemHeavy: [
+            UIFontTextStyle.headline: [
+                .accessibilityExtraExtraExtraLarge: 43,
+                .accessibilityExtraExtraLarge: 43,
+                .accessibilityExtraLarge: 43,
+                .accessibilityLarge: 43,
+                .accessibilityMedium: 43,
+                .extraExtraExtraLarge: 43,
+                .extraExtraLarge: 42,
+                .extraLarge: 41,
+                .large: 40,
+                .medium: 39,
+                .small: 38,
+                .extraSmall: 37
+            ]
+        ],
         .systemBold: [
             UIFontTextStyle.subheadline: [
                 .accessibilityExtraExtraExtraLarge: 21,
@@ -100,11 +117,11 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 12
             ],
             UIFontTextStyle.body: [
-                .accessibilityExtraExtraExtraLarge: 53,
-                .accessibilityExtraExtraLarge: 47,
-                .accessibilityExtraLarge: 40,
-                .accessibilityLarge: 33,
-                .accessibilityMedium: 28,
+                .accessibilityExtraExtraExtraLarge: 23,
+                .accessibilityExtraExtraLarge: 23,
+                .accessibilityExtraLarge: 23,
+                .accessibilityLarge: 23,
+                .accessibilityMedium: 23,
                 .extraExtraExtraLarge: 23,
                 .extraExtraLarge: 21,
                 .extraLarge: 19,
@@ -173,6 +190,8 @@ public extension UIFont {
             return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
         case .systemBold:
             return UIFont.boldSystemFont(ofSize: size)
+        case .systemHeavy:
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightHeavy)
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             return nil
