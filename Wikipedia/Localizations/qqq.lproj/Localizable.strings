@@ -284,12 +284,12 @@
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
-"reading-themes-controls-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
-"reading-themes-controls-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
-"reading-themes-controls-dim-images-switch" = "Accessibility label for the dim images switch in the Reading Themes Controls popover";
-"reading-themes-controls-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
-"reading-themes-controls-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
-"reading-themes-controls-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-dim-images-switch" = "Accessibility label for the dim images switch in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";

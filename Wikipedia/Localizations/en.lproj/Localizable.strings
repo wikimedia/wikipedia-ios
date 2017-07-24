@@ -284,12 +284,12 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
-"reading-themes-controls-brightness-slider" = "Brightness slider";
-"reading-themes-controls-dark-theme-button" = "Dark theme";
-"reading-themes-controls-dim-images-switch" = "Dim images";
-"reading-themes-controls-light-theme-button" = "Light theme";
-"reading-themes-controls-sepia-theme-button" = "Sepia theme";
-"reading-themes-controls-text-size-slider" = "Text size slider";
+"reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
+"reading-themes-controls-accessibility-dim-images-switch" = "Dim images";
+"reading-themes-controls-accessibility-light-theme-button" = "Light theme";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
+"reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
