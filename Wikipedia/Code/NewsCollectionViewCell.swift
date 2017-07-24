@@ -12,6 +12,11 @@ class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         updateDescriptionHTMLStyle()
     }
     
+    override func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        collectionView.backgroundColor = labelBackgroundColor
+    }
+    
     func updateDescriptionHTMLStyle() {
         guard
             let descriptionHTML = descriptionHTML,
