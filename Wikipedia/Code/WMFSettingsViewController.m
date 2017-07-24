@@ -219,6 +219,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
             WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
+            [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About:
