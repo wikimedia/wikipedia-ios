@@ -90,7 +90,7 @@ public class Colors: NSObject {
 
     fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .mesophere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
     
     
     public let baseBackground: UIColor
