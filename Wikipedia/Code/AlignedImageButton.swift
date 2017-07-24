@@ -1,5 +1,6 @@
 import UIKit
 
+@objc(WMFAlignedImageButton)
 public class AlignedImageButton: UIButton {
     
     @IBInspectable open var margin: CGFloat = 8

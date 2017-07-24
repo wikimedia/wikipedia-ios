@@ -1,6 +1,7 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView
+@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView <WMFThemeable>
 @property (copy, nonatomic) NSString *text;
 - (CGFloat)heightWithExpectedWidth:(CGFloat)width;
 
@@ -11,5 +12,7 @@
 - (void)addClearButtonTarget:(id)target selector:(SEL)selector;
 
 - (void)prepareForReuse;
+
+- (void)setShortTextAsProse:(NSString *)text;
 
 @end

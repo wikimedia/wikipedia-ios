@@ -1,12 +1,13 @@
 import UIKit
+import WMF
 
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: WMFArticleAction)
 }
 
 class ArticlePopoverViewController: UIViewController {
-    fileprivate static let readActionString = WMFLocalizedString("action-read", value:"Read", comment:"Title for the 'Read' action\n{{Identical|Read}}")
-    fileprivate static let shareActionString = WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")
+    fileprivate static let readActionString = CommonStrings.shortReadTitle
+    fileprivate static let shareActionString = CommonStrings.shortShareTitle
     
     weak var delegate: ArticlePopoverViewControllerDelegate?
     
@@ -94,7 +95,7 @@ class ArticlePopoverViewController: UIViewController {
         if showSaveAndShareTitles {
             saveButton.saveButtonState = article.savedDate == nil ? .shortSave : .shortSaved
         }
-        let saveTitle = article.savedDate == nil ? SaveButton.shortSaveTitle : SaveButton.shortUnsaveTitle
+        let saveTitle = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
         let saveAction = UIAccessibilityCustomAction(name: saveTitle, target: self, selector: #selector(save))
         let shareAction = UIAccessibilityCustomAction(name: ArticlePopoverViewController.shareActionString, target: self, selector: #selector(share))
         
@@ -165,11 +166,11 @@ extension ArticlePopoverViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.tertiaryText
-        articleSummaryView.backgroundColor = theme.colors.chromeBackground
-        buttonContainerView.backgroundColor = theme.colors.midBackground
-        saveButton.backgroundColor = theme.colors.chromeBackground
-        shareButton.backgroundColor = theme.colors.chromeBackground
-        readButton.backgroundColor = theme.colors.chromeBackground
+        articleSummaryView.backgroundColor = theme.colors.popoverBackground
+        buttonContainerView.backgroundColor = theme.colors.border
+        saveButton.backgroundColor = theme.colors.popoverBackground
+        shareButton.backgroundColor = theme.colors.popoverBackground
+        readButton.backgroundColor = theme.colors.popoverBackground
     }
 }
 

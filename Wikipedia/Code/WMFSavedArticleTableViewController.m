@@ -1,6 +1,6 @@
 #import "WMFSavedArticleTableViewController.h"
-#import "WMFArticleListTableViewCell.h"
 #import "WMFTableViewUpdater.h"
+#import "Wikipedia-Swift.h"
 @import WMF;
 
 @interface WMFSavedArticleTableViewController ()
@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
@@ -75,12 +75,23 @@
     cell.titleText = entry.displayTitle;
     cell.descriptionText = entry.capitalizedWikidataDescription;
     [cell setImageURL:entry.thumbnailURL];
+    [cell applyTheme:self.theme];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
     [self configureCell:cell forRowAtIndexPath:indexPath];
     return cell;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    UITableViewRowAction *savedAction = [self savedAction:indexPath];
+    savedAction.backgroundColor = self.theme.colors.link;
+
+    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
+    return @[shareAction, savedAction];
 }
 
 - (WMFEmptyViewType)emptyViewType {

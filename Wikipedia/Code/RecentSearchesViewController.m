@@ -2,11 +2,11 @@
 @import WMF.MWKRecentSearchList;
 @import WMF.MWKRecentSearchEntry;
 @import Masonry;
-#import "RecentSearchCell.h"
 #import "UIButton+WMFButton.h"
 #import "Wikipedia-Swift.h"
 
 static NSString *const pListFileName = @"Recent.plist";
+static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSearchCell";
 
 @interface RecentSearchesViewController ()
 
@@ -15,6 +15,7 @@ static NSString *const pListFileName = @"Recent.plist";
 @property (strong, nonatomic) IBOutlet UIView *headerContainer;
 @property (strong, nonatomic) IBOutlet UIView *trashButtonContainer;
 @property (strong, nonatomic) UIButton *trashButton;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -30,21 +31,15 @@ static NSString *const pListFileName = @"Recent.plist";
     [self updateTrashButtonEnabledState];
     [self updateHeaderVisibility];
     [self.view wmf_configureSubviewsForDynamicType];
+
+    [self applyTheme:self.theme];
 }
 
 - (void)setupTable {
-    [self.table registerNib:[UINib nibWithNibName:@"RecentSearchCell" bundle:nil] forCellReuseIdentifier:@"RecentSearchCell"];
+    [self.table registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:RecentSearchesViewControllerCellIdentifier];
 
     self.table.estimatedRowHeight = 52.f;
     self.table.rowHeight = UITableViewAutomaticDimension;
-
-    /*
-       HAX: Used grouped table layout to get, for free, separators above the first cell
-       and below the last cell, but grouped layout adds a background which causes the
-       translucency effect to break. Nil'ing out the background view fixes it.
-     */
-    [self.table setBackgroundView:nil];
-    [self.table setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)reloadRecentSearches {
@@ -65,7 +60,6 @@ static NSString *const pListFileName = @"Recent.plist";
     self.trashButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.trashButton setImage:[UIImage imageNamed:@"clear-mini"] forState:UIControlStateNormal];
     [self.trashButton addTarget:self action:@selector(showDeleteAllDialog) forControlEvents:UIControlEventTouchUpInside];
-    self.trashButton.tintColor = [UIColor wmf_lightGray];
     [self.trashButtonContainer addSubview:self.trashButton];
 
     [self.trashButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,10 +118,11 @@ static NSString *const pListFileName = @"Recent.plist";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellId = @"RecentSearchCell";
-    RecentSearchCell *cell = (RecentSearchCell *)[tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    WMFArticleListTableViewCell *cell = (WMFArticleListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RecentSearchesViewControllerCellIdentifier forIndexPath:indexPath];
+    [cell applyTheme:self.theme];
+    cell.articleCell.isImageViewHidden = YES;
     NSString *term = [[self.recentSearches entryAtIndex:indexPath.row] searchTerm];
-    [cell.label setText:term];
+    [cell setTitleText:term];
 
     return cell;
 }
@@ -160,6 +155,24 @@ static NSString *const pListFileName = @"Recent.plist";
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self wmf_hideKeyboard];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+
+    self.table.backgroundColor = theme.colors.midBackground;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.table.separatorColor = theme.colors.border;
+
+    self.headerContainer.backgroundColor = theme.colors.midBackground;
+    self.headingLabel.textColor = theme.colors.secondaryText;
+
+    self.trashButton.tintColor = theme.colors.secondaryText;
+
+    [self.table reloadData];
 }
 
 @end

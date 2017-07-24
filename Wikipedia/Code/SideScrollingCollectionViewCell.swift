@@ -41,13 +41,20 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
     internal var articles: [CellArticle] = []
     
     override open func setup() {
-        addSubview(prototypeCell)
-        addSubview(imageView)
+        titleLabel.isOpaque = true
+        subTitleLabel.isOpaque = true
+        descriptionLabel.isOpaque = true
+        bottomTitleLabel.isOpaque = true
+        imageView.isOpaque = true
+        
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         addSubview(descriptionLabel)
-        addSubview(collectionView)
         addSubview(bottomTitleLabel)
+    
+        addSubview(imageView)
+        addSubview(collectionView)
+        addSubview(prototypeCell)
         
         wmf_configureSubviewsForDynamicType()
 
@@ -147,7 +154,14 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: origin.y)
     }
     
-    
+    override func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        let backgroundColor = labelBackgroundColor
+        titleLabel.backgroundColor = backgroundColor
+        subTitleLabel.backgroundColor = backgroundColor
+        descriptionLabel.backgroundColor = backgroundColor
+        bottomTitleLabel.backgroundColor = backgroundColor
+    }
 }
 
 extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
@@ -184,14 +198,19 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
     func configure(with cellArticle: CellArticle, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
         backgroundColor = .clear
-        contentView.backgroundColor = theme.colors.paperBackground
-        contentView.layer.cornerRadius = 5
-        contentView.layer.masksToBounds = true
+        backgroundView?.backgroundColor = theme.colors.subCellBackground
+        backgroundView?.layer.cornerRadius = 5
+        backgroundView?.layer.masksToBounds = true
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        selectedBackgroundView?.layer.cornerRadius = 5
+        selectedBackgroundView?.layer.masksToBounds = true
         layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.5
+        layer.shadowOpacity = 0.8
         layer.shadowRadius = 2
         layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
+        titleLabel.backgroundColor = backgroundView?.backgroundColor
+        descriptionLabel.backgroundColor = backgroundView?.backgroundColor
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
@@ -211,6 +230,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
             isImageViewHidden = true
         }
         
+        updateFonts(with: traitCollection)
         setNeedsLayout()
     }
 }
@@ -245,15 +265,14 @@ extension SideScrollingCollectionViewCell {
 extension SideScrollingCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        contentView.backgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.paperBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        titleLabel.backgroundColor = theme.colors.paperBackground
-        subTitleLabel.textColor = theme.colors.tertiaryText
-        subTitleLabel.backgroundColor = theme.colors.paperBackground
+        subTitleLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.primaryText
-        descriptionLabel.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
         descriptionLabel.textColor = theme.colors.primaryText
+        updateSelectedOrHighlighted()
         collectionView.reloadData()
     }
 }

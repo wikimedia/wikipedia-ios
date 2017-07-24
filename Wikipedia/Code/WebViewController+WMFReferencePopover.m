@@ -1,7 +1,6 @@
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFReferencePopoverBackgroundView.h"
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -32,6 +31,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     WMFReferencePopoverMessageViewController *popoverVC = [self wmf_referencePopoverViewControllerWithReference:reference
                                                                                                           width:width
                                                                                 withPresenterConfigurationBlock:presenterConfigurationBlock];
+    [popoverVC applyTheme:self.theme];
 
     [self presentViewController:popoverVC
                        animated:NO
@@ -53,11 +53,13 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     WMFReferencePopoverMessageViewController *popoverVC =
         [WMFReferencePopoverMessageViewController wmf_initialViewControllerFromClassStoryboard];
 
+    [popoverVC applyTheme:self.theme];
+
     popoverVC.modalPresentationStyle = UIModalPresentationPopover;
     popoverVC.reference = reference;
     popoverVC.width = width;
 
-    popoverVC.view.backgroundColor = [UIColor wmf_referencePopoverBackground];
+    popoverVC.view.backgroundColor = self.theme.colors.paperBackground;
 
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
     presenter.passthroughViews = @[self.webView];
@@ -68,7 +70,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
         presenterConfigurationBlock(presenter);
     }
 
-    presenter.popoverBackgroundViewClass = [WMFReferencePopoverBackgroundView class];
+    presenter.backgroundColor = self.theme.colors.paperBackground;
 
     return popoverVC;
 }

@@ -2,24 +2,15 @@ import Foundation
 
 extension ArticleCollectionViewCell: Themeable {
     public func apply(theme: Theme) {
-        contentBackgroundColor = theme.colors.paperBackground
+        backgroundView?.backgroundColor = theme.colors.paperBackground
+        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         imageView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.tertiaryText
-        extractLabel?.textColor = theme.colors.secondaryText
+        descriptionLabel.textColor = theme.colors.secondaryText
+        extractLabel?.textColor = theme.colors.primaryText
         saveButton.setTitleColor(theme.colors.link, for: .normal)
-    }
-    
-    fileprivate var contentBackgroundColor: UIColor? {
-        set {
-            contentView.backgroundColor = newValue
-            titleLabel.backgroundColor = newValue
-            descriptionLabel.backgroundColor = newValue
-            extractLabel?.backgroundColor = newValue
-        }
-        get {
-            return contentView.backgroundColor
-        }
+        imageView.alpha = theme.imageOpacity
+        updateSelectedOrHighlighted()
     }
 }
 
@@ -69,7 +60,9 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
-            contentBackgroundColor = theme.colors.midBackground
+            backgroundView?.backgroundColor = theme.colors.midBackground
+            selectedBackgroundView?.backgroundColor = theme.colors.baseBackground
+            updateSelectedOrHighlighted()
             imageViewDimension = 150
             extractLabel?.text = nil
             isSaveButtonHidden = true
@@ -86,6 +79,7 @@ public extension ArticleCollectionViewCell {
             titleTextStyle = .title1
             descriptionFontFamily = .system
             descriptionTextStyle = .subheadline
+            updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             extractLabel?.text = nil
         case .page:

@@ -324,20 +324,9 @@ NS_ASSUME_NONNULL_BEGIN
         //The asserion above will catch this in development/beta.
         return;
     }
-    NSString *parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                                          [NSURL wmf_desktopURLForURL:self.article.url].absoluteString,
-                                                                          parameter]];
+    WMFShareActivityController *shareActivityVC = [[WMFShareActivityController alloc] initWithArticle:self.article image:image title:title];
 
-    NSMutableArray *activityItems = @[title, url].mutableCopy;
-    if (image) {
-        [activityItems addObject:image];
-    }
-
-    UIActivityViewController *shareActivityVC =
-        [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                          applicationActivities:@[]];
     UIPopoverPresentationController *presenter = [shareActivityVC popoverPresentationController];
     presenter.barButtonItem = self.originButtonItem;
 

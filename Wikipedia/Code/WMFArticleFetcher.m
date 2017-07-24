@@ -1,4 +1,5 @@
 #import "WMFArticleFetcher.h"
+#import <WMF/WMF-Swift.h>
 
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
@@ -105,18 +106,11 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    NSURL *pageSummaryURL = [articleURL wmf_summaryEndpointURL];
-    [self.pageSummarySessionManager GET:pageSummaryURL.absoluteString
-        parameters:nil
-        progress:nil
-        success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
-            summaryResponse = responseObject;
-            [taskGroup leave];
-        }
-        failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
-            [taskGroup leave];
-        }];
-
+    [self.pageSummarySessionManager.session wmf_fetchSummaryWithArticleURL:articleURL
+                                                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                                             summaryResponse = summary;
+                                                             [taskGroup leave];
+                                                         }];
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];

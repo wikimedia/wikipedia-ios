@@ -317,7 +317,7 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 - (void)debugChaos {
     BOOL needsTeardown = arc4random_uniform(2) > 0;
     NSManagedObjectContext *moc = needsTeardown ? self.dataStore.feedImportContext : self.dataStore.viewContext;
-    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation * _Nonnull op) {
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         [moc performBlock:^{
             NSFetchRequest *request = [WMFContentGroup fetchRequest];
             NSInteger count = [moc countForFetchRequest:request error:nil];
@@ -329,9 +329,9 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                 int32_t random = (15 - (int32_t)arc4random_uniform(30));
                 switch (seed) {
                     case 0:
-                        group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400*random];
-                        group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400*random];
-                        group.date = [group.date dateByAddingTimeInterval:86400*random];
+                        group.midnightUTCDate = [group.midnightUTCDate dateByAddingTimeInterval:86400 * random];
+                        group.contentMidnightUTCDate = [group.contentMidnightUTCDate dateByAddingTimeInterval:86400 * random];
+                        group.date = [group.date dateByAddingTimeInterval:86400 * random];
                         break;
                     case 1:
                         [moc deleteObject:group];

@@ -123,13 +123,13 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.containerView.backgroundColor = theme.colors.paperBackground;
-    self.titleLabel.textColor = theme.colors.tertiaryText;
+    self.titleLabel.textColor = theme.colors.secondaryText;
     self.titleLabel.backgroundColor = theme.colors.paperBackground;
-    self.subTitleLabel.textColor = theme.colors.tertiaryText;
+    self.subTitleLabel.textColor = theme.colors.secondaryText;
     self.subTitleLabel.backgroundColor = theme.colors.paperBackground;
     self.rightButton.backgroundColor = theme.colors.paperBackground;
     self.backgroundColor = theme.colors.paperBackground;
-    
+
     if (theme.colors.iconBackground != nil) {
         self.iconContainerView.backgroundColor = theme.colors.iconBackground;
     }

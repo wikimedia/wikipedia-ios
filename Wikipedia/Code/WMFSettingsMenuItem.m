@@ -31,7 +31,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:loginString
                                                  iconName:@"settings-user"
-                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7)alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7)]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -41,7 +41,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
                                                  iconName:@"settings-support"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -51,7 +51,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages")
                                                  iconName:@"settings-language"
-                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
                                            disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
                                                isSwitchOn:NO];
@@ -71,9 +71,19 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-notifications", nil, nil, @"Notifications", @"Title for button letting user choose notifications settings.\n{{Identical|Notification}}")
                                                  iconName:@"settings-notifications"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_Appearance: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
+                                                 iconName:@"settings-appearance"
+                                                iconColor:[UIColor wmf_colorWithHex:0x000000]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:WMFAppearanceSettingsViewController.disclosureText
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
@@ -81,7 +91,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-privacy-policy", nil, nil, @"Privacy policy", @"Button text for showing privacy policy\n{{Identical|Privacy policy}}")
                                                  iconName:@"settings-privacy"
-                                                iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x884FDC]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -91,7 +101,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-terms-of-use", nil, nil, @"Terms of Use", @"Button text for showing site terms of use\n{{Identical|Terms of use}}")
                                                  iconName:@"settings-terms"
-                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -101,7 +111,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"preference-title-eventlogging-opt-in", nil, nil, @"Send usage reports", @"Title of preference that when checked enables data collection of user behavior.")
                                                  iconName:@"settings-analytics"
-                                                iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x95D15A]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
                                                isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
@@ -111,7 +121,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"zero-warn-when-leaving", nil, nil, @"Warn if leaving Zero", @"Main menu option to be warned if leaving Wikipedia Zero")
                                                  iconName:@"settings-zero"
-                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
                                                isSwitchOn:[SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving];
@@ -121,7 +131,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-zero-faq", nil, nil, @"Wikipedia Zero FAQ", @"Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document")
                                                  iconName:@"settings-faq"
-                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -131,7 +141,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-rate-app", nil, nil, @"Rate the app", @"Button text for showing the app in the app store so user can rate the app")
                                                  iconName:@"settings-rate"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFEA13D]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -141,7 +151,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-help-and-feedback", nil, nil, @"Help and feedback", @"Title for showing showing a screen that displays the FAQ and allows users to submit bug reports")
                                                  iconName:@"settings-help-and-feedback"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -151,7 +161,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-about", nil, nil, @"About the app", @"Button for showing information about the app.")
                                                  iconName:@"settings-about"
-                                                iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x000000]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -161,7 +171,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache", nil, nil, @"Clear cached data", @"Title for the 'Clear cached data' settings row")
                                                  iconName:@"settings-clear-cache"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFFBF02 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFFBF02]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -171,7 +181,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-debug-crash", nil, nil, @"Crash", @"Title for button that forces the application to crash.\n{{Identical|Crash}}")
                                                  iconName:@"settings-crash"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -181,7 +191,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:WMFLocalizedStringWithDefaultValue(@"main-menu-debug-tweaks", nil, nil, @"Developer settings", @"Title for button that shows debugging settings options.")
                                                  iconName:@"settings-dev"
-                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];

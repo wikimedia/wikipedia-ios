@@ -31,7 +31,6 @@
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
-    
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -98,27 +97,33 @@
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
         return;
     }
-    
-    NSURL *URL = [WMFContentGroup notificationContentGroupURL];
     NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
-    WMFContentGroup *group = [moc contentGroupForURL:URL];
-    if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
-        if (!group) {
-            [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+
+    NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
+    WMFContentGroup *themeGroup = [moc contentGroupForURL:themeContentGroupURL];
+    if (!userDefaults.wmf_didShowThemeCardInFeed) {
+        if (!themeGroup) {
+            [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         }
-        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
-    } else if (shouldAddNewContent) { // shoulAddNewContent represents a user-initiated refresh
-        if (group) {
-           [moc deleteObject:group];
+        userDefaults.wmf_didShowThemeCardInFeed = YES;
+    }
+
+    WMFContentGroup *newsGroup = [moc newestGroupOfKind:WMFContentGroupKindNews];
+    if (newsGroup) {
+        NSURL *URL = [WMFContentGroup notificationContentGroupURL];
+        WMFContentGroup *group = [moc contentGroupForURL:URL];
+        if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+            if (!group) {
+                [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+            }
+            [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
         }
-    } else {
-        group.date = [NSDate date];
     }
 }
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-    
+
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {

@@ -37,6 +37,7 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override open func setup() {
         super.setup()
+        timelineView.isOpaque = true
         insertSubview(timelineView, belowSubview: collectionView)
     }
     
@@ -62,10 +63,14 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         super.apply(theme: theme)
         timelineView.backgroundColor = theme.colors.paperBackground
         titleLabel.textColor = theme.colors.link
-        titleLabel.backgroundColor = theme.colors.paperBackground
         bottomTitleLabel.textColor = theme.colors.link
-        bottomTitleLabel.backgroundColor = theme.colors.paperBackground
-        subTitleLabel.textColor = theme.colors.tertiaryText
+        subTitleLabel.textColor = theme.colors.secondaryText
         collectionView.backgroundColor = .clear
+    }
+    
+    override func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        let backgroundColor = labelBackgroundColor
+        timelineView.backgroundColor = backgroundColor
     }
 }

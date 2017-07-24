@@ -1,15 +1,17 @@
 
 import UIKit
 
-class WMFChangePasswordViewController: WMFScrollViewController {
+class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
-    @IBOutlet fileprivate var passwordField: UITextField!
-    @IBOutlet fileprivate var retypeField: UITextField!
+    @IBOutlet fileprivate var passwordField: ThemeableTextField!
+    @IBOutlet fileprivate var retypeField: ThemeableTextField!
     @IBOutlet fileprivate var passwordTitleLabel: UILabel!
     @IBOutlet fileprivate var retypeTitleLabel: UILabel!
     @IBOutlet fileprivate var saveButton: WMFAuthButton!
+    
+    fileprivate var theme: Theme = Theme.standard
     
     public var funnel: LoginFunnel?
 
@@ -65,12 +67,8 @@ class WMFChangePasswordViewController: WMFScrollViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        [titleLabel, passwordTitleLabel, retypeTitleLabel].forEach{$0.textColor = .wmf_authTitle}
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        
-        passwordField.wmf_addThinBottomBorder()
-        retypeField.wmf_addThinBottomBorder()
 
         titleLabel.text = WMFLocalizedString("new-password-title", value:"Set your password", comment:"Title for password change interface")
         subTitleLabel.text = WMFLocalizedString("new-password-instructions", value:"You logged in with a temporary password. To finish logging in set a new password here.", comment:"Instructions for password change interface")
@@ -80,6 +78,8 @@ class WMFChangePasswordViewController: WMFScrollViewController {
         retypeTitleLabel.text = WMFLocalizedString("field-new-password-confirm-title", value:"Confirm new password", comment:"Title for confirm new password field")
         
         view.wmf_configureSubviewsForDynamicType()
+        
+        apply(theme: theme)
     }
     
     func closeButtonPushed(_ : UIBarButtonItem) {
@@ -127,5 +127,28 @@ class WMFChangePasswordViewController: WMFScrollViewController {
                     }
                 }
             })
+    }
+    
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        view.backgroundColor = theme.colors.paperBackground
+        view.tintColor = theme.colors.link
+        
+        let labels = [titleLabel, subTitleLabel, passwordTitleLabel, retypeTitleLabel]
+        for label in labels {
+            label?.textColor = theme.colors.secondaryText
+        }
+        
+        let fields = [passwordField, retypeField]
+        for field in fields {
+            field?.apply(theme: theme, withBorder: true)
+        }
+        
+        saveButton.apply(theme: theme)
     }
 }

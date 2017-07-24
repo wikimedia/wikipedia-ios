@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
+
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -141,7 +143,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)handleFooterMenuItemClickedScriptMessage:(NSString *)messageString {
+- (void)handleFooterMenuItemClickedScriptMessage:(NSDictionary *)messageDict {
+    NSString *messageString = messageDict[@"selection"];
+    NSArray *payload = messageDict[@"payload"];
+
     WMFArticleFooterMenuItem item;
     if ([messageString isEqualToString:@"languages"]) {
         item = WMFArticleFooterMenuItemLanguages;
@@ -157,7 +162,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
-    [self.delegate webViewController:self didTapFooterMenuItem:item];
+    [self.delegate webViewController:self didTapFooterMenuItem:item payload:payload];
 }
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
@@ -168,7 +173,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
     NSString *title = [url.absoluteString.lastPathComponent wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     if (title) {
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.setTitleIsSaved('%@', %@)", title, (isSaved ? @"true" : @"false")] completionHandler:nil];
+        NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
+        NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
 
@@ -291,18 +299,22 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
     } else if ([messageString isEqualToString:@"setPageProtected"]) {
         [self.webView wmf_setPageProtected:!self.article.editable];
+    } else if ([messageString isEqualToString:@"addFooterContainer"]) {
+        [self.webView wmf_addFooterContainer];
     } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterLegal"]) {
         [self.webView wmf_addFooterLegalForArticle:self.article];
+    } else if ([messageString isEqualToString:@"classifyThemeElements"]) {
+        [self.webView wmf_classifyThemeElements];
     }
 }
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
@@ -410,21 +422,26 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
-- (void)updateWebContentMarginForSize:(CGSize)size {
+- (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
     CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
-    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+    if (force || ABS(self.marginWidth - newMarginWidth) >= 0.5) {
         self.marginWidth = newMarginWidth;
-        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        NSString *jsFormat = @""
+                              "var contentDiv = document.getElementById('content');"
+                              "contentDiv.style.marginLeft='%ipx';"
+                              "contentDiv.style.marginRight='%ipx';"
+                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);";
+
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self updateWebContentMarginForSize:self.view.bounds.size];
+    [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -556,9 +573,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"collapseTables",
         @"setPageProtected",
         @"setLanguage",
+        @"addFooterContainer",
         @"addFooterReadMore",
         @"addFooterMenu",
-        @"addFooterLegal"
+        @"addFooterLegal",
+        @"classifyThemeElements"
     ];
     for (NSString *transformName in lateTransformNames) {
         NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
@@ -615,6 +634,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (!self.theme) {
+        self.theme = WMFTheme.standard;
+    }
+
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -635,12 +658,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackground];
-    self.webView.backgroundColor = [UIColor wmf_articleBackground];
-    self.view.backgroundColor = [UIColor wmf_articleBackground];
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
+
+    [self applyTheme:self.theme];
 
     [self displayArticle];
 }
@@ -812,7 +833,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"footer_container_section_"
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
                                                    count:2
                                               completion:^(id obj, NSError *error) {
                                                   if (error) {
@@ -865,7 +886,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
-    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
+    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
                                                           action:@selector(shareMenuItemTapped:)];
@@ -918,6 +939,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFReferencePageViewController *vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
     vc.delegate = self;
     vc.appearanceDelegate = self;
+    [vc applyTheme:self.theme];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     vc.lastClickedReferencesIndex = selectedIndex;
@@ -1070,8 +1092,24 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
-        [self updateWebContentMarginForSize:self.view.bounds.size];
+        [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
     }
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+
+    self.webView.opaque = NO;
+    self.webView.backgroundColor = [UIColor clearColor];
+    self.webView.scrollView.backgroundColor = [UIColor clearColor];
+    self.containerView.backgroundColor = theme.colors.paperBackground;
+    self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_applyTheme:theme];
 }
 
 @end

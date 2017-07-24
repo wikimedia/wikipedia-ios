@@ -69,4 +69,11 @@
     return layer;
 }
 
+- (void)applyTheme:(WMFTheme *)theme {
+    self.cellWhiteLayer.backgroundColor = theme.colors.paperBackground.CGColor;
+    self.deleteButton.tintColor = theme.colors.destructive;
+    self.deleteButton.imageView.backgroundColor = theme.colors.paperBackground;
+    self.deleteButtonWhiteLayer.backgroundColor = self.cellWhiteLayer.backgroundColor;
+}
+
 @end

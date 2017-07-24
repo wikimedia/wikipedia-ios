@@ -1,9 +1,10 @@
 @import UIKit;
+@import WMF.Swift;
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 
 @class PaddedLabel;
 @protocol PreviewLicenseViewDelegate;
-@interface PreviewLicenseView : UIView
+@interface PreviewLicenseView : UIView <WMFThemeable>
 
 @property (weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;

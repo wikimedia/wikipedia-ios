@@ -119,7 +119,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)updateNavigationBar {
     self.title = self.title;
-    self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : self.buttonX;
+    self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : nil;
 }
 
 - (NSString *)title {

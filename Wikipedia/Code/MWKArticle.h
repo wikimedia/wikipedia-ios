@@ -112,10 +112,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSString *)articleHTML;
 
-- (nullable NSArray<NSURL *> *)disambiguationURLs;
-
-- (nullable NSArray<NSString *> *)pageIssues;
-
 @end
 
 /**

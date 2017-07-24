@@ -1,10 +1,8 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
+@import WMF;
 
-#import <WMF/NSUserActivity+WMFExtensions.h>
-
-// Frameworks
-@import Masonry;
+#import "WMFEmptyView.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -12,29 +10,14 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import <WMF/MWKLanguageLinkController.h>
 #import "WMFShareOptionsController.h"
-#import "WMFSaveButtonController.h"
-#import "UIViewController+WMFSearch.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
 #import "WMFPageIssuesViewController.h"
-
+#import "SSArrayDataSource.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
-
-// Model
-#import <WMF/MWKDataStore.h>
-#import <WMF/MWKSavedPageList.h>
-#import <WMF/MWKArticle+WMFSharing.h>
-#import <WMF/MWKHistoryEntry.h>
-#import <WMF/MWKHistoryList.h>
-#import <WMF/MWKProtectionStatus.h>
-#import <WMF/MWKSectionList.h>
-#import <WMF/MWKHistoryList.h>
-#import <WMF/MWKLanguageLink.h>
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -50,7 +33,6 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
-#import <WMF/NSString+WMFPageUtilities.h>
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakInline.h>
 #endif
@@ -89,34 +71,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
 
-    NSMutableArray *items = [NSMutableArray array];
+    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
 
-    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
-
-    NSURL *url = [NSURL wmf_desktopURLForURL:self.url];
-
-    if (url) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-
-        NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"wprov" value:@"sfsi1"];
-        components.queryItems = @[queryItem];
-
-        NSURL *componentsURL = components.URL;
-        if (componentsURL) {
-            [items addObject:componentsURL];
-        }
-    }
-
-    MKMapItem *mapItem = [self mapItem];
-    if (mapItem) {
-        [items addObject:mapItem];
-    }
-
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                     applicationActivities:
-                                                                         @[[[TUSafariActivity alloc] init],
-                                                                           [[WMFOpenInMapsActivity alloc] init],
-                                                                           [[WMFGetDirectionsInMapsActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
     return vc;
@@ -128,7 +84,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
-                                        WMFFontSliderViewControllerDelegate,
+                                        WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate>
@@ -140,12 +96,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
 @property (nonatomic, strong) WebViewController *webViewController;
 
+@property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
+@property (nonatomic, strong) UIPopoverPresentationController *readingThemesPopoverPresenter;
+
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
-@property (nonatomic, strong) WMFSaveButtonController *saveButtonController;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
@@ -188,6 +147,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
+@property (strong, nonatomic, nullable) WMFTheme *theme;
+
 @end
 
 @implementation WMFArticleViewController
@@ -204,11 +165,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.theme = [WMFTheme standard];
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+        self.extendedLayoutIncludesOpaqueBars = YES;
+        self.automaticallyAdjustsScrollViewInsets = NO;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
@@ -262,6 +227,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateToolbar];
     [self setupTableOfContentsViewController];
+    [self setupReadingThemesControls];
     [self updateTableOfContentsForFootersIfNeeded];
 
     if (_article && self.shouldShareArticleOnLoad) {
@@ -343,7 +309,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         // White background is necessary for images with alpha
-        
+
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
@@ -372,6 +338,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)applicationWillResignActiveWithNotification:(NSNotification *)note {
     [self saveWebViewScrollOffset];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+}
+
+- (void)articleWasUpdatedWithNotification:(NSNotification *)note {
+    WMFArticle *article = [note object];
+    NSString *articleKey = article.key;
+    NSString *myDatabaseKey = self.articleURL.wmf_articleDatabaseKey;
+    if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
+        [self updateSaveButtonStateForSaved:article.savedDate != nil];
+    }
 }
 
 #pragma mark - Public
@@ -505,10 +480,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateToolbarItemsIfNeeded {
 
-    if (!self.saveButtonController) {
-        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages url:self.articleURL];
-    }
-
     NSArray<UIBarButtonItem *> *toolbarItems = [self articleToolBarItems];
 
     if (![self.toolbarItems isEqualToArray:toolbarItems]) {
@@ -541,21 +512,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
-        UIImage *closeImage = [UIImage imageNamed:@"toc-close"];
+        UIImage *closeImage = [UIImage imageNamed:@"toc"];
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton setImage:closeImage forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(hideTableOfContents:) forControlEvents:UIControlEventTouchUpInside];
         closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
+        closeButton.layer.cornerRadius = 5;
+        closeButton.layer.masksToBounds = YES;
         _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
         _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
-        return _hideTableOfContentsToolbarItem;
     }
     return _hideTableOfContentsToolbarItem;
 }
 
 - (UIBarButtonItem *)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleSave:)];
     }
     return _saveToolbarItem;
 }
@@ -608,7 +580,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showLanguagePicker {
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
@@ -642,12 +614,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [self.view addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.progressView.superview.mas_top);
-        make.left.equalTo(self.progressView.superview.mas_left);
-        make.right.equalTo(self.progressView.superview.mas_right);
-        make.height.equalTo(@2.0);
-    }];
+    [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
 }
 
 - (void)removeProgressView {
@@ -772,17 +739,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self applyTheme:[WMFTheme standard]];
+    self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
     [self setUpTitleBarButton];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
 
+    self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
+    [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -834,9 +804,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    if ([self.presentedViewController isKindOfClass:[WMFFontSliderViewController class]]) {
-        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+    //TODO: Is this needed? iBooks doesn't dismiss the popover on rotation.
+    //    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+    //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    //    }
     [self registerForPreviewingIfAvailable];
     NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -871,8 +842,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
-        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
-        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, self.topLayoutGuide.length, tocWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, self.topLayoutGuide.length, separatorWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
         self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
@@ -887,7 +858,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 1;
+            self.webViewController.contentWidthPercentage = 0.91;
             break;
     }
 
@@ -1063,11 +1034,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                         break;
                 }
 
-                if (self.tableOfContentsSeparatorView == nil) {
-                    self.tableOfContentsSeparatorView = [[UIView alloc] init];
-                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGray];
-                }
-
                 [self createTableOfContentsViewControllerIfNeeded];
                 self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
                 self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
@@ -1182,7 +1148,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     //only show a blank view if we have nothing to show
     if (!self.article) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
         [self.view bringSubviewToFront:self.progressView];
     }
 
@@ -1213,7 +1178,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [self.view bringSubviewToFront:self.progressView];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
@@ -1290,33 +1255,64 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController showFindInPage];
 }
 
+#pragma mark - Save
+
+- (void)toggleSave:(id)sender {
+    BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
+    if (isSaved) {
+        [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+    }
+}
+
+- (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
+    self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFCommonStrings accessibilitySavedTitle] : [WMFCommonStrings saveTitle];
+    if (isSaved) {
+        self.saveToolbarItem.image = [UIImage imageNamed:@"save-filled"];
+    } else {
+        self.saveToolbarItem.image = [UIImage imageNamed:@"save"];
+    }
+}
+
+#pragma mark - Reading Themes Controls
+
+- (void)setupReadingThemesControls {
+    self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
+}
+
 #pragma mark - Font Size
 
 - (void)showFontSizePopup {
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
 
-    WMFFontSliderViewController *vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
-    vc.preferredContentSize = vc.view.frame.size;
-    vc.modalPresentationStyle = UIModalPresentationPopover;
-    vc.delegate = self;
+    self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
 
-    [vc setValuesWithSteps:fontSizes.count current:index];
+    self.readingThemesViewController.delegate = self;
 
-    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-    presenter.delegate = self;
-    presenter.backgroundColor = vc.view.backgroundColor;
-    presenter.barButtonItem = self.fontSizeToolbarItem;
-    presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
 
-    [self presentViewController:vc animated:YES completion:nil];
+    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
+
+    [self.readingThemesViewController applyTheme:self.theme];
+
+    self.readingThemesPopoverPresenter.delegate = self;
+    self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
+    self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+    self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
+
+    [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }
 
-- (void)sliderValueChangedInController:(WMFFontSliderViewController *)container value:(NSInteger)value {
+- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
     NSArray *fontSizes = self.fontSizeMultipliers;
 
     if (value > fontSizes.count) {
@@ -1326,6 +1322,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+}
+
+- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
@@ -1460,7 +1459,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Footer menu
 
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item {
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
     switch (item) {
         case WMFArticleFooterMenuItemLanguages:
             [self showLanguages];
@@ -1469,10 +1468,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [self showEditHistory];
             break;
         case WMFArticleFooterMenuItemPageIssues:
-            [self showPageIssues];
+            [self showPageIssues:payload];
             break;
         case WMFArticleFooterMenuItemDisambiguation:
-            [self showDisambiguationItems];
+            [self showDisambiguationPages:payload];
             break;
         case WMFArticleFooterMenuItemCoordinate:
             [self showLocation];
@@ -1485,30 +1484,35 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[UIApplication sharedApplication] openURL:placesURL];
 }
 
-- (void)showDisambiguationItems {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+- (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
+    [viewController applyTheme:self.theme];
+    WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
+    [self presentViewController:navC animated:YES completion:nil];
+}
+
+- (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
     articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
-    [self presentViewController:navController animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:articleListVC];
 }
 
 - (void)showEditHistory {
     PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
     editHistoryVC.article = self.article;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:editHistoryVC];
 }
 
 - (void)showLanguages {
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
     languagesVC.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewControllerEmbeddedInNavigationController:languagesVC];
 }
 
-- (void)showPageIssues {
+- (void)showPageIssues:(NSArray<NSString *> *)issueStrings {
     WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:issueStrings];
+    [self presentViewControllerEmbeddedInNavigationController:issuesVC];
 }
 
 #pragma mark - Header Tap Gesture
@@ -1540,8 +1544,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
         sectionEditVC.section = section;
         sectionEditVC.delegate = self;
-        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:sectionEditVC];
-        [self presentViewController:nc animated:YES completion:NULL];
+        [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
@@ -1703,7 +1706,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  }];
 
     UIPreviewAction *saveAction =
-        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFSaveButton saveTitle]
+        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFCommonStrings saveTitle]
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
@@ -1867,12 +1870,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    [self.webViewController applyTheme:theme];
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+    [[self wmf_emptyView] applyTheme:self.theme];
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.headerImageView.backgroundColor = theme.colors.paperBackground;
+    [self.tableOfContentsViewController applyTheme:theme];
+    [self.readingThemesViewController applyTheme:theme];
+    self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
+    self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
+    // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
+    self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
 }
-
 
 @end
 

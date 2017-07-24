@@ -1,12 +1,13 @@
 
 import WebKit
+import WMF
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
     case languages, lastEdited, pageIssues, disambiguation, coordinate
     
     // Reminder: These are the strings used by the footerMenu JS transform:
-    private var footerMenuJSTransformEnumString: String {
+    private var menuItemTypeString: String {
         switch self {
         case .languages: return "languages"
         case .lastEdited: return "lastEdited"
@@ -16,8 +17,8 @@ import WebKit
         }
     }
     
-    private var footerMenuTransformJSEnumPath: String {
-        return "window.wmf.footerMenu.IconTypeEnum.\(footerMenuJSTransformEnumString)"
+    private var menuItemTypeJSPath: String {
+        return "window.wmf.footerMenu.MenuItemType.\(menuItemTypeString)"
     }
     
     private func localizedTitle(with article: MWKArticle) -> String {
@@ -60,13 +61,11 @@ import WebKit
         case .languages where !article.hasMultipleLanguages:
             return false
         case .pageIssues:
-            guard let issues = article.pageIssues(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no page issues found.
+            return true
         case .disambiguation:
-            guard let issues = article.disambiguationURLs(), issues.count > 0 else {
-                return false
-            }
+            // Always try to add - footer menu JS will hide this if no disambiguation titles found.
+            return true
         case .coordinate where !CLLocationCoordinate2DIsValid(article.coordinate):
             return false
         default:
@@ -84,19 +83,27 @@ import WebKit
         let subtitle = self.localizedSubtitle(with: article)
         
         let itemSelectionHandler =
-        "function(){" +
-            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage('\(footerMenuJSTransformEnumString)');" +
+        "function(payload){" +
+            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
         "}"
         
-        return "window.wmf.footerMenu.addItem('\(title)', '\(subtitle)', \(self.footerMenuTransformJSEnumPath), 'footer_container_menu_items', \(itemSelectionHandler));"
+        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'pagelib_footer_container_menu_items', \(itemSelectionHandler), document);"
     }
 }
 
 extension WKWebView {
     
+    public func wmf_addFooterContainer() {
+        let footerContainerJS =
+        "if (window.wmf.footerContainer.isContainerAttached(document) === false) {" +
+            "document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))" +
+        "}"
+        evaluateJavaScript(footerContainerJS, completionHandler: nil)
+    }
+    
     public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
         let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'footer_container_menu_heading');", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'pagelib_footer_container_menu_heading', document);", completionHandler: nil)
 
         let itemsJS = [
             WMFArticleFooterMenuItem.languages,
@@ -118,7 +125,7 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add('\(licenseString)', '\(licenseSubstitutionString)', 'footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
     }
 
     public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
@@ -130,11 +137,10 @@ extension WKWebView {
             return
         }
         
+        evaluateJavaScript("window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)});", completionHandler: nil)
+        
         let heading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'footer_container_readmore_heading');", completionHandler: nil)
-
-        let saveForLaterString = SaveButton.saveTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let savedForLaterString = SaveButton.savedTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        evaluateJavaScript("window.wmf.footerReadMore.setHeading('\(heading)', 'pagelib_footer_container_readmore_heading', document);", completionHandler: nil)
 
         let saveButtonTapHandler =
         "function(title){" +
@@ -143,10 +149,44 @@ extension WKWebView {
         
         let titlesShownHandler =
         "function(titles){" +
-            "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)" +
+            "window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles);" +
+            "window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);" +
         "}";
         
-        evaluateJavaScript("window.wmf.footerReadMore.add('\(proxyURL)', '\(title)', '\(saveForLaterString)', '\(savedForLaterString)', 'footer_container_readmore_pages', \(saveButtonTapHandler), \(titlesShownHandler) );", completionHandler: nil)
+        let readMoreItemCount = 3
+        evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
+    }
+
+    static public func wmf_themeClassificationJavascript() -> String{
+        return "window.wmf.themes.classifyElements(document);"
     }
     
+    public func wmf_classifyThemeElements(){
+        // 'themes.classifyElements()' needs to happen once after body elements are present. it
+        // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
+        evaluateJavaScript(WKWebView.wmf_themeClassificationJavascript(), completionHandler: nil)
+    }
+    
+    static public func wmf_themeApplicationJavascript(with theme: Theme) -> String{
+        var jsThemeConstant = "DEFAULT"
+        var isDim = false
+        switch theme.name {
+        case Theme.sepia.name:
+            jsThemeConstant = "SEPIA"
+        case Theme.darkDimmed.name:
+            isDim = true
+            fallthrough
+        case Theme.dark.name:
+            jsThemeConstant = "DARK"
+        default:
+            break
+        }
+        return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));" +
+            "window.wmf.imageDimming.dim(window, \(isDim ? "true" : "false"));"
+    }
+    
+    public func wmf_applyTheme(_ theme: Theme){
+        let themeJS = WKWebView.wmf_themeApplicationJavascript(with: theme)
+        evaluateJavaScript(themeJS, completionHandler: nil)
+    }
 }
