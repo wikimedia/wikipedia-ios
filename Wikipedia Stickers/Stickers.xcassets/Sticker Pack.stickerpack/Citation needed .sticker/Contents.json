@@ -4,6 +4,7 @@
     "author" : "xcode"
   },
   "properties" : {
+    "accessibility-label" : "Citation needed",
     "filename" : "Citation needed .png"
   }
 }

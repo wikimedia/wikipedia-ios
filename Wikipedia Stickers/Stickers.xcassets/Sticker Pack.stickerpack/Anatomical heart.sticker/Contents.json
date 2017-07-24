@@ -4,6 +4,7 @@
     "author" : "xcode"
   },
   "properties" : {
+    "accessibility-label" : "Anatomical heart",
     "filename" : "Anatomical heart.png"
   }
 }
