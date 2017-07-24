@@ -117,11 +117,11 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 12
             ],
             UIFontTextStyle.body: [
-                .accessibilityExtraExtraExtraLarge: 23,
-                .accessibilityExtraExtraLarge: 23,
-                .accessibilityExtraLarge: 23,
-                .accessibilityLarge: 23,
-                .accessibilityMedium: 23,
+                .accessibilityExtraExtraExtraLarge: 53,
+                .accessibilityExtraExtraLarge: 47,
+                .accessibilityExtraLarge: 40,
+                .accessibilityLarge: 33,
+                .accessibilityMedium: 28,
                 .extraExtraExtraLarge: 23,
                 .extraExtraLarge: 21,
                 .extraLarge: 19,
