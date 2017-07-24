@@ -62,6 +62,12 @@ open class ReadingThemesControlsViewController: UIViewController {
         darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
         imageDimmingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-dim-images-switch", value: "Dim images", comment: "Accessibility label for the dim images switch in the Reading Themes Controls popover")
         
+        for slideView in textSizeSliderViews {
+            slideView.isAccessibilityElement = true
+            slideView.accessibilityTraits = UIAccessibilityTraitAdjustable
+            slideView.accessibilityLabel = WMFLocalizedString("reading-themes-controls-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider in the Reading Themes Controls popover")
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
         preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)

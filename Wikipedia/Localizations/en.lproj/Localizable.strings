@@ -290,6 +290,7 @@
 "reading-themes-controls-dim-images-switch" = "Dim images";
 "reading-themes-controls-light-theme-button" = "Light theme";
 "reading-themes-controls-sepia-theme-button" = "Sepia theme";
+"reading-themes-controls-text-size-slider" = "Text size slider";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
