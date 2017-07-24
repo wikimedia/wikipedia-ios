@@ -328,11 +328,18 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
     }];
 
-    WMFContentGroup *group = [self newsForDate:date inManagedObjectContext:moc];
-    if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+    WMFContentGroup *newsGroup = [self newsForDate:date inManagedObjectContext:moc];
+    if (newsGroup == nil) {
+        newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
     } else {
-        group.content = news;
+        newsGroup.content = news;
+    }
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+
+    if (newsGroup && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+        NSURL *URL = [WMFContentGroup notificationContentGroupURL];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
 
