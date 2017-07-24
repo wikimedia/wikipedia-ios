@@ -55,7 +55,13 @@ open class ReadingThemesControlsViewController: UIViewController {
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
         imageDimmingLabel.text = CommonStrings.dimImagesTitle
-    
+        
+        brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
+        lightThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-light-theme-button", value: "Light theme", comment: "Accessibility label for the light theme button in the Reading Themes Controls popover")
+        sepiaThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-sepia-theme-button", value: "Sepia theme", comment: "Accessibility label for the sepia theme button in the Reading Themes Controls popover")
+        darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
+        imageDimmingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-dim-images-switch", value: "Dim images", comment: "Accessibility label for the dim images switch in the Reading Themes Controls popover")
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
         preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -69,7 +75,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         button.borderWidth = 2
         button.isEnabled = false
         button.borderColor = theme.colors.link
-
+        button.accessibilityTraits = UIAccessibilityTraitSelected
     }
     
     func removeBorderFrom(_ button: UIButton) {
