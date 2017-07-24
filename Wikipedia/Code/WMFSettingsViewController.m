@@ -110,6 +110,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
 }
 
 - (void)configureBackButton {
