@@ -14,11 +14,19 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         self.events = events
         self.dataStore = dataStore
         self.date = date
+        self.isDateVisibleInTitle = false
         super.init()
-
-        title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+    }
+    
+    var isDateVisibleInTitle: Bool {
+        didSet {
+            guard isDateVisibleInTitle, let language = events.first?.language else {
+                title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
+                return
+            }
+            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: date)
+        }
     }
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
@@ -41,7 +49,7 @@ class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
 
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource/Delegate
 extension OnThisDayViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -94,6 +102,20 @@ extension OnThisDayViewController {
         }
         cell.selectionDelegate = nil
         cell.pauseDotsAnimation = true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
+            return
+        }
+        isDateVisibleInTitle = false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
+            return
+        }
+        isDateVisibleInTitle = true
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
