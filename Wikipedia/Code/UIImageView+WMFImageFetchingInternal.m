@@ -185,24 +185,25 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         animatedImageView.animatedImage = animatedImage;
         success();
     } else {
-        dispatch_block_t animations = ^{
+//  for now, keep the unanimated behavior, ignore the animated parameter
+//        dispatch_block_t animations = ^{
             if (image) {
                 self.backgroundColor = [UIColor whiteColor];
             }
             self.image = image;
-        };
-        if (animated) {
-            [UIView transitionWithView:self
-                              duration:[CATransaction animationDuration]
-                               options:UIViewAnimationOptionTransitionCrossDissolve
-                            animations:animations
-                            completion:^(BOOL finished) {
-                                success();
-                            }];
-        } else {
-            animations();
+//        };
+//        if (animated) {
+//            [UIView transitionWithView:self
+//                              duration:[CATransaction animationDuration]
+//                               options:UIViewAnimationOptionTransitionCrossDissolve
+//                            animations:animations
+//                            completion:^(BOOL finished) {
+//                                success();
+//                            }];
+//        } else {
+//            animations();
             success();
-        }
+//        }
     }
 }
 
