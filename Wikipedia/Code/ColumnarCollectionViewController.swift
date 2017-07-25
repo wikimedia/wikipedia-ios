@@ -17,6 +17,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.alwaysBounceVertical = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
