@@ -7,7 +7,10 @@ typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 @protocol WMFWebViewControllerDelegate;
 
+extern const CGFloat WebViewControllerHeaderImageHeight;
+
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
