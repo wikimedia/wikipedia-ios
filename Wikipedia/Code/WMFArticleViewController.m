@@ -28,7 +28,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

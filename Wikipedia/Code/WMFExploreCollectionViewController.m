@@ -658,14 +658,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 case WMFFeedDisplayTypeStory: {
                     WMFNewsCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureNewsCell:cell withContentGroup:section layoutOnly:YES];
-                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
                     estimate.height = size.height;
                     break;
                 }
                 case WMFFeedDisplayTypeEvent: {
                     WMFOnThisDayExploreCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [self configureOnThisDayCell:cell withContentGroup:section layoutOnly:YES];
-                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
                     estimate.height = size.height;
                     break;
                 }
@@ -673,7 +673,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
                     [cell prepareForReuse];
                     [self configureArticleCell:cell withSection:section displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:YES];
-                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+                    CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
                     estimate.height = size.height;
                     break;
                 }
@@ -692,7 +692,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeAnnouncement: {
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:@"WMFAnnouncementCollectionViewCell"];
             [self configureAnnouncementCell:cell withContentGroup:section atIndexPath:indexPath];
-            CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, CGFLOAT_MAX)];
+            CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
             estimate.height = size.height;
             estimate.precalculated = YES;
         } break;
@@ -1118,7 +1118,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!article || !section) {
         return;
     }
-    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] theme:self.theme layoutOnly:layoutOnly];
+    [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] shouldAdjustMargins:YES theme:self.theme layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
