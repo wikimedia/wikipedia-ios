@@ -799,7 +799,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
-    NSLog(@"viewWillDisappear");
     [self dismissReadingThemesPopoverIfActive];
 }
 
