@@ -1156,12 +1156,20 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFFeedOnThisDayEvent *event = [events firstObject];
     if (featuredIndex >= 0 && featuredIndex < events.count) {
         event = events[featuredIndex];
+    } else {
+        featuredIndex = 0;
     }
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-        WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
-            return event.year != thisEvent.year;
-        }];
-        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
+        WMFFeedOnThisDayEvent *previousEvent = event;
+        NSInteger attempts = 0;
+        while (events.count > featuredIndex + 1 && previousEvent.year == event.year && attempts < 4) {
+            WMFFeedOnThisDayEvent *potentialEvent = events[featuredIndex + 1];
+            if ([potentialEvent isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+                previousEvent = potentialEvent;
+            }
+            attempts++;
+        }
+        [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
