@@ -50,6 +50,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
+                origin.y += spacing
                 origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += saveButtonFrame.height
