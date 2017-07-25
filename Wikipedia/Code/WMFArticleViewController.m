@@ -559,9 +559,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)findInPageButtonPressed {
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
         [self.webViewController showFindInPage];
     }];
+    [self dismissReadingThemesPopoverIfActive];
+    [CATransaction commit];
 }
 
 - (UIBarButtonItem *)languagesToolbarItem {
@@ -1247,9 +1250,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.shareArticleOnLoad = YES;
     }
 }
-
-#pragma mark - Find-in-page
-
 
 #pragma mark - Save
 
