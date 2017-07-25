@@ -55,6 +55,7 @@
 "action-share" = "Тарҕат";
 "action-unsave" = "Оннунан хаалбата";
 "alert-no-internet" = "Интэриниэт ситимэ суох";
+// Fuzzy
 "announcements-dismiss" = "Суох, махтанабын.";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
@@ -270,7 +271,6 @@
 "readers-accessibility-label" = "$1 ааҕааччылаах";
 "reference-title" = "Быһаарыы $1";
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
-"save-action" = "Бигэргэт";
 "saved-clear-all" = "Сот";
 "saved-pages-clear-cancel" = "Салҕаама";
 "saved-pages-clear-confirmation-heading" = "Хараллыбыт сирэйдэри барытын сотоҕун дуо?";
@@ -327,7 +327,6 @@
 "two-factor-login-continue" = "Киириини салҕаа";
 "two-factor-login-title" = "Бэлиэ-ааккынан киир";
 "two-factor-login-with-regular-code" = "Куоду бигэргэт";
-"unsave-action" = "Бигэргэммэтэх";
 "welcome-explore-continue-button" = "Саҕалыырга";
 "welcome-explore-new-ways-sub-title" = "Саҥа биллэрии уонна ҕааддьыт сэргэх ыстатыйалары буларга көмөлөһүө";
 "welcome-explore-new-ways-title" = "Чинчийии саҥа ньымалара";

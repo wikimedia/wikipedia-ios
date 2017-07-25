@@ -63,6 +63,7 @@
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "alert-no-internet" = "Nie ma połączenia internetowego";
+// Fuzzy
 "announcements-dismiss" = "Nie, dziękuję";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
@@ -71,7 +72,6 @@
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
-"article-save" = "Zapisz";
 "article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";

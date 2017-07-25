@@ -1370,7 +1370,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
     NSMutableSet<UINavigationBar *> *navigationBars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
     NSMutableSet<UIToolbar *> *toolbars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
-
     NSMutableSet<UINavigationController *> *foundNavigationControllers = [NSMutableSet setWithCapacity:1];
 
     for (UINavigationController *nc in navigationControllers) {
@@ -1400,6 +1399,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([nc conformsToProtocol:@protocol(WMFThemeable)]) {
             [(id<WMFThemeable>)nc applyTheme:theme];
         }
+
+        nc.view.tintColor = theme.colors.link;
     }
 
     // Navigation bars
@@ -1419,8 +1420,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     // Tool bars
-
-    [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];

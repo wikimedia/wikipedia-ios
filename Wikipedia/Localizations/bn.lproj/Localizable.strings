@@ -61,6 +61,7 @@
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
+// Fuzzy
 "announcements-dismiss" = "না ধন্যবাদ";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
@@ -275,7 +276,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
-"save-action" = "সংরক্ষণ";
 "saved-clear-all" = "পরিষ্কার করুন";
 "saved-pages-clear-cancel" = "বাতিল";
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
@@ -328,7 +328,6 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
-"unsave-action" = "অসংরক্ষিত";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";

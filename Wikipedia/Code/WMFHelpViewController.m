@@ -47,13 +47,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (UIBarButtonItem *)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
-        WMFAlignedImageButton *button = [[WMFAlignedImageButton alloc] init];
-        [button setImage:[UIImage imageNamed:@"settings-feedback"] forState:UIControlStateNormal];
-        button.tintColor = [UIColor wmf_blue];
-        [button sizeToFit];
-        [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
-        _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        _sendEmailToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, nil, @"Report a bug", @"Button text for reporting a bug");
+        _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, nil, @"Report a bug", @"Button text for reporting a bug") style:UIBarButtonItemStylePlain target:self action:@selector(sendEmail)];
         return _sendEmailToolbarItem;
     }
     return _sendEmailToolbarItem;

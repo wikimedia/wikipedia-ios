@@ -4,6 +4,7 @@
     "author" : "xcode"
   },
   "properties" : {
+    "accessibility-label" : "International space station",
     "filename" : "International space station.png"
   }
 }

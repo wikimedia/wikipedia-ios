@@ -4,6 +4,7 @@
     "author" : "xcode"
   },
   "properties" : {
+    "accessibility-label" : "Rabbit hole",
     "filename" : "Rabbit hole.png"
   }
 }

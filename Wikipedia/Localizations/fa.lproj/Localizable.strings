@@ -70,13 +70,16 @@
 "action-share" = "به اشتراک گذاشتن";
 "action-unsave" = "ذخیره‌نشده";
 "alert-no-internet" = "به اینترنت متصل نیستید";
+// Fuzzy
 "announcements-dismiss" = "نه ممنون";
 "article-about-title" = "دربارهٔ این مقاله";
+"article-delete" = "حذف";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-others" = "زبان‌های دیگر";
 "article-languages-yours" = "زبان‌های شما";
 "article-read-more-title" = "بیشتر بخوانید";
+"article-share" = "به اشتراک گذاشتن";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "back" = "بازگشت";
@@ -305,7 +308,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
-"save-action" = "ذخیره";
 "saved-clear-all" = "پاک‌کردن";
 "saved-pages-clear-cancel" = "لغو";
 "saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که همه موارد ذخیره‌شده را حذف کنید؟";
@@ -364,7 +366,6 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
-"unsave-action" = "ذخیره‌نشده";
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-explore-new-ways-sub-title" = "آگاه‌سازی و ویجت جدید برای کمک به شما برای یافتن مقالات مطلوب";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
@@ -394,7 +395,6 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-sign-in" = "ورود";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";

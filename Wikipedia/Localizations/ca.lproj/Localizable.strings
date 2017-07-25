@@ -64,14 +64,17 @@
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
 "alert-no-internet" = "No hi ha connexió a internet";
-"announcements-dismiss" = "No, gràcies";
+"announcements-dismiss" = "Descarta";
+"appearance-settings-reading-themes" = "Temes de lectura";
+"appearance-settings-theme-options" = "Opcions del tema";
+"appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
+"article-delete" = "Elimina";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
-"article-save" = "Desa";
 "article-share" = "Comparteix";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
@@ -91,6 +94,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"dark-theme-display-name" = "Fosc";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
@@ -183,6 +187,7 @@
 "home-nearby-footer" = "Més propers a la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";
 "home-news-footer" = "Novetats";
+"home-themes-action-title" = "Gestiona les preferències";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
@@ -262,6 +267,7 @@
 "places-accessibility-show-as-map" = "Mostra com a mapa";
 "places-accessibility-show-more" = "Mostra més articles";
 "places-dismiss-filter-list-accessibility-label" = "Descarta els filtres de cerca";
+"places-empty-search-title" = "Cerca a la Viquipèdia articles amb ubicacions geogràfiques";
 "places-enable-location-action-button-title" = "Habilitar geolocalització";
 "places-enable-location-description" = "L'accés a la vostra ubicació és disponible només quan l'aplicació o un dels seus serveis és visible a la vostra pantalla";
 "places-enable-location-title" = "Exploreu articles propers a la vostra ubicació habilitant la geolocalització";
@@ -292,8 +298,11 @@
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
 "reference-title" = "Referència $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|L'any passat|Fa $1 anys}}";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
-"save-action" = "Desa";
 "saved-clear-all" = "Neteja";
 "saved-pages-clear-cancel" = "Cancel·la";
 "saved-pages-clear-confirmation-heading" = "Esteu segur que voleu suprimir totes les pàgines desades?";
@@ -309,6 +318,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
+"settings-appearance" = "Aparença";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
@@ -343,6 +353,9 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"theme-dark-display-name" = "Fosc";
+"theme-default-display-name" = "Per defecte";
+"theme-sepia-display-name" = "Sèpia";
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-see-more" = "Vegeu-ne més";
@@ -351,7 +364,6 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
-"unsave-action" = "No desis";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-sub-title" = "Les notificacions i ginys nous us ajuden a descobrir articles interessants";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";

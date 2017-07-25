@@ -1152,7 +1152,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)configureOnThisDayCell:(WMFOnThisDayExploreCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
     NSArray *events = contentGroup.content;
+    NSInteger featuredIndex = [contentGroup.articleURLString integerValue];
     WMFFeedOnThisDayEvent *event = [events firstObject];
+    if (featuredIndex >= 0 && featuredIndex < events.count) {
+        event = events[featuredIndex];
+    }
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
         WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
             return event.year != thisEvent.year;
@@ -1181,8 +1185,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.caption = announcement.caption;
         } break;
         case WMFFeedDisplayTypeNotification: {
-            cell.isImageViewHidden = YES;
-            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"You can now receive notifications about Wikipedia articles trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
+            cell.isImageViewHidden = NO;
+            cell.imageView.image = [UIImage imageNamed:@"feed-card-notification"];
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"Enable notifications to be notified by Wikipedia when articles are trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, nil, @"Turn on notifications", @"Text for button to turn on trending news notifications") forState:UIControlStateNormal];
             cell.isCaptionHidden = YES;
         } break;
@@ -1790,7 +1795,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 
     WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
-    if ((lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay) && lastGroupIndex > 0) { //News or On This Day can be added further back in the timeline, so don't use them as the date for this
+
+    while (lastGroupIndex > 0 && lastGroup != nil && (lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay || lastGroup.contentGroupKind == WMFContentGroupKindNotification) && lastGroupIndex > 0) { // News or On This Day can be added further back in the timeline, so don't use them as the date for this
         lastGroupIndex--;
         lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
     }

@@ -50,6 +50,7 @@
 "action-share" = "Deelen";
 "action-unsave" = "Läschen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
+// Fuzzy
 "announcements-dismiss" = "Nee, merci";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
@@ -58,7 +59,6 @@
 "article-languages-others" = "Aner Sproochen";
 "article-languages-yours" = "Är Sprooch";
 "article-read-more-title" = "Liest méi";
-"article-save" = "Späicheren";
 "article-share" = "Deelen";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
@@ -78,6 +78,8 @@
 "compass-direction" = "ëm $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
+"dark-theme-display-name" = "Däischter";
+"dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -169,6 +171,7 @@
 "home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
 "home-news-footer" = "Méi an den Neiegkeeten";
+"home-themes-action-title" = "Astellunge geréieren";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, no uewe scrolle fir z'Entdecken";
 "icon-shortcut-continue-reading-title" = "Virufuere mat Liesen";
@@ -280,7 +283,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
-"save-action" = "Späicheren";
 "saved-clear-all" = "Eidel maachen";
 "saved-pages-clear-cancel" = "Ofbriechen";
 "saved-pages-clear-confirmation-heading" = "Sidd Dir séchert datt Dir all Är gespäichert Säite läsche wëllt?";
@@ -296,6 +298,7 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-title" = "Sichen";
+"settings-appearance" = "Ausgesinn";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
 "settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
@@ -330,6 +333,8 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
 "table-title-other" = "Méi Informatiounen";
+"theme-dark-display-name" = "Däischter";
+"theme-default-display-name" = "Standard";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliest Artikele weisen";
@@ -338,7 +343,6 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
-"unsave-action" = "Net späicheren";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-sub-title" = "Nei Notifikatiounen a Widgets déi Iech hëllefe fir interessant Artikelen ze fannen";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
