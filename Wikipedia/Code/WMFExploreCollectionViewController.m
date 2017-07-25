@@ -1017,10 +1017,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!contentGroup) {
         return NO;
     }
-    if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
-        return NO;
-    } else {
-        return YES;
+    switch (contentGroup.contentGroupKind) {
+        case WMFContentGroupKindAnnouncement:
+        case WMFContentGroupKindTheme:
+        case WMFContentGroupKindNotification:
+            return NO;
+        default:
+            return YES;
     }
 }
 
@@ -1759,15 +1762,21 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if (!contentGroup) {
         return;
     }
-    if (contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement && contentGroup.contentGroupKind != WMFContentGroupKindTheme) {
-        return;
-    }
-    [contentGroup markDismissed];
-    [contentGroup updateVisibility];
-    NSError *saveError = nil;
-    [self.userStore save:&saveError];
-    if (saveError) {
-        DDLogError(@"Error saving after announcement dismissal: %@", saveError);
+
+    switch (contentGroup.contentGroupKind) {
+        case WMFContentGroupKindAnnouncement:
+        case WMFContentGroupKindTheme:
+        case WMFContentGroupKindNotification: {
+            [contentGroup markDismissed];
+            [contentGroup updateVisibility];
+            NSError *saveError = nil;
+            [self.userStore save:&saveError];
+            if (saveError) {
+                DDLogError(@"Error saving after announcement dismissal: %@", saveError);
+            }
+        } break;
+        default:
+            break;
     }
 }
 
