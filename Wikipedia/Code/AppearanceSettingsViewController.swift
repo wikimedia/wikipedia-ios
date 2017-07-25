@@ -34,6 +34,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         return currentAppTheme.displayName
     }
     
+    deinit {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         title = WMFLocalizedString("appearance-settings-title", value: "Reading themes", comment: "Title of the Appearance view in Settings.")
@@ -145,10 +149,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
     }
     
-    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+    func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = sender.isOn
-        userDidSelect(theme: currentTheme.withDimmingEnabled(sender.isOn))
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
+        userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
+    }
+    
+    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+        let selector = #selector(applyImageDimmingChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
