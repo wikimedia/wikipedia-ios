@@ -143,8 +143,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         removeBorderFrom(lightThemeButton)
         removeBorderFrom(darkThemeButton)
         removeBorderFrom(sepiaThemeButton)
-        imageDimmingSwitch.isEnabled = false
-        isImageDimmingSwitchEnabled = imageDimmingSwitch.isEnabled
+        isImageDimmingSwitchEnabled = false
         imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
         switch theme.name {
         case Theme.sepia.name:
@@ -154,8 +153,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         case Theme.darkDimmed.name:
             fallthrough
         case Theme.dark.name:
-            imageDimmingSwitch.isEnabled = true
-            isImageDimmingSwitchEnabled = imageDimmingSwitch.isEnabled
+            isImageDimmingSwitchEnabled = true
             applyBorder(to: darkThemeButton)
         default:
             break
@@ -164,6 +162,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     var isImageDimmingSwitchEnabled = true {
         didSet {
+            imageDimmingSwitch.isEnabled = isImageDimmingSwitchEnabled
             imageDimmingSwitch.layer.cornerRadius = imageDimmingSwitch.frame.height / 2
             imageDimmingSwitch.backgroundColor = isImageDimmingSwitchEnabled ? nil : UIColor.wmf_lighterGray
         }
