@@ -1205,7 +1205,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeTheme: {
             cell.isImageViewHidden = NO;
             cell.imageView.image = [UIImage imageNamed:@"feed-card-themes"];
-            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.", @"Description on feed card that describes the themes feature.");
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", @"Description on feed card that describes how to adjust reading preferences.");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
             cell.isCaptionHidden = YES;
         } break;
