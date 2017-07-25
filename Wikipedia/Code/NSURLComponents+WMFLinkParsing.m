@@ -60,7 +60,9 @@
     if (isMobile) {
         [hostComponents addObject:@"m"];
     }
-    [hostComponents addObject:domain];
+    if (domain) {
+        [hostComponents addObject:domain];
+    }
     return [hostComponents componentsJoinedByString:@"."];
 }
 

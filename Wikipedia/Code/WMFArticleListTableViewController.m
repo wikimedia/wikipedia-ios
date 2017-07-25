@@ -1,7 +1,6 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "TUSafariActivity.h"
 @import WMF;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
