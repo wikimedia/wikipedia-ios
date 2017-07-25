@@ -75,6 +75,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
     func applyBorder(to button: UIButton) {
@@ -119,10 +120,16 @@ open class ReadingThemesControlsViewController: UIViewController {
         self.slider.value = current
     }
     
-    @IBAction func dimmingSwitchValueChanged(_ sender: Any) {
+    func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = imageDimmingSwitch.isOn
-        userDidSelect(theme: currentTheme.withDimmingEnabled(imageDimmingSwitch.isOn))
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
+        userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
+    }
+    
+    @IBAction func dimmingSwitchValueChanged(_ sender: UISwitch) {
+        let selector = #selector(applyImageDimmingChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
     }
     
     override open func viewWillAppear(_ animated: Bool) {
