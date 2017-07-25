@@ -164,12 +164,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     func makeImageDimmingSwitchMoreProminentForDisabledState(_ isEnabled: Bool) {
         imageDimmingSwitch.layer.cornerRadius = imageDimmingSwitch.frame.height / 2
-        if isEnabled {
-            imageDimmingSwitch.backgroundColor = nil
-        } else {
-        imageDimmingSwitch.tintColor = UIColor.wmf_lighterGray
-        imageDimmingSwitch.backgroundColor = UIColor.wmf_lighterGray
-        }
+        imageDimmingSwitch.backgroundColor = isEnabled ? nil : UIColor.wmf_lighterGray
     }
     
     func screenBrightnessChangedInApp(notification: Notification){
