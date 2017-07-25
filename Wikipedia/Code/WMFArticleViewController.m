@@ -735,7 +735,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)titleBarButtonPressed {
+    [self dismissReadingThemesPopoverIfActive];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)willMoveToParentViewController:(nullable UIViewController *)parent {
+    [super willMoveToParentViewController:parent];
+    if (!parent){
+        [self dismissReadingThemesPopoverIfActive];
+    }
 }
 
 #pragma mark - ViewController
@@ -1301,6 +1309,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
+    
+    self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
 }
 
 - (void)dismissReadingThemesPopoverIfActive {

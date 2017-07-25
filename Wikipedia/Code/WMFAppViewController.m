@@ -1502,6 +1502,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showSettingsAnimated:YES];
 }
 
+- (void)dismissReadingThemesPopoverIfActive {
+    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void)showSearchAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
@@ -1511,6 +1517,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC applyTheme:self.theme];
         self.searchViewController = searchVC;
     }
+    [self dismissReadingThemesPopoverIfActive];
+    
     [self presentViewController:self.searchViewController animated:animated completion:nil];
 }
 
