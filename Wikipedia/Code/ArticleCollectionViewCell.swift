@@ -2,6 +2,8 @@ import UIKit
 
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell {
+    static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
+    
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     let imageView = UIImageView()
@@ -41,7 +43,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         extractTextStyle  = .subheadline
         saveButtonFontFamily = .systemMedium
         saveButtonTextStyle  = .subheadline
-        margins = UIEdgeInsetsMake(15, 13, 15, 13)
+        margins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
         saveButtonTopSpacing = 5
