@@ -739,13 +739,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)willMoveToParentViewController:(nullable UIViewController *)parent {
-    [super willMoveToParentViewController:parent];
-    if (!parent){
-        [self dismissReadingThemesPopoverIfActive];
-    }
-}
-
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -806,6 +799,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
+    NSLog(@"viewWillDisappear");
+    [self dismissReadingThemesPopoverIfActive];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
