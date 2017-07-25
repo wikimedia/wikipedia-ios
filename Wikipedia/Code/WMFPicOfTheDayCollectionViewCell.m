@@ -42,6 +42,7 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 - (void)prepareForReuse {
     [super awakeFromNib];
     self.displayTitleLabel.text = @"";
+    [self.potdImageView wmf_reset];
 }
 
 #pragma mark - KVO
