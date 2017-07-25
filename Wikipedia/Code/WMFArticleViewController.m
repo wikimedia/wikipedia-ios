@@ -558,9 +558,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)findInPageButtonPressed {
-    if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-        [self showFindInPage];
-    }
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.webViewController showFindInPage];
+    }];
+    [self dismissReadingThemesPopoverIfActive];
+    [CATransaction commit];
 }
 
 - (UIBarButtonItem *)languagesToolbarItem {
@@ -576,6 +579,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
+    [self dismissReadingThemesPopoverIfActive];
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:languagesVC];
@@ -973,6 +977,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTableOfContents:(id)sender {
+    [self dismissReadingThemesPopoverIfActive];
+    
     if (self.tableOfContentsViewController == nil) {
         return;
     }
@@ -1229,6 +1235,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)shareArticle {
+    [self dismissReadingThemesPopoverIfActive];
     UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
     if (vc) {
         [self presentViewController:vc animated:YES completion:NULL];
@@ -1243,19 +1250,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-#pragma mark - Find-in-page
-
-- (void)showFindInPage {
-    if (self.presentedViewController != nil) {
-        return;
-    }
-
-    [self.webViewController showFindInPage];
-}
-
 #pragma mark - Save
 
 - (void)toggleSave:(id)sender {
+    [self dismissReadingThemesPopoverIfActive];
     BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
@@ -1304,6 +1302,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
+}
+
+- (void)dismissReadingThemesPopoverIfActive {
+    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
