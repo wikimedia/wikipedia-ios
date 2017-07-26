@@ -1,5 +1,5 @@
 
-function moveFirstGoodParagraphUp( content ) {
+function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -15,8 +15,8 @@ function moveFirstGoodParagraphUp( content ) {
   var allPs = block_0.getElementsByTagName( 'p' )
   if(!allPs) return
 
-  var edit_section_button_0 = content.getElementById( 'edit_section_button_0' )
-  if(!edit_section_button_0) return
+  var preceedingElement = content.getElementById( preceedingElementID )
+  if(!preceedingElement) return
 
   function isParagraphGood(p) {
     // Narrow down to first P which is direct child of content_block_0 DIV.
@@ -71,10 +71,10 @@ function moveFirstGoodParagraphUp( content ) {
     return fragment
   }()
 
-  // Attach the fragment just after the lead section edit button.
+  // Attach the fragment just after `preceedingElement`.
   // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
   // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
-  block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling)
+  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
 }
 
-exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
+exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement

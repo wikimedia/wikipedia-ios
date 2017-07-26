@@ -610,7 +610,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            "window.wmf.redLinks.hideRedLinks( document );"
                                            "window.wmf.filePages.disableFilePageEdit( document );"
                                            "window.wmf.images.widenImages( document );"
-                                           "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
+                                           "window.wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
