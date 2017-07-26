@@ -16,6 +16,12 @@ static int const kMinimumTextSelectionLength = 2;
     [self evaluateJavaScript:[self tableCollapsingJavascriptForArticle:article] completionHandler:nil];
 }
 
+- (void)wmf_addEditPencilsForArticle:(MWKArticle *)article {
+    if (!article.isMain){
+        [self evaluateJavaScript:@"window.wmf.editButtons.addEditButtons(document);" completionHandler:nil];
+    }
+}
+
 - (NSString *)tableCollapsingJavascriptForArticle:(MWKArticle *)article {
     NSString *language = article.url.wmf_language;
     NSString *infoBoxTitle = [WMFLocalizedStringWithDefaultValue(@"info-box-title", language, nil, @"Quick Facts", @"The title of infoboxes – in collapsed and expanded form") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
