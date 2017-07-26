@@ -31,7 +31,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
         onLabel.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
         
         if let firstEventEraString = firstEvent?.yearString, let lastEventEraString = lastEvent?.yearString {
-            fromLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the most recent event year - i.e. '2006 AD', %2$@ is replaced with string version of the oldest event year - i.e. '300 BC', "), firstEventEraString, lastEventEraString)
+            fromLabel.text = String.localizedStringWithFormat(WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), lastEventEraString, firstEventEraString)
         } else {
             fromLabel.text = nil
         }
