@@ -32,7 +32,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="kKZ-CW-BxC"/>
                     </constraints>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <state key="normal" title="Enable location"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
