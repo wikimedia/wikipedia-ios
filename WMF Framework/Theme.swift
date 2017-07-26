@@ -47,6 +47,8 @@ public extension UIColor {
     
     public static let wmf_darkGray = UIColor(0x4D4D4B)
     public static let wmf_lightGray = UIColor(0x9AA0A7)
+    public static let wmf_silver = UIColor.base30
+    public static let wmf_gray = UIColor.base70
     public static let wmf_lighterGray = UIColor.base80
     public static let wmf_lightestGray = UIColor(0xF5F5F5) // also known as refresh gray
 

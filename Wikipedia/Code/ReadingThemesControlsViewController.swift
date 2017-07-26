@@ -26,6 +26,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBOutlet weak var imageDimmingSwitch: ProminentSwitch!
     
+    
     @IBOutlet var separatorViews: [UIView]!
     
     @IBOutlet var textSizeSliderViews: [UIView]!
@@ -209,6 +210,10 @@ extension ReadingThemesControlsViewController: Themeable {
         
         for label in textLabels {
             label.textColor = theme.colors.primaryText
+        }
+        
+        if (theme == Theme.light || theme == Theme.sepia) {
+        textLabels.last?.textColor = UIColor.wmf_silver
         }
         
         let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
