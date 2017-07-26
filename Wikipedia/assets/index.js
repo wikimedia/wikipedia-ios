@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var wmf = {}
 
+wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
@@ -19,7 +20,7 @@ wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
 
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":11}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -134,6 +135,15 @@ function handleClickEvent(event){
   if(!anchorForTarget) {
     return
   }
+
+  // Handle edit links.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'edit_section'){
+    window.webkit.messageHandlers.editClicked.postMessage({
+      'sectionId': anchorForTarget.getAttribute( 'data-id' )
+    })
+    return
+  }
+
   const href = anchorForTarget.getAttribute( 'href' )
   if(!href) {
     return
@@ -148,7 +158,8 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":10,"wikimedia-page-library":11}],3:[function(require,module,exports){
+
+},{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -460,6 +471,32 @@ exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],6:[function(require,module,exports){
+const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
+
+function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
+  const preceedingElement = content.querySelector(preceedingElementSelector)
+  preceedingElement.parentNode.insertBefore(
+    newEditSectionButton(content, sectionID),
+    preceedingElement.nextSibling
+  )
+}
+
+function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
+  Array.from(content.querySelectorAll(elementsSelector))
+  .forEach(function(element){
+    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
+  })
+}
+
+function addEditButtons(content) {
+  // Add lead section edit button after the lead section horizontal rule element.
+  addEditButtonAfterElement('#content_block_0_hr', 0, content)
+  // Add non-lead section edit buttons inside respective header elements.
+  addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
+}
+
+exports.addEditButtons = addEditButtons
+},{"wikimedia-page-library":12}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -474,7 +511,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":11}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -500,9 +537,9 @@ function disableFilePageEdit( content ) {
 }
 
 exports.disableFilePageEdit = disableFilePageEdit
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
-function moveFirstGoodParagraphUp( content ) {
+function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -518,8 +555,8 @@ function moveFirstGoodParagraphUp( content ) {
   var allPs = block_0.getElementsByTagName( 'p' )
   if(!allPs) return
 
-  var edit_section_button_0 = content.getElementById( 'edit_section_button_0' )
-  if(!edit_section_button_0) return
+  var preceedingElement = content.getElementById( preceedingElementID )
+  if(!preceedingElement) return
 
   function isParagraphGood(p) {
     // Narrow down to first P which is direct child of content_block_0 DIV.
@@ -574,14 +611,15 @@ function moveFirstGoodParagraphUp( content ) {
     return fragment
   }()
 
-  // Attach the fragment just after the lead section edit button.
+  // Attach the fragment just after `preceedingElement`.
   // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
   // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
-  block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling)
+  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
 }
 
-exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],9:[function(require,module,exports){
+exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
+
+},{}],10:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -598,7 +636,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":11}],10:[function(require,module,exports){
+},{"wikimedia-page-library":12}],11:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -640,7 +678,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -2854,4 +2892,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
