@@ -137,28 +137,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        updateThemeButtons(with: currentTheme)
-    }
-    
-    func updateThemeButtons(with theme: Theme) {
-        removeBorderFrom(lightThemeButton)
-        removeBorderFrom(darkThemeButton)
-        removeBorderFrom(sepiaThemeButton)
-        imageDimmingSwitch.isEnabled = false
-        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
-        switch theme.name {
-        case Theme.sepia.name:
-            applyBorder(to: sepiaThemeButton)
-        case Theme.light.name:
-            applyBorder(to: lightThemeButton)
-        case Theme.darkDimmed.name:
-            fallthrough
-        case Theme.dark.name:
-            imageDimmingSwitch.isEnabled = true
-            applyBorder(to: darkThemeButton)
-        default:
-            break
-        }
+        apply(theme: currentTheme)
     }
     
     func screenBrightnessChangedInApp(notification: Notification){
@@ -177,7 +156,6 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
-        updateThemeButtons(with: theme)
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
@@ -212,18 +190,25 @@ extension ReadingThemesControlsViewController: Themeable {
             label.textColor = theme.colors.primaryText
         }
         
-        if (theme == Theme.light || theme == Theme.sepia) {
-        textLabels.last?.textColor = UIColor.wmf_silver
+        removeBorderFrom(lightThemeButton)
+        removeBorderFrom(darkThemeButton)
+        removeBorderFrom(sepiaThemeButton)
+        imageDimmingSwitch.isEnabled = false
+        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
+        switch theme.name {
+        case Theme.sepia.name:
+            applyBorder(to: sepiaThemeButton)
+        case Theme.light.name:
+            applyBorder(to: lightThemeButton)
+        case Theme.darkDimmed.name:
+            fallthrough
+        case Theme.dark.name:
+            imageDimmingSwitch.isEnabled = true
+            applyBorder(to: darkThemeButton)
+        default:
+            break
         }
-        
-        let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
-        for button in buttons {
-            guard let button = button else {
-                continue
-            }
-            button.borderColor = button.isEnabled ? theme.colors.border : theme.colors.link
-        }
-
+        imageDimmingLabel.textColor = imageDimmingSwitch.isEnabled ? theme.colors.primaryText : theme.colors.disabledText
 
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
