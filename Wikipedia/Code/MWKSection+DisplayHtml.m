@@ -24,15 +24,20 @@
     }
 
     BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
+    BOOL isNonMainPageLeadSection = ([self isLeadSection] && !isMainPage);
 
-    return [NSString stringWithFormat:
-                         @"<div id='section_heading_and_content_block_%d'>%@<div id='content_block_%d' class='content_block'>%@%@%@</div></div>",
-                         self.sectionId,
-                         (isMainPage ? @"" : [self getHeaderTag]),
-                         self.sectionId,
-                         (([self isLeadSection]) && !isMainPage) ? @"<hr id='content_block_0_hr'>" : @"",
-                         (([self isLeadSection]) && !isMainPage) ? [self getEditPencilAnchor] : @"",
-                         html];
+    return [NSString stringWithFormat:@""
+                                       "<div id='section_heading_and_content_block_%d'>"
+                                       "%@"
+                                       "<div id='content_block_%d' class='content_block'>"
+                                       "%@%@"
+                                       "</div>"
+                                       "</div>",
+                                      self.sectionId,
+                                      (isMainPage ? @"" : [self getHeaderTag]),
+                                      self.sectionId,
+                                      isNonMainPageLeadSection ? @"<hr id='content_block_0_hr'>" : @"",
+                                      html];
 }
 
 - (NSString *)getHeaderTag {
@@ -46,12 +51,11 @@
     } else {
         short headingTagSize = [self getHeadingTagSize];
         return [NSString stringWithFormat:
-                             @"<h%d class='section_heading' data-id='%d' id='%@'>%@%@</h%d>",
+                             @"<h%d class='section_heading' data-id='%d' id='%@'>%@</h%d>",
                              headingTagSize,
                              self.sectionId,
                              self.anchor,
                              self.line,
-                             [self getEditPencilAnchor],
                              headingTagSize];
     }
 }
@@ -70,13 +74,6 @@
 
 - (short)getHeadingTagSize {
     return WMFStrictClamp(1, self.level.integerValue, 6);
-}
-
-- (NSString *)getEditPencilAnchor {
-    return [NSString stringWithFormat:
-                         @"<a class='edit_section_button' data-action='edit_section' onclick='window.webkit.messageHandlers.editClicked.postMessage({ sectionId: %d }); return false;' id='edit_section_button_%d'></a>",
-                         self.sectionId,
-                         self.sectionId];
 }
 
 - (NSString *)getHTMLWrappedInTablesIfNeeded {
