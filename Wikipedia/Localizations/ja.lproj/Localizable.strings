@@ -121,6 +121,7 @@
 "explore-random-article-heading" = "おまかせ記事";
 "explore-randomizer" = "おまかせ表示";
 "feed-news-notification-button-text" = "通知をオンにする";
+// Fuzzy
 "feed-news-notification-text" = "ニュースで話題になっているウィキペディアの記事の通知を受け取ります。";
 "field-email-placeholder" = "メールアドレスを入力";
 "field-email-title" = "メールアドレス";

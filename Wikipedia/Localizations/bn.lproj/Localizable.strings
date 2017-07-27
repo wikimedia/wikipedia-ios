@@ -61,8 +61,7 @@
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
-// Fuzzy
-"announcements-dismiss" = "না ধন্যবাদ";
+"announcements-dismiss" = "খারিজ";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
@@ -320,6 +319,7 @@
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
 "table-title-other" = "আরও তথ্য";
+"theme-default-display-name" = "পূর্বনির্ধারিত";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";

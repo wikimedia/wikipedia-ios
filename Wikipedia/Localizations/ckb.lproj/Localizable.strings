@@ -120,6 +120,7 @@
 "explore-random-article-heading" = "وتاری هەڕەمەکی";
 "explore-randomizer" = "ھەڵکەوت";
 "feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
+// Fuzzy
 "feed-news-notification-text" = "لەمەوبەدوا ھۆشدارت پێ دەگات لەبارەی وتارەکانی ویکیپیدیا و ھەواڵە بەناوبانگەکان.";
 "field-alert-captcha-invalid" = "کاپچای ھەڵە";
 "field-alert-password-confirm-mismatch" = "تێپەڕوشەکان ھەماھەنگ نین";
@@ -228,7 +229,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "لە $1 بۆ $2";
-"on-this-day-detail-header-day" = "لە $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-title" = "لەم ڕۆژەدا";

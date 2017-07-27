@@ -110,6 +110,7 @@
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
 "explore-randomizer" = "Ngẫu nhiên";
 "feed-news-notification-button-text" = "Bật thông báo";
+// Fuzzy
 "feed-news-notification-text" = "Hiện nay bạn có thể nhận thông báo về các bài Wikipedia thịnh hành về tin tức.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
 "field-alert-password-confirm-mismatch" = "Mật khẩu không khớp";

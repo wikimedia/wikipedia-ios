@@ -77,6 +77,7 @@
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
 "article-share" = "Dela";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "back" = "Tillbaka";
@@ -135,7 +136,7 @@
 "explore-random-article-heading" = "Slumpartikel";
 "explore-randomizer" = "Randomiserare";
 "feed-news-notification-button-text" = "Aktivera notiser";
-"feed-news-notification-text" = "Du kan nu få notiser om Wikipedia-artiklar som är populära på nyheterna.";
+"feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära på nyheterna.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lösenorden stämmer inte överens";
 "field-alert-password-invalid" = "Ogiltigt lösenord";
@@ -192,7 +193,7 @@
 "home-nearby-location-footer" = "Mer i närheten av $1";
 "home-news-footer" = "Mer aktuellt";
 "home-themes-action-title" = "Hantera inställningar";
-"home-themes-prompt" = "Läs i mörkret eller begränsa hur du exponeras för blått ljus på kvällen med nya lästemat Mörk och Sepia. Justera dina läsinställningar (inklusive textstorlek och tema) från verktygsfältet eller i dina användarinställningar.";
+"home-themes-prompt" = "Justera dina läsinställningar inklusive textstorlek och tema från verktygsfältet eller i dina användarinställningar för en mer bekväm läsupplevelse.";
 "home-title" = "Utforska";
 "home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
 "icon-shortcut-continue-reading-title" = "Fortsätt läsa";
@@ -245,7 +246,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "från $1 - $2";
-"on-this-day-detail-header-day" = "den $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-title" = "På denna dag";
@@ -303,6 +303,12 @@
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
+"reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
+"reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
+"reading-themes-controls-accessibility-dim-images-switch" = "Mörklägg bilder";
+"reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepiatema";
+"reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reference-title" = "Referens $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dagar sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";

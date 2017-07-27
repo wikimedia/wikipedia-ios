@@ -122,6 +122,7 @@
 "explore-random-article-heading" = "Випадкова стаття";
 "explore-randomizer" = "Рандомайзер";
 "feed-news-notification-button-text" = "Увімкнути сповіщення";
+// Fuzzy
 "feed-news-notification-text" = "Тепер Ви можете отримувати сповіщення про статті Вікіпедії, пов'язані з останніми новинами.";
 "field-alert-captcha-invalid" = "Недійсна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Паролі не збігаються";
@@ -226,7 +227,6 @@
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
-"on-this-day-detail-header-day" = "на $1";
 "on-this-day-footer" = "Більше історичних подій цього дня";
 "onboarding-wikipedia" = "Вікіпедія";
 "open-link-cancel" = "Скасувати";
