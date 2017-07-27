@@ -156,6 +156,38 @@ NS_ASSUME_NONNULL_BEGIN
                               value:[value analyticsValue]];
 }
 
+- (void)wmf_logActionSwitchThemeInContext:(id<WMFAnalyticsContextProviding>)context
+                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Theme Change"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionEnableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context
+                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Enable Dimming"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionDisableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context
+                                     contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Disable Dimming"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
+- (void)wmf_logActionAdjustBrightnessInContext:(id<WMFAnalyticsContextProviding>)context
+                                      contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext]
+                             action:@"Adjust Brightness"
+                               name:[contentType analyticsContentType]
+                              value:nil];
+}
+
 - (NSNumber *)hourTimeValueFromDate:(nullable NSDate *)date {
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
     NSInteger hour = [calendar component:NSCalendarUnitHour fromDate:date];
