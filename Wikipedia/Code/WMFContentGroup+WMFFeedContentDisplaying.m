@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
                 NSAssert(false, @"Invalid Content");
                 return nil;
             }
-            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore midnightUTCDate:self.midnightUTCDate];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
             vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];

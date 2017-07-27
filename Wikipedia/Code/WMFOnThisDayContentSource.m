@@ -96,13 +96,14 @@ NS_ASSUME_NONNULL_BEGIN
             return;
         }
 
-        NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:date];
-        NSInteger monthNumber = [components month];
-        NSInteger dayNumber = [components day];
+        NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+        NSInteger month = [components month];
+        NSInteger day = [components day];
+        NSInteger year = [components year];
         @weakify(self)
             [self.fetcher fetchOnThisDayEventsForURL:self.siteURL
-                month:monthNumber
-                day:dayNumber
+                month:month
+                day:day
                 failure:^(NSError *error) {
                     if (completion) {
                         completion();
@@ -110,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
                 }
                 success:^(NSArray<WMFFeedOnThisDayEvent *> *onThisDayEvents) {
                     @strongify(self);
-                    if (!self) {
+                    if (onThisDayEvents.count < 1 || !self) {
                         if (completion) {
                             completion();
                         }
@@ -119,16 +120,33 @@ NS_ASSUME_NONNULL_BEGIN
 
                     [moc performBlock:^{
                         [onThisDayEvents enumerateObjectsUsingBlock:^(WMFFeedOnThisDayEvent *_Nonnull event, NSUInteger idx, BOOL *_Nonnull stop) {
-                            [event.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                [moc fetchOrCreateArticleWithURL:[obj articleURL] updatedWithFeedPreview:obj pageViews:nil];
+                            __block NSInteger countOfImages = 0;
+                            [event.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull articlePreview, NSUInteger idx, BOOL *_Nonnull stop) {
+                                if (articlePreview.imageURLString) {
+                                    countOfImages += 1;
+                                }
+                                [moc fetchOrCreateArticleWithURL:[articlePreview articleURL] updatedWithFeedPreview:articlePreview pageViews:nil];
                             }];
+                            event.score = @(countOfImages);
+                            event.index = @(idx);
                         }];
+
+                        NSInteger featuredEventIndex = NSNotFound;
+
+                        NSArray *eventsSortedByScore = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+                        if (eventsSortedByScore.count > 0) {
+                            NSInteger index = ((year % 10) % eventsSortedByScore.count);
+                            WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByScore[index];
+                            featuredEventIndex = featuredEvent.index.integerValue;
+                        }
 
                         WMFContentGroup *group = [self onThisDayForDate:date inManagedObjectContext:moc];
                         if (group == nil) {
-                            [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:onThisDayEvents];
-                        } else {
-                            group.content = onThisDayEvents;
+                            group = [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:onThisDayEvents];
+                            if (featuredEventIndex >= 0 && featuredEventIndex < onThisDayEvents.count) {
+                                // hackaround adding a migration, use this string field
+                                group.articleURLString = [NSString stringWithFormat:@"%lli", (long long)featuredEventIndex];
+                            }
                         }
 
                         if (completion) {

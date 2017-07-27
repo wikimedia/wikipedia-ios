@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 3;
 }
 
 - (nullable NSURL *)siteURL {

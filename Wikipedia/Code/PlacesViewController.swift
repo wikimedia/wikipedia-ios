@@ -1,6 +1,5 @@
 import UIKit
 import WMF
-import TUSafariActivity
 #if OSM
 import Mapbox
 #endif

@@ -779,7 +779,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self.article.isMain || !self.article.imageURL || [self.article.url wmf_isNonStandardURL]) {
         return 0;
     } else {
-        return 210;
+        return WebViewControllerHeaderImageHeight;
     }
 }
 
