@@ -1724,6 +1724,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     switch (group.contentGroupKind) {
         case WMFContentGroupKindTheme: {
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
+            [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
             [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
