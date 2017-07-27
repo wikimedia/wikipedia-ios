@@ -17,8 +17,8 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (void)wmf_addEditPencilsForArticle:(MWKArticle *)article {
-    if (!article.isMain){
-        [self evaluateJavaScript:@"window.wmf.editButtons.addEditButtons(document);" completionHandler:nil];
+    if (!article.isMain) {
+        [self evaluateJavaScript:@"window.wmf.editButtons.add(document);" completionHandler:nil];
     }
 }
 
