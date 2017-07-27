@@ -122,6 +122,7 @@
 "explore-random-article-heading" = "Ur pennad dre zegouezh";
 "explore-randomizer" = "Dre zegouezh";
 "feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù";
+// Fuzzy
 "feed-news-notification-text" = "Bremañ e c'hallit resev kemennadennoù diwar-benn pennadoù Wikipedia diouzh ar c'hiz er c'heleier.";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
@@ -226,7 +227,6 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"on-this-day-detail-header-day" = "d'an $1";
 "on-this-day-title" = "D'an deiz-mañ...";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Nullañ";

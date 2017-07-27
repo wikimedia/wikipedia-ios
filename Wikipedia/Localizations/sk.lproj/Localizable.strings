@@ -112,6 +112,7 @@
 "explore-random-article-heading" = "Náhodný článok";
 "explore-randomizer" = "Randomizér";
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
+// Fuzzy
 "feed-news-notification-text" = "Odteraz môžete dostávať upozornenia ohľadom článkov na Wikipédii, ktoré sú populárne v médiách.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Heslá sa nezhodujú";

@@ -124,6 +124,7 @@
 "explore-random-article-heading" = "Artículu al debalu";
 "explore-randomizer" = "Al debalu";
 "feed-news-notification-button-text" = "Activar los avisos";
+// Fuzzy
 "feed-news-notification-text" = "Agora puedes recibir avisos sobre artículos de Wikipedia que son enclín nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
@@ -181,6 +182,7 @@
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más nes noticies";
 "home-themes-action-title" = "Alministrar les preferencies";
+// Fuzzy
 "home-themes-prompt" = "Llei na escuridá o llenda la esposición a la lluz azul poles tardes colos nuevos temes de llectura Escuru y Sepia. Axusta les preferencies de Llectura (incluyendo'l tamañu del testu y tema) dende la barra de ferramientes del artículu o na configuración d'usuariu.";
 "home-title" = "Esplorar";
 "home-title-accessibility-label" = "Wikipedia, subir al entamu d'Esplorar";
@@ -234,7 +236,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 a $2";
-"on-this-day-detail-header-day" = "el $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimientu históricu|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más socesos históricos d'esti día";
 "on-this-day-title" = "Tal día como güei";

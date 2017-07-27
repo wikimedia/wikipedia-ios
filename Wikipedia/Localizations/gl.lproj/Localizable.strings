@@ -57,8 +57,10 @@
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
-// Fuzzy
-"announcements-dismiss" = "Non, grazas";
+"announcements-dismiss" = "Descartar";
+"appearance-settings-reading-themes" = "Temas de lectura";
+"appearance-settings-theme-options" = "Opcións dos temas";
+"appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
 "article-languages-filter-placeholder" = "Atopar lingua";
@@ -67,6 +69,7 @@
 "article-languages-yours" = "As súas linguas";
 "article-read-more-title" = "Ler máis";
 "article-share" = "Compartir";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controis dos temas de lectura";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "back" = "Volver";
@@ -85,6 +88,8 @@
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
+"dark-theme-display-name" = "Escuro";
+"dim-images" = "Atenuación de imaxes";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Error ortográfico correxido";
 "edit-summary-choice-linked-words" = "Ligazóns engadidas";
@@ -123,7 +128,7 @@
 "explore-random-article-heading" = "Artigo ao chou";
 "explore-randomizer" = "Artigo aleatorio";
 "feed-news-notification-button-text" = "Activar notificacións";
-"feed-news-notification-text" = "Agora pode recibir notificacións de artigos de Wikipedia que sexan tendenza nas novas.";
+"feed-news-notification-text" = "Activar as notificacións enviadas por Wikipedia cando os artigos son tendencia nas novas.";
 "field-alert-captcha-invalid" = "O CAPTCHA non é válido";
 "field-alert-password-confirm-mismatch" = "Os contrasinais non coinciden";
 "field-alert-password-invalid" = "O contrasinal non é válido";
@@ -179,6 +184,8 @@
 "home-nearby-footer" = "Máis próximos á súa localización";
 "home-nearby-location-footer" = "Máis preto de $1";
 "home-news-footer" = "Máis nas novas";
+"home-themes-action-title" = "Xestionar as preferencias";
+"home-themes-prompt" = "Axuste as súas preferencias de lectura (incluíndo tamaño do texto e tema) na barra de ferramentas do artigo ou nas súas preferencias de usuario para unha experiencia de lectura máis confortable.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, subir a Explorar";
 "icon-shortcut-continue-reading-title" = "Continuar lendo";
@@ -231,7 +238,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1 mil";
 "on-this-day-detail-header-date-range" = "de $1 a $2";
-"on-this-day-detail-header-day" = "en $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecemento histórico|$1 acontecementos históricos}}";
 "on-this-day-footer" = "Máis acontecementos históricos deste día";
 "on-this-day-title" = "Neste día";
@@ -289,6 +295,12 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-themes-controls-accessibility-brightness-slider" = "Cursor de luminosidade";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
+"reading-themes-controls-accessibility-dim-images-switch" = "Atenuación de imaxes";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-text-size-slider" = "Cursor de tamaño do texto";
 "reference-title" = "Referenza $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoxe|Onte|Hai $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Hai $1 hora|Hai $1 horas}}";
@@ -310,6 +322,7 @@
 "search-recent-title" = "Buscado recentemente";
 "search-result-redirected-from" = "Redirixido de: $1";
 "search-title" = "Procurar";
+"settings-appearance" = "Aparencia";
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
 "settings-clear-cache-are-you-sure-title" = "Borrar os datos da caché?";
@@ -345,6 +358,9 @@
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-heading" = "Contidos";
 "table-title-other" = "Máis información";
+"theme-dark-display-name" = "Escuro";
+"theme-default-display-name" = "Por defecto";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-see-more" = "Ver máis artigos máis lidos";

@@ -133,6 +133,7 @@
 "explore-random-article-heading" = "Article a l’atzar";
 "explore-randomizer" = "Article a l’atzar";
 "feed-news-notification-button-text" = "Activa les notificacions";
+// Fuzzy
 "feed-news-notification-text" = "Ara podeu rebre notificacions d'articles de la Viquipèdia en tendència durant l'actualitat.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
 "field-alert-password-confirm-mismatch" = "Les contrasenyes no coincideixen";
@@ -240,7 +241,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
-"on-this-day-detail-header-day" = "el $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics aquest dia";
 "on-this-day-title" = "Aquest dia";
