@@ -6,7 +6,7 @@ import UIKit
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController {
+open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
@@ -130,6 +130,11 @@ open class ReadingThemesControlsViewController: UIViewController {
         let selector = #selector(applyImageDimmingChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+        if (sender.isOn) {
+        PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
+        } else {
+        PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
+        }
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -137,6 +142,14 @@ open class ReadingThemesControlsViewController: UIViewController {
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         updateThemeButtons(with: currentTheme)
+    }
+    
+    public var analyticsContext: String {
+        return "Article"
+    }
+    
+    public var analyticsContentType: String {
+        return "Article"
     }
     
     func updateThemeButtons(with theme: Theme) {
@@ -158,6 +171,7 @@ open class ReadingThemesControlsViewController: UIViewController {
         default:
             break
         }
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
     }
     
     func screenBrightnessChangedInApp(notification: Notification){
@@ -166,6 +180,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
+        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
