@@ -133,6 +133,7 @@
 "explore-random-article-heading" = "مقالة عشوائية";
 "explore-randomizer" = "صفحات عشوائية";
 "feed-news-notification-button-text" = "أظهر الإشعارات";
+// Fuzzy
 "feed-news-notification-text" = "الآن يمكنك استقبال إشعارات حول مقالات ويكيبيديا المنتشرة في الأخبار.";
 "field-alert-captcha-invalid" = "تحقق بشري خاطئ";
 "field-alert-password-confirm-mismatch" = "كلمتا السر لا تتطابقان";

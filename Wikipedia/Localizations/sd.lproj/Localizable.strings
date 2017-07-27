@@ -48,17 +48,23 @@
 "action-read" = "پڙھو";
 "action-save" = "سانڍيو";
 "action-saved" = "سانڍيل";
+"action-saved-accessibility" = "سانڍيل. اڻسانڍڻ لاءِ سرگرم ڪريو.";
 "action-share" = "ونڊيو";
 "action-unsave" = "اڻسانڍيو";
 "alert-no-internet" = "باهمڄار ڳانڍاپو نہ آهي";
-// Fuzzy
-"announcements-dismiss" = "نہ مھرباني";
+"announcements-dismiss" = "برخاست";
+"appearance-settings-reading-themes" = "پڙھڻ جا نظارا";
+"appearance-settings-theme-options" = "نظارن جا چارا";
+"appearance-settings-title" = "پڙھڻ جا نظارا";
 "article-about-title" = "هن مضمون بابت";
+"article-delete" = "ڊاھيو";
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-others" = "ٻيون ٻوليون";
 "article-languages-yours" = "توھان جون ٻوليون";
 "article-read-more-title" = "وڌيڪ پڙهو";
+"article-share" = "ونڊيو";
+"article-toolbar-reading-themes-controls-toolbar-item" = "پڙھڻ جي نظارن جا ضابطا";
 "article-unable-to-load-article" = "مضمون لاهڻ لائق نه آهي.";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "back" = "واپس";
@@ -77,6 +83,8 @@
 "compass-direction" = " $1 بجي";
 "continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
+"dark-theme-display-name" = "گھرو";
+"dim-images" = "ڊم عڪس";
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
@@ -96,6 +104,7 @@
 "explore-another-random" = "ھڪ ٻيو بلاترتيب مضمون";
 "explore-because-you-read" = "ڇو تہ توھان پڙھيو";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
+"explore-enable-location-title" = "پنھنجي ھاڻوڪي مڪانيت جي ويجھو مضمون کوجيو";
 "explore-featured-article-heading" = "نمايان مضمون";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
@@ -114,7 +123,7 @@
 "explore-random-article-heading" = "بلا ترتيب مضمون";
 "explore-randomizer" = "بلاترتيبڪار";
 "feed-news-notification-button-text" = "اطلاع آن ڪريو";
-"feed-news-notification-text" = "ھاڻي توھان خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع حاصل ڪري سگھو ٿا.";
+"feed-news-notification-text" = "خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع قابلِڪار ڪريو.";
 "field-alert-captcha-invalid" = "ناقابلِڪار ڪيپچا";
 "field-alert-password-confirm-mismatch" = "ڳجھولفظ ھڪجھڙائي نٿو رکي";
 "field-alert-password-invalid" = "ناقابلِڪار ڳجھولفظ";
@@ -141,8 +150,10 @@
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
 "forgot-password-email-sent" = "ڳجھولفظ وري ترتيب ڪرڻ جي ھدايتن سان ھڪ برقٽپال موڪليو ويو";
+"forgot-password-instructions" = "برقٽپال ذريعي ڳجھيلفظ کي ٻيھر ترتيب ڏيڻ جون ھدايتون حاصل ڪرڻ لاءِ ھيٺين مان ڪنھن ھڪ جڳھ ۾ ڀريو";
 "forgot-password-title" = "ٻيھر ڳجھولفظ طي ڪريو";
 "forgot-password-username-or-email-title" = "يا";
+"gdfl" = "GDFL";
 "history-clear-all" = "ختم ڪريو";
 "history-clear-cancel" = "رد";
 "history-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان سڀ تازيون شيون ڊاھڻ چاھيو ٿا'";
@@ -159,6 +170,8 @@
 "hockeyapp-alert-title" = "معاف ڪجو، پوئين ڀيري ايپ حادثاتاً خراب ٿي وئي";
 "home-button-explore-accessibility-label" = "وڪيپيڊيا، ايڪسپلور ڏانھن ورو";
 "home-button-history-accessibility-label" = "وڪيپيڊيا، سوانح ڏانھن ورو";
+"home-button-popover-description" = "کوج فيڊ ڏانھن ورڻ لاءِ 'W' تي ٽيپ ڪريو";
+"home-button-popover-title" = "گھر ڏانھن وڃڻ لاءِ ٽيپ ڪريو";
 "home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
 "home-hide-suggestion-cancel" = "رد";
 "home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";
@@ -166,6 +179,7 @@
 "home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
 "home-nearby-location-footer" = "وڌيڪ ويجھا $1";
 "home-news-footer" = "خبرن ۾ وڌيڪ";
+"home-themes-action-title" = "ترجيحون سنڀاليو";
 "home-title" = "تلاش ڪريو";
 "icon-shortcut-continue-reading-title" = "پڙھڻ جاري رکو";
 "icon-shortcut-nearby-title" = "ويجھا مضمون";
@@ -215,6 +229,10 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "$1 - $2 کان";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاريخي واقعو|$1 تاريخي واقعا}}";
+"on-this-day-footer" = "ھن ڏينھن تي وڌيڪ تاريخي واقعا";
+"on-this-day-title" = "ھن ڏينھن تي";
 "onboarding-wikipedia" = "وڪيپيڊيا";
 "open-link-cancel" = "رد";
 "page-edit-history" = "پوري ترميمي سوانح";
@@ -249,8 +267,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مضمونُ|$1 مضمونَ}}";
 "places-no-saved-articles-have-location" = "توھان جي سانڍيل صفحن مان ڪنھن بہ مڪانيت جي معلومات ناھي";
 "places-search-articles-that-match" = "$1 سان ملندي “$2”";
-// Fuzzy
-"places-search-default-text" = "ڳوليو";
+"places-search-default-text" = "جڳھون ڳوليو";
 "places-search-did-you-mean" = "ڇا توھان جو مطلب $1 ھيو؟";
 "places-search-recently-searched-header" = "تازو ڳولھيل";
 "places-search-saved-articles" = "سڀ سانڍيل مضمون";
@@ -258,6 +275,7 @@
 "places-search-this-area" = "ھن ايراضي ۾ نتيجا";
 "places-search-top-articles" = "سڀ مٿاھان مضمون";
 "places-search-top-articles-that-match-scope" = "ويجھا";
+"places-search-your-current-location" = "توھان جي ھاڻوڪي مڪانيت";
 "places-show-filter-list-accessibility-label" = "ڳولا جون ڇاڻيون ڏيکاريو";
 "places-title" = "جڳھون";
 "places-unknown-distance" = "اَڻڄاٿل مفاضلو";
@@ -267,10 +285,17 @@
 "preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
 "rank-accessibility-label" = "انگ $1";
 "readers-accessibility-label" = "$1 پڙھندڙ";
+"reading-themes-controls-accessibility-brightness-slider" = "چمڪداري سلائيڊر";
+"reading-themes-controls-accessibility-dark-theme-button" = "گھرو نظارو";
+"reading-themes-controls-accessibility-dim-images-switch" = "ڊم عڪس";
+"reading-themes-controls-accessibility-light-theme-button" = "ھلڪو نظام";
+"reading-themes-controls-accessibility-sepia-theme-button" = "سيپيا نظارو";
+"reading-themes-controls-accessibility-text-size-slider" = "لکت جي ماپ جو سلائيڊر";
 "reference-title" = "حوالو $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=اڄ|ڪالھ|$1 ڏينھن اڳ}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "saved-clear-all" = "ختم ڪريو";
 "saved-pages-clear-cancel" = "رد";

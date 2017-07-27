@@ -78,6 +78,7 @@
 "article-languages-yours" = "您的語言";
 "article-read-more-title" = "延伸閱讀";
 "article-share" = "分享";
+"article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back" = "返回";
@@ -136,7 +137,7 @@
 "explore-random-article-heading" = "隨機條目";
 "explore-randomizer" = "隨機條目產生";
 "feed-news-notification-button-text" = "啟動通知";
-"feed-news-notification-text" = "您現在可接收有關與趨勢新聞相關的維基百科條目通知";
+"feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "field-alert-captcha-invalid" = "無效驗證碼";
 "field-alert-password-confirm-mismatch" = "密碼不符合";
 "field-alert-password-invalid" = "無效密碼";
@@ -193,7 +194,7 @@
 "home-nearby-location-footer" = "$1 附近更多";
 "home-news-footer" = "更多的新聞";
 "home-themes-action-title" = "管理偏好設定";
-"home-themes-prompt" = "在暗處、或是夜間裡閱讀時，以全新的暗黑與深褐閱讀主題來限制您在藍光下的暴露。請從您的使用者設定裡條目工具列來調整您的閱讀偏好設定（包含文字大小與主題）。";
+"home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定；以獲得更舒適的閱讀體驗。";
 "home-title" = "探索";
 "home-title-accessibility-label" = "維基百科，滾動至探索頁面頂端";
 "icon-shortcut-continue-reading-title" = "繼續閱讀";
@@ -246,7 +247,6 @@
 "number-millions" = "$1百萬";
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "從 $1 到 $2";
-"on-this-day-detail-header-day" = "在 $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
 "on-this-day-title" = "歷史上的今天";
@@ -304,6 +304,12 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
+"reading-themes-controls-accessibility-dark-theme-button" = "暗黑主題";
+"reading-themes-controls-accessibility-dim-images-switch" = "調暗圖片";
+"reading-themes-controls-accessibility-light-theme-button" = "明亮主題";
+"reading-themes-controls-accessibility-sepia-theme-button" = "深褐主題";
+"reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1 天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
@@ -381,7 +387,7 @@
 "welcome-languages-continue-button" = "繼續";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
 "welcome-languages-title" = "語言";
-"welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您設備上建立及發送，而非由我們或其它第三方服務。";
+"welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
 "welcome-notifications-tell-me-more-storage" = "通知設置儲存於設備上且不基於個人訊息或活動。";
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-send-data-sub-title" = "為了幫助維基媒體基金會將此應用程式改善，請告訴我們您如何使用此應用程式。所有蒐集的資料都採用匿名方式。";

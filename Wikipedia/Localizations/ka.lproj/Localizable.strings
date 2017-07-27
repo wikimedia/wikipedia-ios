@@ -40,8 +40,7 @@
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
 "alert-no-internet" = "ინტერნეტ-კავშირი არ არის";
-// Fuzzy
-"announcements-dismiss" = "არა, გმადლობთ";
+"announcements-dismiss" = "უარყოფა";
 "article-about-title" = "ამ სტატიის შესახებ";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-languages-label" = "აირჩიეთ ენა";

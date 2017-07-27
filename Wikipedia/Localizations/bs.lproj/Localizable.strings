@@ -117,6 +117,7 @@
 "explore-random-article-heading" = "Nasumičan članak";
 "explore-randomizer" = "Nasumična stranica";
 "feed-news-notification-button-text" = "Uključi obavještenja";
+// Fuzzy
 "feed-news-notification-text" = "Sad možete primati obavještenja o člancima na Wikipediji koji su aktualni na vijestima.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lozinke se ne poklapaju";
@@ -225,7 +226,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "od $1 do $2";
-"on-this-day-detail-header-day" = "na $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
