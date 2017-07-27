@@ -90,7 +90,7 @@
                                         <action selector="save:" destination="-1" eventType="touchUpInside" id="sB7-BI-rxt"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTL-Re-doV" customClass="AlignedImageButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTL-Re-doV" customClass="WMFAlignedImageButton">
                                     <rect key="frame" x="80.5" y="0.0" width="79" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -99,7 +99,7 @@
                                         <action selector="share:" destination="-1" eventType="touchUpInside" id="3Kb-L8-V07"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-TI-bsl" customClass="AlignedImageButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-TI-bsl" customClass="WMFAlignedImageButton">
                                     <rect key="frame" x="160.5" y="0.0" width="79.5" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>

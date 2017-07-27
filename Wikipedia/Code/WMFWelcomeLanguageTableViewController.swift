@@ -91,7 +91,11 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
     @IBAction func addLanguages(withSender sender: AnyObject) {
         let languagesVC = WMFLanguagesViewController.nonPreferred()
         languagesVC?.delegate = self
-        present(ThemeableNavigationController(rootViewController: languagesVC!, theme: Theme.standard), animated: true, completion: nil)
+        let navC = ThemeableNavigationController(rootViewController: languagesVC!, theme: Theme.standard)
+        // Intentionally not using apply(theme:) for now to limit any unintended consequences elsewhere in the app
+        navC.navigationBar.isTranslucent = false
+        navC.view.tintColor = theme.colors.link
+        present(navC, animated: true, completion: nil)
     }
     
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language:MWKLanguageLink){
