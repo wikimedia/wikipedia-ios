@@ -140,6 +140,7 @@
 "explore-random-article-heading" = "Artículo aleatorio";
 "explore-randomizer" = "Aleatorio";
 "feed-news-notification-button-text" = "Activar las notificaciones";
+// Fuzzy
 "feed-news-notification-text" = "Ahora puedes recibir notificaciones sobre artículos de Wikipedia en tendencia en las noticias.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
 "field-alert-password-confirm-mismatch" = "Las contraseñas no coinciden";
@@ -197,6 +198,7 @@
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más en las noticias";
 "home-themes-action-title" = "Gestionar las preferencias";
+// Fuzzy
 "home-themes-prompt" = "Lee en la oscuridad o limita tu exposición a la luz azul en el atardecer con los nuevos temas de lectura \"Oscuro\" y \"Sepia\". Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
@@ -250,7 +252,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
-"on-this-day-detail-header-day" = "un $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
 "on-this-day-title" = "Un día como hoy";

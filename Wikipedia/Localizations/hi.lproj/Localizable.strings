@@ -124,6 +124,7 @@
 "explore-random-article-heading" = "कोई भी लेख";
 "explore-randomizer" = "कोई भी पृष्ठ";
 "feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+// Fuzzy
 "feed-news-notification-text" = "आप अब उन विकिपीडिया लेखों के बारे में नोटिफिकेशन प्राप्त कर सकते हैं जो समाचार रुझानों में हैं।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स नहीं मैच हो रहे";

@@ -125,6 +125,7 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-randomizer" = "Satunnaistaminen";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
+// Fuzzy
 "feed-news-notification-text" = "Voit nyt saada ilmoituksia Wikipedian artikkeleista jotka ovat nousussa uutisissa.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";

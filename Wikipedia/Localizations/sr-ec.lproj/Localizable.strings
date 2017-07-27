@@ -120,6 +120,7 @@
 "explore-random-article-heading" = "Случајни чланак";
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
+// Fuzzy
 "feed-news-notification-text" = "Сада можете примати обавештења о чланцима на Википедији који су најчитанији на вестима.";
 "field-alert-captcha-invalid" = "Невалидна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";

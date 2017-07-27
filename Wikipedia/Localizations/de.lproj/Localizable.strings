@@ -67,6 +67,7 @@
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
 "article-share" = "Teilen";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Lesethemensteuerung";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back" = "Zurück";
@@ -125,7 +126,7 @@
 "explore-random-article-heading" = "Zufälliger Artikel";
 "explore-randomizer" = "Zufallsgenerator";
 "feed-news-notification-button-text" = "Benachrichtigungen anschalten";
-"feed-news-notification-text" = "Du kannst jetzt Benachrichtigungen über Wikipedia-Artikel aus den aktuellen Nachrichten erhalten.";
+"feed-news-notification-text" = "Aktiviere Benachrichtigungen, um von Wikipedia benachrichtigt zu werden, wenn Artikel in den Nachrichten erscheinen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Die Passwörter stimmen nicht überein";
 "field-alert-password-invalid" = "Ungültiges Passwort";
@@ -182,7 +183,7 @@
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
 "home-news-footer" = "Mehr in den Nachrichten";
 "home-themes-action-title" = "Einstellungen verwalten";
-"home-themes-prompt" = "Lies im Dunkeln oder begrenze das Ausgesetztsein mit blauem Licht an Abenden mit den neuen Lesethemen „Dunkel“ und „Sepia“. Passe deine Leseeinstellungen (einschließlich Textgröße und Thema) von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an.";
+"home-themes-prompt" = "Passe deine Leseeinstellungen einschließlich Textgröße und Thema von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an für eine komfortablere Leseerfahrung.";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, zum Anfang von Entdecken scrollen";
 "icon-shortcut-continue-reading-title" = "Mit dem Lesen fortfahren";
@@ -235,7 +236,6 @@
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
-"on-this-day-detail-header-day" = "am $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
 "on-this-day-title" = "Heute";
@@ -293,6 +293,12 @@
 "preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
+"reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Thema";
+"reading-themes-controls-accessibility-dim-images-switch" = "Bilder dimmen";
+"reading-themes-controls-accessibility-light-theme-button" = "Licht-Thema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Thema";
+"reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
