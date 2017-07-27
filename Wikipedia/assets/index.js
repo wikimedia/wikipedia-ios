@@ -19,7 +19,6 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-
 },{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
@@ -158,7 +157,6 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-
 },{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
@@ -488,14 +486,14 @@ function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content)
   })
 }
 
-function addEditButtons(content) {
+function add(content) {
   // Add lead section edit button after the lead section horizontal rule element.
   addEditButtonAfterElement('#content_block_0_hr', 0, content)
   // Add non-lead section edit buttons inside respective header elements.
   addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
 }
 
-exports.addEditButtons = addEditButtons
+exports.add = add
 },{"wikimedia-page-library":12}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
@@ -618,7 +616,6 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-
 },{}],10:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
