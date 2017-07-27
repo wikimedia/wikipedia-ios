@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var wmf = {}
 
+wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
@@ -18,8 +19,7 @@ wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 
 window.wmf = wmf
-
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/collapseTables":6,"./js/transforms/disableFilePageEdit":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":11}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -134,6 +134,15 @@ function handleClickEvent(event){
   if(!anchorForTarget) {
     return
   }
+
+  // Handle edit links.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'edit_section'){
+    window.webkit.messageHandlers.editClicked.postMessage({
+      'sectionId': anchorForTarget.getAttribute( 'data-id' )
+    })
+    return
+  }
+
   const href = anchorForTarget.getAttribute( 'href' )
   if(!href) {
     return
@@ -148,7 +157,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":10,"wikimedia-page-library":11}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -460,6 +469,32 @@ exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],6:[function(require,module,exports){
+const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
+
+function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
+  const preceedingElement = content.querySelector(preceedingElementSelector)
+  preceedingElement.parentNode.insertBefore(
+    newEditSectionButton(content, sectionID),
+    preceedingElement.nextSibling
+  )
+}
+
+function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
+  Array.from(content.querySelectorAll(elementsSelector))
+  .forEach(function(element){
+    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
+  })
+}
+
+function add(content) {
+  // Add lead section edit button after the lead section horizontal rule element.
+  addEditButtonAfterElement('#content_block_0_hr', 0, content)
+  // Add non-lead section edit buttons inside respective header elements.
+  addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
+}
+
+exports.add = add
+},{"wikimedia-page-library":12}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -474,7 +509,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":11}],7:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -500,9 +535,9 @@ function disableFilePageEdit( content ) {
 }
 
 exports.disableFilePageEdit = disableFilePageEdit
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
-function moveFirstGoodParagraphUp( content ) {
+function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -518,8 +553,8 @@ function moveFirstGoodParagraphUp( content ) {
   var allPs = block_0.getElementsByTagName( 'p' )
   if(!allPs) return
 
-  var edit_section_button_0 = content.getElementById( 'edit_section_button_0' )
-  if(!edit_section_button_0) return
+  var preceedingElement = content.getElementById( preceedingElementID )
+  if(!preceedingElement) return
 
   function isParagraphGood(p) {
     // Narrow down to first P which is direct child of content_block_0 DIV.
@@ -574,14 +609,14 @@ function moveFirstGoodParagraphUp( content ) {
     return fragment
   }()
 
-  // Attach the fragment just after the lead section edit button.
+  // Attach the fragment just after `preceedingElement`.
   // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
   // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
-  block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling)
+  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
 }
 
-exports.moveFirstGoodParagraphUp = moveFirstGoodParagraphUp
-},{}],9:[function(require,module,exports){
+exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
+},{}],10:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -598,7 +633,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":11}],10:[function(require,module,exports){
+},{"wikimedia-page-library":12}],11:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -640,7 +675,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1125,6 +1160,7 @@ var CompatibilityTransform = {
 
 var CLASS = 'pagelib_dim_images';
 
+// todo: only require a Document
 /**
  * @param {!Window} window
  * @param {!boolean} enable
@@ -1134,6 +1170,7 @@ var dim = function dim(window, enable) {
   window.document.querySelector('html').classList[enable ? 'add' : 'remove'](CLASS);
 };
 
+// todo: only require a Document
 /**
  * @param {!Window} window
  * @return {boolean}
@@ -1164,6 +1201,7 @@ var ACTION_EDIT_SECTION = 'edit_section';
  */
 var newEditSectionLink = function newEditSectionLink(document, index) {
   var link = document.createElement('a');
+  link.href = '';
   link.setAttribute(DATA_ATTRIBUTE.SECTION_INDEX, index);
   link.setAttribute(DATA_ATTRIBUTE.ACTION, ACTION_EDIT_SECTION);
   link.classList.add(CLASS$1.LINK);
@@ -1444,7 +1482,7 @@ var FooterContainer = {
  * @param {?string} licenseString
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
- * @param {?FooterLegalClickCallback} licenseLinkClickHandler
+ * @param {!FooterLegalClickCallback} licenseLinkClickHandler
  * @return {void}
  */
 var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
@@ -1702,11 +1740,11 @@ var FooterMenu = {
 
 /**
  * Display fetched read more pages.
- * @typedef {function} ShownReadMorePagesHandler
+ * @typedef {function} ShowReadMorePagesHandler
  * @param {!Array.<object>} pages
  * @param {!string} containerID
- * @param {SaveButtonClickHandler} saveButtonClickHandler
- * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
  * @return {void}
  */
@@ -1772,7 +1810,7 @@ function ReadMorePage(title, thumbnail, terms, extract) {
  * Makes document fragment for a read more page.
  * @param {!ReadMorePage} readMorePage
  * @param {!number} index
- * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
  * @param {!Document} document
  * @return {!DocumentFragment}
  */
@@ -1836,7 +1874,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
 
 // eslint-disable-next-line valid-jsdoc
 /**
- * @type {ShownReadMorePagesHandler}
+ * @type {ShowReadMorePagesHandler}
  */
 var showReadMorePages = function showReadMorePages(pages, containerID, saveButtonClickHandler, titlesShownHandler, document) {
   var shownTitles = [];
@@ -1860,29 +1898,32 @@ var showReadMorePages = function showReadMorePages(pages, containerID, saveButto
 var queryParameters = function queryParameters(title, count) {
   return {
     action: 'query',
-    continue: '',
-    exchars: 256,
-    exintro: 1,
-    exlimit: count,
-    explaintext: '',
     format: 'json',
+    formatversion: 2,
+    prop: 'extracts|pageimages|pageterms',
+
+    // https://www.mediawiki.org/wiki/API:Search
+    // https://www.mediawiki.org/wiki/Help:CirrusSearch
     generator: 'search',
-    gsrinfo: '',
-    gsrlimit: count,
-    gsrnamespace: 0,
-    gsroffset: 0,
-    gsrprop: 'redirecttitle',
-    gsrsearch: 'morelike:' + title,
-    gsrwhat: 'text',
-    ns: 'ppprop',
-    pilimit: count,
-    piprop: 'thumbnail',
-    pithumbsize: 120,
-    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
-    rrvlimit: 1,
-    rvprop: 'ids',
-    wbptterms: 'description',
-    formatversion: 2
+    gsrlimit: count, // Limit search results by count.
+    gsrprop: 'redirecttitle', // Include a a parsed snippet of the redirect title property.
+    gsrsearch: 'morelike:' + title, // Weight search with the title.
+    gsrwhat: 'text', // Search the text then titles of pages.
+
+    // https://www.mediawiki.org/wiki/Extension:TextExtracts
+    exchars: 256, // Limit number of characters returned.
+    exintro: '', // Only content before the first section.
+    exlimit: count, // Limit extract results by count.
+    explaintext: '', // Strip HTML.
+
+    // https://www.mediawiki.org/wiki/Extension:PageImages
+    pilicense: 'any', // Include non-free images.
+    pilimit: count, // Limit thumbnail results by count.
+    piprop: 'thumbnail', // Include URL and dimensions of thumbnail.
+    pithumbsize: 120, // Limit thumbnail dimensions.
+
+    // https://en.wikipedia.org/w/api.php?action=help&modules=query%2Bpageterms
+    wbptterms: 'description'
   };
 };
 
@@ -1968,8 +2009,8 @@ var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, is
  * @param {!number} count
  * @param {!string} containerID
  * @param {?string} baseURL
- * @param {SaveButtonClickHandler} saveButtonClickHandler
- * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
  * @return {void}
  */
@@ -1999,6 +2040,239 @@ var FooterReadMore = {
     safelyRemoveEnclosures: safelyRemoveEnclosures
   }
 };
+
+/** Function rate limiter. */
+var Throttle = function () {
+  createClass(Throttle, null, [{
+    key: "wrap",
+
+    /**
+     * Wraps a function in a Throttle.
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     * @return {!function} A function wrapped in a Throttle.
+     */
+    value: function wrap(window, period, funktion) {
+      var throttle = new Throttle(window, period, funktion);
+      var throttled = function Throttled() {
+        return throttle.queue(this, arguments);
+      };
+      throttled.result = function () {
+        return throttle.result;
+      };
+      throttled.pending = function () {
+        return throttle.pending();
+      };
+      throttled.delay = function () {
+        return throttle.delay();
+      };
+      throttled.cancel = function () {
+        return throttle.cancel();
+      };
+      throttled.reset = function () {
+        return throttle.reset();
+      };
+      return throttled;
+    }
+
+    /**
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     */
+
+  }]);
+
+  function Throttle(window, period, funktion) {
+    classCallCheck(this, Throttle);
+
+    this._window = window;
+    this._period = period;
+    this._function = funktion;
+
+    // The upcoming invocation's context and arguments.
+    this._context = undefined;
+    this._arguments = undefined;
+
+    // The previous invocation's result, timeout identifier, and last run timestamp.
+    this._result = undefined;
+    this._timeout = 0;
+    this._timestamp = 0;
+  }
+
+  /**
+   * The return value of the initial run is always undefined. The return value of subsequent runs is
+   * always a previous result. The context and args used by a future invocation are always the most
+   * recently supplied. Invocations, even if immediately eligible, are dispatched.
+   * @param {?any} context
+   * @param {?any} args The arguments passed to the underlying function.
+   * @return {?any} The cached return value of the underlying function.
+   */
+
+
+  createClass(Throttle, [{
+    key: "queue",
+    value: function queue(context, args) {
+      var _this = this;
+
+      // Always update the this and arguments to the latest supplied.
+      this._context = context;
+      this._arguments = args;
+
+      if (!this.pending()) {
+        // Queue a new invocation.
+        this._timeout = this._window.setTimeout(function () {
+          _this._timeout = 0;
+          _this._timestamp = Date.now();
+          _this._result = _this._function.apply(_this._context, _this._arguments);
+        }, this.delay());
+      }
+
+      // Always return the previous result.
+      return this.result;
+    }
+
+    /** @return {?any} The cached return value of the underlying function. */
+
+  }, {
+    key: "pending",
+
+
+    /** @return {!boolean} true if an invocation is queued. */
+    value: function pending() {
+      return Boolean(this._timeout);
+    }
+
+    /**
+     * @return {!number} The nonnegative number of milliseconds until an invocation is eligible to
+     *                   run.
+     */
+
+  }, {
+    key: "delay",
+    value: function delay() {
+      if (!this._timestamp) {
+        return 0;
+      }
+      return Math.max(0, this._period - (Date.now() - this._timestamp));
+    }
+
+    /**
+     * Clears any pending invocation but doesn't clear time last invoked or prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      if (this._timeout) {
+        this._window.clearTimeout(this._timeout);
+      }
+      this._timeout = 0;
+    }
+
+    /**
+     * Clears any pending invocation, time last invoked, and prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.cancel();
+      this._result = undefined;
+      this._timestamp = 0;
+    }
+  }, {
+    key: "result",
+    get: function get$$1() {
+      return this._result;
+    }
+  }]);
+  return Throttle;
+}();
+
+var RESIZE_EVENT_TYPE = 'resize';
+var RESIZE_LISTENER_THROTTLE_PERIOD_MILLISECONDS = 100;
+
+var ID_CONTAINER = 'pagelib_footer_container';
+var ID_LEGAL_CONTAINER = 'pagelib_footer_container_legal';
+
+var ID_READ_MORE_CONTAINER = 'pagelib_footer_container_readmore_pages';
+var ID_READ_MORE_HEADER = 'pagelib_footer_container_readmore_heading';
+
+/** */
+
+var _class = function () {
+  /** */
+  function _class() {
+    classCallCheck(this, _class);
+
+    this._resizeListener = undefined;
+  }
+
+  /**
+   * @param {!Window} window
+   * @param {!Element} container
+   * @param {!string} baseURL
+   * @param {!string} title
+   * @param {!string} readMoreHeader
+   * @param {!number} readMoreLimit
+   * @param {!string} license
+   * @param {!string} licenseSubstitutionString
+   * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+   * @param {!TitlesShownHandler} titlesShownHandler
+   * @param {!SaveButtonClickHandler} saveButtonClickHandler
+   * @return {void}
+   */
+
+
+  createClass(_class, [{
+    key: 'add',
+    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
+      this.remove(window);
+      container.appendChild(FooterContainer.containerFragment(window.document));
+
+      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler);
+
+      FooterReadMore.setHeading(readMoreHeader, ID_READ_MORE_HEADER, window.document);
+      FooterReadMore.add(title, readMoreLimit, ID_READ_MORE_CONTAINER, baseURL, saveButtonClickHandler, function (titles) {
+        FooterContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);
+        titlesShownHandler(titles);
+      }, window.document);
+
+      this._resizeListener = Throttle.wrap(window, RESIZE_LISTENER_THROTTLE_PERIOD_MILLISECONDS, function () {
+        return FooterContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);
+      });
+      window.addEventListener(RESIZE_EVENT_TYPE, this._resizeListener);
+    }
+
+    /**
+     * @param {!Window} window
+     * @return {void}
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(window) {
+      if (this._resizeListener) {
+        window.removeEventListener(RESIZE_EVENT_TYPE, this._resizeListener);
+        this._resizeListener.cancel();
+        this._resizeListener = undefined;
+      }
+
+      var footer = window.document.getElementById(ID_CONTAINER);
+      if (footer) {
+        // todo: support recycling.
+        footer.parentNode.removeChild(footer);
+      }
+    }
+  }]);
+  return _class;
+}();
 
 // CSS classes used to identify and present lazily loaded images. Placeholders are members of
 // PLACEHOLDER_CLASS and one state class: pending, loading, or error. Images are members of either
@@ -2172,160 +2446,6 @@ var LazyLoadTransform = {
   loadPlaceholder: loadPlaceholder
 };
 
-/** Function rate limiter. */
-var Throttle = function () {
-  createClass(Throttle, null, [{
-    key: "wrap",
-
-    /**
-     * Wraps a function in a Throttle.
-     * @param {!Window} window
-     * @param {!number} period The nonnegative minimum number of milliseconds between function
-     *                         invocations.
-     * @param {!function} funktion The function to invoke when not throttled.
-     * @return {!function} A function wrapped in a Throttle.
-     */
-    value: function wrap(window, period, funktion) {
-      var throttle = new Throttle(window, period, funktion);
-      var throttled = function Throttled() {
-        return throttle.queue(this, arguments);
-      };
-      throttled.result = function () {
-        return throttle.result;
-      };
-      throttled.pending = function () {
-        return throttle.pending();
-      };
-      throttled.delay = function () {
-        return throttle.delay();
-      };
-      throttled.cancel = function () {
-        return throttle.cancel();
-      };
-      throttled.reset = function () {
-        return throttle.reset();
-      };
-      return throttled;
-    }
-
-    /**
-     * @param {!Window} window
-     * @param {!number} period The nonnegative minimum number of milliseconds between function
-     *                         invocations.
-     * @param {!function} funktion The function to invoke when not throttled.
-     */
-
-  }]);
-
-  function Throttle(window, period, funktion) {
-    classCallCheck(this, Throttle);
-
-    this._window = window;
-    this._period = period;
-    this._function = funktion;
-
-    // The upcoming invocation's context and arguments.
-    this._context = undefined;
-    this._arguments = undefined;
-
-    // The previous invocation's result, timeout identifier, and last run timestamp.
-    this._result = undefined;
-    this._timeout = 0;
-    this._timestamp = 0;
-  }
-
-  /**
-   * The return value of the initial run is always undefined. The return value of subsequent runs is
-   * always a previous result. The context and args used by a future invocation are always the most
-   * recently supplied. Invocations, even if immediately eligible, are dispatched.
-   * @param {?any} context
-   * @param {?any} args The arguments passed to the underlying function.
-   * @return {?any} The cached return value of the underlying function.
-   */
-
-
-  createClass(Throttle, [{
-    key: "queue",
-    value: function queue(context, args) {
-      var _this = this;
-
-      // Always update the this and arguments to the latest supplied.
-      this._context = context;
-      this._arguments = args;
-
-      if (!this.pending()) {
-        // Queue a new invocation.
-        this._timeout = this._window.setTimeout(function () {
-          _this._timeout = 0;
-          _this._timestamp = Date.now();
-          _this._result = _this._function.apply(_this._context, _this._arguments);
-        }, this.delay());
-      }
-
-      // Always return the previous result.
-      return this.result;
-    }
-
-    /** @return {?any} The cached return value of the underlying function. */
-
-  }, {
-    key: "pending",
-
-
-    /** @return {!boolean} true if an invocation is queued. */
-    value: function pending() {
-      return Boolean(this._timeout);
-    }
-
-    /**
-     * @return {!number} The nonnegative number of milliseconds until an invocation is eligible to
-     *                   run.
-     */
-
-  }, {
-    key: "delay",
-    value: function delay() {
-      if (!this._timestamp) {
-        return 0;
-      }
-      return Math.max(0, this._period - (Date.now() - this._timestamp));
-    }
-
-    /**
-     * Clears any pending invocation but doesn't clear time last invoked or prior result.
-     * @return {void}
-     */
-
-  }, {
-    key: "cancel",
-    value: function cancel() {
-      if (this._timeout) {
-        this._window.clearTimeout(this._timeout);
-      }
-      this._timeout = 0;
-    }
-
-    /**
-     * Clears any pending invocation, time last invoked, and prior result.
-     * @return {void}
-     */
-
-  }, {
-    key: "reset",
-    value: function reset() {
-      this.cancel();
-      this._result = undefined;
-      this._timestamp = 0;
-    }
-  }, {
-    key: "result",
-    get: function get$$1() {
-      return this._result;
-    }
-  }]);
-  return Throttle;
-}();
-
 var EVENT_TYPES = ['scroll', 'resize', CollapseTable.SECTION_TOGGLED_EVENT_TYPE];
 var THROTTLE_PERIOD_MILLISECONDS = 100;
 
@@ -2335,7 +2455,7 @@ var THROTTLE_PERIOD_MILLISECONDS = 100;
  * standard browser events: resize, scroll.
  */
 
-var _class = function () {
+var _class$1 = function () {
   /**
    * @param {!Window} window
    * @param {!number} loadDistanceMultiplier Images within this multiple of the screen height are
@@ -2403,6 +2523,7 @@ var _class = function () {
       EVENT_TYPES.forEach(function (eventType) {
         return _this2._window.removeEventListener(eventType, _this2._throttledLoadPlaceholders);
       });
+      this._throttledLoadPlaceholders.reset();
 
       this._placeholders = [];
       this._registered = false;
@@ -2742,8 +2863,9 @@ var pagelib$1 = {
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
   FooterReadMore: FooterReadMore,
+  FooterTransformer: _class,
   LazyLoadTransform: LazyLoadTransform,
-  LazyLoadTransformer: _class,
+  LazyLoadTransformer: _class$1,
   PlatformTransform: PlatformTransform,
   // todo: rename RedLinkTransform.
   RedLinks: RedLinks,
@@ -2767,4 +2889,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
