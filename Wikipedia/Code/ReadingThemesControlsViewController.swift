@@ -26,6 +26,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     @IBOutlet weak var imageDimmingSwitch: ProminentSwitch!
     
+    
     @IBOutlet var separatorViews: [UIView]!
     
     @IBOutlet var textSizeSliderViews: [UIView]!
@@ -141,7 +142,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        updateThemeButtons(with: currentTheme)
+        apply(theme: currentTheme)
     }
     
     public var analyticsContext: String {
@@ -150,28 +151,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     public var analyticsContentType: String {
         return "Article"
-    }
-    
-    func updateThemeButtons(with theme: Theme) {
-        removeBorderFrom(lightThemeButton)
-        removeBorderFrom(darkThemeButton)
-        removeBorderFrom(sepiaThemeButton)
-        imageDimmingSwitch.isEnabled = false
-        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
-        switch theme.name {
-        case Theme.sepia.name:
-            applyBorder(to: sepiaThemeButton)
-        case Theme.light.name:
-            applyBorder(to: lightThemeButton)
-        case Theme.darkDimmed.name:
-            fallthrough
-        case Theme.dark.name:
-            imageDimmingSwitch.isEnabled = true
-            applyBorder(to: darkThemeButton)
-        default:
-            break
-        }
-        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
     }
     
     func screenBrightnessChangedInApp(notification: Notification){
@@ -191,8 +170,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
-        updateThemeButtons(with: theme)
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(theme.displayName))
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
@@ -226,14 +205,25 @@ extension ReadingThemesControlsViewController: Themeable {
             label.textColor = theme.colors.primaryText
         }
         
-        let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
-        for button in buttons {
-            guard let button = button else {
-                continue
-            }
-            button.borderColor = button.isEnabled ? theme.colors.border : theme.colors.link
+        removeBorderFrom(lightThemeButton)
+        removeBorderFrom(darkThemeButton)
+        removeBorderFrom(sepiaThemeButton)
+        imageDimmingSwitch.isEnabled = false
+        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
+        switch theme.name {
+        case Theme.sepia.name:
+            applyBorder(to: sepiaThemeButton)
+        case Theme.light.name:
+            applyBorder(to: lightThemeButton)
+        case Theme.darkDimmed.name:
+            fallthrough
+        case Theme.dark.name:
+            imageDimmingSwitch.isEnabled = true
+            applyBorder(to: darkThemeButton)
+        default:
+            break
         }
-
+        imageDimmingLabel.textColor = imageDimmingSwitch.isEnabled ? theme.colors.primaryText : theme.colors.disabledText
 
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
