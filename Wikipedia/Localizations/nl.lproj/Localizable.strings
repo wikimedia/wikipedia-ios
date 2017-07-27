@@ -133,6 +133,7 @@
 "explore-random-article-heading" = "Willekeurige pagina";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
+// Fuzzy
 "feed-news-notification-text" = "U kunt nu meldingen ontvangen over Wikipedia-pagina's die nu in het nieuws zijn.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
@@ -241,7 +242,6 @@
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1k";
 "on-this-day-detail-header-date-range" = "Tussen $1 en $2";
-"on-this-day-detail-header-day" = "op $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
 "on-this-day-title" = "Op deze dag";

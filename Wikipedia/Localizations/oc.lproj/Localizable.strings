@@ -78,6 +78,7 @@
 "explore-random-article-heading" = "Article a l'azard";
 "explore-randomizer" = "Article a l'azard";
 "feed-news-notification-button-text" = "Activar las notificacions";
+// Fuzzy
 "feed-news-notification-text" = "Podètz ara recebre de notificacions a prepaus dels articles Wikipèdia dins la tendéncia de l'actualitat.";
 "find-in-page-button-label" = "Trobar dins la pagina";
 "forgot-password-button-title" = "Reïnicializar";

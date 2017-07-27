@@ -23,6 +23,7 @@
 "action-saved" = "ಒರಿಪಾಂಡ್";
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
+"announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-about-title" = "ಈ ಲೇಕನೋತ ಬಗ್ಗೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
@@ -127,7 +128,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "ನೆತ್ತ್ $1 - $2";
-"on-this-day-detail-header-day" = "ನೆತ್ತಾನಿ $1";
 "on-this-day-title" = "ಇ ದಿನೋ";
 "onboarding-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "open-link-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";

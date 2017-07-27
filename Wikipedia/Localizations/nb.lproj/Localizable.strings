@@ -119,6 +119,7 @@
 "explore-random-article-heading" = "Tilfeldig artikkel";
 "explore-randomizer" = "Tilfeldighetsgenerator";
 "feed-news-notification-button-text" = "Slå på notifikasjoner";
+// Fuzzy
 "feed-news-notification-text" = "Du kan nå motta notifikasjoner om Wikipedia artikler som er populære i nyhetene.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";

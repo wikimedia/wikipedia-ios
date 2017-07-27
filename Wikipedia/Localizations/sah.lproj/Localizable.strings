@@ -119,6 +119,7 @@
 "explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
 "explore-randomizer" = "Рандомизатор";
 "feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
+// Fuzzy
 "feed-news-notification-text" = "Ыстатыйа туһунан биллэрии Бикипиэдьийэ сонуннарыгар кэлиэн сөп.";
 "field-alert-captcha-invalid" = "Сыыһа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Аһарыктарыҥ сөп түбэспэтилэр";

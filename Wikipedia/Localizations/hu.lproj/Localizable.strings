@@ -123,6 +123,7 @@
 "explore-random-article-heading" = "Lap találomra";
 "explore-randomizer" = "Randomizáló";
 "feed-news-notification-button-text" = "Értesítések bekapcsolása";
+// Fuzzy
 "feed-news-notification-text" = "Most már értesítve leszel a felkapott Wikipédia cikkekről.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";

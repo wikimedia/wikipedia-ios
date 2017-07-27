@@ -75,6 +75,7 @@
 "article-languages-yours" = "您的语言";
 "article-read-more-title" = "阅读更多";
 "article-share" = "分享";
+"article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "back" = "返回";
@@ -133,7 +134,7 @@
 "explore-random-article-heading" = "随机条目";
 "explore-randomizer" = "随机产生条目器";
 "feed-news-notification-button-text" = "打开通知";
-"feed-news-notification-text" = "您现在可以接收到有关维基百科条目趋势新闻的通知。";
+"feed-news-notification-text" = "当条目在新闻中热门时，启用维基百科通知。";
 "field-alert-captcha-invalid" = "无效验证码";
 "field-alert-password-confirm-mismatch" = "密码不匹配";
 "field-alert-password-invalid" = "无效密码";
@@ -190,7 +191,7 @@
 "home-nearby-location-footer" = "更多在$1附近";
 "home-news-footer" = "更多新闻";
 "home-themes-action-title" = "管理参数设置";
-"home-themes-prompt" = "在夜间通过新版夜间和棕黑阅读主题，以黑色背景阅读，或是限制您设备的蓝色光线。从条目工具栏或在您的用户设置中调整您的阅读参数设置（包括文本大小及主题）即可。";
+"home-themes-prompt" = "从条目工具栏或在您的用户设置中，调整您的阅读参数设置以获取更舒适的阅读体验，这包括文字大小及主题。";
 "home-title" = "探索";
 "home-title-accessibility-label" = "维基百科，滚动到探索顶部";
 "icon-shortcut-continue-reading-title" = "继续阅读";
@@ -243,7 +244,6 @@
 "number-millions" = "$1百万";
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "从$1到$2";
-"on-this-day-detail-header-day" = "于$1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1个历史事件}}";
 "on-this-day-footer" = "这一天的更多历史事件";
 "on-this-day-title" = "历史上的今天";
@@ -301,6 +301,12 @@
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
 "rank-accessibility-label" = "第$1";
 "readers-accessibility-label" = "$1位读者";
+"reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
+"reading-themes-controls-accessibility-dark-theme-button" = "夜间主题";
+"reading-themes-controls-accessibility-dim-images-switch" = "使图片变暗";
+"reading-themes-controls-accessibility-light-theme-button" = "白天主题";
+"reading-themes-controls-accessibility-sepia-theme-button" = "棕黑主题";
+"reading-themes-controls-accessibility-text-size-slider" = "文字大小滑块";
 "reference-title" = "参考文献$1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|昨天|$1天前}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
