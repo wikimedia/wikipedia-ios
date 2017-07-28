@@ -92,6 +92,24 @@ platform :ios do
   
   desc "Runs unit tests, generates JUnit report."
   lane :record_visual_tests do |options|
+    record_visual_tests_for_sim(
+     sim: 'iPhone 6s (9.3)',
+     scheme: "WikipediaRTL"
+    )
+    record_visual_tests_for_sim(
+     sim: 'iPhone 6s (9.3)'
+    )
+    record_visual_tests_for_sim(
+     sim: 'iPhone 6s (10.3)',
+     scheme: "WikipediaRTL"
+    )
+    record_visual_tests_for_sim(
+     sim: 'iPhone 6s (10.3)',
+    )
+  end
+  
+  desc "Runs unit tests, generates JUnit report."
+  lane :record_visual_tests_for_sim do |options|
     scheme = options[:scheme] || 'Record Visual Tests'
     sim = options[:sim] || 'iPhone 6s (10.3)'
     opts = {
