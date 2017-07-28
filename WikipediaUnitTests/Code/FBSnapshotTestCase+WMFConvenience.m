@@ -2,6 +2,13 @@
 #import "XCTestCase+WMFVisualTestConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
 
+
+#if WMF_VISUAL_TEST_RECORD_MODE
+const BOOL WMFIsVisualTestRecordModeEnabled = YES;
+#else
+const BOOL WMFIsVisualTestRecordModeEnabled = NO;
+#endif
+
 @implementation FBSnapshotTestCase (WMFConvenience)
 
 - (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {

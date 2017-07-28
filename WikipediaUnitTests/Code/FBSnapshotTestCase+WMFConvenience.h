@@ -1,6 +1,8 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "UIApplication+VisualTestUtils.h"
 
+extern const BOOL WMFIsVisualTestRecordModeEnabled;
+
 /**
  *  @function WMFSnapshotVerifyView
  *
