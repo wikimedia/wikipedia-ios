@@ -5,11 +5,25 @@ $:.unshift File.dirname(__FILE__)
 
 default_platform :ios
 
+configurations_to_test_on_pull = [
+  {sim: 'iPhone 6s (10.3)'},
+  {sim: 'iPad Air 2 (9.3)'}
+]
+
+configurations_to_test = configurations_to_test_on_pull + [
+  {sim: 'iPhone 6s (10.3)', scheme: "WikipediaRTL"},
+  {sim: 'iPhone 6s (9.3)', scheme: "WikipediaRTL" },
+  {sim: 'iPhone 6s (9.3)'},
+  {sim: 'iPhone 6s (10.3)', scheme: "WikipediaRTL"}
+]
+
+beta_cluster_configurations_to_test = [configurations_to_test_on_pull.first]
+
 platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
-     ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
+     #ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
   end
 
   desc "Checks out the sha specified in the environment variables or the develop branch"
@@ -36,38 +50,23 @@ platform :ios do
 
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
-    verify(
-     sim: 'iPhone 6s (9.3)',
-     scheme: "WikipediaRTL"
-    )
-    verify(
-     sim: 'iPhone 6s (9.3)'
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-     scheme: "WikipediaRTL"
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-    )
+    configurations_to_test.each do |config|
+      verify(config)
+    end
   end
   
   desc "Runs tests against the beta cluster to check for upstream changes."
   lane :beta_cluster_tests do
-    verify(
-     sim: 'iPhone 6s (10.3)',
-     scheme: "Beta Cluster Tests"
-    )
+    beta_cluster_configurations_to_test.each do |config|
+      verify(config)
+    end
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
-    verify(
-     sim: 'iPad Air 2 (9.3)',
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-    )
+    configurations_to_test_on_pull.each do |config|
+      verify(config)
+    end
   end
 
   desc "Runs unit tests, generates JUnit report."
@@ -92,40 +91,32 @@ platform :ios do
   
   desc "Runs unit tests, generates JUnit report."
   lane :record_visual_tests do |options|
-    record_visual_tests_for_sim(
-     sim: 'iPhone 6s (9.3)',
-     scheme: "WikipediaRTL"
-    )
-    record_visual_tests_for_sim(
-     sim: 'iPhone 6s (9.3)'
-    )
-    record_visual_tests_for_sim(
-     sim: 'iPhone 6s (10.3)',
-     scheme: "WikipediaRTL"
-    )
-    record_visual_tests_for_sim(
-     sim: 'iPhone 6s (10.3)',
-    )
+    sims = configurations_to_test.map { |s| s[:sim] }.uniq.compact
+    sims.each do |sim|
+      record_visual_tests_for_sim({sim: sim})
+    end
   end
   
   desc "Runs unit tests, generates JUnit report."
   lane :record_visual_tests_for_sim do |options|
-    scheme = options[:scheme] || 'Record Visual Tests'
-    sim = options[:sim] || 'iPhone 6s (10.3)'
-    opts = {
-      :device => sim,
-      :sdk => "iphonesimulator",
-      :scheme =>  scheme,
-      :project => 'Wikipedia.xcodeproj',
-      :buildlog_path => './build',
-      :output_directory => './build/reports',
-      :output_style => 'basic',
-      :code_coverage => true,
-      :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
-    }
-    opts[:output_files] = "#{scheme} #{sim}.junit"
-    opts[:output_types] = 'junit'
-    scan(opts)
+    schemes = ['Record Visual Tests', 'Record RTL Visual Tests']
+    schemes.each do |scheme|
+      sim = options[:sim] || 'iPhone 6s (10.3)'
+      opts = {
+        :device => sim,
+        :sdk => "iphonesimulator",
+        :scheme =>  scheme,
+        :project => 'Wikipedia.xcodeproj',
+        :buildlog_path => './build',
+        :output_directory => './build/reports',
+        :output_style => 'basic',
+        :code_coverage => true,
+        :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
+      }
+      opts[:output_files] = "#{scheme} #{sim}.junit"
+      opts[:output_types] = 'junit'
+      scan(opts)
+    end
   end
   
   desc "Increment the build number"
