@@ -90,6 +90,26 @@ platform :ios do
     scan(opts)
   end
   
+  desc "Runs unit tests, generates JUnit report."
+  lane :record_visual_tests do |options|
+    scheme = options[:scheme] || 'Record Visual Tests'
+    sim = options[:sim] || 'iPhone 6s (10.3)'
+    opts = {
+      :device => sim,
+      :sdk => "iphonesimulator",
+      :scheme =>  scheme,
+      :project => 'Wikipedia.xcodeproj',
+      :buildlog_path => './build',
+      :output_directory => './build/reports',
+      :output_style => 'basic',
+      :code_coverage => true,
+      :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
+    }
+    opts[:output_files] = "#{scheme} #{sim}.junit"
+    opts[:output_types] = 'junit'
+    scan(opts)
+  end
+  
   desc "Increment the build number"
   lane :bump_build do |options|
     app_identifer = params[:app_identifier] || "org.wikimedia.wikipedia"
