@@ -77,7 +77,7 @@
             [expectation fulfill];
         }
         success:^{
-            WMFSnapshotVerifyView(self.imageView);
+            WMFSnapshotVerifyViewForOSAndWritingDirection(self.imageView);
             [expectation fulfill];
         }];
 

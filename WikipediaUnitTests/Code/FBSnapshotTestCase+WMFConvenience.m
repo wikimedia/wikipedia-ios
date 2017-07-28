@@ -12,7 +12,7 @@ const BOOL WMFIsVisualTestRecordModeEnabled = NO;
 @implementation FBSnapshotTestCase (WMFConvenience)
 
 - (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {
-    WMFSnapshotVerifyView([self wmf_getLabelSizedToFitWidth:width
+    WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getLabelSizedToFitWidth:width
                                         configuredWithBlock:^(UILabel *label) {
                                             if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
                                                 label.text = stringOrAttributedString;
@@ -26,7 +26,7 @@ const BOOL WMFIsVisualTestRecordModeEnabled = NO;
                        fromTableView:(UITableView *)tableView
                                width:(CGFloat)width
                  configuredWithBlock:(void (^)(UITableViewCell *))block {
-    WMFSnapshotVerifyView([self wmf_getCellWithIdentifier:identifier
+    WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getCellWithIdentifier:identifier
                                             fromTableView:tableView
                                           sizedToFitWidth:width
                                       configuredWithBlock:^(UITableViewCell *cell) {
@@ -38,7 +38,7 @@ const BOOL WMFIsVisualTestRecordModeEnabled = NO;
 
 - (void)wmf_verifyView:(UIView *)view width:(CGFloat)width {
     [view wmf_sizeToFitWidth:width];
-    WMFSnapshotVerifyView(view);
+    WMFSnapshotVerifyViewForOSAndWritingDirection(view);
 }
 
 - (void)wmf_verifyViewAtWindowWidth:(UIView *)view {
