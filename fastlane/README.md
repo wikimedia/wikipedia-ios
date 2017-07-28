@@ -65,11 +65,11 @@ Runs unit tests, generates JUnit report.
 fastlane ios record_visual_tests
 ```
 Runs unit tests, generates JUnit report.
-### ios record_visual_tests_for_sim
+### ios record_visual_tests_for_config
 ```
-fastlane ios record_visual_tests_for_sim
+fastlane ios record_visual_tests_for_config
 ```
-Runs unit tests, generates JUnit report.
+Records visual tests.
 ### ios bump_build
 ```
 fastlane ios bump_build
