@@ -86,12 +86,12 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewRowAction *savedAction = [self savedAction:indexPath];
-    savedAction.backgroundColor = self.theme.colors.link;
+    UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
+    unsaveAction.backgroundColor = self.theme.colors.link;
 
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
-    return @[shareAction, savedAction];
+    return @[shareAction, unsaveAction];
 }
 
 - (WMFEmptyViewType)emptyViewType {
