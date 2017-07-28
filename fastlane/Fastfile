@@ -111,7 +111,8 @@ platform :ios do
         :output_directory => './build/reports',
         :output_style => 'basic',
         :code_coverage => true,
-        :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
+        :xcargs => "TRAVIS=#{ENV["TRAVIS"]}",
+        :fail_build => false
       }
       opts[:output_files] = "#{scheme} #{sim}.junit"
       opts[:output_types] = 'junit'
