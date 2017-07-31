@@ -360,10 +360,6 @@
             argument = "-AppleLanguages (he)"
             isEnabled = "YES">
          </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-WMFVisualTestBatchRecordMode NO"
-            isEnabled = "YES">
-         </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
