@@ -205,10 +205,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date inManagedObjectContext:moc];
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
-        NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-        if ([calendar isDateInToday:date]) {
-            [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
-        }
+        [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
 
         if (!completion) {
@@ -279,13 +276,24 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 }
 
-- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    if ([news count] == 0 || date == nil) {
+- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
+
+    // Search for a previously added news group with this date.
+    // Invisible news groups are created when an older news story is loaded.
+    // If the user has now scrolled to this older date, show the older news story.
+    WMFContentGroup *newsGroupForFeedDate = [self newsForDate:feedDate inManagedObjectContext:moc];
+    if (newsGroupForFeedDate) {
+        newsGroupForFeedDate.isVisible = YES;
+        [self addNewsNotificationGroupForNewsGroup:newsGroupForFeedDate inManagedObjectContext:moc];
+    }
+
+    if ([news count] == 0 || feedDate == nil) {
         return;
     }
 
     WMFFeedNewsStory *firstStory = [news firstObject];
     NSDate *midnightMonthAndDay = firstStory.midnightUTCMonthAndDay;
+    NSDate *date = feedDate;
     if (midnightMonthAndDay && date) {
         // This logic assumes we won't be loading something more than 30 days old
         NSCalendar *utcCalendar = NSCalendar.wmf_utcGregorianCalendar;
@@ -300,6 +308,14 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         components.day = storyComponents.day;
         components.month = storyComponents.month;
         date = [localCalendar dateFromComponents:components];
+    }
+
+    // Check that the news story date matches the feed date being requested
+    // If the dates don't match, add the section but make it invisible.
+    BOOL isVisible = YES;
+    NSDate *feedMidnightUTCDate = [feedDate wmf_midnightUTCDateFromLocalDate];
+    if (date && feedMidnightUTCDate && ![[date wmf_midnightUTCDateFromLocalDate] isEqualToDate:feedMidnightUTCDate]) {
+        isVisible = NO;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -334,9 +350,13 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     } else {
         newsGroup.content = news;
     }
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    newsGroup.isVisible = isVisible;
+    [self addNewsNotificationGroupForNewsGroup:newsGroup inManagedObjectContext:moc];
+}
 
-    if (newsGroup && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+- (void)addNewsNotificationGroupForNewsGroup:(WMFContentGroup *)newsGroup inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         NSURL *URL = [WMFContentGroup notificationContentGroupURL];
         [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
