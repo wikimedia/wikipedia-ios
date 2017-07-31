@@ -180,15 +180,14 @@
 "home-nearby-location-footer" = "Liyané ing cedhak $1";
 "home-news-footer" = "Liyané sing dadi pawarta";
 "home-themes-action-title" = "Kemunah pilalan";
-// Fuzzy
-"home-themes-prompt" = "Waca ing petengan utawa watesi kenané sunar biru nalika awan kanthi nganggo cakrik wacan Peteng lan Sèpia sing anyar. Setèl pilihan wacané panjenengan (kalebu ukurané tèks lan cakrik) saka wilah piranti artikel utawa ing setèlan panganggoné panjenengan.";
+"home-themes-prompt" = "Setèl pilihan wacané panjenengan kalebu ukurané tèks lan cakriké saka wilah piranti artikel utawa ing setèlan panganggoné panjenengan saperlu luwih nyaman anggoné panjenengan maca.";
 "home-title" = "Dlajah";
 "home-title-accessibility-label" = "Wikipedia, gulung menyang ndhuwur Langkawi";
 "icon-shortcut-continue-reading-title" = "Terus maca";
 "icon-shortcut-nearby-title" = "Artikel cedhak kéné";
 "icon-shortcut-random-title" = "Artikel sembarang";
 "icon-shortcut-search-title" = "Golèk ing Wikipédia";
-"image-gallery-unknown-owner" = "Penulis dingerteni";
+"image-gallery-unknown-owner" = "Kang nganggit ora kaweruhan.";
 "in-the-news-currently-trending" = "Lagi mumbul";
 "in-the-news-notification-read-now-action-title" = "Waca Saiki";
 "in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
