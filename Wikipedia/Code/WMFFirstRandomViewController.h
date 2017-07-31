@@ -1,11 +1,12 @@
 @import UIKit;
+@import WMF.Swift;
 @class MWKDataStore;
 
 //This VC is a placeholder to load the first random article
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFFirstRandomViewController : UIViewController
+@interface WMFFirstRandomViewController : UIViewController <WMFThemeable>
 
 @property (nonatomic, strong, nonnull) NSURL *siteURL;
 @property (nonatomic, strong, nonnull) MWKDataStore *dataStore;
