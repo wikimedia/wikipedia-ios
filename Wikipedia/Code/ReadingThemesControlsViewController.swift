@@ -63,6 +63,14 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
         imageDimmingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dim-images-switch", value: "Dim images", comment: "Accessibility label for the dim images switch in the Reading Themes Controls popover")
         
+        lightThemeButton.backgroundColor = Theme.light.colors.paperBackground
+        sepiaThemeButton.backgroundColor = Theme.sepia.colors.paperBackground
+        darkThemeButton.backgroundColor = Theme.dark.colors.paperBackground
+        
+        lightThemeButton.setTitleColor(Theme.light.colors.primaryText, for: .normal)
+        sepiaThemeButton.setTitleColor(Theme.sepia.colors.primaryText, for: .normal)
+        darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
+        
         for slideView in textSizeSliderViews {
             slideView.isAccessibilityElement = true
             slideView.accessibilityTraits = UIAccessibilityTraitAdjustable

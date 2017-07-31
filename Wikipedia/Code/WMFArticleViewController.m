@@ -203,6 +203,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
         } else {
@@ -1303,7 +1304,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
-    
+
     self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
 }
 
@@ -1889,7 +1890,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
-    self.headerImageView.backgroundColor = theme.colors.paperBackground;
+    if (self.headerImageView.image == nil) {
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
+    }
     self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];
     [self.readingThemesViewController applyTheme:theme];
