@@ -1142,6 +1142,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
+    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:animated];
 }
 
@@ -1518,7 +1519,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         self.searchViewController = searchVC;
     }
     [self dismissReadingThemesPopoverIfActive];
-    
+
     [self presentViewController:self.searchViewController animated:animated completion:nil];
 }
 
@@ -1571,6 +1572,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
+    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif
