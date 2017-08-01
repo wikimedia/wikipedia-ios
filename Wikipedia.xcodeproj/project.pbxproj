@@ -546,6 +546,11 @@
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
+		BA7683C61F30D87D00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
+		BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
+		BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
+		BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
 		BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */; };
 		BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
 		BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */; };
@@ -3857,6 +3862,7 @@
 		B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
 		BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDimmingExampleViewController.swift; sourceTree = "<group>"; };
 		BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDimmingExampleViewController.xib; sourceTree = "<group>"; };
+		BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProminentSwitch.swift; sourceTree = "<group>"; };
 		BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareActivityController.swift; sourceTree = "<group>"; };
 		BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppearanceSettingsViewController.xib; sourceTree = "<group>"; };
@@ -7436,6 +7442,7 @@
 			children = (
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
 				D82E954B1F15397D007BD960 /* ThemeableTextField.swift */,
+				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D82E95001F0FD2DA007BD960 /* Table View Cells */,
 				D83F5C061F0E511C006130FF /* Collection View Cells */,
@@ -9670,6 +9677,7 @@
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0F7CB581C8A89EA00996DE0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
+				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
 				D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				B0267CF31E32A0CB006B6D8D /* WMFPasswordResetter.swift in Sources */,
@@ -10006,6 +10014,7 @@
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D80ED2F41EE57F4800CE8C50 /* UIViewController+WMFEmptyView.m in Sources */,
 				D80ED2F51EE57F4800CE8C50 /* WMFArticlePreviewDataSource.m in Sources */,
+				BA7683C61F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D80ED2F61EE57F4800CE8C50 /* WMFCVLInfo.m in Sources */,
 				D80ED2F71EE57F4800CE8C50 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D80ED2FA1EE57F4800CE8C50 /* WMFArticleListTableViewController.m in Sources */,
@@ -10698,6 +10707,7 @@
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
+				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
 				D82E952B1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
@@ -10975,6 +10985,7 @@
 				D8CE25941E698E2400DAE2E0 /* WMFExploreSectionHeader.m in Sources */,
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
+				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				D8CE25971E698E2400DAE2E0 /* WMFPageIssuesViewController.m in Sources */,
 				D8CE25981E698E2400DAE2E0 /* WMFCVLInvalidationContext.m in Sources */,
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
@@ -11249,6 +11260,7 @@
 				D82E95101F0FE473007BD960 /* ArticleListTableViewCell.swift in Sources */,
 				D8EC3E501E9BDA35006712EB /* WMFSearchResultsTableViewController.m in Sources */,
 				D87721FF1EC0DCA30005E634 /* SaveButton.swift in Sources */,
+				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
 				D8EC3E511E9BDA35006712EB /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,

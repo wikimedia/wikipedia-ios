@@ -167,7 +167,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
         userDidSelect(theme: Theme.darkDimmed)
-        //withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled)
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = true
     }
 }
 
