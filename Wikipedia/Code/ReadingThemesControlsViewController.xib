@@ -13,8 +13,6 @@
             <connections>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
-                <outlet property="imageDimmingLabel" destination="gUU-a2-QwO" id="vxW-ss-dl7"/>
-                <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
                 <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="29j-20-f8V"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
@@ -26,8 +24,6 @@
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
                 <outletCollection property="separatorViews" destination="XEj-MD-7hS" collectionClass="NSMutableArray" id="wMe-lS-9ae"/>
                 <outletCollection property="separatorViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="cr4-7k-sen"/>
-                <outletCollection property="textLabels" destination="gUU-a2-QwO" collectionClass="NSMutableArray" id="uyV-7V-rCC"/>
-                <outletCollection property="separatorViews" destination="s1w-Qo-awL" collectionClass="NSMutableArray" id="LMo-j3-60h"/>
                 <outletCollection property="textSizeSliderViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="sj5-O6-6fO"/>
                 <outletCollection property="textSizeSliderViews" destination="vzF-dw-OTG" collectionClass="NSMutableArray" id="Idy-T2-2cy"/>
                 <outletCollection property="textSizeSliderViews" destination="wIV-PE-rcx" collectionClass="NSMutableArray" id="FYN-nL-R8f"/>
@@ -42,7 +38,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="287"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="240"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
                                     <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
@@ -238,44 +234,6 @@
                                         <constraint firstAttribute="height" priority="999" constant="84" id="PIk-nL-WTB"/>
                                         <constraint firstItem="56n-xZ-69v" firstAttribute="leading" secondItem="ick-Zb-dz8" secondAttribute="leading" constant="17" id="PN9-zE-XJA"/>
                                         <constraint firstAttribute="trailing" secondItem="56n-xZ-69v" secondAttribute="trailing" constant="17" id="m0h-MT-JGM"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1w-Qo-awL" userLabel="Separator 4">
-                                    <rect key="frame" x="0.0" y="240" width="290" height="1"/>
-                                    <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="1" id="qQe-m6-dWP"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p79-KV-3Ed">
-                                    <rect key="frame" x="0.0" y="241" width="290" height="44"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dim images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUU-a2-QwO">
-                                            <rect key="frame" x="15" y="12.666666666666657" width="196" height="20.333333333333343"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D23-3R-cK9" customClass="WMFProminentSwitch">
-                                            <rect key="frame" x="226" y="7" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="dimmingSwitchValueChanged:" destination="-1" eventType="valueChanged" id="569-gt-BRU"/>
-                                            </connections>
-                                        </switch>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="D23-3R-cK9" firstAttribute="centerY" secondItem="p79-KV-3Ed" secondAttribute="centerY" id="Kk8-sq-CB2"/>
-                                        <constraint firstAttribute="trailing" secondItem="D23-3R-cK9" secondAttribute="trailing" constant="15" id="Nas-Zf-0JZ"/>
-                                        <constraint firstItem="D23-3R-cK9" firstAttribute="leading" secondItem="gUU-a2-QwO" secondAttribute="trailing" constant="15" id="liL-Kd-wr2"/>
-                                        <constraint firstAttribute="height" priority="999" constant="44" id="xN4-TC-QPz"/>
-                                        <constraint firstItem="gUU-a2-QwO" firstAttribute="leading" secondItem="p79-KV-3Ed" secondAttribute="leading" constant="15" id="xbs-GM-71l"/>
-                                        <constraint firstItem="gUU-a2-QwO" firstAttribute="centerY" secondItem="p79-KV-3Ed" secondAttribute="centerY" id="xgm-Ly-9Zb"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-jq-kQg">
-                                    <rect key="frame" x="0.0" y="285" width="290" height="2"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="2" id="d3c-Mz-kCj"/>
                                     </constraints>
                                 </view>
                             </subviews>
