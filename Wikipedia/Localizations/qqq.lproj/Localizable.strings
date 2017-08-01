@@ -359,7 +359,9 @@
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
-"welcome-explore-features-sub-title" = "Sub-title for exploration welcome screen including explanation of new features.";
+"welcome-explore-features-news-notifications" = "Welcome screen text describing the news notifications feature.";
+"welcome-explore-features-on-this-day" = "Welcome screen text describing the On this day feature. $1 is replaced with the title for On this day.";
+"welcome-explore-features-places" = "Welcome screen text describing the Places feature. $1 is replaced with the title for Places.";
 "welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-languages-add-button" = "Title for button for adding another language";

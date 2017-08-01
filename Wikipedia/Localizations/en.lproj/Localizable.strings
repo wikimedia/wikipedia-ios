@@ -359,7 +359,9 @@
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
 "welcome-explore-continue-button" = "Get started";
-"welcome-explore-features-sub-title" = "Discover landmarks near you or search around the world with the Places tab\n\nTravel back in time with On this day to learn what happened today in history";
+"welcome-explore-features-news-notifications" = "Get news notifications for topics trending in the news";
+"welcome-explore-features-on-this-day" = "Travel back in time with $1 to learn what happened today in history";
+"welcome-explore-features-places" = "Use the $1 tab to discover landmarks near you or search for around the world";
 "welcome-explore-new-ways-title" = "New ways to explore";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-languages-add-button" = "Add another language";
