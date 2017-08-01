@@ -20,6 +20,11 @@ struct AppearanceSettingsSection {
     let items: [AppearanceSettingsItem]
 }
 
+struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
+    let title: String?
+    let viewController: UIViewController
+}
+
 @objc(WMFAppearanceSettingsViewController)
 open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
@@ -55,7 +60,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         return [readingThemesSection, themeOptionsSection]
     }
@@ -79,6 +84,15 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
+        }
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
+            var frame = view.frame
+            frame.size.width = cell.frame.width
+            view.frame = frame
+            view.backgroundColor = theme.colors.baseBackground
+            view.alpha = theme.imageOpacity
+            cell.contentView.addSubview(view)
         }
         
         if item is AppearanceSettingsSwitchItem {
@@ -111,6 +125,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
         PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
+            return tableView.rowHeight
+        }
+        return item.viewController.view.frame.height
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
