@@ -32,18 +32,16 @@ NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion) {
     return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v%lu", (unsigned long)restAPIVersion];
 }
 
-void wmf_postNetworkRequestBeganNotification(NSString *method, NSString *URLString) {
-    
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-    if (method) {
-        userInfo[WMFNetworkRequestBeganNotificationMethodKey] = method;
-    }
-    if (URLString) {
-        userInfo[WMFNetworkRequestBeganNotificationURLStringKey] = URLString;
+void wmf_postNetworkRequestBeganNotification(NSURLRequest *request) {
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+    if (request) {
+        userInfo[WMFNetworkRequestBeganNotificationRequestKey] = request;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNetworkRequestBeganNotification
                                                         object:nil
                                                       userInfo:userInfo];
+#endif
 }
 
 @implementation NSError (WMFFetchFinalStatus)
