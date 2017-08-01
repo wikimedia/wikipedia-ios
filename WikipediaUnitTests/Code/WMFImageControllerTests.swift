@@ -1,6 +1,5 @@
 import UIKit
 import XCTest
-import Nimble
 import Nocilla
 
 class WMFImageControllerTests: XCTestCase {
