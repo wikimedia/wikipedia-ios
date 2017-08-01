@@ -4,12 +4,6 @@
 #import "WMFTestFixtureUtilities.h"
 #import "SessionSingleton.h"
 
-#define HC_SHORTHAND 1
-#define MOCKITO_SHORTHAND 1
-
-#import <OCHamcrest/OCHamcrest.h>
-#import <OCMockito/OCMockito.h>
-
 @interface MWKSectionHasTextDataTests : XCTestCase
 @property SessionSingleton *session;
 @end
@@ -43,7 +37,7 @@
             break;
         }
     }
-    assertThat(@(atLeastOneZeroLengthSection), isTrue());
+    XCTAssert(atLeastOneZeroLengthSection);
 
     // Ensure "[MWKSection hasTextData]" returns YES if section html isn't nil - even if it's a zero length string.
     for (MWKSection *section in article.sections) {
@@ -54,7 +48,7 @@
            if it's empty, otherwise an article having any zero length sections would never appear to
            be cached.
          */
-        assertThat(@([section hasTextData] == (section.text != nil)), isTrue());
+        XCTAssert([section hasTextData] == (section.text != nil));
     }
 }
 
