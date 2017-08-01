@@ -286,7 +286,6 @@
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
-"reading-themes-controls-accessibility-dim-images-switch" = "Accessibility label for the dim images switch in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
