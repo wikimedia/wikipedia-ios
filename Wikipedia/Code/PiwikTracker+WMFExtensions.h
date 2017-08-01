@@ -41,6 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_logActionPushInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType date:(nullable NSDate *)date;
 
+- (void)wmf_logActionSwitchThemeInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
+- (void)wmf_logActionEnableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
+- (void)wmf_logActionDisableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
+- (void)wmf_logActionAdjustBrightnessInContext:(id<WMFAnalyticsContextProviding>)context contentType:(id<WMFAnalyticsContentTypeProviding>)contentType;
+
 @end
 
 NS_ASSUME_NONNULL_END

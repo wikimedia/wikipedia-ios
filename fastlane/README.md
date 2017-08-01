@@ -60,6 +60,16 @@ Runs tests on select platforms for verifying pull requests
 fastlane ios verify
 ```
 Runs unit tests, generates JUnit report.
+### ios record_visual_tests
+```
+fastlane ios record_visual_tests
+```
+Runs unit tests, generates JUnit report.
+### ios record_visual_tests_for_config
+```
+fastlane ios record_visual_tests_for_config
+```
+Records visual tests.
 ### ios bump_build
 ```
 fastlane ios bump_build

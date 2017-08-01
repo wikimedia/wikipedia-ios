@@ -24,7 +24,7 @@ static NSString *const LongSearchResultDescription =
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
     self.searchResultCell = [[WMFArticleListTableViewCell alloc] init];
 }
@@ -33,49 +33,48 @@ static NSString *const LongSearchResultDescription =
     [super tearDown];
 }
 
-#warning re-enable after visual updates are complete
-//- (void)testShouldShowTitleAtTheTopAndDescriptionAtTheBottom {
-//    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-//    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
-//
-//- (void)testShouldCenterShortTitleWhenDescriptionIsEmpty {
-//    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-//    [self.searchResultCell setDescriptionText:nil];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
-//
-//- (void)testShouldTruncateAndShrinkTitle {
-//    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
-//    [self populateTitleLabelWithString:reallyLongString
-//                           searchQuery:nil];
-//    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
-//
-//- (void)testShouldNotShowLongDescriptionWhenTitleExceedsTwoLines {
-//    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
-//    [self populateTitleLabelWithString:reallyLongString
-//                           searchQuery:nil];
-//    [self.searchResultCell setDescriptionText:reallyLongString];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
-//
-//- (void)testShouldShowLongDescriptionWhenTitleIsShort {
-//    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
-//    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-//    [self.searchResultCell setDescriptionText:reallyLongString];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
-//
-//- (void)testShouldHighlightMatchingSubstring {
-//    NSString *mediumTitleSubstring =
-//        [MediumSearchResultTitle substringToIndex:MediumSearchResultTitle.length * 0.3];
-//    [self populateTitleLabelWithString:MediumSearchResultTitle searchQuery:mediumTitleSubstring];
-//    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
-//    [self wmf_verifyView:self.searchResultCell width:320.f];
-//}
+- (void)testShouldShowTitleAtTheTopAndDescriptionAtTheBottom {
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
+
+- (void)testShouldCenterShortTitleWhenDescriptionIsEmpty {
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
+    [self.searchResultCell setDescriptionText:nil];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
+
+- (void)testShouldTruncateAndShrinkTitle {
+    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
+    [self populateTitleLabelWithString:reallyLongString
+                           searchQuery:nil];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
+
+- (void)testShouldNotShowLongDescriptionWhenTitleExceedsTwoLines {
+    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
+    [self populateTitleLabelWithString:reallyLongString
+                           searchQuery:nil];
+    [self.searchResultCell setDescriptionText:reallyLongString];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
+
+- (void)testShouldShowLongDescriptionWhenTitleIsShort {
+    NSString *reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
+    [self.searchResultCell setDescriptionText:reallyLongString];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
+
+- (void)testShouldHighlightMatchingSubstring {
+    NSString *mediumTitleSubstring =
+        [MediumSearchResultTitle substringToIndex:MediumSearchResultTitle.length * 0.3];
+    [self populateTitleLabelWithString:MediumSearchResultTitle searchQuery:mediumTitleSubstring];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
+    [self wmf_verifyView:self.searchResultCell width:320.f];
+}
 
 #pragma mark - Test Utils
 

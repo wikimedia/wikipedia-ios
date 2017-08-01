@@ -6,6 +6,5 @@
 #import "WMFTestFixtureUtilities.h"
 #import "NSProcessInfo+WMFTestEnvironment.h"
 #import "MWKSite+Random.h"
-#import "NSUserDefaults+WMFBatchRecordMode.h"
 
 #endif

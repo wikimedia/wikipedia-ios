@@ -9,37 +9,36 @@
 
 @implementation WMFSettingsCellVisualTests
 
-#warning - re-enable when theme-ing is complete
-//- (void)setUp {
-//    [super setUp];
-//    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
-//    self.deviceAgnostic = YES;
-//    self.cell = [WMFSettingsTableViewCell wmf_viewFromClassNib];
-//    [self configureCell:self.cell];
-//}
-//
-//- (void)configureCell:(WMFSettingsTableViewCell *)cell {
-//    self.cell.iconName = @"settings-faq";
-//    self.cell.iconColor = [UIColor grayColor];
-//    self.cell.disclosureType = WMFSettingsMenuItemDisclosureType_Switch;
-//}
-//
-//- (void)verifyCell:(WMFSettingsTableViewCell *)cell withTitle:(NSString *)title {
-//    self.cell.title = title;
-//    [self.cell wmf_sizeToFitWidth:320];
-//    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
-//}
-//
-//- (void)tearDown {
-//    [super tearDown];
-//}
-//
-//- (void)testShortTitle {
-//    [self verifyCell:self.cell withTitle:@"Should be one line."];
-//}
-//
-//- (void)testLongTitle {
-//    [self verifyCell:self.cell withTitle:@"This should be at least five or six lines of text so we can obviously see that the cell height grows to encompass long translations even though they'll probably never be this long."];
-//}
+- (void)setUp {
+    [super setUp];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
+    self.deviceAgnostic = YES;
+    self.cell = [WMFSettingsTableViewCell wmf_viewFromClassNib];
+    [self configureCell:self.cell];
+}
+
+- (void)configureCell:(WMFSettingsTableViewCell *)cell {
+    self.cell.iconName = @"settings-faq";
+    self.cell.iconColor = [UIColor grayColor];
+    self.cell.disclosureType = WMFSettingsMenuItemDisclosureType_Switch;
+}
+
+- (void)verifyCell:(WMFSettingsTableViewCell *)cell withTitle:(NSString *)title {
+    self.cell.title = title;
+    [self.cell wmf_sizeToFitWidth:320];
+    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
+}
+
+- (void)tearDown {
+    [super tearDown];
+}
+
+- (void)testShortTitle {
+    [self verifyCell:self.cell withTitle:@"Should be one line."];
+}
+
+- (void)testLongTitle {
+    [self verifyCell:self.cell withTitle:@"This should be at least five or six lines of text so we can obviously see that the cell height grows to encompass long translations even though they'll probably never be this long."];
+}
 
 @end

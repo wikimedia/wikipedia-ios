@@ -21,7 +21,7 @@ struct AppearanceSettingsSection {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -110,6 +110,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -149,6 +150,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
     }
     
+    public var analyticsContext: String {
+        return "Settings"
+    }
+    
+    public var analyticsContentType: String {
+        return "Settings"
+    }
+    
     func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
@@ -159,6 +168,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let selector = #selector(applyImageDimmingChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+        if (sender.isOn) {
+            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
+        } else {
+            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
+        }
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
