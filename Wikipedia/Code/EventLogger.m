@@ -3,8 +3,6 @@
 #import <WMF/WikipediaAppUtils.h>
 #import <WMF/WMF-Swift.h>
 
-#define NEW_EVENT_LOGGING 1
-
 NSString *const WMFLoggingEndpoint =
     // production
     @"https://meta.wikimedia.org/beacon/event";
@@ -21,7 +19,7 @@ NSString *const WMFLoggingEndpoint =
     if (self) {
         if (event && schema && wiki) {
 
-#if NEW_EVENT_LOGGING
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
             NSDictionary *capsule = [NSDictionary wmf_eventCapsuleWithEvent:event schema:schema revision:revision wiki:wiki];
             [[WMFEventLoggingService sharedInstance] logEvent:capsule];
 #else
