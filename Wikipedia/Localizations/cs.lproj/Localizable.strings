@@ -52,8 +52,7 @@
 "action-saved" = "Uloženo";
 "action-share" = "Sdílet";
 "alert-no-internet" = "Nemáte připojení k internetu";
-// Fuzzy
-"announcements-dismiss" = "Ne, děkuji";
+"announcements-dismiss" = "Zavřít";
 "article-about-title" = "O tomto článku";
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-languages-label" = "Vybrat jazyk";

@@ -67,8 +67,10 @@
 "action-share" = "Delen";
 "action-unsave" = "Opslaan ongedaan maken";
 "alert-no-internet" = "Er is geen internetverbinding";
-// Fuzzy
-"announcements-dismiss" = "Nee, bedankt";
+"announcements-dismiss" = "Sluiten";
+"appearance-settings-reading-themes" = "Leesthema's";
+"appearance-settings-theme-options" = "Thema-opties";
+"appearance-settings-title" = "Leesthema's";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
 "article-languages-filter-placeholder" = "Taal zoeken";
@@ -95,6 +97,8 @@
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
+"dark-theme-display-name" = "Donker";
+"dim-images" = "Afbeeldingen dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
@@ -190,6 +194,7 @@
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 "home-news-footer" = "Meer in het nieuws";
+"home-themes-action-title" = "Voorkeuren beheren";
 "home-title" = "Verkennen";
 "home-title-accessibility-label" = "Wikipedia, scroll naar boven om te verkennen";
 "icon-shortcut-continue-reading-title" = "Verder lezen";
@@ -299,6 +304,10 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
+"reading-themes-controls-accessibility-dim-images-switch" = "Afbeeldingen dimmen";
+"reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
 "reference-title" = "Referentie $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|Gisteren|$1 dagen gelden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
@@ -320,6 +329,7 @@
 "search-recent-title" = "Recente zoekopdrachten";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
+"settings-appearance" = "Uiterlijk";
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache komt er $1 beschikbaar. Er worden geen opgeslagen pagina's verwijderd.";
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
@@ -355,6 +365,9 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"theme-dark-display-name" = "Donker";
+"theme-default-display-name" = "Standaard";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-see-more" = "Meer meest gelezen pagina's bekijken";

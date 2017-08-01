@@ -203,8 +203,7 @@
 "home-nearby-location-footer" = "Mais perto de $1";
 "home-news-footer" = "Mais na notícia";
 "home-themes-action-title" = "Gerenciar preferências";
-// Fuzzy
-"home-themes-prompt" = "Leia no escuro ou limite sua exposição à luz azul à noite com os novos temas de leitura Dark e Sepia. Ajuste suas preferências de leitura (incluindo o tamanho e o tema do texto) na barra de ferramentas do artigo ou nas configurações do usuário.";
+"home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
 "home-title" = "explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
 "icon-shortcut-continue-reading-title" = "Continue lendo";
