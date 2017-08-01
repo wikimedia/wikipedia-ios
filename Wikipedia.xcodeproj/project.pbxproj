@@ -398,7 +398,6 @@
 		B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808761C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m */; };
 		B0E8087A1C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808791C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m */; };
 		B0E8087D1C0D15760065EBC0 /* WMFRandomFileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8087C1C0D15760065EBC0 /* WMFRandomFileUtilities.m */; };
-		B0E808821C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8087F1C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m */; };
 		B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808811C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m */; };
 		B0E8088F1C0D16140065EBC0 /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8088E1C0D16140065EBC0 /* WMFAsyncTestCase.m */; };
 		B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808911C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m */; };
@@ -1359,10 +1358,8 @@
 		D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D85F000B1DF0C54000A56797 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F000A1DF0C54000A56797 /* FBSnapshotTestCase.framework */; };
 		D85F000E1DF0C55E00A56797 /* Nocilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F000C1DF0C55E00A56797 /* Nocilla.framework */; };
-		D85F000F1DF0C55E00A56797 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F000D1DF0C55E00A56797 /* Nimble.framework */; };
 		D85F00111DF0C57700A56797 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F00101DF0C57700A56797 /* OCHamcrest.framework */; };
 		D85F00131DF0C59300A56797 /* OCMockito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F00121DF0C59300A56797 /* OCMockito.framework */; };
-		D85F00151DF0C5B800A56797 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F00141DF0C5B800A56797 /* Quick.framework */; };
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
@@ -3713,8 +3710,6 @@
 		B0E808791C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+DataStoreFixtureTesting.m"; path = "WikipediaUnitTests/Code/XCTestCase+DataStoreFixtureTesting.m"; sourceTree = SOURCE_ROOT; };
 		B0E8087B1C0D15760065EBC0 /* WMFRandomFileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRandomFileUtilities.h; path = WikipediaUnitTests/Code/WMFRandomFileUtilities.h; sourceTree = SOURCE_ROOT; };
 		B0E8087C1C0D15760065EBC0 /* WMFRandomFileUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRandomFileUtilities.m; path = WikipediaUnitTests/Code/WMFRandomFileUtilities.m; sourceTree = SOURCE_ROOT; };
-		B0E8087E1C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKDataStore+TempDataStoreForEach.h"; path = "WikipediaUnitTests/Code/MWKDataStore+TempDataStoreForEach.h"; sourceTree = SOURCE_ROOT; };
-		B0E8087F1C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKDataStore+TempDataStoreForEach.m"; path = "WikipediaUnitTests/Code/MWKDataStore+TempDataStoreForEach.m"; sourceTree = SOURCE_ROOT; };
 		B0E808801C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKDataStore+TemporaryDataStore.h"; path = "WikipediaUnitTests/Code/MWKDataStore+TemporaryDataStore.h"; sourceTree = SOURCE_ROOT; };
 		B0E808811C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKDataStore+TemporaryDataStore.m"; path = "WikipediaUnitTests/Code/MWKDataStore+TemporaryDataStore.m"; sourceTree = SOURCE_ROOT; };
 		B0E8088D1C0D16140065EBC0 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = WikipediaUnitTests/Code/WMFAsyncTestCase.h; sourceTree = SOURCE_ROOT; };
@@ -4489,10 +4484,8 @@
 				D8FA19111E1BDFC8009675C3 /* WMF.framework in Frameworks */,
 				D85F000B1DF0C54000A56797 /* FBSnapshotTestCase.framework in Frameworks */,
 				D85F000E1DF0C55E00A56797 /* Nocilla.framework in Frameworks */,
-				D85F00151DF0C5B800A56797 /* Quick.framework in Frameworks */,
 				D85F00131DF0C59300A56797 /* OCMockito.framework in Frameworks */,
 				D85F00111DF0C57700A56797 /* OCHamcrest.framework in Frameworks */,
-				D85F000F1DF0C55E00A56797 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7030,8 +7023,6 @@
 			children = (
 				B0E8087B1C0D15760065EBC0 /* WMFRandomFileUtilities.h */,
 				B0E8087C1C0D15760065EBC0 /* WMFRandomFileUtilities.m */,
-				B0E8087E1C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.h */,
-				B0E8087F1C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m */,
 				B0E808801C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.h */,
 				B0E808811C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m */,
 			);
@@ -9318,8 +9309,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/FBSnapshotTestCase.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OCHamcrest.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OCMockito.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nocilla.framework",
@@ -9457,7 +9446,6 @@
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
-				B0E808821C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m in Sources */,
 				B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B31C0D16EA0065EBC0 /* MWKSite+Random.m in Sources */,
