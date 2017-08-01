@@ -8,17 +8,27 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
-        updateSubtitleLabel()
         titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features").uppercased(with: Locale.current)
+        updateSubtitleLabel()
         nextButton.setTitle(WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for moving to next welcome screen\n{{Identical|Get started}}").uppercased(with: Locale.current), for: UIControlState())
         self.view.wmf_configureSubviewsForDynamicType()
     }
     
     func updateSubtitleLabel() {
+        var subtitleStrings: [String] = []
         let placesTitle = CommonStrings.placesTitle
+        let placesFormat = WMFLocalizedString("welcome-explore-features-places", value:"Use the %1$@ tab to discover landmarks near you or search for around the world", comment:"Welcome screen text describing the Places feature. %1$@ is replaced with the title for Places.")
+        let placesString = String.localizedStringWithFormat(placesFormat, placesTitle)
+        subtitleStrings.append(placesString)
         let onThisDayTitle = CommonStrings.onThisDayTitle
-        let subtitleFormat = WMFLocalizedString("welcome-explore-features-sub-title", value:"Use the %1$@ tab to discover landmarks near you or search for around the world\n\nTravel back in time with %2$@ to learn what happened today in history", comment:"Sub-title for exploration welcome screen including explanation of new notification features. %1$@ is replaced with the title for the Places tab and %2$@ is replaced with the title of the On this day explore feed card.")
-        let subtitleString = String.localizedStringWithFormat(subtitleFormat, placesTitle, onThisDayTitle)
+        if Locale.current.languageCode?.components(separatedBy: "-").first?.lowercased() == "en" {
+            let onThisDayFormat = WMFLocalizedString("welcome-explore-features-on-this-day", value:"Travel back in time with %1$@ to learn what happened today in history", comment:"Welcome screen text describing the On this day feature. %1$@ is replaced with the title for On this day.")
+            let onThisDayString = String.localizedStringWithFormat(onThisDayFormat, onThisDayTitle)
+            subtitleStrings.append(onThisDayString)
+        } else {
+            subtitleStrings.append(WMFLocalizedString("welcome-explore-features-news-notifications", value:"Get news notifications for topics trending in the news", comment:"Welcome screen text describing the news notifications feature."))
+        }
+        let subtitleString = subtitleStrings.joined(separator: "\n\n")
         let placesRange = (subtitleString as NSString).range(of: placesTitle)
         let onThisDayRange = (subtitleString as NSString).range(of: onThisDayTitle)
         let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)

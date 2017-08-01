@@ -47,6 +47,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
@@ -286,7 +287,6 @@
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
-"reading-themes-controls-accessibility-dim-images-switch" = "Accessibility label for the dim images switch in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
@@ -359,7 +359,9 @@
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
-"welcome-explore-features-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features. $1 is replaced with the title for the Places tab and $2 is replaced with the title of the On this day explore feed card.";
+"welcome-explore-features-news-notifications" = "Welcome screen text describing the news notifications feature.";
+"welcome-explore-features-on-this-day" = "Welcome screen text describing the On this day feature. $1 is replaced with the title for On this day.";
+"welcome-explore-features-places" = "Welcome screen text describing the Places feature. $1 is replaced with the title for Places.";
 "welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-languages-add-button" = "Title for button for adding another language";
