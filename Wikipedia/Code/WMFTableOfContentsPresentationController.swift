@@ -66,6 +66,9 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     }()
     
     func updateButtonConstraints() {
+        guard let closeButtonSuperview = self.closeButton.superview else {
+            return
+        }
         self.closeButton.mas_remakeConstraints({ make in
             _ = make?.width.equalTo()(44)
             _ = make?.height.equalTo()(44)
@@ -73,7 +76,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             case .right:
                 fallthrough
             case .left:
-                _ = make?.trailing.equalTo()(self.closeButton.superview!.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
+                _ = make?.trailing.equalTo()(closeButtonSuperview.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
                 if(self.traitCollection.verticalSizeClass == .compact){
                     _ = make?.top.equalTo()(self.closeButtonTopPadding)
                 }else{
@@ -83,8 +86,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             case .center:
                 fallthrough
             default:
-                _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
-                _ = make?.bottom.equalTo()(self.closeButton.superview!.mas_bottom)?.offset()(self.closeButtonTopPadding)
+                _ = make?.leading.equalTo()(closeButtonSuperview.mas_leading)?.offset()(self.closeButtonLeadingPadding)
+                _ = make?.bottom.equalTo()(closeButtonSuperview.mas_bottom)?.offset()(self.closeButtonTopPadding)
             }
             return ()
         })

@@ -47,6 +47,7 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"appearance-settings-image-dimming-footer" = "Decrease the opacity of images on dark theme";
 "appearance-settings-reading-themes" = "Reading themes";
 "appearance-settings-theme-options" = "Theme options";
 "appearance-settings-title" = "Reading themes";
@@ -286,7 +287,6 @@
 "readers-accessibility-label" = "$1 readers";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
-"reading-themes-controls-accessibility-dim-images-switch" = "Dim images";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
@@ -359,9 +359,8 @@
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
 "welcome-explore-continue-button" = "Get started";
-"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
+"welcome-explore-features-sub-title" = "Discover landmarks near you or search around the world with the Places tab\n\nTravel back in time with On this day to learn what happened today in history";
 "welcome-explore-new-ways-title" = "New ways to explore";
-"welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-languages-add-button" = "Add another language";
 "welcome-languages-continue-button" = "Continue";

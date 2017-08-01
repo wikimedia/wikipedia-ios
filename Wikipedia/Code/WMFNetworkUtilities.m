@@ -5,6 +5,10 @@ NSString *const WMFNetworkingErrorDomain = @"WMFNetworkingErrorDomain";
 
 NSString *const WMFNetworkRequestBeganNotification = @"WMFNetworkRequestBeganNotification";
 
+NSString *const WMFNetworkRequestBeganNotificationMethodKey = @"method";
+NSString *const WMFNetworkRequestBeganNotificationURLStringKey = @"URLString";
+
+
 NSString *WMFJoinedPropertyParameters(NSArray *props) {
     return [props ?: @[] componentsJoinedByString:@"|"];
 }
@@ -28,11 +32,16 @@ NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion) {
     return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v%lu", (unsigned long)restAPIVersion];
 }
 
-void wmf_postNetworkRequestBeganNotification(NSString *method, NSString *URLString) {
+void wmf_postNetworkRequestBeganNotification(NSURLRequest *request) {
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+    if (request) {
+        userInfo[WMFNetworkRequestBeganNotificationRequestKey] = request;
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNetworkRequestBeganNotification
                                                         object:nil
-                                                      userInfo:@{ @"method": method,
-                                                                  @"URLString": URLString }];
+                                                      userInfo:userInfo];
+#endif
 }
 
 @implementation NSError (WMFFetchFinalStatus)
