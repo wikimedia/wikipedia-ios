@@ -2363,7 +2363,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortSavedTitle
+        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
