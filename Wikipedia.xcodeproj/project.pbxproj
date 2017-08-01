@@ -444,7 +444,6 @@
 		B0E8091D1C0D19640065EBC0 /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8091C1C0D19640065EBC0 /* WMFImageInfoControllerTests.m */; };
 		B0E8091F1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8091E1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m */; };
 		B0E809211C0D19920065EBC0 /* MWKSectionListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809201C0D19920065EBC0 /* MWKSectionListTests.m */; };
-		B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809221C0D199E0065EBC0 /* ArticleLoadingTests.m */; };
 		B0E809251C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809241C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m */; };
 		B0E809271C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809261C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m */; };
 		B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809281C0D19D00065EBC0 /* MWKArticleExtractionTests.m */; };
@@ -3777,7 +3776,6 @@
 		B0E8091C1C0D19640065EBC0 /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageInfoControllerTests.m; path = WikipediaUnitTests/Code/WMFImageInfoControllerTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8091E1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduceTests.m"; path = "WikipediaUnitTests/Code/NSIndexSet+BKReduceTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809201C0D19920065EBC0 /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListTests.m; path = WikipediaUnitTests/Code/MWKSectionListTests.m; sourceTree = SOURCE_ROOT; };
-		B0E809221C0D199E0065EBC0 /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleLoadingTests.m; path = WikipediaUnitTests/Code/ArticleLoadingTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809241C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionHasTextDataTests.m; path = WikipediaUnitTests/Code/MWKSectionHasTextDataTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809261C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+WMFSharingTests.m"; path = "WikipediaUnitTests/Code/MWKSection+WMFSharingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809281C0D19D00065EBC0 /* MWKArticleExtractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticleExtractionTests.m; path = WikipediaUnitTests/Code/MWKArticleExtractionTests.m; sourceTree = SOURCE_ROOT; };
@@ -7062,7 +7060,6 @@
 				B0E8091C1C0D19640065EBC0 /* WMFImageInfoControllerTests.m */,
 				B0E8091E1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m */,
 				B0E809201C0D19920065EBC0 /* MWKSectionListTests.m */,
-				B0E809221C0D199E0065EBC0 /* ArticleLoadingTests.m */,
 				B0E809241C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m */,
 				B0E809261C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m */,
 				B0E809281C0D19D00065EBC0 /* MWKArticleExtractionTests.m */,
@@ -9411,7 +9408,6 @@
 				B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */,
 				B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */,
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
-				B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */,
 				BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
