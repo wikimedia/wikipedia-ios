@@ -4,6 +4,9 @@ extern NSString *const WMFNetworkingErrorDomain;
 
 extern NSString *const WMFNetworkRequestBeganNotification;
 
+extern NSString *const WMFNetworkRequestBeganNotificationMethodKey;
+extern NSString *const WMFNetworkRequestBeganNotificationURLStringKey;
+
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError,
     WMFNetworkingError_InvalidParameters
