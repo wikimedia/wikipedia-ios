@@ -66,8 +66,10 @@
 "action-share" = "Bagikan";
 "action-unsave" = "Jangan simpan";
 "alert-no-internet" = "Tidak ada sambungan internet";
-// Fuzzy
-"announcements-dismiss" = "Tidak, terima kasih";
+"announcements-dismiss" = "Tutup";
+"appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-theme-options" = "Opsi tema";
+"appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai artikel ini";
 "article-delete" = "Hapus";
 "article-languages-filter-placeholder" = "Cari bahasa";
@@ -76,6 +78,7 @@
 "article-languages-yours" = "Bahasa Anda";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-share" = "Bagikan";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Tema Bacaan";
 "article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "back" = "Kembali";
@@ -94,6 +97,8 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
+"dark-theme-display-name" = "Gelap";
+"dim-images" = "Redupkan gambar";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
@@ -132,7 +137,7 @@
 "explore-random-article-heading" = "Artikel acak";
 "explore-randomizer" = "Artikel sembarang";
 "feed-news-notification-button-text" = "Aktifkan pemberitahuan";
-"feed-news-notification-text" = "Sekarang Anda dapat menerima pemberitahuan tentang artikel Wikipedia yang sedang tren dalam peristiwa terkini.";
+"feed-news-notification-text" = "Aktifkan pemberitahuan yang akan diberitahu oleh Wikipedia saat artikel sedang tren dalam peristiwa terkini.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sesuai";
 "field-alert-password-confirm-mismatch" = "Kata sandi tidak cocok";
 "field-alert-password-invalid" = "Kata sandi salah";
@@ -188,6 +193,8 @@
 "home-nearby-footer" = "Lainnya dari lokasi sekitar Anda";
 "home-nearby-location-footer" = "Lainnya di sekitar $1";
 "home-news-footer" = "Peristiwa terkini lainnya";
+"home-themes-action-title" = "Kelola preferensi";
+"home-themes-prompt" = "Sesuaikan preferensi bacaan Anda termasuk ukuran teks dan tema dari bilah alat artikel atau di pengaturan pengguna Anda untuk pengalaman membaca yang lebih nyaman.";
 "home-title" = "Jelajah";
 "home-title-accessibility-label" = "Wikipedia, gulir ke bagian atas halaman Jelajah";
 "icon-shortcut-continue-reading-title" = "Lanjutkan membaca";
@@ -240,7 +247,6 @@
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
-"on-this-day-detail-header-day" = "pada $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-title" = "Pada hari ini";
@@ -298,6 +304,12 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-themes-controls-accessibility-brightness-slider" = "Penggeser kecerahan";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
+"reading-themes-controls-accessibility-dim-images-switch" = "Redupkan gambar";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-text-size-slider" = "Penggeser ukuran teks";
 "reference-title" = "Referensi $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|Kemarin|$1 hari yang lalu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
@@ -319,6 +331,7 @@
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "search-title" = "Cari";
+"settings-appearance" = "Penampilan";
 "settings-clear-cache" = "Hapus data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Menghapus data cache akan membebaskan sekitar $1 ruang. Ini tidak akan menghapus halaman tersimpan Anda.";
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";
@@ -354,6 +367,9 @@
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
 "table-title-other" = "Informasi lebih lanjut";
+"theme-dark-display-name" = "Gelap";
+"theme-default-display-name" = "Baku";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";

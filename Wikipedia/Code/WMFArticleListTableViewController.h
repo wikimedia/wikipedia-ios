@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath;
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath;
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath;
-- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath;
 
 @end
 

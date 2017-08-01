@@ -27,7 +27,7 @@
 "about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
 "about-testers" = "Testadores";
-"about-testers-details" = "Teste de garantia de qualidade (QA) por $1";
+"about-testers-details" = "Teste de garantia de qualidade (QA) efetuado por $1";
 "about-title" = "Sobre";
 "about-translators" = "Tradutores";
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
@@ -110,6 +110,7 @@
 "explore-random-article-heading" = "Artigo aleatório";
 "explore-randomizer" = "Aleatório";
 "feed-news-notification-button-text" = "Ativar as notificações";
+// Fuzzy
 "feed-news-notification-text" = "Agora pode ativar notificações de artigos da Wikipédia que sejam notícia.";
 "find-in-page-button-label" = "Localizar na página";
 "forgot-password-button-title" = "Redefinir";

@@ -87,6 +87,7 @@
 "article-languages-yours" = "Seu idioma:";
 "article-read-more-title" = "Leia mais";
 "article-share" = "Compartilhar";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controles de leitura de temas";
 "article-unable-to-load-article" = "Não foi possível carregar o artigo.";
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "back" = "Voltar";
@@ -145,7 +146,7 @@
 "explore-random-article-heading" = "Artigo aleatório";
 "explore-randomizer" = "Aleatório";
 "feed-news-notification-button-text" = "Ativar notificações";
-"feed-news-notification-text" = "Agora você pode receber notificações sobre tendências de artigos da Wikipedia nas notícias.";
+"feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "field-alert-captcha-invalid" = "CAPTCHA invalido";
 "field-alert-password-confirm-mismatch" = "As senhas não são iguais";
 "field-alert-password-invalid" = "Senha invalida";
@@ -202,6 +203,7 @@
 "home-nearby-location-footer" = "Mais perto de $1";
 "home-news-footer" = "Mais na notícia";
 "home-themes-action-title" = "Gerenciar preferências";
+"home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
 "home-title" = "explorar";
 "home-title-accessibility-label" = "Wikipedia, desloque-se para o topo da Explorar";
 "icon-shortcut-continue-reading-title" = "Continue lendo";
@@ -254,7 +256,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
-"on-this-day-detail-header-day" = "Só $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 evento histórico|$1 eventos históricos}}";
 "on-this-day-footer" = "Mais eventos históricos neste dia";
 "on-this-day-title" = "Neste dia";
@@ -312,6 +313,12 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-themes-controls-accessibility-brightness-slider" = "Controle deslizante de brilho";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
+"reading-themes-controls-accessibility-dim-images-switch" = "Imagens fracas";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema Sepia";
+"reading-themes-controls-accessibility-text-size-slider" = "Controlador de tamanho de texto";
 "reference-title" = "Referências $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Ontem|$1 dias atrás}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";

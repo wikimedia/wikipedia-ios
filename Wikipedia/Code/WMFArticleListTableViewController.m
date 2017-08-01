@@ -308,9 +308,9 @@
                             }];
 }
 
-- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
+- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath {
     return [self rowActionWithStyle:UITableViewRowActionStyleNormal
-                              title:[WMFCommonStrings shortSavedTitle]
+                              title:[WMFCommonStrings shortUnsaveTitle]
                             handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                 NSURL *url = [self urlAtIndexPath:indexPath];
                                 MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];

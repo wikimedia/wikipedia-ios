@@ -136,6 +136,7 @@
 "explore-random-article-heading" = "مقاله تصادفی";
 "explore-randomizer" = "تصادفی";
 "feed-news-notification-button-text" = "روشن کردن آگاه‌سازی‌ها";
+// Fuzzy
 "feed-news-notification-text" = "اکنون شما می توانید نوتیفیکیشن های مربوط به مقالات ویکی پدیا که در اخبار پربازدید هستند را دریافت کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
@@ -244,7 +245,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "از $1 - $2";
-"on-this-day-detail-header-day" = "در $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-title" = "در این روز";

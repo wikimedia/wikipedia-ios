@@ -3,15 +3,13 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     
     @IBOutlet fileprivate var titleLabel:UILabel!
     @IBOutlet fileprivate var subTitleLabel:UILabel!
-    @IBOutlet fileprivate var tellMeMoreButton:UIButton!
     @IBOutlet fileprivate var nextButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
         titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features").uppercased(with: Locale.current)
-        subTitleLabel.text = WMFLocalizedString("welcome-explore-new-ways-sub-title", value:"New notifications and widgets to help you discover interesting articles", comment:"Sub-title for exploration welcome screen including explanation of new notification features")
-        tellMeMoreButton.setTitle(WMFLocalizedString("welcome-explore-tell-me-more", value:"Tell me more", comment:"Title for link which when tapped shows explaination of new exploration features"), for: UIControlState())
+        subTitleLabel.text = WMFLocalizedString("welcome-explore-features-sub-title", value:"Discover landmarks near you or search around the world with the Places tab\n\nTravel back in time with On this day to learn what happened today in history", comment:"Sub-title for exploration welcome screen including explanation of new features.")
         nextButton.setTitle(WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for moving to next welcome screen\n{{Identical|Get started}}").uppercased(with: Locale.current), for: UIControlState())
         self.view.wmf_configureSubviewsForDynamicType()
     }
@@ -19,6 +17,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemBlack, withTextStyle: .title1, compatibleWithTraitCollection: self.traitCollection)
+        subTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)
     }
 
     @IBAction fileprivate func showHowThisWorksAlert(withSender sender: AnyObject) {

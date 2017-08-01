@@ -133,7 +133,7 @@
 "explore-random-article-heading" = "Article a l’atzar";
 "explore-randomizer" = "Article a l’atzar";
 "feed-news-notification-button-text" = "Activa les notificacions";
-"feed-news-notification-text" = "Ara podeu rebre notificacions d'articles de la Viquipèdia en tendència durant l'actualitat.";
+"feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
 "field-alert-password-confirm-mismatch" = "Les contrasenyes no coincideixen";
 "field-alert-password-invalid" = "Paraula de pas incorrecta";
@@ -240,7 +240,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
-"on-this-day-detail-header-day" = "el $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics aquest dia";
 "on-this-day-title" = "Aquest dia";
@@ -297,6 +296,8 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";

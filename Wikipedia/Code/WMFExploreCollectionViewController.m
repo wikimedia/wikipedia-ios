@@ -1017,10 +1017,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!contentGroup) {
         return NO;
     }
-    if (contentGroup.contentGroupKind == WMFContentGroupKindAnnouncement) {
-        return NO;
-    } else {
-        return YES;
+    switch (contentGroup.contentGroupKind) {
+        case WMFContentGroupKindAnnouncement:
+        case WMFContentGroupKindTheme:
+        case WMFContentGroupKindNotification:
+            return NO;
+        default:
+            return YES;
     }
 }
 
@@ -1156,12 +1159,20 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFFeedOnThisDayEvent *event = [events firstObject];
     if (featuredIndex >= 0 && featuredIndex < events.count) {
         event = events[featuredIndex];
+    } else {
+        featuredIndex = 0;
     }
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-        WMFFeedOnThisDayEvent *firstEventOfDifferentYear = [events wmf_match:^BOOL(WMFFeedOnThisDayEvent *thisEvent) {
-            return event.year != thisEvent.year;
-        }];
-        [cell configureWithOnThisDayEvent:event previousEvent:firstEventOfDifferentYear dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
+        WMFFeedOnThisDayEvent *previousEvent = event;
+        NSInteger attempts = 0;
+        while (events.count > featuredIndex + 1 && previousEvent.year == event.year && attempts < 4) {
+            WMFFeedOnThisDayEvent *potentialEvent = events[featuredIndex + 1];
+            if ([potentialEvent isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+                previousEvent = potentialEvent;
+            }
+            attempts++;
+        }
+        [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
 }
 
@@ -1194,7 +1205,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDisplayTypeTheme: {
             cell.isImageViewHidden = NO;
             cell.imageView.image = [UIImage imageNamed:@"feed-card-themes"];
-            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.", @"Description on feed card that describes the themes feature.");
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", @"Description on feed card that describes how to adjust reading preferences.");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
             cell.isCaptionHidden = YES;
         } break;
@@ -1350,7 +1361,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     }
                 }
             }
-            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore date:group.date];
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
         } break;
         case WMFFeedDetailTypeNone:
             break;
@@ -1713,6 +1724,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     switch (group.contentGroupKind) {
         case WMFContentGroupKindTheme: {
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
+            [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
             [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
@@ -1751,15 +1763,21 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if (!contentGroup) {
         return;
     }
-    if (contentGroup.contentGroupKind != WMFContentGroupKindAnnouncement && contentGroup.contentGroupKind != WMFContentGroupKindTheme) {
-        return;
-    }
-    [contentGroup markDismissed];
-    [contentGroup updateVisibility];
-    NSError *saveError = nil;
-    [self.userStore save:&saveError];
-    if (saveError) {
-        DDLogError(@"Error saving after announcement dismissal: %@", saveError);
+
+    switch (contentGroup.contentGroupKind) {
+        case WMFContentGroupKindAnnouncement:
+        case WMFContentGroupKindTheme:
+        case WMFContentGroupKindNotification: {
+            [contentGroup markDismissed];
+            [contentGroup updateVisibility];
+            NSError *saveError = nil;
+            [self.userStore save:&saveError];
+            if (saveError) {
+                DDLogError(@"Error saving after announcement dismissal: %@", saveError);
+            }
+        } break;
+        default:
+            break;
     }
 }
 
@@ -1795,11 +1813,6 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 
     WMFContentGroup *lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
-
-    while (lastGroupIndex > 0 && lastGroup != nil && (lastGroup.contentGroupKind == WMFContentGroupKindNews || lastGroup.contentGroupKind == WMFContentGroupKindOnThisDay || lastGroup.contentGroupKind == WMFContentGroupKindNotification) && lastGroupIndex > 0) { // News or On This Day can be added further back in the timeline, so don't use them as the date for this
-        lastGroupIndex--;
-        lastGroup = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:lastGroupIndex inSection:0]];
-    }
 
     NSDate *now = [NSDate date];
     NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];

@@ -233,7 +233,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1 mila";
 "on-this-day-detail-header-date-range" = "dal $1 al $2";
-"on-this-day-detail-header-day" = "il $1";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|evento storico|eventi storici}}";
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
 "on-this-day-title" = "In questo giorno";

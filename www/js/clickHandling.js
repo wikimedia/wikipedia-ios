@@ -112,6 +112,15 @@ function handleClickEvent(event){
   if(!anchorForTarget) {
     return
   }
+
+  // Handle edit links.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'edit_section'){
+    window.webkit.messageHandlers.editClicked.postMessage({
+      'sectionId': anchorForTarget.getAttribute( 'data-id' )
+    })
+    return
+  }
+
   const href = anchorForTarget.getAttribute( 'href' )
   if(!href) {
     return

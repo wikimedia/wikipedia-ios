@@ -111,7 +111,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
+        title = CommonStrings.placesTitle
     }
     
     override func viewDidLoad() {
@@ -2363,7 +2363,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortSavedTitle
+        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({

@@ -19,6 +19,7 @@
 // Author: Sadrettin
 // Author: Sayginer
 // Author: Sucsuzz
+// Author: Trockya
 // Author: Uğurkent
 // Author: Velg
 // Author: Violetanka
@@ -76,11 +77,13 @@
 // Fuzzy
 "announcements-dismiss" = "Hayır, teşekkürler";
 "article-about-title" = "Bu madde hakkında";
+"article-delete" = "Sil";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamı";
+"article-share" = "Paylaş";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back" = "Geri";
@@ -137,6 +140,7 @@
 "explore-random-article-heading" = "Rastgele madde";
 "explore-randomizer" = "Rastgele";
 "feed-news-notification-button-text" = "Bildirimleri aç";
+// Fuzzy
 "feed-news-notification-text" = "Artık haberlerde gündemde olan Vikipedi makaleleri hakkında bildirimler alabilirsiniz.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Parolalar eşleşmiyor";
@@ -245,7 +249,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1B";
 "on-this-day-detail-header-date-range" = "$2-$1 döneminde";
-"on-this-day-detail-header-day" = "$1 tarihinde";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
 "on-this-day-footer" = "Bu günden daha fazla tarihi olay";
 "on-this-day-title" = "Tarihte bugün";
@@ -324,6 +327,7 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Arama";
+"settings-appearance" = "Görünüm";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
@@ -359,6 +363,7 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
+"theme-default-display-name" = "Varsayılan";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-see-more" = "En çok okunanları gör";

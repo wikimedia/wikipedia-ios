@@ -41,7 +41,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         }
         var origin = CGPoint(x: x, y: margins.top)
         
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden {
+        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
@@ -50,6 +50,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
+                origin.y += spacing
                 origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += saveButtonFrame.height

@@ -20,8 +20,13 @@ struct AppearanceSettingsSection {
     let items: [AppearanceSettingsItem]
 }
 
+struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
+    let title: String?
+    let viewController: UIViewController
+}
+
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -55,7 +60,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         return [readingThemesSection, themeOptionsSection]
     }
@@ -79,6 +84,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
+        }
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? ImageDimmingExampleViewController {
+            vc.apply(theme: theme)
+            if let view = vc.viewIfLoaded {
+                var frame = view.frame
+                frame.size.width = cell.frame.width
+                view.frame = frame
+                cell.contentView.addSubview(view)
+            }
         }
         
         if item is AppearanceSettingsSwitchItem {
@@ -110,6 +125,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
+            return tableView.rowHeight
+        }
+        return item.viewController.view.frame.height
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -145,8 +168,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             default:
                 break
             }
-    
+            
         }
+    }
+    
+    public var analyticsContext: String {
+        return "Settings"
+    }
+    
+    public var analyticsContentType: String {
+        return "Settings"
     }
     
     func applyImageDimmingChange(isOn: NSNumber) {
@@ -159,6 +190,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let selector = #selector(applyImageDimmingChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+        if (sender.isOn) {
+            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
+        } else {
+            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
+        }
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

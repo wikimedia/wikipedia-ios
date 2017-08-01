@@ -293,7 +293,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString *)messageString {
-    if ([messageString isEqualToString:@"collapseTables"]) {
+    if ([messageString isEqualToString:@"addEditPencils"]) {
+        [self.webView wmf_addEditPencilsForArticle:self.article];
+    } else if ([messageString isEqualToString:@"collapseTables"]) {
         [self.webView wmf_collapseTablesForArticle:self.article];
     } else if ([messageString isEqualToString:@"setLanguage"]) {
         [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
@@ -570,6 +572,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     NSArray *lateTransformNames = @[
+        @"addEditPencils",
         @"collapseTables",
         @"setPageProtected",
         @"setLanguage",
@@ -607,7 +610,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            "window.wmf.redLinks.hideRedLinks( document );"
                                            "window.wmf.filePages.disableFilePageEdit( document );"
                                            "window.wmf.images.widenImages( document );"
-                                           "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
+                                           "window.wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', document );"
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
@@ -779,7 +782,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (self.article.isMain || !self.article.imageURL || [self.article.url wmf_isNonStandardURL]) {
         return 0;
     } else {
-        return 210;
+        return WebViewControllerHeaderImageHeight;
     }
 }
 

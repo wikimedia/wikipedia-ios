@@ -17,7 +17,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
     self.cell = [WMFPicOfTheDayCollectionViewCell wmf_viewFromClassNib];
     [self.cell setDisplayTitle:@"Hey! I'm a display title!"];
@@ -28,18 +28,16 @@
     [super tearDown];
 }
 
-#warning re-enable after visual updates are complete
+- (void)testInitialStateOnlyShowsPlaceholderWithoutCaption {
+    [self wmf_verifyView:self.cell width:320.f];
+}
 
-//- (void)testInitialStateOnlyShowsPlaceholderWithoutCaption {
-//    [self wmf_verifyView:self.cell width:320.f];
-//}
-//
-//- (void)testStillShowsPlaceholderWithoutCaptionWhileImageIsDownloading {
-//    [NSURLProtocol registerClass:[WMFHTTPHangingProtocol class]];
-//    [self.cell setImageURL:[NSURL URLWithString:@"http://dummyimage.com/foo"]];
-//    [self wmf_verifyView:self.cell width:320.f];
-//    [NSURLProtocol unregisterClass:[WMFHTTPHangingProtocol class]];
-//}
+- (void)testStillShowsPlaceholderWithoutCaptionWhileImageIsDownloading {
+    [NSURLProtocol registerClass:[WMFHTTPHangingProtocol class]];
+    [self.cell setImageURL:[NSURL URLWithString:@"http://dummyimage.com/foo"]];
+    [self wmf_verifyView:self.cell width:320.f];
+    [NSURLProtocol unregisterClass:[WMFHTTPHangingProtocol class]];
+}
 
 - (void)testShowsCaptionWhenImageIsFinallyDownloaded {
     [[LSNocilla sharedInstance] start];

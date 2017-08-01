@@ -70,6 +70,9 @@
 "action-unsave" = "Non enregistré";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Ignorer";
+"appearance-settings-reading-themes" = "Thèmes de lecture";
+"appearance-settings-theme-options" = "Options des thèmes";
+"appearance-settings-title" = "Thèmes de lecture";
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
 "article-languages-filter-placeholder" = "Trouver la langue";
@@ -78,6 +81,7 @@
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En savoir plus";
 "article-share" = "Partager";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "back" = "Retour";
@@ -97,6 +101,7 @@
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
 "dark-theme-display-name" = "Sombre";
+"dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
@@ -135,7 +140,7 @@
 "explore-random-article-heading" = "Article au hasard";
 "explore-randomizer" = "Tirage aléatoire";
 "feed-news-notification-button-text" = "Activer les notifications";
-"feed-news-notification-text" = "Vous pouvez maintenant recevoir des notifications concernant les articles de Wikipédia dans la tendance de l’actualité.";
+"feed-news-notification-text" = "Activer les notifications envoyés par Wikipédia quand des articles forment la tendance de l’actualité.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "field-alert-password-invalid" = "Mot de passe non valide";
@@ -192,6 +197,7 @@
 "home-nearby-location-footer" = "Plus proche de $1";
 "home-news-footer" = "Davantage dans les nouvelles";
 "home-themes-action-title" = "Gérer les préférences";
+"home-themes-prompt" = "Ajustez vos préférences de lecture (y compris la taille du texte et le thème) depuis la barre d’outil de l’article ou dans vos préférences utilisateur pour améliorer la lisibilité.";
 "home-title" = "Explorer";
 "home-title-accessibility-label" = "Wikipédia, faire défiler vers le haut pour Explorer";
 "icon-shortcut-continue-reading-title" = "Continuer à lire";
@@ -244,7 +250,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "de $1 - $2";
-"on-this-day-detail-header-day" = "le $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
 "on-this-day-title" = "Ce jour";
@@ -302,6 +307,12 @@
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
+"reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";
+"reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
+"reading-themes-controls-accessibility-dim-images-switch" = "Assombrir les images";
+"reading-themes-controls-accessibility-light-theme-button" = "Thème clair";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Thème sépia";
+"reading-themes-controls-accessibility-text-size-slider" = "Curseur de taille du texte";
 "reference-title" = "Référence $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|Hier|Il y a $1 jours}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";

@@ -79,17 +79,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.summaryTextField.text = self.summaryText;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:@"UITextFieldTextDidChangeNotification" object:self.summaryTextField];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.summaryTextField resignFirstResponder];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"UITextFieldTextDidChangeNotification"
-                                                  object:nil];
-
     [super viewWillDisappear:animated];
 }
 

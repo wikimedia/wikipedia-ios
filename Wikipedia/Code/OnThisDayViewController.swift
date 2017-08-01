@@ -8,12 +8,13 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
-    let date: Date
+    let midnightUTCDate: Date
     
-    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, date: Date) {
+    @objc(initWithEvents:dataStore:midnightUTCDate:)
+    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
         self.events = events
         self.dataStore = dataStore
-        self.date = date
+        self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
         super.init()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
@@ -25,7 +26,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
                 title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
                 return
             }
-            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: date)
+            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
         }
     }
     
@@ -67,9 +68,9 @@ extension OnThisDayViewController {
         }
         let event = events[indexPath.section]
         
-        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
-        
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
+        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
+
         return onThisDayCell
     }
     
@@ -82,7 +83,7 @@ extension OnThisDayViewController {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
         
-        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, date: date)
+        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
         header.apply(theme: theme)
         
         return header

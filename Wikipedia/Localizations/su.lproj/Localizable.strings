@@ -114,6 +114,7 @@
 "explore-random-article-heading" = "Artikel acak";
 "explore-randomizer" = "Kaca acak";
 "feed-news-notification-button-text" = "Pareuman iber";
+// Fuzzy
 "feed-news-notification-text" = "Ayeuna anjeun bisa nampa iber ngeunaan artikel ngetrén Wikipédia dina keur lumangsung.";
 "field-alert-captcha-invalid" = "CAPTCHA salah";
 "field-alert-password-confirm-mismatch" = "Kecap sandi teu akur";
@@ -218,7 +219,6 @@
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 rébu";
 "on-this-day-detail-header-date-range" = "ti $1 - $2";
-"on-this-day-detail-header-day" = "dina $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";

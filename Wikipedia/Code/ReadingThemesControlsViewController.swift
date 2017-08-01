@@ -6,14 +6,13 @@ import UIKit
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController {
+open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
     static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme = Theme.standard
     
-    @IBOutlet weak var imageDimmingLabel: UILabel!
     @IBOutlet fileprivate var slider: SWStepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
@@ -23,8 +22,6 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var lightThemeButton: UIButton!
     @IBOutlet weak var sepiaThemeButton: UIButton!
     @IBOutlet weak var darkThemeButton: UIButton!
-    
-    @IBOutlet weak var imageDimmingSwitch: UISwitch!
     
     @IBOutlet var separatorViews: [UIView]!
     
@@ -36,7 +33,6 @@ open class ReadingThemesControlsViewController: UIViewController {
     @IBOutlet weak var tSmallImageView: UIImageView!
     @IBOutlet weak var tLargeImageView: UIImageView!
     
-    @IBOutlet var textLabels: [UILabel]!
     @IBOutlet var stackView: UIStackView!
     
     var visible = false
@@ -54,13 +50,18 @@ open class ReadingThemesControlsViewController: UIViewController {
         }
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
-        imageDimmingLabel.text = CommonStrings.dimImagesTitle
-        
         brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
         lightThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-light-theme-button", value: "Light theme", comment: "Accessibility label for the light theme button in the Reading Themes Controls popover")
         sepiaThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-sepia-theme-button", value: "Sepia theme", comment: "Accessibility label for the sepia theme button in the Reading Themes Controls popover")
         darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
-        imageDimmingSwitch.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dim-images-switch", value: "Dim images", comment: "Accessibility label for the dim images switch in the Reading Themes Controls popover")
+        
+        lightThemeButton.backgroundColor = Theme.light.colors.paperBackground
+        sepiaThemeButton.backgroundColor = Theme.sepia.colors.paperBackground
+        darkThemeButton.backgroundColor = Theme.dark.colors.paperBackground
+        
+        lightThemeButton.setTitleColor(Theme.light.colors.primaryText, for: .normal)
+        sepiaThemeButton.setTitleColor(Theme.sepia.colors.primaryText, for: .normal)
+        darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
         
         for slideView in textSizeSliderViews {
             slideView.isAccessibilityElement = true
@@ -120,44 +121,19 @@ open class ReadingThemesControlsViewController: UIViewController {
         self.slider.value = current
     }
     
-    func applyImageDimmingChange(isOn: NSNumber) {
-        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
-        userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
-    }
-    
-    @IBAction func dimmingSwitchValueChanged(_ sender: UISwitch) {
-        let selector = #selector(applyImageDimmingChange)
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
-    }
-    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        updateThemeButtons(with: currentTheme)
+        apply(theme: currentTheme)
     }
     
-    func updateThemeButtons(with theme: Theme) {
-        removeBorderFrom(lightThemeButton)
-        removeBorderFrom(darkThemeButton)
-        removeBorderFrom(sepiaThemeButton)
-        imageDimmingSwitch.isEnabled = false
-        imageDimmingSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
-        switch theme.name {
-        case Theme.sepia.name:
-            applyBorder(to: sepiaThemeButton)
-        case Theme.light.name:
-            applyBorder(to: lightThemeButton)
-        case Theme.darkDimmed.name:
-            fallthrough
-        case Theme.dark.name:
-            imageDimmingSwitch.isEnabled = true
-            applyBorder(to: darkThemeButton)
-        default:
-            break
-        }
+    public var analyticsContext: String {
+        return "Article"
+    }
+    
+    public var analyticsContentType: String {
+        return "Article"
     }
     
     func screenBrightnessChangedInApp(notification: Notification){
@@ -166,6 +142,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
+        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
@@ -176,8 +153,8 @@ open class ReadingThemesControlsViewController: UIViewController {
     
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
-        updateThemeButtons(with: theme)
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(theme.displayName))
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {
@@ -207,18 +184,21 @@ extension ReadingThemesControlsViewController: Themeable {
         
         slider.backgroundColor = view.backgroundColor
         
-        for label in textLabels {
-            label.textColor = theme.colors.primaryText
+        removeBorderFrom(lightThemeButton)
+        removeBorderFrom(darkThemeButton)
+        removeBorderFrom(sepiaThemeButton)
+        switch theme.name {
+        case Theme.sepia.name:
+            applyBorder(to: sepiaThemeButton)
+        case Theme.light.name:
+            applyBorder(to: lightThemeButton)
+        case Theme.darkDimmed.name:
+            fallthrough
+        case Theme.dark.name:
+            applyBorder(to: darkThemeButton)
+        default:
+            break
         }
-        
-        let buttons = [lightThemeButton, darkThemeButton, sepiaThemeButton]
-        for button in buttons {
-            guard let button = button else {
-                continue
-            }
-            button.borderColor = button.isEnabled ? theme.colors.border : theme.colors.link
-        }
-
 
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText

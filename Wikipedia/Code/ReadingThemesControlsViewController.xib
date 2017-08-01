@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -13,8 +13,6 @@
             <connections>
                 <outlet property="brightnessSlider" destination="eFI-oH-KYO" id="cs9-lC-JWm"/>
                 <outlet property="darkThemeButton" destination="EWG-tp-jny" id="Mm0-BA-QS4"/>
-                <outlet property="imageDimmingLabel" destination="gUU-a2-QwO" id="vxW-ss-dl7"/>
-                <outlet property="imageDimmingSwitch" destination="D23-3R-cK9" id="ZwW-OK-N61"/>
                 <outlet property="lightThemeButton" destination="qZ3-3K-fnR" id="29j-20-f8V"/>
                 <outlet property="maxBrightnessImageView" destination="EEq-pY-jEm" id="ePK-A2-XNc"/>
                 <outlet property="minBrightnessImageView" destination="CRe-Dn-C3q" id="0aI-KZ-wFe"/>
@@ -26,8 +24,6 @@
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
                 <outletCollection property="separatorViews" destination="XEj-MD-7hS" collectionClass="NSMutableArray" id="wMe-lS-9ae"/>
                 <outletCollection property="separatorViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="cr4-7k-sen"/>
-                <outletCollection property="textLabels" destination="gUU-a2-QwO" collectionClass="NSMutableArray" id="uyV-7V-rCC"/>
-                <outletCollection property="separatorViews" destination="s1w-Qo-awL" collectionClass="NSMutableArray" id="LMo-j3-60h"/>
                 <outletCollection property="textSizeSliderViews" destination="Tsr-d6-D5m" collectionClass="NSMutableArray" id="sj5-O6-6fO"/>
                 <outletCollection property="textSizeSliderViews" destination="vzF-dw-OTG" collectionClass="NSMutableArray" id="Idy-T2-2cy"/>
                 <outletCollection property="textSizeSliderViews" destination="wIV-PE-rcx" collectionClass="NSMutableArray" id="FYN-nL-R8f"/>
@@ -42,58 +38,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="287"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="240"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bml-xM-u2G">
-                                    <rect key="frame" x="0.0" y="0.0" width="290" height="2"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="2" id="cld-EE-nLp"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfo-V3-ljz">
-                                    <rect key="frame" x="0.0" y="2" width="290" height="32"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
-                                            <rect key="frame" x="15" y="13" width="15" height="15"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maxBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
-                                            <rect key="frame" x="254" y="7" width="21" height="21"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="EEq-pY-jEm" secondAttribute="trailing" constant="15" id="2S1-0X-0JQ"/>
-                                        <constraint firstAttribute="bottom" secondItem="EEq-pY-jEm" secondAttribute="bottom" constant="4" id="Q1e-CJ-yqi"/>
-                                        <constraint firstAttribute="bottom" secondItem="CRe-Dn-C3q" secondAttribute="bottom" constant="4" id="Z8I-qL-Fcg"/>
-                                        <constraint firstItem="CRe-Dn-C3q" firstAttribute="leading" secondItem="Yfo-V3-ljz" secondAttribute="leading" constant="15" id="cUb-rP-eWq"/>
-                                        <constraint firstAttribute="height" priority="999" constant="32" id="dgT-Zs-cYX"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="207-2m-Bn2">
-                                    <rect key="frame" x="0.0" y="34" width="290" height="44"/>
-                                    <subviews>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eFI-oH-KYO" userLabel="Brightness Slider">
-                                            <rect key="frame" x="13" y="7" width="264" height="31"/>
-                                            <connections>
-                                                <action selector="brightnessSliderValueChanged:" destination="-1" eventType="valueChanged" id="bxg-il-yhC"/>
-                                            </connections>
-                                        </slider>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="44" id="KzS-Z4-eel"/>
-                                        <constraint firstItem="eFI-oH-KYO" firstAttribute="centerY" secondItem="207-2m-Bn2" secondAttribute="centerY" id="UfC-LC-ZcA"/>
-                                        <constraint firstItem="eFI-oH-KYO" firstAttribute="leading" secondItem="207-2m-Bn2" secondAttribute="leading" constant="15" id="kKg-SG-1fz"/>
-                                        <constraint firstAttribute="trailing" secondItem="eFI-oH-KYO" secondAttribute="trailing" constant="15" id="plT-MJ-TBX"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsr-d6-D5m" userLabel="Separator 1">
-                                    <rect key="frame" x="0.0" y="78" width="290" height="1"/>
-                                    <color key="backgroundColor" red="0.95294117647058818" green="0.92549019607843142" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="1" id="oka-Wg-B7K"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
-                                    <rect key="frame" x="0.0" y="79" width="290" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="vkB-ph-elW">
                                             <rect key="frame" x="15" y="13" width="12" height="15"/>
@@ -111,7 +59,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIV-PE-rcx">
-                                    <rect key="frame" x="0.0" y="111" width="290" height="44"/>
+                                    <rect key="frame" x="0.0" y="32" width="290" height="44"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="8" y="0.0" width="274" height="44"/>
@@ -145,6 +93,54 @@
                                         <constraint firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="8" id="ygz-X6-9LJ"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsr-d6-D5m" userLabel="Separator 1">
+                                    <rect key="frame" x="0.0" y="76" width="290" height="1"/>
+                                    <color key="backgroundColor" red="0.95294117647058818" green="0.92549019607843142" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="oka-Wg-B7K"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bml-xM-u2G">
+                                    <rect key="frame" x="0.0" y="77" width="290" height="2"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="2" id="cld-EE-nLp"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfo-V3-ljz">
+                                    <rect key="frame" x="0.0" y="79" width="290" height="32"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Dn-C3q" userLabel="Min Brightness Image View">
+                                            <rect key="frame" x="15" y="13" width="15" height="15"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maxBrightness" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-pY-jEm" userLabel="Max Brightness Image View">
+                                            <rect key="frame" x="254" y="7" width="21" height="21"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="EEq-pY-jEm" secondAttribute="trailing" constant="15" id="2S1-0X-0JQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="EEq-pY-jEm" secondAttribute="bottom" constant="4" id="Q1e-CJ-yqi"/>
+                                        <constraint firstAttribute="bottom" secondItem="CRe-Dn-C3q" secondAttribute="bottom" constant="4" id="Z8I-qL-Fcg"/>
+                                        <constraint firstItem="CRe-Dn-C3q" firstAttribute="leading" secondItem="Yfo-V3-ljz" secondAttribute="leading" constant="15" id="cUb-rP-eWq"/>
+                                        <constraint firstAttribute="height" priority="999" constant="32" id="dgT-Zs-cYX"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="207-2m-Bn2">
+                                    <rect key="frame" x="0.0" y="111" width="290" height="44"/>
+                                    <subviews>
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="eFI-oH-KYO" userLabel="Brightness Slider">
+                                            <rect key="frame" x="13" y="7" width="264" height="31"/>
+                                            <connections>
+                                                <action selector="brightnessSliderValueChanged:" destination="-1" eventType="valueChanged" id="bxg-il-yhC"/>
+                                            </connections>
+                                        </slider>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="44" id="KzS-Z4-eel"/>
+                                        <constraint firstItem="eFI-oH-KYO" firstAttribute="centerY" secondItem="207-2m-Bn2" secondAttribute="centerY" id="UfC-LC-ZcA"/>
+                                        <constraint firstItem="eFI-oH-KYO" firstAttribute="leading" secondItem="207-2m-Bn2" secondAttribute="leading" constant="15" id="kKg-SG-1fz"/>
+                                        <constraint firstAttribute="trailing" secondItem="eFI-oH-KYO" secondAttribute="trailing" constant="15" id="plT-MJ-TBX"/>
+                                    </constraints>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEj-MD-7hS" userLabel="Separator 2">
                                     <rect key="frame" x="0.0" y="155" width="290" height="1"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -156,7 +152,7 @@
                                     <rect key="frame" x="0.0" y="156" width="290" height="84"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="56n-xZ-69v">
-                                            <rect key="frame" x="17" y="10.5" width="256" height="64"/>
+                                            <rect key="frame" x="17" y="10" width="256" height="64"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZ3-3K-fnR" userLabel="Aa Light">
                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -238,44 +234,6 @@
                                         <constraint firstAttribute="height" priority="999" constant="84" id="PIk-nL-WTB"/>
                                         <constraint firstItem="56n-xZ-69v" firstAttribute="leading" secondItem="ick-Zb-dz8" secondAttribute="leading" constant="17" id="PN9-zE-XJA"/>
                                         <constraint firstAttribute="trailing" secondItem="56n-xZ-69v" secondAttribute="trailing" constant="17" id="m0h-MT-JGM"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1w-Qo-awL" userLabel="Separator 4">
-                                    <rect key="frame" x="0.0" y="240" width="290" height="1"/>
-                                    <color key="backgroundColor" red="0.95294117649999999" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="1" id="qQe-m6-dWP"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p79-KV-3Ed">
-                                    <rect key="frame" x="0.0" y="241" width="290" height="44"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dim images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUU-a2-QwO">
-                                            <rect key="frame" x="15" y="12.5" width="196" height="20.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D23-3R-cK9">
-                                            <rect key="frame" x="226" y="7" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="dimmingSwitchValueChanged:" destination="-1" eventType="valueChanged" id="569-gt-BRU"/>
-                                            </connections>
-                                        </switch>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="D23-3R-cK9" firstAttribute="centerY" secondItem="p79-KV-3Ed" secondAttribute="centerY" id="Kk8-sq-CB2"/>
-                                        <constraint firstAttribute="trailing" secondItem="D23-3R-cK9" secondAttribute="trailing" constant="15" id="Nas-Zf-0JZ"/>
-                                        <constraint firstItem="D23-3R-cK9" firstAttribute="leading" secondItem="gUU-a2-QwO" secondAttribute="trailing" constant="15" id="liL-Kd-wr2"/>
-                                        <constraint firstAttribute="height" priority="999" constant="44" id="xN4-TC-QPz"/>
-                                        <constraint firstItem="gUU-a2-QwO" firstAttribute="leading" secondItem="p79-KV-3Ed" secondAttribute="leading" constant="15" id="xbs-GM-71l"/>
-                                        <constraint firstItem="gUU-a2-QwO" firstAttribute="centerY" secondItem="p79-KV-3Ed" secondAttribute="centerY" id="xgm-Ly-9Zb"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-jq-kQg">
-                                    <rect key="frame" x="0.0" y="285" width="290" height="2"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="2" id="d3c-Mz-kCj"/>
                                     </constraints>
                                 </view>
                             </subviews>
