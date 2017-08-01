@@ -86,13 +86,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             tc.apply(theme: theme)
         }
         
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let view = customViewItem.viewController.viewIfLoaded {
-            var frame = view.frame
-            frame.size.width = cell.frame.width
-            view.frame = frame
-            view.backgroundColor = theme.colors.baseBackground
-            view.alpha = theme.imageOpacity
-            cell.contentView.addSubview(view)
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? ImageDimmingExampleViewController {
+            vc.apply(theme: theme)
+            if let view = vc.viewIfLoaded {
+                var frame = view.frame
+                frame.size.width = cell.frame.width
+                view.frame = frame
+                cell.contentView.addSubview(view)
+            }
         }
         
         if item is AppearanceSettingsSwitchItem {
@@ -167,7 +168,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             default:
                 break
             }
-    
+            
         }
     }
     
