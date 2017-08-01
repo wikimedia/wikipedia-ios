@@ -2,10 +2,17 @@
 #import "XCTestCase+WMFVisualTestConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
 
+
+#if WMF_VISUAL_TEST_RECORD_MODE
+const BOOL WMFIsVisualTestRecordModeEnabled = YES;
+#else
+const BOOL WMFIsVisualTestRecordModeEnabled = NO;
+#endif
+
 @implementation FBSnapshotTestCase (WMFConvenience)
 
 - (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {
-    WMFSnapshotVerifyView([self wmf_getLabelSizedToFitWidth:width
+    WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getLabelSizedToFitWidth:width
                                         configuredWithBlock:^(UILabel *label) {
                                             if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
                                                 label.text = stringOrAttributedString;
@@ -19,7 +26,7 @@
                        fromTableView:(UITableView *)tableView
                                width:(CGFloat)width
                  configuredWithBlock:(void (^)(UITableViewCell *))block {
-    WMFSnapshotVerifyView([self wmf_getCellWithIdentifier:identifier
+    WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getCellWithIdentifier:identifier
                                             fromTableView:tableView
                                           sizedToFitWidth:width
                                       configuredWithBlock:^(UITableViewCell *cell) {
@@ -31,7 +38,7 @@
 
 - (void)wmf_verifyView:(UIView *)view width:(CGFloat)width {
     [view wmf_sizeToFitWidth:width];
-    WMFSnapshotVerifyView(view);
+    WMFSnapshotVerifyViewForOSAndWritingDirection(view);
 }
 
 - (void)wmf_verifyViewAtWindowWidth:(UIView *)view {

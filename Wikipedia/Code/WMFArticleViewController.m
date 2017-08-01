@@ -28,7 +28,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "TUSafariActivity.h"
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -70,9 +69,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return nil;
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
-    
+
     WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
-    
+
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
     return vc;
@@ -81,13 +80,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
-UIViewControllerPreviewingDelegate,
-WMFLanguagesViewControllerDelegate,
-WMFArticleListTableViewControllerDelegate,
-WMFReadingThemesControlsViewControllerDelegate,
-UIPopoverPresentationControllerDelegate,
-WKUIDelegate,
-WMFArticlePreviewingActionsDelegate>
+                                        UIViewControllerPreviewingDelegate,
+                                        WMFLanguagesViewControllerDelegate,
+                                        WMFArticleListTableViewControllerDelegate,
+                                        WMFReadingThemesControlsViewControllerDelegate,
+                                        UIPopoverPresentationControllerDelegate,
+                                        WKUIDelegate,
+                                        WMFArticlePreviewingActionsDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -122,7 +121,7 @@ WMFArticlePreviewingActionsDelegate>
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *readingThemesControlsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
@@ -159,10 +158,10 @@ WMFArticlePreviewingActionsDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore {
-    
+
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
-    
+
     self = [super init];
     if (self) {
         self.theme = [WMFTheme standard];
@@ -193,17 +192,18 @@ WMFArticlePreviewingActionsDelegate>
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
     NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
-    
+
     _shareFunnel = nil;
     _shareOptionsController = nil;
     [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
-    
+
     _article = article;
-    
+
     // always update webVC & headerGallery, even if nil so they are reset if needed
     [self.webViewController setArticle:_article articleURL:self.articleURL];
-    
+
     if (self.article) {
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
         } else {
@@ -224,12 +224,12 @@ WMFArticlePreviewingActionsDelegate>
         [self wmf_hideEmptyView];
         [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_articleViewActivityWithArticle:self.article]];
     }
-    
+
     [self updateToolbar];
     [self setupTableOfContentsViewController];
     [self setupReadingThemesControls];
     [self updateTableOfContentsForFootersIfNeeded];
-    
+
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -279,7 +279,7 @@ WMFArticlePreviewingActionsDelegate>
         progress.translatesAutoresizingMaskIntoConstraints = NO;
         _progressView = progress;
     }
-    
+
     return _progressView;
 }
 
@@ -289,13 +289,14 @@ WMFArticlePreviewingActionsDelegate>
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGFloat borderHeight = scale > 1 ? 0.5 : 1;
         CGFloat height = 10;
-        
+
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        
+        _headerView.clipsToBounds = YES;
+
         UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
         headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
         headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        
+
         self.headerImageView.frame = CGRectMake(0, 0, 1, height - borderHeight);
         [_headerView addSubview:self.headerImageView];
         [_headerView addSubview:headerBorderView];
@@ -308,8 +309,6 @@ WMFArticlePreviewingActionsDelegate>
         _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
-        // White background is necessary for images with alpha
-        
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
@@ -399,7 +398,7 @@ WMFArticlePreviewingActionsDelegate>
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems {
     NSMutableArray *articleToolbarItems = [NSMutableArray arrayWithCapacity:18];
-    
+
     CGFloat spacing = 0;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -408,28 +407,28 @@ WMFArticlePreviewingActionsDelegate>
         default:
             break;
     }
-    
+
     NSArray *itemGroups = @[@[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
                               self.languagesToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
-                            
+
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
                               self.saveToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4 + spacing]],
-                            
+
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
                               self.shareToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing]],
-                            
+
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
-                              self.fontSizeToolbarItem,
+                              self.readingThemesControlsToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
-                            
+
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                              
+
                               self.findInPageToolbarItem,
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]]];
-    
+
     for (NSArray *itemGroup in itemGroups) {
         switch (self.tableOfContentsDisplayMode) {
             case WMFTableOfContentsDisplayModeInline:
@@ -441,7 +440,7 @@ WMFArticlePreviewingActionsDelegate>
         }
         [articleToolbarItems addObjectsFromArray:itemGroup];
     }
-    
+
     UIBarButtonItem *tocItem = [self tableOfContentsToolbarItem];
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -479,9 +478,9 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)updateToolbarItemsIfNeeded {
-    
+
     NSArray<UIBarButtonItem *> *toolbarItems = [self articleToolBarItems];
-    
+
     if (![self.toolbarItems isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
         [self setToolbarItems:toolbarItems animated:NO];
@@ -489,7 +488,7 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)updateToolbarItemEnabledState {
-    self.fontSizeToolbarItem.enabled = [self canAdjustText];
+    self.readingThemesControlsToolbarItem.enabled = [self canAdjustText];
     self.shareToolbarItem.enabled = [self canShare];
     self.languagesToolbarItem.enabled = [self hasLanguages];
     self.showTableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -532,11 +531,12 @@ WMFArticlePreviewingActionsDelegate>
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem *)fontSizeToolbarItem {
-    if (!_fontSizeToolbarItem) {
-        _fontSizeToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showFontSizePopup)];
+- (UIBarButtonItem *)readingThemesControlsToolbarItem {
+    if (!_readingThemesControlsToolbarItem) {
+        _readingThemesControlsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"font-size"] style:UIBarButtonItemStylePlain target:self action:@selector(showReadingThemesControlsPopup)];
     }
-    return _fontSizeToolbarItem;
+    _readingThemesControlsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"article-toolbar-reading-themes-controls-toolbar-item", nil, nil, @"Reading Themes Controls", @"Accessibility label for the Reading Themes Controls article toolbar item");
+    return _readingThemesControlsToolbarItem;
 }
 
 - (UIBarButtonItem *)shareToolbarItem {
@@ -560,9 +560,12 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)findInPageButtonPressed {
-    if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-        [self showFindInPage];
-    }
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.webViewController showFindInPage];
+    }];
+    [self dismissReadingThemesPopoverIfActive];
+    [CATransaction commit];
 }
 
 - (UIBarButtonItem *)languagesToolbarItem {
@@ -578,6 +581,7 @@ WMFArticlePreviewingActionsDelegate>
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
+    [self dismissReadingThemesPopoverIfActive];
     WMFArticleLanguagesViewController *languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:languagesVC];
@@ -600,9 +604,9 @@ WMFArticlePreviewingActionsDelegate>
     if (![self hasTableOfContents]) {
         return;
     }
-    
+
     BOOL includeReadMore = [self hasReadMore];
-    
+
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }
 
@@ -623,12 +627,12 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)showProgressViewAnimated:(BOOL)animated {
     self.progressView.progress = 0.05;
-    
+
     if (!animated) {
         [self _showProgressView];
         return;
     }
-    
+
     [UIView animateWithDuration:0.25
                      animations:^{
                          [self _showProgressView];
@@ -646,7 +650,7 @@ WMFArticlePreviewingActionsDelegate>
         [self _hideProgressView];
         return;
     }
-    
+
     [UIView animateWithDuration:0.25
                      animations:^{
                          [self _hideProgressView];
@@ -663,7 +667,7 @@ WMFArticlePreviewingActionsDelegate>
         return;
     }
     [self.progressView setProgress:progress animated:animated];
-    
+
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
@@ -727,11 +731,12 @@ WMFArticlePreviewingActionsDelegate>
     [b addTarget:self action:@selector(titleBarButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
     self.navigationItem.titleView.isAccessibilityElement = YES;
-    
+
     self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitButton;
 }
 
 - (void)titleBarButtonPressed {
+    [self dismissReadingThemesPopoverIfActive];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -744,10 +749,10 @@ WMFArticlePreviewingActionsDelegate>
         self.theme = [WMFTheme standard];
     }
     [self setUpTitleBarButton];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleWasUpdatedWithNotification:) name:WMFArticleUpdatedNotification object:nil];
-    
+
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
     [self addProgressView];
@@ -757,23 +762,23 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     NSUInteger index = self.indexOfCurrentFontSize;
     NSNumber *multiplier = self.fontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
-    
+
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
-    
+
     BOOL isVisibleInline = [[NSUserDefaults wmf_userDefaults] wmf_isTableOfContentsVisibleInline];
-    
+
     self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? isVisibleInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateModalHidden;
-    
+
     [self updateToolbar];
-    
+
     [self layoutForSize:self.view.bounds.size];
-    
+
     [self registerForPreviewingIfAvailable];
-    
+
     if (!self.skipFetchOnViewDidAppear) {
         [self fetchArticleIfNeeded];
     }
@@ -789,12 +794,13 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     [self unregisterForPreviewing];
-    
+
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
+    [self dismissReadingThemesPopoverIfActive];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -817,15 +823,15 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)layoutForSize:(CGSize)size {
     BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
-    
+
     CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
     CGFloat tocWidth = round(size.width * WMFArticleViewControllerExpandedTableOfContentsWidthPercentage);
     CGFloat webFrameWidth = size.width - (isTOCVisible ? (separatorWidth + tocWidth) : 0);
-    
+
     CGFloat webFrameOriginX;
     CGFloat tocOriginX;
     CGFloat separatorOriginX;
-    
+
     switch (self.tableOfContentsDisplaySide) {
         case WMFTableOfContentsDisplaySideRight:
             tocOriginX = isTOCVisible ? webFrameWidth + separatorWidth : size.width + separatorWidth;
@@ -839,7 +845,7 @@ WMFArticlePreviewingActionsDelegate>
             webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
             break;
     }
-    
+
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, self.topLayoutGuide.length, tocWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
@@ -847,7 +853,7 @@ WMFArticlePreviewingActionsDelegate>
         self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
-    
+
     CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, webFrameWidth, size.height);
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
@@ -861,15 +867,15 @@ WMFArticlePreviewingActionsDelegate>
             self.webViewController.contentWidthPercentage = 0.91;
             break;
     }
-    
+
     [self.webViewController.view layoutIfNeeded];
-    
+
     [self layoutHeaderImageViewForSize:size];
 }
 
 - (void)layoutHeaderImageViewForSize:(CGSize)size {
     CGRect headerViewBounds = self.headerView.bounds;
-    
+
     self.headerView.bounds = headerViewBounds;
     CGSize imageSize = self.headerImageView.image.size;
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
@@ -877,7 +883,7 @@ WMFArticlePreviewingActionsDelegate>
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
         marginWidth = self.webViewController.marginWidth + 16;
     }
-    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, headerViewBounds.size.height);
+    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, WebViewControllerHeaderImageHeight);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -894,9 +900,9 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
-    
+
     BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
-    
+
     if (isCompact) {
         WMFTableOfContentsDisplayStyle style = [self tableOfContentsStyleTweakValue];
         switch (style) {
@@ -914,7 +920,7 @@ WMFArticlePreviewingActionsDelegate>
     } else {
         self.tableOfContentsDisplaySide = [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
     }
-    
+
     self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -925,7 +931,7 @@ WMFArticlePreviewingActionsDelegate>
             self.updateTableOfContentsSectionOnScrollEnabled = NO;
             break;
     }
-    
+
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
 }
@@ -942,7 +948,7 @@ WMFArticlePreviewingActionsDelegate>
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
-    
+
     self.pullToRefresh = [[UIRefreshControl alloc] init];
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
@@ -958,30 +964,32 @@ WMFArticlePreviewingActionsDelegate>
         UIColor *previousBackgrondColor = scrollView.backgroundColor;
         scrollView.backgroundColor = [UIColor whiteColor];
         [UIView animateWithDuration:0.20
-                         animations:^{
-                             [self layoutForSize:self.view.bounds.size];
-                             if (self.sectionToRestoreScrollOffset) {
-                                 [self.webViewController scrollToSection:self.currentSection animated:NO];
-                             } else {
-                                 scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-                             }
-                         }
-                         completion:^(BOOL finished) {
-                             scrollView.backgroundColor = previousBackgrondColor;
-                         }];
+            animations:^{
+                [self layoutForSize:self.view.bounds.size];
+                if (self.sectionToRestoreScrollOffset) {
+                    [self.webViewController scrollToSection:self.currentSection animated:NO];
+                } else {
+                    scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+                }
+            }
+            completion:^(BOOL finished) {
+                scrollView.backgroundColor = previousBackgrondColor;
+            }];
     } else {
         [self layoutForSize:self.view.bounds.size];
     }
 }
 
 - (void)showTableOfContents:(id)sender {
+    [self dismissReadingThemesPopoverIfActive];
+
     if (self.tableOfContentsViewController == nil) {
         return;
     }
-    
+
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-    
+
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
@@ -1023,7 +1031,7 @@ WMFArticlePreviewingActionsDelegate>
                     [self.tableOfContentsViewController dismissViewControllerAnimated:NO completion:NULL];
                 }
                 self.tableOfContentsViewController = nil;
-                
+
                 switch (self.tableOfContentsDisplayState) {
                     case WMFTableOfContentsDisplayStateModalHidden:
                         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
@@ -1033,20 +1041,20 @@ WMFArticlePreviewingActionsDelegate>
                     default:
                         break;
                 }
-                
+
                 [self createTableOfContentsViewControllerIfNeeded];
                 self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
                 self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-                
+
                 if (self.tableOfContentsViewController == nil) {
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
                 } else {
                     [self addChildViewController:self.tableOfContentsViewController];
                     [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
                     [self.tableOfContentsViewController didMoveToParentViewController:self];
-                    
+
                     [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
-                    
+
                     self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
                     UISwipeGestureRecognizerDirection closeDirection;
                     switch (self.tableOfContentsDisplaySide) {
@@ -1075,7 +1083,7 @@ WMFArticlePreviewingActionsDelegate>
             [self createTableOfContentsViewControllerIfNeeded];
             self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
             self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
-            
+
             switch (self.tableOfContentsDisplayState) {
                 case WMFTableOfContentsDisplayStateInlineVisible:
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
@@ -1086,7 +1094,7 @@ WMFArticlePreviewingActionsDelegate>
                     self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
                     break;
             }
-            
+
         } break;
     }
     [self updateToolbar];
@@ -1145,72 +1153,72 @@ WMFArticlePreviewingActionsDelegate>
         [self articleDidLoad];
         return;
     }
-    
+
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self.view bringSubviewToFront:self.progressView];
     }
-    
+
     [self showProgressViewAnimated:YES];
-    
+
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
-                                                                           forceDownload:force
-                                                                              saveToDisk:NO
-                                                                                progress:^(CGFloat progress) {
-                                                                                    [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
-                                                                                }
-                                                                                 failure:^(NSError *_Nonnull error) {
-                                                                                     @strongify(self);
-                                                                                     DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-                                                                                     [self endRefreshing];
-                                                                                     [self hideProgressViewAnimated:YES];
-                                                                                     [self.delegate articleControllerDidLoadArticle:self];
-                                                                                     
-                                                                                     MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
-                                                                                     if (cachedFallback) {
-                                                                                         self.article = cachedFallback;
-                                                                                         if (![error wmf_isNetworkConnectionError]) {
-                                                                                             // don't show offline banner for cached articles
-                                                                                             [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                                                                       sticky:NO
-                                                                                                                        dismissPreviousAlerts:NO
-                                                                                                                                  tapCallBack:NULL];
-                                                                                         }
-                                                                                     } else {
-                                                                                         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
-                                                                                         [self.view bringSubviewToFront:self.progressView];
-                                                                                         [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                                                                   sticky:NO
-                                                                                                                    dismissPreviousAlerts:NO
-                                                                                                                              tapCallBack:NULL];
-                                                                                         
-                                                                                         if ([error wmf_isNetworkConnectionError]) {
-                                                                                             @weakify(self);
-                                                                                             [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-                                                                                                 switch (status) {
-                                                                                                     case AFNetworkReachabilityStatusReachableViaWWAN:
-                                                                                                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                                                                                                         @strongify(self);
-                                                                                                         [self fetchArticleIfNeeded];
-                                                                                                     } break;
-                                                                                                     default:
-                                                                                                         break;
-                                                                                                 }
-                                                                                             }];
-                                                                                         }
-                                                                                     }
-                                                                                     self.articleFetcherPromise = nil;
-                                                                                     [self articleDidLoad];
-                                                                                 }
-                                                                                 success:^(MWKArticle *_Nonnull article) {
-                                                                                     @strongify(self);
-                                                                                     [self endRefreshing];
-                                                                                     [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-                                                                                     self.article = article;
-                                                                                     self.articleFetcherPromise = nil;
-                                                                                     [self articleDidLoad];
-                                                                                 }];
+        forceDownload:force
+        saveToDisk:NO
+        progress:^(CGFloat progress) {
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        }
+        failure:^(NSError *_Nonnull error) {
+            @strongify(self);
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+            [self endRefreshing];
+            [self hideProgressViewAnimated:YES];
+            [self.delegate articleControllerDidLoadArticle:self];
+
+            MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+            if (cachedFallback) {
+                self.article = cachedFallback;
+                if (![error wmf_isNetworkConnectionError]) {
+                    // don't show offline banner for cached articles
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
+            } else {
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
+                [self.view bringSubviewToFront:self.progressView];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
+
+                if ([error wmf_isNetworkConnectionError]) {
+                    @weakify(self);
+                    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+                        switch (status) {
+                            case AFNetworkReachabilityStatusReachableViaWWAN:
+                            case AFNetworkReachabilityStatusReachableViaWiFi: {
+                                @strongify(self);
+                                [self fetchArticleIfNeeded];
+                            } break;
+                            default:
+                                break;
+                        }
+                    }];
+                }
+            }
+            self.articleFetcherPromise = nil;
+            [self articleDidLoad];
+        }
+        success:^(MWKArticle *_Nonnull article) {
+            @strongify(self);
+            [self endRefreshing];
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+            self.article = article;
+            self.articleFetcherPromise = nil;
+            [self articleDidLoad];
+        }];
 }
 
 - (void)fetchArticle {
@@ -1231,6 +1239,7 @@ WMFArticlePreviewingActionsDelegate>
 }
 
 - (void)shareArticle {
+    [self dismissReadingThemesPopoverIfActive];
     UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
     if (vc) {
         [self presentViewController:vc animated:YES completion:NULL];
@@ -1245,19 +1254,10 @@ WMFArticlePreviewingActionsDelegate>
     }
 }
 
-#pragma mark - Find-in-page
-
-- (void)showFindInPage {
-    if (self.presentedViewController != nil) {
-        return;
-    }
-    
-    [self.webViewController showFindInPage];
-}
-
 #pragma mark - Save
 
 - (void)toggleSave:(id)sender {
+    [self dismissReadingThemesPopoverIfActive];
     BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
@@ -1283,48 +1283,59 @@ WMFArticlePreviewingActionsDelegate>
     self.readingThemesViewController = [[WMFReadingThemesControlsViewController alloc] initWithNibName:@"ReadingThemesControlsViewController" bundle:nil];
 }
 
-#pragma mark - Font Size
-
-- (void)showFontSizePopup {
+- (void)showReadingThemesControlsPopup {
     NSArray *fontSizes = self.fontSizeMultipliers;
     NSUInteger index = self.indexOfCurrentFontSize;
-    
+
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
-    
+
     self.readingThemesViewController.delegate = self;
-    
+
     [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
-    
+
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
-    
+
     [self.readingThemesViewController applyTheme:self.theme];
-    
+
     self.readingThemesPopoverPresenter.delegate = self;
-    self.readingThemesPopoverPresenter.barButtonItem = self.fontSizeToolbarItem;
+    self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
-    
+
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
-    
+
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
+
+    self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
+}
+
+- (void)dismissReadingThemesPopoverIfActive {
+    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }
 
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
+    // This method is called in iOS 8.3 or later regardless of trait collection, in which case use the original presentation style (UIModalPresentationNone signals no adaptation)
+    return UIModalPresentationNone;
+}
+
 - (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
     NSArray *fontSizes = self.fontSizeMultipliers;
-    
+
     if (value > fontSizes.count) {
         return;
     }
-    
+
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
-- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController * _Nonnull)controller theme:(WMFTheme * _Nonnull)theme {
+- (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
@@ -1349,20 +1360,20 @@ WMFArticlePreviewingActionsDelegate>
 
 - (NSUInteger)indexOfCurrentFontSize {
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
-    
+
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
-    
+
     if (index == NSNotFound) {
         index = [self fontSizeMultipliers].count / 2;
     }
-    
+
     return index;
 }
 
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)webViewController:(WebViewController *)controller
- didTapImageWithSourceURL:(nonnull NSURL *)imageSourceURL {
+    didTapImageWithSourceURL:(nonnull NSURL *)imageSourceURL {
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     if (fullscreenGallery != nil) {
@@ -1377,15 +1388,15 @@ WMFArticlePreviewingActionsDelegate>
             [self showWIconPopoverIfNecessary];
         });
     }];
-    
+
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
         [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
     }
-    
+
     [self.delegate articleControllerDidLoadArticle:self];
-    
+
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
@@ -1393,7 +1404,7 @@ WMFArticlePreviewingActionsDelegate>
     if (self.navigationController.topViewController != self || !self.isSavingOpenArticleTitleEnabled) {
         return;
     }
-    
+
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
         if (error) {
             // Reminder: an error is *expected* here when 1st loading an article. This is
@@ -1441,7 +1452,7 @@ WMFArticlePreviewingActionsDelegate>
             }];
         }
     }];
-    
+
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
 }
 
@@ -1489,7 +1500,6 @@ WMFArticlePreviewingActionsDelegate>
     WMFThemeableNavigationController *navC = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:navC animated:YES completion:nil];
 }
-
 
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
@@ -1580,11 +1590,11 @@ WMFArticlePreviewingActionsDelegate>
     if (peekVC) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
-        
+
         if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
             ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
         }
-        
+
         return peekVC;
     }
     return nil;
@@ -1624,9 +1634,9 @@ WMFArticlePreviewingActionsDelegate>
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
     }
-                        unavailable:^{
-                            [self unregisterForPreviewing];
-                        }];
+        unavailable:^{
+            [self unregisterForPreviewing];
+        }];
 }
 
 - (void)unregisterForPreviewing {
@@ -1664,14 +1674,14 @@ WMFArticlePreviewingActionsDelegate>
 
 - (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL {
     NSURL *galleryURL = [self galleryURLFromImageFilePageURL:imageFilePageURL];
-    
+
     if (!galleryURL) {
         return nil;
     }
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
-    [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                    selectedImage:selectedImage];
+        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                        selectedImage:selectedImage];
     return gallery;
 }
 
@@ -1698,55 +1708,55 @@ WMFArticlePreviewingActionsDelegate>
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActions {
     UIPreviewAction *readAction =
-    [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
-                               style:UIPreviewActionStyleDefault
-                             handler:^(UIPreviewAction *_Nonnull action,
-                                       UIViewController *_Nonnull previewViewController) {
-                                 NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                 [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
-                             }];
-    
-    UIPreviewAction *saveAction =
-    [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFCommonStrings saveTitle]
-                               style:UIPreviewActionStyleDefault
-                             handler:^(UIPreviewAction *_Nonnull action,
-                                       UIViewController *_Nonnull previewViewController) {
-                                 // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
-                                 if ([self.savedPages isSaved:self.articleURL]) {
-                                     [self.savedPages removeEntryWithURL:self.articleURL];
-                                 } else {
-                                     [self.savedPages addSavedPageWithURL:self.articleURL];
-                                 }
-                             }];
-    
-    UIPreviewAction *shareAction =
-    [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
-                               style:UIPreviewActionStyleDefault
-                             handler:^(UIPreviewAction *_Nonnull action,
-                                       UIViewController *_Nonnull previewViewController) {
-                                 UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
-                                 if (shareActivityController) {
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"button-read-now", nil, nil, @"Read now", @"Read now button text used in various places.")
+                                   style:UIPreviewActionStyleDefault
+                                 handler:^(UIPreviewAction *_Nonnull action,
+                                           UIViewController *_Nonnull previewViewController) {
                                      NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                     [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
-                                                                                                           shareActivityController:shareActivityController];
-                                 }
-                             }];
-    
+                                     [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
+                                 }];
+
+    UIPreviewAction *saveAction =
+        [UIPreviewAction actionWithTitle:[self.savedPages isSaved:self.articleURL] ? WMFLocalizedStringWithDefaultValue(@"button-saved-remove", nil, nil, @"Remove from saved", @"Remove from saved button text used in various places.") : [WMFCommonStrings saveTitle]
+                                   style:UIPreviewActionStyleDefault
+                                 handler:^(UIPreviewAction *_Nonnull action,
+                                           UIViewController *_Nonnull previewViewController) {
+                                     // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
+                                     if ([self.savedPages isSaved:self.articleURL]) {
+                                         [self.savedPages removeEntryWithURL:self.articleURL];
+                                     } else {
+                                         [self.savedPages addSavedPageWithURL:self.articleURL];
+                                     }
+                                 }];
+
+    UIPreviewAction *shareAction =
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
+                                   style:UIPreviewActionStyleDefault
+                                 handler:^(UIPreviewAction *_Nonnull action,
+                                           UIViewController *_Nonnull previewViewController) {
+                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                     if (shareActivityController) {
+                                         NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                         [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
+                                                                                                               shareActivityController:shareActivityController];
+                                     }
+                                 }];
+
     WMFArticle *wmfarticle = [self.dataStore fetchArticleWithURL:self.articleURL];
     UIPreviewAction *placeAction = nil;
     if (wmfarticle.location) {
         placeAction =
-        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
-                                   style:UIPreviewActionStyleDefault
-                                 handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
-                                     if (shareActivityController) {
-                                         NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                         [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
-                                     }
-                                 }];
+            [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
+                                       style:UIPreviewActionStyleDefault
+                                     handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
+                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                         if (shareActivityController) {
+                                             NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                             [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
+                                         }
+                                     }];
     }
-    
+
     if (placeAction) {
         return @[readAction, saveAction, placeAction, shareAction];
     } else {
@@ -1781,8 +1791,8 @@ WMFArticlePreviewingActionsDelegate>
 
 - (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
-    [[WMFArticleViewController alloc] initWithArticleURL:url
-                                               dataStore:self.dataStore];
+        [[WMFArticleViewController alloc] initWithArticleURL:url
+                                                   dataStore:self.dataStore];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
@@ -1856,7 +1866,7 @@ WMFArticlePreviewingActionsDelegate>
         return;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
-    
+
     [self performSelector:@selector(showWIconPopover) withObject:nil afterDelay:1.0];
 }
 
@@ -1880,7 +1890,10 @@ WMFArticlePreviewingActionsDelegate>
     self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
-    self.headerImageView.backgroundColor = theme.colors.paperBackground;
+    if (self.headerImageView.image == nil) {
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
+    }
+    self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];
     [self.readingThemesViewController applyTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;

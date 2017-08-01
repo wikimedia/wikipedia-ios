@@ -65,7 +65,10 @@
 "action-share" = "Dela";
 "action-unsave" = "Spara inte";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
-"announcements-dismiss" = "Nej tack";
+"announcements-dismiss" = "Stäng";
+"appearance-settings-reading-themes" = "Lästeman";
+"appearance-settings-theme-options" = "Temaalternativ";
+"appearance-settings-title" = "Lästeman";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
 "article-languages-filter-placeholder" = "Hitta språk";
@@ -73,8 +76,8 @@
 "article-languages-others" = "Andra språk";
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
-"article-save" = "Spara";
 "article-share" = "Dela";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "back" = "Tillbaka";
@@ -93,6 +96,8 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"dark-theme-display-name" = "Mörk";
+"dim-images" = "Mörklägg bilder";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-linked-words" = "Lade till länkar";
@@ -131,7 +136,7 @@
 "explore-random-article-heading" = "Slumpartikel";
 "explore-randomizer" = "Randomiserare";
 "feed-news-notification-button-text" = "Aktivera notiser";
-"feed-news-notification-text" = "Du kan nu få notiser om Wikipedia-artiklar som är populära på nyheterna.";
+"feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära på nyheterna.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lösenorden stämmer inte överens";
 "field-alert-password-invalid" = "Ogiltigt lösenord";
@@ -187,6 +192,8 @@
 "home-nearby-footer" = "Mer från i närheten av din plats";
 "home-nearby-location-footer" = "Mer i närheten av $1";
 "home-news-footer" = "Mer aktuellt";
+"home-themes-action-title" = "Hantera inställningar";
+"home-themes-prompt" = "Justera dina läsinställningar inklusive textstorlek och tema från verktygsfältet eller i dina användarinställningar för en mer bekväm läsupplevelse.";
 "home-title" = "Utforska";
 "home-title-accessibility-label" = "Wikipedia, rulla upp till Utforska";
 "icon-shortcut-continue-reading-title" = "Fortsätt läsa";
@@ -239,7 +246,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "från $1 - $2";
-"on-this-day-detail-header-day" = "den $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-title" = "På denna dag";
@@ -297,13 +303,18 @@
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
+"reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
+"reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
+"reading-themes-controls-accessibility-dim-images-switch" = "Mörklägg bilder";
+"reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepiatema";
+"reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reference-title" = "Referens $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|$1 dagar sedan}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|Senaste året|$1 år sedan}}";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
-"save-action" = "Spara";
 "saved-clear-all" = "Rensa";
 "saved-pages-clear-cancel" = "Avbryt";
 "saved-pages-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina sparade objekt?";
@@ -319,6 +330,7 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
+"settings-appearance" = "Utseende";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
@@ -354,6 +366,9 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"theme-dark-display-name" = "Mörk";
+"theme-default-display-name" = "Standard";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se fler populära artiklar";
@@ -362,7 +377,6 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
-"unsave-action" = "Spara inte";
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-explore-new-ways-sub-title" = "Nya notiser och widgets för att hjälpa dig att upptäcka intressanta artiklar";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
@@ -392,7 +406,6 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";

@@ -1,7 +1,6 @@
 #import "WMFArticleListTableViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "TUSafariActivity.h"
 @import WMF;
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate, WMFArticlePreviewingActionsDelegate, WMFAnalyticsContextProviding>
@@ -20,18 +19,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
+
     //HACK: this is the only way to force the table view to hide separators when the table view is empty.
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self registerForPreviewingIfAvailable];
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -48,7 +47,7 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
+
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self.tableView reloadData];
     }
@@ -70,16 +69,18 @@
 }
 
 - (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
-    return [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            if (handler) {
-                handler(action, indexPath);
-            }
-        }];
-        [self.tableView setEditing:NO animated:YES];
-        [CATransaction commit];
-    }];
+    return [UITableViewRowAction rowActionWithStyle:style
+                                              title:title
+                                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                                [CATransaction begin];
+                                                [CATransaction setCompletionBlock:^{
+                                                    if (handler) {
+                                                        handler(action, indexPath);
+                                                    }
+                                                }];
+                                                [self.tableView setEditing:NO animated:YES];
+                                                [CATransaction commit];
+                                            }];
 }
 
 #pragma mark - Previewing
@@ -90,9 +91,9 @@
         self.previewingContext = [self registerForPreviewingWithDelegate:self
                                                               sourceView:self.tableView];
     }
-                        unavailable:^{
-                            [self unregisterPreviewing];
-                        }];
+        unavailable:^{
+            [self unregisterPreviewing];
+        }];
 }
 
 - (void)unregisterPreviewing {
@@ -110,14 +111,14 @@
     if (!previewIndexPath) {
         return nil;
     }
-    
+
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
-    
+
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-    
+
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
-    
+
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
@@ -161,7 +162,7 @@
         if (self.navigationItem.leftBarButtonItem == nil) {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonPressed:)];
         }
-        
+
         if (!self.isEmpty) {
             self.navigationItem.leftBarButtonItem.enabled = YES;
         } else {
@@ -280,33 +281,41 @@
 }
 
 - (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[self shareActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        NSURL *url = [self urlAtIndexPath:indexPath];
-        
-        [self shareArticle:url];
-    }];
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
+                              title:[self shareActionText]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                NSURL *url = [self urlAtIndexPath:indexPath];
+
+                                [self shareArticle:url];
+                            }];
 }
 
 - (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive title:[self deleteActionText] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [self deleteItemAtIndexPath:indexPath];
-    }];
+    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive
+                              title:[self deleteActionText]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                [self deleteItemAtIndexPath:indexPath];
+                            }];
 }
 
 - (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSaveTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSURL *url = [self urlAtIndexPath:indexPath];
-        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
-        [savedPageList addSavedPageWithURL:url];
-    }];
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
+                              title:[WMFCommonStrings shortSaveTitle]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                NSURL *url = [self urlAtIndexPath:indexPath];
+                                MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+                                [savedPageList addSavedPageWithURL:url];
+                            }];
 }
 
-- (UITableViewRowAction *)savedAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal title:[WMFCommonStrings shortSavedTitle]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSURL *url = [self urlAtIndexPath:indexPath];
-        MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
-        [savedPageList removeEntryWithURL:url];
-    }];
+- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
+                              title:[WMFCommonStrings shortUnsaveTitle]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                NSURL *url = [self urlAtIndexPath:indexPath];
+                                MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+                                [savedPageList removeEntryWithURL:url];
+                            }];
 }
 
 #pragma mark - WMFThemeable

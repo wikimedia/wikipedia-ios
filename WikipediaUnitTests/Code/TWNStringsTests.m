@@ -255,7 +255,7 @@
                                                   }];
                         enTokensByKey[key] = enTokens;
                     }
-                    
+
                     XCTAssertEqualObjects(localizedTokens, enTokens, @"%@ translation for %@ has incorrect tokens:\n%@\n%@", lprojFileName, key, enString, localizedString);
                 }
             }

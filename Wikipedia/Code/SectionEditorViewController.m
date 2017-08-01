@@ -31,11 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+
     if (!self.theme) {
         self.theme = [WMFTheme standard];
     }
-    
+
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
@@ -65,7 +65,7 @@
     }
 
     self.viewKeyboardRect = CGRectNull;
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -203,7 +203,7 @@
     previewVC.funnel = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;
     previewVC.delegate = self;
-    [previewVC applyTheme: self.theme];
+    [previewVC applyTheme:self.theme];
     [self.navigationController pushViewController:previewVC animated:YES];
 }
 

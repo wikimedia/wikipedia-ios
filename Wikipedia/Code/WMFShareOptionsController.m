@@ -324,9 +324,9 @@ NS_ASSUME_NONNULL_BEGIN
         //The asserion above will catch this in development/beta.
         return;
     }
-    
-    WMFShareActivityController *shareActivityVC = [[WMFShareActivityController alloc] initWithArticle: self.article image: image title: title];
-    
+
+    WMFShareActivityController *shareActivityVC = [[WMFShareActivityController alloc] initWithArticle:self.article image:image title:title];
+
     UIPopoverPresentationController *presenter = [shareActivityVC popoverPresentationController];
     presenter.barButtonItem = self.originButtonItem;
 

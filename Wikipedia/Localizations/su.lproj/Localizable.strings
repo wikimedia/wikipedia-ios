@@ -48,6 +48,7 @@
 "action-share" = "Bagikeun";
 "action-unsave" = "Ulah nyimpen";
 "alert-no-internet" = "Taya sambungan internét";
+// Fuzzy
 "announcements-dismiss" = "Henteu, nuhun";
 "article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
@@ -56,7 +57,6 @@
 "article-languages-others" = "Basa séjén";
 "article-languages-yours" = "Basa anjeun";
 "article-read-more-title" = "Baca leuwih jero";
-"article-save" = "Simpen";
 "article-share" = "Bagikeun";
 "article-unable-to-load-article" = "Teu bisa muat artikel";
 "article-unable-to-load-section" = "Teu bisa muat ieu bagéan. Coba segerkeun deui artikel pikein nempoan mun éta tarékah bisa menerkeun masalah.";
@@ -114,6 +114,7 @@
 "explore-random-article-heading" = "Artikel acak";
 "explore-randomizer" = "Kaca acak";
 "feed-news-notification-button-text" = "Pareuman iber";
+// Fuzzy
 "feed-news-notification-text" = "Ayeuna anjeun bisa nampa iber ngeunaan artikel ngetrén Wikipédia dina keur lumangsung.";
 "field-alert-captcha-invalid" = "CAPTCHA salah";
 "field-alert-password-confirm-mismatch" = "Kecap sandi teu akur";
@@ -218,7 +219,6 @@
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 rébu";
 "on-this-day-detail-header-date-range" = "ti $1 - $2";
-"on-this-day-detail-header-day" = "dina $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";
@@ -277,7 +277,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bieu pisan|$1 jam kaliwat|$1 jam kaliwat}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Cik kénéh|$1 menit kaliwat|$1 menit kaliwat}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
-"save-action" = "Simpen";
 "saved-clear-all" = "Bersihkeun";
 "saved-pages-clear-cancel" = "Bolay";
 "saved-pages-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh kaca kasimpen anjeun?";
@@ -334,7 +333,6 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
-"unsave-action" = "Ulah disimpen";
 "welcome-explore-continue-button" = "Mitembeyan";
 "welcome-explore-new-ways-sub-title" = "Iber anyar sarta widgét pikeun nulungan anjeun manggihan artikel pitajieun";
 "welcome-explore-new-ways-title" = "Cara anyar pikeun ngalanglang";

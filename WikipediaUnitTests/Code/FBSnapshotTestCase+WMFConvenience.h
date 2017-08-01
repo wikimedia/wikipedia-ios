@@ -1,16 +1,7 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "UIApplication+VisualTestUtils.h"
 
-/**
- *  @function WMFSnapshotVerifyView
- *
- *  Verify correct appearance of a given view.
- *
- *  Search all folder suffixes, use default naming conventions.
- *
- *  @param view The view to verify.
- */
-#define WMFSnapshotVerifyView(view) FBSnapshotVerifyView((view), nil)
+extern const BOOL WMFIsVisualTestRecordModeEnabled;
 
 /**
  *  @function WMFSnapshotVerifyViewForOSAndWritingDirection

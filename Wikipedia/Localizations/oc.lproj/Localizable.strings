@@ -36,6 +36,7 @@
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
 "action-unsave" = "Pas enregistrat";
+// Fuzzy
 "announcements-dismiss" = "Non mercé";
 "article-about-title" = "A prepaus d'aqueste article";
 "article-languages-filter-placeholder" = "Trobar la lenga";
@@ -77,6 +78,7 @@
 "explore-random-article-heading" = "Article a l'azard";
 "explore-randomizer" = "Article a l'azard";
 "feed-news-notification-button-text" = "Activar las notificacions";
+// Fuzzy
 "feed-news-notification-text" = "Podètz ara recebre de notificacions a prepaus dels articles Wikipèdia dins la tendéncia de l'actualitat.";
 "find-in-page-button-label" = "Trobar dins la pagina";
 "forgot-password-button-title" = "Reïnicializar";
@@ -166,7 +168,6 @@
 "rank-accessibility-label" = "Numèro $1";
 "readers-accessibility-label" = "$1 lectors";
 "reference-title" = "Referéncia $1";
-"save-action" = "Enregistrar";
 "saved-clear-all" = "Escafar";
 "saved-pages-clear-cancel" = "Anullar";
 "saved-pages-clear-confirmation-heading" = "Sètz segur que volètz suprimir totes vòstres elements enregistrats ?";
@@ -208,7 +209,6 @@
 "top-read-header-with-language" = "Wikipèdia en $1";
 "top-read-see-more" = "Veire mai de paginas las mai gaitadas";
 "two-factor-login-title" = "Se connectar a vòstre compte";
-"unsave-action" = "Anullar l’enregistrament";
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more" = "Me'n dire mai";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";

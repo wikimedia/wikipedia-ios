@@ -8,6 +8,8 @@
 
 - (void)wmf_collapseTablesForArticle:(MWKArticle *)article;
 
+- (void)wmf_addEditPencilsForArticle:(MWKArticle *)article;
+
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo;
 
 - (void)wmf_setPageProtected:(BOOL)isProtected;

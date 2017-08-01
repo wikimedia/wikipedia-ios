@@ -49,7 +49,6 @@
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
-"appearance-settings-theme-options-footer" = "Footer of the Theme options section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article";
@@ -59,6 +58,7 @@
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
@@ -174,7 +174,7 @@
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
 "home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
 "home-themes-action-title" = "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.";
-"home-themes-prompt" = "Description on feed card that describes the themes feature.";
+"home-themes-prompt" = "Description on feed card that describes how to adjust reading preferences.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-title-accessibility-label" = "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
@@ -226,8 +226,7 @@
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.\n{{Identical|$1k}}";
-"on-this-day-detail-header-date-range" = "Text for 'On this day' detail view events 'year range' label - $1 is replaced with string version of the most recent event year - i.e. '2006 AD', $2 is replaced with string version of the oldest event year - i.e. '300 BC',";
-"on-this-day-detail-header-day" = "Text for 'On this day' detail view 'day' label - $1 is replaced with string version of the given day - i.e. 'January 23'";
+"on-this-day-detail-header-date-range" = "Text for 'On this day' detail view events 'year range' label - $1 is replaced with string version of the oldest event year - i.e. '300 BC', $2 is replaced with string version of the most recent event year - i.e. '2006',";
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occured on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles.";
 "on-this-day-title" = "Title for the 'On this day' feed section";
@@ -285,6 +284,12 @@
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
+"reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-dim-images-switch" = "Accessibility label for the dim images switch in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
@@ -354,9 +359,8 @@
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
-"welcome-explore-new-ways-sub-title" = "Sub-title for exploration welcome screen including explanation of new notification features";
+"welcome-explore-features-sub-title" = "Sub-title for exploration welcome screen including explanation of new features.";
 "welcome-explore-new-ways-title" = "Title for welcome screens including explanation of new notification features";
-"welcome-explore-tell-me-more" = "Title for link which when tapped shows explaination of new exploration features";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-languages-add-button" = "Title for button for adding another language";
 "welcome-languages-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Continue}}";

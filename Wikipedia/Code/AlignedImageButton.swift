@@ -1,5 +1,6 @@
 import UIKit
 
+@objc(WMFAlignedImageButton)
 public class AlignedImageButton: UIButton {
     
     @IBInspectable open var margin: CGFloat = 8
@@ -36,7 +37,7 @@ public class AlignedImageButton: UIButton {
             }
         }
     }
-
+    
     fileprivate func adjustInsets() {
         let inset = semanticContentAttribute == .forceRightToLeft ? -0.5 * margin : 0.5 * margin
         imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)

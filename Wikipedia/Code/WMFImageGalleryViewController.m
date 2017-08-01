@@ -306,7 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);
-            
+
             UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             UIPopoverPresentationController *presenter = [vc popoverPresentationController];

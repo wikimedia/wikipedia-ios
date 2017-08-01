@@ -63,6 +63,7 @@
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "alert-no-internet" = "Nie ma połączenia internetowego";
+// Fuzzy
 "announcements-dismiss" = "Nie, dziękuję";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
@@ -71,7 +72,6 @@
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
-"article-save" = "Zapisz";
 "article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
@@ -198,7 +198,6 @@
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
 "on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
-"on-this-day-detail-header-day" = "w $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
 "on-this-day-title" = "W tym dniu...";

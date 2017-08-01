@@ -61,6 +61,7 @@
 "action-share" = "साझा करें";
 "action-unsave" = "न सहेजें";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
+// Fuzzy
 "announcements-dismiss" = "नहीं धन्यवाद";
 "article-about-title" = "इस लेख के बारे में";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
@@ -123,6 +124,7 @@
 "explore-random-article-heading" = "कोई भी लेख";
 "explore-randomizer" = "कोई भी पृष्ठ";
 "feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+// Fuzzy
 "feed-news-notification-text" = "आप अब उन विकिपीडिया लेखों के बारे में नोटिफिकेशन प्राप्त कर सकते हैं जो समाचार रुझानों में हैं।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स नहीं मैच हो रहे";
@@ -286,7 +288,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
-"save-action" = "सहेजें";
 "saved-clear-all" = "साफ़ करें";
 "saved-pages-clear-cancel" = "रद्द करें";
 "saved-pages-clear-confirmation-heading" = "क्या आप वास्तव में अपने सभी सहेजे गए पेजों को मिटाना चाहते हैं?";
@@ -345,7 +346,6 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
-"unsave-action" = "गैर सहेजा";
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-explore-new-ways-sub-title" = "आपको रुचिकर लेखों को खोजने में मदद हेतु नए नोटिफिकेशन्स और विडजिट्स";
 "welcome-explore-new-ways-title" = "खोजने के नए तरीके";

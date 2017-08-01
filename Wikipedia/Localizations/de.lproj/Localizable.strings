@@ -55,7 +55,10 @@
 "action-share" = "Teilen";
 "action-unsave" = "Löschen";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
-"announcements-dismiss" = "Nein, danke";
+"announcements-dismiss" = "Ausblenden";
+"appearance-settings-reading-themes" = "Lesethemen";
+"appearance-settings-theme-options" = "Farbschemaoptionen";
+"appearance-settings-title" = "Lesethemen";
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
 "article-languages-filter-placeholder" = "Sprache finden";
@@ -63,8 +66,8 @@
 "article-languages-others" = "Andere Sprachen";
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
-"article-save" = "Speichern";
 "article-share" = "Teilen";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Lesethemensteuerung";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back" = "Zurück";
@@ -83,6 +86,8 @@
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
+"dark-theme-display-name" = "Dunkel";
+"dim-images" = "Bilder dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-linked-words" = "Links hinzugefügt";
@@ -121,7 +126,7 @@
 "explore-random-article-heading" = "Zufälliger Artikel";
 "explore-randomizer" = "Zufallsgenerator";
 "feed-news-notification-button-text" = "Benachrichtigungen anschalten";
-"feed-news-notification-text" = "Du kannst jetzt Benachrichtigungen über Wikipedia-Artikel aus den aktuellen Nachrichten erhalten.";
+"feed-news-notification-text" = "Aktiviere Benachrichtigungen, um von Wikipedia benachrichtigt zu werden, wenn Artikel in den Nachrichten erscheinen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Die Passwörter stimmen nicht überein";
 "field-alert-password-invalid" = "Ungültiges Passwort";
@@ -177,6 +182,8 @@
 "home-nearby-footer" = "Mehr aus deiner Nähe";
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
 "home-news-footer" = "Mehr in den Nachrichten";
+"home-themes-action-title" = "Einstellungen verwalten";
+"home-themes-prompt" = "Passe deine Leseeinstellungen einschließlich Textgröße und Thema von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an für eine komfortablere Leseerfahrung.";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, zum Anfang von Entdecken scrollen";
 "icon-shortcut-continue-reading-title" = "Mit dem Lesen fortfahren";
@@ -229,7 +236,6 @@
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
-"on-this-day-detail-header-day" = "am $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
 "on-this-day-title" = "Heute";
@@ -287,13 +293,18 @@
 "preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
+"reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Thema";
+"reading-themes-controls-accessibility-dim-images-switch" = "Bilder dimmen";
+"reading-themes-controls-accessibility-light-theme-button" = "Licht-Thema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Thema";
+"reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|Letztes Jahr|Vor $1 Jahren}}";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
-"save-action" = "Speichern";
 "saved-clear-all" = "Löschen";
 "saved-pages-clear-cancel" = "Abbrechen";
 "saved-pages-clear-confirmation-heading" = "Bist du sicher, dass du all deine gespeicherten Seiten löschen möchtest?";
@@ -309,6 +320,7 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";
+"settings-appearance" = "Erscheinung";
 "settings-clear-cache" = "Gecachte Daten löschen";
 "settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten kann bis zu $1 Speicherplatz freigeben. Es löscht nicht deine gespeicherten Seiten.";
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
@@ -344,6 +356,9 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
 "table-title-other" = "Weitere Informationen";
+"theme-dark-display-name" = "Dunkel";
+"theme-default-display-name" = "Standard";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Weitere meistgelesene Artikel ansehen";
@@ -352,7 +367,6 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unsave-action" = "Löschen";
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-explore-new-ways-sub-title" = "Neue Benachrichtigungen und Widgets, die dir beim Entdecken interessanter Artikel helfen.";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";

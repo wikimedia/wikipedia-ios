@@ -62,6 +62,7 @@
 "action-share" = "Jaa";
 "action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
+// Fuzzy
 "announcements-dismiss" = "Ei kiitos";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-languages-filter-placeholder" = "Löydä kieli";
@@ -124,6 +125,7 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-randomizer" = "Satunnaistaminen";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
+// Fuzzy
 "feed-news-notification-text" = "Voit nyt saada ilmoituksia Wikipedian artikkeleista jotka ovat nousussa uutisissa.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
@@ -284,7 +286,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
-"save-action" = "Tallenna";
 "saved-clear-all" = "Tyhjennä";
 "saved-pages-clear-cancel" = "Peruuta";
 "saved-pages-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tallennetut sivusi?";
@@ -343,7 +344,6 @@
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
-"unsave-action" = "Peruuta tallennus";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-sub-title" = "Uudet ilmoitukset ja widgetit auttavat sinua löytämään mielenkiintoisia artikkeleita.";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";

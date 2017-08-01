@@ -21,7 +21,7 @@ struct AppearanceSettingsSection {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,6 +32,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     static var disclosureText: String {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         return currentAppTheme.displayName
+    }
+    
+    deinit {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
     override open func viewDidLoad() {
@@ -51,7 +55,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-theme-options-footer", value: "Automatically apply the ‘Dark’ reading theme between 8pm and 8am", comment: "Footer of the Theme options section in Appearance settings"), items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         return [readingThemesSection, themeOptionsSection]
     }
@@ -106,6 +110,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
+        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -145,10 +150,29 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
     }
     
-    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+    public var analyticsContext: String {
+        return "Settings"
+    }
+    
+    public var analyticsContentType: String {
+        return "Settings"
+    }
+    
+    func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = sender.isOn
-        userDidSelect(theme: currentTheme.withDimmingEnabled(sender.isOn))
+        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
+        userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
+    }
+    
+    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+        let selector = #selector(applyImageDimmingChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+        if (sender.isOn) {
+            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
+        } else {
+            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
+        }
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

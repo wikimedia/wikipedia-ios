@@ -8,17 +8,26 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
-    let date: Date
+    let midnightUTCDate: Date
     
-    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, date: Date) {
+    @objc(initWithEvents:dataStore:midnightUTCDate:)
+    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
         self.events = events
         self.dataStore = dataStore
-        self.date = date
+        self.midnightUTCDate = midnightUTCDate
+        self.isDateVisibleInTitle = false
         super.init()
-
-        title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+    }
+    
+    var isDateVisibleInTitle: Bool {
+        didSet {
+            guard isDateVisibleInTitle, let language = events.first?.language else {
+                title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
+                return
+            }
+            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+        }
     }
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
@@ -41,7 +50,7 @@ class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
 
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource/Delegate
 extension OnThisDayViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -59,9 +68,9 @@ extension OnThisDayViewController {
         }
         let event = events[indexPath.section]
         
-        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
-        
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
+        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
+
         return onThisDayCell
     }
     
@@ -74,7 +83,7 @@ extension OnThisDayViewController {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, for: indexPath)
         }
         
-        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, date: date)
+        header.configureFor(eventCount: events.count, firstEvent: events.first, lastEvent: events.last, midnightUTCDate: midnightUTCDate)
         header.apply(theme: theme)
         
         return header
@@ -94,6 +103,20 @@ extension OnThisDayViewController {
         }
         cell.selectionDelegate = nil
         cell.pauseDotsAnimation = true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
+            return
+        }
+        isDateVisibleInTitle = false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
+            return
+        }
+        isDateVisibleInTitle = true
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

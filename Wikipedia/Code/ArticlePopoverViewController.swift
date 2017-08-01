@@ -166,11 +166,11 @@ extension ArticlePopoverViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.tertiaryText
-        articleSummaryView.backgroundColor = theme.colors.chromeBackground
-        buttonContainerView.backgroundColor = theme.colors.midBackground
-        saveButton.backgroundColor = theme.colors.chromeBackground
-        shareButton.backgroundColor = theme.colors.chromeBackground
-        readButton.backgroundColor = theme.colors.chromeBackground
+        articleSummaryView.backgroundColor = theme.colors.popoverBackground
+        buttonContainerView.backgroundColor = theme.colors.border
+        saveButton.backgroundColor = theme.colors.popoverBackground
+        shareButton.backgroundColor = theme.colors.popoverBackground
+        readButton.backgroundColor = theme.colors.popoverBackground
     }
 }
 

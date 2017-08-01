@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                 vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
                 vc.title = [self moreTitle];
             }
-            } break;
+        } break;
         case WMFFeedMoreTypeNews: {
             NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[self content];
             if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
                 NSAssert(false, @"Invalid Content");
                 return nil;
             }
-            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore date:self.date];
+            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore midnightUTCDate:self.midnightUTCDate];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
             vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
     }
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id <WMFThemeable>)vc applyTheme:theme];
+        [(id<WMFThemeable>)vc applyTheme:theme];
     }
     return vc;
 }
@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
-            return WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
+            return WMFCommonStrings.onThisDayTitle;
         default:
             break;
     }

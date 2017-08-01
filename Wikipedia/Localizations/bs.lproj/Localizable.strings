@@ -53,13 +53,15 @@
 "action-share" = "Podijeli";
 "action-unsave" = "Obriši";
 "alert-no-internet" = "Niste povezani na internet";
-"announcements-dismiss" = "Ne, hvala";
+"announcements-dismiss" = "Odbaci";
 "article-about-title" = "O ovom članku";
+"article-delete" = "Obriši";
 "article-languages-filter-placeholder" = "Pronađi jezik";
 "article-languages-label" = "Izaberite jezik";
 "article-languages-others" = "Drugi jezici";
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Također pogledajte";
+"article-share" = "Podijeli";
 "article-unable-to-load-article" = "Ne mogu učitati članak.";
 "article-unable-to-load-section" = "Ne mogu učitati ovaj odlomak. Vidite hoće li se problem riješiti ako osvježite stranicu.";
 "back" = "Nazad";
@@ -78,6 +80,7 @@
 "compass-direction" = "u $1 sati";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
+"dark-theme-display-name" = "Tamna";
 "edit-summary-choice-fixed-grammar" = "Popravljena gramatička greška";
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
@@ -116,6 +119,7 @@
 "explore-random-article-heading" = "Nasumičan članak";
 "explore-randomizer" = "Nasumična stranica";
 "feed-news-notification-button-text" = "Uključi obavještenja";
+// Fuzzy
 "feed-news-notification-text" = "Sad možete primati obavještenja o člancima na Wikipediji koji su aktualni na vijestima.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Lozinke se ne poklapaju";
@@ -224,7 +228,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "od $1 do $2";
-"on-this-day-detail-header-day" = "na $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
@@ -282,13 +285,13 @@
 "preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
 "rank-accessibility-label" = "Broj $1";
 "readers-accessibility-label" = "$1 čitalaca";
+"reading-themes-controls-accessibility-dim-images-switch" = "Zatamni slike";
 "reference-title" = "Referenca $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Danas|Jučer|Prije $1 dana}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedavno|Prije $1 sat|Prije $1 sata|Prije $1 sati}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Upravo|Prije $1 minute|Prije $1 minute|Prije $1 minuta}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|Prošle godine|Prije $1 godine|Prije $1 godina}}";
 "request-feedback-on-error" = "Aplikacija je naišla na problem za koji naši programeri želi doznati više. Dodirnite ovdje da biste nam poslali e-poruku s informacijama o grešci.";
-"save-action" = "Sačuvaj";
 "saved-clear-all" = "Očisti";
 "saved-pages-clear-cancel" = "Odustani";
 "saved-pages-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve sačuvane stranice?";
@@ -304,6 +307,7 @@
 "search-recent-title" = "Nedavne pretrage";
 "search-result-redirected-from" = "Preusmjereno sa: $1";
 "search-title" = "Pretraga";
+"settings-appearance" = "Izgled";
 "settings-clear-cache" = "Očisti keširane podatke";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodit ćete oko $1 prostora. Ovim se neće obrisati Vaše sačuvane stranice.";
 "settings-clear-cache-are-you-sure-title" = "Da očistim keširane podatke?";
@@ -347,7 +351,6 @@
 "two-factor-login-title" = "Prijavite se na svoj račun";
 "two-factor-login-with-backup-code" = "Koristi jedan od rezervnih kodova";
 "two-factor-login-with-regular-code" = "Koristi potvrdni kod";
-"unsave-action" = "Poništi čuvanje";
 "welcome-explore-continue-button" = "Započni";
 "welcome-explore-new-ways-sub-title" = "Nova obavještenja i dodaci pomoći će Vam da otkrijete zanimljive članke";
 "welcome-explore-new-ways-title" = "Novi načini za istraživanje";
@@ -377,7 +380,6 @@
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";
 "zero-charged-verbiage" = "Wikipedia Zero je isključena";

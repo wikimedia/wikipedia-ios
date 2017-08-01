@@ -763,7 +763,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 - (void)navigateToActivityNotification:(NSNotification *)note {
     id object = [note object];
     if ([object isKindOfClass:[NSUserActivity class]]) {
-        [self processUserActivity:object animated:YES completion:^{}];
+        [self processUserActivity:object
+                         animated:YES
+                       completion:^{
+                       }];
     }
 }
 
@@ -1139,6 +1142,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
+    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:animated];
 }
 
@@ -1367,7 +1371,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
     NSMutableSet<UINavigationBar *> *navigationBars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
     NSMutableSet<UIToolbar *> *toolbars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
-
     NSMutableSet<UINavigationController *> *foundNavigationControllers = [NSMutableSet setWithCapacity:1];
 
     for (UINavigationController *nc in navigationControllers) {
@@ -1397,6 +1400,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([nc conformsToProtocol:@protocol(WMFThemeable)]) {
             [(id<WMFThemeable>)nc applyTheme:theme];
         }
+
+        nc.view.tintColor = theme.colors.link;
     }
 
     // Navigation bars
@@ -1416,8 +1421,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     // Tool bars
-
-    [toolbars addObject:[UIToolbar appearance]];
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
         [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
@@ -1425,7 +1428,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
-     
+
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
     }
@@ -1464,7 +1467,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    
     // Tab bar items
 
     [tabBarItems addObject:[UITabBarItem appearance]];
@@ -1501,6 +1503,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showSettingsAnimated:YES];
 }
 
+- (void)dismissReadingThemesPopoverIfActive {
+    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void)showSearchAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
@@ -1510,6 +1518,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC applyTheme:self.theme];
         self.searchViewController = searchVC;
     }
+    [self dismissReadingThemesPopoverIfActive];
+
     [self presentViewController:self.searchViewController animated:animated completion:nil];
 }
 
@@ -1529,11 +1539,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         self.settingsNavigationController = navController;
     }
-    
+
     if (subViewController) {
         [self.settingsNavigationController pushViewController:subViewController animated:NO];
     }
-    
+
     [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
 }
 
@@ -1562,6 +1572,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
     vc.permaRandomMode = YES;
+    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif

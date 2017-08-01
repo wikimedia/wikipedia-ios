@@ -5,6 +5,7 @@ import UIKit
     case systemBlack
     case systemMedium
     case systemBold
+    case systemHeavy
     case georgia
 }
 
@@ -68,6 +69,36 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .medium: 33,
                 .small: 32,
                 .extraSmall: 31
+            ],
+            UIFontTextStyle.subheadline: [
+                .accessibilityExtraExtraExtraLarge: 21,
+                .accessibilityExtraExtraLarge: 21,
+                .accessibilityExtraLarge: 21,
+                .accessibilityLarge: 21,
+                .accessibilityMedium: 21,
+                .extraExtraExtraLarge: 21,
+                .extraExtraLarge: 19,
+                .extraLarge: 17,
+                .large: 15,
+                .medium: 14,
+                .small: 13,
+                .extraSmall: 12
+            ]
+        ],
+        .systemHeavy: [
+            UIFontTextStyle.headline: [
+                .accessibilityExtraExtraExtraLarge: 43,
+                .accessibilityExtraExtraLarge: 43,
+                .accessibilityExtraLarge: 43,
+                .accessibilityLarge: 43,
+                .accessibilityMedium: 43,
+                .extraExtraExtraLarge: 43,
+                .extraExtraLarge: 42,
+                .extraLarge: 41,
+                .large: 40,
+                .medium: 39,
+                .small: 38,
+                .extraSmall: 37
             ]
         ],
         .systemBold: [
@@ -173,6 +204,8 @@ public extension UIFont {
             return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
         case .systemBold:
             return UIFont.boldSystemFont(ofSize: size)
+        case .systemHeavy:
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightHeavy)
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             return nil

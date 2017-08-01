@@ -45,7 +45,7 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable 
     if (bundle == nil) {
         bundle = NSBundle.wmf_localizationBundle;
     }
-    
+
     NSString *translation = nil;
     if (wikipediaLanguage == nil) {
         translation = [bundle localizedStringForKey:key value:nil table:nil];
@@ -57,6 +57,6 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable 
     if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
         translation = [[bundle wmf_fallbackLanguageBundle] localizedStringForKey:key value:value table:nil];
     }
-    
+
     return translation ? translation : @"";
 }

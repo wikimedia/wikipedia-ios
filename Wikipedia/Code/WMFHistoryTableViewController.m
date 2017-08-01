@@ -120,7 +120,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-    
+
     [tableView setEditing:NO animated:YES];
 
     [self configureCell:cell forRowAtIndexPath:indexPath];
@@ -128,19 +128,19 @@
     return cell;
 }
 
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
     deleteAction.backgroundColor = self.theme.colors.destructive;
-    
+
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
-    
-    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects: deleteAction, shareAction, nil];
-    
+
+    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects:deleteAction, shareAction, nil];
+
     if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
-        UITableViewRowAction *savedAction = [self savedAction:indexPath];
-        savedAction.backgroundColor = self.theme.colors.link;
-        [actions addObject:savedAction];
+        UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
+        unsaveAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:unsaveAction];
     } else {
         UITableViewRowAction *saveAction = [self saveAction:indexPath];
         saveAction.backgroundColor = self.theme.colors.link;

@@ -4,6 +4,7 @@
     "author" : "xcode"
   },
   "properties" : {
+    "accessibility-label" : "Black hole",
     "filename" : "Blackhole.png"
   }
 }

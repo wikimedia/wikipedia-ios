@@ -54,7 +54,10 @@
 "action-share" = "Сподели";
 "action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
-"announcements-dismiss" = "Не, благодарам";
+"announcements-dismiss" = "Тргни";
+"appearance-settings-reading-themes" = "Читачки изгледи";
+"appearance-settings-theme-options" = "Можности за изгледот";
+"appearance-settings-title" = "Читачки изгледи";
 "article-about-title" = "Уреди ја статијава";
 "article-delete" = "Избриши";
 "article-languages-filter-placeholder" = "Најди јазик";
@@ -62,8 +65,8 @@
 "article-languages-others" = "Други јазици";
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
-"article-save" = "Зачувај";
 "article-share" = "Сподели";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "back" = "Назад";
@@ -82,6 +85,8 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"dark-theme-display-name" = "Темна";
+"dim-images" = "Затемнети слики";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-linked-words" = "Додадени врски";
@@ -120,7 +125,7 @@
 "explore-random-article-heading" = "Случајна статија";
 "explore-randomizer" = "Случаен избирач";
 "feed-news-notification-button-text" = "Вклучи известувања";
-"feed-news-notification-text" = "Сега можете да примате известувања од статии за Википедија кои се тековни во вестите.";
+"feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "field-alert-captcha-invalid" = "Неважечка CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинките не се совпаѓаат";
 "field-alert-password-invalid" = "Неважечка лозинка";
@@ -176,6 +181,9 @@
 "home-nearby-footer" = "Уште од вашата близина";
 "home-nearby-location-footer" = "Повеќе околу $1";
 "home-news-footer" = "Повеќе новости";
+"home-themes-action-title" = "Упр. со поставки";
+// Fuzzy
+"home-themes-prompt" = "Читајте во темница или ограничете ја вашата изложеност на сина светлина во вечерите со новите изгледи за читање „Темна“ и „Сипа“. Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања.";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
 "icon-shortcut-continue-reading-title" = "Продолжете со читање";
@@ -228,7 +236,6 @@
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";
 "on-this-day-detail-header-date-range" = "од $1 - $2";
-"on-this-day-detail-header-day" = "на $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-title" = "На денешен ден";
@@ -286,13 +293,18 @@
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
+"reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
+"reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
+"reading-themes-controls-accessibility-dim-images-switch" = "Затемни слики";
+"reading-themes-controls-accessibility-light-theme-button" = "Светол изглед";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Сипин изглед";
+"reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reference-title" = "Навод $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|вчера|пред $1 дена}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
-"save-action" = "Зачувај";
 "saved-clear-all" = "Исчисти";
 "saved-pages-clear-cancel" = "Откажи";
 "saved-pages-clear-confirmation-heading" = "Дали сте сигурни дека сакате ги избришам сите зачувани ставки?";
@@ -308,6 +320,7 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"settings-appearance" = "Изглед";
 "settings-clear-cache" = "Исчисти меѓускладирани податоци";
 "settings-clear-cache-are-you-sure-message" = "Чистењето на меѓускладирани податоци ќе ви ослободи $1. Нема да ви ги избрише зачуваните страници.";
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
@@ -343,6 +356,9 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"theme-dark-display-name" = "Темен";
+"theme-default-display-name" = "Основен";
+"theme-sepia-display-name" = "Сипа";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Повеќе најчитани статии";
@@ -351,7 +367,6 @@
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
-"unsave-action" = "Одзачувај";
 "welcome-explore-continue-button" = "Започни";
 "welcome-explore-new-ways-sub-title" = "Нови известувања и додатоци што ви помагаат да откриете интересни статии";
 "welcome-explore-new-ways-title" = "Нови начини да се истражува";

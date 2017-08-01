@@ -67,7 +67,10 @@
 "action-share" = "공유";
 "action-unsave" = "저장하지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
-"announcements-dismiss" = "괜찮습니다";
+"announcements-dismiss" = "숨기기";
+"appearance-settings-reading-themes" = "읽기 테마";
+"appearance-settings-theme-options" = "테마 옵션";
+"appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
 "article-languages-filter-placeholder" = "언어 찾기";
@@ -75,8 +78,8 @@
 "article-languages-others" = "다른 언어";
 "article-languages-yours" = "사용자 언어";
 "article-read-more-title" = "더 읽어보기";
-"article-save" = "저장";
 "article-share" = "공유";
+"article-toolbar-reading-themes-controls-toolbar-item" = "읽기 테마 제어";
 "article-unable-to-load-article" = "문서를 불러올 수 없습니다.";
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "back" = "뒤로";
@@ -95,6 +98,7 @@
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
+"dark-theme-display-name" = "어두움";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
@@ -133,6 +137,7 @@
 "explore-random-article-heading" = "임의 문서";
 "explore-randomizer" = "임의 문서 보기";
 "feed-news-notification-button-text" = "알림 켜기";
+// Fuzzy
 "feed-news-notification-text" = "지금 위키백과 문서의 소식 동향에 대한 알림을 받을 수 있습니다.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
@@ -188,6 +193,7 @@
 "home-nearby-footer" = "사용자 위치의 주변 정보";
 "home-nearby-location-footer" = "$1의 주변 정보";
 "home-news-footer" = "뉴스에서 더 보기";
+"home-themes-action-title" = "환경 설정 관리하기";
 "home-title" = "찾아보기";
 "home-title-accessibility-label" = "위키백과, \"찾아보기\"의 최상단으로 스크롤";
 "icon-shortcut-continue-reading-title" = "계속 읽기";
@@ -238,7 +244,7 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"on-this-day-detail-header-day" = "$1";
+"on-this-day-detail-header-date-range" = "$1 - $2 사이";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1개의 역사적 사건}}";
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "onboarding-wikipedia" = "위키백과";
@@ -262,6 +268,7 @@
 "places-accessibility-show-as-list" = "목록으로 보기";
 "places-accessibility-show-as-map" = "지도로 보기";
 "places-accessibility-show-more" = "더 많은 글 보기";
+"places-dismiss-filter-list-accessibility-label" = "검색 필터 숨기기";
 "places-empty-search-description" = "도시, 국가, 대륙, 자연지표, 역사적 사건, 건물 등을 탐험합니다.";
 "places-empty-search-title" = "지리적 위치로 위키백과 문서 검색";
 "places-enable-location-action-button-title" = "위치 활성화";
@@ -291,13 +298,17 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
+"reading-themes-controls-accessibility-dark-theme-button" = "어두운 테마";
+"reading-themes-controls-accessibility-light-theme-button" = "밝은 테마";
+"reading-themes-controls-accessibility-sepia-theme-button" = "세피아 테마";
+"reading-themes-controls-accessibility-text-size-slider" = "텍스트 크기 슬라이더";
 "reference-title" = "각주 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=오늘|어제|$1일 전}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|지난해|$1년 전}}";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
-"save-action" = "저장";
 "saved-clear-all" = "지우기";
 "saved-pages-clear-cancel" = "취소";
 "saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하겠습니까?";
@@ -313,6 +324,7 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
+"settings-appearance" = "보이기";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
 "settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";
@@ -346,6 +358,9 @@
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
 "table-title-other" = "자세한 정보";
+"theme-dark-display-name" = "어두움";
+"theme-default-display-name" = "기본값";
+"theme-sepia-display-name" = "세피아";
 "top-read-header-generic" = "위키백과";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-see-more" = "윗글 더 보기";
@@ -354,9 +369,9 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
-"unsave-action" = "저장하지 않음";
 "welcome-explore-continue-button" = "시작하기";
 "welcome-explore-new-ways-sub-title" = "흥미로운 문서의 발견을 도와주는 새로운 알림과 위젯";
+"welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
 "welcome-explore-tell-me-more" = "더 보기";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-languages-add-button" = "다른 언어 추가";
@@ -383,7 +398,6 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";

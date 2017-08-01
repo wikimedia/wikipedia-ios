@@ -46,10 +46,9 @@
 "action-share" = "Share";
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
-"announcements-dismiss" = "No thanks";
+"announcements-dismiss" = "Dismiss";
 "appearance-settings-reading-themes" = "Reading themes";
 "appearance-settings-theme-options" = "Theme options";
-"appearance-settings-theme-options-footer" = "Automatically apply the ‘Dark’ reading theme between 8pm and 8am";
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
@@ -59,6 +58,7 @@
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
 "article-share" = "Share";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "back" = "Back";
@@ -117,7 +117,7 @@
 "explore-random-article-heading" = "Random article";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
-"feed-news-notification-text" = "You can now receive notifications about Wikipedia articles trending in the news.";
+"feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
 "field-alert-captcha-invalid" = "Invalid CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passwords do not match";
 "field-alert-password-invalid" = "Invalid password";
@@ -174,7 +174,7 @@
 "home-nearby-location-footer" = "More nearby $1";
 "home-news-footer" = "More in the news";
 "home-themes-action-title" = "Manage preferences";
-"home-themes-prompt" = "Read in the dark or limit your exposure to blue light in the evenings with the new Dark and Sepia reading themes. Adjust your Reading preferences (including text size and theme) from the article tool bar or in your user settings.";
+"home-themes-prompt" = "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.";
 "home-title" = "Explore";
 "home-title-accessibility-label" = "Wikipedia, scroll to top of Explore";
 "icon-shortcut-continue-reading-title" = "Continue reading";
@@ -227,7 +227,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "from $1 - $2";
-"on-this-day-detail-header-day" = "on $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "More historical events on this day";
 "on-this-day-title" = "On this day";
@@ -285,6 +284,12 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
+"reading-themes-controls-accessibility-dim-images-switch" = "Dim images";
+"reading-themes-controls-accessibility-light-theme-button" = "Light theme";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
+"reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
@@ -354,9 +359,8 @@
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
 "welcome-explore-continue-button" = "Get started";
-"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
+"welcome-explore-features-sub-title" = "Discover landmarks near you or search around the world with the Places tab\n\nTravel back in time with On this day to learn what happened today in history";
 "welcome-explore-new-ways-title" = "New ways to explore";
-"welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-languages-add-button" = "Add another language";
 "welcome-languages-continue-button" = "Continue";

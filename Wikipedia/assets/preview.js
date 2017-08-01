@@ -523,6 +523,76 @@ var CompatibilityTransform = {
   enableSupport: enableSupport
 };
 
+var CLASS = 'pagelib_dim_images';
+
+// todo: only require a Document
+/**
+ * @param {!Window} window
+ * @param {!boolean} enable
+ * @return {void}
+ */
+var dim = function dim(window, enable) {
+  window.document.querySelector('html').classList[enable ? 'add' : 'remove'](CLASS);
+};
+
+// todo: only require a Document
+/**
+ * @param {!Window} window
+ * @return {boolean}
+ */
+var isDim = function isDim(window) {
+  return window.document.querySelector('html').classList.contains(CLASS);
+};
+
+var DimImagesTransform = {
+  CLASS: CLASS,
+  isDim: isDim,
+  dim: dim
+};
+
+var CLASS$1 = {
+  CONTAINER: 'pagelib_edit_section_link_container',
+  LINK: 'pagelib_edit_section_link',
+  PROTECTION: { UNPROTECTED: '', PROTECTED: 'page-protected', FORBIDDEN: 'no-editing' }
+};
+
+var DATA_ATTRIBUTE = { SECTION_INDEX: 'data-id', ACTION: 'data-action' };
+var ACTION_EDIT_SECTION = 'edit_section';
+
+/**
+ * @param {!Document} document
+ * @param {!number} index The zero-based index of the section.
+ * @return {!HTMLAnchorElement}
+ */
+var newEditSectionLink = function newEditSectionLink(document, index) {
+  var link = document.createElement('a');
+  link.href = '';
+  link.setAttribute(DATA_ATTRIBUTE.SECTION_INDEX, index);
+  link.setAttribute(DATA_ATTRIBUTE.ACTION, ACTION_EDIT_SECTION);
+  link.classList.add(CLASS$1.LINK);
+  return link;
+};
+
+/**
+ * @param {!Document} document
+ * @param {!number} index The zero-based index of the section.
+ * @return {!HTMLSpanElement}
+ */
+var newEditSectionButton = function newEditSectionButton(document, index) {
+  var container = document.createElement('span');
+  container.classList.add(CLASS$1.CONTAINER);
+
+  var link = newEditSectionLink(document, index);
+  container.appendChild(link);
+
+  return container;
+};
+
+var EditTransform = {
+  CLASS: CLASS$1,
+  newEditSectionButton: newEditSectionButton
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -724,7 +794,7 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
-  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading, \n    #pagelib_footer_container_readmore, \n    #pagelib_footer_container_legal\n  ');
+  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading,\n    #pagelib_footer_container_readmore,\n    #pagelib_footer_container_legal\n  ');
   elements.forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
@@ -746,7 +816,7 @@ var containerFragment = function containerFragment(document) {
   var containerDiv = document.createElement('div');
   var containerFragment = document.createDocumentFragment();
   containerFragment.appendChild(containerDiv);
-  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div \n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
+  containerDiv.innerHTML = '<div id=\'pagelib_footer_container\' class=\'pagelib_footer_container\'>\n    <div id=\'pagelib_footer_container_section_0\'>\n      <div id=\'pagelib_footer_container_menu\'>\n        <div id=\'pagelib_footer_container_menu_heading\' class=\'pagelib_footer_container_heading\'>\n        </div>\n        <div id=\'pagelib_footer_container_menu_items\'>\n        </div>\n      </div>\n    </div>\n    <div id=\'pagelib_footer_container_ensure_can_scroll_to_top\'>\n      <div id=\'pagelib_footer_container_section_1\'>\n        <div id=\'pagelib_footer_container_readmore\'>\n          <div\n            id=\'pagelib_footer_container_readmore_heading\' class=\'pagelib_footer_container_heading\'>\n          </div>\n          <div id=\'pagelib_footer_container_readmore_pages\'>\n          </div>\n        </div>\n      </div>\n      <div id=\'pagelib_footer_container_legal\'></div>\n    </div>\n  </div>';
   return containerFragment;
 };
 
@@ -777,7 +847,7 @@ var FooterContainer = {
  * @param {?string} licenseString
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
- * @param {?FooterLegalClickCallback} licenseLinkClickHandler
+ * @param {!FooterLegalClickCallback} licenseLinkClickHandler
  * @return {void}
  */
 var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
@@ -1035,11 +1105,11 @@ var FooterMenu = {
 
 /**
  * Display fetched read more pages.
- * @typedef {function} ShownReadMorePagesHandler
+ * @typedef {function} ShowReadMorePagesHandler
  * @param {!Array.<object>} pages
  * @param {!string} containerID
- * @param {SaveButtonClickHandler} saveButtonClickHandler
- * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
  * @return {void}
  */
@@ -1047,7 +1117,7 @@ var FooterMenu = {
 var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
 
 /**
- * Removes parenthetical enclosures from string. 
+ * Removes parenthetical enclosures from string.
  * @param {!string} string
  * @param {!string} opener
  * @param {!string} closer
@@ -1068,7 +1138,7 @@ var safelyRemoveEnclosures = function safelyRemoveEnclosures(string, opener, clo
 };
 
 /**
- * Removes '(...)' and '/.../' parenthetical enclosures from string. 
+ * Removes '(...)' and '/.../' parenthetical enclosures from string.
  * @param {!string} string
  * @return {!string}
  */
@@ -1105,7 +1175,7 @@ function ReadMorePage(title, thumbnail, terms, extract) {
  * Makes document fragment for a read more page.
  * @param {!ReadMorePage} readMorePage
  * @param {!number} index
- * @param {SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
  * @param {!Document} document
  * @return {!DocumentFragment}
  */
@@ -1169,7 +1239,7 @@ var documentFragmentForReadMorePage = function documentFragmentForReadMorePage(r
 
 // eslint-disable-next-line valid-jsdoc
 /**
- * @type {ShownReadMorePagesHandler}
+ * @type {ShowReadMorePagesHandler}
  */
 var showReadMorePages = function showReadMorePages(pages, containerID, saveButtonClickHandler, titlesShownHandler, document) {
   var shownTitles = [];
@@ -1193,29 +1263,32 @@ var showReadMorePages = function showReadMorePages(pages, containerID, saveButto
 var queryParameters = function queryParameters(title, count) {
   return {
     action: 'query',
-    continue: '',
-    exchars: 256,
-    exintro: 1,
-    exlimit: count,
-    explaintext: '',
     format: 'json',
+    formatversion: 2,
+    prop: 'extracts|pageimages|pageterms',
+
+    // https://www.mediawiki.org/wiki/API:Search
+    // https://www.mediawiki.org/wiki/Help:CirrusSearch
     generator: 'search',
-    gsrinfo: '',
-    gsrlimit: count,
-    gsrnamespace: 0,
-    gsroffset: 0,
-    gsrprop: 'redirecttitle',
-    gsrsearch: 'morelike:' + title,
-    gsrwhat: 'text',
-    ns: 'ppprop',
-    pilimit: count,
-    piprop: 'thumbnail',
-    pithumbsize: 120,
-    prop: 'pageterms|pageimages|pageprops|revisions|extracts',
-    rrvlimit: 1,
-    rvprop: 'ids',
-    wbptterms: 'description',
-    formatversion: 2
+    gsrlimit: count, // Limit search results by count.
+    gsrprop: 'redirecttitle', // Include a a parsed snippet of the redirect title property.
+    gsrsearch: 'morelike:' + title, // Weight search with the title.
+    gsrwhat: 'text', // Search the text then titles of pages.
+
+    // https://www.mediawiki.org/wiki/Extension:TextExtracts
+    exchars: 256, // Limit number of characters returned.
+    exintro: '', // Only content before the first section.
+    exlimit: count, // Limit extract results by count.
+    explaintext: '', // Strip HTML.
+
+    // https://www.mediawiki.org/wiki/Extension:PageImages
+    pilicense: 'any', // Include non-free images.
+    pilimit: count, // Limit thumbnail results by count.
+    piprop: 'thumbnail', // Include URL and dimensions of thumbnail.
+    pithumbsize: 120, // Limit thumbnail dimensions.
+
+    // https://en.wikipedia.org/w/api.php?action=help&modules=query%2Bpageterms
+    wbptterms: 'description'
   };
 };
 
@@ -1301,8 +1374,8 @@ var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, is
  * @param {!number} count
  * @param {!string} containerID
  * @param {?string} baseURL
- * @param {SaveButtonClickHandler} saveButtonClickHandler
- * @param {TitlesShownHandler} titlesShownHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
  * @param {!Document} document
  * @return {void}
  */
@@ -1332,6 +1405,239 @@ var FooterReadMore = {
     safelyRemoveEnclosures: safelyRemoveEnclosures
   }
 };
+
+/** Function rate limiter. */
+var Throttle = function () {
+  createClass(Throttle, null, [{
+    key: "wrap",
+
+    /**
+     * Wraps a function in a Throttle.
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     * @return {!function} A function wrapped in a Throttle.
+     */
+    value: function wrap(window, period, funktion) {
+      var throttle = new Throttle(window, period, funktion);
+      var throttled = function Throttled() {
+        return throttle.queue(this, arguments);
+      };
+      throttled.result = function () {
+        return throttle.result;
+      };
+      throttled.pending = function () {
+        return throttle.pending();
+      };
+      throttled.delay = function () {
+        return throttle.delay();
+      };
+      throttled.cancel = function () {
+        return throttle.cancel();
+      };
+      throttled.reset = function () {
+        return throttle.reset();
+      };
+      return throttled;
+    }
+
+    /**
+     * @param {!Window} window
+     * @param {!number} period The nonnegative minimum number of milliseconds between function
+     *                         invocations.
+     * @param {!function} funktion The function to invoke when not throttled.
+     */
+
+  }]);
+
+  function Throttle(window, period, funktion) {
+    classCallCheck(this, Throttle);
+
+    this._window = window;
+    this._period = period;
+    this._function = funktion;
+
+    // The upcoming invocation's context and arguments.
+    this._context = undefined;
+    this._arguments = undefined;
+
+    // The previous invocation's result, timeout identifier, and last run timestamp.
+    this._result = undefined;
+    this._timeout = 0;
+    this._timestamp = 0;
+  }
+
+  /**
+   * The return value of the initial run is always undefined. The return value of subsequent runs is
+   * always a previous result. The context and args used by a future invocation are always the most
+   * recently supplied. Invocations, even if immediately eligible, are dispatched.
+   * @param {?any} context
+   * @param {?any} args The arguments passed to the underlying function.
+   * @return {?any} The cached return value of the underlying function.
+   */
+
+
+  createClass(Throttle, [{
+    key: "queue",
+    value: function queue(context, args) {
+      var _this = this;
+
+      // Always update the this and arguments to the latest supplied.
+      this._context = context;
+      this._arguments = args;
+
+      if (!this.pending()) {
+        // Queue a new invocation.
+        this._timeout = this._window.setTimeout(function () {
+          _this._timeout = 0;
+          _this._timestamp = Date.now();
+          _this._result = _this._function.apply(_this._context, _this._arguments);
+        }, this.delay());
+      }
+
+      // Always return the previous result.
+      return this.result;
+    }
+
+    /** @return {?any} The cached return value of the underlying function. */
+
+  }, {
+    key: "pending",
+
+
+    /** @return {!boolean} true if an invocation is queued. */
+    value: function pending() {
+      return Boolean(this._timeout);
+    }
+
+    /**
+     * @return {!number} The nonnegative number of milliseconds until an invocation is eligible to
+     *                   run.
+     */
+
+  }, {
+    key: "delay",
+    value: function delay() {
+      if (!this._timestamp) {
+        return 0;
+      }
+      return Math.max(0, this._period - (Date.now() - this._timestamp));
+    }
+
+    /**
+     * Clears any pending invocation but doesn't clear time last invoked or prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      if (this._timeout) {
+        this._window.clearTimeout(this._timeout);
+      }
+      this._timeout = 0;
+    }
+
+    /**
+     * Clears any pending invocation, time last invoked, and prior result.
+     * @return {void}
+     */
+
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.cancel();
+      this._result = undefined;
+      this._timestamp = 0;
+    }
+  }, {
+    key: "result",
+    get: function get$$1() {
+      return this._result;
+    }
+  }]);
+  return Throttle;
+}();
+
+var RESIZE_EVENT_TYPE = 'resize';
+var RESIZE_LISTENER_THROTTLE_PERIOD_MILLISECONDS = 100;
+
+var ID_CONTAINER = 'pagelib_footer_container';
+var ID_LEGAL_CONTAINER = 'pagelib_footer_container_legal';
+
+var ID_READ_MORE_CONTAINER = 'pagelib_footer_container_readmore_pages';
+var ID_READ_MORE_HEADER = 'pagelib_footer_container_readmore_heading';
+
+/** */
+
+var _class = function () {
+  /** */
+  function _class() {
+    classCallCheck(this, _class);
+
+    this._resizeListener = undefined;
+  }
+
+  /**
+   * @param {!Window} window
+   * @param {!Element} container
+   * @param {!string} baseURL
+   * @param {!string} title
+   * @param {!string} readMoreHeader
+   * @param {!number} readMoreLimit
+   * @param {!string} license
+   * @param {!string} licenseSubstitutionString
+   * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+   * @param {!TitlesShownHandler} titlesShownHandler
+   * @param {!SaveButtonClickHandler} saveButtonClickHandler
+   * @return {void}
+   */
+
+
+  createClass(_class, [{
+    key: 'add',
+    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
+      this.remove(window);
+      container.appendChild(FooterContainer.containerFragment(window.document));
+
+      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler);
+
+      FooterReadMore.setHeading(readMoreHeader, ID_READ_MORE_HEADER, window.document);
+      FooterReadMore.add(title, readMoreLimit, ID_READ_MORE_CONTAINER, baseURL, saveButtonClickHandler, function (titles) {
+        FooterContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);
+        titlesShownHandler(titles);
+      }, window.document);
+
+      this._resizeListener = Throttle.wrap(window, RESIZE_LISTENER_THROTTLE_PERIOD_MILLISECONDS, function () {
+        return FooterContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window);
+      });
+      window.addEventListener(RESIZE_EVENT_TYPE, this._resizeListener);
+    }
+
+    /**
+     * @param {!Window} window
+     * @return {void}
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(window) {
+      if (this._resizeListener) {
+        window.removeEventListener(RESIZE_EVENT_TYPE, this._resizeListener);
+        this._resizeListener.cancel();
+        this._resizeListener = undefined;
+      }
+
+      var footer = window.document.getElementById(ID_CONTAINER);
+      if (footer) {
+        // todo: support recycling.
+        footer.parentNode.removeChild(footer);
+      }
+    }
+  }]);
+  return _class;
+}();
 
 // CSS classes used to identify and present lazily loaded images. Placeholders are members of
 // PLACEHOLDER_CLASS and one state class: pending, loading, or error. Images are members of either
@@ -1505,160 +1811,6 @@ var LazyLoadTransform = {
   loadPlaceholder: loadPlaceholder
 };
 
-/** Function rate limiter. */
-var Throttle = function () {
-  createClass(Throttle, null, [{
-    key: "wrap",
-
-    /**
-     * Wraps a function in a Throttle.
-     * @param {!Window} window
-     * @param {!number} period The nonnegative minimum number of milliseconds between function
-     *                         invocations.
-     * @param {!function} funktion The function to invoke when not throttled.
-     * @return {!function} A function wrapped in a Throttle.
-     */
-    value: function wrap(window, period, funktion) {
-      var throttle = new Throttle(window, period, funktion);
-      var throttled = function Throttled() {
-        return throttle.queue(this, arguments);
-      };
-      throttled.result = function () {
-        return throttle.result;
-      };
-      throttled.pending = function () {
-        return throttle.pending();
-      };
-      throttled.delay = function () {
-        return throttle.delay();
-      };
-      throttled.cancel = function () {
-        return throttle.cancel();
-      };
-      throttled.reset = function () {
-        return throttle.reset();
-      };
-      return throttled;
-    }
-
-    /**
-     * @param {!Window} window
-     * @param {!number} period The nonnegative minimum number of milliseconds between function
-     *                         invocations.
-     * @param {!function} funktion The function to invoke when not throttled.
-     */
-
-  }]);
-
-  function Throttle(window, period, funktion) {
-    classCallCheck(this, Throttle);
-
-    this._window = window;
-    this._period = period;
-    this._function = funktion;
-
-    // The upcoming invocation's context and arguments.
-    this._context = undefined;
-    this._arguments = undefined;
-
-    // The previous invocation's result, timeout identifier, and last run timestamp.
-    this._result = undefined;
-    this._timeout = 0;
-    this._timestamp = 0;
-  }
-
-  /**
-   * The return value of the initial run is always undefined. The return value of subsequent runs is
-   * always a previous result. The context and args used by a future invocation are always the most
-   * recently supplied. Invocations, even if immediately eligible, are dispatched.
-   * @param {?any} context
-   * @param {?any} args The arguments passed to the underlying function.
-   * @return {?any} The cached return value of the underlying function.
-   */
-
-
-  createClass(Throttle, [{
-    key: "queue",
-    value: function queue(context, args) {
-      var _this = this;
-
-      // Always update the this and arguments to the latest supplied.
-      this._context = context;
-      this._arguments = args;
-
-      if (!this.pending()) {
-        // Queue a new invocation.
-        this._timeout = this._window.setTimeout(function () {
-          _this._timeout = 0;
-          _this._timestamp = Date.now();
-          _this._result = _this._function.apply(_this._context, _this._arguments);
-        }, this.delay());
-      }
-
-      // Always return the previous result.
-      return this.result;
-    }
-
-    /** @return {?any} The cached return value of the underlying function. */
-
-  }, {
-    key: "pending",
-
-
-    /** @return {!boolean} true if an invocation is queued. */
-    value: function pending() {
-      return Boolean(this._timeout);
-    }
-
-    /**
-     * @return {!number} The nonnegative number of milliseconds until an invocation is eligible to
-     *                   run.
-     */
-
-  }, {
-    key: "delay",
-    value: function delay() {
-      if (!this._timestamp) {
-        return 0;
-      }
-      return Math.max(0, this._period - (Date.now() - this._timestamp));
-    }
-
-    /**
-     * Clears any pending invocation but doesn't clear time last invoked or prior result.
-     * @return {void}
-     */
-
-  }, {
-    key: "cancel",
-    value: function cancel() {
-      if (this._timeout) {
-        this._window.clearTimeout(this._timeout);
-      }
-      this._timeout = 0;
-    }
-
-    /**
-     * Clears any pending invocation, time last invoked, and prior result.
-     * @return {void}
-     */
-
-  }, {
-    key: "reset",
-    value: function reset() {
-      this.cancel();
-      this._result = undefined;
-      this._timestamp = 0;
-    }
-  }, {
-    key: "result",
-    get: function get$$1() {
-      return this._result;
-    }
-  }]);
-  return Throttle;
-}();
-
 var EVENT_TYPES = ['scroll', 'resize', CollapseTable.SECTION_TOGGLED_EVENT_TYPE];
 var THROTTLE_PERIOD_MILLISECONDS = 100;
 
@@ -1668,7 +1820,7 @@ var THROTTLE_PERIOD_MILLISECONDS = 100;
  * standard browser events: resize, scroll.
  */
 
-var _class = function () {
+var _class$1 = function () {
   /**
    * @param {!Window} window
    * @param {!number} loadDistanceMultiplier Images within this multiple of the screen height are
@@ -1736,6 +1888,7 @@ var _class = function () {
       EVENT_TYPES.forEach(function (eventType) {
         return _this2._window.removeEventListener(eventType, _this2._throttledLoadPlaceholders);
       });
+      this._throttledLoadPlaceholders.reset();
 
       this._placeholders = [];
       this._registered = false;
@@ -1808,6 +1961,46 @@ var _class = function () {
   }]);
   return _class;
 }();
+
+var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+
+  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+  /**
+   * @param {!Window} window
+   * @return {!boolean} true if the user agent is Android, false otherwise.
+   */
+};var isAndroid = function isAndroid(window) {
+  return (/android/i.test(window.navigator.userAgent)
+  );
+};
+
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is iOS, false otherwise.
+ */
+var isIOs = function isIOs(window) {
+  return (/ipad|iphone|ipod/i.test(window.navigator.userAgent)
+  );
+};
+
+/**
+ * @param {!Window} window
+ * @return {void}
+ */
+var classify = function classify(window) {
+  var html = window.document.querySelector('html');
+  if (isAndroid(window)) {
+    html.classList.add(CLASS$2.ANDROID);
+  }
+  if (isIOs(window)) {
+    html.classList.add(CLASS$2.IOS);
+  }
+};
+
+var PlatformTransform = {
+  CLASS: CLASS$2,
+  classify: classify
+};
 
 /**
  * Configures span to be suitable replacement for red link anchor.
@@ -2024,19 +2217,31 @@ var WidenImage = {
 };
 
 var pagelib$1 = {
+  // todo: rename CollapseTableTransform.
   CollapseTable: CollapseTable,
   CompatibilityTransform: CompatibilityTransform,
+  DimImagesTransform: DimImagesTransform,
+  EditTransform: EditTransform,
+  // todo: rename Footer.ContainerTransform, Footer.LegalTransform, Footer.MenuTransform,
+  //       Footer.ReadMoreTransform.
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
   FooterReadMore: FooterReadMore,
+  FooterTransformer: _class,
   LazyLoadTransform: LazyLoadTransform,
-  LazyLoadTransformer: _class,
+  LazyLoadTransformer: _class$1,
+  PlatformTransform: PlatformTransform,
+  // todo: rename RedLinkTransform.
   RedLinks: RedLinks,
   ThemeTransform: ThemeTransform,
+  // todo: rename WidenImageTransform.
   WidenImage: WidenImage,
   test: {
-    ElementGeometry: ElementGeometry, ElementUtilities: elementUtilities, Polyfill: Polyfill, Throttle: Throttle
+    ElementGeometry: ElementGeometry,
+    ElementUtilities: elementUtilities,
+    Polyfill: Polyfill,
+    Throttle: Throttle
   }
 };
 

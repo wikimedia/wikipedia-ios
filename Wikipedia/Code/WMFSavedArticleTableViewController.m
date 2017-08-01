@@ -34,19 +34,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-    
+
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
     articleRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
     articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:nil cacheName:nil];
-    
+
     self.fetchedResultsController = frc;
     self.tableViewUpdater = [[WMFTableViewUpdater alloc] initWithFetchedResultsController:self.fetchedResultsController tableView:self.tableView];
     self.tableViewUpdater.delegate = self;
-    
+
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
@@ -84,14 +84,13 @@
     return cell;
 }
 
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewRowAction *savedAction = [self savedAction:indexPath];
-    savedAction.backgroundColor = self.theme.colors.link;
-    
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
+
     UITableViewRowAction *shareAction = [self shareAction:indexPath];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
-    return @[shareAction, savedAction];
+    return @[deleteAction, shareAction];
 }
 
 - (WMFEmptyViewType)emptyViewType {

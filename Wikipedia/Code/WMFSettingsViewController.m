@@ -110,6 +110,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
 }
 
 - (void)configureBackButton {
@@ -219,6 +220,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
             WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
+            [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About:
@@ -266,7 +268,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:themeableNavController animated:YES completion:nil];
 }
-
 
 #pragma mark - Log in and out
 
@@ -509,7 +510,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
-    [self.tableView reloadData];
+    [self loadSections];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 

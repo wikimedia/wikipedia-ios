@@ -59,6 +59,7 @@
 "action-saved" = "Lagret";
 "action-share" = "Del";
 "alert-no-internet" = "Ingen internettforbindelse";
+// Fuzzy
 "announcements-dismiss" = "Nei takk";
 "article-about-title" = "Om artikkelen";
 "article-languages-filter-placeholder" = "Finn språk";
@@ -118,6 +119,7 @@
 "explore-random-article-heading" = "Tilfeldig artikkel";
 "explore-randomizer" = "Tilfeldighetsgenerator";
 "feed-news-notification-button-text" = "Slå på notifikasjoner";
+// Fuzzy
 "feed-news-notification-text" = "Du kan nå motta notifikasjoner om Wikipedia artikler som er populære i nyhetene.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
@@ -273,7 +275,6 @@
 "readers-accessibility-label" = "$1 lesere";
 "reference-title" = "Referanse $1";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
-"save-action" = "Lagre";
 "saved-clear-all" = "Tøm";
 "saved-pages-clear-cancel" = "Avbryt";
 "saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
@@ -332,7 +333,6 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
-"unsave-action" = "Lagre ikke";
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-explore-new-ways-sub-title" = "Nye notifikasjoner og widgets hjelper deg med å oppdage interessante artikler";
 "welcome-explore-new-ways-title" = "Nye måter å utforske";

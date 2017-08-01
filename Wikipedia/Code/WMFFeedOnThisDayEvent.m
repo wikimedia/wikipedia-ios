@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, year): @"year",
-             WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, text): @"text",
-             WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, articlePreviews): @"pages"
-             };
+        WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, year): @"year",
+        WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, text): @"text",
+        WMF_SAFE_KEYPATH(WMFFeedOnThisDayEvent.new, articlePreviews): @"pages"
+    };
 }
 
 + (NSValueTransformer *)articlePreviewsJSONTransformer {
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 3;
 }
 
 - (nullable NSURL *)siteURL {
@@ -33,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)language {
     return self.siteURL.wmf_language;
 }
-
 
 @end
 

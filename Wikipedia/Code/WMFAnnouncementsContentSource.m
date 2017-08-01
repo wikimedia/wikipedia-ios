@@ -31,7 +31,6 @@
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
-    
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -100,28 +99,16 @@
     }
     NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
 
-    NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
-    WMFContentGroup *themeGroup = [moc contentGroupForURL:themeContentGroupURL];
     if (!userDefaults.wmf_didShowThemeCardInFeed) {
-        if (!themeGroup) {
-            [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
-        }
+        NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
+        [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
         userDefaults.wmf_didShowThemeCardInFeed = YES;
-    }
-    
-    NSURL *URL = [WMFContentGroup notificationContentGroupURL];
-    WMFContentGroup *group = [moc contentGroupForURL:URL];
-    if (![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
-        if (!group) {
-            [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
-        }
-        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-    
+
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
     if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {

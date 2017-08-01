@@ -56,6 +56,7 @@
 "action-share" = "Del";
 "action-unsave" = "Gem ikke";
 "alert-no-internet" = "Der er ingen internetforbindelse";
+// Fuzzy
 "announcements-dismiss" = "Nej tak";
 "article-about-title" = "Om denne artikel";
 "article-languages-filter-placeholder" = "Find sprog";
@@ -119,6 +120,7 @@
 "explore-random-article-heading" = "Tilfældig artikel";
 "explore-randomizer" = "Tilfældig artikel";
 "feed-news-notification-button-text" = "Slå notifikationer til";
+// Fuzzy
 "feed-news-notification-text" = "Du kan nu modtage notifikationer om Wikipedia-artikler der er populære i nyhederne.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
@@ -284,7 +286,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
-"save-action" = "Gem";
 "saved-clear-all" = "Slet";
 "saved-pages-clear-cancel" = "Annuller";
 "saved-pages-clear-confirmation-heading" = "Vil du slette alle dine gemte sider?";
@@ -343,7 +344,6 @@
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
-"unsave-action" = "Gem ikke";
 "welcome-explore-continue-button" = "Kom i gang";
 "welcome-explore-new-ways-sub-title" = "Nye notifikationer og widgets til at hjælpe dig med at opdage interessante artikler";
 "welcome-explore-new-ways-title" = "Nye måder at udforske";

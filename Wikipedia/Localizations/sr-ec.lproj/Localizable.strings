@@ -56,6 +56,7 @@
 "action-saved" = "Сачувано";
 "action-share" = "Дели";
 "alert-no-internet" = "Нема интернет везе";
+// Fuzzy
 "announcements-dismiss" = "Не, хвала";
 "article-about-title" = "О чланку";
 "article-languages-filter-placeholder" = "Пронађи језик";
@@ -119,6 +120,7 @@
 "explore-random-article-heading" = "Случајни чланак";
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
+// Fuzzy
 "feed-news-notification-text" = "Сада можете примати обавештења о чланцима на Википедији који су најчитанији на вестима.";
 "field-alert-captcha-invalid" = "Невалидна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
@@ -278,7 +280,6 @@
 "readers-accessibility-label" = "Читалаца: $1";
 "reference-title" = "Референца $1";
 "request-feedback-on-error" = "Апликација је наишла на проблем за који би наши девелопери желели да сазнају. Кликните овде да нам пошаљете имејл да информацијама о квару.";
-"save-action" = "Сачувај";
 "saved-clear-all" = "Очисти";
 "saved-pages-clear-cancel" = "Откажи";
 "saved-pages-clear-confirmation-heading" = "Заиста желите да избришете све сачуване странице?";
@@ -337,7 +338,6 @@
 "two-factor-login-title" = "Пријавите се на свој налог";
 "two-factor-login-with-backup-code" = "Користите један од својих резервних кодова";
 "two-factor-login-with-regular-code" = "Користите код за верификацију";
-"unsave-action" = "Несачувано";
 "welcome-explore-continue-button" = "Почни";
 "welcome-explore-new-ways-sub-title" = "Нова обавештења и додаци да вам помогнемо да пронађете интересантне чланке";
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";

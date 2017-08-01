@@ -56,6 +56,7 @@
 "action-share" = "هاوبەشی کردن";
 "action-unsave" = "سڕینەوە";
 "alert-no-internet" = "لێرە ھیچ بەستنەوەیەکی ئینتەرنێت نییە";
+// Fuzzy
 "announcements-dismiss" = "نا سوپاس";
 "article-about-title" = "سەبارەت بەم وتارە";
 "article-languages-filter-placeholder" = "دۆزینەوەی زمان";
@@ -119,6 +120,7 @@
 "explore-random-article-heading" = "وتاری هەڕەمەکی";
 "explore-randomizer" = "ھەڵکەوت";
 "feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
+// Fuzzy
 "feed-news-notification-text" = "لەمەوبەدوا ھۆشدارت پێ دەگات لەبارەی وتارەکانی ویکیپیدیا و ھەواڵە بەناوبانگەکان.";
 "field-alert-captcha-invalid" = "کاپچای ھەڵە";
 "field-alert-password-confirm-mismatch" = "تێپەڕوشەکان ھەماھەنگ نین";
@@ -227,7 +229,6 @@
 "number-millions" = "$1";
 "number-thousands" = "$1";
 "on-this-day-detail-header-date-range" = "لە $1 بۆ $2";
-"on-this-day-detail-header-day" = "لە $1";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ڕووداوی مێژوویی|$1 ڕووداوە مێژووییەکان}}";
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-title" = "لەم ڕۆژەدا";
@@ -291,7 +292,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ھەر ئێستا|$1 دەقە لەمەوبەر|$1 دەقە لەمەوبەر}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ئەم ساڵ|Last year|$1 ساڵ لەمەوبەر}}";
 "request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
-"save-action" = "خەزێنەکردن";
 "saved-clear-all" = "سڕینەوە";
 "saved-pages-clear-cancel" = "ھەڵوەشاندنەوە";
 "saved-pages-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕە پاشەکەوتکراوەکانت بسڕیتەوە؟";
@@ -350,7 +350,6 @@
 "two-factor-login-title" = "بچۆ ژوورەوە بۆ ناو ھەژمارەکەت";
 "two-factor-login-with-backup-code" = "یەکێک لە کۆدی باک-ئەپەکانت بەکاربھێنە";
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
-"unsave-action" = "سڕینەوە";
 "welcome-explore-continue-button" = "دەست پێ بکە";
 "welcome-explore-new-ways-sub-title" = "ھۆشداری نوێ بۆ یارمەتیدانت لە دۆزینەوەی وتاری سەرنج ڕاکێش";
 "welcome-explore-new-ways-title" = "ڕێگەی نوێ بۆ گەڕان";

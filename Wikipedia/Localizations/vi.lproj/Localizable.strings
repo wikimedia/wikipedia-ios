@@ -55,6 +55,7 @@
 "action-share" = "Chia sẻ";
 "action-unsave" = "Bỏ lưu";
 "alert-no-internet" = "Không có kết nối Internet";
+// Fuzzy
 "announcements-dismiss" = "Thôi";
 "article-about-title" = "Thông tin về bài viết";
 "article-languages-filter-placeholder" = "Tìm ngôn ngữ";
@@ -109,6 +110,7 @@
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
 "explore-randomizer" = "Ngẫu nhiên";
 "feed-news-notification-button-text" = "Bật thông báo";
+// Fuzzy
 "feed-news-notification-text" = "Hiện nay bạn có thể nhận thông báo về các bài Wikipedia thịnh hành về tin tức.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
 "field-alert-password-confirm-mismatch" = "Mật khẩu không khớp";
@@ -241,7 +243,6 @@
 "readers-accessibility-label" = "$1 người đọc";
 "reference-title" = "Chú thích $1";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
-"save-action" = "Lưu";
 "saved-clear-all" = "Xóa sạch";
 "saved-pages-clear-cancel" = "Hủy bỏ";
 "saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
@@ -297,7 +298,6 @@
 "top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
 "two-factor-login-instructions" = "Xin vui lòng nhập mã xác thực dùng hai nhân tố";
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
-"unsave-action" = "Không lưu";
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-explore-new-ways-sub-title" = "Thông báo và tiện ích mới để giúp bạn khám phá các bài thú vị";
 "welcome-explore-new-ways-title" = "Phương cách thám hiểm mới";
