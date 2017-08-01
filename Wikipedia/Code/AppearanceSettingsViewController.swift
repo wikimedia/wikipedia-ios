@@ -55,7 +55,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         return [readingThemesSection, themeOptionsSection]
     }
