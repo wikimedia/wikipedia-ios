@@ -320,7 +320,8 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 
 let locales = Set<String>(Locale.availableIdentifiers)
 func localeIsAvailable(_ locale: String) -> Bool {
-    return locales.contains(locale)
+    let prefix = locale.components(separatedBy: "-").first ?? locale
+    return locales.contains(prefix)
 }
 
 func importLocalizationsFromTWN(_ path: String) {
@@ -372,8 +373,6 @@ func importLocalizationsFromTWN(_ path: String) {
                 }
             }
             let stringsFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.strings"
-            
-            
             if locale != "en" { // only write the english plurals, skip the main file
                 if strings.count > 0 {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
