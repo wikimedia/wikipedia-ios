@@ -111,7 +111,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
+        title = CommonStrings.placesTitle
     }
     
     override func viewDidLoad() {
