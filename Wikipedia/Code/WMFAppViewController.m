@@ -1113,7 +1113,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Show Search
 
 - (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
-    if (self.presentedViewController == self.searchViewController) {
+    if (self.presentedViewController && self.presentedViewController == self.searchViewController) {
         return;
     }
     [self dismissPresentedViewControllers];
