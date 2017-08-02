@@ -5,12 +5,6 @@
 #import "MWKDataStore.h"
 #import "WMFRandomFileUtilities.h"
 
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 // suppress warning about passing "anything()" to "sectionWithId:"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wint-conversion"
