@@ -47,6 +47,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";

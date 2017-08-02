@@ -62,7 +62,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
-        return [readingThemesSection, themeOptionsSection]
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
+        
+        
+        return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,6 +97,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 view.frame = frame
                 cell.contentView.addSubview(view)
             }
+        }
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
+            vc.apply(theme: self.theme)
+            var frame = view.frame
+            frame.size.width = cell.frame.width
+            view.frame = frame
+            cell.contentView.addSubview(view)
         }
         
         if item is AppearanceSettingsSwitchItem {
