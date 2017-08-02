@@ -105,12 +105,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
 
 @property (nonatomic, strong) WMFTaskGroup *backgroundTaskGroup;
-
 @property (nonatomic, strong) WMFTheme *theme;
-
-@property (nonatomic, strong) WMFSearchViewController *searchViewController;
-@property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
-@property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -200,8 +195,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
-    [self.searchViewController applyTheme:self.theme];
-    [self.settingsViewController applyTheme:self.theme];
 }
 
 - (void)configureTabController {
@@ -585,7 +578,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"There was an error" }] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
     if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
         [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
@@ -603,9 +596,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     if (![self uiIsLoaded]) {
         return;
     }
-
-    self.searchViewController = nil;
-    self.settingsViewController = nil;
 
     [self.savedArticlesFetcher stop];
     [self.dataStore.feedContentController stopContentSources];
@@ -657,8 +647,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return;
     }
     [super didReceiveMemoryWarning];
-    self.searchViewController = nil;
-    self.settingsViewController = nil;
+    ;
     [self.dataStore clearMemoryCache];
 }
 
@@ -708,7 +697,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self switchToExploreAndShowSearchAnimated:NO];
+        [self switchToExploreAndShowSearchWithTerm:nil animated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
@@ -834,11 +823,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
             [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
-            [self switchToExploreAndShowSearchAnimated:animated];
+            [self switchToExploreAndShowSearchWithTerm:nil animated:animated];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self switchToExploreAndShowSearchAnimated:animated];
-            [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
+            [self switchToExploreAndShowSearchWithTerm:[activity wmf_searchTerm] animated:animated];
             break;
         case WMFUserActivityTypeArticle: {
             NSURL *URL = [activity wmf_articleURL];
@@ -1111,12 +1099,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Show Search
 
-- (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
+- (void)switchToExploreAndShowSearchWithTerm:(nullable NSString *)term animated:(BOOL)animated {
     [self dismissPresentedViewControllers];
     if (self.rootTabBarController.selectedIndex != WMFAppTabTypeExplore) {
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     }
-    [self showSearchAnimated:animated];
+    [self showSearchWithTerm:term animated:animated];
 }
 
 #pragma mark - App Shortcuts
@@ -1440,13 +1428,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
-    [self.searchViewController applyTheme:theme];
-    [self.settingsViewController applyTheme:theme];
-
     // Navigation controllers
     NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
-    if (self.settingsNavigationController) {
-        [navigationControllers addObject:self.settingsNavigationController];
+    if ([self.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        [navigationControllers addObject:(UINavigationController *)self.presentedViewController];
+    }
+
+    if ([self.presentedViewController conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)self.presentedViewController applyTheme:theme];
     }
 
     [self applyTheme:theme toNavigationControllers:navigationControllers];
@@ -1489,14 +1478,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme) {
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
-        [self.settingsViewController reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
     }
 }
 
 #pragma mark - Search
 
 - (void)showSearch {
-    [self showSearchAnimated:YES];
+    [self showSearchWithTerm:nil animated:YES];
 }
 
 - (void)showSettings {
@@ -1509,42 +1497,30 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showSearchAnimated:(BOOL)animated {
+- (void)showSearchWithTerm:(nullable NSString *)term animated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
-
-    if (!self.searchViewController) {
-        WMFSearchViewController *searchVC =
-            [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
-        [searchVC applyTheme:self.theme];
-        self.searchViewController = searchVC;
-    }
+    WMFSearchViewController *searchVC = [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
+    [searchVC applyTheme:self.theme];
     [self dismissReadingThemesPopoverIfActive];
-
-    [self presentViewController:self.searchViewController animated:animated completion:nil];
+    [self presentViewController:searchVC animated:animated completion:nil];
+    if (term) {
+        [searchVC setSearchTerm:term];
+    }
 }
 
 - (void)showSettingsWithSubViewController:(nullable UIViewController *)subViewController animated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
     [self dismissPresentedViewControllers];
 
-    if (!self.settingsViewController) {
-        WMFSettingsViewController *settingsVC =
-            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
-        [settingsVC applyTheme:self.theme];
-        self.settingsViewController = settingsVC;
-    }
-
-    if (!self.settingsNavigationController) {
-        WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
-        [self applyTheme:self.theme toNavigationControllers:@[navController]];
-        self.settingsNavigationController = navController;
-    }
+    WMFSettingsViewController *settingsVC = [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
+    WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:settingsVC theme:self.theme];
 
     if (subViewController) {
-        [self.settingsNavigationController pushViewController:subViewController animated:NO];
+        [navController pushViewController:subViewController animated:NO];
     }
 
-    [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
+    [self applyTheme:self.theme toNavigationControllers:@[navController]];
+    [self presentViewController:navController animated:animated completion:nil];
 }
 
 - (void)showSettingsAnimated:(BOOL)animated {
