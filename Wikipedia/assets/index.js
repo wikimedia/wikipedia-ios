@@ -1,681 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var wmf = {}
-
-wmf.editButtons = require('./js/transforms/addEditButtons')
-wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
-wmf.elementLocation = require('./js/elementLocation')
-wmf.utilities = require('./js/utilities')
-wmf.findInPage = require('./js/findInPage')
-wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
-wmf.footerMenu = require('wikimedia-page-library').FooterMenu
-wmf.footerLegal = require('wikimedia-page-library').FooterLegal
-wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./js/transforms/disableFilePageEdit')
-wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
-wmf.tables = require('./js/transforms/collapseTables')
-wmf.themes = require('wikimedia-page-library').ThemeTransform
-wmf.redLinks = require('wikimedia-page-library').RedLinks
-wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
-wmf.images = require('./js/transforms/widenImages')
-
-window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
-const refs = require('./refs')
-const utilities = require('./utilities')
-const tableCollapser = require('wikimedia-page-library').CollapseTable
-
-/**
- * Type of items users can click which we may need to handle.
- * @type {!Object}
- */
-const ItemType = {
-  unknown: 0,
-  link: 1,
-  image: 2,
-  reference: 3
-}
-
-/**
- * Model of clicked item.
- * Reminder: separate `target` and `href` properties
- * needed to handle non-anchor targets such as images.
- */
-class ClickedItem {
-  constructor(target, href) {
-    this.target = target
-    this.href = href
-  }
-  /**
-   * Determines type of item based on its properties.
-   * @return {!ItemType} Type of the item
-   */
-  type() {
-    if (refs.isCitation(this.href)) {
-      return ItemType.reference
-    } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
-      return ItemType.image
-    } else if (this.href) {
-      return ItemType.link
-    }
-    return ItemType.unknown
-  }
-}
-
-/**
- * Send messages to native land for respective click types.
- * @param  {!ClickedItem} item the item which was clicked on
- * @return {Boolean} `true` if a message was sent, otherwise `false`
- */
-function sendMessageForClickedItem(item){
-  switch(item.type()) {
-  case ItemType.link:
-    sendMessageForLinkWithHref(item.href)
-    break
-  case ItemType.image:
-    sendMessageForImageWithTarget(item.target)
-    break
-  case ItemType.reference:
-    sendMessageForReferenceWithTarget(item.target)
-    break
-  default:
-    return false
-  }
-  return true
-}
-
-/**
- * Sends message for a link click.
- * @param  {!String} href url
- * @return {void}
- */
-function sendMessageForLinkWithHref(href){
-  if(href[0] === '#'){
-    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
-  }
-  window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
-}
-
-/**
- * Sends message for an image click.
- * @param  {!Element} target an image element
- * @return {void}
- */
-function sendMessageForImageWithTarget(target){
-  window.webkit.messageHandlers.imageClicked.postMessage({
-    'src': target.getAttribute('src'),
-    'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
-    'height': target.naturalHeight,
-    'data-file-width': target.getAttribute('data-file-width'),
-    'data-file-height': target.getAttribute('data-file-height')
-  })
-}
-
-/**
- * Sends message for a reference click.
- * @param  {!Element} target an anchor element
- * @return {void}
- */
-function sendMessageForReferenceWithTarget(target){
-  refs.sendNearbyReferences( target )
-}
-
-/**
- * Handler for the click event.
- * @param  {ClickEvent} event the event being handled
- * @return {void}
- */
-function handleClickEvent(event){
-  const target = event.target
-  if(!target) {
-    return
-  }
-  // Find anchor for non-anchor targets - like images.
-  const anchorForTarget = utilities.findClosest(target, 'A') || target
-  if(!anchorForTarget) {
-    return
-  }
-
-  // Handle edit links.
-  if (anchorForTarget.getAttribute( 'data-action' ) === 'edit_section'){
-    window.webkit.messageHandlers.editClicked.postMessage({
-      'sectionId': anchorForTarget.getAttribute( 'data-id' )
-    })
-    return
-  }
-
-  const href = anchorForTarget.getAttribute( 'href' )
-  if(!href) {
-    return
-  }
-  sendMessageForClickedItem(new ClickedItem(target, href))
-}
-
-/**
- * Associate our custom click handler logic with the document `click` event.
- */
-document.addEventListener('click', function (event) {
-  event.preventDefault()
-  handleClickEvent(event)
-}, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
-//  Created by Monte Hurd on 12/28/13.
-//  Used by methods in "UIWebView+ElementLocation.h" category.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
-function stringEndsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1
-}
-
-exports.getImageWithSrc = function(src) {
-  var images = document.getElementsByTagName('img')
-  for (var i = 0; i < images.length; ++i) {
-    if (stringEndsWith(images[i].src, src)) {
-      return images[i]
-    }
-  }
-  return null
-}
-
-exports.getElementRect = function(element) {
-  var rect = element.getBoundingClientRect()
-    // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
-  return {
-    Y: rect.top,
-    X: rect.left,
-    Width: rect.width,
-    Height: rect.height
-  }
-}
-
-exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
-  for (var i = 0; i < elementCount; ++i) {
-    var div = document.getElementById(elementPrefix + i)
-    if (div === null) {
-      continue
-    }
-    var rect = this.getElementRect(div)
-    if ( rect.Y >= -1 || rect.Y + rect.Height >= 50) {
-      return i
-    }
-  }
-  return -1
-}
-
-exports.getElementFromPoint = function(x, y){
-  return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
-}
-
-exports.isElementTopOnscreen = function(element){
-  return element.getBoundingClientRect().top < 0
-}
-},{}],4:[function(require,module,exports){
-// Based on the excellent blog post:
-// http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
-
-var FindInPageResultCount = 0
-var FindInPageResultMatches = []
-var FindInPagePreviousFocusMatchSpanId = null
-
-function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, searchTerm) {
-  if (element) {
-    if (element.nodeType == 3) {            // Text node
-      while (true) {
-        var value = element.nodeValue  // Search for searchTerm in text node
-        var idx = value.toLowerCase().indexOf(searchTerm)
-
-        if (idx < 0) break
-
-        var span = document.createElement('span')
-        var text = document.createTextNode(value.substr(idx, searchTerm.length))
-        span.appendChild(text)
-        span.setAttribute('class', 'findInPageMatch')
-
-        text = document.createTextNode(value.substr(idx + searchTerm.length))
-        element.deleteData(idx, value.length - idx)
-        var next = element.nextSibling
-        element.parentNode.insertBefore(span, next)
-        element.parentNode.insertBefore(text, next)
-        element = text
-        FindInPageResultCount++
-      }
-    } else if (element.nodeType == 1) {     // Element node
-      if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
-        for (var i = element.childNodes.length - 1; i >= 0; i--) {
-          recursivelyHighlightSearchTermInTextNodesStartingWithElement(element.childNodes[i], searchTerm)
-        }
-      }
-    }
-  }
-}
-
-function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
-  if (element) {
-    if (element.nodeType == 1) {
-      if (element.getAttribute('class') == 'findInPageMatch') {
-        var text = element.removeChild(element.firstChild)
-        element.parentNode.insertBefore(text,element)
-        element.parentNode.removeChild(element)
-        return true
-      }
-      var normalize = false
-      for (var i = element.childNodes.length - 1; i >= 0; i--) {
-        if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
-          normalize = true
-        }
-      }
-      if (normalize) {
-        element.normalize()
-      }
-
-    }
-  }
-  return false
-}
-
-function deFocusPreviouslyFocusedSpan() {
-  if(FindInPagePreviousFocusMatchSpanId){
-    document.getElementById(FindInPagePreviousFocusMatchSpanId).classList.remove('findInPageMatch_Focus')
-    FindInPagePreviousFocusMatchSpanId = null
-  }
-}
-
-function removeSearchTermHighlights() {
-  FindInPageResultCount = 0
-  FindInPageResultMatches = []
-  deFocusPreviouslyFocusedSpan()
-  recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
-}
-
-function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
-  removeSearchTermHighlights()
-  if (searchTerm.trim().length === 0){
-    window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
-    return
-  }
-  searchTerm = searchTerm.trim()
-
-  recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
-
-    // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
-    // matches in first-to-last order. We can work around this by adding the "id"
-    // and building our results array *after* the recursion is done, thanks to
-    // "getElementsByClassName".
-  var orderedMatchElements = document.getElementsByClassName('findInPageMatch')
-  FindInPageResultMatches.length = orderedMatchElements.length
-  for (var i = 0; i < orderedMatchElements.length; i++) {
-    var matchSpanId = 'findInPageMatchID|' + i
-    orderedMatchElements[i].setAttribute('id', matchSpanId)
-        // For now our results message to native land will be just an array of match span ids.
-    FindInPageResultMatches[i] = matchSpanId
-  }
-
-  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
-}
-
-function useFocusStyleForHighlightedSearchTermWithId(id) {
-  deFocusPreviouslyFocusedSpan()
-  setTimeout(function(){
-    document.getElementById(id).classList.add('findInPageMatch_Focus')
-    FindInPagePreviousFocusMatchSpanId = id
-  }, 0)
-}
-
-exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
-exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
-exports.removeSearchTermHighlights = removeSearchTermHighlights
-},{}],5:[function(require,module,exports){
-var elementLocation = require('./elementLocation')
-
-function isCitation( href ) {
-  return href.indexOf('#cite_note') > -1
-}
-
-function isEndnote( href ) {
-  return href.indexOf('#endnote_') > -1
-}
-
-function isReference( href ) {
-  return href.indexOf('#ref_') > -1
-}
-
-function goDown( element ) {
-  return element.getElementsByTagName( 'A' )[0]
-}
-
-/**
- * Skip over whitespace but not other elements
- */
-function skipOverWhitespace( skipFunc ) {
-  return function(element) {
-    do {
-      element = skipFunc( element )
-      if (element && element.nodeType == Node.TEXT_NODE) {
-        if (element.textContent.match(/^\s+$/)) {
-          // Ignore empty whitespace
-          continue
-        } else {
-          break
-        }
-      } else {
-        // found an element or ran out
-        break
-      }
-    } while (true)
-    return element
-  }
-}
-
-var goLeft = skipOverWhitespace( function( element ) {
-  return element.previousSibling
-})
-
-var goRight = skipOverWhitespace( function( element ) {
-  return element.nextSibling
-})
-
-function hasCitationLink( element ) {
-  try {
-    return isCitation( goDown( element ).getAttribute( 'href' ) )
-  } catch (e) {
-    return false
-  }
-}
-
-function collectRefText( sourceNode ) {
-  var href = sourceNode.getAttribute( 'href' )
-  var targetId = href.slice(1)
-  var targetNode = document.getElementById( targetId )
-  if ( targetNode === null ) {
-    /*global console */
-    console.log('reference target not found: ' + targetId)
-    return ''
-  }
-
-  // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
-  for (var i = 0; i < backlinks.length; i++) {
-    backlinks[i].style.display = 'none'
-  }
-  return targetNode.innerHTML
-}
-
-function collectRefLink( sourceNode ) {
-  var node = sourceNode
-  while (!node.classList || !node.classList.contains('reference')) {
-    node = node.parentNode
-    if (!node) {
-      return ''
-    }
-  }
-  return node.id
-}
-
-function sendNearbyReferences( sourceNode ) {
-  var selectedIndex = 0
-  var refs = []
-  var linkId = []
-  var linkText = []
-  var linkRects = []
-  var curNode = sourceNode
-
-  // handle clicked ref:
-  refs.push( collectRefText( curNode ) )
-  linkId.push( collectRefLink( curNode ) )
-  linkText.push( curNode.textContent )
-
-  // go left:
-  curNode = sourceNode.parentElement
-  while ( hasCitationLink( goLeft( curNode ) ) ) {
-    selectedIndex += 1
-    curNode = goLeft( curNode )
-    refs.unshift( collectRefText( goDown ( curNode ) ) )
-    linkId.unshift( collectRefLink( curNode ) )
-    linkText.unshift( curNode.textContent )
-  }
-
-  // go right:
-  curNode = sourceNode.parentElement
-  while ( hasCitationLink( goRight( curNode ) ) ) {
-    curNode = goRight( curNode )
-    refs.push( collectRefText( goDown ( curNode ) ) )
-    linkId.push( collectRefLink( curNode ) )
-    linkText.push( curNode.textContent )
-  }
-
-  for(var i = 0; i < linkId.length; i++){
-    var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
-    linkRects.push(rect)
-  }
-
-  var referencesGroup = []
-  for(var j = 0; j < linkId.length; j++){
-    referencesGroup.push({
-      'id': linkId[j],
-      'rect': linkRects[j],
-      'text': linkText[j],
-      'html': refs[j]
-    })
-  }
-
-  // Special handling for references
-  window.webkit.messageHandlers.referenceClicked.postMessage({
-    'selectedIndex': selectedIndex,
-    'referencesGroup': referencesGroup
-  })
-}
-
-exports.isEndnote = isEndnote
-exports.isReference = isReference
-exports.isCitation = isCitation
-exports.sendNearbyReferences = sendNearbyReferences
-},{"./elementLocation":3}],6:[function(require,module,exports){
-const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
-
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
-  const preceedingElement = content.querySelector(preceedingElementSelector)
-  preceedingElement.parentNode.insertBefore(
-    newEditSectionButton(content, sectionID),
-    preceedingElement.nextSibling
-  )
-}
-
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
-}
-
-function add(content) {
-  // Add lead section edit button after the lead section horizontal rule element.
-  addEditButtonAfterElement('#content_block_0_hr', 0, content)
-  // Add non-lead section edit buttons inside respective header elements.
-  addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
-}
-
-exports.add = add
-},{"wikimedia-page-library":12}],7:[function(require,module,exports){
-const tableCollapser = require('wikimedia-page-library').CollapseTable
-var location = require('../elementLocation')
-
-function footerDivClickCallback(container) {
-  if(location.isElementTopOnscreen(container)){
-    window.scrollTo( 0, container.offsetTop - 10 )
-  }
-}
-
-function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
-  tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
-}
-
-exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
-
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],9:[function(require,module,exports){
-
-function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
-    /*
-    Instead of moving the infobox down beneath the first P tag,
-    move the first good looking P tag *up* (as the first child of
-    the first section div). That way the first P text will appear not
-    only above infoboxes, but above other tables/images etc too!
-    */
-
-  if(content.getElementById( 'mainpage' ))return
-
-  var block_0 = content.getElementById( 'content_block_0' )
-  if(!block_0) return
-
-  var allPs = block_0.getElementsByTagName( 'p' )
-  if(!allPs) return
-
-  var preceedingElement = content.getElementById( preceedingElementID )
-  if(!preceedingElement) return
-
-  function isParagraphGood(p) {
-    // Narrow down to first P which is direct child of content_block_0 DIV.
-    // (Don't want to yank P from somewhere in the middle of a table!)
-    if  (p.parentNode == block_0 ||
-            /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
-               leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
-            p.parentNode.className == 'mw-mobilefrontend-leadsection'
-            ){
-                // Ensure the P being pulled up has at least a couple lines of text.
-                // Otherwise silly things like a empty P or P which only contains a
-                // BR tag will get pulled up (see articles on "Chemical Reaction" and
-                // "Hawaii").
-                // Trick for quickly determining element height:
-                //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-                //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
-      return !pIsTooSmall
-    }
-    return false
-
-  }
-
-  var firstGoodParagraph = function(){
-    return Array.prototype.slice.call( allPs).find(isParagraphGood)
-  }()
-
-  if(!firstGoodParagraph) return
-
-  // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
-  var fragmentOfItemsToRelocate = function(){
-    var didHitGoodP = false
-    var didHitNextP = false
-
-    var shouldElementMoveUp = function(element) {
-      if(didHitGoodP && element.tagName === 'P'){
-        didHitNextP = true
-      }else if(element.isEqualNode(firstGoodParagraph)){
-        didHitGoodP = true
-      }
-      return didHitGoodP && !didHitNextP
-    }
-
-    var fragment = document.createDocumentFragment()
-    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
-      if(shouldElementMoveUp(element)){
-        // appendChild() attaches the element to the fragment *and* removes it from DOM.
-        fragment.appendChild(element)
-      }
-    })
-    return fragment
-  }()
-
-  // Attach the fragment just after `preceedingElement`.
-  // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
-  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
-  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
-}
-
-exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],10:[function(require,module,exports){
-
-const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
-
-function widenImages(content) {
-  Array.from(content.querySelectorAll('img'))
-    .filter(isGalleryImage)
-    .forEach(maybeWidenImage)
-}
-
-exports.widenImages = widenImages
-},{"wikimedia-page-library":12}],11:[function(require,module,exports){
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-function findClosest (el, selector) {
-  while ((el = el.parentElement) && !el.matches(selector));
-  return el
-}
-
-function setLanguage(lang, dir, uidir){
-  var html = document.querySelector( 'html' )
-  html.lang = lang
-  html.dir = dir
-  html.classList.add( 'content-' + dir )
-  html.classList.add( 'ui-' + uidir )
-}
-
-function setPageProtected(isProtected){
-  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-}
-
-function scrollToFragment(fragmentId){
-  location.hash = ''
-  location.hash = fragmentId
-}
-
-function accessibilityCursorToFragment(fragmentId){
-    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
-     in order to have the desired effect, so we first give focus to the body element,
-     then move it to the desired fragment. */
-  var focus_element = document.getElementById(fragmentId)
-  var other_element = document.body
-  other_element.setAttribute('tabindex', 0)
-  other_element.focus()
-  focus_element.setAttribute('tabindex', 0)
-  focus_element.focus()
-}
-
-exports.accessibilityCursorToFragment = accessibilityCursorToFragment
-exports.scrollToFragment = scrollToFragment
-exports.setPageProtected = setPageProtected
-exports.setLanguage = setLanguage
-exports.findClosest = findClosest
-},{}],12:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1119,14 +442,15 @@ var CollapseTable = {
 
 var COMPATIBILITY = {
   FILTER: 'pagelib-compatibility-filter'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!Array.<string>} properties
-   * @param {!string} value
-   * @return {void}
-   */
-};var isStyleSupported = function isStyleSupported(document, properties, value) {
+/**
+ * @param {!Document} document
+ * @param {!Array.<string>} properties
+ * @param {!string} value
+ * @return {void}
+ */
+var isStyleSupported = function isStyleSupported(document, properties, value) {
   var element = document.createElement('span');
   return properties.some(function (property) {
     element.style[property] = value;
@@ -1559,11 +883,12 @@ var MenuItemType = {
   pageIssues: 3,
   disambiguation: 4,
   coordinate: 5
-
-  /**
-   * Menu item model.
-   */
 };
+
+/**
+ * Menu item model.
+ */
+
 var MenuItem = function () {
   /**
    * MenuItem constructor.
@@ -2296,15 +1621,15 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
   px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
   ex: 10, // ''
   em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
+};
 
-
-  /**
-   * Replace an image with a placeholder.
-   * @param {!Document} document
-   * @param {!HTMLImageElement} image The image to be replaced.
-   * @return {!HTMLSpanElement} The placeholder replacing image.
-   */
-};var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+/**
+ * Replace an image with a placeholder.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The image to be replaced.
+ * @return {!HTMLSpanElement} The placeholder replacing image.
+ */
+var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
   // There are a number of possible implementations for placeholders including:
   //
   // - [MobileFrontend] Replace the original image with a span and replace the span with a new
@@ -2597,14 +1922,14 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios' };
 
-  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
-  /**
-   * @param {!Window} window
-   * @return {!boolean} true if the user agent is Android, false otherwise.
-   */
-};var isAndroid = function isAndroid(window) {
+// Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is Android, false otherwise.
+ */
+var isAndroid = function isAndroid(window) {
   return (/android/i.test(window.navigator.userAgent)
   );
 };
@@ -2711,17 +2036,19 @@ var RedLinks = {
 var CONSTRAINT = {
   IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
   IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
+};
 
-  // Theme to CSS classes.
-};var THEME = {
+// Theme to CSS classes.
+var THEME = {
   DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!string} theme
-   * @return {void}
-   */
-};var setTheme = function setTheme(document, theme) {
+/**
+ * @param {!Document} document
+ * @param {!string} theme
+ * @return {void}
+ */
+var setTheme = function setTheme(document, theme) {
   var html = document.querySelector('html');
 
   // Set the new theme.
@@ -2889,4 +2216,681 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
+},{}],2:[function(require,module,exports){
+var wmf = {}
+
+wmf.editButtons = require('./js/transforms/addEditButtons')
+wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
+wmf.elementLocation = require('./js/elementLocation')
+wmf.utilities = require('./js/utilities')
+wmf.findInPage = require('./js/findInPage')
+wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
+wmf.footerMenu = require('wikimedia-page-library').FooterMenu
+wmf.footerLegal = require('wikimedia-page-library').FooterLegal
+wmf.footerContainer = require('wikimedia-page-library').FooterContainer
+wmf.filePages = require('./js/transforms/disableFilePageEdit')
+wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
+wmf.tables = require('./js/transforms/collapseTables')
+wmf.themes = require('wikimedia-page-library').ThemeTransform
+wmf.redLinks = require('wikimedia-page-library').RedLinks
+wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
+wmf.images = require('./js/transforms/widenImages')
+
+window.wmf = wmf
+},{"./js/elementLocation":4,"./js/findInPage":5,"./js/transforms/addEditButtons":7,"./js/transforms/collapseTables":8,"./js/transforms/disableFilePageEdit":9,"./js/transforms/relocateFirstParagraph":10,"./js/transforms/widenImages":11,"./js/utilities":12,"wikimedia-page-library":1}],3:[function(require,module,exports){
+const refs = require('./refs')
+const utilities = require('./utilities')
+const tableCollapser = require('wikimedia-page-library').CollapseTable
+
+/**
+ * Type of items users can click which we may need to handle.
+ * @type {!Object}
+ */
+const ItemType = {
+  unknown: 0,
+  link: 1,
+  image: 2,
+  reference: 3
+}
+
+/**
+ * Model of clicked item.
+ * Reminder: separate `target` and `href` properties
+ * needed to handle non-anchor targets such as images.
+ */
+class ClickedItem {
+  constructor(target, href) {
+    this.target = target
+    this.href = href
+  }
+  /**
+   * Determines type of item based on its properties.
+   * @return {!ItemType} Type of the item
+   */
+  type() {
+    if (refs.isCitation(this.href)) {
+      return ItemType.reference
+    } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
+      return ItemType.image
+    } else if (this.href) {
+      return ItemType.link
+    }
+    return ItemType.unknown
+  }
+}
+
+/**
+ * Send messages to native land for respective click types.
+ * @param  {!ClickedItem} item the item which was clicked on
+ * @return {Boolean} `true` if a message was sent, otherwise `false`
+ */
+function sendMessageForClickedItem(item){
+  switch(item.type()) {
+  case ItemType.link:
+    sendMessageForLinkWithHref(item.href)
+    break
+  case ItemType.image:
+    sendMessageForImageWithTarget(item.target)
+    break
+  case ItemType.reference:
+    sendMessageForReferenceWithTarget(item.target)
+    break
+  default:
+    return false
+  }
+  return true
+}
+
+/**
+ * Sends message for a link click.
+ * @param  {!String} href url
+ * @return {void}
+ */
+function sendMessageForLinkWithHref(href){
+  if(href[0] === '#'){
+    tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
+  }
+  window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
+}
+
+/**
+ * Sends message for an image click.
+ * @param  {!Element} target an image element
+ * @return {void}
+ */
+function sendMessageForImageWithTarget(target){
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': target.getAttribute('src'),
+    'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+    'height': target.naturalHeight,
+    'data-file-width': target.getAttribute('data-file-width'),
+    'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+/**
+ * Sends message for a reference click.
+ * @param  {!Element} target an anchor element
+ * @return {void}
+ */
+function sendMessageForReferenceWithTarget(target){
+  refs.sendNearbyReferences( target )
+}
+
+/**
+ * Handler for the click event.
+ * @param  {ClickEvent} event the event being handled
+ * @return {void}
+ */
+function handleClickEvent(event){
+  const target = event.target
+  if(!target) {
+    return
+  }
+  // Find anchor for non-anchor targets - like images.
+  const anchorForTarget = utilities.findClosest(target, 'A') || target
+  if(!anchorForTarget) {
+    return
+  }
+
+  // Handle edit links.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'edit_section'){
+    window.webkit.messageHandlers.editClicked.postMessage({
+      'sectionId': anchorForTarget.getAttribute( 'data-id' )
+    })
+    return
+  }
+
+  const href = anchorForTarget.getAttribute( 'href' )
+  if(!href) {
+    return
+  }
+  sendMessageForClickedItem(new ClickedItem(target, href))
+}
+
+/**
+ * Associate our custom click handler logic with the document `click` event.
+ */
+document.addEventListener('click', function (event) {
+  event.preventDefault()
+  handleClickEvent(event)
+}, false)
+},{"./refs":6,"./utilities":12,"wikimedia-page-library":1}],4:[function(require,module,exports){
+//  Created by Monte Hurd on 12/28/13.
+//  Used by methods in "UIWebView+ElementLocation.h" category.
+//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+
+function stringEndsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1
+}
+
+exports.getImageWithSrc = function(src) {
+  var images = document.getElementsByTagName('img')
+  for (var i = 0; i < images.length; ++i) {
+    if (stringEndsWith(images[i].src, src)) {
+      return images[i]
+    }
+  }
+  return null
+}
+
+exports.getElementRect = function(element) {
+  var rect = element.getBoundingClientRect()
+    // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
+  return {
+    Y: rect.top,
+    X: rect.left,
+    Width: rect.width,
+    Height: rect.height
+  }
+}
+
+exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
+  for (var i = 0; i < elementCount; ++i) {
+    var div = document.getElementById(elementPrefix + i)
+    if (div === null) {
+      continue
+    }
+    var rect = this.getElementRect(div)
+    if ( rect.Y >= -1 || rect.Y + rect.Height >= 50) {
+      return i
+    }
+  }
+  return -1
+}
+
+exports.getElementFromPoint = function(x, y){
+  return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
+}
+
+exports.isElementTopOnscreen = function(element){
+  return element.getBoundingClientRect().top < 0
+}
+},{}],5:[function(require,module,exports){
+// Based on the excellent blog post:
+// http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
+
+var FindInPageResultCount = 0
+var FindInPageResultMatches = []
+var FindInPagePreviousFocusMatchSpanId = null
+
+function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, searchTerm) {
+  if (element) {
+    if (element.nodeType == 3) {            // Text node
+      while (true) {
+        var value = element.nodeValue  // Search for searchTerm in text node
+        var idx = value.toLowerCase().indexOf(searchTerm)
+
+        if (idx < 0) break
+
+        var span = document.createElement('span')
+        var text = document.createTextNode(value.substr(idx, searchTerm.length))
+        span.appendChild(text)
+        span.setAttribute('class', 'findInPageMatch')
+
+        text = document.createTextNode(value.substr(idx + searchTerm.length))
+        element.deleteData(idx, value.length - idx)
+        var next = element.nextSibling
+        element.parentNode.insertBefore(span, next)
+        element.parentNode.insertBefore(text, next)
+        element = text
+        FindInPageResultCount++
+      }
+    } else if (element.nodeType == 1) {     // Element node
+      if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
+        for (var i = element.childNodes.length - 1; i >= 0; i--) {
+          recursivelyHighlightSearchTermInTextNodesStartingWithElement(element.childNodes[i], searchTerm)
+        }
+      }
+    }
+  }
+}
+
+function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
+  if (element) {
+    if (element.nodeType == 1) {
+      if (element.getAttribute('class') == 'findInPageMatch') {
+        var text = element.removeChild(element.firstChild)
+        element.parentNode.insertBefore(text,element)
+        element.parentNode.removeChild(element)
+        return true
+      }
+      var normalize = false
+      for (var i = element.childNodes.length - 1; i >= 0; i--) {
+        if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
+          normalize = true
+        }
+      }
+      if (normalize) {
+        element.normalize()
+      }
+
+    }
+  }
+  return false
+}
+
+function deFocusPreviouslyFocusedSpan() {
+  if(FindInPagePreviousFocusMatchSpanId){
+    document.getElementById(FindInPagePreviousFocusMatchSpanId).classList.remove('findInPageMatch_Focus')
+    FindInPagePreviousFocusMatchSpanId = null
+  }
+}
+
+function removeSearchTermHighlights() {
+  FindInPageResultCount = 0
+  FindInPageResultMatches = []
+  deFocusPreviouslyFocusedSpan()
+  recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
+}
+
+function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
+  removeSearchTermHighlights()
+  if (searchTerm.trim().length === 0){
+    window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
+    return
+  }
+  searchTerm = searchTerm.trim()
+
+  recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
+
+    // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
+    // matches in first-to-last order. We can work around this by adding the "id"
+    // and building our results array *after* the recursion is done, thanks to
+    // "getElementsByClassName".
+  var orderedMatchElements = document.getElementsByClassName('findInPageMatch')
+  FindInPageResultMatches.length = orderedMatchElements.length
+  for (var i = 0; i < orderedMatchElements.length; i++) {
+    var matchSpanId = 'findInPageMatchID|' + i
+    orderedMatchElements[i].setAttribute('id', matchSpanId)
+        // For now our results message to native land will be just an array of match span ids.
+    FindInPageResultMatches[i] = matchSpanId
+  }
+
+  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
+}
+
+function useFocusStyleForHighlightedSearchTermWithId(id) {
+  deFocusPreviouslyFocusedSpan()
+  setTimeout(function(){
+    document.getElementById(id).classList.add('findInPageMatch_Focus')
+    FindInPagePreviousFocusMatchSpanId = id
+  }, 0)
+}
+
+exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
+exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
+exports.removeSearchTermHighlights = removeSearchTermHighlights
+},{}],6:[function(require,module,exports){
+var elementLocation = require('./elementLocation')
+
+function isCitation( href ) {
+  return href.indexOf('#cite_note') > -1
+}
+
+function isEndnote( href ) {
+  return href.indexOf('#endnote_') > -1
+}
+
+function isReference( href ) {
+  return href.indexOf('#ref_') > -1
+}
+
+function goDown( element ) {
+  return element.getElementsByTagName( 'A' )[0]
+}
+
+/**
+ * Skip over whitespace but not other elements
+ */
+function skipOverWhitespace( skipFunc ) {
+  return function(element) {
+    do {
+      element = skipFunc( element )
+      if (element && element.nodeType == Node.TEXT_NODE) {
+        if (element.textContent.match(/^\s+$/)) {
+          // Ignore empty whitespace
+          continue
+        } else {
+          break
+        }
+      } else {
+        // found an element or ran out
+        break
+      }
+    } while (true)
+    return element
+  }
+}
+
+var goLeft = skipOverWhitespace( function( element ) {
+  return element.previousSibling
+})
+
+var goRight = skipOverWhitespace( function( element ) {
+  return element.nextSibling
+})
+
+function hasCitationLink( element ) {
+  try {
+    return isCitation( goDown( element ).getAttribute( 'href' ) )
+  } catch (e) {
+    return false
+  }
+}
+
+function collectRefText( sourceNode ) {
+  var href = sourceNode.getAttribute( 'href' )
+  var targetId = href.slice(1)
+  var targetNode = document.getElementById( targetId )
+  if ( targetNode === null ) {
+    /*global console */
+    console.log('reference target not found: ' + targetId)
+    return ''
+  }
+
+  // preferably without the back link
+  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
+  for (var i = 0; i < backlinks.length; i++) {
+    backlinks[i].style.display = 'none'
+  }
+  return targetNode.innerHTML
+}
+
+function collectRefLink( sourceNode ) {
+  var node = sourceNode
+  while (!node.classList || !node.classList.contains('reference')) {
+    node = node.parentNode
+    if (!node) {
+      return ''
+    }
+  }
+  return node.id
+}
+
+function sendNearbyReferences( sourceNode ) {
+  var selectedIndex = 0
+  var refs = []
+  var linkId = []
+  var linkText = []
+  var linkRects = []
+  var curNode = sourceNode
+
+  // handle clicked ref:
+  refs.push( collectRefText( curNode ) )
+  linkId.push( collectRefLink( curNode ) )
+  linkText.push( curNode.textContent )
+
+  // go left:
+  curNode = sourceNode.parentElement
+  while ( hasCitationLink( goLeft( curNode ) ) ) {
+    selectedIndex += 1
+    curNode = goLeft( curNode )
+    refs.unshift( collectRefText( goDown ( curNode ) ) )
+    linkId.unshift( collectRefLink( curNode ) )
+    linkText.unshift( curNode.textContent )
+  }
+
+  // go right:
+  curNode = sourceNode.parentElement
+  while ( hasCitationLink( goRight( curNode ) ) ) {
+    curNode = goRight( curNode )
+    refs.push( collectRefText( goDown ( curNode ) ) )
+    linkId.push( collectRefLink( curNode ) )
+    linkText.push( curNode.textContent )
+  }
+
+  for(var i = 0; i < linkId.length; i++){
+    var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
+    linkRects.push(rect)
+  }
+
+  var referencesGroup = []
+  for(var j = 0; j < linkId.length; j++){
+    referencesGroup.push({
+      'id': linkId[j],
+      'rect': linkRects[j],
+      'text': linkText[j],
+      'html': refs[j]
+    })
+  }
+
+  // Special handling for references
+  window.webkit.messageHandlers.referenceClicked.postMessage({
+    'selectedIndex': selectedIndex,
+    'referencesGroup': referencesGroup
+  })
+}
+
+exports.isEndnote = isEndnote
+exports.isReference = isReference
+exports.isCitation = isCitation
+exports.sendNearbyReferences = sendNearbyReferences
+},{"./elementLocation":4}],7:[function(require,module,exports){
+const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
+
+function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
+  const preceedingElement = content.querySelector(preceedingElementSelector)
+  preceedingElement.parentNode.insertBefore(
+    newEditSectionButton(content, sectionID),
+    preceedingElement.nextSibling
+  )
+}
+
+function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
+  Array.from(content.querySelectorAll(elementsSelector))
+  .forEach(function(element){
+    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
+  })
+}
+
+function add(content) {
+  // Add lead section edit button after the lead section horizontal rule element.
+  addEditButtonAfterElement('#content_block_0_hr', 0, content)
+  // Add non-lead section edit buttons inside respective header elements.
+  addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
+}
+
+exports.add = add
+},{"wikimedia-page-library":1}],8:[function(require,module,exports){
+const tableCollapser = require('wikimedia-page-library').CollapseTable
+var location = require('../elementLocation')
+
+function footerDivClickCallback(container) {
+  if(location.isElementTopOnscreen(container)){
+    window.scrollTo( 0, container.offsetTop - 10 )
+  }
+}
+
+function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
+  tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
+}
+
+exports.hideTables = hideTables
+},{"../elementLocation":4,"wikimedia-page-library":1}],9:[function(require,module,exports){
+
+function disableFilePageEdit( content ) {
+  var filetoc = content.querySelector( '#filetoc' )
+  if (filetoc) {
+    // We're on a File: page! Do some quick hacks.
+    // In future, replace entire thing with a custom view most of the time.
+    // Hide edit sections
+    var editSections = content.querySelectorAll('.edit_section_button')
+    for (var i = 0; i < editSections.length; i++) {
+      editSections[i].style.display = 'none'
+    }
+    var fullImageLink = content.querySelector('.fullImageLink a')
+    if (fullImageLink) {
+      // Don't replace the a with a span, as it will break styles.
+      // Just disable clicking.
+      // Don't disable touchstart as this breaks scrolling!
+      fullImageLink.href = ''
+      fullImageLink.addEventListener( 'click', function( event ) {
+        event.preventDefault()
+      } )
+    }
+  }
+}
+
+exports.disableFilePageEdit = disableFilePageEdit
+},{}],10:[function(require,module,exports){
+
+function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
+    /*
+    Instead of moving the infobox down beneath the first P tag,
+    move the first good looking P tag *up* (as the first child of
+    the first section div). That way the first P text will appear not
+    only above infoboxes, but above other tables/images etc too!
+    */
+
+  if(content.getElementById( 'mainpage' ))return
+
+  var block_0 = content.getElementById( 'content_block_0' )
+  if(!block_0) return
+
+  var allPs = block_0.getElementsByTagName( 'p' )
+  if(!allPs) return
+
+  var preceedingElement = content.getElementById( preceedingElementID )
+  if(!preceedingElement) return
+
+  function isParagraphGood(p) {
+    // Narrow down to first P which is direct child of content_block_0 DIV.
+    // (Don't want to yank P from somewhere in the middle of a table!)
+    if  (p.parentNode == block_0 ||
+            /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
+               leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
+            p.parentNode.className == 'mw-mobilefrontend-leadsection'
+            ){
+                // Ensure the P being pulled up has at least a couple lines of text.
+                // Otherwise silly things like a empty P or P which only contains a
+                // BR tag will get pulled up (see articles on "Chemical Reaction" and
+                // "Hawaii").
+                // Trick for quickly determining element height:
+                //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
+                //      http://stackoverflow.com/a/1343350/135557
+      var minHeight = 40
+      var pIsTooSmall = p.offsetHeight < minHeight
+      return !pIsTooSmall
+    }
+    return false
+
+  }
+
+  var firstGoodParagraph = function(){
+    return Array.prototype.slice.call( allPs).find(isParagraphGood)
+  }()
+
+  if(!firstGoodParagraph) return
+
+  // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
+  var fragmentOfItemsToRelocate = function(){
+    var didHitGoodP = false
+    var didHitNextP = false
+
+    var shouldElementMoveUp = function(element) {
+      if(didHitGoodP && element.tagName === 'P'){
+        didHitNextP = true
+      }else if(element.isEqualNode(firstGoodParagraph)){
+        didHitGoodP = true
+      }
+      return didHitGoodP && !didHitNextP
+    }
+
+    var fragment = document.createDocumentFragment()
+    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
+      if(shouldElementMoveUp(element)){
+        // appendChild() attaches the element to the fragment *and* removes it from DOM.
+        fragment.appendChild(element)
+      }
+    })
+    return fragment
+  }()
+
+  // Attach the fragment just after `preceedingElement`.
+  // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
+  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
+}
+
+exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
+},{}],11:[function(require,module,exports){
+
+const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
+
+const isGalleryImage = function(image) {
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  return image.getAttribute('data-image-gallery') === 'true'
+}
+
+function widenImages(content) {
+  Array.from(content.querySelectorAll('img'))
+    .filter(isGalleryImage)
+    .forEach(maybeWidenImage)
+}
+
+exports.widenImages = widenImages
+},{"wikimedia-page-library":1}],12:[function(require,module,exports){
+
+// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+function findClosest (el, selector) {
+  while ((el = el.parentElement) && !el.matches(selector));
+  return el
+}
+
+function setLanguage(lang, dir, uidir){
+  var html = document.querySelector( 'html' )
+  html.lang = lang
+  html.dir = dir
+  html.classList.add( 'content-' + dir )
+  html.classList.add( 'ui-' + uidir )
+}
+
+function setPageProtected(isProtected){
+  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
+}
+
+function scrollToFragment(fragmentId){
+  location.hash = ''
+  location.hash = fragmentId
+}
+
+function accessibilityCursorToFragment(fragmentId){
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+  var focus_element = document.getElementById(fragmentId)
+  var other_element = document.body
+  other_element.setAttribute('tabindex', 0)
+  other_element.focus()
+  focus_element.setAttribute('tabindex', 0)
+  focus_element.focus()
+}
+
+exports.accessibilityCursorToFragment = accessibilityCursorToFragment
+exports.scrollToFragment = scrollToFragment
+exports.setPageProtected = setPageProtected
+exports.setLanguage = setLanguage
+exports.findClosest = findClosest
+},{}]},{},[2,3,4,5,6,7,8,9,10,11,12]);
