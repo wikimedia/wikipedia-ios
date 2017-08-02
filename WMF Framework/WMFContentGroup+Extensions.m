@@ -5,6 +5,7 @@
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
+#import <WMF/NSCharacterSet+WMFLinkParsing.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -237,21 +238,22 @@
     if (!title || !domain || !language) {
         return nil;
     }
-    NSURL *theURL = [[self baseURL] URLByAppendingPathComponent:@"related-pages"];
-    theURL = [theURL URLByAppendingPathComponent:domain];
-    theURL = [theURL URLByAppendingPathComponent:language];
-    theURL = [theURL URLByAppendingPathComponent:title];
-    return theURL;
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLPathComponentAllowedCharacterSet]];
+    NSString *path = [NSString pathWithComponents:@[@"/related-pages", domain, language, encodedTitle]];
+    components.percentEncodedPath = path;
+    return components.URL;
 }
 
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url {
-    NSArray *components = url.path.pathComponents;
-    if (components.count < 5) {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSArray *pathComponents = components.percentEncodedPath.pathComponents;
+    if (pathComponents.count < 5) {
         return nil;
     }
-    NSString *domain = components[2];
-    NSString *language = components[3];
-    NSString *title = components[4];
+    NSString *domain = pathComponents[2];
+    NSString *language = pathComponents[3];
+    NSString *title = [pathComponents[4] stringByRemovingPercentEncoding];
     return [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
 }
 

@@ -1,11 +1,9 @@
 import Foundation
 
 extension CharacterSet {
-    static let wmf_urlPathComponentAllowed: CharacterSet = {
-        var baseSet = CharacterSet.urlPathAllowed
-        baseSet.remove(charactersIn: "/")
-        return baseSet
-    }()
+    static var wmf_urlPathComponentAllowed: CharacterSet {
+        return NSCharacterSet.wmf_URLPathComponentAllowed()
+    }
 }
 
 extension URL {
@@ -17,8 +15,8 @@ extension URL {
         return (self as NSURL).wmf_title
     }
     
-    public var wmf_titleWithUnderScores: String? {
-        return (self as NSURL).wmf_titleWithUnderScores
+    public var wmf_titleWithUnderscores: String? {
+        return (self as NSURL).wmf_titleWithUnderscores
     }
     
     public var wmf_articleDatabaseKey: String? {
