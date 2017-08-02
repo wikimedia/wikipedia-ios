@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,19 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z9C-Lg-eam">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="67a-h2-5a6">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Wikipedia" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-Ia-7Gd">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Wikipedia" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-Ia-7Gd" customClass="WMFThemeableTextField">
                                         <rect key="frame" x="42" y="20" width="279" height="44"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" searchField="YES"/>
@@ -64,9 +55,8 @@
                                             <action selector="didTapCloseButton:" destination="tkf-8P-b2O" eventType="touchUpInside" id="tKu-w0-suh"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="Khe-vM-8ul" userLabel="magnifying glass">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="Khe-vM-8ul" userLabel="magnifying glass">
                                         <rect key="frame" x="16" y="32" width="16" height="21"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="6Bx-qT-nsc"/>
                                             <constraint firstAttribute="height" constant="21" id="gKW-bJ-laF"/>
@@ -115,7 +105,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-T5-obx" userLabel="Languages Bar Container">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <connections>
-                                    <segue destination="jWX-gY-OwH" kind="embed" id="RO6-QL-HnF"/>
+                                    <segue destination="jWX-gY-OwH" kind="embed" identifier="languageBar" id="RO6-QL-HnF"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWd-Ft-cEc" userLabel="Content View">
@@ -125,7 +115,7 @@
                                         <rect key="frame" x="0.0" y="30" width="375" height="529"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="h3Q-u3-KJA" kind="embed" id="j4w-FO-sD1"/>
+                                            <segue destination="h3Q-u3-KJA" kind="embed" identifier="searchResults" id="j4w-FO-sD1"/>
                                         </connections>
                                     </containerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
@@ -145,7 +135,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="Rqy-g9-mNA" kind="embed" id="B6d-7Y-a0q"/>
+                                            <segue destination="Rqy-g9-mNA" kind="embed" identifier="recentSearches" id="B6d-7Y-a0q"/>
                                         </connections>
                                     </containerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
@@ -179,18 +169,14 @@
                         <constraints>
                             <constraint firstItem="d0q-nT-gUD" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" id="7kG-Bz-jqW"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" constant="64" id="8MZ-d6-S5y"/>
-                            <constraint firstAttribute="trailing" secondItem="z9C-Lg-eam" secondAttribute="trailing" id="ApT-ET-2Yn"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="bottom" id="GFD-6d-3AS"/>
                             <constraint firstItem="d0q-nT-gUD" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Iip-mE-iu2"/>
-                            <constraint firstAttribute="bottom" secondItem="z9C-Lg-eam" secondAttribute="bottom" id="OIV-aR-Y7z"/>
                             <constraint firstItem="aQA-T5-obx" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Orn-cl-5bS"/>
                             <constraint firstAttribute="trailing" secondItem="aQA-T5-obx" secondAttribute="trailing" id="QBp-a6-Ct3"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="SKm-w2-ofm"/>
                             <constraint firstAttribute="trailing" secondItem="d0q-nT-gUD" secondAttribute="trailing" id="Yqh-4E-GDY"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="aQA-T5-obx" secondAttribute="bottom" id="b0J-5p-Iwt"/>
                             <constraint firstAttribute="trailing" secondItem="RWd-Ft-cEc" secondAttribute="trailing" id="bg1-t7-VLE"/>
-                            <constraint firstItem="z9C-Lg-eam" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" id="oMl-7j-x0b"/>
-                            <constraint firstItem="z9C-Lg-eam" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="qWq-Wf-LE1"/>
                             <constraint firstItem="aQA-T5-obx" firstAttribute="top" secondItem="d0q-nT-gUD" secondAttribute="bottom" id="zd2-MM-y2b"/>
                         </constraints>
                         <variation key="default">
@@ -205,13 +191,16 @@
                     <connections>
                         <outlet property="closeButton" destination="Kjf-LF-NvO" id="lCI-I4-AM0"/>
                         <outlet property="contentViewTop" destination="8MZ-d6-S5y" id="vRR-vo-iHX"/>
+                        <outlet property="languagesBarContainer" destination="aQA-T5-obx" id="QyX-VI-8p5"/>
                         <outlet property="recentSearchesContainerView" destination="tpe-pb-Bgw" id="aD2-ul-dw2"/>
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
+                        <outlet property="searchBottomSeparatorView" destination="B20-xN-XHO" id="cfH-7w-tPK"/>
                         <outlet property="searchContentContainer" destination="RWd-Ft-cEc" id="1ml-U9-Erw"/>
                         <outlet property="searchField" destination="Nef-Ia-7Gd" id="zrH-a3-VLy"/>
                         <outlet property="searchFieldContainer" destination="d0q-nT-gUD" id="TTv-aJ-bQG"/>
                         <outlet property="searchFieldHeight" destination="0Cz-C0-e2t" id="WTA-uT-UfJ"/>
                         <outlet property="searchFieldTop" destination="7kG-Bz-jqW" id="C5e-Yg-coA"/>
+                        <outlet property="searchIconView" destination="Khe-vM-8ul" id="7ht-27-IxX"/>
                         <outlet property="searchSuggestionButton" destination="ukX-0p-5ey" id="O0X-WP-Nym"/>
                         <outlet property="separatorView" destination="a3z-uC-8hv" id="qND-75-Ceo"/>
                         <outlet property="suggestionButtonHeightConstraint" destination="kmj-N8-U2n" id="xhh-6i-8mi"/>
@@ -267,7 +256,7 @@
                             </view>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
                                 <rect key="frame" x="0.0" y="58" width="375" height="501"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Rqy-g9-mNA" id="5go-DG-2bZ"/>

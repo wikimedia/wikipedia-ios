@@ -60,7 +60,9 @@
 "action-save" = "Tallenna";
 "action-saved" = "Tallennettu";
 "action-share" = "Jaa";
+"action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
+// Fuzzy
 "announcements-dismiss" = "Ei kiitos";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-languages-filter-placeholder" = "Löydä kieli";
@@ -123,6 +125,7 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-randomizer" = "Satunnaistaminen";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
+// Fuzzy
 "feed-news-notification-text" = "Voit nyt saada ilmoituksia Wikipedian artikkeleista jotka ovat nousussa uutisissa.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
@@ -148,7 +151,6 @@
 "field-username-title" = "Käyttäjänimi";
 "find-in-page-button-label" = "Etsi sivulta";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Etsi artikkelien teksteistä";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
@@ -188,7 +190,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
 "in-the-news-notification-share-action-title" = "Jaa...";
 "in-the-news-title" = "Uutisissa";
-"in-the-news-title-for-date" = "Uutiset $1";
 "info-box-close-text" = "Sulje";
 "info-box-title" = "Pikafaktoja";
 "languages-title" = "Kielenvaihto";
@@ -285,7 +286,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
-"save-action" = "Tallenna";
 "saved-clear-all" = "Tyhjennä";
 "saved-pages-clear-cancel" = "Peruuta";
 "saved-pages-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tallennetut sivusi?";
@@ -335,7 +335,6 @@
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
-"table-of-contents-popover-description" = "Yleiskatsaus artikkeleista";
 "table-title-other" = "Lisätietoja";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
@@ -345,7 +344,6 @@
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
-"unsave-action" = "Peruuta tallennus";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-sub-title" = "Uudet ilmoitukset ja widgetit auttavat sinua löytämään mielenkiintoisia artikkeleita.";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
@@ -373,8 +371,9 @@
 "wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";

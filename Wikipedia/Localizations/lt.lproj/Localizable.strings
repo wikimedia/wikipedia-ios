@@ -117,7 +117,6 @@
 "field-username-placeholder" = "įveskite naudotojo vardą";
 "field-username-title" = "Naudotojo vardas";
 "find-in-page-button-label" = "Rasti puslapyje";
-"find-in-page-popover-description" = "Ieškoti teksto straipsniuose";
 "forgot-password-username-or-email-title" = "Arba";
 "history-clear-all" = "Išvalyti";
 "history-clear-cancel" = "Atšaukti";
@@ -145,7 +144,6 @@
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienose";
-"in-the-news-title-for-date" = "Naujienos apie $1";
 "info-box-close-text" = "Uždaryti";
 // Fuzzy
 "info-box-title" = "Trumpi faktai";
@@ -181,6 +179,7 @@
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
 "number-thousands" = "$1 tūkst.";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai}}";
 "onboarding-wikipedia" = "Vikipedija";
 "open-link-cancel" = "Atšaukti";
 "page-edit-history" = "Pilna keitimų istorija";
@@ -205,7 +204,6 @@
 "rank-accessibility-label" = "Numeris $1";
 "readers-accessibility-label" = "$1 skaitytojai";
 "reference-title" = "Išnaša $1";
-"save-action" = "Išsaugoti";
 "saved-clear-all" = "Išvalyti";
 "saved-pages-clear-cancel" = "Atšaukti";
 "saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus puslapius?";
@@ -244,14 +242,12 @@
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";
 "table-of-contents-heading" = "Turinys";
-"table-of-contents-popover-description" = "Gauti straipsnių apžvalgą";
 "table-title-other" = "Daugiau informacijos";
 "top-read-header-generic" = "Vikipedija";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-see-more" = "Žiūrėti daugiau skaitomiausių";
 "two-factor-login-continue" = "Tęsti prisijungimą";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
-"unsave-action" = "Neišsaugoti";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-explore-tell-me-more" = "Pasakykite man daugiau";
 "welcome-explore-tell-me-more-done-button" = "Supratau";
@@ -270,7 +266,6 @@
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";
 "wikitext-upload-save" = "Publikuojama...";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Prisijungti";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
 "zero-charged-verbiage" = "Vikipedija Zero išjungtas";

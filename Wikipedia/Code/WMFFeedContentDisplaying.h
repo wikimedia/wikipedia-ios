@@ -9,13 +9,16 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypePageWithLocation,
     WMFFeedDisplayTypePhoto,
     WMFFeedDisplayTypeStory,
+    WMFFeedDisplayTypeEvent,
     WMFFeedDisplayTypeAnnouncement,
     WMFFeedDisplayTypeRelatedPagesSourceArticle,
     WMFFeedDisplayTypeRelatedPages,
     WMFFeedDisplayTypeContinueReading,
     WMFFeedDisplayTypeMainPage,
     WMFFeedDisplayTypeRandom,
-    WMFFeedDisplayTypeRanked
+    WMFFeedDisplayTypeRanked,
+    WMFFeedDisplayTypeNotification,
+    WMFFeedDisplayTypeTheme
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -23,7 +26,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
     WMFFeedDetailTypePage,
     WMFFeedDetailTypePageWithRandomButton,
     WMFFeedDetailTypeGallery,
-    WMFFeedDetailTypeStory
+    WMFFeedDetailTypeStory,
+    WMFFeedDetailTypeEvent
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedHeaderType) {
@@ -45,7 +49,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
     WMFFeedMoreTypePageList,
     WMFFeedMoreTypePageListWithLocation,
     WMFFeedMoreTypeLocationAuthorization,
-    WMFFeedMoreTypeNews
+    WMFFeedMoreTypeNews,
+    WMFFeedMoreTypeOnThisDay
 };
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
@@ -84,20 +89,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *  @return A color
  */
 - (nullable UIColor *)headerIconBackgroundColor;
-
-/**
- *  Color of section's header title
- *
- *  @return A color
- */
-- (nullable UIColor *)headerTitleColor;
-
-/**
- *  Color of section's header subTitle
- *
- *  @return A color
- */
-- (nullable UIColor *)headerSubTitleColor;
 
 /**
  *  The text to be displayed on the first line of the header.

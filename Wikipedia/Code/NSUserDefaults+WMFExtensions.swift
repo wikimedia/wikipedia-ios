@@ -20,6 +20,9 @@ let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocationAuthorization"
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
+let WMFAppThemeName = "WMFAppThemeName"
+let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
+let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -111,6 +114,35 @@ public extension UserDefaults {
         self.synchronize()
     }
     
+    public var wmf_appTheme: Theme {
+        return Theme.withName(string(forKey: WMFAppThemeName)) ?? Theme.standard
+    }
+    
+    public func wmf_setAppTheme(_ theme: Theme) {
+        set(theme.name, forKey: WMFAppThemeName)
+        synchronize()
+    }
+    
+    public var wmf_isImageDimmingEnabled: Bool {
+        get {
+             return bool(forKey: WMFIsImageDimmingEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFIsImageDimmingEnabled)
+            synchronize()
+        }
+    }
+    
+    public var wmf_didShowThemeCardInFeed: Bool {
+        get {
+            return bool(forKey: WMFDidShowThemeCardInFeed)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowThemeCardInFeed)
+            synchronize()
+        }
+    }
+    
     public func wmf_locationAuthorized() -> Bool {
         return self.bool(forKey: WMFLocationAuthorizedKey)
     }
@@ -167,7 +199,7 @@ public extension UserDefaults {
             self.synchronize()
             return
         }
-        guard !(url as NSURL).wmf_isNonStandardURL else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         
@@ -247,7 +279,7 @@ public extension UserDefaults {
             self.synchronize()
             return
         }
-        guard !(url as NSURL).wmf_isNonStandardURL else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         
@@ -255,14 +287,14 @@ public extension UserDefaults {
         self.synchronize()
     }
     
-    public func wmf_setDidShowTableOfContentsAndFindInPageIconPopovers(_ shown: Bool) {
-        self.set(NSNumber(value: shown as Bool), forKey: "ShowTableOfContentsAndFindInPageIconPopovers")
+    public func wmf_setDidShowWIconPopover(_ shown: Bool) {
+        self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
         self.synchronize()
         
     }
     
-    public func wmf_didShowTableOfContentsAndFindInPageIconPopovers() -> Bool {
-        if let enabled = self.object(forKey: "ShowTableOfContentsAndFindInPageIconPopovers") as? NSNumber {
+    public func wmf_didShowWIconPopover() -> Bool {
+        if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
             return enabled.boolValue
         }else{
             return false

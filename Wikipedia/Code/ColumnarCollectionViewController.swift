@@ -1,9 +1,12 @@
 import UIKit
 
 @objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: UICollectionViewController {
+class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
-
+    var theme: Theme = Theme.standard
+    
+    fileprivate var placeholderCells: [String:UICollectionViewCell] = [:]
+    
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -14,7 +17,7 @@ class ColumnarCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .wmf_settingsBackground
+        collectionView?.alwaysBounceVertical = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,10 +31,24 @@ class ColumnarCollectionViewController: UICollectionViewController {
     }
     
     // MARK - Cell & View Registration
+   
+    final public func placeholder(forCellWithReuseIdentifier identifier: String) -> UICollectionViewCell? {
+        return placeholderCells[identifier]
+    }
     
-    @objc(registerCellClass:forCellWithReuseIdentifier:)
-    final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String) {
+    @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)
+    final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String, addPlaceholder: Bool) {
         collectionView?.register(cellClass, forCellWithReuseIdentifier: identifier)
+        guard addPlaceholder else {
+            return
+        }
+        guard let cellClass = cellClass as? UICollectionViewCell.Type else {
+            return
+        }
+        let cell = cellClass.init(frame: view.bounds)
+        cell.isHidden = true
+        view.insertSubview(cell, at: 0) // so that the trait collections are updated
+        placeholderCells[identifier] = cell
     }
     
     @objc(registerNib:forCellWithReuseIdentifier:)
@@ -77,6 +94,13 @@ class ColumnarCollectionViewController: UICollectionViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
     }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.collectionView?.backgroundColor = theme.colors.baseBackground
+        self.collectionView?.reloadData()
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -94,12 +118,12 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
         return index % 2 == 0
     }
     
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return 0
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return 0
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {

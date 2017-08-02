@@ -31,7 +31,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
     self.controller = [[WMFArticlePreviewViewController alloc] init];
     [self.controller.view setHidden:NO];

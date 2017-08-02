@@ -20,8 +20,9 @@ class NewsViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier)
+        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
         register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
+        collectionView?.allowsSelection = false
     }
 }
 
@@ -42,7 +43,7 @@ extension NewsViewController {
             return cell
         }
         let story = stories[indexPath.section]
-        newsCell.configure(with: story, dataStore: dataStore, layoutOnly: false)
+        newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell
     }
     
@@ -54,8 +55,12 @@ extension NewsViewController {
                 return view
             }
             header.label.text = headerTitle(for: indexPath.section)
+            header.apply(theme: theme)
             return header
         default:
+            
+//FIXME: According to docs looks like this will crash - "The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:"
+            
             return UICollectionReusableView()
         }
     }
@@ -64,14 +69,14 @@ extension NewsViewController {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
-        cell.newsDelegate = self
+        cell.selectionDelegate = self
     }
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
-        cell.newsDelegate = nil
+        cell.selectionDelegate = nil
     }
     
     static let headerDateFormatter: DateFormatter = {
@@ -93,8 +98,8 @@ extension NewsViewController {
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension NewsViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> CGFloat {
-        return headerTitle(for: section) == nil ? 0 : 50
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 50)
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
@@ -102,9 +107,9 @@ extension NewsViewController {
     }
 }
 
-// MARK: - NewsCollectionViewCellDelegate
-extension NewsViewController: NewsCollectionViewCellDelegate {
-    func newsCollectionViewCell(_ newsCollectionViewCell: NewsCollectionViewCell, didSelectNewsArticleWithURL articleURL: URL) {
+// MARK: - SideScrollingCollectionViewCellDelegate
+extension NewsViewController: SideScrollingCollectionViewCellDelegate {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
     }
 }

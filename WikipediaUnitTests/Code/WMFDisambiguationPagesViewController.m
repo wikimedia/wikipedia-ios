@@ -3,25 +3,25 @@
 #import "WMFArticleFetcher.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 @import WMF.MWKDataStore;
-@import WMF.MWKArticle;
 @import WMF.WMFArticlePreviewFetcher;
 
 @interface WMFDisambiguationPagesViewController ()
 
-@property (nonatomic, strong, readwrite) MWKArticle *article;
+@property (nonatomic, strong, readwrite) NSArray *URLs;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
 
 @end
 
 @implementation WMFDisambiguationPagesViewController
 
-- (instancetype)initWithArticle:(MWKArticle *)article dataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithURLs:(NSArray *)URLs siteURL:(NSURL *)siteURL dataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
-        self.article = article;
+        self.URLs = URLs;
         self.userDataStore = dataStore;
         self.dataSource =
-            [[WMFArticlePreviewDataSource alloc] initWithArticleURLs:self.article.disambiguationURLs
-                                                             siteURL:self.article.url
+            [[WMFArticlePreviewDataSource alloc] initWithArticleURLs:self.URLs
+                                                             siteURL:siteURL
                                                            dataStore:dataStore
                                                              fetcher:[[WMFArticlePreviewFetcher alloc] init]];
         self.dataSource.tableView = self.tableView;

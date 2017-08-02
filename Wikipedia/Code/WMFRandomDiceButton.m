@@ -1,8 +1,6 @@
 #import "WMFRandomDiceButton.h"
 @import WebKit;
-@import WMF.UIColor_WMFHexColor;
-@import WMF.WMFLocalization;
-@import WMF.WMFLogging;
+@import WMF;
 
 @interface WMFRandomDiceButton ()
 @property (nonatomic, strong) WKWebView *webView;
@@ -20,7 +18,7 @@
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor wmf_colorWithHex:0x3366cc alpha:1];
+    self.backgroundColor = [UIColor wmf_blue];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.suppressesIncrementalRendering = YES;

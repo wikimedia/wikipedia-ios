@@ -7,7 +7,8 @@ import Masonry
     func tableOfContentsPresentationControllerDidTapBackground(_ controller: WMFTableOfContentsPresentationController)
 }
 
-open class WMFTableOfContentsPresentationController: UIPresentationController {
+open class WMFTableOfContentsPresentationController: UIPresentationController, Themeable {
+    var theme = Theme.standard
     
     var displaySide = WMFTableOfContentsDisplaySide.left
     var displayMode = WMFTableOfContentsDisplayMode.modal
@@ -27,15 +28,15 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
     open var statusBarEstimatedHeight: CGFloat = 20.0
     
     // MARK: - Views
-    lazy var statusBarBackground: UIView = {
-        let view = UIView(frame: CGRect(x: self.containerView!.bounds.minX, y: self.containerView!.bounds.minY, width: self.containerView!.bounds.width, height: self.statusBarEstimatedHeight))
-        view.autoresizingMask = .flexibleWidth
-        let statusBarBackgroundBottomBorder = UIView(frame: CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: 0.5))
-        statusBarBackgroundBottomBorder.autoresizingMask = .flexibleWidth
-        view.backgroundColor = UIColor.white
-        statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGray
-        view.addSubview(statusBarBackgroundBottomBorder)
+    
 
+    
+    lazy var statusBarBackground: UIView = {
+        let view = UIView(frame: CGRect.zero)
+        view.autoresizingMask = .flexibleWidth
+        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOffset = CGSize(width: 0, height: 5)
+        view.clipsToBounds = false
         return view
     }()
     
@@ -43,7 +44,6 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         let button = UIButton(frame: CGRect.zero)
         
         button.setImage(UIImage(named: "close"), for: UIControlState())
-        button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
@@ -62,11 +62,13 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
         view.addSubview(self.closeButton)
-        
         return view
     }()
     
     func updateButtonConstraints() {
+        guard let closeButtonSuperview = self.closeButton.superview else {
+            return
+        }
         self.closeButton.mas_remakeConstraints({ make in
             _ = make?.width.equalTo()(44)
             _ = make?.height.equalTo()(44)
@@ -74,7 +76,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             case .right:
                 fallthrough
             case .left:
-                _ = make?.trailing.equalTo()(self.closeButton.superview!.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
+                _ = make?.trailing.equalTo()(closeButtonSuperview.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
                 if(self.traitCollection.verticalSizeClass == .compact){
                     _ = make?.top.equalTo()(self.closeButtonTopPadding)
                 }else{
@@ -84,8 +86,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             case .center:
                 fallthrough
             default:
-                _ = make?.leading.equalTo()(self.closeButton.superview!.mas_leading)?.offset()(self.closeButtonLeadingPadding)
-                _ = make?.bottom.equalTo()(self.closeButton.superview!.mas_bottom)?.offset()(self.closeButtonTopPadding)
+                _ = make?.leading.equalTo()(closeButtonSuperview.mas_leading)?.offset()(self.closeButtonLeadingPadding)
+                _ = make?.bottom.equalTo()(closeButtonSuperview.mas_bottom)?.offset()(self.closeButtonTopPadding)
             }
             return ()
         })
@@ -93,7 +95,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
 
     
     func didTap(_ tap: UITapGestureRecognizer) {
-        self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
+        self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self)
     }
     
     // MARK: - Accessibility
@@ -103,9 +105,15 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
 
     // MARK: - UIPresentationController
     override open func presentationTransitionWillBegin() {
+        guard let containerView = self.containerView, let presentedView = self.presentedView else {
+            return
+        }
+        
         // Add the dimming view and the presented view to the heirarchy
-        self.backgroundView.frame = self.containerView!.bounds
-        self.containerView!.addSubview(self.backgroundView)
+        self.backgroundView.frame = containerView.bounds
+        self.statusBarBackground.frame = CGRect(x: self.backgroundView.bounds.minX, y: self.backgroundView.bounds.minY, width: self.backgroundView.bounds.width, height: self.statusBarEstimatedHeight)
+
+        containerView.addSubview(self.backgroundView)
         
         if(self.traitCollection.verticalSizeClass == .compact){
             self.statusBarBackground.isHidden = true
@@ -113,28 +121,12 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         
         updateButtonConstraints()
 
-        self.containerView!.addSubview(self.presentedView!)
-        
+        containerView.addSubview(presentedView)
+
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
-        switch displaySide {
-        case .center:
-            self.presentedView?.layer.cornerRadius = 10
-            self.presentedView?.clipsToBounds = true
-            self.presentedView?.layer.borderColor = UIColor.wmf_lightGray.cgColor
-            self.presentedView?.layer.borderWidth = 1.0
-            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
-            self.statusBarBackground.isHidden = true
-            break
-        default:
-            //Add shadow to the presented view
-            self.presentedView?.layer.shadowOpacity = 0.5
-            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
-            self.presentedView?.clipsToBounds = false
-            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
-            self.statusBarBackground.isHidden = false
-        }
+        apply(theme: theme)
         
         // Fade in the dimming view alongside the transition
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
@@ -175,7 +167,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
     }
     
     override open var frameOfPresentedViewInContainerView : CGRect {
-        var frame = self.containerView!.bounds;
+        var frame = self.containerView!.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
         if(tocWidth > self.maximumTableOfContentsWidth){
@@ -183,7 +175,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             bgWidth = frame.size.width - tocWidth
         }
         
-        frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5;
+        frame.origin.y = UIApplication.shared.statusBarFrame.size.height + 0.5
+        frame.size.height -= frame.origin.y
         
         switch displaySide {
         case .center:
@@ -221,13 +214,13 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
         
         if newCollection.verticalSizeClass == .compact
         {
-            self.statusBarBackground.isHidden = true;
+            self.statusBarBackground.isHidden = true
             
         }
         
         if newCollection.verticalSizeClass == .regular
         {
-            self.statusBarBackground.isHidden = false;
+            self.statusBarBackground.isHidden = false
         }
         
         coordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
@@ -235,5 +228,39 @@ open class WMFTableOfContentsPresentationController: UIPresentationController {
             
             }, completion:nil)
 
+    }
+    
+    public func apply(theme: Theme) {
+        self.theme = theme
+        guard self.containerView != nil else {
+            return
+        }
+        
+        switch displaySide {
+        case .center:
+            self.presentedView?.layer.cornerRadius = 10
+            self.presentedView?.clipsToBounds = true
+            self.presentedView?.layer.borderColor = theme.colors.border.cgColor
+            self.presentedView?.layer.borderWidth = 1.0
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
+            self.closeButton.tintColor = theme.colors.link
+            self.statusBarBackground.isHidden = true
+            break
+        default:
+            //Add shadow to the presented view
+            self.presentedView?.layer.shadowOpacity = 0.8
+            self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
+            self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
+            self.presentedView?.clipsToBounds = false
+            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
+            self.statusBarBackground.isHidden = false
+        }
+        
+        self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)
+        
+        self.statusBarBackground.backgroundColor = theme.colors.paperBackground
+        self.statusBarBackground.layer.shadowColor = theme.colors.shadow.cgColor
+
+        self.closeButton.tintColor = theme.colors.primaryText
     }
 }

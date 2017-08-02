@@ -306,19 +306,8 @@ NS_ASSUME_NONNULL_BEGIN
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);
-            NSMutableArray *items = [NSMutableArray array];
 
-            WMFImageTextActivitySource *textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
-            [items addObject:textSource];
-
-            WMFImageURLActivitySource *imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
-            [items addObject:imageSource];
-
-            if (download.image) {
-                [items addObject:download.image];
-            }
-
-            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+            UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             UIPopoverPresentationController *presenter = [vc popoverPresentationController];
             presenter.barButtonItem = self.rightBarButtonItem;

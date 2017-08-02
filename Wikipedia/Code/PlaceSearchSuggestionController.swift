@@ -7,7 +7,15 @@ protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didDeleteSearch search: PlaceSearch)
 }
 
-class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate {
+class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableViewDelegate, Themeable {
+    fileprivate var theme = Theme.standard
+    func apply(theme: Theme) {
+        self.theme = theme
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.tableFooterView?.backgroundColor = theme.colors.paperBackground
+        tableView.reloadData()
+    }
+    
     static let cellReuseIdentifier = "org.wikimedia.places"
     static let headerReuseIdentifier = "org.wikimedia.places.header"
     static let suggestionSection = 0
@@ -18,7 +26,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     var wikipediaLanguage: String? = "en"
     var siteURL: URL? = nil {
         didSet {
-            wikipediaLanguage = (siteURL as NSURL?)?.wmf_language
+            wikipediaLanguage = siteURL?.wmf_language
         }
     }
     
@@ -30,7 +38,6 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             tableView.delegate = self
             tableView.reloadData()
             let footerView = UIView()
-            footerView.backgroundColor = UIColor.white
             tableView.tableFooterView = footerView
         }
     }
@@ -92,6 +99,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
         searchSuggestionCell.titleLabel.text = search.localizedDescription
         searchSuggestionCell.detailLabel.text = search.searchResult?.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: wikipediaLanguage)
+        searchSuggestionCell.apply(theme: theme)
         return cell
     }
     
@@ -107,7 +115,9 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     
         header.prepareForReuse()
-        header.contentView.backgroundColor = .wmf_articleListBackground
+        if let ht = header as Themeable? {
+            ht.apply(theme: theme)
+        }
         header.isLabelVerticallyCentered = true
         switch section {
 //        case PlaceSearchSuggestionController.suggestionSection:

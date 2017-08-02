@@ -54,7 +54,9 @@
 "action-save" = "Gem";
 "action-saved" = "Gemt";
 "action-share" = "Del";
+"action-unsave" = "Gem ikke";
 "alert-no-internet" = "Der er ingen internetforbindelse";
+// Fuzzy
 "announcements-dismiss" = "Nej tak";
 "article-about-title" = "Om denne artikel";
 "article-languages-filter-placeholder" = "Find sprog";
@@ -118,6 +120,7 @@
 "explore-random-article-heading" = "Tilfældig artikel";
 "explore-randomizer" = "Tilfældig artikel";
 "feed-news-notification-button-text" = "Slå notifikationer til";
+// Fuzzy
 "feed-news-notification-text" = "Du kan nu modtage notifikationer om Wikipedia-artikler der er populære i nyhederne.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
@@ -143,7 +146,6 @@
 "field-username-title" = "Brugernavn";
 "find-in-page-button-label" = "Søg på siden";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Søg efter tekst i artikler";
 "forgot-password-button-title" = "Nulstil";
 "forgot-password-email-sent" = "En e-mail med instruktioner om nulstilling af adgangskoden blev afsendt";
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
@@ -185,7 +187,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
 "in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-title" = "I nyhederne";
-"in-the-news-title-for-date" = "Nyheder for $1";
 "info-box-close-text" = "Luk";
 // Fuzzy
 "info-box-title" = "Hurtige fakta";
@@ -285,7 +286,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
-"save-action" = "Gem";
 "saved-clear-all" = "Slet";
 "saved-pages-clear-cancel" = "Annuller";
 "saved-pages-clear-confirmation-heading" = "Vil du slette alle dine gemte sider?";
@@ -335,7 +335,6 @@
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-heading" = "Indhold";
-"table-of-contents-popover-description" = "Få et overblik over artikler";
 "table-title-other" = "Flere oplysninger";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
@@ -345,7 +344,6 @@
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
-"unsave-action" = "Gem ikke";
 "welcome-explore-continue-button" = "Kom i gang";
 "welcome-explore-new-ways-sub-title" = "Nye notifikationer og widgets til at hjælpe dig med at opdage interessante artikler";
 "welcome-explore-new-ways-title" = "Nye måder at udforske";
@@ -374,8 +372,8 @@
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Log på";
+// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 "zero-charged-verbiage" = "Wikipedia Zero er slået fra";

@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
+// Author: Pmt
 // Author: SuperPotato
 // Author: Tsaetre
 
@@ -58,6 +59,7 @@
 "action-saved" = "Lagret";
 "action-share" = "Del";
 "alert-no-internet" = "Ingen internettforbindelse";
+// Fuzzy
 "announcements-dismiss" = "Nei takk";
 "article-about-title" = "Om artikkelen";
 "article-languages-filter-placeholder" = "Finn språk";
@@ -117,6 +119,7 @@
 "explore-random-article-heading" = "Tilfeldig artikkel";
 "explore-randomizer" = "Tilfeldighetsgenerator";
 "feed-news-notification-button-text" = "Slå på notifikasjoner";
+// Fuzzy
 "feed-news-notification-text" = "Du kan nå motta notifikasjoner om Wikipedia artikler som er populære i nyhetene.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
@@ -142,7 +145,6 @@
 "field-username-title" = "Brukernavn";
 "find-in-page-button-label" = "Finn på siden";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Søk etter tekst i artikler";
 "forgot-password-button-title" = "Tilbakestill";
 "forgot-password-email-sent" = "Epost med instruksjoner for å tilbakestille passordet har blitt sendt deg";
 "forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";
@@ -182,7 +184,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Lagre til senere";
 "in-the-news-notification-share-action-title" = "Del...";
 "in-the-news-title" = "I nyhetene";
-"in-the-news-title-for-date" = "Nyheter på $1";
 "info-box-close-text" = "Lukk";
 "info-box-title" = "Kjappe fakta";
 "languages-title" = "Endre språk";
@@ -222,6 +223,7 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";
 "number-thousands" = "$1 tusen";
+"on-this-day-title" = "På denne dag";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Avbryt";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
@@ -273,7 +275,6 @@
 "readers-accessibility-label" = "$1 lesere";
 "reference-title" = "Referanse $1";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
-"save-action" = "Lagre";
 "saved-clear-all" = "Tøm";
 "saved-pages-clear-cancel" = "Avbryt";
 "saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
@@ -323,7 +324,6 @@
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-heading" = "Innhold";
-"table-of-contents-popover-description" = "Få en oversikt over artikler";
 "table-title-other" = "Mer informasjon";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia på $1";
@@ -333,7 +333,6 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
-"unsave-action" = "Lagre ikke";
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-explore-new-ways-sub-title" = "Nye notifikasjoner og widgets hjelper deg med å oppdage interessante artikler";
 "welcome-explore-new-ways-title" = "Nye måter å utforske";
@@ -360,7 +359,6 @@
 "wikitext-upload-result-unknown" = "Kunne ikke avgjøre resultatet av oppdateringen.";
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Logg inn";
 "wikitext-upload-save-terms-name" = "Bruksvilkår";
 "zero-charged-verbiage" = "Wikipedia Zero er skrudd av";

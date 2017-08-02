@@ -5,6 +5,7 @@ class CircledRankView: SizeThatFitsView {
     override func setup() {
         super.setup()
         layer.borderWidth = 1
+        label.isOpaque = true
         addSubview(label)
     }
     
@@ -12,6 +13,12 @@ class CircledRankView: SizeThatFitsView {
         didSet {
             label.text = String.localizedStringWithFormat("%d", rank)
             setNeedsLayout()
+        }
+    }
+    
+    var labelBackgroundColor: UIColor? {
+        didSet {
+            label.backgroundColor = labelBackgroundColor
         }
     }
     

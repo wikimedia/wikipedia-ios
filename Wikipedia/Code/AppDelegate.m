@@ -74,7 +74,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
     [[WMFEventLoggingService sharedInstance] start];
+#endif
 
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
@@ -127,7 +129,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)resumeAppIfNecessary {
     if (self.appNeedsResume) {
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
         [[WMFEventLoggingService sharedInstance] start];
+#endif
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
@@ -141,6 +145,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
     BOOL result = [self.appViewController processUserActivity:userActivity
+                                                     animated:NO
                                                    completion:^{
                                                        [self resumeAppIfNecessary];
                                                    }];
@@ -170,6 +175,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
     if (activity) {
         BOOL result = [self.appViewController processUserActivity:activity
+                                                         animated:NO
                                                        completion:^{
                                                            [self resumeAppIfNecessary];
                                                        }];
@@ -190,7 +196,9 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self updateDynamicIconShortcutItems];
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
     [[WMFEventLoggingService sharedInstance] stop];
+#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -1,7 +1,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WebViewController+WMFReferencePopover.h"
-#import <WMF/UIColor+WMFHexColor.h>
 #import "Wikipedia-Swift.h"
+@import WMF.Swift;
 
 @interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
@@ -10,6 +10,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *horizontalSeparatorHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -35,23 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
+
     NSAssert(self.textView.scrollEnabled == NO, @"scrollEnabled must be NO for 'preferredContentSize' calculations to correctly account for textView's contentSize height");
 
     [self.widthConstraint setConstant:self.width];
 
-    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLink]};
-
-    [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
-
-    self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
-
-    self.closeButton.tintColor = [UIColor wmf_lightGray];
-
-    self.titleLabel.attributedText =
-        [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
-            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
-                       substitutionStrings:@[self.reference.text]
-                    substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor blackColor]}]];
+    [self applyTheme:self.theme];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -68,6 +61,7 @@
                                     "<base href='%@' target='_self'>"
                                     "<style>"
                                     " *{"
+                                    "     line-height:27px;"
                                     "     font-family:'-apple-system';"
                                     "     font-size:16px;"
                                     "     -webkit-text-size-adjust:%ld%%;"
@@ -75,13 +69,21 @@
                                     "     text-decoration:none;"
                                     "     direction:%@;"
                                     " }"
+                                    " sup {"
+                                    "     line-height:12px;"
+                                    "     font-size:12px;"
+                                    "}"
+                                    " sup * {"
+                                    "     line-height:12px;"
+                                    "     font-size:12px;"
+                                    "}"
                                     "</style>"
                                     "</head>"
                                     "<body>"
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverText] wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
+                                   baseUrl, (long)fontSize.integerValue, [self.theme.colors.primaryText wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {
@@ -118,6 +120,31 @@
 - (BOOL)accessibilityPerformEscape {
     [self dismiss];
     return true;
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+
+    self.view.backgroundColor = theme.colors.popoverBackground;
+
+    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link};
+
+    [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
+
+    self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
+
+    self.closeButton.tintColor = theme.colors.border;
+
+    self.titleLabel.textColor = theme.colors.secondaryText;
+
+    self.titleLabel.attributedText =
+        [[WMFLocalizedStringWithDefaultValue(@"reference-title", nil, nil, @"Reference %1$@", @"Title shown above reference/citation popover. %1$@ is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}") uppercaseStringWithLocale:[NSLocale currentLocale]]
+            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}
+                       substitutionStrings:@[self.reference.text]
+                    substitutionAttributes:@[@{NSForegroundColorAttributeName: theme.colors.primaryText}]];
 }
 
 @end

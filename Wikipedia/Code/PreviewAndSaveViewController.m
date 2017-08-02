@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) IBOutlet UIView *captchaContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
+@property (weak, nonatomic) IBOutlet UIView *previewLabelContainer;
 
 @property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
 @property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
@@ -70,6 +71,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) WikiTextSectionUploader *wikiTextSectionUploader;
 @property (strong, nonatomic) PreviewHtmlFetcher *previewHtmlFetcher;
 @property (strong, nonatomic) WMFAuthTokenFetcher *editTokenFetcher;
+
+@property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
@@ -186,6 +189,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (!self.theme) {
+        self.theme = [WMFTheme standard];
+    }
+
     self.previewLicenseView.previewLicenseViewDelegate = self;
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
@@ -230,6 +237,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                          options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
                                                          context:nil];
     [self preview];
+    [self applyTheme:self.theme];
 }
 
 - (void)previewLabelTapped:(UITapGestureRecognizer *)recognizer {
@@ -302,7 +310,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)setupEditSummaryContainerSubviews {
     // Setup the canned edit summary buttons.
-    UIColor *color = [UIColor wmf_blue];
+    UIColor *color = self.theme.colors.link;
     UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
     CGFloat fontSize = 14.0;
@@ -330,7 +338,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.aboutLabel = [[UILabel alloc] init];
     self.aboutLabel.numberOfLines = 0;
     self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0];
-    self.aboutLabel.textColor = [UIColor darkGrayColor];
+    self.aboutLabel.textColor = self.theme.colors.secondaryText;
     self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.aboutLabel.text = WMFLocalizedStringWithDefaultValue(@"edit-summary-title", nil, nil, @"How did you improve the article?", @"Title for edit summary area of the preview page");
@@ -381,7 +389,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // any existing value (in case user taps "Other" again)
     summaryVC.summaryText = self.summaryText;
     summaryVC.previewVC = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:summaryVC] animated:YES completion:nil];
+    [summaryVC applyTheme:self.theme];
+    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:summaryVC theme:self.theme] animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -422,7 +431,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         loginVC.funnel = [[LoginFunnel alloc] init];
         [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [loginVC applyTheme:self.theme];
+        UINavigationController *nc = [[WMFThemeableNavigationController alloc] initWithRootViewController:loginVC theme:self.theme];
         [self presentViewController:nc animated:YES completion:nil];
     }
 }
@@ -457,7 +467,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme];
             } break;
             case FETCH_FINAL_STATUS_FAILED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
@@ -603,7 +613,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view addSubview:abuseFilterAlert];
 
-    NSDictionary *views = @{ @"abuseFilterAlert": abuseFilterAlert };
+    NSDictionary *views = @{@"abuseFilterAlert": abuseFilterAlert};
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[abuseFilterAlert]|"
                                                                       options:0
@@ -653,8 +663,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view bringSubviewToFront:self.captchaScrollView];
 
-    self.captchaScrollView.alpha = 1.0f;
-    self.captchaScrollView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.98];
+    self.captchaScrollView.backgroundColor = self.theme.colors.paperBackground;
 
     self.captchaScrollContainer.backgroundColor = [UIColor clearColor];
     self.captchaContainer.backgroundColor = [UIColor clearColor];
@@ -685,6 +694,35 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"open-link-cancel", nil, nil, @"Cancel", @"Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
+
+    self.previewWebViewContainer.webView.opaque = NO;
+    self.previewWebViewContainer.webView.scrollView.backgroundColor = [UIColor clearColor];
+
+    self.scrollView.backgroundColor = theme.colors.baseBackground;
+    self.captchaScrollView.backgroundColor = theme.colors.baseBackground;
+
+    [self.previewLicenseView applyTheme:theme];
+
+    self.scrollContainer.backgroundColor = theme.colors.paperBackground;
+    self.editSummaryContainer.backgroundColor = theme.colors.paperBackground;
+    self.captchaContainer.backgroundColor = theme.colors.paperBackground;
+    self.captchaScrollContainer.backgroundColor = theme.colors.paperBackground;
+    self.previewWebViewContainer.webView.backgroundColor = theme.colors.paperBackground;
+
+    self.previewLabel.backgroundColor = theme.colors.midBackground;
+    self.previewLabel.textColor = theme.colors.secondaryText;
+    self.previewLabelContainer.backgroundColor = theme.colors.midBackground;
+
+    self.previewWebViewContainer.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

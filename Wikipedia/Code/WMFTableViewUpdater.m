@@ -84,7 +84,7 @@
                     if ([insertedSections containsIndex:updatedIndexPath.section]) {
                         [self.tableView insertRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     } else {
-                        [self.tableView reloadRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.tableView reloadRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 }
                 break;

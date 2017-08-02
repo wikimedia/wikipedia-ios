@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFTableViewUpdaterDelegate>
+@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFTableViewUpdaterDelegate, WMFThemeable>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
 
@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  If left @c nil, falls back to pushing an article container using its @c navigationController.
  */
 @property (nonatomic, weak, nullable) id<WMFArticleListTableViewControllerDelegate> delegate;
+
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -52,6 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)updateEmptyAndDeleteState;
+
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath;
+- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath;
 
 @end
 

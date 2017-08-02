@@ -1,6 +1,6 @@
 #import "WMFHistoryTableViewController.h"
-#import "WMFArticleListTableViewCell.h"
 #import "WMFTableViewUpdater.h"
+#import "Wikipedia-Swift.h"
 @import WMF;
 
 @interface WMFHistoryTableViewController ()
@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
@@ -98,19 +98,56 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        [(UITableViewHeaderFooterView *)view wmf_applyTheme:self.theme];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        [(UITableViewHeaderFooterView *)view wmf_applyTheme:self.theme];
+    }
+}
+
 - (void)configureCell:(WMFArticleListTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticle *entry = [self objectAtIndexPath:indexPath];
     cell.titleText = entry.displayTitle;
     cell.descriptionText = entry.capitalizedWikidataDescription;
     [cell setImageURL:entry.thumbnailURL];
+    [cell applyTheme:self.theme];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
 
+    [tableView setEditing:NO animated:YES];
+
     [self configureCell:cell forRowAtIndexPath:indexPath];
 
     return cell;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
+
+    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
+
+    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects:deleteAction, shareAction, nil];
+
+    if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
+        UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
+        unsaveAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:unsaveAction];
+    } else {
+        UITableViewRowAction *saveAction = [self saveAction:indexPath];
+        saveAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:saveAction];
+    }
+
+    return actions;
 }
 
 #pragma mark - WMFArticleListTableViewController

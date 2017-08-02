@@ -5,7 +5,6 @@
 #import "UIImage+WMFNormalization.h"
 #import <WMF/CIDetector+WMFFaceDetection.h>
 #import <WMF/WMFFaceDetectionCache.h>
-#import <WMF/UIImageView+WMFPlaceholder.h>
 #import <WMF/WMF-Swift.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
@@ -106,11 +105,10 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                         success:^(WMFImageDownload *_Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
+                                                self.wmf_imageURLToCancel = nil;
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                                    self.wmf_imageURLToCancel = nil;
                                                     failure([NSError wmf_cancelledError]);
                                                 } else {
-                                                    self.wmf_imageURLToCancel = nil;
                                                     [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
                                                 }
                                             });
@@ -182,26 +180,30 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         [self wmf_resetContentsRect];
     }
 
-    dispatch_block_t animations = ^{
-        [self wmf_hidePlaceholder];
-    };
-
-    self.image = image;
-
     if ([self isKindOfClass:[FLAnimatedImageView class]] && animatedImage) {
         FLAnimatedImageView *animatedImageView = ((FLAnimatedImageView *)self);
         animatedImageView.animatedImage = animatedImage;
-    }
-
-    if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration]
-                         animations:animations
-                         completion:^(BOOL finished) {
-                             success();
-                         }];
-    } else {
-        animations();
         success();
+    } else {
+//  for now, keep the unanimated behavior, ignore the animated parameter
+//        dispatch_block_t animations = ^{
+            if (image) {
+                self.backgroundColor = [UIColor whiteColor];
+            }
+            self.image = image;
+//        };
+//        if (animated) {
+//            [UIView transitionWithView:self
+//                              duration:[CATransaction animationDuration]
+//                               options:UIViewAnimationOptionTransitionCrossDissolve
+//                            animations:animations
+//                            completion:^(BOOL finished) {
+//                                success();
+//                            }];
+//        } else {
+//            animations();
+            success();
+//        }
     }
 }
 

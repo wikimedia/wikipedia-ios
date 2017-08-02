@@ -10,6 +10,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -35,12 +36,6 @@
 - (void)setDisclosureText:(NSString *)disclosureText {
     _disclosureText = disclosureText;
     self.disclosureLabel.text = disclosureText;
-}
-
-- (void)setIconColor:(UIColor *)iconColor {
-    _iconColor = iconColor;
-    self.titleIcon.backgroundColor = iconColor;
-    self.titleIcon.tintColor = [UIColor whiteColor];
 }
 
 - (UIImage *)backChevronImage {
@@ -99,23 +94,47 @@
     }
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
-    self.titleLabelLeadingWidthForVisibleImage = self.titleLabelLeadingWidth.constant;
-    [self wmf_configureSubviewsForDynamicType];
+- (void)setIconColor:(UIColor *)iconColor {
+    _iconColor = iconColor;
+    self.titleIcon.tintColor = iconColor;
+}
+
+- (void)setIconBackgroundColor:(UIColor *)iconBackgroundColor {
+    _iconBackgroundColor = iconBackgroundColor;
+    self.titleIcon.backgroundColor = iconBackgroundColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     //HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
     self.iconColor = self.iconColor;
+    self.iconBackgroundColor = self.iconBackgroundColor;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     //HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
     self.iconColor = self.iconColor;
+    self.iconBackgroundColor = self.iconBackgroundColor;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.backgroundView = [UIView new];
+    self.selectedBackgroundView = [UIView new];
+    self.titleLabelLeadingWidthForVisibleImage = self.titleLabelLeadingWidth.constant;
+    [self wmf_configureSubviewsForDynamicType];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
+    self.backgroundView.backgroundColor = theme.colors.paperBackground;
+    self.titleLabel.textColor = theme.colors.primaryText;
+    self.disclosureLabel.textColor = theme.colors.secondaryText;
+    self.iconBackgroundColor = theme.colors.iconBackground;
+    self.iconColor = theme.colors.icon;
+    self.disclosureIcon.tintColor = theme.colors.secondaryText;
 }
 
 @end

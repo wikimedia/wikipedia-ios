@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="mbm-n6-GWW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="mbm-n6-GWW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,7 +49,6 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8p-0W-5dl" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="46" width="288" height="20"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="iya-ww-UGK"/>
                                                         </constraints>
@@ -63,7 +62,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mAk-1N-jPC">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mAk-1N-jPC" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="88" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="fHf-Fd-0Xa"/>
@@ -78,7 +77,6 @@
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIP-NI-aT1" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="119" width="288" height="15"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="4vX-Aj-BO9"/>
                                                         </constraints>
@@ -92,7 +90,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="156" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="dan-PJ-Bds"/>
@@ -116,7 +114,6 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oE-Zy-4xu" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="206" width="288" height="10"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="10" id="uhW-jL-4MM"/>
                                                         </constraints>
@@ -138,7 +135,6 @@
                                                     </containerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRu-ie-pbG" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="406" width="288" height="25"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="vVu-Yl-TFo"/>
                                                         </constraints>
@@ -160,7 +156,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="u6y-Sf-xyh" firstAttribute="centerX" secondItem="PEY-pn-IDi" secondAttribute="centerX" id="10n-PY-6aO"/>
                                             <constraint firstItem="u6y-Sf-xyh" firstAttribute="top" secondItem="PEY-pn-IDi" secondAttribute="top" constant="30" id="ayT-vG-xbP"/>
@@ -197,6 +192,7 @@
                         <outlet property="passwordAlertLabel" destination="HxZ-Ry-50e" id="rW0-Ht-vIF"/>
                         <outlet property="passwordField" destination="kVb-lx-d6C" id="CMg-WD-j0S"/>
                         <outlet property="passwordTitleLabel" destination="gK9-cr-NCA" id="IXz-VD-4IB"/>
+                        <outlet property="scrollContainer" destination="PEY-pn-IDi" id="B6n-P2-l8s"/>
                         <outlet property="scrollView" destination="qMR-5R-aiQ" id="z3y-S5-i6j"/>
                         <outlet property="titleLabel" destination="Wff-o9-AdH" id="5XN-ds-zdn"/>
                         <outlet property="usernameField" destination="mAk-1N-jPC" id="CQv-Gx-5es"/>

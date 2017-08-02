@@ -5,6 +5,19 @@ $:.unshift File.dirname(__FILE__)
 
 default_platform :ios
 
+configurations_to_test_on_pull = [
+  {device: 'iPhone 6s', os: '10.3'},
+  {device: 'iPad Air 2', os: '9.3'}
+]
+
+configurations_to_test = configurations_to_test_on_pull + [
+  {device: 'iPhone 6s', os: '9.3'},
+  {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"},
+  {device: 'iPhone 6s', os: '9.3', scheme: "WikipediaRTL"}
+]
+
+beta_cluster_configurations_to_test = [configurations_to_test_on_pull.first]
+
 platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
@@ -36,49 +49,67 @@ platform :ios do
 
   desc "Runs tests on the primary platforms and configurations"
   lane :verify_test_platforms do
-    verify(
-     sim: 'iPhone 6s (9.3)',
-     scheme: "WikipediaRTL"
-    )
-    verify(
-     sim: 'iPhone 6s (9.3)'
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-     scheme: "WikipediaRTL"
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-    )
+    configurations_to_test.each do |config|
+      verify(config)
+    end
+  end
+  
+  desc "Runs tests against the beta cluster to check for upstream changes."
+  lane :beta_cluster_tests do
+    beta_cluster_configurations_to_test.each do |config|
+      verify(config)
+    end
   end
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
-    verify(
-     sim: 'iPad Air 2 (9.3)',
-    )
-    verify(
-     sim: 'iPhone 6s (10.3)',
-    )
+    configurations_to_test_on_pull.each do |config|
+      verify(config)
+    end
   end
 
   desc "Runs unit tests, generates JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim = options[:sim] || 'iPhone 6s (10.3)'
+    device = options[:device] || 'iPhone 6s'
+    os = options[:os]         || '10.3'
+    sim = "#{device} (#{os})"
     opts = {
-      :device => sim,
-      :sdk => "iphonesimulator",
-      :scheme =>  scheme,
-      :project => 'Wikipedia.xcodeproj',
-      :buildlog_path => './build',
-      :output_directory => './build/reports',
-      :output_style => 'basic',
-      :code_coverage => true,
-      :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
+      device: sim,
+      scheme: scheme,
+      project: 'Wikipedia.xcodeproj',
+      buildlog_path: './build',
+      output_directory: './build/reports',
+      output_style: 'basic',
+      code_coverage: true,
+      output_files: "#{scheme} #{sim}.junit",
+      output_types: 'junit'
     }
-    opts[:output_files] = "#{scheme} #{sim}.junit"
-    opts[:output_types] = 'junit'
+    scan(opts)
+  end
+  
+  desc "Runs unit tests, generates JUnit report."
+  lane :record_visual_tests do |options|
+    configurations_to_test.each do |config|
+      record_visual_tests_for_config(config)
+    end
+  end
+  
+  desc "Records visual tests."
+  lane :record_visual_tests_for_config do |options|
+    scheme = options[:scheme] || 'Wikipedia'
+    device = options[:device] || 'iPhone 6s'
+    os = options[:os]         || '10.3'
+    sim = "#{device} (#{os})"
+    opts = {
+      device: sim,
+      scheme: scheme,
+      project: 'Wikipedia.xcodeproj',
+      buildlog_path: './build',
+      xcargs: "GCC_PREPROCESSOR_DEFINITIONS='\$(value) WMF_VISUAL_TEST_RECORD_MODE=1'",
+      fail_build: false,
+      output_types: ''
+    }
     scan(opts)
   end
   
@@ -227,7 +258,7 @@ platform :ios do
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
-      beta_app_feedback_email: "ci-apps@wikimedia.org"
+      beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
     )
     
     tag(
@@ -334,6 +365,20 @@ platform :ios do
   lane :dsyms_beta do |options|
     app_identifier = "org.wikimedia.wikipedia"
     hockey_app_id = "5d80da08a6761e5c6456736af7ebad88"
+    ipa_path = "build/Wikipedia.ipa"
+    version = options[:version] || get_version_number
+    dsyms(
+      app_identifier: app_identifier,
+      version: version,
+      build_number: options[:build_number] || options[:build],
+      hockey_app_id: hockey_app_id,
+      ipa_path: ipa_path
+    )
+  end
+  
+  lane :dsyms_beta_app do |options|
+    app_identifier = "org.wikimedia.wikipedia.tfbeta"
+    hockey_app_id = "c7ab1c41a3eb4b7581a0057624730467"
     ipa_path = "build/Wikipedia.ipa"
     version = options[:version] || get_version_number
     dsyms(

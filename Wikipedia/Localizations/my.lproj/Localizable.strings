@@ -30,7 +30,12 @@
 "account-creation-passwords-mismatched" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ။";
 "account-creation-saving" = "သိမ်းဆည်းနေသည်...";
 "account-creation-title" = "အကောင့်အသစ်တစ်ခု ဖန်တီးပါ";
+"action-read" = "ဖတ်ရန်";
+"action-save" = "သိမ်းရန်";
+"action-saved" = "သိမ်းဆည်းပြီး";
+"action-share" = "မျှဝေ";
 "alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
+// Fuzzy
 "announcements-dismiss" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-languages-filter-placeholder" = "ဘာသာစကား ရှာဖွေရန်";
@@ -112,7 +117,6 @@
 "in-the-news-notification-save-for-later-action-title" = "နောင်အတွက် သိမ်းဆည်းရန်";
 "in-the-news-notification-share-action-title" = "မျှဝေ...";
 "in-the-news-title" = "သတင်းထဲတွင်";
-"in-the-news-title-for-date" = "$1 ရှိ သတင်းများတွင်";
 "info-box-close-text" = "ပိတ်ရန်";
 // Fuzzy
 "info-box-title" = "အချက်တိုများ";
@@ -163,7 +167,6 @@
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
-"save-action" = "သိမ်းရန်";
 "saved-clear-all" = "ရှင်းလင်း";
 "saved-pages-clear-cancel" = "မလုပ်တော့ပါ";
 "saved-pages-clear-confirmation-heading" = "သိမ်းဆည်းထားသော စာမျက်နှာများအားလုံး ဖျက်ပစ်ရန် သေချာပါသလား?";
@@ -204,7 +207,6 @@
 "two-factor-login-instructions" = "အတည်ပြုကုဒ်ကို ရိုက်ထည့်ပါ";
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
-"unsave-action" = "မသိမ်းတော့ရန်";
 "welcome-explore-continue-button" = "စတင်ပါ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
@@ -222,7 +224,6 @@
 "wikitext-upload-result-unknown" = "ဝီကီစာသားတင်မှုရလဒ်အား ဆုံးဖြတ်နိုင်ခြင်း မရှိပါ။";
 "wikitext-upload-save" = "လွှင့်တင်နေသည်...";
 "wikitext-upload-save-anonymously-warning" = "တည်းဖြတ်မှုကို သင့်စက်၏ အိုင်ပီလိပ်စာအနေဖြင့် မှတ်သားမည်။ အကယ်၍ သင် $1 လျှင် သင့်အတွက် လုံခြုံမှု ပိုရနိုင်သည်။";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "အကောင့်ဝင်ရန်";
 "wikitext-upload-save-terms-name" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
 "zero-charged-verbiage" = "ဝီကီပီးဒီးယားသုညကို ပိတ်ထားသည်";

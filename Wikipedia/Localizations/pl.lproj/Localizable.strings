@@ -6,6 +6,7 @@
 // Author: Chrumps
 // Author: Debeet
 // Author: Devwebtel
+// Author: InternerowyGołąb
 // Author: Jacenty359
 // Author: Krottyianock
 // Author: Mazab IZW
@@ -59,15 +60,19 @@
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
 "action-save" = "Zapisz";
+"action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "alert-no-internet" = "Nie ma połączenia internetowego";
+// Fuzzy
 "announcements-dismiss" = "Nie, dziękuję";
 "article-about-title" = "O tym artykule";
+"article-delete" = "Usuń";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
+"article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "back" = "Wstecz";
@@ -126,10 +131,10 @@
 "field-username-title" = "Nazwa użytkownika";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
+"gdfl" = "GDFL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
@@ -144,6 +149,8 @@
 "hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
 "hockeyapp-alert-send-report" = "Wyślij raport";
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
+"home-button-popover-description" = "Naciśnij \"W: by wrócić do feedu Explore";
+"home-button-popover-title" = "Dotknij by wrócić do strony domowej";
 "home-hide-suggestion-cancel" = "Anuluj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
@@ -190,6 +197,10 @@
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
+"on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
+"on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
+"on-this-day-title" = "W tym dniu...";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Anuluj";
 "page-edit-history" = "Pełna historia edycji";
@@ -281,7 +292,6 @@
 "wikitext-upload-result-unknown" = "Nie można określić wyniku pobierania wiki tekstu.";
 "wikitext-upload-save" = "Publikowanie...";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";

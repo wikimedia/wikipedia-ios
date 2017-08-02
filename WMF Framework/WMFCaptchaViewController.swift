@@ -53,11 +53,11 @@ public class WMFCaptcha: NSObject {
     }
 }
 
-class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
+class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable {
 
     @IBOutlet fileprivate var captchaImageView: UIImageView!
     @IBOutlet fileprivate var captchaTextFieldTitleLabel: UILabel!
-    @IBOutlet fileprivate var captchaTextField: UITextField!
+    @IBOutlet fileprivate var captchaTextField: ThemeableTextField!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: WMFAuthLinkLabel!
@@ -66,6 +66,8 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
 
     public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
+    
+    fileprivate var theme = Theme.standard
 
     var captcha: WMFCaptcha? {
         didSet {
@@ -183,12 +185,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         
         assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
-        [titleLabel, captchaTextFieldTitleLabel].forEach{$0.textColor = .wmf_authTitle}
+        
 
         captcha = nil
         captchaTextFieldTitleLabel.text = WMFLocalizedString("field-captcha-title", value:"Enter the text you see above", comment: "Title for captcha field")
         captchaTextField.placeholder = WMFLocalizedString("field-captcha-placeholder", value:"CAPTCHA text", comment: "Placeholder text shown inside captcha field until user taps on it")
-        captchaTextField.wmf_addThinBottomBorder()
         titleLabel.text = WMFLocalizedString("account-creation-captcha-title", value:"CAPTCHA security check", comment: "Title for account creation CAPTCHA interface")
         
         // Reminder: used a label instead of a button for subtitle because of multi-line string issues with UIButton.
@@ -196,11 +197,10 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
         subTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(requestAnAccountTapped(_:))))
     
         subTitleLabel.isHidden = (captcha == nil) || captchaDelegate.captchaHideSubtitle()
-        
-        infoButton.tintColor = .wmf_blue
-        refreshButton.tintColor = .wmf_blue
 
         view.wmf_configureSubviewsForDynamicType()
+        
+        apply(theme: theme)
     }
     
     func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
@@ -235,5 +235,19 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate {
             self.captcha = newCaptcha
             
         }, failure:failure)
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        
+        titleLabel.textColor = theme.colors.primaryText
+        captchaTextFieldTitleLabel.textColor = theme.colors.secondaryText
+        subTitleLabel.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        captchaTextField.apply(theme: theme, withBorder: true)
+        view.tintColor = theme.colors.link
     }
 }

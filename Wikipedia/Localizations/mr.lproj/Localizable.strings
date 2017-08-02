@@ -3,6 +3,7 @@
 // Author: Abhinavgarule
 // Author: NehalDaveND
 // Author: Nemo bis
+// Author: Rupalichinchure
 // Author: V.narsikar
 // Author: अभय नातू
 // Author: संतोष दहिवळ
@@ -41,6 +42,7 @@
 "account-creation-saving" = "जतन करीत आहे...";
 "alert-no-internet" = "तिथे जाल अनुबंध नाही";
 "article-about-title" = "या लेखाबद्दल";
+"article-delete" = "हटवा";
 "article-languages-filter-placeholder" = "भाषा शोधा";
 "article-languages-label" = "भाषा निवडा";
 "article-languages-others" = "इतर भाषा";
@@ -86,7 +88,6 @@
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
 "find-in-page-button-label" = "पानामध्ये शोधा";
-"find-in-page-popover-description" = "लेखात मजकूर शोधा";
 "history-clear-all" = "स्वछ करा";
 "history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
@@ -99,6 +100,7 @@
 "hockeyapp-alert-privacy" = "$1 गुप्तता";
 "hockeyapp-alert-send-report" = "अहवाल पाठवा";
 "hockeyapp-alert-title" = "माफ करा, मागील वेळी अॲप क्रॲश झाले होते";
+"home-button-popover-title" = "मुख्य पानावर जाण्यासाठी येथे दाबा";
 "home-hide-suggestion-cancel" = "रद्द करा";
 "home-hide-suggestion-prompt" = "ही सुचवणी लपवा";
 "home-more-like-footer" = "अधिक $1 सारखे";
@@ -221,7 +223,6 @@
 "wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";
 "wikitext-upload-save" = "प्रकाशन करीत आहे...";
 "wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
 "wikitext-upload-save-terms-name" = "वापराच्या अटी";
 "zero-charged-verbiage" = "विकिपीडिया झिरो बंद आहे";

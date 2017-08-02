@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hidesBottomBarWhenPushed = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,6 +52,10 @@
             [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
             [self.navigationController setViewControllers:viewControllers];
         }];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

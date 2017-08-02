@@ -59,8 +59,9 @@
 "action-save" = "সংরক্ষণ";
 "action-saved" = "সংরক্ষিত";
 "action-share" = "বণ্টন";
+"action-unsave" = "অসংরক্ষিত";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
-"announcements-dismiss" = "না ধন্যবাদ";
+"announcements-dismiss" = "খারিজ";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
@@ -144,7 +145,7 @@
 "field-username-placeholder" = "ব্যবহারকারী নাম লিখুন";
 "field-username-title" = "ব্যবহারকারী নাম";
 "find-in-page-button-label" = "পাতায় খুঁজুন";
-"find-in-page-popover-description" = "নিবন্ধে পাঠ্যাংশ অনুসন্ধান করুন";
+"find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "পুন:স্থাপন";
 "forgot-password-email-sent" = "পাসওয়ার্ড পুনঃনির্ধারণ করার নির্দেশাবলী সহ একটি ইমেল প্রেরণ করা হয়েছে";
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
@@ -184,7 +185,6 @@
 "in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "in-the-news-notification-share-action-title" = "বণ্টন...";
 "in-the-news-title" = "সংবাদে";
-"in-the-news-title-for-date" = "$1-এর সংবাদ";
 "info-box-close-text" = "বন্ধ";
 "info-box-title" = "দ্রুত তথ্য";
 "languages-title" = "ভাষা পরিবর্তন করুন";
@@ -224,6 +224,8 @@
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
+"on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
+"on-this-day-title" = "আজকের এই দিনে";
 "onboarding-wikipedia" = "উইকিপিডিয়া";
 "open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
@@ -273,7 +275,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
-"save-action" = "সংরক্ষণ";
 "saved-clear-all" = "পরিষ্কার করুন";
 "saved-pages-clear-cancel" = "বাতিল";
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
@@ -317,8 +318,8 @@
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
-"table-of-contents-popover-description" = "নিবন্ধের একটি আলোকপাত পান";
 "table-title-other" = "আরও তথ্য";
+"theme-default-display-name" = "পূর্বনির্ধারিত";
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
@@ -327,7 +328,6 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
-"unsave-action" = "অসংরক্ষিত";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";
@@ -350,9 +350,9 @@
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
-"cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 $3 অধীনে প্রকাশে সম্মত হচ্ছেন।";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 ও $3 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
 "zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";

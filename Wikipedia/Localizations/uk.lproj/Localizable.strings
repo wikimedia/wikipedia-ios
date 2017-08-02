@@ -9,6 +9,7 @@
 // Author: Nemo bis
 // Author: NickK
 // Author: Piramidion
+// Author: SimondR
 // Author: Sir-nik
 // Author: Visem
 // Author: Ата
@@ -60,13 +61,15 @@
 "action-saved" = "Збережено";
 "action-share" = "Поділитися";
 "alert-no-internet" = "Не має з'єднання із інтернетом";
-"announcements-dismiss" = "Ні, дякую";
+"announcements-dismiss" = "Відхилити";
 "article-about-title" = "Про цю статтю";
+"article-delete" = "Видалити";
 "article-languages-filter-placeholder" = "Знайти мову";
 "article-languages-label" = "Вибрати мову";
 "article-languages-others" = "Інші мови";
 "article-languages-yours" = "Ваші мови";
 "article-read-more-title" = "Детальніше";
+"article-share" = "Поділитися";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "back" = "Назад";
@@ -119,6 +122,7 @@
 "explore-random-article-heading" = "Випадкова стаття";
 "explore-randomizer" = "Рандомайзер";
 "feed-news-notification-button-text" = "Увімкнути сповіщення";
+// Fuzzy
 "feed-news-notification-text" = "Тепер Ви можете отримувати сповіщення про статті Вікіпедії, пов'язані з останніми новинами.";
 "field-alert-captcha-invalid" = "Недійсна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Паролі не збігаються";
@@ -143,7 +147,6 @@
 "field-username-placeholder" = "введіть ім'я користувача";
 "field-username-title" = "Ім'я користувача";
 "find-in-page-button-label" = "Знайти на сторінці";
-"find-in-page-popover-description" = "Шукати текст у статтях";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
@@ -171,6 +174,7 @@
 "home-more-like-footer" = "Більше схоже на $1";
 "home-nearby-footer" = "Більше про те, що неподалік від вас";
 "home-nearby-location-footer" = "Більше поблизу $1";
+"home-themes-action-title" = "Керування налаштуваннями";
 "home-title" = "Досліджуйте";
 "home-title-accessibility-label" = "Вікіпедія, прокрутити вгору розділу Досліджуйте";
 "icon-shortcut-continue-reading-title" = "Продовжити читання";
@@ -183,7 +187,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
 "in-the-news-notification-share-action-title" = "Поділитися...";
 "in-the-news-title" = "У новинах";
-"in-the-news-title-for-date" = "Новини за $1";
 "info-box-close-text" = "Закрити";
 // Fuzzy
 "info-box-title" = "Швидкі факти";
@@ -224,6 +227,7 @@
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
+"on-this-day-footer" = "Більше історичних подій цього дня";
 "onboarding-wikipedia" = "Вікіпедія";
 "open-link-cancel" = "Скасувати";
 "page-edit-history" = "Повна історія редагування";
@@ -271,7 +275,6 @@
 "readers-accessibility-label" = "$1 читачів";
 "reference-title" = "Посилання $1";
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
-"save-action" = "Зберегти";
 "saved-clear-all" = "Очистити";
 "saved-pages-clear-cancel" = "Скасувати";
 "saved-pages-clear-confirmation-heading" = "Ви дійсно хочете видалити всі збережені сторінки?";
@@ -287,6 +290,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";
 "settings-help-and-feedback" = "Допомога та зворотній зв'язок";
@@ -318,8 +322,9 @@
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-heading" = "Вміст";
-"table-of-contents-popover-description" = "Отримати огляд статей";
 "table-title-other" = "Більше інформації";
+"theme-default-display-name" = "За замовчуванням";
+"theme-sepia-display-name" = "Сепія";
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-see-more" = "Див. більше найкращих";
@@ -328,7 +333,6 @@
 "two-factor-login-title" = "Вхід у Ваш обліковий запис";
 "two-factor-login-with-backup-code" = "Використати один з Ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
-"unsave-action" = "Не зберігати";
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-explore-new-ways-sub-title" = "Нові сповіщення і віджети, що допоможуть Вам відкрити для себе цікаві статті";
 "welcome-explore-new-ways-title" = "Нові способи дослідження";
@@ -355,7 +359,6 @@
 "wikitext-upload-result-unknown" = "Не вдається визначити результат завантаження вікі-тексту.";
 "wikitext-upload-save" = "Збереження…";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Увійти";
 "wikitext-upload-save-terms-name" = "Умови використання";
 "zero-charged-verbiage" = "Вікіпедія Zero вимкнена";

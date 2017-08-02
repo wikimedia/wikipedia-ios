@@ -9,6 +9,7 @@ class WMFWelcomeLanguageTableViewCell: WMFCustomDeleteButtonTableViewCell {
             return languageNameLabel.text
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         languageNameLabel.wmf_configureSubviewsForDynamicType()

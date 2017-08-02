@@ -72,15 +72,21 @@
 "action-read" = "Читать";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
+"action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
 "action-share" = "Поделиться";
+"action-unsave" = "Не сохранено";
 "alert-no-internet" = "Нет соединения с интернетом";
+// Fuzzy
 "announcements-dismiss" = "Нет, спасибо";
+"appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
+"article-delete" = "Удалить";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
+"article-share" = "Поделиться";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back" = "Назад";
@@ -137,6 +143,7 @@
 "explore-random-article-heading" = "Случайная статья";
 "explore-randomizer" = "Рандомизатор";
 "feed-news-notification-button-text" = "Включить уведомления";
+// Fuzzy
 "feed-news-notification-text" = "Теперь вы можете получать уведомления о статьях Википедии трендов в новостях.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
@@ -162,7 +169,6 @@
 "field-username-title" = "Имя участника";
 "find-in-page-button-label" = "Найти на странице";
 "find-in-page-number-matches" = "$1 из $2";
-"find-in-page-popover-description" = "Поиск текста в статьях";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -185,6 +191,8 @@
 "hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
 "home-button-explore-accessibility-label" = "Википедия, вернуться к разделу Исследуйте";
 "home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
+"home-button-popover-description" = "Коснитесь «W» для возвращения к ленте исследования";
+"home-button-popover-title" = "Коснитесь для возвращения в начало";
 "home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
@@ -204,7 +212,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-notification-share-action-title" = "Поделиться...";
 "in-the-news-title" = "В новостях";
-"in-the-news-title-for-date" = "Новости за $1";
 "info-box-close-text" = "Закрыть";
 "info-box-title" = "Краткие факты";
 "languages-title" = "Изменить язык";
@@ -244,6 +251,10 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
 "number-thousands" = "$1 тыс.";
+"on-this-day-detail-header-date-range" = "С $1 — $2";
+"on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
+"on-this-day-footer" = "Больше исторических событий этого дня";
+"on-this-day-title" = "В этот день…";
 "onboarding-wikipedia" = "Википедия";
 "open-link-cancel" = "Отмена";
 "page-edit-history" = "Полная история редактирования";
@@ -298,12 +309,13 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=этот год|прошлый год|$1 года назад|$1 лет назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
-"save-action" = "Сохранить";
 "saved-clear-all" = "Очистить";
 "saved-pages-clear-cancel" = "Отмена";
 "saved-pages-clear-confirmation-heading" = "Вы уверены, что хотите удалить все сохранённые страницы?";
@@ -353,8 +365,8 @@
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
-"table-of-contents-popover-description" = "Получить обзор статей";
 "table-title-other" = "Подробнее";
+"theme-default-display-name" = "По умолчанию";
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "$1 Википедия";
 "top-read-see-more" = "Посмотреть ещё наиболее читаемые";
@@ -363,7 +375,6 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
-"unsave-action" = "Не сохранено";
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-sub-title" = "Новые уведомления и виджеты, чтобы помочь вам обнаружить интересные статьи";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
@@ -392,9 +403,8 @@
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";
 "wikitext-upload-save" = "Публикация…";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Войти";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Сохраняя изменения, вы соглашаетесь с $1 и с тем, что размещаете свой вклад под лицензиями $2 и $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Публикуя изменения, вы соглашаетесь с $1 и с тем, что размещаете свой вклад под лицензиями $2 и $3.";
 "wikitext-upload-save-terms-name" = "Условия использования";
 "zero-charged-verbiage" = "Wikipedia Zero выключена";
 "zero-charged-verbiage-extended" = "При загрузке других статей может взиматься плата за передачу данных. Сохранённые статьи, хранящиеся автономно, не требуют передачи данных и поэтому бесплатны.";

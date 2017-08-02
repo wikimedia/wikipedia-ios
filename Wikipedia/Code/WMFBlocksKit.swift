@@ -27,6 +27,24 @@ extension NSArray {
     @objc public func wmf_reduce(_ initialResult: Any?, withBlock: @escaping (Any?, Any) -> Any?) -> Any? {
         return reduce(initialResult, withBlock)
     }
+    
+    @objc public func wmf_arrayByRecursivelyRemovingNullObjects() -> NSArray {
+        let mutableSelf = NSMutableArray(capacity: self.count)
+        for value in self {
+            if let dict = value as? NSDictionary {
+                mutableSelf.add(dict.wmf_dictionaryByRecursivelyRemovingNullObjects())
+            } else if let array = value as? NSArray {
+                mutableSelf.add(array.wmf_arrayByRecursivelyRemovingNullObjects())
+            } else if let set = value as? NSSet {
+                mutableSelf.add(set.wmf_setByRecursivelyRemovingNullObjects())
+            } else if let _ = value as? NSNull {
+                
+            } else {
+                mutableSelf.add(value)
+            }
+        }
+        return mutableSelf
+    }
 }
 
 extension NSSet {
@@ -61,6 +79,25 @@ extension NSSet {
     @objc public func wmf_reduce(_ initialResult: Any?, withBlock: @escaping (Any?, Any) -> Any?) -> Any? {
         return reduce(initialResult, withBlock)
     }
+    
+    @objc public func wmf_setByRecursivelyRemovingNullObjects() -> NSSet {
+        let mutableSelf = NSMutableSet(capacity: self.count)
+        for value in self {
+            if let dict = value as? NSDictionary {
+                mutableSelf.add(dict.wmf_dictionaryByRecursivelyRemovingNullObjects())
+            } else if let array = value as? NSArray {
+                mutableSelf.add(array.wmf_arrayByRecursivelyRemovingNullObjects())
+            } else if let set = value as? NSSet {
+                mutableSelf.add(set.wmf_setByRecursivelyRemovingNullObjects())
+            } else if let _ = value as? NSNull {
+                
+            } else {
+                mutableSelf.add(value)
+            }
+        }
+        return mutableSelf
+    }
+    
 }
 
 extension NSDictionary {
@@ -108,5 +145,25 @@ extension NSDictionary {
         return reduce(initialResult) { (result, kv) -> Any? in
             return withBlock(result, kv.0, kv.1)
         }
+    }
+    
+    @objc public func wmf_dictionaryByRecursivelyRemovingNullObjects() -> NSDictionary {
+        let mutableSelf = NSMutableDictionary(capacity: self.count)
+        for (key, value) in self {
+            if let dict = value as? NSDictionary {
+                mutableSelf[key] = dict.wmf_dictionaryByRecursivelyRemovingNullObjects()
+            } else if let array = value as? NSArray {
+                mutableSelf[key] = array.wmf_arrayByRecursivelyRemovingNullObjects()
+            } else if let set = value as? NSSet {
+                mutableSelf[key] = set.wmf_setByRecursivelyRemovingNullObjects()
+            } else if let _ = value as? NSNull {
+                
+            } else if let _ = key as? NSNull {
+                
+            } else {
+                mutableSelf[key] = value
+            }
+        }
+        return mutableSelf
     }
 }

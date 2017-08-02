@@ -52,6 +52,18 @@
     return [self components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarMatchStrictly].day;
 }
 
+- (NSInteger)wmf_daysFromMonthAndDay:(NSDate *)fromDate toDate:(NSDate *)toDate {
+    NSDateComponents *fromComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:fromDate];
+    NSDateComponents *toComponents = [self components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:toDate];
+    NSInteger year = toComponents.year;
+    if (toComponents.month == 1 && fromComponents.month == 12) {
+        year--;
+    }
+    fromComponents.year = year;
+    fromDate = [self dateFromComponents:fromComponents];
+    return [self wmf_daysFromDate:fromDate toDate:toDate];
+}
+
 @end
 
 @implementation NSDate (WMFComparisons)

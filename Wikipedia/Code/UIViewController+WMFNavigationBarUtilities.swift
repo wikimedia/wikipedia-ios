@@ -3,7 +3,7 @@ import UIKit
 extension UIViewController {
     
     // TODO: make a static func?
-    public func wmf_addBottomShadow(view: UIView) {
+    public func wmf_addBottomShadow(view: UIView, theme: Theme) { // theme is intentionally ignored for now
         // Setup extended navigation bar
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
   
@@ -23,11 +23,9 @@ extension UIViewController {
         if (removeUnderline) {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-            navigationController!.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "pixel"), for: .default)
         } else {
             navigationController!.navigationBar.isTranslucent = false
             navigationController!.navigationBar.shadowImage = nil
-            navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         }
         
         // this little dance is to force the navigation bar to redraw. Without it,

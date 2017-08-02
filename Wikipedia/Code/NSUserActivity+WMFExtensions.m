@@ -4,6 +4,8 @@
 @import CoreSpotlight;
 @import MobileCoreServices;
 
+NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
+
 @implementation NSUserActivity (WMFExtensions)
 
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity {
@@ -86,6 +88,11 @@
 
 + (instancetype)wmf_settingsViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Settings"];
+    return activity;
+}
+
++ (instancetype)wmf_appearanceSettingsActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"AppearanceSettings"];
     return activity;
 }
 
@@ -178,6 +185,8 @@
             return WMFUserActivityTypeHistory;
         } else if ([page isEqualToString:@"Search"]) {
             return WMFUserActivityTypeSearch;
+        } else if ([page isEqualToString:@"AppearanceSettings"]) {
+            return WMFUserActivityTypeAppearanceSettings;
         } else {
             return WMFUserActivityTypeSettings;
         }
@@ -244,6 +253,9 @@
             break;
         case WMFUserActivityTypeSettings:
             host = @"settings";
+            break;
+        case WMFUserActivityTypeAppearanceSettings:
+            host = @"appearancesettings";
             break;
         case WMFUserActivityTypeContent:
             host = @"content";

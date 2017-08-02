@@ -1,16 +1,18 @@
 @import UIKit;
+@import WMF.Swift;
+
 @class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 @protocol WMFWebViewControllerDelegate;
 
+extern const CGFloat WebViewControllerHeaderImageHeight;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebViewController : UIViewController <UIWebViewDelegate,
-                                                 UIScrollViewDelegate,
-                                                 UIGestureRecognizerDelegate,
-                                                 UIAlertViewDelegate>
+
+@interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;
 @property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
@@ -21,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CGFloat contentWidthPercentage;
 @property (nonatomic, readonly) CGFloat marginWidth;
+
+@property (nonatomic, readonly) WMFTheme *theme;
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
@@ -65,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
-- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item;
+- (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 
 @end
 

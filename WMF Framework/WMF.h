@@ -126,6 +126,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedArticlePreview.h>
 #import <WMF/WMFFeedImage.h>
 #import <WMF/WMFFeedNewsStory.h>
+#import <WMF/WMFFeedOnThisDayEvent.h>
 
 #import <WMF/MWKSiteInfo.h>
 #import <WMF/MWKSiteInfoFetcher.h>
@@ -170,9 +171,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import <WMF/UIColor+WMFStyle.h>
 #import <WMF/UIImage+WMFStyle.h>
-#import <WMF/UIImageView+WMFPlaceholder.h>
-#import <WMF/UIColor+WMFHexColor.h>
-#import <WMF/UITableViewCell+WMFEdgeToEdgeSeparator.h>
 #import <WMF/UIView+WMFDefaultNib.h>
 #import <WMF/FLAnimatedImage+SafeForSwift.h>
 

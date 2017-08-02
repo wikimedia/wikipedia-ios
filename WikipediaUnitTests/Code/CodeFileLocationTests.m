@@ -1,6 +1,4 @@
 #import <XCTest/XCTest.h>
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
 
 @interface CodeFileLocationTests : XCTestCase
 
@@ -17,17 +15,17 @@
     // This test ensures we keep code files out of the project's root directory.
     NSArray *extensionsToKeepOutOfRoot =
         @[
-           @"h",
-           @"m",
-           @"c",
-           @"mm",
-           @"cpp",
-           @"swift",
-           @"xib",
-           @"json",
-           @"storyboard",
-           @"plist",
-           @"xcdatamodeld"
+            @"h",
+            @"m",
+            @"c",
+            @"mm",
+            @"cpp",
+            @"swift",
+            @"xib",
+            @"json",
+            @"storyboard",
+            @"plist",
+            @"xcdatamodeld"
         ];
 
     NSPredicate *extensionsPredicate =
@@ -36,7 +34,7 @@
     NSArray *filesWhichShouldNotBeInRoot =
         [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
 
-    assertThat(filesWhichShouldNotBeInRoot, hasCountOf(0));
+    XCTAssertEqual(filesWhichShouldNotBeInRoot.count, 0);
 }
 
 - (void)tearDown {

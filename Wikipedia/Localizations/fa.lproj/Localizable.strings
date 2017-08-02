@@ -66,15 +66,20 @@
 "action-read" = "خواندن";
 "action-save" = "ذخیره";
 "action-saved" = "ذخیره شد";
+"action-saved-accessibility" = "ذخیره شد. به صورت ذخیره نشده فعال شد.";
 "action-share" = "به اشتراک گذاشتن";
+"action-unsave" = "ذخیره‌نشده";
 "alert-no-internet" = "به اینترنت متصل نیستید";
+// Fuzzy
 "announcements-dismiss" = "نه ممنون";
 "article-about-title" = "دربارهٔ این مقاله";
+"article-delete" = "حذف";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-others" = "زبان‌های دیگر";
 "article-languages-yours" = "زبان‌های شما";
 "article-read-more-title" = "بیشتر بخوانید";
+"article-share" = "به اشتراک گذاشتن";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "back" = "بازگشت";
@@ -112,6 +117,7 @@
 "explore-another-random" = "مقاله تصادفی دیگر";
 "explore-because-you-read" = "چون شما مطالعه می‌کنید";
 "explore-continue-reading-heading" = "ادامه دادن به خواندن";
+"explore-enable-location-title" = "جستجوی مقالهٔ نزدیک به موقعیت شما";
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
@@ -130,6 +136,7 @@
 "explore-random-article-heading" = "مقاله تصادفی";
 "explore-randomizer" = "تصادفی";
 "feed-news-notification-button-text" = "روشن کردن آگاه‌سازی‌ها";
+// Fuzzy
 "feed-news-notification-text" = "اکنون شما می توانید نوتیفیکیشن های مربوط به مقالات ویکی پدیا که در اخبار پربازدید هستند را دریافت کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
@@ -155,12 +162,12 @@
 "field-username-title" = "نام کاربری";
 "find-in-page-button-label" = "در صفحه پیدا کنید";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "جستجوی متن در مقالات";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور فرستاده شد";
 "forgot-password-instructions" = "برای دریافت گذرواژهٔ جدید به وسیلهٔ ایمیل یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
+"gdfl" = "GDFL";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
@@ -177,6 +184,8 @@
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به کاوش";
 "home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
+"home-button-popover-description" = "بر روی «W» برای کاوش خوراک‌ها بزنید";
+"home-button-popover-title" = "برای رفتن به خانه بر روی صفحه بزنید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
 "home-hide-suggestion-cancel" = "لغو";
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
@@ -196,7 +205,6 @@
 "in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
 "in-the-news-notification-share-action-title" = "به اشتراک گذاشتن...";
 "in-the-news-title" = "در اخبار";
-"in-the-news-title-for-date" = "اخبار $1";
 "info-box-close-text" = "بستن";
 "info-box-title" = "اطلاعات اجمالی";
 "languages-title" = "تغییر زبان";
@@ -236,6 +244,10 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "از $1 - $2";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
+"on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
+"on-this-day-title" = "در این روز";
 "onboarding-wikipedia" = "ویکی‌پدیا";
 "open-link-cancel" = "لغو";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
@@ -294,8 +306,8 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=امروز|دیروز|$1 روز پیش}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
-"save-action" = "ذخیره";
 "saved-clear-all" = "پاک‌کردن";
 "saved-pages-clear-cancel" = "لغو";
 "saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که همه موارد ذخیره‌شده را حذف کنید؟";
@@ -345,7 +357,6 @@
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
-"table-of-contents-popover-description" = "دریافت نظرکلی مقالات";
 "table-title-other" = "اطلاعات بیشتر";
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
@@ -355,7 +366,6 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
-"unsave-action" = "ذخیره‌نشده";
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-explore-new-ways-sub-title" = "آگاه‌سازی و ویجت جدید برای کمک به شما برای یافتن مقالات مطلوب";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
@@ -384,8 +394,8 @@
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "ورود";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";

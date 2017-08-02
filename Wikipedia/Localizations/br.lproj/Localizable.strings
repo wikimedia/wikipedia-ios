@@ -53,15 +53,20 @@
 "action-read" = "Lenn";
 "action-save" = "Enrollañ";
 "action-saved" = "Enrollet";
+"action-saved-accessibility" = "Enrollet. Gwerededkaat evit lemel an enrolladenn.";
 "action-share" = "Rannañ";
+"action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
+// Fuzzy
 "announcements-dismiss" = "Ne'm bo ket, trugarez";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
+"article-delete" = "Diverkañ";
 "article-languages-filter-placeholder" = "Kavout ar yezh";
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-others" = "Yezhoù all";
 "article-languages-yours" = "Ho yezhoù";
 "article-read-more-title" = "Lenn muioc'h";
+"article-share" = "Rannañ";
 "article-unable-to-load-article" = "Ne c'haller ket kargañ ar pennad-mañ.";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
 "back" = "Distreiñ";
@@ -95,9 +100,12 @@
 "empty-no-saved-pages-message" = "Enrollit ar pajennoù-se evit o lenn diwezhatoc'h, ha pa vefe ezlinenn";
 "empty-no-saved-pages-title" = "Pajenn ebet enrollet c'hoazh";
 "empty-no-search-results-message" = "N'eus bet kavet disoc'h ebet";
+"error-unknown" = "Ur fazi dianav zo c'hoarvezet";
 "explore-another-random" = "Ur pennad all dre zegouezh";
+"explore-because-you-read" = "Peogwir ho peus lennet";
 "explore-continue-reading-heading" = "Kenderc'hel da lenn";
 "explore-featured-article-heading" = "Pennad a-zoare";
+"explore-main-page-description" = "Pajenn bennañ ar raktresoù Wikimedia";
 "explore-main-page-heading" = "Hiziv e Wikipedia";
 "explore-most-read-footer-for-date" = "An holl bennadoù lennet ar muiañ d'an $1";
 "explore-most-read-generic-heading" = "Ar re a vez lennet ar muiañ";
@@ -114,6 +122,7 @@
 "explore-random-article-heading" = "Ur pennad dre zegouezh";
 "explore-randomizer" = "Dre zegouezh";
 "feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù";
+// Fuzzy
 "feed-news-notification-text" = "Bremañ e c'hallit resev kemennadennoù diwar-benn pennadoù Wikipedia diouzh ar c'hiz er c'heleier.";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
@@ -139,12 +148,12 @@
 "field-username-title" = "Anv implijer";
 "find-in-page-button-label" = "Kavout ar bajenn";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Klask an destenn er pennadoù";
 "forgot-password-button-title" = "Adderaouekaat";
 "forgot-password-email-sent" = "Kaset ez eus bet ur postel gant displegadurioù adderaouekaat";
 "forgot-password-instructions" = "Leuniañ unan eus ar maeziennoù amañ dindan evit degemer ar c'hemennadurioù evit adderaouekaat ar ger-tremen dre bostel.";
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
+"gdfl" = "GDFL";
 "history-clear-all" = "Diverkañ";
 "history-clear-cancel" = "Nullañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
@@ -179,7 +188,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
 "in-the-news-notification-share-action-title" = "Rannañ...";
 "in-the-news-title" = "Er C'heleier";
-"in-the-news-title-for-date" = "Keleier war $1";
 "info-box-close-text" = "Serriñ";
 "info-box-title" = "Fedoù berr-ha-berr";
 "languages-title" = "Cheñch yezh";
@@ -219,6 +227,7 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-title" = "D'an deiz-mañ...";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Nullañ";
 "page-edit-history" = "Istor klok ar c'hemmoù";
@@ -260,17 +269,17 @@
 "places-search-suggested-searches-header" = "Enklaskoù kinniget";
 "places-search-this-area" = "Disoc'hoù en takad-mañ";
 "places-search-top-articles" = "An holl bennadoù gwellañ";
+"places-search-top-articles-that-match-scope" = "Nepell";
+"places-title" = "Lec'hioù";
 "places-unknown-distance" = "Keit dianav";
 "potd-description-prefix" = "Skeudenn an deiz evit $1";
-// Fuzzy
-"potd-empty-error-description" = "N'eus ket bet gallet adtapout skeudenn an deiz evit an";
+"potd-empty-error-description" = "N'eus ket bet gallet adtapout skeudenn an deiz evit an $1";
 "preference-summary-eventlogging-opt-in" = "Aotren Diazezadur Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "preference-title-eventlogging-opt-in" = "Kas danevelloù implij";
 "rank-accessibility-label" = "Niverenn $1";
 "readers-accessibility-label" = "$1 lenner";
 "reference-title" = "Daveenn $1";
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
-"save-action" = "Enrollañ";
 "saved-clear-all" = "Diverkañ";
 "saved-pages-clear-cancel" = "Nullañ";
 "saved-pages-clear-confirmation-heading" = "Ha sur eo hoc'h eus c'hoant da lemel ho holl elfennoù enrollet ?";
@@ -320,7 +329,6 @@
 "table-of-contents-close-accessibility-hint" = "Serriñ";
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-heading" = "Endalc'had";
-"table-of-contents-popover-description" = "Kaout un tamm rakwel eus ar pennadoù";
 "table-title-other" = "Muioc'h a ditouroù";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
@@ -330,7 +338,6 @@
 "two-factor-login-title" = "Kevreañ d'ho kont";
 "two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
-"unsave-action" = "Dienrollañ";
 "welcome-explore-continue-button" = "Kregiñ";
 "welcome-explore-new-ways-sub-title" = "Kemennadennoù nevez ha bitrakoù evit o skoazellañ da zizoleiñ pennadoù dedennus";
 "welcome-explore-new-ways-title" = "Hentoù nevez da vezañ ergerzhet";
@@ -357,7 +364,6 @@
 "wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-save" = "Oc'h embann...";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Kevreañ";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
 "zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";

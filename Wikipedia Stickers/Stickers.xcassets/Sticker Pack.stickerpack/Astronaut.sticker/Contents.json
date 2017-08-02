@@ -1,0 +1,10 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "accessibility-label" : "Astronaut",
+    "filename" : "Astronaut.png"
+  }
+}

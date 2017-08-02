@@ -3,6 +3,7 @@
 // Author: An13sa
 // Author: Fitoschido
 // Author: Gorkaazk
+// Author: Mikel Ibaiba
 // Author: Nemo bis
 // Author: Sator
 // Author: Subi
@@ -24,14 +25,21 @@
 "account-creation-saving" = "Gordetzen...";
 "action-read" = "Irakurri";
 "action-save" = "Gorde";
+"action-saved-accessibility" = "Gordeta. Aktibatu ez gordetzeko.";
 "alert-no-internet" = "Ez dago internet konexiorik";
-"announcements-dismiss" = "Ez, eskerrik asko";
+"announcements-dismiss" = "Utzi";
+"appearance-settings-reading-themes" = "Irakurketa gaiak";
+"appearance-settings-theme-options" = "Gaien aukerak";
+"appearance-settings-title" = "Irakurketa gaiak";
 "article-about-title" = "Artikulu honi buruz";
+"article-delete" = "Ezabatu";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-others" = "Beste hizkuntzak";
 "article-languages-yours" = "Zure hizkuntzak";
 "article-read-more-title" = "Irakurri gehiago";
+"article-share" = "Partekatu";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "back" = "Atzera";
 "back-button-accessibility-label" = "Atzera";
@@ -45,6 +53,8 @@
 "button-saved-for-later" = "Gorde gerorako";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Itxi";
+"dark-theme-display-name" = "Iluna";
+"dim-images" = "Irudiak arindu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
 "edit-summary-choice-linked-words" = "Loturak gehitu";
@@ -72,7 +82,6 @@
 "field-password-placeholder" = "sartu pasahitza";
 "field-password-title" = "Pasahitza";
 "find-in-page-button-label" = "Aurkitu orrialdean";
-"find-in-page-popover-description" = "Bilatu testua artikuluetan";
 "history-clear-all" = "Garbitu";
 "history-clear-cancel" = "Utzi";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
@@ -84,8 +93,12 @@
 "hockeyapp-alert-do-not-send" = "Ez bidali";
 "hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "hockeyapp-alert-send-report" = "Bidali txostena";
+"home-button-popover-description" = "Sakatu 'W' Esploratzera bueltatzeko";
+"home-button-popover-title" = "Klikatu hasierara bueltatzeko";
 "home-hide-suggestion-cancel" = "Utzi";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
+"home-themes-action-title" = "Lehentasunak aukeratu";
+"home-themes-prompt" = "Zure irakurketa lehentasunak hitzartu testuaren neurria eta gaia artikuluaren erraminta atalean edo erabiltzailearen doitze atalean, irakurketa esperientzia erosoagoa izateko.";
 "home-title" = "Esploratu";
 "icon-shortcut-continue-reading-title" = "Irakurtzen jarraitu";
 "icon-shortcut-nearby-title" = "Inguruko artikuluak";
@@ -128,6 +141,10 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-date-range" = "$1tik $2ra";
+"on-this-day-detail-header-title" = "{{PLURALA:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
+"on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
+"on-this-day-title" = "Gaurkoan";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Utzi";
 "page-history-title" = "Artikuluaren historia";
@@ -156,8 +173,14 @@
 "preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
 "rank-accessibility-label" = "$1 zenbakia";
 "readers-accessibility-label" = "$1 irakurle";
+"reading-themes-controls-accessibility-brightness-slider" = "Argitasun sliderra";
+"reading-themes-controls-accessibility-dark-theme-button" = "Gai iluna";
+"reading-themes-controls-accessibility-dim-images-switch" = "Irudiak arindu";
+"reading-themes-controls-accessibility-light-theme-button" = "Gai argia";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia gaia";
+"reading-themes-controls-accessibility-text-size-slider" = "Testuaren tamaina irristagarria";
 "reference-title" = "$1 erreferentzia";
-"save-action" = "Gorde";
+"relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
 "saved-clear-all" = "Garbitu";
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako orrialde guztiak ezabatu nahi dituzula?";
@@ -172,6 +195,7 @@
 "search-recent-title" = "Azken bilaketak";
 "search-result-redirected-from" = "$1(e)tik birzuzenduta";
 "search-title" = "Bilatu";
+"settings-appearance" = "Itxura";
 "settings-clear-cache" = "Garbitu katxeratutako datuak";
 "settings-clear-cache-are-you-sure-title" = "Garbitu katxeratutako datuak?";
 "settings-clear-cache-cancel" = "Utzi";
@@ -191,6 +215,9 @@
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-heading" = "Edukiak";
 "table-title-other" = "Informazio gehiago";
+"theme-dark-display-name" = "Iluna";
+"theme-default-display-name" = "Lehenetsia";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "welcome-explore-continue-button" = "Hasi";
@@ -204,8 +231,8 @@
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
 "wikitext-upload-save" = "Argitaratzen...";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
 "zero-interstitial-cancel" = "Gelditu hemen";
 "zero-interstitial-continue" = "Irten";

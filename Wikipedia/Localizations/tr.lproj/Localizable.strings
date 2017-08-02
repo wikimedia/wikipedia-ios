@@ -19,6 +19,7 @@
 // Author: Sadrettin
 // Author: Sayginer
 // Author: Sucsuzz
+// Author: Trockya
 // Author: Uğurkent
 // Author: Velg
 // Author: Violetanka
@@ -69,15 +70,20 @@
 "action-read" = "Oku";
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedilenler";
+"action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
 "action-share" = "Paylaş";
+"action-unsave" = "Kaydedilenlerden çıkar";
 "alert-no-internet" = "İnternet bağlantısı yok";
+// Fuzzy
 "announcements-dismiss" = "Hayır, teşekkürler";
 "article-about-title" = "Bu madde hakkında";
+"article-delete" = "Sil";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamı";
+"article-share" = "Paylaş";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back" = "Geri";
@@ -115,6 +121,7 @@
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-because-you-read" = "Okuduklarına benzer";
 "explore-continue-reading-heading" = "Okumaya devam et";
+"explore-enable-location-title" = "Mevcut konumunuzun yakınındaki maddeleri keşfedin";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -133,6 +140,7 @@
 "explore-random-article-heading" = "Rastgele madde";
 "explore-randomizer" = "Rastgele";
 "feed-news-notification-button-text" = "Bildirimleri aç";
+// Fuzzy
 "feed-news-notification-text" = "Artık haberlerde gündemde olan Vikipedi makaleleri hakkında bildirimler alabilirsiniz.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Parolalar eşleşmiyor";
@@ -158,12 +166,12 @@
 "field-username-title" = "Kullanıcı adı";
 "find-in-page-button-label" = "Sayfada bul";
 "find-in-page-number-matches" = "$1 / $2";
-"find-in-page-popover-description" = "Maddelerde metin ara";
 "forgot-password-button-title" = "Sıfırla";
 "forgot-password-email-sent" = "Parola sıfırlama talimatlarını içeren bir e-posta gönderildi";
 "forgot-password-instructions" = "Parola sıfırlama talımatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
+"gdfl" = "GDFL";
 "history-clear-all" = "Temizle";
 "history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
@@ -180,6 +188,8 @@
 "hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
+"home-button-popover-description" = "Keşfet bölümüne dönmek için 'W'ye dokunun";
+"home-button-popover-title" = "An sayfaya gitmek için dokunun";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
 "home-hide-suggestion-cancel" = "Geri al";
 "home-hide-suggestion-prompt" = "Bu öneriyi gizle";
@@ -199,7 +209,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
 "in-the-news-notification-share-action-title" = "Paylaş...";
 "in-the-news-title" = "Haberlerde";
-"in-the-news-title-for-date" = "$1 haberleri";
 "info-box-close-text" = "Kapat";
 "info-box-title" = "Pratik Bilgiler";
 "languages-title" = "Dili değiştir";
@@ -239,6 +248,10 @@
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1B";
+"on-this-day-detail-header-date-range" = "$2-$1 döneminde";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
+"on-this-day-footer" = "Bu günden daha fazla tarihi olay";
+"on-this-day-title" = "Tarihte bugün";
 "onboarding-wikipedia" = "Vikipedi";
 "open-link-cancel" = "İptal";
 "page-edit-history" = "Bütün düzenleme geçmişi";
@@ -261,6 +274,7 @@
 "places-accessibility-show-as-list" = "Liste olarak göster";
 "places-accessibility-show-as-map" = "Harita olarak göster";
 "places-accessibility-show-more" = "Daha fazla madde göster";
+"places-dismiss-filter-list-accessibility-label" = "Arama süzgeçlerini kapat";
 "places-empty-search-description" = "Şehirleri, ülkeleri, kıtaları, doğa harikalarını, tarihi olayları, yapıları ve daha fazlasını keşfedin.";
 "places-empty-search-title" = "Coğrafi konumu olan Vikipedi maddelerini ara";
 "places-enable-location-action-button-title" = "Konumu etkinleştir";
@@ -274,14 +288,16 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
-// Fuzzy
-"places-search-default-text" = "Ara";
+"places-search-default-text" = "Yerleri ara";
 "places-search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "places-search-recently-searched-header" = "Son arananlar";
 "places-search-saved-articles" = "Kaydedilmiş maddelerin hepsi";
 "places-search-suggested-searches-header" = "Önerilen aramalar";
 "places-search-this-area" = "Bu bölgedeki sonuçlar";
 "places-search-top-articles" = "En çok okunan tüm maddeler";
+"places-search-top-articles-that-match-scope" = "Yakınındakiler";
+"places-search-your-current-location" = "Mevcut konumunuz";
+"places-show-filter-list-accessibility-label" = "Arama süzgeçlerini göster";
 "places-title" = "Yerler";
 "places-unknown-distance" = "bilinmeyen uzaklık";
 "potd-description-prefix" = "$1 tarihli günün resmi";
@@ -294,8 +310,8 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|Dün|$1 gün önce}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
-"save-action" = "Kaydet";
 "saved-clear-all" = "Temizle";
 "saved-pages-clear-cancel" = "İptal";
 "saved-pages-clear-confirmation-heading" = "Kayıtlı tüm sayfaları silmek istediğinizden emin misiniz?";
@@ -311,6 +327,7 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Arama";
+"settings-appearance" = "Görünüm";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
@@ -345,8 +362,8 @@
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
-"table-of-contents-popover-description" = "Makalelere genel bir bakın";
 "table-title-other" = "Daha fazla bilgi";
+"theme-default-display-name" = "Varsayılan";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-see-more" = "En çok okunanları gör";
@@ -355,7 +372,6 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
-"unsave-action" = "Geri al";
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-explore-new-ways-sub-title" = "Yeni bildirimler ve araçlar ilginç makaleleri keşfetmenize yardımcı olacak";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
@@ -384,8 +400,9 @@
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
 "wikitext-upload-save" = "Paylaşılıyor...";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Oturum aç";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Değişikliklerinizi kaydederek $1 kabul etmiş sayılırsınız ve bu değişiklikler $2 ve $3 lisansı altında yayınlanır.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";
 "zero-charged-verbiage-extended" = "Diğer maddeleri yüklemek veri ücretlendirmesine neden olabilir. Kaydedilen maddeler çevrim dışı olarak saklanır, veri harcamaz ve ücretsizdir.";

@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d acontecimientu históricu</string>
+			<key>other</key>
+			<string>%1$d acontecimientos históricos</string>
+		</dict>
+	</dict>
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -86,6 +102,24 @@
 			<string>Hai %1$d minutos</string>
 			<key>zero</key>
 			<string>Agora mesmo</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>L'añu pasáu</string>
+			<key>other</key>
+			<string>hai %1$d años</string>
+			<key>zero</key>
+			<string>Esti añu</string>
 		</dict>
 	</dict>
 </dict>

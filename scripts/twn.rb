@@ -9,8 +9,8 @@ current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.spl
 
 if !current_hash || current_hash == ''
   puts "no current hash"
-  puts `git checkout develop`
-  puts `git checkout -b twn`
+  puts `git checkout #{base_branch}`
+  puts `git checkout -b #{pr_branch}`
   puts `git push -u origin twn`
   current_hash = `git ls-remote --heads origin | grep refs/heads/#{pr_branch}`.split.first
   `echo "#{current_hash}" > #{hash_file}`
@@ -34,13 +34,11 @@ end
 
 puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 
-`git checkout twn`
-`git pull`
-path = `pwd`
-`scripts/localization #{path} import`
-`git commit -a -m "Import localizations from TWN on #{time_string}"`
-`git push`
-`scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
+path = `pwd`.strip
+puts `"#{path}/scripts/localization" "#{path}"`
+puts `git commit -a -m "Import localizations from TWN on #{time_string}"`
+puts `git push -u origin twn`
+puts `scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`
 
 if $?.to_i == 0
   `echo "#{current_hash}" > #{hash_file}`

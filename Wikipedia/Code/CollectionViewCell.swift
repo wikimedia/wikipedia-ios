@@ -15,12 +15,34 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
+        backgroundView = UIView()
+        selectedBackgroundView = UIView()
         reset()
         layoutSubviews()
     }
     
     open func reset() {
+
+    }
+    
+    var labelBackgroundColor: UIColor? {
+        return isSelected || isHighlighted ? selectedBackgroundView?.backgroundColor : backgroundView?.backgroundColor
+    }
+    
+    open func updateSelectedOrHighlighted() {
         
+    }
+    
+    open override var isHighlighted: Bool {
+        didSet {
+            updateSelectedOrHighlighted()
+        }
+    }
+    
+    open override var isSelected: Bool {
+        didSet {
+            updateSelectedOrHighlighted()
+        }
     }
     
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
@@ -65,6 +87,9 @@ open class CollectionViewCell: UICollectionViewCell {
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {
+                guard view !== backgroundView, view !== selectedBackgroundView else {
+                    continue
+                }
                 assert(view.autoresizingMask == [])
                 assert(view.constraints == [])
             }
@@ -81,13 +106,13 @@ open class CollectionViewCell: UICollectionViewCell {
         }
         
         var sizeToFit = layoutAttributes.size
-        sizeToFit.height = CGFloat.greatestFiniteMagnitude
+        sizeToFit.height = UIViewNoIntrinsicMetric
         var fitSize = self.sizeThatFits(sizeToFit)
         if fitSize == sizeToFit {
             return layoutAttributes
         } else  if let attributes = layoutAttributes.copy() as? UICollectionViewLayoutAttributes {
             fitSize.width = sizeToFit.width
-            if fitSize.height == CGFloat.greatestFiniteMagnitude {
+            if fitSize.height == CGFloat.greatestFiniteMagnitude || fitSize.height == UIViewNoIntrinsicMetric {
                 fitSize.height = layoutAttributes.size.height
             }
             attributes.frame = CGRect(origin: layoutAttributes.frame.origin, size: fitSize)
@@ -95,5 +120,32 @@ open class CollectionViewCell: UICollectionViewCell {
         } else {
             return layoutAttributes
         }
+    }
+    
+    // MARK - Dynamic Type
+    // Only applies new fonts if the content size category changes
+    
+    open override func setNeedsLayout() {
+        maybeUpdateFonts(with: traitCollection)
+        super.setNeedsLayout()
+    }
+    
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        maybeUpdateFonts(with: traitCollection)
+    }
+    
+    var contentSizeCategory: UIContentSizeCategory?
+    fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+            return
+        }
+        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        updateFonts(with: traitCollection)
+    }
+    
+    // Override this method and call super
+    open func updateFonts(with traitCollection: UITraitCollection) {
+        
     }
 }

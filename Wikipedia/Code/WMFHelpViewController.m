@@ -3,7 +3,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <WMF/WikipediaAppUtils.h>
 #import "Wikipedia-Swift.h"
-#import "WMFLeadingImageTrailingTextButton.h"
 #import "DDLog+WMFLogger.h"
 
 @import MessageUI;
@@ -48,13 +47,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (UIBarButtonItem *)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
-        WMFLeadingImageTrailingTextButton *button = [[WMFLeadingImageTrailingTextButton alloc] init];
-        button.tintColor = [UIColor wmf_blue];
-        [button configureAsReportBugButton];
-        [button sizeToFit];
-        [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
-        _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        _sendEmailToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, nil, @"Report a bug", @"Button text for reporting a bug");
+        _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-report-a-bug", nil, nil, @"Report a bug", @"Button text for reporting a bug") style:UIBarButtonItemStylePlain target:self action:@selector(sendEmail)];
         return _sendEmailToolbarItem;
     }
     return _sendEmailToolbarItem;

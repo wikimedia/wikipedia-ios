@@ -1,7 +1,7 @@
 #import "WMFSearchResultsTableViewController.h"
-#import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
+#import "Wikipedia-Swift.h"
 @import WMF;
 
 @implementation WMFSearchResultsTableViewController
@@ -15,7 +15,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = 60.0f;
 
@@ -43,13 +43,16 @@
                                           UITableView *tableView,
                                           NSIndexPath *indexPath) {
             @strongify(self);
+            [cell applyTheme:self.theme];
             NSURL *articleURL = [self.dataSource urlForIndexPath:indexPath];
-            [cell wmf_setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm];
-            cell.titleLabel.accessibilityLanguage = self.dataSource.searchSiteURL.wmf_language;
+            NSString *language = self.dataSource.searchSiteURL.wmf_language;
+            NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:language];
+            [cell setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm locale:locale];
+            cell.articleCell.titleLabel.accessibilityLanguage = language;
             cell.descriptionText = [self descriptionForSearchResult:result];
             // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
-            cell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSiteURL.wmf_language : nil;
-            [cell setImageURL:result.thumbnailURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+            cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? language : nil;
+            [cell setImageURL:result.thumbnailURL];
         };
     }
 

@@ -1,6 +1,5 @@
 import UIKit
 import WMF
-import TUSafariActivity
 #if OSM
 import Mapbox
 #endif
@@ -32,6 +31,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
     @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
+    @IBOutlet weak var listAndSearchOverlaySliderSeparator: UIView!
+    @IBOutlet weak var listAndSearchOverlaySearchSeparator: UIView!
+
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerHeightConstraint: NSLayoutConstraint!
@@ -99,6 +101,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    fileprivate var theme = Theme.standard
+    
     lazy fileprivate var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
     }()
@@ -107,7 +111,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
+        title = CommonStrings.placesTitle
     }
     
     override func viewDidLoad() {
@@ -125,6 +129,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         #else
             mapView = MapView(frame: mapViewFrame)
             mapView.delegate = self
+
             // Setup map view
             mapView.mapType = .standard
             mapView.showsBuildings = false
@@ -138,10 +143,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        
-        view.tintColor = .wmf_blue
-        
-        wmf_addBottomShadow(view: extendedNavBarView)
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         searchFilterListController = PlaceSearchFilterListController(delegate: self)
@@ -153,7 +154,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         touchOutsideOverlayView.delegate = self
 
         // config filter drop down
-        wmf_addBottomShadow(view: filterDropDownContainerView)
+     
 
         navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -162,13 +163,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
         // Setup Redo search button
         redoSearchButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        redoSearchButton.backgroundColor = view.tintColor
         redoSearchButton.setTitleColor(.white, for: .normal)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
         
         // Setup Did You Mean button
-        didYouMeanButton.backgroundColor = view.tintColor
         didYouMeanButton.setTitleColor(.white, for: .normal)
         didYouMeanButton.isHidden = true
         didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -183,7 +182,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapListToggle.setImage(list, forSegmentAt: 1)
         mapListToggle.selectedSegmentIndex = 0
         mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        mapListToggle.tintColor = .wmf_blue
         
         // Setup close search button
         closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
@@ -193,35 +191,36 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
-        listAndSearchOverlayContainerView.radius = 5
         
         // Setup list view
         listView.dataSource = self
         listView.delegate = self
-        listView.register(WMFNearbyArticleTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFNearbyArticleTableViewCell.identifier())
-        listView.estimatedRowHeight = WMFNearbyArticleTableViewCell.estimatedRowHeight()
+        listView.register(ArticleWithLocationTableViewCell.self, forCellReuseIdentifier: "ArticleWithLocationTableViewCell")
+        listView.estimatedRowHeight = ArticleWithLocationTableViewCell.estimatedRowHeight
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
 
-        // Setup search bar
+        // Setup search bars
+        let searchPlaceholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
         titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         titleViewSearchBar.returnKeyType = .search
         titleViewSearchBar.searchBarStyle = .minimal
-        titleViewSearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
-        
+        titleViewSearchBar.placeholder = searchPlaceholder
         listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
         listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        listAndSearchOverlaySearchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
+        listAndSearchOverlaySearchBar.placeholder = searchPlaceholder
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
+            mapListToggle.selectedSegmentIndex = 1
         } else {
             viewMode = .map
         }
-
+        
+        apply(theme: theme)
         self.view.layoutIfNeeded()
     }
     
@@ -725,7 +724,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
-            let searchSuggestionArticleKey = (searchSuggestionArticleURL as NSURL?)?.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
+            let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_articleDatabaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
         } else if currentSearch?.filter == .top {
             if let centerCoordinate = currentSearch?.region?.center ?? mapRegion?.center {
@@ -743,10 +742,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                     }
                 }
                 let resultURL = resultToSelect?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (resultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = resultURL?.wmf_articleDatabaseKey
             } else {
                 let firstResultURL = searchResults.first?.articleURL(forSiteURL: siteURL)
-                articleKeyToSelect = (firstResultURL as NSURL?)?.wmf_articleDatabaseKey
+                articleKeyToSelect = firstResultURL?.wmf_articleDatabaseKey
             }
         }
         
@@ -755,7 +754,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var sort = 1
         for result in searchResults {
             guard let displayTitle = result.displayTitle,
-                let articleURL = (siteURL as NSURL).wmf_URL(withTitle: displayTitle),
+                let articleURL = siteURL.wmf_URL(withTitle: displayTitle),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
@@ -1156,6 +1155,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             } else {
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
+            listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
             updateSearchFilterTitle()
         }
     }
@@ -1281,7 +1281,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func promptForLocationAccess() {
         let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
-        enableLocationVC.view.tintColor = view.tintColor
+        enableLocationVC.apply(theme: theme)
         enableLocationVC.modalPresentationStyle = .popover
         enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
         enableLocationVC.popoverPresentationController?.delegate = self
@@ -1668,7 +1668,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let articleVC = ArticlePopoverViewController(article)
         articleVC.delegate = self
-        articleVC.view.tintColor = view.tintColor
+        articleVC.view.alpha = 0
+        articleVC.apply(theme: theme)
         articleVC.configureView(withTraitCollection: traitCollection)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -1680,10 +1681,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             articleVC.descriptionLabel.text = nil
         }
-        
-        articleVC.view.alpha = 0
+       
         addChildViewController(articleVC)
-    
         view.insertSubview(articleVC.view, belowSubview: extendedNavBarView)
         articleVC.didMove(toParentViewController: self)
         
@@ -1694,14 +1693,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         selectedArticleKey = articleKey
         
         adjustLayout(ofPopover: articleVC, withSize:size, viewSize:view.bounds.size, forAnnotationView: annotationView)
+        
+        articleVC.update()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
+        
         articleVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         articleVC.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: popoverFadeDuration) {
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
         }
-        
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, articleVC.view)
 
         tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
@@ -1764,12 +1765,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             break
         case .share:
-            tracker?.wmf_logActionShare(inContext: context, contentType: article)
-            var activityItems : [Any] = [url]
-            if let mapItem = article.mapItem {
-                activityItems.append(mapItem)
-            }
-            let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+            let activityVC = ShareActivityController(article: article, context: context)
             activityVC.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
@@ -1817,6 +1813,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        let navBarHeight = extendedNavBarView.frame.height
     
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
         let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
@@ -1829,13 +1826,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let right = annotationCenter.x + totalWidth - viewSize.width
         
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
-        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing
+        var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing + navBarHeight
 
         let canFitTopOrBottom = viewSize.width - annotationCenter.x > 0.5*popoverSize.width && annotationCenter.x > 0.5*popoverSize.width
-        let fitsTop = top < 0 && canFitTopOrBottom
+        let fitsTop = top < -navBarHeight && canFitTopOrBottom
         let fitsBottom = bottom < 0 && canFitTopOrBottom
         
-        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y > 0.5*popoverSize.width
+        let canFitLeftOrRight = viewSize.height - annotationCenter.y > 0.5*popoverSize.height && annotationCenter.y - navBarHeight > 0.5*popoverSize.height
         let fitsLeft = left < 0 && canFitLeftOrRight
         let fitsRight = right < 0 && canFitLeftOrRight
         
@@ -1844,22 +1841,22 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             didFitPreferredLocation = true
             if preferredLocation == .top && fitsTop {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y - totalHeight
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && fitsBottom {
                 x = annotationCenter.x - 0.5 * popoverSize.width
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && fitsLeft {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
                 y = annotationCenter.y - 0.5 * popoverSize.height
             } else if preferredLocation == .right && fitsRight {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if preferredLocation == .top && top < 0 {
-                y = annotationCenter.y - totalHeight
+            } else if preferredLocation == .top && top < -navBarHeight {
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if preferredLocation == .bottom && bottom < 0 {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if preferredLocation == .left && left < 0 {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if preferredLocation == .right && right < 0 {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             } else {
@@ -1874,16 +1871,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         if (!didFitPreferredLocation) {
             if (fitsTop || fitsBottom) {
                 x = annotationCenter.x - 0.5 * popoverSize.width
-                y = annotationCenter.y + (top < bottom ? 0 - totalHeight : popoverDistanceFromAnnotationCenterY)
+                y = annotationCenter.y + (top < bottom ? 0 - popoverDistanceFromAnnotationCenterY - popoverSize.height : popoverDistanceFromAnnotationCenterY)
             } else if (fitsLeft || fitsRight) {
-                x = annotationCenter.x + (left < right ? 0 - totalWidth : popoverDistanceFromAnnotationCenterX)
+                x = annotationCenter.x + (left < right ? 0 - popoverDistanceFromAnnotationCenterX - popoverSize.width : popoverDistanceFromAnnotationCenterX)
                 y = annotationCenter.y - 0.5 * popoverSize.height
-            } else if (top < 0) {
-                y = annotationCenter.y - totalHeight
+            } else if (top < -navBarHeight) {
+                y = annotationCenter.y - popoverDistanceFromAnnotationCenterY - popoverSize.height
             } else if (bottom < 0) {
                 y = annotationCenter.y + popoverDistanceFromAnnotationCenterY
             } else if (left < 0) {
-                x = annotationCenter.x - totalWidth
+                x = annotationCenter.x - popoverDistanceFromAnnotationCenterX - popoverSize.width
             } else if (right < 0) {
                 x = annotationCenter.x + popoverDistanceFromAnnotationCenterX
             }
@@ -1988,7 +1985,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, filterDropDownContainerView)
             accessibilityLabel = WMFLocalizedString("places-dismiss-filter-list-accessibility-label", value:"Dismiss search filters", comment:"Accessibility title for the button that dismisses search filters")
             title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
-            image = UIImage(cgImage: #imageLiteral(resourceName: "chevron-down-large").cgImage!, scale: 1.0, orientation: .down) // `.down` is 180 rotation, yielding a chevron pointing up
+            image = #imageLiteral(resourceName: "chevron-up-large")
         } else {
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, searchBar)
             accessibilityLabel = WMFLocalizedString("places-show-filter-list-accessibility-label", value:"Show search filters", comment:"Accessibility title for the button that shows search filters")
@@ -2017,11 +2014,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.wmf_blue, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.link, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
-            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.primaryText, range: NSMakeRange(0, attributedTitle.length))
         }
         
         UIView.performWithoutAnimation {
@@ -2152,8 +2149,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let title = result.displayTitle,
-                let url = (self.siteURL as NSURL).wmf_URL(withTitle: title),
-                let key = (url as NSURL).wmf_articleDatabaseKey,
+                let url = self.siteURL.wmf_URL(withTitle: title),
+                let key = url.wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
             }
@@ -2179,13 +2176,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     public func showArticleURL(_ articleURL: URL) {
-        guard let article = dataStore.fetchArticle(with: articleURL), let title = (articleURL as NSURL).wmf_title,
+        guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation
             return
         }
         let region = self.region(thatFits: [article])
         let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
-        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: (articleURL as NSURL).wmf_site)
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
@@ -2339,16 +2336,18 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFNearbyArticleTableViewCell.identifier(), for: indexPath) as? WMFNearbyArticleTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleWithLocationTableViewCell", for: indexPath) as? ArticleWithLocationTableViewCell else {
             return UITableViewCell()
         }
         
         let article = articleFetchedResultsController.object(at: indexPath)
         
-        cell.titleText = article.displayTitle
-        cell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
-        cell.setImageURL(article.thumbnailURL)
-        cell.articleLocation = article.location
+        cell.articleWithLocationCollectionViewCell.accessibilityTraits = UIAccessibilityTraitLink
+        cell.articleWithLocationCollectionViewCell.titleText = article.displayTitle
+        cell.articleWithLocationCollectionViewCell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
+        cell.articleWithLocationCollectionViewCell.setImageURL(article.thumbnailURL)
+        cell.articleWithLocationCollectionViewCell.articleLocation = article.location
+        cell.apply(theme: theme)
         
         var userLocation: CLLocation?
         var userHeading: CLHeading?
@@ -2364,7 +2363,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? WMFLocalizedString("action-save", value:"Save", comment:"Title for the 'Save' action\n{{Identical|Save}}") : WMFLocalizedString("action-saved", value:"Saved", comment:"Title for the 'Unsave' action - Indicates the article is saved\n{{Identical|Saved}}")
+        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
         let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
             CATransaction.begin()
             CATransaction.setCompletionBlock({
@@ -2374,14 +2373,15 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             tableView.setEditing(false, animated: true)
             CATransaction.commit()
         }
-        saveForLaterAction.backgroundColor = .wmf_darkBlue
+        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle;
+        saveForLaterAction.backgroundColor = theme.colors.secondaryAction
         
-        let shareAction = UITableViewRowAction(style: .default, title: WMFLocalizedString("action-share", value:"Share", comment:"Title for the 'Share' action\n{{Identical|Share}}")) { (action, indexPath) in
+        let shareAction = UITableViewRowAction(style: .default, title: CommonStrings.shortShareTitle) { (action, indexPath) in
             tableView.setEditing(false, animated: true)
             let article = self.articleFetchedResultsController.object(at: indexPath)
             self.perform(action: .share, onArticle: article)
         }
-        shareAction.backgroundColor = .wmf_blue
+        shareAction.backgroundColor = theme.colors.link
         return [saveForLaterAction, shareAction]
     }
     
@@ -2403,10 +2403,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let heading = locationManager.heading
         let location = locationManager.location
         for cell in listView.visibleCells {
-            guard let locationCell = cell as? WMFNearbyArticleTableViewCell else {
+            guard let locationCell = cell as? ArticleWithLocationTableViewCell else {
                 continue
             }
-            locationCell.update(userLocation: location, heading: heading)
+            locationCell.articleWithLocationCollectionViewCell.update(userLocation: location, heading: heading)
         }
     }
 
@@ -2823,5 +2823,82 @@ extension PlacesViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - Accessibility
+
+extension PlacesViewController {
+    override func accessibilityPerformEscape() -> Bool {
+        switch viewMode {
+        case .search:
+            closeSearch(self)
+            return true
+        default:
+            if isSearchFilterDropDownShowing {
+                toggleSearchFilterDropDown(self)
+                return true
+            } else if selectedArticlePopover != nil {
+                deselectAllAnnotations()
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+}
+
+// MARK: - Themeable
+
+extension PlacesViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.baseBackground
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        
+        titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
+        titleViewSearchBar.barTintColor = theme.colors.chromeBackground
+        titleViewSearchBar.isTranslucent = false
+        titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+        }
+        
+        listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchBar.isTranslucent = false
+        listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+        }
+        
+        wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
+        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
+        searchFilterListController.apply(theme: theme)
+        searchSuggestionController.apply(theme: theme)
+        
+        listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.tintColor = theme.colors.secondaryText
+        
+        listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
+        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
+        
+        emptySearchOverlayView.backgroundColor = theme.colors.midBackground
+        emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
+        
+        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        selectedArticlePopover?.apply(theme: theme)
+        redoSearchButton.backgroundColor = theme.colors.link
+        didYouMeanButton.backgroundColor = theme.colors.link
+        updateSearchFilterTitle()
+        listView.backgroundColor = theme.colors.baseBackground
+        listView.reloadData()
     }
 }

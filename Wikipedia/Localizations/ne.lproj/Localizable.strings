@@ -26,6 +26,7 @@
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन";
 "about-wikipedia" = "विकिपीडिया";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
+// Fuzzy
 "announcements-dismiss" = "पर्दैन धन्यवाद";
 "article-languages-others" = "अन्य भाषाहरू";
 "article-read-more-title" = "थप पढ्ने";
@@ -67,7 +68,6 @@
 "explore-randomizer" = "क्रमरहित ढङ्गले चुनिएको लेख";
 "feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
 "find-in-page-button-label" = "पानामा खोज्नुहोस्";
-"find-in-page-popover-description" = "लेखमा पाठ खोज्नुहोस्";
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्ने";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
@@ -86,7 +86,6 @@
 "in-the-news-notification-save-for-later-action-title" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
 "in-the-news-title" = "समाचारमा";
-"in-the-news-title-for-date" = "$1को विषयमा समाचारहरू";
 "info-box-close-text" = "बन्द गर्नुहोस्";
 // Fuzzy
 "info-box-title" = "शीध्रगामी तथ्यहरू";
@@ -129,7 +128,6 @@
 "rank-accessibility-label" = "नम्बर $1";
 "readers-accessibility-label" = "$1 को पाठकहरू";
 "reference-title" = "सन्दर्भ $1";
-"save-action" = "सङ्ग्रह गर्नुहोस्";
 "saved-clear-all" = "खाली गर्नुहोस्";
 "saved-pages-clear-cancel" = "रद्द गर्ने";
 "saved-pages-clear-delete-all" = "हो, सबै मेट्नुहोस्";
@@ -159,7 +157,6 @@
 "top-read-header-generic" = "विकिपिडिया";
 "top-read-header-with-language" = "$1 विकिपिडिया";
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस् \\";
-"unsave-action" = "सङ्ग्रह खारेज गर्नुहोस्";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-tell-me-more-done-button" = "मैले बुझेँ";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
@@ -173,7 +170,6 @@
 "welcome-volunteer-thanks" = "$1 तपाईँलाई धन्यवाद!";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
 "zero-charged-verbiage" = "विकिपीडिया शुन्य बन्द भयो";

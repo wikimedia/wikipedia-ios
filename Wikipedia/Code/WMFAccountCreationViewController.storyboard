@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -48,7 +48,6 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uF-gJ-dAF" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="46" width="288" height="20"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="3KT-CP-Cw2"/>
                                                         </constraints>
@@ -62,7 +61,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-2Y-0Ie">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-2Y-0Ie" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="88" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="6gm-if-SG8"/>
@@ -86,7 +85,6 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjL-Xk-iQ0" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="138" width="288" height="15"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="zah-c3-9gU"/>
                                                         </constraints>
@@ -100,7 +98,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-0J-fBj">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-0J-fBj" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="175" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="O2l-EP-YyM"/>
@@ -115,7 +113,6 @@
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zra-4a-1kG" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="206" width="288" height="15"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="Jd5-0m-Ef3"/>
                                                         </constraints>
@@ -129,7 +126,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="re-enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UgH-77-lyp">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="re-enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UgH-77-lyp" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="243" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="o2x-D3-txA"/>
@@ -153,7 +150,6 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LkQ-d5-fry" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="293" width="288" height="15"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="x3n-iM-zQb"/>
                                                         </constraints>
@@ -167,7 +163,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7" customClass="WMFThemeableTextField">
                                                         <rect key="frame" x="0.0" y="330" width="288" height="28"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="lzL-aV-2pq"/>
@@ -194,7 +190,6 @@
                                                     </containerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQ6-uR-ngF" userLabel="Spacer">
                                                         <rect key="frame" x="0.0" y="527" width="288" height="25"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="ag4-uU-DMk"/>
                                                         </constraints>
@@ -216,7 +211,6 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="top" secondItem="8Qz-4P-2EZ" secondAttribute="top" constant="30" id="HNF-Zh-UpN"/>
                                             <constraint firstItem="7AC-EW-rPT" firstAttribute="centerX" secondItem="8Qz-4P-2EZ" secondAttribute="centerX" id="QUh-Hg-lLt"/>
@@ -255,6 +249,7 @@
                         <outlet property="passwordRepeatField" destination="UgH-77-lyp" id="2o9-29-ToR"/>
                         <outlet property="passwordRepeatTitleLabel" destination="t9g-Yg-iPJ" id="Szc-Kv-Hpc"/>
                         <outlet property="passwordTitleLabel" destination="2aD-ss-nxg" id="acx-D1-JcQ"/>
+                        <outlet property="scrollContainer" destination="8Qz-4P-2EZ" id="lPP-0j-BIc"/>
                         <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
                         <outlet property="titleLabel" destination="c3c-PU-Exz" id="ave-jg-bBY"/>
                         <outlet property="usernameAlertLabel" destination="yEV-bO-oF2" id="Fpl-4z-yMC"/>

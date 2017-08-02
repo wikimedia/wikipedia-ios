@@ -53,17 +53,17 @@
     [self.columns enumerateObjectsUsingBlock:block];
 }
 
-- (nullable WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (nonnull WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger sectionIndex = indexPath.section;
 
     if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
     }
 
     WMFCVLSection *section = self.sections[sectionIndex];
     NSInteger itemIndex = indexPath.item;
     if (itemIndex < 0 || itemIndex >= section.items.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
     }
 
     WMFCVLAttributes *attributes = section.items[itemIndex];
@@ -71,10 +71,10 @@
     return attributes;
 }
 
-- (nullable WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+- (nonnull WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     NSInteger sectionIndex = indexPath.section;
     if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
-        return nil;
+        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     WMFCVLSection *section = self.sections[sectionIndex];
@@ -83,15 +83,17 @@
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         NSInteger itemIndex = indexPath.item;
         if (itemIndex < 0 || itemIndex >= section.headers.count) {
-            return nil;
+            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.headers[itemIndex];
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
         NSInteger itemIndex = indexPath.item;
         if (itemIndex < 0 || itemIndex >= section.footers.count) {
-            return nil;
+            return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         }
         attributes = section.footers[itemIndex];
+    } else {
+        attributes = [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     }
 
     assert(attributes != nil);
@@ -126,10 +128,7 @@
     if (collectionView == nil) {
         return;
     }
-    if (context.boundsDidChange) {
-        [self resetColumns];
-        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil];
-    } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
+    if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
         NSIndexPath *indexPath = originalAttributes.indexPath;
@@ -236,7 +235,7 @@
         for (NSInteger columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
             WMFCVLColumn *column = self.columns[columnIndex];
             CGFloat columnHeight = column.frame.size.height;
-            if (columnHeight < shortestColumnHeight) {
+            if (columnHeight <= shortestColumnHeight) { // <= to defer to the narrower column if it's equally short
                 shortestColumn = column;
                 shortestColumnHeight = columnHeight;
             }
@@ -287,7 +286,9 @@
         BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
                                                  withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                      if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                         headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                         WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                         attributes.precalculated = estimate.precalculated;
+                                                         headerHeight = estimate.height;
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
                                                      } else {
                                                          headerHeight = existingFrame.size.height;
@@ -347,7 +348,9 @@
         didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
                                             withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame, WMFCVLAttributes *attributes) {
                                                 if (wasCreated || section.needsToRecalculateEstimatedLayout) {
-                                                    footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                    WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                    attributes.precalculated = estimate.precalculated;
+                                                    footerHeight = estimate.height;
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
                                                 } else {
                                                     footerHeight = existingFrame.size.height;

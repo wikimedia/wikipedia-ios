@@ -1,0 +1,67 @@
+{
+  "images" : [
+    {
+      "size" : "60x45",
+      "idiom" : "iphone",
+      "filename" : "120x90.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "60x45",
+      "idiom" : "iphone",
+      "filename" : "180x135.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "67x50",
+      "idiom" : "ipad",
+      "filename" : "134x100.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "74x55",
+      "idiom" : "ipad",
+      "filename" : "148x110.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "27x20",
+      "idiom" : "universal",
+      "filename" : "54x40.png",
+      "scale" : "2x",
+      "platform" : "ios"
+    },
+    {
+      "size" : "27x20",
+      "idiom" : "universal",
+      "filename" : "81x60.png",
+      "scale" : "3x",
+      "platform" : "ios"
+    },
+    {
+      "size" : "32x24",
+      "idiom" : "universal",
+      "filename" : "64x48.png",
+      "scale" : "2x",
+      "platform" : "ios"
+    },
+    {
+      "size" : "32x24",
+      "idiom" : "universal",
+      "filename" : "96x72.png",
+      "scale" : "3x",
+      "platform" : "ios"
+    },
+    {
+      "size" : "1024x768",
+      "idiom" : "ios-marketing",
+      "filename" : "1024x768.png",
+      "scale" : "1x",
+      "platform" : "ios"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
+@interface WMFArticleViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate, WMFThemeable>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore;
@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIButton *)titleButton;
 
+@property (strong, nonatomic, nullable, readonly) WMFTheme *theme;
+
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)
@@ -85,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *shareToolbarItem;
-@property (nonatomic, strong, readonly) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *readingThemesControlsToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem *hideTableOfContentsToolbarItem;
 

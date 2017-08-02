@@ -23,10 +23,8 @@
     self.subTitleLabel.isAccessibilityElement = NO;
     self.containerView.isAccessibilityElement = YES;
     self.accessibilityTraits = UIAccessibilityTraitHeader;
-    self.tintColor = [UIColor wmf_blue];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden = YES;
-    self.rightButton.tintColor = [UIColor wmf_blue];
     self.rightButton.isAccessibilityElement = YES;
     self.rightButton.accessibilityTraits = UIAccessibilityTraitButton;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -121,6 +119,23 @@
         self.rightButtonWidthConstraint.constant = 0;
     }
     [super updateConstraints];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.containerView.backgroundColor = theme.colors.paperBackground;
+    self.titleLabel.textColor = theme.colors.secondaryText;
+    self.titleLabel.backgroundColor = theme.colors.paperBackground;
+    self.subTitleLabel.textColor = theme.colors.secondaryText;
+    self.subTitleLabel.backgroundColor = theme.colors.paperBackground;
+    self.rightButton.backgroundColor = theme.colors.paperBackground;
+    self.backgroundColor = theme.colors.paperBackground;
+
+    if (theme.colors.iconBackground != nil) {
+        self.iconContainerView.backgroundColor = theme.colors.iconBackground;
+    }
+    if (theme.colors.icon != nil) {
+        self.icon.tintColor = theme.colors.icon;
+    }
 }
 
 @end

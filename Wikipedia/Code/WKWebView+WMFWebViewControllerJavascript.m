@@ -16,10 +16,17 @@ static int const kMinimumTextSelectionLength = 2;
     [self evaluateJavaScript:[self tableCollapsingJavascriptForArticle:article] completionHandler:nil];
 }
 
+- (void)wmf_addEditPencilsForArticle:(MWKArticle *)article {
+    if (!article.isMain) {
+        [self evaluateJavaScript:@"window.wmf.editButtons.add(document);" completionHandler:nil];
+    }
+}
+
 - (NSString *)tableCollapsingJavascriptForArticle:(MWKArticle *)article {
-    NSString *infoBoxTitle = [WMFLocalizedStringWithDefaultValue(@"info-box-title", article.url, nil, @"Quick Facts", @"The title of infoboxes – in collapsed and expanded form") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    NSString *tableTitle = [WMFLocalizedStringWithDefaultValue(@"table-title-other", article.url, nil, @"More information", @"The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
-    NSString *closeBoxText = [WMFLocalizedStringWithDefaultValue(@"info-box-close-text", article.url, nil, @"Close", @"The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *language = article.url.wmf_language;
+    NSString *infoBoxTitle = [WMFLocalizedStringWithDefaultValue(@"info-box-title", language, nil, @"Quick Facts", @"The title of infoboxes – in collapsed and expanded form") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *tableTitle = [WMFLocalizedStringWithDefaultValue(@"table-title-other", language, nil, @"More information", @"The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *closeBoxText = [WMFLocalizedStringWithDefaultValue(@"info-box-close-text", language, nil, @"Close", @"The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     return
         [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@', '%@');",
                                    article.isMain, article.displaytitle, infoBoxTitle, tableTitle, closeBoxText];

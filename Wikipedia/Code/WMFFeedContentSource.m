@@ -195,6 +195,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindPictureOfTheDay];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindNews];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
 }
 
 #pragma mark - Save Groups
@@ -204,10 +205,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date inManagedObjectContext:moc];
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
-        NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-        if ([calendar isDateInToday:date]) {
-            [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
-        }
+        [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
 
         if (!completion) {
@@ -278,13 +276,24 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 }
 
-- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    if ([news count] == 0 || date == nil) {
+- (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
+
+    // Search for a previously added news group with this date.
+    // Invisible news groups are created when an older news story is loaded.
+    // If the user has now scrolled to this older date, show the older news story.
+    WMFContentGroup *newsGroupForFeedDate = [self newsForDate:feedDate inManagedObjectContext:moc];
+    if (newsGroupForFeedDate) {
+        newsGroupForFeedDate.isVisible = YES;
+        [self addNewsNotificationGroupForNewsGroup:newsGroupForFeedDate inManagedObjectContext:moc];
+    }
+
+    if ([news count] == 0 || feedDate == nil) {
         return;
     }
 
     WMFFeedNewsStory *firstStory = [news firstObject];
     NSDate *midnightMonthAndDay = firstStory.midnightUTCMonthAndDay;
+    NSDate *date = feedDate;
     if (midnightMonthAndDay && date) {
         // This logic assumes we won't be loading something more than 30 days old
         NSCalendar *utcCalendar = NSCalendar.wmf_utcGregorianCalendar;
@@ -299,6 +308,14 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         components.day = storyComponents.day;
         components.month = storyComponents.month;
         date = [localCalendar dateFromComponents:components];
+    }
+
+    // Check that the news story date matches the feed date being requested
+    // If the dates don't match, add the section but make it invisible.
+    BOOL isVisible = YES;
+    NSDate *feedMidnightUTCDate = [feedDate wmf_midnightUTCDateFromLocalDate];
+    if (date && feedMidnightUTCDate && ![[date wmf_midnightUTCDateFromLocalDate] isEqualToDate:feedMidnightUTCDate]) {
+        isVisible = NO;
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -327,11 +344,22 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
     }];
 
-    WMFContentGroup *group = [self newsForDate:date inManagedObjectContext:moc];
-    if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+    WMFContentGroup *newsGroup = [self newsForDate:date inManagedObjectContext:moc];
+    if (newsGroup == nil) {
+        newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
     } else {
-        group.content = news;
+        newsGroup.content = news;
+    }
+    newsGroup.isVisible = isVisible;
+    [self addNewsNotificationGroupForNewsGroup:newsGroup inManagedObjectContext:moc];
+}
+
+- (void)addNewsNotificationGroupForNewsGroup:(WMFContentGroup *)newsGroup inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+        NSURL *URL = [WMFContentGroup notificationContentGroupURL];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
 
@@ -352,6 +380,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
+}
+
+- (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
 }
 
 #pragma mark - Notifications
@@ -390,8 +422,16 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     WMFFeedNewsStory *newsStory = feedDay.newsStories.firstObject;
-
     if (!newsStory) {
+        done();
+        return;
+    }
+
+    NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
+    NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
+    NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
+    // Ensure the news date is no more than a day old (if it has a date at all)
+    if (newsMonthAndDay && midnightUTCDate && [utcCalendar wmf_daysFromMonthAndDay:newsMonthAndDay toDate:midnightUTCDate] > 1) {
         done();
         return;
     }
@@ -468,7 +508,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSError *JSONError = nil;
-    NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError];
+    NSMutableDictionary *JSONDictionary = [[MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError] mutableCopy];
     if (JSONError) {
         DDLogError(@"Error serializing news story: %@", JSONError);
     }
@@ -476,24 +516,39 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSString *articleURLString = articlePreview.URL.absoluteString;
     NSString *storyHTML = newsStory.storyHTML;
     NSString *displayTitle = articlePreview.displayTitle;
-    NSDictionary *viewCounts = articlePreview.pageViews;
+    NSDictionary *originalViewCounts = articlePreview.pageViews;
 
     if (!storyHTML || !articleURLString || !displayTitle || !JSONDictionary) {
         return NO;
     }
 
-    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:4];
-    info[WMFNotificationInfoArticleTitleKey] = displayTitle;
-    info[WMFNotificationInfoViewCountsKey] = viewCounts;
-    info[WMFNotificationInfoArticleURLStringKey] = articleURLString;
-    info[WMFNotificationInfoFeedNewsStoryKey] = JSONDictionary;
+    NSMutableDictionary *viewCounts = [NSMutableDictionary dictionaryWithCapacity:originalViewCounts.count];
+    [originalViewCounts enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
+        if (![key isKindOfClass:[NSDate class]]) {
+            return;
+        }
+        NSString *dateString = [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:key];
+        if (!dateString) {
+            return;
+        }
+        viewCounts[dateString] = obj;
+    }];
+
+    // Workaround for inablity to specify which reverse transform to use on WMFFeedNewsStory for storyHTML (it uses the date instead of the story)
+    JSONDictionary[@"story"] = storyHTML;
+
+    NSMutableDictionary *mutableInfo = [NSMutableDictionary dictionaryWithCapacity:4];
+    mutableInfo[WMFNotificationInfoArticleTitleKey] = displayTitle;
+    mutableInfo[WMFNotificationInfoViewCountsKey] = viewCounts;
+    mutableInfo[WMFNotificationInfoArticleURLStringKey] = articleURLString;
+    mutableInfo[WMFNotificationInfoFeedNewsStoryKey] = JSONDictionary;
     NSString *thumbnailURLString = articlePreview.thumbnailURL.absoluteString;
     if (thumbnailURLString) {
-        info[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
+        mutableInfo[WMFNotificationInfoThumbnailURLStringKey] = thumbnailURLString;
     }
     NSString *snippet = articlePreview.wikidataDescription ?: articlePreview.snippet;
     if (snippet) {
-        info[WMFNotificationInfoArticleExtractKey] = snippet;
+        mutableInfo[WMFNotificationInfoArticleExtractKey] = snippet;
     }
 
     NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
@@ -502,7 +557,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSDate *notificationDate = [NSDate date];
     NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
     NSDateComponents *notificationDateComponents = [userCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:notificationDate];
-
+    NSDictionary *info = [mutableInfo wmf_dictionaryByRecursivelyRemovingNullObjects];
     if (force) {
         // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
         notificationDateComponents = nil;

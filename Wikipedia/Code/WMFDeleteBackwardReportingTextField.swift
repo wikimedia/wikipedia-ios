@@ -4,12 +4,12 @@
 /// reported to other UITextFieldDelegate methods. 
 /// See: http://stackoverflow.com/a/13017462/135557
 public protocol WMFDeleteBackwardReportingTextFieldDelegate{
-    func wmf_deleteBackward(_ sender: UITextField)
+    func wmf_deleteBackward(_ sender: WMFDeleteBackwardReportingTextField)
 }
 
-class WMFDeleteBackwardReportingTextField : UITextField {
+public class WMFDeleteBackwardReportingTextField : ThemeableTextField {
     var deleteBackwardDelegate: WMFDeleteBackwardReportingTextFieldDelegate?
-    override func deleteBackward() {
+    override public func deleteBackward() {
         deleteBackwardDelegate?.wmf_deleteBackward(self)
         super.deleteBackward()
     }

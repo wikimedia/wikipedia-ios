@@ -53,7 +53,9 @@
 "action-read" = "Đọc";
 "action-save" = "Lưu";
 "action-share" = "Chia sẻ";
+"action-unsave" = "Bỏ lưu";
 "alert-no-internet" = "Không có kết nối Internet";
+// Fuzzy
 "announcements-dismiss" = "Thôi";
 "article-about-title" = "Thông tin về bài viết";
 "article-languages-filter-placeholder" = "Tìm ngôn ngữ";
@@ -108,6 +110,7 @@
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
 "explore-randomizer" = "Ngẫu nhiên";
 "feed-news-notification-button-text" = "Bật thông báo";
+// Fuzzy
 "feed-news-notification-text" = "Hiện nay bạn có thể nhận thông báo về các bài Wikipedia thịnh hành về tin tức.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
 "field-alert-password-confirm-mismatch" = "Mật khẩu không khớp";
@@ -132,7 +135,6 @@
 "field-username-placeholder" = "nhập tên người dùng";
 "field-username-title" = "Tên người dùng";
 "find-in-page-button-label" = "Tìm trong trang";
-"find-in-page-popover-description" = "Tìm văn bản trong bài viết";
 "forgot-password-button-title" = "Mặc định lại";
 "forgot-password-email-sent" = "Đã gửi thư điện tử có hướng dẫn đặt lại mật khẩu";
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
@@ -174,7 +176,6 @@
 "in-the-news-notification-save-for-later-action-title" = "Lưu để đọc sau";
 "in-the-news-notification-share-action-title" = "Chia sẻ…";
 "in-the-news-title" = "Tin tức";
-"in-the-news-title-for-date" = "Tin tức $1";
 "info-box-close-text" = "Đóng";
 // Fuzzy
 "info-box-title" = "Thông tin nhanh";
@@ -242,7 +243,6 @@
 "readers-accessibility-label" = "$1 người đọc";
 "reference-title" = "Chú thích $1";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
-"save-action" = "Lưu";
 "saved-clear-all" = "Xóa sạch";
 "saved-pages-clear-cancel" = "Hủy bỏ";
 "saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
@@ -258,11 +258,11 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
-"settings-clear-cache" = "Xoá dữ liệu đệm";
-"settings-clear-cache-are-you-sure-message" = "Xoá dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xoá trang bạn đã lưu.";
-"settings-clear-cache-are-you-sure-title" = "Xoá dữ liệu đệm?";
-"settings-clear-cache-cancel" = "Huỷ bỏ";
-"settings-clear-cache-ok" = "Xoá bộ đệm";
+"settings-clear-cache" = "Xóa dữ liệu đệm";
+"settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
+"settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
+"settings-clear-cache-cancel" = "Hủy bỏ";
+"settings-clear-cache-ok" = "Xóa bộ đệm";
 "settings-help-and-feedback" = "Trợ giúp và phản hồi";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-my-languages" = "Ngôn ngữ của tôi";
@@ -292,14 +292,12 @@
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-heading" = "Mục lục";
-"table-of-contents-popover-description" = "Xem cấu trúc bài viết";
 "table-title-other" = "Thêm thông tin";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
 "two-factor-login-instructions" = "Xin vui lòng nhập mã xác thực dùng hai nhân tố";
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
-"unsave-action" = "Không lưu";
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-explore-new-ways-sub-title" = "Thông báo và tiện ích mới để giúp bạn khám phá các bài thú vị";
 "welcome-explore-new-ways-title" = "Phương cách thám hiểm mới";
@@ -327,7 +325,6 @@
 "wikitext-upload-result-unknown" = "Không thể xác định kết quả tải lên mã wiki.";
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
 "zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";

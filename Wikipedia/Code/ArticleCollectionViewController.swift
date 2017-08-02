@@ -19,7 +19,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier)
+        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
     }
     
     func articleURL(at indexPath: IndexPath) -> URL {
@@ -46,7 +46,9 @@ extension ArticleCollectionViewController {
         guard let article = dataStore.fetchArticle(with: url) else {
             return articleCell
         }
-        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, layoutOnly: false)
+        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
+        
+
         return articleCell
     }
 }
@@ -80,10 +82,22 @@ extension ArticleCollectionViewController {
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 60)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
+            return estimate
+        }
+        let url = articleURL(at: indexPath)
+        guard let article = dataStore.fetchArticle(with: url) else {
+            return estimate
+        }
+        placeholderCell.reset()
+        placeholderCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
     }
+    
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
- 
     }
 }

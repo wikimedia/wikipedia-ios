@@ -1,9 +1,10 @@
 @import UIKit;
+@import WMF.Swift;
 
 @class MWKRecentSearchList, MWKRecentSearchEntry;
 @protocol WMFRecentSearchesViewControllerDelegate;
 
-@interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
 
 @property (nonatomic, strong) MWKRecentSearchList *recentSearches;
 
