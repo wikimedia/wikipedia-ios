@@ -9,8 +9,10 @@ class TextSizeChangeExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: self.theme)
+        //localize
         textSizeChangeExampleLabel.text = "Drag the slider above to change the article text sizing. Utilize your system text size to resize other text areas in the app."
         
+        //TODO: update notification name
         NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
     }
     
@@ -20,11 +22,8 @@ class TextSizeChangeExampleViewController: UIViewController {
     }
     
     func textSizeChanged(notification: Notification) {
-        print("font size before change: \(textSizeChangeExampleLabel.font.pointSize)")
         if let multiplier = notification.userInfo?[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey] as? NSNumber {
-            textSizeChangeExampleLabel.font = textSizeChangeExampleLabel.font.withSize(CGFloat(multiplier.doubleValue*0.17))
-            print("intValue: \(multiplier.intValue)")
-            print("font size after change: \(textSizeChangeExampleLabel.font.pointSize)")
+            textSizeChangeExampleLabel.font = textSizeChangeExampleLabel.font.withSize(15*CGFloat(multiplier)/100)
         }
     }
     
