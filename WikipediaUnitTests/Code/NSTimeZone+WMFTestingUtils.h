@@ -1,8 +1,4 @@
-@import Quick;
-
-#define resetTimeZoneAfterEach() afterEach(^{ \
-    [NSTimeZone wmf_resetDefaultTimeZone];    \
-})
+@import Foundation;
 
 @interface NSTimeZone (WMFTestingUtils)
 
