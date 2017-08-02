@@ -180,10 +180,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
-    
-    if (self.searchTerm) {
-        self.searchTerm = self.searchTerm;
-    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -369,10 +365,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Search
 
 - (void)setSearchTerm:(NSString *)searchTerm {
-    _searchTerm = [searchTerm copy];
-    if (!self.viewIfLoaded) {
-        return;
-    }
     if (searchTerm.length == 0) {
         return;
     }
@@ -381,7 +373,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (NSURL *)currentlySelectedSearchURL {
-    return self.searchLanguagesBarViewController.currentlySelectedSearchLanguage.siteURL ?: [NSURL wmf_URLWithDefaultSiteAndCurrentLocale];
+    return self.searchLanguagesBarViewController.currentlySelectedSearchLanguage.siteURL;
 }
 
 - (void)didCancelSearch {
@@ -441,7 +433,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.fetcher fetchArticlesForSearchTerm:searchTerm
         siteURL:url
         resultLimit:WMFMaxSearchResultLimit
-        failure:failure
+        failure:^(NSError *_Nonnull error) {
+
+        }
         success:^(WMFSearchResults *_Nonnull results) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 @strongify(self);
