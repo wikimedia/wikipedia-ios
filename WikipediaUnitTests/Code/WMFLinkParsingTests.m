@@ -58,7 +58,7 @@
     XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
     NSURL *pageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", pageURL.absoluteString);
-    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"/Main_Page"];
+    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
 }
 
@@ -94,6 +94,14 @@
     XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
+- (void)testTitlesWithSlashes {
+    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL *devNullURL = [URL wmf_URLWithTitle:@"/dev/null"];
+    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2Fdev%2Fnull", devNullURL.absoluteString);
+    NSURL *albumURL = [URL wmf_URLWithTitle:@"/2016ALBUM/"];
+    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2F2016ALBUM%2F", albumURL.absoluteString);
+}
+
 - (void)testWMFCanonicalMappingURLComponents {
     NSURL *one = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relatività"].URL;
     NSURL *two = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativit\u00E0"].URL;
@@ -123,7 +131,7 @@
     XCTAssertEqualObjects(two, three);
     XCTAssertEqualObjects(three, @"Teoria della relativit\u00E0");
 
-    one = [@"Teoria_della_relativit\u00E0" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];  //Teoria_della_relativit%C3%A0
+    one = [@"Teoria_della_relativit\u00E0" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]; //Teoria_della_relativit%C3%A0
     two = [@"Teoria_della_relativita\u0300" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]; //Teoria_della_relativita%CC%80
     one = [one wmf_unescapedNormalizedPageTitle];
     two = [two wmf_unescapedNormalizedPageTitle];
