@@ -62,7 +62,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil))])
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
         
         
         return [readingThemesSection, themeOptionsSection, textSizingSection]
@@ -88,7 +88,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
         }
-        
+        //TODO: consolidate
         if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? ImageDimmingExampleViewController {
             vc.apply(theme: theme)
             if let view = vc.viewIfLoaded {
@@ -100,6 +100,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
+            vc.apply(theme: self.theme)
+            var frame = view.frame
+            frame.size.width = cell.frame.width
+            view.frame = frame
+            cell.contentView.addSubview(view)
+        }
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? TextSizeChangeExampleViewController, let view = vc.viewIfLoaded {
             vc.apply(theme: self.theme)
             var frame = view.frame
             frame.size.width = cell.frame.width
