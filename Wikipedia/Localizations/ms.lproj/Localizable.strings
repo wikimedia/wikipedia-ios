@@ -184,8 +184,7 @@
 "home-nearby-location-footer" = "Lainnya berhampiran $1";
 "home-news-footer" = "Berita terkini lainnya";
 "home-themes-action-title" = "Urus keutamaan";
-// Fuzzy
-"home-themes-prompt" = "Baca dalam gelap atau batasi pendedahan anda kepada cahaya biru pada waktu petang dengan tema bacaan Gelap dan Sepia baru. Sesuaikan pilihan bacaan anda (termasuk saiz teks dan tema) dari bar alat rencana atau dalam tetapan pengguna anda.";
+"home-themes-prompt" = "Sesuaikan pilihan bacaan anda termasuk saiz teks dan tema dari bar alat rencana atau dalam tetapan pengguna anda untuk pengalaman membaca yang lebih selesa.";
 "home-title" = "Jelajah";
 "home-title-accessibility-label" = "Wikipedia, tatal ke bahagian atas laman Jelajah";
 "icon-shortcut-continue-reading-title" = "Teruskan membaca";

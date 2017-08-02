@@ -6,14 +6,7 @@
 #import "NSArray+WMFShuffle.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "WMFTestFixtureUtilities.h"
-
 #import <Nocilla/Nocilla.h>
-
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKSiteInfoFetcherTests : WMFAsyncTestCase
 @property (strong, nonatomic) MWKSiteInfoFetcher *fetcher;
@@ -52,15 +45,15 @@
 
     stubRequest(@"GET", anyRequestFromTestSite)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type": @"application/json" })
+        .withHeaders(@{@"Content-Type": @"application/json"})
         .withBody(json);
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
     [self.fetcher fetchSiteInfoForSiteURL:testSiteURL
         completion:^(MWKSiteInfo *_Nonnull result) {
-            assertThat(result.siteURL, is(equalTo(testSiteURL)));
-            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            XCTAssert([result.siteURL isEqual:testSiteURL]);
+            XCTAssert([result.mainPageTitleText isEqual:[jsonDictionary valueForKeyPath:@"query.general.mainpage"]]);
             [expectation fulfill];
         }
         failure:^(NSError *_Nonnull error) {
@@ -88,15 +81,15 @@
 
     stubRequest(@"GET", anyRequestFromTestSiteDesktop)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type": @"application/json" })
+        .withHeaders(@{@"Content-Type": @"application/json"})
         .withBody(json);
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
     [self.fetcher fetchSiteInfoForSiteURL:testSiteURL
         completion:^(MWKSiteInfo *_Nonnull result) {
-            assertThat(result.siteURL, is(equalTo(testSiteURL)));
-            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            XCTAssert([result.siteURL isEqual:testSiteURL]);
+            XCTAssert([result.mainPageTitleText isEqual:[jsonDictionary valueForKeyPath:@"query.general.mainpage"]]);
             [expectation fulfill];
         }
         failure:^(NSError *_Nonnull error) {

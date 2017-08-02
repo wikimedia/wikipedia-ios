@@ -31,7 +31,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
     self.controller = [[WMFArticlePreviewViewController alloc] init];
     [self.controller.view setHidden:NO];
@@ -41,27 +41,27 @@
 - (void)tearDown {
     [super tearDown];
 }
-#warning re-enable after theme changes
-//- (void)testWithImage {
-//    self.controller.collapseImageAndWidenLabels = NO;
-//    [self wmf_verifyViewAtWindowWidth:self.controller.view];
-//}
-//
-//- (void)testWithoutImage {
-//    self.controller.collapseImageAndWidenLabels = YES;
-//    [self wmf_verifyViewAtWindowWidth:self.controller.view];
-//}
-//
-//- (void)testWithImageAndNoSubtitle {
-//    self.controller.collapseImageAndWidenLabels = NO;
-//    self.controller.subtitleLabel.text = nil;
-//    [self wmf_verifyViewAtWindowWidth:self.controller.view];
-//}
-//
-//- (void)testWithoutImageAndNoSubtitle {
-//    self.controller.collapseImageAndWidenLabels = YES;
-//    self.controller.subtitleLabel.text = nil;
-//    [self wmf_verifyViewAtWindowWidth:self.controller.view];
-//}
+
+- (void)testWithImage {
+    self.controller.collapseImageAndWidenLabels = NO;
+    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+}
+
+- (void)testWithoutImage {
+    self.controller.collapseImageAndWidenLabels = YES;
+    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+}
+
+- (void)testWithImageAndNoSubtitle {
+    self.controller.collapseImageAndWidenLabels = NO;
+    self.controller.subtitleLabel.text = nil;
+    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+}
+
+- (void)testWithoutImageAndNoSubtitle {
+    self.controller.collapseImageAndWidenLabels = YES;
+    self.controller.subtitleLabel.text = nil;
+    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+}
 
 @end

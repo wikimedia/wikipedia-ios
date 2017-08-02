@@ -178,6 +178,7 @@
 "reading-themes-controls-accessibility-dim-images-switch" = "Irudiak arindu";
 "reading-themes-controls-accessibility-light-theme-button" = "Gai argia";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia gaia";
+"reading-themes-controls-accessibility-text-size-slider" = "Testuaren tamaina irristagarria";
 "reference-title" = "$1 erreferentzia";
 "relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
 "saved-clear-all" = "Garbitu";

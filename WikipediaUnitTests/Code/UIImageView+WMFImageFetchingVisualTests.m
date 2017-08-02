@@ -20,7 +20,7 @@
 - (void)setUp {
     [super setUp];
 
-    self.recordMode = [[NSUserDefaults wmf_userDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
 
     [[LSNocilla sharedInstance] start];
@@ -77,7 +77,7 @@
             [expectation fulfill];
         }
         success:^{
-            WMFSnapshotVerifyView(self.imageView);
+            WMFSnapshotVerifyViewForOSAndWritingDirection(self.imageView);
             [expectation fulfill];
         }];
 

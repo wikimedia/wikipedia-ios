@@ -69,8 +69,7 @@
 "action-share" = "Compartir";
 "action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
-// Fuzzy
-"announcements-dismiss" = "No, gracias";
+"announcements-dismiss" = "Descartar";
 "appearance-settings-reading-themes" = "Temas de lecturas";
 "appearance-settings-theme-options" = "Opciones de temas";
 "appearance-settings-title" = "Temas de lecturas";
@@ -82,6 +81,7 @@
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Más información";
 "article-share" = "Compartir";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back" = "Volver";
@@ -140,8 +140,7 @@
 "explore-random-article-heading" = "Artículo aleatorio";
 "explore-randomizer" = "Aleatorio";
 "feed-news-notification-button-text" = "Activar las notificaciones";
-// Fuzzy
-"feed-news-notification-text" = "Ahora puedes recibir notificaciones sobre artículos de Wikipedia en tendencia en las noticias.";
+"feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
 "field-alert-password-confirm-mismatch" = "Las contraseñas no coinciden";
 "field-alert-password-invalid" = "La contraseña no es válida";
@@ -198,8 +197,7 @@
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más en las noticias";
 "home-themes-action-title" = "Gestionar las preferencias";
-// Fuzzy
-"home-themes-prompt" = "Lee en la oscuridad o limita tu exposición a la luz azul en el atardecer con los nuevos temas de lectura \"Oscuro\" y \"Sepia\". Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario.";
+"home-themes-prompt" = "Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario para una experiencia de lectura más cómoda.";
 "home-title" = "Explorar";
 "home-title-accessibility-label" = "Wikipedia, desplazarse a la parte superior de Explorar";
 "icon-shortcut-continue-reading-title" = "Continuar leyendo";
@@ -309,6 +307,12 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-themes-controls-accessibility-brightness-slider" = "Control de brillo";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema oscuro";
+"reading-themes-controls-accessibility-dim-images-switch" = "Atenuación de imágenes";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema ligero";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-text-size-slider" = "Control de tamaño de texto";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
