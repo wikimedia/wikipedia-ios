@@ -301,7 +301,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
         NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:date];
         if (storyComponents.month > components.month + 1) { //probably not how this should be done
-            components.year = components.year - 1;          // assume it's last year
+            components.year = components.year - 1; // assume it's last year
         } else if (components.month > storyComponents.month + 1) {
             components.year = components.year + 1; // assume it's next year
         }
@@ -310,11 +310,15 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         date = [localCalendar dateFromComponents:components];
     }
 
+    if (!date) {
+        return;
+    }
+
     // Check that the news story date matches the feed date being requested
     // If the dates don't match, add the section but make it invisible.
     BOOL isVisible = YES;
     NSDate *feedMidnightUTCDate = [feedDate wmf_midnightUTCDateFromLocalDate];
-    if (date && feedMidnightUTCDate && ![[date wmf_midnightUTCDateFromLocalDate] isEqualToDate:feedMidnightUTCDate]) {
+    if (feedMidnightUTCDate && ![[date wmf_midnightUTCDateFromLocalDate] isEqualToDate:feedMidnightUTCDate]) {
         isVisible = NO;
     }
 

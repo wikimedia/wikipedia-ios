@@ -200,7 +200,7 @@ extern NSString *const WMFAPIPath;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_title;
 
-@property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderScores;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_titleWithUnderscores;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_articleDatabaseKey; // string suitable for using as a unique key for the article
 

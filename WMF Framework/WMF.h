@@ -8,6 +8,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFAssertions.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSCharacterSet+WMFLinkParsing.h>
 #import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/WMFBlockDefinitions.h>
 #import <WMF/WMFComparison.h>
