@@ -42,9 +42,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafoundation.org/wiki/Privacy_policy";
 
 #if WMF_TWEAKS_ENABLED
-@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 #else
-@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource,WMFPreferredLanguagesViewControllerDelegate>
 #endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -71,6 +71,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
     
     [self configureBackButton];
     
@@ -127,7 +130,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     return WMFLocalizedStringWithDefaultValue(@"settings-title", nil, nil, @"Settings", @"Title of the view where app settings are displayed.\n{{Identical|Settings}}");
 }
 
-- (void)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSLog(@"cellForRowAtIndexPath");
     WMFSettingsTableViewCell *cell = [[WMFSettingsTableViewCell alloc] init];
     WMFSettingsMenuItem *menuItem = [[WMFSettingsMenuItem alloc] init];
     cell.tag = menuItem.type;
@@ -152,6 +156,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     cell.disclosureSwitch.tag = menuItem.type;
     [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    return cell;
 }
 
 //- (void)configureTableDataSource {
@@ -437,12 +443,12 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-//    NSArray *items = [self.sections[section] getItems];
-    return 2;
+    NSArray *items = [self.sections[section] getItems];
+    return items.count;
 
 }
 
-- (NSString *)tableView:(UITableView *)tableView
+- (nullable NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section {
     NSString *header = [self.sections[section] getHeaderTitle];
     if (header != nil) {
