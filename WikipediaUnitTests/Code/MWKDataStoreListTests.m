@@ -5,9 +5,6 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @implementation MWKDataStoreListTests
 
 - (void)setUp {
@@ -70,7 +67,7 @@
 }
 
 - (void)verifyList:(MWKList *)list isEqualToList:(MWKList *)otherList {
-    assertThat(otherList, is(equalTo(list)));
+    XCTAssert([otherList isEqual:list]);
 }
 
 @end

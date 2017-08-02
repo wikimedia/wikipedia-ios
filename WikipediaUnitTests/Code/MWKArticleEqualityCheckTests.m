@@ -1,10 +1,6 @@
 #import <XCTest/XCTest.h>
-
 #import "MWKArticle.h"
 #import "MWKSectionList.h"
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKArticleEqualityCheckTests : XCTestCase
 
@@ -20,7 +16,7 @@
     MWKArticle *foo2 =
         [[MWKArticle alloc] initWithURL:url
                               dataStore:nil];
-    assertThat(foo, is(equalTo(foo2)));
+    XCTAssert([foo isEqual:foo2]);
 }
 
 - (void)testTwoArticlesWithSameTitleButDifferentFragmentAreEqual {
@@ -30,7 +26,7 @@
     MWKArticle *fooWithBarFragment =
         [[MWKArticle alloc] initWithURL:[NSURL URLWithString:@"//en.wikipedia.org/wiki/Foo#bar"]
                               dataStore:nil];
-    assertThat(foo, is(equalTo(fooWithBarFragment)));
+    XCTAssert([foo isEqual:fooWithBarFragment]);
 }
 
 - (void)testTwoArticlesWithDifferentTitlesAreNotEqual {
@@ -40,7 +36,7 @@
     MWKArticle *bar =
         [[MWKArticle alloc] initWithURL:[NSURL URLWithString:@"//en.wikipedia.org/wiki/Bar"]
                               dataStore:nil];
-    assertThat(foo, isNot(equalTo(bar)));
+    XCTAssert(![foo isEqual:bar]);
 }
 
 @end

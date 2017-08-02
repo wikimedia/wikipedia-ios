@@ -214,7 +214,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
         NSError *fileReadError = nil;
         if ([localFileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
             NSData *data = [NSData dataWithContentsOfURL:localFileURL];
-            NSString *contentType = GCDWebServerGetMimeTypeForExtension([localFileURL pathExtension]);
+            NSString *contentType = GCDWebServerGetMimeTypeForExtension([localFileURL pathExtension], nil);
             response = [WMFProxyServerResponse responseWithData:data contentType:contentType];
             self.responsesByPath[relativePath] = response;
             completionBlock(response.GCDWebServerResponse);

@@ -10,9 +10,6 @@
 #import "WMFRandomFileUtilities.h"
 #import "WMFAsyncTestCase.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore *tempDataStore;
@@ -58,7 +55,7 @@
 
     stubRequest(@"GET", anyRequestFromTestSite)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type": @"application/json" })
+        .withHeaders(@{@"Content-Type": @"application/json"})
         .withBody(json);
 
     NSRegularExpression *anySummaryRequest =
@@ -92,7 +89,7 @@
                                                 completion:^{
                                                     savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
 
-                                                    assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
+                                                    XCTAssert([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]);
                                                 }];
 
             [fetcher fetchArticleForURL:dummyArticleURL
@@ -105,15 +102,15 @@
                 success:^(MWKArticle *article) {
                     secondFetchResult = article;
 
-                    XCTAssertTrue(secondFetchResult != firstFetchResult,
-                                  @"Expected object returned from 2nd fetch to not be identical to 1st.");
-                    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+                    XCTAssert(secondFetchResult != firstFetchResult,
+                              @"Expected object returned from 2nd fetch to not be identical to 1st.");
+                    XCTAssert([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]);
 
                     [self.tempDataStore asynchronouslyCacheArticle:article
                                                             toDisk:YES
                                                         completion:^{
                                                             MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
-                                                            assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+                                                            XCTAssert([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]);
                                                             [expectation fulfill];
                                                         }];
                 }];
@@ -129,19 +126,19 @@
 
 - (void)testRequestHeadersForWikipediaAppUserAgent {
     NSString *userAgent = [self requestHeaders][@"User-Agent"];
-    assertThat(@([userAgent hasPrefix:@"WikipediaApp/"]), isTrue());
+    XCTAssert(@([userAgent hasPrefix:@"WikipediaApp/"]));
 }
 
 - (void)testRequestHeadersForGZIPAcceptEncoding {
     NSString *acceptEncoding = [self requestHeaders][@"Accept-Encoding"];
-    assertThat(acceptEncoding, is(equalTo(@"gzip")));
+    XCTAssert([acceptEncoding isEqualToString:@"gzip"]);
 }
 
 - (void)testRequestHeadersForOptInUUID {
     if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        assertThat(@([self requestHeaders][@"X-WMF-UUID"] != nil), isTrue());
+        XCTAssert([self requestHeaders][@"X-WMF-UUID"] != nil);
     } else {
-        assertThat(@([self requestHeaders][@"X-WMF-UUID"] == nil), isTrue());
+        XCTAssert([self requestHeaders][@"X-WMF-UUID"] == nil);
     }
 }
 
