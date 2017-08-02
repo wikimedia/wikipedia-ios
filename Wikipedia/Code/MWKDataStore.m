@@ -794,7 +794,7 @@ static uint64_t bundleHash() {
 /// Returns the folder where data for the correspnoding title is stored.
 - (NSString *)pathForArticleURL:(NSURL *)url {
     NSString *articlesPath = [self pathForArticlesInDomainFromURL:url];
-    NSString *encTitle = [self safeFilenameWithString:url.wmf_titleWithUnderScores];
+    NSString *encTitle = [self safeFilenameWithString:url.wmf_titleWithUnderscores];
     return [articlesPath stringByAppendingPathComponent:encTitle];
 }
 
