@@ -612,6 +612,8 @@
 		D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
 		D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */; };
+		D80A79291F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = D80A79271F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D80A79281F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m */; };
 		D80ACD281EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */ = {isa = PBXBuildFile; fileRef = D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
@@ -4133,6 +4135,8 @@
 		D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchSuggestionController.swift; sourceTree = "<group>"; };
 		D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearch.swift; sourceTree = "<group>"; };
 		D808DCEE1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Dimensions.swift"; sourceTree = "<group>"; };
+		D80A79271F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCharacterSet+WMFLinkParsing.h"; path = "WMF Framework/NSCharacterSet+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
+		D80A79281F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCharacterSet+WMFLinkParsing.m"; path = "WMF Framework/NSCharacterSet+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
 		D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FLAnimatedImage+SafeForSwift.h"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.h"; sourceTree = SOURCE_ROOT; };
 		D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FLAnimatedImage+SafeForSwift.m"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.m"; sourceTree = SOURCE_ROOT; };
 		D80C24B61D673DC300816503 /* WMFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTabBarController.h; sourceTree = "<group>"; };
@@ -7648,6 +7652,8 @@
 			children = (
 				B0E804AE1C0CE0B40065EBC0 /* NSURL+WMFExtras.h */,
 				B0E804AF1C0CE0B40065EBC0 /* NSURL+WMFExtras.m */,
+				D80A79271F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h */,
+				D80A79281F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m */,
 				D8494AD81D6C85C500337433 /* NSURL+WMFLinkParsing.h */,
 				D8494AD91D6C85C500337433 /* NSURL+WMFLinkParsing.m */,
 				D837B5B11F0D68B800DCB9CD /* URL+WMFLinkParsing.swift */,
@@ -8105,6 +8111,7 @@
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
+				D80A79291F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h in Headers */,
 				D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
 				D8FA18AB1E1BD86E009675C3 /* EXTScope.h in Headers */,
 				D844D9EF1D6CC0010042D692 /* MWKList+Subclass.h in Headers */,
@@ -10247,6 +10254,7 @@
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
 				B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */,
 				D8FA18F81E1BDA4C009675C3 /* WMFArticlePreviewViewController.swift in Sources */,
+				D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */,
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
 				0E728D2E1DAEE8FF0074EB4B /* WMFMainPageContentSource.m in Sources */,
 				D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */,
