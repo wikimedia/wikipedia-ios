@@ -1,4 +1,4 @@
-@import UIKit.UICollectionViewLayout;
+@import UIKit;
 
 /*!
  @class        WMFCVLMetrics
@@ -50,8 +50,8 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing; // ratios should add up to 2
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
 + (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing;
 
 @end

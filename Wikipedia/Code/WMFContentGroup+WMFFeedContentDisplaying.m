@@ -1,77 +1,12 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFAnnouncement.h"
-@import WMF;
-#import "WMFFirstRandomViewController.h"
-#import "Wikipedia-Swift.h"
 #import "WMFFeedNewsStory.h"
 #import "WMFContentGroup+Extensions.h"
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
-
-- (nullable NSArray<NSURL *> *)contentURLs {
-    NSArray<NSCoding> *content = [self content];
-    if ([self contentType] == WMFContentTypeTopReadPreview) {
-        content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
-            return [obj articleURL];
-        }];
-    } else if ([self contentType] == WMFContentTypeStory) {
-        content = [content wmf_map:^id(WMFFeedNewsStory *obj) {
-            return [[obj featuredArticlePreview] articleURL] ?: [[[obj articlePreviews] firstObject] articleURL];
-        }];
-    } else if ([self contentType] != WMFContentTypeURL) {
-        content = nil;
-    }
-    return content;
-}
-
-- (nullable UIViewController *)detailViewControllerWithDataStore:(MWKDataStore *)dataStore siteURL:(NSURL *)siteURL theme:(WMFTheme *)theme {
-    WMFFeedMoreType moreType = [self moreType];
-    UIViewController *vc = nil;
-    switch (moreType) {
-        case WMFFeedMoreTypePageList:
-        case WMFFeedMoreTypePageListWithLocation: {
-            NSArray<NSURL *> *URLs = (NSArray<NSURL *> *)[self contentURLs];
-            if (![[URLs firstObject] isKindOfClass:[NSURL class]]) {
-                NSAssert(false, @"Invalid Content");
-                return nil;
-            }
-            if (moreType == WMFFeedMoreTypePageListWithLocation) {
-                vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
-            } else {
-                vc = [[WMFArticleCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
-                vc.title = [self moreTitle];
-            }
-        } break;
-        case WMFFeedMoreTypeNews: {
-            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[self content];
-            if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
-                NSAssert(false, @"Invalid Content");
-                return nil;
-            }
-            vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
-        } break;
-        case WMFFeedMoreTypeOnThisDay: {
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)[self content];
-            if (![[events firstObject] isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-                NSAssert(false, @"Invalid Content");
-                return nil;
-            }
-            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore midnightUTCDate:self.midnightUTCDate];
-        } break;
-        case WMFFeedMoreTypePageWithRandomButton: {
-            vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
-        } break;
-        default:
-            NSAssert(false, @"Unknown More Type");
-            return nil;
-    }
-    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id<WMFThemeable>)vc applyTheme:theme];
-    }
-    return vc;
-}
 
 #pragma mark - In The News
 
@@ -501,68 +436,6 @@ NS_ASSUME_NONNULL_BEGIN
             break;
     }
     return nil;
-}
-
-- (nullable NSNumber *)analyticsValue {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindAnnouncement: {
-            static dispatch_once_t onceToken;
-            static NSCharacterSet *nonNumericCharacterSet;
-            dispatch_once(&onceToken, ^{
-                nonNumericCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-            });
-
-            WMFAnnouncement *_Nullable announcement = (WMFAnnouncement * _Nullable) self.content.firstObject;
-            if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-                return nil;
-            }
-
-            NSString *numberString = [announcement.identifier stringByTrimmingCharactersInSet:nonNumericCharacterSet];
-            NSInteger integer = [numberString integerValue];
-            return @(integer);
-        }
-        default:
-            break;
-    }
-
-    return nil;
-}
-
-- (NSString *)analyticsContentType {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindContinueReading:
-            return @"Continue Reading";
-        case WMFContentGroupKindMainPage:
-            return @"Main Page";
-        case WMFContentGroupKindRelatedPages:
-            return @"Recommended";
-        case WMFContentGroupKindLocation:
-            return @"Nearby";
-        case WMFContentGroupKindLocationPlaceholder:
-            return @"Nearby Placeholder";
-        case WMFContentGroupKindPictureOfTheDay:
-            return @"Picture of the Day";
-        case WMFContentGroupKindRandom:
-            return @"Random";
-        case WMFContentGroupKindFeaturedArticle:
-            return @"Featured";
-        case WMFContentGroupKindTopRead:
-            return @"Most Read";
-        case WMFContentGroupKindNews:
-            return @"In The News";
-        case WMFContentGroupKindOnThisDay:
-            return @"On This Day";
-        case WMFContentGroupKindNotification:
-            return @"Notifications";
-        case WMFContentGroupKindTheme:
-            return @"Themes";
-        case WMFContentGroupKindAnnouncement:
-            return @"Announcement";
-        case WMFContentGroupKindUnknown:
-        default:
-            break;
-    }
-    return @"Unknown Content Type";
 }
 
 - (WMFFeedHeaderType)headerType {

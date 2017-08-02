@@ -1,8 +1,8 @@
 import UIKit
-import WMF
 
 @objc(WMFSaveButton) public class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
-    @objc(WMFSaveButtonState) enum State: Int {
+    @objc(WMFSaveButtonState)
+    public enum State: Int {
         case shortSaved
         case longSaved
         case shortSave
@@ -15,7 +15,7 @@ import WMF
     public var analyticsContext = "unknown"
     public var analyticsContentType = "unknown"
     
-    var saveButtonState: SaveButton.State = .shortSave {
+    public var saveButtonState: SaveButton.State = .shortSave {
         didSet {
             let saveTitle: String
             let saveImage: UIImage

@@ -12,20 +12,20 @@ protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
 open class AnnouncementCollectionViewCell: CollectionViewCell {
     var delegate: AnnouncementCollectionViewCellDelegate?
     
-    let imageView = UIImageView()
-    let messageLabel = UILabel()
-    let actionButton = UIButton()
-    let dismissButton = UIButton()
-    let captionTextView = UITextView()
-    let captionSeparatorView = UIView()
-    let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-    let messageSpacing: CGFloat = 20
-    let buttonMargin: CGFloat = 40
-    let actionButtonHeight: CGFloat = 40
-    let dismissButtonSpacing: CGFloat = 8
-    let dismissButtonHeight: CGFloat = 32
-    let imageViewDimension: CGFloat = 150
-    let captionSpacing: CGFloat = 8
+    public let imageView = UIImageView()
+    public let messageLabel = UILabel()
+    public let actionButton = UIButton()
+    public let dismissButton = UIButton()
+    public let captionTextView = UITextView()
+    public let captionSeparatorView = UIView()
+    public let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    public let messageSpacing: CGFloat = 20
+    public let buttonMargin: CGFloat = 40
+    public let actionButtonHeight: CGFloat = 40
+    public let dismissButtonSpacing: CGFloat = 8
+    public let dismissButtonHeight: CGFloat = 32
+    public let imageViewDimension: CGFloat = 150
+    public let captionSpacing: CGFloat = 8
     
     open override func setup() {
         imageView.contentMode = .scaleAspectFill
@@ -191,9 +191,9 @@ extension AnnouncementCollectionViewCell: Themeable {
         captionTextView.textColor = theme.colors.secondaryText
         imageView.backgroundColor = theme.colors.midBackground
         actionButton.setTitleColor(theme.colors.link, for: .normal)
-        actionButton.borderColor = theme.colors.link
-        actionButton.borderWidth = 1
-        actionButton.cornerRadius = 5
+        actionButton.layer.borderColor = theme.colors.link.cgColor
+        actionButton.layer.borderWidth = 1
+        actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.backgroundColor = theme.colors.paperBackground
     }
