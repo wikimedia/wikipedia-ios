@@ -27,6 +27,7 @@ struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
 
 @objc(WMFAppearanceSettingsViewController)
 open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+    static let customViewCellReuseIdentifier = "org.wikimedia.custom"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -48,6 +49,8 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         title = WMFLocalizedString("appearance-settings-title", value: "Reading themes", comment: "Title of the Appearance view in Settings.")
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -77,43 +80,39 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = sections[indexPath.section].items[indexPath.item]
+
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
+            let vc = customViewItem.viewController
+            if let themeable = vc as? Themeable {
+                themeable.apply(theme: self.theme)
+            }
+            if let view = vc.view {
+                view.frame = cell.contentView.bounds
+                view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                vc.willMove(toParentViewController: self)
+                cell.contentView.addSubview(view)
+                addChildViewController(vc)
+            }
+            cell.selectionStyle = .none
+            return cell
+        }
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         
-        let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
         }
-        //TODO: consolidate
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? ImageDimmingExampleViewController {
-            vc.apply(theme: theme)
-            if let view = vc.viewIfLoaded {
-                var frame = view.frame
-                frame.size.width = cell.frame.width
-                view.frame = frame
-                cell.contentView.addSubview(view)
-            }
-        }
-        
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? FontSizeSliderViewController, let view = vc.viewIfLoaded {
-            vc.apply(theme: self.theme)
-            var frame = view.frame
-            frame.size.width = cell.frame.width
-            view.frame = frame
-            cell.contentView.addSubview(view)
-        }
-        
-        if let customViewItem = item as? AppearanceSettingsCustomViewItem, let vc = customViewItem.viewController as? TextSizeChangeExampleViewController, let view = vc.viewIfLoaded {
-            vc.apply(theme: self.theme)
-            var frame = view.frame
-            frame.size.width = cell.frame.width
-            view.frame = frame
-            cell.contentView.addSubview(view)
-        }
+
+
         
         if item is AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
@@ -134,11 +133,23 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = self.theme.colors.secondaryText
             cell.iconColor = self.theme.colors.paperBackground
+            cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none
         }
         
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let item = sections[indexPath.section].items[indexPath.item]
+        guard let customViewItem = item as? AppearanceSettingsCustomViewItem else {
+            return
+        }
+        let vc = customViewItem.viewController
+        vc.willMove(toParentViewController: nil)
+        vc.view.removeFromSuperview()
+        vc.removeFromParentViewController()
     }
     
     func userDidSelect(theme: Theme) {
