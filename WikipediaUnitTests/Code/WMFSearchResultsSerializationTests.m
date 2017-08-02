@@ -3,9 +3,6 @@
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface WMFSearchResultsSerializationTests : XCTestCase
 
 @end
@@ -22,9 +19,9 @@
                                                                                                   data:noResultJSONData
                                                                                                  error:&error];
     XCTAssertNil(error);
-    assertThat(searchResults.results, isEmpty());
-    assertThat(searchResults.redirectMappings, isEmpty());
-    assertThat(searchResults.searchSuggestion, is([noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
+    XCTAssertEqual(searchResults.results.count, 0);
+    XCTAssertEqual(searchResults.redirectMappings.count, 0);
+    XCTAssertEqualObjects(searchResults.searchSuggestion, [noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]);
 }
 
 - (void)testSerializesPrefixResultsInOrderOfIndex {
@@ -40,7 +37,7 @@
                                                                                                   data:resultData
                                                                                                  error:&error];
     XCTAssertNil(error);
-    assertThat(searchResults.results, hasCountOf(resultJSONObjects.count));
+    XCTAssertEqual(searchResults.results.count, resultJSONObjects.count);
 
     XCTAssertNotNil(searchResults, @"Failed to serialize search results from 'BarackSearch' fixture; %@", error);
 
@@ -48,12 +45,11 @@
         [NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index)
                                       ascending:YES];
 
-    assertThat(searchResults.results,
-               is(equalTo([searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]])));
+    XCTAssert([searchResults.results isEqual:[searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]]]);
 
-    assertThat(searchResults.searchSuggestion, is(nilValue()));
+    XCTAssert(searchResults.searchSuggestion == nil);
 
-    assertThat([searchResults redirectMappings], hasCountOf([resultJSON[@"redirects"] count]));
+    XCTAssertEqual([searchResults redirectMappings].count, [resultJSON[@"redirects"] count]);
 }
 
 @end

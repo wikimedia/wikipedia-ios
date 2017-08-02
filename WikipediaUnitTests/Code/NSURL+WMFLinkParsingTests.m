@@ -2,12 +2,6 @@
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import "NSString+WMFPageUtilities.h"
 
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface NSURL_WMFLinkParsingTests : XCTestCase
 
 @end
@@ -50,13 +44,13 @@
     NSString *testPath = @"foo/bar";
     NSURL *testURL = [[NSURL URLWithString:WMFInternalLinkPathPrefix]
         URLByAppendingPathComponent:testPath];
-    assertThat([testURL wmf_pathWithoutWikiPrefix], is(testPath));
+    XCTAssert([[testURL wmf_pathWithoutWikiPrefix] isEqualToString:testPath]);
 }
 
 - (void)testInternalLinkPathForURLExcludesFragmentAndQuery {
     NSString *testPath = @"foo/bar";
     NSString *testPathWithQueryAndFragment = [WMFInternalLinkPathPrefix stringByAppendingFormat:@"%@?baz#buz", testPath];
-    assertThat([[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix], is(testPath));
+    XCTAssert([[[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix] isEqualToString:testPath]);
 }
 
 @end
