@@ -361,7 +361,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return YES;
         case WMFContentGroupKindOnThisDay:
-            return YES;
+            break;
         case WMFContentGroupKindNotification:
             return YES;
         case WMFContentGroupKindTheme:
