@@ -47,8 +47,10 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on dark theme";
 "appearance-settings-reading-themes" = "Reading themes";
+"appearance-settings-text-sizing-example-text" = "Drag the slider above to change the article text sizing. Utilize your system text size to resize other text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
