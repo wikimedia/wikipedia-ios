@@ -4,25 +4,15 @@
 #import "WMFNetworkUtilities.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface MWKLanguageLinkFetcherTests : WMFAsyncTestCase
-@property (nonatomic, strong) AFHTTPSessionManager *mockManager;
-@property (nonatomic, strong) id<FetchFinishedDelegate> mockDelegate;
 @property (nonatomic, strong) MWKLanguageLinkFetcher *fetcher;
 @end
 
 @implementation MWKLanguageLinkFetcherTests
 
 - (void)setUp {
-    self.mockDelegate = mockProtocol(@protocol(FetchFinishedDelegate));
-    self.mockManager = MKTMock([AFHTTPSessionManager class]);
-    self.fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
-                                                          delegate:self.mockDelegate];
+    self.fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:[[QueuesSingleton sharedInstance] languageLinksFetcher]
+                                                          delegate:nil];
     [super setUp];
 }
 
@@ -37,12 +27,6 @@
             [self popExpectationAfter:nil];
         }];
     WaitForExpectations();
-    [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
-                                   forArgument:2]
-        fetchFinished:self.fetcher
-          fetchedData:nil
-               status:0
-                error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
 }
 
 - (void)testFetchingEmptyTitle {
@@ -58,12 +42,6 @@
             [self popExpectationAfter:nil];
         }];
     WaitForExpectations();
-    [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
-                                   forArgument:2]
-        fetchFinished:self.fetcher
-          fetchedData:nil
-               status:0
-                error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
 }
 
 @end
