@@ -121,7 +121,7 @@
 - (void)applyTheme:(WMFTheme *)theme {
     self.textField.keyboardAppearance = theme.keyboardAppearance;
     self.textField.textColor = theme.colors.primaryText;
-    self.textFieldContainer.backgroundColor = UIColor.
+    self.textFieldContainer.backgroundColor = theme.colors.popoverBackground;
     self.tintColor = theme.colors.link;
     self.closeButton.tintColor = theme.colors.secondaryText;
     self.previousButton.tintColor = theme.colors.secondaryText;
