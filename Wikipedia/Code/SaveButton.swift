@@ -9,8 +9,8 @@ import UIKit
         case longSave
     }
 
-    static let saveImage = UIImage(named: "save", in: Bundle.wmf, compatibleWith:nil)
-    static let savedImage = UIImage(named: "unsave", in: Bundle.wmf, compatibleWith:nil)
+    static let saveImage = UIImage(named: "unsaved", in: Bundle.wmf, compatibleWith:nil)
+    static let savedImage = UIImage(named: "saved", in: Bundle.wmf, compatibleWith:nil)
     
     public var analyticsContext = "unknown"
     public var analyticsContentType = "unknown"
