@@ -18,21 +18,7 @@ class WMFReferencePageBackgroundView: UIView, Themeable {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    var theme = Theme.standard
-    
     func apply(theme: Theme) {
-        self.theme = theme
-        switch theme.name {
-        case Theme.sepia.name:
-            backgroundColor = UIColor.init(0x646059, alpha:0.6)
-        case Theme.light.name:
-            backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
-        case Theme.darkDimmed.name:
-            fallthrough
-        case Theme.dark.name:
-            backgroundColor = UIColor.init(white: 0.0, alpha: 0.75)
-        default:
-            break
-        }
+        backgroundColor = theme.colors.overlayBackground
     }
 }
