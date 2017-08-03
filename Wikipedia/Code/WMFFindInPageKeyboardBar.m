@@ -10,7 +10,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property (strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
 @property (strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
-
+@property (strong, nonatomic) IBOutlet UIView *textFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
@@ -116,6 +116,19 @@
         labelText = [NSString localizedStringWithFormat:format, @(index + 1), @(count)];
     }
     [self.currentMatchLabel setText:labelText];
+}
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.textField.keyboardAppearance = theme.keyboardAppearance;
+    self.textField.textColor = theme.colors.primaryText;
+    self.textFieldContainer.backgroundColor = UIColor.
+    self.tintColor = theme.colors.link;
+    self.closeButton.tintColor = theme.colors.secondaryText;
+    self.previousButton.tintColor = theme.colors.secondaryText;
+    self.nextButton.tintColor = theme.colors.secondaryText;
+    self.magnifyImageView.tintColor = theme.colors.secondaryText;
+    self.clearButton.tintColor = theme.colors.secondaryText;
+    self.currentMatchLabel.textColor = theme.colors.tertiaryText;
 }
 
 @end
