@@ -1,5 +1,5 @@
 
-class WMFReferencePageBackgroundView: UIView {
+class WMFReferencePageBackgroundView: UIView, Themeable {
     var clearRect:CGRect = CGRect.zero {
         didSet {
             setNeedsDisplay()
@@ -15,7 +15,10 @@ class WMFReferencePageBackgroundView: UIView {
     override func didMoveToSuperview() {
         isUserInteractionEnabled = false
         clearsContextBeforeDrawing = false
-        backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.overlayBackground
     }
 }
