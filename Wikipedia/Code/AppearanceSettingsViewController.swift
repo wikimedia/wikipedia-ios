@@ -112,8 +112,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             tc.apply(theme: theme)
         }
 
-
-        
         if item is AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
@@ -126,6 +124,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             case Theme.dark:
                 cell.disclosureSwitch.isEnabled = true
                 cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
             default:
                 break
             }
