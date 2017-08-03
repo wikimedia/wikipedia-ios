@@ -161,6 +161,12 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     self.previousContentOffsetY = newContentOffsetY;
 }
 
+- (void)applyTheme:(WMFTheme *)theme {
+    [super applyTheme:theme];
+    [self.diceButton applyTheme:theme];
+    self.emptyFadeView.backgroundColor = theme.colors.paperBackground;
+}
+
 #if WMF_TWEAKS_ENABLED
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {

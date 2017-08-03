@@ -1,4 +1,5 @@
 @import UIKit;
+@import WMF.Swift;
 
 @class WMFFindInPageKeyboardBar;
 
@@ -12,7 +13,7 @@
 
 @end
 
-@interface WMFFindInPageKeyboardBar : UIInputView
+@interface WMFFindInPageKeyboardBar : UIInputView <WMFThemeable>
 
 @property (weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> delegate;
 
