@@ -77,11 +77,15 @@ public extension UIColor {
         
         getRed(&r, green: &g, blue: &b, alpha: &a)
         
-        var hexString = String(format: "%02x%02x%02x", Int(255.0 * r), Int(255.0 * g), Int(255.0 * b))
+        var hexString = String(format: "%02X%02X%02X", Int(255.0 * r), Int(255.0 * g), Int(255.0 * b))
         if (includeAlpha) {
-            hexString = hexString.appendingFormat("%02x", Int(255.0 * a))
+            hexString = hexString.appendingFormat("%02X", Int(255.0 * a))
         }
         return hexString
+    }
+    
+    public var wmf_hexString: String {
+        return wmf_hexStringIncludingAlpha(false)
     }
 }
 
