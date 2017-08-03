@@ -22,7 +22,17 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     
     var isDateVisibleInTitle: Bool {
         didSet {
-            guard isDateVisibleInTitle, let language = events.first?.language else {
+            
+            // Work-around for: https://phabricator.wikimedia.org/T169277
+            // Presently the event looks to its first article preview when you ask it for the language, so if the event has no previews, no lang!
+            let firstEventWithArticlePreviews = events.first(where: {
+                guard let previews = $0.articlePreviews, previews.count > 0 else {
+                    return false
+                }
+                return true
+            })
+            
+            guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
                 title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
                 return
             }
