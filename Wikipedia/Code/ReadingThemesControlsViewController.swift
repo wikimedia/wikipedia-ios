@@ -66,7 +66,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         for slideView in textSizeSliderViews {
             slideView.isAccessibilityElement = true
             slideView.accessibilityTraits = UIAccessibilityTraitAdjustable
-            slideView.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider in the Reading Themes Controls popover")
+            slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)

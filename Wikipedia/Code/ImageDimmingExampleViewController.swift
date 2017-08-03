@@ -2,6 +2,8 @@ import UIKit
 
 class ImageDimmingExampleViewController: UIViewController {
     
+    @IBOutlet weak var exampleImage: UIImageView!
+    
     fileprivate var theme = Theme.standard
     
     override func viewDidLoad() {
@@ -20,6 +22,6 @@ extension ImageDimmingExampleViewController: Themeable {
         }
         
         view.backgroundColor = theme.colors.baseBackground
-        view.alpha = theme.imageOpacity
+        exampleImage.alpha = theme.imageOpacity
     }
 }

@@ -21,6 +21,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
     
     func apply(theme: Theme) {
         self.theme = theme
+        backgroundView.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
