@@ -37,8 +37,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         
         isEmptyViewHidden = true
-        collapsedArticleView.configure(article: article, displayType: .page, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: Theme.dark, layoutOnly: false)
-        expandedArticleView.configure(article: article, displayType: featuredContentGroup.displayTypeForItem(at: 0), index: 0, count: 1, theme: Theme.dark, layoutOnly: false)
+        collapsedArticleView.configure(article: article, displayType: .page, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: Theme.widget, layoutOnly: false)
+        expandedArticleView.configure(article: article, displayType: featuredContentGroup.displayTypeForItem(at: 0), index: 0, count: 1, theme: Theme.widget, layoutOnly: false)
         updateView()
         completionHandler(.newData)
     }

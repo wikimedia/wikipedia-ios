@@ -101,6 +101,9 @@ public class Colors: NSObject {
     
     fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
     
+    fileprivate static let widgetiOS9 = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear, popoverBackground: .clear, subCellBackground: .clear, overlayBackground: .clear, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
+
+    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: .clear, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base30, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50)
     
     public let baseBackground: UIColor
     public let midBackground: UIColor
@@ -185,6 +188,12 @@ public class Theme: NSObject {
     public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
     
     public static let darkDimmed = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 0.65, name: "dark-dimmed", displayName: WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    
+    
+    public static let widget = Theme(colors: .widget, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, name: "", displayName: "")
+    
+    public static let widgetiOS9 = Theme(colors: .widgetiOS9, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, name: "", displayName: "")
+
     
     fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed]
     
