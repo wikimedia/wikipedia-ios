@@ -1307,6 +1307,7 @@
 		D84C364D1F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = D84C36491F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m */; };
 		D84C364E1F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = D84C36491F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m */; };
 		D84C36501F324F3D00895FA1 /* WMFContentGroup+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */; };
+		D84C36521F33866C00895FA1 /* WMF Framework.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84C36511F33866C00895FA1 /* WMF Framework.xcassets */; };
 		D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
 		D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
 		D84DAA131EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
@@ -4225,6 +4226,7 @@
 		D84C36481F32488600895FA1 /* WMFContentGroup+DetailViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFContentGroup+DetailViewControllers.h"; sourceTree = "<group>"; };
 		D84C36491F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFContentGroup+DetailViewControllers.m"; sourceTree = "<group>"; };
 		D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+Analytics.swift"; sourceTree = "<group>"; };
+		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
 		D84DAA061EEEF527008E4B18 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		D84DAA071EEEF527008E4B18 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
 		D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWStepSlider.swift; sourceTree = "<group>"; };
@@ -7476,6 +7478,7 @@
 			isa = PBXGroup;
 			children = (
 				D844D96E1D6CB2600042D692 /* WMF.h */,
+				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
@@ -9273,6 +9276,7 @@
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				D8E4CCAA1D931CE100EB6C61 /* assets in Resources */,
+				D84C36521F33866C00895FA1 /* WMF Framework.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9632,7 +9636,6 @@
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
-				B0D1B45A1DDD02BC004FCAE6 /* WMFDynamicTypeExtentions.swift in Sources */,
 				D82014BF1E686B9C00BA8579 /* SSBaseHeaderFooterView.m in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
@@ -9942,7 +9945,6 @@
 				D80ED2801EE57F4800CE8C50 /* UIButton+WMFButton.m in Sources */,
 				D80ED2811EE57F4800CE8C50 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D82E956E1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
-				D80ED2821EE57F4800CE8C50 /* WMFDynamicTypeExtentions.swift in Sources */,
 				BA45241C1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				D80ED2831EE57F4800CE8C50 /* SSBaseHeaderFooterView.m in Sources */,
 				D80ED2841EE57F4800CE8C50 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -10717,7 +10719,6 @@
 				D8A42B2D1E815A9C00D8E281 /* PaddedLabel.m in Sources */,
 				D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */,
 				D8A42B301E815A9C00D8E281 /* WMFSearchResults+ResponseSerializer.m in Sources */,
-				D898452C1ECC8A1700849DA4 /* NewsCollectionViewCell.swift in Sources */,
 				BA4524271F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				D8A42B321E815A9C00D8E281 /* MWKSection+DisplayHtml.m in Sources */,
 				D8A42B341E815A9C00D8E281 /* WMFExploreSectionFooter.m in Sources */,
@@ -11152,7 +11153,6 @@
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D8EC3DEA1E9BDA35006712EB /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA45241A1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
-				D8EC3DEB1E9BDA35006712EB /* WMFDynamicTypeExtentions.swift in Sources */,
 				D8EC3DEC1E9BDA35006712EB /* SSBaseHeaderFooterView.m in Sources */,
 				D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */,
 				D8EC3DEE1E9BDA35006712EB /* WMFNearbyArticleCollectionViewCell.m in Sources */,
@@ -11253,7 +11253,6 @@
 				D8EC3E4E1E9BDA35006712EB /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */,
 				D8EC3E501E9BDA35006712EB /* WMFSearchResultsTableViewController.m in Sources */,
-				D87721FF1EC0DCA30005E634 /* SaveButton.swift in Sources */,
 				BA4524261F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
 				D8EC3E511E9BDA35006712EB /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
