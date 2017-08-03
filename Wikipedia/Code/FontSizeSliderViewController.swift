@@ -29,6 +29,10 @@ class FontSizeSliderViewController: UIViewController {
             }
         }
         apply(theme: self.theme)
+        
+        slider.isAccessibilityElement = true
+        slider.accessibilityTraits = UIAccessibilityTraitAdjustable
+        slider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider in the Appearance Settings\n{{Identical|Text size slider}}")
     }
     
     override func viewWillAppear(_ animated: Bool) {

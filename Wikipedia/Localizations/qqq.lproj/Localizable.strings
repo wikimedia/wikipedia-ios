@@ -47,6 +47,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"appearance-settings-accessibility-image-dimming-example-image" = "Accessibility label for the image dimming example image in the Appearance Settings";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
@@ -291,7 +292,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
-"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Reading Themes Controls popover";
+"reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider in the Appearance Settings\n{{Identical|Text size slider}}";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";

@@ -47,6 +47,7 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"appearance-settings-accessibility-image-dimming-example-image" = "Image dimming example image";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on dark theme";
 "appearance-settings-reading-themes" = "Reading themes";
