@@ -74,6 +74,8 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
+    [self.tableView registerNib:[UINib nibWithNibName:@"WMFSettingsTableViewCell" bundle:nil] forCellReuseIdentifier:WMFSettingsTableViewCell.identifier]
+
     
     [self configureBackButton];
     
@@ -132,7 +134,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSLog(@"cellForRowAtIndexPath");
-    WMFSettingsTableViewCell *cell = [[WMFSettingsTableViewCell alloc] init];
+    WMFSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
+    
+    sections[indexPath.section]
+    
     WMFSettingsMenuItem *menuItem = [[WMFSettingsMenuItem alloc] init];
     cell.tag = menuItem.type;
     cell.title = menuItem.title;
