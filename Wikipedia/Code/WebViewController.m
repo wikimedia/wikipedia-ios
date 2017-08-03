@@ -373,6 +373,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!_inputAccessoryView) {
         _inputAccessoryView = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
         _inputAccessoryView.delegate = self;
+        [_inputAccessoryView applyTheme:self.theme];
     }
     return _inputAccessoryView;
 }
@@ -637,10 +638,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (!self.theme) {
-        self.theme = WMFTheme.standard;
-    }
-
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -663,8 +660,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:12];
     self.zeroStatusLabel.text = @"";
-
-    [self applyTheme:self.theme];
 
     [self displayArticle];
 }
@@ -1113,6 +1108,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_applyTheme:theme];
+    [_inputAccessoryView applyTheme:theme];
 }
 
 @end
