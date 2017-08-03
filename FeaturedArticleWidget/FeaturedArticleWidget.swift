@@ -6,6 +6,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     let collapsedArticleView = ArticleRightAlignedImageCollectionViewCell()
     let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
+    var isExpanded = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
 
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)
+        
+        updateView()
     }
     
     var isEmptyViewHidden = true
@@ -34,14 +37,23 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         
         isEmptyViewHidden = true
+        collapsedArticleView.configure(article: article, displayType: .page, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: Theme.dark, layoutOnly: false)
         expandedArticleView.configure(article: article, displayType: featuredContentGroup.displayTypeForItem(at: 0), index: 0, count: 1, theme: Theme.dark, layoutOnly: false)
         updateView()
         completionHandler(.newData)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            self.expandedArticleView.alpha = self.isExpanded ? 1 : 0
+            self.collapsedArticleView.alpha =  self.isExpanded ? 0 : 1
+        }) { (context) in
+            
+        }
+    }
     func updateView() {
         var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
-        var isExpanded = false
         if let context = extensionContext {
             if #available(iOSApplicationExtension 10.0, *) {
                 context.widgetLargestAvailableDisplayMode = .expanded
@@ -56,15 +68,21 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     func updateView(maximumSize: CGSize, isExpanded: Bool) {
-        //collapsedArticleView.configure(article: article, displayType: .page, index: 0, count: 1, theme: Theme.dark, layoutOnly: false)
-        preferredContentSize = expandedArticleView.sizeThatFits(maximumSize, apply: true)
+        let sizeThatFits: CGSize
+        if isExpanded {
+            sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
+        } else {
+            sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
+        }
+        preferredContentSize = CGSize(width: maximumSize.width, height: sizeThatFits.height)
         expandedArticleView.frame = CGRect(origin: .zero, size:preferredContentSize)
         view.layoutIfNeeded()
     }
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        updateView(maximumSize: maxSize, isExpanded: activeDisplayMode == .expanded)
+        isExpanded = activeDisplayMode == .expanded
+        updateView(maximumSize: maxSize, isExpanded: isExpanded)
     }
     
 }
