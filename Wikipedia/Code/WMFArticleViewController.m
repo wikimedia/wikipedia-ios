@@ -164,7 +164,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
-        self.theme = [WMFTheme standard];
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
@@ -745,9 +744,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    if (!self.theme) {
-        self.theme = [WMFTheme standard];
-    }
     [self setUpTitleBarButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -757,7 +753,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
-    [self applyTheme:self.theme];
+
+    if (self.theme) {
+        [self applyTheme:self.theme];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1595,6 +1594,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
         }
 
+        if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
+            [(id<WMFThemeable>)peekVC applyTheme:self.theme];
+        }
         return peekVC;
     }
     return nil;

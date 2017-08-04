@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImageDimmingExampleViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="exampleImage" destination="fnZ-9V-FpI" id="AW6-B6-g9M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

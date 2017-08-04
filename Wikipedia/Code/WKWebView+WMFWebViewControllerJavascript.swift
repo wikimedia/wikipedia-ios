@@ -167,8 +167,11 @@ extension WKWebView {
         evaluateJavaScript(WKWebView.wmf_themeClassificationJavascript(), completionHandler: nil)
     }
     
-    static public func wmf_themeApplicationJavascript(with theme: Theme) -> String{
+    static public func wmf_themeApplicationJavascript(with theme: Theme?) -> String {
         var jsThemeConstant = "DEFAULT"
+        guard let theme = theme else {
+            return jsThemeConstant
+        }
         var isDim = false
         switch theme.name {
         case Theme.sepia.name:
