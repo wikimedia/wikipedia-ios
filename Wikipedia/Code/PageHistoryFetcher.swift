@@ -180,24 +180,26 @@ extension HistoryFetchResults {
     fileprivate static func update(revisionsByDay: inout RevisionsByDay, revision: WMFPageHistoryRevision) {
         let distanceToToday = revision.daysFromToday()
         
-        if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
-            let items = existingRevisionsOnCurrentDay.items + [revision]
-            revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
-        } else {
-            if let revisionDate = revision.revisionDate {
-                var title: String?
-                let getSectionTitle = {
-                    title = DateFormatter.wmf_long().string(from: revisionDate)
+        if (revision.user != nil) {        
+            if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
+                let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
+                let items = existingRevisionsOnCurrentDay.items + [revision]
+                revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
+            } else {
+                if let revisionDate = revision.revisionDate {
+                    var title: String?
+                    let getSectionTitle = {
+                        title = DateFormatter.wmf_long().string(from: revisionDate)
+                    }
+                    if Thread.isMainThread {
+                        getSectionTitle()
+                    } else {
+                        DispatchQueue.main.sync(execute: getSectionTitle)
+                    }
+                    guard let sectionTitle = title else { return }
+                    let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
+                    revisionsByDay[distanceToToday] = newSection
                 }
-                if Thread.isMainThread {
-                    getSectionTitle()
-                } else {
-                    DispatchQueue.main.sync(execute: getSectionTitle)
-                }
-                guard let sectionTitle = title else { return }
-                let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
-                revisionsByDay[distanceToToday] = newSection
             }
         }
     }
