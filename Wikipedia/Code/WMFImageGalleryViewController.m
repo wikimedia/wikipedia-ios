@@ -195,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
-         
+
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.rightBarButtonItem = share;
@@ -266,6 +266,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id<NYTPhoto>)photo {
     NYTPhotoViewController *vc = [super newPhotoViewControllerForPhoto:photo];
     vc.scalingImageView.imageView.backgroundColor = [UIColor whiteColor];
+    if (!self.theme) {
+        // don't do this elsewhere
+        // self.theme needs to be set before the [super init] call
+        // this is easiest way to do it for now
+        self.theme = NSUserDefaults.wmf_userDefaults.wmf_appTheme;
+    }
     vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
     return vc;
 }
