@@ -191,6 +191,7 @@ extension AnnouncementCollectionViewCell: Themeable {
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         captionTextView.textColor = theme.colors.secondaryText
         imageView.backgroundColor = theme.colors.midBackground
+        imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
         actionButton.borderColor = theme.colors.link
         actionButton.borderWidth = 1
