@@ -753,7 +753,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
-    
+
     if (self.theme) {
         [self applyTheme:self.theme];
     }
@@ -1374,7 +1374,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller
     didTapImageWithSourceURL:(nonnull NSURL *)imageSourceURL {
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
-    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
+    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme];
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
@@ -1528,7 +1528,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
-    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
+    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
@@ -1594,6 +1594,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
         }
 
+        if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
+            [(id<WMFThemeable>)peekVC applyTheme:self.theme];
+        }
         return peekVC;
     }
     return nil;
@@ -1609,7 +1612,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme];
         return fullscreenGallery;
     }
     return nil;
@@ -1680,7 +1683,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
         [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                        selectedImage:selectedImage];
+                                                        selectedImage:selectedImage
+                                                                theme:self.theme];
     return gallery;
 }
 

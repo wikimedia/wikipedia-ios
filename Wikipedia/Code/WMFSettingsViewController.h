@@ -5,7 +5,7 @@
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
-- (void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type;
+- (void)loadSections;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
