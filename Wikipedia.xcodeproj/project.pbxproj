@@ -542,11 +542,6 @@
 		B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
-		BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
-		BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
-		BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
-		BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
-		BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
 		BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
 		BA45241A1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
@@ -567,6 +562,11 @@
 		BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4524231F32500C00439C42 /* TextSizeChangeExampleViewController.xib */; };
 		BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4524231F32500C00439C42 /* TextSizeChangeExampleViewController.xib */; };
 		BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4524231F32500C00439C42 /* TextSizeChangeExampleViewController.xib */; };
+		BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
+		BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
+		BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
+		BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
+		BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
@@ -3876,11 +3876,11 @@
 		B3B018D41EBD15C300BE7F21 /* Explore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
 		B3D889431E9E8F8400F08F53 /* PlaceSearchFilterListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchFilterListController.swift; sourceTree = "<group>"; };
 		B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchService.swift; sourceTree = "<group>"; };
-		BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSection.swift; sourceTree = SOURCE_ROOT; };
 		BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSizeSliderViewController.swift; sourceTree = "<group>"; };
 		BA4524171F324C3100439C42 /* FontSizeSliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FontSizeSliderViewController.xib; sourceTree = "<group>"; };
 		BA4524221F32500C00439C42 /* TextSizeChangeExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSizeChangeExampleViewController.swift; sourceTree = "<group>"; };
 		BA4524231F32500C00439C42 /* TextSizeChangeExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextSizeChangeExampleViewController.xib; sourceTree = "<group>"; };
+		BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewSection.swift; path = Wikipedia/Code/SettingsTableViewSection.swift; sourceTree = SOURCE_ROOT; };
 		BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDimmingExampleViewController.swift; sourceTree = "<group>"; };
 		BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDimmingExampleViewController.xib; sourceTree = "<group>"; };
 		BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProminentSwitch.swift; sourceTree = "<group>"; };
@@ -10938,7 +10938,6 @@
 				D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */,
 				D82E950F1F0FE473007BD960 /* ArticleListTableViewCell.swift in Sources */,
 				D8CE255C1E698E2400DAE2E0 /* WMFArticlePreviewDataSource.m in Sources */,
-				D8D3C2A11F27BC0600B4CD77 /* ProminentSwitch.swift in Sources */,
 				BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8CE255D1E698E2400DAE2E0 /* WMFCVLInfo.m in Sources */,
 				D8CE255E1E698E2400DAE2E0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
