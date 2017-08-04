@@ -17,7 +17,6 @@
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
 #endif
-//#import "SSDataSources.h"
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -49,7 +48,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-//@property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) WMFTheme *theme;
@@ -74,14 +72,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView registerNib:[UINib nibWithNibName:@"WMFSettingsTableViewCell" bundle:nil] forCellReuseIdentifier:WMFSettingsTableViewCell.identifier]
-
     
     [self configureBackButton];
     
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
-    
-    //    [self configureTableDataSource];
     
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -136,9 +130,9 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     NSLog(@"cellForRowAtIndexPath");
     WMFSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
     
-    sections[indexPath.section]
-    
-    WMFSettingsMenuItem *menuItem = [[WMFSettingsMenuItem alloc] init];
+    NSArray *menuItems = [self.sections[indexPath.section] getItems];
+    WMFSettingsMenuItem *menuItem = menuItems[indexPath.item];
+
     cell.tag = menuItem.type;
     cell.title = menuItem.title;
     [cell applyTheme:self.theme];
@@ -164,44 +158,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     
     return cell;
 }
-
-//- (void)configureTableDataSource {
-//    self.elementDataSource = [[SSSectionedDataSource alloc] init];
-//    self.elementDataSource.rowAnimation = UITableViewRowAnimationNone;
-//    self.elementDataSource.tableView = self.tableView;
-//    self.elementDataSource.cellClass = [WMFSettingsTableViewCell class];
-//    self.elementDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
-//        return NO;
-//    };
-//
-//    @weakify(self)
-//        self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-//        @strongify(self)
-//            cell.title = menuItem.title;
-//        [cell applyTheme:self.theme];
-//        if (!self.theme.colors.icon) {
-//            cell.iconColor = [UIColor whiteColor];
-//            cell.iconBackgroundColor = menuItem.iconColor;
-//        }
-//        cell.iconName = menuItem.iconName;
-//        cell.disclosureType = menuItem.disclosureType;
-//        cell.disclosureText = menuItem.disclosureText;
-//        [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
-//        cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-//
-//        if (menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_Switch && menuItem.disclosureType != WMFSettingsMenuItemDisclosureType_None) {
-//            cell.accessibilityTraits = UIAccessibilityTraitButton;
-//        } else {
-//            cell.accessibilityTraits = UIAccessibilityTraitStaticText;
-//        }
-//
-//        [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-//        cell.disclosureSwitch.tag = menuItem.type;
-//        [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-//
-//    };
-//    [self loadSections];
-//}
 
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
