@@ -127,7 +127,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSLog(@"cellForRowAtIndexPath");
     WMFSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
     
     NSArray *menuItems = [self.sections[indexPath.section] getItems];
@@ -384,7 +383,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (nullable NSIndexPath *)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
     return [self.tableView.indexPathsForVisibleRows wmf_match:^BOOL(NSIndexPath *indexPath) {
         return ([self.tableView cellForRowAtIndexPath:indexPath].tag == type);
-        //        return ((WMFSettingsMenuItem *)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
     }];
 }
 
@@ -392,7 +390,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     NSIndexPath *indexPath = [self indexPathForVisibleCellOfType:type];
     if (indexPath) {
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        //        [self.elementDataSource replaceItemAtIndexPath:indexPath withItem:[WMFSettingsMenuItem itemForType:type]];
     }
 }
 
@@ -431,8 +428,7 @@ titleForHeaderInSection:(NSInteger)section {
         [self.sections addObject:section6];
     }
     
-//    [self.elementDataSource.sections setArray:sections];
-//    [self.elementDataSource.tableView reloadData];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Section structure
