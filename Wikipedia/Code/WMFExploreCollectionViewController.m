@@ -1328,7 +1328,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeGallery: {
-            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date]];
+            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];

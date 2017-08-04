@@ -1498,7 +1498,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme) {
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
-        [self.settingsViewController reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
+        [self.settingsViewController loadSections];
     }
 }
 
