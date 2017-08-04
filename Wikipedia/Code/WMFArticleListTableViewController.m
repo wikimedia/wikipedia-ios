@@ -119,6 +119,10 @@
 
     UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
 
+    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)vc applyTheme:self.theme];
+    }
+
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
     }
