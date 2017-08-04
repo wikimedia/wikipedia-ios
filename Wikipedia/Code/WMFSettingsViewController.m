@@ -109,8 +109,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Appearance];
+    [self loadSections];
 }
 
 - (void)configureBackButton {
@@ -285,7 +284,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 @strongify(self)
                                                 [self logout];
-                                                [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+                                                [self loadSections];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-account-logout-cancel", nil, nil, @"Cancel", @"Button text for hiding the log out menu.\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
     
@@ -340,8 +339,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:NO];
     }
     
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];
-    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguageBarVisibility];
+    [self loadSections];
 }
 
 #pragma mark - Notifications
@@ -384,13 +382,6 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     return [self.tableView.indexPathsForVisibleRows wmf_match:^BOOL(NSIndexPath *indexPath) {
         return ([self.tableView cellForRowAtIndexPath:indexPath].tag == type);
     }];
-}
-
-- (void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    NSIndexPath *indexPath = [self indexPathForVisibleCellOfType:type];
-    if (indexPath) {
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    }
 }
 
 #pragma mark - Sections structure
@@ -497,7 +488,7 @@ titleForHeaderInSection:(NSInteger)section {
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
-        [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+        [self loadSections];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
