@@ -8,6 +8,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
 
     var isExpanded = true
     
+    var currentArticleKey: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,14 +42,20 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        guard let article = self.article else {
+        guard let article = self.article,
+            let articleKey = article.key else {
                 isEmptyViewHidden = false
                 completionHandler(.failed)
                 return
         }
         
-        isEmptyViewHidden = true
+        guard articleKey != currentArticleKey else {
+            completionHandler(.noData)
+            return
+        }
         
+        currentArticleKey = articleKey
+        isEmptyViewHidden = true
 
         let theme:Theme
         
