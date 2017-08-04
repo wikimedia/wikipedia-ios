@@ -753,7 +753,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
-    
+
     if (self.theme) {
         [self applyTheme:self.theme];
     }
@@ -1594,6 +1594,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             ((WMFArticleViewController *)peekVC).articlePreviewingActionsDelegate = self;
         }
 
+        if ([peekVC conformsToProtocol:@protocol(WMFThemeable)]) {
+            [(id<WMFThemeable>)peekVC applyTheme:self.theme];
+        }
         return peekVC;
     }
     return nil;
