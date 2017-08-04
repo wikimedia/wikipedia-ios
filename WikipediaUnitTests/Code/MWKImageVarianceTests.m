@@ -1,11 +1,5 @@
 #import "MWKArticleStoreTestCase.h"
 
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface MWKImageVarianceTests : MWKArticleStoreTestCase
 
 @end

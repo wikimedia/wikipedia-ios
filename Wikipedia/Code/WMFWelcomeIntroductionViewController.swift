@@ -9,15 +9,44 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
         titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features").uppercased(with: Locale.current)
-        subTitleLabel.text = WMFLocalizedString("welcome-explore-features-sub-title", value:"Discover landmarks near you or search around the world with the Places tab\n\nTravel back in time with On this day to learn what happened today in history", comment:"Sub-title for exploration welcome screen including explanation of new features.")
+        updateSubtitleLabel()
         nextButton.setTitle(WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for moving to next welcome screen\n{{Identical|Get started}}").uppercased(with: Locale.current), for: UIControlState())
         self.view.wmf_configureSubviewsForDynamicType()
+    }
+    
+    func updateSubtitleLabel() {
+        var subtitleStrings: [String] = []
+        let placesTitle = CommonStrings.placesTitle
+        let placesFormat = WMFLocalizedString("welcome-explore-features-places", value:"Use the %1$@ tab to discover landmarks near you or search for around the world", comment:"Welcome screen text describing the Places feature. %1$@ is replaced with the title for Places.")
+        let placesString = String.localizedStringWithFormat(placesFormat, placesTitle)
+        subtitleStrings.append(placesString)
+        let onThisDayTitle = CommonStrings.onThisDayTitle
+        if Locale.current.languageCode?.components(separatedBy: "-").first?.lowercased() == "en" {
+            let onThisDayFormat = WMFLocalizedString("welcome-explore-features-on-this-day", value:"Travel back in time with %1$@ to learn what happened today in history", comment:"Welcome screen text describing the On this day feature. %1$@ is replaced with the title for On this day.")
+            let onThisDayString = String.localizedStringWithFormat(onThisDayFormat, onThisDayTitle)
+            subtitleStrings.append(onThisDayString)
+        } else {
+            subtitleStrings.append(WMFLocalizedString("welcome-explore-features-news-notifications", value:"Get news notifications for topics trending in the news", comment:"Welcome screen text describing the news notifications feature."))
+        }
+        let subtitleString = subtitleStrings.joined(separator: "\n\n")
+        let placesRange = (subtitleString as NSString).range(of: placesTitle)
+        let onThisDayRange = (subtitleString as NSString).range(of: onThisDayTitle)
+        let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
+        let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBlack, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.boldSystemFont(ofSize: 15)
+        let attributedString = NSMutableAttributedString(string: subtitleString, attributes: [NSFontAttributeName: font])
+        if placesRange.location != NSNotFound  {
+            attributedString.setAttributes([NSFontAttributeName: boldFont], range: placesRange)
+        }
+        if onThisDayRange.location != NSNotFound {
+            attributedString.setAttributes([NSFontAttributeName: boldFont], range: onThisDayRange)
+        }
+        subTitleLabel.attributedText = attributedString
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemBlack, withTextStyle: .title1, compatibleWithTraitCollection: self.traitCollection)
-        subTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)
+        updateSubtitleLabel()
     }
 
     @IBAction fileprivate func showHowThisWorksAlert(withSender sender: AnyObject) {

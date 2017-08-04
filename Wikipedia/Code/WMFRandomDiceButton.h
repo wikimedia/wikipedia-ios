@@ -1,6 +1,7 @@
 @import UIKit.UIButton;
+@import WMF.Swift;
 
-@interface WMFRandomDiceButton : UIButton
+@interface WMFRandomDiceButton : UIButton <WMFThemeable>
 
 - (void)roll;
 

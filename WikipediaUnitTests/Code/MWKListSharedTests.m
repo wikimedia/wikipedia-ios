@@ -1,7 +1,4 @@
 #import "MWKListSharedTests.h"
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
 #import "NSArray+WMFMatching.h"
 
 @implementation MWKListSharedTests
@@ -10,16 +7,16 @@
 
 - (void)testEmptyWhenInitializedWithNilEntries {
     MWKList *list = [self listWithEntries:nil];
-    assertThat(list.entries, isEmpty());
-    assertThat(@([list countOfEntries]), is(@0));
-    assertThat(@(list.dirty), isFalse());
+    XCTAssertEqual(list.entries.count, 0);
+    XCTAssertEqual(list.countOfEntries, 0);
+    XCTAssertFalse(list.dirty);
 }
 
 - (void)testContainsAllUniqueEntriesPassedToInit {
     MWKList *list = [self listWithEntries:self.testObjects];
-    assertThat(list.entries, hasCountOf(self.testObjects.count));
-    XCTAssertTrue([list.entries wmf_containsObjectsInAnyOrder:self.testObjects]);
-    assertThat(@(list.dirty), isFalse());
+    XCTAssertEqual(list.entries.count, self.testObjects.count);
+    XCTAssert([list.entries wmf_containsObjectsInAnyOrder:self.testObjects]);
+    XCTAssertFalse(list.dirty);
 }
 
 #pragma mark - Mutation
@@ -28,27 +25,27 @@
     MWKList *list = [self listWithEntries:nil];
     id<MWKListObject> firstEntry = [self.testObjects firstObject];
     [list addEntry:firstEntry];
-    assertThat([list entryAtIndex:0], is(firstEntry));
-    assertThat([list entryForListIndex:[firstEntry listIndex]], is(firstEntry));
-    assertThat(@([list containsEntryForListIndex:[firstEntry listIndex]]), isTrue());
-    assertThat(@(list.dirty), isTrue());
+    XCTAssertEqualObjects([list entryAtIndex:0], firstEntry);
+    XCTAssertEqualObjects([list entryForListIndex:[firstEntry listIndex]], firstEntry);
+    XCTAssert([list containsEntryForListIndex:[firstEntry listIndex]]);
+    XCTAssert(list.dirty);
 }
 
 - (void)testDoesNotContainRemovedEntries {
     MWKList *list = [self listWithEntries:self.testObjects];
     id<MWKListObject> firstEntry = [self.testObjects firstObject];
     [list removeEntryWithListIndex:[firstEntry listIndex]];
-    assertThat(@([list containsEntryForListIndex:[firstEntry listIndex]]), isFalse());
-    assertThat([list entryForListIndex:[firstEntry listIndex]], is(nilValue()));
-    assertThat(@(list.dirty), isTrue());
+    XCTAssertFalse([list containsEntryForListIndex:[firstEntry listIndex]]);
+    XCTAssertEqual([list entryForListIndex:[firstEntry listIndex]], nil);
+    XCTAssert(list.dirty);
 }
 
 - (void)testIsEmptyAfterRemovingAllEntries {
     MWKList *list = [self listWithEntries:self.testObjects];
     [list removeAllEntries];
-    assertThat(list.entries, isEmpty());
-    assertThat(@(list.countOfEntries), is(@0));
-    assertThat(@(list.dirty), isTrue());
+    XCTAssertEqual(list.entries.count, 0);
+    XCTAssertEqual(list.countOfEntries, 0);
+    XCTAssert(list.dirty);
 }
 
 - (void)testContainsAllUniqueAddedEntries {
@@ -65,16 +62,16 @@
     MWKList *list = [self listWithEntries:nil];
     [list addEntry:self.testObjects[0]];
     [list removeEntry:self.testObjects[0]];
-    assertThat(list.entries, isEmpty());
-    assertThat(@(list.dirty), isTrue());
+    XCTAssertEqual(list.entries.count, 0);
+    XCTAssert(list.dirty);
 }
 
 - (void)testAddThenRemoveByListIndex {
     MWKList *list = [self listWithEntries:nil];
     [list addEntry:self.testObjects[0]];
     [list removeEntryWithListIndex:[self.testObjects[0] listIndex]];
-    assertThat(list.entries, isEmpty());
-    assertThat(@(list.dirty), isTrue());
+    XCTAssertEqual(list.entries.count, 0);
+    XCTAssert(list.dirty);
 }
 
 @end

@@ -20,8 +20,14 @@ struct AppearanceSettingsSection {
     let items: [AppearanceSettingsItem]
 }
 
+struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
+    let title: String?
+    let viewController: UIViewController
+}
+
 @objc(WMFAppearanceSettingsViewController)
 open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+    static let customViewCellReuseIdentifier = "org.wikimedia.custom"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -43,6 +49,8 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         title = WMFLocalizedString("appearance-settings-title", value: "Reading themes", comment: "Title of the Appearance view in Settings.")
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -55,9 +63,12 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
-        return [readingThemesSection, themeOptionsSection]
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
+        
+        
+        return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,18 +80,38 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = sections[indexPath.section].items[indexPath.item]
+
+        
+        if let customViewItem = item as? AppearanceSettingsCustomViewItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
+            let vc = customViewItem.viewController
+            if let themeable = vc as? Themeable {
+                themeable.apply(theme: self.theme)
+            }
+            if let view = vc.view {
+                view.frame = cell.contentView.bounds
+                view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                vc.willMove(toParentViewController: self)
+                cell.contentView.addSubview(view)
+                addChildViewController(vc)
+            }
+            cell.selectionStyle = .none
+            return cell
+        }
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         
-        let item = sections[indexPath.section].items[indexPath.item]
         cell.title = item.title
         cell.iconName = nil
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
         }
-        
+
         if item is AppearanceSettingsSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
@@ -93,6 +124,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             case Theme.dark:
                 cell.disclosureSwitch.isEnabled = true
                 cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
             default:
                 break
             }
@@ -100,6 +132,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = self.theme.colors.secondaryText
             cell.iconColor = self.theme.colors.paperBackground
+            cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none
         }
@@ -107,10 +140,28 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         return cell
     }
     
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let item = sections[indexPath.section].items[indexPath.item]
+        guard let customViewItem = item as? AppearanceSettingsCustomViewItem else {
+            return
+        }
+        let vc = customViewItem.viewController
+        vc.willMove(toParentViewController: nil)
+        vc.view.removeFromSuperview()
+        vc.removeFromParentViewController()
+    }
+    
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
         PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
+            return tableView.rowHeight
+        }
+        return item.viewController.view.frame.height
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -146,7 +197,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             default:
                 break
             }
-    
+            
         }
     }
     

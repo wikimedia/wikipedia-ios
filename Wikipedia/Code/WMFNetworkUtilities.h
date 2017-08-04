@@ -3,6 +3,7 @@
 extern NSString *const WMFNetworkingErrorDomain;
 
 extern NSString *const WMFNetworkRequestBeganNotification;
+extern NSString *const WMFNetworkRequestBeganNotificationRequestKey;
 
 typedef NS_ENUM(NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError,
@@ -30,7 +31,7 @@ extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersi
 
 #import <WMF/FetcherBase.h>
 
-extern void wmf_postNetworkRequestBeganNotification(NSString *method, NSString *URLString);
+extern void wmf_postNetworkRequestBeganNotification(NSURLRequest *request);
 
 @interface NSError (WMFFetchFinalStatus)
 

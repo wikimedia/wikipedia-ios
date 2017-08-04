@@ -99,6 +99,7 @@
                                 isMobile:(BOOL)isMobile;
 
 @property (nonatomic, copy, nullable) NSString *wmf_title;
+@property (nonatomic, copy, nullable) NSString *wmf_titleWithUnderscores;
 @property (nullable, copy) NSString *wmf_fragment;
 
 @end

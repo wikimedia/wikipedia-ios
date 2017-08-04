@@ -51,18 +51,18 @@ extension URLSession {
     
     
     public func wmf_summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderScores else {
+        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
             return nil
         }
         
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let path = NSString.path(withComponents: ["api", "rest_v1", "page", "summary", encodedTitle])
-    
-        // /wiki/ URLs can handle / in the title, /api/rest_v1/ URLs can't
-        // as a result, this must be constructed manually using the encoded title
-        // and an absolute string
+        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", encodedTitle])
         
-        guard let summaryURL = URL(string: "\(siteURL.absoluteString)/\(path)") else {
+        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        components.percentEncodedPath = percentEncodedPath
+        guard let summaryURL = components.url else {
             return nil
         }
 

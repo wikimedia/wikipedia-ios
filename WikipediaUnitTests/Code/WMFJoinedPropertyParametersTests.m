@@ -1,9 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "WMFNetworkUtilities.h"
 
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
 @interface WMFJoinedPropertyParametersTests : XCTestCase
 
 @end
@@ -11,19 +8,19 @@
 @implementation WMFJoinedPropertyParametersTests
 
 - (void)testNonEmptyArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo", @"bar", @"baz"]), is(@"foo|bar|baz"));
+    XCTAssert([WMFJoinedPropertyParameters(@[@"foo", @"bar", @"baz"]) isEqualToString:@"foo|bar|baz"]);
 }
 
 - (void)testUnaryArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo"]), is(@"foo"));
+    XCTAssert([WMFJoinedPropertyParameters(@[@"foo"]) isEqualToString:@"foo"]);
 }
 
 - (void)testEmptyArray {
-    assertThat(WMFJoinedPropertyParameters(@[]), is(@""));
+    XCTAssert([WMFJoinedPropertyParameters(@[]) isEqualToString:@""]);
 }
 
 - (void)testNil {
-    assertThat(WMFJoinedPropertyParameters(nil), is(@""));
+    XCTAssert([WMFJoinedPropertyParameters(nil) isEqualToString:@""]);
 }
 
 @end
