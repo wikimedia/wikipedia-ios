@@ -558,6 +558,7 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
     WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    [vc applyTheme:self.theme];
     return vc;
 }
 
