@@ -542,13 +542,11 @@
 		B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
 		B3F21D121EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F21D0E1EB0EBB4000ED0BB /* PlaceSearchService.swift */; };
-<<<<<<< HEAD
 		BA6972571F2BA0D900E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA6972591F2BA2D700E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
 		BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6972561F2BA0D900E35F78 /* SettingsTableViewSection.swift */; };
-=======
 		BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
 		BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
 		BA45241A1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4524161F324C3100439C42 /* FontSizeSliderViewController.swift */; };
