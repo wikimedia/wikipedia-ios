@@ -32,8 +32,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     var article: WMFArticle? {
-        guard let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL(),
-            let featuredContentGroup = dataStore?.viewContext.newestGroup(of: .featuredArticle)
+        guard let featuredContentGroup = dataStore?.viewContext.newestGroup(of: .featuredArticle),
             let articleURL = featuredContentGroup.content?.first as? URL else {
                 return nil
         }
