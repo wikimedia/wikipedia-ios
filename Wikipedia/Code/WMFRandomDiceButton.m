@@ -3,6 +3,7 @@
 @import WMF;
 
 @interface WMFRandomDiceButton ()
+@property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UILabel *label;
 @end
@@ -18,8 +19,6 @@
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor wmf_blue];
-
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.suppressesIncrementalRendering = YES;
 
@@ -34,10 +33,6 @@
     self.webView.scrollView.opaque = NO;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.webView];
-
-    NSURL *diceHTMLURL = [[NSBundle mainBundle] URLForResource:@"WMFRandomDiceButton" withExtension:@"html"];
-    NSString *diceHTML = [NSString stringWithContentsOfURL:diceHTMLURL encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadHTMLString:diceHTML baseURL:nil];
 
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.textColor = [UIColor whiteColor];
@@ -79,4 +74,16 @@
     self.layer.cornerRadius = 0.5 * bounds.size.height;
 }
 
+- (void)applyTheme:(WMFTheme *)theme {
+    if (theme == self.theme) {
+        return; // early return to prevent cutting off dice animation when re-setting the same theme
+    }
+    self.theme = theme;
+    NSURL *diceHTMLURL = [[NSBundle mainBundle] URLForResource:@"WMFRandomDiceButton" withExtension:@"html"];
+    NSString *diceHTML = [NSString stringWithContentsOfURL:diceHTMLURL encoding:NSUTF8StringEncoding error:nil];
+    // !-- Using stringWithFormat: and localizedStringWithFormat: caused issues with the dice rendering. Using stringByReplacingOccurrencesOfString instead --! //
+    NSString *diceHTMLWithColor = [diceHTML stringByReplacingOccurrencesOfString:@"%1$@" withString:theme.colors.link.wmf_hexString];
+    [self.webView loadHTMLString:diceHTMLWithColor baseURL:nil];
+    self.backgroundColor = theme.colors.link;
+}
 @end

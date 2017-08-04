@@ -24,7 +24,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     let actionButtonHeight: CGFloat = 40
     let dismissButtonSpacing: CGFloat = 8
     let dismissButtonHeight: CGFloat = 32
-    let imageViewDimension: CGFloat = 150
+    var imageViewDimension: CGFloat = 150
     let captionSpacing: CGFloat = 8
     
     open override func setup() {
@@ -67,6 +67,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        imageViewDimension = 150
         updateFonts(with: traitCollection)
     }
     
