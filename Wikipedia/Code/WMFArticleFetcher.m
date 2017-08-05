@@ -88,7 +88,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                          progress:(WMFProgressHandler __nullable)progress
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
-    NSString *title = articleURL.wmf_titleWithUnderScores;
+    NSString *title = articleURL.wmf_titleWithUnderscores;
     if (!title) {
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
