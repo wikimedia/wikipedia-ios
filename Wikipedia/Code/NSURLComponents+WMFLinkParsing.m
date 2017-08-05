@@ -1,5 +1,6 @@
 #import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSString+WMFPageUtilities.h>
+#import <WMF/NSCharacterSet+WMFLinkParsing.h>
 
 @implementation NSURLComponents (WMFLinkParsing)
 
@@ -66,18 +67,31 @@
     return [hostComponents componentsJoinedByString:@"."];
 }
 
-- (void)setWmf_title:(NSString *)wmf_title {
-    NSString *path = [wmf_title wmf_denormalizedPageTitle];
+
+- (void)setWmf_titleWithUnderscores:(NSString * _Nullable)titleWithUnderscores {
+    NSString *path = [titleWithUnderscores stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLPathComponentAllowedCharacterSet]];
     if (path != nil && path.length > 0) {
         NSArray *pathComponents = @[@"/wiki/", path];
-        self.path = [NSString pathWithComponents:pathComponents];
+        self.percentEncodedPath = [NSString pathWithComponents:pathComponents];
     } else {
-        self.path = nil;
+        self.percentEncodedPath = nil;
     }
+}
+
+- (void)setWmf_title:(NSString *)wmf_title {
+    self.wmf_titleWithUnderscores = [wmf_title wmf_denormalizedPageTitle];
 }
 
 - (NSString *)wmf_title {
     NSString *title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
+    if (title == nil) {
+        title = @"";
+    }
+    return title;
+}
+
+- (NSString *)wmf_titleWithUnderscores {
+    NSString *title = [[self.path wmf_pathWithoutWikiPrefix] wmf_denormalizedPageTitle];
     if (title == nil) {
         title = @"";
     }

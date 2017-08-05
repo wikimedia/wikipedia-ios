@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIImageView *)currentImageView;
 
+@property (nonatomic, strong) WMFTheme *theme;
+
 @end
 
 @interface WMFArticlePhoto : NSObject <WMFPhoto>
@@ -176,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @dynamic dataSource;
 
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate {
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme {
     self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
     if (self) {
         /**
@@ -191,6 +193,8 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
+
+        self.theme = theme;
 
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
@@ -262,6 +266,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id<NYTPhoto>)photo {
     NYTPhotoViewController *vc = [super newPhotoViewControllerForPhoto:photo];
     vc.scalingImageView.imageView.backgroundColor = [UIColor whiteColor];
+    if (!self.theme) {
+        // don't do this elsewhere
+        // self.theme needs to be set before the [super init] call
+        // this is easiest way to do it for now
+        self.theme = NSUserDefaults.wmf_userDefaults.wmf_appTheme;
+    }
+    vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
     return vc;
 }
 
@@ -367,6 +378,12 @@ NS_ASSUME_NONNULL_BEGIN
     return caption;
 }
 
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+}
+
 @end
 
 #pragma clang diagnostic pop
@@ -379,11 +396,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleImageGalleryViewController
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article {
-    return [self initWithArticle:article selectedImage:nil];
+- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme {
+    return [self initWithArticle:article selectedImage:nil theme:theme];
 }
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image {
+- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme {
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
@@ -400,7 +417,7 @@ NS_ASSUME_NONNULL_BEGIN
         selected = [[self class] photoWithImage:image inPhotos:photos];
     }
 
-    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil];
+    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil theme:theme];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
@@ -639,12 +656,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFPOTDImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates {
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates theme:(WMFTheme *)theme {
     NSParameterAssert(imageDates);
     NSArray *items = imageDates;
     NSArray<WMFPOTDPhoto *> *photos = [WMFPOTDPhoto photosWithDates:items];
 
-    self = [super initWithPhotos:photos initialPhoto:nil delegate:nil];
+    self = [super initWithPhotos:photos initialPhoto:nil delegate:nil theme:theme];
     if (self) {
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
     }

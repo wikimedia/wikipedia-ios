@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
-            return WMFLocalizedStringWithDefaultValue(@"on-this-day-title", nil, nil, @"On this day", @"Title for the 'On this day' feed section");
+            return WMFCommonStrings.onThisDayTitle;
         default:
             break;
     }
@@ -361,7 +361,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return YES;
         case WMFContentGroupKindOnThisDay:
-            return YES;
+            break;
         case WMFContentGroupKindNotification:
             return YES;
         case WMFContentGroupKindTheme:

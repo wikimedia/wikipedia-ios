@@ -47,7 +47,10 @@
 "action-unsave" = "Unsave";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
+"appearance-settings-image-dimming-footer" = "Decrease the opacity of images on dark theme";
 "appearance-settings-reading-themes" = "Reading themes";
+"appearance-settings-text-sizing-example-text" = "Drag the slider above to change the article text sizing. Utilize your system text size to resize other text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
@@ -286,7 +289,6 @@
 "readers-accessibility-label" = "$1 readers";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
-"reading-themes-controls-accessibility-dim-images-switch" = "Dim images";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
@@ -359,9 +361,10 @@
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
 "welcome-explore-continue-button" = "Get started";
-"welcome-explore-new-ways-sub-title" = "New notifications and widgets to help you discover interesting articles";
+"welcome-explore-features-news-notifications" = "Get news notifications for topics trending in the news";
+"welcome-explore-features-on-this-day" = "Travel back in time with $1 to learn what happened today in history";
+"welcome-explore-features-places" = "Use the $1 tab to discover landmarks near you or search for around the world";
 "welcome-explore-new-ways-title" = "New ways to explore";
-"welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-languages-add-button" = "Add another language";
 "welcome-languages-continue-button" = "Continue";

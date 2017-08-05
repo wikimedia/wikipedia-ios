@@ -300,22 +300,14 @@ NSString *const WMFAPIPath = @"/w/api.php";
     if (![self wmf_isWikiResource]) {
         return nil;
     }
-    NSString *title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
-    if (title == nil) {
-        title = @"";
-    }
-    return title;
+    return [[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:false] wmf_title];
 }
 
-- (NSString *)wmf_titleWithUnderScores {
+- (NSString *)wmf_titleWithUnderscores {
     if (![self wmf_isWikiResource]) {
         return nil;
     }
-    NSString *title = [[self.path wmf_pathWithoutWikiPrefix] wmf_denormalizedPageTitle];
-    if (title == nil) {
-        title = @"";
-    }
-    return title;
+    return [[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:false] wmf_titleWithUnderscores];
 }
 
 - (BOOL)wmf_isNonStandardURL {

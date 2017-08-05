@@ -34,7 +34,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 + (instancetype)wmf_pageActivityWithName:(NSString *)pageName {
     NSUserActivity *activity = [self wmf_activityWithType:[pageName lowercaseString]];
     activity.title = pageName;
-    activity.userInfo = @{ @"WMFPage": pageName };
+    activity.userInfo = @{@"WMFPage": pageName};
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         NSMutableSet *set = [activity.keywords mutableCopy];
@@ -47,7 +47,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 
 + (instancetype)wmf_contentActivityWithURL:(NSURL *)url {
     NSUserActivity *activity = [self wmf_activityWithType:@"Content"];
-    activity.userInfo = @{ @"WMFURL": url };
+    activity.userInfo = @{@"WMFURL": url};
     return activity;
 }
 
@@ -158,7 +158,25 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 + (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL *)url searchTerm:(NSString *)searchTerm {
     NSURLComponents *components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
     components.path = @"/w/index.php";
-    components.query = [NSString stringWithFormat:@"search=%@&title=Special:Search&fulltext=1", searchTerm];
+    NSMutableArray *queryItems = [NSMutableArray arrayWithCapacity:3];
+    NSURLQueryItem *queryItem = nil;
+    if (searchTerm) {
+        queryItem = [NSURLQueryItem queryItemWithName:@"search" value:searchTerm];
+        if (queryItem) {
+            [queryItems addObject:queryItem];
+        }
+    }
+    queryItem = [NSURLQueryItem queryItemWithName:@"title" value:@"Special:Search"];
+    if (queryItem) {
+        [queryItems addObject:queryItem];
+    }
+
+    queryItem = [NSURLQueryItem queryItemWithName:@"fulltext" value:@"1"];
+    if (queryItem) {
+        [queryItems addObject:queryItem];
+    }
+
+    components.queryItems = queryItems;
     url = [components URL];
 
     NSUserActivity *activity = [self wmf_activityWithType:@"Searchresults"];
