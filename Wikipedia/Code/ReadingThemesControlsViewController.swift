@@ -92,10 +92,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         let newValue = pointTapped.x * (CGFloat(slider.numberOfSteps) / widthOfSlider)
 
         slider.value = Int(newValue)
-
-        UIView.performWithoutAnimation {
-            slider.setNeedsLayout()
-        }
+        slider.setNeedsLayout()
     }
     
     func applyBorder(to button: UIButton) {
