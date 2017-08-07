@@ -27,7 +27,12 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         updateViewAlpha()
     }
     
-    var isEmptyViewHidden = true
+    var isEmptyViewHidden = true {
+        didSet {
+            collapsedArticleView.isHidden = !isEmptyViewHidden
+            expandedArticleView.isHidden = !isEmptyViewHidden
+        }
+    }
     
     var dataStore: MWKDataStore? {
         return SessionSingleton.sharedInstance()?.dataStore
