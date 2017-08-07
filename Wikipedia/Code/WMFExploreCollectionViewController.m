@@ -22,6 +22,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "WMFFeedOnThisDayEvent.h"
+#import "WMFContentGroup+DetailViewControllers.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -623,7 +624,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - WMFColumnarCollectionViewLayoutDelgate
 
 - (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize];
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {

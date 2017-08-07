@@ -11,7 +11,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     let midnightUTCDate: Date
     
     @objc(initWithEvents:dataStore:midnightUTCDate:)
-    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
@@ -44,7 +44,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
     
