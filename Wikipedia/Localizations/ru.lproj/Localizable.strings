@@ -310,6 +310,7 @@
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
+"reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
@@ -376,9 +377,7 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "welcome-explore-continue-button" = "Начать";
-"welcome-explore-new-ways-sub-title" = "Новые уведомления и виджеты, чтобы помочь вам обнаружить интересные статьи";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
-"welcome-explore-tell-me-more" = "Расскажите об этом подробнее";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-continue-button" = "Продолжить";

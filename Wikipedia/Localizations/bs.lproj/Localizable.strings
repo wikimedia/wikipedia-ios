@@ -285,7 +285,6 @@
 "preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
 "rank-accessibility-label" = "Broj $1";
 "readers-accessibility-label" = "$1 čitalaca";
-"reading-themes-controls-accessibility-dim-images-switch" = "Zatamni slike";
 "reference-title" = "Referenca $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Danas|Jučer|Prije $1 dana}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedavno|Prije $1 sat|Prije $1 sata|Prije $1 sati}}";
@@ -352,9 +351,7 @@
 "two-factor-login-with-backup-code" = "Koristi jedan od rezervnih kodova";
 "two-factor-login-with-regular-code" = "Koristi potvrdni kod";
 "welcome-explore-continue-button" = "Započni";
-"welcome-explore-new-ways-sub-title" = "Nova obavještenja i dodaci pomoći će Vam da otkrijete zanimljive članke";
 "welcome-explore-new-ways-title" = "Novi načini za istraživanje";
-"welcome-explore-tell-me-more" = "Detaljnije";
 "welcome-explore-tell-me-more-done-button" = "Razumijem";
 "welcome-languages-add-button" = "Dodaj drugi jezik";
 "welcome-languages-continue-button" = "Nastavi";

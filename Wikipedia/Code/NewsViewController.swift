@@ -1,3 +1,5 @@
+import WMF
+
 @objc(WMFNewsViewController)
 class NewsViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"

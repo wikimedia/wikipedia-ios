@@ -305,7 +305,6 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
-"reading-themes-controls-accessibility-dim-images-switch" = "Afbeeldingen dimmen";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
 "reference-title" = "Referentie $1";
@@ -377,9 +376,7 @@
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "welcome-explore-continue-button" = "Aan de slag";
-"welcome-explore-new-ways-sub-title" = "Nieuwe meldingen en widgets om u te helpen interessante pagina's te ontdekken";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
-"welcome-explore-tell-me-more" = "Vertel me meer";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";

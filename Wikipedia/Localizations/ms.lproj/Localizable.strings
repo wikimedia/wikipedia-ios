@@ -57,7 +57,10 @@
 "action-unsave" = "Nyahsimpan";
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
+"appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
+"appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-text-sizing-example-text" = "Seret gelangsar di atas untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
 "appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai rencana ini";
@@ -296,7 +299,6 @@
 "readers-accessibility-label" = "$1 pembaca";
 "reading-themes-controls-accessibility-brightness-slider" = "Slider kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
-"reading-themes-controls-accessibility-dim-images-switch" = "Imej malap";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Slider saiz teks";
@@ -369,9 +371,10 @@
 "two-factor-login-with-backup-code" = "Gunakan salah satu kod sandaran anda";
 "two-factor-login-with-regular-code" = "Gunakan kod pengesahan";
 "welcome-explore-continue-button" = "Memulakan";
-"welcome-explore-new-ways-sub-title" = "Notifikasi baru dan widget untuk membantu anda menemui rencana yang menarik";
+"welcome-explore-features-news-notifications" = "Dapatkan pemberitahuan berita untuk topik berita terkini yang sedang tren";
+"welcome-explore-features-on-this-day" = "Perjalanan kembali ke masa dengan $1 untuk mengetahui apa yang berlaku hari ini dalam sejarah";
+"welcome-explore-features-places" = "Gunakan tab $1 untuk menemui mercu tanda berhampiran anda atau cari di seluruh dunia";
 "welcome-explore-new-ways-title" = "Cara-cara baru untuk meneroka";
-"welcome-explore-tell-me-more" = "Beritahu saya banyak lagi";
 "welcome-explore-tell-me-more-done-button" = "Faham";
 "welcome-languages-add-button" = "Tambahkan bahasa lain";
 "welcome-languages-continue-button" = "Teruskan";

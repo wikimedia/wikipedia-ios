@@ -4,11 +4,11 @@ import UIKit
 open class ArticleCollectionViewCell: CollectionViewCell {
     static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
     
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let imageView = UIImageView()
-    let saveButton = SaveButton()
-    var extractLabel: UILabel?
+    public let titleLabel = UILabel()
+    public let descriptionLabel = UILabel()
+    public let imageView = UIImageView()
+    public let saveButton = SaveButton()
+    public var extractLabel: UILabel?
     
     private var kvoButtonTitleContext = 0
     
@@ -69,31 +69,31 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     // MARK - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
-    var titleFontFamily: WMFFontFamily?
-    var titleTextStyle: UIFontTextStyle?
+    public var titleFontFamily: WMFFontFamily?
+    public var titleTextStyle: UIFontTextStyle?
     
-    var descriptionFontFamily: WMFFontFamily?
-    var descriptionTextStyle: UIFontTextStyle?
+    public var descriptionFontFamily: WMFFontFamily?
+    public var descriptionTextStyle: UIFontTextStyle?
     
-    var extractFontFamily: WMFFontFamily?
-    var extractTextStyle: UIFontTextStyle?
+    public var extractFontFamily: WMFFontFamily?
+    public var extractTextStyle: UIFontTextStyle?
     
-    var saveButtonFontFamily: WMFFontFamily?
-    var saveButtonTextStyle: UIFontTextStyle?
+    public var saveButtonFontFamily: WMFFontFamily?
+    public var saveButtonTextStyle: UIFontTextStyle?
     
-    var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
-    var margins: UIEdgeInsets!
-    var spacing: CGFloat!
-    var saveButtonTopSpacing: CGFloat!
+    public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
+    public var margins: UIEdgeInsets!
+    public var spacing: CGFloat!
+    public var saveButtonTopSpacing: CGFloat!
     
-    var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    var isSaveButtonHidden = false {
+    public var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()

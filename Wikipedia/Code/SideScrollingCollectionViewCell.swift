@@ -8,26 +8,27 @@ internal struct CellArticle {
 }
 
 @objc(WMFSideScrollingCollectionViewCellDelegate)
-protocol SideScrollingCollectionViewCellDelegate {
+public protocol SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
 }
 
 @objc(WMFSideScrollingCollectionViewCell)
-class SideScrollingCollectionViewCell: CollectionViewCell {
+public class SideScrollingCollectionViewCell: CollectionViewCell {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
-    weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
-    let imageView = UIImageView()
-    let titleLabel = UILabel()
-    let subTitleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    var flowLayout: UICollectionViewFlowLayout? {
+    public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
+    public let imageView = UIImageView()
+    public let titleLabel = UILabel()
+    public let subTitleLabel = UILabel()
+    public let descriptionLabel = UILabel()
+    public let bottomTitleLabel = UILabel()
+
+    internal var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    let bottomTitleLabel = UILabel()
-    let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
+    internal let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    internal let prototypeCell = ArticleRightAlignedImageCollectionViewCell()
     var semanticContentAttributeOverride: UISemanticContentAttribute = .unspecified {
         didSet {
             titleLabel.semanticContentAttribute = semanticContentAttributeOverride
@@ -85,18 +86,18 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         imageView.wmf_reset()
     }
     
-    var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    let imageViewHeight: CGFloat = 170
-    var margins: UIEdgeInsets!
-    let spacing: CGFloat = 13
+    public let imageViewHeight: CGFloat = 170
+    public var margins: UIEdgeInsets!
+    public let spacing: CGFloat = 13
     
-    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var origin = CGPoint(x: margins.left, y: margins.top)
         let widthToFit = size.width - margins.left - margins.right
     
@@ -154,7 +155,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: origin.y)
     }
     
-    override func updateSelectedOrHighlighted() {
+    override public func updateSelectedOrHighlighted() {
         super.updateSelectedOrHighlighted()
         let backgroundColor = labelBackgroundColor
         titleLabel.backgroundColor = backgroundColor
@@ -165,7 +166,7 @@ class SideScrollingCollectionViewCell: CollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedArticle = articles[indexPath.item]
         guard let articleURL = selectedArticle.articleURL else {
             return
@@ -175,15 +176,15 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
 }
 
 extension SideScrollingCollectionViewCell: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return articles.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  SideScrollingCollectionViewCell.articleCellIdentifier, for: indexPath)
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
@@ -237,7 +238,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
 
 extension SideScrollingCollectionViewCell {
     @objc(subItemIndexAtPoint:)
-    func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
+    public func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
         let collectionViewFrame = collectionView.frame
         guard collectionViewFrame.contains(point) else {
             return NSNotFound
@@ -251,7 +252,7 @@ extension SideScrollingCollectionViewCell {
     }
     
     @objc(viewForSubItemAtIndex:)
-    func viewForSubItem(at index: Int) -> UIView? {
+    public func viewForSubItem(at index: Int) -> UIView? {
         guard index != NSNotFound, index >= 0, index < collectionView.numberOfItems(inSection: 0) else {
             return nil
         }
@@ -263,7 +264,7 @@ extension SideScrollingCollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell: Themeable {
-    func apply(theme: Theme) {
+    public func apply(theme: Theme) {
         self.theme = theme
         imageView.alpha = theme.imageOpacity
         backgroundView?.backgroundColor = theme.colors.paperBackground
