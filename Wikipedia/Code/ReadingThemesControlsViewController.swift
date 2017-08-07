@@ -81,18 +81,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        slider.addGestureRecognizer(tap)
-    }
-    
-    func handleTap(_ sender: UIGestureRecognizer) {
-        let pointTapped: CGPoint = sender.location(in: slider)
-        
-        let widthOfSlider: CGFloat = slider.bounds.size.width
-        let newValue = pointTapped.x * (CGFloat(slider.numberOfSteps) / widthOfSlider)
-
-        slider.value = Int(newValue)
-        slider.setNeedsLayout()
     }
     
     func applyBorder(to button: UIButton) {
