@@ -55,7 +55,10 @@
 "action-unsave" = "Тргни";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Тргни";
+"appearance-settings-adjust-text-sizing" = "Прилагоди големина на текстот";
+"appearance-settings-image-dimming-footer" = "Намали ја непроѕирноста на сликите во темниот изглед";
 "appearance-settings-reading-themes" = "Читачки изгледи";
+"appearance-settings-text-sizing-example-text" = "Изменете ја големината на текстот со лизгачот погоре. Користете ја големината зададена во вашиот систем за да го прилагодите текстот во другите подрачја на прилогот.";
 "appearance-settings-theme-options" = "Можности за изгледот";
 "appearance-settings-title" = "Читачки изгледи";
 "article-about-title" = "Уреди ја статијава";
@@ -182,8 +185,7 @@
 "home-nearby-location-footer" = "Повеќе околу $1";
 "home-news-footer" = "Повеќе новости";
 "home-themes-action-title" = "Упр. со поставки";
-// Fuzzy
-"home-themes-prompt" = "Читајте во темница или ограничете ја вашата изложеност на сина светлина во вечерите со новите изгледи за читање „Темна“ и „Сипа“. Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања.";
+"home-themes-prompt" = "Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања за поудобно читање.";
 "home-title" = "Истражете";
 "home-title-accessibility-label" = "Википедија, пролизгајте најгоре до Истражете";
 "icon-shortcut-continue-reading-title" = "Продолжете со читање";
@@ -295,7 +297,6 @@
 "readers-accessibility-label" = "$1 читатели";
 "reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
 "reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
-"reading-themes-controls-accessibility-dim-images-switch" = "Затемни слики";
 "reading-themes-controls-accessibility-light-theme-button" = "Светол изглед";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Сипин изглед";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
@@ -368,9 +369,10 @@
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "welcome-explore-continue-button" = "Започни";
-"welcome-explore-new-ways-sub-title" = "Нови известувања и додатоци што ви помагаат да откриете интересни статии";
+"welcome-explore-features-news-notifications" = "Добивајте новости за темите кои се најтековни во вестите";
+"welcome-explore-features-on-this-day" = "Вратете се во времето со $1 за да дознаете што се случило на денешен ден во минатото";
+"welcome-explore-features-places" = "Користете го јазичето $1 за да откривање знаменитости во ваша близина или за да пребарувате ширум светот";
 "welcome-explore-new-ways-title" = "Нови начини да се истражува";
-"welcome-explore-tell-me-more" = "Сакам да дознаам повеќе";
 "welcome-explore-tell-me-more-done-button" = "Јасно";
 "welcome-languages-add-button" = "Додај друг јазик";
 "welcome-languages-continue-button" = "Продолжи";

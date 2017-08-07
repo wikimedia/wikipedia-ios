@@ -62,7 +62,10 @@
 "action-unsave" = "ביטול שמירה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
+"appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
+"appearance-settings-image-dimming-footer" = "הפחתת העמימות של התמונות בערכת הנושא החשוכה";
 "appearance-settings-reading-themes" = "ערכות נושא לקריאה";
+"appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק לעיל כדי לשנות את גודל טקסט הערך. השתמשו בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
 "appearance-settings-title" = "ערכות נושא לקריאה";
 "article-about-title" = "מידע על הערך הזה";
@@ -301,7 +304,6 @@
 "readers-accessibility-label" = "$1 קוראים";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";
-"reading-themes-controls-accessibility-dim-images-switch" = "עמעום תמונות";
 "reading-themes-controls-accessibility-light-theme-button" = "ערכת נושא בהירה";
 "reading-themes-controls-accessibility-sepia-theme-button" = "ערכת נושא ספיה";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
@@ -374,9 +376,10 @@
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "welcome-explore-continue-button" = "להתחיל";
-"welcome-explore-new-ways-sub-title" = "עדכונים ווידג׳טים שעוזרים לך לגלות ערכים מעניינים";
+"welcome-explore-features-news-notifications" = "קבלת עדכוני חדשות על נושאים חמים בחדשות";
+"welcome-explore-features-on-this-day" = "חזרו אחורה בזמן עם \"$1\" כדי לכלות מה קרה היום בהיסטוריה";
+"welcome-explore-features-places" = "השתמשו בלשונית $1 כדי לגלות מקומות מעניינים לידכם או חפשו סביב העולם";
 "welcome-explore-new-ways-title" = "דרכים חדשות לגלות";
-"welcome-explore-tell-me-more" = "ספרו לי עוד";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
 "welcome-languages-add-button" = "הוספת שפה אחרת";
 "welcome-languages-continue-button" = "להמשיך";

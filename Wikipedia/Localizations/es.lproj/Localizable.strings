@@ -8,6 +8,7 @@
 // Author: Javiersanp
 // Author: Josecurioso
 // Author: Koavf
+// Author: Luisangelrg
 // Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
@@ -70,7 +71,10 @@
 "action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
+"appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
+"appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
+"appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "appearance-settings-title" = "Temas de lecturas";
 "article-about-title" = "Acerca de este artículo";
@@ -309,7 +313,6 @@
 "readers-accessibility-label" = "$1 lectores";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de brillo";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema oscuro";
-"reading-themes-controls-accessibility-dim-images-switch" = "Atenuación de imágenes";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema ligero";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamaño de texto";
@@ -382,9 +385,10 @@
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "welcome-explore-continue-button" = "Empezar";
-"welcome-explore-new-ways-sub-title" = "Notificaciones y \"widgets\" nuevos para ayudarte a descubrir artículos interesantes";
+"welcome-explore-features-news-notifications" = "Obtenga notificaciones sobre los temas que marcan tendencia en las noticias.";
+"welcome-explore-features-on-this-day" = "Realice un viaje en el tiempo con $1 para aprender qué ocurrió en la historia un día como hoy";
+"welcome-explore-features-places" = "Utilice la pestaña $1 para descubrir monumentos cerca de usted o realizar una búsqueda alrededor del mundo";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
-"welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-languages-add-button" = "Añadir otro idioma";
 "welcome-languages-continue-button" = "Continuar";

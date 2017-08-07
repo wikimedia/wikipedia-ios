@@ -68,6 +68,7 @@
 "action-unsave" = "저장하지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
+"appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
 "appearance-settings-reading-themes" = "읽기 테마";
 "appearance-settings-theme-options" = "테마 옵션";
 "appearance-settings-title" = "읽기 테마";
@@ -370,9 +371,7 @@
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
 "welcome-explore-continue-button" = "시작하기";
-"welcome-explore-new-ways-sub-title" = "흥미로운 문서의 발견을 도와주는 새로운 알림과 위젯";
 "welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
-"welcome-explore-tell-me-more" = "더 보기";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-languages-add-button" = "다른 언어 추가";
 "welcome-languages-continue-button" = "계속";
