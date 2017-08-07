@@ -4,6 +4,7 @@
 // Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
+// Author: Botansahin
 // Author: Bulgu
 // Author: HakanIST
 // Author: Incelemeelemani
@@ -76,6 +77,7 @@
 "alert-no-internet" = "İnternet bağlantısı yok";
 // Fuzzy
 "announcements-dismiss" = "Hayır, teşekkürler";
+"appearance-settings-image-dimming-footer" = "Karanlık temadaki görüntülerin opaklığını düşür.";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
 "article-languages-filter-placeholder" = "Dil bul";
@@ -373,9 +375,10 @@
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "welcome-explore-continue-button" = "Kullanmaya başla";
-"welcome-explore-new-ways-sub-title" = "Yeni bildirimler ve araçlar ilginç makaleleri keşfetmenize yardımcı olacak";
+"welcome-explore-features-news-notifications" = "Bu popüler konular için daha fazla bilgi al.";
+"welcome-explore-features-on-this-day" = "Tarihte bugün ne olduğunu öğrenmek için, $1 ile geçmişe yolculuk yap.";
+"welcome-explore-features-places" = "Çevrendeki veya tüm dünyadaki önemli yerleri keşfetmek için bir dolarlık banknot kullan.";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
-"welcome-explore-tell-me-more" = "Daha fazla bilgi";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
 "welcome-languages-add-button" = "Başka bir dil ekle";
 "welcome-languages-continue-button" = "Devam";

@@ -305,7 +305,6 @@
 "readers-accessibility-label" = "$1 läsare";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
-"reading-themes-controls-accessibility-dim-images-switch" = "Mörklägg bilder";
 "reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepiatema";
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
@@ -378,9 +377,7 @@
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "welcome-explore-continue-button" = "Kom igång";
-"welcome-explore-new-ways-sub-title" = "Nya notiser och widgets för att hjälpa dig att upptäcka intressanta artiklar";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
-"welcome-explore-tell-me-more" = "Berätta mer";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-languages-add-button" = "Lägg till ett annat språk";
 "welcome-languages-continue-button" = "Fortsätt";

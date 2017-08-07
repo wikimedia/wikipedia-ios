@@ -64,7 +64,10 @@
 "action-unsave" = "未保存";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
+"appearance-settings-adjust-text-sizing" = "调整条目文本大小";
+"appearance-settings-image-dimming-footer" = "在夜间主题中减小图片的不透明度";
 "appearance-settings-reading-themes" = "正在读取主题";
+"appearance-settings-text-sizing-example-text" = "拖动上方滑块以更改条目文本大小。利用您系统的文本大小以更改应用中其他文本区域的大小。";
 "appearance-settings-theme-options" = "主题选项";
 "appearance-settings-title" = "正在读取主题";
 "article-about-title" = "关于此条目";
@@ -303,7 +306,6 @@
 "readers-accessibility-label" = "$1位读者";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
 "reading-themes-controls-accessibility-dark-theme-button" = "夜间主题";
-"reading-themes-controls-accessibility-dim-images-switch" = "使图片变暗";
 "reading-themes-controls-accessibility-light-theme-button" = "白天主题";
 "reading-themes-controls-accessibility-sepia-theme-button" = "棕黑主题";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑块";
@@ -376,9 +378,10 @@
 "two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "two-factor-login-with-regular-code" = "使用验证码";
 "welcome-explore-continue-button" = "入门";
-"welcome-explore-new-ways-sub-title" = "帮助您发现感兴趣条目的新通知和小工具";
+"welcome-explore-features-news-notifications" = "在新闻中获取话题趋势的新闻通知";
+"welcome-explore-features-on-this-day" = "通过$1穿越时间了解历史上的今天发生了什么";
+"welcome-explore-features-places" = "使用$1标签发现您附近的地标，或搜索全世界";
 "welcome-explore-new-ways-title" = "探索的新方式";
-"welcome-explore-tell-me-more" = "告诉我更多";
 "welcome-explore-tell-me-more-done-button" = "明白了";
 "welcome-languages-add-button" = "添加另一个语言";
 "welcome-languages-continue-button" = "继续";

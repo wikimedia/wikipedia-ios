@@ -62,14 +62,15 @@
 "action-share" = "Jaa";
 "action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
-// Fuzzy
-"announcements-dismiss" = "Ei kiitos";
+"announcements-dismiss" = "Sulje";
 "article-about-title" = "Tietoja tästä artikkelista";
+"article-delete" = "Poista";
 "article-languages-filter-placeholder" = "Löydä kieli";
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Lue lisää";
+"article-share" = "Jaa";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back" = "Takaisin";
@@ -88,6 +89,7 @@
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
+"dark-theme-display-name" = "Tumma";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
@@ -156,6 +158,7 @@
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "Tai";
+"gdfl" = "GFDL";
 "history-clear-all" = "Tyhjennä";
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
@@ -178,6 +181,7 @@
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää paikallisia artikkeleita";
 "home-nearby-location-footer" = "Lähistöllä: $1";
+"home-themes-action-title" = "Hallinnoi asetuksia";
 "home-title" = "Tutki";
 "home-title-accessibility-label" = "Wikipedia, selaa alkuun Tutki";
 "icon-shortcut-continue-reading-title" = "Jatka lukemista";
@@ -229,6 +233,7 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
+"on-this-day-title" = "Tänä päivänä";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Peruuta";
 "page-edit-history" = "Täysi muokkaushistoria";
@@ -281,10 +286,14 @@
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tumma teema";
+"reading-themes-controls-accessibility-light-theme-button" = "Vaalea teema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Seepiateema";
 "reference-title" = "Lähde $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|Eilen|$1 päivää sitten}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|Viime vuonna|$1 vuotta sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "saved-clear-all" = "Tyhjennä";
 "saved-pages-clear-cancel" = "Peruuta";
@@ -336,6 +345,9 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"theme-dark-display-name" = "Tumma";
+"theme-default-display-name" = "Oletus";
+"theme-sepia-display-name" = "Seepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
@@ -345,9 +357,7 @@
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "welcome-explore-continue-button" = "Aloitetaan";
-"welcome-explore-new-ways-sub-title" = "Uudet ilmoitukset ja widgetit auttavat sinua löytämään mielenkiintoisia artikkeleita.";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
-"welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-add-button" = "Lisää toinen kieli";
 "welcome-languages-continue-button" = "Jatka";
@@ -372,7 +382,6 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";

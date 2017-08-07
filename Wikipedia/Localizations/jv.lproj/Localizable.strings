@@ -292,7 +292,6 @@
 "readers-accessibility-label" = "$1 sing maca";
 "reading-themes-controls-accessibility-brightness-slider" = "Panggeser padhang";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ules peteng";
-"reading-themes-controls-accessibility-dim-images-switch" = "Bleretaké gambar";
 "reading-themes-controls-accessibility-light-theme-button" = "Ules padhang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Ules sèpia";
 "reading-themes-controls-accessibility-text-size-slider" = "Panggeser ukuran tèks";
@@ -365,9 +364,7 @@
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
 "welcome-explore-continue-button" = "Miwiti";
-"welcome-explore-new-ways-sub-title" = "Wara-wara lan widgèt anyar kanggo mbiyantu panjenengan golèk artikel sing narik kawigatèn";
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
-"welcome-explore-tell-me-more" = "Kandhani aku candhaké";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";
 "welcome-languages-add-button" = "Tambah basa liyané";
 "welcome-languages-continue-button" = "Banjuraké";

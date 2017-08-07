@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d n tedyant tamazrayt</string>
+			<key>other</key>
+			<string>%1$d n tidyanin timazrayin</string>
+		</dict>
+	</dict>
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d paikka löytyi</string>
+			<string>%1$d n wadig yattwafen</string>
 			<key>other</key>
-			<string>%1$d paikkaa löytyi</string>
+			<string>%1$d n yidigen yettwafen</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -29,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikkeli</string>
+			<string>%1$d amagrad</string>
 			<key>other</key>
-			<string>%1$d artikkelia</string>
+			<string>%1$d imagraden</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -45,11 +61,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Eilen</string>
+			<string>Iḍelli</string>
 			<key>other</key>
-			<string>%1$d päivää sitten</string>
+			<string>%1$d n wussan aya</string>
 			<key>zero</key>
-			<string>Tänään</string>
+			<string>ass-a</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -63,11 +79,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d tunti sitten</string>
+			<string>%1$d usrag aya</string>
 			<key>other</key>
-			<string>%1$d tuntia sitten</string>
+			<string>%1$d n isragen aya</string>
 			<key>zero</key>
-			<string>Äskettäin</string>
+			<string>Melmi kan</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -81,11 +97,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d minuutti sitten</string>
+			<string>%1$d n tesdat</string>
 			<key>other</key>
-			<string>%1$d minuuttia sitten</string>
+			<string>%1$d n tisdatin aya</string>
 			<key>zero</key>
-			<string>Juuri nyt</string>
+			<string>tura kan</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
@@ -99,11 +115,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Viime vuonna</string>
+			<string>Aseggas yezrin</string>
 			<key>other</key>
-			<string>%1$d vuotta sitten</string>
+			<string>%1$d n useggas aya</string>
 			<key>zero</key>
-			<string>Tänä vuonna</string>
+			<string>Aseggas-a</string>
 		</dict>
 	</dict>
 </dict>
