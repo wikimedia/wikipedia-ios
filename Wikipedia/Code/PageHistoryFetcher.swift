@@ -180,6 +180,10 @@ extension HistoryFetchResults {
     fileprivate static func update(revisionsByDay: inout RevisionsByDay, revision: WMFPageHistoryRevision) {
         let distanceToToday = revision.daysFromToday()
         
+        guard revision.user != nil else {
+            return
+        }
+        
         if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
             let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
             let items = existingRevisionsOnCurrentDay.items + [revision]
