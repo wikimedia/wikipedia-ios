@@ -163,7 +163,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFKeyValue+CoreDataProperties.h>
-
+#import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
 #import <WMF/PiwikTracker+WMFExtensions.h>
@@ -174,6 +174,18 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/UIImage+WMFStyle.h>
 #import <WMF/UIView+WMFDefaultNib.h>
 #import <WMF/FLAnimatedImage+SafeForSwift.h>
+#import <WMF/WMFGradientView.h>
+#import <WMF/WMFFeedContentDisplaying.h>
+#import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
+
+//Collection view layout
+#import <WMF/WMFColumnarCollectionViewLayout.h>
+#import <WMF/WMFCVLInfo.h>
+#import <WMF/WMFCVLMetrics.h>
+#import <WMF/WMFCVLColumn.h>
+#import <WMF/WMFCVLSection.h>
+#import <WMF/WMFCVLAttributes.h>
+#import <WMF/WMFCVLInvalidationContext.h>
 
 //Deprecated
 #import <WMF/MWKHistoryEntry.h>

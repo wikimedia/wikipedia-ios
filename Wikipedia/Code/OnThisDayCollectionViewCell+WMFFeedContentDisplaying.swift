@@ -2,7 +2,7 @@ import UIKit
 
 extension OnThisDayCollectionViewCell {
     @objc(configureWithOnThisDayEvent:dataStore:theme:layoutOnly:shouldAnimateDots:)
-    func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool, shouldAnimateDots: Bool) {
+    public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool, shouldAnimateDots: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
         let currentYear = Calendar.current.component(.year, from: Date())
         

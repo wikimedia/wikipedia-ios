@@ -28,14 +28,14 @@
     return copy;
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO];
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
+    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing {
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
-    BOOL isRTL = [[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft;
+    BOOL isRTL = layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
     BOOL isPad = boundsSize.width >= 600;
     BOOL useTwoColumns = isPad || boundsSize.width > boundsSize.height;
     BOOL isWide = boundsSize.width >= 1000;

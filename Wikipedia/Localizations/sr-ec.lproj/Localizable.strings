@@ -8,6 +8,7 @@
 // Author: Obsuser
 // Author: Rancher
 // Author: Srdjan m
+// Author: Милан Јелисавчић
 // Author: Сербијана
 
 "about-content-license" = "Лиценца садржаја";
@@ -59,11 +60,13 @@
 // Fuzzy
 "announcements-dismiss" = "Не, хвала";
 "article-about-title" = "О чланку";
+"article-delete" = "Обриши";
 "article-languages-filter-placeholder" = "Пронађи језик";
 "article-languages-label" = "Изаберите језик";
 "article-languages-others" = "Други језици";
 "article-languages-yours" = "Ваши језици";
 "article-read-more-title" = "Детаљније";
+"article-share" = "Дели";
 "article-unable-to-load-article" = "Не могу да учитам чланак.";
 "article-unable-to-load-section" = "Није било могуће учитати овај одељак. Покушајте са поновним учитавањем чланка да видите хоће ли проблем нестати.";
 "back" = "Назад";
@@ -82,6 +85,7 @@
 "compass-direction" = "у $1 ч.";
 "continue-reading-empty-description" = "Истражи Википедију за још чланака за прочитати";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
+"dark-theme-display-name" = "Тамно";
 "edit-summary-choice-fixed-grammar" = "Исправљен правопис";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка при куцању";
 "edit-summary-choice-linked-words" = "Додате везе";
@@ -330,6 +334,8 @@
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
 "table-title-other" = "Детаљније";
+"theme-dark-display-name" = "Тамно";
+"theme-default-display-name" = "Подразумевано";
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Погледај још најчитанијег садржаја";
@@ -339,9 +345,7 @@
 "two-factor-login-with-backup-code" = "Користите један од својих резервних кодова";
 "two-factor-login-with-regular-code" = "Користите код за верификацију";
 "welcome-explore-continue-button" = "Почни";
-"welcome-explore-new-ways-sub-title" = "Нова обавештења и додаци да вам помогнемо да пронађете интересантне чланке";
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";
-"welcome-explore-tell-me-more" = "Детаљније";
 "welcome-explore-tell-me-more-done-button" = "Разумем";
 "welcome-languages-add-button" = "Додај други језик";
 "welcome-languages-continue-button" = "Настави";
