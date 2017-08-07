@@ -89,11 +89,18 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { (context) in
+        let viewUpdates = {
             self.updateViewAlpha()
-        }) { (context) in
-            
         }
+        
+        guard coordinator.isAnimated else {
+            viewUpdates()
+            return
+        }
+        
+        coordinator.animate(alongsideTransition: { (context) in
+            viewUpdates()
+        }) { (context) in }
     }
     
     func updateView() {

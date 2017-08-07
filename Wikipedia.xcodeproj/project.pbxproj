@@ -2186,6 +2186,7 @@
 		D8D365151E953C7100593A38 /* ImageControllerCompletionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */; };
 		D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */; };
+		D8D39C561F38875D00E1CC55 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
 		D8D551701DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
 		D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
@@ -2836,6 +2837,13 @@
 			remoteGlobalIDString = D895D0821D9C1EB8005418C1;
 			remoteInfo = InTheNewsNotification;
 		};
+		D8D39C571F38876300E1CC55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
 		D8EC3DD01E9BDA35006712EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2880,6 +2888,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D8D39C561F38875D00E1CC55 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -8248,6 +8257,7 @@
 				D88DBBBB1D8B322400134A50 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
+				D8D39C581F38876300E1CC55 /* PBXTargetDependency */,
 				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
 				D8479FB11F222FE90025FD7A /* PBXTargetDependency */,
 			);
@@ -11559,6 +11569,11 @@
 			isa = PBXTargetDependency;
 			target = D895D0821D9C1EB8005418C1 /* InTheNewsNotification */;
 			targetProxy = D8CE24DF1E698E2400DAE2E0 /* PBXContainerItemProxy */;
+		};
+		D8D39C581F38876300E1CC55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D8D39C571F38876300E1CC55 /* PBXContainerItemProxy */;
 		};
 		D8EC3DCF1E9BDA35006712EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
