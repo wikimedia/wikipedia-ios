@@ -86,18 +86,16 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     }
     
     func handleTap(_ sender: UIGestureRecognizer) {
-        let pointTapped: CGPoint = sender.location(in: self.view)
+        let pointTapped: CGPoint = sender.location(in: slider)
         
-        let positionOfSlider: CGPoint = slider.frame.origin
-        let widthOfSlider: CGFloat = slider.frame.size.width
-        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(slider.numberOfSteps) / widthOfSlider)
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
+        let widthOfSlider: CGFloat = slider.bounds.size.width
+        let newValue = pointTapped.x * (CGFloat(slider.numberOfSteps) / widthOfSlider)
+
         slider.value = Int(newValue)
-        // Update UI without animation
-        slider.setNeedsLayout()
-        CATransaction.commit()
+
+        UIView.performWithoutAnimation {
+            slider.setNeedsLayout()
+        }
     }
     
     func applyBorder(to button: UIButton) {
@@ -220,7 +218,7 @@ extension ReadingThemesControlsViewController: Themeable {
         default:
             break
         }
-
+        
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText
