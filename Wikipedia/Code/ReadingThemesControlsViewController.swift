@@ -35,8 +35,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     @IBOutlet var stackView: UIStackView!
     
-    var steps: Int?
-    
     var visible = false
     
     open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
@@ -130,7 +128,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     }
     
     open func setValuesWithSteps(_ steps: Int, current: Int) {
-        self.steps = steps
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
