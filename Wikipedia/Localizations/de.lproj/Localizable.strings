@@ -56,7 +56,10 @@
 "action-unsave" = "Löschen";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Ausblenden";
+"appearance-settings-adjust-text-sizing" = "Passe die Größe des Artikeltextes an";
+"appearance-settings-image-dimming-footer" = "Verringere die Undurchsichtigkeit von Bildern im dunklen Thema";
 "appearance-settings-reading-themes" = "Lesethemen";
+"appearance-settings-text-sizing-example-text" = "Bewege oben den Schieber, um die Größe des Artikeltextes zu ändern. Verwende die Größe deines Systemtextes, um die Größe anderer Textbereiche in der App zu ändern.";
 "appearance-settings-theme-options" = "Farbschemaoptionen";
 "appearance-settings-title" = "Lesethemen";
 "article-about-title" = "Über diesen Artikel";
@@ -295,7 +298,6 @@
 "readers-accessibility-label" = "$1 Leser";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Thema";
-"reading-themes-controls-accessibility-dim-images-switch" = "Bilder dimmen";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht-Thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Thema";
 "reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
@@ -368,9 +370,10 @@
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
 "welcome-explore-continue-button" = "Anfangen";
-"welcome-explore-new-ways-sub-title" = "Neue Benachrichtigungen und Widgets, die dir beim Entdecken interessanter Artikel helfen.";
+"welcome-explore-features-news-notifications" = "Erhalte Benachrichtigungen für Themen, die in den Nachrichten sind.";
+"welcome-explore-features-on-this-day" = "Reise in der Zeit zurück mit $1, um zu erfahren, was heute in der Vergangenheit passiert ist.";
+"welcome-explore-features-places" = "Verwende den Reiter $1, um Wahrzeichen in deiner Nähe zu entdecken oder um auf der ganzen Welt zu suchen.";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";
-"welcome-explore-tell-me-more" = "Mehr erfahren";
 "welcome-explore-tell-me-more-done-button" = "Verstanden";
 "welcome-languages-add-button" = "Eine weitere Sprache hinzufügen";
 "welcome-languages-continue-button" = "Fortfahren";

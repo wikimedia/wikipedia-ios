@@ -50,8 +50,7 @@
 "action-share" = "Deelen";
 "action-unsave" = "Läschen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
-// Fuzzy
-"announcements-dismiss" = "Nee, merci";
+"announcements-dismiss" = "Verwerfen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-languages-filter-placeholder" = "Sprooch fannen";
@@ -345,9 +344,7 @@
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
 "welcome-explore-continue-button" = "Fir unzefänken";
-"welcome-explore-new-ways-sub-title" = "Nei Notifikatiounen a Widgets déi Iech hëllefe fir interessant Artikelen ze fannen";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
-"welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";

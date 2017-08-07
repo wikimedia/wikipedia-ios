@@ -38,6 +38,7 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
+#import "WMFContentGroup+DetailViewControllers.h"
 
 /**
  *  Enums for each tab in the main tab bar.

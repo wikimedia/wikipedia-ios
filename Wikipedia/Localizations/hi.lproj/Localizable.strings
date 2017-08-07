@@ -1,6 +1,7 @@
 // Messages for Hindi (हिन्दी)
 // Exported from translatewiki.net
 // Author: Adithyavr
+// Author: Anamdas
 // Author: JoeWalshWMF
 // Author: Macofe
 // Author: NehalDaveND
@@ -61,14 +62,17 @@
 "action-share" = "साझा करें";
 "action-unsave" = "न सहेजें";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
-// Fuzzy
-"announcements-dismiss" = "नहीं धन्यवाद";
+"announcements-dismiss" = "रद्द करें";
+"appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
+"appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
 "article-about-title" = "इस लेख के बारे में";
+"article-delete" = "हटाएँ";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-languages-label" = "भाषा चुनें";
 "article-languages-others" = "अन्य भाषाएँ";
 "article-languages-yours" = "आपकी भाषाएँ";
 "article-read-more-title" = "और पढ़ें";
+"article-share" = "साझा करें";
 "article-unable-to-load-article" = "लेख की लोड करने  में असमर्थ।";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "back" = "वापस";
@@ -229,6 +233,7 @@
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हज़ार";
+"on-this-day-title" = "आज के दिन";
 "onboarding-wikipedia" = "विकिपीडिया";
 "open-link-cancel" = "रद्द करें";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
@@ -347,9 +352,7 @@
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "welcome-explore-continue-button" = "शुरू करें";
-"welcome-explore-new-ways-sub-title" = "आपको रुचिकर लेखों को खोजने में मदद हेतु नए नोटिफिकेशन्स और विडजिट्स";
 "welcome-explore-new-ways-title" = "खोजने के नए तरीके";
-"welcome-explore-tell-me-more" = "मुझे और बताओ";
 "welcome-explore-tell-me-more-done-button" = "समझ में आया";
 "welcome-languages-add-button" = "दूसरी भाषा जोड़ें";
 "welcome-languages-continue-button" = "जारी रखें";

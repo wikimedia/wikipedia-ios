@@ -1,18 +1,18 @@
 import UIKit
 
 @objc(WMFNewsCollectionViewCell)
-class NewsCollectionViewCell: SideScrollingCollectionViewCell {
+public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     var descriptionFont:UIFont? = nil
     var descriptionLinkFont:UIFont? = nil
 
-    override func updateFonts(with traitCollection: UITraitCollection) {
+    override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         descriptionFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
         descriptionLinkFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
         updateDescriptionHTMLStyle()
     }
     
-    override func updateSelectedOrHighlighted() {
+    override public func updateSelectedOrHighlighted() {
         super.updateSelectedOrHighlighted()
         collectionView.backgroundColor = labelBackgroundColor
     }

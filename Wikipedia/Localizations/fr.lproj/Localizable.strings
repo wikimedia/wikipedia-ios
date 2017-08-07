@@ -70,7 +70,10 @@
 "action-unsave" = "Non enregistré";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Ignorer";
+"appearance-settings-adjust-text-sizing" = "Ajuster la taille du texte de l’article";
+"appearance-settings-image-dimming-footer" = "Diminuer l’opacité des images du thème sombre";
 "appearance-settings-reading-themes" = "Thèmes de lecture";
+"appearance-settings-text-sizing-example-text" = "Déplacez le curseur ci-dessus pour modifier la taille du texte de l’article. Utilisez votre taille de texte système pour dimensionner les autres zones de texte de l’application.";
 "appearance-settings-theme-options" = "Options des thèmes";
 "appearance-settings-title" = "Thèmes de lecture";
 "article-about-title" = "À propos de cet article";
@@ -309,7 +312,6 @@
 "readers-accessibility-label" = "$1 lecteurs";
 "reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";
 "reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
-"reading-themes-controls-accessibility-dim-images-switch" = "Assombrir les images";
 "reading-themes-controls-accessibility-light-theme-button" = "Thème clair";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Thème sépia";
 "reading-themes-controls-accessibility-text-size-slider" = "Curseur de taille du texte";
@@ -382,9 +384,10 @@
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
 "welcome-explore-continue-button" = "Commencer";
-"welcome-explore-new-ways-sub-title" = "Nouvelles notifications et widgets pour vous aider à découvrir des articles intéressants";
+"welcome-explore-features-news-notifications" = "Obtenir de nouvelles notifications sur des sujets tendance dans les nouvelles";
+"welcome-explore-features-on-this-day" = "Remonter le temps avec $1 pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";
+"welcome-explore-features-places" = "Utiliser l’onglet $1 pour découvrir des zones de paysage proches de vous, ou rechercher dans le monde entier";
 "welcome-explore-new-ways-title" = "Nouvelles voies à explorer";
-"welcome-explore-tell-me-more" = "M’en dire plus";
 "welcome-explore-tell-me-more-done-button" = "Opter pour";
 "welcome-languages-add-button" = "Ajouter une autre langue";
 "welcome-languages-continue-button" = "Continuer";

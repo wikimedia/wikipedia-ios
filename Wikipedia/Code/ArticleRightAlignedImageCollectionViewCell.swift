@@ -11,7 +11,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     }
     
     override open func setup() {
-        imageView.cornerRadius = 3
+        imageView.layer.cornerRadius = 3
         bottomSeparator.isOpaque = true
         addSubview(bottomSeparator)
         super.setup()

@@ -287,7 +287,6 @@
 "readers-accessibility-label" = "$1 پڙھندڙ";
 "reading-themes-controls-accessibility-brightness-slider" = "چمڪداري سلائيڊر";
 "reading-themes-controls-accessibility-dark-theme-button" = "گھرو نظارو";
-"reading-themes-controls-accessibility-dim-images-switch" = "ڊم عڪس";
 "reading-themes-controls-accessibility-light-theme-button" = "ھلڪو نظام";
 "reading-themes-controls-accessibility-sepia-theme-button" = "سيپيا نظارو";
 "reading-themes-controls-accessibility-text-size-slider" = "لکت جي ماپ جو سلائيڊر";
@@ -354,9 +353,7 @@
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
 "welcome-explore-continue-button" = "شروع ڪريو";
-"welcome-explore-new-ways-sub-title" = "دلچسپ مضمون لھڻ لاءِ توھان لاءِ نوان اطلاع ۽ وڊجيٽس";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
-"welcome-explore-tell-me-more" = "مون کي وڌيڪ ٻڌايو";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
 "welcome-languages-continue-button" = "جاري رکو";

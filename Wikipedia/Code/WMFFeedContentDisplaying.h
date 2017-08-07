@@ -1,5 +1,4 @@
 @import UIKit;
-@import WMF.Swift;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,7 +59,7 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     WMFFeedBlacklistOptionAllSections = 1 << 2 // blacklist all sections of this type
 };
 
-@protocol WMFFeedContentDisplaying <WMFAnalyticsContentTypeProviding, WMFAnalyticsValueProviding>
+@protocol WMFFeedContentDisplaying
 
 /**
  *  The type of header to display for the section

@@ -58,7 +58,10 @@
 "action-unsave" = "Non gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
+"appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
+"appearance-settings-image-dimming-footer" = "Diminuír a opacidade das imaxes do tema escuro";
 "appearance-settings-reading-themes" = "Temas de lectura";
+"appearance-settings-text-sizing-example-text" = "Mova a barra de arriba para cambiar o tamaño do texto do artigo. Use o cambio de tamaño de texto do seu sistema para redimensionar outras áreas de texto da aplicación.";
 "appearance-settings-theme-options" = "Opcións dos temas";
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
@@ -297,7 +300,6 @@
 "readers-accessibility-label" = "$1 lectores";
 "reading-themes-controls-accessibility-brightness-slider" = "Cursor de luminosidade";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
-"reading-themes-controls-accessibility-dim-images-switch" = "Atenuación de imaxes";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Cursor de tamaño do texto";
@@ -370,9 +372,10 @@
 "two-factor-login-with-backup-code" = "Usar un dos seus códigos de copia de seguridade";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "welcome-explore-continue-button" = "Comezar";
-"welcome-explore-new-ways-sub-title" = "Novas notificacións e trebellos para axudarlle a descubrir artigos interesantes";
+"welcome-explore-features-news-notifications" = "Obter novas notificacións dos temas de tendencia nas novas";
+"welcome-explore-features-on-this-day" = "Viaxar atrás no tempo con $1 para aprender que pasou hoxe na historia";
+"welcome-explore-features-places" = "Use a pestana $1 para descubrir paisaxes preto de vostede ou procurar por todo o mundo";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
-"welcome-explore-tell-me-more" = "Contarme máis";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-languages-add-button" = "Engadir outra lingua";
 "welcome-languages-continue-button" = "Continuar";
