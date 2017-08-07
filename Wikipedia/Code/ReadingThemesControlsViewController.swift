@@ -92,7 +92,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         
         let positionOfSlider: CGPoint = slider.frame.origin
         let widthOfSlider: CGFloat = slider.frame.size.width
-        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(slider.maximumValue) / widthOfSlider)
+        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(slider.numberOfSteps) / widthOfSlider)
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -100,9 +100,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         // Update UI without animation
         slider.setNeedsLayout()
         CATransaction.commit()
-        
-        
-        
     }
     
     func applyBorder(to button: UIButton) {
