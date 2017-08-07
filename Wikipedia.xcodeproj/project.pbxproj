@@ -4306,6 +4306,8 @@
 		D8533ED41ECF581600E44F86 /* NewsCollectionViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewHeader.xib; sourceTree = "<group>"; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D858A7F81DA6DB96009C3DEB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D85C145A1F388582002186A5 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D85C145B1F38859A002186A5 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = kab; path = kab.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D85C29351EC48F12007EF868 /* ast */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ast; path = ast.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D85C29361EC48F5D007EF868 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D85C29371EC4909C007EF868 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bn; path = bn.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -8675,6 +8677,7 @@
 				jv,
 				"sr-EC",
 				tcy,
+				kab,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -11805,6 +11808,7 @@
 				D801C9221EB8E131001FA294 /* yi */,
 				D801C9241EB8E131001FA294 /* zh-hans */,
 				D801C9261EB8E131001FA294 /* zh-hant */,
+				D85C145A1F388582002186A5 /* kab */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -11851,6 +11855,7 @@
 				D80877971EDE1F4F00CCA97E /* nl */,
 				D8497F5D1EE027D700100CBD /* hrx */,
 				D81EF2D61F1D2F0500D26D3F /* cs */,
+				D85C145B1F38859A002186A5 /* kab */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
