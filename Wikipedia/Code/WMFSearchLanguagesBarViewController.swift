@@ -132,6 +132,9 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBAction fileprivate func openLanguagePicker() {
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC?.delegate = self
+        if let themeable = languagesVC as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
         present(ThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
     }
     
