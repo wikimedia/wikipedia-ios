@@ -265,6 +265,7 @@ extension SideScrollingCollectionViewCell {
 extension SideScrollingCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
+        imageView.alpha = theme.imageOpacity
         backgroundView?.backgroundColor = theme.colors.paperBackground
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
