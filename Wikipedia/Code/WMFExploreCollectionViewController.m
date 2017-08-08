@@ -1497,7 +1497,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     self.groupForPreviewedCell = group;
-
+    
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
 
@@ -1509,7 +1509,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             UIView *view = [sideScrollingCell viewForSubItemAtIndex:index];
             CGRect sourceRect = [view convertRect:view.bounds toView:self.collectionView];
             previewingContext.sourceRect = sourceRect;
-            NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, index};
+            
+            NSUInteger articleToPeekIndex = group.articleURLString.integerValue;
+
+            NSUInteger indexes[3] = {previewIndexPath.section, articleToPeekIndex, index};
             previewIndexPath = [NSIndexPath indexPathWithIndexes:indexes length:3];
         }
     }
