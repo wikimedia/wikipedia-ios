@@ -33,11 +33,10 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.randomArticleFetcher = [[WMFRandomArticleFetcher alloc] init];
-
     [self setupSecondToolbar];
     [self setupEmptyFadeView];
+    [self applyTheme:self.theme];
 }
 
 - (void)setupSecondToolbar {
