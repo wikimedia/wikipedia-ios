@@ -65,7 +65,7 @@
         [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore theme:self.theme animated:YES];
 }
 
 - (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
@@ -117,7 +117,7 @@
     NSURL *url = [self urlAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
 
-    UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
+    UIViewController *vc = self.delegate ? [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url] : [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore theme:self.theme];
 
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)vc applyTheme:self.theme];

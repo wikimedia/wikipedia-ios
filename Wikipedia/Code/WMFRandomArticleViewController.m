@@ -24,8 +24,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore diceButtonItem:(UIBarButtonItem *)diceButtonItem {
-    self = [super initWithArticleURL:articleURL dataStore:dataStore];
+- (instancetype)initWithArticleURL:(NSURL *)articleURL dataStore:(MWKDataStore *)dataStore theme:(WMFTheme *)theme diceButtonItem:(UIBarButtonItem *)diceButtonItem {
+    self = [super initWithArticleURL:articleURL dataStore:dataStore theme:theme];
     self.diceButtonItem = diceButtonItem;
     self.diceButton = (WMFRandomDiceButton *)diceButtonItem.customView;
     return self;
@@ -119,7 +119,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         }
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme diceButtonItem:self.diceButtonItem];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = YES;
 #endif

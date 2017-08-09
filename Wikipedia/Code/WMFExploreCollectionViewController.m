@@ -1276,7 +1276,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group headerActionType]) {
         case WMFFeedHeaderActionTypeOpenHeaderContent: {
             NSURL *url = [group headerContentURL];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore animated:YES];
+            [self wmf_pushArticleWithURL:url dataStore:self.userStore theme:self.theme animated:YES];
         } break;
         case WMFFeedHeaderActionTypeOpenFirstItem: {
             [self selectItem:0 inSection:section];
@@ -1317,11 +1317,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
+            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
+            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
         } break;
         case WMFFeedDetailTypeGallery: {
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
@@ -1338,7 +1338,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
                     NSURL *articleURL = preview.articleURL;
                     if (articleURL) {
-                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
                         break;
                     }
                 }
@@ -1356,7 +1356,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                         WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
                         NSURL *articleURL = preview.articleURL;
                         if (articleURL) {
-                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
                             break;
                         }
                     }
@@ -1888,7 +1888,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if (articleURL == nil) {
         return;
     }
-    [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore animated:YES];
+    [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
 }
 
 #if DEBUG && DEBUG_CHAOS

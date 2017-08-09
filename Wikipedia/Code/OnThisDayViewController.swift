@@ -160,7 +160,7 @@ extension OnThisDayViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -186,7 +186,7 @@ extension OnThisDayViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
         if let themeable = vc as Themeable? {
             themeable.apply(theme: self.theme)
         }
