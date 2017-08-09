@@ -186,7 +186,11 @@ extension OnThisDayViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        if let themeable = vc as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        return vc
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

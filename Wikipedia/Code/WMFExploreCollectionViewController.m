@@ -1156,13 +1156,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)configureOnThisDayCell:(WMFOnThisDayExploreCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
     NSArray *events = contentGroup.content;
-    NSInteger featuredIndex = [contentGroup.articleURLString integerValue];
-    WMFFeedOnThisDayEvent *event = [events firstObject];
-    if (featuredIndex >= 0 && featuredIndex < events.count) {
-        event = events[featuredIndex];
-    } else {
-        featuredIndex = 0;
-    }
+    NSInteger featuredIndex = contentGroup.featuredContentIndex;
+    WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)contentGroup.featuredContentObject;
+
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
         WMFFeedOnThisDayEvent *previousEvent = event;
         NSInteger attempts = 0;
@@ -1342,7 +1338,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
                     NSURL *articleURL = preview.articleURL;
                     if (articleURL) {
-                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                        break;
                     }
                 }
             }
@@ -1350,17 +1347,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
-            if (indexPath.item >= events.count) {
-                return nil;
-            }
             if (indexPath.length > 2) {
-                WMFFeedOnThisDayEvent *event = events[indexPath.item];
-                NSInteger articleIndex = [indexPath indexAtPosition:2];
-                if (articleIndex < event.articlePreviews.count) {
-                    WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                    NSURL *articleURL = preview.articleURL;
-                    if (articleURL) {
-                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent*)group.featuredContentObject;
+                
+                if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
+                    NSInteger articleIndex = [indexPath indexAtPosition:2];
+                    if (articleIndex < event.articlePreviews.count) {
+                        WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
+                        NSURL *articleURL = preview.articleURL;
+                        if (articleURL) {
+                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                            break;
+                        }
                     }
                 }
             }
@@ -1509,10 +1507,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             UIView *view = [sideScrollingCell viewForSubItemAtIndex:index];
             CGRect sourceRect = [view convertRect:view.bounds toView:self.collectionView];
             previewingContext.sourceRect = sourceRect;
-            
-            NSUInteger articleToPeekIndex = group.articleURLString.integerValue;
-
-            NSUInteger indexes[3] = {previewIndexPath.section, articleToPeekIndex, index};
+            NSUInteger indexes[3] = {previewIndexPath.section, previewIndexPath.item, index};
             previewIndexPath = [NSIndexPath indexPathWithIndexes:indexes length:3];
         }
     }
