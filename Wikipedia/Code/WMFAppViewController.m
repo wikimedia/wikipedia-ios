@@ -1236,9 +1236,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
         }
     }
-    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id<WMFThemeable>)viewController applyTheme:self.theme];
-    }
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
