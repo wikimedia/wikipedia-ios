@@ -552,12 +552,12 @@ WMFSearchLanguagesBarViewControllerDelegate>
     UIViewController *presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore theme:self.theme animated:YES];
                              }];
 }
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
     return vc;
 }
 

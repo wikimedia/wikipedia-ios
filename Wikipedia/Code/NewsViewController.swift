@@ -112,7 +112,7 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -138,7 +138,7 @@ extension NewsViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

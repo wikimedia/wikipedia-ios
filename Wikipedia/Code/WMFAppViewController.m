@@ -907,7 +907,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         return visibleArticleViewController;
     }
     [self selectExploreTabAndDismissPresentedViewControllers];
-    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1150,7 +1150,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
     [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:animated];
 }
@@ -1235,9 +1235,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
             viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
         }
-    }
-    if ([viewController conformsToProtocol:@protocol(WMFThemeable)]) {
-        [(id<WMFThemeable>)viewController applyTheme:self.theme];
     }
     [self updateActiveTitleAccessibilityButton:viewController];
 }

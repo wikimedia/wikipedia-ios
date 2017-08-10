@@ -55,7 +55,7 @@
             vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:dataStore midnightUTCDate:self.midnightUTCDate];
         } break;
         case WMFFeedMoreTypePageWithRandomButton: {
-            vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore];
+            vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:siteURL dataStore:dataStore theme:theme];
         } break;
         default:
             NSAssert(false, @"Unknown More Type");
