@@ -66,7 +66,10 @@
 "action-unsave" = "Spara inte";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Stäng";
+"appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
+"appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i mörkt tema";
 "appearance-settings-reading-themes" = "Lästeman";
+"appearance-settings-text-sizing-example-text" = "Dra i reglaget ovan för att ändra artikelns textstorlek. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
 "appearance-settings-title" = "Lästeman";
 "article-about-title" = "Om den här artikeln";
@@ -377,6 +380,9 @@
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "welcome-explore-continue-button" = "Kom igång";
+"welcome-explore-features-news-notifications" = "Få nyhetsnotiser för ämnen som är populära på nyheterna";
+"welcome-explore-features-on-this-day" = "Res tillbaka i tiden med $1 för att ta reda på vad som hände idag i historien";
+"welcome-explore-features-places" = "Använd fliken $1 för att utforska landmärken nära dig eller söka runt i världen";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-languages-add-button" = "Lägg till ett annat språk";

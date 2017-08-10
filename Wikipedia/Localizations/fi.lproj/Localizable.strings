@@ -233,6 +233,8 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
+"on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-title" = "Tänä päivänä";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Peruuta";
