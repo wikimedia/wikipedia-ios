@@ -21,7 +21,7 @@ static NSString *const kShareSessionTokenKey = @"shareSessionToken";
 static NSString *const kTextKey = @"text"; // same as kShareModeImage by design
 static NSString *const kArticleKey = @"article";
 static NSString *const kPageIdKey = @"pageID"; // ID uppercase
-static NSString *const kRevIdKey = @"revID";   // ID uppercase
+static NSString *const kRevIdKey = @"revID"; // ID uppercase
 
 static NSString *const kInitWithArticleAssertVerbiage = @"Article title invalid";
 static NSString *const kEventDataAssertVerbiage = @"Event data not present";

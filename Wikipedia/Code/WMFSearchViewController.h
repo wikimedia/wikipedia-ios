@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

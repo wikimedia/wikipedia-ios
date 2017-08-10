@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *displayTitle;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
-@property (nullable, nonatomic, copy) NSString *snippet;            // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere)
+@property (nullable, nonatomic, copy) NSString *snippet; // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere)
 @property (nullable, nonatomic, copy) NSString *thumbnailURLString; // deprecated
-@property (nullable, nonatomic, copy) NSString *imageURLString;     // original image URL
+@property (nullable, nonatomic, copy) NSString *imageURLString; // original image URL
 @property (nullable, nonatomic, copy) NSNumber *imageWidth;
 @property (nullable, nonatomic, copy) NSNumber *imageHeight;
 @property (nullable, nonatomic, copy) NSDictionary *pageViews;
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *geoTypeNumber;
 @property (nullable, nonatomic, copy) NSNumber *placesSortOrder;
 
-@property (nonatomic) double latitude;  //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
+@property (nonatomic) double latitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 
 @end

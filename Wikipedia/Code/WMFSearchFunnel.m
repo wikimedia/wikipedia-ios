@@ -44,23 +44,23 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 - (void)logSearchStart {
     self.searchSessionToken = nil;
-    [self log:@{ kActionKey: @"start" }];
+    [self log:@{kActionKey: @"start"}];
 }
 
 - (void)logSearchAutoSwitch {
-    [self log:@{ kActionKey: @"autoswitch" }];
+    [self log:@{kActionKey: @"autoswitch"}];
 }
 
 - (void)logSearchDidYouMean {
-    [self log:@{ kActionKey: @"didyoumean" }];
+    [self log:@{kActionKey: @"didyoumean"}];
 }
 
 - (void)logSearchResultTap {
-    [self log:@{ kActionKey: @"click" }];
+    [self log:@{kActionKey: @"click"}];
 }
 
 - (void)logSearchCancel {
-    [self log:@{ kActionKey: @"cancel" }];
+    [self log:@{kActionKey: @"cancel"}];
 }
 
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime {

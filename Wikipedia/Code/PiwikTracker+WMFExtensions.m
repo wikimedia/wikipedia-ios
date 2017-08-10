@@ -157,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionSwitchThemeInContext:(id<WMFAnalyticsContextProviding>)context
-                                 contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Theme Change"
                                name:[contentType analyticsContentType]
@@ -165,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionEnableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context
-                              contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                                     contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Enable Dimming"
                                name:[contentType analyticsContentType]
@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionDisableImageDimmingInContext:(id<WMFAnalyticsContextProviding>)context
-                                     contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                                      contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Disable Dimming"
                                name:[contentType analyticsContentType]
@@ -181,7 +181,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_logActionAdjustBrightnessInContext:(id<WMFAnalyticsContextProviding>)context
-                                      contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
+                                   contentType:(id<WMFAnalyticsContentTypeProviding>)contentType {
     [self wmf_sendEventWithCategory:[context analyticsContext]
                              action:@"Adjust Brightness"
                                name:[contentType analyticsContentType]

@@ -8,7 +8,6 @@ NSString *const WMFNetworkRequestBeganNotification = @"WMFNetworkRequestBeganNot
 NSString *const WMFNetworkRequestBeganNotificationMethodKey = @"method";
 NSString *const WMFNetworkRequestBeganNotificationURLStringKey = @"URLString";
 
-
 NSString *WMFJoinedPropertyParameters(NSArray *props) {
     return [props ?: @[] componentsJoinedByString:@"|"];
 }

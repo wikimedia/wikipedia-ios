@@ -11,7 +11,7 @@
 - (instancetype)initWithData:(id)data {
     self = [self init];
     if (self) {
-        NSDictionary *wrapper = @{ @"protection": data };
+        NSDictionary *wrapper = @{@"protection": data};
         self.protection = [self requiredDictionary:@"protection" dict:wrapper];
     }
     return self;

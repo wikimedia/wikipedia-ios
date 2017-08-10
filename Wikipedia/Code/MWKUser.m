@@ -25,7 +25,7 @@
     } else {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"expected null or user info dict, got something else"
-                                     userInfo:@{ @"data": data }];
+                                     userInfo:@{@"data": data}];
     }
     return self;
 }
@@ -34,8 +34,8 @@
     if (self.anonymous) {
         return nil; // don't save!
     } else {
-        return @{ @"name": self.name,
-                  @"gender": self.gender };
+        return @{@"name": self.name,
+                 @"gender": self.gender};
     }
 }
 

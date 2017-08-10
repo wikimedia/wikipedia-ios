@@ -31,7 +31,7 @@
 
 - (void)testRoundtripLoggedIn {
     MWKUser *user = [self loadUser:@"user-loggedin"];
-    NSDictionary *dict = @{ @"sample": [user dataExport] };
+    NSDictionary *dict = @{@"sample": [user dataExport]};
 
     MWKUser *user2 = [[MWKUser alloc] initWithSiteURL:siteURL data:dict[@"sample"]];
     XCTAssertEqualObjects(user, user2, @"roundtrip a loggedin user");
