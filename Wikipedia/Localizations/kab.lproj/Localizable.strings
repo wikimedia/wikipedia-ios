@@ -1,6 +1,7 @@
 // Messages for Kabyle (Taqbaylit)
 // Exported from translatewiki.net
 // Author: Belkacem77
+// Author: Mhenni
 
 "about-content-license" = "Turagt n ugbur";
 "about-content-license-details" = "Arama yettwammel kan akken-nniḍen, agbur yella daw n $1.";
@@ -277,6 +278,7 @@
 "places-search-your-current-location" = "Asideg-ik arakal amiran";
 "places-show-filter-list-accessibility-label" = "Sken imzizdigen n unadi";
 "places-title" = "Idigen";
+"places-unknown-distance" = "Ur iban usettum";
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-title-eventlogging-opt-in" = "Azen ineqqisen n useqdec";
