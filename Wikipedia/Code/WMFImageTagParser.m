@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
         WMFImageTag *tag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
         if (tag != nil) {
             if (self.leadImageNormalizedFilename && [WMFParseUnescapedNormalizedImageNameFromSourceURL(tag.src) isEqualToString:self.leadImageNormalizedFilename]) { //check if this is the image we want first in the list by comparing filenames
-                [imageTags insertObject:tag atIndex:0];                                                                                                              //if it's the image we want first, insert it at index 0
+                [imageTags insertObject:tag atIndex:0]; //if it's the image we want first, insert it at index 0
             } else {
                 [imageTags addObject:tag];
             }

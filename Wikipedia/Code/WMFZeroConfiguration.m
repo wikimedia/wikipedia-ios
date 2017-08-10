@@ -6,14 +6,14 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 #define WMFZeroConfigurationKey(key) WMF_SAFE_KEYPATH([WMFZeroConfiguration new], key)
-    return @{ WMFZeroConfigurationKey(message): @"message",
-              WMFZeroConfigurationKey(foreground): @"foreground",
-              WMFZeroConfigurationKey(background): @"background",
-              WMFZeroConfigurationKey(exitTitle): @"exitTitle",
-              WMFZeroConfigurationKey(exitWarning): @"exitWarning",
-              WMFZeroConfigurationKey(partnerInfoText): @"partnerInfoText",
-              WMFZeroConfigurationKey(partnerInfoUrl): @"partnerInfoUrl",
-              WMFZeroConfigurationKey(bannerUrl): @"bannerUrl" };
+    return @{WMFZeroConfigurationKey(message): @"message",
+             WMFZeroConfigurationKey(foreground): @"foreground",
+             WMFZeroConfigurationKey(background): @"background",
+             WMFZeroConfigurationKey(exitTitle): @"exitTitle",
+             WMFZeroConfigurationKey(exitWarning): @"exitWarning",
+             WMFZeroConfigurationKey(partnerInfoText): @"partnerInfoText",
+             WMFZeroConfigurationKey(partnerInfoUrl): @"partnerInfoUrl",
+             WMFZeroConfigurationKey(bannerUrl): @"bannerUrl"};
 }
 
 + (MTLValueTransformer *)foregroundJSONTransformer {

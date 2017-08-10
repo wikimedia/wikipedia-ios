@@ -19,15 +19,15 @@
 }
 
 - (void)logOpen {
-    [self log:@{ @"action": @"open" }];
+    [self log:@{@"action": @"open"}];
 }
 
 - (void)logClose {
-    [self log:@{ @"action": @"close" }];
+    [self log:@{@"action": @"close"}];
 }
 
 - (void)logClick {
-    [self log:@{ @"action": @"click" }];
+    [self log:@{@"action": @"click"}];
 }
 
 @end

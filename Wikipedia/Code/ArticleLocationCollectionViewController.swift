@@ -107,7 +107,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -119,7 +119,7 @@ extension ArticleLocationCollectionViewController {
                 return nil
         }
         let url = articleURL(at: indexPath)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

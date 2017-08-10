@@ -157,13 +157,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (instancetype)initWithArticleURL:(NSURL *)url
-                         dataStore:(MWKDataStore *)dataStore {
+                         dataStore:(MWKDataStore *)dataStore
+                             theme:(WMFTheme *)theme {
 
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
 
     self = [super init];
     if (self) {
+        self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
@@ -1691,7 +1693,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
     if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
-            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
@@ -1795,7 +1797,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                   dataStore:self.dataStore];
+                                                   dataStore:self.dataStore
+                                                       theme:self.theme];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
@@ -1818,7 +1821,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
     return [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                      dataStore:self.dataStore];
+                                                      dataStore:self.dataStore
+                                                          theme:self.theme];
 }
 
 - (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {

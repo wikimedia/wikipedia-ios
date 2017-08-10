@@ -1803,6 +1803,7 @@
 		D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7691EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
+		D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */; };
 		D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
 		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
@@ -2808,6 +2809,13 @@
 			remoteGlobalIDString = D844D96B1D6CB2600042D692;
 			remoteInfo = WMF;
 		};
+		D8BD029D1F3A3892007AE7B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
 		D8CE24D91E698E2400DAE2E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2880,6 +2888,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -8246,6 +8255,7 @@
 				D88DBBBB1D8B322400134A50 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
+				D8BD029E1F3A3892007AE7B2 /* PBXTargetDependency */,
 				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
 				D8479FB11F222FE90025FD7A /* PBXTargetDependency */,
 			);
@@ -11538,6 +11548,11 @@
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMF */;
 			targetProxy = D8A42A4F1E815A9C00D8E281 /* PBXContainerItemProxy */;
+		};
+		D8BD029E1F3A3892007AE7B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D8BD029D1F3A3892007AE7B2 /* PBXContainerItemProxy */;
 		};
 		D8CE24D81E698E2400DAE2E0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

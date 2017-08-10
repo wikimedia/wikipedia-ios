@@ -67,8 +67,7 @@
     return [hostComponents componentsJoinedByString:@"."];
 }
 
-
-- (void)setWmf_titleWithUnderscores:(NSString * _Nullable)titleWithUnderscores {
+- (void)setWmf_titleWithUnderscores:(NSString *_Nullable)titleWithUnderscores {
     NSString *path = [titleWithUnderscores stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLPathComponentAllowedCharacterSet]];
     if (path != nil && path.length > 0) {
         NSArray *pathComponents = @[@"/wiki/", path];

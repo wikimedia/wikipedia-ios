@@ -8,10 +8,10 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedImage
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedImage.new, canonicalPageTitle): @"title",
-              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageDescription): @"description.text",
-              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageURL): @"image.source",
-              WMF_SAFE_KEYPATH(WMFFeedImage.new, imageThumbURL): @"thumbnail.source" };
+    return @{WMF_SAFE_KEYPATH(WMFFeedImage.new, canonicalPageTitle): @"title",
+             WMF_SAFE_KEYPATH(WMFFeedImage.new, imageDescription): @"description.text",
+             WMF_SAFE_KEYPATH(WMFFeedImage.new, imageURL): @"image.source",
+             WMF_SAFE_KEYPATH(WMFFeedImage.new, imageThumbURL): @"thumbnail.source"};
 }
 
 + (NSValueTransformer *)imageThumbURLJSONTransformer {

@@ -71,14 +71,14 @@
 - (void)styleLinks:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName: label.textColor,
-           NSFontAttributeName: label.font
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
         };
 
     NSDictionary *linkAttributes =
         @{
-           //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName: self.theme.colors.link
+            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+            NSForegroundColorAttributeName: self.theme.colors.link
         };
 
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
@@ -95,8 +95,8 @@
 - (void)underlineSignIn:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName: label.textColor,
-           NSFontAttributeName: label.font
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
         };
 
     NSDictionary *substitutionAttributes =

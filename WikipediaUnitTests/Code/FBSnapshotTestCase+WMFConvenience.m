@@ -2,7 +2,6 @@
 #import "XCTestCase+WMFVisualTestConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
 
-
 #if WMF_VISUAL_TEST_RECORD_MODE
 const BOOL WMFIsVisualTestRecordModeEnabled = YES;
 #else
@@ -13,13 +12,13 @@ const BOOL WMFIsVisualTestRecordModeEnabled = NO;
 
 - (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {
     WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getLabelSizedToFitWidth:width
-                                        configuredWithBlock:^(UILabel *label) {
-                                            if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
-                                                label.text = stringOrAttributedString;
-                                            } else if ([stringOrAttributedString isKindOfClass:[NSAttributedString class]]) {
-                                                label.attributedText = stringOrAttributedString;
-                                            }
-                                        }]);
+                                                                configuredWithBlock:^(UILabel *label) {
+                                                                    if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
+                                                                        label.text = stringOrAttributedString;
+                                                                    } else if ([stringOrAttributedString isKindOfClass:[NSAttributedString class]]) {
+                                                                        label.attributedText = stringOrAttributedString;
+                                                                    }
+                                                                }]);
 }
 
 - (void)wmf_verifyCellWithIdentifier:(NSString *)identifier
@@ -27,13 +26,13 @@ const BOOL WMFIsVisualTestRecordModeEnabled = NO;
                                width:(CGFloat)width
                  configuredWithBlock:(void (^)(UITableViewCell *))block {
     WMFSnapshotVerifyViewForOSAndWritingDirection([self wmf_getCellWithIdentifier:identifier
-                                            fromTableView:tableView
-                                          sizedToFitWidth:width
-                                      configuredWithBlock:^(UITableViewCell *cell) {
-                                          if (block) {
-                                              block(cell);
-                                          }
-                                      }]);
+                                                                    fromTableView:tableView
+                                                                  sizedToFitWidth:width
+                                                              configuredWithBlock:^(UITableViewCell *cell) {
+                                                                  if (block) {
+                                                                      block(cell);
+                                                                  }
+                                                              }]);
 }
 
 - (void)wmf_verifyView:(UIView *)view width:(CGFloat)width {

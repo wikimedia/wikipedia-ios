@@ -17,10 +17,10 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, weak, nonatomic, nullable) MWKDataStore *dataStore;
 
 // Metadata
-@property (readonly, strong, nonatomic, nullable) NSURL *redirectedURL;    // optional
-@property (readonly, strong, nonatomic, nullable) NSDate *lastmodified;    // required
+@property (readonly, strong, nonatomic, nullable) NSURL *redirectedURL; // optional
+@property (readonly, strong, nonatomic, nullable) NSDate *lastmodified; // required
 @property (readonly, strong, nonatomic, nullable) MWKUser *lastmodifiedby; // required
-@property (readonly, assign, nonatomic) int articleId;                     // required; -> 'id'
+@property (readonly, assign, nonatomic) int articleId; // required; -> 'id'
 @property (readonly, strong, nonatomic, nullable) NSNumber *revisionId;
 
 @property (copy, nonatomic, nullable) NSString *acceptLanguageRequestHeader;
@@ -34,21 +34,21 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 @property (readonly, assign, nonatomic) int languagecount;
 
-@property (readonly, copy, nonatomic, nullable) NSString *displaytitle;            // optional
+@property (readonly, copy, nonatomic, nullable) NSString *displaytitle; // optional
 @property (readonly, strong, nonatomic, nullable) MWKProtectionStatus *protection; // required
-@property (readonly, assign, nonatomic) BOOL editable;                             // required
+@property (readonly, assign, nonatomic) BOOL editable; // required
 @property (readonly, assign, nonatomic) BOOL hasMultipleLanguages;
 
 /// Whether or not the receiver is the main page for its @c site.
 @property (readonly, assign, nonatomic, getter=isMain) BOOL main;
 
 @property (readonly, copy, nonatomic, nullable) NSString *thumbnailURL; // optional; generated from imageURL
-@property (readwrite, copy, nonatomic, nullable) NSString *imageURL;    // optional; pulled in article request
+@property (readwrite, copy, nonatomic, nullable) NSString *imageURL; // optional; pulled in article request
 
 - (nullable NSString *)bestThumbnailImageURL;
 
 @property (readonly, copy, nonatomic, nullable) NSString *entityDescription; // optional; currently pulled separately via wikidata
-@property (readonly, copy, nonatomic, nullable) NSString *searchSnippet;     //Snippet returned from search results
+@property (readonly, copy, nonatomic, nullable) NSString *searchSnippet; //Snippet returned from search results
 
 @property (readonly, strong, nonatomic, nullable) MWKSectionList *sections;
 

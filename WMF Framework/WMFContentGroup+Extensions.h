@@ -46,6 +46,10 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 @property (nonatomic, strong, nullable) NSURL *articleURL;
 @property (nonatomic, strong, nullable) NSURL *siteURL;
 
+// Utilizes articleURLString for storage so can't be set along with articleURL
+@property (nonatomic) NSInteger featuredContentIndex;
+@property (nonatomic, readonly, nullable) id<NSCoding> featuredContentObject;
+
 - (void)updateKey; //Sets key property based on content group kind
 - (void)updateContentType;
 - (void)updateDailySortPriority;
@@ -62,7 +66,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)notificationContentGroupURL;
 + (nullable NSURL *)themeContentGroupURL;
 
-- (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
+- (BOOL)isForLocalDate:(NSDate *)date; //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
 
 - (void)updateVisibility;
