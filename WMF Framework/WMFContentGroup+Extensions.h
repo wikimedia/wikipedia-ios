@@ -66,7 +66,7 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 + (nullable NSURL *)notificationContentGroupURL;
 + (nullable NSURL *)themeContentGroupURL;
 
-- (BOOL)isForLocalDate:(NSDate *)date;           //date is a date in the user's time zone
+- (BOOL)isForLocalDate:(NSDate *)date; //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
 
 - (void)updateVisibility;

@@ -51,7 +51,7 @@
         ![responseObject isKindOfClass:[NSData class]] ||
         ([responseObject length] == 0) ||
         ([responseObject length] == 2) // Protect against query returning "[]".
-        );
+    );
 }
 
 - (NSDictionary *)dictionaryFromDataResponse:(id)responseObject {

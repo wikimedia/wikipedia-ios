@@ -7,18 +7,19 @@
 @implementation WMFAnnouncement
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFAnnouncement.new, identifier): @"id",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, type): @"type",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, startTime): @"start_time",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, endTime): @"end_time",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, platforms): @"platforms",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, countries): @"countries",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, text): @"text",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
-              WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
+    return @{
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, identifier): @"id",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, type): @"type",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, startTime): @"start_time",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, endTime): @"end_time",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, platforms): @"platforms",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, countries): @"countries",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, text): @"text",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
     };
 }
 

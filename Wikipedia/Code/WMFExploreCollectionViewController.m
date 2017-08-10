@@ -1348,8 +1348,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
             if (indexPath.length > 2) {
-                WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent*)group.featuredContentObject;
-                
+                WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)group.featuredContentObject;
+
                 if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
                     NSInteger articleIndex = [indexPath indexAtPosition:2];
                     if (articleIndex < event.articlePreviews.count) {
@@ -1495,7 +1495,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     self.groupForPreviewedCell = group;
-    
+
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
 

@@ -24,34 +24,34 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 }
 
 - (void)logSaveNew {
-    [self log:@{ @"action": @"savenew" }];
+    [self log:@{@"action": @"savenew"}];
 }
 
 - (void)logUpdate {
-    [self log:@{ @"action": @"update" }];
+    [self log:@{@"action": @"update"}];
 }
 
 - (void)logImportOnSubdomain:(NSString *)subdomain {
-    [self log:@{ @"action": @"import" }
+    [self log:@{@"action": @"import"}
          wiki:[subdomain stringByAppendingString:@"wiki"]];
 }
 
 - (void)logDelete {
-    [self log:@{ @"action": @"delete" }];
+    [self log:@{@"action": @"delete"}];
 }
 
 - (void)logEditAttempt {
-    [self log:@{ @"action": @"editattempt" }];
+    [self log:@{@"action": @"editattempt"}];
 }
 
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditRefresh {
-    [self log:@{ @"action": @"editrefresh" }];
+    [self log:@{@"action": @"editrefresh"}];
 }
 
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditAfterRefresh {
-    [self log:@{ @"action": @"editafterrefresh" }];
+    [self log:@{@"action": @"editafterrefresh"}];
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {

@@ -240,7 +240,7 @@
     if (!domain || !language) {
         return nil;
     }
-    
+
     NSURL *theURL = [[self baseURL] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:domain];
     theURL = [theURL URLByAppendingPathComponent:language];
@@ -300,7 +300,7 @@
     if (!domain || !language) {
         return nil;
     }
-    
+
     NSURL *urlKey = [[self baseURL] URLByAppendingPathComponent:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:language];
@@ -368,20 +368,20 @@
         }
         return;
     }
-    
+
     if (self.contentType != WMFContentTypeAnnouncement) {
         return;
     }
-    
+
     NSArray *content = self.content;
-    
+
     if (![content isKindOfClass:[NSArray class]]) {
         if (self.isVisible) {
             self.isVisible = NO;
         }
         return;
     }
-    
+
     WMFAnnouncement *announcement = (WMFAnnouncement *)content.firstObject;
     if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
         if (self.isVisible) {
@@ -389,14 +389,14 @@
         }
         return;
     }
-    
+
     if (!announcement.startTime || !announcement.endTime) {
         if (self.isVisible) {
             self.isVisible = NO;
         }
         return;
     }
-    
+
     NSDate *now = [NSDate date];
     if ([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
         if (!self.isVisible) {
@@ -474,12 +474,12 @@
     if (!URL) {
         return nil;
     }
-    
+
     NSString *key = [WMFContentGroup databaseKeyForURL:URL];
     if (!key) {
         return nil;
     }
-    
+
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     fetchRequest.fetchLimit = 1;
@@ -551,11 +551,11 @@
     group.contentGroupKind = kind;
     group.siteURLString = siteURL.absoluteString;
     group.content = associatedContent;
-    
+
     if (customizationBlock) {
         customizationBlock(group);
     }
-    
+
     if (URL) {
         group.URL = URL;
     } else {
@@ -563,7 +563,7 @@
     }
     [group updateContentType];
     [group updateDailySortPriority];
-    
+
     return group;
 }
 
@@ -576,7 +576,7 @@
 }
 
 - (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
-    
+
     WMFContentGroup *group = [self contentGroupForURL:URL];
     if (group) {
         group.date = date;
@@ -590,7 +590,7 @@
     } else {
         group = [self createGroupForURL:URL ofKind:kind forDate:date withSiteURL:siteURL associatedContent:associatedContent customizationBlock:customizationBlock];
     }
-    
+
     return group;
 }
 

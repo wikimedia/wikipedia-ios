@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
         url = [url wmf_URLWithFragment:nil];
     }
 
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme: theme];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore theme:theme];
     vc.articleLoadCompletion = articleLoadCompletion;
     [self wmf_pushArticleViewController:vc animated:animated];
     return vc;

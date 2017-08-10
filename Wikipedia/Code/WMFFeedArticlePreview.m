@@ -47,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
         reverseBlock:^NSDictionary *(NSURL *articleURL,
                                      BOOL *success,
                                      NSError *__autoreleasing *error) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{ @"lang": @"",
-                                                                                         @"normalizedtitle": @"" }];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"lang": @"",
+                                                                                        @"normalizedtitle": @""}];
             NSString *lang = articleURL.wmf_language;
             if (lang) {
                 dict[@"lang"] = lang;
@@ -99,8 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedTopReadArticlePreview
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{ WMF_SAFE_KEYPATH(WMFFeedTopReadArticlePreview.new, numberOfViews): @"views",
-                                                                                             WMF_SAFE_KEYPATH(WMFFeedTopReadArticlePreview.new, rank): @"rank" }];
+    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{WMF_SAFE_KEYPATH(WMFFeedTopReadArticlePreview.new, numberOfViews): @"views",
+                                                                                            WMF_SAFE_KEYPATH(WMFFeedTopReadArticlePreview.new, rank): @"rank"}];
 }
 
 @end

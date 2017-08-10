@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
-                        theme:(WMFTheme *)theme;
+                             theme:(WMFTheme *)theme;
 
 @property (nonatomic, strong, readonly) NSURL *articleURL;
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
 @property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
-@property (nonatomic, strong, nullable) MWKSection *currentSection;               //doesn't actually update the view, only here for access from Swift category
+@property (nonatomic, strong, nullable) MWKSection *currentSection; //doesn't actually update the view, only here for access from Swift category
 @property (nonatomic, strong, nullable) MWKSection *sectionToRestoreScrollOffset; //doesn't actually update the view, only here for access from Swift category
 
 @property (nonatomic, getter=isSavingOpenArticleTitleEnabled) BOOL savingOpenArticleTitleEnabled;

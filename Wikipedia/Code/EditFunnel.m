@@ -25,59 +25,59 @@
 #pragma mark - EditFunnel methods
 
 - (void)logStart {
-    [self log:@{ @"action": @"start" }];
+    [self log:@{@"action": @"start"}];
 }
 
 - (void)logPreview {
-    [self log:@{ @"action": @"preview" }];
+    [self log:@{@"action": @"preview"}];
 }
 
 - (void)logEditSummaryTap:(NSString *)editSummaryTapped {
-    [self log:@{ @"action": @"editSummaryTap",
-                 @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @"" }];
+    [self log:@{@"action": @"editSummaryTap",
+                @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @""}];
 }
 
 - (void)logSavedRevision:(int)revID {
     NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
-    [self log:@{ @"action": @"saved",
-                 @"revID": (revIDNumber ? revIDNumber : @"") }];
+    [self log:@{@"action": @"saved",
+                @"revID": (revIDNumber ? revIDNumber : @"")}];
 }
 
 - (void)logCaptchaShown {
-    [self log:@{ @"action": @"captchaShown" }];
+    [self log:@{@"action": @"captchaShown"}];
 }
 
 - (void)logCaptchaFailure {
-    [self log:@{ @"action": @"captchaFailure" }];
+    [self log:@{@"action": @"captchaFailure"}];
 }
 
 - (void)logAbuseFilterWarning:(NSString *)name {
-    [self log:@{ @"action": @"abuseFilterWarning",
-                 @"abuseFilterName": (name ? name : @"") }];
+    [self log:@{@"action": @"abuseFilterWarning",
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterError:(NSString *)name {
-    [self log:@{ @"action": @"abuseFilterError",
-                 @"abuseFilterName": (name ? name : @"") }];
+    [self log:@{@"action": @"abuseFilterError",
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterWarningIgnore:(NSString *)name {
-    [self log:@{ @"action": @"abuseFilterWarningIgnore",
-                 @"abuseFilterName": (name ? name : @"") }];
+    [self log:@{@"action": @"abuseFilterWarningIgnore",
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logAbuseFilterWarningBack:(NSString *)name {
-    [self log:@{ @"action": @"abuseFilterWarningBack",
-                 @"abuseFilterName": (name ? name : @"") }];
+    [self log:@{@"action": @"abuseFilterWarningBack",
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
 - (void)logSaveAttempt {
-    [self log:@{ @"action": @"saveAttempt" }];
+    [self log:@{@"action": @"saveAttempt"}];
 }
 
 - (void)logError:(NSString *)code {
-    [self log:@{ @"action": @"error",
-                 @"errorText": (code ? code : @"") }];
+    [self log:@{@"action": @"error",
+                @"errorText": (code ? code : @"")}];
 }
 
 @end

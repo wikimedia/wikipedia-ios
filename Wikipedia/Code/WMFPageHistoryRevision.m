@@ -12,13 +12,14 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, user): @"user",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionDate): @"timestamp",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parsedComment): @"parsedcomment",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parentID): @"parentid",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionID): @"revid",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
-              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @"anon",
+    return @{
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, user): @"user",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionDate): @"timestamp",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parsedComment): @"parsedcomment",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parentID): @"parentid",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionID): @"revid",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @"anon",
     };
 }
 
