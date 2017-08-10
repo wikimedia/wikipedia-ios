@@ -1750,7 +1750,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         switch action {
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
-            wmf_pushArticle(with: url, dataStore: dataStore, animated: true)
+            wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
             if navigationController?.isNavigationBarHidden ?? false {
                 navigationController?.setNavigationBarHidden(false, animated: true)
             }
@@ -2818,7 +2818,7 @@ extension PlacesViewController {
             return nil
         }
         previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

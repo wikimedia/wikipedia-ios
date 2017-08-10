@@ -13,12 +13,13 @@
 
 @implementation WMFFirstRandomViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore {
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL dataStore:(nonnull MWKDataStore *)dataStore theme:(WMFTheme *)theme {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.siteURL = siteURL;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
+        self.theme = theme;
     }
     return self;
 }
@@ -44,7 +45,7 @@
         }
         success:^(MWKSearchResult *result) {
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = self.isPermaRandomMode;
 #endif

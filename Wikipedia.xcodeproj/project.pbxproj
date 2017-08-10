@@ -1803,6 +1803,7 @@
 		D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7691EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BBBCE01D94603800DECA36 /* WMFLocaleTests.m */; };
+		D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */; };
 		D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
 		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
@@ -2808,6 +2809,13 @@
 			remoteGlobalIDString = D844D96B1D6CB2600042D692;
 			remoteInfo = WMF;
 		};
+		D8BD029D1F3A3892007AE7B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D83FD2881EF4724700532B15;
+			remoteInfo = FeaturedArticleWidget;
+		};
 		D8CE24D91E698E2400DAE2E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2880,6 +2888,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D8BD029F1F3A389F007AE7B2 /* FeaturedArticleWidget.appex in Embed App Extensions */,
 				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
@@ -4301,10 +4310,8 @@
 		D85D34CD1D74D07500845125 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D85F000A1DF0C54000A56797 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = SOURCE_ROOT; };
 		D85F000C1DF0C55E00A56797 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/iOS/Nocilla.framework; sourceTree = SOURCE_ROOT; };
-		D85F000D1DF0C55E00A56797 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D85F00101DF0C57700A56797 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = Carthage/Build/iOS/OCHamcrest.framework; sourceTree = SOURCE_ROOT; };
 		D85F00121DF0C59300A56797 /* OCMockito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockito.framework; path = Carthage/Build/iOS/OCMockito.framework; sourceTree = SOURCE_ROOT; };
-		D85F00141DF0C5B800A56797 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
 		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -7387,11 +7394,9 @@
 				D810C3481DF1C0A4003427DA /* Tweaks.framework */,
 				D8D5519E1DF1AE4B00B90177 /* hpple.framework */,
 				D8D5516F1DF1A7AC00B90177 /* Piwik.framework */,
-				D85F00141DF0C5B800A56797 /* Quick.framework */,
 				D85F00121DF0C59300A56797 /* OCMockito.framework */,
 				D85F00101DF0C57700A56797 /* OCHamcrest.framework */,
 				D85F000C1DF0C55E00A56797 /* Nocilla.framework */,
-				D85F000D1DF0C55E00A56797 /* Nimble.framework */,
 				D85F000A1DF0C54000A56797 /* FBSnapshotTestCase.framework */,
 				D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */,
 				D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */,
@@ -8250,6 +8255,7 @@
 				D88DBBBB1D8B322400134A50 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
+				D8BD029E1F3A3892007AE7B2 /* PBXTargetDependency */,
 				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
 				D8479FB11F222FE90025FD7A /* PBXTargetDependency */,
 			);
@@ -11542,6 +11548,11 @@
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMF */;
 			targetProxy = D8A42A4F1E815A9C00D8E281 /* PBXContainerItemProxy */;
+		};
+		D8BD029E1F3A3892007AE7B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D83FD2881EF4724700532B15 /* FeaturedArticleWidget */;
+			targetProxy = D8BD029D1F3A3892007AE7B2 /* PBXContainerItemProxy */;
 		};
 		D8CE24D81E698E2400DAE2E0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

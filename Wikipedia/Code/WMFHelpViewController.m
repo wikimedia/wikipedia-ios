@@ -23,7 +23,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSURL *faqURL = [NSURL URLWithString:WMFSettingsURLFAQ];
-    self = [super initWithArticleURL:faqURL dataStore:dataStore];
+    self = [super initWithArticleURL:faqURL dataStore:dataStore theme:self.theme];
     self.savingOpenArticleTitleEnabled = NO;
     self.addingArticleToHistoryListEnabled = NO;
     self.peekingAllowed = NO;
@@ -41,7 +41,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    WMFHelpViewController *articleViewController = [[WMFHelpViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 

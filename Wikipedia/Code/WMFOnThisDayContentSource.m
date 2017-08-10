@@ -144,8 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
                         if (group == nil) {
                             group = [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:onThisDayEvents];
                             if (featuredEventIndex >= 0 && featuredEventIndex < onThisDayEvents.count) {
-                                // hackaround adding a migration, use this string field
-                                group.articleURLString = [NSString stringWithFormat:@"%lli", (long long)featuredEventIndex];
+                                group.featuredContentIndex = featuredEventIndex;
                             }
                         }
 

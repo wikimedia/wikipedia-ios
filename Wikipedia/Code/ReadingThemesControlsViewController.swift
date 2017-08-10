@@ -79,6 +79,10 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func applyBorder(to button: UIButton) {
         button.borderWidth = 2
         button.isEnabled = false
@@ -199,7 +203,7 @@ extension ReadingThemesControlsViewController: Themeable {
         default:
             break
         }
-
+        
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText
