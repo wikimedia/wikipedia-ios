@@ -138,8 +138,7 @@
 "explore-random-article-heading" = "임의 문서";
 "explore-randomizer" = "임의 문서 보기";
 "feed-news-notification-button-text" = "알림 켜기";
-// Fuzzy
-"feed-news-notification-text" = "지금 위키백과 문서의 소식 동향에 대한 알림을 받을 수 있습니다.";
+"feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
 "field-alert-password-invalid" = "유효하지 않은 비밀번호";

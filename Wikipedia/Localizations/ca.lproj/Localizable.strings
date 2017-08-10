@@ -61,6 +61,7 @@
 "action-read" = "Llegeix";
 "action-save" = "Desa";
 "action-saved" = "Desat";
+"action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
 "alert-no-internet" = "No hi ha connexió a internet";

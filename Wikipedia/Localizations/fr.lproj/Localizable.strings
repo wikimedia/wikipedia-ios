@@ -143,7 +143,7 @@
 "explore-random-article-heading" = "Article au hasard";
 "explore-randomizer" = "Tirage aléatoire";
 "feed-news-notification-button-text" = "Activer les notifications";
-"feed-news-notification-text" = "Activer les notifications envoyés par Wikipédia quand des articles forment la tendance de l’actualité.";
+"feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles forment la tendance de l’actualité.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
 "field-alert-password-confirm-mismatch" = "Les mots de passe ne correspondent pas";
 "field-alert-password-invalid" = "Mot de passe non valide";
@@ -314,7 +314,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
 "reading-themes-controls-accessibility-light-theme-button" = "Thème clair";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Thème sépia";
-"reading-themes-controls-accessibility-text-size-slider" = "Curseur de taille du texte";
+"reading-themes-controls-accessibility-text-size-slider" = "Curseur de la taille du texte";
 "reference-title" = "Référence $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd'hui|Hier|Il y a $1 jours}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
