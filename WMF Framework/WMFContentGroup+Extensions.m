@@ -270,6 +270,9 @@
 }
 
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url {
+    if (!url) {
+        return nil;
+    }
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
     NSArray *pathComponents = components.percentEncodedPath.pathComponents;
     if (pathComponents.count < 5) {
