@@ -189,6 +189,60 @@ var elementUtilities = {
   copyDataAttributesToAttributes: copyDataAttributesToAttributes
 };
 
+// Elements marked with either of these classes indicate certain ancestry constraints that are
+// difficult to describe as CSS selectors.
+var CONSTRAINT = {
+  IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
+  IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
+
+  // Theme to CSS classes.
+};var THEME = {
+  DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+
+  /**
+   * @param {!Document} document
+   * @param {!string} theme
+   * @return {void}
+   */
+};var setTheme = function setTheme(document, theme) {
+  var html = document.querySelector('html');
+
+  // Set the new theme.
+  html.classList.add(theme);
+
+  // Clear any previous theme.
+  for (var key in THEME) {
+    if (Object.prototype.hasOwnProperty.call(THEME, key) && THEME[key] !== theme) {
+      html.classList.remove(THEME[key]);
+    }
+  }
+};
+
+/**
+ * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
+ * theme-dependent so classification only need only occur once after the content is loaded, not
+ * every time the theme changes.
+ * @param {!Element} element
+ * @return {void}
+ */
+var classifyElements = function classifyElements(element) {
+  Polyfill.querySelectorAll(element, 'img').forEach(function (image) {
+    if (!elementUtilities.closestInlineStyle(image, 'background')) {
+      image.classList.add(CONSTRAINT.IMAGE_NO_BACKGROUND);
+    }
+    if (!elementUtilities.isNestedInTable(image)) {
+      image.classList.add(CONSTRAINT.IMAGE_NONTABULAR);
+    }
+  });
+};
+
+var ThemeTransform = {
+  CONSTRAINT: CONSTRAINT,
+  THEME: THEME,
+  setTheme: setTheme,
+  classifyElements: classifyElements
+};
+
 var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
 
 /**
@@ -2071,60 +2125,6 @@ var RedLinks = {
   }
 };
 
-// Elements marked with either of these classes indicate certain ancestry constraints that are
-// difficult to describe as CSS selectors.
-var CONSTRAINT = {
-  IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
-  IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
-
-  // Theme to CSS classes.
-};var THEME = {
-  DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
-
-  /**
-   * @param {!Document} document
-   * @param {!string} theme
-   * @return {void}
-   */
-};var setTheme = function setTheme(document, theme) {
-  var html = document.querySelector('html');
-
-  // Set the new theme.
-  html.classList.add(theme);
-
-  // Clear any previous theme.
-  for (var key in THEME) {
-    if (Object.prototype.hasOwnProperty.call(THEME, key) && THEME[key] !== theme) {
-      html.classList.remove(THEME[key]);
-    }
-  }
-};
-
-/**
- * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
- * theme-dependent so classification only need only occur once after the content is loaded, not
- * every time the theme changes.
- * @param {!Element} element
- * @return {void}
- */
-var classifyElements = function classifyElements(element) {
-  Polyfill.querySelectorAll(element, 'img').forEach(function (image) {
-    if (!elementUtilities.closestInlineStyle(image, 'background')) {
-      image.classList.add(CONSTRAINT.IMAGE_NO_BACKGROUND);
-    }
-    if (!elementUtilities.isNestedInTable(image)) {
-      image.classList.add(CONSTRAINT.IMAGE_NONTABULAR);
-    }
-  });
-};
-
-var ThemeTransform = {
-  CONSTRAINT: CONSTRAINT,
-  THEME: THEME,
-  setTheme: setTheme,
-  classifyElements: classifyElements
-};
-
 /**
  * To widen an image element a css class called 'wideImageOverride' is applied to the image element,
  * however, ancestors of the image element can prevent the widening from taking effect. This method
@@ -2216,6 +2216,14 @@ var WidenImage = {
   }
 };
 
+/* eslint-disable sort-imports */
+
+// We want the theme transform to be first. This is because the theme transform CSS has to use
+// some '!important' CSS modifiers to reliably set themes on elements which may contain inline
+// styles. Moving it to the top of the file is necessary so other transforms can override
+// these '!important' themes transform CSS bits if needed. Note - if other transforms have trouble
+// overriding things changed by theme transform remember to match or exceed the selector specificity
+// used by the theme transform for whatever it is you are trying to override.
 var pagelib$1 = {
   // todo: rename CollapseTableTransform.
   CollapseTable: CollapseTable,

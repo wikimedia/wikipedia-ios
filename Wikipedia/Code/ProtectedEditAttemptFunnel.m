@@ -10,7 +10,7 @@
 }
 
 - (void)logProtectionStatus:(NSString *)protectionStatus {
-    [self log:@{ @"protectionStatus": protectionStatus ? protectionStatus : @"" }];
+    [self log:@{@"protectionStatus": protectionStatus ? protectionStatus : @""}];
 }
 
 @end

@@ -171,7 +171,7 @@ static uint64_t bundleHash() {
     NSDictionary *infoDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:infoDictionaryData];
     if (!infoDictionary[@"CrossProcessNotificiationChannelName"]) {
         NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
-        infoDictionary = @{ @"CrossProcessNotificiationChannelName": channelName };
+        infoDictionary = @{@"CrossProcessNotificiationChannelName": channelName};
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary];
         [data writeToURL:infoDictionaryURL atomically:YES];
     }
@@ -957,7 +957,7 @@ static uint64_t bundleHash() {
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
     NSString *path = self.basePath;
-    NSDictionary *export = @{ @"entries": [list dataExport] };
+    NSDictionary *export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 

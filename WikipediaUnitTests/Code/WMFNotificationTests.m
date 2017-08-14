@@ -40,13 +40,13 @@
     [[LSNocilla sharedInstance] start];
     self.feedURL = [WMFFeedContentFetcher feedContentURLForSiteURL:siteURL onDate:self.date];
     NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeedTopReadNewsItem" ofType:@"json"];
-    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{ @"Content-Type": @"application/json" }).withBody(feedJSONData);
+    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{@"Content-Type": @"application/json"}).withBody(feedJSONData);
 
     NSData *pageViewJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"PageViews" ofType:@"json"];
     NSRegularExpression *anyPageViewRequest = [NSRegularExpression regularExpressionWithPattern:@"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/.*" options:0 error:nil];
     stubRequest(@"GET", anyPageViewRequest)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type": @"application/json" })
+        .withHeaders(@{@"Content-Type": @"application/json"})
         .withBody(pageViewJSONData);
 
     UIImage *testImage = [UIImage imageNamed:@"golden-gate.jpg" inBundle:[self wmf_bundle] compatibleWithTraitCollection:nil];
@@ -128,7 +128,7 @@
 
 - (void)testDoesntIncrementNotificationCount {
     NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeed" ofType:@"json"];
-    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{ @"Content-Type": @"application/json" }).withBody(feedJSONData); // News item isn't in top read - test skip notify
+    stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{@"Content-Type": @"application/json"}).withBody(feedJSONData); // News item isn't in top read - test skip notify
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];

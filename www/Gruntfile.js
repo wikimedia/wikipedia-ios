@@ -38,8 +38,8 @@ module.exports = function (grunt) {
         files: [
           {
             src: [
-              'less/**/*.less',
-              'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css'
+              'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
+              'less/**/*.less'
             ],
             dest: `${distFolder}styleoverrides.css`
           }

@@ -45,27 +45,27 @@
 - (void)constrainContainerView {
     [self.containerView removeConstraintsOfViewFromView:self];
 
-    NSDictionary *views = @{ @"view": self.containerView };
+    NSDictionary *views = @{@"view": self.containerView};
 
     NSArray *constraints =
         @[
-           [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                   options:0
-                                                   metrics:nil
-                                                     views:views],
+            [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:views],
 
-           [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                   options:0
-                                                   metrics:nil
-                                                     views:views],
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:views],
 
-           @[[NSLayoutConstraint constraintWithItem:self.containerView
-                                          attribute:NSLayoutAttributeWidth
-                                          relatedBy:NSLayoutRelationEqual
-                                             toItem:self
-                                          attribute:NSLayoutAttributeWidth
-                                         multiplier:1.0
-                                           constant:0]]
+            @[[NSLayoutConstraint constraintWithItem:self.containerView
+                                           attribute:NSLayoutAttributeWidth
+                                           relatedBy:NSLayoutRelationEqual
+                                              toItem:self
+                                           attribute:NSLayoutAttributeWidth
+                                          multiplier:1.0
+                                            constant:0]]
 
         ];
 

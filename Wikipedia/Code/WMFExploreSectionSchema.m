@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime = 60 * 10;           //10 minutes
+static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime = 60 * 10; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24; //24 hours
 
 @interface WMFExploreSectionSchema () <WMFLocationManagerDelegate, WMFDataSourceDelegate>

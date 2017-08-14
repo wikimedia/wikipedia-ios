@@ -21,35 +21,35 @@
 #pragma mark - LoginFunnel methods
 
 - (void)logStartFromNavigation {
-    [self log:@{ @"action": @"start",
-                 @"source": @"navigation" }];
+    [self log:@{@"action": @"start",
+                @"source": @"navigation"}];
 }
 
 - (void)logStartFromEdit:(NSString *)editSessionToken {
-    [self log:@{ @"action": @"start",
-                 @"source": @"edit",
-                 @"editSessionToken": (editSessionToken ? editSessionToken : @"") }];
+    [self log:@{@"action": @"start",
+                @"source": @"edit",
+                @"editSessionToken": (editSessionToken ? editSessionToken : @"")}];
 }
 
 - (void)logCreateAccountAttempt {
-    [self log:@{ @"action": @"createAccountAttempt" }];
+    [self log:@{@"action": @"createAccountAttempt"}];
 }
 
 - (void)logCreateAccountFailure {
-    [self log:@{ @"action": @"createAccountFailure" }];
+    [self log:@{@"action": @"createAccountFailure"}];
 }
 
 - (void)logCreateAccountSuccess {
-    [self log:@{ @"action": @"createAccountSuccess" }];
+    [self log:@{@"action": @"createAccountSuccess"}];
 }
 
 - (void)logError:(NSString *)code {
-    [self log:@{ @"action": @"error",
-                 @"errorText": (code ? code : @"") }];
+    [self log:@{@"action": @"error",
+                @"errorText": (code ? code : @"")}];
 }
 
 - (void)logSuccess {
-    [self log:@{ @"action": @"success" }];
+    [self log:@{@"action": @"success"}];
 }
 
 @end

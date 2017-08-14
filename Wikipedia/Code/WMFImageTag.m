@@ -79,12 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
         attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
 
-    __block NSString *src = nil;                                    //the image src
+    __block NSString *src = nil; //the image src
     __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0); //the range of the full src attribute - src=blah
-    __block NSString *dataFileWidth = 0;                            //the original file width from data-file-width=
-    __block NSString *width = 0;                                    //the width of the image from width=
-    __block NSString *dataFileHeight = 0;                           //the original file height from data-file-height=
-    __block NSString *height = 0;                                   //the height of the image from height=
+    __block NSString *dataFileWidth = 0; //the original file width from data-file-width=
+    __block NSString *width = 0; //the width of the image from width=
+    __block NSString *dataFileHeight = 0; //the original file height from data-file-height=
+    __block NSString *height = 0; //the height of the image from height=
     NSInteger attributeOffset = 0;
     [attributeRegex enumerateMatchesInString:imageTagContents
                                      options:0

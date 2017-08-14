@@ -21,7 +21,7 @@
     } else {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"expected string, got something else"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     }
 }
 
@@ -34,7 +34,7 @@
     if (str == nil || (str.length == 0 && !allowEmpty)) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"expected string, got nothing"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     } else {
         return str;
     }
@@ -61,7 +61,7 @@
     if (num == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required number field"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     } else {
         return num;
     }
@@ -94,7 +94,7 @@
     if (date == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required date field"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     } else {
         return date;
     }
@@ -123,7 +123,7 @@
     } else {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"expected dictionary, got something else"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     }
 }
 
@@ -132,7 +132,7 @@
     if (obj == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required dictionary field"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     } else {
         return obj;
     }

@@ -97,10 +97,10 @@
 
 - (BOOL)isDisplayingResultsForSearchTerm:(NSString *)searchTerm fromSiteURL:(NSURL *)siteURL {
     return (
-        self.dataSource.searchResults.results.count > 0 &&                     // we have results already
+        self.dataSource.searchResults.results.count > 0 && // we have results already
         [self.dataSource.searchSiteURL wmf_isEqualToIgnoringScheme:siteURL] && // results are from same search site url
-        [self.dataSource.searchResults.searchTerm isEqualToString:searchTerm]  // results are for same search term
-        );
+        [self.dataSource.searchResults.searchTerm isEqualToString:searchTerm] // results are for same search term
+    );
 }
 
 @end

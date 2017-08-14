@@ -52,7 +52,7 @@
     void (^drawGradient)(CGFloat, CGFloat, CGRect) = ^void(CGFloat upperAlpha, CGFloat bottomAlpha, CGRect rect) {
         CGFloat locations[] = {
             0.0, // Upper color stop.
-            1.0  // Bottom color stop.
+            1.0 // Bottom color stop.
         };
         CGFloat colorComponents[8] = {
             0.0, 0.0, 0.0, upperAlpha, // Upper color.
