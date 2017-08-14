@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d luogo trovato</string>
+			<string>%1$d %1$d luogo trovato</string>
 			<key>other</key>
-			<string>%1$d luoghi trovati</string>
+			<string>%1$d %1$d luoghi trovati</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d voce</string>
+			<string>%1$d %1$d voce</string>
 			<key>other</key>
-			<string>%1$d voci</string>
+			<string>%1$d %1$d voci</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
