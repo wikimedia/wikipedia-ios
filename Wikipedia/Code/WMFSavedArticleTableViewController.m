@@ -85,11 +85,19 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+
+    UITableViewRowAction *deleteAction = [rowActions deleteActionAt:indexPath tableView:tableView delete:^(NSIndexPath *indexPath) {
+        [self deleteItemAtIndexPath:indexPath];
+    }];
     deleteAction.backgroundColor = self.theme.colors.destructive;
 
-    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    UITableViewRowAction *shareAction = [rowActions shareActionAt:indexPath tableView:tableView share:^(NSIndexPath *indexPath) {
+        NSURL *url = [self urlAtIndexPath:indexPath];
+        [self shareArticle:url];
+    }];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
+    
     return @[deleteAction, shareAction];
 }
 

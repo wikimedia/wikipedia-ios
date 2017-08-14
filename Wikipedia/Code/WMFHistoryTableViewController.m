@@ -39,20 +39,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-
+    
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-
+    
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
     articleRequest.predicate = [NSPredicate predicateWithFormat:@"viewedDate != NULL"];
     articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"viewedDateWithoutTime" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"viewedDate" ascending:NO]];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:articleRequest managedObjectContext:self.userDataStore.viewContext sectionNameKeyPath:@"viewedDateWithoutTime" cacheName:nil];
-
+    
     self.fetchedResultsController = frc;
     self.tableViewUpdater = [[WMFTableViewUpdater alloc] initWithFetchedResultsController:self.fetchedResultsController tableView:self.tableView];
     self.tableViewUpdater.delegate = self;
-
+    
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
@@ -78,16 +78,16 @@
     if ([sectionInfo numberOfObjects] == 0) {
         return @"";
     }
-
+    
     NSDate *date = [[[sectionInfo objects] firstObject] viewedDateWithoutTime];
-
+    
     if (!date) {
         return @"";
     }
-
+    
     //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
     NSString *padding = @"    ";
-
+    
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
     if ([calendar isDateInToday:date]) {
         return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-today", nil, nil, @"Today", @"Subsection label for list of articles browsed today.\n{{Identical|Today}}") uppercaseString]];
@@ -120,33 +120,46 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-
+    
     [tableView setEditing:NO animated:YES];
-
+    
     [self configureCell:cell forRowAtIndexPath:indexPath];
-
+    
     return cell;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
-    deleteAction.backgroundColor = self.theme.colors.destructive;
 
-    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    NSURL *url = [self urlAtIndexPath:indexPath];
+    MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+
+    UITableViewRowAction *deleteAction = [rowActions deleteActionAt:indexPath tableView:tableView delete:^(NSIndexPath *indexPath) {
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
+    
+    UITableViewRowAction *shareAction = [rowActions shareActionAt:indexPath tableView:tableView share:^(NSIndexPath *indexPath) {
+        [self shareArticle:url];
+    }];
     shareAction.backgroundColor = self.theme.colors.secondaryAction;
 
     NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects:deleteAction, shareAction, nil];
-
+    
     if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
-        UITableViewRowAction *unsaveAction = [self unsaveAction:indexPath];
+        UITableViewRowAction *unsaveAction = [rowActions unsaveActionAt:indexPath tableView:tableView unsave:^(NSIndexPath *indexPath) {
+            [savedPageList removeEntryWithURL:url];
+        }];
         unsaveAction.backgroundColor = self.theme.colors.link;
         [actions addObject:unsaveAction];
     } else {
-        UITableViewRowAction *saveAction = [self saveAction:indexPath];
+        UITableViewRowAction *saveAction = [rowActions saveActionAt:indexPath tableView:tableView save:^(NSIndexPath *indexPath) {
+            [savedPageList addSavedPageWithURL:url];
+        }];
         saveAction.backgroundColor = self.theme.colors.link;
         [actions addObject:saveAction];
     }
-
+    
     return actions;
 }
 

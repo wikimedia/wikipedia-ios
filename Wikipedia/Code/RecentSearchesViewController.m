@@ -134,15 +134,27 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
+//
+//        // Delete the row from the data source
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [self updateTrashButtonEnabledState];
+//        [self updateHeaderVisibility];
+//    }
+//}
 
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self updateTrashButtonEnabledState];
-        [self updateHeaderVisibility];
-    }
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
+    
+    UITableViewRowAction *shareAction = [self shareAction:indexPath];
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
+    
+    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects:deleteAction, shareAction, nil];
+    
+    return actions;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -151,6 +163,54 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.01f;
+}
+
+#pragma mark - Row actions
+
+- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
+    return [UITableViewRowAction rowActionWithStyle:style
+                                              title:title
+                                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                                [CATransaction begin];
+                                                [CATransaction setCompletionBlock:^{
+                                                    if (handler) {
+                                                        handler(action, indexPath);
+                                                    }
+                                                }];
+                                                [self.table setEditing:NO animated:YES];
+                                                [CATransaction commit];
+                                            }];
+}
+
+- (NSString *)deleteActionText {
+    return WMFLocalizedStringWithDefaultValue(@"recent-search-delete", nil, nil, @"Delete", @"Text of the recent search list row action shown on swipe which deletes the article");
+}
+
+- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive
+                              title:[self deleteActionText]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+                                [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
+                                
+                                // Delete the row from the data source
+                                [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                [self updateTrashButtonEnabledState];
+                                [self updateHeaderVisibility];
+                            }];
+}
+
+- (NSString *)shareActionText {
+    return WMFLocalizedStringWithDefaultValue(@"recent-search-share", nil, nil, @"Share", @"Text of the recent search list row action shown on swipe which allows the user to choose the sharing option");
+}
+
+- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
+    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
+                              title:[self shareActionText]
+                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+//                                NSURL *url = [self urlAtIndexPath:indexPath];
+//                                
+//                                [self shareArticle:url];
+                            }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

@@ -292,6 +292,8 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
+"recent-search-delete" = "Delete";
+"recent-search-share" = "Share";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
