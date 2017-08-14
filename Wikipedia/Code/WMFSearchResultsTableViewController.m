@@ -103,4 +103,44 @@
     );
 }
 
+#pragma mark - Accessors
+
+- (MWKSavedPageList *)savedPageList {
+    return self.userDataStore.savedPageList;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    NSURL *url = [self urlAtIndexPath:indexPath];
+    MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+    
+    UITableViewRowAction *deleteAction = [rowActions deleteActionAt:indexPath tableView:tableView delete:^(NSIndexPath *indexPath) {
+        [self deleteItemAtIndexPath:indexPath];
+    }];
+    deleteAction.backgroundColor = self.theme.colors.destructive;
+    
+    UITableViewRowAction *shareAction = [rowActions shareActionAt:indexPath tableView:tableView share:^(NSIndexPath *indexPath) {
+        [self shareArticle:url];
+    }];
+    shareAction.backgroundColor = self.theme.colors.secondaryAction;
+    
+    NSMutableArray<UITableViewRowAction *> *actions = [[NSMutableArray alloc] initWithObjects:deleteAction, shareAction, nil];
+    
+    if ([[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]]) {
+        UITableViewRowAction *unsaveAction = [rowActions unsaveActionAt:indexPath tableView:tableView unsave:^(NSIndexPath *indexPath) {
+            [savedPageList removeEntryWithURL:url];
+        }];
+        unsaveAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:unsaveAction];
+    } else {
+        UITableViewRowAction *saveAction = [rowActions saveActionAt:indexPath tableView:tableView save:^(NSIndexPath *indexPath) {
+            [savedPageList addSavedPageWithURL:url];
+        }];
+        saveAction.backgroundColor = self.theme.colors.link;
+        [actions addObject:saveAction];
+    }
+    
+    return actions;
+}
+
 @end
