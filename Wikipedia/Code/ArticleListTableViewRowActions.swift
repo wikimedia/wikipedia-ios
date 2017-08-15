@@ -1,7 +1,11 @@
 import Foundation
 
+// When objects using row actions are in Swift, use associated types in this enum. E.g., case delete(IndexPath -> Void).
 @objc enum ArticleListTableViewRowActionType: Int {
-    case Delete, Share, Unsave, Save
+    case delete
+    case share
+    case unsave
+    case save
 }
 
 @objc(WMFArticleListTableViewRowActions)
@@ -23,123 +27,32 @@ class ArticleListTableViewRowActions: NSObject {
         })
     }
     
-    func actionType(_ type: ArticleListTableViewRowActionType) -> Int {
-        return type.rawValue
-    }
-    
-//    func deleteAction(at indexPath: IndexPath, tableView: UITableView, delete: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
-//        let action = rowAction(with: UITableViewRowActionStyle.destructive, title: deleteActionText, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-//            delete(indexPath)
-//        })
-//        action.backgroundColor = self.theme.colors.destructive
-//        return action
-//    }
-//    
-//    func shareAction(at indexPath: IndexPath, tableView: UITableView, share: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
-//        let action = rowAction(with: UITableViewRowActionStyle.normal, title: shareActionText, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-//            share(indexPath)
-//        })
-//        action.backgroundColor = self.theme.colors.secondaryAction
-//        return action
-//    }
-//    
-//    func saveAction(at indexPath: IndexPath, tableView: UITableView, save: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
-//        let action = rowAction(with: UITableViewRowActionStyle.normal, title: CommonStrings.shortSaveTitle, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-//            save(indexPath)
-//        })
-//        action.backgroundColor = self.theme.colors.link
-//        return action
-//    }
-//    
-//    func unsaveAction(at indexPath: IndexPath, tableView: UITableView, unsave: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
-//        let action = rowAction(with: UITableViewRowActionStyle.normal, title: CommonStrings.shortUnsaveTitle, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-//            unsave(indexPath)
-//        })
-//        action.backgroundColor = self.theme.colors.link
-//        return action
-//    }
-    
-    func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, tableView: UITableView, performActionAt: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
+    func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, tableView: UITableView, performAction: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
         
         let backgroundColor: UIColor
         let title: String
         
         switch type {
-        case .Delete:
+        case .delete:
             title = deleteActionText
             backgroundColor = self.theme.colors.destructive
-        case .Save:
+        case .save:
             title = CommonStrings.shortSaveTitle
             backgroundColor = self.theme.colors.link
-        case .Unsave:
+        case .unsave:
             title = CommonStrings.shortUnsaveTitle
             backgroundColor = self.theme.colors.link
-        case .Share:
+        case .share:
             title = shareActionText
             backgroundColor = self.theme.colors.secondaryAction
         }
         
         let action = rowAction(with: UITableViewRowActionStyle.normal, title: title, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-            performActionAt(indexPath)
+            performAction(indexPath)
         })
         action.backgroundColor = backgroundColor
         return action
     }
-    
-    func actions(at indexPath: IndexPath, types: [ArticleListTableViewRowActionType], tableView: UITableView, isItemSaved: Bool?) -> [UITableViewRowAction] {
-        var rowActions = [UITableViewRowAction]()
-        
-//        for type in types {
-//            actions.append(action(for: type, at: indexPath, tableView: tableView, performActionAt: <#T##(IndexPath) -> Void#>))
-//        }
-        
-        return rowActions
-        
-    }
-    
-//    func allActions(excluded: ArticleListTableViewRowActionType, indexPath: IndexPath, tableView: UITableView, delete: @escaping ((IndexPath) -> Void), share: @escaping((IndexPath) -> Void), unsave: @escaping ((IndexPath) -> Void), save: @escaping ((IndexPath) -> Void), isItemSaved: Bool?) -> [UITableViewRowAction] {
-//        var actions = [UITableViewRowAction]()
-//        let delete = deleteAction(at: indexPath, tableView: tableView, delete: delete)
-//        let share = shareAction(at: indexPath, tableView: tableView, share: share)
-//        let unsave = unsaveAction(at: indexPath, tableView: tableView, unsave: unsave)
-//        let save = saveAction(at: indexPath, tableView: tableView, save: save)
-//        actions.append(delete)
-//        actions.append(share)
-//        if let saved = isItemSaved {
-//            saved ? actions.append(unsave) : actions.append(save)
-//        }
-//        
-//        if (excluded == ArticleListTableViewRowActionType.None) {
-//            return actions;
-//        }
-//        
-//        actions.remove(at: excluded.rawValue)
-//        
-//        return actions
-//    }
-    
-//    func actions(at indexPath: IndexPath, tableView: UITableView, chosenActions: [(IndexPath) -> Void], isItemSaved: Bool?) -> [UITableViewRowAction] {
-//        var actions = [UITableViewRowAction]()
-//        
-//        for chosenAction in chosenActions {
-//            actions.append(chosenA)
-//        }
-//        
-//        let delete = deleteAction(at: indexPath, tableView: tableView, delete: delete)
-//        let share = shareAction(at: indexPath, tableView: tableView, share: share)
-//        let unsave = unsaveAction(at: indexPath, tableView: tableView, unsave: unsave)
-//        let save = saveAction(at: indexPath, tableView: tableView, save: save)
-//        actions.append(delete)
-//        actions.append(share)
-//        
-//        if let saved = isItemSaved {
-//            saved ? actions.append(unsave) : actions.append(save)
-//        }
-//        
-//        return actions
-//    }
-//    
-//}
     
 }
 

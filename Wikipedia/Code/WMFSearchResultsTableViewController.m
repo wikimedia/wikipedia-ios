@@ -103,8 +103,6 @@
     );
 }
 
-#pragma mark - Accessors
-
 - (MWKSavedPageList *)savedPageList {
     return self.userDataStore.savedPageList;
 }
@@ -117,20 +115,20 @@
     MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
     
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
+
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
     
-    return [rowActions allActionsWithExcluded:ArticleListTableViewRowActionTypeDelete indexPath:indexPath tableView:tableView
-                                       delete:^(NSIndexPath *indexPath) {
-                                           [self deleteItemAtIndexPath:indexPath];
-                                       }
-                                        share:^(NSIndexPath *indexPath) {
-                                            [self shareArticle:url];                       }
-                                       unsave:^(NSIndexPath *indexPath) {
-                                           [savedPageList removeEntryWithURL:url];
-                                       }
-                                         save:^(NSIndexPath *indexPath) {
-                                             [savedPageList addSavedPageWithURL:url];
-                                         }
-                                  isItemSaved:isItemSaved];
+    NSMutableArray *actions = [[NSMutableArray alloc] initWithObjects:share, nil];
+    
+    if (isItemSaved) {
+        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[savedPageList removeEntryWithURL:url];}];
+        [actions addObject:unsave];
+    } else {
+        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[savedPageList addSavedPageWithURL:url];}];
+        [actions addObject:save];
+    }
+    
+    return actions;
 }
 
 @end
