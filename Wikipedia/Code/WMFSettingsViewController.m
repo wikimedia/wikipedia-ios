@@ -160,6 +160,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
+    [self loadSections];
 }
 
 #pragma mark - Switch tap handling
