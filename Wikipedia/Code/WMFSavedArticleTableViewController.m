@@ -87,11 +87,10 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
     
-    UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
+    UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
     
     NSURL *url = [self urlAtIndexPath:indexPath];
-    
-    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
     
     return @[delete, share];
 }

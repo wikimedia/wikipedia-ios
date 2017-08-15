@@ -27,7 +27,7 @@ class ArticleListTableViewRowActions: NSObject {
         })
     }
     
-    func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, tableView: UITableView, performAction: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
+    func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, in tableView: UITableView, perform: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
         
         let backgroundColor: UIColor
         let title: String
@@ -48,7 +48,7 @@ class ArticleListTableViewRowActions: NSObject {
         }
         
         let action = rowAction(with: UITableViewRowActionStyle.normal, title: title, tableView: tableView, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
-            performAction(indexPath)
+            perform(indexPath)
         })
         action.backgroundColor = backgroundColor
         return action

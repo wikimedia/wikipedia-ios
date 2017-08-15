@@ -116,15 +116,15 @@
     
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
 
-    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
     
     NSMutableArray *actions = [[NSMutableArray alloc] initWithObjects:share, nil];
     
     if (isItemSaved) {
-        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[savedPageList removeEntryWithURL:url];}];
+        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList removeEntryWithURL:url];}];
         [actions addObject:unsave];
     } else {
-        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave at:indexPath tableView:tableView performAction:^(NSIndexPath *indexPath) {[savedPageList addSavedPageWithURL:url];}];
+        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList addSavedPageWithURL:url];}];
         [actions addObject:save];
     }
     
