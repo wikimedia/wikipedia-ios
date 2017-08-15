@@ -138,7 +138,7 @@
     
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
     
-    return [rowActions allActionsAt:indexPath tableView:tableView
+    return [rowActions allActionsWithExcluded:ArticleListTableViewRowActionTypeNone indexPath:indexPath tableView:tableView
                       delete:^(NSIndexPath *indexPath) {
                           [self deleteItemAtIndexPath:indexPath];
                       }

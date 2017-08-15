@@ -87,18 +87,33 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
 
-    UITableViewRowAction *deleteAction = [rowActions deleteActionAt:indexPath tableView:tableView delete:^(NSIndexPath *indexPath) {
-        [self deleteItemAtIndexPath:indexPath];
-    }];
-    deleteAction.backgroundColor = self.theme.colors.destructive;
-
-    UITableViewRowAction *shareAction = [rowActions shareActionAt:indexPath tableView:tableView share:^(NSIndexPath *indexPath) {
-        NSURL *url = [self urlAtIndexPath:indexPath];
-        [self shareArticle:url];
-    }];
-    shareAction.backgroundColor = self.theme.colors.secondaryAction;
     
-    return @[deleteAction, shareAction];
+    return [rowActions allActionsWithExcluded:ArticleListTableViewRowActionTypeSave indexPath:indexPath tableView:tableView
+                                       delete:^(NSIndexPath *indexPath) {
+                                           [self deleteItemAtIndexPath:indexPath];
+                                       }
+                                        share:^(NSIndexPath *indexPath) {
+                                            [self shareArticle:url];                       }
+                                       unsave:^(NSIndexPath *indexPath) {
+                                           [savedPageList removeEntryWithURL:url];
+                                       }
+                                         save:^(NSIndexPath *indexPath) {
+                                             [savedPageList addSavedPageWithURL:url];
+                                         }
+                                  isItemSaved:nil];
+    
+//    UITableViewRowAction *deleteAction = [rowActions deleteActionAt:indexPath tableView:tableView delete:^(NSIndexPath *indexPath) {
+//        [self deleteItemAtIndexPath:indexPath];
+//    }];
+//    deleteAction.backgroundColor = self.theme.colors.destructive;
+//
+//    UITableViewRowAction *shareAction = [rowActions shareActionAt:indexPath tableView:tableView share:^(NSIndexPath *indexPath) {
+//        NSURL *url = [self urlAtIndexPath:indexPath];
+//        [self shareArticle:url];
+//    }];
+//    shareAction.backgroundColor = self.theme.colors.secondaryAction;
+//    
+//    return @[deleteAction, shareAction];
 }
 
 - (WMFEmptyViewType)emptyViewType {

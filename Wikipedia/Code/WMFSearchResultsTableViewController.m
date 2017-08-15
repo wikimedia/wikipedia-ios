@@ -117,20 +117,20 @@
     MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
     
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
-        
-    return [rowActions allActionsAt:indexPath tableView:tableView
-                             delete:^(NSIndexPath *indexPath) {
-                                 [self deleteItemAtIndexPath:indexPath];
-                             }
-                              share:^(NSIndexPath *indexPath) {
-                                  [self shareArticle:url];                       }
-                             unsave:^(NSIndexPath *indexPath) {
-                                 [savedPageList removeEntryWithURL:url];
-                             }
-                               save:^(NSIndexPath *indexPath) {
-                                   [savedPageList addSavedPageWithURL:url];
-                               }
-                        isItemSaved:isItemSaved];
+    
+    return [rowActions allActionsWithExcluded:ArticleListTableViewRowActionTypeDelete indexPath:indexPath tableView:tableView
+                                       delete:^(NSIndexPath *indexPath) {
+                                           [self deleteItemAtIndexPath:indexPath];
+                                       }
+                                        share:^(NSIndexPath *indexPath) {
+                                            [self shareArticle:url];                       }
+                                       unsave:^(NSIndexPath *indexPath) {
+                                           [savedPageList removeEntryWithURL:url];
+                                       }
+                                         save:^(NSIndexPath *indexPath) {
+                                             [savedPageList addSavedPageWithURL:url];
+                                         }
+                                  isItemSaved:isItemSaved];
 }
 
 @end
