@@ -1483,7 +1483,8 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
-  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading,\n    #pagelib_footer_container_readmore,\n    #pagelib_footer_container_legal\n  ');
+  var selectors = ['#pagelib_footer_container_menu_heading', '#pagelib_footer_container_readmore', '#pagelib_footer_container_legal'];
+  var elements = Polyfill.querySelectorAll(document, selectors.join());
   elements.forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
