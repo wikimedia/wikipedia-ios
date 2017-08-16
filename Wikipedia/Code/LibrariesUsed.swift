@@ -19,6 +19,8 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     private static let plistTitleKey = "Title"
     private static let plistLicenseNameKey = "LicenseName"
     private static let plistLicenseTextKey = "LicenseText"
+    
+    fileprivate var theme = Theme.standard
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -38,7 +40,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             label.adjustsFontForContentSizeCategory = true
         }
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .wmf_darkGray
+        label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -51,7 +53,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .wmf_lightGray
+        self.apply(theme: self.theme)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -109,6 +111,14 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         cell.contentView.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.textAlignment = .left
+        
+        cell.backgroundColor = theme.colors.paperBackground;
+        cell.textLabel?.textColor = theme.colors.primaryText;
+        
+        cell.selectionStyle = .default
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        
         let library:LibraryUsed = self.libraries[indexPath.row];
         cell.textLabel?.text = library.title
         return cell
@@ -117,6 +127,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(LibrariesUsedViewController.storyboardName)
+        libraryVC.apply(theme: self.theme)
         let library = self.libraries[indexPath.row];
         libraryVC.library = library
         libraryVC.title = library.title
@@ -127,9 +138,14 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
 class LibraryUsedViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     public var library: LibraryUsed?
-    
+
+    fileprivate var theme = Theme.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.apply(theme: self.theme)
+        
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
@@ -180,5 +196,31 @@ class LibraryUsedViewController: UIViewController {
         string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
         string = string.replacingOccurrences(of: placeholder, with: "\n\n")
         return string
+    }
+}
+
+extension LibrariesUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.separatorColor = theme.colors.chromeBackground
+        tableView.reloadData()
+    }
+}
+
+extension LibraryUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.textView.backgroundColor = theme.colors.baseBackground
+        self.textView.textColor = theme.colors.primaryText
     }
 }

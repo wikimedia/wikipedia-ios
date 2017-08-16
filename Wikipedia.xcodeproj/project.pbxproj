@@ -267,7 +267,6 @@
 		B0E803D21C0CDCBF0065EBC0 /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */; };
 		B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */; };
-		B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */; };
 		B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */; };
 		B0E8040D1C0CDE480065EBC0 /* EditSummaryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */; };
@@ -932,7 +931,6 @@
 		D80ED3EB1EE57F4800CE8C50 /* NotificationBackgroundMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4E1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png */; };
 		D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B551DF22E1700B95311 /* NotificationBackgroundWarningIcon.png */; };
 		D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
-		D80ED3EE1EE57F4800CE8C50 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		D80ED3EF1EE57F4800CE8C50 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */; };
 		D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
@@ -1747,7 +1745,6 @@
 		D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4E1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png */; };
 		D8A42BD91E815A9C00D8E281 /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B551DF22E1700B95311 /* NotificationBackgroundWarningIcon.png */; };
 		D8A42BDA1E815A9C00D8E281 /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
-		D8A42BDB1E815A9C00D8E281 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		D8A42BDC1E815A9C00D8E281 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		D8A42BDD1E815A9C00D8E281 /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */; };
 		D8A42BDF1E815A9C00D8E281 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
@@ -2130,7 +2127,6 @@
 		D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4E1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png */; };
 		D8CE26601E698E2400DAE2E0 /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B551DF22E1700B95311 /* NotificationBackgroundWarningIcon.png */; };
 		D8CE26611E698E2400DAE2E0 /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
-		D8CE26621E698E2400DAE2E0 /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		D8CE26631E698E2400DAE2E0 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		D8CE26641E698E2400DAE2E0 /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */; };
 		D8CE26661E698E2400DAE2E0 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
@@ -2553,7 +2549,6 @@
 		D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4E1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png */; };
 		D8EC3F601E9BDA35006712EB /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B551DF22E1700B95311 /* NotificationBackgroundWarningIcon.png */; };
 		D8EC3F611E9BDA35006712EB /* WMFLoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804001C0CDE480065EBC0 /* WMFLoginViewController.storyboard */; };
-		D8EC3F621E9BDA35006712EB /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */; };
 		D8EC3F631E9BDA35006712EB /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		D8EC3F641E9BDA35006712EB /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */; };
 		D8EC3F661E9BDA35006712EB /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
@@ -3339,7 +3334,6 @@
 		B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFStoryboardUtilities.m"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.m"; sourceTree = SOURCE_ROOT; };
 		B0E803F81C0CDDBA0065EBC0 /* WMFUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFUnderlineButton.h; path = Wikipedia/Code/WMFUnderlineButton.h; sourceTree = SOURCE_ROOT; };
 		B0E803F91C0CDDBA0065EBC0 /* WMFUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFUnderlineButton.m; path = Wikipedia/Code/WMFUnderlineButton.m; sourceTree = SOURCE_ROOT; };
-		B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AboutViewController.storyboard; path = Wikipedia/Code/AboutViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FC1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAccountCreationViewController.storyboard; path = Wikipedia/Code/WMFAccountCreationViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFCaptchaViewController.storyboard; path = Wikipedia/Code/WMFCaptchaViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EditSummaryViewController.storyboard; path = Wikipedia/Code/EditSummaryViewController.storyboard; sourceTree = SOURCE_ROOT; };
@@ -4836,7 +4830,6 @@
 		045D871D19FAD2D00035C1F9 /* About The App */ = {
 			isa = PBXGroup;
 			children = (
-				B0E803FB1C0CDE480065EBC0 /* AboutViewController.storyboard */,
 				B0E806921C0CEA7B0065EBC0 /* AboutViewController.h */,
 				B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */,
 				B0E806941C0CEA7B0065EBC0 /* AboutViewController.plist */,
@@ -8825,7 +8818,6 @@
 				D8D92B5F1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png in Resources */,
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
 				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
-				B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
 				B0E806DA1C0CEB850065EBC0 /* BulletedLabel.xib in Resources */,
 				D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */,
@@ -8920,7 +8912,6 @@
 				D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */,
 				BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */,
-				D80ED3EE1EE57F4800CE8C50 /* AboutViewController.storyboard in Resources */,
 				D80ED3EF1EE57F4800CE8C50 /* WMFWelcome.storyboard in Resources */,
 				D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */,
 				D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */,
@@ -9053,7 +9044,6 @@
 				BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8A42BD91E815A9C00D8E281 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8A42BDA1E815A9C00D8E281 /* WMFLoginViewController.storyboard in Resources */,
-				D8A42BDB1E815A9C00D8E281 /* AboutViewController.storyboard in Resources */,
 				D8A42BDC1E815A9C00D8E281 /* WMFWelcome.storyboard in Resources */,
 				D8A42BDD1E815A9C00D8E281 /* BulletedLabel.xib in Resources */,
 				D8A42BDF1E815A9C00D8E281 /* WMFAppModalProgressViewController.xib in Resources */,
@@ -9145,7 +9135,6 @@
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8CE26601E698E2400DAE2E0 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8CE26611E698E2400DAE2E0 /* WMFLoginViewController.storyboard in Resources */,
-				D8CE26621E698E2400DAE2E0 /* AboutViewController.storyboard in Resources */,
 				D8CE26631E698E2400DAE2E0 /* WMFWelcome.storyboard in Resources */,
 				D8CE26641E698E2400DAE2E0 /* BulletedLabel.xib in Resources */,
 				D8CE26661E698E2400DAE2E0 /* WMFAppModalProgressViewController.xib in Resources */,
@@ -9237,7 +9226,6 @@
 				BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8EC3F601E9BDA35006712EB /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8EC3F611E9BDA35006712EB /* WMFLoginViewController.storyboard in Resources */,
-				D8EC3F621E9BDA35006712EB /* AboutViewController.storyboard in Resources */,
 				D8EC3F631E9BDA35006712EB /* WMFWelcome.storyboard in Resources */,
 				D8EC3F641E9BDA35006712EB /* BulletedLabel.xib in Resources */,
 				D8EC3F661E9BDA35006712EB /* WMFAppModalProgressViewController.xib in Resources */,

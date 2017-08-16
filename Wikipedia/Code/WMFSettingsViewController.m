@@ -218,9 +218,10 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
-        case WMFSettingsMenuItemType_About:
-            [self.navigationController pushViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard] animated:YES];
-            break;
+        case WMFSettingsMenuItemType_About: {
+            AboutViewController *vc = [[AboutViewController alloc] initWithTheme:self.theme];
+            [self.navigationController pushViewController:vc animated:YES];
+        }  break;
         case WMFSettingsMenuItemType_ClearCache:
             [self showClearCacheActionSheet];
             break;
