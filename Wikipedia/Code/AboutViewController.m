@@ -70,12 +70,17 @@ static NSString *const kWMFContributorsKey = @"contributors";
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) UIBarButtonItem *buttonX;
 @property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
-
+@property (nonatomic, strong) WMFTheme *theme;
 @end
 
 @implementation AboutViewController
 
 #pragma mark - UIViewController
+
+- (instancetype)initWithTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,6 +96,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
 
+    [self applyTheme:self.theme];
+    
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
@@ -285,6 +292,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
     }
 
     return NO;
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    
+    self.webView.opaque = NO;
+    self.webView.backgroundColor = [UIColor clearColor];
+    self.webView.scrollView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_applyTheme:theme];
 }
 
 @end
