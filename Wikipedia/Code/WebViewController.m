@@ -303,7 +303,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterContainer"]) {
         [self.webView wmf_addFooterContainer];
-    } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
+        // Do not display Read More for user pages.
+    } else if ([messageString isEqualToString:@"addFooterReadMore"] && ![self isUserPage]) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
@@ -312,6 +313,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     } else if ([messageString isEqualToString:@"classifyThemeElements"]) {
         [self.webView wmf_classifyThemeElements];
     }
+}
+
+- (BOOL)isUserPage {
+    return [self.article.displaytitle hasPrefix:@"User:"];
 }
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {

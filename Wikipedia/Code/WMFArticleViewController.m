@@ -377,7 +377,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (BOOL)hasReadMore {
     WMF_TECH_DEBT_TODO(filter articles outside main namespace);
-    return self.article && !self.article.isMain;
+    // Do not display Read More for user pages.
+    return self.article && !self.article.isMain && ![self isUserPage];
+}
+
+- (BOOL)isUserPage {
+    return [self.article.displaytitle hasPrefix:@"User:"];
 }
 
 - (BOOL)hasAboutThisArticle {
