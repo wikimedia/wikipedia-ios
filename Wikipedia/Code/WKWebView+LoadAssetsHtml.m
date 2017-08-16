@@ -95,6 +95,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
                                        "\n<base href=\"%@\">"
                                        "\n<script type='text/javascript'>"
                                        "\n    window.wmf.compatibility.enableSupport(document);"
+                                       "\n    window.wmf.platform.classify(window);"
                                        "\n    %@"
                                        "\n</script>",
                                       [NSString stringWithFormat:@"%ld%%", (long)fontSize.integerValue], baseURL.absoluteString, [WKWebView wmf_themeApplicationJavascriptWith:theme]];
