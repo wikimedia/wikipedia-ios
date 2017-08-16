@@ -59,6 +59,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self evaluateJavaScript:fontSizeJS completionHandler:nil];
 }
 
+- (void)wmf_setTextFontColor:(WMFTheme *)theme {
+    NSString *bodyFontColorJS = [NSString stringWithFormat:@"document.body.style.color = '#%@'", theme.colors.primaryText.wmf_hexString];
+    NSString *linkFontColorJS = [NSString stringWithFormat:@"for (var i = 0; i < document.getElementsByTagName('a').length; i++) {document.getElementsByTagName('a')[i].style.color = '#%@'}", theme.colors.link.wmf_hexString];
+    NSString *headingFontColorJS = [NSString stringWithFormat:@"for (var i = 0; i < document.getElementsByClassName('heading').length; i++) {document.getElementsByClassName('heading')[i].style.color = '#%@'}", theme.colors.primaryText.wmf_hexString];
+    NSString *titleFontColorJS = [NSString stringWithFormat:@"for (var i = 0; i < document.getElementsByClassName('title').length; i++) {document.getElementsByClassName('title')[i].style.color = '#%@'}", theme.colors.secondaryText.wmf_hexString];
+
+    [self evaluateJavaScript:bodyFontColorJS completionHandler:nil];
+    [self evaluateJavaScript:linkFontColorJS completionHandler:nil];
+    [self evaluateJavaScript:headingFontColorJS completionHandler:nil];
+    [self evaluateJavaScript:titleFontColorJS completionHandler:nil];
+}
+
 - (void)wmf_preventTextFromExpandingOnRotation {
     [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
 }
@@ -97,7 +109,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     self.webView = wv;
 
     [self applyTheme:self.theme];
-    
+
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
@@ -209,6 +221,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     [webView wmf_setTextDirection];
     [webView wmf_setTextFontSize];
+    [webView wmf_setTextFontColor:self.theme];
 }
 
 #pragma mark - Introspection
@@ -298,11 +311,12 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.webView.opaque = NO;
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.scrollView.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = theme.colors.paperBackground;
+    [self.webView wmf_setTextFontColor:theme];
     [self.webView wmf_applyTheme:theme];
 }
 
