@@ -53,8 +53,6 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-
         self.apply(theme: self.theme)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
@@ -140,10 +138,9 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
 class LibraryUsedViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     public var library: LibraryUsed?
-    
+
     fileprivate var theme = Theme.standard
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
