@@ -53,6 +53,8 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+
         self.apply(theme: self.theme)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
@@ -112,9 +114,12 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         cell.textLabel?.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.textAlignment = .left
         
-        cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         cell.backgroundColor = theme.colors.paperBackground;
         cell.textLabel?.textColor = theme.colors.primaryText;
+        
+        cell.selectionStyle = .default
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         
         let library:LibraryUsed = self.libraries[indexPath.row];
         cell.textLabel?.text = library.title
@@ -124,6 +129,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(LibrariesUsedViewController.storyboardName)
+        libraryVC.apply(theme: self.theme)
         let library = self.libraries[indexPath.row];
         libraryVC.library = library
         libraryVC.title = library.title
@@ -135,8 +141,14 @@ class LibraryUsedViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     public var library: LibraryUsed?
     
+    fileprivate var theme = Theme.standard
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.apply(theme: self.theme)
+        
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
@@ -200,5 +212,18 @@ extension LibrariesUsedViewController: Themeable {
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.separatorColor = theme.colors.chromeBackground
         tableView.reloadData()
+    }
+}
+
+extension LibraryUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.textView.backgroundColor = theme.colors.baseBackground
+        self.textView.textColor = theme.colors.primaryText
     }
 }
