@@ -19,6 +19,8 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     private static let plistTitleKey = "Title"
     private static let plistLicenseNameKey = "LicenseName"
     private static let plistLicenseTextKey = "LicenseText"
+    
+    fileprivate var theme = Theme.standard
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -38,7 +40,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             label.adjustsFontForContentSizeCategory = true
         }
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .wmf_darkGray
+        label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -51,7 +53,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .wmf_lightGray
+        self.apply(theme: self.theme)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -109,6 +111,11 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         cell.contentView.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.textAlignment = .left
+        
+        cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        cell.backgroundColor = theme.colors.paperBackground;
+        cell.textLabel?.textColor = theme.colors.primaryText;
+        
         let library:LibraryUsed = self.libraries[indexPath.row];
         cell.textLabel?.text = library.title
         return cell
@@ -180,5 +187,18 @@ class LibraryUsedViewController: UIViewController {
         string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
         string = string.replacingOccurrences(of: placeholder, with: "\n\n")
         return string
+    }
+}
+
+extension LibrariesUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.separatorColor = theme.colors.chromeBackground
+        tableView.reloadData()
     }
 }

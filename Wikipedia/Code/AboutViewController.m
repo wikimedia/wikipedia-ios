@@ -244,6 +244,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     if ([[self class] isLicenseURL:requestURL]) {
 
         LibrariesUsedViewController *vc = [LibrariesUsedViewController wmf_viewControllerFromStoryboardNamed:LibrariesUsedViewController.storyboardName];
+        [vc applyTheme:self.theme];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
