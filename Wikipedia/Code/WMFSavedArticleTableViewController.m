@@ -86,6 +86,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    [rowActions applyTheme:self.theme];
     
     UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
     
