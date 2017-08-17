@@ -25,7 +25,6 @@
 "abuse-filter-warning-repeat" = "Caractèrs repeeeetits";
 "account-creation-captcha-cannot-see-image" = "Impossible de veire l’imatge ? $1";
 "account-creation-captcha-obtaining" = "Obtencion d’un novèl CAPTCHA…";
-// Fuzzy
 "account-creation-captcha-request-account" = "Demandar un compte.";
 "account-creation-captcha-title" = "Verificacion de seguretat CAPTCHA";
 "account-creation-logging-in" = "Connexion en cors…";
@@ -36,14 +35,15 @@
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
 "action-unsave" = "Pas enregistrat";
-// Fuzzy
-"announcements-dismiss" = "Non mercé";
+"announcements-dismiss" = "Ignorar";
 "article-about-title" = "A prepaus d'aqueste article";
+"article-delete" = "Suprimir";
 "article-languages-filter-placeholder" = "Trobar la lenga";
 "article-languages-label" = "Causir una lenga";
 "article-languages-others" = "Autras lengas";
 "article-languages-yours" = "Vòstras lengas";
 "article-read-more-title" = "Ne saber mai";
+"article-share" = "Partejar";
 "article-unable-to-load-article" = "Impossible de cargar l'article.";
 "back" = "Retorn";
 "back-button-accessibility-label" = "Retorn";
@@ -60,6 +60,7 @@
 "close-button-accessibility-label" = "Tampar";
 "compass-direction" = "a $1 oras";
 "continue-reading-empty-title" = "Cap d'articles pas legits recentament";
+"dark-theme-display-name" = "Escur";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-typos" = "Correccion de fautas";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
@@ -73,16 +74,26 @@
 "explore-most-read-generic-heading" = "Los mai legits";
 "explore-most-read-more-list-title-for-date" = "Los mai legits al $1";
 "explore-nearby-heading" = "Endreits a proximitat";
+"explore-nearby-placeholder-cancel" = "Anullar";
+"explore-nearby-placeholder-dismiss" = "Regetar";
+"explore-nearby-placeholder-heading" = "Endreits";
 "explore-nearby-sub-heading-your-location" = "Vòstre emplaçament";
 "explore-potd-heading" = "Imatge del jorn";
 "explore-random-article-heading" = "Article a l'azard";
 "explore-randomizer" = "Article a l'azard";
 "feed-news-notification-button-text" = "Activar las notificacions";
-// Fuzzy
-"feed-news-notification-text" = "Podètz ara recebre de notificacions a prepaus dels articles Wikipèdia dins la tendéncia de l'actualitat.";
+"feed-news-notification-text" = "Activar las notificacions mandadas per la Wikipèdia quand d'articles fòrman la tendéncia de l'actualitat.";
+"field-email-title" = "Corrièr electronic";
+"field-email-title-optional" = "Corrièr electronic (facultatiu)";
+"field-new-password-title" = "Senhal novèl";
+"field-password-title" = "Senhal";
+"field-token-title" = "Còdi de verificacion";
+"field-username-title" = "Nom d'utilizaire";
 "find-in-page-button-label" = "Trobar dins la pagina";
+"find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
+"forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Escafar";
 "history-clear-cancel" = "Anullar";
 "history-clear-delete-all" = "Òc, suprimir tot";
@@ -113,7 +124,6 @@
 "in-the-news-notification-share-action-title" = "Partejar...";
 "in-the-news-title" = "Dins l'actualitat";
 "info-box-close-text" = "Tampar";
-// Fuzzy
 "info-box-title" = "Faits en brèu";
 "languages-title" = "Cambiar de lenga";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -146,6 +156,8 @@
 "number-billions" = "$1G";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 eveniments istorics}}";
+"on-this-day-title" = "Aqueste jorn";
 "onboarding-wikipedia" = "Wikipèdia";
 "open-link-cancel" = "Anullar";
 "page-edit-history" = "Istoric complet de las modificacions";
@@ -156,18 +168,18 @@
 "page-read-in-other-languages" = "Disponible dins $1 autras lengas";
 "page-similar-titles" = "Paginas similaras";
 "places-search-recently-searched-header" = "Recercat recentament";
-// Fuzzy
-"places-search-saved-articles" = "Articles enregistrats";
+"places-search-saved-articles" = "Totes los articles enregistrats";
 "places-search-suggested-searches-header" = "Recèrcas suggeridas";
-// Fuzzy
-"places-search-this-area" = "Recercar dins aquesta zòna";
-// Fuzzy
-"places-search-top-articles" = "Melhors articles";
+"places-search-this-area" = "Resultats dins aquesta zòna";
+"places-search-top-articles" = "Totes los melhors articles";
+"places-search-top-articles-that-match-scope" = "A proximitat";
+"places-title" = "Luòcs";
 "potd-description-prefix" = "Imatge del jorn per $1";
 "preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "rank-accessibility-label" = "Numèro $1";
 "readers-accessibility-label" = "$1 lectors";
 "reference-title" = "Referéncia $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
 "saved-clear-all" = "Escafar";
 "saved-pages-clear-cancel" = "Anullar";
 "saved-pages-clear-confirmation-heading" = "Sètz segur que volètz suprimir totes vòstres elements enregistrats ?";
@@ -181,6 +193,8 @@
 "search-recent-title" = "Recercats recentament";
 "search-result-redirected-from" = "Redirigit dempuèi : $1";
 "search-title" = "Recercar";
+"settings-appearance" = "Aparéncia";
+"settings-clear-cache-cancel" = "Anullar";
 "settings-help-and-feedback" = "Ajuda e comentaris";
 "settings-my-languages" = "Mas lengas";
 "settings-notifications" = "Notificacions";
