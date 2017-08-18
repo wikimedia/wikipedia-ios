@@ -70,12 +70,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) UIBarButtonItem *buttonX;
 @property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
+@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
 @implementation AboutViewController
 
 #pragma mark - UIViewController
+
+- (instancetype)initWithTheme:(WMFTheme *)theme {
+    self.theme = theme;
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,6 +96,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
     wv.navigationDelegate = self;
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
+
+    [self applyTheme:self.theme];
 
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
 
@@ -224,6 +232,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     if ([[self class] isLicenseURL:requestURL]) {
 
         LibrariesUsedViewController *vc = [LibrariesUsedViewController wmf_viewControllerFromStoryboardNamed:LibrariesUsedViewController.storyboardName];
+        [vc applyTheme:self.theme];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -285,6 +294,15 @@ static NSString *const kWMFContributorsKey = @"contributors";
     }
 
     return NO;
+}
+
+#pragma mark - WMFThemeable
+
+- (void)applyTheme:(WMFTheme *)theme {
+    self.theme = theme;
+
+    self.webView.opaque = NO;
+    self.view.backgroundColor = theme.colors.paperBackground;
 }
 
 @end
