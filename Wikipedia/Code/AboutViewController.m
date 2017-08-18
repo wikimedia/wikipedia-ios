@@ -59,6 +59,15 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self evaluateJavaScript:fontSizeJS completionHandler:nil];
 }
 
+- (void)wmf_setTextFontColor:(WMFTheme *)theme {
+    NSString *fontColorJS = [NSString stringWithFormat:@"document.body.style.color = '#%@';\
+                             document.styleSheets[0].rules[2].style.color = '#%@';\
+                             document.styleSheets[0].rules[3].style.color = '#%@';\
+                             document.styleSheets[0].rules[4].style.color = '#%@'", theme.colors.primaryText.wmf_hexString, theme.colors.primaryText.wmf_hexString, theme.colors.secondaryText.wmf_hexString, theme.colors.link.wmf_hexString];
+
+    [self evaluateJavaScript:fontColorJS completionHandler:nil];
+}
+
 - (void)wmf_preventTextFromExpandingOnRotation {
     [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
 }
@@ -210,6 +219,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     [webView wmf_setTextDirection];
     [webView wmf_setTextFontSize];
+    [webView wmf_setTextFontColor:self.theme];
 }
 
 #pragma mark - Introspection
