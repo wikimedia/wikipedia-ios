@@ -128,6 +128,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(LibrariesUsedViewController.storyboardName)
+        libraryVC.apply(theme: self.theme)
         let library = self.libraries[indexPath.row];
         libraryVC.library = library
         libraryVC.title = library.title
