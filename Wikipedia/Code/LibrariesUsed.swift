@@ -19,6 +19,8 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     private static let plistTitleKey = "Title"
     private static let plistLicenseNameKey = "LicenseName"
     private static let plistLicenseTextKey = "LicenseText"
+    
+    fileprivate var theme = Theme.standard
 
     func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -51,6 +53,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.apply(theme: self.theme)
         view.backgroundColor = .wmf_lightGray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
@@ -128,8 +131,13 @@ class LibraryUsedViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     public var library: LibraryUsed?
     
+    fileprivate var theme = Theme.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.apply(theme: self.theme)
+        
         if #available(iOS 10.0, *) {
             textView.adjustsFontForContentSizeCategory = true
         }
@@ -180,5 +188,31 @@ class LibraryUsedViewController: UIViewController {
         string = whitespaceRegex.stringByReplacingMatches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count), withTemplate: " ")
         string = string.replacingOccurrences(of: placeholder, with: "\n\n")
         return string
+    }
+}
+
+extension LibrariesUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.separatorColor = theme.colors.chromeBackground
+        tableView.reloadData()
+    }
+}
+
+extension LibraryUsedViewController: Themeable {
+    public func apply(theme: Theme) {
+        self.theme = theme
+        
+        guard viewIfLoaded != nil else {
+            return
+        }
+        self.view.backgroundColor = theme.colors.baseBackground
+        self.textView.backgroundColor = theme.colors.baseBackground
+        self.textView.textColor = theme.colors.primaryText
     }
 }
