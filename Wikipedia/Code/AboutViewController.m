@@ -106,6 +106,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
 
+    self.webView.opaque = NO;
     [self applyTheme:self.theme];
 
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
@@ -311,7 +312,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
 
-    self.webView.opaque = NO;
     self.view.backgroundColor = theme.colors.paperBackground;
 }
 
