@@ -15,4 +15,6 @@
  */
 - (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError *error))completion;
 
+- (void)getOnScreenElementIndicesWithPrefix:(NSString *)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError *error))completion;
+
 @end

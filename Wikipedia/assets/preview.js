@@ -1,46 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-function findClosest (el, selector) {
-  while ((el = el.parentElement) && !el.matches(selector));
-  return el
-}
-
-function setLanguage(lang, dir, uidir){
-  var html = document.querySelector( 'html' )
-  html.lang = lang
-  html.dir = dir
-  html.classList.add( 'content-' + dir )
-  html.classList.add( 'ui-' + uidir )
-}
-
-function setPageProtected(isProtected){
-  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-}
-
-function scrollToFragment(fragmentId){
-  location.hash = ''
-  location.hash = fragmentId
-}
-
-function accessibilityCursorToFragment(fragmentId){
-    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
-     in order to have the desired effect, so we first give focus to the body element,
-     then move it to the desired fragment. */
-  var focus_element = document.getElementById(fragmentId)
-  var other_element = document.body
-  other_element.setAttribute('tabindex', 0)
-  other_element.focus()
-  focus_element.setAttribute('tabindex', 0)
-  focus_element.focus()
-}
-
-exports.accessibilityCursorToFragment = accessibilityCursorToFragment
-exports.scrollToFragment = scrollToFragment
-exports.setPageProtected = setPageProtected
-exports.setLanguage = setLanguage
-exports.findClosest = findClosest
-},{}],2:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -194,17 +152,19 @@ var elementUtilities = {
 var CONSTRAINT = {
   IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
   IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
+};
 
-  // Theme to CSS classes.
-};var THEME = {
+// Theme to CSS classes.
+var THEME = {
   DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!string} theme
-   * @return {void}
-   */
-};var setTheme = function setTheme(document, theme) {
+/**
+ * @param {!Document} document
+ * @param {!string} theme
+ * @return {void}
+ */
+var setTheme = function setTheme(document, theme) {
   var html = document.querySelector('html');
 
   // Set the new theme.
@@ -538,14 +498,15 @@ var CollapseTable = {
 
 var COMPATIBILITY = {
   FILTER: 'pagelib-compatibility-filter'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!Array.<string>} properties
-   * @param {!string} value
-   * @return {void}
-   */
-};var isStyleSupported = function isStyleSupported(document, properties, value) {
+/**
+ * @param {!Document} document
+ * @param {!Array.<string>} properties
+ * @param {!string} value
+ * @return {void}
+ */
+var isStyleSupported = function isStyleSupported(document, properties, value) {
   var element = document.createElement('span');
   return properties.some(function (property) {
     element.style[property] = value;
@@ -979,11 +940,12 @@ var MenuItemType = {
   pageIssues: 3,
   disambiguation: 4,
   coordinate: 5
-
-  /**
-   * Menu item model.
-   */
 };
+
+/**
+ * Menu item model.
+ */
+
 var MenuItem = function () {
   /**
    * MenuItem constructor.
@@ -1716,15 +1678,15 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
   px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
   ex: 10, // ''
   em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
+};
 
-
-  /**
-   * Replace an image with a placeholder.
-   * @param {!Document} document
-   * @param {!HTMLImageElement} image The image to be replaced.
-   * @return {!HTMLSpanElement} The placeholder replacing image.
-   */
-};var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+/**
+ * Replace an image with a placeholder.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The image to be replaced.
+ * @return {!HTMLSpanElement} The placeholder replacing image.
+ */
+var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
   // There are a number of possible implementations for placeholders including:
   //
   // - [MobileFrontend] Replace the original image with a span and replace the span with a new
@@ -2017,14 +1979,14 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios' };
 
-  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
-  /**
-   * @param {!Window} window
-   * @return {!boolean} true if the user agent is Android, false otherwise.
-   */
-};var isAndroid = function isAndroid(window) {
+// Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is Android, false otherwise.
+ */
+var isAndroid = function isAndroid(window) {
   return (/android/i.test(window.navigator.userAgent)
   );
 };
@@ -2263,6 +2225,48 @@ return pagelib$1;
 })));
 
 
+},{}],2:[function(require,module,exports){
+
+// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+function findClosest (el, selector) {
+  while ((el = el.parentElement) && !el.matches(selector));
+  return el
+}
+
+function setLanguage(lang, dir, uidir){
+  var html = document.querySelector( 'html' )
+  html.lang = lang
+  html.dir = dir
+  html.classList.add( 'content-' + dir )
+  html.classList.add( 'ui-' + uidir )
+}
+
+function setPageProtected(isProtected){
+  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
+}
+
+function scrollToFragment(fragmentId){
+  location.hash = ''
+  location.hash = fragmentId
+}
+
+function accessibilityCursorToFragment(fragmentId){
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+  var focus_element = document.getElementById(fragmentId)
+  var other_element = document.body
+  other_element.setAttribute('tabindex', 0)
+  other_element.focus()
+  focus_element.setAttribute('tabindex', 0)
+  focus_element.focus()
+}
+
+exports.accessibilityCursorToFragment = accessibilityCursorToFragment
+exports.scrollToFragment = scrollToFragment
+exports.setPageProtected = setPageProtected
+exports.setLanguage = setLanguage
+exports.findClosest = findClosest
 },{}],3:[function(require,module,exports){
 var wmf = {}
 
@@ -2271,4 +2275,4 @@ wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.utilities = require('./js/utilities')
 
 window.wmf = wmf
-},{"./js/utilities":1,"wikimedia-page-library":2}]},{},[3,1]);
+},{"./js/utilities":2,"wikimedia-page-library":1}]},{},[3,2]);
