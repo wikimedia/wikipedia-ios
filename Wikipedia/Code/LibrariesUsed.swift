@@ -40,7 +40,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             label.adjustsFontForContentSizeCategory = true
         }
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .wmf_darkGray
+        label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -112,6 +112,14 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         cell.contentView.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.textAlignment = .left
+        
+        cell.backgroundColor = theme.colors.paperBackground;
+        cell.textLabel?.textColor = theme.colors.primaryText;
+        
+        cell.selectionStyle = .default
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        
         let library:LibraryUsed = self.libraries[indexPath.row];
         cell.textLabel?.text = library.title
         return cell
