@@ -60,10 +60,23 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)wmf_setTextFontColor:(WMFTheme *)theme {
-    NSString *fontColorJS = [NSString stringWithFormat:@"document.body.style.color = '#%@';\
-                             document.styleSheets[0].rules[2].style.color = '#%@';\
-                             document.styleSheets[0].rules[3].style.color = '#%@';\
-                             document.styleSheets[0].rules[4].style.color = '#%@'", theme.colors.primaryText.wmf_hexString, theme.colors.primaryText.wmf_hexString, theme.colors.secondaryText.wmf_hexString, theme.colors.link.wmf_hexString];
+    NSString *fontColorJS = [NSString stringWithFormat:@""
+                                                        "function styleWithSelector (selector, styleSheetID) {"
+                                                        "  function ruleWithSelector(rule) {"
+                                                        "     return (rule.selectorText === selector)"
+                                                        "  }"
+                                                        "  return Array.from(document.getElementById(styleSheetID).sheet.rules)"
+                                                        "  .find(ruleWithSelector)"
+                                                        "  .style"
+                                                        "}"
+                                                        "styleWithSelector('body', 'aboutStyles').color = '#%@';"
+                                                        "styleWithSelector('.heading', 'aboutStyles').color = '#%@';"
+                                                        "styleWithSelector('.title', 'aboutStyles').color = '#%@';"
+                                                        "styleWithSelector('A', 'aboutStyles').color = '#%@';",
+                                                       theme.colors.primaryText.wmf_hexString,
+                                                       theme.colors.primaryText.wmf_hexString,
+                                                       theme.colors.secondaryText.wmf_hexString,
+                                                       theme.colors.link.wmf_hexString];
 
     [self evaluateJavaScript:fontColorJS completionHandler:nil];
 }
