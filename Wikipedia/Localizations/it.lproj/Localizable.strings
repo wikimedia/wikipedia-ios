@@ -11,6 +11,7 @@
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
+// Author: Greis
 // Author: JackLantern
 // Author: Macofe
 // Author: Martinligabue
@@ -71,6 +72,7 @@
 "action-unsave" = "Annulla salvataggio";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
+"appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
 "article-languages-filter-placeholder" = "Trova lingua";
@@ -94,9 +96,10 @@
 "button-saved-remove" = "Rimuovi dai salvati";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Chiudi";
-"compass-direction" = "a ore $1";
+"compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"dark-theme-display-name" = "Scuro";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
@@ -175,6 +178,7 @@
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che la Wikimedia Foundation sia in grado di esaminarlo? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
 "hockeyapp-alert-title" = "Spiacenti, l'ultima volta l'applicazione è andata in errore";
+"home-button-explore-accessibility-label" = "Wikipedia, ritorna a Explore";
 "home-button-history-accessibility-label" = "Wikipedia, ritorna alla cronologia";
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-hide-suggestion-cancel" = "Annulla";
@@ -238,7 +242,7 @@
 "on-this-day-title" = "In questo giorno";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annulla";
-"page-edit-history" = "Cronologia completa";
+"page-edit-history" = "Cronologia delle modifiche completa";
 "page-history-title" = "Cronologia dell'articolo";
 "page-issues" = "Problemi alla pagina";
 "page-last-edited" = "Modificata $1 giorni fa";
@@ -250,16 +254,24 @@
 "page-protected-sysop" = "Questa pagina è stata protetta.";
 "page-read-in-other-languages" = "Disponibile in altre $1 lingue";
 "page-similar-titles" = "Pagine simili";
+"places-accessibility-clear-saved-searches" = "Cancella le ricerche salvate";
 "places-accessibility-close-search" = "Chiudi la ricerca";
 "places-accessibility-group" = "$1 voci";
 "places-accessibility-show-as-list" = "Mostra come elenco";
 "places-accessibility-show-as-map" = "Mostra come mappa";
 "places-accessibility-show-more" = "Mostra più voci";
+"places-dismiss-filter-list-accessibility-label" = "Rimuovi i filtri di ricerca";
+"places-empty-search-description" = "Esplora città, paesi, continenti, luoghi naturali, eventi storici, edifici e altro ancora.";
+"places-enable-location-action-button-title" = "Permetti localizzazione";
+"places-enable-location-description" = "L'accesso alla tua localizzazione è disponibile solo quando l'applicazione o una delle sue funzioni è visibile sul tuo schermo.";
+"places-enable-location-title" = "Esplora gli articoli vicino alla tua ubicazione abilitando l'accesso alla localizzazione";
 "places-filter-list-title" = "Filtri di ricerca";
 "places-filter-no-saved-places" = "Non hai luoghi salvati";
 "places-filter-saved-articles" = "Voci salvate";
-"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
-"places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
+"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|$1 luogo trovato|$1 luoghi trovati}}";
+"places-filter-top-articles" = "Più letti";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|$1 voce|$1 voci}}";
+"places-no-saved-articles-have-location" = "Nessuno dei tuoi articoli salvati ha informazione di localizzazione";
 "places-search-default-text" = "Cerca luoghi";
 "places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
@@ -268,6 +280,7 @@
 "places-search-top-articles-that-match-scope" = "Nelle vicinanze";
 "places-search-your-current-location" = "La tua posizione attuale";
 "places-show-filter-list-accessibility-label" = "Mostra i filtri di ricerca";
+"places-title" = "Luoghi";
 "places-unknown-distance" = "distanza sconosciuta";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
@@ -275,6 +288,9 @@
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";
 "reference-title" = "Riferimento $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|Ieri|$1 giorni fa}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
@@ -325,9 +341,12 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"theme-dark-display-name" = "Scuro";
+"theme-default-display-name" = "Predefinito";
+"theme-sepia-display-name" = "Seppia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in $1";
-"top-read-see-more" = "Vedi i più lettu";
+"top-read-see-more" = "Vedi altri tra i più letti";
 "two-factor-login-continue" = "Continua l'accesso";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";
@@ -347,6 +366,7 @@
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
+"wikitext-preview-link-preview-title" = "Anteprima collegamento";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";

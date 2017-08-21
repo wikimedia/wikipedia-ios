@@ -311,6 +311,7 @@
 "search-recent-title" = "تازو ڳولھيل";
 "search-result-redirected-from" = "$1: کان چوريل";
 "search-title" = "ڳوليو";
+"settings-appearance" = "حليو";
 "settings-clear-cache" = "ڪيچڊ ڊيٽا صاف ڪريو";
 "settings-clear-cache-are-you-sure-message" = "ڪيچڊ ڊيٽا صاف ڪرڻ سان توھان $1 جڳھ بچندي. ان سان توھان جا سانڍيل صفحا نہ ڊھندا.";
 "settings-clear-cache-are-you-sure-title" = "ڪيچڊ ڊيٽا صاف ڪريون؟";
@@ -345,6 +346,9 @@
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فهرست";
 "table-title-other" = "وڌيڪ معلومات";
+"theme-dark-display-name" = "گھرو";
+"theme-default-display-name" = "ڏنل";
+"theme-sepia-display-name" = "سيپيا";
 "top-read-header-generic" = "وڪيپيڊيا";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-see-more" = "وڌيڪ گھڻو پڙھيل ڏسو";

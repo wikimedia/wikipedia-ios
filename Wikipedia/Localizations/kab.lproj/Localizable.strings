@@ -125,6 +125,7 @@
 "explore-random-article-heading" = "Amagrad agacuran";
 "explore-randomizer" = "Agacuran";
 "feed-news-notification-button-text" = "Rmed ilɣa";
+"feed-news-notification-text" = "Rmed ilɣa yettwaznen sɣur Wikipedia ticki imagraden skanayen talɣa n isallen.";
 "field-alert-captcha-invalid" = "Yir CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Awalen uffiren ur menṭaḍen ara";
 "field-alert-password-invalid" = "Yir awal uffir";
@@ -380,7 +381,9 @@
 "zero-free-verbiage" = "Anekcum ilelli ar Wikipedia s ɣur asaǧǧaw-ik aziraz (ulac degs lexlaṣ)";
 "zero-interstitial-cancel" = "Qim dagi";
 "zero-interstitial-continue" = "Ffeɣ";
+"zero-interstitial-leave-app" = "Yezmer ad yili lexlaṣ. Tebɣiḍ ad tkemmleḍ ɣer usmel azɣaray?";
 "zero-interstitial-title" = "Tuffɣa si Wikipedia Zero";
+"zero-learn-more" = "Tasqamt n isefka ur tettwaḥsab ara i usnas-agi Wikipedia.";
 "zero-learn-more-learn-more" = "Ɣer ugar";
 "zero-learn-more-no-thanks" = "Mdel";
 "zero-warn-when-leaving" = "Lɣu ticki teffɣeḍ si Zero";
