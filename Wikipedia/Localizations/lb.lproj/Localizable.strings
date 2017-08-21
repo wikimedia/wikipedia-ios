@@ -117,8 +117,7 @@
 "explore-random-article-heading" = "Zoufällegen Artikel";
 "explore-randomizer" = "Zoufallsgenerator";
 "feed-news-notification-button-text" = "Notifikatiounen aschalten";
-// Fuzzy
-"feed-news-notification-text" = "Et ass elo méiglech Notifikatioune vu Wikipedia-Artikelen ze kréien déi Sujeten aus der Aktualitéit concernéieren.";
+"feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "field-alert-password-invalid" = "Net valabelt Passwuert";
