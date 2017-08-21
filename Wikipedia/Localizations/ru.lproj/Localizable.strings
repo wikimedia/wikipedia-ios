@@ -105,6 +105,7 @@
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"dark-theme-display-name" = "Тёмная";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
@@ -367,6 +368,7 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "$1 Википедия";

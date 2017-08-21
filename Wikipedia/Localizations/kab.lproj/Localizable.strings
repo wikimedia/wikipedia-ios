@@ -152,6 +152,7 @@
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Ales awennez";
 "forgot-password-email-sent" = "Imayl s tinadin n uwennez n wawal uffir yettwazen";
+"forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
 "gdfl" = "GDFL";
@@ -165,6 +166,7 @@
 "hockeyapp-alert-always-send" = "Azen yal tikelt";
 "hockeyapp-alert-do-not-send" = "Ur ttazen ara";
 "hockeyapp-alert-privacy" = "Tabaḍnit n $1";
+"hockeyapp-alert-question" = "Tebɣiḍ ad tazneḍ aneqqis n uɣelly ar $1 akken tasbeddit Wikimedia ad tezmir ad walli aneqqis-ik?";
 "hockeyapp-alert-send-report" = "Azen aneqqis";
 "hockeyapp-alert-title" = "Suref-aɣ, asnas yeɣli tagara-agi";
 "home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
@@ -279,7 +281,7 @@
 "places-search-your-current-location" = "Asideg-ik arakal amiran";
 "places-show-filter-list-accessibility-label" = "Sken imzizdigen n unadi";
 "places-title" = "Idigen";
-"places-unknown-distance" = "Ur iban usettum";
+"places-unknown-distance" = "ameccaq arussin";
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-title-eventlogging-opt-in" = "Azen ineqqisen n useqdec";
