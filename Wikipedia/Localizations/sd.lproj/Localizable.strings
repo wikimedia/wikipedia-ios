@@ -144,8 +144,8 @@
 "field-password-placeholder" = "ڳجھولفظ ڄاڻايو";
 "field-password-title" = "ڳجھولفظ";
 "field-token-title" = "تصديقي ڪوڊ";
-"field-username-placeholder" = "واهپيندڙ نالو (يوزر نيم) داخل ڪيو";
-"field-username-title" = "واهپيندڙ جو نالو (يوزر نيم)";
+"field-username-placeholder" = "واهپنانءُ داخل ڪيو";
+"field-username-title" = "واھپنانءُ";
 "find-in-page-button-label" = "صفحي ۾ لھو";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "وري ترتيب ڪريو";
@@ -278,7 +278,7 @@
 "places-search-your-current-location" = "توھان جي ھاڻوڪي مڪانيت";
 "places-show-filter-list-accessibility-label" = "ڳولا جون ڇاڻيون ڏيکاريو";
 "places-title" = "جڳھون";
-"places-unknown-distance" = "اَڻڄاٿل مفاضلو";
+"places-unknown-distance" = "اَڻڄاتل مفاضلو";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگھجي";

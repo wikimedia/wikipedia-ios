@@ -73,6 +73,7 @@
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
+"appearance-settings-theme-options" = "Opzioni tema";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
 "article-languages-filter-placeholder" = "Trova lingua";
@@ -312,6 +313,7 @@
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "search-title" = "Ricerca";
+"settings-appearance" = "Aspetto";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-help-and-feedback" = "Aiuto e feedback";
@@ -352,6 +354,7 @@
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "welcome-explore-continue-button" = "Inizia";
+"welcome-explore-features-on-this-day" = "Viaggia indietro nel tempo con $1 per sapere cosa è successo oggi nella storia";
 "welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
 "welcome-explore-tell-me-more-done-button" = "Capito";
 "welcome-languages-add-button" = "Aggiungi un'altra lingua";
@@ -359,6 +362,7 @@
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
 "welcome-languages-title" = "Lingue";
 "welcome-send-data-sub-title" = "Aiuto la Wikimedia Foundation a rendere migliore l'applicazione, facendoci sapere come la utilizzi. I dati raccolti sono anonimi";
+"welcome-send-data-title" = "Invia dati anonimi";
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "welcome-volunteer-thanks" = "$1 Grazie!";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
@@ -366,6 +370,7 @@
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
+"wikitext-preview-link-preview-description" = "Questo collegamento porta a '$1'";
 "wikitext-preview-link-preview-title" = "Anteprima collegamento";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
