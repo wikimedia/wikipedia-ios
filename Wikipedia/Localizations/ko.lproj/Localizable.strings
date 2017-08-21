@@ -69,7 +69,9 @@
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
+"appearance-settings-image-dimming-footer" = "어두운 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
+"appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 위의 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
 "appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";

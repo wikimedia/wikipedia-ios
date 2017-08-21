@@ -370,7 +370,7 @@
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
-"wikitext-preview-link-preview-description" = "Questo link porta a '$1'";
+"wikitext-preview-link-preview-description" = "Questo collegamento porta a '$1'";
 "wikitext-preview-link-preview-title" = "Anteprima collegamento";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";

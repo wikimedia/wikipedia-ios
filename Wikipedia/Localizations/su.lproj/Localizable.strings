@@ -29,6 +29,7 @@
 "abuse-filter-disallow-notable" = "Wikipédia mah hiji énsiklopédi sarta nétral deuih, kontén penting kawenku di dieu.";
 "abuse-filter-warning-blanking" = "Ngosongkeun artikel atawa spam";
 "abuse-filter-warning-caps" = "Ngetik ku HURUP KAPITAL KABÉH";
+"abuse-filter-warning-heading" = "Kawasna mah ieu éditan téh teu konstruktif, anjeun yakin rék medalkeunna?";
 "abuse-filter-warning-irrelevant" = "Tutumbu luar atawa gambar teu luyu";
 "abuse-filter-warning-repeat" = "Karakter puuuulang anting";
 "abuse-filter-warning-subheading" = "Éditan anjeun bisa waé ngandung hiji atawa leuwih hal ieu:";
@@ -358,12 +359,14 @@
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
 "welcome-explore-continue-button" = "Mitembeyan";
 "welcome-explore-features-news-notifications" = "Beunangkeun iber warta pikeun jejer kajadian kiwari nu keur ngetren";
+"welcome-explore-features-on-this-day" = "Liar deui jeung $1 pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";
 "welcome-explore-new-ways-title" = "Cara anyar pikeun ngalanglang";
 "welcome-explore-tell-me-more-done-button" = "Ngarti";
 "welcome-languages-add-button" = "Tambahkeun basa lianna";
 "welcome-languages-continue-button" = "Teruskeun";
 "welcome-languages-sub-title" = "Pilih basa pilihan anjeun maluruh Wikipédia";
 "welcome-languages-title" = "Basa";
+"welcome-notifications-tell-me-more-storage" = "Préférénsi iber disimpen di parangkat sarta teu dumasar kana informasi atawa aktivitas pribadi.";
 "welcome-notifications-tell-me-more-title" = "Leuwih jero ngeunaan iber";
 "welcome-send-data-title" = "Kirim data anonim";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
