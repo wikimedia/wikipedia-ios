@@ -8,6 +8,7 @@
 // Author: McSalama
 // Author: Nemo bis
 // Author: Nike
+// Author: Pahkiqaz
 // Author: Pyscowicz
 // Author: SMAUG
 // Author: Silvonen
@@ -127,8 +128,7 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-randomizer" = "Satunnaistaminen";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
-// Fuzzy
-"feed-news-notification-text" = "Voit nyt saada ilmoituksia Wikipedian artikkeleista jotka ovat nousussa uutisissa.";
+"feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "field-alert-password-invalid" = "Salasana ei kelpaa";
@@ -270,8 +270,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-search-articles-that-match" = "$1 vastaa “$2”";
-// Fuzzy
-"places-search-default-text" = "Haku";
+"places-search-default-text" = "Hae paikkoja";
 "places-search-did-you-mean" = "Tarkoititko $1?";
 "places-search-recently-searched-header" = "Äskettäin haetut";
 "places-search-saved-articles" = "Kaikki tallennetut artikkelit";

@@ -124,6 +124,7 @@
 "history-title" = "ประวัติ";
 "hockeyapp-alert-always-send" = "ส่งเสมอ";
 "hockeyapp-alert-do-not-send" = "ไม่ต้องส่ง";
+"languages-title" = "เปลี่ยนภาษา";
 // Fuzzy
 "main-menu-account-login" = "ล็อกอิน";
 "main-menu-account-logout" = "ล็อกเอาต์";
@@ -133,6 +134,10 @@
 "navbar-title-mode-edit-wikitext-preview" = "แสดงตัวอย่าง";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|เหตุการณ์ย้อนหลัง $1 เหตุการณ์}}";
 "open-link-cancel" = "ยกเลิก";
+"page-protected-autoconfirmed" = "หน้านี้ถูกล็อกแบบกึ่งล็อก";
+"page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";
+"page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
+"page-protected-sysop" = "หน้านี้ถูกล็อกแบบสมบูรณ์";
 "preference-title-eventlogging-opt-in" = "ส่งรายงานการใช้";
 "search-did-you-mean" = "คุณอาจหมายถึง $1";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";
