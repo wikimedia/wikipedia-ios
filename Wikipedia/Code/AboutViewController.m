@@ -259,7 +259,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
         [vc applyTheme:self.theme];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
-        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        WMFThemeableNavigationController *nc = [[WMFThemeableNavigationController alloc] initWithRootViewController:vc theme:self.theme];
         [self presentViewController:nc animated:YES completion:nil];
 
         decisionHandler(WKNavigationActionPolicyCancel);
