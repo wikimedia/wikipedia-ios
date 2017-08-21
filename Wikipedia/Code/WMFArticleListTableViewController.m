@@ -68,21 +68,6 @@
     [self wmf_pushArticleWithURL:url dataStore:self.userDataStore theme:self.theme animated:YES];
 }
 
-- (UITableViewRowAction *)rowActionWithStyle:(UITableViewRowActionStyle)style title:(nullable NSString *)title handler:(void (^)(UITableViewRowAction *action, NSIndexPath *indexPath))handler {
-    return [UITableViewRowAction rowActionWithStyle:style
-                                              title:title
-                                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                                [CATransaction begin];
-                                                [CATransaction setCompletionBlock:^{
-                                                    if (handler) {
-                                                        handler(action, indexPath);
-                                                    }
-                                                }];
-                                                [self.tableView setEditing:NO animated:YES];
-                                                [CATransaction commit];
-                                            }];
-}
-
 #pragma mark - Previewing
 
 - (void)registerForPreviewingIfAvailable {
@@ -235,10 +220,6 @@
     return @"";
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
@@ -272,54 +253,6 @@
 - (void)shareArticle:(NSURL *)url {
     WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
-}
-
-#pragma mark - Row actions
-
-- (NSString *)deleteActionText {
-    return WMFLocalizedStringWithDefaultValue(@"article-delete", nil, nil, @"Delete", @"Text of the article list row action shown on swipe which deletes the article");
-}
-
-- (NSString *)shareActionText {
-    return WMFLocalizedStringWithDefaultValue(@"article-share", nil, nil, @"Share", @"Text of the article list row action shown on swipe which allows the user to choose the sharing option");
-}
-
-- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
-                              title:[self shareActionText]
-                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                NSURL *url = [self urlAtIndexPath:indexPath];
-
-                                [self shareArticle:url];
-                            }];
-}
-
-- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleDestructive
-                              title:[self deleteActionText]
-                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                [self deleteItemAtIndexPath:indexPath];
-                            }];
-}
-
-- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
-                              title:[WMFCommonStrings shortSaveTitle]
-                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                NSURL *url = [self urlAtIndexPath:indexPath];
-                                MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
-                                [savedPageList addSavedPageWithURL:url];
-                            }];
-}
-
-- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath {
-    return [self rowActionWithStyle:UITableViewRowActionStyleNormal
-                              title:[WMFCommonStrings shortUnsaveTitle]
-                            handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                NSURL *url = [self urlAtIndexPath:indexPath];
-                                MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
-                                [savedPageList removeEntryWithURL:url];
-                            }];
 }
 
 #pragma mark - WMFThemeable

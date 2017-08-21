@@ -103,4 +103,32 @@
     );
 }
 
+- (MWKSavedPageList *)savedPageList {
+    return self.userDataStore.savedPageList;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    [rowActions applyTheme:self.theme];
+    
+    NSURL *url = [self urlAtIndexPath:indexPath];
+    MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
+    
+    BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
+
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    
+    NSMutableArray *actions = [[NSMutableArray alloc] initWithObjects:share, nil];
+    
+    if (isItemSaved) {
+        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList removeEntryWithURL:url];}];
+        [actions addObject:unsave];
+    } else {
+        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList addSavedPageWithURL:url];}];
+        [actions addObject:save];
+    }
+    
+    return actions;
+}
+
 @end

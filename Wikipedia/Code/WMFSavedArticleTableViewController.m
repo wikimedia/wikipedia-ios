@@ -85,12 +85,15 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [self deleteAction:indexPath];
-    deleteAction.backgroundColor = self.theme.colors.destructive;
-
-    UITableViewRowAction *shareAction = [self shareAction:indexPath];
-    shareAction.backgroundColor = self.theme.colors.secondaryAction;
-    return @[deleteAction, shareAction];
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    [rowActions applyTheme:self.theme];
+    
+    UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
+    
+    NSURL *url = [self urlAtIndexPath:indexPath];
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    
+    return @[delete, share];
 }
 
 - (WMFEmptyViewType)emptyViewType {
@@ -127,10 +130,6 @@
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
     return [[self objectAtIndexPath:indexPath] URL];
-}
-
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
 }
 
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {

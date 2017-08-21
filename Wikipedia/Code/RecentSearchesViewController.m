@@ -133,16 +133,23 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
     return YES;
 }
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
+    [rowActions applyTheme:self.theme];
 
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self updateTrashButtonEnabledState];
-        [self updateHeaderVisibility];
-    }
+    UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete
+                                                      at:indexPath
+                                                      in:tableView
+                                                 perform:^(NSIndexPath *indexPath) {
+                                                     [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
+
+                                                     // Delete the row from the data source
+                                                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                                     [self updateTrashButtonEnabledState];
+                                                     [self updateHeaderVisibility];
+                                                 }];
+
+    return @[delete];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
