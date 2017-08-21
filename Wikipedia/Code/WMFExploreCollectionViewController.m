@@ -372,8 +372,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
-        cell.selected = NO;
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
     }
 
     if (!self.reachabilityManager) {
