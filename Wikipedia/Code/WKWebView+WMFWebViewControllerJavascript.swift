@@ -158,7 +158,7 @@ extension WKWebView {
     }
 
     static public func wmf_themeClassificationJavascript() -> String{
-        return "window.wmf.themes.classifyElements(document);"
+        return "window.wmf.themes.classifyElements(window);"
     }
     
     public func wmf_classifyThemeElements(){
