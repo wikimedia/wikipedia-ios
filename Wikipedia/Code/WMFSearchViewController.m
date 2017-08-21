@@ -601,7 +601,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
-    self.searchSuggestionButton.tintColor = theme.colors.link;
+    self.view.tintColor = theme.colors.link;
 }
 
 @end
