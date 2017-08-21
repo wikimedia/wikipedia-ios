@@ -193,10 +193,6 @@
     return [[self objectAtIndexPath:indexPath] URL];
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
     [[self historyList] removeEntryWithURL:[self urlAtIndexPath:indexPath]];
 }

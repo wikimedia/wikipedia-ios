@@ -220,10 +220,6 @@
     return @"";
 }
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
