@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)deleteText;
 - (NSString *)deleteCancelText;
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)deleteAll;

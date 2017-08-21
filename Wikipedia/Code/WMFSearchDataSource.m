@@ -45,10 +45,6 @@
     return [self.searchSiteURL wmf_URLWithTitle:result.displayTitle];
 }
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
 - (BOOL)noResults {
     return (self.searchResults && [self.searchResults.results count] == 0);
 }

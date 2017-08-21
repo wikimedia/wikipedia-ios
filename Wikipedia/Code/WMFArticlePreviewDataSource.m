@@ -118,10 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
 }
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {
-    return NO;
-}
-
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
