@@ -44,21 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)deleteText;
 - (NSString *)deleteCancelText;
 
-- (BOOL)canDeleteItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteItemAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)deleteAll;
+
+- (void)shareArticle:(NSURL *)url;
 
 @property (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)updateEmptyAndDeleteState;
-
-- (UITableViewRowAction *)deleteAction:(NSIndexPath *)indexPath;
-- (UITableViewRowAction *)shareAction:(NSIndexPath *)indexPath;
-- (UITableViewRowAction *)saveAction:(NSIndexPath *)indexPath;
-- (UITableViewRowAction *)unsaveAction:(NSIndexPath *)indexPath;
 
 @end
 
