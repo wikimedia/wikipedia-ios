@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
 
 @interface MWKArticle (WMFSharingActivityViewController)
 
@@ -1439,7 +1439,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
+    
+    
+    
+
+    
+[self.webViewController getCurrentVisibleSectionsCompletion:^(NSArray<MWKSection *> *_Nullable sections, NSError *_Nullable error) {
+    @strongify(self);
+    [self selectTableOfContentsItemsForSections:sections animated:YES];
+}];
+return;
+    
+    
+    
+    
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
+return;
         @strongify(self);
         if (section) {
             self.currentSection = section;
