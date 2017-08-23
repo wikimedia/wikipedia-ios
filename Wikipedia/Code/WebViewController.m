@@ -454,10 +454,21 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    [self.webView evaluateJavaScript:@"window.wmf.viewport.sizeWillChange();" completionHandler:nil];
+
     self.disableMinimizeFindInPage = YES;
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                                      self.disableMinimizeFindInPage = NO;
+
+                                     [self.webView evaluateJavaScript:@"window.wmf.viewport.getSizeChangeAdjustedYOffset();"
+                                                    completionHandler:^(id _Nullable sizeChangeAdjustedYOffset, NSError *_Nullable error) {
+                                                        if (error || sizeChangeAdjustedYOffset == nil) {
+                                                            return;
+                                                        }
+                                                        self.webView.scrollView.contentOffset = CGPointMake(0, [sizeChangeAdjustedYOffset intValue]);
+                                                    }];
                                  }];
 }
 
@@ -838,15 +849,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    completion(nil, error);
                                                } else {
                                                    NSArray<NSNumber *> *numbers = ((NSArray<NSNumber *> *)obj);
-                                                   NSArray<MWKSection *> *sections = [numbers wmf_map:^id(NSNumber * number) {
+                                                   NSArray<MWKSection *> *sections = [numbers wmf_map:^id(NSNumber *number) {
                                                        NSInteger sectionIndex = number.integerValue;
                                                        return self.article.sections[sectionIndex];
                                                    }];
-                                                   
+
                                                    completion(sections, error);
                                                }
                                            }];
-    
+
     //REMINDER: would need to switch getCurrentVisibleFooterIndexCompletion to be able to return multiple indices as well!!!
 }
 
