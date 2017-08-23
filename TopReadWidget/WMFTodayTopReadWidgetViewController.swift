@@ -63,6 +63,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
 
+    var theme: Theme = {
+        if #available(iOSApplicationExtension 10.0, *) {
+            return Theme.widget
+        } else {
+            return Theme.widgetiOS9
+        }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,11 +83,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
         
         if #available(iOSApplicationExtension 10.0, *) {
-            headerLabel.textColor = .wmf_darkGray
-            footerLabel.textColor = .wmf_darkGray
         } else {
-            headerLabel.textColor = UIColor(white: 1, alpha: 0.7)
-            footerLabel.textColor = UIColor(white: 1, alpha: 0.7)
             headerLabelLeadingConstraint.constant = 0
             footerLabelLeadingConstraint.constant = 0
         }
@@ -166,7 +170,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateView() {
-        
+
         let count = min(results.count, maximumRowCount)
         guard count > 0 else {
             return
@@ -185,10 +189,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         } else {
             headerText = WMFLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia\n{{Identical|Wikipedia}}")
         }
-        
+
+        headerLabel.textColor = theme.colors.secondaryText
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
         footerLabel.text = WMFLocalizedString("top-read-see-more", value:"See more top read", comment: "Text for footer button allowing the user to see more top read articles").uppercased()
+        footerLabel.textColor = theme.colors.secondaryText
         
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
@@ -210,7 +216,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 }
             }
         }
-        
+
+        headerSeparatorView.backgroundColor = theme.colors.border
+        footerSeparatorView.backgroundColor = theme.colors.border
+
         var i = 0
         while i < count {
             var vc: WMFArticlePreviewViewController
@@ -227,7 +236,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             let result = results[i]
             
-            
+            vc.titleLabel.textColor = theme.colors.primaryText
+            vc.subtitleLabel.textColor = theme.colors.secondaryText
+
             vc.titleLabel.text = result.displayTitle
             if let wikidataDescription = result.wikidataDescription {
                 vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
@@ -239,6 +250,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.rankLabel.text = rankString
             vc.rankLabel.accessibilityLabel = String.localizedStringWithFormat(WMFLocalizedString("rank-accessibility-label", value:"Number %1$@", comment: "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. %1$@ is replaced with the ranking\n{{Identical|Number}}"), rankString)
             if let articlePreview = self.userStore.fetchArticle(with: result.articleURL) {
+                vc.viewCountAndSparklineContainerView.backgroundColor = theme.colors.overlayBackground
                 if var viewCounts = articlePreview.pageViewsSortedByDate, viewCounts.count >= daysToShowInSparkline {
                     vc.sparklineView.minDataValue = dataValueMin
                     vc.sparklineView.maxDataValue = dataValueMax
@@ -286,15 +298,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 vc.separatorView.isHidden = false
             }
+            vc.separatorView.backgroundColor = theme.colors.border
+
             if #available(iOSApplicationExtension 10.0, *) {
-                
             } else {
                 vc.marginWidthConstraint.constant = 0
-                vc.titleLabel.textColor = UIColor(white: 1, alpha: 1)
-                vc.subtitleLabel.textColor = UIColor(white: 1, alpha: 1)
-                vc.rankLabel.textColor = UIColor(white: 1, alpha: 0.7)
-                vc.viewCountLabel.textColor = UIColor(white: 1, alpha: 0.7)
-                vc.viewCountAndSparklineContainerView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
             }
             
             i += 1

@@ -18,20 +18,25 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
     var articleURL: URL?
-    
+
+    var theme: Theme = {
+        if #available(iOSApplicationExtension 10.0, *) {
+            return Theme.widget
+        } else {
+            return Theme.widgetiOS9
+        }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOSApplicationExtension 10.0, *) {
-            
-        } else {
-            titleLabel.textColor = UIColor(white: 1, alpha: 1)
-            textLabel.textColor = UIColor(white: 1, alpha: 1)
-            emptyTitleLabel.textColor = UIColor(white: 1, alpha: 1)
-            emptyDescriptionLabel.textColor = UIColor(white: 1, alpha: 0.7)
-            daysAgoLabel.textColor = UIColor(white: 1, alpha: 0.7)
-            daysAgoView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
-        }
-        
+
+        titleLabel.textColor = theme.colors.primaryText
+        textLabel.textColor = theme.colors.secondaryText
+        emptyTitleLabel.textColor = theme.colors.primaryText
+        emptyDescriptionLabel.textColor = theme.colors.secondaryText
+        daysAgoLabel.textColor = theme.colors.secondaryText
+        daysAgoView.backgroundColor = theme.colors.overlayBackground
+
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
         _ = updateView()
