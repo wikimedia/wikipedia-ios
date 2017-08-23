@@ -79,14 +79,14 @@ open class WMFTableOfContentsCell: UITableViewCell {
     }
     
     open func setSelectionIndicatorVisible(_ visible: Bool) {
-return
-        if (visible) {
-            selectedSectionIndicator.backgroundColor = selectionColor
-            selectedSectionIndicator.alpha = 1.0
-        } else {
-            selectedSectionIndicator.alpha = 0.0
-
-        }
+//return
+//        if (visible) {
+//            selectedSectionIndicator.backgroundColor = selectionColor
+//            selectedSectionIndicator.alpha = 1.0
+//        } else {
+//            selectedSectionIndicator.alpha = 0.0
+//
+//        }
     }
     
 }

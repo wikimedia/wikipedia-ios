@@ -37,6 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)set304sEnabled:(BOOL)enabled {
     NSMutableIndexSet *set = [self.operationManager.responseSerializer.acceptableStatusCodes mutableCopy];
     if (enabled) {

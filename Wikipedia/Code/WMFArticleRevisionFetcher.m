@@ -24,6 +24,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self.requestManager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
     self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
 }

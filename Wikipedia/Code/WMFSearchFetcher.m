@@ -34,6 +34,10 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
