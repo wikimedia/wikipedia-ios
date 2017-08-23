@@ -58,7 +58,9 @@ function isElementOnscreen(element) {
 }
 
 exports.getOnScreenElementIndices = function(elementPrefix, elementCount){
-  var indexFromElement = element => parseInt(element.id.substring(elementPrefix.length), 10)
+  var indexFromElement = function(element) {
+    return parseInt(element.id.substring(elementPrefix.length), 10)
+  }
   return Array.from(document.querySelectorAll(`[id^=${elementPrefix}]`))
     .filter(isElementOnscreen)
     .map(indexFromElement)
