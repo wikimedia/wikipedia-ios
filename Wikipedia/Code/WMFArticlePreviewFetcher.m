@@ -41,6 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }

@@ -26,6 +26,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
         @"action": @"zeroconfig",
