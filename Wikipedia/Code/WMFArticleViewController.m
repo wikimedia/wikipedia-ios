@@ -375,11 +375,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.article && !self.article.isMain && self.article.sections.count > 0;
 }
 
-- (BOOL)hasReadMore {
-    WMF_TECH_DEBT_TODO(filter articles outside main namespace);
-    return self.article && !self.article.isMain;
-}
-
 - (BOOL)hasAboutThisArticle {
     return self.article && !self.article.isMain;
 }
@@ -606,7 +601,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    BOOL includeReadMore = [self hasReadMore];
+    BOOL includeReadMore = self.article.hasReadMore;
 
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }

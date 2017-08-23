@@ -491,4 +491,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return htmlStr;
 }
 
+#pragma mark Read More
+
+- (BOOL)hasReadMore {
+    // ns of articles with Read More pages equals 0.
+    return !self.isMain && self.ns == 0;
+}
+
 @end
