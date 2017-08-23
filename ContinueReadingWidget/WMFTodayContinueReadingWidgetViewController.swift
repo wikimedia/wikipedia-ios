@@ -171,9 +171,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         let URL = articleURL as NSURL?
         let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
         
-        self.extensionContext?.open(URLToOpen, completionHandler: { (success) in
-            
-        })
+        self.extensionContext?.open(URLToOpen)
     }
 
 

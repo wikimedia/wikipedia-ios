@@ -411,9 +411,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard let URL = groupURL else {
             return
         }
-        self.extensionContext?.open(URL, completionHandler: { (success) in
-            
-        })
+        self.extensionContext?.open(URL)
     }
     
     func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -431,9 +429,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard let URL = siteURL.wmf_wikipediaSchemeURL(withTitle: displayTitle) else {
             return
         }
-        self.extensionContext?.open(URL, completionHandler: { (success) in
-            
-        })
+        self.extensionContext?.open(URL)
     }
     
 }
