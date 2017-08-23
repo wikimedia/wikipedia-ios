@@ -6,7 +6,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
     var siteURL: URL!
-    var group: WMFContentGroup?
+    var groupURL: URL?
     var results: [WMFFeedTopReadArticlePreview] = []
     
     var feedContentFetcher = WMFFeedContentFetcher()
@@ -350,13 +350,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> NCUpdateResult {
         if let topRead = self.userStore.viewContext.group(of: .topRead, for: date, siteURL: siteURL) {
             if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
-                if let previousGroupKey = self.group?.key,
-                    let topReadKey = topRead.key,
+                if let previousGroupURL = self.groupURL,
+                    let topReadURL = topRead.url,
                     self.results.count > 0,
-                    topReadKey == previousGroupKey {
+                    previousGroupURL == topReadURL {
                     return .noData
                 }
-                self.group = topRead
+                self.groupURL = topRead.url
                 self.results = content
                 self.updateView()
                 return .newData
@@ -400,7 +400,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func showAllTopReadInApp() {
-        guard let URL = group?.url else {
+        guard let URL = groupURL else {
             return
         }
         self.extensionContext?.open(URL, completionHandler: { (success) in
