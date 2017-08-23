@@ -23,6 +23,19 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForPreviewingIfAvailable()
+        if let selectedIndexPaths = collectionView?.indexPathsForSelectedItems {
+            for selectedIndexPath in selectedIndexPaths {
+                collectionView?.deselectItem(at: selectedIndexPath, animated: animated)
+            }
+        }
+        if let visibleCells = collectionView?.visibleCells {
+            for cell in visibleCells {
+                guard let cellWithSubItems = cell as? SubCellProtocol else {
+                    continue
+                }
+                cellWithSubItems.deselectSelectedSubItems(animated: animated)
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
