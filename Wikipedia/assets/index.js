@@ -18,9 +18,10 @@ wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
+wmf.viewport = require('./js/viewport')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"./js/viewport":12,"wikimedia-page-library":13}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -158,7 +159,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -512,7 +513,7 @@ function add(content) {
 }
 
 exports.add = add
-},{"wikimedia-page-library":12}],7:[function(require,module,exports){
+},{"wikimedia-page-library":13}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -527,7 +528,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":13}],8:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -651,7 +652,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":12}],11:[function(require,module,exports){
+},{"wikimedia-page-library":13}],11:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -694,6 +695,32 @@ exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
 },{}],12:[function(require,module,exports){
+var initialTopElement = undefined
+var initialRelativeYOffset = 0
+
+// Invoke from native code *before* a size change.
+exports.sizeWillChange = function() {
+  initialTopElement = document.elementFromPoint( window.innerWidth / 2, 0 )
+  if (initialTopElement) {
+    const rect = initialTopElement.getBoundingClientRect()
+    initialRelativeYOffset = rect.top / rect.height
+  } else {
+    initialRelativeYOffset = 0
+  }
+}
+
+// Invoke from native code *after* a size change to get a size change adjusted yOffset which keeps
+// the same part of the article onscreen which was onscreen before the size change. Useful for
+// device rotation, tablet TOC toggling etc...
+exports.getSizeChangeAdjustedYOffset = function() {
+  if (initialTopElement) {
+    const rect = initialTopElement.getBoundingClientRect()
+    const yOffset = window.scrollY + rect.top - initialRelativeYOffset * rect.height
+    return yOffset
+  }
+  return 0
+}
+},{}],13:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -2916,4 +2943,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
