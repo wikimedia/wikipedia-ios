@@ -379,7 +379,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.article && !self.article.isMain;
 }
 
-- (void)getShareText:(void (^)(NSString *text))completion {
+- (void)getShareText:(void (^)(NSString *text))completion {
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length == 0) {
             text = [self.article shareSnippet];
