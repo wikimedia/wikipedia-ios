@@ -15,6 +15,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         
         view.translatesAutoresizingMaskIntoConstraints = false
 
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        view.addGestureRecognizer(tapGR)
+
         collapsedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         collapsedArticleView.frame = view.bounds
         view.addSubview(collapsedArticleView)
@@ -128,7 +131,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
             sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
             collapsedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         }
-        
         preferredContentSize = CGSize(width: maximumSize.width, height: sizeThatFits.height)
     }
     
@@ -145,6 +147,22 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         let isSaved = dataStore?.savedPageList.toggleSavedPage(forKey: articleKey) ?? false
         expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
         collapsedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+    }
+
+    func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
+        guard tapGR.state == .recognized else {
+            return
+        }
+        guard let article = self.article, let articleURL = article.url else {
+            return
+        }
+
+        let URL = articleURL as NSURL?
+        let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
+
+        self.extensionContext?.open(URLToOpen, completionHandler: { (success) in
+
+        })
     }
     
 }
