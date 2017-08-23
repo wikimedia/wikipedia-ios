@@ -42,6 +42,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 /// Whether or not the receiver is the main page for its @c site.
 @property (readonly, assign, nonatomic, getter=isMain) BOOL main;
 
+@property (readonly, nonatomic) BOOL hasReadMore;
+
 @property (readonly, copy, nonatomic, nullable) NSString *thumbnailURL; // optional; generated from imageURL
 @property (readwrite, copy, nonatomic, nullable) NSString *imageURL; // optional; pulled in article request
 
