@@ -830,18 +830,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                               }];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)getCurrentVisibleSectionsCompletion:(void (^)(NSArray<MWKSection *> *_Nullable, NSError *__nullable error))completion {
     [self.webView getOnScreenElementIndicesWithPrefix:@"section_heading_and_content_block_"
                                                 count:self.article.sections.count
@@ -849,33 +837,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                if (error) {
                                                    completion(nil, error);
                                                } else {
-                                  
-NSArray<NSNumber *> *numbers = ((NSArray<NSNumber *> *)obj);
-NSArray<MWKSection *> *sections = [numbers wmf_map:^id(NSNumber * number) {
-    NSInteger sectionIndex = number.integerValue;
-    return self.article.sections[sectionIndex];
-}];
+                                                   NSArray<NSNumber *> *numbers = ((NSArray<NSNumber *> *)obj);
+                                                   NSArray<MWKSection *> *sections = [numbers wmf_map:^id(NSNumber * number) {
+                                                       NSInteger sectionIndex = number.integerValue;
+                                                       return self.article.sections[sectionIndex];
+                                                   }];
                                                    
-completion(sections, error);
-                                                   
-                                                   
+                                                   completion(sections, error);
                                                }
                                            }];
     
     //REMINDER: would need to switch getCurrentVisibleFooterIndexCompletion to be able to return multiple indices as well!!!
-
 }
-
-
-
-
-
-
-
-
-
-
-
 
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"pagelib_footer_container_section_"
