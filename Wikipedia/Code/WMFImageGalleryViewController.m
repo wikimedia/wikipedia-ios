@@ -94,6 +94,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
 - (nullable MWKImage *)bestImageObject {
     return self.imageObject ?: self.thumbnailImageObject;
 }
@@ -378,6 +382,11 @@ NS_ASSUME_NONNULL_BEGIN
     return caption;
 }
 
+- (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
+    //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
+    [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+}
+
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
@@ -499,10 +508,10 @@ NS_ASSUME_NONNULL_BEGIN
             }
             success:^(WMFImageDownload *_Nonnull download) {
                 @strongify(self);
-                [self updateImageForPhoto:galleryImage];
+                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
             }];
     } else {
-        [self updateImageForPhoto:galleryImage];
+        [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
     }
 }
 
@@ -724,10 +733,10 @@ NS_ASSUME_NONNULL_BEGIN
             }
             success:^(WMFImageDownload *_Nonnull download) {
                 @strongify(self);
-                [self updateImageForPhoto:galleryImage];
+                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
             }];
     } else {
-        [self updateImageForPhoto:galleryImage];
+        [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
     }
 }
 
