@@ -347,33 +347,41 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         fetch(siteURL: siteURL, date:Date(), attempt: 1, completionHandler: completionHandler)
     }
     
-    func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> Bool {
+    func updateUIWithTopReadFromContentStoreForSiteURL(siteURL: URL, date: Date) -> NCUpdateResult {
         if let topRead = self.userStore.viewContext.group(of: .topRead, for: date, siteURL: siteURL) {
             if let content = topRead.content as? [WMFFeedTopReadArticlePreview] {
+                if let previousGroupKey = self.group?.key,
+                    let topReadKey = topRead.key,
+                    self.results.count > 0,
+                    topReadKey == previousGroupKey {
+                    return .noData
+                }
                 self.group = topRead
                 self.results = content
                 self.updateView()
-                return true
+                return .newData
             }
         }
-        return false
+        return .failed
     }
     
     
     
     func fetch(siteURL: URL, date: Date, attempt: Int, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        guard !updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
-            completionHandler(.newData)
+        let result = updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date)
+        guard result == .failed else {
+            completionHandler(result)
             return
         }
-        
+
         guard attempt < 4 else {
             completionHandler(.noData)
             return
         }
         contentSource.loadContent(for: date, in: userStore.viewContext, force: false) {
             DispatchQueue.main.async(execute: {
-                guard self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date) else {
+                let result = self.updateUIWithTopReadFromContentStoreForSiteURL(siteURL: siteURL, date: date)
+                guard result != .failed else {
                     if (attempt == 1) {
                         let todayUTC = (date as NSDate).wmf_midnightLocalDateForEquivalentUTC as Date
                         self.fetch(siteURL: siteURL, date: todayUTC, attempt: attempt + 1, completionHandler: completionHandler)
@@ -386,8 +394,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     }
                     return
                 }
-                
-                completionHandler(.newData)
+                completionHandler(result)
             })
         }
     }
