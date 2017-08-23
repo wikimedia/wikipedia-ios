@@ -375,17 +375,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.article && !self.article.isMain && self.article.sections.count > 0;
 }
 
-- (BOOL)hasReadMore {
-    WMF_TECH_DEBT_TODO(filter articles outside main namespace);
-    // ns of articles with Read More pages equals 0.
-    return self.article && !self.article.isMain && self.article.ns == 0;
-}
-
 - (BOOL)hasAboutThisArticle {
     return self.article && !self.article.isMain;
 }
 
-- (void)getShareText:(void (^)(NSString *text))completion {
+- (void)getShareText:(void (^)(NSString *text))completion {
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length == 0) {
             text = [self.article shareSnippet];
@@ -607,7 +601,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    BOOL includeReadMore = [self hasReadMore];
+    BOOL includeReadMore = self.article.hasReadMore;
 
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }
