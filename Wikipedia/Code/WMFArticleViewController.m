@@ -377,7 +377,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (BOOL)hasReadMore {
     WMF_TECH_DEBT_TODO(filter articles outside main namespace);
-    return self.article && !self.article.isMain;
+    // ns of articles with Read More pages equals 0.
+    return self.article && !self.article.isMain && self.article.ns == 0;
 }
 
 - (BOOL)hasAboutThisArticle {
