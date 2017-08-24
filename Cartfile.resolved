@@ -1,5 +1,5 @@
 binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" "3.6.2"
-github "CocoaLumberjack/CocoaLumberjack" "3.2.0"
+github "CocoaLumberjack/CocoaLumberjack" "3.2.1"
 github "Flipboard/FLAnimatedImage" "1.0.12"
 github "Mantle/Mantle" "2.1.0"
 github "SnapKit/Masonry" "v1.0.2"
