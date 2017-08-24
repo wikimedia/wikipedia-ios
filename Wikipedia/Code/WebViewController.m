@@ -303,7 +303,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterContainer"]) {
         [self.webView wmf_addFooterContainer];
-    } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
+    } else if ([messageString isEqualToString:@"addFooterReadMore"] && self.article.hasReadMore) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
