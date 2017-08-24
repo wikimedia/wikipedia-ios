@@ -140,7 +140,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         return "Article"
     }
     
-    func screenBrightnessChangedInApp(notification: Notification){
+    @objc func screenBrightnessChangedInApp(notification: Notification){
         brightnessSlider.value = Float(UIScreen.main.brightness)
     }
     

@@ -312,7 +312,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UILayoutFittingCompressedSize
         sizeToFit.width = maximumSize.width
-        var size = stackView.systemLayoutSizeFitting(sizeToFit, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        var size = stackView.systemLayoutSizeFitting(sizeToFit, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         size.width = maximumSize.width
         stackViewHeightConstraint.isActive = true
         
@@ -414,7 +414,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         self.extensionContext?.open(URL)
     }
     
-    func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
         guard let index = self.articlePreviewViewControllers.index(where: { (vc) -> Bool in
             let convertedRect = self.view.convert(vc.view.frame, from: vc.view.superview)
             return convertedRect.contains(gestureRecognizer.location(in: self.view))

@@ -83,11 +83,11 @@ class ArticleListTableViewCell: ContainerTableViewCell {
             self.titleText = nil
             return
         }
-        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSFontAttributeName: titleFont])
+        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
         if let highlightingText = highlightingText {
             let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
             if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
-                attributedTitle.setAttributes([NSFontAttributeName: boldFont], range: range)
+                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
             }
         }
         articleCell.titleTextStyle = nil

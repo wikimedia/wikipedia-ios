@@ -165,7 +165,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
                 guard
                     type(of: constraint) == NSLayoutConstraint.self,
                     constraint.firstAttribute == .height,
-                    constraint.priority == UILayoutPriorityRequired,
+                    constraint.priority == UILayoutPriority.required,
                     constraint.constant != 0
                     else{
                         return false
@@ -203,7 +203,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         apply(theme: theme)
     }
     
-    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
     }
     

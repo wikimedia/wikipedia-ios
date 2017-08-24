@@ -82,7 +82,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         apply(theme: theme)
     }
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

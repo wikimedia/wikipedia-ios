@@ -23,7 +23,7 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
         apply(theme: self.theme)
     }
 
-    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
             self.presentingViewController?.dismiss(animated: true, completion: nil)

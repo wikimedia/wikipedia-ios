@@ -49,7 +49,7 @@ import UIKit
         }
     }
     
-    func articleUpdated(notification: Notification) {
+    @objc func articleUpdated(notification: Notification) {
         guard let article = notification.object as? WMFArticle, let key = article.key, let saveButtons = visibleSaveButtons[key.hash] else {
             return
         }
@@ -58,7 +58,7 @@ import UIKit
         }
     }
     
-    func saveButtonPressed(sender: SaveButton) {
+    @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }

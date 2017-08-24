@@ -32,7 +32,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var captchaID:String?
     public var captchaWord:String?
     
-    func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended else {
             return
         }
@@ -235,7 +235,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         apply(theme: theme)
     }
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

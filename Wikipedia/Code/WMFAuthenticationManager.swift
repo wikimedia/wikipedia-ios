@@ -8,7 +8,7 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    dynamic private(set) var loggedInUsername: String? = nil
+    @objc dynamic private(set) var loggedInUsername: String? = nil
     
     /**
      *  Returns YES if a user is logged in, NO otherwise

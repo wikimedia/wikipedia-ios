@@ -114,7 +114,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - Actions
     
-    public func titleBarButtonPressed() {
+    @objc public func titleBarButtonPressed() {
         self.showSearchBar(animated: true)
         
         guard let cv = self.collectionViewController.collectionView else {
@@ -251,7 +251,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: -
     
     @objc(updateFeedSourcesUserInitiated:completion:)
-    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping (Void) -> Void) {
+    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping () -> Void) {
         self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
     }
 }

@@ -56,11 +56,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    func actionButtonPressed() {
+    @objc func actionButtonPressed() {
         delegate?.announcementCellDidTapActionButton(self)
     }
     
-    func dismissButtonPressed() {
+    @objc func dismissButtonPressed() {
         delegate?.announcementCellDidTapDismiss(self)
     }
     
@@ -115,7 +115,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             pStyle.lineBreakMode = .byWordWrapping
             pStyle.baseWritingDirection = .natural
             pStyle.alignment = .center
-            let attributes = [NSParagraphStyleAttributeName: pStyle]
+            let attributes = [NSAttributedStringKey.paragraphStyle: pStyle]
             mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
             captionTextView.attributedText = mutableText
 

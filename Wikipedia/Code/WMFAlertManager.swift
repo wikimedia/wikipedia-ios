@@ -167,7 +167,7 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     open func customize(_ messageView: TSMessageView!) {
         
         if(messageView.notificationType == .message){
-         messageView.contentFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+         messageView.contentFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
             messageView.titleFont = UIFont.systemFont(ofSize: 12)
         }
     }

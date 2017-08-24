@@ -209,13 +209,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         return "Settings"
     }
     
-    func applyImageDimmingChange(isOn: NSNumber) {
+    @objc func applyImageDimmingChange(isOn: NSNumber) {
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
         userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
     }
     
-    func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
+    @objc func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {
         let selector = #selector(applyImageDimmingChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())

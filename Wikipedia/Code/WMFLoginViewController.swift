@@ -21,7 +21,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
 
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -210,7 +210,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         })
     }
 
-    func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    @objc func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -226,7 +226,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         })
     }
     
-    func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    @objc func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,

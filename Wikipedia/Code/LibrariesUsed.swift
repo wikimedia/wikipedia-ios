@@ -22,7 +22,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     
     fileprivate var theme = Theme.standard
 
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
