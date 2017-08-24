@@ -6,14 +6,14 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '10.3'},
-  {device: 'iPad Air 2', os: '9.3'}
+  {device: 'iPhone 6s', os: '11.0'},
+  {device: 'iPad Air 2', os: '10.3'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '9.3'},
-  {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"},
-  {device: 'iPhone 6s', os: '9.3', scheme: "WikipediaRTL"}
+  {device: 'iPhone 6s', os: '10.3'},
+  {device: 'iPhone 6s', os: '11.0', scheme: "WikipediaRTL"},
+  {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [configurations_to_test_on_pull.first]
@@ -42,7 +42,7 @@ platform :ios do
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
-      destination: 'platform=iOS Simulator,OS=9.3,name=iPhone 6',
+      destination: 'platform=iOS Simulator,OS=10.3,name=iPhone 6',
       analyze: true
     )
   end
