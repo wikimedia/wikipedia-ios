@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSURL *)urlForIndexPath:(NSIndexPath *)indexPath;
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *)indexPath;
-
 @optional
 
 - (void)deleteArticleAtIndexPath:(NSIndexPath *)indexPath;

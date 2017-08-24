@@ -64,14 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.dataSource canDeleteItemAtIndexpath:indexPath]) {
-        return UITableViewCellEditingStyleDelete;
-    } else {
-        return UITableViewCellEditingStyleNone;
-    }
-}
-
 - (BOOL)showsDeleteAllButton {
     return [self.dataSource respondsToSelector:@selector(deleteAll)];
 }
