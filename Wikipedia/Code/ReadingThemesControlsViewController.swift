@@ -37,7 +37,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     var visible = false
     
-    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
+    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         }
     }
     
-    open func setValuesWithSteps(_ steps: Int, current: Int) {
+    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{

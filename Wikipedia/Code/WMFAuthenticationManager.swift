@@ -13,7 +13,7 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  Returns YES if a user is logged in, NO otherwise
      */
-    public var isLoggedIn: Bool {
+    @objc public var isLoggedIn: Bool {
         return (loggedInUsername != nil)
     }
 

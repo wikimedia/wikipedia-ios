@@ -92,7 +92,7 @@ extension NSArray {
 
     - returns: A subarray with the desired items, constrained by the number of items in the receiver.
     */
-    public func wmf_safeSubarrayWithRange(_ range: NSRange) -> NSArray {
+    @objc public func wmf_safeSubarrayWithRange(_ range: NSRange) -> NSArray {
         if range.location > self.count - 1 || WMFRangeIsNotFoundOrEmpty(range) {
             return NSArray()
         }
@@ -115,7 +115,7 @@ extension NSArray {
     }
 
     /// - returns: A reversed copy of the receiver.
-    public func wmf_reverseArray() -> AnyObject {
+    @objc public func wmf_reverseArray() -> AnyObject {
         return self.reverseObjectEnumerator().allObjects as AnyObject;
     }
     

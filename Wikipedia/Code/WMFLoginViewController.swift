@@ -13,7 +13,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
     
-    public var funnel: LoginFunnel?
+    @objc public var funnel: LoginFunnel?
     
     fileprivate var theme: Theme = Theme.standard
     

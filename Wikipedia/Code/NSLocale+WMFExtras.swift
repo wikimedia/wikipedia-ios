@@ -89,7 +89,7 @@ extension NSLocale {
         return acceptLanguageString
     }
     
-    public static var wmf_acceptLanguageHeaderForPreferredLanguages: String {
+    @objc public static var wmf_acceptLanguageHeaderForPreferredLanguages: String {
         get {
             return wmf_acceptLanguageHeaderForPreferredLanguagesGloabl
         }

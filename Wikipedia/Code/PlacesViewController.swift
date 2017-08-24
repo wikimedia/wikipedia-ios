@@ -46,7 +46,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
-    public var dataStore: MWKDataStore!
+    @objc public var dataStore: MWKDataStore!
 
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()

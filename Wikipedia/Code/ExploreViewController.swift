@@ -17,7 +17,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     fileprivate var theme: Theme = Theme.standard
     
-    public var userStore: MWKDataStore? {
+    @objc public var userStore: MWKDataStore? {
         didSet {
             guard let newValue = userStore else {
                 assertionFailure("cannot set CollectionViewController.userStore to nil")

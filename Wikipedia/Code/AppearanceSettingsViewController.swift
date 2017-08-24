@@ -35,7 +35,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     fileprivate var theme = Theme.standard
     
-    static var disclosureText: String {
+    @objc static var disclosureText: String {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         return currentAppTheme.displayName
     }

@@ -100,7 +100,7 @@ import Foundation
 @objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation {
     let asyncBlock: (AsyncBlockOperation) -> Void
     
-    init(asyncBlock block: @escaping (AsyncBlockOperation) -> Void) {
+    @objc init(asyncBlock block: @escaping (AsyncBlockOperation) -> Void) {
        asyncBlock = block
     }
     

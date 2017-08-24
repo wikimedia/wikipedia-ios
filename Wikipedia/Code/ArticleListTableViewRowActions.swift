@@ -27,7 +27,7 @@ class ArticleListTableViewRowActions: NSObject {
         })
     }
     
-    func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, in tableView: UITableView, perform: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
+    @objc func action(for type: ArticleListTableViewRowActionType, at indexPath: IndexPath, in tableView: UITableView, perform: @escaping (IndexPath) -> Void) -> UITableViewRowAction {
         
         let backgroundColor: UIColor
         let title: String

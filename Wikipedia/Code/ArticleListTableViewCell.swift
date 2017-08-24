@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFArticleListTableViewCell)
 class ArticleListTableViewCell: ContainerTableViewCell {
 
-    var articleCell: ArticleRightAlignedImageCollectionViewCell {
+    @objc var articleCell: ArticleRightAlignedImageCollectionViewCell {
         return collectionViewCell as! ArticleRightAlignedImageCollectionViewCell
     }
     
@@ -40,7 +40,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         return articleCell.sizeThatFits(targetSize)
     }
     
-    var titleText: String? {
+    @objc var titleText: String? {
         set {
             articleCell.titleLabel.text = newValue
         }
@@ -49,7 +49,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         }
     }
     
-    var descriptionText: String? {
+    @objc var descriptionText: String? {
         set {
             articleCell.descriptionLabel.text = newValue
         }
@@ -58,7 +58,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         }
     }
     
-    var imageURL: URL? {
+    @objc var imageURL: URL? {
         set {
             guard let newURL = newValue else {
                 articleCell.isImageViewHidden = true
