@@ -33,7 +33,7 @@ extension NSLocale {
         return locale ?? Locale.autoupdatingCurrent
     }
     
-    public static func wmf_isCurrentLocaleEnglish() -> Bool {
+    @objc public static func wmf_isCurrentLocaleEnglish() -> Bool {
         guard let langCode = (NSLocale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
             return false
         }
@@ -44,7 +44,7 @@ extension NSLocale {
         return (self as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: code)
     }
     
-    public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
+    @objc public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
         var uniqueLanguageCodes = [String]()
         for preferredLanguage in languages {
             var components = preferredLanguage.lowercased().components(separatedBy: "-")
@@ -65,13 +65,13 @@ extension NSLocale {
         return uniqueLanguageCodes
     }
     
-    public static var wmf_preferredLanguageCodes: [String] {
+    @objc public static var wmf_preferredLanguageCodes: [String] {
         get {
             return wmf_uniqueLanguageCodesForLanguages(preferredLanguages)
         }
     }
     
-    public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
+    @objc public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
         let count: Double = Double(languageCodes.count)
         var q: Double = 1.0
         let qDelta = 1.0/count
