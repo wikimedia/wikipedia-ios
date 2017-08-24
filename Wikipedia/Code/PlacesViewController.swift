@@ -2162,7 +2162,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         return completions
     }
     
-    public func showNearbyArticles() {
+    @objc public func showNearbyArticles() {
         guard let _ = view else { // force view instantiation
             return
         }
@@ -2175,7 +2175,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocation(self)
     }
     
-    public func showArticleURL(_ articleURL: URL) {
+    @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation
             return

@@ -27,7 +27,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    public var titleButton: UIButton? {
+    @objc public var titleButton: UIButton? {
         guard let button = self.navigationItem.titleView as? UIButton else {
             return nil
         }

@@ -86,14 +86,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     public var spacing: CGFloat!
     public var saveButtonTopSpacing: CGFloat!
     
-    public var isImageViewHidden = false {
+    @objc public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    public var isSaveButtonHidden = false {
+    @objc public var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()

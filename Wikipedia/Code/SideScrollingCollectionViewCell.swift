@@ -24,7 +24,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
-    public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
+    @objc public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     public let imageView = UIImageView()
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()

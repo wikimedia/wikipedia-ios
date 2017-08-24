@@ -10,7 +10,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     var libraries:[LibraryUsed] = []
     @IBOutlet weak var tableView: UITableView!
     
-    public static let storyboardName = "LibrariesUsed"
+    @objc public static let storyboardName = "LibrariesUsed"
     
     private static let cellReuseIdentifier = "org.wikimedia.libraries.used.cell"
     private static let dataFileName = "LibrariesUsed.plist"

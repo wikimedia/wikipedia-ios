@@ -100,7 +100,7 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
+    @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
         let outerSuccess = success;
         let outerFailure = failure;
         

@@ -14,7 +14,7 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
     
     @IBOutlet fileprivate var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var containerView:UIView!
-    var reference:WMFReference?
+    @objc var reference:WMFReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()

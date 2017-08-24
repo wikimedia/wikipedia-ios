@@ -7,7 +7,7 @@ import UIKit
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
     
-    required init(dataStore: MWKDataStore) {
+    @objc required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
