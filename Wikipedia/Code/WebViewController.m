@@ -303,7 +303,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterContainer"]) {
         [self.webView wmf_addFooterContainer];
-    } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
+    } else if ([messageString isEqualToString:@"addFooterReadMore"] && self.article.hasReadMore) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
@@ -828,6 +828,26 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                       completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
                                                   }
                                               }];
+}
+
+- (void)getCurrentVisibleSectionsCompletion:(void (^)(NSArray<MWKSection *> *_Nullable, NSError *__nullable error))completion {
+    [self.webView getOnScreenElementIndicesWithPrefix:@"section_heading_and_content_block_"
+                                                count:self.article.sections.count
+                                           completion:^(id obj, NSError *error) {
+                                               if (error) {
+                                                   completion(nil, error);
+                                               } else {
+                                                   NSArray<NSNumber *> *numbers = ((NSArray<NSNumber *> *)obj);
+                                                   NSArray<MWKSection *> *sections = [numbers wmf_map:^id(NSNumber * number) {
+                                                       NSInteger sectionIndex = number.integerValue;
+                                                       return self.article.sections[sectionIndex];
+                                                   }];
+                                                   
+                                                   completion(sections, error);
+                                               }
+                                           }];
+    
+    //REMINDER: would need to switch getCurrentVisibleFooterIndexCompletion to be able to return multiple indices as well!!!
 }
 
 - (void)getCurrentVisibleFooterIndexCompletion:(void (^)(NSNumber *_Nullable, NSError *__nullable error))completion {

@@ -52,6 +52,8 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         
         assert(tv.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
         
+        tv.allowsMultipleSelection = true
+        
         tv.separatorStyle = .none
         tv.delegate = self
         tv.dataSource = self
@@ -170,6 +172,25 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
         tableView.selectRow(at: indexPath, animated: animated, scrollPosition: scrollPosition)
         addHighlightOfItemsRelatedTo(item, animated: false)
+    }
+
+    fileprivate func scrollPosition(for indexPath: IndexPath) -> UITableViewScrollPosition {
+        if let indexPaths = tableView.indexPathsForVisibleRows, indexPaths.contains(indexPath) {
+            return .none
+        }
+        return .top
+    }
+    
+    open func selectItems(_ items: [TableOfContentsItem], animated: Bool) {
+        let indexPathsToSelect = items.flatMap(indexPathForItem)
+        for indexPathToSelect in indexPathsToSelect {
+            tableView.selectRow(at: indexPathToSelect, animated: animated, scrollPosition: scrollPosition(for: indexPathToSelect))
+        }
+        if let indexPathsForSelectedRows = tableView.indexPathsForSelectedRows {
+            for indexPathToDeselect in Set(indexPathsForSelectedRows).symmetricDifference(Set(indexPathsToSelect)) {
+                tableView.deselectRow(at: indexPathToDeselect, animated: false)
+            }
+        }
     }
 
     // MARK: - Selection

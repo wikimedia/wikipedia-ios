@@ -42,6 +42,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [_manager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
                             fromSiteURL:siteURL

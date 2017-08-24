@@ -45,6 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)dealloc {
+    [self.featuredTitleOperationManager invalidateSessionCancelingTasks:YES];
+    [self.titlePreviewOperationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (BOOL)isFetching {
     return [[self.featuredTitleOperationManager operationQueue] operationCount] > 0 || [[self.titlePreviewOperationManager operationQueue] operationCount] > 0;
 }

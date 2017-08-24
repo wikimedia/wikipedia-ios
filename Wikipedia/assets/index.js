@@ -209,6 +209,23 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
+
+function isElementOnscreen(element) {
+  var rect = element.getBoundingClientRect()
+  var windowHeight = window.innerHeight
+  var bottom = rect.top + rect.height
+  return rect.top > 0 && rect.top < windowHeight || bottom > 0 && bottom < windowHeight ||
+    rect.top < 0 && bottom > windowHeight
+}
+
+exports.getOnScreenElementIndices = function(elementPrefix, elementCount){
+  var indexFromElement = function(element) {
+    return parseInt(element.id.substring(elementPrefix.length), 10)
+  }
+  return Array.from(document.querySelectorAll(`[id^=${elementPrefix}]`))
+    .filter(isElementOnscreen)
+    .map(indexFromElement)
+}
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/

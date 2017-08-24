@@ -80,6 +80,11 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+    [self.pageSummarySessionManager invalidateSessionCancelingTasks:YES];
+}
+
 #pragma mark - Fetching
 
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
