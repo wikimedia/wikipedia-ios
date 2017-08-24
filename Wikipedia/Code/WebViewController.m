@@ -454,21 +454,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
-    [self.webView evaluateJavaScript:@"window.wmf.viewport.sizeWillChange();" completionHandler:nil];
-
     self.disableMinimizeFindInPage = YES;
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                                      self.disableMinimizeFindInPage = NO;
-
-                                     [self.webView evaluateJavaScript:@"window.wmf.viewport.getSizeChangeAdjustedYOffset();"
-                                                    completionHandler:^(id _Nullable sizeChangeAdjustedYOffset, NSError *_Nullable error) {
-                                                        if (error || sizeChangeAdjustedYOffset == nil) {
-                                                            return;
-                                                        }
-                                                        self.webView.scrollView.contentOffset = CGPointMake(0, [sizeChangeAdjustedYOffset intValue]);
-                                                    }];
                                  }];
 }
 

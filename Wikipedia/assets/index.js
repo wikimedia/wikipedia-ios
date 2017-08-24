@@ -18,10 +18,9 @@ wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
-wmf.viewport = require('./js/viewport')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"./js/viewport":12,"wikimedia-page-library":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -695,32 +694,51 @@ exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
 },{}],12:[function(require,module,exports){
-var initialTopElement = undefined
-var initialRelativeYOffset = 0
+// This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
+const utilities = require('./utilities')
 
-// Invoke from native code *before* a size change.
-exports.sizeWillChange = function() {
-  initialTopElement = document.elementFromPoint( window.innerWidth / 2, 0 )
-  if (initialTopElement) {
-    const rect = initialTopElement.getBoundingClientRect()
-    initialRelativeYOffset = rect.top / rect.height
+var topElement = undefined
+var relativeYOffset = 0
+
+const relativeYOffsetForElement = function(element) {
+  const rect = element.getBoundingClientRect()
+  return rect.top / rect.height
+}
+
+const recordTopElementAndItsRelativeYOffset = function() {
+  topElement = document.elementFromPoint( window.innerWidth / 2, window.innerHeight / 3 )
+  topElement = utilities.findClosest(topElement, 'div#content > div') || topElement
+  if (topElement) {
+    relativeYOffset = relativeYOffsetForElement(topElement)
   } else {
-    initialRelativeYOffset = 0
+    relativeYOffset = 0
   }
 }
 
-// Invoke from native code *after* a size change to get a size change adjusted yOffset which keeps
-// the same part of the article onscreen which was onscreen before the size change. Useful for
-// device rotation, tablet TOC toggling etc...
-exports.getSizeChangeAdjustedYOffset = function() {
-  if (initialTopElement) {
-    const rect = initialTopElement.getBoundingClientRect()
-    const yOffset = window.scrollY + rect.top - initialRelativeYOffset * rect.height
-    return yOffset
-  }
-  return 0
+const yOffsetFromRelativeYOffsetForElement = function(element) {
+  const rect = element.getBoundingClientRect()
+  return window.scrollY + rect.top - relativeYOffset * rect.height
 }
-},{}],13:[function(require,module,exports){
+
+const scrollToSamePlaceBeforeResize = function() {
+  if (!topElement) {
+    return
+  }
+  window.scrollTo(0, yOffsetFromRelativeYOffsetForElement(topElement))
+}
+
+window.addEventListener('resize', function (event) {
+  setTimeout(scrollToSamePlaceBeforeResize, 50)
+})
+
+var timer = null
+window.addEventListener('scroll', function() {
+  if(timer !== null) {
+    clearTimeout(timer)
+  }
+  timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
+}, false)
+},{"./utilities":11}],13:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
