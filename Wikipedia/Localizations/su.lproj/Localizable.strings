@@ -152,6 +152,7 @@
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rését";
 "forgot-password-email-sent" = "Hiji surélék kalawan instruksi panyetélan ulang kecap sandi geus dikirim";
+"forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
 "gdfl" = "GDFL";
@@ -165,6 +166,7 @@
 "hockeyapp-alert-always-send" = "Kirim terus";
 "hockeyapp-alert-do-not-send" = "Ulah ngirim";
 "hockeyapp-alert-privacy" = "Privasi $1";
+"hockeyapp-alert-question" = "Anjeun rék ngirim laporan kasalahan ka $1 sangkan Wikimédia Foundation bisa ninjau kasalahan anjeun?";
 "hockeyapp-alert-send-report" = "Kirim laporan";
 "hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
@@ -179,6 +181,7 @@
 "home-nearby-location-footer" = "Lianna ti sabudeureun $1";
 "home-news-footer" = "Kajadian kiwari lianna";
 "home-themes-action-title" = "Kokola préferénsi";
+"home-themes-prompt" = "Luyukeun préférénsi bacaan anjeun kaasup ukuran téks jeung téma tina bilah alat artikel atawa di pangaturan pamaké anjeun pikeun pangalaman maca nu leuwih tumaninah.";
 "home-title" = "Langlang";
 "home-title-accessibility-label" = "Wikipédia, gilirkeun ka luhur kaca Langlangan";
 "icon-shortcut-continue-reading-title" = "Teruskeun Maca";
@@ -260,6 +263,7 @@
 "places-empty-search-description" = "Langlang kota, nagara, buana, panénjoan alam, kajadian sajarah, wangunan jeung lianna.";
 "places-empty-search-title" = "Sungsi artikel di Wikipedia maké lokasi géografis";
 "places-enable-location-action-button-title" = "Hirupan lokasi";
+"places-enable-location-description" = "Aksés ka lokasi anjeun ngan ukur sayaga mun aplikasi atawa salah sahiji tina fitur-fiturna katémbong di layar anjeun.";
 "places-enable-location-title" = "Langlang artikel sabudeureun lokasi anjeun ku cara ngahirupan Aksés Lokasi";
 "places-filter-list-title" = "Filter pamaluruhan";
 "places-filter-no-saved-places" = "Anjeun teu mibanda tempat nu kasimpen";
@@ -297,6 +301,7 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bieu pisan|$1 jam kaliwat|$1 jam kaliwat}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Cik kénéh|$1 menit kaliwat|$1 menit kaliwat}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
+"request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-clear-all" = "Bersihkeun";
 "saved-pages-clear-cancel" = "Bolay";
 "saved-pages-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh kaca kasimpen anjeun?";
@@ -322,6 +327,7 @@
 "settings-language-bar" = "Témbongkeun basa dina pamaluruhan";
 "settings-my-languages" = "Basa kuring";
 "settings-notifications" = "Iber";
+"settings-notifications-info" = "Meunangkeun iber ngeunaan artikel nu keur trén sarta bacaan pangluhurna di Wikipédia kalawan iber otomatis kami. Sakumna sayaga patalian jeung privasi sarta nepi ka data menit.";
 "settings-notifications-learn-more" = "Tungtik leuwih jero ngeunaan iber";
 "settings-notifications-push-notifications" = "Notifikasi sorangan";
 "settings-notifications-system-turn-on" = "Hirupan notifikasi";
@@ -360,6 +366,7 @@
 "welcome-explore-continue-button" = "Mitembeyan";
 "welcome-explore-features-news-notifications" = "Beunangkeun iber warta pikeun jejer kajadian kiwari nu keur ngetren";
 "welcome-explore-features-on-this-day" = "Liar deui jeung $1 pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";
+"welcome-explore-features-places" = "Gunakeun tab $1 pikeun mangguhan tangara di deukeut anjeun atawa néangan di sakuliah dunya";
 "welcome-explore-new-ways-title" = "Cara anyar pikeun ngalanglang";
 "welcome-explore-tell-me-more-done-button" = "Ngarti";
 "welcome-languages-add-button" = "Tambahkeun basa lianna";
@@ -368,6 +375,7 @@
 "welcome-languages-title" = "Basa";
 "welcome-notifications-tell-me-more-storage" = "Préférénsi iber disimpen di parangkat sarta teu dumasar kana informasi atawa aktivitas pribadi.";
 "welcome-notifications-tell-me-more-title" = "Leuwih jero ngeunaan iber";
+"welcome-send-data-sub-title" = "Bantu Wikimedia Foundation nyieun aplikasi nu leuwih hadé ku ngabéjaan kami kumaha anjeun dina maké aplikasi. Data nu dikumpulkeun watekna anonim";
 "welcome-send-data-title" = "Kirim data anonim";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
 "welcome-volunteer-thanks" = "$1 Hatur nuhun!";
@@ -382,9 +390,12 @@
 "wikitext-upload-captcha-needed" = "Merlukeun vérifikasi CAPTCHA.";
 "wikitext-upload-result-unknown" = "Teu bisa nangtukeun hasil unjalan téks wiki.";
 "wikitext-upload-save" = "Midangkeun...";
+"wikitext-upload-save-anonymously-warning" = "Éditan bakal ditepungkeun kana alamat IP parangkat. Mun anjeun $1 anjeun bakal mibanda privasi leuwih.";
 "wikitext-upload-save-sign-in" = "Asup log";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun méré kontribusi anjeun dina lisénsi $2 jeung $3.";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";
 "zero-charged-verbiage" = "Wikipédia Zéro dipaéhan";
+"zero-charged-verbiage-extended" = "Pamuatan artikel lian meureun baé dikeunakeun biaya data. Artikel nu disimpen sacara luring teu maké data sarta haratis.";
 "zero-free-verbiage" = "Aksés Wikipédia haratis ti operator sélulér (biaya data dibébaskan)";
 "zero-interstitial-cancel" = "Mugen didieu";
 "zero-interstitial-continue" = "Tinggalkeun";
