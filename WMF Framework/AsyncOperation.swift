@@ -85,7 +85,7 @@ import Foundation
     
     // MARK: - Custom behavior
     
-    open func finish() {
+    @objc open func finish() {
         state = .finished
     }
     

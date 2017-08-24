@@ -27,7 +27,7 @@ class WMFAuthenticationManager: NSObject {
      *
      *  @return The shared Authentication Manager
      */
-    public static let sharedInstance = WMFAuthenticationManager()    
+    @objc public static let sharedInstance = WMFAuthenticationManager()    
 
     override private init() {
         keychainCredentials = WMFKeychainCredentials()
@@ -43,7 +43,7 @@ class WMFAuthenticationManager: NSObject {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+    @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL!, success: {result in
@@ -65,7 +65,7 @@ class WMFAuthenticationManager: NSObject {
      *  @param userWasAlreadyLoggedIn     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
+    @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
         guard
             let userName = keychainCredentials.userName,

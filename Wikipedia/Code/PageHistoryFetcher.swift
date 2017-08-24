@@ -11,7 +11,7 @@ open class PageHistoryFetcher: NSObject {
         return manager
     }()
 
-    open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+    @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
         operationManager.wmf_GETAndRetry(with: siteURL,
                                                 parameters: requestParams,
                                                 retry: nil,
@@ -40,15 +40,15 @@ open class HistoryFetchResults: NSObject {
     fileprivate let lastRevision: WMFPageHistoryRevision?
     fileprivate var revisionsByDay: RevisionsByDay
     
-    open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
+    @objc open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
         return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
-    open func items() -> [PageHistorySection]  {
+    @objc open func items() -> [PageHistorySection]  {
         return self.revisionsByDay.keys.sorted(by: <).flatMap() { self.revisionsByDay[$0] }
     }
     
-    open func batchComplete() -> Bool {
+    @objc open func batchComplete() -> Bool {
         return self.pagingInfo.batchComplete
     }
     

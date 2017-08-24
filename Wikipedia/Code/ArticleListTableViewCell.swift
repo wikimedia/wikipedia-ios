@@ -24,7 +24,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         articleCell.updateFonts(with: traitCollection)
     }
 
-    static var estimatedRowHeight: CGFloat = 60
+    @objc static var estimatedRowHeight: CGFloat = 60
     
     override func prepareForReuse() {
         super.prepareForReuse()
