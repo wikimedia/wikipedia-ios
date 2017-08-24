@@ -6377,6 +6377,8 @@
 			children = (
 				B0E8050E1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.h */,
 				B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */,
+				BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */,
+				BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */,
 			);
 			name = UITableViewCell;
 			sourceTree = "<group>";
@@ -6677,8 +6679,6 @@
 			isa = PBXGroup;
 			children = (
 				BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */,
-				BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */,
-				BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */,
 			);
 			name = "Page Issues";
 			sourceTree = "<group>";
