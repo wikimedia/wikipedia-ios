@@ -21,7 +21,7 @@ class TextSizeChangeExampleViewController: UIViewController {
     
     @objc func textSizeChanged(notification: Notification) {
         if let multiplier = notification.userInfo?[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey] as? NSNumber {
-            textSizeChangeExampleLabel.font = textSizeChangeExampleLabel.font.withSize(15*CGFloat(multiplier)/100)
+            textSizeChangeExampleLabel.font = textSizeChangeExampleLabel.font.withSize(15*CGFloat(truncating: multiplier)/100)
         }
     }
     

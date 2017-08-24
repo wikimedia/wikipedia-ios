@@ -76,7 +76,7 @@ open class PageHistoryRequestParameters: NSObject {
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
     //TODO: get rid of this when the VC is swift and we can use default values in the other init
-    public init(title: String) {
+    @objc public init(title: String) {
         self.title = title
         pagingInfo = (nil, nil, false)
         lastRevisionFromPreviousCall = nil

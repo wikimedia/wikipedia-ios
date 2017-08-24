@@ -8,8 +8,8 @@ import UIKit
 @objc(WMFReadingThemesControlsViewController)
 open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
-    static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme = Theme.standard
     
