@@ -51,12 +51,12 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     fileprivate func combinedAttributedString(from strings: WMFAuthLinkLabelStrings) -> NSAttributedString {
         // Combine and style 'dollarSignString' and 'substitutionString': https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
         
-        var dollarSignStringAttributes: [String:Any] = [NSAttributedStringKey.foregroundColor.rawValue : theme.colors.secondaryText]
+        var dollarSignStringAttributes: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor : theme.colors.secondaryText]
         if let subheadlineFont = subheadlineFont {
             dollarSignStringAttributes[NSAttributedStringKey.font] = subheadlineFont
         }
 
-        var substitutionStringAttributes: [String:Any] = [NSAttributedStringKey.foregroundColor.rawValue : theme.colors.link]
+        var substitutionStringAttributes: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor : theme.colors.link]
         if let boldSubheadlineFont = boldSubheadlineFont {
             substitutionStringAttributes[NSAttributedStringKey.font] = boldSubheadlineFont
         }
