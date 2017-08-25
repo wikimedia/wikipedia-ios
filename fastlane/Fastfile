@@ -21,7 +21,6 @@ beta_cluster_configurations_to_test = [configurations_to_test_on_pull.first]
 platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
-     ENV['DEVELOPER_DIR'] = '/Applications/Xcode-beta.app/Contents/Developer'
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
   end
