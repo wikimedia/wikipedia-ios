@@ -197,6 +197,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         listView.delegate = self
         listView.register(ArticleWithLocationTableViewCell.self, forCellReuseIdentifier: "ArticleWithLocationTableViewCell")
         listView.estimatedRowHeight = ArticleWithLocationTableViewCell.estimatedRowHeight
+        listView.rowHeight = UITableViewAutomaticDimension
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
