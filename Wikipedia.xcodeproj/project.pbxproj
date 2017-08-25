@@ -554,11 +554,6 @@
 		BAA0D9131F4F13DA00091284 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */; };
 		BAA0D9141F4F13DA00091284 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */; };
 		BAA0D9151F4F13DA00091284 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */; };
-		BAA0D9161F4F13DA00091284 /* BaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */; };
-		BAA0D9171F4F13DA00091284 /* BaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */; };
-		BAA0D9181F4F13DA00091284 /* BaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */; };
-		BAA0D9191F4F13DA00091284 /* BaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */; };
-		BAA0D91A1F4F13DA00091284 /* BaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */; };
 		BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */; };
 		BAA0D91D1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */; };
 		BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */; };
@@ -3848,7 +3843,6 @@
 		BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProminentSwitch.swift; sourceTree = "<group>"; };
 		BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareActivityController.swift; sourceTree = "<group>"; };
 		BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageIssuesTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		BAFCE8421F1D7FD30077D5E9 /* AppearanceSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppearanceSettingsViewController.xib; sourceTree = "<group>"; };
@@ -6378,7 +6372,6 @@
 				B0E8050E1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.h */,
 				B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */,
 				BAA0D90F1F4F13DA00091284 /* BaseTableViewCell.swift */,
-				BAA0D9101F4F13DA00091284 /* BaseTableViewCell.xib */,
 			);
 			name = UITableViewCell;
 			sourceTree = "<group>";
@@ -8832,7 +8825,6 @@
 				B014E99F1CD189F600A887D9 /* Tharlon-Regular.ttf in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
-				BAA0D9161F4F13DA00091284 /* BaseTableViewCell.xib in Resources */,
 				D8533ED91ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
 				D8D92B5F1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png in Resources */,
@@ -8938,7 +8930,6 @@
 				D80ED3F31EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
-				BAA0D91A1F4F13DA00091284 /* BaseTableViewCell.xib in Resources */,
 				D80ED3F61EE57F4800CE8C50 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D80ED3F71EE57F4800CE8C50 /* WMFChangePasswordViewController.storyboard in Resources */,
 				D80ED3F81EE57F4800CE8C50 /* EnableLocationViewController.xib in Resources */,
@@ -9059,7 +9050,6 @@
 				D8A42BD41E815A9C00D8E281 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD751EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDC1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
-				BAA0D9191F4F13DA00091284 /* BaseTableViewCell.xib in Resources */,
 				D8A42BD71E815A9C00D8E281 /* WMFEmptyView.xib in Resources */,
 				D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA4524201F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
@@ -9151,7 +9141,6 @@
 				D8CE265B1E698E2400DAE2E0 /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD731EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDA1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
-				BAA0D9171F4F13DA00091284 /* BaseTableViewCell.xib in Resources */,
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
@@ -9243,7 +9232,6 @@
 				D8EC3F5B1E9BDA35006712EB /* SectionEditorViewController.storyboard in Resources */,
 				B0EFCD741EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
 				D8533EDB1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
-				BAA0D9181F4F13DA00091284 /* BaseTableViewCell.xib in Resources */,
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
