@@ -13,7 +13,7 @@ open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
         return URL(string: "") as Any
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
         
         var url: URL?
         

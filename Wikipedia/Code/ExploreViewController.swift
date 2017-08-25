@@ -17,7 +17,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     fileprivate var theme: Theme = Theme.standard
     
-    public var userStore: MWKDataStore? {
+    @objc public var userStore: MWKDataStore? {
         didSet {
             guard let newValue = userStore else {
                 assertionFailure("cannot set CollectionViewController.userStore to nil")
@@ -27,7 +27,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    public var titleButton: UIButton? {
+    @objc public var titleButton: UIButton? {
         guard let button = self.navigationItem.titleView as? UIButton else {
             return nil
         }
@@ -114,7 +114,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - Actions
     
-    public func titleBarButtonPressed() {
+    @objc public func titleBarButtonPressed() {
         self.showSearchBar(animated: true)
         
         guard let cv = self.collectionViewController.collectionView else {
@@ -251,7 +251,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     // MARK: -
     
     @objc(updateFeedSourcesUserInitiated:completion:)
-    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping (Void) -> Void) {
+    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping () -> Void) {
         self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
     }
 }

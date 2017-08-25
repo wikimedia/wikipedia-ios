@@ -6,11 +6,11 @@ import WebKit
 
 class WeakScriptMessageDelegate : NSObject, WKScriptMessageHandler {
     weak var delegate : WKScriptMessageHandler?
-    init(delegate:WKScriptMessageHandler) {
+    @objc init(delegate:WKScriptMessageHandler) {
         self.delegate = delegate
         super.init()
     }
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    @objc func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         self.delegate?.userContentController(userContentController, didReceive: message)
     }
 }

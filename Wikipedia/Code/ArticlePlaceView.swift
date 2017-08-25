@@ -287,7 +287,7 @@ class ArticlePlaceView: MapAnnotationView {
     
 
     
-    func selectedImageViewWasTapped(_ sender: UIButton) {
+    @objc func selectedImageViewWasTapped(_ sender: UIButton) {
         delegate?.articlePlaceViewWasTapped(self)
     }
     

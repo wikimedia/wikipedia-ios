@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFArticleListTableViewCell)
 class ArticleListTableViewCell: ContainerTableViewCell {
 
-    var articleCell: ArticleRightAlignedImageCollectionViewCell {
+    @objc var articleCell: ArticleRightAlignedImageCollectionViewCell {
         return collectionViewCell as! ArticleRightAlignedImageCollectionViewCell
     }
     
@@ -24,7 +24,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         articleCell.updateFonts(with: traitCollection)
     }
 
-    static var estimatedRowHeight: CGFloat = 60
+    @objc static var estimatedRowHeight: CGFloat = 60
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -40,7 +40,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         return articleCell.sizeThatFits(targetSize)
     }
     
-    var titleText: String? {
+    @objc var titleText: String? {
         set {
             articleCell.titleLabel.text = newValue
         }
@@ -49,7 +49,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         }
     }
     
-    var descriptionText: String? {
+    @objc var descriptionText: String? {
         set {
             articleCell.descriptionLabel.text = newValue
         }
@@ -58,7 +58,7 @@ class ArticleListTableViewCell: ContainerTableViewCell {
         }
     }
     
-    var imageURL: URL? {
+    @objc var imageURL: URL? {
         set {
             guard let newURL = newValue else {
                 articleCell.isImageViewHidden = true
@@ -83,11 +83,11 @@ class ArticleListTableViewCell: ContainerTableViewCell {
             self.titleText = nil
             return
         }
-        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSFontAttributeName: titleFont])
+        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
         if let highlightingText = highlightingText {
             let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
             if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
-                attributedTitle.setAttributes([NSFontAttributeName: boldFont], range: range)
+                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
             }
         }
         articleCell.titleTextStyle = nil
