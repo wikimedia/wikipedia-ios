@@ -5,7 +5,7 @@ class PageIssuesTableViewController: UITableViewController {
     
     fileprivate var theme = Theme.standard
     
-    var issues = [String]()
+    @objc var issues = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class PageIssuesTableViewController: UITableViewController {
         apply(theme: self.theme)
     }
     
-    func closeButtonPressed() {
+    @objc func closeButtonPressed() {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
