@@ -220,6 +220,13 @@ var setTheme = function setTheme(document, theme) {
   }
 };
 
+/**
+ * Football template image filename regex.
+ * https://en.wikipedia.org/wiki/Template:Football_kit/pattern_list
+ * @type {RegExp}
+ */
+var footballTemplateImageFilenameRegex = new RegExp('Kit_(body|socks|shorts|right_arm|left_arm)(.*).png$');
+
 /* en > Away colours > 793128975 */
 /* en > Manchester United F.C. > 793244653 */
 /**
@@ -228,9 +235,8 @@ var setTheme = function setTheme(document, theme) {
  * @return {!boolean}
  */
 var imagePresumesWhiteBackground = function imagePresumesWhiteBackground(image) {
-  var src = image.src;
-  if (src.endsWith('.svg.png')) {
-    return !(src.endsWith('Kit_body.svg.png') || src.endsWith('Kit_socks_long.svg.png') || src.endsWith('Kit_shorts.svg.png') || src.endsWith('Kit_right_arm.svg.png') || src.endsWith('Kit_left_arm.svg.png'));
+  if (footballTemplateImageFilenameRegex.test(image.src)) {
+    return false;
   }
   if (image.classList.contains('mwe-math-fallback-image-inline')) {
     return false;
