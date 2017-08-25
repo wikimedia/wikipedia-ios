@@ -16,7 +16,9 @@ configurations_to_test = configurations_to_test_on_pull + [
   {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"}
 ]
 
-beta_cluster_configurations_to_test = [configurations_to_test_on_pull.first]
+beta_cluster_configurations_to_test = [
+  {device: 'iPhone 6s', os: '11.0', scheme: "Beta Cluster Tests"}
+]
 
 platform :ios do
   before_all do
