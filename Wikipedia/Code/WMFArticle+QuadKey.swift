@@ -2,7 +2,7 @@ import Foundation
 import MapKit
 
 extension WMFArticle {
-    public var quadKey: QuadKey? {
+     public var quadKey: QuadKey? {
         get {
             guard let signedQuadKey = signedQuadKey else {
                 return nil
@@ -47,7 +47,7 @@ extension WMFArticle {
         coordinate = CLLocationCoordinate2DIsValid(scalarCoordinate) ? scalarCoordinate : nil
     }
     
-    public var location: CLLocation? {
+    @objc public var location: CLLocation? {
         get {
             guard let coordinate = coordinate else {
                 return nil
@@ -60,7 +60,7 @@ extension WMFArticle {
         }
     }
     
-    public var mapItem: MKMapItem? {
+    @objc public var mapItem: MKMapItem? {
         get {
             guard let coord = self.coordinate,
                 CLLocationCoordinate2DIsValid(coord) else {

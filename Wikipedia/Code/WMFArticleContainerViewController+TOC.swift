@@ -2,6 +2,8 @@ import Foundation
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
+    
+    /*
     public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
         webViewController.getCurrentVisibleSectionCompletion { (section, error) in
             if let item: TableOfContentsItem = section {
@@ -15,9 +17,28 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             }
         }
     }
-
+    */
+    
+    public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
+        webViewController.getCurrentVisibleSectionsCompletion { (sections, error) in
+            guard error == nil, let sections = sections, let tocVC = self.tableOfContentsViewController else {
+                return
+            }
+            tocVC.selectItems(sections, animated: false)
+        }
+    }
+    
     public func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
+        
+        if let selectedIndexPath = controller.indexPathForItem(item){
+            let indexPathsToSelect = [selectedIndexPath]
+            if let indexPathsForSelectedRows = controller.tableView.indexPathsForSelectedRows {
+                for indexPathToDeselect in Set(indexPathsForSelectedRows).symmetricDifference(Set(indexPathsToSelect)) {
+                    controller.tableView.deselectRow(at: indexPathToDeselect, animated: false)
+                }
+            }
+        }
         
         switch tableOfContentsDisplayMode {
         case .inline:
@@ -105,7 +126,7 @@ extension WMFArticleViewController {
     /**
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
     */
-    public func createTableOfContentsViewControllerIfNeeded() {
+    @objc public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
             let semanticContentAttribute:UISemanticContentAttribute = MWLanguageInfo.articleLanguageIsRTL(article) ? .forceRightToLeft : .forceLeftToRight
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: self.theme ?? Theme.standard)
@@ -115,7 +136,7 @@ extension WMFArticleViewController {
     /**
      Append a read more section to the table of contents.
      */
-    public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
+    @objc public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
         guard let tvc = self.tableOfContentsViewController else { return; }
 
@@ -144,5 +165,9 @@ extension WMFArticleViewController {
     
     public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
+    }
+    
+    @objc public func selectTableOfContentsItemsForSections(_ sections: [MWKSection], animated: Bool) {
+        tableOfContentsViewController?.selectItems(sections, animated: animated)
     }
 }

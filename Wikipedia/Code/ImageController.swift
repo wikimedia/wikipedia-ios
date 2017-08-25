@@ -16,10 +16,10 @@ import FLAnimatedImage
 
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {
-    open let data:Data?
-    open let MIMEType:String?
+    @objc open let data:Data?
+    @objc open let MIMEType:String?
     
-    public init(data data_: Data?, MIMEType type_: String?) {
+    @objc public init(data data_: Data?, MIMEType type_: String?) {
         data = data_
         MIMEType = type_
     }
@@ -62,7 +62,7 @@ open class ImageController : NSObject {
     }()
     
     
-    public static func temporaryController() -> ImageController {
+    @objc public static func temporaryController() -> ImageController {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
         let config = URLSessionConfiguration.default
@@ -91,7 +91,7 @@ open class ImageController : NSObject {
     fileprivate var permanentCacheCompletionManager = ImageControllerCompletionManager<ImageControllerPermanentCacheCompletion>()
     fileprivate var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
     
-    public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
+    @objc public required init(session: URLSession, cache: URLCache, fileManager: FileManager, permanentStorageDirectory: URL) {
         self.session = session
         self.cache = cache
         self.fileManager = fileManager
@@ -229,7 +229,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func permanentlyCache(url: URL, groupKey: String, priority: Float = URLSessionTask.lowPriority, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
+    @objc public func permanentlyCache(url: URL, groupKey: String, priority: Float = URLSessionTask.lowPriority, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let key = self.cacheKeyForURL(url)
         let variant = self.variantForURL(url)
         let identifier = self.identifierForKey(key, variant: variant)
@@ -302,7 +302,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func permanentlyCacheInBackground(urls: [URL], groupKey: String,  failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
+    @objc public func permanentlyCacheInBackground(urls: [URL], groupKey: String,  failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let cacheGroup = WMFTaskGroup()
         var errors = [NSError]()
         
@@ -329,7 +329,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
+    @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
         let moc = self.managedObjectContext
         let fm = self.fileManager
         moc.perform {
@@ -356,7 +356,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func permanentlyCachedTypedDiskDataForImage(withURL url: URL?) -> TypedImageData {
+    @objc public func permanentlyCachedTypedDiskDataForImage(withURL url: URL?) -> TypedImageData {
         guard let url = url else {
             return TypedImageData(data: nil, MIMEType: nil)
         }
@@ -368,7 +368,7 @@ open class ImageController : NSObject {
         return TypedImageData(data: data, MIMEType: mimeType)
     }
     
-    public func sessionCachedData(withURL url: URL) -> TypedImageData? {
+    @objc public func sessionCachedData(withURL url: URL) -> TypedImageData? {
         let requestURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless()
         let request = URLRequest(url: requestURL as URL)
         guard let cachedResponse = URLCache.shared.cachedResponse(for: request) else {
@@ -377,16 +377,16 @@ open class ImageController : NSObject {
         return TypedImageData(data: cachedResponse.data, MIMEType: cachedResponse.response.mimeType)
     }
     
-    public func data(withURL url: URL) -> TypedImageData? {
+    @objc public func data(withURL url: URL) -> TypedImageData? {
         return sessionCachedData(withURL: url) ?? permanentlyCachedTypedDiskDataForImage(withURL: url)
     }
     
-    public func memoryCachedImage(withURL url: URL) -> Image? {
+    @objc public func memoryCachedImage(withURL url: URL) -> Image? {
         let identifier = identifierForURL(url) as NSString
         return memoryCache.object(forKey: identifier)
     }
     
-    public func addToMemoryCache(_ image: Image, url: URL) {
+    @objc public func addToMemoryCache(_ image: Image, url: URL) {
         let identifier = identifierForURL(url) as NSString
         memoryCache.setObject(image, forKey: identifier, cost: Int(image.staticImage.size.width * image.staticImage.size.height))
     }
@@ -406,7 +406,7 @@ open class ImageController : NSObject {
         return Image(staticImage: image, animatedImage: nil)
     }
     
-    public func permanentlyCachedImage(withURL url: URL) -> Image? {
+    @objc public func permanentlyCachedImage(withURL url: URL) -> Image? {
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
             return memoryCachedImage
         }
@@ -421,7 +421,7 @@ open class ImageController : NSObject {
         return image
     }
     
-    public func sessionCachedImage(withURL url: URL?) -> Image? {
+    @objc public func sessionCachedImage(withURL url: URL?) -> Image? {
         guard let url = url else {
             return nil
         }
@@ -438,7 +438,7 @@ open class ImageController : NSObject {
         return image
     }
     
-    public func cachedImage(withURL url: URL?) -> Image? {
+    @objc public func cachedImage(withURL url: URL?) -> Image? {
         guard let url = url else {
             return nil
         }
@@ -449,7 +449,7 @@ open class ImageController : NSObject {
         return error?.isCancellationError ?? false
     }
     
-    public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
+    @objc public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
             return
@@ -477,12 +477,12 @@ open class ImageController : NSObject {
         task.resume()
     }
     
-    public func fetchData(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
+    @objc public func fetchData(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
         fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
     
-    public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+    @objc public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
         assert(Thread.isMainThread)
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
@@ -506,11 +506,11 @@ open class ImageController : NSObject {
         }
     }
     
-    public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+    @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
         fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
-    public func cancelFetch(withURL url: URL?) {
+    @objc public func cancelFetch(withURL url: URL?) {
         guard let url = url else {
             return
         }
@@ -518,15 +518,15 @@ open class ImageController : NSObject {
         dataCompletionManager.cancel(identifier)
     }
     
-    public func prefetch(withURL url: URL?) {
+    @objc public func prefetch(withURL url: URL?) {
         prefetch(withURL: url) { }
     }
     
-    public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
+    @objc public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
         fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
-    public func deleteTemporaryCache() {
+    @objc public func deleteTemporaryCache() {
         cache.removeAllCachedResponses()
     }
     
@@ -538,7 +538,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
+    @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
         let moc = self.managedObjectContext
         let legacyCacheFolderURL = self.legacyCacheFolderURL
         let legacyCacheFolderPath = legacyCacheFolderURL.path
@@ -583,7 +583,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public func removeLegacyCache() {
+    @objc public func removeLegacyCache() {
         do {
             try fileManager.removeItem(at: legacyCacheFolderURL)
         } catch let error as NSError {

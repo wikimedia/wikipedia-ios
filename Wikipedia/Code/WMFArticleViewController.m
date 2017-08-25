@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
-static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
 
 @interface MWKArticle (WMFSharingActivityViewController)
 
@@ -374,11 +374,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.article && !self.article.isMain && self.article.sections.count > 0;
 }
 
-- (BOOL)hasReadMore {
-    WMF_TECH_DEBT_TODO(filter articles outside main namespace);
-    return self.article && !self.article.isMain;
-}
-
 - (BOOL)hasAboutThisArticle {
     return self.article && !self.article.isMain;
 }
@@ -605,7 +600,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    BOOL includeReadMore = [self hasReadMore];
+    BOOL includeReadMore = self.article.hasReadMore;
 
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }
@@ -1438,22 +1433,29 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
-    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
-        @strongify(self);
-        if (section) {
-            self.currentSection = section;
-            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-        } else {
-            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
-                @strongify(self);
-                if (index) {
-                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
-                }
-            }];
-        }
-    }];
 
-    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+    [self.webViewController getCurrentVisibleSectionsCompletion:^(NSArray<MWKSection *> *_Nullable sections, NSError *_Nullable error) {
+        @strongify(self);
+        [self selectTableOfContentsItemsForSections:sections animated:YES];
+    }];
+    //return;
+    //    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
+    //return;
+    //        @strongify(self);
+    //        if (section) {
+    //            self.currentSection = section;
+    //            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+    //        } else {
+    //            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
+    //                @strongify(self);
+    //                if (index) {
+    //                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
+    //                }
+    //            }];
+    //        }
+    //    }];
+    //
+    //    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {

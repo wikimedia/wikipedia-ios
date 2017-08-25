@@ -12,12 +12,19 @@ public protocol SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
 }
 
+
+@objc(WMFSubCellProtocol)
+public protocol SubCellProtocol {
+    @objc(deselectSelectedSubItemsAnimated:)
+    func deselectSelectedSubItems(animated: Bool)
+}
+
 @objc(WMFSideScrollingCollectionViewCell)
-public class SideScrollingCollectionViewCell: CollectionViewCell {
+public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
-    public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
+    @objc public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     public let imageView = UIImageView()
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()
@@ -140,9 +147,10 @@ public class SideScrollingCollectionViewCell: CollectionViewCell {
             }
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
-            let x: CGFloat = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width + collectionView.contentInset.right : -collectionView.contentInset.left
-            collectionView.contentOffset = CGPoint(x: x, y: 0)
+            resetContentOffset()
+            deselectSelectedSubItems(animated: false)
         }
+
         origin.y += height
 
         if bottomTitleLabel.wmf_hasAnyText {
@@ -154,7 +162,21 @@ public class SideScrollingCollectionViewCell: CollectionViewCell {
         
         return CGSize(width: size.width, height: origin.y)
     }
-    
+
+    public func resetContentOffset() {
+        let x: CGFloat = semanticContentAttributeOverride == .forceRightToLeft ? collectionView.contentSize.width - collectionView.bounds.size.width + collectionView.contentInset.right : -collectionView.contentInset.left
+        collectionView.contentOffset = CGPoint(x: x, y: 0)
+    }
+
+    public func deselectSelectedSubItems(animated: Bool) {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+            return
+        }
+        for indexPath in selectedIndexPaths {
+            collectionView.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+
     override public func updateSelectedOrHighlighted() {
         super.updateSelectedOrHighlighted()
         let backgroundColor = labelBackgroundColor

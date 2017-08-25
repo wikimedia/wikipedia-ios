@@ -4,11 +4,11 @@ import UIKit
 open class ArticleCollectionViewCell: CollectionViewCell {
     static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
     
-    public let titleLabel = UILabel()
-    public let descriptionLabel = UILabel()
-    public let imageView = UIImageView()
-    public let saveButton = SaveButton()
-    public var extractLabel: UILabel?
+    @objc public let titleLabel = UILabel()
+    @objc public let descriptionLabel = UILabel()
+    @objc public let imageView = UIImageView()
+    @objc public let saveButton = SaveButton()
+    @objc public var extractLabel: UILabel?
     
     private var kvoButtonTitleContext = 0
     
@@ -86,14 +86,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     public var spacing: CGFloat!
     public var saveButtonTopSpacing: CGFloat!
     
-    public var isImageViewHidden = false {
+    @objc public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    public var isSaveButtonHidden = false {
+    @objc public var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()

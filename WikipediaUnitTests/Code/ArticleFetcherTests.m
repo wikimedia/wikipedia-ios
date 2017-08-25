@@ -126,7 +126,7 @@
 
 - (void)testRequestHeadersForWikipediaAppUserAgent {
     NSString *userAgent = [self requestHeaders][@"User-Agent"];
-    XCTAssert(@([userAgent hasPrefix:@"WikipediaApp/"]));
+    XCTAssert([userAgent hasPrefix:@"WikipediaApp/"]);
 }
 
 - (void)testRequestHeadersForGZIPAcceptEncoding {

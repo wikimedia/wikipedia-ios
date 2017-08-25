@@ -15,6 +15,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         
         view.translatesAutoresizingMaskIntoConstraints = false
 
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        view.addGestureRecognizer(tapGR)
+
         collapsedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         collapsedArticleView.frame = view.bounds
         view.addSubview(collapsedArticleView)
@@ -71,6 +74,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         
         collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: theme, layoutOnly: false)
+        collapsedArticleView.titleFontFamily = .systemBold
+        collapsedArticleView.titleTextStyle = .body
+        collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
         collapsedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
 
@@ -128,7 +134,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
             sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
             collapsedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         }
-        
         preferredContentSize = CGSize(width: maximumSize.width, height: sizeThatFits.height)
     }
     
@@ -138,13 +143,27 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         updateView(maximumSize: maxSize, isExpanded: isExpanded)
     }
     
-    func saveButtonPressed() {
+    @objc func saveButtonPressed() {
         guard let article = self.article, let articleKey = article.key else {
             return
         }
         let isSaved = dataStore?.savedPageList.toggleSavedPage(forKey: articleKey) ?? false
         expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
         collapsedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
+    }
+
+    @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
+        guard tapGR.state == .recognized else {
+            return
+        }
+        guard let article = self.article, let articleURL = article.url else {
+            return
+        }
+
+        let URL = articleURL as NSURL?
+        let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
+
+        self.extensionContext?.open(URLToOpen)
     }
     
 }

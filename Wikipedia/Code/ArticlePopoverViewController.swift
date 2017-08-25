@@ -135,7 +135,7 @@ class ArticlePopoverViewController: UIViewController {
         configureView(withTraitCollection: traitCollection)
     }
     
-    func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
         switch tapGR.state {
         case .recognized:
             delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .read)
