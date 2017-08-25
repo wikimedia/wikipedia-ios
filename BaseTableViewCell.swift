@@ -14,4 +14,8 @@ class BaseTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    static func identifier() -> String {
+        return String(describing: self)
+    }
+    
 }
