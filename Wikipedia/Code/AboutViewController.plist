@@ -13,9 +13,9 @@
 		<key>feedback</key>
 		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>
-		<string>http://translatewiki.net</string>
+		<string>https://translatewiki.net</string>
 		<key>wmf</key>
-		<string>http://wikimediafoundation.org</string>
+		<string>https://wikimediafoundation.org</string>
 	</dict>
 	<key>repositories</key>
 	<dict>
