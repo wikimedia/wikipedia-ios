@@ -2,7 +2,8 @@ import UIKit
 
 @objc(WMFPageIssuesTableViewController)
 class PageIssuesTableViewController: UITableViewController {
-    
+    static let defaultViewCellReuseIdentifier = "org.wikimedia.default"
+
     fileprivate var theme = Theme.standard
     
     @objc var issues = [String]()
@@ -16,7 +17,7 @@ class PageIssuesTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
-        self.tableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "BaseTableViewCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: PageIssuesTableViewController.defaultViewCellReuseIdentifier)
 
         let xButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(closeButtonPressed))
         self.navigationItem.leftBarButtonItem = xButton
@@ -30,7 +31,7 @@ class PageIssuesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BaseTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: PageIssuesTableViewController.defaultViewCellReuseIdentifier, for: indexPath)
 
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
