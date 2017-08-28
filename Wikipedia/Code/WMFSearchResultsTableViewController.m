@@ -14,30 +14,42 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setDataSource:(WMFSearchDataSource *)dataSource {
-    if (dataSource) {
-        dataSource.cellClass = [WMFArticleListTableViewCell class];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.searchResults.results.count;
+}
 
-        @weakify(self);
-        dataSource.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
-                                          MWKSearchResult *result,
-                                          UITableView *tableView,
-                                          NSIndexPath *indexPath) {
-            @strongify(self);
-            [cell applyTheme:self.theme];
-            NSURL *articleURL = [self.dataSource urlForIndexPath:indexPath];
-            NSString *language = self.dataSource.searchSiteURL.wmf_language;
-            NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:language];
-            [cell setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm locale:locale];
-            cell.articleCell.titleLabel.accessibilityLanguage = language;
-            cell.descriptionText = [self descriptionForSearchResult:result];
-            // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
-            cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? language : nil;
-            [cell setImageURL:result.thumbnailURL];
-        };
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
+    
+    [cell applyTheme:self.theme];
+    NSURL *articleURL = [self urlAtIndexPath:indexPath];
+    NSString *language = self.searchSiteURL.wmf_language;
+    NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:language];
+    MWKSearchResult *result = [self searchResultForIndexPath:indexPath];
 
-    [super setDataSource:dataSource];
+    [cell setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm locale:locale];
+    cell.articleCell.titleLabel.accessibilityLanguage = language;
+    cell.descriptionText = [self descriptionForSearchResult:result];
+    // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
+    cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? language : nil;
+    [cell setImageURL:result.thumbnailURL];
+    
+    return cell;
+    
+}
+
+- (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
+    MWKSearchResult *result = [self searchResultForIndexPath:indexPath];
+    return [self.searchSiteURL wmf_URLWithTitle:result.displayTitle];
+}
+
+- (MWKSearchResult *)searchResultForIndexPath:(NSIndexPath *)indexPath {
+    MWKSearchResult *result = self.searchResults.results[indexPath.row];
+    return result;
+}
+
+- (BOOL)noResults {
+    return (self.searchResults && [self.searchResults.results count] == 0);
 }
 
 - (MWKSearchRedirectMapping *)redirectMappingForResult:(MWKSearchResult *)result {
@@ -52,7 +64,7 @@
 - (NSString *)descriptionForSearchResult:(MWKSearchResult *)result {
     MWKSearchRedirectMapping *mapping = [self redirectMappingForResult:result];
     if (!mapping) {
-        return [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.dataSource.searchSiteURL.wmf_language];
+        return [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.searchSiteURL.wmf_language];
     }
 
     NSString *redirectedResultMessage = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"search-result-redirected-from", nil, nil, @"Redirected from: %1$@", @"Text for search result letting user know if a result is a redirect from another article. Parameters:\n* %1$@ - article title the current search result redirected from"), mapping.redirectFromTitle];
@@ -60,7 +72,7 @@
     if (!result.wikidataDescription) {
         return redirectedResultMessage;
     } else {
-        return [NSString stringWithFormat:@"%@\n%@", redirectedResultMessage, [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.dataSource.searchSiteURL.wmf_language]];
+        return [NSString stringWithFormat:@"%@\n%@", redirectedResultMessage, [result.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.searchSiteURL.wmf_language]];
     }
 }
 
@@ -78,9 +90,9 @@
 
 - (BOOL)isDisplayingResultsForSearchTerm:(NSString *)searchTerm fromSiteURL:(NSURL *)siteURL {
     return (
-        self.dataSource.searchResults.results.count > 0 && // we have results already
-        [self.dataSource.searchSiteURL wmf_isEqualToIgnoringScheme:siteURL] && // results are from same search site url
-        [self.dataSource.searchResults.searchTerm isEqualToString:searchTerm] // results are for same search term
+        self.searchResults.results.count > 0 && // we have results already
+        [self.searchSiteURL wmf_isEqualToIgnoringScheme:siteURL] && // results are from same search site url
+        [self.searchResults.searchTerm isEqualToString:searchTerm] // results are for same search term
     );
 }
 
