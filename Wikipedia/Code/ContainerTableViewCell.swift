@@ -15,10 +15,6 @@ class ContainerTableViewCell: UITableViewCell {
         super.prepareForReuse()
         collectionViewCell.prepareForReuse()
     }
-    
-    @objc static func identifier() -> String {
-        return String(describing: self)
-    }
 
     // MARK - Initializers
     // Don't override these initializers, use setup() instead
