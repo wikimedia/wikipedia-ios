@@ -12,8 +12,8 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         updateDescriptionHTMLStyle()
     }
     
-    override public func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
+    override public func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
         collectionView.backgroundColor = labelBackgroundColor
     }
     

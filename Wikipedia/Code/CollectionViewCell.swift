@@ -26,13 +26,35 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     var labelBackgroundColor: UIColor? {
-        return isSelected || isHighlighted ? selectedBackgroundView?.backgroundColor : backgroundView?.backgroundColor
+        didSet {
+            updateBackgroundColorOfLabels()
+        }
     }
-    
-    open func updateSelectedOrHighlighted() {
+
+    // Subclassers should call super
+    open func updateBackgroundColorOfLabels() {
         
     }
-    
+
+    public final func updateSelectedOrHighlighted() {
+        // It appears that background color changes aren't properly animated when set within the animation block around isHighlighted/isSelected state changes
+        // https://phabricator.wikimedia.org/T174341
+
+        // To work around this, first set the background to clear without animation so that it stays clear throughought the animation
+        UIView.performWithoutAnimation {
+            self.labelBackgroundColor = .clear
+        }
+
+        //Then update the completion block to set the actual opaque color we want after the animation completes
+        let existingCompletionBlock = CATransaction.completionBlock()
+        CATransaction.setCompletionBlock {
+            if let block = existingCompletionBlock {
+                block()
+            }
+            self.labelBackgroundColor = self.isSelected || self.isHighlighted ? self.selectedBackgroundView?.backgroundColor : self.backgroundView?.backgroundColor
+        }
+    }
+
     open override var isHighlighted: Bool {
         didSet {
             updateSelectedOrHighlighted()
