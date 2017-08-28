@@ -1,5 +1,6 @@
 // Messages for Japanese (日本語)
 // Exported from translatewiki.net
+// Author: Aefgh39622
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
@@ -106,6 +107,7 @@
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
 "explore-another-random" = "おまかせで別の記事";
+"explore-because-you-read" = "こんな記事も読まれています";
 "explore-continue-reading-heading" = "続けて読む";
 "explore-featured-article-heading" = "秀逸な記事";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
@@ -116,6 +118,7 @@
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
 "explore-nearby-placeholder-cancel" = "キャンセル";
+"explore-nearby-placeholder-heading" = "場所";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-potd-heading" = "今日の一枚";
 "explore-random-article-heading" = "おまかせ記事";
@@ -123,6 +126,7 @@
 "feed-news-notification-button-text" = "通知をオンにする";
 // Fuzzy
 "feed-news-notification-text" = "ニュースで話題になっているウィキペディアの記事の通知を受け取ります。";
+"field-captcha-title" = "上記のテキストを入力してください";
 "field-email-placeholder" = "メールアドレスを入力";
 "field-email-title" = "メールアドレス";
 "field-email-title-optional" = "メールアドレス (省略可能)";
@@ -201,6 +205,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 マイル";
+"new-password-instructions" = "一時的なパスワードでログインしています。ログインを完了するには、新しいパスワードをここで設定してください:";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "number-billions" = "$1十億";
 "number-millions" = "$1百万";
@@ -227,19 +232,23 @@
 "places-enable-location-description" = "位置情報にアクセスできるのは、アプリまたはアプリの機能の一部が画面上に表示されている間に限られます。";
 "places-enable-location-title" = "位置情報アクセスを有効にして近くの記事を探しましょう";
 "places-filter-list-title" = "フィルター";
+"places-filter-no-saved-places" = "保存した場所がありません";
 "places-filter-saved-articles" = "保存済みの記事";
 "places-filter-saved-articles-count" = "{{PLURAL:$1|$1件}}";
 "places-filter-top-articles" = "よく読まれている記事";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
 "places-search-default-text" = "場所を検索";
+"places-search-did-you-mean" = "もしかして: $1";
 "places-search-this-area" = "このエリアの結果";
 "places-show-filter-list-accessibility-label" = "検索フィルターを表示";
+"places-title" = "場所";
 "potd-description-prefix" = "$1日の写真";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
+"reading-themes-controls-accessibility-sepia-theme-button" = "セピアテーマ";
 "reference-title" = "情報源$1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|昨日|$1日前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
@@ -259,6 +268,7 @@
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
+"settings-appearance" = "表示";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか？";
@@ -291,6 +301,8 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"theme-default-display-name" = "既定";
+"theme-sepia-display-name" = "セピア";
 "top-read-header-generic" = "ウィキペディア";
 "top-read-header-with-language" = "$1ウィキペディア";
 "welcome-explore-continue-button" = "次へ";
