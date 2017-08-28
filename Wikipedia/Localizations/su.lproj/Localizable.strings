@@ -27,6 +27,7 @@
 "about-wikipedia" = "Wikipédia";
 "abuse-filter-disallow-heading" = "Anjeun teu bisa medalkeun ieu éditan. Pék balik deui tuluy robah.";
 "abuse-filter-disallow-notable" = "Wikipédia mah hiji énsiklopédi sarta nétral deuih, kontén penting kawenku di dieu.";
+"abuse-filter-disallow-unconstructive" = "Panyaring otomatis geus ngidéntifikasi ieu éditan minangka poténsial teu konstruktif, atawa tarékah vandalismeu.";
 "abuse-filter-warning-blanking" = "Ngosongkeun artikel atawa spam";
 "abuse-filter-warning-caps" = "Ngetik ku HURUP KAPITAL KABÉH";
 "abuse-filter-warning-heading" = "Kawasna mah ieu éditan téh teu konstruktif, anjeun yakin rék medalkeunna?";
@@ -56,6 +57,7 @@
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
 "appearance-settings-image-dimming-footer" = "Turunkeun poékna gambar dina téma poék";
 "appearance-settings-reading-themes" = "Téma bacaan";
+"appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistem anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
 "appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
@@ -167,6 +169,7 @@
 "hockeyapp-alert-do-not-send" = "Ulah ngirim";
 "hockeyapp-alert-privacy" = "Privasi $1";
 "hockeyapp-alert-question" = "Anjeun rék ngirim laporan kasalahan ka $1 sangkan Wikimédia Foundation bisa ninjau kasalahan anjeun?";
+"hockeyapp-alert-question-with-response-field" = "Anjeun rék ngirimkeun laporan kasalahan ka $1 sangkan Wikimedia Foundation bisa ninjau kasalahan anjeun? Pék émbarkeun naon nu kajadian nalika kajadianna kasalahan:";
 "hockeyapp-alert-send-report" = "Kirim laporan";
 "hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
@@ -333,6 +336,7 @@
 "settings-notifications-system-turn-on" = "Hirupan notifikasi";
 "settings-notifications-trending" = "Kajadian kiwari";
 "settings-primary-language" = "Utama";
+"settings-primary-language-details" = "Basa munggaran dina ieu daptar dipaké minangka basa utama pikeun aplikasi. Ngarobah ieu basa bakal ngarobah kontén sapopoé (kawas Artikel Petingan) nu dipidangkeun dina Langlang.";
 "settings-support" = "Rojong Wikipédia";
 "settings-title" = "Pangaturan";
 "share-a-fact-share-menu-item" = "Bagikeun-fakta";
@@ -373,6 +377,7 @@
 "welcome-languages-continue-button" = "Teruskeun";
 "welcome-languages-sub-title" = "Pilih basa pilihan anjeun maluruh Wikipédia";
 "welcome-languages-title" = "Basa";
+"welcome-notifications-tell-me-more-creation" = "Iber dijieun sarta ditepikeun kana parangkat anjeun ku aplikasi, lain tina sérver kami (atawa pihak katiga).";
 "welcome-notifications-tell-me-more-storage" = "Préférénsi iber disimpen di parangkat sarta teu dumasar kana informasi atawa aktivitas pribadi.";
 "welcome-notifications-tell-me-more-title" = "Leuwih jero ngeunaan iber";
 "welcome-send-data-sub-title" = "Bantu Wikimedia Foundation nyieun aplikasi nu leuwih hadé ku ngabéjaan kami kumaha anjeun dina maké aplikasi. Data nu dikumpulkeun watekna anonim";
