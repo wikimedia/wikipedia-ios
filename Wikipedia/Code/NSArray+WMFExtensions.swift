@@ -2,7 +2,7 @@ import Foundation
 
 extension NSArray {
     /// @return The object at `index` if it's within range of the receiver, otherwise `nil`.
-    public func wmf_safeObjectAtIndex(_ index: Int) -> Any? {
+    @objc public func wmf_safeObjectAtIndex(_ index: Int) -> Any? {
         guard index > -1 && index < self.count else {
             return nil
         }
@@ -15,7 +15,7 @@ extension NSArray {
      
      - returns: true if any objects are [NSNull null], otherwise false
      */
-    public func wmf_containsNullObjects() -> Bool {
+    @objc public func wmf_containsNullObjects() -> Bool {
         var foundNull = false
         for (_, value) in self.enumerated() {
             if value is NSNull {
@@ -30,7 +30,7 @@ extension NSArray {
      
      - returns: true if any objects or sub-collection objects are [NSNull null], otherwise false
      */
-    public func wmf_recursivelyContainsNullObjects() -> Bool {
+    @objc public func wmf_recursivelyContainsNullObjects() -> Bool {
         if self.wmf_containsNullObjects(){
             return true
         }
@@ -54,7 +54,7 @@ extension NSArray {
     - returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
               in the array.
     */
-    public func wmf_arrayByTrimmingToLength(_ intLength: Int) -> NSArray {
+    @objc public func wmf_arrayByTrimmingToLength(_ intLength: Int) -> NSArray {
         if (self.count == 0 || self.count < intLength) {
             return self;
         }
@@ -69,7 +69,7 @@ extension NSArray {
     :returns: A new array with the last `n` items in the receiver, or the receiver if `n` exceeds the number of items
     in the array.
     */
-    public func wmf_arrayByTrimmingToLengthFromEnd(_ intLength: Int) -> NSArray {
+    @objc public func wmf_arrayByTrimmingToLengthFromEnd(_ intLength: Int) -> NSArray {
         if (self.count == 0 || self.count < intLength || intLength < 0) {
             return self;
         }
@@ -81,7 +81,7 @@ extension NSArray {
 
     - returns: All but the first element of the receiver, or an empty array if there was only one element.
     */
-    public func wmf_arrayByRemovingFirstElement() -> NSArray {
+    @objc public func wmf_arrayByRemovingFirstElement() -> NSArray {
         return wmf_safeSubarrayWithRange(NSMakeRange(1, self.count - 1))
     }
 
@@ -92,7 +92,7 @@ extension NSArray {
 
     - returns: A subarray with the desired items, constrained by the number of items in the receiver.
     */
-    public func wmf_safeSubarrayWithRange(_ range: NSRange) -> NSArray {
+    @objc public func wmf_safeSubarrayWithRange(_ range: NSRange) -> NSArray {
         if range.location > self.count - 1 || WMFRangeIsNotFoundOrEmpty(range) {
             return NSArray()
         }
@@ -115,7 +115,7 @@ extension NSArray {
     }
 
     /// - returns: A reversed copy of the receiver.
-    public func wmf_reverseArray() -> AnyObject {
+    @objc public func wmf_reverseArray() -> AnyObject {
         return self.reverseObjectEnumerator().allObjects as AnyObject;
     }
     
@@ -127,7 +127,7 @@ extension NSArray {
     
     :returns: The interleaved array
     */
-    public func wmf_arrayByInterleavingElementsFromArray(_ otherArray: NSArray) -> NSArray {
+    @objc public func wmf_arrayByInterleavingElementsFromArray(_ otherArray: NSArray) -> NSArray {
         
         let newArray = self.mutableCopy() as! NSMutableArray;
         
@@ -146,7 +146,7 @@ extension NSArray {
         return newArray;
     }
 
-    public func wmf_hasDuplicateElements() -> Bool {
+    @objc public func wmf_hasDuplicateElements() -> Bool {
         return NSSet(array: self as [AnyObject]).count != count;
     }
 }

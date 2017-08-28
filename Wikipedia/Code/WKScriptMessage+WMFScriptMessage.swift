@@ -18,7 +18,7 @@ import WebKit
 
 extension WKScriptMessage {
 
-    public class func wmf_typeForMessageName(_ name: String) -> WMFWKScriptMessage {
+    @objc public class func wmf_typeForMessageName(_ name: String) -> WMFWKScriptMessage {
         switch name {
         case "linkClicked":
             return .linkClicked
@@ -49,7 +49,7 @@ extension WKScriptMessage {
         }
     }
 
-    public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
+    @objc public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
         switch type {
         case .linkClicked,
              .imageClicked,

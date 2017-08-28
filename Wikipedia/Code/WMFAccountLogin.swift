@@ -29,10 +29,10 @@ public enum WMFAccountLoginError: LocalizedError {
 public typealias WMFAccountLoginResultBlock = (WMFAccountLoginResult) -> Void
 
 public class WMFAccountLoginResult: NSObject {
-    var status: String
-    var username: String
-    var message: String?
-    init(status: String, username: String, message: String?) {
+    @objc var status: String
+    @objc var username: String
+    @objc var message: String?
+    @objc init(status: String, username: String, message: String?) {
         self.status = status
         self.username = username
         self.message = message

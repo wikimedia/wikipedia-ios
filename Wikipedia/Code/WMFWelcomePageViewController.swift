@@ -15,7 +15,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     fileprivate var theme = Theme.standard
     
-    var completionBlock: (() -> Void)?
+    @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
         let index = pageControllers.index(of: sender as! UIViewController)
