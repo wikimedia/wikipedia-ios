@@ -20,7 +20,7 @@ wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -158,7 +158,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":12}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -512,7 +512,7 @@ function add(content) {
 }
 
 exports.add = add
-},{"wikimedia-page-library":12}],7:[function(require,module,exports){
+},{"wikimedia-page-library":13}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -527,7 +527,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":13}],8:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -651,7 +651,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":12}],11:[function(require,module,exports){
+},{"wikimedia-page-library":13}],11:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -694,6 +694,51 @@ exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
 },{}],12:[function(require,module,exports){
+// This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
+const utilities = require('./utilities')
+
+var topElement = undefined
+var relativeYOffset = 0
+
+const relativeYOffsetForElement = function(element) {
+  const rect = element.getBoundingClientRect()
+  return rect.top / rect.height
+}
+
+const recordTopElementAndItsRelativeYOffset = function() {
+  topElement = document.elementFromPoint( window.innerWidth / 2, window.innerHeight / 3 )
+  topElement = utilities.findClosest(topElement, 'div#content > div') || topElement
+  if (topElement) {
+    relativeYOffset = relativeYOffsetForElement(topElement)
+  } else {
+    relativeYOffset = 0
+  }
+}
+
+const yOffsetFromRelativeYOffsetForElement = function(element) {
+  const rect = element.getBoundingClientRect()
+  return window.scrollY + rect.top - relativeYOffset * rect.height
+}
+
+const scrollToSamePlaceBeforeResize = function() {
+  if (!topElement) {
+    return
+  }
+  window.scrollTo(0, yOffsetFromRelativeYOffsetForElement(topElement))
+}
+
+window.addEventListener('resize', function (event) {
+  setTimeout(scrollToSamePlaceBeforeResize, 50)
+})
+
+var timer = null
+window.addEventListener('scroll', function() {
+  if(timer !== null) {
+    clearTimeout(timer)
+  }
+  timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
+}, false)
+},{"./utilities":11}],13:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -842,22 +887,24 @@ var elementUtilities = {
   copyDataAttributesToAttributes: copyDataAttributesToAttributes
 };
 
-// Elements marked with either of these classes indicate certain ancestry constraints that are
+// Elements marked with these classes indicate certain ancestry constraints that are
 // difficult to describe as CSS selectors.
 var CONSTRAINT = {
-  IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
-  IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
+  IMAGE_PRESUMES_WHITE_BACKGROUND: 'pagelib-theme-image-presumes-white-background',
+  DIV_DO_NOT_APPLY_BASELINE: 'pagelib-theme-div-do-not-apply-baseline'
+};
 
-  // Theme to CSS classes.
-};var THEME = {
+// Theme to CSS classes.
+var THEME = {
   DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!string} theme
-   * @return {void}
-   */
-};var setTheme = function setTheme(document, theme) {
+/**
+ * @param {!Document} document
+ * @param {!string} theme
+ * @return {void}
+ */
+var setTheme = function setTheme(document, theme) {
   var html = document.querySelector('html');
 
   // Set the new theme.
@@ -872,6 +919,30 @@ var CONSTRAINT = {
 };
 
 /**
+ * Football template image filename regex.
+ * https://en.wikipedia.org/wiki/Template:Football_kit/pattern_list
+ * @type {RegExp}
+ */
+var footballTemplateImageFilenameRegex = new RegExp('Kit_(body|socks|shorts|right_arm|left_arm)(.*).png$');
+
+/* en > Away colours > 793128975 */
+/* en > Manchester United F.C. > 793244653 */
+/**
+ * Determines whether white background should be added to image.
+ * @param  {!HTMLImageElement} image
+ * @return {!boolean}
+ */
+var imagePresumesWhiteBackground = function imagePresumesWhiteBackground(image) {
+  if (footballTemplateImageFilenameRegex.test(image.src)) {
+    return false;
+  }
+  if (image.classList.contains('mwe-math-fallback-image-inline')) {
+    return false;
+  }
+  return !elementUtilities.closestInlineStyle(image, 'background');
+};
+
+/**
  * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
  * theme-dependent so classification only need only occur once after the content is loaded, not
  * every time the theme changes.
@@ -879,13 +950,14 @@ var CONSTRAINT = {
  * @return {void}
  */
 var classifyElements = function classifyElements(element) {
-  Polyfill.querySelectorAll(element, 'img').forEach(function (image) {
-    if (!elementUtilities.closestInlineStyle(image, 'background')) {
-      image.classList.add(CONSTRAINT.IMAGE_NO_BACKGROUND);
-    }
-    if (!elementUtilities.isNestedInTable(image)) {
-      image.classList.add(CONSTRAINT.IMAGE_NONTABULAR);
-    }
+  Polyfill.querySelectorAll(element, 'img').filter(imagePresumesWhiteBackground).forEach(function (image) {
+    image.classList.add(CONSTRAINT.IMAGE_PRESUMES_WHITE_BACKGROUND);
+  });
+  /* en > Away colours > 793128975 */
+  /* en > Manchester United F.C. > 793244653 */
+  /* en > Pantone > 792312384 */
+  Polyfill.querySelectorAll(element, 'div.color_swatch div, div[style*="position: absolute"]').forEach(function (div) {
+    div.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
   });
 };
 
@@ -1191,14 +1263,15 @@ var CollapseTable = {
 
 var COMPATIBILITY = {
   FILTER: 'pagelib-compatibility-filter'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!Array.<string>} properties
-   * @param {!string} value
-   * @return {void}
-   */
-};var isStyleSupported = function isStyleSupported(document, properties, value) {
+/**
+ * @param {!Document} document
+ * @param {!Array.<string>} properties
+ * @param {!string} value
+ * @return {void}
+ */
+var isStyleSupported = function isStyleSupported(document, properties, value) {
   var element = document.createElement('span');
   return properties.some(function (property) {
     element.style[property] = value;
@@ -1539,7 +1612,7 @@ var isContainerAttached = function isContainerAttached(document) {
 
 var FooterContainer = {
   containerFragment: containerFragment,
-  isContainerAttached: isContainerAttached,
+  isContainerAttached: isContainerAttached, // todo: rename isAttached()?
   updateBottomPaddingToAllowReadMoreToScrollToTop: updateBottomPaddingToAllowReadMoreToScrollToTop,
   updateLeftAndRightMargin: updateLeftAndRightMargin
 };
@@ -1559,6 +1632,7 @@ var FooterContainer = {
  * @return {void}
  */
 var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
+  // todo: don't manipulate the selector. The client can make this an ID if they want it to be.
   var container = content.querySelector('#' + containerID);
   var licenseStringHalves = licenseString.split('$1');
 
@@ -1632,11 +1706,12 @@ var MenuItemType = {
   pageIssues: 3,
   disambiguation: 4,
   coordinate: 5
-
-  /**
-   * Menu item model.
-   */
 };
+
+/**
+ * Menu item model.
+ */
+
 var MenuItem = function () {
   /**
    * MenuItem constructor.
@@ -1794,7 +1869,7 @@ var setHeading = function setHeading(headingString, headingID, document) {
 };
 
 var FooterMenu = {
-  MenuItemType: MenuItemType,
+  MenuItemType: MenuItemType, // todo: rename to just ItemType?
   setHeading: setHeading,
   maybeAddItem: maybeAddItem
 };
@@ -1822,7 +1897,7 @@ var FooterMenu = {
  * @return {void}
  */
 
-var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
+var SAVE_BUTTON_ID_PREFIX = 'pagelib_footer_read_more_save_';
 
 /**
  * Removes parenthetical enclosures from string.
@@ -2028,7 +2103,24 @@ var readMoreQueryURL = function readMoreQueryURL(title, count, baseURL) {
  * @param {!string} statusText
  * @return {void}
  */
-var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
+var fetchErrorHandler = function fetchErrorHandler(statusText) {
+  // TODO: figure out if we want to hide the 'Read more' header in cases when fetch fails.
+  console.log('statusText = ' + statusText); // eslint-disable-line no-console
+};
+
+/**
+ * Fetches 'Read more' pages.
+ * @param {!string} title
+ * @param {!number} count
+ * @param {!string} containerID
+ * @param {?string} baseURL
+ * @param {!ShowReadMorePagesHandler} showReadMorePagesHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
   xhr.open('GET', readMoreQueryURL(title, count, baseURL), true);
   xhr.onload = function () {
@@ -2044,7 +2136,11 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
   xhr.onerror = function () {
     return fetchErrorHandler(xhr.statusText);
   };
-  xhr.send();
+  try {
+    xhr.send();
+  } catch (error) {
+    fetchErrorHandler(error.toString());
+  }
 };
 
 /**
@@ -2369,15 +2465,15 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
   px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
   ex: 10, // ''
   em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
+};
 
-
-  /**
-   * Replace an image with a placeholder.
-   * @param {!Document} document
-   * @param {!HTMLImageElement} image The image to be replaced.
-   * @return {!HTMLSpanElement} The placeholder replacing image.
-   */
-};var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+/**
+ * Replace an image with a placeholder.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The image to be replaced.
+ * @return {!HTMLSpanElement} The placeholder replacing image.
+ */
+var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
   // There are a number of possible implementations for placeholders including:
   //
   // - [MobileFrontend] Replace the original image with a span and replace the span with a new
@@ -2670,14 +2766,14 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios' };
 
-  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
-  /**
-   * @param {!Window} window
-   * @return {!boolean} true if the user agent is Android, false otherwise.
-   */
-};var isAndroid = function isAndroid(window) {
+// Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is Android, false otherwise.
+ */
+var isAndroid = function isAndroid(window) {
   return (/android/i.test(window.navigator.userAgent)
   );
 };
@@ -2916,4 +3012,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);

@@ -7,7 +7,7 @@ extension UIViewController {
     /// - Parameters:
     ///   - childController: Controller whose view will be embedded in containerView
     ///   - containerView: View to which childController's view will be added as a subview
-    public func wmf_add(childController: UIViewController!, andConstrainToEdgesOfContainerView containerView: UIView!) {
+    @objc public func wmf_add(childController: UIViewController!, andConstrainToEdgesOfContainerView containerView: UIView!) {
         wmf_add(childController:childController, withContainerView: containerView, constraints: { make in
             _ = make?.top.bottom().leading().and().trailing().equalTo()(containerView)
         })

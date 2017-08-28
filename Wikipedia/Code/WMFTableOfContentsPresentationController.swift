@@ -94,7 +94,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     }
 
     
-    func didTap(_ tap: UITapGestureRecognizer) {
+    @objc func didTap(_ tap: UITapGestureRecognizer) {
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self)
     }
     

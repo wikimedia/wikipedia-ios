@@ -1,20 +1,20 @@
 @objc(WMFSettingsTableViewSection)
 class SettingsTableViewSection: NSObject {
-    let headerTitle: String?
-    let footerText: String?
-    let items: [WMFSettingsTableViewCell]
+    @objc let headerTitle: String?
+    @objc let footerText: String?
+    @objc let items: [WMFSettingsMenuItem]
     
-    init(items: [WMFSettingsTableViewCell], headerTitle: String?, footerText: String?) {
+    @objc init(items: [WMFSettingsMenuItem], headerTitle: String?, footerText: String?) {
         self.items = items
         self.headerTitle = headerTitle
         self.footerText = footerText
     }
     
-    func getItems() -> [WMFSettingsTableViewCell] {
+    @objc func getItems() -> [WMFSettingsMenuItem] {
         return self.items
     }
     
-    func getHeaderTitle() -> String? {
+    @objc func getHeaderTitle() -> String? {
         return self.headerTitle
     }
 }

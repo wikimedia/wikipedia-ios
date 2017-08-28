@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 
 public extension NSURL {
     @available(iOS 9.0, *)
-    func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
+    @objc func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
         guard self.wmf_isWikiResource else {
             return nil
         }
@@ -25,7 +25,7 @@ public extension NSURL {
 
 public extension MWKArticle {
     @available(iOS 9.0, *)
-    func searchableItemAttributes() -> CSSearchableItemAttributeSet {
+    @objc func searchableItemAttributes() -> CSSearchableItemAttributeSet {
         let castURL = url as NSURL
         let searchableItem = castURL.searchableItemAttributes() ??
                 CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
@@ -44,16 +44,16 @@ public extension MWKArticle {
 public class WMFSavedPageSpotlightManager: NSObject {
     
     let dataStore: MWKDataStore
-    var savedPageList: MWKSavedPageList {
+    @objc var savedPageList: MWKSavedPageList {
         return dataStore.savedPageList
     }
     
-    public required init(dataStore: MWKDataStore) {
+    @objc public required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
     }
     
-    public func reindexSavedPages() {
+    @objc public func reindexSavedPages() {
         self.savedPageList.enumerateItems { (item, stop) in
             guard let URL = item.url else {
                 return
@@ -62,7 +62,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    public func addToIndex(url: NSURL) {
+    @objc public func addToIndex(url: NSURL) {
         guard let article = dataStore.existingArticle(with: url as URL), let identifier = NSURL.wmf_desktopURL(for: url as URL)?.absoluteString else {
             return
         }
@@ -80,7 +80,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    public func removeFromIndex(url: NSURL) {
+    @objc public func removeFromIndex(url: NSURL) {
         guard let identifier = NSURL.wmf_desktopURL(for: url as URL)?.absoluteString else {
             return
         }
