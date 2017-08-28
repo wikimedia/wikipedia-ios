@@ -25,7 +25,7 @@
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
-#import "WMFArticleListDataSourceTableViewController.h"
+#import "WMFArticleListTableViewController.h"
 #import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
