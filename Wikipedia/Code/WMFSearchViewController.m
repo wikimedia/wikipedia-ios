@@ -10,7 +10,6 @@
 #import "WMFSearchResultsTableViewController.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
-#import "WMFSearchDataSource.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
@@ -87,15 +86,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Accessors
 
 - (NSString *)currentResultsSearchTerm {
-    return [[self.resultsListController.dataSource searchResults] searchTerm];
+    return [[self.resultsListController searchResults] searchTerm];
 }
 
 - (NSURL *)currentResultsSearchSiteURL {
-    return [self.resultsListController.dataSource searchSiteURL];
+    return [self.resultsListController searchSiteURL];
 }
 
 - (NSString *)searchSuggestion {
-    return [[self.resultsListController.dataSource searchResults] searchSuggestion];
+    return [[self.resultsListController searchResults] searchSuggestion];
 }
 
 - (WMFSearchFetcher *)fetcher {
@@ -386,7 +385,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)didCancelSearch {
     [self setSearchFieldText:nil];
     [self updateSearchSuggestion:nil];
-    self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
     [self.resultsListController wmf_hideEmptyView];
 }
@@ -449,16 +447,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  return;
                                              }
 
-                                             /*
-                                              HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
-                                              collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
-                                              */
-                                             WMFSearchDataSource *dataSource =
-                                                 [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
-                                                                                      searchResults:results];
-
-                                             self.resultsListController.dataSource = dataSource;
-
+                                             self.resultsListController.searchResults = results;
+                                             self.resultsListController.searchSiteURL = url;
+                                             [self.resultsListController.tableView reloadData];
+                             
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
