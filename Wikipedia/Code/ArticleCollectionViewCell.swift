@@ -50,29 +50,14 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageView.wmf_reset()
         updateFonts(with: traitCollection)
     }
-    
-    override open func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        UIView.performWithoutAnimation {
-            let labelBackgroundColor = UIColor.clear
-            self.titleLabel.backgroundColor = labelBackgroundColor
-            self.descriptionLabel.backgroundColor = labelBackgroundColor
-            self.extractLabel?.backgroundColor = labelBackgroundColor
-            self.saveButton.backgroundColor = labelBackgroundColor
-            self.saveButton.titleLabel?.backgroundColor = labelBackgroundColor
-        }
-        let existingCompletionBlock = CATransaction.completionBlock()
-        CATransaction.setCompletionBlock {
-            if let block = existingCompletionBlock {
-                block()
-            }
-            let labelBackgroundColor = self.labelBackgroundColor
-            self.titleLabel.backgroundColor = labelBackgroundColor
-            self.descriptionLabel.backgroundColor = labelBackgroundColor
-            self.extractLabel?.backgroundColor = labelBackgroundColor
-            self.saveButton.backgroundColor = labelBackgroundColor
-            self.saveButton.titleLabel?.backgroundColor = labelBackgroundColor
-        }
+
+    override open func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        titleLabel.backgroundColor = labelBackgroundColor
+        descriptionLabel.backgroundColor = labelBackgroundColor
+        extractLabel?.backgroundColor = labelBackgroundColor
+        saveButton.backgroundColor = labelBackgroundColor
+        saveButton.titleLabel?.backgroundColor = labelBackgroundColor
     }
     
     deinit {

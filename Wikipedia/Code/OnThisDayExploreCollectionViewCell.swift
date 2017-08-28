@@ -27,8 +27,8 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.8)
     }
     
-    override public func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
+    override public func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
         let opaque = labelBackgroundColor
         let clear = opaque?.withAlphaComponent(0)
         topGradientView.startColor = opaque
