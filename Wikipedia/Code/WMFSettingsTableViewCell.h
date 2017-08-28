@@ -1,8 +1,7 @@
-#import "SSBaseTableCell.h"
 #import "WMFSettingsMenuItem.h"
 @import WMF.Swift;
 
-@interface WMFSettingsTableViewCell : SSBaseTableCell <WMFThemeable>
+@interface WMFSettingsTableViewCell : UITableViewCell <WMFThemeable>
 
 @property (nonatomic) WMFSettingsMenuItemDisclosureType disclosureType;
 
