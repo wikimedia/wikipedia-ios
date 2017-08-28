@@ -53,12 +53,26 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     override open func updateSelectedOrHighlighted() {
         super.updateSelectedOrHighlighted()
-        let labelBackgroundColor = self.labelBackgroundColor
-        titleLabel.backgroundColor = labelBackgroundColor
-        descriptionLabel.backgroundColor = labelBackgroundColor
-        extractLabel?.backgroundColor = labelBackgroundColor
-        saveButton.backgroundColor = labelBackgroundColor
-        saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        UIView.performWithoutAnimation {
+            let labelBackgroundColor = UIColor.clear
+            self.titleLabel.backgroundColor = labelBackgroundColor
+            self.descriptionLabel.backgroundColor = labelBackgroundColor
+            self.extractLabel?.backgroundColor = labelBackgroundColor
+            self.saveButton.backgroundColor = labelBackgroundColor
+            self.saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        }
+        let existingCompletionBlock = CATransaction.completionBlock()
+        CATransaction.setCompletionBlock {
+            if let block = existingCompletionBlock {
+                block()
+            }
+            let labelBackgroundColor = self.labelBackgroundColor
+            self.titleLabel.backgroundColor = labelBackgroundColor
+            self.descriptionLabel.backgroundColor = labelBackgroundColor
+            self.extractLabel?.backgroundColor = labelBackgroundColor
+            self.saveButton.backgroundColor = labelBackgroundColor
+            self.saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        }
     }
     
     deinit {
