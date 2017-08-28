@@ -6,27 +6,8 @@
 
 @implementation WMFSearchResultsTableViewController
 
-@dynamic dataSource;
-
-- (WMFSearchResults *)searchResults {
-    return self.dataSource.searchResults;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-
-    self.tableView.estimatedRowHeight = 60.0f;
-
-    @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      @strongify(self);
-                                                      [self.tableView reloadData];
-                                                  }];
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [self.tableView reloadData];
 }
 
 - (void)dealloc {
