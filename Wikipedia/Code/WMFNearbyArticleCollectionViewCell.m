@@ -53,6 +53,7 @@
     self.titleText = nil;
     self.titleLabel.text = nil;
     self.distanceLabel.text = nil;
+    [self.articleImageView wmf_reset];
 }
 
 + (CGFloat)estimatedRowHeight {
