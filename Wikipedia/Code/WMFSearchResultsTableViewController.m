@@ -20,7 +20,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-    
+
     [cell applyTheme:self.theme];
     NSURL *articleURL = [self urlAtIndexPath:indexPath];
     NSString *language = self.searchSiteURL.wmf_language;
@@ -33,9 +33,8 @@
     // TODO: In "Redirected from: %1$@", "%1$@" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
     cell.articleCell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? language : nil;
     [cell setImageURL:result.thumbnailURL];
-    
+
     return cell;
-    
 }
 
 - (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,24 +102,39 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
     [rowActions applyTheme:self.theme];
-    
+
     NSURL *url = [self urlAtIndexPath:indexPath];
     MWKSavedPageList *savedPageList = [self.userDataStore savedPageList];
-    
+
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
 
-    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
-    
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare
+                                                     at:indexPath
+                                                     in:tableView
+                                                perform:^(NSIndexPath *indexPath) {
+                                                    [self shareArticle:url];
+                                                }];
+
     NSMutableArray *actions = [[NSMutableArray alloc] initWithObjects:share, nil];
-    
+
     if (isItemSaved) {
-        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList removeEntryWithURL:url];}];
+        UITableViewRowAction *unsave = [rowActions actionFor:ArticleListTableViewRowActionTypeUnsave
+                                                          at:indexPath
+                                                          in:tableView
+                                                     perform:^(NSIndexPath *indexPath) {
+                                                         [savedPageList removeEntryWithURL:url];
+                                                     }];
         [actions addObject:unsave];
     } else {
-        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[savedPageList addSavedPageWithURL:url];}];
+        UITableViewRowAction *save = [rowActions actionFor:ArticleListTableViewRowActionTypeSave
+                                                        at:indexPath
+                                                        in:tableView
+                                                   perform:^(NSIndexPath *indexPath) {
+                                                       [savedPageList addSavedPageWithURL:url];
+                                                   }];
         [actions addObject:save];
     }
-    
+
     return actions;
 }
 

@@ -18,7 +18,6 @@
 #import <WMF/MWKDataStore.h>
 
 @import WMF.MWKDataStore;
-@import WMF.WMFArticlePreviewFetcher;
 
 @interface WMFDisambiguationPagesViewController ()
 
