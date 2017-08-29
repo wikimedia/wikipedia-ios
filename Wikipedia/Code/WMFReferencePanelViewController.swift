@@ -14,7 +14,7 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
     
     @IBOutlet fileprivate var containerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var containerView:UIView!
-    @objc var reference:WMFReference?
+    var reference:WMFReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
         apply(theme: self.theme)
     }
 
-    @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
             self.presentingViewController?.dismiss(animated: true, completion: nil)

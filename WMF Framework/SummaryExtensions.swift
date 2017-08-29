@@ -1,5 +1,5 @@
 extension WMFArticle {
-    @objc public func update(withSummary summary: [String: Any]) {
+    public func update(withSummary summary: [String: Any]) {
         if let originalImage = summary["originalimage"] as? [String: Any],
             let source = originalImage["source"] as? String,
             let width = originalImage["width"] as? Int,

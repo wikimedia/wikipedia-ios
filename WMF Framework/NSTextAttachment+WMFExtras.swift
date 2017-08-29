@@ -1,4 +1,4 @@
-public extension NSTextAttachment {
+extension NSTextAttachment {
     func setImageHeight(_ height: CGFloat, font: UIFont) {
         guard let image = image else { return }
         

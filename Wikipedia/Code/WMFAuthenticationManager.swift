@@ -8,12 +8,12 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil
+    dynamic private(set) var loggedInUsername: String? = nil
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
      */
-    @objc public var isLoggedIn: Bool {
+    public var isLoggedIn: Bool {
         return (loggedInUsername != nil)
     }
 
@@ -27,7 +27,7 @@ class WMFAuthenticationManager: NSObject {
      *
      *  @return The shared Authentication Manager
      */
-    @objc public static let sharedInstance = WMFAuthenticationManager()    
+    public static let sharedInstance = WMFAuthenticationManager()    
 
     override private init() {
         keychainCredentials = WMFKeychainCredentials()
@@ -43,7 +43,7 @@ class WMFAuthenticationManager: NSObject {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+    public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL!, success: {result in
@@ -65,7 +65,7 @@ class WMFAuthenticationManager: NSObject {
      *  @param userWasAlreadyLoggedIn     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
+    public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
         guard
             let userName = keychainCredentials.userName,
@@ -100,7 +100,7 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
+    public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
         let outerSuccess = success;
         let outerFailure = failure;
         

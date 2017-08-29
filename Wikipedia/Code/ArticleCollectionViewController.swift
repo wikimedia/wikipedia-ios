@@ -7,7 +7,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     let articleURLs: [URL]
     let dataStore: MWKDataStore
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()

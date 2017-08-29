@@ -219,7 +219,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         }
         self.dismissalGesture = nil
     }
-    @objc func handlePresentationGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+    func handlePresentationGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
         
         switch(gesture.state) {
         case (.began):
@@ -263,7 +263,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         }
     }
     
-    @objc func handleDismissalGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+    func handleDismissalGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
         
         switch(gesture.state) {
         case .began:

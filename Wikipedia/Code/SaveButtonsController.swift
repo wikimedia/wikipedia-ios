@@ -7,7 +7,7 @@ import UIKit
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
     
-    @objc required init(dataStore: MWKDataStore) {
+    required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
@@ -49,7 +49,7 @@ import UIKit
         }
     }
     
-    @objc func articleUpdated(notification: Notification) {
+    func articleUpdated(notification: Notification) {
         guard let article = notification.object as? WMFArticle, let key = article.key, let saveButtons = visibleSaveButtons[key.hash] else {
             return
         }
@@ -58,7 +58,7 @@ import UIKit
         }
     }
     
-    @objc func saveButtonPressed(sender: SaveButton) {
+    func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }

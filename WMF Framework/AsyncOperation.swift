@@ -85,7 +85,7 @@ import Foundation
     
     // MARK: - Custom behavior
     
-    @objc open func finish() {
+    open func finish() {
         state = .finished
     }
     
@@ -100,7 +100,7 @@ import Foundation
 @objc(WMFAsyncBlockOperation) open class AsyncBlockOperation: AsyncOperation {
     let asyncBlock: (AsyncBlockOperation) -> Void
     
-    @objc init(asyncBlock block: @escaping (AsyncBlockOperation) -> Void) {
+    init(asyncBlock block: @escaping (AsyncBlockOperation) -> Void) {
        asyncBlock = block
     }
     

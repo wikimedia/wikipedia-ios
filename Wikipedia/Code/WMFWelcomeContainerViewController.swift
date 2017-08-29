@@ -57,7 +57,7 @@ class WMFWelcomeContainerViewController: UIViewController {
     }
     
     fileprivate func useBottomAlignmentIfPhone() {
-        assert(Int(overallContainerViewCenterYConstraint.priority.rawValue) == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
+        assert(overallContainerViewCenterYConstraint.priority == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
         if (UI_USER_INTERFACE_IDIOM() == .phone) {
             overallContainerView.mas_makeConstraints { make in
                 _ = make?.bottom.equalTo()(self.mas_bottomLayoutGuideTop)

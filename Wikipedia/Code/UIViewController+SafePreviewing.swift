@@ -16,7 +16,7 @@ extension UIViewController {
      - parameter then:        A block which will be invoked if OS >= iOS 9 and capability is available.
      - parameter unavailable: A block which will be invoked if OS >= iOS 9 and capability is not availlable.
      */
-    @objc public func wmf_ifForceTouchAvailable(_ then: ()->Void, unavailable: ()->Void) {
+    public func wmf_ifForceTouchAvailable(_ then: ()->Void, unavailable: ()->Void) {
         if self.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
             then()
         } else {

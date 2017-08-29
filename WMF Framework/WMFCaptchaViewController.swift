@@ -31,9 +31,9 @@ extension UIStackView {
 }
 
 public class WMFCaptcha: NSObject {
-    @objc let captchaID: String
-    @objc let captchaURL: URL
-    @objc init(captchaID:String, captchaURL:URL) {
+    let captchaID: String
+    let captchaURL: URL
+    init(captchaID:String, captchaURL:URL) {
         self.captchaID = captchaID
         self.captchaURL = captchaURL
     }
@@ -64,12 +64,12 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
 
-    @objc public var captchaDelegate: WMFCaptchaViewControllerDelegate?
+    public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
     
     fileprivate var theme = Theme.standard
 
-    @objc var captcha: WMFCaptcha? {
+    var captcha: WMFCaptcha? {
         didSet {
             guard let captcha = captcha else {
                 captchaTextField.text = nil
@@ -85,7 +85,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         }
     }
     
-    @objc var solution:String? {
+    var solution:String? {
         get{
             guard
                 let captchaSolution = captchaTextField.text,
@@ -165,7 +165,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
                 guard
                     type(of: constraint) == NSLayoutConstraint.self,
                     constraint.firstAttribute == .height,
-                    constraint.priority == UILayoutPriority.required,
+                    constraint.priority == UILayoutPriorityRequired,
                     constraint.constant != 0
                     else{
                         return false
@@ -203,7 +203,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         apply(theme: theme)
     }
     
-    @objc func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
     }
     

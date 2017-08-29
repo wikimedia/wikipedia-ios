@@ -5,7 +5,7 @@ import Foundation
 }
 
 class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
-    @objc weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
+    weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
@@ -25,7 +25,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
     }
 
-    @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
+    fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
             if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage

@@ -31,9 +31,9 @@ public protocol ImageOriginConvertible {
 public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { return c.asImageOrigin() }
 
 @objc(WMFImage) public class Image: NSObject {
-    @objc open var staticImage: UIImage
-    @objc open var animatedImage: FLAnimatedImage?
-    @objc public init(staticImage: UIImage, animatedImage: FLAnimatedImage?) {
+    open var staticImage: UIImage
+    open var animatedImage: FLAnimatedImage?
+    public init(staticImage: UIImage, animatedImage: FLAnimatedImage?) {
         self.staticImage = staticImage
         self.animatedImage = animatedImage
     }
@@ -41,16 +41,16 @@ public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { re
 
 @objc(WMFImageDownload) public class ImageDownload: NSObject {
     // Exposing enums as string constants for ObjC compatibility
-    @objc open static let imageOriginNetwork = ImageOrigin.network.rawValue
-    @objc open static let imageOriginDisk = ImageOrigin.disk.rawValue
-    @objc open static let imageOriginMemory = ImageOrigin.memory.rawValue
-    @objc open static let imageOriginUnknown = ImageOrigin.unknown.rawValue
+    open static let imageOriginNetwork = ImageOrigin.network.rawValue
+    open static let imageOriginDisk = ImageOrigin.disk.rawValue
+    open static let imageOriginMemory = ImageOrigin.memory.rawValue
+    open static let imageOriginUnknown = ImageOrigin.unknown.rawValue
     
-    @objc open var url: URL
-    @objc open var image: Image
+    open var url: URL
+    open var image: Image
     open var origin: ImageOrigin
     
-    @objc open var originRawValue: Int {
+    open var originRawValue: Int {
         return origin.rawValue
     }
     

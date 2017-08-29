@@ -1,6 +1,6 @@
 
 class WMFReferencePageBackgroundView: UIView, Themeable {
-    @objc var clearRect:CGRect = CGRect.zero {
+    var clearRect:CGRect = CGRect.zero {
         didSet {
             setNeedsDisplay()
         }

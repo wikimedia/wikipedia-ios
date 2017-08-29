@@ -10,21 +10,21 @@ protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
 
 @objc(WMFAnnouncementCollectionViewCell)
 open class AnnouncementCollectionViewCell: CollectionViewCell {
-    @objc var delegate: AnnouncementCollectionViewCellDelegate?
+    var delegate: AnnouncementCollectionViewCellDelegate?
     
-    @objc public let imageView = UIImageView()
-    @objc public let messageLabel = UILabel()
-    @objc public let actionButton = UIButton()
-    @objc public let dismissButton = UIButton()
-    @objc public let captionTextView = UITextView()
-    @objc public let captionSeparatorView = UIView()
+    public let imageView = UIImageView()
+    public let messageLabel = UILabel()
+    public let actionButton = UIButton()
+    public let dismissButton = UIButton()
+    public let captionTextView = UITextView()
+    public let captionSeparatorView = UIView()
     public let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
     public let actionButtonHeight: CGFloat = 40
     public let dismissButtonSpacing: CGFloat = 8
     public let dismissButtonHeight: CGFloat = 32
-    @objc public var imageViewDimension: CGFloat = 150
+    public var imageViewDimension: CGFloat = 150
     public let captionSpacing: CGFloat = 8
 
     open override func setup() {
@@ -56,11 +56,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    @objc func actionButtonPressed() {
+    func actionButtonPressed() {
         delegate?.announcementCellDidTapActionButton(self)
     }
     
-    @objc func dismissButtonPressed() {
+    func dismissButtonPressed() {
         delegate?.announcementCellDidTapDismiss(self)
     }
     
@@ -79,14 +79,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote)
     }
     
-    @objc var isImageViewHidden = false {
+    var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    @objc var isCaptionHidden = false {
+    var isCaptionHidden = false {
         didSet {
             captionSeparatorView.isHidden = isCaptionHidden
             captionTextView.isHidden = isCaptionHidden
@@ -94,7 +94,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         }
     }
     
-    @objc var caption: NSAttributedString? {
+    var caption: NSAttributedString? {
         set {
             guard let text = newValue else {
                 isCaptionHidden = true
@@ -111,7 +111,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             pStyle.lineBreakMode = .byWordWrapping
             pStyle.baseWritingDirection = .natural
             pStyle.alignment = .center
-            let attributes = [NSAttributedStringKey.paragraphStyle: pStyle]
+            let attributes = [NSParagraphStyleAttributeName: pStyle]
             mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
             captionTextView.attributedText = mutableText
 

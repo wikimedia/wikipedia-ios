@@ -13,6 +13,8 @@
 #import "WMFShareOptionsController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
+#import "WMFPageIssuesViewController.h"
+#import "SSArrayDataSource.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
@@ -1522,8 +1524,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showPageIssues:(NSArray<NSString *> *)issueStrings {
-    WMFPageIssuesTableViewController *issuesVC = [[WMFPageIssuesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    issuesVC.issues = issueStrings;
+    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:issueStrings];
     [self presentViewControllerEmbeddedInNavigationController:issuesVC];
 }
 

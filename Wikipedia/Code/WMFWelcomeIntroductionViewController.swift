@@ -33,12 +33,12 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         let onThisDayRange = (subtitleString as NSString).range(of: onThisDayTitle)
         let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
         let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBlack, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.boldSystemFont(ofSize: 15)
-        let attributedString = NSMutableAttributedString(string: subtitleString, attributes: [NSAttributedStringKey.font: font])
+        let attributedString = NSMutableAttributedString(string: subtitleString, attributes: [NSFontAttributeName: font])
         if placesRange.location != NSNotFound  {
-            attributedString.setAttributes([NSAttributedStringKey.font: boldFont], range: placesRange)
+            attributedString.setAttributes([NSFontAttributeName: boldFont], range: placesRange)
         }
         if onThisDayRange.location != NSNotFound {
-            attributedString.setAttributes([NSAttributedStringKey.font: boldFont], range: onThisDayRange)
+            attributedString.setAttributes([NSFontAttributeName: boldFont], range: onThisDayRange)
         }
         subTitleLabel.attributedText = attributedString
     }

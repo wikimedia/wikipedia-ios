@@ -466,7 +466,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroFAQ]
     ]
-                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, nil, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([https://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}")
+                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, nil, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}")
                                                                                    footerText:nil];
     return section;
 }

@@ -44,7 +44,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
     
-    @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
             continueReading(self)
@@ -160,7 +160,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         var fitSize = UILayoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
-        fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
+        fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         preferredContentSize = fitSize
         
         return true

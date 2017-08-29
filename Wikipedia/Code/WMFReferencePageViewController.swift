@@ -1,7 +1,7 @@
 import WMF
 
 extension UIViewController {
-    @objc class func wmf_viewControllerFromReferencePanelsStoryboard() -> Self {
+    class func wmf_viewControllerFromReferencePanelsStoryboard() -> Self {
         return self.wmf_viewControllerFromStoryboardNamed("WMFReferencePanels")
     }
 }
@@ -12,10 +12,10 @@ extension UIViewController {
 }
 
 class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource, Themeable {
-    @objc var lastClickedReferencesIndex:Int = 0
-    @objc var lastClickedReferencesGroup = [WMFReference]()
+    var lastClickedReferencesIndex:Int = 0
+    var lastClickedReferencesGroup = [WMFReference]()
     
-    @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
+    weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
     var theme = Theme.standard
     
@@ -40,7 +40,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         return controllers
     }()
     
-    @objc lazy var backgroundView: WMFReferencePageBackgroundView = {
+    lazy var backgroundView: WMFReferencePageBackgroundView = {
         return WMFReferencePageBackgroundView()
     }()
 
@@ -71,7 +71,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
         }
     }
     
-    @objc internal func firstPanelView() -> UIView? {
+    internal func firstPanelView() -> UIView? {
         guard let viewControllers = viewControllers, let firstVC = viewControllers.first as? WMFReferencePanelViewController else {
             return nil
         }

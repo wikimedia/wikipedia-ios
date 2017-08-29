@@ -46,7 +46,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
-    @objc public var dataStore: MWKDataStore!
+    public var dataStore: MWKDataStore!
 
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()
@@ -197,7 +197,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         listView.delegate = self
         listView.register(ArticleWithLocationTableViewCell.self, forCellReuseIdentifier: "ArticleWithLocationTableViewCell")
         listView.estimatedRowHeight = ArticleWithLocationTableViewCell.estimatedRowHeight
-        listView.rowHeight = UITableViewAutomaticDimension
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
@@ -344,7 +343,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     // MARK: - Keyboard
     
-    @objc func keyboardChanged(notification: NSNotification) {
+    func keyboardChanged(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
             let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
                 return
@@ -686,7 +685,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let nsTitle = title as NSString
         let attributedTitle = NSMutableAttributedString(string: title)
         let descriptionRange = nsTitle.range(of: description)
-        attributedTitle.addAttribute(NSAttributedStringKey.font, value: italicsFont, range: descriptionRange)
+        attributedTitle.addAttribute(NSFontAttributeName, value: italicsFont, range: descriptionRange)
         self.didYouMeanButton.setAttributedTitle(attributedTitle, for: .normal)
     }
     
@@ -976,7 +975,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     var overlayState = OverlayState.mid
     
     
-    @objc func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
+    func handlePanGesture(_ panGR: UIPanGestureRecognizer) {
         let minHeight = overlayMinHeight
         let maxHeight = overlayMaxHeight
         let midHeight = overlayMidHeight
@@ -1199,7 +1198,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
 
-    @objc func updateViewModeFromSegmentedControl() {
+    func updateViewModeFromSegmentedControl() {
         switch mapListToggle.selectedSegmentIndex {
         case 0:
             viewMode = .map
@@ -1284,7 +1283,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
         enableLocationVC.apply(theme: theme)
         enableLocationVC.modalPresentationStyle = .popover
-        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
+        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
         enableLocationVC.popoverPresentationController?.delegate = self
         enableLocationVC.popoverPresentationController?.sourceView = view
         enableLocationVC.popoverPresentationController?.canOverlapSourceViewRect = true
@@ -1299,7 +1298,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     // MARK: - Progress
     
-    @objc func incrementProgress() {
+    func incrementProgress() {
         guard !isProgressHidden && progressView.progress <= 0.69 else {
             return
         }
@@ -1309,11 +1308,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
-    @objc func hideProgress() {
+    func hideProgress() {
         UIView.animate(withDuration: 0.3, animations: { self.progressView.alpha = 0 } )
     }
     
-    @objc func showProgress() {
+    func showProgress() {
         progressView.alpha = 1
     }
     
@@ -2014,12 +2013,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
-            attributedTitle.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: theme.colors.link, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.link, range: NSMakeRange(0, attributedTitle.length))
 
         } else {
             attributedTitle = NSMutableAttributedString(string: title)
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: theme.colors.primaryText, range: NSMakeRange(0, attributedTitle.length))
+            attributedTitle.addAttribute(NSForegroundColorAttributeName, value: theme.colors.primaryText, range: NSMakeRange(0, attributedTitle.length))
         }
         
         UIView.performWithoutAnimation {
@@ -2163,7 +2162,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         return completions
     }
     
-    @objc public func showNearbyArticles() {
+    public func showNearbyArticles() {
         guard let _ = view else { // force view instantiation
             return
         }
@@ -2176,7 +2175,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocation(self)
     }
     
-    @objc public func showArticleURL(_ articleURL: URL) {
+    public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation
             return
@@ -2209,7 +2208,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
-    @objc func updateSearchCompletionsFromSearchBarText() {
+    func updateSearchCompletionsFromSearchBarText() {
         switch (currentSearchFilter) {
         case .top:
             updateSearchCompletionsFromSearchBarTextForTopArticles()

@@ -10,6 +10,7 @@
 #import "WMFSearchResultsTableViewController.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
+#import "WMFSearchDataSource.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
@@ -86,15 +87,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Accessors
 
 - (NSString *)currentResultsSearchTerm {
-    return [[self.resultsListController searchResults] searchTerm];
+    return [[self.resultsListController.dataSource searchResults] searchTerm];
 }
 
 - (NSURL *)currentResultsSearchSiteURL {
-    return [self.resultsListController searchSiteURL];
+    return [self.resultsListController.dataSource searchSiteURL];
 }
 
 - (NSString *)searchSuggestion {
-    return [[self.resultsListController searchResults] searchSuggestion];
+    return [[self.resultsListController.dataSource searchResults] searchSuggestion];
 }
 
 - (WMFSearchFetcher *)fetcher {
@@ -245,7 +246,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListDataSourceTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
@@ -389,6 +390,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)didCancelSearch {
     [self setSearchFieldText:nil];
     [self updateSearchSuggestion:nil];
+    self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
     [self.resultsListController wmf_hideEmptyView];
 }
@@ -451,10 +453,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  return;
                                              }
 
-                                             self.resultsListController.searchResults = results;
-                                             self.resultsListController.searchSiteURL = url;
-                                             [self.resultsListController.tableView reloadData];
-                             
+                                             /*
+                                              HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
+                                              collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
+                                              */
+                                             WMFSearchDataSource *dataSource =
+                                                 [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
+                                                                                      searchResults:results];
+
+                                             self.resultsListController.dataSource = dataSource;
+
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 

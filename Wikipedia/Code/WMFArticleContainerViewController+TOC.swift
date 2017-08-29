@@ -126,7 +126,7 @@ extension WMFArticleViewController {
     /**
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
     */
-    @objc public func createTableOfContentsViewControllerIfNeeded() {
+    public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
             let semanticContentAttribute:UISemanticContentAttribute = MWLanguageInfo.articleLanguageIsRTL(article) ? .forceRightToLeft : .forceLeftToRight
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: self.theme ?? Theme.standard)
@@ -136,7 +136,7 @@ extension WMFArticleViewController {
     /**
      Append a read more section to the table of contents.
      */
-    @objc public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
+    public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
         guard let tvc = self.tableOfContentsViewController else { return; }
 
@@ -167,7 +167,7 @@ extension WMFArticleViewController {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
     }
     
-    @objc public func selectTableOfContentsItemsForSections(_ sections: [MWKSection], animated: Bool) {
+    public func selectTableOfContentsItemsForSections(_ sections: [MWKSection], animated: Bool) {
         tableOfContentsViewController?.selectItems(sections, animated: animated)
     }
 }

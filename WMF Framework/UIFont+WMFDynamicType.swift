@@ -174,11 +174,11 @@ public extension UITraitCollection {
 }
 public extension UIFont {
 
-    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
         return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.main.traitCollection)
     }
     
-    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
+    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .system else {
             if #available(iOSApplicationExtension 10.0, *) {
@@ -199,13 +199,13 @@ public extension UIFont {
         case .georgia:
             return UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
         case .systemBlack:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightBlack)
         case .systemMedium:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
         case .systemBold:
             return UIFont.boldSystemFont(ofSize: size)
         case .systemHeavy:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
+            return UIFont.systemFont(ofSize: size, weight: UIFontWeightHeavy)
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             return nil
