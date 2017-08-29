@@ -79,10 +79,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote)
     }
     
-    override open func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-    }
-    
     @objc var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden

@@ -69,9 +69,8 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         collectionView.backgroundColor = .clear
     }
     
-    override public func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        let backgroundColor = labelBackgroundColor
-        timelineView.backgroundColor = backgroundColor
+    override public func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        timelineView.backgroundColor = labelBackgroundColor
     }
 }

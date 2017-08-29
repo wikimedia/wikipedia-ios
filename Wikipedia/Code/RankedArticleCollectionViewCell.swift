@@ -10,8 +10,8 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         super.setup()
     }
     
-    override open func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
+    override open func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
         rankView.labelBackgroundColor = labelBackgroundColor
     }
     

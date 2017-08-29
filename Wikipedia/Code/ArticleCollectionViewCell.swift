@@ -54,10 +54,9 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageView.wmf_reset()
         updateFonts(with: traitCollection)
     }
-    
-    override open func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        let labelBackgroundColor = self.labelBackgroundColor
+
+    override open func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
         descriptionLabel.backgroundColor = labelBackgroundColor
         extractLabel?.backgroundColor = labelBackgroundColor
