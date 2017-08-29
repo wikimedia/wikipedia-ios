@@ -198,7 +198,7 @@ open class SWStepSlider: UIControl {
     
     // MARK: - Tap Gesture Recognizer
     
-    @objc func handleTap(_ sender: UIGestureRecognizer) {
+    func handleTap(_ sender: UIGestureRecognizer) {
         if !self.dragging {
             let pointTapped: CGPoint = sender.location(in: self)
             

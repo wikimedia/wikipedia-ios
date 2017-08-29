@@ -8,7 +8,7 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
+    required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
         self.stories = stories
         self.dataStore = dataStore
         super.init()

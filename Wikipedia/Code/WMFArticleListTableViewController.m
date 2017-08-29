@@ -23,8 +23,6 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 

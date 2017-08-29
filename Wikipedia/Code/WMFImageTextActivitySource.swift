@@ -13,7 +13,7 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         return String()
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
         
         var text: String?
 

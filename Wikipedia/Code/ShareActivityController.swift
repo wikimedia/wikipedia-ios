@@ -1,7 +1,7 @@
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
-    @objc init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
+    init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
         let article = userDataStore.fetchArticle(with: articleURL)
         var items = [Any]()
         
@@ -28,7 +28,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    @objc init(article: WMFArticle, context: AnalyticsContextProviding) {
+    init(article: WMFArticle, context: AnalyticsContextProviding) {
         let tracker = PiwikTracker.sharedInstance()
         tracker?.wmf_logActionShare(inContext: context, contentType: article)
         
@@ -56,7 +56,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+    init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
         
@@ -77,7 +77,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    @objc init(article: MWKArticle, image: UIImage?, title: String) {
+    init(article: MWKArticle, image: UIImage?, title: String) {
         var queryItem: URLQueryItem
         var items = [Any]()
         
@@ -103,7 +103,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [])
     }
     
-    @objc init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
+    init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
         var items = [Any]()
         
         items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo),WMFImageURLActivitySource(info: imageInfo), imageDownload.image.staticImage])

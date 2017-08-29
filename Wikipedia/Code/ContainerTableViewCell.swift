@@ -1,6 +1,6 @@
 import UIKit
 
-class ContainerTableViewCell: UITableViewCell {
+class ContainerTableViewCell: SSBaseTableCell {
 
     var collectionViewCell: UICollectionViewCell!
     

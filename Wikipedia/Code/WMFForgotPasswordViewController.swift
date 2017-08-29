@@ -85,7 +85,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
         sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
-    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

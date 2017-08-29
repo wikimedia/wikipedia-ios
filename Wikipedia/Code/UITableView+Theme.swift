@@ -3,7 +3,7 @@ import WMF
 
 // Only use this for SSTableViews where the header and footer aren't easily accessible or updatable with a call to [UITableView reloadData]
 extension UITableView {
-    @objc public func wmf_applyThemeToHeadersAndFooters(_ theme: Theme) {
+    public func wmf_applyThemeToHeadersAndFooters(_ theme: Theme) {
         wmf_recursivelyApply(theme: theme, isInHeaderOrFooter: false)
     }
 }

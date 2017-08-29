@@ -10,7 +10,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     var libraries:[LibraryUsed] = []
     @IBOutlet weak var tableView: UITableView!
     
-    @objc public static let storyboardName = "LibrariesUsed"
+    public static let storyboardName = "LibrariesUsed"
     
     private static let cellReuseIdentifier = "org.wikimedia.libraries.used.cell"
     private static let dataFileName = "LibrariesUsed.plist"
@@ -22,7 +22,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     
     fileprivate var theme = Theme.standard
 
-    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

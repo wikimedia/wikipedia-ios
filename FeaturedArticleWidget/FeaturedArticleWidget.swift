@@ -143,7 +143,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         updateView(maximumSize: maxSize, isExpanded: isExpanded)
     }
     
-    @objc func saveButtonPressed() {
+    func saveButtonPressed() {
         guard let article = self.article, let articleKey = article.key else {
             return
         }
@@ -152,7 +152,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         collapsedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
     }
 
-    @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
+    func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
         guard tapGR.state == .recognized else {
             return
         }

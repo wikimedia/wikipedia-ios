@@ -77,7 +77,7 @@ extension UIView {
         return fitFrame
     }
     
-    @objc public func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    public func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
         return wmf_preferredFrame(at: point, maximumViewSize: size, minimumLayoutAreaSize: size, horizontalAlignment: horizontalAlignment, verticalAlignment: .top, apply: apply)
     }

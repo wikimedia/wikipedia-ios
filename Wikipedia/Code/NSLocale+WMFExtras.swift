@@ -33,18 +33,18 @@ extension NSLocale {
         return locale ?? Locale.autoupdatingCurrent
     }
     
-    @objc public static func wmf_isCurrentLocaleEnglish() -> Bool {
+    public static func wmf_isCurrentLocaleEnglish() -> Bool {
         guard let langCode = (NSLocale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
             return false
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
 
-    @objc public func wmf_localizedLanguageNameForCode(_ code: String) -> String? {
+    public func wmf_localizedLanguageNameForCode(_ code: String) -> String? {
         return (self as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: code)
     }
     
-    @objc public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
+    public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
         var uniqueLanguageCodes = [String]()
         for preferredLanguage in languages {
             var components = preferredLanguage.lowercased().components(separatedBy: "-")
@@ -65,13 +65,13 @@ extension NSLocale {
         return uniqueLanguageCodes
     }
     
-    @objc public static var wmf_preferredLanguageCodes: [String] {
+    public static var wmf_preferredLanguageCodes: [String] {
         get {
             return wmf_uniqueLanguageCodesForLanguages(preferredLanguages)
         }
     }
     
-    @objc public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
+    public static func wmf_acceptLanguageHeaderForLanguageCodes(_ languageCodes: [String]) -> String {
         let count: Double = Double(languageCodes.count)
         var q: Double = 1.0
         let qDelta = 1.0/count
@@ -89,7 +89,7 @@ extension NSLocale {
         return acceptLanguageString
     }
     
-    @objc public static var wmf_acceptLanguageHeaderForPreferredLanguages: String {
+    public static var wmf_acceptLanguageHeaderForPreferredLanguages: String {
         get {
             return wmf_acceptLanguageHeaderForPreferredLanguagesGloabl
         }

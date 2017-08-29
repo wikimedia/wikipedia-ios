@@ -31,7 +31,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     public var funnel: CreateAccountFunnel?
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
-    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+    func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -39,7 +39,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         save()
     }
 
-    @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,

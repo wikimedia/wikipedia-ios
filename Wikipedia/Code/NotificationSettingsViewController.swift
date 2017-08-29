@@ -172,7 +172,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         return cell
     }
     
-    @objc func handleSwitchValueChange(_ sender: UISwitch) {
+    func handleSwitchValueChange(_ sender: UISwitch) {
         // FIXME: hardcoded item below
         let item = sections[1].items[0]
         if let switchItem = item as? NotificationSettingsSwitchItem {

@@ -11,14 +11,14 @@ extension UICollectionViewController {
 }
 
 extension WMFArticleListTableViewController {
-    @objc func scrollToTop(_ isScrollable: Bool) {
+    func scrollToTop(_ isScrollable: Bool) {
         guard isScrollable else { return }
         scrollToFirstIndexPath()
     }
 }
 
 extension ExploreViewController {
-    @objc func scrollToTop() {
+    func scrollToTop() {
         guard collectionViewController.canScrollToTop else { return }
         collectionViewController.scrollToFirstIndexPath()
         showSearchBar(animated: true)

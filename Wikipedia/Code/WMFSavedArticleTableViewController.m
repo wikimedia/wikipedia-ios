@@ -35,6 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];
     articleRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL"];
     articleRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];

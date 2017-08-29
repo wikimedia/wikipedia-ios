@@ -1,11 +1,9 @@
-#import "WMFArticleListTableViewController.h"
+#import "WMFArticleListDataSourceTableViewController.h"
+#import "WMFSearchDataSource.h"
 
-@class WMFSearchResults;
+@interface WMFSearchResultsTableViewController : WMFArticleListDataSourceTableViewController
 
-@interface WMFSearchResultsTableViewController : WMFArticleListTableViewController
-
-@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property (nonatomic, strong, readwrite) WMFSearchResults *searchResults;
+@property (nonatomic, strong) WMFSearchDataSource *dataSource;
 
 - (BOOL)isDisplayingResultsForSearchTerm:(NSString *)searchTerm fromSiteURL:(NSURL *)siteURL;
 

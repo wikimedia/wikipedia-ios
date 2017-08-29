@@ -8,8 +8,8 @@ import UIKit
 @objc(WMFReadingThemesControlsViewController)
 open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
-    @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme = Theme.standard
     
@@ -37,7 +37,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     var visible = false
     
-    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
+    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         }
     }
     
-    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
+    open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
@@ -140,7 +140,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         return "Article"
     }
     
-    @objc func screenBrightnessChangedInApp(notification: Notification){
+    func screenBrightnessChangedInApp(notification: Notification){
         brightnessSlider.value = Float(UIScreen.main.brightness)
     }
     

@@ -316,7 +316,7 @@
 "saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하겠습니까?";
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
-"saved-title" = "저장된 문서";
+"saved-title" = "저장되었습니다";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-recent-clear-cancel" = "취소";

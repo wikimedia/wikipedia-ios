@@ -163,7 +163,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     }
     
-    @objc func clearButtonPressed() {
+    func clearButtonPressed() {
         delegate?.placeSearchSuggestionControllerClearButtonPressed(self)
     }
     
