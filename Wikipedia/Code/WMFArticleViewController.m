@@ -13,7 +13,6 @@
 #import "WMFShareOptionsController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
-#import "SSArrayDataSource.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
