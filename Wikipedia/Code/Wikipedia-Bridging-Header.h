@@ -25,7 +25,7 @@
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
-#import "WMFArticleListDataSourceTableViewController.h"
+#import "WMFArticleListTableViewController.h"
 #import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
@@ -43,6 +43,8 @@
 #import "WMFCVLMetrics.h"
 #import "WMFSearchButton.h"
 #import "WMFCustomDeleteButtonTableViewCell.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIButton+WMFButton.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

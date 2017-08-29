@@ -40,8 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     
     NSFetchRequest *articleRequest = [WMFArticle fetchRequest];

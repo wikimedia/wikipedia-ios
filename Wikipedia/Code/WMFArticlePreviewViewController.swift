@@ -34,7 +34,7 @@ open class WMFArticlePreviewViewController: UIViewController {
     }
     
     
-    open var collapseImageAndWidenLabels: Bool = true {
+    @objc open var collapseImageAndWidenLabels: Bool = true {
         didSet {
             imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
             titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 8
