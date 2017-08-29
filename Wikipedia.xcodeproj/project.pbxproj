@@ -108,6 +108,7 @@
 		192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
+		8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -472,10 +473,6 @@
 		B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
-		B34B0EE21EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
-		B34B0EE31EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
-		B34B0EE41EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
-		B34B0EE51EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
 		B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A341EE1F69E0075953E /* EventLoggingService.swift */; };
 		B3632E801EE5F98F007A2464 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A331EE1F69E0075953E /* EventCapsule.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
@@ -751,7 +748,6 @@
 		D80ED3181EE57F4800CE8C50 /* WMFAuthLoginInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C7F1E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift */; };
 		D80ED3191EE57F4800CE8C50 /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* PreviewAndSaveViewController.m */; };
 		D80ED31A1EE57F4800CE8C50 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */; };
-		D80ED31B1EE57F4800CE8C50 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */; };
 		D80ED31D1EE57F4800CE8C50 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
 		D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
@@ -3054,6 +3050,7 @@
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
+		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B00DDEDA1DB4B76B00615FA2 /* UIView+WMFSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+WMFSubviews.swift"; path = "Wikipedia/Code/UIView+WMFSubviews.swift"; sourceTree = SOURCE_ROOT; };
 		B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeContainerViewController.swift; path = Wikipedia/Code/WMFWelcomeContainerViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -3747,7 +3744,6 @@
 		B3369A331EE1F69E0075953E /* EventCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventCapsule.swift; path = "WMF Framework/EventCapsule.swift"; sourceTree = SOURCE_ROOT; };
 		B3369A341EE1F69E0075953E /* EventLoggingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventLoggingService.swift; path = "WMF Framework/EventLoggingService.swift"; sourceTree = SOURCE_ROOT; };
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
-		B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSTextAttachment+WMFExtras.swift"; path = "../../../WMF Framework/NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLoggingServiceTests.swift; sourceTree = "<group>"; };
 		B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockNetworkReachabilityManager.swift; path = WikipediaUnitTests/Code/MockNetworkReachabilityManager.swift; sourceTree = SOURCE_ROOT; };
@@ -3829,8 +3825,7 @@
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wikipedia/Images.xcassets; sourceTree = "<group>"; };
-		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D801C8521EB8E131001FA294 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D801C8541EB8E131001FA294 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D801C8551EB8E131001FA294 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -4658,8 +4653,7 @@
 				B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */,
 			);
 			name = EditSummary;
-			path = Wikipedia/Code/EditSummary;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		042244FA197F5E09005DD0BF /* AbuseFilterAlerts */ = {
 			isa = PBXGroup;
@@ -4671,8 +4665,7 @@
 				B0E806D71C0CEB850065EBC0 /* BulletedLabel.xib */,
 			);
 			name = AbuseFilterAlerts;
-			path = Wikipedia/Code/AbuseFilterAlerts;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04292FFB185FC026002A13FC /* Style Defines */ = {
 			isa = PBXGroup;
@@ -4680,8 +4673,7 @@
 				B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */,
 			);
 			name = "Style Defines";
-			path = Wikipedia/Code/Defines;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		042A5B1419253D2A0095E172 /* View Controller */ = {
 			isa = PBXGroup;
@@ -4695,8 +4687,7 @@
 				B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */,
 			);
 			name = "View Controller";
-			path = Wikipedia/Code/Navigation;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0442F57C1900718600F55DF9 /* Fonts */ = {
 			isa = PBXGroup;
@@ -4720,8 +4711,7 @@
 				B011FA471D470F4700AD7C5E /* FindInPage */,
 			);
 			name = WebView;
-			path = Wikipedia/Code/WebView;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0449E63218A9844000D51524 /* Login */ = {
 			isa = PBXGroup;
@@ -4732,8 +4722,7 @@
 				B0C6BE4D1E45255D0033BD6E /* Change Password */,
 			);
 			name = Login;
-			path = Wikipedia/Code/Login;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		044BD6B218849AD000FFE4BE /* SectionEditor */ = {
 			isa = PBXGroup;
@@ -4743,8 +4732,7 @@
 				B0E806F81C0CEBC70065EBC0 /* SectionEditorViewController.m */,
 			);
 			name = SectionEditor;
-			path = Wikipedia/Code/SectionEditor;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		045D871D19FAD2D00035C1F9 /* About The App */ = {
 			isa = PBXGroup;
@@ -4755,8 +4743,7 @@
 				B0EFCD761EBFBC6B008F36E5 /* Libraries Used */,
 			);
 			name = "About The App";
-			path = Wikipedia/Code/About;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0463639518A844380049EE4F /* Keychain */ = {
 			isa = PBXGroup;
@@ -4764,8 +4751,7 @@
 				B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */,
 			);
 			name = Keychain;
-			path = Wikipedia/Code/Keychain;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0487041519F824D700B7D307 /* Networking */ = {
 			isa = PBXGroup;
@@ -4778,8 +4764,7 @@
 				B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */,
 			);
 			name = Networking;
-			path = Wikipedia/Code/Networking;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0487045619F8262600B7D307 /* Fetchers */ = {
 			isa = PBXGroup;
@@ -4809,8 +4794,7 @@
 				B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */,
 			);
 			name = AccountCreation;
-			path = Wikipedia/Code/AccountCreation;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04B7B9BA18B5569600A63551 /* Captcha */ = {
 			isa = PBXGroup;
@@ -4820,8 +4804,7 @@
 				B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */,
 			);
 			name = Captcha;
-			path = Wikipedia/Code/Captcha;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
@@ -4837,8 +4820,7 @@
 				D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */,
 			);
 			name = Categories;
-			path = Wikipedia/Code/Categories;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04C757621A1A9DC50084AC39 /* RecentSearches */ = {
 			isa = PBXGroup;
@@ -4847,8 +4829,7 @@
 				B0E806EA1C0CEBA40065EBC0 /* RecentSearchesViewController.m */,
 			);
 			name = RecentSearches;
-			path = Wikipedia/Code/RecentSearches;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04CCA0BD19830837000E982A /* References */ = {
 			isa = PBXGroup;
@@ -4858,8 +4839,7 @@
 				B014909E1DB96A4C007F5391 /* Phone */,
 			);
 			name = References;
-			path = Wikipedia/Code/References;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04DD89AE18BFE63A00DD5DAD /* Preview */ = {
 			isa = PBXGroup;
@@ -4871,8 +4851,7 @@
 				B0E804031C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard */,
 			);
 			name = Preview;
-			path = Wikipedia/Code/Preview;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		04F27B6D18FE0F2E00EDD838 /* PageHistory */ = {
 			isa = PBXGroup;
@@ -4885,8 +4864,7 @@
 				B0E806CE1C0CEB6E0065EBC0 /* PageHistoryViewController.m */,
 			);
 			name = PageHistory;
-			path = Wikipedia/Code/PageHistory;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E03E27E1B82EF7600C1FBD7 /* Nearby */ = {
 			isa = PBXGroup;
@@ -4897,8 +4875,7 @@
 				B0E802FD1C0CD5000065EBC0 /* WMFLocationSearchFetcher.m */,
 			);
 			name = Nearby;
-			path = Wikipedia/Code/Fetcher;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E03E2861B83948B00C1FBD7 /* Views */ = {
 			isa = PBXGroup;
@@ -4907,8 +4884,7 @@
 				0E52FD671DA40F8000587426 /* Headers and Footers */,
 			);
 			name = Views;
-			path = Wikipedia/Code/Views;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E03E2961B844D7700C1FBD7 /* Location Manager */ = {
 			isa = PBXGroup;
@@ -4925,8 +4901,7 @@
 				BCCFC44B1C84BAE0009D3613 /* CLLocation+WMFComparison.m */,
 			);
 			name = "Location Manager";
-			path = "Wikipedia/Code/Location Manager";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E09EAC61C4426AC0058F2D8 /* Results List */ = {
 			isa = PBXGroup;
@@ -5004,8 +4979,7 @@
 				B0E803271C0CD6C80065EBC0 /* WMFSearchResponseSerializer.m */,
 			);
 			name = Related;
-			path = Wikipedia/Code/Fetcher;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E26B0541C0E28E60004D687 /* Welcome */ = {
 			isa = PBXGroup;
@@ -5020,7 +4994,6 @@
 				0E26B08B1C0FD80B0004D687 /* Analytics */,
 			);
 			name = Welcome;
-			path = "UI-V5";
 			sourceTree = "<group>";
 		};
 		0E26B0881C0FD7E00004D687 /* Containers */ = {
@@ -5205,8 +5178,7 @@
 				BC7FA4C11BD6A69E006CA1A3 /* Items */,
 			);
 			name = "Table of Contents";
-			path = "Wikipedia/Code/Table of Contents";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E52FD631DA4008A00587426 /* Content Display */ = {
 			isa = PBXGroup;
@@ -5438,8 +5410,7 @@
 				BC45D5B71C330D27007C72F3 /* About the article */,
 			);
 			name = "Article Footer";
-			path = Wikipedia/Code/Footer;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E7AAEEA1C21F4160046B5B6 /* WIkimedia Event Logging */ = {
 			isa = PBXGroup;
@@ -5554,8 +5525,7 @@
 				BC23E4DE1C223EAB00B5AFDE /* Revisions */,
 			);
 			name = Networking;
-			path = "Wikipedia/Code/Article Fetching";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0E9DFEB11BDEBAEA0032606E /* Animation */ = {
 			isa = PBXGroup;
@@ -5564,8 +5534,7 @@
 				B0E803701C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift */,
 			);
 			name = Animation;
-			path = Wikipedia/Code/Animation;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0EAED8551BE9507C006B01E6 /* Networking */ = {
 			isa = PBXGroup;
@@ -5575,8 +5544,7 @@
 				B0E803431C0CD7980065EBC0 /* WMFSearchFetcher.m */,
 			);
 			name = Networking;
-			path = Wikipedia/Code/Fetcher;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0EAED8561BE95090006B01E6 /* View Controller */ = {
 			isa = PBXGroup;
@@ -5659,8 +5627,7 @@
 				0E52FD661DA40EAD00587426 /* Empty */,
 			);
 			name = Cells;
-			path = "Wikipedia/Code/Table View Cell";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0EE151921BF540420039828A /* Compass View */ = {
 			isa = PBXGroup;
@@ -5669,8 +5636,7 @@
 				B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */,
 			);
 			name = "Compass View";
-			path = "Wikipedia/Code/Compass View";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		0EF2249B1CC5536B00FDF78E /* Cell */ = {
 			isa = PBXGroup;
@@ -5721,8 +5687,7 @@
 				BC45D5501C31EB4E007C72F3 /* Utilities */,
 			);
 			name = Style;
-			path = Wikipedia/Code/Style;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		229C20D91CB08FA500BC17AD /* PageHistory */ = {
 			isa = PBXGroup;
@@ -5809,7 +5774,6 @@
 				B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */,
 			);
 			name = ImageTags;
-			path = ../Wikipedia/WebView;
 			sourceTree = "<group>";
 		};
 		B05BCF1C1D7A2EC100166C12 /* Wikipedia Zero */ = {
@@ -5993,7 +5957,6 @@
 				BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */,
 			);
 			name = Revisions;
-			path = ../Fetchers;
 			sourceTree = "<group>";
 		};
 		BC23E4DF1C223F1000B5AFDE /* Content */ = {
@@ -6151,10 +6114,8 @@
 			children = (
 				B0E807301C0CED810065EBC0 /* WMFGCDHelpers.h */,
 				0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */,
-				B34B0EE11EA0201300716D75 /* NSTextAttachment+WMFExtras.swift */,
 			);
 			name = "Grand Central Dispatch";
-			path = ../Wikipedia/Code/Global;
 			sourceTree = "<group>";
 		};
 		BC45D5691C32E79C007C72F3 /* Paging Collection View */ = {
@@ -6227,7 +6188,6 @@
 				B0E807311C0CED810065EBC0 /* WMFHashing.h */,
 			);
 			name = NSObject;
-			path = "../Wikipedia/Code/mw-utils";
 			sourceTree = "<group>";
 		};
 		BC45D5731C32EB47007C72F3 /* Logging */ = {
@@ -6256,7 +6216,6 @@
 				B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */,
 			);
 			name = Utilities;
-			path = ../Categories;
 			sourceTree = "<group>";
 		};
 		BC45D5761C32EE13007C72F3 /* UIView */ = {
@@ -6486,7 +6445,6 @@
 				0EC0447D1C7974C10033D773 /* Share A Fact */,
 			);
 			name = Sharing;
-			path = Wikipedia/Code;
 			sourceTree = "<group>";
 		};
 		BC45D5A11C33042B007C72F3 /* Editing */ = {
@@ -6497,7 +6455,6 @@
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
 			);
 			name = Editing;
-			path = "../View Controllers";
 			sourceTree = "<group>";
 		};
 		BC45D5A21C330480007C72F3 /* Model */ = {
@@ -6512,7 +6469,6 @@
 				B0E803471C0CD7AA0065EBC0 /* WMFSearchResults.m */,
 			);
 			name = Model;
-			path = ../Fetcher;
 			sourceTree = "<group>";
 		};
 		BC45D5A51C330734007C72F3 /* Views */ = {
@@ -6619,8 +6575,7 @@
 				BC5BC49B1BCEAC5200062619 /* Saved Page List */,
 			);
 			name = MWKList;
-			path = WikipediaUnitTests/Code/MWKList;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC5BC49A1BCEAC4A00062619 /* History List */ = {
 			isa = PBXGroup;
@@ -6632,8 +6587,7 @@
 				B0E808D21C0D17A60065EBC0 /* MWKHistoryListUniquenessTests.m */,
 			);
 			name = "History List";
-			path = "WikipediaUnitTests/Code/History List";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC5BC49B1BCEAC5200062619 /* Saved Page List */ = {
 			isa = PBXGroup;
@@ -6642,8 +6596,7 @@
 				B0E808DE1C0D17C20065EBC0 /* MWKSavedPageListTogglingTests.m */,
 			);
 			name = "Saved Page List";
-			path = "WikipediaUnitTests/Code/Saved Page List";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC5BC4AC1BCEF95100062619 /* Recent Searches */ = {
 			isa = PBXGroup;
@@ -6652,8 +6605,7 @@
 				B0E808C91C0D178E0065EBC0 /* MWKRecentSearchesSharedTests.m */,
 			);
 			name = "Recent Searches";
-			path = "WikipediaUnitTests/Code/Recent Searches";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC5BC4B41BCEFADF00062619 /* Random */ = {
 			isa = PBXGroup;
@@ -6663,8 +6615,7 @@
 				B0E808B21C0D16EA0065EBC0 /* MWKSite+Random.m */,
 			);
 			name = Random;
-			path = WikipediaUnitTests/Code/Random;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
@@ -6674,8 +6625,7 @@
 				BCA15B111C0E9B1600D0A3EA /* Gallery */,
 			);
 			name = Images;
-			path = WikipediaUnitTests/Code/Images;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC69C3101AB0C16B0090B039 /* Controller */ = {
 			isa = PBXGroup;
@@ -6685,8 +6635,7 @@
 				B0E8035D1C0CD8580065EBC0 /* WMFImageInfoController.m */,
 			);
 			name = Controller;
-			path = Wikipedia/Code/Fetcher;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
@@ -6718,8 +6667,7 @@
 				B0E8036C1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift */,
 			);
 			name = "View Controller";
-			path = "Wikipedia/Code/View Controller";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC7FA4C01BD6A693006CA1A3 /* Views */ = {
 			isa = PBXGroup;
@@ -6730,8 +6678,7 @@
 				D84692DF1D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib */,
 			);
 			name = Views;
-			path = Wikipedia/Code/Views;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC7FA4C11BD6A69E006CA1A3 /* Items */ = {
 			isa = PBXGroup;
@@ -6742,8 +6689,7 @@
 				B0E8037E1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift */,
 			);
 			name = Items;
-			path = Wikipedia/Code/Items;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BC8309941A7BF935003FC5C7 /* Tests */ = {
 			isa = PBXGroup;
@@ -6791,8 +6737,7 @@
 				0E9B9E341CBF3262001E4C3C /* Overlay View */,
 			);
 			name = Gallery;
-			path = Wikipedia/Code/Gallery;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
 			isa = PBXGroup;
@@ -6840,8 +6785,7 @@
 				B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */,
 			);
 			name = Utilities;
-			path = WikipediaUnitTests/Code/Utilities;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCB58F401A890D8200465627 /* Categories */ = {
 			isa = PBXGroup;
@@ -6854,8 +6798,7 @@
 				BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */,
 			);
 			name = Categories;
-			path = Wikipedia/Code/Categories;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCB669621A83DB8100C7B1FE /* Serializers */ = {
 			isa = PBXGroup;
@@ -6865,8 +6808,7 @@
 				B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */,
 			);
 			name = Serializers;
-			path = Wikipedia/Code/Serializers;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCB669A31A83F6C300C7B1FE /* Model */ = {
 			isa = PBXGroup;
@@ -6898,8 +6840,7 @@
 				B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */,
 			);
 			name = MediaWikiKitTests;
-			path = WikipediaUnitTests/Code/MediaWikiKitTests;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCCB813F1C110721008BC602 /* Picture of the Day */ = {
 			isa = PBXGroup;
@@ -6910,7 +6851,6 @@
 				BCCB813C1C110702008BC602 /* NSDate+WMFPOTDTitle.m */,
 			);
 			name = "Picture of the Day";
-			path = ../Feed;
 			sourceTree = "<group>";
 		};
 		BCCB81461C110857008BC602 /* POTD */ = {
@@ -6921,7 +6861,6 @@
 				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */,
 			);
 			name = POTD;
-			path = "../Picture of the Day";
 			sourceTree = "<group>";
 		};
 		BCD41E071B11D2ED00231BB1 /* Fixture Utilities */ = {
@@ -6938,8 +6877,7 @@
 				B0E808791C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m */,
 			);
 			name = "Fixture Utilities";
-			path = "WikipediaUnitTests/Code/Fixture Utilities";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCD41E081B11D30B00231BB1 /* Persistence Utilities */ = {
 			isa = PBXGroup;
@@ -6950,8 +6888,7 @@
 				B0E808811C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m */,
 			);
 			name = "Persistence Utilities";
-			path = "WikipediaUnitTests/Code/Persistence Utilities";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
 			isa = PBXGroup;
@@ -7066,8 +7003,7 @@
 				BCD67E851C1F169B005179E1 /* Fetcher */,
 			);
 			name = "Image Info";
-			path = "Wikipedia/Code/Image Info";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCD67E851C1F169B005179E1 /* Fetcher */ = {
 			isa = PBXGroup;
@@ -7076,8 +7012,7 @@
 				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 			);
 			name = Fetcher;
-			path = Wikipedia/Code/Fetcher;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
 			isa = PBXGroup;
@@ -7092,8 +7027,7 @@
 				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
 			);
 			name = "Face Detection";
-			path = "Wikipedia/Code/Face Detection";
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		BCDC489C1BF0F38900E6858A /* Featured Article */ = {
 			isa = PBXGroup;
@@ -7102,14 +7036,12 @@
 				B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */,
 			);
 			name = "Featured Article";
-			path = Wikipedia/Code/Feed;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia */,
-				D4991453181D51DE00E6073C /* Images.xcassets */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
@@ -7161,7 +7093,6 @@
 				D4991438181D51DE00E6073C /* Foundation.framework */,
 				D499143A181D51DE00E6073C /* CoreGraphics.framework */,
 				D499143C181D51DE00E6073C /* UIKit.framework */,
-				D499145A181D51DF00E6073C /* XCTest.framework */,
 				0E8380641D64989F0076EDE4 /* NotificationCenter.framework */,
 				D895D0841D9C1EB8005418C1 /* UserNotifications.framework */,
 				D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */,
@@ -7172,6 +7103,7 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
+				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC7C3A371C0FF94A0057F023 /* Code */,
 				BCF012321AD2FA38008D3675 /* assets */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
@@ -7188,8 +7120,7 @@
 				0E7AAEEA1C21F4160046B5B6 /* WIkimedia Event Logging */,
 			);
 			name = Analytics;
-			path = Wikipedia/Code/EventLogging;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		D801C8501EB8E131001FA294 /* Localizations */ = {
 			isa = PBXGroup;
@@ -7494,7 +7425,6 @@
 				D81446051E71771B0078D71E /* WMFBlocksKit.swift */,
 			);
 			name = Collections;
-			path = ../WMFKit;
 			sourceTree = "<group>";
 		};
 		D8494AFC1D6C8D6700337433 /* System */ = {
@@ -7504,7 +7434,6 @@
 				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
 			);
 			name = System;
-			path = ../WMFKit;
 			sourceTree = "<group>";
 		};
 		D8494B011D6C8DBA00337433 /* Parsing */ = {
@@ -7522,7 +7451,6 @@
 				B0E805761C0CE24B0065EBC0 /* WMFDeprecationMacros.h */,
 			);
 			name = Parsing;
-			path = ../WMFKit;
 			sourceTree = "<group>";
 		};
 		D84BF6281DB96D4700E0C85E /* Notifications */ = {
@@ -7662,7 +7590,6 @@
 				D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */,
 			);
 			name = "Columnar Collection View Layout";
-			path = ../Wikipedia/Schema;
 			sourceTree = "<group>";
 		};
 		D87021611EBA63EF000D02D6 /* Localization */ = {
@@ -7805,6 +7732,7 @@
 		D8FA18A91E1BD84D009675C3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */,
 				D84F92401DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.h */,
 				D84F92411DC161DA00114C2F /* NSDictionary+WMFPageViewsSortedByDate.m */,
 				D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */,
@@ -9670,7 +9598,6 @@
 				B0F92C801E3FFEA100B72802 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
-				B34B0EE21EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
 				B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */,
@@ -9960,7 +9887,6 @@
 				D80ED3181EE57F4800CE8C50 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				D80ED3191EE57F4800CE8C50 /* PreviewAndSaveViewController.m in Sources */,
 				D80ED31A1EE57F4800CE8C50 /* ToCInteractionFunnel.m in Sources */,
-				D80ED31B1EE57F4800CE8C50 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D80ED31D1EE57F4800CE8C50 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */,
 				D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */,
@@ -10150,6 +10076,7 @@
 				D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */,
 				D8FA18B11E1BD891009675C3 /* NSBundle+WMFInfoUtils.m in Sources */,
 				D8FA18FB1E1BDA4C009675C3 /* UIImage+WMFStyle.m in Sources */,
+				8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8FA18F31E1BDA35009675C3 /* UIImageView+WMFContentOffset.m in Sources */,
 				D84C36001F323E0900895FA1 /* WMFCVLInfo.m in Sources */,
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
@@ -10480,7 +10407,6 @@
 				D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */,
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
-				B34B0EE51EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				D8A42ABB1E815A9C00D8E281 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D8A42ABD1E815A9C00D8E281 /* WMFAccountLogin.swift in Sources */,
@@ -10959,7 +10885,6 @@
 				D8CE260A1E698E2400DAE2E0 /* LoginFunnel.m in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
 				D8CE260B1E698E2400DAE2E0 /* TabularScrollView.m in Sources */,
-				B34B0EE31EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8CE260C1E698E2400DAE2E0 /* MapUtilities.swift in Sources */,
 				D8CE260D1E698E2400DAE2E0 /* WMFScrollable.swift in Sources */,
 				D8CE260E1E698E2400DAE2E0 /* WKWebView+ElementLocation.m in Sources */,
@@ -11261,7 +11186,6 @@
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8EC3F091E9BDA35006712EB /* LoginFunnel.m in Sources */,
 				D8EC3F0A1E9BDA35006712EB /* TabularScrollView.m in Sources */,
-				B34B0EE41EA0201300716D75 /* NSTextAttachment+WMFExtras.swift in Sources */,
 				D8EC3F0B1E9BDA35006712EB /* MapUtilities.swift in Sources */,
 				D8EC3F0C1E9BDA35006712EB /* WMFScrollable.swift in Sources */,
 				D8EC3F0D1E9BDA35006712EB /* WKWebView+ElementLocation.m in Sources */,
