@@ -36,6 +36,9 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.potdImageView addObserver:self forKeyPath:WMF_SAFE_KEYPATH(self.potdImageView, image) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:&kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image];
+    if (@available(iOS 11.0, *)) {
+        self.potdImageView.accessibilityIgnoresInvertColors = YES;
+    }
     [self wmf_configureSubviewsForDynamicType];
 }
 
