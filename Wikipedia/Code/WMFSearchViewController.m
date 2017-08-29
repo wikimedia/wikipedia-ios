@@ -125,6 +125,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
 
+    if (!hidingRecentSearches) {
+        [self.recentSearchesViewController deselectAllAnimated:animated];
+    }
+
     _recentSearchesHidden = hidingRecentSearches;
 
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0

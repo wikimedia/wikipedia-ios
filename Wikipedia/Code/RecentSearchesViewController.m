@@ -35,6 +35,13 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
     [self applyTheme:self.theme];
 }
 
+- (void)deselectAllAnimated:(BOOL)animated {
+    NSArray *selected = self.table.indexPathsForSelectedRows;
+    for (NSIndexPath *indexPath in selected) {
+        [self.table deselectRowAtIndexPath:indexPath animated:animated];
+    }
+}
+
 - (void)setupTable {
     [self.table registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:RecentSearchesViewControllerCellIdentifier];
 
@@ -159,6 +166,7 @@ static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSear
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.01f;
 }
+
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self wmf_hideKeyboard];
