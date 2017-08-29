@@ -10,6 +10,8 @@
 
 - (void)reloadRecentSearches;
 
+- (void)deselectAllAnimated:(BOOL)animated;
+
 @property (nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
 
 @end
