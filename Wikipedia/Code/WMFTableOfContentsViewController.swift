@@ -34,13 +34,13 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
 
     let semanticContentAttributeOverride: UISemanticContentAttribute
     
-    var displaySide = WMFTableOfContentsDisplaySide.left {
+    @objc var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
             animator?.displaySide = displaySide
         }
     }
     
-    var displayMode = WMFTableOfContentsDisplayMode.modal {
+    @objc var displayMode = WMFTableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
         }
@@ -133,7 +133,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
     }
 
-    open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+    @objc open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
         guard index < items.count else {
             assertionFailure("Trying to select/scroll to an item put of range")
             return

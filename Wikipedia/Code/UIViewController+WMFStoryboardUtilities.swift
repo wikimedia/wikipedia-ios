@@ -9,7 +9,7 @@ extension UIViewController {
      *
      *  @return A new instance of the receiver loaded from the storyboard.
      */
-    class func wmf_viewControllerFromStoryboardNamed(_ storyboardName:String) -> Self {
+    @objc class func wmf_viewControllerFromStoryboardNamed(_ storyboardName:String) -> Self {
         return wmf_viewController(withIdentifier: String(describing: self), fromStoryboardNamed:storyboardName)
     }
 }

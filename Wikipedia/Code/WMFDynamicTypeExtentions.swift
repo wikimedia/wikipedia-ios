@@ -1,7 +1,7 @@
 import Foundation
 
 extension UIView {
-    open func wmf_configureSubviewsForDynamicType() {
+    @objc open func wmf_configureSubviewsForDynamicType() {
         if #available(iOS 10.0, *) {
             for subview in subviews {
                 subview.wmf_configureSubviewsForDynamicType()

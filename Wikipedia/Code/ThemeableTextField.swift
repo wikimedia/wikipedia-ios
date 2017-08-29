@@ -32,7 +32,7 @@ public class ThemeableTextField: UITextField, Themeable {
             guard let newPlaceholder = placeholder else {
                 return
             }
-            attributedPlaceholder = NSAttributedString(string: newPlaceholder, attributes: [NSForegroundColorAttributeName: theme.colors.tertiaryText])
+            attributedPlaceholder = NSAttributedString(string: newPlaceholder, attributes: [NSAttributedStringKey.foregroundColor: theme.colors.tertiaryText])
         }
     }
     

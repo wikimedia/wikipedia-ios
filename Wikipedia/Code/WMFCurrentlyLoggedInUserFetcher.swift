@@ -18,8 +18,8 @@ public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
 public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> Void
 
 @objc public class WMFCurrentlyLoggedInUser: NSObject {
-    var userID: Int
-    var name: String
+    @objc var userID: Int
+    @objc var name: String
     init(userID: Int, name: String) {
         self.userID = userID
         self.name = name

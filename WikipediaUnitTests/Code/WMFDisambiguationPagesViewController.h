@@ -1,6 +1,6 @@
-#import "WMFArticleListDataSourceTableViewController.h"
+#import "WMFArticleListTableViewController.h"
 
-@interface WMFDisambiguationPagesViewController : WMFArticleListDataSourceTableViewController
+@interface WMFDisambiguationPagesViewController : WMFArticleListTableViewController
 
 @property (nonatomic, strong, readonly) NSArray *URLs;
 @property (nonatomic, strong, readonly) NSURL *siteURL;

@@ -13,8 +13,8 @@ class FontSizeSliderViewController: UIViewController {
     
     fileprivate var theme = Theme.standard
     
-    static let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
-    static let WMFArticleFontSizeUpdatedNotification = "WMFArticleFontSizeUpdatedNotification"
+    @objc static let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
+    @objc static let WMFArticleFontSizeUpdatedNotification = "WMFArticleFontSizeUpdatedNotification"
     
     let fontSizeMultipliers = [WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
     

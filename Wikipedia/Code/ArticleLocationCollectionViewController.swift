@@ -8,7 +8,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()

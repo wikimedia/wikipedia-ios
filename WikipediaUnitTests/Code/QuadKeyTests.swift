@@ -34,16 +34,16 @@ class QuadKeyTests: XCTestCase {
                     XCTAssertEqual(coord.longitudePart, lonPart, "lonPart: \(lonPart) != \(coord.longitudePart)")
                     let calculatedLat = QuadKeyDegrees(latitudePart: coord.latitudePart, precision: p)
                     let calculatedLon = QuadKeyDegrees(longitudePart: coord.longitudePart, precision: p)
-                    XCTAssertEqualWithAccuracy(calculatedLat, lat, accuracy: p.deltaLatitude, "latitude is wrong at precision \(p)")
-                    XCTAssertEqualWithAccuracy(calculatedLon, lon,  accuracy: p.deltaLongitude, "longitude is wrong at precision \(p)")
+                    XCTAssertEqual(calculatedLat, lat, accuracy: p.deltaLatitude, "latitude is wrong at precision \(p)")
+                    XCTAssertEqual(calculatedLon, lon,  accuracy: p.deltaLongitude, "longitude is wrong at precision \(p)")
                     
                     if p == 32 {
                         let fullPrecision = QuadKeyPrecision(32)
                         let fullPrecisionCoord = QuadKeyCoordinate(quadKey: fullPrecisionQuadKey)
                         let fullPrecisionCalculatedLat = QuadKeyDegrees(latitudePart: fullPrecisionCoord.latitudePart)
                         let fullPrecisionCalculatedLon = QuadKeyDegrees(longitudePart: fullPrecisionCoord.longitudePart)
-                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLat, lat, accuracy: fullPrecision.deltaLatitude, "full precision latitude is wrong")
-                        XCTAssertEqualWithAccuracy(fullPrecisionCalculatedLon, lon,  accuracy: fullPrecision.deltaLongitude, "full precision longitude is wrong")
+                        XCTAssertEqual(fullPrecisionCalculatedLat, lat, accuracy: fullPrecision.deltaLatitude, "full precision latitude is wrong")
+                        XCTAssertEqual(fullPrecisionCalculatedLon, lon,  accuracy: fullPrecision.deltaLongitude, "full precision longitude is wrong")
                     }
                     lon += 5.25
                 }
@@ -84,8 +84,8 @@ class QuadKeyTests: XCTestCase {
         XCTAssertEqual(validKey.latitude, -90)
         
         validKey = QuadKey(latitude: -0.0, longitude: -0.0)
-        XCTAssertEqualWithAccuracy(validKey.longitude, 0, accuracy: 0.00001)
-        XCTAssertEqualWithAccuracy(validKey.latitude, 0, accuracy: 0.00001)
+        XCTAssertEqual(validKey.longitude, 0, accuracy: 0.00001)
+        XCTAssertEqual(validKey.latitude, 0, accuracy: 0.00001)
     }
     
 }
