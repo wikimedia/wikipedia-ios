@@ -33,6 +33,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) WMFFakeProgressController *fakeProgressController;
+
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
 @property (strong, nonatomic) IBOutlet WMFThemeableTextField *searchField;
 @property (strong, nonatomic) IBOutlet UIView *searchContentContainer;
@@ -168,6 +171,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.fakeProgressController = [[WMFFakeProgressController alloc] initWithProgressView:self.progressView];
+    
     [self configureSearchField];
 
     // move search field offscreen, preparing for transition in viewWillAppear
@@ -400,8 +405,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
     @weakify(self);
 
+    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
+    [self.fakeProgressController start];
+    
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+            [self.fakeProgressController stop];
             @strongify(self);
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
@@ -413,6 +423,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     WMFSuccessIdHandler success = ^(WMFSearchResults *results) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+            [self.fakeProgressController finish];
             @strongify(self);
             if ([searchTerm isEqualToString:results.searchTerm]) {
                 if (results.results.count == 0) {
@@ -438,7 +450,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
         return;
     }
-
+    
+    
     [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                      siteURL:url
                                  resultLimit:WMFMaxSearchResultLimit
@@ -468,7 +481,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                                                   success:success];
                                                  return;
                                              }
-
+                                             
                                              success(results);
                                          });
                                      }];
@@ -585,6 +598,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     self.view.backgroundColor = theme.colors.midBackground;
+    self.searchContentContainer.tintColor = theme.colors.link;
+    self.progressView.tintColor = theme.colors.link;
     self.searchContentContainer.backgroundColor = theme.colors.midBackground;
     self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
     [self.searchField applyTheme:theme];
