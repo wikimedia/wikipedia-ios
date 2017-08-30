@@ -60,8 +60,8 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
         view.addGestureRecognizer(tap)
-        view.addSubview(self.statusBarBackground)
-        view.addSubview(self.closeButton)
+        view.contentView.addSubview(self.statusBarBackground)
+        view.contentView.addSubview(self.closeButton)
         return view
     }()
     
