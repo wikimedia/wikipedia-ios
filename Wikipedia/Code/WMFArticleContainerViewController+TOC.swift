@@ -138,11 +138,11 @@ extension WMFArticleViewController {
         return view
     }
 
-    public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
+    @objc public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }
     
-    public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
+    @objc public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
     }
 }
