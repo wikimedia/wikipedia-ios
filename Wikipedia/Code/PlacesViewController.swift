@@ -18,6 +18,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
+    var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
@@ -143,6 +144,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
+        fakeProgressController = FakeProgressController(progressView: progressView)
+        
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
         
         searchFilterListController = PlaceSearchFilterListController(delegate: self)
@@ -152,9 +155,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
         touchOutsideOverlayView.delegate = self
-
-        // config filter drop down
-     
 
         navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -560,8 +560,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let done = {
             self.searching = false
-            self.progressView.setProgress(1.0, animated: true)
-            self.isProgressHidden = true
+            self.fakeProgressController.finish()
+            self.fakeProgressController.isProgressHidden = true
         }
         
         searching = true
@@ -594,9 +594,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         searchTerm = search.string
         
-        isProgressHidden = false
-        progressView.setProgress(0, animated: false)
-        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3) // TODO: maybe not needed for saved articles
+        self.fakeProgressController.isProgressHidden = false
+        self.fakeProgressController.start()
         
         switch search.filter {
         case .saved:
@@ -1295,40 +1294,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             
         })
     }
-    
-    
-    // MARK: - Progress
-    
-    @objc func incrementProgress() {
-        guard !isProgressHidden && progressView.progress <= 0.69 else {
-            return
-        }
-        
-        let rand = 0.15 + Float(arc4random_uniform(15))/100
-        progressView.setProgress(progressView.progress + rand, animated: true)
-        perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
-    }
-    
-    @objc func hideProgress() {
-        UIView.animate(withDuration: 0.3, animations: { self.progressView.alpha = 0 } )
-    }
-    
-    @objc func showProgress() {
-        progressView.alpha = 1
-    }
-    
-    var isProgressHidden: Bool = false {
-        didSet{
-            if isProgressHidden {
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(incrementProgress), object: nil)
-                perform(#selector(hideProgress), with: nil, afterDelay: 0.7)
-            } else {
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
-                showProgress()
-            }
-        }
-    }
+
     
     // MARK: - Place Grouping
     
@@ -2198,13 +2164,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         didSet {
             if (oldValue == false && isWaitingForSearchSuggestionUpdate == true) {
                 // start progress bar
-                isProgressHidden = false
-                progressView.setProgress(0, animated: false)
-                perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
+                fakeProgressController.isProgressHidden = false
+                fakeProgressController.start()
             } else if (isWaitingForSearchSuggestionUpdate == false) {
                 // stop progress bar
-                self.progressView.setProgress(1.0, animated: true)
-                self.isProgressHidden = true
+                fakeProgressController.finish()
+                fakeProgressController.isProgressHidden = true
             }
         }
     }
