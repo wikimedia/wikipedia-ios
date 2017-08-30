@@ -35,7 +35,7 @@
     static dispatch_once_t onceToken;
     static NSSet<NSString *> *supportedLanguages;
     dispatch_once(&onceToken, ^{
-        supportedLanguages = [NSSet setWithObjects:@"en", @"de", @"sv", @"fr", nil];
+        supportedLanguages = [NSSet setWithObjects:@"en", @"de", @"sv", @"fr", @"es", @"ru", @"pt", @"ar", nil];
     });
     return supportedLanguages;
 }
