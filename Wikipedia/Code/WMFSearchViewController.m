@@ -406,13 +406,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     @weakify(self);
 
     [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
-    self.fakeProgressController.isProgressHidden = NO;
     [self.fakeProgressController start];
     
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-            self.fakeProgressController.isProgressHidden = YES;
+            [self.fakeProgressController stop];
             @strongify(self);
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
@@ -426,7 +425,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
             [self.fakeProgressController finish];
-            self.fakeProgressController.isProgressHidden = YES;
             @strongify(self);
             if ([searchTerm isEqualToString:results.searchTerm]) {
                 if (results.results.count == 0) {

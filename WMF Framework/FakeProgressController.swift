@@ -34,14 +34,20 @@ public class FakeProgressController: NSObject {
     
     @objc public func start() {
         progressView.setProgress(0, animated: false)
+        isProgressHidden = false
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
-    @objc public func finish() {
-       progressView.setProgress(1.0, animated: true)
+    @objc public func stop() {
+        isProgressHidden = true
     }
     
-    @objc public var isProgressHidden: Bool = false {
+    @objc public func finish() {
+        progressView.setProgress(1.0, animated: true)
+        isProgressHidden = true
+    }
+    
+    fileprivate var isProgressHidden: Bool = false {
         didSet{
             if isProgressHidden {
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)

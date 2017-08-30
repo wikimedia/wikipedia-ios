@@ -561,7 +561,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let done = {
             self.searching = false
             self.fakeProgressController.finish()
-            self.fakeProgressController.isProgressHidden = true
         }
         
         searching = true
@@ -594,7 +593,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         searchTerm = search.string
         
-        self.fakeProgressController.isProgressHidden = false
         self.fakeProgressController.start()
         
         switch search.filter {
@@ -2164,12 +2162,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         didSet {
             if (oldValue == false && isWaitingForSearchSuggestionUpdate == true) {
                 // start progress bar
-                fakeProgressController.isProgressHidden = false
                 fakeProgressController.start()
             } else if (isWaitingForSearchSuggestionUpdate == false) {
                 // stop progress bar
                 fakeProgressController.finish()
-                fakeProgressController.isProgressHidden = true
             }
         }
     }
