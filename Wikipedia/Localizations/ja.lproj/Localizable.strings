@@ -68,6 +68,7 @@
 "alert-no-internet" = "インターネットが接続されていません";
 // Fuzzy
 "announcements-dismiss" = "不要です";
+"appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
 "article-about-title" = "この記事について";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
@@ -91,6 +92,7 @@
 "close-button-accessibility-label" = "閉じる";
 "compass-direction" = "$1時の位置";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
+"dark-theme-display-name" = "暗";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
 "edit-summary-choice-linked-words" = "リンクを追加";
@@ -248,6 +250,7 @@
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
+"reading-themes-controls-accessibility-dark-theme-button" = "ダークモード";
 "reading-themes-controls-accessibility-sepia-theme-button" = "セピアテーマ";
 "reference-title" = "情報源$1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今日|昨日|$1日前}}";
@@ -301,6 +304,7 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"theme-dark-display-name" = "暗";
 "theme-default-display-name" = "既定";
 "theme-sepia-display-name" = "セピア";
 "top-read-header-generic" = "ウィキペディア";
