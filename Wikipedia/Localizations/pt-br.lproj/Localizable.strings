@@ -12,6 +12,7 @@
 // Author: Eduardo Addad de Oliveira
 // Author: Fasouzafreitas
 // Author: Felipe L. Ewald
+// Author: Fitoschido
 // Author: Fúlvio
 // Author: HenriqueCrang
 // Author: Luckas
@@ -196,7 +197,7 @@
 "hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, voltar para História";
-"home-button-popover-description" = "Toque no 'W' Para retornar ao feed de Explorar";
+"home-button-popover-description" = "Toque no 'W' para retornar ao feed de Explorar";
 "home-button-popover-title" = "Toque para ir para casa";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
 "home-hide-suggestion-cancel" = "Cancelar";
