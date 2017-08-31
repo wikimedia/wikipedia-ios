@@ -268,7 +268,7 @@ extension ExploreViewController: Themeable {
             textField.keyboardAppearance = theme.keyboardAppearance
             textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
