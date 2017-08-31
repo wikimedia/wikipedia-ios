@@ -37,10 +37,7 @@ module.exports = function (grunt) {
         },
         files: [
           {
-            src: [
-              'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
-              'less/**/*.less'
-            ],
+            src: 'less/**/*.less',
             dest: `${distFolder}styleoverrides.css`
           }
         ]
@@ -70,6 +67,10 @@ module.exports = function (grunt) {
               '*.png'
             ],
             dest: distFolder
+          },
+          {
+            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
+            dest: `${distFolder}wikimedia-page-library-transform.css`
           }
         ]
       }
