@@ -177,13 +177,12 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
     }
 
-    override public func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        let backgroundColor = labelBackgroundColor
-        titleLabel.backgroundColor = backgroundColor
-        subTitleLabel.backgroundColor = backgroundColor
-        descriptionLabel.backgroundColor = backgroundColor
-        bottomTitleLabel.backgroundColor = backgroundColor
+    override public func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        titleLabel.backgroundColor = labelBackgroundColor
+        subTitleLabel.backgroundColor = labelBackgroundColor
+        descriptionLabel.backgroundColor = labelBackgroundColor
+        bottomTitleLabel.backgroundColor = labelBackgroundColor
     }
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,18 +62,24 @@
                                             <constraint firstAttribute="height" constant="21" id="gKW-bJ-laF"/>
                                         </constraints>
                                     </imageView>
+                                    <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WX2-ME-qx7">
+                                        <rect key="frame" x="0.0" y="62.5" width="375" height="2.5"/>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="0Cz-C0-e2t"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="leading" secondItem="Nef-Ia-7Gd" secondAttribute="trailing" constant="8" id="3jR-gx-E0p"/>
+                                    <constraint firstAttribute="trailing" secondItem="WX2-ME-qx7" secondAttribute="trailing" id="4Sh-F6-qo0"/>
                                     <constraint firstAttribute="bottom" secondItem="Nef-Ia-7Gd" secondAttribute="bottom" id="5tS-6M-np1"/>
+                                    <constraint firstAttribute="bottom" secondItem="WX2-ME-qx7" secondAttribute="bottom" id="Dzi-g0-gul"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="leading" secondItem="a3z-uC-8hv" secondAttribute="trailing" id="Hd1-Zn-NoC"/>
                                     <constraint firstAttribute="trailing" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="45" id="KI7-ee-FBM"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="KTK-FL-Ful"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="d0q-nT-gUD" secondAttribute="top" id="MQH-Lt-0Hg"/>
                                     <constraint firstItem="Khe-vM-8ul" firstAttribute="top" secondItem="d0q-nT-gUD" secondAttribute="top" constant="31" id="MSq-kI-XU6"/>
                                     <constraint firstItem="Khe-vM-8ul" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="16" id="Ob1-PM-yvh"/>
+                                    <constraint firstItem="WX2-ME-qx7" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" id="ber-vK-qKP"/>
                                     <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" constant="5" id="dhk-Qt-ipY"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="42" id="f6B-qa-3hz"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="gwj-4Q-d0l"/>
@@ -192,6 +198,7 @@
                         <outlet property="closeButton" destination="Kjf-LF-NvO" id="lCI-I4-AM0"/>
                         <outlet property="contentViewTop" destination="8MZ-d6-S5y" id="vRR-vo-iHX"/>
                         <outlet property="languagesBarContainer" destination="aQA-T5-obx" id="QyX-VI-8p5"/>
+                        <outlet property="progressView" destination="WX2-ME-qx7" id="8sZ-ug-0O8"/>
                         <outlet property="recentSearchesContainerView" destination="tpe-pb-Bgw" id="aD2-ul-dw2"/>
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchBottomSeparatorView" destination="B20-xN-XHO" id="cfH-7w-tPK"/>
@@ -223,7 +230,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZi-qL-C8i" userLabel="Header container">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="58"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
                                         <rect key="frame" x="20" y="22" width="301" height="34"/>
@@ -255,7 +262,7 @@
                                 </constraints>
                             </view>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
-                                <rect key="frame" x="0.0" y="58" width="375" height="501"/>
+                                <rect key="frame" x="0.0" y="78" width="375" height="481"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>

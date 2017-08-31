@@ -13,8 +13,6 @@
 #import "WMFShareOptionsController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
-#import "WMFPageIssuesViewController.h"
-#import "SSArrayDataSource.h"
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
@@ -1435,28 +1433,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
 
-    [self.webViewController getCurrentVisibleSectionsCompletion:^(NSArray<MWKSection *> *_Nullable sections, NSError *_Nullable error) {
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
         @strongify(self);
-        [self selectTableOfContentsItemsForSections:sections animated:YES];
+        if (section) {
+            self.currentSection = section;
+            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+        } else {
+            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
+                @strongify(self);
+                if (index) {
+                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
+                }
+            }];
+        }
     }];
-    //return;
-    //    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
-    //return;
-    //        @strongify(self);
-    //        if (section) {
-    //            self.currentSection = section;
-    //            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-    //        } else {
-    //            [self.webViewController getCurrentVisibleFooterIndexCompletion:^(NSNumber *_Nullable index, NSError *_Nullable error) {
-    //                @strongify(self);
-    //                if (index) {
-    //                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:index.integerValue animated:YES];
-    //                }
-    //            }];
-    //        }
-    //    }];
-    //
-    //    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+
+    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1524,8 +1516,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showPageIssues:(NSArray<NSString *> *)issueStrings {
-    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:issueStrings];
+    WMFPageIssuesTableViewController *issuesVC = [[WMFPageIssuesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    issuesVC.issues = issueStrings;
     [self presentViewControllerEmbeddedInNavigationController:issuesVC];
 }
 
