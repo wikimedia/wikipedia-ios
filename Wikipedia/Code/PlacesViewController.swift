@@ -2828,10 +2828,13 @@ extension PlacesViewController: Themeable {
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
         }
+        titleViewSearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+
         
         listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.isTranslucent = false
+        titleViewSearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance

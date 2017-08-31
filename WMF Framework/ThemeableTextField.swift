@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFThemeableTextField)
-public class ThemeableTextField: UITextField, Themeable {
+open class ThemeableTextField: UITextField, Themeable {
     var theme = Theme.standard
     var hasBorder = false
     
@@ -26,7 +26,7 @@ public class ThemeableTextField: UITextField, Themeable {
     }
     
     fileprivate var _placeholder: String?
-    override public var placeholder: String? {
+    override open var placeholder: String? {
         didSet {
             _placeholder = placeholder
             guard let newPlaceholder = placeholder else {
@@ -57,10 +57,6 @@ public class ThemeableTextField: UITextField, Themeable {
     
     @objc(applyTheme:)
     public func apply(theme: Theme) {
-        apply(theme: theme, withBorder: false)
-    }
- 
-    func apply(theme: Theme, withBorder: Bool) {
         self.theme = theme
         rightView?.tintColor = theme.colors.tertiaryText
         backgroundColor = theme.colors.paperBackground

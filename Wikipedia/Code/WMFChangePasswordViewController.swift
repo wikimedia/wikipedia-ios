@@ -146,7 +146,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         
         let fields = [passwordField, retypeField]
         for field in fields {
-            field?.apply(theme: theme, withBorder: true)
+            field?.apply(theme: theme)
         }
         
         saveButton.apply(theme: theme)

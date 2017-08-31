@@ -83,9 +83,9 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
-    
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
+        apply(theme: self.theme)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -259,6 +259,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 extension ExploreViewController: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
