@@ -2,8 +2,6 @@ import Foundation
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
-    
-    /*
     public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
         webViewController.getCurrentVisibleSectionCompletion { (section, error) in
             if let item: TableOfContentsItem = section {
@@ -17,29 +15,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             }
         }
     }
-    */
-    
-    public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
-        webViewController.getCurrentVisibleSectionsCompletion { (sections, error) in
-            guard error == nil, let sections = sections, let tocVC = self.tableOfContentsViewController else {
-                return
-            }
-            tocVC.selectItems(sections, animated: false)
-        }
-    }
     
     public func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
-        
-        if let selectedIndexPath = controller.indexPathForItem(item){
-            let indexPathsToSelect = [selectedIndexPath]
-            if let indexPathsForSelectedRows = controller.tableView.indexPathsForSelectedRows {
-                for indexPathToDeselect in Set(indexPathsForSelectedRows).symmetricDifference(Set(indexPathsToSelect)) {
-                    controller.tableView.deselectRow(at: indexPathToDeselect, animated: false)
-                }
-            }
-        }
-        
+
         switch tableOfContentsDisplayMode {
         case .inline:
             if let section = item as? MWKSection {
@@ -159,15 +138,11 @@ extension WMFArticleViewController {
         return view
     }
 
-    public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
+    @objc public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }
     
-    public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
+    @objc public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
-    }
-    
-    @objc public func selectTableOfContentsItemsForSections(_ sections: [MWKSection], animated: Bool) {
-        tableOfContentsViewController?.selectItems(sections, animated: animated)
     }
 }

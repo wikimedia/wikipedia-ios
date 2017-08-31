@@ -118,6 +118,7 @@
 		83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEDA1DB4B76B00615FA2 /* UIView+WMFSubviews.swift */; };
 		B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */; };
@@ -3051,6 +3052,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
+		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B00DDEDA1DB4B76B00615FA2 /* UIView+WMFSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+WMFSubviews.swift"; path = "Wikipedia/Code/UIView+WMFSubviews.swift"; sourceTree = SOURCE_ROOT; };
 		B00DDEDC1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeContainerViewController.swift; path = Wikipedia/Code/WMFWelcomeContainerViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -7323,6 +7325,7 @@
 				D8CD97661E83FBBF00ECCA9D /* CacheItem+CoreDataClass.swift */,
 				D8CD976A1E84013D00ECCA9D /* CacheItem+CoreDataProperties.swift */,
 				D8F36F021EEEBA130087D4DD /* Licenses.swift */,
+				83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */,
 				D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */,
 				D8CD97631E83FAB400ECCA9D /* Cache.xcdatamodeld */,
 				D84448241DDB632100425630 /* WMFArticle+CoreDataClass.h */,
@@ -10198,6 +10201,7 @@
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				B3632E801EE5F98F007A2464 /* EventCapsule.swift in Sources */,
+				83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */,
 				D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
 				D8FA18F11E1BDA35009675C3 /* UIImage+WMFImageProcessing.m in Sources */,
 				D84C36041F323E0900895FA1 /* WMFCVLAttributes.m in Sources */,

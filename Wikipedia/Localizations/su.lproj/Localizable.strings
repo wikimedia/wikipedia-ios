@@ -57,7 +57,7 @@
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
 "appearance-settings-image-dimming-footer" = "Turunkeun poékna gambar dina téma poék";
 "appearance-settings-reading-themes" = "Téma bacaan";
-"appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistem anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
+"appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistim anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
 "appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
@@ -101,7 +101,7 @@
 "empty-no-feed-title" = "Taya sambungan internét";
 "empty-no-history-message" = "Lacak naon nu geus ku anjeun baca di dieu.";
 "empty-no-history-title" = "Taya jujutan nu bijil";
-"empty-no-saved-pages-message" = "Simpen kaca ajang bacaeun engké, nalika keur luring.";
+"empty-no-saved-pages-message" = "Simpen kaca ajang bacaeun engké, nalika keur oflén.";
 "empty-no-saved-pages-title" = "Can aya kaca nu disimpen";
 "empty-no-search-results-message" = "Taya hasil nu kapanggih";
 "error-unknown" = "Aya éror anu teu kanyahoan";
@@ -168,8 +168,8 @@
 "hockeyapp-alert-always-send" = "Kirim terus";
 "hockeyapp-alert-do-not-send" = "Ulah ngirim";
 "hockeyapp-alert-privacy" = "Privasi $1";
-"hockeyapp-alert-question" = "Anjeun rék ngirim laporan kasalahan ka $1 sangkan Wikimédia Foundation bisa ninjau kasalahan anjeun?";
-"hockeyapp-alert-question-with-response-field" = "Anjeun rék ngirimkeun laporan kasalahan ka $1 sangkan Wikimedia Foundation bisa ninjau kasalahan anjeun? Pék émbarkeun naon nu kajadian nalika kajadianna kasalahan:";
+"hockeyapp-alert-question" = "Anjeun rék ngirim laporan kasalahan ka $1 sangkan Wikimédia Foundation bisa mariksa kasalahan anjeun?";
+"hockeyapp-alert-question-with-response-field" = "Anjeun rék ngirimkeun laporan kasalahan ka $1 sangkan Wikimedia Foundation bisa mariksa kasalahan anjeun? Pék émbarkeun naon nu kajadian nalika kajadianna kasalahan:";
 "hockeyapp-alert-send-report" = "Kirim laporan";
 "hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
@@ -400,7 +400,7 @@
 "wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun méré kontribusi anjeun dina lisénsi $2 jeung $3.";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";
 "zero-charged-verbiage" = "Wikipédia Zéro dipaéhan";
-"zero-charged-verbiage-extended" = "Pamuatan artikel lian meureun baé dikeunakeun biaya data. Artikel nu disimpen sacara luring teu maké data sarta haratis.";
+"zero-charged-verbiage-extended" = "Pamuatan artikel lian meureun baé dikeunakeun biaya data. Artikel nu disimpen sacara oflén teu maké data sarta haratis.";
 "zero-free-verbiage" = "Aksés Wikipédia haratis ti operator sélulér (biaya data dibébaskan)";
 "zero-interstitial-cancel" = "Mugen didieu";
 "zero-interstitial-continue" = "Tinggalkeun";
