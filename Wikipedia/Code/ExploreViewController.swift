@@ -263,6 +263,11 @@ extension ExploreViewController: Themeable {
             return
         }
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
+        }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
