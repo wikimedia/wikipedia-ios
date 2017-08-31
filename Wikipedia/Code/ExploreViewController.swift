@@ -263,6 +263,7 @@ extension ExploreViewController: Themeable {
             return
         }
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         if let cvc = collectionViewController as Themeable? {
