@@ -247,7 +247,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         captchaTextFieldTitleLabel.textColor = theme.colors.secondaryText
         subTitleLabel.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        captchaTextField.apply(theme: theme, withBorder: true)
+        captchaTextField.apply(theme: theme)
         view.tintColor = theme.colors.link
     }
 }

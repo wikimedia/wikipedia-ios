@@ -2827,7 +2827,10 @@ extension PlacesViewController: Themeable {
         titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
         }
+        titleViewSearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        titleViewSearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
         listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
@@ -2835,7 +2838,10 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
         }
+        listAndSearchOverlaySearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        listAndSearchOverlaySearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
         wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
         wmf_addBottomShadow(view: extendedNavBarView, theme: theme)

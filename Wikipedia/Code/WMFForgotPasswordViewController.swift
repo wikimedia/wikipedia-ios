@@ -128,8 +128,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
             label?.textColor = theme.colors.secondaryText
         }
         
-        usernameField.apply(theme: theme, withBorder: true)
-        emailField.apply(theme: theme, withBorder: true)
+        usernameField.apply(theme: theme)
+        emailField.apply(theme: theme)
         
         resetPasswordButton.apply(theme: theme)
     }
