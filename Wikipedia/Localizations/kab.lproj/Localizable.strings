@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Belkacem77
 // Author: Mhenni
+// Author: SlimaneAmiri
 
 "about-content-license" = "Turagt n ugbur";
 "about-content-license-details" = "Arama yettwammel kan akken-nniḍen, agbur yella daw n $1.";
@@ -371,6 +372,7 @@
 "wikitext-download-success" = "Agbur yuli-d.";
 "wikitext-downloading" = "Asali n ugbur...";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
+"wikitext-preview-changes-none" = "Ulac taẓrigt ittwasxedmen ara twaliḍ.";
 "wikitext-preview-link-preview-description" = "Aseɣwen-agi ad yawi ar '$1'";
 "wikitext-preview-link-preview-title" = "Taskant n useɣwen";
 "wikitext-upload-captcha-error" = "Tuccḍa n usenqed n CAPTCHA";
