@@ -2,6 +2,7 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFProxyServer.h"
+#import <WMF/NSURL+WMFLinkParsing.h>
 
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;
@@ -18,7 +19,11 @@ static int const kMinimumTextSelectionLength = 2;
 
 - (void)wmf_addEditPencilsForArticle:(MWKArticle *)article {
     if (!article.isMain) {
-        [self evaluateJavaScript:@"window.wmf.editButtons.add(document);" completionHandler:nil];
+        [self evaluateJavaScript: [NSString stringWithFormat:@""
+                                   "window.wmf.editButtons.add(document);"
+                                   "document.querySelectorAll('.pagelib_edit_section_link').forEach(anchor => {anchor.href = '%@'});"
+                                   , WMFEditPencil]
+               completionHandler:nil];
     }
 }
 
