@@ -36,11 +36,9 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     activity.title = pageName;
     activity.userInfo = @{@"WMFPage": pageName};
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        NSMutableSet *set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
-        activity.keywords = set;
-    }
+    NSMutableSet *set = [activity.keywords mutableCopy];
+    [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
+    activity.keywords = set;
 
     return activity;
 }
@@ -132,9 +130,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     NSParameterAssert(article.displaytitle);
 
     NSUserActivity *activity = [self wmf_articleViewActivityWithURL:article.url];
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.contentAttributeSet = article.searchableItemAttributes;
-    }
+    activity.contentAttributeSet = article.searchableItemAttributes;
     return activity;
 }
 
@@ -145,13 +141,11 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     activity.title = url.wmf_title;
     activity.webpageURL = [NSURL wmf_desktopURLForURL:url];
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        NSMutableSet *set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
-        activity.keywords = set;
-        activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
-        activity.contentAttributeSet = url.searchableItemAttributes;
-    }
+    NSMutableSet *set = [activity.keywords mutableCopy];
+    [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
+    activity.keywords = set;
+    activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
+    activity.contentAttributeSet = url.searchableItemAttributes;
     return activity;
 }
 
@@ -212,7 +206,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
         return WMFUserActivityTypeContent;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
-    } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
+    } else if ([self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
     } else {
         if ([self wmf_articleURL].wmf_isWikiResource) {
@@ -228,7 +222,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
         return nil;
     }
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
+    if ([self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return self.userInfo[CSSearchQueryString];
     } else {
         NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];

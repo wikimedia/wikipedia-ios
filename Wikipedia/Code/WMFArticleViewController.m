@@ -1623,7 +1623,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
-        if (self.peekingAllowed && [[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+        if (self.peekingAllowed) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
         } else {

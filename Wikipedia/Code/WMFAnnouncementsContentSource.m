@@ -94,9 +94,6 @@
 }
 
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionLessThan:10]) {
-        return;
-    }
     NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
 
     if (!userDefaults.wmf_didShowThemeCardInFeed) {

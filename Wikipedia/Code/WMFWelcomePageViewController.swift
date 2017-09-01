@@ -132,35 +132,4 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     override var shouldAutorotate : Bool {
         return false
     }
-    
-    // MARK: - iOS 9 RTL swiping hack
-    // When *swiping* side-to-side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. 
-    // This hack sets the correct dot, but first fades the dots out so you don't see it flicker to the wrong dot then the right one.
-    
-    fileprivate func isRTLiOS9() -> Bool {
-        return UIApplication.shared.wmf_isRTL && ProcessInfo().wmf_isOperatingSystemMajorVersionLessThan(10)
-    }
-    
-    func animateIfRightToLeftAndiOS9(_ animations: @escaping () -> Void) {
-        if isRTLiOS9() {
-            UIView.animate(withDuration: 0.05, delay: 0.0, options: .curveEaseOut, animations:animations, completion:nil)
-        }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        animateIfRightToLeftAndiOS9({
-            if let pageControl = self.pageControl {
-                pageControl.alpha = CGFloat(0.0)
-            }
-        })
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        animateIfRightToLeftAndiOS9({
-            if let pageControl = self.pageControl {
-                pageControl.currentPage = self.presentationIndex(for: pageViewController)
-                pageControl.alpha = CGFloat(1.0)
-            }
-        })
-    }
 }
