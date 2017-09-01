@@ -143,10 +143,19 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     func screenBrightnessChangedInApp(notification: Notification){
         brightnessSlider.value = Float(UIScreen.main.brightness)
     }
+
+    @objc fileprivate func _logBrightnessChange() {
+        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
+    }
+
+    fileprivate func logBrightnessChange() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
+        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [.defaultRunLoopMode])
+    }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
-        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
+        logBrightnessChange()
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
