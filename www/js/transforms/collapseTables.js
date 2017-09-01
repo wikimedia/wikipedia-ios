@@ -1,13 +1,13 @@
 const tableCollapser = require('wikimedia-page-library').CollapseTable
-var location = require('../elementLocation')
+let location = require('../elementLocation')
 
-function footerDivClickCallback(container) {
+const footerDivClickCallback = container => {
   if(location.isElementTopOnscreen(container)){
     window.scrollTo( 0, container.offsetTop - 10 )
   }
 }
 
-function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
+const hideTables = (content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) => {
   tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
 }
 
