@@ -15,7 +15,12 @@ const addEditButtonsToElements = (elementsSelector, sectionIDAttribute, content)
     })
 }
 
+const isFilePage = content => content.querySelector('#filetoc') != undefined
+
 const add = content => {
+  if (isFilePage(content)) {
+    return
+  }
   // Add lead section edit button after the lead section horizontal rule element.
   addEditButtonAfterElement('#content_block_0_hr', 0, content)
   // Add non-lead section edit buttons inside respective header elements.

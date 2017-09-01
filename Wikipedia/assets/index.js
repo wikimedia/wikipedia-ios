@@ -10,7 +10,6 @@ wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
 wmf.footerMenu = require('wikimedia-page-library').FooterMenu
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
@@ -20,7 +19,7 @@ wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":12}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -158,7 +157,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
+},{"./refs":5,"./utilities":10,"wikimedia-page-library":12}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -209,7 +208,6 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
-
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
@@ -488,7 +486,12 @@ const addEditButtonsToElements = (elementsSelector, sectionIDAttribute, content)
     })
 }
 
+const isFilePage = content => content.querySelector('#filetoc') != undefined
+
 const add = content => {
+  if (isFilePage(content)) {
+    return
+  }
   // Add lead section edit button after the lead section horizontal rule element.
   addEditButtonAfterElement('#content_block_0_hr', 0, content)
   // Add non-lead section edit buttons inside respective header elements.
@@ -496,7 +499,7 @@ const add = content => {
 }
 
 exports.add = add
-},{"wikimedia-page-library":13}],7:[function(require,module,exports){
+},{"wikimedia-page-library":12}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 let location = require('../elementLocation')
 
@@ -511,33 +514,7 @@ const hideTables = (content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":13}],8:[function(require,module,exports){
-
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],9:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -618,7 +595,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -635,7 +612,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":13}],11:[function(require,module,exports){
+},{"wikimedia-page-library":12}],10:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -677,7 +654,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -722,7 +699,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":11}],13:[function(require,module,exports){
+},{"./utilities":10}],12:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -2996,4 +2973,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
