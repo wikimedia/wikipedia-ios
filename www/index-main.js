@@ -1,4 +1,4 @@
-var wmf = {}
+const wmf = {}
 
 wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
