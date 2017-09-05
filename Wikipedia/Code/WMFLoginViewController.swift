@@ -307,8 +307,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             label?.textColor = theme.colors.secondaryText
         }
         
-        usernameField.apply(theme: theme, withBorder: true)
-        passwordField.apply(theme: theme, withBorder: true)
+        usernameField.apply(theme: theme)
+        passwordField.apply(theme: theme)
         
         titleLabel.textColor = theme.colors.primaryText
         forgotPasswordButton.textColor = theme.colors.link

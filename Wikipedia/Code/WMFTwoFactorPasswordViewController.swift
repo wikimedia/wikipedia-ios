@@ -331,7 +331,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         fields.append(backupOathTokenField)
         
         for textField in fields {
-            textField.apply(theme: theme, withBorder: false)
+            textField.apply(theme: theme)
         }
         
         titleLabel.textColor = theme.colors.primaryText
