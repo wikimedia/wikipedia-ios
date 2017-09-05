@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var wmf = {}
+const wmf = {}
 
 wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
@@ -10,7 +10,6 @@ wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
 wmf.footerMenu = require('wikimedia-page-library').FooterMenu
 wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
@@ -20,7 +19,7 @@ wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/relocateFirstParagraph":8,"./js/transforms/widenImages":9,"./js/utilities":10,"wikimedia-page-library":12}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -67,7 +66,7 @@ class ClickedItem {
  * @param  {!ClickedItem} item the item which was clicked on
  * @return {Boolean} `true` if a message was sent, otherwise `false`
  */
-function sendMessageForClickedItem(item){
+const sendMessageForClickedItem = item => {
   switch(item.type()) {
   case ItemType.link:
     sendMessageForLinkWithHref(item.href)
@@ -89,7 +88,7 @@ function sendMessageForClickedItem(item){
  * @param  {!String} href url
  * @return {void}
  */
-function sendMessageForLinkWithHref(href){
+const sendMessageForLinkWithHref = href => {
   if(href[0] === '#'){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
@@ -101,7 +100,7 @@ function sendMessageForLinkWithHref(href){
  * @param  {!Element} target an image element
  * @return {void}
  */
-function sendMessageForImageWithTarget(target){
+const sendMessageForImageWithTarget = target => {
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': target.getAttribute('src'),
     'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -116,16 +115,14 @@ function sendMessageForImageWithTarget(target){
  * @param  {!Element} target an anchor element
  * @return {void}
  */
-function sendMessageForReferenceWithTarget(target){
-  refs.sendNearbyReferences( target )
-}
+const sendMessageForReferenceWithTarget = target => refs.sendNearbyReferences( target )
 
 /**
  * Handler for the click event.
  * @param  {ClickEvent} event the event being handled
  * @return {void}
  */
-function handleClickEvent(event){
+const handleClickEvent = event => {
   const target = event.target
   if(!target) {
     return
@@ -158,27 +155,16 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
-//  Created by Monte Hurd on 12/28/13.
-//  Used by methods in "UIWebView+ElementLocation.h" category.
+},{"./refs":5,"./utilities":10,"wikimedia-page-library":12}],3:[function(require,module,exports){
+//  Used by methods in "WKWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-function stringEndsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1
-}
+const stringEndsWith = (str, suffix) => str.indexOf(suffix, str.length - suffix.length) !== -1
 
-exports.getImageWithSrc = function(src) {
-  var images = document.getElementsByTagName('img')
-  for (var i = 0; i < images.length; ++i) {
-    if (stringEndsWith(images[i].src, src)) {
-      return images[i]
-    }
-  }
-  return null
-}
+exports.getImageWithSrc = src => document.querySelector(`img[src$='${src}']`)
 
-exports.getElementRect = function(element) {
-  var rect = element.getBoundingClientRect()
+exports.getElementRect = element => {
+  const rect = element.getBoundingClientRect()
     // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
   return {
     Y: rect.top,
@@ -188,13 +174,13 @@ exports.getElementRect = function(element) {
   }
 }
 
-exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
-  for (var i = 0; i < elementCount; ++i) {
-    var div = document.getElementById(elementPrefix + i)
+exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount) => {
+  for (let i = 0; i < elementCount; ++i) {
+    const div = document.getElementById(elementPrefix + i)
     if (div === null) {
       continue
     }
-    var rect = this.getElementRect(div)
+    const rect = this.getElementRect(div)
     if ( rect.Y >= -1 || rect.Y + rect.Height >= 50) {
       return i
     }
@@ -202,39 +188,34 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
   return -1
 }
 
-exports.getElementFromPoint = function(x, y){
-  return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
-}
+exports.getElementFromPoint = (x, y) => document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
 
-exports.isElementTopOnscreen = function(element){
-  return element.getBoundingClientRect().top < 0
-}
-
+exports.isElementTopOnscreen = element => element.getBoundingClientRect().top < 0
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
-var FindInPageResultCount = 0
-var FindInPageResultMatches = []
-var FindInPagePreviousFocusMatchSpanId = null
+let FindInPageResultCount = 0
+let FindInPageResultMatches = []
+let FindInPagePreviousFocusMatchSpanId = null
 
-function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, searchTerm) {
+const recursivelyHighlightSearchTermInTextNodesStartingWithElement = (element, searchTerm) => {
   if (element) {
     if (element.nodeType == 3) {            // Text node
       while (true) {
-        var value = element.nodeValue  // Search for searchTerm in text node
-        var idx = value.toLowerCase().indexOf(searchTerm)
+        const value = element.nodeValue  // Search for searchTerm in text node
+        const idx = value.toLowerCase().indexOf(searchTerm)
 
         if (idx < 0) break
 
-        var span = document.createElement('span')
-        var text = document.createTextNode(value.substr(idx, searchTerm.length))
+        const span = document.createElement('span')
+        let text = document.createTextNode(value.substr(idx, searchTerm.length))
         span.appendChild(text)
         span.setAttribute('class', 'findInPageMatch')
 
         text = document.createTextNode(value.substr(idx + searchTerm.length))
         element.deleteData(idx, value.length - idx)
-        var next = element.nextSibling
+        const next = element.nextSibling
         element.parentNode.insertBefore(span, next)
         element.parentNode.insertBefore(text, next)
         element = text
@@ -242,7 +223,7 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
       }
     } else if (element.nodeType == 1) {     // Element node
       if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
-        for (var i = element.childNodes.length - 1; i >= 0; i--) {
+        for (let i = element.childNodes.length - 1; i >= 0; i--) {
           recursivelyHighlightSearchTermInTextNodesStartingWithElement(element.childNodes[i], searchTerm)
         }
       }
@@ -250,17 +231,17 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
   }
 }
 
-function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
+const recursivelyRemoveSearchTermHighlightsStartingWithElement = element => {
   if (element) {
     if (element.nodeType == 1) {
       if (element.getAttribute('class') == 'findInPageMatch') {
-        var text = element.removeChild(element.firstChild)
-        element.parentNode.insertBefore(text,element)
+        const text = element.removeChild(element.firstChild)
+        element.parentNode.insertBefore(text, element)
         element.parentNode.removeChild(element)
         return true
       }
-      var normalize = false
-      for (var i = element.childNodes.length - 1; i >= 0; i--) {
+      let normalize = false
+      for (let i = element.childNodes.length - 1; i >= 0; i--) {
         if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
           normalize = true
         }
@@ -274,21 +255,21 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
   return false
 }
 
-function deFocusPreviouslyFocusedSpan() {
+const deFocusPreviouslyFocusedSpan = () => {
   if(FindInPagePreviousFocusMatchSpanId){
     document.getElementById(FindInPagePreviousFocusMatchSpanId).classList.remove('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = null
   }
 }
 
-function removeSearchTermHighlights() {
+const removeSearchTermHighlights = () => {
   FindInPageResultCount = 0
   FindInPageResultMatches = []
   deFocusPreviouslyFocusedSpan()
   recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
 }
 
-function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
+const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   removeSearchTermHighlights()
   if (searchTerm.trim().length === 0){
     window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
@@ -302,10 +283,10 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     // matches in first-to-last order. We can work around this by adding the "id"
     // and building our results array *after* the recursion is done, thanks to
     // "getElementsByClassName".
-  var orderedMatchElements = document.getElementsByClassName('findInPageMatch')
+  const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
   FindInPageResultMatches.length = orderedMatchElements.length
-  for (var i = 0; i < orderedMatchElements.length; i++) {
-    var matchSpanId = 'findInPageMatchID|' + i
+  for (let i = 0; i < orderedMatchElements.length; i++) {
+    const matchSpanId = 'findInPageMatchID|' + i
     orderedMatchElements[i].setAttribute('id', matchSpanId)
         // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
@@ -314,9 +295,9 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
   window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
 }
 
-function useFocusStyleForHighlightedSearchTermWithId(id) {
+const useFocusStyleForHighlightedSearchTermWithId = id => {
   deFocusPreviouslyFocusedSpan()
-  setTimeout(function(){
+  setTimeout(() => {
     document.getElementById(id).classList.add('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = id
   }, 0)
@@ -326,56 +307,39 @@ exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForS
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
 },{}],5:[function(require,module,exports){
-var elementLocation = require('./elementLocation')
+const elementLocation = require('./elementLocation')
 
-function isCitation( href ) {
-  return href.indexOf('#cite_note') > -1
-}
+const isCitation = href => href.indexOf('#cite_note') > -1
+const isEndnote = href => href.indexOf('#endnote_') > -1
+const isReference = href => href.indexOf('#ref_') > -1
 
-function isEndnote( href ) {
-  return href.indexOf('#endnote_') > -1
-}
-
-function isReference( href ) {
-  return href.indexOf('#ref_') > -1
-}
-
-function goDown( element ) {
-  return element.getElementsByTagName( 'A' )[0]
-}
+const goDown = element => element.getElementsByTagName( 'A' )[0]
 
 /**
  * Skip over whitespace but not other elements
  */
-function skipOverWhitespace( skipFunc ) {
-  return function(element) {
-    do {
-      element = skipFunc( element )
-      if (element && element.nodeType == Node.TEXT_NODE) {
-        if (element.textContent.match(/^\s+$/)) {
-          // Ignore empty whitespace
-          continue
-        } else {
-          break
-        }
+const skipOverWhitespace = skipFunc => function(element) {
+  do {
+    element = skipFunc( element )
+    if (element && element.nodeType == Node.TEXT_NODE) {
+      if (element.textContent.match(/^\s+$/)) {
+        // Ignore empty whitespace
+        continue
       } else {
-        // found an element or ran out
         break
       }
-    } while (true)
-    return element
-  }
+    } else {
+      // found an element or ran out
+      break
+    }
+  } while (true)
+  return element
 }
 
-var goLeft = skipOverWhitespace( function( element ) {
-  return element.previousSibling
-})
+let goLeft = skipOverWhitespace( element => element.previousSibling )
+let goRight = skipOverWhitespace( element => element.nextSibling )
 
-var goRight = skipOverWhitespace( function( element ) {
-  return element.nextSibling
-})
-
-function hasCitationLink( element ) {
+const hasCitationLink = element => {
   try {
     return isCitation( goDown( element ).getAttribute( 'href' ) )
   } catch (e) {
@@ -383,10 +347,10 @@ function hasCitationLink( element ) {
   }
 }
 
-function collectRefText( sourceNode ) {
-  var href = sourceNode.getAttribute( 'href' )
-  var targetId = href.slice(1)
-  var targetNode = document.getElementById( targetId )
+const collectRefText = sourceNode => {
+  const href = sourceNode.getAttribute( 'href' )
+  const targetId = href.slice(1)
+  const targetNode = document.getElementById( targetId )
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)
@@ -394,15 +358,15 @@ function collectRefText( sourceNode ) {
   }
 
   // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
-  for (var i = 0; i < backlinks.length; i++) {
-    backlinks[i].style.display = 'none'
-  }
+  targetNode.querySelectorAll( '.mw-cite-backlink' )
+    .forEach(backlink => {
+      backlink.style.display = 'none'
+    })
   return targetNode.innerHTML
 }
 
-function collectRefLink( sourceNode ) {
-  var node = sourceNode
+const collectRefLink = sourceNode => {
+  let node = sourceNode
   while (!node.classList || !node.classList.contains('reference')) {
     node = node.parentNode
     if (!node) {
@@ -412,13 +376,13 @@ function collectRefLink( sourceNode ) {
   return node.id
 }
 
-function sendNearbyReferences( sourceNode ) {
-  var selectedIndex = 0
-  var refs = []
-  var linkId = []
-  var linkText = []
-  var linkRects = []
-  var curNode = sourceNode
+const sendNearbyReferences = sourceNode => {
+  let selectedIndex = 0
+  let refs = []
+  let linkId = []
+  let linkText = []
+  let linkRects = []
+  let curNode = sourceNode
 
   // handle clicked ref:
   refs.push( collectRefText( curNode ) )
@@ -444,13 +408,13 @@ function sendNearbyReferences( sourceNode ) {
     linkText.push( curNode.textContent )
   }
 
-  for(var i = 0; i < linkId.length; i++){
-    var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
+  for(let i = 0; i < linkId.length; i++){
+    const rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
     linkRects.push(rect)
   }
 
-  var referencesGroup = []
-  for(var j = 0; j < linkId.length; j++){
+  let referencesGroup = []
+  for(let j = 0; j < linkId.length; j++){
     referencesGroup.push({
       'id': linkId[j],
       'rect': linkRects[j],
@@ -473,7 +437,7 @@ exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],6:[function(require,module,exports){
 const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
 
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
+const addEditButtonAfterElement = (preceedingElementSelector, sectionID, content) => {
   const preceedingElement = content.querySelector(preceedingElementSelector)
   preceedingElement.parentNode.insertBefore(
     newEditSectionButton(content, sectionID),
@@ -481,14 +445,19 @@ function addEditButtonAfterElement(preceedingElementSelector, sectionID, content
   )
 }
 
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
+const addEditButtonsToElements = (elementsSelector, sectionIDAttribute, content) => {
+  content.querySelectorAll(elementsSelector)
+    .forEach(function(element){
+      element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
+    })
 }
 
-function add(content) {
+const isFilePage = content => content.querySelector('#filetoc') != undefined
+
+const add = content => {
+  if (isFilePage(content)) {
+    return
+  }
   // Add lead section edit button after the lead section horizontal rule element.
   addEditButtonAfterElement('#content_block_0_hr', 0, content)
   // Add non-lead section edit buttons inside respective header elements.
@@ -496,50 +465,24 @@ function add(content) {
 }
 
 exports.add = add
-},{"wikimedia-page-library":13}],7:[function(require,module,exports){
+},{"wikimedia-page-library":12}],7:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
-var location = require('../elementLocation')
+let location = require('../elementLocation')
 
-function footerDivClickCallback(container) {
+const footerDivClickCallback = container => {
   if(location.isElementTopOnscreen(container)){
     window.scrollTo( 0, container.offsetTop - 10 )
   }
 }
 
-function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
+const hideTables = (content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) => {
   tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":13}],8:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":12}],8:[function(require,module,exports){
 
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],9:[function(require,module,exports){
-
-function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
+const moveFirstGoodParagraphAfterElement = (preceedingElementID, content) => {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -549,16 +492,16 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 
   if(content.getElementById( 'mainpage' ))return
 
-  var block_0 = content.getElementById( 'content_block_0' )
+  const block_0 = content.getElementById( 'content_block_0' )
   if(!block_0) return
 
-  var allPs = block_0.getElementsByTagName( 'p' )
+  const allPs = block_0.getElementsByTagName( 'p' )
   if(!allPs) return
 
-  var preceedingElement = content.getElementById( preceedingElementID )
+  const preceedingElement = content.getElementById( preceedingElementID )
   if(!preceedingElement) return
 
-  function isParagraphGood(p) {
+  const isParagraphGood = p => {
     // Narrow down to first P which is direct child of content_block_0 DIV.
     // (Don't want to yank P from somewhere in the middle of a table!)
     if  (p.parentNode == block_0 ||
@@ -573,26 +516,23 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
                 // Trick for quickly determining element height:
                 //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
                 //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
+      const minHeight = 40
+      const pIsTooSmall = p.offsetHeight < minHeight
       return !pIsTooSmall
     }
     return false
-
   }
 
-  var firstGoodParagraph = function(){
-    return Array.prototype.slice.call( allPs).find(isParagraphGood)
-  }()
+  const firstGoodParagraph = Array.prototype.slice.call(allPs).find(isParagraphGood)
 
   if(!firstGoodParagraph) return
 
   // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
-  var fragmentOfItemsToRelocate = function(){
-    var didHitGoodP = false
-    var didHitNextP = false
+  const fragmentOfItemsToRelocate = function(){
+    let didHitGoodP = false
+    let didHitNextP = false
 
-    var shouldElementMoveUp = function(element) {
+    const shouldElementMoveUp = element => {
       if(didHitGoodP && element.tagName === 'P'){
         didHitNextP = true
       }else if(element.isEqualNode(firstGoodParagraph)){
@@ -601,8 +541,8 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
       return didHitGoodP && !didHitNextP
     }
 
-    var fragment = document.createDocumentFragment()
-    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
+    const fragment = document.createDocumentFragment()
+    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(element => {
       if(shouldElementMoveUp(element)){
         // appendChild() attaches the element to the fragment *and* removes it from DOM.
         fragment.appendChild(element)
@@ -618,54 +558,51 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
+// 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+// WidenImage's maybeWidenImage code will do further checks before it widens an image.
+const isGalleryImage = image => image.getAttribute('data-image-gallery') === 'true'
 
-function widenImages(content) {
+const widenImages = content => {
   Array.from(content.querySelectorAll('img'))
     .filter(isGalleryImage)
     .forEach(maybeWidenImage)
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":13}],11:[function(require,module,exports){
+},{"wikimedia-page-library":12}],10:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-function findClosest (el, selector) {
+const findClosest = (el, selector) => {
   while ((el = el.parentElement) && !el.matches(selector));
   return el
 }
 
-function setLanguage(lang, dir, uidir){
-  var html = document.querySelector( 'html' )
+const setLanguage = (lang, dir, uidir) => {
+  const html = document.querySelector( 'html' )
   html.lang = lang
   html.dir = dir
   html.classList.add( 'content-' + dir )
   html.classList.add( 'ui-' + uidir )
 }
 
-function setPageProtected(isProtected){
-  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-}
+const setPageProtected =
+  isProtected => document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
 
-function scrollToFragment(fragmentId){
+const scrollToFragment = fragmentId => {
   location.hash = ''
   location.hash = fragmentId
 }
 
-function accessibilityCursorToFragment(fragmentId){
+const accessibilityCursorToFragment = fragmentId => {
     /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
      in order to have the desired effect, so we first give focus to the body element,
      then move it to the desired fragment. */
-  var focus_element = document.getElementById(fragmentId)
-  var other_element = document.body
+  const focus_element = document.getElementById(fragmentId)
+  const other_element = document.body
   other_element.setAttribute('tabindex', 0)
   other_element.focus()
   focus_element.setAttribute('tabindex', 0)
@@ -677,19 +614,19 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
-var topElement = undefined
-var relativeYOffset = 0
+let topElement = undefined
+let relativeYOffset = 0
 
-const relativeYOffsetForElement = function(element) {
+const relativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return rect.top / rect.height
 }
 
-const recordTopElementAndItsRelativeYOffset = function() {
+const recordTopElementAndItsRelativeYOffset = () => {
   topElement = document.elementFromPoint( window.innerWidth / 2, window.innerHeight / 3 )
   topElement = utilities.findClosest(topElement, 'div#content > div') || topElement
   if (topElement) {
@@ -699,30 +636,28 @@ const recordTopElementAndItsRelativeYOffset = function() {
   }
 }
 
-const yOffsetFromRelativeYOffsetForElement = function(element) {
+const yOffsetFromRelativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return window.scrollY + rect.top - relativeYOffset * rect.height
 }
 
-const scrollToSamePlaceBeforeResize = function() {
+const scrollToSamePlaceBeforeResize = () => {
   if (!topElement) {
     return
   }
   window.scrollTo(0, yOffsetFromRelativeYOffsetForElement(topElement))
 }
 
-window.addEventListener('resize', function (event) {
-  setTimeout(scrollToSamePlaceBeforeResize, 50)
-})
+window.addEventListener('resize', event => setTimeout(scrollToSamePlaceBeforeResize, 50))
 
 var timer = null
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', () => {
   if(timer !== null) {
     clearTimeout(timer)
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":11}],13:[function(require,module,exports){
+},{"./utilities":10}],12:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -2996,4 +2931,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);

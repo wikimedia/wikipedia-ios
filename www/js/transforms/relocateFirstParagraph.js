@@ -1,5 +1,5 @@
 
-function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
+const moveFirstGoodParagraphAfterElement = (preceedingElementID, content) => {
     /*
     Instead of moving the infobox down beneath the first P tag,
     move the first good looking P tag *up* (as the first child of
@@ -9,16 +9,16 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 
   if(content.getElementById( 'mainpage' ))return
 
-  var block_0 = content.getElementById( 'content_block_0' )
+  const block_0 = content.getElementById( 'content_block_0' )
   if(!block_0) return
 
-  var allPs = block_0.getElementsByTagName( 'p' )
+  const allPs = block_0.getElementsByTagName( 'p' )
   if(!allPs) return
 
-  var preceedingElement = content.getElementById( preceedingElementID )
+  const preceedingElement = content.getElementById( preceedingElementID )
   if(!preceedingElement) return
 
-  function isParagraphGood(p) {
+  const isParagraphGood = p => {
     // Narrow down to first P which is direct child of content_block_0 DIV.
     // (Don't want to yank P from somewhere in the middle of a table!)
     if  (p.parentNode == block_0 ||
@@ -33,26 +33,23 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
                 // Trick for quickly determining element height:
                 //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
                 //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
+      const minHeight = 40
+      const pIsTooSmall = p.offsetHeight < minHeight
       return !pIsTooSmall
     }
     return false
-
   }
 
-  var firstGoodParagraph = function(){
-    return Array.prototype.slice.call( allPs).find(isParagraphGood)
-  }()
+  const firstGoodParagraph = Array.prototype.slice.call(allPs).find(isParagraphGood)
 
   if(!firstGoodParagraph) return
 
   // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
-  var fragmentOfItemsToRelocate = function(){
-    var didHitGoodP = false
-    var didHitNextP = false
+  const fragmentOfItemsToRelocate = function(){
+    let didHitGoodP = false
+    let didHitNextP = false
 
-    var shouldElementMoveUp = function(element) {
+    const shouldElementMoveUp = element => {
       if(didHitGoodP && element.tagName === 'P'){
         didHitNextP = true
       }else if(element.isEqualNode(firstGoodParagraph)){
@@ -61,8 +58,8 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
       return didHitGoodP && !didHitNextP
     }
 
-    var fragment = document.createDocumentFragment()
-    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
+    const fragment = document.createDocumentFragment()
+    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(element => {
       if(shouldElementMoveUp(element)){
         // appendChild() attaches the element to the fragment *and* removes it from DOM.
         fragment.appendChild(element)
