@@ -204,7 +204,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Ydg-ui-Zgi">
-                                                <rect key="frame" x="0.0" y="-62" width="375" height="56"/>
+                                                <rect key="frame" x="0.0" y="-50" width="375" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="Sx8-ek-4fA"/>
+                                                </constraints>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4d-gE-JMU">
@@ -300,11 +303,14 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="BGl-w8-FTx">
-                                        <rect key="frame" x="8" y="0.0" width="281" height="56"/>
+                                        <rect key="frame" x="8" y="0.0" width="281" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="2fX-XQ-kM9"/>
+                                        </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HrB-BE-o86">
-                                        <rect key="frame" x="296" y="14" width="64" height="29"/>
+                                        <rect key="frame" x="296" y="8" width="64" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="2ZW-Mh-ERu"/>
                                         </constraints>
@@ -314,7 +320,7 @@
                                         </segments>
                                     </segmentedControl>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8n-jw-YsR">
-                                        <rect key="frame" x="329" y="0.0" width="44" height="56"/>
+                                        <rect key="frame" x="329" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="UTC-Vw-z99"/>
                                         </constraints>
