@@ -1,4 +1,5 @@
 #import "WebViewController_Private.h"
+#import "WMFWebView.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
 @import Masonry;
@@ -642,7 +643,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.contentWidthPercentage = 1;
 
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+    self.webView = [[WMFWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     self.webView.allowsLinkPreview = NO;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -1109,22 +1110,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
-}
-
-@end
-
-@interface WMFWebView : WKWebView
-
-@end
-
-@implementation WMFWebView
-
-//Disable OS share menu when selecting text
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == NSSelectorFromString(@"_share:")) {
-        return NO;
-    }
-    return [super canPerformAction:action withSender:sender];
 }
 
 @end
