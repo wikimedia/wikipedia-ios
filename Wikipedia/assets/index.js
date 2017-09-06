@@ -874,13 +874,13 @@ var elementUtilities = {
 // Elements marked with these classes indicate certain ancestry constraints that are
 // difficult to describe as CSS selectors.
 var CONSTRAINT = {
-  IMAGE_PRESUMES_WHITE_BACKGROUND: 'pagelib-theme-image-presumes-white-background',
-  DIV_DO_NOT_APPLY_BASELINE: 'pagelib-theme-div-do-not-apply-baseline'
+  IMAGE_PRESUMES_WHITE_BACKGROUND: 'pagelib_theme_image_presumes_white_background',
+  DIV_DO_NOT_APPLY_BASELINE: 'pagelib_theme_div_do_not_apply_baseline'
 };
 
 // Theme to CSS classes.
 var THEME = {
-  DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
+  DEFAULT: 'pagelib_theme_default', DARK: 'pagelib_theme_dark', SEPIA: 'pagelib_theme_sepia'
 };
 
 /**
@@ -1029,9 +1029,9 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
   var collapsed = table.style.display !== 'none';
   if (collapsed) {
     table.style.display = 'none';
-    header.classList.remove('app_table_collapse_close'); // todo: use app_table_collapsed_collapsed
-    header.classList.remove('app_table_collapse_icon'); // todo: use app_table_collapsed_icon
-    header.classList.add('app_table_collapsed_open'); // todo: use app_table_collapsed_expanded
+    header.classList.remove('pagelib_collapse_table_collapsed');
+    header.classList.remove('pagelib_collapse_table_icon');
+    header.classList.add('pagelib_collapse_table_expanded');
     if (caption) {
       caption.style.visibility = 'visible';
     }
@@ -1042,9 +1042,9 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     }
   } else {
     table.style.display = 'block';
-    header.classList.remove('app_table_collapsed_open'); // todo: use app_table_collapsed_expanded
-    header.classList.add('app_table_collapse_close'); // todo: use app_table_collapsed_collapsed
-    header.classList.add('app_table_collapse_icon'); // todo: use app_table_collapsed_icon
+    header.classList.remove('pagelib_collapse_table_expanded');
+    header.classList.add('pagelib_collapse_table_collapsed');
+    header.classList.add('pagelib_collapse_table_icon');
     if (caption) {
       caption.style.visibility = 'hidden';
     }
@@ -1080,8 +1080,8 @@ var isInfobox = function isInfobox(element) {
  */
 var newCollapsedHeaderDiv = function newCollapsedHeaderDiv(document, content) {
   var div = document.createElement('div');
-  div.classList.add('app_table_collapsed_container');
-  div.classList.add('app_table_collapsed_open');
+  div.classList.add('pagelib_collapse_table_collapsed_container');
+  div.classList.add('pagelib_collapse_table_expanded');
   div.innerHTML = content || '';
   return div;
 };
@@ -1093,8 +1093,8 @@ var newCollapsedHeaderDiv = function newCollapsedHeaderDiv(document, content) {
  */
 var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
   var div = document.createElement('div');
-  div.classList.add('app_table_collapsed_bottom');
-  div.classList.add('app_table_collapse_icon'); // todo: use collapsed everywhere
+  div.classList.add('pagelib_collapse_table_collapsed_bottom');
+  div.classList.add('pagelib_collapse_table_icon');
   div.innerHTML = content || '';
   return div;
 };
@@ -1107,7 +1107,7 @@ var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
 var newCaption = function newCaption(title, headerText) {
   var caption = '<strong>' + title + '</strong>';
 
-  caption += '<span class=app_span_collapse_text>';
+  caption += '<span class=pagelib_collapse_table_collapse_text>';
   if (headerText.length > 0) {
     caption += ': ' + headerText[0];
   }
@@ -1143,7 +1143,7 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
   var _loop = function _loop(i) {
     var table = tables[i];
 
-    if (elementUtilities.findClosestAncestor(table, '.app_table_container') || !shouldTableBeCollapsed(table)) {
+    if (elementUtilities.findClosestAncestor(table, '.pagelib_collapse_table_container') || !shouldTableBeCollapsed(table)) {
       return 'continue';
     }
 
@@ -1157,7 +1157,7 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
     // create the container div that will contain both the original table
     // and the collapsed version.
     var containerDiv = window.document.createElement('div');
-    containerDiv.className = 'app_table_container';
+    containerDiv.className = 'pagelib_collapse_table_container';
     table.parentNode.insertBefore(containerDiv, table);
     table.parentNode.removeChild(table);
 
@@ -1219,11 +1219,11 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
 */
 var expandCollapsedTableIfItContainsElement = function expandCollapsedTableIfItContainsElement(element) {
   if (element) {
-    var containerSelector = '[class*="app_table_container"]';
+    var containerSelector = '[class*="pagelib_collapse_table_container"]';
     var container = elementUtilities.findClosestAncestor(element, containerSelector);
     if (container) {
       var collapsedDiv = container.firstElementChild;
-      if (collapsedDiv && collapsedDiv.classList.contains('app_table_collapsed_open')) {
+      if (collapsedDiv && collapsedDiv.classList.contains('pagelib_collapse_table_expanded')) {
         collapsedDiv.click();
       }
     }
@@ -1246,7 +1246,7 @@ var CollapseTable = {
 };
 
 var COMPATIBILITY = {
-  FILTER: 'pagelib-compatibility-filter'
+  FILTER: 'pagelib_compatibility_filter'
 };
 
 /**
@@ -2430,12 +2430,12 @@ var _class = function () {
 // CSS classes used to identify and present lazily loaded images. Placeholders are members of
 // PLACEHOLDER_CLASS and one state class: pending, loading, or error. Images are members of either
 // loading or loaded state classes. Class names should match those in LazyLoadTransform.css.
-var PLACEHOLDER_CLASS = 'pagelib-lazy-load-placeholder';
-var PLACEHOLDER_PENDING_CLASS = 'pagelib-lazy-load-placeholder-pending'; // Download pending.
-var PLACEHOLDER_LOADING_CLASS = 'pagelib-lazy-load-placeholder-loading'; // Download started.
-var PLACEHOLDER_ERROR_CLASS = 'pagelib-lazy-load-placeholder-error'; // Download failure.
-var IMAGE_LOADING_CLASS = 'pagelib-lazy-load-image-loading'; // Download started.
-var IMAGE_LOADED_CLASS = 'pagelib-lazy-load-image-loaded'; // Download completed.
+var PLACEHOLDER_CLASS = 'pagelib_lazy_load_placeholder';
+var PLACEHOLDER_PENDING_CLASS = 'pagelib_lazy_load_placeholder_pending'; // Download pending.
+var PLACEHOLDER_LOADING_CLASS = 'pagelib_lazy_load_placeholder_loading'; // Download started.
+var PLACEHOLDER_ERROR_CLASS = 'pagelib_lazy_load_placeholder_error'; // Download failure.
+var IMAGE_LOADING_CLASS = 'pagelib_lazy_load_image_loading'; // Download started.
+var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed.
 
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
@@ -2750,7 +2750,7 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios' };
+var CLASS$2 = { ANDROID: 'pagelib_platform_android', IOS: 'pagelib_platform_ios' };
 
 // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
 /**
@@ -2860,10 +2860,10 @@ var RedLinks = {
 };
 
 /**
- * To widen an image element a css class called 'wideImageOverride' is applied to the image element,
- * however, ancestors of the image element can prevent the widening from taking effect. This method
- * makes minimal adjustments to ancestors of the image element being widened so the image widening
- * can take effect.
+ * To widen an image element a css class called 'pagelib_widen_image_override' is applied to the
+ * image element, however, ancestors of the image element can prevent the widening from taking
+ * effect. This method makes minimal adjustments to ancestors of the image element being widened so
+ * the image widening can take effect.
  * @param  {!HTMLElement} el Element whose ancestors will be widened
  * @return {void}
  */
@@ -2926,7 +2926,7 @@ var shouldWidenImage = function shouldWidenImage(image) {
  */
 var widenImage = function widenImage(image) {
   widenAncestors(image);
-  image.classList.add('wideImageOverride');
+  image.classList.add('pagelib_widen_image_override');
 };
 
 /**
