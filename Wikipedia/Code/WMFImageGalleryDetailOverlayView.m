@@ -5,7 +5,7 @@
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
-#import "Masonry.h" //deprecated: don't use for new code
+@import Masonry;
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()

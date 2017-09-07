@@ -1,7 +1,7 @@
 #import "RecentSearchesViewController.h"
 @import WMF.MWKRecentSearchList;
 @import WMF.MWKRecentSearchEntry;
-#import "Masonry.h" //deprecated: don't use for new code
+@import Masonry;
 #import "UIButton+WMFButton.h"
 #import "Wikipedia-Swift.h"
 

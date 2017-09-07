@@ -2,7 +2,7 @@
 #import "WMFWebView.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
-#import "Masonry.h" //deprecated: don't use for new code
+@import Masonry;
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"

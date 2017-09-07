@@ -3,7 +3,7 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import "Masonry.h" //deprecated: don't use for new code
+@import Masonry;
 
 #define DEBUG_THEMES 1
 

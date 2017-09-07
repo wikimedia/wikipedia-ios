@@ -8,7 +8,7 @@
 
 #import "TSMessage.h"
 #import "TSMessageView.h"
-#import "Masonry.h" //deprecated: don't use for new code
+#import <Masonry/Masonry.h>
 
 #define kTSMessageDisplayTime 1.5
 #define kTSMessageExtraDisplayTimePerPixel 0.04
