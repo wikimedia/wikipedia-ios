@@ -57,11 +57,11 @@
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Ausblenden";
 "appearance-settings-adjust-text-sizing" = "Passe die Größe des Artikeltextes an";
-"appearance-settings-image-dimming-footer" = "Verringere die Undurchsichtigkeit von Bildern im dunklen Thema";
-"appearance-settings-reading-themes" = "Lesethemen";
+"appearance-settings-image-dimming-footer" = "Verringere die Undurchsichtigkeit von Bildern im dunklen Farbschema";
+"appearance-settings-reading-themes" = "Lese-Farbschemen";
 "appearance-settings-text-sizing-example-text" = "Bewege oben den Schieber, um die Größe des Artikeltextes zu ändern. Verwende die Größe deines Systemtextes, um die Größe anderer Textbereiche in der App zu ändern.";
 "appearance-settings-theme-options" = "Farbschemaoptionen";
-"appearance-settings-title" = "Lesethemen";
+"appearance-settings-title" = "Lese-Farbschemen";
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
 "article-languages-filter-placeholder" = "Sprache finden";
@@ -70,7 +70,7 @@
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
 "article-share" = "Teilen";
-"article-toolbar-reading-themes-controls-toolbar-item" = "Lesethemensteuerung";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "back" = "Zurück";
@@ -186,7 +186,7 @@
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
 "home-news-footer" = "Mehr in den Nachrichten";
 "home-themes-action-title" = "Einstellungen verwalten";
-"home-themes-prompt" = "Passe deine Leseeinstellungen einschließlich Textgröße und Thema von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an für eine komfortablere Leseerfahrung.";
+"home-themes-prompt" = "Passe deine Leseeinstellungen einschließlich Textgröße und Farbschema von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an für eine komfortablere Leseerfahrung.";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, zum Anfang von Entdecken scrollen";
 "icon-shortcut-continue-reading-title" = "Mit dem Lesen fortfahren";
@@ -297,9 +297,9 @@
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
-"reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Thema";
-"reading-themes-controls-accessibility-light-theme-button" = "Licht-Thema";
-"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Thema";
+"reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Farbschema";
+"reading-themes-controls-accessibility-light-theme-button" = "Licht-Farbschema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Farbschema";
 "reading-themes-controls-accessibility-text-size-slider" = "Textgrößenschieber";
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|Gestern|Vor $1 Tagen}}";
