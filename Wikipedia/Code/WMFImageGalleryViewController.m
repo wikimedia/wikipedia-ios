@@ -2,7 +2,7 @@
 @import WMF;
 @import FLAnimatedImage;
 @import NYTPhotoViewer;
-@import Masonry;
+#import "Masonry.h" //deprecated: don't use for new code
 #import "Wikipedia-Swift.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"

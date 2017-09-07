@@ -1,6 +1,6 @@
 #import "WMFUnderlineButton.h"
 #import "UIFont+WMFStyle.h"
-@import Masonry;
+#import "Masonry.h" //deprecated: don't use for new code
 
 @interface WMFUnderlineButton ()
 

@@ -1,6 +1,6 @@
 #import "WMFLanguagesViewController.h"
 @import WMF;
-@import Masonry;
+#import "Masonry.h" //deprecated: don't use for new code
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

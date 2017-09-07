@@ -4,7 +4,7 @@
 #import <WMF/NSUserActivity+WMFExtensions.h>
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageLink.h>
-@import Masonry;
+#import "Masonry.h" //deprecated: don't use for new code
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"

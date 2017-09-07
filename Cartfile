@@ -1,6 +1,6 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "CocoaLumberjack/CocoaLumberjack" ~> 3.2.1
-github "wikimedia/Masonry" "master"
+github "SnapKit/Masonry" ~> 1.0
 github "swisspol/GCDWebServer" ~> 3.3
 github "NYTimes/NYTPhotoViewer" ~> 1.2.0
 github "wikimedia/AFNetworking" "release/3.1.1"

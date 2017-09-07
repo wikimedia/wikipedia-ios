@@ -899,7 +899,6 @@
 		D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D80ED3B61EE57F4800CE8C50 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D80ED3B71EE57F4800CE8C50 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
-		D80ED3B81EE57F4800CE8C50 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D80ED3B91EE57F4800CE8C50 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D80ED3BA1EE57F4800CE8C50 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D80ED3BB1EE57F4800CE8C50 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -1079,11 +1078,6 @@
 		D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
-		D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
-		D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
-		D82FDB251DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
-		D82FDB261DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
-		D82FDB281DF0AAFF00DDF311 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D82FDB2D1DF0ABBF00DDF311 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */; };
 		D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D82FDB331DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
@@ -1127,7 +1121,6 @@
 		D83FD2A61EF473B300532B15 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */; };
 		D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D83FD2B11EF4745300532B15 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5519E1DF1AE4B00B90177 /* hpple.framework */; };
 		D83FD2B31EF4746400532B15 /* Piwik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5516F1DF1A7AC00B90177 /* Piwik.framework */; };
 		D83FD2B41EF4746F00532B15 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */; };
@@ -1686,7 +1679,6 @@
 		D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
-		D8A42B9F1E815A9C00D8E281 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
@@ -2050,7 +2042,6 @@
 		D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
-		D8CE26221E698E2400DAE2E0 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
@@ -2456,7 +2447,6 @@
 		D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
-		D8EC3F261E9BDA35006712EB /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB191DF0AAFF00DDF311 /* Masonry.framework */; };
 		D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
 		D8EC3F281E9BDA35006712EB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
 		D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
@@ -3064,6 +3054,31 @@
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
+		830884231F61EA92005E9354 /* MASConstraint+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Carthage/Checkouts/Masonry/Masonry/MASConstraint+Private.h"; sourceTree = SOURCE_ROOT; };
+		830884241F61EA93005E9354 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = SOURCE_ROOT; };
+		830884251F61EA94005E9354 /* MASConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Carthage/Checkouts/Masonry/Masonry/MASConstraint.h; sourceTree = SOURCE_ROOT; };
+		830884261F61EA95005E9354 /* View+MASAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "View+MASAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/View+MASAdditions.h"; sourceTree = SOURCE_ROOT; };
+		830884271F61EA95005E9354 /* MASViewAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Carthage/Checkouts/Masonry/Masonry/MASViewAttribute.h; sourceTree = SOURCE_ROOT; };
+		830884281F61EA95005E9354 /* MASViewAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Carthage/Checkouts/Masonry/Masonry/MASViewAttribute.m; sourceTree = SOURCE_ROOT; };
+		830884291F61EA96005E9354 /* MASConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Carthage/Checkouts/Masonry/Masonry/MASConstraint.m; sourceTree = SOURCE_ROOT; };
+		8308842A1F61EA96005E9354 /* MASViewConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Carthage/Checkouts/Masonry/Masonry/MASViewConstraint.h; sourceTree = SOURCE_ROOT; };
+		8308842B1F61EA96005E9354 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = SOURCE_ROOT; };
+		8308842C1F61EA97005E9354 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Carthage/Checkouts/Masonry/Masonry/ViewController+MASAdditions.m"; sourceTree = SOURCE_ROOT; };
+		8308842D1F61EA97005E9354 /* MASUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Carthage/Checkouts/Masonry/Masonry/MASUtilities.h; sourceTree = SOURCE_ROOT; };
+		8308842E1F61EA97005E9354 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Carthage/Checkouts/Masonry/Masonry/MASLayoutConstraint.h; sourceTree = SOURCE_ROOT; };
+		8308842F1F61EA98005E9354 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/NSArray+MASAdditions.h"; sourceTree = SOURCE_ROOT; };
+		830884301F61EA98005E9354 /* MASViewConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Carthage/Checkouts/Masonry/Masonry/MASViewConstraint.m; sourceTree = SOURCE_ROOT; };
+		830884311F61EA99005E9354 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Carthage/Checkouts/Masonry/Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = SOURCE_ROOT; };
+		830884321F61EA99005E9354 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Carthage/Checkouts/Masonry/Masonry/MASCompositeConstraint.m; sourceTree = SOURCE_ROOT; };
+		830884331F61EA99005E9354 /* MASConstraintMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASConstraintMaker.m; path = Carthage/Checkouts/Masonry/Masonry/MASConstraintMaker.m; sourceTree = SOURCE_ROOT; };
+		830884341F61EA9A005E9354 /* MASConstraintMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Carthage/Checkouts/Masonry/Masonry/MASConstraintMaker.h; sourceTree = SOURCE_ROOT; };
+		830884351F61EA9A005E9354 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Carthage/Checkouts/Masonry/Masonry/MASLayoutConstraint.m; sourceTree = SOURCE_ROOT; };
+		830884361F61EA9B005E9354 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/View+MASShorthandAdditions.h"; sourceTree = SOURCE_ROOT; };
+		830884371F61EA9B005E9354 /* View+MASAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Carthage/Checkouts/Masonry/Masonry/View+MASAdditions.m"; sourceTree = SOURCE_ROOT; };
+		830884381F61EA9C005E9354 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Carthage/Checkouts/Masonry/Masonry/NSArray+MASAdditions.m"; sourceTree = SOURCE_ROOT; };
+		830884391F61EA9C005E9354 /* Masonry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Carthage/Checkouts/Masonry/Masonry/Masonry.h; sourceTree = SOURCE_ROOT; };
+		8308843A1F61EA9C005E9354 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Carthage/Checkouts/Masonry/Masonry/ViewController+MASAdditions.h"; sourceTree = SOURCE_ROOT; };
+		8308843B1F61EA9D005E9354 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Carthage/Checkouts/Masonry/Masonry/MASCompositeConstraint.h; sourceTree = SOURCE_ROOT; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -4101,7 +4116,6 @@
 		D82E95841F16502E007BD960 /* WMFLanguagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFLanguagesViewController.xib; sourceTree = "<group>"; };
 		D82FDAD91DF0A99E00DDF311 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = SOURCE_ROOT; };
-		D82FDB191DF0AAFF00DDF311 /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = Carthage/Build/iOS/Masonry.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GCDWebServers.framework; path = Carthage/Build/iOS/GCDWebServers.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NYTPhotoViewer.framework; path = Carthage/Build/iOS/NYTPhotoViewer.framework; sourceTree = SOURCE_ROOT; };
 		D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = SOURCE_ROOT; };
@@ -4390,7 +4404,6 @@
 			files = (
 				D8FA190A1E1BDB79009675C3 /* WMF.framework in Frameworks */,
 				D82FDB3F1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
-				D82FDB251DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE61DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D8D551A11DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADD1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -4421,7 +4434,6 @@
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D8D551A71DF1AE9B00B90177 /* libxml2.tbd in Frameworks */,
-				D82FDB221DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE211C1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4449,7 +4461,6 @@
 				D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */,
 				D80ED3B61EE57F4800CE8C50 /* QuartzCore.framework in Frameworks */,
 				D80ED3B71EE57F4800CE8C50 /* libxml2.tbd in Frameworks */,
-				D80ED3B81EE57F4800CE8C50 /* Masonry.framework in Frameworks */,
 				D80ED3B91EE57F4800CE8C50 /* FLAnimatedImage.framework in Frameworks */,
 				D80ED3BA1EE57F4800CE8C50 /* NYTPhotoViewer.framework in Frameworks */,
 				D80ED3BB1EE57F4800CE8C50 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4479,7 +4490,6 @@
 				D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */,
 				D83FD2AF1EF4744200532B15 /* Mantle.framework in Frameworks */,
 				D83FD2B01EF4744700532B15 /* FLAnimatedImage.framework in Frameworks */,
-				D83FD2B11EF4745300532B15 /* Masonry.framework in Frameworks */,
 				D83FD2B21EF4745E00532B15 /* hpple.framework in Frameworks */,
 				D83FD2B31EF4746400532B15 /* Piwik.framework in Frameworks */,
 				D83FD2B61EF4747800532B15 /* AFNetworking.framework in Frameworks */,
@@ -4493,7 +4503,6 @@
 				D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */,
 				D8CE21201E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D906951DF58D2C00853BFD /* libsqlite3.tbd in Frameworks */,
-				D82FDB281DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D8D551A41DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDB391DF0B63300DDF311 /* CocoaLumberjack.framework in Frameworks */,
@@ -4509,7 +4518,6 @@
 			files = (
 				D8FA190B1E1BDB7D009675C3 /* WMF.framework in Frameworks */,
 				D82FDB401DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
-				D82FDB261DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D82FDAE71DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				D8D551A21DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D82FDADE1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
@@ -4544,7 +4552,6 @@
 				D82FDADB1DF0A99E00DDF311 /* AFNetworking.framework in Frameworks */,
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
-				D82FDB231DF0AAFF00DDF311 /* Masonry.framework in Frameworks */,
 				D8CE211D1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8D551A01DF1AE4B00B90177 /* hpple.framework in Frameworks */,
 				D8D551711DF1A7AC00B90177 /* Piwik.framework in Frameworks */,
@@ -4561,7 +4568,6 @@
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42B9E1E815A9C00D8E281 /* libxml2.tbd in Frameworks */,
-				D8A42B9F1E815A9C00D8E281 /* Masonry.framework in Frameworks */,
 				D8A42BA01E815A9C00D8E281 /* FLAnimatedImage.framework in Frameworks */,
 				D8A42BA21E815A9C00D8E281 /* NYTPhotoViewer.framework in Frameworks */,
 				D8A42BA31E815A9C00D8E281 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -4593,7 +4599,6 @@
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */,
-				D8CE26221E698E2400DAE2E0 /* Masonry.framework in Frameworks */,
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
 				D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
@@ -4626,7 +4631,6 @@
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */,
-				D8EC3F261E9BDA35006712EB /* Masonry.framework in Frameworks */,
 				D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */,
 				D8EC3F281E9BDA35006712EB /* libz.tbd in Frameworks */,
 				D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */,
@@ -5712,6 +5716,38 @@
 				B09B03EC1CE0FB4200009083 /* PageHistorySection.swift */,
 			);
 			name = PageHistory;
+			sourceTree = "<group>";
+		};
+		830884221F61EA70005E9354 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				8308843B1F61EA9D005E9354 /* MASCompositeConstraint.h */,
+				830884321F61EA99005E9354 /* MASCompositeConstraint.m */,
+				830884251F61EA94005E9354 /* MASConstraint.h */,
+				830884291F61EA96005E9354 /* MASConstraint.m */,
+				830884231F61EA92005E9354 /* MASConstraint+Private.h */,
+				830884341F61EA9A005E9354 /* MASConstraintMaker.h */,
+				830884331F61EA99005E9354 /* MASConstraintMaker.m */,
+				8308842E1F61EA97005E9354 /* MASLayoutConstraint.h */,
+				830884351F61EA9A005E9354 /* MASLayoutConstraint.m */,
+				830884391F61EA9C005E9354 /* Masonry.h */,
+				8308842D1F61EA97005E9354 /* MASUtilities.h */,
+				830884271F61EA95005E9354 /* MASViewAttribute.h */,
+				830884281F61EA95005E9354 /* MASViewAttribute.m */,
+				8308842A1F61EA96005E9354 /* MASViewConstraint.h */,
+				830884301F61EA98005E9354 /* MASViewConstraint.m */,
+				8308842F1F61EA98005E9354 /* NSArray+MASAdditions.h */,
+				830884381F61EA9C005E9354 /* NSArray+MASAdditions.m */,
+				830884241F61EA93005E9354 /* NSArray+MASShorthandAdditions.h */,
+				8308842B1F61EA96005E9354 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				830884311F61EA99005E9354 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				830884261F61EA95005E9354 /* View+MASAdditions.h */,
+				830884371F61EA9B005E9354 /* View+MASAdditions.m */,
+				830884361F61EA9B005E9354 /* View+MASShorthandAdditions.h */,
+				8308843A1F61EA9C005E9354 /* ViewController+MASAdditions.h */,
+				8308842C1F61EA97005E9354 /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
 			sourceTree = "<group>";
 		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
@@ -7151,6 +7187,7 @@
 		D810C34C1DF1C36F003427DA /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				830884221F61EA70005E9354 /* Masonry */,
 				D84DAA051EEEF527008E4B18 /* Hex Colors */,
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D84DAA0A1EEEF527008E4B18 /* TS */,
@@ -7229,7 +7266,6 @@
 				D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */,
 				D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */,
 				D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */,
-				D82FDB191DF0AAFF00DDF311 /* Masonry.framework */,
 				D82FDB321DF0B63300DDF311 /* CocoaLumberjack.framework */,
 				D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */,
 				D82FDAE21DF0A9DC00DDF311 /* Mantle.framework */,
@@ -9133,7 +9169,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9171,7 +9206,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9210,7 +9244,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9248,7 +9281,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9303,7 +9335,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
