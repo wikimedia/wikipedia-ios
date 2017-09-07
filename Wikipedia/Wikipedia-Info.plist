@@ -105,5 +105,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 </dict>
 </plist>

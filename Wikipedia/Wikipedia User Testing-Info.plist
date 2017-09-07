@@ -76,6 +76,8 @@
 	<array>
 		<string>fetch</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

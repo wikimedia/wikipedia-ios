@@ -10,7 +10,6 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "WMFShareOptionsController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
 //Funnel
@@ -101,7 +100,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
-@property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
@@ -193,7 +191,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
 
     _shareFunnel = nil;
-    _shareOptionsController = nil;
     [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
 
     _article = article;
@@ -258,18 +255,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _shareFunnel = [[WMFShareFunnel alloc] initWithArticle:self.article];
     }
     return _shareFunnel;
-}
-
-- (nullable WMFShareOptionsController *)shareOptionsController {
-    NSParameterAssert(self.article);
-    if (!self.article) {
-        return nil;
-    }
-    if (!_shareOptionsController) {
-        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:self.article
-                                                                         shareFunnel:self.shareFunnel];
-    }
-    return _shareOptionsController;
 }
 
 - (UIProgressView *)progressView {
@@ -1226,10 +1211,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Share
 
 - (void)shareAFactWithTextSnippet:(nullable NSString *)text {
-    if (self.shareOptionsController.isActive) {
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    if (!article) {
         return;
     }
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
+   
+    WMFShareViewController *shareViewController = [[WMFShareViewController alloc] initWithText:text article:article theme:self.theme];
+    [self presentViewController:shareViewController animated:YES completion:nil];
 }
 
 - (void)shareArticle {

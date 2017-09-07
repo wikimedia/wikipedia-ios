@@ -886,8 +886,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.headerHeight setOffset:headerHeight];
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
-
-    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
+    //WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu")
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 }
