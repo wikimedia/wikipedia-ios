@@ -602,6 +602,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.progressView.tintColor = theme.colors.link;
     self.searchContentContainer.backgroundColor = theme.colors.midBackground;
     self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
+    self.searchField.isUnderlined = false;
     [self.searchField applyTheme:theme];
     self.searchField.backgroundColor = theme.colors.chromeBackground;
 

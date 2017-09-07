@@ -380,21 +380,6 @@
                                     <action selector="openLanguagePicker" destination="jWX-gY-OwH" eventType="touchUpInside" id="aof-d9-PyO"/>
                                 </connections>
                             </button>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rly-Nt-Gci" userLabel="Separator View">
-                                <rect key="frame" x="0.0" y="43" width="375" height="1"/>
-                                <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="daE-jC-sre"/>
-                                    <constraint firstAttribute="height" constant="1" id="kOm-NP-bCz"/>
-                                    <constraint firstAttribute="width" constant="1" id="mVg-hs-ewT"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="daE-jC-sre"/>
-                                        <exclude reference="mVg-hs-ewT"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -408,13 +393,10 @@
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="d5E-ms-wOw"/>
                             <constraint firstItem="u5D-PX-Vyp" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="izy-4Q-FUt"/>
                             <constraint firstItem="WJp-HZ-PFr" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="lx4-vt-GSq"/>
-                            <constraint firstAttribute="trailing" secondItem="Rly-Nt-Gci" secondAttribute="trailing" id="m6O-Fp-TB9"/>
                             <constraint firstItem="oqE-Xn-Paw" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="mm6-oZ-VKh"/>
                             <constraint firstAttribute="bottom" secondItem="iIa-dg-uH0" secondAttribute="bottom" id="noD-1I-WPD"/>
-                            <constraint firstAttribute="bottom" secondItem="Rly-Nt-Gci" secondAttribute="bottom" id="sHZ-xt-xU3"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="top" secondItem="tzw-k8-eL6" secondAttribute="top" id="taD-Tb-F1s"/>
                             <constraint firstItem="WJp-HZ-PFr" firstAttribute="leading" secondItem="oqE-Xn-Paw" secondAttribute="trailing" constant="8" id="tnc-lF-Ckz"/>
-                            <constraint firstItem="Rly-Nt-Gci" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="zxY-rQ-mNX"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
