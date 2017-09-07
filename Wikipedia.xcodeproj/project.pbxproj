@@ -9134,7 +9134,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9143,6 +9142,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mapbox.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -9156,6 +9156,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Mapbox.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9182,7 +9183,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9190,6 +9190,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -9202,6 +9203,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Piwik.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9230,7 +9232,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9238,6 +9239,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Piwik.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -9250,6 +9252,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Piwik.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9277,7 +9280,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9286,6 +9288,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -9299,6 +9302,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -9346,7 +9350,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/GCDWebServers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
@@ -9355,6 +9358,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/hpple.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Tweaks.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Masonry.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (
@@ -9368,6 +9372,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/hpple.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Tweaks.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaLumberjackSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
