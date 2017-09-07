@@ -1,4 +1,4 @@
-﻿/* Header text for content license section */
+/* Header text for content license section */
 "about-content-license" = "Content license";
 
 /* Text explaining license of app content. %1$@ is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}. */
@@ -1001,7 +1001,7 @@
 "settings-title" = "Settings";
 
 /* Button label for creating a Share-a-fact card from the current text selection */
-"share-a-fact-share-menu-item" = "Share-a-fact";
+"share-a-fact-share-menu-item" = "Share-a-fact…";
 
 /* Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks. */
 "share-article-name-on-wikipedia" = "\"%1$@\" on @Wikipedia:";

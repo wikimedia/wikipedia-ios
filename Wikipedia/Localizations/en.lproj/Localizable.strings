@@ -332,7 +332,7 @@
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
-"share-a-fact-share-menu-item" = "Share-a-fact";
+"share-a-fact-share-menu-item" = "Share-a-fact…";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
 "share-as-image" = "Share as image";
