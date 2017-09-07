@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -21,11 +21,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3r-Et-NLq">
-                    <rect key="frame" x="66" y="267" width="243" height="133"/>
+                    <rect key="frame" x="38.5" y="173.5" width="243" height="133"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="share-building" translatesAutoresizingMaskIntoConstraints="NO" id="zDc-fC-axl">
                             <rect key="frame" x="64.5" y="0.0" width="115" height="66"/>
@@ -54,13 +54,15 @@
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
-                    <rect key="frame" x="10" y="40" width="355" height="200"/>
+                    <rect key="frame" x="10" y="40" width="300" height="180"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="VkR-jU-7S9"/>
+                        <constraint firstAttribute="height" constant="180" id="VkR-jU-7S9">
+                            <variation key="heightClass=regular-widthClass=regular" constant="300"/>
+                        </constraint>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-BJ-5qn">
-                    <rect key="frame" x="160" y="607" width="55" height="33"/>
+                    <rect key="frame" x="132.5" y="420" width="55" height="33"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <state key="normal" title="Cancel"/>
                     <connections>
@@ -71,7 +73,9 @@
             <constraints>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Fp-9h-943"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" constant="10" id="H60-aG-ejc"/>
-                <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="fOe-1X-u3N"/>
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="fOe-1X-u3N">
+                    <variation key="heightClass=regular-widthClass=regular" constant="64"/>
+                </constraint>
                 <constraint firstItem="wRv-BJ-5qn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qQ9-b1-NjJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wRv-BJ-5qn" secondAttribute="bottom" constant="27" id="qjr-7Q-Too"/>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wa7-w2-dmH"/>
