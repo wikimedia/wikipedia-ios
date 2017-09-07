@@ -53,11 +53,10 @@
                         <constraint firstItem="PB8-bf-PDt" firstAttribute="top" secondItem="zDc-fC-axl" secondAttribute="bottom" constant="23" id="wcT-W6-pgR"/>
                     </constraints>
                 </view>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
-                    <rect key="frame" x="50" y="40" width="275" height="156"/>
+                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
+                    <rect key="frame" x="10" y="40" width="355" height="200"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="275" id="F98-5h-iXi"/>
-                        <constraint firstAttribute="height" constant="156" id="VkR-jU-7S9"/>
+                        <constraint firstAttribute="height" constant="200" id="VkR-jU-7S9"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-BJ-5qn">
@@ -71,11 +70,12 @@
             </subviews>
             <constraints>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Fp-9h-943"/>
-                <constraint firstItem="VCO-jP-6OH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="IBr-Or-Poa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" constant="10" id="H60-aG-ejc"/>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="fOe-1X-u3N"/>
                 <constraint firstItem="wRv-BJ-5qn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qQ9-b1-NjJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wRv-BJ-5qn" secondAttribute="bottom" constant="27" id="qjr-7Q-Too"/>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wa7-w2-dmH"/>
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="ycm-iC-1aJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="33.5" y="54.5"/>

@@ -4,7 +4,10 @@ import UIKit
 class ShareViewController: UIViewController, Themeable {
     @IBOutlet weak var cancelButton: UIButton!
     let text: String
-    let article: WMFArticle
+    let articleTitle: String
+    let articleURL: URL
+    let articleImageURL: URL?
+    let articleDescription: String?
     let loadGroup: DispatchGroup
     var theme: Theme
     var image: UIImage?
@@ -13,9 +16,15 @@ class ShareViewController: UIViewController, Themeable {
     @IBOutlet weak var busyView: UIView!
     @IBOutlet weak var busyLabel: UILabel!
     
-    @objc required public init(text: String, article: WMFArticle, theme: Theme) {
+    @objc required public init?(text: String, article: WMFArticle, theme: Theme) {
+        guard let articleURL = article.url else {
+            return nil
+        }
         self.text = text
-        self.article = article
+        self.articleTitle = article.displayTitle ?? ""
+        self.articleDescription = article.capitalizedWikidataDescriptionOrSnippet
+        self.articleURL = articleURL
+        self.articleImageURL = article.imageURL(forWidth: 640)
         self.theme = theme
         self.loadGroup = DispatchGroup()
         super.init(nibName: "ShareViewController", bundle: nil)
@@ -26,7 +35,7 @@ class ShareViewController: UIViewController, Themeable {
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(text: "", article: WMFArticle(), theme: Theme.standard)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         busyLabel.text = WMFLocalizedString("share-building", value: "Building Share-a-fact card…", comment: "Shown while Share-a-fact card is being constructed")
@@ -39,15 +48,14 @@ class ShareViewController: UIViewController, Themeable {
         DispatchQueue.global(qos: .background).async {
             self.loadGroup.wait()
             DispatchQueue.main.async {
-                self.createShareAFactCard(completion: { (image) in
-                    self.showActivityViewController(with: image)
-                })
+                let image = self.createShareAFactCard()
+                self.showActivityViewController(with: image)
             }
         }
     }
     
     func loadImage() {
-        if let imageURL = article.imageURL(forWidth: 640) {
+        if let imageURL = self.articleImageURL {
             loadGroup.enter()
             ImageController.shared.fetchImage(withURL: imageURL, failure: { (fail) in
                 self.loadGroup.leave()
@@ -58,30 +66,33 @@ class ShareViewController: UIViewController, Themeable {
         }
     }
     
-    func createShareAFactCard(completion: @escaping (UIImage?) -> Void) {
+    func createShareAFactCard() -> UIImage? {
         let cardController = WMFShareCardViewController(nibName: "ShareCard", bundle: nil)
         let cardView = cardController.view
-        cardController.fillCard(with: article, snippet: text, image: image) {
-            completion(cardView?.wmf_snapshotImage())
-        }
+        cardController.fillCard(withArticleURL: articleURL, articleTitle: articleTitle, articleDescription: articleDescription, text: text, image: image)
+        return cardView?.wmf_snapshotImage()
     }
     
     func showActivityViewController(with shareAFactImage: UIImage?) {
-        imageView.isHidden = false
-        busyView.isHidden = true
-        cancelButton.isHidden = true
-        var activityItems: [Any] = [text]
-        if let shareAFactImage = shareAFactImage {
-            imageView.image = shareAFactImage
-            activityItems.append(shareAFactImage)
+        cancelButton.isEnabled = false
+        imageView.image = shareAFactImage
+        UIView.animate(withDuration: 0.3) {
+            self.imageView.alpha = 1
+            self.busyView.alpha = 0
+            self.cancelButton.alpha = 0
         }
+        let itemProvider = ShareAFactActivityTextItemProvider(text: text, articleTitle: articleTitle, articleURL: articleURL)
+        var activityItems = [Any]()
+        if let image = shareAFactImage {
+            activityItems.append(ShareAFactActivityImageItemProvider(image: image))
+        }
+        activityItems.append(itemProvider)
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         activityVC.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         present(activityVC, animated: true, completion: nil)
     }
-
 
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -92,9 +103,8 @@ class ShareViewController: UIViewController, Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        
         busyLabel.textColor = theme.colors.primaryText
-        view.backgroundColor = theme.colors.overlayBackground
+        view.backgroundColor = theme.colors.paperBackground.withAlphaComponent(0.9)
     }
     
 }

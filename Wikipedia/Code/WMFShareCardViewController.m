@@ -23,7 +23,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)fillCardWithArticle:(nullable WMFArticle *)article snippet:(nullable NSString *)snippet image:(nullable UIImage *)image completion:(nullable void (^)(void))completion {
+- (void)fillCardWithArticleURL:(nullable NSURL *)articleURL articleTitle:(nullable NSString *)articleTitle articleDescription:(nullable NSString *)articleDescription text:(nullable NSString *)text image:(nullable UIImage *)image {
     // The layout system will transpose the Wikipedia logo, CC-BY-SA,
     // title, and Wikidata description for congruence with the lead
     // image's title and description, which is determined by system
@@ -31,16 +31,16 @@
     // title and Wikidata description. For the snippet, we want to mimic
     // the webview's layout alignment, which is based upon actual article
     // language directionality.
-    NSString *language = article.URL.wmf_language;
+    NSString *language = articleURL.wmf_language;
     UISemanticContentAttribute attribute = [MWLanguageInfo semanticContentAttributeForWMFLanguage:language];
     NSTextAlignment snippetAlignment = attribute == UISemanticContentAttributeForceRightToLeft ? NSTextAlignmentRight : NSTextAlignmentLeft;
-    self.shareSelectedText.text = snippet;
+    self.shareSelectedText.text = text;
     self.shareSelectedText.textAlignment = snippetAlignment;
 
     NSTextAlignment subtextAlignment = NSTextAlignmentNatural;
-    self.shareArticleTitle.text = [article.displayTitle wmf_stringByRemovingHTML];
+    self.shareArticleTitle.text = articleTitle;
     self.shareArticleTitle.textAlignment = subtextAlignment;
-    self.shareArticleDescription.text = article.capitalizedWikidataDescriptionOrSnippet;
+    self.shareArticleDescription.text = articleDescription;
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
     if (image) {
@@ -48,11 +48,9 @@
         self.shareCardImageContainer.image = image;
         self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
         //self.shareCardImageContainer.leadImage = article.image;
-        completion();
     } else {
         // no image, set the background color to black
         self.shareCardImageContainer.backgroundColor = [UIColor blackColor];
-        completion();
     }
 }
 
