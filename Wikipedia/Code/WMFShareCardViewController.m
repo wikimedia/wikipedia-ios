@@ -23,7 +23,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)fillCardWithArticle:(WMFArticle *)article snippet:(NSString *)snippet image:(UIImage *)image completion:(void (^)(void))completion {
+- (void)fillCardWithArticle:(nullable WMFArticle *)article snippet:(nullable NSString *)snippet image:(nullable UIImage *)image completion:(nullable void (^)(void))completion {
     // The layout system will transpose the Wikipedia logo, CC-BY-SA,
     // title, and Wikidata description for congruence with the lead
     // image's title and description, which is determined by system

@@ -3,6 +3,6 @@
 
 @interface WMFShareCardViewController : UIViewController
 
-- (void)fillCardWithArticle:(WMFArticle *)article snippet:(NSString *)snippet image:(UIImage *)image completion:(void (^)(void))completion;
+- (void)fillCardWithArticle:(nullable WMFArticle *)article snippet:(nullable NSString *)snippet image:(nullable UIImage *)image completion:(nullable void (^)(void))completion;
 
 @end
