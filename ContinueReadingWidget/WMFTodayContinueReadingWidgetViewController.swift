@@ -37,6 +37,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         daysAgoLabel.textColor = theme.colors.secondaryText
         daysAgoView.backgroundColor = theme.colors.overlayBackground
 
+        if #available(iOSApplicationExtension 11.0, *) {
+            imageView.accessibilityIgnoresInvertColors = true
+        }
+        
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
         _ = updateView()
