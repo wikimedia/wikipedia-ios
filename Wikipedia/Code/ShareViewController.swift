@@ -88,9 +88,12 @@ class ShareViewController: UIViewController, Themeable {
         }
         activityItems.append(itemProvider)
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = view
+        activityVC.popoverPresentationController?.sourceRect = imageView.frame
         activityVC.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
+        
         present(activityVC, animated: true, completion: nil)
     }
 
