@@ -22,7 +22,7 @@ class ShareViewController: UIViewController, Themeable {
         }
         self.text = text
         self.articleTitle = article.displayTitle ?? ""
-        self.articleDescription = article.capitalizedWikidataDescriptionOrSnippet
+        self.articleDescription = article.capitalizedWikidataDescription
         self.articleURL = articleURL
         self.articleImageURL = article.imageURL(forWidth: 640)
         self.theme = theme
