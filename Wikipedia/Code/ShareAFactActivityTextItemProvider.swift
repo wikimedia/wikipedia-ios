@@ -31,7 +31,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
     }
     
     var defaultRepresentation: String {
-        let format = WMFLocalizedString("share-default-format", value: "“%1$@”\n\nfrom “%2$@”\n\n%3$@", comment: "Share string format for email and copied text. %1$@ is replaced with the selected text, %2$@ is replaced with the article title, %3$@ is replaced with the articleURL.")
+        let format = WMFLocalizedString("share-default-format", value: "“%1$@,” from “%2$@,” %3$@", comment: "Share string format for email and copied text. %1$@ is replaced with the selected text, %2$@ is replaced with the article title, %3$@ is replaced with the articleURL.")
         return String.localizedStringWithFormat(format, text, articleTitle, articleURL.absoluteString)
     }
     
