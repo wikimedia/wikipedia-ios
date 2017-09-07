@@ -10,7 +10,7 @@
 #import "HexColors.h"
 #import "TSBlurView.h"
 #import "TSMessage.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 #define TSMessageViewMinimumPadding 15.0
 
