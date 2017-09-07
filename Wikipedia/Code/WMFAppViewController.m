@@ -1443,6 +1443,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
 
+    if (@available(iOS 11.0, *)) {
+        self.view.window.accessibilityIgnoresInvertColors = theme.ignoresInvertColors;
+    }
+    
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 

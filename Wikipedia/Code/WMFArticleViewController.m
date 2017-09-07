@@ -294,6 +294,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        if (@available(iOS 11.0, *)) {
+            _headerImageView.accessibilityIgnoresInvertColors = YES;
+        }
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
