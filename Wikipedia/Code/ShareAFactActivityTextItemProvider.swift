@@ -18,9 +18,9 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
         case .message:
             return messageRepresentation
         case .postToFacebook:
-            fallthrough
-        case .postToTwitter:
             return socialRepresentation
+        case .postToTwitter:
+            return socialMentionRepresentation
         case .mail:
             return emailRepresentation
         default:
@@ -48,8 +48,12 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
     }
     
     var socialRepresentation: String {
-        let format = WMFLocalizedString("share-social-format", value: "“%1$@” via @Wikipedia: %2$@", comment: "Share string format for social platforms. %1$@ is replaced with the article title, %2$@ is replaced with the article URL.")
+        let format = WMFLocalizedString("share-social-format", value: "“%1$@” via Wikipedia: %2$@", comment: "Share string format for social platforms. %1$@ is replaced with the article title, %2$@ is replaced with the article URL.")
         return String.localizedStringWithFormat(format, articleTitle, articleURL.absoluteString)
     }
 
+    var socialMentionRepresentation: String {
+        let format = WMFLocalizedString("share-social-format", value: "“%1$@” via @Wikipedia: %2$@", comment: "Share string format for social platforms with an @mention. %1$@ is replaced with the article title, %2$@ is replaced with the article URL.")
+        return String.localizedStringWithFormat(format, articleTitle, articleURL.absoluteString)
+    }
 }
