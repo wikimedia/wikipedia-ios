@@ -1,5 +1,4 @@
 import UIKit
-import Masonry
 import WMF
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {

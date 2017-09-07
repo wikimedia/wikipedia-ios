@@ -1,5 +1,4 @@
 import Foundation
-import Masonry
 
 extension UIViewController {
     /// Embeds a view controller's view in a container view ensuring the container view expands vertically as needed to encompass any AutoLayout changes to the embedded view which affect its height.
