@@ -76,8 +76,7 @@
 "action-share" = "Поделиться";
 "action-unsave" = "Не сохранено";
 "alert-no-internet" = "Нет соединения с интернетом";
-// Fuzzy
-"announcements-dismiss" = "Нет, спасибо";
+"announcements-dismiss" = "Закрыть";
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";

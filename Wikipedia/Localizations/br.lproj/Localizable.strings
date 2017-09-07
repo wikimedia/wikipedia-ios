@@ -57,8 +57,12 @@
 "action-share" = "Rannañ";
 "action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
-// Fuzzy
-"announcements-dismiss" = "Ne'm bo ket, trugarez";
+"announcements-dismiss" = "Dianavezout";
+"appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
+"appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
+"appearance-settings-reading-themes" = "Temoù lenn";
+"appearance-settings-theme-options" = "Dibaboù an temoù";
+"appearance-settings-title" = "Temoù lenn";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
 "article-delete" = "Diverkañ";
 "article-languages-filter-placeholder" = "Kavout ar yezh";
