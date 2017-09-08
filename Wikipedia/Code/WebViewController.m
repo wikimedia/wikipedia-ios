@@ -887,13 +887,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
-    NSString *title = nil;
+    NSString *shareMenuItemTitle = nil;
     if (@available(iOS 11, *)) {
-        title = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
+        shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
     } else {
-        title = WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact…", @"Button label for creating a Share-a-fact card from the current text selection");
+        shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact…", @"Button label for creating a Share-a-fact card from the current text selection");
     }
-    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:title
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 }
