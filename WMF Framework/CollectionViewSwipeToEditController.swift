@@ -82,6 +82,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         switch (sender.state) {
         case .began:
             print("handlePanGesture: began")
+            activeCell?.isHidden = true
             let position = sender.location(in: cell)
             let velocityX = sender.velocity(in: cell).x
             cell.beginSwipe(with: position, velocity: velocityX)
