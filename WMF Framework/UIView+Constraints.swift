@@ -34,11 +34,11 @@ import UIKit
         let topConstraint = topAnchor.constraint(equalTo: subview.topAnchor, constant: insets.top)
         topConstraint.priority = priority
         let bottomConstraint = bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: insets.bottom)
-        topConstraint.priority = priority
+        bottomConstraint.priority = priority
         let leftConstraint = leftAnchor.constraint(equalTo: subview.leftAnchor, constant: insets.left)
-        topConstraint.priority = priority
+        leftConstraint.priority = priority
         let rightConstraint = rightAnchor.constraint(equalTo: subview.rightAnchor, constant: insets.right)
-        topConstraint.priority = priority
+        rightConstraint.priority = priority
         addConstraints([topConstraint, bottomConstraint, leftConstraint, rightConstraint])
     }
 }
