@@ -32,6 +32,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
+#import "WMFShareCardViewController.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"
@@ -45,6 +46,7 @@
 #import "WMFCustomDeleteButtonTableViewCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
+#import "UIView+WMFSnapshotting.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

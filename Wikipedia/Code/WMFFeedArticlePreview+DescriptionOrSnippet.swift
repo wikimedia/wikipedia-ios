@@ -1,6 +1,6 @@
 
-extension WMFFeedArticlePreview {
-    public func descriptionOrSnippet() -> String? {
+public extension WMFFeedArticlePreview {
+    @objc public var descriptionOrSnippet: String? {
         if let wikidataDescription = wikidataDescription, wikidataDescription.characters.count > 0 {
             let articleLanguage = articleURL.wmf_language
             return wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: articleLanguage)

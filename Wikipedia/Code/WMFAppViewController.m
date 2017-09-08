@@ -1442,10 +1442,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-
-    if (@available(iOS 11.0, *)) {
-        self.view.window.accessibilityIgnoresInvertColors = theme.ignoresInvertColors;
-    }
     
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
@@ -1587,9 +1583,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissPresentedViewControllers];
 
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
     vc.permaRandomMode = YES;
-    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif
