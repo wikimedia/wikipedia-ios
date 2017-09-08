@@ -10,7 +10,7 @@ import UIKit
 //     it could do a rough estimate pass, and then update the content size as the user scrolls.)
 
 @objc(WMFCollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell, Swipeable {
     // MARK - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
@@ -18,11 +18,14 @@ open class CollectionViewCell: UICollectionViewCell {
         backgroundView = UIView()
         selectedBackgroundView = UIView()
         reset()
+        addPrivateContentView(to: super.contentView)
+        setupActionsView(for: self)
         layoutSubviews()
     }
     
     open func reset() {
-
+        // SWIPE: Make sure calling reset() in setup() is ok.
+        resetSwipeable()
     }
     
     var labelBackgroundColor: UIColor? {
@@ -170,4 +173,153 @@ open class CollectionViewCell: UICollectionViewCell {
     open func updateFonts(with traitCollection: UITraitCollection) {
         
     }
+    
+    // MARK: - Swipeable
+    
+    var actionsView: CollectionViewCellActionsView?
+    var privateContentView: UIView?
+    var swipeType: CollectionViewCellSwipeType = .none
+    var swipeInitialFramePosition: CGFloat = 0
+    var swipeStartPosition: CGPoint = .zero
+    var swipePastBounds: Bool = false
+    var deletePending: Bool = false
+    var swipeVelocity: CGFloat = 0
+    var originalStartPosition: CGPoint = .zero
+    
+    var swipeTranslation: CGFloat {
+        get {
+            let x = privateContentView?.frame.origin.x ?? 0
+            return x
+        }
+        set {
+            print("setting swipeTranslation")
+        }
+    }
+    
+    
+    var minimumSwipeTrackingPosition: CGFloat {
+        guard let actionsView = actionsView else { return 0 }
+        return -actionsView.maxActionWidth
+    }
+    
+    var actions: [CollectionViewCellAction] {
+        get {
+            return self.actionsView?.actions ?? []
+        }
+        set {
+            self.actionsView?.actions = newValue
+        }
+    }
+    
+    func setupActionsView(for cell: CollectionViewCell) {
+        actionsView = CollectionViewCellActionsView(frame: CGRect.zero, cell: self)
+    }
+    
+    func addPrivateContentView(to contentView: UIView) {
+        // SWIPE: Should this be a separate method?
+        privateContentView = UIView(frame: contentView.bounds)
+        if let privateContentView = privateContentView {
+        contentView.addSubview(privateContentView)
+        }
+    }
+    
+    func beginSwipe(with position: CGPoint, velocity: CGFloat) {
+        guard let contentView = privateContentView else { return }
+        
+        swipeInitialFramePosition = contentView.frame.origin.x
+        swipeStartPosition = position
+        swipePastBounds = false
+        
+        showActionsView(with: swipeType)
+        layoutSubviews()
+        UIView.performWithoutAnimation {
+            updateSwipe(with: position, velocity: velocity)
+        }
+    }
+    
+    func updateSwipe(with touchPosition: CGPoint, velocity: CGFloat) {
+//        guard let privateContentView = privateContentView else { return }
+//
+//        let frame = privateContentView.frame
+//        let width = frame.width
+//        let totalTranslation = touchPosition.x - swipeStartPosition.x
+//
+//        let layoutMargins = self.layoutMargins
+//        let leftMargin = layoutMargins.left
+//
+//        let origin = swipePastBounds ? leftMargin - width : swipeInitialFramePosition
+//        var newTranslation = origin + totalTranslation
+//
+//        if swipeType == .primary {
+//            let translatedRight = width + newTranslation
+//            let leftBuffer = leftMargin
+//            let breakPoint = abs(minimumSwipeTrackingPosition) + leftMargin
+//
+//            if velocity < 0 {
+//                newTranslation = totalTranslation * (1 + log10(translatedRight/breakPoint))
+//                if translatedRight < breakPoint || touchPosition.x < leftBuffer {
+//                    swipePastBounds = true
+//                    originalStartPosition = swipeStartPosition
+//                    swipeStartPosition = touchPosition
+//                    newTranslation = leftMargin - width
+//                }
+//            }
+//        }
+        
+    }
+    
+    func showActionsView(with swipeType: CollectionViewCellSwipeType) {
+        // We don't need to do this if the view is already visible.
+        guard let actionsView = actionsView, actionsView.superview == nil else { return }
+        
+        let contentView = super.contentView
+        
+        // SWIPE: Style the cell with Theme.
+        actionsView.backgroundColor = swipeType == .primary ? UIColor.red : UIColor.blue
+        
+        // SWIPE: When setting a swipeType, create appropriate subviews.
+        actionsView.swipeType = swipeType
+        print("self.swipeType: \(swipeType)")
+        print("actionsView.swipeType: \(actionsView.swipeType)")
+        contentView.addSubview(actionsView)
+    }
+    
+    // MARK: Opening & closing action pane
+    
+    func openActionPane(animated: Bool) {
+        guard let actionsView = actionsView else { return }
+        
+        let swipeType = actionsView.swipeType
+        print("swipeType: \(swipeType)")
+        
+        showActionsView(with: swipeType)
+        setNeedsLayout()
+        layoutIfNeeded()
+        
+        privateContentView?.isUserInteractionEnabled = false
+        actionsView.isUserInteractionEnabled = true
+        
+        let targetTranslation = swipeType == .primary ? minimumSwipeTrackingPosition : -minimumSwipeTrackingPosition
+        
+        if animated {
+            let totalDistance = swipeTranslation - targetTranslation
+            let duration: CGFloat = 0.25
+            // SWIPE: Figure out where to set swipeVelocity.
+            let springVelocity = abs(swipeVelocity) * duration / totalDistance
+            
+            UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
+                self.swipeTranslation = targetTranslation
+                self.layoutIfNeeded()
+            }, completion: nil)
+        } // SWIPE: Handle else if animated is ever false.
+    }
+    
+    // MARK: Prepare for reuse
+    
+    func resetSwipeable() {
+        deletePending = false
+        swipePastBounds = false
+        swipeTranslation = 0
+    }
+
 }
