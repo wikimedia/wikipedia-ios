@@ -100,7 +100,7 @@ a {
    which is currently used by the collapse table  
    transform we are using from the wikimedia-page-library.
    
-   TODO: migrate this to wikimedia-page-library with 'pagelib-platform-ios' specifier
+   TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
 */
 .pagelib_collapse_table_container {
     padding: 1px !important;
@@ -108,19 +108,26 @@ a {
 }
 
 /*
-    iOS Smart-invert exclusions.
-    Makes article images not go photo-negative when smart invert is enabled.
+    iOS 'Smart invert' exclusions.
+    Makes article images not go photo-negative when 'Smart invert' is enabled.
+
+    TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
 */
 @media(inverted-colors) {
-    .pagelib_theme_default *[style*='background-image'],
-    .pagelib_theme_sepia *[style*='background-image'],
-    .pagelib_theme_dark *[style*='background-image'],
-    .pagelib_theme_default img,
-    .pagelib_theme_sepia img,
-    .pagelib_theme_dark img,
-    .pagelib_theme_default video,
-    .pagelib_theme_sepia video,
-    .pagelib_theme_dark video {
+    // All images.
+    img, video {
       filter: invert(100%);
     }
+    // Footer 'Read more' item images.
+    div[style*='background-image'] {
+      filter: invert(100%);
+    }
+    // 'en > Quadratic equation'
+    img.mwe-math-fallback-image-inline {
+      filter: invert(0%);
+    }    
+    // 'en > Quadratic equation' and 'en > Barack Obama > 2004 U.S. Senate campaign'
+    img.pagelib_theme_image_presumes_white_background {
+      background: #fff;
+    }  
 }
