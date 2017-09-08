@@ -192,10 +192,9 @@ open class CollectionViewCell: UICollectionViewCell, Swipeable {
             return x
         }
         set {
-            print("setting swipeTranslation")
+            privateContentView?.frame.origin.x = newValue
         }
     }
-    
     
     var minimumSwipeTrackingPosition: CGFloat {
         guard let actionsView = actionsView else { return 0 }
@@ -290,7 +289,6 @@ open class CollectionViewCell: UICollectionViewCell, Swipeable {
         guard let actionsView = actionsView else { return }
         
         let swipeType = actionsView.swipeType
-        print("swipeType: \(swipeType)")
         
         showActionsView(with: swipeType)
         setNeedsLayout()
@@ -312,6 +310,7 @@ open class CollectionViewCell: UICollectionViewCell, Swipeable {
                 self.layoutIfNeeded()
             }, completion: nil)
         } // SWIPE: Handle else if animated is ever false.
+        
     }
     
     // MARK: Prepare for reuse
