@@ -107,17 +107,11 @@ a {
     box-shadow: inset 0 0 1px gray !important;
 }
 
-/* iOS Smart-invert exclusions */
+/*  
+    iOS Smart-invert exclusions.
+    Makes article images behave like native images when smart invert is enabled.
+*/
 @media(inverted-colors) {
-    /*
-    // makes article theme selection work even when smart invert is enabled (as if smart invert was off)
-    .pagelib_theme_default,
-    .pagelib_theme_sepia {
-      filter: invert(100%);
-    }
-    */
-    
-    // makes article images behave like native images when smart invert is enabled
     .pagelib_theme_sepia *[style*='background-image'],
     .pagelib_theme_default *[style*='background-image'],
     .pagelib_theme_sepia img,
