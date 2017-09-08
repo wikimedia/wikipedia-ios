@@ -114,19 +114,30 @@ a {
     TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
 */
 @media(inverted-colors) {
-    // All images.
+    /* Images, video. */
     img, video {
       filter: invert(100%);
     }
-    // Footer 'Read more' item images.
+    /* 
+    Image backgrounds.
+        Footer 'Read more' item images.
+        Other places...
+    */
     div[style*='background-image'] {
       filter: invert(100%);
     }
-    // 'en > Quadratic equation'
+    /* 
+    Math formulas.
+        'en > Quadratic equation'
+    */
     img.mwe-math-fallback-image-inline {
       filter: invert(0%);
     }    
-    // 'en > Quadratic equation' and 'en > Barack Obama > 2004 U.S. Senate campaign'
+    /* 
+    Images needing white backgrounds.
+        'en > Quadratic equation'
+        'en > Barack Obama > 2004 U.S. Senate campaign'
+    */
     img.pagelib_theme_image_presumes_white_background {
       background: #fff;
     }  
