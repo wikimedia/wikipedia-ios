@@ -1,7 +1,15 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController {
+class ArticleCollectionViewController: ColumnarCollectionViewController, Actionable {
+    
+    // MARK: - Actionable
+    var swipeToEditController: CollectionViewSwipeToEditController?
+    
+    var primaryActions: [CollectionViewCellAction] {
+        return [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
+    }
+    
     fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
     
     let articleURLs: [URL]
@@ -19,6 +27,14 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // SWIPE: Put it all in a method.
+        if let collectionView = self.collectionView {
+            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+        }
+        
+        swipeToEditController?.primaryActions = primaryActions
+        
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
     }
     
