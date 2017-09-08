@@ -94,5 +94,8 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 
 [fastlane](https://fastlane.tools) automates common development tasks - for example bumping version numbers, running tests on multiple configurations, or submitting to the App Store. You can list the available lanes (our project-specific scripts) using `bundle exec fastlane lanes`. You can list available actions (all actions available to be scripted via lanes) using `bundle exec fastlane actions`. The fastlane configuration and scripts are in the `fastlane` folder.
 
+#### Production Builds
+For production builds, should ensure you have the `DELIVER_USER` (your Apple ID) and `HOCKEY_PRODUCTION` (Wikimedia's HockeyApp API token) environment variables set.
+
 ## Continuous Integration
 Tests are run on [Jenkins](https://jenkins.io) in response to pull requests. Volunteer contributor pull requests require an `ok to test` comment on the pull request from a project admin before tests are run. 

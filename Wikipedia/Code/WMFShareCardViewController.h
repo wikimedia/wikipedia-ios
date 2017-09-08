@@ -1,9 +1,8 @@
 @import UIKit;
-@class MWKArticle;
+@class WMFArticle;
 
 @interface WMFShareCardViewController : UIViewController
 
-- (void)fillCardWithMWKArticle:(MWKArticle *)article snippet:(NSString *)snippet image:(UIImage *)image
-                    completion:(void (^)(void))completion;
+- (void)fillCardWithArticleURL:(nullable NSURL *)articleURL articleTitle:(nullable NSString *)articleTitle articleDescription:(nullable NSString *)articleDescription text:(nullable NSString *)text image:(nullable UIImage *)image;
 
 @end

@@ -10,7 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy) NSString *dir;
 
 + (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
-+ (BOOL)articleLanguageIsRTL:(nullable MWKArticle *)article;
 + (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
 
 @end

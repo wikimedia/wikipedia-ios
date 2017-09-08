@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFThemeableTextField)
 open class ThemeableTextField: UITextField, Themeable {
     var theme = Theme.standard
-    var hasBorder = false
+    @objc var isUnderlined = true
     
     func setup() {
         let image = #imageLiteral(resourceName: "clear-mini")
@@ -64,11 +64,19 @@ open class ThemeableTextField: UITextField, Themeable {
         placeholder = _placeholder
         keyboardAppearance = theme.keyboardAppearance
         borderStyle = .none
-        layer.backgroundColor = backgroundColor?.cgColor
-        layer.masksToBounds = false
-        layer.shadowColor = theme.colors.tertiaryText.cgColor
-        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 0.0
+        if isUnderlined {
+            layer.masksToBounds = false
+            layer.shadowColor = theme.colors.tertiaryText.cgColor
+            layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+            layer.shadowOpacity = 1.0
+            layer.shadowRadius = 0.0
+        } else {
+            layer.masksToBounds = true
+            layer.shadowColor = nil
+            layer.shadowOffset = CGSize.zero
+            layer.shadowOpacity = 0.0
+            layer.shadowRadius = 0.0
+        }
+
     }
 }
