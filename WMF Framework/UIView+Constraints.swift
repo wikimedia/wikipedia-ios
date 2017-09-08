@@ -1,6 +1,6 @@
 import UIKit
 
-extension UIView {
+@objc public extension UIView {
     fileprivate func wmf_deactivateHeightConstraint() {
         let containerViewHeight = constraints.first(where: {constraint in
             return (constraint.firstAttribute == .height)
@@ -26,6 +26,11 @@ extension UIView {
     @objc public func wmf_addSubview(_ subview: UIView, withConstraintsToEdgesWithInsets insets: UIEdgeInsets, priority: UILayoutPriority = .required) {
         subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
         addSubview(subview)
+        wmf_addConstraintsToEdgesOfView(subview, withInsets: insets)
+    }
+    
+    @objc public func wmf_addConstraintsToEdgesOfView(_ subview: UIView, withInsets insets: UIEdgeInsets = .zero, priority: UILayoutPriority = .required) {
+        subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
         let topConstraint = topAnchor.constraint(equalTo: subview.topAnchor, constant: insets.top)
         topConstraint.priority = priority
         let bottomConstraint = bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: insets.bottom)
