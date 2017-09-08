@@ -107,17 +107,20 @@ a {
     box-shadow: inset 0 0 1px gray !important;
 }
 
-/*  
+/*
     iOS Smart-invert exclusions.
-    Makes article images behave like native images when smart invert is enabled.
+    Makes article images not go photo-negative when smart invert is enabled.
 */
 @media(inverted-colors) {
-    .pagelib_theme_sepia *[style*='background-image'],
     .pagelib_theme_default *[style*='background-image'],
-    .pagelib_theme_sepia img,
+    .pagelib_theme_sepia *[style*='background-image'],
+    .pagelib_theme_dark *[style*='background-image'],
     .pagelib_theme_default img,
+    .pagelib_theme_sepia img,
+    .pagelib_theme_dark img,
+    .pagelib_theme_default video,
     .pagelib_theme_sepia video,
-    .pagelib_theme_default video {
+    .pagelib_theme_dark video {
       filter: invert(100%);
     }
 }
