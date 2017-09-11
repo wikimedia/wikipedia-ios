@@ -343,12 +343,9 @@
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Comparta-un-feito";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" en @Wikipedia: \"$2\"";
-"share-as-image" = "Compartir como imaxe";
-"share-as-text" = "Compartir como texto";
-"share-cancel" = "Cancelar";
 "share-custom-menu-item" = "Compartir...";
 "share-get-directions-in-maps" = "Obter as direccións";
 "share-on-twitter-sign-off" = "vía @Wikipedia";

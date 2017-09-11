@@ -306,12 +306,9 @@
 "settings-primary-language-details" = "ၽႃႇသႃႇၵႂၢမ်းဢွၼ်တၢင်းသုတ်း တီႈၼႂ်းသဵၼ်ႈမၢႆၼႆႉ မၼ်းထုၵ်ႇၸႂ်ႉဝႆႉၼင်ႇ ၽႃႇသႃႇၵႂၢမ်း ငဝ်ႈၵၼ်း တွၼ်ႈတႃႇ ဢႅပ်ႉဢၼ်ၼႆႉဢေႃႈ။ လွင်ႈလႅၵ်ႈလၢႆႈ ၽႃႇသႃႇၵႂၢမ်းဢၼ်ၼႆႉၼႆႉ မၼ်းတေလႅၵ်ႈလၢႆႈ ၶေႃႈၼႂ်းၵူႈဝၼ်း (မိူၼ်ၼင်ႇ ပွင်ႈလိၵ်ႈၽၢင်ႁၢင်ႈ) ဢၼ်ၼႄဝႆႉတီႈ လွင်ႈပိုတ်ႇႁႃ။";
 "settings-support" = "ၵမ်ႉထႅမ် ဝီႇၶီႇၽီးတီးယႃး";
 "settings-title" = "ၵၢၼ်တင်ႈ";
+// Fuzzy
 "share-a-fact-share-menu-item" = "ၽႄႈတိုတ်းၶေႃႈၶၢဝ်ႇ";
 "share-article-name-on-wikipedia" = "\"$1\" ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး :";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး : \"$2\"";
-"share-as-image" = "ၽႄႈတိုၼ်းၼင်ႇ ၶႅပ်းႁၢင်ႈ";
-"share-as-text" = "ၽႄႈတိုၼ်းၼင်ႇ လိၵ်ႈ";
-"share-cancel" = "ဢမ်ႇႁဵတ်း";
 "share-custom-menu-item" = "ၽႄႈတိုၼ်း...";
 "share-get-directions-in-maps" = "ဢဝ် တၢင်းၵႂႃႇ";
 "share-on-twitter-sign-off" = "ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး";

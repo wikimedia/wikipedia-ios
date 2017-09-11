@@ -82,6 +82,7 @@
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
 "button-report-a-bug" = "Zgłoś błąd";
+"cancel" = "Anuluj";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zamknij";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
@@ -260,11 +261,11 @@
 "settings-support" = "Wspomóż Wikimedię";
 "settings-title" = "Ustawienia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedia: \"$2\"";
-"share-as-image" = "Udostępnij jako obraz";
-"share-as-text" = "Udostępnij jako tekst";
-"share-cancel" = "Anuluj";
 "share-custom-menu-item" = "Udostępnij...";
+"share-default-format" = "„$1” z „$1”: $3";
+"share-email-format" = "„$1”\n\nz „$2”\n\n$3";
+"share-menu-item" = "Udostępnij...";
+"share-message-format" = "„$1” $2";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";

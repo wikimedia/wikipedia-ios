@@ -184,12 +184,9 @@
 "settings-language-bar" = "Sýna tungumál við leit";
 "settings-support" = "Styðja Wikipedia";
 "settings-title" = "Stillingar";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Deila-staðreynd";
 "share-article-name-on-wikipedia" = "„$1“ á @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ á @Wikipedia: „$2“";
-"share-as-image" = "Deila sem mynd";
-"share-as-text" = "Deila sem texta";
-"share-cancel" = "Hætta við";
 // Fuzzy
 "share-custom-menu-item" = "Deila";
 "share-on-twitter-sign-off" = "með @Wikipedia";

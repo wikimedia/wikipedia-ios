@@ -317,12 +317,9 @@
 "settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације. Ако га промените, променићете и дневни садржај (нпр. Изабрани чланак) који се приказује у одељку „Истражи“.";
 "settings-support" = "Подржи Википедију";
 "settings-title" = "Подешавања";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Дели чињеницу";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ на @Wikipedia: „$2“";
-"share-as-image" = "Дели као слику";
-"share-as-text" = "Дели као текст";
-"share-cancel" = "Откажи";
 "share-custom-menu-item" = "Дели...";
 "share-get-directions-in-maps" = "Преузми упутства";
 "share-on-twitter-sign-off" = "преко @Wikipedia";

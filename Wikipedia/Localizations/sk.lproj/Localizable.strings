@@ -292,10 +292,6 @@
 "settings-support" = "Podporte Wikipédiu";
 "settings-title" = "Nastavenia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedii: \"$2\"";
-"share-as-image" = "Zdieľať ako obrázok";
-"share-as-text" = "Zdieľať ako text";
-"share-cancel" = "Zrušiť";
 "share-custom-menu-item" = "Zdieľať...";
 "share-get-directions-in-maps" = "Nájsť trasu";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";

@@ -347,12 +347,9 @@
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Deel-een-feit";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
-"share-as-image" = "Als bestand delen";
-"share-as-text" = "Als tekst delen";
-"share-cancel" = "Annuleren";
 "share-custom-menu-item" = "Delen...";
 "share-get-directions-in-maps" = "Routebeschrijving";
 "share-on-twitter-sign-off" = "via @Wikipedia";

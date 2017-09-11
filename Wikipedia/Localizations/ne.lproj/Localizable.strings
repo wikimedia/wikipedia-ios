@@ -142,10 +142,6 @@
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "सेटिङ्हरू";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia पर \"$1\" : \"$2\"";
-"share-as-image" = "चित्रको रूपमा बाड्नुहोस्";
-"share-as-text" = "अक्षरको रूपमा बाड्नुहोस्";
-"share-cancel" = "रद्द गर्नुहोस्";
 "share-custom-menu-item" = "साझेदारी गर्नुहोस्...";
 "status-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "status-saving-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्...";
