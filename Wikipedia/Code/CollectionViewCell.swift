@@ -34,7 +34,10 @@ open class CollectionViewCell: UICollectionViewCell {
     func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
         backgroundView?.backgroundColor = deselected
         selectedBackgroundView?.backgroundColor = selected
-        labelBackgroundColor = isSelectedOrHighlighted ? selected : deselected
+        let newColor = isSelectedOrHighlighted ? selected : deselected
+        if newColor != labelBackgroundColor {
+            labelBackgroundColor = newColor
+        }
     }
 
     // Subclassers should call super
