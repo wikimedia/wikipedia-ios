@@ -36,7 +36,8 @@ open class CollectionViewCell: UICollectionViewCell {
         
     }
 
-    fileprivate var isSelectedOrHighlighted = false
+    fileprivate var isSelectedOrHighlighted: Bool?
+    
     public final func updateSelectedOrHighlighted() {
         let newIsSelectedOrHighlighted = isSelected || isHighlighted
         guard newIsSelectedOrHighlighted != isSelectedOrHighlighted else {
