@@ -306,12 +306,9 @@
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Поділіться фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» у @Wikipedia: «$2»";
-"share-as-image" = "Поширити як зображення";
-"share-as-text" = "Поширити як текст";
-"share-cancel" = "Скасувати";
 "share-custom-menu-item" = "Поділитися...";
 "share-get-directions-in-maps" = "Отримати напрямки";
 "share-on-twitter-sign-off" = "через @Wikipedia";

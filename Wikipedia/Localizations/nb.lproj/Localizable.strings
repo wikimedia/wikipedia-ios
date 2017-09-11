@@ -308,12 +308,9 @@
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen. Dette påvirker hvilket innhold som vises under Utforsk (f.eks. hvilken utmerket artikkel).";
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Del-et-faktum";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» på @Wikipedia: «$2»";
-"share-as-image" = "Del som bilde";
-"share-as-text" = "Del som tekst";
-"share-cancel" = "Avbryt";
 "share-custom-menu-item" = "Del ...";
 "share-get-directions-in-maps" = "Veibeskrivelse";
 "share-on-twitter-sign-off" = "via @Wikipedia";

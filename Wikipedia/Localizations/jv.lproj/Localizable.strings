@@ -78,6 +78,7 @@
 "button-save-for-later" = "Simpen kanggo mengko";
 "button-saved-for-later" = "Kasimpen kanggo mengko";
 "button-saved-remove" = "Busak saka panyimpenan";
+"cancel" = "Wurung";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "nalika pukul $1 thèng";
@@ -335,12 +336,8 @@
 "settings-primary-language-details" = "Basa pisanan ing pratélan iki dianggo minangka basa pokok mungguh ing aplikasiné. Ngganti basa iki bakal ngganti isi padinané (kayata Artikel Pinilih) sing katon ing Dlajah.";
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";
-"share-a-fact-share-menu-item" = "Dum-kasunyatan";
+"share-a-fact-share-menu-item" = "Dum-kasunyatan...";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ing @Wikipedia: \"$2\"";
-"share-as-image" = "Tuduhaké minangka gambar";
-"share-as-text" = "Tuduhaké minangka tèks";
-"share-cancel" = "Wurung";
 "share-custom-menu-item" = "Ngedum...";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
 "share-on-twitter-sign-off" = "lumantar @Wikipedia";

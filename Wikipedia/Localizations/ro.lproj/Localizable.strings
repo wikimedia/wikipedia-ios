@@ -190,12 +190,9 @@
 "settings-primary-language-details" = "Prima poziție din această listă reprezintă limba principală a aplicației. Modificarea acestei limbi va conduce la modificarea conținutului zilnic (precum Articole de calitate) afișat în secțiunea Explorare.";
 "settings-support" = "Susțineți Wikipedia";
 "settings-title" = "Setări";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Distribuie-o-informație";
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1” la @Wikipedia: „$2”";
-"share-as-image" = "Distribuie ca imagine";
-"share-as-text" = "Distribuie ca text";
-"share-cancel" = "Revocare";
 // Fuzzy
 "share-custom-menu-item" = "Distribuie";
 "share-on-twitter-sign-off" = "via @Wikipedia";

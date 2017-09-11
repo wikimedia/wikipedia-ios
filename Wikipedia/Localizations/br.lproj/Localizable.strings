@@ -57,7 +57,7 @@
 "action-share" = "Rannañ";
 "action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
-"announcements-dismiss" = "Dianavezout";
+"announcements-dismiss" = "Disteurel";
 "appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
 "appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
 "appearance-settings-reading-themes" = "Temoù lenn";
@@ -317,12 +317,9 @@
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload. Ma cheñchit an dibarzh-mañ e cheñcho an danvez diskouezet war Ergerzhiñ (evel pennad an talbenn).";
 "settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Rannañ-ur-fed";
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" war @Wikipedia: \"$2\"";
-"share-as-image" = "Rannañ evel skeudenn";
-"share-as-text" = "Rannañ evel testenn";
-"share-cancel" = "Nullañ";
 "share-custom-menu-item" = "Rannañ...";
 "share-get-directions-in-maps" = "Kaout an tuioù";
 "share-on-twitter-sign-off" = "via @Wikipedia";

@@ -228,10 +228,8 @@
 "settings-primary-language" = "Pagrindinis";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Dalintis faktu";
-"share-as-image" = "Dalintis kaip vaizdu";
-"share-as-text" = "Dalintis kaip tekstu";
-"share-cancel" = "Atšaukti";
 "share-custom-menu-item" = "Dalintis...";
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";

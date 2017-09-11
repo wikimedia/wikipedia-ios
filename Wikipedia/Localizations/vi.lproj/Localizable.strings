@@ -346,12 +346,9 @@
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Chia sẻ một sự thật";
 "share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
-"share-as-image" = "Chia sẻ hình ảnh";
-"share-as-text" = "Chia sẻ văn bản";
-"share-cancel" = "Hủy bỏ";
 "share-custom-menu-item" = "Chia sẻ…";
 "share-get-directions-in-maps" = "Chỉ đường";
 "share-on-twitter-sign-off" = "qua @Wikipedia";

@@ -329,12 +329,9 @@
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Jaa fakta";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
-"share-as-image" = "Jaa kuvana";
-"share-as-text" = "Jaa tekstinä";
-"share-cancel" = "Peruuta";
 "share-custom-menu-item" = "Jaa...";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
