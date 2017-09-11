@@ -71,6 +71,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
+            pageControl.pageIndicatorTintColor = .wmf_lightBlue
+            pageControl.currentPageIndicatorTintColor = .wmf_blue
         }
     }
 
