@@ -59,6 +59,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
+
+        view.backgroundColor = .white
         
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
