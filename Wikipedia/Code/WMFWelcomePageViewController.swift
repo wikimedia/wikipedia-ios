@@ -18,20 +18,30 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
-        let index = pageControllers.index(of: sender as! UIViewController)
-        if index == pageControllers.count - 1 {
+        guard let sender = sender as? UIViewController, let index = pageControllers.index(of: sender), index != pageControllers.count - 1 else {
             dismiss(animated: true, completion:completionBlock)
-        }else{
-            view.isUserInteractionEnabled = false
-            let nextIndex = index! + 1
-
-            let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
-            self.setViewControllers([pageControllers[nextIndex]], direction: direction, animated: true, completion: {(Bool) in
-                self.view.isUserInteractionEnabled = true
-            })
+            return
         }
+        view.isUserInteractionEnabled = false
+        let nextIndex = index + 1
+        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
+        self.setViewControllers([pageControllers[nextIndex]], direction: direction, animated: true, completion: {(Bool) in
+            self.view.isUserInteractionEnabled = true
+        })
     }
-
+    /*
+    func showPreviousWelcomePage(_ sender: AnyObject){
+        guard let sender = sender as? UIViewController, let index = pageControllers.index(of: sender), index > 0 else {
+            return
+        }
+        view.isUserInteractionEnabled = false
+        let prevIndex = index - 1
+        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
+        self.setViewControllers([pageControllers[prevIndex]], direction: direction, animated: true, completion: {(Bool) in
+            self.view.isUserInteractionEnabled = true
+        })
+    }
+    */
     fileprivate func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
         let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
