@@ -7,7 +7,7 @@ extension NewsCollectionViewCell {
         descriptionHTML = story.storyHTML
         
         articles = previews.map { (articlePreview) -> CellArticle in
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet(), imageURL: articlePreview.thumbnailURL)
+            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
         }
         
         let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_language

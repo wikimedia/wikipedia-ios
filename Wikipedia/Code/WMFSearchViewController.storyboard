@@ -21,6 +21,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWd-Ft-cEc" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu" userLabel="Results Container View">
+                                        <rect key="frame" x="0.0" y="30" width="375" height="529"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <segue destination="h3Q-u3-KJA" kind="embed" identifier="searchResults" id="j4w-FO-sD1"/>
+                                        </connections>
+                                    </containerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="kmj-N8-U2n"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="8" maxX="10" maxY="8"/>
+                                        <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="searchForSuggestion:" destination="tkf-8P-b2O" eventType="touchUpInside" id="0Md-vC-UXr"/>
+                                        </connections>
+                                    </button>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw" userLabel="Recent Searches Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <segue destination="Rqy-g9-mNA" kind="embed" identifier="recentSearches" id="B6d-7Y-a0q"/>
+                                        </connections>
+                                    </containerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
+                                        <rect key="frame" x="0.0" y="29" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="3cp-hG-Zqm"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ukX-0p-5ey" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="0xc-XM-pQH"/>
+                                    <constraint firstItem="B20-xN-XHO" firstAttribute="leading" secondItem="ukX-0p-5ey" secondAttribute="leading" id="8Ma-nf-gPd"/>
+                                    <constraint firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="9PS-Kr-mZk"/>
+                                    <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="BJe-ow-hj0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ia7-49-Gwu" secondAttribute="trailing" id="ILn-zh-Tms"/>
+                                    <constraint firstAttribute="trailing" secondItem="tpe-pb-Bgw" secondAttribute="trailing" id="Muh-N7-a0m"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ia7-49-Gwu" secondAttribute="bottom" id="NMr-Ux-hyd"/>
+                                    <constraint firstItem="B20-xN-XHO" firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="OLJ-CH-SSz"/>
+                                    <constraint firstItem="B20-xN-XHO" firstAttribute="bottom" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="SXH-OP-2OH"/>
+                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="YOe-0f-HUJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="tpe-pb-Bgw" secondAttribute="bottom" id="cDm-JD-Jq0"/>
+                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="emR-Ny-EK2"/>
+                                    <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="t07-qr-X5o"/>
+                                    <constraint firstItem="Ia7-49-Gwu" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="wEt-yo-eNV"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-T5-obx" userLabel="Languages Bar Container">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <connections>
+                                    <segue destination="jWX-gY-OwH" kind="embed" identifier="languageBar" id="RO6-QL-HnF"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
@@ -107,68 +169,6 @@
                                         <exclude reference="oV5-TL-mte"/>
                                     </mask>
                                 </variation>
-                            </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-T5-obx" userLabel="Languages Bar Container">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <connections>
-                                    <segue destination="jWX-gY-OwH" kind="embed" identifier="languageBar" id="RO6-QL-HnF"/>
-                                </connections>
-                            </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWd-Ft-cEc" userLabel="Content View">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu" userLabel="Results Container View">
-                                        <rect key="frame" x="0.0" y="30" width="375" height="529"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <segue destination="h3Q-u3-KJA" kind="embed" identifier="searchResults" id="j4w-FO-sD1"/>
-                                        </connections>
-                                    </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="kmj-N8-U2n"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="8" maxX="10" maxY="8"/>
-                                        <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <action selector="searchForSuggestion:" destination="tkf-8P-b2O" eventType="touchUpInside" id="0Md-vC-UXr"/>
-                                        </connections>
-                                    </button>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw" userLabel="Recent Searches Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <segue destination="Rqy-g9-mNA" kind="embed" identifier="recentSearches" id="B6d-7Y-a0q"/>
-                                        </connections>
-                                    </containerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
-                                        <rect key="frame" x="0.0" y="29" width="375" height="1"/>
-                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="3cp-hG-Zqm"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="ukX-0p-5ey" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="0xc-XM-pQH"/>
-                                    <constraint firstItem="B20-xN-XHO" firstAttribute="leading" secondItem="ukX-0p-5ey" secondAttribute="leading" id="8Ma-nf-gPd"/>
-                                    <constraint firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="9PS-Kr-mZk"/>
-                                    <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="BJe-ow-hj0"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ia7-49-Gwu" secondAttribute="trailing" id="ILn-zh-Tms"/>
-                                    <constraint firstAttribute="trailing" secondItem="tpe-pb-Bgw" secondAttribute="trailing" id="Muh-N7-a0m"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ia7-49-Gwu" secondAttribute="bottom" id="NMr-Ux-hyd"/>
-                                    <constraint firstItem="B20-xN-XHO" firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="OLJ-CH-SSz"/>
-                                    <constraint firstItem="B20-xN-XHO" firstAttribute="bottom" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="SXH-OP-2OH"/>
-                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="YOe-0f-HUJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="tpe-pb-Bgw" secondAttribute="bottom" id="cDm-JD-Jq0"/>
-                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="emR-Ny-EK2"/>
-                                    <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="t07-qr-X5o"/>
-                                    <constraint firstItem="Ia7-49-Gwu" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="wEt-yo-eNV"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>

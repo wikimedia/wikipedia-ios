@@ -15,16 +15,6 @@
     return languageInfo;
 }
 
-+ (BOOL)articleLanguageIsRTL:(nullable MWKArticle *)article {
-    if (!article) {
-        return NO;
-    }
-    return [[MWLanguageInfo languageInfoForCode:
-                                article.url.wmf_language]
-                .dir
-        isEqualToString:@"rtl"];
-}
-
 + (NSString *)codeForCode:(NSString *)code {
     if ([code isEqualToString:@"test"]) {
         return @"en";
