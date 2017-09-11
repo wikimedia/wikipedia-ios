@@ -61,6 +61,9 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return self.view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
+    let nextButton = UIButton()
+    let skipButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
@@ -72,11 +75,45 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
         view.backgroundColor = .white
         
+        configureAndAddNextButton()
+        configureAndAddSkipButton()
+        
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
     }
     
+    fileprivate func configureAndAddNextButton(){
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        nextButton.isUserInteractionEnabled = true
+        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        // TODO: localize
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.setTitleColor(.wmf_blue, for: .normal)
+        nextButton.setTitleColor(.gray, for: .highlighted)
+        nextButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
+        view.addSubview(nextButton)
+        nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 70))
+    }
+
+    fileprivate func configureAndAddSkipButton(){
+        skipButton.translatesAutoresizingMaskIntoConstraints = false
+        skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        skipButton.isUserInteractionEnabled = true
+        skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        // TODO: localize
+        skipButton.setTitle("Skip", for: .normal)
+        skipButton.setTitleColor(.gray, for: .normal)
+        skipButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
+        view.addSubview(skipButton)
+        skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -70))
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
@@ -86,6 +123,21 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
 
+    @objc func nextButtonTapped(_ sender: UIButton) {
+        if let currentVC = viewControllers?.first {
+            showNextWelcomePage(currentVC)
+        }
+    }
+    
+    @objc func skipButtonTapped(_ sender: UIButton) {
+        /*
+         if let currentVC = viewControllers?.first {
+             showPreviousWelcomePage(currentVC)
+         }
+         */
+        dismiss(animated: true, completion:completionBlock)
+    }
+    
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pageControllers.count
     }
