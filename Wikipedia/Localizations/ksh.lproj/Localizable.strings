@@ -185,10 +185,6 @@
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-title" = "Enschtällonge";
 "share-article-name-on-wikipedia" = "„$1“ op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ op @Wikipedia: „$2“";
-"share-as-image" = "Wigger jävve als Beld";
-"share-as-text" = "Wigger jävve als Täx";
-"share-cancel" = "Ophühre";
 // Fuzzy
 "share-custom-menu-item" = "Wigger jävve";
 "share-on-twitter-sign-off" = "vun de @Wikipedia";

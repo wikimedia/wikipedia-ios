@@ -96,6 +96,7 @@
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-remove" = "저장된 항목에서 제거";
+"cancel" = "취소";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
@@ -343,14 +344,12 @@
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
-"share-a-fact-share-menu-item" = "사실을 공유";
+"share-a-fact-share-menu-item" = "사실을 공유…";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia의 \"$1\": \"$2\"";
-"share-as-image" = "그림으로 공유하기";
-"share-as-text" = "텍스트로 공유하기";
-"share-cancel" = "취소";
 "share-custom-menu-item" = "공유...";
 "share-get-directions-in-maps" = "위치 찾기";
+"share-menu-item" = "공유...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@Wikipedia에서";
 "share-open-in-maps" = "지도에서 열기";
 "status-saved-for-later" = "나중을 위해 저장됨";

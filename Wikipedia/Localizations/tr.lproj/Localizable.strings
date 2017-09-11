@@ -353,12 +353,9 @@
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Bir bilgi paylaş";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia üzerinde: \"$2\"";
-"share-as-image" = "Resim olarak paylaş";
-"share-as-text" = "Metin olarak paylaş";
-"share-cancel" = "İptal";
 "share-custom-menu-item" = "Paylaş...";
 "share-get-directions-in-maps" = "Yol tarifi al";
 "share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";

@@ -130,10 +130,6 @@
 "settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
 "settings-title" = "امستنې";
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" په @Wikipedia کې: \"$2\"";
-"share-as-image" = "د انځور په توگه شريکول";
-"share-as-text" = "د متن په توگه شريکول";
-"share-cancel" = "ناگارل";
 // Fuzzy
 "share-custom-menu-item" = "شريکول";
 "share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
