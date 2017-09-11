@@ -6,7 +6,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
-@import Masonry;
 
 static NSString *const kWMFAboutHTMLFile = @"about.html";
 static NSString *const kWMFAboutPlistName = @"AboutViewController";
@@ -110,10 +109,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero];
     wv.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:wv];
-    [wv mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
-    }];
+    [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
     [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
