@@ -511,8 +511,8 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 
   // Prevents some collapsed tables from scrolling side-to-side.
   // May want to move this to wikimedia-page-library if there are no issues.
-  document.querySelectorAll('.app_table_container *[class~="nowrap"]')
-    .forEach(el => el.classList.remove('nowrap'))
+  Array.from(document.querySelectorAll('.app_table_container *[class~="nowrap"]'))
+    .forEach(function(el) {el.classList.remove('nowrap')})
 }
 
 exports.hideTables = hideTables
