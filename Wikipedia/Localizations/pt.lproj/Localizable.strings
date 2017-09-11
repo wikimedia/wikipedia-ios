@@ -298,12 +298,9 @@
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como principal para a aplicação. Ao alterar, o conteúdo diário também será atualizado (como o \"Artigo em destaque\") apresentado em Explorar.";
 "settings-support" = "Apoie a Wikipédia";
 "settings-title" = "Definições";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Partilhar um facto";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
-"share-as-image" = "Partilhar como imagem";
-"share-as-text" = "Partilhar como texto";
-"share-cancel" = "Cancelar";
 "share-custom-menu-item" = "Partilhar...";
 "share-on-twitter-sign-off" = "via @Wikipédia";
 "status-saved-for-later" = "Guardar para depois";

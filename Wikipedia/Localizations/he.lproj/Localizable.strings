@@ -347,12 +347,9 @@
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לגלות\".";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-title" = "הגדרות";
+// Fuzzy
 "share-a-fact-share-menu-item" = "שיתוף עובדה";
 "share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" באתר @wikipedia: \"$2\"";
-"share-as-image" = "שיתוף תמונה";
-"share-as-text" = "שיתוף טקסט";
-"share-cancel" = "ביטול";
 "share-custom-menu-item" = "שיתוף...";
 "share-get-directions-in-maps" = "קבלת כיוונים";
 "share-on-twitter-sign-off" = "דרך @Wikipedia";

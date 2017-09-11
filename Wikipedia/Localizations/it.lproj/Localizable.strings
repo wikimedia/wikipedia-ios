@@ -326,12 +326,9 @@
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Condividi-un-fatto";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" su @Wikipedia: \"$2\"";
-"share-as-image" = "Condividi come immagine";
-"share-as-text" = "Condividi come testo";
-"share-cancel" = "Annulla";
 "share-custom-menu-item" = "Condividi...";
 "share-get-directions-in-maps" = "Ottieni indicazioni";
 "share-on-twitter-sign-off" = "tramite @Wikipedia";

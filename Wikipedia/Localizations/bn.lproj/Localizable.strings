@@ -302,12 +302,9 @@
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
+// Fuzzy
 "share-a-fact-share-menu-item" = "একটি তথ্য শেয়ার করুন";
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia -এ \"$1\": \"$2\"";
-"share-as-image" = "ছবি হিসাবে ভাগ করুন";
-"share-as-text" = "লেখা হিসাবে ভাগ করুন";
-"share-cancel" = "বাতিল";
 "share-custom-menu-item" = "বণ্টন...";
 "share-get-directions-in-maps" = "দিক নির্দেশনা পান";
 "share-on-twitter-sign-off" = "@উইকিপিডিয়া হয়ে";

@@ -186,12 +186,9 @@
 "settings-primary-language" = "Төп";
 "settings-support" = "Википедияға ярҙам";
 "settings-title" = "Көйләүҙәр";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Факт менән уртаҡлашығыҙ";
 "share-article-name-on-wikipedia" = " @Wikipedia-ла «$1»";
-"share-article-name-on-wikipedia-with-selected-text" = " @Wikipedia-ла «$1»: «$2»";
-"share-as-image" = "Һүрәт кеүек уртаҡлашығыҙ";
-"share-as-text" = "Текст кеүек уртаҡлашығыҙ";
-"share-cancel" = "Кире алырға";
 "share-custom-menu-item" = "Уртаҡлашырға...";
 "share-on-twitter-sign-off" = "@Wikipedia аша";
 // Fuzzy
