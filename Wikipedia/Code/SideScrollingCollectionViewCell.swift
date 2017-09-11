@@ -220,10 +220,9 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
     func configure(with cellArticle: CellArticle, semanticContentAttribute: UISemanticContentAttribute, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
         backgroundColor = .clear
-        backgroundView?.backgroundColor = theme.colors.subCellBackground
+        setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
         backgroundView?.layer.cornerRadius = 5
         backgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         selectedBackgroundView?.layer.cornerRadius = 5
         selectedBackgroundView?.layer.masksToBounds = true
         layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -288,8 +287,7 @@ extension SideScrollingCollectionViewCell: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         imageView.alpha = theme.imageOpacity
-        backgroundView?.backgroundColor = theme.colors.paperBackground
-        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
         titleLabel.textColor = theme.colors.primaryText
         subTitleLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.primaryText
