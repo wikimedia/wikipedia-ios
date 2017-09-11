@@ -59,30 +59,10 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
-
-        addGradient()
         
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
-    }
-
-    fileprivate func addGradient() {
-        let gradientView = backgroundGradient()
-        view.insertSubview(gradientView, at: 0)
-        gradientView.mas_makeConstraints { make in
-            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
-        }
-    }
-
-    fileprivate func backgroundGradient() -> WMFGradientView {
-        let gradient = WMFGradientView()
-        gradient.gradientLayer.locations = [0, 1]
-        gradient.gradientLayer.colors =  [theme.colors.accent.cgColor, theme.colors.link.cgColor]
-        gradient.gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        gradient.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
-        gradient.isUserInteractionEnabled = false
-        return gradient
     }
     
     override func viewDidAppear(_ animated: Bool) {
