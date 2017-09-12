@@ -7,6 +7,7 @@ class ShareAFactViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var licenseView: LicenseView!
     
     override func viewDidLoad() {
         let theme = Theme.standard //always use the standard theme for now
@@ -15,6 +16,7 @@ class ShareAFactViewController: UIViewController {
         onWikiLabel.textColor = theme.colors.secondaryText
         separatorView.backgroundColor = theme.colors.border
         textLabel.textColor = theme.colors.primaryText
+        licenseView.tintColor = theme.colors.secondaryText
     }
     
     public func update(with articleURL: URL, articleTitle: String?, articleDescription: String?, text: String?, image: UIImage?) {
@@ -22,6 +24,7 @@ class ShareAFactViewController: UIViewController {
         imageView.image = image
         articleTitleLabel.text = articleTitle
         textLabel.text = text
+        licenseView.licenseCodes = ["cc", "by", "sa"]
     }
 
 

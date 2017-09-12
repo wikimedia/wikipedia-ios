@@ -145,6 +145,11 @@
 		83E52BBB1F681F940045E776 /* ShareAFactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E52BB31F681F940045E776 /* ShareAFactViewController.xib */; };
 		83E52BBC1F681F940045E776 /* ShareAFactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E52BB31F681F940045E776 /* ShareAFactViewController.xib */; };
 		83E52BBD1F681F940045E776 /* ShareAFactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E52BB31F681F940045E776 /* ShareAFactViewController.xib */; };
+		83E52BBF1F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
+		83E52BC01F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
+		83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
+		83E52BC21F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
+		83E52BC31F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
 		83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */; };
 		83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
 		83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
@@ -3061,6 +3066,7 @@
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
+		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityTextItemProvider.swift; sourceTree = "<group>"; };
 		83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityImageItemProvider.swift; sourceTree = "<group>"; };
@@ -7215,6 +7221,7 @@
 		D83F5C051F0E5111006130FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D82E95001F0FD2DA007BD960 /* Table View Cells */,
@@ -9580,6 +9587,7 @@
 				B3B018CB1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
+				83E52BBF1F682E3E0045E776 /* LicenseView.swift in Sources */,
 				D84C364A1F32488600895FA1 /* WMFContentGroup+DetailViewControllers.m in Sources */,
 				D84DAA251EEEF527008E4B18 /* TSMessageView.m in Sources */,
 				D80ED25C1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
@@ -9883,6 +9891,7 @@
 				D80ED2D81EE57F4800CE8C50 /* WMFScrollViewController.swift in Sources */,
 				D80ED2D91EE57F4800CE8C50 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D80ED2DB1EE57F4800CE8C50 /* WMFAccountLogin.swift in Sources */,
+				83E52BC31F682E3E0045E776 /* LicenseView.swift in Sources */,
 				D80ED2DC1EE57F4800CE8C50 /* SaveButtonsController.swift in Sources */,
 				D80ED2DD1EE57F4800CE8C50 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
 				D80ED2DF1EE57F4800CE8C50 /* PageHistorySection.swift in Sources */,
@@ -10460,6 +10469,7 @@
 				D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				D8A42AB61E815A9C00D8E281 /* RoundedCornerView.swift in Sources */,
 				D8A42AB71E815A9C00D8E281 /* MWKImageInfoResponseSerializer.m in Sources */,
+				83E52BC21F682E3E0045E776 /* LicenseView.swift in Sources */,
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
@@ -10763,6 +10773,7 @@
 				D8CE25441E698E2400DAE2E0 /* WMFAccountLogin.swift in Sources */,
 				D8CE25451E698E2400DAE2E0 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
 				D8CE25471E698E2400DAE2E0 /* PageHistorySection.swift in Sources */,
+				83E52BC01F682E3E0045E776 /* LicenseView.swift in Sources */,
 				D8CE25481E698E2400DAE2E0 /* UINavigationBar+WMFTransparency.m in Sources */,
 				D8CE25491E698E2400DAE2E0 /* WKWebView+WMFSuppressSelection.m in Sources */,
 				83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
@@ -11063,6 +11074,7 @@
 				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				D8EC3E391E9BDA35006712EB /* NSNumber+MWKTitleNamespace.m in Sources */,
+				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
 				D8EC3E3B1E9BDA35006712EB /* WMFAccountLogin.swift in Sources */,
 				D8EC3E3C1E9BDA35006712EB /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,

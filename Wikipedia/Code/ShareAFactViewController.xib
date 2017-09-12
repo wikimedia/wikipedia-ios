@@ -20,6 +20,7 @@
             <connections>
                 <outlet property="articleTitleLabel" destination="j0m-IJ-xQJ" id="OpN-gU-LOG"/>
                 <outlet property="imageView" destination="AKr-bi-hnh" id="1vS-xe-jfj"/>
+                <outlet property="licenseView" destination="QnY-bB-9cj" id="5HM-3y-lVK"/>
                 <outlet property="onWikiLabel" destination="I8O-mH-yor" id="2D5-3F-dBN"/>
                 <outlet property="separatorView" destination="BIN-LQ-tLA" id="Aow-1Y-jYW"/>
                 <outlet property="textLabel" destination="89k-vE-5a8" id="Pjn-Gz-0yt"/>
@@ -64,6 +65,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnY-bB-9cj" customClass="LicenseView" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="16" y="248" width="86" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" placeholder="YES" id="jsY-c5-nR1"/>
+                        <constraint firstAttribute="width" constant="86" placeholder="YES" id="y4R-VM-CmZ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -77,9 +85,11 @@
                 <constraint firstItem="BIN-LQ-tLA" firstAttribute="top" secondItem="I8O-mH-yor" secondAttribute="bottom" constant="15" id="Poi-YG-EDN"/>
                 <constraint firstItem="j0m-IJ-xQJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="22" id="SF8-fF-bvI"/>
                 <constraint firstItem="89k-vE-5a8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="UzA-LH-nzf"/>
+                <constraint firstItem="QnY-bB-9cj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gkJ-xl-pme"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="89k-vE-5a8" secondAttribute="bottom" constant="48" id="jNe-A2-msF"/>
                 <constraint firstItem="AKr-bi-hnh" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="jhq-hD-aSs"/>
                 <constraint firstItem="89k-vE-5a8" firstAttribute="top" secondItem="BIN-LQ-tLA" secondAttribute="bottom" constant="15" id="lIx-07-Del"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="QnY-bB-9cj" secondAttribute="bottom" constant="16" id="v50-Sy-Dln"/>
                 <constraint firstItem="AKr-bi-hnh" firstAttribute="leading" secondItem="89k-vE-5a8" secondAttribute="trailing" constant="16" id="xTj-v3-OpA"/>
                 <constraint firstItem="I8O-mH-yor" firstAttribute="top" secondItem="j0m-IJ-xQJ" secondAttribute="bottom" constant="5" id="y8l-FR-Ldq"/>
             </constraints>
