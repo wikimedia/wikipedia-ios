@@ -2,27 +2,13 @@ import Foundation
 
 public protocol Actionable {
     var swipeToEditController: CollectionViewSwipeToEditController? { get set }
-    var primaryActions: [CollectionViewCellAction] { get }
 }
 
-protocol Swipeable {
-    var actions: [CollectionViewCellAction] { get set }
-    var actionsView: CollectionViewCellActionsView? { get set }
-    var privateContentView: UIView? { get set }
-    var swipeType: CollectionViewCellSwipeType { get set }
-    var swipeInitialFramePosition: CGFloat { get set }
-    var swipeStartPosition: CGPoint { get set }
-    var swipePastBounds: Bool { get set }
-    var minimumSwipeTrackingPosition: CGFloat { get }
-    var swipeTranslation: CGFloat { get set }
-    var deletePending: Bool { get set }
-    var swipeVelocity: CGFloat { get set }
-    var originalStartPosition: CGPoint { get set }
-    
-    func beginSwipe(with position: CGPoint, velocity: CGFloat)
+public protocol Swipeable {
+
 }
 
-public struct CollectionViewCellAction {
+public struct CollectionViewCellAction: Equatable {
     let title: String
     let icon: UIImage?
     let type: CollectionViewCellActionType
