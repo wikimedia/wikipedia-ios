@@ -35,6 +35,7 @@ public protocol SwipeableDelegate: NSObjectProtocol {
     func didOpenActionPane(_ didOpen: Bool, at: IndexPath)
     func didTapSave(at indexPath: IndexPath)
     func didTapUnsave(at indexPath: IndexPath)
+    func didTapShare(at indexPath: IndexPath)
     func isArticleSaved(at indexPath: IndexPath) -> Bool
 }
 
@@ -115,18 +116,18 @@ public class CollectionViewCellActionsView: UIView {
     }
     
     @objc func didTapShare() {
-        print("didTapShare")
+        if let indexPath = cell.indexPathForActiveCell {
+            delegate?.didTapShare(at: indexPath)
+        }
     }
     
     @objc func didTapSave() {
-        print("didTapSave")
         if let indexPath = cell.indexPathForActiveCell {
             delegate?.didTapSave(at: indexPath)
         }
     }
     
     @objc func didTapUnsave() {
-        print("didTapUnsave")
         if let indexPath = cell.indexPathForActiveCell {
             delegate?.didTapUnsave(at: indexPath)
         }
