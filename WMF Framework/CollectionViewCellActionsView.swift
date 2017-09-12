@@ -59,7 +59,7 @@ public class CollectionViewCellActionsView: UIView {
         }
     }
     
-    init(frame: CGRect, cell: CollectionViewCell) {
+    init(frame: CGRect, cell: ArticleCollectionViewCell) {
         self.cell = cell
         super.init(frame: frame)
         
