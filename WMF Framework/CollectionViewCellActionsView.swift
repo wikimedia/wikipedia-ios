@@ -123,7 +123,10 @@ public class CollectionViewCellActionsView: UIView {
     }
     
     @objc func didTapSave() {
-        print("didTapShare")
+        print("didTapSave")
+        if let indexPath = cell.indexPathForActiveCell {
+            delegate?.didTapSave(at: indexPath)
+        }
     }
     
     @objc func didTapUnsave() {
@@ -189,7 +192,7 @@ public class CollectionViewCellActionsView: UIView {
     }
     
     // MARK: - Swift rubbish
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
