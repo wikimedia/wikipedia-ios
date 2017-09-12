@@ -32,6 +32,7 @@ public protocol SwipeableDelegate: NSObjectProtocol {
     func didTapSave(at indexPath: IndexPath)
     func didTapUnsave(at indexPath: IndexPath)
     func didTapShare(at indexPath: IndexPath)
+    func didTapDelete(at indexPath: IndexPath)
     func isArticleSaved(at indexPath: IndexPath) -> Bool
 }
 
@@ -108,7 +109,9 @@ public class CollectionViewCellActionsView: UIView {
     public weak var delegate: SwipeableDelegate?
     
     @objc func didTapDelete() {
-        print("didTapDelete")
+        if let indexPath = cell.indexPathForActiveCell {
+            delegate?.didTapSave(at: indexPath)
+        }
     }
     
     @objc func didTapShare() {

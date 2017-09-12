@@ -32,6 +32,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
         present(shareActivityController, animated: true, completion: nil)
     }
     
+    func didTapDelete(at indexPath: IndexPath) {
+        
+    }
+    
     func didTapSave(at indexPath: IndexPath) {
         let url = articleURL(at: indexPath)
         if !savedPageList.isSaved(url) {
