@@ -77,7 +77,28 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let cell = activeCell else { return false }
-
+        
+        // Might want to make sure the that other recognizer is UILongPress for sure.
+        return gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizerShouldBegin(gestureRecognizer, in: cell) : longPressGestureRecognizerShouldBegin(gestureRecognizer, in: cell)
+    }
+    
+    public var isActionPanOpenInCollectionView = false
+    
+    var activeCellIndexPath: IndexPath? {
+        if let cell = activeCell {
+            return collectionView.indexPath(for: cell)
+        }
+        return nil
+    }
+    
+    func checkIfArticleIsSaved() {
+        
+    }
+    
+    func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
+        
+        guard !isActionPanOpenInCollectionView else { return false }
+        
         let velocity = panGesture.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
