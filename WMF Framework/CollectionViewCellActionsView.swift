@@ -11,10 +11,12 @@ public protocol Swipeable {
 public struct CollectionViewCellAction: Equatable {
     let title: String
     let icon: UIImage?
-    let type: CollectionViewCellActionType
+    public let type: CollectionViewCellActionType
+    
+    public static func ==(lhs: CollectionViewCellAction, rhs: CollectionViewCellAction) -> Bool {
+        return lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.type == rhs.type
+    }
 }
-
-// SWIPE: Add action style.
 
 public enum CollectionViewCellActionType {
     case delete, save, unsave, share
