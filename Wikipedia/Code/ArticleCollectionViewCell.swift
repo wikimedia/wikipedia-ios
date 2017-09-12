@@ -22,10 +22,17 @@ open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
-        addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        addSubview(saveButton)
+        actionsView = CollectionViewCellActionsView(frame: CGRect.zero, cell: self)
+        
+        privateContentView = UIView(frame: super.contentView.bounds)
+        
+        addSubview(privateContentView)
+        
+        privateContentView.addSubview(imageView)
+        privateContentView.addSubview(titleLabel)
+        privateContentView.addSubview(descriptionLabel)
+        privateContentView.addSubview(saveButton)
+
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
