@@ -42,4 +42,21 @@ extension URL {
     public var wmf_isNonStandardURL: Bool {
         return (self as NSURL).wmf_isNonStandardURL
     }
+    
+    fileprivate func wmf_URLForSharing(with wprov: String) -> URL {
+        let queryItems = [URLQueryItem(name: "wprov", value: wprov)]
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        components?.queryItems = queryItems
+        return components?.url ?? self
+    }
+    
+    // URL for sharing text only
+    public var wmf_URLForTextSharing: URL {
+        return wmf_URLForSharing(with: "sfti1")
+    }
+    
+    // URL for sharing that includes an image (for example, Share-a-fact)
+    public var wmf_URLForImageSharing: URL {
+        return wmf_URLForSharing(with: "sfii1")
+    }
 }

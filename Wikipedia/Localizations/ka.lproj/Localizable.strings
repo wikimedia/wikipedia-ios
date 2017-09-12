@@ -223,10 +223,6 @@
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
-"share-as-image" = "სურათად გაზიარება";
-"share-as-text" = "ტექსტად გაზიარება";
-"share-cancel" = "გაუქმება";
 "share-custom-menu-item" = "გაზიარება...";
 "status-saved-for-later" = "შემდგომისთვის შენახვა";
 "table-of-contents-button-label" = "სარჩევი";

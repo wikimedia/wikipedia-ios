@@ -323,12 +323,9 @@
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
+// Fuzzy
 "share-a-fact-share-menu-item" = "شارك حقيقة";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» على @Wikipedia: «$2»";
-"share-as-image" = "شارك كصورة";
-"share-as-text" = "شارك كنص";
-"share-cancel" = "ألغ";
 "share-custom-menu-item" = "شارك...";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";

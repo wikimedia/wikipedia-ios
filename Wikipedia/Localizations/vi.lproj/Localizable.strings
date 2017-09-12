@@ -62,7 +62,9 @@
 "alert-no-internet" = "Không có kết nối Internet";
 "announcements-dismiss" = "Thôi";
 "appearance-settings-adjust-text-sizing" = "Điều chỉnh kích thước văn bản trong bài";
+"appearance-settings-image-dimming-footer" = "Giảm độ mờ hình ảnh trên giao diện tối";
 "appearance-settings-reading-themes" = "Giao diện đọc";
+"appearance-settings-text-sizing-example-text" = "Kéo con trượt bên trên để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
 "appearance-settings-title" = "Giao diện đọc";
 "article-about-title" = "Thông tin về bài viết";
@@ -73,6 +75,7 @@
 "article-languages-yours" = "Ngôn ngữ của bạn";
 "article-read-more-title" = "Đọc tiếp";
 "article-share" = "Chia sẻ";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
 "article-unable-to-load-article" = "Không thể tải bài này.";
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "back" = "Quay lại";
@@ -142,7 +145,7 @@
 "field-captcha-title" = "Nhập đoạn văn bản bạn thấy ở trên";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "Email";
-"field-email-title-optional" = "Email (tuỳ chọn)";
+"field-email-title-optional" = "Địa chỉ thư điện tử (tùy chọn)";
 "field-new-password-confirm-placeholder" = "nhập lại mật khẩu mới";
 "field-new-password-confirm-title" = "Xác nhận mật khẩu mới";
 "field-new-password-placeholder" = "Nhập mật khẩu mới";
@@ -188,6 +191,7 @@
 "home-nearby-location-footer" = "Thêm mục gần $1";
 "home-news-footer" = "Thêm tin tức";
 "home-themes-action-title" = "Thiết lập";
+"home-themes-prompt" = "Điều chỉnh tùy chọn Đọc bài, thí dụ kích thước văn bản và giao diện, dùng thanh công cụ bài viết hoặc trong Cài đặt để đọc bài một cách thoải mái hơn.";
 "home-title" = "Thám hiểm";
 "home-title-accessibility-label" = "Wikipedia, cuộn lên đầu Thám hiểm";
 "icon-shortcut-continue-reading-title" = "Đọc tiếp";
@@ -216,7 +220,7 @@
 "main-menu-account-logout-cancel" = "Hủy bỏ";
 "main-menu-account-title-logged-in" = "Đã đăng nhập là $1.";
 "main-menu-debug-crash" = "Gây Sự cố";
-"main-menu-debug-tweaks" = "Tuỳ chọn cho nhà phát triển";
+"main-menu-debug-tweaks" = "Tùy chọn cho nhà phát triển";
 "main-menu-heading-debug" = "Gỡ lỗi";
 "main-menu-heading-legal" = "Thông tin pháp luật";
 "main-menu-heading-zero" = "Wikipedia Miễn phí";
@@ -261,17 +265,25 @@
 "places-accessibility-clear-saved-searches" = "Xóa các tìm kiếm đã lưu";
 "places-accessibility-close-search" = "Đóng tìm kiếm";
 "places-accessibility-group" = "$1 bài";
+"places-accessibility-recenter-map-on-user-location" = "Tập trung lại vào vị trí của bạn";
 "places-accessibility-show-as-list" = "Xem danh sách";
 "places-accessibility-show-as-map" = "Xem trên bản đồ";
 "places-accessibility-show-more" = "Xem thêm bài";
 "places-dismiss-filter-list-accessibility-label" = "Tắt các bộ lọc tìm kiếm";
+"places-empty-search-description" = "Thám hiểm các thành phố, quốc gia, lục địa, địa mạo, sự kiện lịch sử, tòa nhà, và nhiều thứ khác.";
+"places-empty-search-title" = "Tìm kiếm các bài Wikipedia có địa điểm";
 "places-enable-location-action-button-title" = "Kích hoạt vị trí";
+"places-enable-location-description" = "Ứng dụng chỉ có truy cập vị trí của bạn khi nào ứng dụng hoặc một trong những tính năng của nó xuất hiện trên màn hình.";
+"places-enable-location-title" = "Kích hoạt dịch vụ định vị để thám hiểm các bài gần vị trí của bạn";
 "places-filter-list-title" = "Bộ lọc tìm kiếm";
+"places-filter-no-saved-places" = "Bạn chưa lưu địa điểm nào";
 "places-filter-saved-articles" = "Bài viết đa lưu";
 "places-filter-saved-articles-count" = "Đã tìm thấy $1 địa điểm";
 "places-filter-top-articles" = "Bài đọc nhiều nhất";
 "places-filter-top-articles-count" = "$1 bài";
+"places-no-saved-articles-have-location" = "Chưa lưu bài nào có thông tin địa điểm";
 "places-search-articles-that-match" = "$1 khớp với “$2”";
+"places-search-default-text" = "Tìm kiếm Địa điểm";
 "places-search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "places-search-recently-searched-header" = "Tìm kiếm gần đây";
 "places-search-saved-articles" = "Tất cả bài lưu";
@@ -280,6 +292,7 @@
 "places-search-top-articles" = "Tất cả các bài đọc nhiều nhất";
 "places-search-top-articles-that-match-scope" = "Lân cận";
 "places-search-your-current-location" = "Vị trí hiện tại của bạn";
+"places-show-filter-list-accessibility-label" = "Hiển thị bộ lọc tìm kiếm";
 "places-title" = "Địa điểm";
 "places-unknown-distance" = "tầm xa không rõ";
 "potd-description-prefix" = "Hình trong ngày cho $1";
@@ -288,8 +301,11 @@
 "preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
 "rank-accessibility-label" = "Hạng $1";
 "readers-accessibility-label" = "$1 người đọc";
+"reading-themes-controls-accessibility-brightness-slider" = "Con trượt độ sáng";
 "reading-themes-controls-accessibility-dark-theme-button" = "Giao diện tối";
 "reading-themes-controls-accessibility-light-theme-button" = "Giao diện sáng";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Giao diện nâu";
+"reading-themes-controls-accessibility-text-size-slider" = "Con trượt kích thước văn bản";
 "reference-title" = "Chú thích $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hôm nay|Hôm qua|Cách đây $1 ngày}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
@@ -311,6 +327,7 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
+"settings-appearance" = "Giao diện";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
@@ -329,12 +346,9 @@
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Chia sẻ một sự thật";
 "share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
-"share-as-image" = "Chia sẻ hình ảnh";
-"share-as-text" = "Chia sẻ văn bản";
-"share-cancel" = "Hủy bỏ";
 "share-custom-menu-item" = "Chia sẻ…";
 "share-get-directions-in-maps" = "Chỉ đường";
 "share-on-twitter-sign-off" = "qua @Wikipedia";
@@ -348,13 +362,19 @@
 "table-title-other" = "Thêm thông tin";
 "theme-dark-display-name" = "Tối";
 "theme-default-display-name" = "Mặc định";
+"theme-sepia-display-name" = "Nâu";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
 "two-factor-login-continue" = "Tiếp tục đăng nhập";
 "two-factor-login-instructions" = "Xin vui lòng nhập mã xác thực dùng hai nhân tố";
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
+"two-factor-login-with-backup-code" = "Sử dụng một mã sao lưu của bạn";
+"two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
 "welcome-explore-continue-button" = "Bắt đầu";
+"welcome-explore-features-news-notifications" = "Nhận thông báo về tin tức thịnh hành";
+"welcome-explore-features-on-this-day" = "Quay về quá khứ với $1";
+"welcome-explore-features-places" = "Chuyển qua thẻ $1 để khám phá các nơi nổi tiếng lân cận hoặc khắp thế giới";
 "welcome-explore-new-ways-title" = "Phương cách thám hiểm mới";
 "welcome-explore-tell-me-more-done-button" = "Được rồi";
 "welcome-languages-add-button" = "Thêm một ngôn ngữ nữa";
@@ -373,6 +393,7 @@
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
+"wikitext-preview-link-preview-description" = "Liên kết này dẫn đến “$1”";
 "wikitext-preview-link-preview-title" = "Xem trước liên kết";
 "wikitext-upload-captcha-error" = "Lỗi khi xác nhận bằng CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cần xác nhận bằng CAPTCHA.";
@@ -380,6 +401,7 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-sign-in" = "Đăng nhập";
+"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Với việc đăng các thay đổi, bạn chấp nhận các $1 và đồng ý phát hành đóng góp của bạn theo các giấy phép $2 và $3.";
 "wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
 "zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
 "zero-charged-verbiage-extended" = "Nếu tải các bài khác, bạn có thể phải trả phí dữ liệu. Các bài được lưu ngoại tuyến không tốn dữ liệu và được xem miễn phí.";

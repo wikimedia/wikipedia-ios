@@ -17,6 +17,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
+        if #available(iOSApplicationExtension 11.0, *) {
+            imageView.accessibilityIgnoresInvertColors = true
+        }
+        
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true

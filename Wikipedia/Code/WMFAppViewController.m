@@ -2,9 +2,6 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
 
-// Frameworks
-@import Masonry;
-
 #define DEBUG_THEMES 1
 
 #if WMF_TWEAKS_ENABLED
@@ -190,9 +187,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     UITabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
     [self addChildViewController:tabBar];
     [self.view insertSubview:tabBar.view atIndex:0];
-    [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
-    }];
+    [self.view wmf_addConstraintsToEdgesOfView:tabBar.view withInsets:UIEdgeInsetsZero priority:UILayoutPriorityRequired];
 
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
@@ -1442,7 +1437,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-
+    
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
@@ -1583,9 +1578,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissPresentedViewControllers];
 
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore];
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
     vc.permaRandomMode = YES;
-    [vc applyTheme:self.theme];
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif

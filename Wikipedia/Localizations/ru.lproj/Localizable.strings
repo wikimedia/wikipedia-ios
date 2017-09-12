@@ -76,8 +76,7 @@
 "action-share" = "Поделиться";
 "action-unsave" = "Не сохранено";
 "alert-no-internet" = "Нет соединения с интернетом";
-// Fuzzy
-"announcements-dismiss" = "Нет, спасибо";
+"announcements-dismiss" = "Закрыть";
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
@@ -100,6 +99,7 @@
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
 "button-saved-remove" = "Удалить из сохранённых";
+"cancel" = "Отмена";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
@@ -351,16 +351,17 @@
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Поделитесь-фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» в @Wikipedia: «$2»";
-"share-as-image" = "Поделиться как изображением";
-"share-as-text" = "Поделиться как текстом";
-"share-cancel" = "Отмена";
 "share-custom-menu-item" = "Поделиться...";
+"share-email-format" = "«$1»\n\nиз «$2»\n\n$3";
 "share-get-directions-in-maps" = "Получить направления";
+"share-menu-item" = "Поделиться…";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-open-in-maps" = "Открыть на Картах";
+"share-social-format" = "«$1» в Википедии: $2";
 "status-saved-for-later" = "Сохранено на потом";
 "status-saving-for-later" = "Экономия на потом...";
 "table-of-contents-button-label" = "Содержание";

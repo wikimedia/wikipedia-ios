@@ -204,12 +204,9 @@
 "settings-primary-language" = "Principal";
 "settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Partejar-un-fait";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "« $1 » sus @Wikipedia : « $2 »";
-"share-as-image" = "Partejar coma imatge";
-"share-as-text" = "Partejar coma tèxte";
-"share-cancel" = "Anullar";
 "share-custom-menu-item" = "Partejar…";
 "share-on-twitter-sign-off" = "via @Wikipèdia";
 "status-saved-for-later" = "Enregistrat per mai tard";

@@ -329,12 +329,9 @@
 "settings-primary-language" = "Agejdan";
 "settings-support" = "Mudd afus i Wikipedia";
 "settings-title" = "Iɣewwaren";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Bḍu-tigawt";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" di @Wikipedia: \"$2\"";
-"share-as-image" = "Bḍu am tugna";
-"share-as-text" = "Bḍu am uḍris";
-"share-cancel" = "Sefsex";
 "share-custom-menu-item" = "Bḍu...";
 "share-get-directions-in-maps" = "Awi iwellihen";
 "share-on-twitter-sign-off" = "s @Wikipedia";

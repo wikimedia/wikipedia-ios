@@ -305,12 +305,9 @@
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Чахчыны-үллэһин";
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» @Wikipedia: «$2»";
-"share-as-image" = "Ойуу быһыытынан тарҕат";
-"share-as-text" = "Тиэкис быһыытынан тарҕат";
-"share-cancel" = "Бигэргэтимэ";
 "share-custom-menu-item" = "Тарҕат...";
 "share-get-directions-in-maps" = "Суолу салҕаа";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";

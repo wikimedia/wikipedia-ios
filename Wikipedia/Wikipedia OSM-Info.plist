@@ -53,6 +53,8 @@
 	<string>Get article recommendations based on your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Get article recommendations based on your location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>

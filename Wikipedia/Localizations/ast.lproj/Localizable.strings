@@ -340,12 +340,9 @@
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
 "settings-support" = "Sofita Wikimedia";
 "settings-title" = "Configuración";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Comparte-un-fechu";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
-"share-as-image" = "Compartir como imaxe";
-"share-as-text" = "Compartir como testu";
-"share-cancel" = "Encaboxar";
 "share-custom-menu-item" = "Compartir...";
 "share-get-directions-in-maps" = "Recibir indicaciones";
 "share-on-twitter-sign-off" = "via @Wikipedia";

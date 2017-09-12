@@ -31,12 +31,30 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
 
+    func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
+        backgroundView?.backgroundColor = deselected
+        selectedBackgroundView?.backgroundColor = selected
+        let newColor = isSelectedOrHighlighted ? selected : deselected
+        if newColor != labelBackgroundColor {
+            labelBackgroundColor = newColor
+        }
+    }
+
     // Subclassers should call super
     open func updateBackgroundColorOfLabels() {
         
     }
 
+    fileprivate var isSelectedOrHighlighted: Bool = false
+    
     public final func updateSelectedOrHighlighted() {
+        let newIsSelectedOrHighlighted = isSelected || isHighlighted
+        guard newIsSelectedOrHighlighted != isSelectedOrHighlighted else {
+            return
+        }
+
+        isSelectedOrHighlighted = newIsSelectedOrHighlighted
+
         // It appears that background color changes aren't properly animated when set within the animation block around isHighlighted/isSelected state changes
         // https://phabricator.wikimedia.org/T174341
 
@@ -51,7 +69,7 @@ open class CollectionViewCell: UICollectionViewCell {
             if let block = existingCompletionBlock {
                 block()
             }
-            self.labelBackgroundColor = self.isSelected || self.isHighlighted ? self.selectedBackgroundView?.backgroundColor : self.backgroundView?.backgroundColor
+            self.labelBackgroundColor =  self.isSelected || self.isHighlighted ? self.selectedBackgroundView?.backgroundColor : self.backgroundView?.backgroundColor
         }
     }
 
