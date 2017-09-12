@@ -96,6 +96,19 @@ extension ArticleCollectionViewController {
         guard let article = dataStore.fetchArticle(with: url) else {
             return articleCell
         }
+        articleCell.delegate = self
+        articleCell.actionsView?.delegate = self
+        
+        
+//        if isSaved(url) {
+//            let unsave = CollectionViewCellActionType.unsave.action
+//            primaryActions.insert(unsave, at: 0)
+//        } else {
+//            let save = CollectionViewCellActionType.save.action
+//            primaryActions.insert(save, at: 0)
+//        }
+        
+        
         articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
         
 
