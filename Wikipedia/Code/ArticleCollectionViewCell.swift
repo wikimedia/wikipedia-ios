@@ -27,11 +27,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButton.isOpaque = true
         
         actionsView = CollectionViewCellActionsView(frame: CGRect.zero, cell: self)
-        
         privateContentView = UIView(frame: super.contentView.bounds)
-        
         addSubview(privateContentView)
-        
         privateContentView.addSubview(imageView)
         privateContentView.addSubview(titleLabel)
         privateContentView.addSubview(descriptionLabel)

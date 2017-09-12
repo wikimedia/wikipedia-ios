@@ -1,9 +1,5 @@
 import Foundation
 
-public protocol Actionable {
-    var swipeToEditController: CollectionViewSwipeToEditController? { get set }
-}
-
 public struct CollectionViewCellAction: Equatable {
     let title: String
     let icon: UIImage?

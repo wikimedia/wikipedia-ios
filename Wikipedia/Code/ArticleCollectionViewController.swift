@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, Actionable, SwipeableDelegate, AnalyticsContextProviding {
+class ArticleCollectionViewController: ColumnarCollectionViewController, SwipeableDelegate, AnalyticsContextProviding {
     
     // MARK: - Actionable
     var swipeToEditController: CollectionViewSwipeToEditController?
@@ -79,7 +79,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Actiona
         }
         
         swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
-
         
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
     }
