@@ -6,7 +6,6 @@
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFShareCardViewController.h"
 #import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"

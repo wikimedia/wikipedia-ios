@@ -26,17 +26,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3r-Et-NLq">
-                    <rect key="frame" x="561.5" y="445.5" width="243" height="133"/>
+                    <rect key="frame" x="561.5" y="440.5" width="243" height="143"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="share-building" translatesAutoresizingMaskIntoConstraints="NO" id="zDc-fC-axl">
-                            <rect key="frame" x="64.5" y="0.0" width="115" height="66"/>
+                            <rect key="frame" x="55" y="0.0" width="134" height="76"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="115" id="0Dx-gF-W2J"/>
-                                <constraint firstAttribute="height" constant="66" id="0bs-xo-wSJ"/>
+                                <constraint firstAttribute="width" constant="134" id="0Dx-gF-W2J"/>
+                                <constraint firstAttribute="height" constant="76" id="0bs-xo-wSJ"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Building Share-a-fact card..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-bf-PDt">
-                            <rect key="frame" x="8" y="89" width="227" height="21"/>
+                            <rect key="frame" x="8" y="99" width="227" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="iaI-ws-KF8"/>
                             </constraints>
@@ -88,6 +88,6 @@
         </view>
     </objects>
     <resources>
-        <image name="share-building" width="115" height="66"/>
+        <image name="share-building" width="134" height="76"/>
     </resources>
 </document>
