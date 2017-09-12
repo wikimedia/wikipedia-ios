@@ -63,10 +63,11 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Actiona
         
         // SWIPE: Put it all in a method.
         if let collectionView = self.collectionView {
-            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView, theme: theme)
         }
         
-        swipeToEditController?.primaryActions = primaryActions
+        swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
+
         
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
     }
