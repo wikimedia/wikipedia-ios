@@ -65,7 +65,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnY-bB-9cj" customClass="LicenseView" customModule="Wikipedia" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnY-bB-9cj" customClass="WMFLicenseView">
                     <rect key="frame" x="16" y="248" width="86" height="27"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="27" placeholder="YES" id="jsY-c5-nR1"/>
