@@ -191,7 +191,22 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     @objc func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-        print("handleLongPressGesture")
+        guard let cell = activeCell else { return }
+        
+        switch (sender.state) {
+        case .began:
+            let location = sender.location(in: cell)
+            if cell.bounds.contains(location) { break }
+            currentState = .idle
+            sender.isEnabled = false
+            sender.isEnabled = true
+        case .cancelled:
+            currentState = .idle
+        case .ended:
+            currentState = .idle
+        default:
+            break
+        }
     }
     
     // MARK: - States
