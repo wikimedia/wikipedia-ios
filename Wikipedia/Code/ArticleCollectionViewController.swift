@@ -119,6 +119,7 @@ extension ArticleCollectionViewController {
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isActionPaneOpen { return }
         wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
