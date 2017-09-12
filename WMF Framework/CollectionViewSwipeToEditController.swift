@@ -5,13 +5,14 @@ public enum CollectionViewCellSwipeType {
 }
 
 enum CollectionViewCellState {
-    case idle, tracking, open
+    case idle, open
 }
 
 public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate {
     let collectionView: UICollectionView
     let panGesture = UIPanGestureRecognizer()
     let longPressGesture = UILongPressGestureRecognizer()
+    
     var currentState: CollectionViewCellState = .idle {
         didSet {
             currentState == .idle ? didEnterIdleState() : didEnterOpenState()
@@ -91,11 +92,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             let position = sender.location(in: cell)
             let velocityX = sender.velocity(in: cell).x
             cell.updateSwipe(with: position, velocity: velocityX)
-            currentState = .tracking
-        case .ended:
-            print("handlePanGesture: ended")
-        // SWIPE: To do.
-            currentState = .idle
         case .cancelled:
             currentState = .idle
         default:
