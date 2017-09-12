@@ -106,15 +106,67 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
+        // If the article was saved, swap the "Save" action for "Unsave" and vice versa.
+        swapSaveActionsIfNecessary(cell.isSaved)
+        
         cell.actions = velocity.x < 0 ? primaryActions : secondaryActions
         
         guard cell.actions.count > 0 else { return false }
         
         cell.swipeType = velocity.x < 0 ? .primary : .secondary
-        print("cell.swipeType: \(cell.swipeType)")
         activeCell = cell
         
         return true
+    }
+    
+    func swapSaveActionsIfNecessary(_ saved: Bool) {
+        let unsave = CollectionViewCellActionType.unsave.action
+        let save = CollectionViewCellActionType.save.action
+        
+        if saved {
+            guard primaryActions.contains(save) else { return }
+            
+            for (index, action) in primaryActions.enumerated() {
+                if action.type == .save {
+                    primaryActions.remove(at: index)
+                    primaryActions.insert(unsave, at: index)
+                }
+            }
+            
+        } else {
+            guard primaryActions.contains(unsave) else { return }
+            
+            for (index, action) in primaryActions.enumerated() {
+                if action.type == .unsave {
+                    primaryActions.remove(at: index)
+                    primaryActions.insert(save, at: index)
+                }
+            }
+        }
+    }
+    
+    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
+        guard isActionPanOpenInCollectionView else { return false }
+        
+        // Don't allow the cancel gesture to recognize if any of the touches are within the actions view.
+        let numberOfTouches = gestureRecognizer.numberOfTouches
+        
+        for touchIndex in 0..<numberOfTouches {
+            let touchLocation = gestureRecognizer.location(ofTouch: touchIndex, in: cell)
+            let touchedActionsView = cell.actionsViewRect.contains(touchLocation)
+            return !touchedActionsView
+        }
+        
+        return true
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if gestureRecognizer is UILongPressGestureRecognizer { return otherGestureRecognizer is UIPanGestureRecognizer }
+        
+        if gestureRecognizer is UIPanGestureRecognizer { return otherGestureRecognizer is UILongPressGestureRecognizer }
+        
+        return false
     }
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
