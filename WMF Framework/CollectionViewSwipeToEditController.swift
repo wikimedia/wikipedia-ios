@@ -34,6 +34,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
+    public var cellWithActionPaneOpen: ArticleCollectionViewCell?
+    
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
