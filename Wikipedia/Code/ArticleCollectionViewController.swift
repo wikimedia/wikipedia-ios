@@ -1,13 +1,46 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, Actionable {
-    
+class ArticleCollectionViewController: ColumnarCollectionViewController, Actionable, SwipeableDelegate {
     // MARK: - Actionable
     var swipeToEditController: CollectionViewSwipeToEditController?
+
     
-    var primaryActions: [CollectionViewCellAction] {
-        return [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
+ var indexPathForSwipeableCell: IndexPath?
+    var isActionPaneOpen = false
+    
+    // MARK: - SwipeableDelegate
+    func didOpenActionPane(_ didOpen: Bool, at indexPath: IndexPath) {
+        indexPathForSwipeableCell = indexPath
+        isActionPaneOpen = didOpen
+        if isActionPaneOpen {
+            let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell
+            swipeToEditController?.cellWithActionPaneOpen = cell
+        }
+        swipeToEditController?.isActionPanOpenInCollectionView = didOpen
+    }
+    
+    func didTapSave(at indexPath: IndexPath) {
+        let url = articleURL(at: indexPath)
+        if !savedPageList.isSaved(url) {
+            savedPageList.addSavedPage(with: url)
+            swipeToEditController?.performedAction()
+        }
+    }
+    
+    func didTapUnsave(at indexPath: IndexPath) {
+        let url = articleURL(at: indexPath)
+        savedPageList.removeEntry(with: url)
+        swipeToEditController?.performedAction()
+    }
+    
+    func isArticleSaved(at indexPath: IndexPath) -> Bool {
+        let url = articleURL(at: indexPath)
+        return savedPageList.isSaved(url)
+    }
+    
+    var savedPageList: MWKSavedPageList {
+        return dataStore.savedPageList
     }
     
     fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
