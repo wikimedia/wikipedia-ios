@@ -71,6 +71,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     func addLongPressGesture(to collectionView: UICollectionView) {
         longPressGesture.addTarget(self, action: #selector(handleLongPressGesture))
         longPressGesture.delegate = self
+        longPressGesture.minimumPressDuration = 0.05
         collectionView.addGestureRecognizer(longPressGesture)
     }
     
