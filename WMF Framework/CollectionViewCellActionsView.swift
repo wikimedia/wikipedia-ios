@@ -47,7 +47,7 @@ class CollectionViewCellActionsView: UIView {
     
     var swipeType: CollectionViewCellSwipeType = .none {
         didSet {
-            
+            swipeType == .primary ? layoutPrimaryActions() : layoutSecondaryActions()
         }
     }
     
