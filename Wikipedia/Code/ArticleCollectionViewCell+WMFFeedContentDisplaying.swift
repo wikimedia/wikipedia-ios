@@ -47,8 +47,7 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
-            backgroundView?.backgroundColor = theme.colors.midBackground
-            selectedBackgroundView?.backgroundColor = theme.colors.baseBackground
+            setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
             updateSelectedOrHighlighted()
             imageViewDimension = 150
             extractLabel?.text = nil

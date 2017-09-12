@@ -26,11 +26,11 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
         bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.8)
     }
-    
-    override public func updateBackgroundColorOfLabels() {
-        super.updateBackgroundColorOfLabels()
-        let opaque = labelBackgroundColor
-        let clear = opaque?.withAlphaComponent(0)
+
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        let opaque = theme.colors.paperBackground
+        let clear = opaque.withAlphaComponent(0)
         topGradientView.startColor = opaque
         topGradientView.endColor = clear
         bottomGradientView.startColor = clear
