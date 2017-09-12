@@ -35,9 +35,17 @@ public enum CollectionViewCellActionType {
     }
 }
 
-class CollectionViewCellActionsView: UIView {
-    var cell: CollectionViewCell
-    var maxActionWidth: CGFloat = 0
+public protocol SwipeableDelegate: NSObjectProtocol {
+    func didOpenActionPane(_ didOpen: Bool, at: IndexPath)
+    func didTapSave(at indexPath: IndexPath)
+    func didTapUnsave(at indexPath: IndexPath)
+    func isArticleSaved(at indexPath: IndexPath) -> Bool
+}
+
+public class CollectionViewCellActionsView: UIView {
+    var cell: ArticleCollectionViewCell
+    var maximumWidth: CGFloat = 0
+    public var theme = Theme.standard
     
     var actions: [CollectionViewCellAction] = [] {
         didSet {
@@ -103,6 +111,8 @@ class CollectionViewCellActionsView: UIView {
         
         maximumWidth = maxButtonWidth * CGFloat(self.subviews.count)
     }
+    
+    public weak var delegate: SwipeableDelegate?
     
     @objc func didTapDelete() {
         print("didTapDelete")
