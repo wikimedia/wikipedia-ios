@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell {
+open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
     static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
     
     @objc public let titleLabel = UILabel()
@@ -48,6 +48,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageViewDimension = 70
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
+        resetSwipeable()
         updateFonts(with: traitCollection)
     }
 
@@ -142,6 +143,182 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
+    }
+    
+    // MARK: - Swipeable
+    
+    public var actionsView: CollectionViewCellActionsView?
+    var privateContentView = UIView()
+    
+    var swipeType: CollectionViewCellSwipeType = .none
+    
+    var swipeInitialFramePosition: CGFloat = 0
+    var swipeStartPosition: CGPoint = .zero
+    var swipePastBounds: Bool = false
+    var deletePending: Bool = false
+    var swipeVelocity: CGFloat = 0
+    var originalStartPosition: CGPoint = .zero
+    
+    public weak var delegate: SwipeableDelegate?
+    
+    var swipeTranslation: CGFloat {
+        get {
+            let x = privateContentView.frame.origin.x
+            return x
+        }
+        set {
+            privateContentView.frame.origin.x = newValue
+            actionsView?.frame = actionsViewFrame
+        }
+    }
+    
+    var actionsViewFrame: CGRect {
+        let width = actionsView?.maximumWidth ?? 0
+        let x = privateContentView.frame.origin.x
+        return CGRect(x: privateContentView.frame.width + x, y: privateContentView.frame.origin.y, width: width, height: privateContentView.frame.height)
+    }
+    
+    var minimumSwipeTrackingPosition: CGFloat {
+        guard let actionsView = actionsView else { return 0 }
+        return -actionsView.maximumWidth
+    }
+    
+    var actions: [CollectionViewCellAction] {
+        get {
+            return self.actionsView?.actions ?? []
+        }
+        set {
+            self.actionsView?.actions = newValue
+            
+        }
+    }
+    
+    public var isSaved: Bool {
+        if let delegate = delegate, let indexPath = indexPathForActiveCell {
+            return delegate.isArticleSaved(at: indexPath)
+        }
+        return false
+    }
+    
+    var theme: Theme {
+        get {
+            return actionsView?.theme ?? Theme.standard
+        }
+        set {
+            actionsView?.theme = newValue
+        }
+    }
+    
+    override open var contentView: UIView {
+        return privateContentView
+    }
+    
+    var actionsViewRect: CGRect {
+        guard let actionsView = actionsView, actionsView.superview != nil else { return .zero }
+        let bounds = actionsView.bounds
+        let rect = self.convert(bounds, from: actionsView)
+        return rect
+    }
+    
+    func beginSwipe(with position: CGPoint, velocity: CGFloat) {
+        swipeInitialFramePosition = contentView.frame.origin.x
+        swipeStartPosition = position
+        swipePastBounds = false
+        
+        showActionsView(with: swipeType)
+        layoutSubviews()
+        UIView.performWithoutAnimation {
+            updateSwipe(with: position, velocity: velocity)
+        }
+    }
+    
+    func updateSwipe(with touchPosition: CGPoint, velocity: CGFloat) {
+  
+    }
+    
+    func showActionsView(with swipeType: CollectionViewCellSwipeType) {
+        // We don't need to do this if the view is already visible.
+        guard let actionsView = actionsView, actionsView.superview == nil else { return }
+        
+        let contentView = super.contentView
+        
+        actionsView.swipeType = swipeType
+        contentView.addSubview(actionsView)
+        
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    // MARK: Opening & closing action pane
+    
+    var isActionPaneOpen: Bool = false {
+        didSet {
+            privateContentView.isUserInteractionEnabled = !isActionPaneOpen
+            if let indexPath = self.indexPathForActiveCell {
+                self.delegate?.didOpenActionPane(isActionPaneOpen, at: indexPath)
+            }
+        }
+    }
+    
+    var indexPathForActiveCell: IndexPath? {
+        let collectionView = self.superview as? UICollectionView
+        return collectionView?.indexPath(for: self)
+    }
+    
+    func openActionPane() {
+        // Make sure we don't swipe twice on the same cell.
+        guard let actionsView = actionsView, swipeTranslation >= 0 else { return }
+        
+        let swipeType = actionsView.swipeType
+        
+        showActionsView(with: swipeType)
+        
+        let targetTranslation = swipeType == .primary ? minimumSwipeTrackingPosition : -minimumSwipeTrackingPosition
+        
+            let totalDistance = swipeTranslation - targetTranslation
+            let duration: CGFloat = 0.40
+            let springVelocity = abs(swipeVelocity) * duration / totalDistance
+            
+            UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
+                self.swipeTranslation = targetTranslation
+                self.layoutIfNeeded()
+            }, completion: { (finished: Bool) in
+                self.isActionPaneOpen = true
+                actionsView.isUserInteractionEnabled = true
+            })
+        
+    }
+    
+    func closeActionPane() {        
+        let targetTranslation = swipeType == .primary ? -swipeTranslation : swipeTranslation
+        
+        let totalDistance = targetTranslation
+        let duration: CGFloat = 0.40
+        let springVelocity = abs(swipeVelocity) * duration / totalDistance
+        
+        UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
+            self.swipeTranslation = 0
+            self.layoutIfNeeded()
+        }, completion: { (finished: Bool) in
+            self.removeActionsView()
+            self.privateContentView.isUserInteractionEnabled = true
+            self.actionsView?.isUserInteractionEnabled = false
+            self.swipeInitialFramePosition = 0
+            self.isActionPaneOpen = false
+        })
+        
+    }
+    
+    func removeActionsView() {
+        actionsView?.removeFromSuperview()
+    }
+    
+    // MARK: Prepare for reuse
+    
+    func resetSwipeable() {
+        deletePending = false
+        swipePastBounds = false
+        swipeTranslation = 0
     }
     
 }
