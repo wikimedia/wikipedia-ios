@@ -55,52 +55,53 @@ class CollectionViewCellActionsView: UIView {
         self.cell = cell
         super.init(frame: frame)
         
-        self.setContentCompressionResistancePriority(.required, for: .horizontal)
-        self.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
         self.isUserInteractionEnabled = false
     }
     
     func createSubviews(for actions: [CollectionViewCellAction]) {
+        
         for view in self.subviews {
             view.removeFromSuperview()
         }
         
         var maxButtonWidth: CGFloat = 0
         
-        for action in actions {
+        for (index, action) in actions.enumerated() {
             let button = UIButton(type: .custom)
             button.setTitle(action.title, for: .normal)
-            button.titleLabel?.numberOfLines = 0
-            button.contentEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8)
+            button.titleLabel?.numberOfLines = 1
+            button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
+            button.tag = index
             
             var didTapButton: Selector
             
             switch (action.type) {
             case .delete:
                 didTapButton = #selector(didTapDelete)
+                button.backgroundColor = theme.colors.destructive
             case .share:
+                button.backgroundColor = theme.colors.secondaryAction
                 didTapButton = #selector(didTapShare)
             case .save:
+                button.backgroundColor = theme.colors.link
                 didTapButton = #selector(didTapSave)
             case .unsave:
+                button.backgroundColor = self.theme.colors.link
                 didTapButton = #selector(didTapUnsave)
             }
             
             button.addTarget(self, action: didTapButton, for: .touchUpInside)
             
+            // Wrapper around each button.
             let wrapper = UIView(frame: .zero)
             wrapper.clipsToBounds = true
             wrapper.addSubview(button)
             self.addSubview(wrapper)
-            wrapper.addSubview(button)
-            
             // SWIPE: Adjust backgroundColor for action types.
-            wrapper.backgroundColor = UIColor.cyan
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
         }
         
-        maxActionWidth = maxButtonWidth * CGFloat(self.subviews.count)
+        maximumWidth = maxButtonWidth * CGFloat(self.subviews.count)
     }
     
     @objc func didTapDelete() {
