@@ -212,10 +212,14 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     // MARK: - States
     func didEnterIdleState() {
         collectionView.isScrollEnabled = true
-        if let cell = activeCell {
+        if let cell = activeCell, let cellOpen = cellWithActionPaneOpen {
+            // Make sure that we're always closing the currently open cell, regardless of where the tap occurs.
+            if cell != cellOpen {
+                cellWithActionPaneOpen = nil
+                cellOpen.closeActionPane()
+            }
             activeCell = nil
-            // SWIPE: Handle action pane closing.
-            // cell.closeActionPane(animated: true)
+             cell.closeActionPane()
         }
     }
     
