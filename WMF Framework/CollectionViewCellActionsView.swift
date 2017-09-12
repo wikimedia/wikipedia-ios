@@ -117,6 +117,64 @@ class CollectionViewCellActionsView: UIView {
     
     @objc func didTapUnsave() {
         print("didTapUnsave")
+        if let indexPath = cell.indexPathForActiveCell {
+            delegate?.didTapUnsave(at: indexPath)
+        }
+    }
+    
+    func layoutPrimaryActions() {
+
+        let numberOfButtonWrappers = self.subviews.count
+        
+        let buttonWrapperWidth = maximumWidth / CGFloat(numberOfButtonWrappers)
+        var previousButtonWrapper: UIView?
+
+        for buttonWrapper in self.subviews {
+            
+            if let button = buttonWrapper.subviews.first as? UIButton {
+                
+                var buttonWrapperFrame = CGRect(x: 0, y: self.frame.origin.y, width: buttonWrapperWidth, height: self.frame.height)
+                
+                button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                let last = button.viewWithTag(numberOfButtonWrappers - 1)
+                self.backgroundColor = last?.backgroundColor
+                
+                if numberOfButtonWrappers > 1 {
+                    switch button.tag {
+                    case 0:
+                        previousButtonWrapper = buttonWrapper
+                    case 1:
+                        // Fallthrough?
+                        if let previous = previousButtonWrapper {
+                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
+                            previousButtonWrapper = buttonWrapper
+                        }
+                    case 2:
+                        if let previous = previousButtonWrapper {
+                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
+                            previousButtonWrapper = buttonWrapper
+                        }
+                    default:
+                        break
+                    }
+                }
+                
+                buttonWrapper.frame = buttonWrapperFrame
+                buttonWrapper.autoresizesSubviews = true
+                buttonWrapper.backgroundColor = UIColor.clear
+            }
+        }
+    
+    }
+    
+    func layoutSecondaryActions() {
+        
+    }
+    
+    func action(from button: UIButton) -> CollectionViewCellAction {
+        let index = button.tag
+        return actions[index]
     }
     
     // MARK: - Swift rubbish
