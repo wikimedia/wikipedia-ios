@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
+open class ArticleCollectionViewCell: CollectionViewCell {
     static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
     
     @objc public let titleLabel = UILabel()
@@ -158,6 +158,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
     
     // MARK: - Swipeable
     
+    var collectionView: UICollectionView? {
+        return self.superview as? UICollectionView
+    }
+    
     public var actionsView: CollectionViewCellActionsView?
     var privateContentView = UIView()
     
@@ -272,7 +276,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, Swipeable {
     }
     
     var indexPathForActiveCell: IndexPath? {
-        let collectionView = self.superview as? UICollectionView
         return collectionView?.indexPath(for: self)
     }
     

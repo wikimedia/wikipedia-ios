@@ -4,10 +4,6 @@ public protocol Actionable {
     var swipeToEditController: CollectionViewSwipeToEditController? { get set }
 }
 
-public protocol Swipeable {
-
-}
-
 public struct CollectionViewCellAction: Equatable {
     let title: String
     let icon: UIImage?
