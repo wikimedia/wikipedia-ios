@@ -231,4 +231,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
+    public func performedAction() {
+        closeActionPane()
+        
+    }
+    
+    func closeActionPane() {
+        currentState = .idle
+    }
+    
 }
