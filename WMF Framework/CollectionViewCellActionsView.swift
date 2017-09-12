@@ -36,13 +36,13 @@ public enum CollectionViewCellActionType {
     public var action: CollectionViewCellAction {
         switch self {
         case .delete:
-            return CollectionViewCellAction(title: "Delete", icon: nil, type: .delete)
+            return CollectionViewCellAction(title: CommonStrings.deleteActionTitle, icon: nil, type: .delete)
         case .save:
-            return CollectionViewCellAction(title: "Save", icon: nil, type: .save)
+            return CollectionViewCellAction(title: CommonStrings.shortSaveTitle, icon: nil, type: .save)
         case .unsave:
-            return CollectionViewCellAction(title: "Unsave", icon: nil, type: .unsave)
+            return CollectionViewCellAction(title: CommonStrings.shortUnsaveTitle, icon: nil, type: .unsave)
         case .share:
-            return CollectionViewCellAction(title: "Share", icon: nil, type: .share)
+            return CollectionViewCellAction(title: CommonStrings.shareActionTitle, icon: nil, type: .share)
         }
     }
 }
