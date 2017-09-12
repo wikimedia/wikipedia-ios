@@ -37,9 +37,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
-    public init(collectionView: UICollectionView) {
+    fileprivate var theme: Theme = Theme.standard
+    
+    public init(collectionView: UICollectionView, theme: Theme) {
         self.collectionView = collectionView
+        self.theme = theme
         super.init()
+    
         addPanGesture(to: self.collectionView)
         addLongPressGesture(to: self.collectionView)
         
@@ -127,8 +131,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     func didEnterOpenState() {
         collectionView.isScrollEnabled = false
         if let cell = activeCell {
-            // SWIPE: Handle action pane opening.
-             cell.openActionPane(animated: true)
+            cell.theme = theme
+            cell.openActionPane()
         }
     }
     
