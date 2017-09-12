@@ -19,11 +19,11 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
-    var activeCell: CollectionViewCell? {
+    var activeCell: ArticleCollectionViewCell? {
         get {
             let position = panGesture.location(in: collectionView)
             let panCellPath = collectionView.indexPathForItem(at: position)
-            if let path = panCellPath, let cell = collectionView.cellForItem(at: path) as? CollectionViewCell {
+            if let path = panCellPath, let cell = collectionView.cellForItem(at: path) as? ArticleCollectionViewCell {
                 return cell
             }
             // SWIPE: Should we be returning nil?
@@ -83,7 +83,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         switch (sender.state) {
         case .began:
             print("handlePanGesture: began")
-            activeCell?.isHidden = true
             let position = sender.location(in: cell)
             let velocityX = sender.velocity(in: cell).x
             cell.beginSwipe(with: position, velocity: velocityX)
