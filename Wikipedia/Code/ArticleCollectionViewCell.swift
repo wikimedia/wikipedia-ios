@@ -275,12 +275,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         return collectionView?.indexPath(for: self)
     }
     
-    var isIpadOrLandscape: Bool {
-        return UIDevice.current.userInterfaceIdiom == .pad ||
-            UIDevice.current.orientation == .landscapeLeft ||
-            UIDevice.current.orientation == .landscapeRight
-    }
-    
     var leftViewToCoverCellOnLandscape: UIView?
     var righttViewToCoverCellOnLandscape: UIView?
     
@@ -300,9 +294,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         
             UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
                 
-                if self.isIpadOrLandscape {
-                    self.adjustAnimationForLandscape()
-                }
+                self.adjustAnimationIfNecessary()
                 
                 self.swipeTranslation = targetTranslation
                 self.layoutIfNeeded()
@@ -312,13 +304,22 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             })
     }
     
-    func adjustAnimationForLandscape() {
+    func adjustAnimationIfNecessary() {
+        
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        let isLandscape = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
+        
+        guard isPad || isLandscape else { return }
         
         if let indexPath = self.indexPathForActiveCell, let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath) {
             
             let positionY = attributes.frame.origin.y
             let height = self.privateContentView.frame.height
-            let width: CGFloat = 85
+            var width: CGFloat = 85
+            
+            if isLandscape {
+                width = width / 2.59
+            }
             
             self.leftViewToCoverCellOnLandscape = UIView(frame: CGRect(x: 0, y: positionY, width: width, height: height))
             self.leftViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
