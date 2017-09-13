@@ -171,8 +171,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     var swipeVelocity: CGFloat = 0
     var originalStartPosition: CGPoint = .zero
     
-    public weak var delegate: SwipeableDelegate?
-    
     var swipeTranslation: CGFloat {
         get {
             let x = privateContentView.frame.origin.x
@@ -255,19 +253,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     // MARK: Opening & closing action pane
     
-    var isActionPaneOpen: Bool = false {
-        didSet {
-            privateContentView.isUserInteractionEnabled = !isActionPaneOpen
-            if let indexPath = self.indexPathForActiveCell {
-                self.delegate?.didOpenActionPane(isActionPaneOpen, at: indexPath)
-            }
-        }
-    }
-    
-    var indexPathForActiveCell: IndexPath? {
-        return collectionView?.indexPath(for: self)
-    }
-    
     var leftViewToCoverCellOnLandscape: UIView?
     var righttViewToCoverCellOnLandscape: UIView?
     
@@ -287,44 +272,12 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         
             UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
                 
-                self.adjustAnimationIfNecessary()
                 
                 self.swipeTranslation = targetTranslation
                 self.layoutIfNeeded()
             }, completion: { (finished: Bool) in
-                self.isActionPaneOpen = true
                 actionsView.isUserInteractionEnabled = true
             })
-    }
-    
-    func adjustAnimationIfNecessary() {
-        
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        let isLandscape = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
-        
-        guard isPad || isLandscape else { return }
-        
-        if let indexPath = self.indexPathForActiveCell, let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath) {
-            
-            let positionY = attributes.frame.origin.y
-            let height = self.privateContentView.frame.height
-            var width: CGFloat = 85
-            
-            if isLandscape {
-                width = width / 2.59
-            }
-            
-            self.leftViewToCoverCellOnLandscape = UIView(frame: CGRect(x: 0, y: positionY, width: width, height: height))
-            self.leftViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
-            
-            self.righttViewToCoverCellOnLandscape = UIView(frame: CGRect(x: attributes.frame.width + width, y: positionY, width: width, height: height))
-            self.righttViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
-            
-            if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
-                self.collectionView?.addSubview(leftView)
-                self.collectionView?.addSubview(rightView)
-            }
-        }
     }
     
     func closeActionPane() {
@@ -343,7 +296,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             self.privateContentView.isUserInteractionEnabled = true
             self.actionsView?.isUserInteractionEnabled = false
             self.swipeInitialFramePosition = 0
-            self.isActionPaneOpen = false
             if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
                 leftView.removeFromSuperview()
                 rightView.removeFromSuperview()
