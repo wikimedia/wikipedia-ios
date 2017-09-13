@@ -9,12 +9,20 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Georgia.ttf">
+            <string>Georgia</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareAFactViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="articleTitleLabel" destination="6K5-c8-ICb" id="SLY-fH-sqo"/>
+                <outlet property="imageGradientView" destination="uR4-eK-jYM" id="hRy-PB-fD2"/>
                 <outlet property="imageView" destination="gtM-9F-ycZ" id="y6t-gc-ZQj"/>
                 <outlet property="imageViewTrailingConstraint" destination="CaA-B0-Gcx" id="fLT-5P-1k5"/>
                 <outlet property="imageViewWidthConstraint" destination="jAx-PO-FKf" id="uL3-Bf-4G7"/>
+                <outlet property="separatorView" destination="fM9-1P-hwj" id="IVi-3V-a0u"/>
                 <outlet property="textLabel" destination="vOy-7Q-csU" id="dyk-E2-bCw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,36 +35,62 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN0-3N-GFZ">
                     <rect key="frame" x="256" y="0.0" width="256" height="291"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gtM-9F-ycZ">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gtM-9F-ycZ">
                             <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uR4-eK-jYM" customClass="WMFGradientView">
+                            <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="gtM-9F-ycZ" secondAttribute="bottom" id="5hh-AW-a2b"/>
                         <constraint firstAttribute="trailing" secondItem="gtM-9F-ycZ" secondAttribute="trailing" id="86S-3c-MRL"/>
+                        <constraint firstAttribute="bottom" secondItem="uR4-eK-jYM" secondAttribute="bottom" id="ErC-Le-eqr"/>
                         <constraint firstItem="gtM-9F-ycZ" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="LrE-2j-Rav"/>
                         <constraint firstItem="gtM-9F-ycZ" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="doA-Bz-MQK"/>
+                        <constraint firstItem="uR4-eK-jYM" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="foU-oN-vev"/>
+                        <constraint firstAttribute="trailing" secondItem="uR4-eK-jYM" secondAttribute="trailing" id="iru-QU-qEG"/>
                         <constraint firstAttribute="width" constant="256" id="jAx-PO-FKf"/>
                         <constraint firstAttribute="height" constant="291" id="jIK-bR-0be"/>
+                        <constraint firstItem="uR4-eK-jYM" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="nKI-Qe-G4T"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOy-7Q-csU">
-                    <rect key="frame" x="16" y="17" width="224" height="224"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOy-7Q-csU">
+                    <rect key="frame" x="15" y="17" width="226" height="208.5"/>
                     <string key="text">During the first half of the 20th century and some years into the late 20th century, there was much speculation about using Gullfoss to generate electricity. During this period, the waterfall was rented indirectly by its owners, Tómas Tómasson and Halldór Halldórsson, to foreign…
 </string>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-c8-ICb">
+                    <rect key="frame" x="15" y="256.5" width="34.5" height="19.5"/>
+                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM9-1P-hwj">
+                    <rect key="frame" x="15" y="240.5" width="43" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="43" id="jyK-Tu-qrE"/>
+                        <constraint firstAttribute="height" constant="1" id="tf9-28-kvV"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="bottom" constant="50" id="01c-Gg-vEF"/>
+                <constraint firstItem="fM9-1P-hwj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="92M-Wg-UGy"/>
+                <constraint firstItem="6K5-c8-ICb" firstAttribute="top" secondItem="fM9-1P-hwj" secondAttribute="bottom" constant="15" id="BoI-hp-wof"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="CaA-B0-Gcx"/>
-                <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="trailing" constant="16" id="Ehp-mM-akI"/>
+                <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="trailing" constant="15" id="Ehp-mM-akI"/>
                 <constraint firstItem="vOy-7Q-csU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="17" id="Ixx-xm-csu"/>
-                <constraint firstItem="vOy-7Q-csU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="UTY-tx-tPl"/>
+                <constraint firstItem="6K5-c8-ICb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="SQK-he-7Wd"/>
+                <constraint firstItem="vOy-7Q-csU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="UTY-tx-tPl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6K5-c8-ICb" secondAttribute="bottom" constant="15" id="cO3-HG-NnZ"/>
+                <constraint firstItem="fM9-1P-hwj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="bottom" constant="15" id="d2Y-m0-jwP"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="vEz-hF-G5b"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
