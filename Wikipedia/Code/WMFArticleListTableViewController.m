@@ -255,7 +255,7 @@
 - (void)shareArticle:(NSURL *)url sender:(UITableViewCell *)sender {
     WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        shareActivityController.modalPresentationStyle = UIModalPresentationFormSheet;
+        shareActivityController.modalPresentationStyle = UIModalPresentationPopover;
         shareActivityController.popoverPresentationController.sourceView = sender;
         shareActivityController.popoverPresentationController.sourceRect = sender.bounds;
     }
