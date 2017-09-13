@@ -3,14 +3,43 @@ import UIKit
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, SwipeableDelegate, AnalyticsContextProviding {
     
-    // MARK: - Actionable
-    var swipeToEditController: CollectionViewSwipeToEditController?
+    fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
     
+    let articleURLs: [URL]
+    let dataStore: MWKDataStore
+    
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
+        self.articleURLs = articleURLs
+        self.dataStore = dataStore
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) not supported")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let collectionView = self.collectionView {
+            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView, theme: theme)
+        }
+        
+        swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
+        
+        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
+    }
+    
+    func articleURL(at indexPath: IndexPath) -> URL {
+        return articleURLs[indexPath.section]
+    }
+    
+    // MARK: - SwipeableDelegate
+    var swipeToEditController: CollectionViewSwipeToEditController?
     
     var indexPathForSwipeableCell: IndexPath?
     var isActionPaneOpen = false
     
-    // MARK: - SwipeableDelegate
     func didOpenActionPane(_ didOpen: Bool, at indexPath: IndexPath) {
         indexPathForSwipeableCell = indexPath
         isActionPaneOpen = didOpen
@@ -34,7 +63,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
             if let cell = collectionView?.cellForItem(at: indexPath) {
                 shareActivityController.popoverPresentationController?.sourceView = cell
                 shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
-          }
+            }
             
         }
         swipeToEditController?.performedAction()
@@ -42,7 +71,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
     }
     
     func didTapDelete(at indexPath: IndexPath) {
-        
+        //TODO
     }
     
     func didTapSave(at indexPath: IndexPath) {
@@ -66,38 +95,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
     
     var savedPageList: MWKSavedPageList {
         return dataStore.savedPageList
-    }
-    
-    fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
-    
-    let articleURLs: [URL]
-    let dataStore: MWKDataStore
-    
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
-        self.articleURLs = articleURLs
-        self.dataStore = dataStore
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not supported")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // SWIPE: Put it all in a method.
-        if let collectionView = self.collectionView {
-            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView, theme: theme)
-        }
-        
-        swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
-        
-        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
-    }
-    
-    func articleURL(at indexPath: IndexPath) -> URL {
-        return articleURLs[indexPath.section]
     }
 }
 

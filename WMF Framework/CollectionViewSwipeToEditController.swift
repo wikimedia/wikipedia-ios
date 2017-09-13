@@ -26,7 +26,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             if let path = panCellPath, let cell = collectionView.cellForItem(at: path) as? ArticleCollectionViewCell {
                 return cell
             }
-            // SWIPE: Should we be returning nil?
             return nil
         }
         set {
@@ -45,7 +44,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         self.collectionView = collectionView
         self.theme = theme
         super.init()
-    
+        
         addPanGesture(to: self.collectionView)
         addLongPressGesture(to: self.collectionView)
         
@@ -78,7 +77,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let cell = activeCell else { return false }
         
-        // Might want to make sure the that other recognizer is UILongPress for sure.
         return gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizerShouldBegin(gestureRecognizer, in: cell) : longPressGestureRecognizerShouldBegin(gestureRecognizer, in: cell)
     }
     
@@ -89,10 +87,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return collectionView.indexPath(for: cell)
         }
         return nil
-    }
-    
-    func checkIfArticleIsSaved() {
-        
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
@@ -174,7 +168,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         switch (sender.state) {
         case .began:
-            print("handlePanGesture: began")
             let position = sender.location(in: cell)
             let velocityX = sender.velocity(in: cell).x
             cell.beginSwipe(with: position, velocity: velocityX)
@@ -219,7 +212,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
                 cellOpen.closeActionPane()
             }
             activeCell = nil
-             cell.closeActionPane()
+            cell.closeActionPane()
         }
     }
     
@@ -233,7 +226,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     public func performedAction() {
         closeActionPane()
-        
     }
     
     func closeActionPane() {

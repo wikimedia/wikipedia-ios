@@ -201,7 +201,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         }
         set {
             self.actionsView?.actions = newValue
-            
         }
     }
     

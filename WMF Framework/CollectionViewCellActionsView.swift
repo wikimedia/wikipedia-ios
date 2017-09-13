@@ -37,6 +37,7 @@ public protocol SwipeableDelegate: NSObjectProtocol {
 }
 
 public class CollectionViewCellActionsView: UIView {
+    
     var cell: ArticleCollectionViewCell
     var maximumWidth: CGFloat = 0
     public var theme = Theme.standard
@@ -99,7 +100,6 @@ public class CollectionViewCellActionsView: UIView {
             wrapper.clipsToBounds = true
             wrapper.addSubview(button)
             self.addSubview(wrapper)
-            // SWIPE: Adjust backgroundColor for action types.
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
         }
         
@@ -133,12 +133,12 @@ public class CollectionViewCellActionsView: UIView {
     }
     
     func layoutPrimaryActions() {
-
+        
         let numberOfButtonWrappers = self.subviews.count
         
         let buttonWrapperWidth = maximumWidth / CGFloat(numberOfButtonWrappers)
         var previousButtonWrapper: UIView?
-
+        
         for buttonWrapper in self.subviews {
             
             if let button = buttonWrapper.subviews.first as? UIButton {
@@ -175,7 +175,7 @@ public class CollectionViewCellActionsView: UIView {
                 buttonWrapper.backgroundColor = UIColor.clear
             }
         }
-    
+        
     }
     
     func layoutSecondaryActions() {
@@ -187,7 +187,6 @@ public class CollectionViewCellActionsView: UIView {
         return actions[index]
     }
     
-    // MARK: - Swift rubbish
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
