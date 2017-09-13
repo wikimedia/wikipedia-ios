@@ -4,6 +4,7 @@ class ShareAFactViewController: UIViewController {
 
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var articleLicenseView: LicenseView!
@@ -35,7 +36,7 @@ class ShareAFactViewController: UIViewController {
         articleTitleLabel.text = articleTitle
         imageLicenseView.licenseCodes = ["cc", "by", "sa"]
         articleLicenseView.licenseCodes = ["cc", "by", "sa"]
-        
+
         guard let image = image else {
             return
         }
@@ -43,6 +44,8 @@ class ShareAFactViewController: UIViewController {
         guard image.size.width > image.size.height else {
             return
         }
+        
+        backgroundImageView.image = image
         
         let aspect = image.size.height / image.size.width
         let height = floor(imageViewWidthConstraint.constant * aspect)
