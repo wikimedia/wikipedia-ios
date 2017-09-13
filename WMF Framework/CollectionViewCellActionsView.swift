@@ -29,10 +29,7 @@ public enum CollectionViewCellActionType {
 
 public protocol SwipeableDelegate: NSObjectProtocol {
     func didOpenActionPane(_ didOpen: Bool, at: IndexPath)
-    func didTapSave(at indexPath: IndexPath)
-    func didTapUnsave(at indexPath: IndexPath)
-    func didTapShare(at indexPath: IndexPath)
-    func didTapDelete(at indexPath: IndexPath)
+    func didPerformAction(_ sender: UIButton)
     func isArticleSaved(at indexPath: IndexPath) -> Bool
 }
 
@@ -76,24 +73,18 @@ public class CollectionViewCellActionsView: UIView {
             button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
             button.tag = index
             
-            var didTapButton: Selector
-            
             switch (action.type) {
             case .delete:
-                didTapButton = #selector(didTapDelete)
                 button.backgroundColor = theme.colors.destructive
             case .share:
                 button.backgroundColor = theme.colors.secondaryAction
-                didTapButton = #selector(didTapShare)
             case .save:
                 button.backgroundColor = theme.colors.link
-                didTapButton = #selector(didTapSave)
             case .unsave:
                 button.backgroundColor = self.theme.colors.link
-                didTapButton = #selector(didTapUnsave)
             }
             
-            button.addTarget(self, action: didTapButton, for: .touchUpInside)
+            button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
             
             // Wrapper around each button.
             let wrapper = UIView(frame: .zero)
@@ -108,28 +99,8 @@ public class CollectionViewCellActionsView: UIView {
     
     public weak var delegate: SwipeableDelegate?
     
-    @objc func didTapDelete() {
-        if let indexPath = cell.indexPathForActiveCell {
-            delegate?.didTapSave(at: indexPath)
-        }
-    }
-    
-    @objc func didTapShare() {
-        if let indexPath = cell.indexPathForActiveCell {
-            delegate?.didTapShare(at: indexPath)
-        }
-    }
-    
-    @objc func didTapSave() {
-        if let indexPath = cell.indexPathForActiveCell {
-            delegate?.didTapSave(at: indexPath)
-        }
-    }
-    
-    @objc func didTapUnsave() {
-        if let indexPath = cell.indexPathForActiveCell {
-            delegate?.didTapUnsave(at: indexPath)
-        }
+    @objc func didPerformAction(_ sender: UIButton) {
+        delegate?.didPerformAction(sender)
     }
     
     func layoutPrimaryActions() {
@@ -180,11 +151,6 @@ public class CollectionViewCellActionsView: UIView {
     
     func layoutSecondaryActions() {
         
-    }
-    
-    func action(from button: UIButton) -> CollectionViewCellAction {
-        let index = button.tag
-        return actions[index]
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -54,38 +54,39 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
         return "ArticleList"
     }
     
-    func didTapShare(at indexPath: IndexPath) {
+    func didPerformAction(_ sender: UIButton) {
+        guard let indexPath = indexPathForSwipeableCell, let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell else { return }
+        
+        let action = cell.actions[sender.tag]
         let url = articleURL(at: indexPath)
+        
+        switch (action.type) {
+        case .save:
+            if !savedPageList.isSaved(url) {
+                savedPageList.addSavedPage(with: url)
+            }
+        case .unsave:
+            savedPageList.removeEntry(with: url)
+        case .share:
+            share(url, cell: cell)
+        default:
+            break
+        }
+        
+        swipeToEditController?.performedAction()
+
+    }
+    
+    func share(_ url: URL, cell: ArticleCollectionViewCell) {
         let shareActivityController = ShareActivityController(articleURL: url, userDataStore: dataStore, context: self)
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-            
-            if let cell = collectionView?.cellForItem(at: indexPath) {
                 shareActivityController.popoverPresentationController?.sourceView = cell
                 shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
-            }
-            
         }
-        swipeToEditController?.performedAction()
+        
         present(shareActivityController, animated: true, completion: nil)
-    }
-    
-    func didTapDelete(at indexPath: IndexPath) {
-        //TODO
-    }
-    
-    func didTapSave(at indexPath: IndexPath) {
-        let url = articleURL(at: indexPath)
-        if !savedPageList.isSaved(url) {
-            savedPageList.addSavedPage(with: url)
-            swipeToEditController?.performedAction()
-        }
-    }
-    
-    func didTapUnsave(at indexPath: IndexPath) {
-        let url = articleURL(at: indexPath)
-        savedPageList.removeEntry(with: url)
-        swipeToEditController?.performedAction()
     }
     
     func isArticleSaved(at indexPath: IndexPath) -> Bool {

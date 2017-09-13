@@ -195,7 +195,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         return -actionsView.maximumWidth
     }
     
-    var actions: [CollectionViewCellAction] {
+    public var actions: [CollectionViewCellAction] {
         get {
             return self.actionsView?.actions ?? []
         }
