@@ -204,13 +204,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         }
     }
     
-    public var isSaved: Bool {
-        if let delegate = delegate, let indexPath = indexPathForActiveCell {
-            return delegate.isArticleSaved(at: indexPath)
-        }
-        return false
-    }
-    
     var theme: Theme {
         get {
             return actionsView?.theme ?? Theme.standard

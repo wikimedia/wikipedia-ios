@@ -25,6 +25,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
             swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView, theme: theme)
         }
         
+        swipeToEditController?.delegate = self
+        
         swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
         
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)

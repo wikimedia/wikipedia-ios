@@ -86,6 +86,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         return nil
     }
     
+    public weak var delegate: SwipeableDelegate?
+    
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
         
         guard !isActionPanOpenInCollectionView else { return false }
@@ -98,7 +100,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         
         // If the article was saved, swap the "Save" action for "Unsave" and vice versa.
-        swapSaveActionsIfNecessary(cell.isSaved)
+        if let indexPath = activeCellIndexPath {
+            let isSaved = delegate?.isArticleSaved(at: indexPath) ?? false
+            swapSaveActionsIfNecessary(isSaved)
+        }
         
         cell.actions = velocity.x < 0 ? primaryActions : secondaryActions
         
