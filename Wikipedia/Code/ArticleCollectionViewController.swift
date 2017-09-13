@@ -28,6 +28,15 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
     func didTapShare(at indexPath: IndexPath) {
         let url = articleURL(at: indexPath)
         let shareActivityController = ShareActivityController(articleURL: url, userDataStore: dataStore, context: self)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+            
+            if let cell = collectionView?.cellForItem(at: indexPath) {
+                shareActivityController.popoverPresentationController?.sourceView = cell
+                shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
+          }
+            
+        }
         swipeToEditController?.performedAction()
         present(shareActivityController, animated: true, completion: nil)
     }
