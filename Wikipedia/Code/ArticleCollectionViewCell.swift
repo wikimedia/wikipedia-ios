@@ -283,7 +283,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     var leftViewToCoverCellOnLandscape: UIView?
     var righttViewToCoverCellOnLandscape: UIView?
-
     
     func openActionPane() {
         // Make sure we don't swipe twice on the same cell.
@@ -302,18 +301,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
                 
                 if self.isIpadOrLandscape {
-                    if let indexPath = self.indexPathForActiveCell, let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath) {
-                        self.leftViewToCoverCellOnLandscape = UIView(frame: CGRect(x: 0, y: attributes.frame.origin.y, width: 85, height: self.privateContentView.frame.height))
-                        self.leftViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
-                        
-                        self.righttViewToCoverCellOnLandscape = UIView(frame: CGRect(x: attributes.frame.width + 85, y: attributes.frame.origin.y, width: 85, height: self.privateContentView.frame.height))
-                        self.righttViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
-                        
-                        if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
-                            self.collectionView?.addSubview(leftView)
-                            self.collectionView?.addSubview(rightView)
-                        }
-                    }
+                    self.adjustAnimationForLandscape()
                 }
                 
                 self.swipeTranslation = targetTranslation
@@ -322,7 +310,27 @@ open class ArticleCollectionViewCell: CollectionViewCell {
                 self.isActionPaneOpen = true
                 actionsView.isUserInteractionEnabled = true
             })
+    }
+    
+    func adjustAnimationForLandscape() {
         
+        if let indexPath = self.indexPathForActiveCell, let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath) {
+            
+            let positionY = attributes.frame.origin.y
+            let height = self.privateContentView.frame.height
+            let width: CGFloat = 85
+            
+            self.leftViewToCoverCellOnLandscape = UIView(frame: CGRect(x: 0, y: positionY, width: width, height: height))
+            self.leftViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
+            
+            self.righttViewToCoverCellOnLandscape = UIView(frame: CGRect(x: attributes.frame.width + width, y: positionY, width: width, height: height))
+            self.righttViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
+            
+            if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
+                self.collectionView?.addSubview(leftView)
+                self.collectionView?.addSubview(rightView)
+            }
+        }
     }
     
     func closeActionPane() {
@@ -347,7 +355,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
                 rightView.removeFromSuperview()
             }
         })
-        
     }
     
     func removeActionsView() {
