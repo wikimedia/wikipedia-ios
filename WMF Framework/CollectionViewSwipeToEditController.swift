@@ -45,9 +45,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         self.theme = theme
         super.init()
         
-        addPanGesture(to: self.collectionView)
-        addLongPressGesture(to: self.collectionView)
-        
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
                 if gestureRecognizer is UIPanGestureRecognizer {
@@ -59,6 +56,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             }
         }
         
+        addPanGesture(to: self.collectionView)
+        addLongPressGesture(to: self.collectionView)
     }
     
     func addPanGesture(to collectionView: UICollectionView) {
