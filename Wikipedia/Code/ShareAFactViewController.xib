@@ -45,6 +45,7 @@
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hF1-J2-wdd">
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </imageView>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtH-Hv-l3x">
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
@@ -105,7 +106,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="PVo-t5-vNi" secondAttribute="bottom" id="5wg-72-fWt"/>
                         <constraint firstAttribute="bottom" secondItem="olL-8e-jan" secondAttribute="bottom" constant="15" id="9fP-8W-2ya"/>
