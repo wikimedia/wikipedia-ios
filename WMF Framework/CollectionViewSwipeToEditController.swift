@@ -23,8 +23,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     var activeCell: ArticleCollectionViewCell?
     var activeIndexPath: IndexPath?
     
-    public var cellWithActionPaneOpen: ArticleCollectionViewCell?
-    
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
@@ -176,13 +174,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     // MARK: - States
     func didEnterIdleState() {
         collectionView.isScrollEnabled = true
-        if let cell = activeCell, let cellOpen = cellWithActionPaneOpen {
-            // Make sure that we're always closing the currently open cell, regardless of where the tap occurs.
-            if cell != cellOpen {
-                cellWithActionPaneOpen = nil
-                cellOpen.closeActionPane()
-            }
-            activeCell = nil
+        if let cell = activeCell {
             cell.closeActionPane()
         }
     }
