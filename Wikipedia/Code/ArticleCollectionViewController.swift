@@ -68,24 +68,20 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
         case .unsave:
             savedPageList.removeEntry(with: url)
         case .share:
-            share(url, cell: cell)
+            let shareActivityController = ShareActivityController(articleURL: url, userDataStore: dataStore, context: self)
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                shareActivityController.popoverPresentationController?.sourceView = cell
+                shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
+            }
+    
+            present(shareActivityController, animated: true, completion: nil)
         default:
             break
         }
         
         swipeToEditController?.performedAction()
-    }
-    
-    func share(_ url: URL, cell: ArticleCollectionViewCell) {
-        let shareActivityController = ShareActivityController(articleURL: url, userDataStore: dataStore, context: self)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                shareActivityController.popoverPresentationController?.sourceView = cell
-                shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
-        }
-        
-        present(shareActivityController, animated: true, completion: nil)
     }
     
     func isArticleSaved(at indexPath: IndexPath) -> Bool {
