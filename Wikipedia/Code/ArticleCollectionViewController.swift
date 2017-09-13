@@ -133,6 +133,10 @@ extension ArticleCollectionViewController {
         if isActionPaneOpen { return }
         wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return !isActionPaneOpen
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
