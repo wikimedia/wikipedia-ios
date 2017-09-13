@@ -30,10 +30,19 @@ class ShareAFactViewController: UIViewController {
     public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicenseCodes: [String]) {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
+        articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
+        
         imageView.image = image
         isImageViewHidden = image == nil
         textLabel.text = text
+        textLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        let width = isImageViewHidden ? view.bounds.size.width : round(0.5 * view.bounds.size.width)
+        let size = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
+        if size.height > 0.6 * view.bounds.size.height {
+            textLabel.font = UIFont.systemFont(ofSize: 14)
+        }
         articleTitleLabel.text = articleTitle
+        
         imageLicenseView.licenseCodes = imageLicenseCodes
         articleLicenseView.licenseCodes = ["cc", "by", "sa"]
 
