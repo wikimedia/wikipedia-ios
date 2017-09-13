@@ -69,7 +69,7 @@ class ShareViewController: UIViewController, Themeable {
     func createShareAFactCard() -> UIImage? {
         let cardController = ShareAFactViewController(nibName: "ShareAFactViewController", bundle: nil)
         let cardView = cardController.view
-        cardController.update(with: articleURL, articleTitle: articleTitle, articleDescription: articleDescription, text: text, image: image)
+        cardController.update(with: articleURL, articleTitle: articleTitle, text: text, image: image)
         return cardView?.wmf_snapshotImage()
     }
     
