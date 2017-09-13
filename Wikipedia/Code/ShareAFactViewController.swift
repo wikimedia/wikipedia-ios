@@ -6,7 +6,7 @@ class ShareAFactViewController: UIViewController {
 //    @IBOutlet weak var onWikiLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 //    @IBOutlet weak var separatorView: UIView!
-//    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
 //    @IBOutlet weak var articleLicenseView: LicenseView!
 //    @IBOutlet weak var imageLicenseView: LicenseView!
 //    @IBOutlet weak var imageGradientView: WMFGradientView!
@@ -26,10 +26,11 @@ class ShareAFactViewController: UIViewController {
     
     public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?) {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
+        textLabel.semanticContentAttribute = view.semanticContentAttribute
         imageView.image = image
         isImageViewHidden = image == nil
+        textLabel.text = text
 //        articleTitleLabel.text = articleTitle
-//        textLabel.text = text
 //        licenseView.licenseCodes = ["cc", "by", "sa"]
     }
     

@@ -15,6 +15,7 @@
                 <outlet property="imageView" destination="gtM-9F-ycZ" id="y6t-gc-ZQj"/>
                 <outlet property="imageViewTrailingConstraint" destination="CaA-B0-Gcx" id="fLT-5P-1k5"/>
                 <outlet property="imageViewWidthConstraint" destination="jAx-PO-FKf" id="uL3-Bf-4G7"/>
+                <outlet property="textLabel" destination="vOy-7Q-csU" id="dyk-E2-bCw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -40,10 +41,22 @@
                         <constraint firstAttribute="height" constant="291" id="jIK-bR-0be"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOy-7Q-csU">
+                    <rect key="frame" x="16" y="17" width="224" height="224"/>
+                    <string key="text">During the first half of the 20th century and some years into the late 20th century, there was much speculation about using Gullfoss to generate electricity. During this period, the waterfall was rented indirectly by its owners, Tómas Tómasson and Halldór Halldórsson, to foreign…
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="bottom" constant="50" id="01c-Gg-vEF"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="CaA-B0-Gcx"/>
+                <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="trailing" constant="16" id="Ehp-mM-akI"/>
+                <constraint firstItem="vOy-7Q-csU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="17" id="Ixx-xm-csu"/>
+                <constraint firstItem="vOy-7Q-csU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="UTY-tx-tPl"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="vEz-hF-G5b"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
