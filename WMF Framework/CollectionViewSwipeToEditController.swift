@@ -8,7 +8,8 @@ enum CollectionViewCellState {
     case idle, open
 }
 
-public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate {
+public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate, ActionsViewDelegate {
+    
     let collectionView: UICollectionView
     let pan = UIPanGestureRecognizer()
     let longPress = UILongPressGestureRecognizer()
@@ -19,19 +20,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
-    var activeCell: ArticleCollectionViewCell? {
-        get {
-            let position = pan.location(in: collectionView)
-            let panCellPath = collectionView.indexPathForItem(at: position)
-            if let path = panCellPath, let cell = collectionView.cellForItem(at: path) as? ArticleCollectionViewCell {
-                return cell
-            }
-            return nil
-        }
-        set {
-            
-        }
-    }
+    var activeCell: ArticleCollectionViewCell?
+    var activeIndexPath: IndexPath?
     
     public var cellWithActionPaneOpen: ArticleCollectionViewCell?
     
@@ -72,25 +62,32 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let cell = activeCell else { return false }
         
-        return gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizerShouldBegin(gestureRecognizer, in: cell) : longPressGestureRecognizerShouldBegin(gestureRecognizer, in: cell)
+        let position = pan.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: position),
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell  else {
+            return false
+        }
+        
+        activeCell = cell
+        activeIndexPath = indexPath
+        
+        return gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizerShouldBegin(gestureRecognizer, in: cell, at: indexPath) : longPressGestureRecognizerShouldBegin(gestureRecognizer, in: cell, at: indexPath)
     }
     
     public var isActionPanOpenInCollectionView = false
     
-    var activeCellIndexPath: IndexPath? {
-        if let cell = activeCell {
-            return collectionView.indexPath(for: cell)
-        }
-        return nil
+    public weak var delegate: CollectionViewSwipeToEditDelegate?
+    
+    public func didPerformAction(_ action: CollectionViewCellAction) {
+        guard let indexPath = activeIndexPath else { return }
+        delegate?.didPerformAction(action, at: indexPath)
     }
     
-    public weak var delegate: SwipeableDelegate?
-    
-    func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
+    func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell, at indexPath: IndexPath) -> Bool {
         
-        guard !isActionPanOpenInCollectionView else { return false }
+        guard !isActionPanOpenInCollectionView, let delegate = delegate else { return false }
         
         let velocity = pan.velocity(in: collectionView)
         
@@ -99,13 +96,11 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
-        // If the article was saved, swap the "Save" action for "Unsave" and vice versa.
-        if let indexPath = activeCellIndexPath {
-            let isSaved = delegate?.isArticleSaved(at: indexPath) ?? false
-            swapSaveActionsIfNecessary(isSaved)
-        }
+        let primaryActions = delegate.primaryActions(for: indexPath)
+        let secondaryActions = delegate.secondaryActions(for: indexPath)
         
         cell.actions = velocity.x < 0 ? primaryActions : secondaryActions
+        cell.actionsView?.delegate = self
         
         guard cell.actions.count > 0 else { return false }
         
@@ -115,33 +110,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         return true
     }
     
-    func swapSaveActionsIfNecessary(_ saved: Bool) {
-        let unsave = CollectionViewCellActionType.unsave.action
-        let save = CollectionViewCellActionType.save.action
-        
-        if saved {
-            guard primaryActions.contains(save) else { return }
-            
-            for (index, action) in primaryActions.enumerated() {
-                if action.type == .save {
-                    primaryActions.remove(at: index)
-                    primaryActions.insert(unsave, at: index)
-                }
-            }
-            
-        } else {
-            guard primaryActions.contains(unsave) else { return }
-            
-            for (index, action) in primaryActions.enumerated() {
-                if action.type == .unsave {
-                    primaryActions.remove(at: index)
-                    primaryActions.insert(save, at: index)
-                }
-            }
-        }
-    }
-    
-    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell) -> Bool {
+    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell, at indexPath: IndexPath) -> Bool {
         guard isActionPanOpenInCollectionView else { return false }
         
         // Don't allow the cancel gesture to recognize if any of the touches are within the actions view.

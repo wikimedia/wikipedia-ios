@@ -27,10 +27,15 @@ public enum CollectionViewCellActionType {
     }
 }
 
-public protocol SwipeableDelegate: NSObjectProtocol {
-    func didOpenActionPane(_ didOpen: Bool, at: IndexPath)
-    func didPerformAction(_ sender: UIButton)
-    func isArticleSaved(at indexPath: IndexPath) -> Bool
+public protocol CollectionViewSwipeToEditDelegate: NSObjectProtocol {
+    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath)
+    
+    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
+    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
+}
+
+public protocol ActionsViewDelegate: NSObjectProtocol {
+    func didPerformAction(_ action: CollectionViewCellAction)
 }
 
 public class CollectionViewCellActionsView: UIView {
@@ -96,11 +101,12 @@ public class CollectionViewCellActionsView: UIView {
         
         maximumWidth = maxButtonWidth * CGFloat(self.subviews.count)
     }
-    
-    public weak var delegate: SwipeableDelegate?
+
+    public weak var delegate: ActionsViewDelegate?
     
     @objc func didPerformAction(_ sender: UIButton) {
-        delegate?.didPerformAction(sender)
+        let action = cell.actions[sender.tag]
+        delegate?.didPerformAction(action)
     }
     
     func layoutPrimaryActions() {
