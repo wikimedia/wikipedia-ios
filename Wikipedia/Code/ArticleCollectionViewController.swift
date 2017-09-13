@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, SwipeableDelegate, AnalyticsContextProviding {
+class ArticleCollectionViewController: ColumnarCollectionViewController, CollectionViewSwipeToEditDelegate, AnalyticsContextProviding {
     
     fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
     
@@ -27,8 +27,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
         
         swipeToEditController?.delegate = self
         
-        swipeToEditController?.primaryActions = [CollectionViewCellActionType.save.action, CollectionViewCellActionType.share.action]
-        
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
     }
     
@@ -39,27 +37,31 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
     // MARK: - SwipeableDelegate
     var swipeToEditController: CollectionViewSwipeToEditController?
     
-    var indexPathForSwipeableCell: IndexPath?
-    var isActionPaneOpen = false
-    
-    func didOpenActionPane(_ didOpen: Bool, at indexPath: IndexPath) {
-        indexPathForSwipeableCell = indexPath
-        isActionPaneOpen = didOpen
-        if isActionPaneOpen {
-            let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell
-            swipeToEditController?.cellWithActionPaneOpen = cell
-        }
-        swipeToEditController?.isActionPanOpenInCollectionView = didOpen
-    }
-    
     var analyticsContext: String {
         return "ArticleList"
     }
     
-    func didPerformAction(_ sender: UIButton) {
-        guard let indexPath = indexPathForSwipeableCell, let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell else { return }
+    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        var actions = [CollectionViewCellActionType.share.action]
         
-        let action = cell.actions[sender.tag]
+        let url = articleURL(at: indexPath)
+        
+        if savedPageList.isSaved(url) {
+            actions.insert(CollectionViewCellActionType.unsave.action, at: 0)
+        } else {
+            actions.insert(CollectionViewCellActionType.save.action, at: 0)
+        }
+        
+        return actions
+    }
+    
+    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        return []
+    }
+    
+    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
+        guard let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell else { return }
+        
         let url = articleURL(at: indexPath)
         
         switch (action.type) {
@@ -115,8 +117,6 @@ extension ArticleCollectionViewController {
         guard let article = dataStore.fetchArticle(with: url) else {
             return articleCell
         }
-        articleCell.delegate = self
-        articleCell.actionsView?.delegate = self
         
         articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
         
@@ -128,13 +128,9 @@ extension ArticleCollectionViewController {
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isActionPaneOpen { return }
         wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return !isActionPaneOpen
-    }
+
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
