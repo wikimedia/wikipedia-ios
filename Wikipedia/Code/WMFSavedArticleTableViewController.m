@@ -87,8 +87,10 @@
     
     UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
     NSURL *url = [self urlAtIndexPath:indexPath];
-    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url sender:cell];}];
     
     return @[delete, share];
 }

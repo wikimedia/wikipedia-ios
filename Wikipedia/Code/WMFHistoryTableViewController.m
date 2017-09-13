@@ -136,8 +136,10 @@
     
     BOOL isItemSaved = [[self savedPageList] isSaved:[self urlAtIndexPath:indexPath]];
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
     UITableViewRowAction *delete = [rowActions actionFor:ArticleListTableViewRowActionTypeDelete at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self deleteItemAtIndexPath:indexPath];}];
-    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url];}];
+    UITableViewRowAction *share = [rowActions actionFor:ArticleListTableViewRowActionTypeShare at:indexPath in:tableView perform:^(NSIndexPath *indexPath) {[self shareArticle:url sender:cell];}];
     
     NSMutableArray *actions = [[NSMutableArray alloc] initWithObjects:delete, share, nil];
     

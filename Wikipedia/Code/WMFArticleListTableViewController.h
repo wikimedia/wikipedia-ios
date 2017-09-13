@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deleteAll;
 
-- (void)shareArticle:(NSURL *)url;
+- (void)shareArticle:(NSURL *)url sender:(UITableViewCell *)sender;
 
 @property (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
