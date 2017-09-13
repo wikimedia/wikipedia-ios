@@ -74,7 +74,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
         }
         
         swipeToEditController?.performedAction()
-
     }
     
     func share(_ url: URL, cell: ArticleCollectionViewCell) {
