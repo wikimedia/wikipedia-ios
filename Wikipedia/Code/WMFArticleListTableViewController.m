@@ -24,7 +24,7 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
 
     [self.tableView registerClass:[WMFArticleListTableViewCell class] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
+
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
@@ -254,6 +254,11 @@
 
 - (void)shareArticle:(NSURL *)url {
     WMFShareActivityController *shareActivityController = [[WMFShareActivityController alloc] initWithArticleURL:url userDataStore:self.userDataStore context:self];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        shareActivityController.modalPresentationStyle = UIModalPresentationFormSheet;
+        shareActivityController.popoverPresentationController.sourceView = self.tabBarController.tabBar;
+        shareActivityController.popoverPresentationController.sourceRect = self.tabBarController.tabBar.bounds;
+    }
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
