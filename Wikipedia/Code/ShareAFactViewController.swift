@@ -27,14 +27,14 @@ class ShareAFactViewController: UIViewController {
         imageGradientView.setStart(.clear, end: UIColor(white: 0, alpha: 0.4))
     }
     
-    public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?) {
+    public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicenseCodes: [String]) {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         imageView.image = image
         isImageViewHidden = image == nil
         textLabel.text = text
         articleTitleLabel.text = articleTitle
-        imageLicenseView.licenseCodes = ["cc", "by", "sa"]
+        imageLicenseView.licenseCodes = imageLicenseCodes
         articleLicenseView.licenseCodes = ["cc", "by", "sa"]
 
         guard let image = image else {

@@ -22,6 +22,10 @@
 
 #import "WMFArticleTextActivitySource.h"
 
+// Model
+#import "MWKLicense.h"
+#import "MWKImageInfoFetcher.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
