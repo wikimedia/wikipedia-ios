@@ -22,7 +22,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Swipeab
     }
     
     var analyticsContext: String {
-        return "Article"
+        return "ArticleList"
     }
     
     func didTapShare(at indexPath: IndexPath) {
