@@ -10,8 +10,8 @@ enum CollectionViewCellState {
 
 public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate {
     let collectionView: UICollectionView
-    let panGesture = UIPanGestureRecognizer()
-    let longPressGesture = UILongPressGestureRecognizer()
+    let pan = UIPanGestureRecognizer()
+    let longPress = UILongPressGestureRecognizer()
     
     var currentState: CollectionViewCellState = .idle {
         didSet {
@@ -21,7 +21,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     var activeCell: ArticleCollectionViewCell? {
         get {
-            let position = panGesture.location(in: collectionView)
+            let position = pan.location(in: collectionView)
             let panCellPath = collectionView.indexPathForItem(at: position)
             if let path = panCellPath, let cell = collectionView.cellForItem(at: path) as? ArticleCollectionViewCell {
                 return cell
@@ -46,14 +46,12 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         super.init()
         
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
+            var otherGestureRecognizer: UIGestureRecognizer
             for gestureRecognizer in gestureRecognizers {
-                if gestureRecognizer is UIPanGestureRecognizer {
-                    gestureRecognizer.require(toFail: panGesture)
-                }
-                if gestureRecognizer is UILongPressGestureRecognizer {
-                    gestureRecognizer.require(toFail: longPressGesture)
-                }
+                otherGestureRecognizer = gestureRecognizer is UIPanGestureRecognizer ? pan : longPress
+                gestureRecognizer.require(toFail: otherGestureRecognizer)
             }
+            
         }
         
         addPanGesture(to: self.collectionView)
@@ -61,16 +59,16 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     func addPanGesture(to collectionView: UICollectionView) {
-        panGesture.addTarget(self, action: #selector(handlePanGesture))
-        panGesture.delegate = self
-        collectionView.addGestureRecognizer(panGesture)
+        pan.addTarget(self, action: #selector(handlePanGesture))
+        pan.delegate = self
+        collectionView.addGestureRecognizer(pan)
     }
     
     func addLongPressGesture(to collectionView: UICollectionView) {
-        longPressGesture.addTarget(self, action: #selector(handleLongPressGesture))
-        longPressGesture.delegate = self
-        longPressGesture.minimumPressDuration = 0.05
-        collectionView.addGestureRecognizer(longPressGesture)
+        longPress.addTarget(self, action: #selector(handleLongPressGesture))
+        longPress.delegate = self
+        longPress.minimumPressDuration = 0.05
+        collectionView.addGestureRecognizer(longPress)
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -92,7 +90,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         guard !isActionPanOpenInCollectionView else { return false }
         
-        let velocity = panGesture.velocity(in: collectionView)
+        let velocity = pan.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
         if fabs(velocity.y) >= fabs(velocity.x) {
