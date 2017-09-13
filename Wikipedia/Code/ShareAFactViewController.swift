@@ -44,11 +44,10 @@ class ShareAFactViewController: UIViewController {
         guard image.size.width > image.size.height else {
             return
         }
-        
+
         backgroundImageView.image = image
-        
         let aspect = image.size.height / image.size.width
-        let height = floor(imageViewWidthConstraint.constant * aspect)
+        let height = round(imageViewWidthConstraint.constant * aspect)
         let remainder = round(0.5 * (view.bounds.size.height - height))
         for letterboxConstraint in imageViewLetterboxConstraints {
             letterboxConstraint.constant = remainder
