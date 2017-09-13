@@ -276,6 +276,16 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         return collectionView?.indexPath(for: self)
     }
     
+    var isIpadOrLandscape: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad ||
+            UIDevice.current.orientation == .landscapeLeft ||
+            UIDevice.current.orientation == .landscapeRight
+    }
+    
+    var leftViewToCoverCellOnLandscape: UIView?
+    var righttViewToCoverCellOnLandscape: UIView?
+
+    
     func openActionPane() {
         // Make sure we don't swipe twice on the same cell.
         guard let actionsView = actionsView, swipeTranslation >= 0 else { return }
@@ -289,8 +299,24 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             let totalDistance = swipeTranslation - targetTranslation
             let duration: CGFloat = 0.40
             let springVelocity = abs(swipeVelocity) * duration / totalDistance
-            
+        
             UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
+                
+                if self.isIpadOrLandscape {
+                    if let indexPath = self.indexPathForActiveCell, let attributes = self.collectionView?.layoutAttributesForItem(at: indexPath) {
+                        self.leftViewToCoverCellOnLandscape = UIView(frame: CGRect(x: 0, y: attributes.frame.origin.y, width: 85, height: self.privateContentView.frame.height))
+                        self.leftViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
+                        
+                        self.righttViewToCoverCellOnLandscape = UIView(frame: CGRect(x: attributes.frame.width + 85, y: attributes.frame.origin.y, width: 85, height: self.privateContentView.frame.height))
+                        self.righttViewToCoverCellOnLandscape?.backgroundColor = self.collectionView?.backgroundColor
+                        
+                        if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
+                            self.collectionView?.addSubview(leftView)
+                            self.collectionView?.addSubview(rightView)
+                        }
+                    }
+                }
+                
                 self.swipeTranslation = targetTranslation
                 self.layoutIfNeeded()
             }, completion: { (finished: Bool) in
@@ -300,7 +326,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         
     }
     
-    func closeActionPane() {        
+    func closeActionPane() {
+        
         let targetTranslation = swipeType == .primary ? -swipeTranslation : swipeTranslation
         
         let totalDistance = targetTranslation
@@ -316,6 +343,10 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             self.actionsView?.isUserInteractionEnabled = false
             self.swipeInitialFramePosition = 0
             self.isActionPaneOpen = false
+            if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
+                leftView.removeFromSuperview()
+                rightView.removeFromSuperview()
+            }
         })
         
     }
