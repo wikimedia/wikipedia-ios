@@ -70,6 +70,33 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     deinit {
         saveButton.removeObserver(self, forKeyPath: "titleLabel.text", context: &kvoButtonTitleContext)
     }
+    
+    override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        
+        guard apply else {
+            return super.sizeThatFits(size, apply: apply)
+        }
+        
+        layoutActionsView()
+        
+        if let currentSnapshot = swipeSnapshotView, let actionsView = actionsView {
+            currentSnapshot.removeFromSuperview()
+            actionsView.removeFromSuperview()
+            let newSnapshot = contentView.snapshotView(afterScreenUpdates: true) ?? UIView()
+            newSnapshot.frame = contentView.bounds
+            contentView.addSubview(newSnapshot)
+            contentView.addSubview(actionsView)
+            swipeSnapshotView = newSnapshot
+        }
+        
+        return super.sizeThatFits(size, apply: apply)
+    }
+    
+    func layoutActionsView() {
+        let width = actionsView?.maximumWidth ?? 0
+        actionsView?.frame = CGRect(x: contentView.bounds.width - width, y: 0, width: width, height: contentView.bounds.height)
+        actionsView?.setNeedsLayout()
+    }
 
     
     // MARK - View configuration
@@ -225,9 +252,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         // We don't need to do this if the view is already visible.
         guard let actionsView = actionsView, actionsView.superview == nil else { return }
         
-
-        let width = actionsView.maximumWidth
-        actionsView.frame = CGRect(x: contentView.bounds.width - width, y: 0, width: width, height: contentView.bounds.height)
+        layoutActionsView()
         actionsView.swipeType = swipeType
 
         contentView.addSubview(actionsView)

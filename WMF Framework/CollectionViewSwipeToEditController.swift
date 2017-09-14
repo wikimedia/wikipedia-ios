@@ -54,10 +54,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
     }
     
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         if let pan = gestureRecognizer as? UIPanGestureRecognizer {
@@ -101,14 +97,18 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         let isPrimary = velocity.x < 0
         
-//        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
-//            return true
-//        }
+        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
+            return true
+        }
         
         if activeIndexPath != nil && activeIndexPath != indexPath {
             return false
         }
-
+        
+        guard activeIndexPath == nil else {
+            return true
+        }
+        
         let primaryActions = delegate.primaryActions(for: indexPath)
         let secondaryActions = delegate.secondaryActions(for: indexPath)
         

@@ -52,7 +52,7 @@ public class CollectionViewCellActionsView: UIView {
     
     var swipeType: CollectionViewCellSwipeType = .none {
         didSet {
-            swipeType == .primary ? layoutPrimaryActions() : layoutSecondaryActions()
+            setNeedsLayout()
         }
     }
     
@@ -61,6 +61,11 @@ public class CollectionViewCellActionsView: UIView {
         super.init(frame: frame)
         
         self.isUserInteractionEnabled = false
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        swipeType == .primary ? layoutPrimaryActions() : layoutSecondaryActions()
     }
     
     func createSubviews(for actions: [CollectionViewCellAction]) {
