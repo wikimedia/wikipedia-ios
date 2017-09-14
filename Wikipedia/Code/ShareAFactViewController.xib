@@ -100,7 +100,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="wikipedia" translatesAutoresizingMaskIntoConstraints="NO" id="5OT-n8-n0L">
-                            <rect key="frame" x="120" y="240" width="126" height="24"/>
+                            <rect key="frame" x="116" y="240" width="126" height="24"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YA3-wh-iKe" customClass="WMFLicenseView">
@@ -116,7 +116,7 @@
                         <constraint firstAttribute="bottom" secondItem="PVo-t5-vNi" secondAttribute="bottom" id="5wg-72-fWt"/>
                         <constraint firstAttribute="trailing" secondItem="olL-8e-jan" secondAttribute="trailing" constant="15" id="7PO-SD-Zru"/>
                         <constraint firstAttribute="bottom" secondItem="olL-8e-jan" secondAttribute="bottom" constant="15" id="9fP-8W-2ya"/>
-                        <constraint firstAttribute="trailing" secondItem="5OT-n8-n0L" secondAttribute="trailing" constant="10" id="AO2-Dq-wEo"/>
+                        <constraint firstAttribute="trailing" secondItem="5OT-n8-n0L" secondAttribute="trailing" constant="14" id="AO2-Dq-wEo"/>
                         <constraint firstItem="uR4-eK-jYM" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="CKg-yG-fBf"/>
                         <constraint firstAttribute="trailing" secondItem="fy2-a0-0Fb" secondAttribute="trailing" id="ChM-jS-m0A"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="JWk-qI-bo2"/>
@@ -165,7 +165,7 @@
                     </constraints>
                 </view>
                 <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="wikipedia" translatesAutoresizingMaskIntoConstraints="NO" id="gXN-Sl-f8G">
-                    <rect key="frame" x="115" y="240" width="126" height="24"/>
+                    <rect key="frame" x="116" y="240" width="126" height="24"/>
                     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made with the Wikipedia app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="iFZ-tC-ZF1">
@@ -191,7 +191,7 @@
                 <constraint firstItem="iFZ-tC-ZF1" firstAttribute="top" secondItem="gXN-Sl-f8G" secondAttribute="bottom" id="bqJ-m5-9Gz"/>
                 <constraint firstItem="fM9-1P-hwj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vOy-7Q-csU" secondAttribute="bottom" constant="15" id="d2Y-m0-jwP"/>
                 <constraint firstItem="htU-bX-sMo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="eCc-rw-waf"/>
-                <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" secondItem="gXN-Sl-f8G" secondAttribute="trailing" constant="15" id="ht3-oS-NKq"/>
+                <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" secondItem="gXN-Sl-f8G" secondAttribute="trailing" constant="14" id="ht3-oS-NKq"/>
                 <constraint firstItem="htU-bX-sMo" firstAttribute="top" secondItem="6K5-c8-ICb" secondAttribute="bottom" constant="10" id="jtJ-nQ-pJU"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6K5-c8-ICb" secondAttribute="trailing" constant="15" id="mSe-Lg-r2z"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tHA-6h-82D"/>
@@ -207,7 +207,7 @@
                     <exclude reference="ARz-Jp-ExL"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="41" y="52"/>
+            <point key="canvasLocation" x="41" y="51.5"/>
         </view>
     </objects>
     <resources>
