@@ -75,22 +75,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </imageView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uR4-eK-jYM" customClass="WMFGradientView">
-                                    <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="gtM-9F-ycZ" firstAttribute="leading" secondItem="PVo-t5-vNi" secondAttribute="leading" id="2qz-TY-69s"/>
-                                <constraint firstAttribute="trailing" secondItem="uR4-eK-jYM" secondAttribute="trailing" id="Cpw-bS-nPQ"/>
-                                <constraint firstAttribute="bottom" secondItem="uR4-eK-jYM" secondAttribute="bottom" id="Km6-m4-ctw"/>
-                                <constraint firstItem="uR4-eK-jYM" firstAttribute="leading" secondItem="PVo-t5-vNi" secondAttribute="leading" id="aUg-cz-e21"/>
                                 <constraint firstAttribute="trailing" secondItem="gtM-9F-ycZ" secondAttribute="trailing" id="fqp-u3-Rrx"/>
                                 <constraint firstItem="gtM-9F-ycZ" firstAttribute="top" secondItem="PVo-t5-vNi" secondAttribute="top" id="i6U-4v-hhs"/>
                                 <constraint firstAttribute="bottom" secondItem="gtM-9F-ycZ" secondAttribute="bottom" id="n2k-B7-I74"/>
                                 <constraint firstAttribute="width" constant="256" id="tzO-eC-C62"/>
-                                <constraint firstItem="uR4-eK-jYM" firstAttribute="top" secondItem="PVo-t5-vNi" secondAttribute="top" id="x9N-Ax-f7M"/>
                             </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uR4-eK-jYM" customClass="WMFGradientView">
+                            <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made with the Wikipedia app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="olL-8e-jan">
                             <rect key="frame" x="15" y="261.5" width="161" height="14.5"/>
@@ -110,12 +106,16 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="PVo-t5-vNi" secondAttribute="bottom" id="5wg-72-fWt"/>
                         <constraint firstAttribute="bottom" secondItem="olL-8e-jan" secondAttribute="bottom" constant="15" id="9fP-8W-2ya"/>
+                        <constraint firstItem="uR4-eK-jYM" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="CKg-yG-fBf"/>
                         <constraint firstAttribute="trailing" secondItem="fy2-a0-0Fb" secondAttribute="trailing" id="ChM-jS-m0A"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="JWk-qI-bo2"/>
                         <constraint firstItem="fy2-a0-0Fb" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="OtW-iy-Ska"/>
+                        <constraint firstAttribute="trailing" secondItem="uR4-eK-jYM" secondAttribute="trailing" id="Ueb-sh-UdJ"/>
                         <constraint firstAttribute="bottom" secondItem="fy2-a0-0Fb" secondAttribute="bottom" id="VDw-Ig-DSf"/>
+                        <constraint firstItem="uR4-eK-jYM" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="WBA-Xt-xIN"/>
                         <constraint firstAttribute="trailing" secondItem="YA3-wh-iKe" secondAttribute="trailing" constant="15" id="XT5-uF-F73"/>
                         <constraint firstItem="fy2-a0-0Fb" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="Z1Q-Pf-Tty"/>
+                        <constraint firstAttribute="bottom" secondItem="uR4-eK-jYM" secondAttribute="bottom" id="afE-hg-HWM"/>
                         <constraint firstAttribute="trailing" secondItem="PVo-t5-vNi" secondAttribute="trailing" id="ccU-vk-vXA"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="eBQ-Ut-3hd"/>
                         <constraint firstAttribute="width" constant="256" id="jAx-PO-FKf"/>
