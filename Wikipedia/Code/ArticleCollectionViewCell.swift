@@ -27,12 +27,10 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         saveButton.isOpaque = true
         
         actionsView = CollectionViewCellActionsView(frame: CGRect.zero, cell: self)
-        privateContentView = UIView(frame: super.contentView.bounds)
-        addSubview(privateContentView)
-        privateContentView.addSubview(imageView)
-        privateContentView.addSubview(titleLabel)
-        privateContentView.addSubview(descriptionLabel)
-        privateContentView.addSubview(saveButton)
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(saveButton)
 
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
@@ -160,7 +158,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     }
     
     public var actionsView: CollectionViewCellActionsView?
-    var privateContentView = UIView()
     
     var swipeType: CollectionViewCellSwipeType = .none
     
@@ -171,21 +168,12 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     var swipeVelocity: CGFloat = 0
     var originalStartPosition: CGPoint = .zero
     
-    var swipeTranslation: CGFloat {
-        get {
-            let x = privateContentView.frame.origin.x
-            return x
-        }
-        set {
-            privateContentView.frame.origin.x = newValue
-            actionsView?.frame = actionsViewFrame
-        }
-    }
+    var swipeSnapshotView: UIView?
     
-    var actionsViewFrame: CGRect {
-        let width = actionsView?.maximumWidth ?? 0
-        let x = privateContentView.frame.origin.x
-        return CGRect(x: privateContentView.frame.width + x, y: privateContentView.frame.origin.y, width: width, height: privateContentView.frame.height)
+    var swipeTranslation: CGFloat = 0 {
+        didSet {
+            swipeSnapshotView?.transform = CGAffineTransform(translationX: swipeTranslation, y: 0)
+        }
     }
     
     var minimumSwipeTrackingPosition: CGFloat {
@@ -211,10 +199,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         }
     }
     
-    override open var contentView: UIView {
-        return privateContentView
-    }
-    
     var actionsViewRect: CGRect {
         guard let actionsView = actionsView, actionsView.superview != nil else { return .zero }
         let bounds = actionsView.bounds
@@ -228,7 +212,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         swipePastBounds = false
         
         showActionsView(with: swipeType)
-        layoutSubviews()
         UIView.performWithoutAnimation {
             updateSwipe(with: position, velocity: velocity)
         }
@@ -242,25 +225,40 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         // We don't need to do this if the view is already visible.
         guard let actionsView = actionsView, actionsView.superview == nil else { return }
         
-        let contentView = super.contentView
-        
+
+        let width = actionsView.maximumWidth
+        actionsView.frame = CGRect(x: contentView.bounds.width - width, y: 0, width: width, height: contentView.bounds.height)
         actionsView.swipeType = swipeType
+
         contentView.addSubview(actionsView)
-        
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
     // MARK: Opening & closing action pane
     
-    var leftViewToCoverCellOnLandscape: UIView?
-    var righttViewToCoverCellOnLandscape: UIView?
+    func takeSwipeSnapshot() {
+        guard let snapshot = contentView.snapshotView(afterScreenUpdates: false) else {
+            return
+        }
+        swipeSnapshotView = snapshot
+        swipeSnapshotView?.backgroundColor = backgroundView?.backgroundColor
+        snapshot.frame = contentView.bounds
+        contentView.addSubview(snapshot)
+    }
+    
+    func removeSwipeSnapshot() {
+        swipeSnapshotView?.removeFromSuperview()
+        swipeSnapshotView = nil
+    }
     
     func openActionPane() {
         // Make sure we don't swipe twice on the same cell.
         guard let actionsView = actionsView, swipeTranslation >= 0 else { return }
         
+        clipsToBounds = true
+        
         let swipeType = actionsView.swipeType
+        
+        takeSwipeSnapshot()
         
         showActionsView(with: swipeType)
         
@@ -271,10 +269,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             let springVelocity = abs(swipeVelocity) * duration / totalDistance
         
             UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
-                
-                
                 self.swipeTranslation = targetTranslation
-                self.layoutIfNeeded()
             }, completion: { (finished: Bool) in
                 actionsView.isUserInteractionEnabled = true
             })
@@ -290,16 +285,13 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         
         UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
             self.swipeTranslation = 0
-            self.layoutIfNeeded()
         }, completion: { (finished: Bool) in
             self.removeActionsView()
-            self.privateContentView.isUserInteractionEnabled = true
+            self.contentView.isUserInteractionEnabled = true
             self.actionsView?.isUserInteractionEnabled = false
             self.swipeInitialFramePosition = 0
-            if let leftView = self.leftViewToCoverCellOnLandscape, let rightView = self.righttViewToCoverCellOnLandscape {
-                leftView.removeFromSuperview()
-                rightView.removeFromSuperview()
-            }
+            self.clipsToBounds = false
+            self.removeSwipeSnapshot()
         })
     }
     
