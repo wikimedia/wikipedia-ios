@@ -91,6 +91,7 @@
 "button-save-for-later" = "احفظها لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
+"cancel" = "ألغ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
@@ -328,6 +329,7 @@
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-custom-menu-item" = "شارك...";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
+"share-menu-item" = "شارك...";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
