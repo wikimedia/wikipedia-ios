@@ -11,10 +11,16 @@ class ShareAFactViewController: UIViewController {
     @IBOutlet weak var imageLicenseView: LicenseView!
     @IBOutlet weak var imageGradientView: WMFGradientView!
 
-    @IBOutlet weak var wordmarkView: UIImageView!
-    @IBOutlet weak var madeWithLabel: UILabel!
+    @IBOutlet weak var imageWordmarkView: UIImageView!
+    @IBOutlet weak var imageMadeWithLabel: UILabel!
     
-    @IBOutlet weak var madeWithLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textWordmarkView: UIImageView!
+    @IBOutlet weak var textMadeWithLabel: UILabel!
+    
+    @IBOutlet weak var articleTitleTrailingToTextWordmarkConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var imageMadeWithLabelBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
@@ -30,7 +36,8 @@ class ShareAFactViewController: UIViewController {
         articleLicenseView.tintColor = theme.colors.secondaryText
         imageLicenseView.tintColor = .white
         
-        madeWithLabel.text = WMFLocalizedString("share-a-fact-made-with", value: "Made with the Wikipedia app", comment: "Indicates that the share-a-fact card was made with the Wikipedia app")
+        textMadeWithLabel.text = WMFLocalizedString("share-a-fact-made-with", value: "Made with the Wikipedia app", comment: "Indicates that the share-a-fact card was made with the Wikipedia app")
+        imageMadeWithLabel.text = textMadeWithLabel.text
         
         imageGradientView.gradientLayer.colors = [UIColor.clear.cgColor, UIColor(white: 0, alpha: 0.1).cgColor, UIColor(white: 0, alpha: 0.4).cgColor]
         imageGradientView.gradientLayer.locations = [NSNumber(value: 0.7), NSNumber(value: 0.85), NSNumber(value: 1.0)]
@@ -69,7 +76,7 @@ class ShareAFactViewController: UIViewController {
         let height = round(imageViewWidthConstraint.constant * aspect)
         let remainder = round(0.5 * (view.bounds.size.height - height))
         
-        guard remainder > ((view.bounds.size.height - wordmarkView.frame.origin.y) + madeWithLabelBottomConstraint.constant) else {
+        guard remainder > ((view.bounds.size.height - imageWordmarkView.frame.origin.y) + imageMadeWithLabelBottomConstraint.constant) else {
             return
         }
         
@@ -82,6 +89,9 @@ class ShareAFactViewController: UIViewController {
     var isImageViewHidden: Bool = false {
         didSet {
             imageViewTrailingConstraint.constant = isImageViewHidden ? imageViewWidthConstraint.constant : 0
+            articleTitleTrailingToTextWordmarkConstraint.isActive = !isImageViewHidden
+            textWordmarkView.isHidden = !isImageViewHidden
+            textMadeWithLabel.isHidden = !isImageViewHidden
         }
     }
 
