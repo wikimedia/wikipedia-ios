@@ -22,7 +22,7 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         }else if activityType == UIActivityType.postToFacebook ||
         activityType == UIActivityType.mail ||
         activityType == UIActivityType.postToFlickr {
-            text = info.filePageURL.absoluteString
+            text = info.filePageURL?.absoluteString
         }else {
             text = nil
         }
