@@ -201,6 +201,7 @@
 "home-nearby-footer" = "Ещё про то, что находится поблизости от вас";
 "home-nearby-location-footer" = "Ещё поблизости от $1";
 "home-news-footer" = "Больше в новостях";
+"home-themes-action-title" = "Управление настройками";
 "home-title" = "Исследуйте!";
 "home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
 "icon-shortcut-continue-reading-title" = "Продолжить чтение";
@@ -355,6 +356,7 @@
 "share-a-fact-share-menu-item" = "Поделитесь-фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-custom-menu-item" = "Поделиться...";
+"share-default-format" = "«$1» из «$2»: $3";
 "share-email-format" = "«$1»\n\nиз «$2»\n\n$3";
 "share-get-directions-in-maps" = "Получить направления";
 "share-menu-item" = "Поделиться…";
@@ -362,6 +364,7 @@
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-open-in-maps" = "Открыть на Картах";
 "share-social-format" = "«$1» в Википедии: $2";
+"share-social-mention-format" = "«$1» в Википедии: $2";
 "status-saved-for-later" = "Сохранено на потом";
 "status-saving-for-later" = "Экономия на потом...";
 "table-of-contents-button-label" = "Содержание";

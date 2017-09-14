@@ -86,6 +86,7 @@
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
 "button-saved-remove" = "Quitar dos gardados";
+"cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Pechar";
 "compass-direction" = "ás $1";
@@ -343,13 +344,19 @@
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Comparta-un-feito";
+"share-a-fact-share-menu-item" = "Comparta-un-feito...";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
+"share-building" = "Creando unha tarxeta comparte-un-feito...";
 "share-custom-menu-item" = "Compartir...";
+"share-default-format" = "“$1” de “$2”: $3";
+"share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter as direccións";
+"share-menu-item" = "Compartir…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-open-in-maps" = "Abrir en Maps";
+"share-social-format" = "“$1” vía Wikipedia: $2";
+"share-social-mention-format" = "“$1” vía @Wikipedia: $2";
 "status-saved-for-later" = "Gardado para máis tarde";
 "status-saving-for-later" = "Gardando para máis tarde...";
 "table-of-contents-button-label" = "Táboa de contidos";
