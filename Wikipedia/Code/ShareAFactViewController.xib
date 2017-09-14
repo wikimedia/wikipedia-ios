@@ -20,6 +20,7 @@
                 <outlet property="articleTitleLabel" destination="6K5-c8-ICb" id="SLY-fH-sqo"/>
                 <outlet property="articleTitleTrailingToTextWordmarkConstraint" destination="ARz-Jp-ExL" id="HJk-a3-Zfg"/>
                 <outlet property="backgroundImageView" destination="hF1-J2-wdd" id="CQl-W3-Agz"/>
+                <outlet property="imageContainerView" destination="mN0-3N-GFZ" id="dNM-eh-HPw"/>
                 <outlet property="imageGradientView" destination="uR4-eK-jYM" id="hRy-PB-fD2"/>
                 <outlet property="imageLicenseView" destination="YA3-wh-iKe" id="CHx-c3-UUc"/>
                 <outlet property="imageMadeWithLabel" destination="olL-8e-jan" id="Dq1-K7-PWV"/>
@@ -157,7 +158,7 @@
                         <constraint firstAttribute="height" constant="1" id="tf9-28-kvV"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htU-bX-sMo" customClass="WMFLicenseView">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htU-bX-sMo" customClass="WMFLicenseView">
                     <rect key="frame" x="15" y="258" width="50" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" placeholder="YES" id="Pi7-um-ZRa"/>

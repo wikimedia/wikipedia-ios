@@ -6,6 +6,7 @@ class ShareAFactViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var imageContainerView: UIView!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var articleLicenseView: LicenseView!
     @IBOutlet weak var imageLicenseView: LicenseView!
@@ -49,6 +50,9 @@ class ShareAFactViewController: UIViewController {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
+        imageContainerView.semanticContentAttribute = view.semanticContentAttribute
+        imageLicenseView.semanticContentAttribute = view.semanticContentAttribute
+        articleLicenseView.semanticContentAttribute = view.semanticContentAttribute
         
         imageView.image = image
         isImageViewHidden = image == nil
@@ -69,7 +73,7 @@ class ShareAFactViewController: UIViewController {
                 let label = UILabel()
                 label.font = imageMadeWithLabel.font
                 label.textColor = imageMadeWithLabel.textColor
-                label.text = " " + shortDescription
+                label.text = " " + shortDescription + " "
                 imageLicenseView.addArrangedSubview(label)
             }
         } else {
