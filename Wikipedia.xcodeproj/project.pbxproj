@@ -114,6 +114,7 @@
 		8304D7C31F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E954B1F15397D007BD960 /* ThemeableTextField.swift */; };
+		8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */; };
 		83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83836ECA1F615E5B007D1A05 /* ShareViewController.swift */; };
 		83836ECD1F615E5B007D1A05 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83836ECA1F615E5B007D1A05 /* ShareViewController.swift */; };
 		83836ECE1F615E5B007D1A05 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83836ECA1F615E5B007D1A05 /* ShareViewController.swift */; };
@@ -3064,6 +3065,7 @@
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
+		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -7322,6 +7324,7 @@
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
+				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
 				D82E954B1F15397D007BD960 /* ThemeableTextField.swift */,
@@ -10234,6 +10237,7 @@
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
 				D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */,
 				D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */,
+				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,
 				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
