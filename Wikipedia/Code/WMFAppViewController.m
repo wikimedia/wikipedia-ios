@@ -2,6 +2,8 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
 
+// This is a test. do not merge.
+
 #define DEBUG_THEMES 1
 
 #if WMF_TWEAKS_ENABLED
@@ -1437,7 +1439,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
