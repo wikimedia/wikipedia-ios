@@ -41,6 +41,7 @@
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "button-saved-remove" = "सङ्ग्रह गरिएकोबाट हटाउनुहोस् \\";
+"cancel" = "रद्द गर्ने";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
