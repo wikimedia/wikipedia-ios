@@ -53,15 +53,18 @@ class ShareAFactViewController: UIViewController {
         imageContainerView.semanticContentAttribute = view.semanticContentAttribute
         imageLicenseView.semanticContentAttribute = view.semanticContentAttribute
         articleLicenseView.semanticContentAttribute = view.semanticContentAttribute
-        
+        let text = text ?? ""
         imageView.image = image
         isImageViewHidden = image == nil
-        textLabel.text = text
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
+        textLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
         textLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         let width = isImageViewHidden ? view.bounds.size.width : round(0.5 * view.bounds.size.width)
         let size = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
         if size.height > 0.6 * view.bounds.size.height {
             textLabel.font = UIFont.systemFont(ofSize: 14)
+            textLabel.text = text
         }
         articleTitleLabel.text = articleTitle
         
