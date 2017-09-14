@@ -34,7 +34,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(handleTapGesture))
 
 
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
@@ -42,7 +41,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             for gestureRecognizer in gestureRecognizers {
                 otherGestureRecognizer = gestureRecognizer is UIPanGestureRecognizer ? pan : longPress
                 gestureRecognizer.require(toFail: otherGestureRecognizer)
-                gestureRecognizer.require(toFail: tap)
             }
 
         }
@@ -54,22 +52,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         longPress.minimumPressDuration = 0.05
         self.collectionView.addGestureRecognizer(longPress)
         
-        tap.delegate = self
-        self.collectionView.addGestureRecognizer(tap)
-        
-    }
-    
-    @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
-        guard let _ = activeCell else { return }
-        
-        switch (sender.state) {
-        case .ended:
-            currentState = .idle
-            sender.isEnabled = false
-            sender.isEnabled = true
-        default:
-            break
-        }
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -86,30 +68,27 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return longPressGestureRecognizerShouldBegin(longPress)
         }
         
-        if let tap = gestureRecognizer as? UITapGestureRecognizer {
-            return tapGestureRecognizerShouldBegin(tap)
-        }
-        
         return false
     }
     
     public weak var delegate: CollectionViewSwipeToEditDelegate?
     
     public func didPerformAction(_ action: CollectionViewCellAction) {
-        guard let indexPath = activeIndexPath else { return }
+        guard let indexPath = activeIndexPath else {
+            return
+        }
         delegate?.didPerformAction(action, at: indexPath)
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         guard let delegate = delegate else {
             return false
-            
         }
         
         let position = gestureRecognizer.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: position),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell  else {
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell else {
                 return false
         }
 
@@ -122,9 +101,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         let isPrimary = velocity.x < 0
         
-        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
-            return true
-        }
+//        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
+//            return true
+//        }
         
         if activeIndexPath != nil && activeIndexPath != indexPath {
             return false
@@ -147,23 +126,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         activeIndexPath = indexPath
         
         cell.swipeType = isPrimary ? .primary : .secondary
-        
-        return true
-    }
-    
-    func tapGestureRecognizerShouldBegin(_ gestureRecognizer: UITapGestureRecognizer) -> Bool {
-        guard let cell = activeCell else {
-            return false
-        }
-        
-        // Don't allow the cancel gesture to recognize if any of the touches are within the actions view.
-        let numberOfTouches = gestureRecognizer.numberOfTouches
-        
-        for touchIndex in 0..<numberOfTouches {
-            let touchLocation = gestureRecognizer.location(ofTouch: touchIndex, in: cell)
-            let touchedActionsView = cell.actionsViewRect.contains(touchLocation)
-            return !touchedActionsView
-        }
         
         return true
     }
@@ -192,18 +154,16 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         
         if gestureRecognizer is UIPanGestureRecognizer{
-            return otherGestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UITapGestureRecognizer
-        }
-        
-        if gestureRecognizer is UITapGestureRecognizer {
-            return true
+            return otherGestureRecognizer is UILongPressGestureRecognizer
         }
         
         return false
     }
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        guard let cell = activeCell else { return }
+        guard let cell = activeCell else {
+            return
+        }
         
         switch (sender.state) {
         case .began:
@@ -223,12 +183,12 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     @objc func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-        guard let cell = activeCell else { return }
+        guard activeCell != nil else {
+            return
+        }
         
         switch (sender.state) {
         case .ended:
-            let location = sender.location(in: cell)
-            if cell.bounds.contains(location) { break }
             currentState = .idle
             sender.isEnabled = false
             sender.isEnabled = true
@@ -240,7 +200,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     // MARK: - States
     func didEnterIdleState() {
         collectionView.isScrollEnabled = true
-        guard let cell = activeCell else { return }
+        guard let cell = activeCell else {
+            return
+        }
         cell.closeActionPane()
         activeCell = nil
         activeIndexPath = nil
@@ -249,7 +211,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     func didEnterOpenState() {
         collectionView.isScrollEnabled = false
-        guard let cell = activeCell else { return }
+        guard let cell = activeCell else {
+            return
+        }
         cell.theme = theme
         cell.openActionPane()
     }
