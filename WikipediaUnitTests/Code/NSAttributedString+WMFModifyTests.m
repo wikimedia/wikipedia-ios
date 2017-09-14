@@ -44,7 +44,7 @@
 }
 
 - (void)test0ReferenceOutput {
-    [self wmf_verifyMultilineLabelWithText:[self getTestAttrStr] width:320.f];
+    [self wmf_verifyMultilineLabelWithText:[self getTestAttrStr]];
 }
 
 - (void)testRemoveAllStrikeThroughs {
@@ -53,7 +53,7 @@
                                                            withBlock:^NSNumber *(NSNumber *strike) {
                                                                return nil;
                                                            }];
-    [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
+    [self wmf_verifyMultilineLabelWithText:attrStr];
 }
 
 - (void)testChangeGreenBackgroundColorsToBlue {
@@ -62,7 +62,7 @@
                                                            withBlock:^UIColor *(UIColor *color) {
                                                                return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
                                                            }];
-    [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
+    [self wmf_verifyMultilineLabelWithText:attrStr];
 }
 
 - (void)testChangeReduceLineSpacing {
@@ -74,7 +74,7 @@
                                                                return mutablePStyle;
                                                            }];
 
-    [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
+    [self wmf_verifyMultilineLabelWithText:attrStr];
 }
 
 - (void)testRemovingLink {
@@ -87,7 +87,7 @@
                                                    withBlock:^UIColor *(UIColor *color) {
                                                        return nil;
                                                    }];
-    [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
+    [self wmf_verifyMultilineLabelWithText:attrStr];
 }
 
 @end

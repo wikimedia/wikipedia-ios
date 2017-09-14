@@ -95,6 +95,7 @@
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
 "button-saved-remove" = "Rimuovi dai salvati";
+"cancel" = "Annulla";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
@@ -326,13 +327,18 @@
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Condividi-un-fatto";
+"share-a-fact-share-menu-item" = "Condividi-un-fatto…";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
 "share-custom-menu-item" = "Condividi...";
+"share-default-format" = "“$1” da “$2”: $3";
+"share-email-format" = "“$1”\n\nda “$2”\n\n$3";
 "share-get-directions-in-maps" = "Ottieni indicazioni";
+"share-menu-item" = "Condividi…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "tramite @Wikipedia";
 "share-open-in-maps" = "Apri in Maps";
+"share-social-format" = "“$1” tramite Wikipedia: $2";
+"share-social-mention-format" = "“$1” tramite @Wikipedia: $2";
 "status-saved-for-later" = "Salvato per dopo";
 "status-saving-for-later" = "Salvataggio per dopo...";
 "table-of-contents-button-label" = "Indice";

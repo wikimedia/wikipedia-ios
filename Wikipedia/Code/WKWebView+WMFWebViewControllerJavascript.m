@@ -21,7 +21,7 @@ static int const kMinimumTextSelectionLength = 2;
     if (!article.isMain) {
         [self evaluateJavaScript:[NSString stringWithFormat:@""
                                                              "window.wmf.editButtons.add(document);"
-                                                             "document.querySelectorAll('.pagelib_edit_section_link').forEach(anchor => {anchor.href = '%@'});",
+                                                             "Array.from(document.querySelectorAll('.pagelib_edit_section_link')).forEach(function(anchor){anchor.href = '%@'});",
                                                             WMFEditPencil]
                completionHandler:nil];
     }

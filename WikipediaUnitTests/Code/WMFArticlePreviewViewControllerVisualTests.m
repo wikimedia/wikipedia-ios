@@ -44,24 +44,24 @@
 
 - (void)testWithImage {
     self.controller.collapseImageAndWidenLabels = NO;
-    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+    [self wmf_verifyView:self.controller.view];
 }
 
 - (void)testWithoutImage {
     self.controller.collapseImageAndWidenLabels = YES;
-    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+    [self wmf_verifyView:self.controller.view];
 }
 
 - (void)testWithImageAndNoSubtitle {
     self.controller.collapseImageAndWidenLabels = NO;
     self.controller.subtitleLabel.text = nil;
-    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+    [self wmf_verifyView:self.controller.view];
 }
 
 - (void)testWithoutImageAndNoSubtitle {
     self.controller.collapseImageAndWidenLabels = YES;
     self.controller.subtitleLabel.text = nil;
-    [self wmf_verifyViewAtWindowWidth:self.controller.view];
+    [self wmf_verifyView:self.controller.view];
 }
 
 @end
