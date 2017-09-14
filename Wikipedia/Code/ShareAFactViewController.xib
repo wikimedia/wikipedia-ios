@@ -104,7 +104,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YA3-wh-iKe" customClass="WMFLicenseView">
-                            <rect key="frame" x="15" y="256" width="50" height="20"/>
+                            <rect key="frame" x="15" y="258" width="50" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" placeholder="YES" id="CnW-RM-EvA"/>
                                 <constraint firstAttribute="width" constant="50" placeholder="YES" id="xoI-wR-CKq"/>
@@ -132,7 +132,7 @@
                         <constraint firstAttribute="trailing" secondItem="PVo-t5-vNi" secondAttribute="trailing" id="ccU-vk-vXA"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="eBQ-Ut-3hd"/>
                         <constraint firstAttribute="width" constant="256" id="jAx-PO-FKf"/>
-                        <constraint firstAttribute="bottom" secondItem="YA3-wh-iKe" secondAttribute="bottom" constant="15" id="rGa-PK-MaY"/>
+                        <constraint firstAttribute="bottom" secondItem="YA3-wh-iKe" secondAttribute="bottom" constant="13" id="rGa-PK-MaY"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOy-7Q-csU">
@@ -144,13 +144,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-c8-ICb">
-                    <rect key="frame" x="15" y="226.5" width="34.5" height="19.5"/>
+                    <rect key="frame" x="15" y="228.5" width="34.5" height="19.5"/>
                     <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM9-1P-hwj">
-                    <rect key="frame" x="15" y="210.5" width="43" height="1"/>
+                    <rect key="frame" x="15" y="212.5" width="43" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="43" id="jyK-Tu-qrE"/>
@@ -158,7 +158,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htU-bX-sMo" customClass="WMFLicenseView">
-                    <rect key="frame" x="15" y="256" width="50" height="20"/>
+                    <rect key="frame" x="15" y="258" width="50" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" placeholder="YES" id="Pi7-um-ZRa"/>
                         <constraint firstAttribute="width" constant="50" placeholder="YES" id="rNe-pa-ydl"/>
@@ -196,7 +196,7 @@
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6K5-c8-ICb" secondAttribute="trailing" constant="15" id="mSe-Lg-r2z"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tHA-6h-82D"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vEz-hF-G5b"/>
-                <constraint firstAttribute="bottom" secondItem="htU-bX-sMo" secondAttribute="bottom" constant="15" id="wJv-Nt-sCz"/>
+                <constraint firstAttribute="bottom" secondItem="htU-bX-sMo" secondAttribute="bottom" constant="13" id="wJv-Nt-sCz"/>
                 <constraint firstItem="mN0-3N-GFZ" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="xmv-CY-xLY"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
