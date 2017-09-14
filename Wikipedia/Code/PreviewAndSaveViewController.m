@@ -687,10 +687,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                             handler:^(UIAlertAction *_Nonnull action) {
                                                 [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
                                             }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedGDFLTitle
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLicenses.localizedGFDLTitle
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [self wmf_openExternalUrl:WMFLicenses.GDFLURL];
+                                                [self wmf_openExternalUrl:WMFLicenses.GFDLURL];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"open-link-cancel", nil, nil, @"Cancel", @"Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];
