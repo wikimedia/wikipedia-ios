@@ -11,6 +11,11 @@ class ShareAFactViewController: UIViewController {
     @IBOutlet weak var imageLicenseView: LicenseView!
     @IBOutlet weak var imageGradientView: WMFGradientView!
 
+    @IBOutlet weak var wordmarkView: UIImageView!
+    @IBOutlet weak var madeWithLabel: UILabel!
+    
+    @IBOutlet weak var madeWithLabelBottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     
@@ -25,6 +30,8 @@ class ShareAFactViewController: UIViewController {
         articleLicenseView.tintColor = theme.colors.secondaryText
         imageLicenseView.tintColor = .white
         
+        madeWithLabel.text = WMFLocalizedString("share-a-fact-made-with", value: "Made with the Wikipedia app", comment: "Indicates that the share-a-fact card was made with the Wikipedia app")
+        
         imageGradientView.gradientLayer.colors = [UIColor.clear.cgColor, UIColor(white: 0, alpha: 0.1).cgColor, UIColor(white: 0, alpha: 0.4).cgColor]
         imageGradientView.gradientLayer.locations = [NSNumber(value: 0.7), NSNumber(value: 0.85), NSNumber(value: 1.0)]
         imageGradientView.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
@@ -35,6 +42,7 @@ class ShareAFactViewController: UIViewController {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
+        
         imageView.image = image
         isImageViewHidden = image == nil
         textLabel.text = text
@@ -57,10 +65,15 @@ class ShareAFactViewController: UIViewController {
             return
         }
 
-        backgroundImageView.image = image
         let aspect = image.size.height / image.size.width
         let height = round(imageViewWidthConstraint.constant * aspect)
         let remainder = round(0.5 * (view.bounds.size.height - height))
+        
+        guard remainder > ((view.bounds.size.height - wordmarkView.frame.origin.y) + madeWithLabelBottomConstraint.constant) else {
+            return
+        }
+        
+        backgroundImageView.image = image
         for letterboxConstraint in imageViewLetterboxConstraints {
             letterboxConstraint.constant = remainder
         }

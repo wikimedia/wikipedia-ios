@@ -25,9 +25,12 @@
                 <outlet property="imageView" destination="gtM-9F-ycZ" id="y6t-gc-ZQj"/>
                 <outlet property="imageViewTrailingConstraint" destination="CaA-B0-Gcx" id="fLT-5P-1k5"/>
                 <outlet property="imageViewWidthConstraint" destination="jAx-PO-FKf" id="uL3-Bf-4G7"/>
+                <outlet property="madeWithLabel" destination="olL-8e-jan" id="bmf-In-kf9"/>
+                <outlet property="madeWithLabelBottomConstraint" destination="9fP-8W-2ya" id="W8d-wT-aqV"/>
                 <outlet property="separatorView" destination="fM9-1P-hwj" id="IVi-3V-a0u"/>
                 <outlet property="textLabel" destination="vOy-7Q-csU" id="dyk-E2-bCw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="wordmarkView" destination="5OT-n8-n0L" id="u3h-IC-twY"/>
                 <outletCollection property="imageViewLetterboxConstraints" destination="JWk-qI-bo2" collectionClass="NSMutableArray" id="CeC-vk-uZ6"/>
                 <outletCollection property="imageViewLetterboxConstraints" destination="5wg-72-fWt" collectionClass="NSMutableArray" id="Nuh-Vw-aod"/>
             </connections>
@@ -89,11 +92,15 @@
                             <rect key="frame" x="0.0" y="0.0" width="256" height="291"/>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made with the Wikipedia app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="olL-8e-jan">
-                            <rect key="frame" x="15" y="261.5" width="161" height="14.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="15" y="264" width="139.5" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="wikipedia" translatesAutoresizingMaskIntoConstraints="NO" id="5OT-n8-n0L">
+                            <rect key="frame" x="10" y="240" width="126" height="24"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YA3-wh-iKe" customClass="WMFLicenseView">
                             <rect key="frame" x="191" y="256" width="50" height="20"/>
                             <constraints>
@@ -109,6 +116,7 @@
                         <constraint firstItem="uR4-eK-jYM" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="CKg-yG-fBf"/>
                         <constraint firstAttribute="trailing" secondItem="fy2-a0-0Fb" secondAttribute="trailing" id="ChM-jS-m0A"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="JWk-qI-bo2"/>
+                        <constraint firstItem="olL-8e-jan" firstAttribute="top" secondItem="5OT-n8-n0L" secondAttribute="bottom" id="L0e-gp-VbF"/>
                         <constraint firstItem="fy2-a0-0Fb" firstAttribute="top" secondItem="mN0-3N-GFZ" secondAttribute="top" id="OtW-iy-Ska"/>
                         <constraint firstAttribute="trailing" secondItem="uR4-eK-jYM" secondAttribute="trailing" id="Ueb-sh-UdJ"/>
                         <constraint firstAttribute="bottom" secondItem="fy2-a0-0Fb" secondAttribute="bottom" id="VDw-Ig-DSf"/>
@@ -116,6 +124,7 @@
                         <constraint firstAttribute="trailing" secondItem="YA3-wh-iKe" secondAttribute="trailing" constant="15" id="XT5-uF-F73"/>
                         <constraint firstItem="fy2-a0-0Fb" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="Z1Q-Pf-Tty"/>
                         <constraint firstAttribute="bottom" secondItem="uR4-eK-jYM" secondAttribute="bottom" id="afE-hg-HWM"/>
+                        <constraint firstItem="5OT-n8-n0L" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" constant="10" id="c0D-VI-B0x"/>
                         <constraint firstAttribute="trailing" secondItem="PVo-t5-vNi" secondAttribute="trailing" id="ccU-vk-vXA"/>
                         <constraint firstItem="PVo-t5-vNi" firstAttribute="leading" secondItem="mN0-3N-GFZ" secondAttribute="leading" id="eBQ-Ut-3hd"/>
                         <constraint firstAttribute="width" constant="256" id="jAx-PO-FKf"/>
@@ -179,4 +188,7 @@
             <point key="canvasLocation" x="34" y="54.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="wikipedia" width="126" height="24"/>
+    </resources>
 </document>
