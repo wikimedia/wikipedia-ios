@@ -20,6 +20,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     var activeCell: ArticleCollectionViewCell?
     var activeIndexPath: IndexPath?
+    var activeDirectionIsPrimary: Bool?
     
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
@@ -72,7 +73,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        guard activeIndexPath == nil, let delegate = delegate else {
+        guard let delegate = delegate else {
             return false
             
         }
@@ -83,10 +84,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell  else {
                 return false
         }
-        
-        activeCell = cell
-        activeIndexPath = indexPath
-        
+
         let velocity = gestureRecognizer.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
@@ -94,18 +92,27 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
+        let isPrimary = velocity.x < 0
+        
+        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
+            return true
+        }
+        
+        activeDirectionIsPrimary = isPrimary
+        activeCell = cell
+        activeIndexPath = indexPath
+        
         let primaryActions = delegate.primaryActions(for: indexPath)
         let secondaryActions = delegate.secondaryActions(for: indexPath)
         
-        cell.actions = velocity.x < 0 ? primaryActions : secondaryActions
+        cell.actions =  isPrimary ? primaryActions : secondaryActions
         cell.actionsView?.delegate = self
         
         guard cell.actions.count > 0 else {
             return false
         }
         
-        cell.swipeType = velocity.x < 0 ? .primary : .secondary
-        activeCell = cell
+        cell.swipeType = isPrimary ? .primary : .secondary
         
         return true
     }
@@ -186,6 +193,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         cell.closeActionPane()
         activeCell = nil
         activeIndexPath = nil
+        activeDirectionIsPrimary = nil
     }
     
     func didEnterOpenState() {
