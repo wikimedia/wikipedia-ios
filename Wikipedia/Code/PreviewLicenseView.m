@@ -35,7 +35,7 @@
     self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0];
     self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0];
 
-    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-cc-by-sa-and-gdfl", nil, nil, @"By publishing changes, you agree to the %1$@ and agree to release your contribution under the %2$@ and %3$@ license.", @"Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2");
+    self.licenseTitleLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-terms-cc-by-sa-and-gfdl", nil, nil, @"By publishing changes, you agree to the %1$@ and agree to release your contribution under the %2$@ and %3$@ license.", @"Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link 1\n* %3$@ - license name link 2");
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
@@ -82,7 +82,7 @@
         };
 
     label.attributedText = [label.text attributedStringWithAttributes:baseAttributes
-                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGDFLTitle]
+                                                  substitutionStrings:@[WMFLicenses.localizedSaveTermsTitle, WMFLicenses.localizedCCBYSA3Title, WMFLicenses.localizedGFDLTitle]
                                                substitutionAttributes:@[linkAttributes, linkAttributes, linkAttributes]];
 }
 
