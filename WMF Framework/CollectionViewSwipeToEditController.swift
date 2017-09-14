@@ -32,7 +32,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         super.init()
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        let longPress = UITapGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
 
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
             var otherGestureRecognizer: UIGestureRecognizer
@@ -40,7 +40,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
                 otherGestureRecognizer = gestureRecognizer is UIPanGestureRecognizer ? pan : longPress
                 gestureRecognizer.require(toFail: otherGestureRecognizer)
             }
-            
+
         }
         
         pan.delegate = self
@@ -57,7 +57,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return panGestureRecognizerShouldBegin(pan)
         }
         
-        if let longPress = gestureRecognizer as? UILongPressGestureRecognizer {
+        if let longPress = gestureRecognizer as? UITapGestureRecognizer {
             return longPressGestureRecognizerShouldBegin(longPress)
         }
         
@@ -72,8 +72,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        
-        guard let delegate = delegate else { return false }
+        guard activeIndexPath == nil, let delegate = delegate else {
+            return false
+            
+        }
         
         let position = gestureRecognizer.location(in: collectionView)
         
@@ -98,7 +100,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         cell.actions = velocity.x < 0 ? primaryActions : secondaryActions
         cell.actionsView?.delegate = self
         
-        guard cell.actions.count > 0 else { return false }
+        guard cell.actions.count > 0 else {
+            return false
+        }
         
         cell.swipeType = velocity.x < 0 ? .primary : .secondary
         activeCell = cell
@@ -106,8 +110,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         return true
     }
     
-    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UILongPressGestureRecognizer) -> Bool {
-        guard let cell = activeCell else { return false }
+    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UITapGestureRecognizer) -> Bool {
+        guard let cell = activeCell else {
+            return false
+        }
         
         // Don't allow the cancel gesture to recognize if any of the touches are within the actions view.
         let numberOfTouches = gestureRecognizer.numberOfTouches
@@ -123,12 +129,12 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        if gestureRecognizer is UILongPressGestureRecognizer {
+        if gestureRecognizer is UITapGestureRecognizer {
             return true
         }
         
         if gestureRecognizer is UIPanGestureRecognizer {
-            return otherGestureRecognizer is UILongPressGestureRecognizer
+            return otherGestureRecognizer is UITapGestureRecognizer
         }
         
         return false
@@ -154,7 +160,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
-    @objc func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+    @objc func handleLongPressGesture(_ sender: UITapGestureRecognizer) {
         guard let cell = activeCell else { return }
         
         switch (sender.state) {
