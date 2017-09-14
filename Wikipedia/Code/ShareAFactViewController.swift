@@ -62,7 +62,9 @@ class ShareAFactViewController: UIViewController {
         articleTitleLabel.text = articleTitle
         
         imageLicenseView.licenseCodes = imageLicenseCodes
+        imageLicenseView.spacing = 0
         articleLicenseView.licenseCodes = ["cc", "by", "sa"]
+        articleLicenseView.spacing = 0
 
         guard let image = image else {
             return
