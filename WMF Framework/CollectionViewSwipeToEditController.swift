@@ -11,8 +11,6 @@ enum CollectionViewCellState {
 public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate, ActionsViewDelegate {
     
     let collectionView: UICollectionView
-    let pan = UIPanGestureRecognizer()
-    let longPress = UILongPressGestureRecognizer()
     
     var currentState: CollectionViewCellState = .idle {
         didSet {
@@ -33,6 +31,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         self.theme = theme
         super.init()
         
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
             var otherGestureRecognizer: UIGestureRecognizer
             for gestureRecognizer in gestureRecognizers {
@@ -42,39 +43,26 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             
         }
         
-        addPanGesture(to: self.collectionView)
-        addLongPressGesture(to: self.collectionView)
-    }
-    
-    func addPanGesture(to collectionView: UICollectionView) {
-        pan.addTarget(self, action: #selector(handlePanGesture))
         pan.delegate = self
-        collectionView.addGestureRecognizer(pan)
-    }
-    
-    func addLongPressGesture(to collectionView: UICollectionView) {
-        longPress.addTarget(self, action: #selector(handleLongPressGesture))
+        self.collectionView.addGestureRecognizer(pan)
+        
         longPress.delegate = self
-        longPress.minimumPressDuration = 0.05
-        collectionView.addGestureRecognizer(longPress)
+        self.collectionView.addGestureRecognizer(longPress)
+        
     }
-    
+
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        let position = pan.location(in: collectionView)
-        
-        guard let indexPath = collectionView.indexPathForItem(at: position),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell  else {
-            return false
+        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+            return panGestureRecognizerShouldBegin(pan)
         }
         
-        activeCell = cell
-        activeIndexPath = indexPath
+        if let longPress = gestureRecognizer as? UILongPressGestureRecognizer {
+            return longPressGestureRecognizerShouldBegin(longPress)
+        }
         
-        return gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizerShouldBegin(gestureRecognizer, in: cell, at: indexPath) : longPressGestureRecognizerShouldBegin(gestureRecognizer, in: cell, at: indexPath)
+        return false
     }
-    
-    public var isActionPanOpenInCollectionView = false
     
     public weak var delegate: CollectionViewSwipeToEditDelegate?
     
@@ -83,11 +71,21 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         delegate?.didPerformAction(action, at: indexPath)
     }
     
-    func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell, at indexPath: IndexPath) -> Bool {
+    func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         
-        guard !isActionPanOpenInCollectionView, let delegate = delegate else { return false }
+        guard let delegate = delegate else { return false }
         
-        let velocity = pan.velocity(in: collectionView)
+        let position = gestureRecognizer.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: position),
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell  else {
+                return false
+        }
+        
+        activeCell = cell
+        activeIndexPath = indexPath
+        
+        let velocity = gestureRecognizer.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
         if fabs(velocity.y) >= fabs(velocity.x) {
@@ -108,8 +106,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         return true
     }
     
-    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer, in cell: ArticleCollectionViewCell, at indexPath: IndexPath) -> Bool {
-        guard isActionPanOpenInCollectionView else { return false }
+    func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UILongPressGestureRecognizer) -> Bool {
+        guard let cell = activeCell else { return false }
         
         // Don't allow the cancel gesture to recognize if any of the touches are within the actions view.
         let numberOfTouches = gestureRecognizer.numberOfTouches
@@ -125,9 +123,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        if gestureRecognizer is UILongPressGestureRecognizer { return otherGestureRecognizer is UIPanGestureRecognizer }
+        if gestureRecognizer is UILongPressGestureRecognizer {
+            return true
+        }
         
-        if gestureRecognizer is UIPanGestureRecognizer { return otherGestureRecognizer is UILongPressGestureRecognizer }
+        if gestureRecognizer is UIPanGestureRecognizer {
+            return otherGestureRecognizer is UILongPressGestureRecognizer
+        }
         
         return false
     }
@@ -174,17 +176,18 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     // MARK: - States
     func didEnterIdleState() {
         collectionView.isScrollEnabled = true
-        if let cell = activeCell {
-            cell.closeActionPane()
-        }
+        guard let cell = activeCell else { return }
+        cell.closeActionPane()
+        activeCell = nil
+        activeIndexPath = nil
     }
     
     func didEnterOpenState() {
         collectionView.isScrollEnabled = false
-        if let cell = activeCell {
-            cell.theme = theme
-            cell.openActionPane()
-        }
+        guard let cell = activeCell else { return }
+        cell.theme = theme
+        cell.openActionPane()
+        
     }
     
     public func performedAction() {
