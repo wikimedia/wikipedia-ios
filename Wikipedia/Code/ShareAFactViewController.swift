@@ -41,7 +41,7 @@ class ShareAFactViewController: UIViewController {
         imageMadeWithLabel.text = textMadeWithLabel.text
         
         imageGradientView.gradientLayer.colors = [UIColor.clear.cgColor, UIColor(white: 0, alpha: 0.1).cgColor, UIColor(white: 0, alpha: 0.4).cgColor]
-        imageGradientView.gradientLayer.locations = [NSNumber(value: 0.7), NSNumber(value: 0.85), NSNumber(value: 1.0)]
+        imageGradientView.gradientLayer.locations = [NSNumber(value: 0.0), NSNumber(value: 0.5), NSNumber(value: 1.0)]
         imageGradientView.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         imageGradientView.gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
