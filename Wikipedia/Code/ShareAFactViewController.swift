@@ -45,7 +45,7 @@ class ShareAFactViewController: UIViewController {
         imageGradientView.gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
     
-    public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicenseCodes: [String]) {
+    public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicense: MWKLicense?) {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
@@ -61,7 +61,24 @@ class ShareAFactViewController: UIViewController {
         }
         articleTitleLabel.text = articleTitle
         
-        imageLicenseView.licenseCodes = imageLicenseCodes
+        var codes: [String] = []
+        if let imageCode = imageLicense?.code.lowercased() {
+            codes = imageCode.components(separatedBy: "-")
+        }
+        if codes.count == 0 {
+            codes.append("generic")
+            imageLicenseView.licenseCodes = codes
+            if let shortDescription = imageLicense?.shortDescription {
+                let label = UILabel()
+                label.font = imageMadeWithLabel.font
+                label.textColor = imageMadeWithLabel.textColor
+                label.text = " " + shortDescription
+                imageLicenseView.addArrangedSubview(label)
+            }
+        } else {
+            imageLicenseView.licenseCodes = codes
+        }
+        
         imageLicenseView.spacing = 0
         articleLicenseView.licenseCodes = ["cc", "by", "sa"]
         articleLicenseView.spacing = 0
