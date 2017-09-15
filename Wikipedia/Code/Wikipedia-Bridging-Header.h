@@ -22,6 +22,8 @@
 
 #import "WMFArticleTextActivitySource.h"
 
+#import "WMFChange.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"

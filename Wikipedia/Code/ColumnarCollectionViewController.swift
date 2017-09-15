@@ -12,7 +12,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not supported")
+        super.init(coder: aDecoder)
     }
 
     override func viewDidLoad() {

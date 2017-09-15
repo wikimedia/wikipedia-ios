@@ -74,7 +74,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryCollectionViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
@@ -199,7 +199,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configureExploreViewController];
     [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
-    [self configureArticleListController:self.recentArticlesViewController];
+    self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 }
