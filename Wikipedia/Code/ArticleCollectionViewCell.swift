@@ -81,8 +81,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            privateContentView.frame = CGRect(origin: .zero, size: size)
-            privateContentView.transform = CGAffineTransform(translationX: swipeTranslation, y: 0)
+            privateContentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
             let actionsViewWidth = actionsView?.maximumWidth ?? 0
             actionsView?.frame = CGRect(x: size.width - actionsViewWidth, y: 0, width: actionsViewWidth, height: size.height)
             actionsView?.layoutSubviews()
@@ -189,7 +188,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     var swipeTranslation: CGFloat = 0 {
         didSet {
-            privateContentView.transform = CGAffineTransform(translationX: swipeTranslation, y: 0)
+            setNeedsLayout()
         }
     }
     
@@ -245,6 +244,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         actionsView.swipeType = swipeType
         super.contentView.insertSubview(actionsView, belowSubview: privateContentView)
         layoutSubviews()
+        actionsView.layoutIfNeeded()
     }
     
     // MARK: Opening & closing action pane
@@ -268,6 +268,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         privateContentView.backgroundColor = backgroundView?.backgroundColor
         UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
             self.swipeTranslation = targetTranslation
+            self.layoutIfNeeded()
         }, completion: { (finished: Bool) in
             actionsView.isUserInteractionEnabled = true
         })
@@ -283,6 +284,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         
         UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
             self.swipeTranslation = 0
+            self.layoutIfNeeded()
         }, completion: { (finished: Bool) in
             self.removeActionsView()
             self.contentView.isUserInteractionEnabled = true
