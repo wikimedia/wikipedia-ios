@@ -123,3 +123,28 @@ extension HistoryCollectionViewController: CollectionViewUpdaterDelegate {
         //TODO
     }
 }
+
+
+// MARK: - WMFColumnarCollectionViewLayoutDelegate
+extension HistoryCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
+            return estimate
+        }
+        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        guard indexPath.section < numberOfSections(in: collectionView), indexPath.row < numberOfItems else {
+            return estimate
+        }
+        let article = fetchedResultsController.object(at: indexPath)
+        placeholderCell.reset()
+        placeholderCell.configure(article: article, displayType: .page, index: indexPath.section, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    }
+}
