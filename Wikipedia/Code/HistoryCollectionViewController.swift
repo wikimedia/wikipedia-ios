@@ -1,6 +1,8 @@
 import UIKit
+import WMF
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "org.wikimedia.history_cell"
+private let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryCollectionViewController)
 class HistoryCollectionViewController: ColumnarCollectionViewController, AnalyticsViewNameProviding {
@@ -32,6 +34,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         super.viewDidLoad()
         
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
     }
     
     var analyticsName: String {
@@ -83,6 +86,55 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
         
         return cell
+    }
+    
+//    - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+//    if ([sectionInfo numberOfObjects] == 0) {
+//    return @"";
+//    }
+//
+//    NSDate *date = [[[sectionInfo objects] firstObject] viewedDateWithoutTime];
+//
+//    if (!date) {
+//    return @"";
+//    }
+//
+//    //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
+//    NSString *padding = @"    ";
+//
+//    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
+//    if ([calendar isDateInToday:date]) {
+//    return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-today", nil, nil, @"Today", @"Subsection label for list of articles browsed today.\n{{Identical|Today}}") uppercaseString]];
+//    } else if ([calendar isDateInYesterday:date]) {
+//    return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-yesterday", nil, nil, @"Yesterday", @"Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}") uppercaseString]];
+//    } else {
+//    return [padding stringByAppendingString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]];
+//    }
+//    }
+    
+    func titleForHeaderInSection(_ section: Int) -> String? {
+        guard let sections = fetchedResultsController.sections, sections.count > section else {
+            return nil
+        }
+        let sectionInfo = sections[section]
+        guard let article = sectionInfo.objects?.first as? WMFArticle, let date = article.viewedDateWithoutTime else {
+            return nil
+        }
+        
+        return (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNow()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionElementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath)
+        guard let headerView = view as? CollectionViewHeader else {
+            return view
+        }
+        headerView.text = titleForHeaderInSection(indexPath.section)
+        return headerView
     }
 
     // MARK: UICollectionViewDelegate
@@ -142,6 +194,10 @@ extension HistoryCollectionViewController {
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        return WMFLayoutEstimate(precalculated: false, height: 67)
     }
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {

@@ -124,6 +124,16 @@
 		8304D7C21F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C31F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
+		831774AE1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */; };
+		831774AF1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */; };
+		831774B01F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */; };
+		831774B11F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */; };
+		831774B21F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */; };
+		831774B31F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */; };
+		831774B41F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */; };
+		831774B51F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */; };
+		831774B61F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */; };
+		831774B71F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */; };
 		836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E954B1F15397D007BD960 /* ThemeableTextField.swift */; };
 		8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */; };
 		83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83836ECA1F615E5B007D1A05 /* ShareViewController.swift */; };
@@ -3068,6 +3078,8 @@
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
+		831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
+		831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewHeader.xib; sourceTree = "<group>"; };
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		83836ECB1F615E5B007D1A05 /* ShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
@@ -7286,6 +7298,8 @@
 		D83F5C0B1F0E51E4006130FF /* Accessory Views */ = {
 			isa = PBXGroup;
 			children = (
+				831774AC1F6C69DD00F62525 /* CollectionViewHeader.swift */,
+				831774AD1F6C69DD00F62525 /* CollectionViewHeader.xib */,
 			);
 			name = "Accessory Views";
 			sourceTree = "<group>";
@@ -8686,6 +8700,7 @@
 				B0E804161C0CDE480065EBC0 /* WebViewController.storyboard in Resources */,
 				D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */,
 				D82014801E6868F800BA8579 /* TUSafariActivity.bundle in Resources */,
+				831774B31F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */,
 				B0E804181C0CDE480065EBC0 /* WMFSettingsViewController.storyboard in Resources */,
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				B09B03F61CE0FB7700009083 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -8758,6 +8773,7 @@
 				D80ED4051EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				D80ED4061EE57F4800CE8C50 /* AlertDesign.json in Resources */,
 				D80ED4071EE57F4800CE8C50 /* TSMessagesDefaultDesign.json in Resources */,
+				831774B71F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */,
 				D80ED4081EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D80ED40A1EE57F4800CE8C50 /* ArticlePopoverViewController.xib in Resources */,
 				D80ED40B1EE57F4800CE8C50 /* Launch Screen.storyboard in Resources */,
@@ -8911,6 +8927,7 @@
 				D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */,
 				D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */,
 				D8A42C141E815A9C00D8E281 /* TUSafariActivity.bundle in Resources */,
+				831774B61F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */,
 				D8A42C151E815A9C00D8E281 /* WMFSettingsViewController.storyboard in Resources */,
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9002,6 +9019,7 @@
 				D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
 				D8CE269B1E698E2400DAE2E0 /* TUSafariActivity.bundle in Resources */,
+				831774B41F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */,
 				D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */,
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9093,6 +9111,7 @@
 				D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
 				D8EC3F9B1E9BDA35006712EB /* TUSafariActivity.bundle in Resources */,
+				831774B51F6C69DD00F62525 /* CollectionViewHeader.xib in Resources */,
 				D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */,
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9695,6 +9714,7 @@
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D84AFBCE1F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
+				831774AE1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				B0E804C11C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m in Sources */,
 				B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -10042,6 +10062,7 @@
 				D80ED3761EE57F4800CE8C50 /* TouchOutsideOverlayView.swift in Sources */,
 				D80ED3771EE57F4800CE8C50 /* ArticlePopoverViewController.swift in Sources */,
 				D80ED3781EE57F4800CE8C50 /* WMFLogFormatter.m in Sources */,
+				831774B21F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D80ED3791EE57F4800CE8C50 /* WMFKeychainCredentials.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
@@ -10579,6 +10600,7 @@
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
 				D8A42B261E815A9C00D8E281 /* UITableView+DynamicCellHeight.m in Sources */,
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
+				831774B11F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D87B13A81F276B1000B27227 /* ShareActivityController.swift in Sources */,
 				D8A42B281E815A9C00D8E281 /* String?+WMFExtras.swift in Sources */,
 				D8A42B291E815A9C00D8E281 /* WMFSavedArticleTableViewController.m in Sources */,
@@ -10926,6 +10948,7 @@
 				D8CE25DF1E698E2400DAE2E0 /* WMFFirstRandomViewController.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
+				831774AF1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				D8CE25E31E698E2400DAE2E0 /* WMFKeychainCredentials.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
@@ -11228,6 +11251,7 @@
 				D8EC3ED31E9BDA35006712EB /* main.m in Sources */,
 				D8EC3ED51E9BDA35006712EB /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */,
+				831774B01F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
