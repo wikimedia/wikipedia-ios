@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad12_9" orientation="landscape">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,21 +22,21 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3r-Et-NLq">
-                    <rect key="frame" x="561.5" y="445.5" width="243" height="133"/>
+                    <rect key="frame" x="262.5" y="440.5" width="243" height="143"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="share-building" translatesAutoresizingMaskIntoConstraints="NO" id="zDc-fC-axl">
-                            <rect key="frame" x="64.5" y="0.0" width="115" height="66"/>
+                            <rect key="frame" x="55" y="0.0" width="134" height="76"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="115" id="0Dx-gF-W2J"/>
-                                <constraint firstAttribute="height" constant="66" id="0bs-xo-wSJ"/>
+                                <constraint firstAttribute="width" constant="134" id="0Dx-gF-W2J"/>
+                                <constraint firstAttribute="height" constant="76" id="0bs-xo-wSJ"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Building Share-a-fact card..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-bf-PDt">
-                            <rect key="frame" x="8" y="89" width="227" height="21"/>
+                            <rect key="frame" x="8" y="99" width="227" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="iaI-ws-KF8"/>
                             </constraints>
@@ -54,40 +54,42 @@
                         <constraint firstItem="PB8-bf-PDt" firstAttribute="top" secondItem="zDc-fC-axl" secondAttribute="bottom" constant="23" id="wcT-W6-pgR"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
-                    <rect key="frame" x="226" y="60" width="914" height="514"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="VCO-jP-6OH" secondAttribute="height" multiplier="640:360" priority="999" id="DEC-yr-Hkh"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="225" id="xaV-m1-yYe"/>
-                    </constraints>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-BJ-5qn">
-                    <rect key="frame" x="655.5" y="964" width="55" height="33"/>
+                    <rect key="frame" x="356.5" y="964" width="55" height="33"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <state key="normal" title="Cancel"/>
                     <connections>
                         <action selector="cancel:" destination="-1" eventType="touchUpInside" id="FsV-IY-Vhs"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
+                    <rect key="frame" x="40" y="60" width="688" height="387.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="VCO-jP-6OH" secondAttribute="height" multiplier="640:360" priority="999" id="DEC-yr-Hkh"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Fp-9h-943"/>
-                <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="fOe-1X-u3N">
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fOe-1X-u3N">
                     <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                 </constraint>
-                <constraint firstItem="VCO-jP-6OH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pts-Rp-spr"/>
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="pts-Rp-spr">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="wRv-BJ-5qn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qQ9-b1-NjJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wRv-BJ-5qn" secondAttribute="bottom" constant="27" id="qjr-7Q-Too"/>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ti2-dt-KuC"/>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wa7-w2-dmH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VCO-jP-6OH" secondAttribute="bottom" priority="999" constant="450" id="wuO-JG-Al0"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VCO-jP-6OH" secondAttribute="trailing" id="y1x-Ia-icC"/>
+                <constraint firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" constant="20" id="y1x-Ia-icC">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="33" y="54"/>
         </view>
     </objects>
     <resources>
-        <image name="share-building" width="115" height="66"/>
+        <image name="share-building" width="134" height="76"/>
     </resources>
 </document>
