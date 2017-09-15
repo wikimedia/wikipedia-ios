@@ -22,6 +22,10 @@
 
 #import "WMFArticleTextActivitySource.h"
 
+// Model
+#import "MWKLicense.h"
+#import "MWKImageInfoFetcher.h"
+
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
@@ -32,7 +36,6 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
-#import "WMFShareCardViewController.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"
