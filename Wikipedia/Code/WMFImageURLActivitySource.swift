@@ -21,7 +21,7 @@ open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
         if activityType == UIActivityType.postToTwitter
         || activityType == UIActivityType.postToWeibo
         || activityType == UIActivityType.postToTencentWeibo{
-            url = info.filePageURL.wmf_URLForImageSharing
+            url = info.filePageURL?.wmf_URLForImageSharing
         }else {
             url = nil
         }

@@ -8,9 +8,11 @@ class ShareViewController: UIViewController, Themeable {
     let articleURL: URL
     let articleImageURL: URL?
     let articleDescription: String?
-    let loadGroup: DispatchGroup
+    let loadGroup: WMFTaskGroup
     var theme: Theme
     var image: UIImage?
+    var imageLicense: MWKLicense?
+    let infoFetcher = MWKImageInfoFetcher()
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var busyView: UIView!
@@ -26,7 +28,7 @@ class ShareViewController: UIViewController, Themeable {
         self.articleURL = articleURL
         self.articleImageURL = article.imageURL(forWidth: 640)
         self.theme = theme
-        self.loadGroup = DispatchGroup()
+        self.loadGroup = WMFTaskGroup()
         super.init(nibName: "ShareViewController", bundle: nil)
         modalPresentationStyle = .overCurrentContext
         loadImage()
@@ -45,17 +47,29 @@ class ShareViewController: UIViewController, Themeable {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.global(qos: .background).async {
-            self.loadGroup.wait()
-            DispatchQueue.main.async {
-                let image = self.createShareAFactCard()
-                self.showActivityViewController(with: image)
-            }
+        self.loadGroup.waitInBackground {
+            let image = self.createShareAFactCard()
+            self.showActivityViewController(with: image)
         }
     }
     
     func loadImage() {
-        if let imageURL = self.articleImageURL {
+        if let imageURL = self.articleImageURL, let imageName = WMFParseUnescapedNormalizedImageNameFromSourceURL(imageURL), let siteURL = articleURL.wmf_site {
+            loadGroup.enter()
+            let filename = "File:" + imageName
+            infoFetcher.fetchGalleryInfo(forImage: filename, fromSiteURL: siteURL, failure: { (error) in
+                self.loadGroup.leave()
+            }, success: { (info) in
+                defer {
+                    self.loadGroup.leave()
+                }
+                
+                guard let imageInfo = info as? MWKImageInfo else {
+                    return
+                }
+                
+                self.imageLicense = imageInfo.license
+            })
             loadGroup.enter()
             ImageController.shared.fetchImage(withURL: imageURL, failure: { (fail) in
                 self.loadGroup.leave()
@@ -67,9 +81,9 @@ class ShareViewController: UIViewController, Themeable {
     }
     
     func createShareAFactCard() -> UIImage? {
-        let cardController = WMFShareCardViewController(nibName: "ShareCard", bundle: nil)
+        let cardController = ShareAFactViewController(nibName: "ShareAFactViewController", bundle: nil)
         let cardView = cardController.view
-        cardController.fillCard(withArticleURL: articleURL, articleTitle: articleTitle, articleDescription: articleDescription, text: text, image: image)
+        cardController.update(with: articleURL, articleTitle: articleTitle, text: text, image: image, imageLicense: imageLicense)
         return cardView?.wmf_snapshotImage()
     }
     
