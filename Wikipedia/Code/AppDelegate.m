@@ -14,7 +14,7 @@
 static NSString *const WMFAppSeeAPIKey = @QUOTE(WMF_APP_SEE_API_KEY);
 #endif
 
-static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
+static NSTimeInterval const WMFBackgroundFetchInterval = 600; // 10 minutes
 
 @interface AppDelegate ()
 
