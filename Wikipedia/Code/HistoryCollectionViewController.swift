@@ -45,17 +45,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -119,7 +109,6 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
-
 }
 
 extension HistoryCollectionViewController: CollectionViewUpdaterDelegate {
@@ -127,7 +116,6 @@ extension HistoryCollectionViewController: CollectionViewUpdaterDelegate {
         //TODO
     }
 }
-
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension HistoryCollectionViewController {
