@@ -23,6 +23,17 @@ class SavedViewController: ArticleFetchedResultsViewController {
         super.viewDidLoad()
         title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        PiwikTracker.sharedInstance()?.wmf_logView(self)
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
+    }
+    
+    override var analyticsName: String {
+        return "Saved"
+    }
 }
 
 //
