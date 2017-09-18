@@ -5,7 +5,7 @@ private let reuseIdentifier = "org.wikimedia.history_cell"
 private let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryCollectionViewController)
-class HistoryCollectionViewController: ColumnarCollectionViewController, AnalyticsViewNameProviding {
+class HistoryCollectionViewController: ColumnarCollectionViewController, AnalyticsViewNameProviding, AnalyticsContextProviding {
     
     @objc var dataStore: MWKDataStore! {
         didSet {
@@ -28,18 +28,28 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
     }
     var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
     var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
+    var swipeToEditController: CollectionViewSwipeToEditController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab\n{{Identical|History}}")
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: false)
+        guard let collectionView = collectionView else {
+            return
+        }
+        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+        swipeToEditController.delegate = self
     }
     
     var analyticsName: String {
         return "Recent"
     }
-
+    
+    var analyticsContext: String {
+        return analyticsName
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)
@@ -151,5 +161,46 @@ extension HistoryCollectionViewController {
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    }
+}
+
+extension HistoryCollectionViewController: CollectionViewSwipeToEditDelegate {
+    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
+        guard let articleURL = fetchedResultsController.object(at: indexPath).url else {
+            return
+        }
+        switch action.type {
+        case .delete:
+            dataStore.historyList.removeEntry(with: articleURL)
+        case .save:
+            dataStore.savedPageList.addSavedPage(with: articleURL)
+        case .unsave:
+            dataStore.savedPageList.removeEntry(with: articleURL)
+        case .share:
+            let shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                let cell = collectionView?.cellForItem(at: indexPath)
+                shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                shareActivityController.popoverPresentationController?.sourceView = cell ?? view
+                shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+            }
+            present(shareActivityController, animated: true, completion: nil)
+            break
+        }
+    }
+    
+    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        var actions = [CollectionViewCellActionType.share.action, CollectionViewCellActionType.delete.action]
+        let article = fetchedResultsController.object(at: indexPath)
+        if article.savedDate != nil {
+            actions.insert(CollectionViewCellActionType.unsave.action, at: 0)
+        } else {
+            actions.insert(CollectionViewCellActionType.save.action, at: 0)
+        }
+        return actions
+    }
+    
+    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        return []
     }
 }

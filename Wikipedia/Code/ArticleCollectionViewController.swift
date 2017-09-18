@@ -22,7 +22,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Collect
         super.viewDidLoad()
         
         if let collectionView = self.collectionView {
-            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView, theme: theme)
+            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
         }
         
         swipeToEditController?.delegate = self

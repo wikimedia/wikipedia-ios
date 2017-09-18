@@ -25,11 +25,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
-    fileprivate var theme: Theme = Theme.standard
     
-    public init(collectionView: UICollectionView, theme: Theme) {
+    public init(collectionView: UICollectionView) {
         self.collectionView = collectionView
-        self.theme = theme
         super.init()
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
@@ -55,7 +53,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         if let pan = gestureRecognizer as? UIPanGestureRecognizer {
             return panGestureRecognizerShouldBegin(pan)
         }
@@ -214,7 +211,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         guard let cell = activeCell else {
             return
         }
-        cell.theme = theme
         cell.openActionPane()
     }
     
