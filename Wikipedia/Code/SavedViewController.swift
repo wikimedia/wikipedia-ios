@@ -1,0 +1,44 @@
+import UIKit
+import WMF
+
+@objc(WMFSavedViewController)
+class SavedViewController: ArticleFetchedResultsViewController {
+    
+    override func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    override func canSaveOrUnsaveArticle(at indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+        dataStore.savedPageList.removeEntry(with: articleURL)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
+    }
+}
+
+//
+//    - (NSString *)deleteButtonText {
+//        return WMFLocalizedStringWithDefaultValue(@"saved-clear-all", nil, nil, @"Clear", @"Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}");
+//        }
+//
+//        - (NSString *)deleteAllConfirmationText {
+//            return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-confirmation-heading", nil, nil, @"Are you sure you want to delete all your saved pages?", @"Heading text of delete all confirmation dialog");
+//            }
+//
+//            - (NSString *)deleteText {
+//                return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-delete-all", nil, nil, @"Yes, delete all", @"Button text for confirming delete all action\n{{Identical|Delete all}}");
+//                }
+//
+//                - (NSString *)deleteCancelText {
+//                    return WMFLocalizedStringWithDefaultValue(@"saved-pages-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}");
+//}
+//

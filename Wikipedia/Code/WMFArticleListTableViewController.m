@@ -243,12 +243,12 @@
 
 #pragma mark - WMFTableViewUpdaterDelegate
 
-- (void)tableViewUpdater:(WMFTableViewUpdater *)updater didUpdateTableView:(UITableView *)tableView {
-    //Delay the empty state update so its not jarring to the user
-    dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
-        [self updateEmptyAndDeleteState];
-    });
-}
+//- (void)tableViewUpdater:(WMFTableViewUpdater *)updater didUpdateTableView:(UITableView *)tableView {
+//    //Delay the empty state update so its not jarring to the user
+//    dispatchOnMainQueueAfterDelayInSeconds(0.7, ^{
+//        [self updateEmptyAndDeleteState];
+//    });
+//}
 
 #pragma mark - Sharing
 

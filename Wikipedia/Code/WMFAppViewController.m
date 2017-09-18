@@ -20,7 +20,6 @@
 // View Controllers
 #import "WMFSearchViewController.h"
 #import "WMFSettingsViewController.h"
-#import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -72,7 +71,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedViewController *savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
@@ -223,8 +222,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.placesViewController.dataStore = self.dataStore;
 }
 
-- (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
-    controller.userDataStore = self.dataStore;
+- (void)configureArticleListController:(WMFSavedViewController *)controller {
+    controller.dataStore = self.dataStore;
 }
 
 #pragma mark - Notifications
@@ -1185,8 +1184,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSaved: {
-                WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
-                [savedArticlesViewController scrollToTop:savedArticlesViewController.userDataStore.savedPageList.numberOfItems > 0];
+                WMFSavedViewController *savedArticlesViewController = (WMFSavedViewController *)[self savedArticlesViewController];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.savedPageList.numberOfItems > 0];
             } break;
             case WMFAppTabTypeRecent: {
                 WMFHistoryViewController *historyArticlesViewController = (WMFHistoryViewController *)[self recentArticlesViewController];

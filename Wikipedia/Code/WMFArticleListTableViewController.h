@@ -1,5 +1,4 @@
 #import "UIViewController+WMFEmptyView.h"
-#import "WMFTableViewUpdater.h"
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
 @import WMF.Swift;
@@ -16,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFTableViewUpdaterDelegate, WMFThemeable>
+@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
 @property (nonatomic, strong) MWKDataStore *userDataStore;
 

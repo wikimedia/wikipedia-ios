@@ -34,6 +34,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     open func canDeleteArticle(at indexPath: IndexPath) -> Bool {
         return false
     }
+    
+    open func canSaveOrUnsaveArticle(at indexPath: IndexPath) -> Bool {
+        return true
+    }
 }
 
 extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
@@ -160,18 +164,22 @@ extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
             return []
         }
 
-        var actions = [CollectionViewCellActionType.share.action]
+        var actions: [CollectionViewCellAction] = []
+        
+        if canSaveOrUnsaveArticle(at: indexPath) {
+            if article.savedDate != nil {
+                actions.append(CollectionViewCellActionType.unsave.action)
+            } else {
+                actions.append(CollectionViewCellActionType.save.action)
+            }
+        }
+        
+        actions.append(CollectionViewCellActionType.share.action)
         
         if canDeleteArticle(at: indexPath) {
             actions.append(CollectionViewCellActionType.delete.action)
         }
-        
-        if article.savedDate != nil {
-            actions.insert(CollectionViewCellActionType.unsave.action, at: 0)
-        } else {
-            actions.insert(CollectionViewCellActionType.save.action, at: 0)
-        }
-        
+
         return actions
     }
     

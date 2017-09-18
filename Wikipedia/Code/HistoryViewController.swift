@@ -4,44 +4,13 @@ import WMF
 fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryViewController)
-class HistoryViewController: ArticleCollectionViewController {
-    var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
-    var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
+class HistoryViewController: ArticleFetchedResultsViewController {
     
-    @objc override var dataStore: MWKDataStore! {
-        didSet {
-            let articleRequest = WMFArticle.fetchRequest()
-            articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
-            articleRequest.sortDescriptors = [NSSortDescriptor(key: "viewedDateWithoutTime", ascending: false), NSSortDescriptor(key: "viewedDate", ascending: false)]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "viewedDateWithoutTime", cacheName: nil)
-            
-            do {
-                try fetchedResultsController.performFetch()
-            } catch let error {
-                print(error)
-            }
-            
-            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
-            collectionViewUpdater?.delegate = self
-            
-            collectionView?.reloadData()
-        }
-    }
-    
-    override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return fetchedResultsController.object(at: indexPath)
-    }
-    
-    override func articleURL(at indexPath: IndexPath) -> URL? {
-        return article(at: indexPath)?.url
-    }
-    
-    override func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
-        dataStore.historyList.removeEntry(with: articleURL)
-    }
-    
-    override func canDeleteArticle(at indexPath: IndexPath) -> Bool {
-        return true
+    override func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
+        articleRequest.sortDescriptors = [NSSortDescriptor(key: "viewedDateWithoutTime", ascending: false), NSSortDescriptor(key: "viewedDate", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "viewedDateWithoutTime", cacheName: nil)
     }
     
     override func viewDidLoad() {
@@ -67,21 +36,6 @@ class HistoryViewController: ArticleCollectionViewController {
     
 // MARK: UICollectionViewDataSource
 extension HistoryViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
-            return 0
-        }
-        return sectionsCount
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
-            return 0
-        }
-        return sections[section].numberOfObjects
-    }
-    
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
             return nil
@@ -105,12 +59,6 @@ extension HistoryViewController {
         headerView.text = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
         return headerView
-    }
-}
-
-extension HistoryViewController: CollectionViewUpdaterDelegate {
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-        //TODO
     }
 }
 
