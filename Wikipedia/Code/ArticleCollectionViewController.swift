@@ -1,134 +1,86 @@
 import UIKit
 
+fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
+
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, CollectionViewSwipeToEditDelegate, AnalyticsContextProviding {
-    
-    fileprivate static let cellReuseIdentifier = "ArticleCollectionViewControllerCell"
-    
-    let articleURLs: [URL]
-    let dataStore: MWKDataStore
-    
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
-        self.articleURLs = articleURLs
-        self.dataStore = dataStore
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not supported")
-    }
-    
+class ArticleCollectionViewController: ColumnarCollectionViewController {
+    @objc var dataStore: MWKDataStore!
+    var swipeToEditController: CollectionViewSwipeToEditController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let collectionView = self.collectionView {
-            swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        guard let collectionView = collectionView else {
+            return
         }
-        
-        swipeToEditController?.delegate = self
-        
-        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, addPlaceholder: true)
+        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+        swipeToEditController.delegate = self
     }
     
-    func articleURL(at indexPath: IndexPath) -> URL {
-        return articleURLs[indexPath.section]
+    open func articleURL(at indexPath: IndexPath) -> URL? {
+        assert(false, "Subclassers should override this function")
+        return nil
     }
     
-    // MARK: - SwipeableDelegate
-    var swipeToEditController: CollectionViewSwipeToEditController?
+    open func article(at indexPath: IndexPath) -> WMFArticle? {
+        assert(false, "Subclassers should override this function")
+        return nil
+    }
     
-    var analyticsContext: String {
+    open func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+        assert(false, "Subclassers should override this function")
+    }
+    
+    open func canDeleteArticle(at indexPath: IndexPath) -> Bool {
+        return false
+    }
+}
+
+extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
+    var analyticsName: String {
         return "ArticleList"
     }
     
-    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
-        var actions = [CollectionViewCellActionType.share.action]
-        
-        let url = articleURL(at: indexPath)
-        
-        if savedPageList.isSaved(url) {
-            actions.insert(CollectionViewCellActionType.unsave.action, at: 0)
-        } else {
-            actions.insert(CollectionViewCellActionType.save.action, at: 0)
-        }
-        
-        return actions
-    }
-    
-    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
-        return []
-    }
-    
-    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
-        guard let cell = collectionView?.cellForItem(at: indexPath) as? ArticleCollectionViewCell else { return }
-        
-        let url = articleURL(at: indexPath)
-        
-        switch (action.type) {
-        case .save:
-            if !savedPageList.isSaved(url) {
-                savedPageList.addSavedPage(with: url)
-            }
-        case .unsave:
-            savedPageList.removeEntry(with: url)
-        case .share:
-            let shareActivityController = ShareActivityController(articleURL: url, userDataStore: dataStore, context: self)
-            
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                shareActivityController.popoverPresentationController?.sourceView = cell
-                shareActivityController.popoverPresentationController?.sourceRect = cell.bounds
-            }
-    
-            present(shareActivityController, animated: true, completion: nil)
-        default:
-            break
-        }
-        
-        swipeToEditController?.performedAction()
-    }
-    
-    func isArticleSaved(at indexPath: IndexPath) -> Bool {
-        let url = articleURL(at: indexPath)
-        return savedPageList.isSaved(url)
-    }
-    
-    var savedPageList: MWKSavedPageList {
-        return dataStore.savedPageList
+    var analyticsContext: String {
+        return analyticsName
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ArticleCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return articleURLs.count
+        assert(false, "Subclassers should override this function")
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        assert(false, "Subclassers should override this function")
+        return 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier, for: indexPath)
-        guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        
+        guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell,
+            let article = article(at: indexPath) else {
             return cell
         }
-        let url = articleURL(at: indexPath)
-        guard let article = dataStore.fetchArticle(with: url) else {
-            return articleCell
-        }
         
-        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
+        let count = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        articleCell.configure(article: article, displayType: .page, index: indexPath.row, count: count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
         
-
-        return articleCell
+        return cell
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 
 }
@@ -138,11 +90,12 @@ extension ArticleCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let collectionView = collectionView,
             let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
+            let url = articleURL(at: indexPath)
         else {
                 return nil
         }
-        let url = articleURL(at: indexPath)
+        
         previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
     }
@@ -156,15 +109,15 @@ extension ArticleCollectionViewController {
 extension ArticleCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: ArticleCollectionViewController.cellReuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
-        let url = articleURL(at: indexPath)
-        guard let article = dataStore.fetchArticle(with: url) else {
+        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        guard indexPath.section < numberOfSections(in: collectionView), indexPath.row < numberOfItems, let article = article(at: indexPath) else {
             return estimate
         }
         placeholderCell.reset()
-        placeholderCell.configure(article: article, displayType: .page, index: indexPath.section, count: articleURLs.count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        placeholderCell.configure(article: article, displayType: .page, index: indexPath.section, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -172,5 +125,57 @@ extension ArticleCollectionViewController {
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    }
+}
+
+
+extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
+    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            return
+        }
+        switch action.type {
+        case .delete:
+            deleteArticle(with: articleURL, at: indexPath)
+        case .save:
+            dataStore.savedPageList.addSavedPage(with: articleURL)
+        case .unsave:
+            dataStore.savedPageList.removeEntry(with: articleURL)
+        case .share:
+            let shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                let cell = collectionView?.cellForItem(at: indexPath)
+                shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                shareActivityController.popoverPresentationController?.sourceView = cell ?? view
+                shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+            }
+            present(shareActivityController, animated: true, completion: nil)
+            break
+        }
+        swipeToEditController.performedAction()
+    }
+    
+    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        guard let article = article(at: indexPath) else {
+            return []
+        }
+
+        var actions = [CollectionViewCellActionType.share.action]
+        
+        if canDeleteArticle(at: indexPath) {
+            actions.append(CollectionViewCellActionType.delete.action)
+        }
+        
+        if article.savedDate != nil {
+            actions.insert(CollectionViewCellActionType.unsave.action, at: 0)
+        } else {
+            actions.insert(CollectionViewCellActionType.save.action, at: 0)
+        }
+        
+        return actions
+    }
+    
+    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
+        return []
     }
 }

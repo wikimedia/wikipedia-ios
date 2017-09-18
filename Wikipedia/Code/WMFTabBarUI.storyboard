@@ -126,10 +126,10 @@
             </objects>
             <point key="canvasLocation" x="2469" y="1402"/>
         </scene>
-        <!--History Collection View Controller-->
+        <!--History View Controller-->
         <scene sceneID="xdG-L4-utZ">
             <objects>
-                <collectionViewController id="Zuy-xh-R41" customClass="WMFHistoryCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController id="Zuy-xh-R41" customClass="WMFHistoryViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="fHp-J3-J34">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

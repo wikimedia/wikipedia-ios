@@ -20,7 +20,6 @@
 // View Controllers
 #import "WMFSearchViewController.h"
 #import "WMFSettingsViewController.h"
-#import "WMFHistoryTableViewController.h"
 #import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
@@ -74,7 +73,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFHistoryCollectionViewController *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
@@ -1190,8 +1189,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [savedArticlesViewController scrollToTop:savedArticlesViewController.userDataStore.savedPageList.numberOfItems > 0];
             } break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
-                [historyArticlesViewController scrollToTop:[historyArticlesViewController.userDataStore.historyList numberOfItems] > 0];
+                WMFHistoryViewController *historyArticlesViewController = (WMFHistoryViewController *)[self recentArticlesViewController];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.historyList numberOfItems] > 0];
             } break;
         }
     }
