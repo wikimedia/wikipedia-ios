@@ -24,7 +24,6 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
             collectionViewUpdater?.delegate = self
             
             collectionView?.reloadData()
-
         }
     }
     var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
@@ -32,7 +31,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab\n{{Identical|History}}")
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: false)
     }
@@ -88,31 +87,6 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         return cell
     }
     
-//    - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-//    if ([sectionInfo numberOfObjects] == 0) {
-//    return @"";
-//    }
-//
-//    NSDate *date = [[[sectionInfo objects] firstObject] viewedDateWithoutTime];
-//
-//    if (!date) {
-//    return @"";
-//    }
-//
-//    //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
-//    NSString *padding = @"    ";
-//
-//    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-//    if ([calendar isDateInToday:date]) {
-//    return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-today", nil, nil, @"Today", @"Subsection label for list of articles browsed today.\n{{Identical|Today}}") uppercaseString]];
-//    } else if ([calendar isDateInYesterday:date]) {
-//    return [padding stringByAppendingString:[WMFLocalizedStringWithDefaultValue(@"history-section-yesterday", nil, nil, @"Yesterday", @"Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}") uppercaseString]];
-//    } else {
-//    return [padding stringByAppendingString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]];
-//    }
-//    }
-    
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
             return nil
@@ -122,7 +96,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
             return nil
         }
         
-        return (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNow()
+        return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -137,37 +111,14 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         headerView.apply(theme: theme)
         return headerView
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = fetchedResultsController.object(at: indexPath).url else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
-    */
 
 }
 
