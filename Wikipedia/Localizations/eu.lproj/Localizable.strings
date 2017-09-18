@@ -228,7 +228,8 @@
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-sign-in" = "Hasi saioa";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Aldaketak argitaratzean, $1-arekin bat egiten duzu eta $2-$3-ko lizentzia ekarpena egitea onartzen duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
 "zero-interstitial-cancel" = "Gelditu hemen";
 "zero-interstitial-continue" = "Irten";

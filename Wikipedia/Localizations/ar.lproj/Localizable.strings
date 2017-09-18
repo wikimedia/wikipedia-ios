@@ -324,6 +324,7 @@
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
+"share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
 // Fuzzy
 "share-a-fact-share-menu-item" = "شارك حقيقة";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";

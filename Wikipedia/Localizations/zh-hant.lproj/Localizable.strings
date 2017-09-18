@@ -171,7 +171,7 @@
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
 "forgot-password-title" = "重設密碼";
 "forgot-password-username-or-email-title" = "或";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您確定要刪除所有近期項目嗎？";
@@ -353,6 +353,7 @@
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此App應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如特色條目）";
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
+"share-a-fact-made-with" = "用維基百科應用程式製作";
 "share-a-fact-share-menu-item" = "分享預覽…";
 "share-article-name-on-wikipedia" = " \"$1\"  在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
@@ -414,7 +415,7 @@
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
 "wikitext-upload-save-sign-in" = "登入";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 來釋出您的貢獻。";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 授權條款來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
