@@ -188,4 +188,5 @@ open class CollectionViewCell: UICollectionViewCell {
     open func updateFonts(with traitCollection: UITraitCollection) {
         
     }
+
 }

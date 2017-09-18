@@ -13,9 +13,6 @@ class ArticleListTableViewRowActions: NSObject {
     
     fileprivate var theme = Theme.standard
     
-    let deleteActionText = WMFLocalizedStringWithDefaultValue("article-delete", nil, nil, "Delete", "Text of the article list row action shown on swipe which deletes the article")
-    let shareActionText = WMFLocalizedStringWithDefaultValue("article-share", nil, nil, "Share", "Text of the article list row action shown on swipe which allows the user to choose the sharing option")
-    
     func rowAction(with style: UITableViewRowActionStyle, title: String, tableView: UITableView, handler: @escaping (UITableViewRowAction, IndexPath) -> Void) -> UITableViewRowAction {
         return UITableViewRowAction(style: style, title: title, handler: {(_ action: UITableViewRowAction, _ indexPath: IndexPath) -> Void in
             CATransaction.begin()
@@ -34,7 +31,7 @@ class ArticleListTableViewRowActions: NSObject {
         
         switch type {
         case .delete:
-            title = deleteActionText
+            title = CommonStrings.deleteActionTitle
             backgroundColor = self.theme.colors.destructive
         case .save:
             title = CommonStrings.shortSaveTitle
@@ -43,7 +40,7 @@ class ArticleListTableViewRowActions: NSObject {
             title = CommonStrings.shortUnsaveTitle
             backgroundColor = self.theme.colors.link
         case .share:
-            title = shareActionText
+            title = CommonStrings.shareActionTitle
             backgroundColor = self.theme.colors.secondaryAction
         }
         

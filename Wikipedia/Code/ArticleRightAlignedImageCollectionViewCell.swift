@@ -31,6 +31,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
         let minHeight = imageViewDimension + margins.top + margins.bottom
