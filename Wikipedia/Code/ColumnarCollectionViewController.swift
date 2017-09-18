@@ -5,8 +5,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
     var theme: Theme = Theme.standard
     
-    fileprivate var placeholderCells: [String:UICollectionViewCell] = [:]
-    
+    fileprivate var placeholders: [String:UICollectionReusableView] = [:]
+
     init() {
         super.init(collectionViewLayout: layout)
     }
@@ -46,7 +46,11 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     // MARK - Cell & View Registration
    
     final public func placeholder(forCellWithReuseIdentifier identifier: String) -> UICollectionViewCell? {
-        return placeholderCells[identifier]
+        return placeholders[identifier] as? UICollectionViewCell
+    }
+    
+    final public func placeholder(forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) -> UICollectionReusableView? {
+        return placeholders["\(elementKind)-\(identifier)"]
     }
     
     @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)
@@ -61,22 +65,47 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         let cell = cellClass.init(frame: view.bounds)
         cell.isHidden = true
         view.insertSubview(cell, at: 0) // so that the trait collections are updated
-        placeholderCells[identifier] = cell
+        placeholders[identifier] = cell
     }
     
     @objc(registerNib:forCellWithReuseIdentifier:)
     final func register(_ nib: UINib?, forCellWithReuseIdentifier identifier: String) {
         collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+        guard let cell = nib?.instantiate(withOwner: nil, options: nil).first as? UICollectionViewCell else {
+            return
+        }
+        cell.isHidden = true
+        view.insertSubview(cell, at: 0) // so that the trait collections are updated
+        placeholders[identifier] = cell
     }
     
-    @objc(registerViewClass:forSupplementaryViewOfKind:withReuseIdentifier:)
-    final func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) {
+    @objc(registerViewClass:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
+    final func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
         collectionView?.register(viewClass, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+        guard addPlaceholder else {
+            return
+        }
+        guard let viewClass = viewClass as? UICollectionReusableView.Type else {
+            return
+        }
+        let reusableView = viewClass.init(frame: view.bounds)
+        reusableView.isHidden = true
+        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
+        placeholders["\(elementKind)-\(identifier)"] = reusableView
     }
     
-    @objc(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:)
-    final func register(_ nib: UINib?, forSupplementaryViewOfKind kind: String, withReuseIdentifier identifier: String) {
-        collectionView?.register(nib, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+    @objc(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
+    final func register(_ nib: UINib?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
+        collectionView?.register(nib, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+        guard addPlaceholder else {
+            return
+        }
+        guard let reusableView = nib?.instantiate(withOwner: nil, options: nil).first as? UICollectionReusableView else {
+            return
+        }
+        reusableView.isHidden = true
+        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
+        placeholders["\(elementKind)-\(identifier)"] = reusableView
     }
     
     // MARK - 3D Touch

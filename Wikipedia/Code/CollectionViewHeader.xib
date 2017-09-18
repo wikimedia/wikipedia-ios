@@ -16,16 +16,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tho-vv-hrx">
-                    <rect key="frame" x="15" y="30" width="37.5" height="22"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tho-vv-hrx">
+                    <rect key="frame" x="15" y="39" width="37.5" height="18"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="tho-vv-hrx" secondAttribute="bottom" constant="15" id="3WZ-C3-s4o"/>
-                <constraint firstItem="tho-vv-hrx" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" constant="30" id="H1g-h6-sB5"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="tho-vv-hrx" secondAttribute="bottom" constant="10" id="3WZ-C3-s4o"/>
+                <constraint firstItem="tho-vv-hrx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VXr-Tz-HHm" secondAttribute="top" constant="30" id="H1g-h6-sB5"/>
                 <constraint firstItem="tho-vv-hrx" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="15" id="nqA-UP-LVf"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tho-vv-hrx" secondAttribute="trailing" constant="15" id="tgO-xU-60s"/>
             </constraints>
@@ -33,7 +33,7 @@
             <connections>
                 <outlet property="label" destination="tho-vv-hrx" id="miZ-qy-lP3"/>
             </connections>
-            <point key="canvasLocation" x="34" y="63.5"/>
+            <point key="canvasLocation" x="32" y="73.5"/>
         </collectionReusableView>
     </objects>
 </document>

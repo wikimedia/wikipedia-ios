@@ -34,7 +34,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         super.viewDidLoad()
         
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier)
+        register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: false)
     }
     
     var analyticsName: String {
@@ -83,7 +83,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
         
         let article = fetchedResultsController.object(at: indexPath)
         let count = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        articleCell.configure(article: article, displayType: .page, index: indexPath.section, count: count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
+        articleCell.configure(article: article, displayType: .page, index: indexPath.row, count: count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
         
         return cell
     }
@@ -134,6 +134,7 @@ class HistoryCollectionViewController: ColumnarCollectionViewController, Analyti
             return view
         }
         headerView.text = titleForHeaderInSection(indexPath.section)
+        headerView.apply(theme: theme)
         return headerView
     }
 
@@ -197,7 +198,16 @@ extension HistoryCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 67)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
+        guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
+            return estimate
+        }
+        let title = titleForHeaderInSection(section)
+        placeholder.prepareForReuse()
+        placeholder.text = title
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
+        estimate.precalculated = true
+        return estimate
     }
     
     override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
