@@ -204,7 +204,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-6p-DM6">
                                 <rect key="frame" x="20" y="44" width="320" height="552"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
+                                    <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" id="8iq-Ul-mmM"/>
@@ -454,31 +454,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="l9B-Hv-WJ5">
-                                <rect key="frame" x="0.0" y="20" width="300" height="18"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="8S3-D8-Ecc">
-                                <rect key="frame" x="0.0" y="48" width="300" height="18"/>
+                                <rect key="frame" x="0.0" y="28" width="300" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Zl-4G-G2G">
-                                <rect key="frame" x="0.0" y="76" width="51" height="31"/>
+                                <rect key="frame" x="0.0" y="56" width="51" height="31"/>
                                 <connections>
                                     <action selector="toggleAnalyticsWithSender:" destination="Sz5-Ln-qWW" eventType="valueChanged" id="HVm-oP-11q"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="😀🎉" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="Sp2-Be-DyJ">
-                                <rect key="frame" x="59" y="81" width="46" height="21"/>
+                                <rect key="frame" x="59" y="61" width="46" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Turn me on" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-SO-CMY">
-                                <rect key="frame" x="0.0" y="117" width="300" height="18"/>
+                                <rect key="frame" x="0.0" y="97" width="300" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

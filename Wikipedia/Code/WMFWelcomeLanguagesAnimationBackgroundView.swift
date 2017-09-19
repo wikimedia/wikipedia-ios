@@ -1,38 +1,31 @@
 import Foundation
 
-open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationView {
+open class WMFWelcomeLanguagesAnimationBackgroundView : WMFWelcomeAnimationView {
 
-    lazy var tubeImgView: UIImageView = {
-        let tubeRotationPoint = CGPoint(x: 0.576, y: 0.38)
-        let initialTubeRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(0.0)
-        let rectCorrectingForRotation = CGRect(
-            x: bounds.origin.x - (bounds.size.width * (0.5 - tubeRotationPoint.x)),
-            y: bounds.origin.y - (bounds.size.height * (0.5 - tubeRotationPoint.y)),
-            width: bounds.size.width,
-            height: bounds.size.height
-        )
-        let imgView = UIImageView(frame: rectCorrectingForRotation)
-        imgView.image = UIImage(named: "ftux-telescope-tube")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
-        imgView.layer.zPosition = 101
-        imgView.layer.transform = initialTubeRotationTransform
-        imgView.layer.anchorPoint = tubeRotationPoint
-        return imgView
-    }()
-
-    lazy var baseImgView: UIImageView = {
+    lazy var bubbleLeftImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
-        imgView.image = UIImage(named: "ftux-telescope-base")
+        imgView.image = UIImage(named: "ftux-left-bubble")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
-        imgView.layer.zPosition = 101
-        imgView.layer.transform = CATransform3DIdentity
+        imgView.layer.zPosition = 102
+        imgView.layer.opacity = 0
+        imgView.layer.transform = wmf_scaleZeroAndLowerLeftTransform
         return imgView
     }()
-
+    
+    lazy var bubbleRightImgView: UIImageView = {
+        let imgView = UIImageView(frame: bounds)
+        imgView.image = UIImage(named: "ftux-right-bubble")
+        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.layer.zPosition = 101
+        imgView.layer.opacity = 0
+        imgView.layer.transform = wmf_scaleZeroAndLowerRightTransform
+        return imgView
+    }()
+    
     lazy var dashedCircle: WelcomeCircleShapeLayer = {
         return WelcomeCircleShapeLayer(
-            unitRadius: 0.304,
-            unitOrigin: CGPoint(x: 0.521, y: 0.531),
+            unitRadius: 0.31,
+            unitOrigin: CGPoint(x: 0.508, y: 0.518),
             referenceSize: frame.size,
             isDashed: true,
             transform: wmf_scaleZeroTransform,
@@ -42,8 +35,8 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
     
     lazy var solidCircle: WelcomeCircleShapeLayer = {
         return WelcomeCircleShapeLayer(
-            unitRadius: 0.32,
-            unitOrigin: CGPoint(x: 0.625, y: 0.55),
+            unitRadius: 0.31,
+            unitOrigin: CGPoint(x: 0.39, y: 0.5),
             referenceSize: frame.size,
             isDashed: false,
             transform: wmf_scaleZeroTransform,
@@ -53,7 +46,7 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
     
     lazy var plus1: WelcomePlusShapeLayer = {
         return WelcomePlusShapeLayer(
-            unitOrigin: CGPoint(x: 0.033, y: 0.219),
+            unitOrigin: CGPoint(x: 0.825, y: 0.225),
             unitWidth: 0.05,
             referenceSize: frame.size,
             transform: wmf_scaleZeroTransform,
@@ -63,7 +56,17 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
     
     lazy var plus2: WelcomePlusShapeLayer = {
         return WelcomePlusShapeLayer(
-            unitOrigin: CGPoint(x: 0.11, y: 0.16),
+            unitOrigin: CGPoint(x: 0.755, y: 0.17),
+            unitWidth: 0.05,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroTransform,
+            opacity: 0.0
+        )
+    }()
+    
+    lazy var plus3: WelcomePlusShapeLayer = {
+        return WelcomePlusShapeLayer(
+            unitOrigin: CGPoint(x: 0.112, y: 0.353),
             unitWidth: 0.05,
             referenceSize: frame.size,
             transform: wmf_scaleZeroTransform,
@@ -73,75 +76,73 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
     
     lazy var line1: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.91, y: 0.778),
-            unitWidth: 0.144,
+            unitOrigin: CGPoint(x: 0.845, y: 0.865),
+            unitWidth: 0.135,
             referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
     
     lazy var line2: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.836, y: 0.81),
-            unitWidth: 0.06,
+            unitOrigin: CGPoint(x: 0.255, y: 0.162),
+            unitWidth: 0.135,
             referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
     
     lazy var line3: WelcomeLineShapeLayer = {
         return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.907, y: 0.81),
-            unitWidth: 0.0125,
+            unitOrigin: CGPoint(x: 0.205, y: 0.127),
+            unitWidth: 0.135,
             referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
     
     override open func addAnimationElementsScaledToCurrentFrameSize(){
         removeExistingSubviewsAndSublayers()
-
-        addSubview(baseImgView)
-        addSubview(tubeImgView)
         
+        addSubview(bubbleLeftImgView)
+        addSubview(bubbleRightImgView)
+
         [
             solidCircle,
             dashedCircle,
             plus1,
             plus2,
+            plus3,
             line1,
             line2,
             line3
             ].forEach(layer.addSublayer)
     }
-    
+
     override open func beginAnimations() {
         CATransaction.begin()
         
-        let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)
-        let tubeFinalRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(-2.0)
-
-        tubeImgView.layer.wmf_animateToOpacity(1.0,
-            transform:tubeOvershootRotationTransform,
-            delay: 0.8,
-            duration: 0.9
+        bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,
+            transform: CATransform3DIdentity,
+            delay: 0.1,
+            duration: 1.0
         )
-
-        tubeImgView.layer.wmf_animateToOpacity(1.0,
-            transform:tubeFinalRotationTransform,
-            delay: 1.8,
-            duration: 0.9
-        )
-
-        solidCircle.wmf_animateToOpacity(0.09,
+        
+        bubbleRightImgView.layer.wmf_animateToOpacity(1.0,
             transform: CATransform3DIdentity,
             delay: 0.3,
             duration: 1.0
         )
-
+        
+        solidCircle.wmf_animateToOpacity(0.04,
+            transform: CATransform3DIdentity,
+            delay: 0.3,
+            duration: 1.0
+        )
+        
         let animate = { (layer: CALayer) in
             layer.wmf_animateToOpacity(0.15,
                 transform: CATransform3DIdentity,
@@ -154,6 +155,7 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
             dashedCircle,
             plus1,
             plus2,
+            plus3,
             line1,
             line2,
             line3
