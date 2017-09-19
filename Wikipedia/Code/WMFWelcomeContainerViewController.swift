@@ -2,15 +2,18 @@
 class WMFWelcomeContainerViewController: UIViewController {
     
     @IBOutlet fileprivate var topContainerView:UIView!
+    @IBOutlet fileprivate var topBackgroundContainerView:UIView!
     @IBOutlet fileprivate var bottomContainerView:UIView!
 
     @IBOutlet fileprivate var overallContainerView:UIView!
     @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topBackgroundContainerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var containersVerticalSeparatorConstraint:NSLayoutConstraint!
     
     var welcomePageType:WMFWelcomePageType = .intro
     fileprivate var animationVC:WMFWelcomeAnimationViewController? = nil
+    fileprivate var backgroundAnimationVC:WMFWelcomeAnimationBackgroundViewController? = nil
 
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
@@ -23,10 +26,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
         reduceVerticalSpaceBetweenContainersIfDeviceIsiPhone4sOr5()
         
-        topContainerView.layer.borderWidth = 1
-        topContainerView.layer.borderColor = UIColor.black.cgColor
-        topContainerView.layer.borderColor = UIColor.black.cgColor
-        topContainerView.backgroundColor = UIColor(0xeeeeee)
+        topContainerView.backgroundColor = .clear
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +61,8 @@ class WMFWelcomeContainerViewController: UIViewController {
         if view.frame.size.height == 480 {
             topContainerView.alpha = 0
             topContainerViewHeightConstraint.constant = 0
+            topBackgroundContainerView.alpha = 0
+            topBackgroundContainerViewHeightConstraint.constant = 0
         }
     }
 
@@ -110,6 +112,10 @@ class WMFWelcomeContainerViewController: UIViewController {
         if(segue.destination.isKind(of: WMFWelcomeAnimationViewController.self)){
             animationVC = segue.destination as? WMFWelcomeAnimationViewController
             animationVC!.welcomePageType = welcomePageType
+        }
+        if(segue.destination.isKind(of: WMFWelcomeAnimationBackgroundViewController.self)){
+            backgroundAnimationVC = segue.destination as? WMFWelcomeAnimationBackgroundViewController
+            backgroundAnimationVC!.welcomePageType = welcomePageType
         }
     }
     

@@ -304,6 +304,11 @@
 		B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */; };
 		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
+		B0DF37601F70FE1F0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */; };
+		B0DF37611F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */; };
+		B0DF37621F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */; };
+		B0DF37631F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */; };
+		B0DF37641F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */; };
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
@@ -3200,6 +3205,7 @@
 		B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
 		B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBarButtonItemPopoverMessageViewController.h; sourceTree = "<group>"; };
 		B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverMessageViewController.m; sourceTree = "<group>"; };
+		B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnimationBackgroundViewController.swift; sourceTree = "<group>"; };
 		B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFWebViewControllerJavascript.h"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.h"; sourceTree = SOURCE_ROOT; };
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
 		B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewCell.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -5890,6 +5896,7 @@
 			isa = PBXGroup;
 			children = (
 				B00DDEE21DB5B16E00615FA2 /* WMFWelcomeAnimationViewController.swift */,
+				B0DF375F1F70FE1E0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift */,
 				B0F84EEC1C8E444400801560 /* WMFWelcomeAnimationView.swift */,
 				B0F0874F1C860E910086F710 /* WMFWelcomeAnimationExtensions.swift */,
 				B0F7CB531C8A895600996DE0 /* WMFWelcomeAnimationShapeLayers.swift */,
@@ -9616,6 +9623,7 @@
 				0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */,
 				D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
+				B0DF37641F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
@@ -10041,6 +10049,7 @@
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFProxyServer.m in Sources */,
 				D80ED37E1EE57F4800CE8C50 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
+				B0DF37631F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */,
 				D84DAA291EEEF527008E4B18 /* TSMessageView.m in Sources */,
 				D80ED3801EE57F4800CE8C50 /* WMFForgotPasswordViewController.swift in Sources */,
 				D80ED3811EE57F4800CE8C50 /* WMFImageGalleryViewController.m in Sources */,
@@ -10498,6 +10507,7 @@
 				D82E956D1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D818D3841ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8A42AD01E815A9C00D8E281 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
+				B0DF37601F70FE1F0018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */,
 				D8A42AD11E815A9C00D8E281 /* WMFPasswordResetter.swift in Sources */,
 				D8A42AD21E815A9C00D8E281 /* WMFSearchResultsTableViewController.m in Sources */,
 				D8A42AD31E815A9C00D8E281 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
@@ -10923,6 +10933,7 @@
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
 				D8CE25E61E698E2400DAE2E0 /* WMFProxyServer.m in Sources */,
+				B0DF37621F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */,
 				D84DAA261EEEF527008E4B18 /* TSMessageView.m in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
@@ -11224,6 +11235,7 @@
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
+				B0DF37611F70FE200018CE73 /* WMFWelcomeAnimationBackgroundViewController.swift in Sources */,
 				D8EC3EE21E9BDA35006712EB /* WMFKeychainCredentials.swift in Sources */,
 				D8EC3EE31E9BDA35006712EB /* WMFHelpViewController.m in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
