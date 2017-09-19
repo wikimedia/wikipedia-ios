@@ -3,6 +3,7 @@ import UIKit
 
 enum WMFWelcomePageType {
     case intro
+    case exploration
     case languages
     case analytics
 }
