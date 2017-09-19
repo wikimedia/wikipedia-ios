@@ -20,12 +20,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
         super.viewDidLoad()
 
         animationView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(animationView)
-
-        animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        animationView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        view.wmf_addSubviewWithConstraintsToEdges(animationView)
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
