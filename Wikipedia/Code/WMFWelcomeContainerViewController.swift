@@ -42,6 +42,8 @@ class WMFWelcomeContainerViewController: UIViewController {
         switch welcomePageType {
         case .intro:
             return false
+        case .exploration:
+            return true
         case .languages:
             return true
         case .analytics:
@@ -80,7 +82,13 @@ class WMFWelcomeContainerViewController: UIViewController {
     fileprivate lazy var bottomContainerController: UIViewController = {
         switch self.welcomePageType {
         case .intro:
-            return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
+            let introPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
+            introPanelVC.welcomePageType = .intro
+            return introPanelVC;
+        case .exploration:
+            let explorationPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
+            explorationPanelVC.welcomePageType = .exploration
+            return explorationPanelVC;
         case .languages:
             let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
             langPanelVC.welcomePageType = .languages
