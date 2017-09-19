@@ -151,7 +151,7 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Clear";
 "history-clear-cancel" = "Cancel";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
@@ -333,6 +333,7 @@
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
+"share-a-fact-made-with" = "Made with the Wikipedia app";
 "share-a-fact-share-menu-item" = "Share-a-fact…";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-building" = "Building Share-a-fact card…";
@@ -394,7 +395,7 @@
 "wikitext-upload-save" = "Publishing...";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "Log in";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "By publishing changes, you agree to the $1 and agree to release your contribution under the $2 and $3 license.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "By publishing changes, you agree to the $1 and agree to release your contribution under the $2 and $3 license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";

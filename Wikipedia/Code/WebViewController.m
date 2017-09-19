@@ -6,8 +6,6 @@
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFShareCardViewController.h"
-#import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -1057,7 +1055,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)shareSnippet:(NSString *)snippet {
-    [self.webView wmf_suppressSelection];
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 

@@ -151,7 +151,7 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface\n{{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}";
-"gdfl" = "Name of the GDFL license - https://www.gnu.org/licenses/fdl.html";
+"gfdl" = "Name of the GFDL license - https://www.gnu.org/licenses/fdl.html";
 "history-clear-all" = "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}";
 "history-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -333,6 +333,7 @@
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
+"share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-a-fact-share-menu-item" = "Button label for creating a Share-a-fact card from the current text selection";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
@@ -394,7 +395,7 @@
 "wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link 1\n* $3 - license name link 2";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link 1\n* $3 - license name link 2";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
 "zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";
