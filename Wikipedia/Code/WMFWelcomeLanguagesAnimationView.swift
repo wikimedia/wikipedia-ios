@@ -110,7 +110,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         addSubview(bubbleLeftImgView)
         addSubview(bubbleRightImgView)
 
-        _ = [
+        [
             solidCircle,
             dashedCircle,
             plus1,
@@ -119,9 +119,9 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             line1,
             line2,
             line3
-            ].map({ (layer: CALayer) -> () in
+            ].forEach{ (layer: CALayer) in
                 self.layer.addSublayer(layer)
-            })
+        }
     }
 
     override open func beginAnimations() {
@@ -145,7 +145,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             duration: 1.0
         )
         
-        let animate = { (layer: CALayer) -> () in
+        let animate = { (layer: CALayer) in
             layer.wmf_animateToOpacity(0.15,
                 transform: CATransform3DIdentity,
                 delay: 0.3,
@@ -153,7 +153,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             )
         }
         
-        _ = [
+        [
             dashedCircle,
             plus1,
             plus2,
@@ -161,7 +161,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             line1,
             line2,
             line3
-            ].map(animate)
+            ].forEach(animate)
         
         CATransaction.commit()
     }

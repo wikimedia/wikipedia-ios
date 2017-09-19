@@ -31,7 +31,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var bar1: WelcomeBarShapeLayer = {
         let bar = WelcomeBarShapeLayer(
             unitRect: CGRect(x: 0.313, y: 0.64, width: 0.039, height: 0.18),
-            referenceSize:frame.size,
+            referenceSize: frame.size,
             transform: squashedHeightBarTransform
         )
         bar.fillColor = barOddColor
@@ -41,7 +41,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var bar2: WelcomeBarShapeLayer = {
         let bar = WelcomeBarShapeLayer(
             unitRect: CGRect(x: 0.383, y: 0.64, width: 0.039, height: 0.23),
-            referenceSize:frame.size,
+            referenceSize: frame.size,
             transform: squashedHeightBarTransform
         )
         bar.fillColor = barEvenColor
@@ -61,7 +61,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var bar4: WelcomeBarShapeLayer = {
         let bar = WelcomeBarShapeLayer(
             unitRect: CGRect(x: 0.523, y: 0.64, width: 0.039, height: 0.12),
-            referenceSize:frame.size,
+            referenceSize: frame.size,
             transform: squashedHeightBarTransform
         )
         bar.fillColor = barEvenColor
@@ -71,7 +71,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var bar5: WelcomeBarShapeLayer = {
         let bar = WelcomeBarShapeLayer(
             unitRect: CGRect(x: 0.593, y: 0.64, width: 0.039, height: 0.15),
-            referenceSize:frame.size,
+            referenceSize: frame.size,
             transform: squashedHeightBarTransform
         )
         bar.fillColor = barOddColor
@@ -185,17 +185,17 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
 
         addSubview(fileImgView)
         
-        _ = [
+        [
             bar1,
             bar2,
             bar3,
             bar4,
             bar5
-            ].map({ (layer: CALayer) -> () in
+            ].forEach{ (layer: CALayer) in
                 fileImgView.layer.addSublayer(layer)
-            })
+        }
         
-        _ = [
+        [
             solidCircle,
             dashedCircle,
             plus1,
@@ -206,9 +206,9 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             line4,
             line5,
             line6
-            ].map({ (layer: CALayer) -> () in
+            ].forEach{ (layer: CALayer) in
                 self.layer.addSublayer(layer)
-            })
+        }
     }
     
     override open func beginAnimations() {
@@ -227,7 +227,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         )
 
         var barIndex = 0
-        let animateBarGrowingUp = { (layer: CALayer) -> () in
+        let animateBarGrowingUp = { (layer: CALayer) in
             layer.wmf_animateToOpacity(1.0,
                 transform: self.fullHeightBarTransform,
                 delay: (0.3 + (Double(barIndex) * 0.1)),
@@ -236,15 +236,15 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             barIndex+=1
         }
         
-        _ = [
+        [
             bar1,
             bar2,
             bar3,
             bar4,
             bar5
-            ].map(animateBarGrowingUp)
+            ].forEach(animateBarGrowingUp)
         
-        let animate = { (layer: CALayer) -> () in
+        let animate = { (layer: CALayer) in
             layer.wmf_animateToOpacity(0.15,
                 transform: CATransform3DIdentity,
                 delay: 0.3,
@@ -252,7 +252,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             )
         }
         
-        _ = [
+        [
             dashedCircle,
             plus1,
             plus2,
@@ -262,7 +262,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             line4,
             line5,
             line6
-            ].map(animate)
+            ].forEach(animate)
         
         CATransaction.commit()
     }

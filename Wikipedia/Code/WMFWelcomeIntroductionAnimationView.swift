@@ -107,7 +107,7 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
         addSubview(baseImgView)
         addSubview(tubeImgView)
         
-        _ = [
+        [
             solidCircle,
             dashedCircle,
             plus1,
@@ -115,9 +115,9 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
             line1,
             line2,
             line3
-            ].map({ (layer: CALayer) -> () in
+            ].forEach{ (layer: CALayer) in
                 self.layer.addSublayer(layer)
-            })
+        }
     }
     
     override open func beginAnimations() {
@@ -144,7 +144,7 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
             duration: 1.0
         )
 
-        let animate = { (layer: CALayer) -> () in
+        let animate = { (layer: CALayer) in
             layer.wmf_animateToOpacity(0.15,
                 transform: CATransform3DIdentity,
                 delay: 0.3,
@@ -152,14 +152,14 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
             )
         }
         
-        _ = [
+        [
             dashedCircle,
             plus1,
             plus2,
             line1,
             line2,
             line3
-            ].map(animate)
+            ].forEach(animate)
         
         CATransaction.commit()
     }
