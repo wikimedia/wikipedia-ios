@@ -80,13 +80,7 @@ class WMFWelcomeContainerViewController: UIViewController {
     fileprivate func embedBottomContainerControllerView() {
         bottomContainerController.willMove(toParentViewController: self)
         bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
-        bottomContainerView.addSubview((bottomContainerController.view)!)
-
-        bottomContainerController.view.leadingAnchor.constraint(equalTo: bottomContainerView.leadingAnchor, constant: 0).isActive = true
-        bottomContainerController.view.trailingAnchor.constraint(equalTo: bottomContainerView.trailingAnchor, constant: 0).isActive = true
-        bottomContainerController.view.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 0).isActive = true
-        bottomContainerController.view.bottomAnchor.constraint(equalTo: bottomContainerView.bottomAnchor, constant: 0).isActive = true
-        
+        bottomContainerView.wmf_addSubviewWithConstraintsToEdges(bottomContainerController.view)        
         addChildViewController(bottomContainerController)
         bottomContainerController.didMove(toParentViewController: self)
     }
