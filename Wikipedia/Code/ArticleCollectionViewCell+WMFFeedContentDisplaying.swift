@@ -112,9 +112,7 @@ public extension ArticleCollectionViewCell {
 public extension ArticleRightAlignedImageCollectionViewCell {
     @objc public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         if shouldShowSeparators {
-            self.topSeparator.backgroundColor = theme.colors.border
             self.topSeparator.isHidden = index != 0
-            self.bottomSeparator.backgroundColor = theme.colors.border
             self.bottomSeparator.isHidden = false
         } else {
             self.bottomSeparator.isHidden = true

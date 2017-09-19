@@ -27,6 +27,9 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu" userLabel="Results Container View">
                                         <rect key="frame" x="0.0" y="30" width="375" height="529"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <segue destination="XYC-9k-LIV" kind="embed" identifier="searchResults" id="tYs-NR-YxD"/>
+                                        </connections>
                                     </containerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -45,7 +48,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="A57-ie-Vee" kind="embed" id="e2L-wb-3PM"/>
+                                            <segue destination="A57-ie-Vee" kind="embed" identifier="recentSearches" id="jR9-HN-JVn"/>
                                         </connections>
                                     </containerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
@@ -212,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="642" y="2849"/>
+            <point key="canvasLocation" x="213" y="2319"/>
         </scene>
         <!--Search Languages Bar View Controller-->
         <scene sceneID="hzd-EC-Bmf">
@@ -346,8 +349,8 @@
         <scene sceneID="QJa-1a-Aok">
             <objects>
                 <collectionViewController id="XYC-9k-LIV" customClass="WMFSearchResultsViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bpz-l0-dF0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="bpz-l0-dF0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="529"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bmc-4m-8rS" customClass="WMFColumnarCollectionViewLayout">
@@ -362,15 +365,17 @@
                             <outlet property="delegate" destination="XYC-9k-LIV" id="Asf-fU-r8v"/>
                         </connections>
                     </collectionView>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UTO-Fa-gdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-777" y="2195"/>
+            <point key="canvasLocation" x="-314" y="2287"/>
         </scene>
         <!--Recent Searches View Controller-->
         <scene sceneID="5Aw-Ha-wgn">
             <objects>
-                <collectionViewController id="A57-ie-Vee" customClass="WMFRecentSearchesViewController" sceneMemberID="viewController">
+                <collectionViewController restorationIdentifier="RecentSearchesViewController" storyboardIdentifier="RecentSearchesViewController" id="A57-ie-Vee" customClass="WMFRecentSearchesViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="Hbl-ER-DWv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -387,10 +392,12 @@
                             <outlet property="delegate" destination="A57-ie-Vee" id="ari-AP-u6h"/>
                         </connections>
                     </collectionView>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLJ-9m-QsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-718" y="2963"/>
+            <point key="canvasLocation" x="-119" y="3089"/>
         </scene>
     </scenes>
     <resources>

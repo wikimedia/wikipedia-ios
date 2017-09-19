@@ -25,6 +25,17 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         swipeToEditController.delegate = self
     }
     
+    open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        guard let article = article(at: indexPath) else {
+            return
+        }
+        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        cell.configure(article: article, displayType: .page, index: indexPath.section, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+    }
+    
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
@@ -61,8 +72,7 @@ extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsV
 // MARK: - UICollectionViewDataSource
 extension ArticleCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        assert(false, "Subclassers should override this function")
-        return 0
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -70,17 +80,14 @@ extension ArticleCollectionViewController {
         return 0
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    // Override configure(cell: instead to ensure height calculations are accurate
+    override final func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell,
-            let article = article(at: indexPath) else {
+        guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
         }
-        
-        let count = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        articleCell.configure(article: article, displayType: .page, index: indexPath.row, count: count, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: false)
-        
+        configure(cell: articleCell, forItemAt: indexPath)
         return cell
     }
 }
@@ -107,7 +114,6 @@ extension ArticleCollectionViewController {
         else {
                 return nil
         }
-        
         previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
     }
@@ -124,12 +130,8 @@ extension ArticleCollectionViewController {
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        guard indexPath.section < numberOfSections(in: collectionView), indexPath.row < numberOfItems, let article = article(at: indexPath) else {
-            return estimate
-        }
-        placeholderCell.reset()
-        placeholderCell.configure(article: article, displayType: .page, index: indexPath.section, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        placeholderCell.prepareForReuse()
+        configure(cell: placeholderCell, forItemAt: indexPath)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate

@@ -17,46 +17,38 @@ class RecentSearchesViewController: ArticleCollectionViewController {
 
     @objc(deselectAllAnimated:)
     func deselectAll(animated: Bool) {
-        
+        guard let selected = collectionView?.indexPathsForSelectedItems else {
+            return
+        }
+        for indexPath in selected {
+            collectionView?.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+    
+    override func articleURL(at indexPath: IndexPath) -> URL? {
+        return nil
+    }
+    
+    override func article(at indexPath: IndexPath) -> WMFArticle? {
+        return nil
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recentSearches?.entries.count ?? 0
+    }
+    
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let entry = recentSearches?.entries[indexPath.item] else {
+            return
+        }
+        cell.configureForCompactList(at: indexPath)
+        cell.titleLabel.text = entry.searchTerm
+        cell.isImageViewHidden = true
+        cell.apply(theme: theme)
     }
 }
-//#import "RecentSearchesViewController.h"
-//@import WMF.MWKRecentSearchList;
-//@import WMF.MWKRecentSearchEntry;
-//@import Masonry;
-//#import "UIButton+WMFButton.h"
-//#import "Wikipedia-Swift.h"
-//
-//static NSString *const pListFileName = @"Recent.plist";
-//static NSString *const RecentSearchesViewControllerCellIdentifier = @"RecentSearchCell";
-//
-//@interface RecentSearchesViewController ()
-//
-//@property (strong, nonatomic) IBOutlet UITableView *table;
-//@property (strong, nonatomic) IBOutlet UILabel *headingLabel;
-//@property (strong, nonatomic) IBOutlet UIView *headerContainer;
-//@property (strong, nonatomic) IBOutlet UIView *trashButtonContainer;
-//@property (strong, nonatomic) UIButton *trashButton;
-//@property (strong, nonatomic) WMFTheme *theme;
-//
-//@end
-//
-//@implementation RecentSearchesViewController
-//
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    
-//    [self setupTrashButton];
-//    [self setupHeadingLabel];
-//    [self setupTable];
-//    
-//    [self updateTrashButtonEnabledState];
-//    [self updateHeaderVisibility];
-//    [self.view wmf_configureSubviewsForDynamicType];
-//    
-//    [self applyTheme:self.theme];
-//    }
-//    
+
+
 //    - (void)deselectAllAnimated:(BOOL)animated {
 //        NSArray *selected = self.table.indexPathsForSelectedRows;
 //        for (NSIndexPath *indexPath in selected) {

@@ -230,7 +230,10 @@
               WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
 }
 
-- (nullable NSURL *)articleURLForSiteURL:(NSURL *)siteURL {
+- (nullable NSURL *)articleURLForSiteURL:(nullable NSURL *)siteURL {
+    if (siteURL == nil) {
+        return nil;
+    }
     if (self.displayTitle == nil) {
         return nil;
     }
