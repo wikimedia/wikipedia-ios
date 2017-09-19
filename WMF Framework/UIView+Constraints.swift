@@ -31,13 +31,13 @@ import UIKit
     
     @objc public func wmf_addConstraintsToEdgesOfView(_ subview: UIView, withInsets insets: UIEdgeInsets = .zero, priority: UILayoutPriority = .required) {
         subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
-        let topConstraint = topAnchor.constraint(equalTo: subview.topAnchor, constant: insets.top)
+        let topConstraint = subview.topAnchor.constraint(equalTo: topAnchor, constant: insets.top)
         topConstraint.priority = priority
-        let bottomConstraint = bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: insets.bottom)
+        let bottomConstraint = subview.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom)
         bottomConstraint.priority = priority
-        let leftConstraint = leftAnchor.constraint(equalTo: subview.leftAnchor, constant: insets.left)
+        let leftConstraint = subview.leftAnchor.constraint(equalTo: leftAnchor, constant: insets.left)
         leftConstraint.priority = priority
-        let rightConstraint = rightAnchor.constraint(equalTo: subview.rightAnchor, constant: insets.right)
+        let rightConstraint = subview.rightAnchor.constraint(equalTo: rightAnchor, constant: insets.right)
         rightConstraint.priority = priority
         addConstraints([topConstraint, bottomConstraint, leftConstraint, rightConstraint])
     }
