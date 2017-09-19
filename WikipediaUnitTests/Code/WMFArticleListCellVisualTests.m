@@ -27,6 +27,7 @@ static NSString *const LongSearchResultDescription =
     self.recordMode = WMFIsVisualTestRecordModeEnabled;
     self.deviceAgnostic = YES;
     self.searchResultCell = [[WMFArticleRightAlignedImageCollectionViewCell alloc] init];
+    [self.searchResultCell configureForCompactListAt:0];
 }
 
 - (void)tearDown {
