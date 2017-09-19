@@ -8,6 +8,7 @@
 // Author: Hwangjy9
 // Author: Idh0854
 // Author: Jerrykim306
+// Author: Macofe
 // Author: Namoroka
 // Author: Nemo bis
 // Author: Priviet
@@ -171,7 +172,7 @@
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "지우기";
 "history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
@@ -344,6 +345,7 @@
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
+"share-a-fact-made-with" = "위키백과 앱으로 작성함";
 "share-a-fact-share-menu-item" = "사실을 공유…";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
 "share-building" = "사실을 공유 카드를 만드는 중...";
@@ -400,7 +402,8 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";

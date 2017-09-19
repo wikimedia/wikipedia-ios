@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,14 +18,14 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashscreen-background" translatesAutoresizingMaskIntoConstraints="NO" id="Lxi-AY-Mcn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="fjV-9r-LpR">
-                                <rect key="frame" x="67" y="292" width="240" height="59"/>
+                                <rect key="frame" x="67" y="364.66666666666669" width="240" height="59"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -33,7 +33,7 @@
                             <constraint firstItem="Lxi-AY-Mcn" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="AFa-g5-4es"/>
                             <constraint firstItem="fjV-9r-LpR" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-12" id="BMh-zo-RyP"/>
                             <constraint firstItem="fjV-9r-LpR" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GSQ-X0-zOm"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Lxi-AY-Mcn" secondAttribute="bottom" id="LoA-U6-c1U"/>
+                            <constraint firstAttribute="bottom" secondItem="Lxi-AY-Mcn" secondAttribute="bottom" id="LoA-U6-c1U"/>
                             <constraint firstItem="Lxi-AY-Mcn" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Z3f-uh-Bvx"/>
                             <constraint firstAttribute="trailing" secondItem="Lxi-AY-Mcn" secondAttribute="trailing" id="tIM-gE-sXh"/>
                         </constraints>

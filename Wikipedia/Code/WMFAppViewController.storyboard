@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="O8j-Xm-zXE">
-    <device id="ipad9_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="O8j-Xm-zXE">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,17 +18,17 @@
                         <viewControllerLayoutGuide type="bottom" id="fKi-Ok-D1o"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zy6-Kl-9CO">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="splashscreen-background" translatesAutoresizingMaskIntoConstraints="NO" id="nDi-XA-qqD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
-                                        <rect key="frame" x="263.5" y="470.5" width="240" height="59"/>
+                                        <rect key="frame" x="67" y="364.66666666666669" width="240" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="210" id="bR9-Sg-vRZ"/>
                                             <constraint firstAttribute="height" constant="192" id="nWb-XA-yli"/>
@@ -77,7 +77,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="top" secondItem="zy6-Kl-9CO" secondAttribute="top" id="Ajx-0d-fdf"/>
-                            <constraint firstItem="N6E-ZW-sLh" firstAttribute="bottom" secondItem="fKi-Ok-D1o" secondAttribute="bottom" id="Z4Z-Fq-OZ6"/>
+                            <constraint firstItem="N6E-ZW-sLh" firstAttribute="bottom" secondItem="zy6-Kl-9CO" secondAttribute="bottom" id="Z4Z-Fq-OZ6"/>
                             <constraint firstAttribute="trailing" secondItem="N6E-ZW-sLh" secondAttribute="trailing" id="hmi-rN-wSd"/>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="leading" secondItem="zy6-Kl-9CO" secondAttribute="leading" id="lfR-SP-Ly1"/>
                         </constraints>

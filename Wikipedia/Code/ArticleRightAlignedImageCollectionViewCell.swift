@@ -3,6 +3,8 @@ import UIKit
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     let bottomSeparator = UIView()
+    let topSeparator = UIView()
+
     var singlePixelDimension: CGFloat = 0.5
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -13,19 +15,23 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func setup() {
         imageView.layer.cornerRadius = 3
         bottomSeparator.isOpaque = true
-        addSubview(bottomSeparator)
+        contentView.addSubview(bottomSeparator)
+        topSeparator.isOpaque = true
+        contentView.addSubview(topSeparator)
         super.setup()
     }
     
     open override func reset() {
         super.reset()
         bottomSeparator.isHidden = true
+        topSeparator.isHidden = true
         titleFontFamily = .system
         titleTextStyle = .body
         updateFonts(with: traitCollection)
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         var widthMinusMargins = size.width - margins.left - margins.right
         let minHeight = imageViewDimension + margins.top + margins.bottom
@@ -67,6 +73,10 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         
         if (apply && !bottomSeparator.isHidden) {
             bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
+        }
+        
+        if (apply && !topSeparator.isHidden) {
+            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width, height: singlePixelDimension)
         }
         
         if (apply && !isImageViewHidden) {

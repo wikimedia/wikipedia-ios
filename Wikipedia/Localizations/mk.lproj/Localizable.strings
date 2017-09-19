@@ -159,7 +159,8 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-username-or-email-title" = "Или";
-"gdfl" = "ГЛСД";
+// Fuzzy
+"gfdl" = "ГЛСД";
 "history-clear-all" = "Исчисти";
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
@@ -402,7 +403,8 @@
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-sign-in" = "Најава";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3 license.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3 license.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";

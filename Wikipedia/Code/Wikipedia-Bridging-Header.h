@@ -16,11 +16,14 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 
 #import "WMFSearchResults.h"
+#import "MWKSearchRedirectMapping.h"
 #import "WMFSearchFetcher.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 
 #import "WMFArticleTextActivitySource.h"
+
+#import "WMFChange.h"
 
 // Model
 #import "MWKLicense.h"
@@ -29,13 +32,13 @@
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
-#import "WMFArticleListTableViewController.h"
 #import "WMFExploreCollectionViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
+#import "UIViewController+WMFEmptyView.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"

@@ -168,7 +168,7 @@
 "forgot-password-instructions" = "在下方输入其中一个字段以通过电子邮件接收密码重置说明";
 "forgot-password-title" = "重置密码";
 "forgot-password-username-or-email-title" = "或";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
@@ -350,6 +350,7 @@
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如特色条目）。";
 "settings-support" = "支持维基百科";
 "settings-title" = "设置";
+"share-a-fact-made-with" = "通过维基百科应用制作";
 "share-a-fact-share-menu-item" = "分享预览…";
 "share-article-name-on-wikipedia" = "“$1”在@Wikipedia：";
 "share-building" = "建立分享预览卡…";
@@ -411,7 +412,7 @@
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "通过发布更改，您同意$1并同意将您的贡献根据$2和$3许可协议发布。";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "通过发布更改，您同意$1并同意将您的贡献根据$2和$3许可协议发布。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";

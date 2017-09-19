@@ -1,6 +1,7 @@
 // Messages for Sakha (саха тыла)
 // Exported from translatewiki.net
 // Author: HalanTul
+// Author: Macofe
 // Author: Nemo bis
 // Author: Ай-Куо
 // Author: Алгыс
@@ -148,7 +149,7 @@
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Сот";
 "history-clear-cancel" = "Салҕаама";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";

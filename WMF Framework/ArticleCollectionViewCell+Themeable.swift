@@ -10,3 +10,11 @@ extension ArticleCollectionViewCell: Themeable {
         updateSelectedOrHighlighted()
     }
 }
+
+extension ArticleRightAlignedImageCollectionViewCell {
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        bottomSeparator.backgroundColor = theme.colors.border
+        topSeparator.backgroundColor = theme.colors.border
+    }
+}

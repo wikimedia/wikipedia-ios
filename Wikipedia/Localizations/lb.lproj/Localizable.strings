@@ -147,7 +147,7 @@
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
-"gdfl" = "GDFL";
+"gfdl" = "GDFL";
 "history-clear-all" = "Eidel maachen";
 "history-clear-cancel" = "Ofbriechen";
 "history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
@@ -316,6 +316,7 @@
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
+"share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
 "share-a-fact-share-menu-item" = "E-Fait-deelen...";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-custom-menu-item" = "Deelen...";
@@ -371,7 +372,8 @@
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";

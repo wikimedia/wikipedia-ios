@@ -160,7 +160,7 @@
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
-"gdfl" = "GFDL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Löschen";
 "history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
@@ -342,6 +342,7 @@
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
 "settings-support" = "Wikipedia unterstützen";
 "settings-title" = "Einstellungen";
+"share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
 "share-a-fact-share-menu-item" = "Teile-einen-Fakt …";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
@@ -403,7 +404,7 @@
 "wikitext-upload-save" = "Veröffentliche …";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
 "wikitext-upload-save-sign-in" = "Anmelden";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Durch das Veröffentlichen von Änderungen stimmst du den $1 und der Veröffentlichung deines Beitrags unter den Lizenzen $2 und $3 zu.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Durch das Veröffentlichen von Änderungen stimmst du den $1 und der Veröffentlichung deines Beitrags unter den Lizenzen $2 und $3 zu.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ist aus";
 "zero-charged-verbiage-extended" = "Das Laden weiterer Artikel kann Datenübertragungsgebühren verursachen. Offline gespeicherte Artikel verwenden keine Daten und sind kostenlos.";

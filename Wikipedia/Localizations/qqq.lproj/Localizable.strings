@@ -156,8 +156,6 @@
 "history-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
-"history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
-"history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
 "history-title" = "Title of the history screen shown on history tab\n{{Identical|History}}";
 "hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
 "hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
