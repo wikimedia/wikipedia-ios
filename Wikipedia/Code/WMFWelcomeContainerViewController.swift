@@ -9,7 +9,6 @@ class WMFWelcomeContainerViewController: UIViewController {
     @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topBackgroundContainerViewHeightConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var containersVerticalSeparatorConstraint:NSLayoutConstraint!
     
     var welcomePageType:WMFWelcomePageType = .intro
     fileprivate var animationVC:WMFWelcomeAnimationForgroundViewController? = nil
@@ -24,7 +23,6 @@ class WMFWelcomeContainerViewController: UIViewController {
         embedBottomContainerControllerView()
         useBottomAlignmentIfPhone()
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
-        reduceVerticalSpaceBetweenContainersIfDeviceIsiPhone4sOr5()
         
         topContainerView.backgroundColor = .clear
     }
@@ -63,12 +61,6 @@ class WMFWelcomeContainerViewController: UIViewController {
             topContainerViewHeightConstraint.constant = 0
             topBackgroundContainerView.alpha = 0
             topBackgroundContainerViewHeightConstraint.constant = 0
-        }
-    }
-
-    fileprivate func reduceVerticalSpaceBetweenContainersIfDeviceIsiPhone4sOr5() {
-        if view.frame.size.height <= 568 {
-            containersVerticalSeparatorConstraint.constant = 0
         }
     }
     
