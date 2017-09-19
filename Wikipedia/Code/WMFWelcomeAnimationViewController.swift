@@ -27,6 +27,8 @@ class WMFWelcomeAnimationViewController: UIViewController {
         super.didMove(toParentViewController: parent)
         view.superview?.layoutIfNeeded() // Fix for: http://stackoverflow.com/a/39614714
         animationView.addAnimationElementsScaledToCurrentFrameSize()
+        animationView.layer.cornerRadius = animationView.frame.size.width / 2.0
+        animationView.layer.masksToBounds = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
