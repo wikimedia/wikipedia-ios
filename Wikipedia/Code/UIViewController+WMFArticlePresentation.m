@@ -39,8 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
         UITabBarController *tab = (UITabBarController *)[self.childViewControllers firstObject];
         UINavigationController *nav = [tab selectedViewController];
         [nav pushViewController:viewController animated:animated];
+    } else if (self.presentingViewController != nil) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [self.presentingViewController wmf_pushArticleViewController:viewController animated:animated];
+        }];
+    } else if (self.parentViewController != nil) {
+        [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
     } else {
-        NSAssert(0, @"Unexpected view controller hierarchy");
+        NSAssert(false, @"Unexpected view controller hierarchy");
     }
     [[PiwikTracker sharedInstance] wmf_logView:viewController];
 }
@@ -52,6 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
         UITabBarController *tab = (UITabBarController *)[self.childViewControllers firstObject];
         UINavigationController *nav = [tab selectedViewController];
         [nav pushViewController:viewController animated:animated];
+    } else if (self.presentingViewController != nil) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [self.presentingViewController wmf_pushViewController:viewController animated:animated];
+        }];
+    } else if (self.parentViewController != nil) {
+        [self.parentViewController wmf_pushViewController:viewController animated:animated];
     } else {
         NSAssert(0, @"Unexpected view controller hierarchy");
     }

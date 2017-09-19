@@ -969,12 +969,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
-- (WMFArticleListTableViewController *)savedArticlesViewController {
-    return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
+- (WMFSavedViewController *)savedArticlesViewController {
+    return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
-- (WMFArticleListTableViewController *)recentArticlesViewController {
-    return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+- (WMFHistoryViewController *)recentArticlesViewController {
+    return (WMFHistoryViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
 - (WMFPlacesViewController *)placesViewController {

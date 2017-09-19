@@ -6,8 +6,6 @@
 #import <WMF/MWKLanguageLink.h>
 @import Masonry;
 
-#import "RecentSearchesViewController.h"
-#import "WMFSearchResultsTableViewController.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 #import "Wikipedia-Swift.h"
@@ -23,14 +21,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @interface WMFSearchViewController () <UISearchBarDelegate,
                                        WMFRecentSearchesViewControllerDelegate,
                                        UITextFieldDelegate,
-                                       WMFArticleListTableViewControllerDelegate,
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFTheme *theme;
 
-@property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
-@property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (nonatomic, strong) WMFRecentSearchesViewController *recentSearchesViewController;
+@property (nonatomic, strong) WMFSearchResultsViewController *resultsListController;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
@@ -152,13 +149,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)configureArticleList {
     [self.resultsListController applyTheme:self.theme];
-    self.resultsListController.userDataStore = self.dataStore;
-    self.resultsListController.delegate = self;
+    self.resultsListController.dataStore = self.dataStore;
 }
 
 - (void)configureRecentSearchList {
     self.recentSearchesViewController.recentSearches = self.dataStore.recentSearchList;
-    self.recentSearchesViewController.delegate = self;
+    self.recentSearchesViewController.recentSearchesViewControllerDelegate = self;
 }
 
 - (void)configureSearchField {
@@ -179,8 +175,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
     self.title = WMFLocalizedStringWithDefaultValue(@"search-title", nil, nil, @"Search", @"Title for search interface.\n{{Identical|Search}}");
-    self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
+    self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
 
     self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
 
@@ -250,11 +246,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchResultsViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
-    if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFRecentSearchesViewController class]]) {
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
     }
@@ -466,7 +462,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
                                              self.resultsListController.searchResults = results;
                                              self.resultsListController.searchSiteURL = url;
-                                             [self.resultsListController.tableView reloadData];
+                                             [self.resultsListController.collectionView reloadData];
                              
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
@@ -536,7 +532,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
-- (void)recentSearchController:(RecentSearchesViewController *)controller
+- (void)recentSearchController:(WMFRecentSearchesViewController *)controller
            didSelectSearchTerm:(MWKRecentSearchEntry *)searchTerm {
     [self setSearchFieldText:searchTerm.searchTerm];
     [self searchForSearchTerm:searchTerm.searchTerm];
@@ -552,31 +548,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                          [self updateSearchSuggestion:nil];
                      }];
     [self searchForSearchTerm:self.searchField.text];
-}
-
-#pragma mark - WMFArticleListTableViewControllerDelegate
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didSelectArticleURL:(nonnull NSURL *)url {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore theme:self.theme animated:YES];
-                             }];
-}
-
-- (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-    return vc;
-}
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:YES];
-                             }];
 }
 
 - (NSString *)analyticsContext {

@@ -10,13 +10,6 @@ extension UICollectionViewController {
     }
 }
 
-extension WMFArticleListTableViewController {
-    @objc func scrollToTop(_ isScrollable: Bool) {
-        guard isScrollable else { return }
-        scrollToFirstIndexPath()
-    }
-}
-
 extension ArticleCollectionViewController {
     @objc func scrollToTop(_ isScrollable: Bool) {
         guard isScrollable else { return }

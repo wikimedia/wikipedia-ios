@@ -2,11 +2,19 @@ import UIKit
 
 fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
 
+@objc(WMFArticleCollectionViewControllerDelegate)
+protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
+    
+}
+
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController {
     @objc var dataStore: MWKDataStore!
+    
     var swipeToEditController: CollectionViewSwipeToEditController!
-
+    
+    weak var delegate: ArticleCollectionViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)

@@ -10,7 +10,6 @@
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
-#import "WMFDisambiguationPagesViewController.h"
 #import "PageHistoryViewController.h"
 //Funnel
 #import "WMFShareFunnel.h"
@@ -79,7 +78,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
-                                        WMFArticleListTableViewControllerDelegate,
                                         WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
@@ -1489,7 +1487,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
-    articleListVC.delegate = self;
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
 }
@@ -1785,48 +1782,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                    dataStore:self.dataStore
                                                        theme:self.theme];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
-}
-
-#pragma mark - WMFArticleListTableViewControllerDelegate
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didSelectArticleURL:(NSURL *)url {
-    dispatch_block_t presentation = ^{
-        id<WMFAnalyticsContentTypeProviding> contentType = nil;
-        if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-            contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
-        }
-        [self pushArticleViewControllerWithURL:url contentType:contentType animated:YES];
-    };
-    if ([self presentedViewController]) {
-        [self dismissViewControllerAnimated:YES completion:presentation];
-    } else {
-        presentation();
-    }
-}
-
-- (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(NSURL *)url {
-    return [[WMFArticleViewController alloc] initWithArticleURL:url
-                                                      dataStore:self.dataStore
-                                                          theme:self.theme];
-}
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
-    dispatch_block_t presentation = ^{
-        if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
-            id<WMFAnalyticsContentTypeProviding> contentType = nil;
-            if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
-                contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
-            }
-            [self pushArticleViewController:(WMFArticleViewController *)viewController contentType:contentType animated:YES];
-        } else {
-            [self presentViewController:viewController animated:YES completion:nil];
-        }
-    };
-    if ([self presentedViewController]) {
-        [self dismissViewControllerAnimated:YES completion:presentation];
-    } else {
-        presentation();
-    }
 }
 
 #pragma mark - WMFAnalyticsContextProviding
