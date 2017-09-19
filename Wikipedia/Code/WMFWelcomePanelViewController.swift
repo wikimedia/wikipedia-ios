@@ -3,10 +3,8 @@ class WMFWelcomePanelViewController: UIViewController {
     fileprivate var theme = Theme.standard
     
     @IBOutlet fileprivate var containerView:UIView!
-    @IBOutlet fileprivate var nextButton:UIButton!
     @IBOutlet fileprivate var titleLabel:UILabel!
-    @IBOutlet fileprivate var subtitleLabel:UILabel!
-
+    
     fileprivate var viewControllerForContainerView:UIViewController? = nil
     var welcomePageType:WMFWelcomePageType = .intro
 
@@ -14,9 +12,7 @@ class WMFWelcomePanelViewController: UIViewController {
         super.viewDidLoad()
         embedContainerControllerView()
         updateUIStrings()
-        nextButton.setTitleColor(theme.colors.link, for: UIControlState())
-        containerView.layer.borderWidth = 1.0 / UIScreen.main.scale
-        self.view.wmf_configureSubviewsForDynamicType()
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     fileprivate func embedContainerControllerView() {
@@ -24,17 +20,18 @@ class WMFWelcomePanelViewController: UIViewController {
             containerController.willMove(toParentViewController: self)
             containerController.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview((containerController.view)!)
-            self.containerView.wmf_addConstraintsToEdgesOfView(containerController.view)
-            self.addChildViewController(containerController)
+            containerView.wmf_addConstraintsToEdgesOfView(containerController.view)
+            addChildViewController(containerController)
             containerController.didMove(toParentViewController: self)
         }
     }
     
     fileprivate lazy var containerController: UIViewController? = {
-        switch self.welcomePageType {
+        switch welcomePageType {
         case .intro:
-            assertionFailure("Intro welcome view is not embedded in a panel.")
-            return nil
+            return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
+        case .exploration:
+            return WMFWelcomeExplorationViewController.wmf_viewControllerFromWelcomeStoryboard()
         case .languages:
             return WMFWelcomeLanguageTableViewController.wmf_viewControllerFromWelcomeStoryboard()
         case .analytics:
@@ -43,17 +40,21 @@ class WMFWelcomePanelViewController: UIViewController {
     }()
 
     fileprivate func updateUIStrings(){
-        switch self.welcomePageType {
+        switch welcomePageType {
         case .intro:
-            assertionFailure("Intro welcome view is not embedded in a panel.")
+            titleLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-title", value:"The free encyclopedia", comment:"Title for introductory welcome screen")
+        case .exploration:
+            titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features")
         case .languages:
-            titleLabel.text = WMFLocalizedString("welcome-languages-title", value:"Languages", comment:"Title for welcome screen allowing user to select additional languages\n{{Identical|Language}}").uppercased(with: Locale.current)
-            subtitleLabel.text = WMFLocalizedString("welcome-languages-sub-title", value:"Choose your preferred languages to search Wikipedia", comment:"Sub-title for languages welcome screen")
-            nextButton.setTitle(WMFLocalizedString("welcome-languages-continue-button", value:"Continue", comment:"Text for button for moving to next welcome screen\n{{Identical|Continue}}").uppercased(with: Locale.current), for: UIControlState())
+            //TODO: 300 may not be how many app can show. Need shorter string too? Wraps to 3 lines on iphone 5...
+            titleLabel.text = WMFLocalizedString("welcome-languages-search-title", value:"Search in nearly 300 languages", comment:"Title for welcome screen describing Wikipedia languages")
         case .analytics:
-            titleLabel.text = WMFLocalizedString("welcome-send-data-title", value:"Send Anonymous data", comment:"Title for welcome screen allowing user to opt in to send usage reports").uppercased(with: Locale.current)
-            subtitleLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help the Wikimedia Foundation make the app better by letting us know how you use the app. Data collected is anonymous", comment:"Sub-title explaining how sending usage reports can help improve the app")
-            nextButton.setTitle(WMFLocalizedString("button-done", value:"Done", comment:"Button text for done button used in various places.\n{{Identical|Done}}").uppercased(with: Locale.current), for: UIControlState())
+            titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .headline, compatibleWithTraitCollection: traitCollection)
     }
 }
