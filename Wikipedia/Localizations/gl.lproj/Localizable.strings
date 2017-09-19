@@ -162,7 +162,7 @@
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
@@ -344,6 +344,7 @@
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
+"share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
 "share-a-fact-share-menu-item" = "Comparta-un-feito...";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
@@ -405,7 +406,7 @@
 "wikitext-upload-save" = "Publicando...";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ó publicar cambios, vostede acepta os $1 e acepta liberar a súa contribución baixo as licenzas $2 e $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ó publicar cambios, vostede acepta $1 e acepta liberar a súa contribución baixo as licenzas $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivada";
 "zero-charged-verbiage-extended" = "Cargar outros artigos pode facer que se aplique a súa tarifa de datos. Os artigos gardados e almacenados sen conexión non usan os datos e o seu acceso é gratuíto.";

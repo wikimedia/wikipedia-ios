@@ -9,6 +9,7 @@
 // Author: InternerowyGołąb
 // Author: Jacenty359
 // Author: Krottyianock
+// Author: Macofe
 // Author: Mazab IZW
 // Author: Nemo bis
 // Author: Pawel Niemczuk
@@ -136,7 +137,7 @@
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
