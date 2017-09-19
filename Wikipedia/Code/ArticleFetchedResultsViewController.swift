@@ -41,19 +41,21 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         return .none
     }
     
-    func updateEmptyState() {
+    var isEmpty = true
+    
+    fileprivate final func updateEmptyState() {
         guard let collectionView = self.collectionView else {
             return
         }
         let sectionCount = numberOfSections(in: collectionView)
-        var isEmpty = true
+
+        isEmpty = true
         for sectionIndex in 0..<sectionCount {
             if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
                 isEmpty = false
                 break
             }
         }
-        
         if isEmpty {
             wmf_showEmptyView(of: emptyViewType, theme: theme)
         } else {
@@ -61,10 +63,43 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-        dispatchAfterDelayInSeconds(0.7, DispatchQueue.main) {
-            self.updateEmptyState()
+    var deleteAllButtonText: String? = nil
+    var deleteAllConfirmationText: String? = nil
+    var deleteAllCancelText: String? = nil
+    var deleteAllText: String? = nil
+    var isDeleteAllVisible: Bool = false
+    
+    open func deleteAll() {
+        
+    }
+    
+    fileprivate final func updateDeleteButton() {
+        guard isDeleteAllVisible else {
+            navigationItem.leftBarButtonItem = nil
+            return
         }
+        
+        if navigationItem.leftBarButtonItem == nil {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        }
+
+        navigationItem.leftBarButtonItem?.isEnabled = !isEmpty
+    }
+    
+    @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: deleteAllConfirmationText, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: deleteAllText, style: .destructive, handler: { (action) in
+            self.deleteAll()
+        }))
+        alertController.addAction(UIAlertAction(title: deleteAllCancelText, style: .cancel, handler: nil))
+        alertController.popoverPresentationController?.barButtonItem = sender
+        alertController.popoverPresentationController?.permittedArrowDirections = .any
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        updateEmptyState()
+        updateDeleteButton()
     }
     
     var isFirstAppearance = true
@@ -81,6 +116,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
         collectionView?.reloadData()
         updateEmptyState()
+        updateDeleteButton()
     }
 }
 
