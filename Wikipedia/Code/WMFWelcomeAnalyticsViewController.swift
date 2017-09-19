@@ -36,7 +36,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
             toggle.isOn = false
             BITHockeyManager.shared().crashManager.crashManagerStatus = .alwaysAsk
         }
-        self.view.wmf_configureSubviewsForDynamicType()
+        view.wmf_configureSubviewsForDynamicType()
     }
     
     fileprivate func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {

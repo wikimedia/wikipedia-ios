@@ -4,7 +4,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
     fileprivate var hasAlreadyAnimated = false
 
     fileprivate lazy var animationView: WMFWelcomeAnimationView = {
-        switch self.welcomePageType {
+        switch welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
         case .exploration:

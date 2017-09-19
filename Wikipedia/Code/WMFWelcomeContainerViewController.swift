@@ -82,17 +82,17 @@ class WMFWelcomeContainerViewController: UIViewController {
         bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
         bottomContainerView.addSubview((bottomContainerController.view)!)
 
-        bottomContainerController.view.leadingAnchor.constraint(equalTo: self.bottomContainerView.leadingAnchor, constant: 0).isActive = true
-        bottomContainerController.view.trailingAnchor.constraint(equalTo: self.bottomContainerView.trailingAnchor, constant: 0).isActive = true
-        bottomContainerController.view.topAnchor.constraint(equalTo: self.bottomContainerView.topAnchor, constant: 0).isActive = true
-        bottomContainerController.view.bottomAnchor.constraint(equalTo: self.bottomContainerView.bottomAnchor, constant: 0).isActive = true
+        bottomContainerController.view.leadingAnchor.constraint(equalTo: bottomContainerView.leadingAnchor, constant: 0).isActive = true
+        bottomContainerController.view.trailingAnchor.constraint(equalTo: bottomContainerView.trailingAnchor, constant: 0).isActive = true
+        bottomContainerController.view.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 0).isActive = true
+        bottomContainerController.view.bottomAnchor.constraint(equalTo: bottomContainerView.bottomAnchor, constant: 0).isActive = true
         
-        self.addChildViewController(bottomContainerController)
+        addChildViewController(bottomContainerController)
         bottomContainerController.didMove(toParentViewController: self)
     }
 
     fileprivate lazy var bottomContainerController: UIViewController = {
-        switch self.welcomePageType {
+        switch welcomePageType {
         case .intro:
             let introPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
             introPanelVC.welcomePageType = .intro

@@ -3,22 +3,22 @@ import Foundation
 open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
 
     lazy var bubbleLeftImgView: UIImageView = {
-        let imgView = UIImageView(frame: self.bounds)
+        let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-left-bubble")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
-        imgView.layer.transform = self.wmf_scaleZeroAndLowerLeftTransform
+        imgView.layer.transform = wmf_scaleZeroAndLowerLeftTransform
         return imgView
     }()
     
     lazy var bubbleRightImgView: UIImageView = {
-        let imgView = UIImageView(frame: self.bounds)
+        let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-right-bubble")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.opacity = 0
-        imgView.layer.transform = self.wmf_scaleZeroAndLowerRightTransform
+        imgView.layer.transform = wmf_scaleZeroAndLowerRightTransform
         return imgView
     }()
     
@@ -26,9 +26,9 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomeCircleShapeLayer(
             unitRadius: 0.31,
             unitOrigin: CGPoint(x: 0.508, y: 0.518),
-            referenceSize: self.frame.size,
+            referenceSize: frame.size,
             isDashed: true,
-            transform: self.wmf_scaleZeroTransform,
+            transform: wmf_scaleZeroTransform,
             opacity:0.0
         )
     }()
@@ -37,9 +37,9 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomeCircleShapeLayer(
             unitRadius: 0.31,
             unitOrigin: CGPoint(x: 0.39, y: 0.5),
-            referenceSize: self.frame.size,
+            referenceSize: frame.size,
             isDashed: false,
-            transform: self.wmf_scaleZeroTransform,
+            transform: wmf_scaleZeroTransform,
             opacity:0.0
         )
     }()
@@ -48,8 +48,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomePlusShapeLayer(
             unitOrigin: CGPoint(x: 0.825, y: 0.225),
             unitWidth: 0.05,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroTransform,
             opacity: 0.0
         )
     }()
@@ -58,8 +58,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomePlusShapeLayer(
             unitOrigin: CGPoint(x: 0.755, y: 0.17),
             unitWidth: 0.05,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroTransform,
             opacity: 0.0
         )
     }()
@@ -68,8 +68,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomePlusShapeLayer(
             unitOrigin: CGPoint(x: 0.112, y: 0.353),
             unitWidth: 0.05,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroTransform,
             opacity: 0.0
         )
     }()
@@ -78,8 +78,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomeLineShapeLayer(
             unitOrigin: CGPoint(x: 0.845, y: 0.865),
             unitWidth: 0.135,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroAndLeftTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
@@ -88,8 +88,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomeLineShapeLayer(
             unitOrigin: CGPoint(x: 0.255, y: 0.162),
             unitWidth: 0.135,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroAndLeftTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
@@ -98,8 +98,8 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return WelcomeLineShapeLayer(
             unitOrigin: CGPoint(x: 0.205, y: 0.127),
             unitWidth: 0.135,
-            referenceSize: self.frame.size,
-            transform: self.wmf_scaleZeroAndLeftTransform,
+            referenceSize: frame.size,
+            transform: wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
     }()
@@ -107,18 +107,18 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     override open func addAnimationElementsScaledToCurrentFrameSize(){
         removeExistingSubviewsAndSublayers()
         
-        self.addSubview(self.bubbleLeftImgView)
-        self.addSubview(self.bubbleRightImgView)
+        addSubview(bubbleLeftImgView)
+        addSubview(bubbleRightImgView)
 
         _ = [
-            self.solidCircle,
-            self.dashedCircle,
-            self.plus1,
-            self.plus2,
-            self.plus3,
-            self.line1,
-            self.line2,
-            self.line3
+            solidCircle,
+            dashedCircle,
+            plus1,
+            plus2,
+            plus3,
+            line1,
+            line2,
+            line3
             ].map({ (layer: CALayer) -> () in
                 self.layer.addSublayer(layer)
             })
@@ -139,7 +139,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
             duration: 1.0
         )
         
-        self.solidCircle.wmf_animateToOpacity(0.04,
+        solidCircle.wmf_animateToOpacity(0.04,
             transform: CATransform3DIdentity,
             delay: 0.3,
             duration: 1.0
@@ -154,13 +154,13 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         }
         
         _ = [
-            self.dashedCircle,
-            self.plus1,
-            self.plus2,
-            self.plus3,
-            self.line1,
-            self.line2,
-            self.line3
+            dashedCircle,
+            plus1,
+            plus2,
+            plus3,
+            line1,
+            line2,
+            line3
             ].map(animate)
         
         CATransaction.commit()

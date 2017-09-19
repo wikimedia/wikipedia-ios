@@ -6,10 +6,10 @@ open class WMFWelcomeAnimationView : UIView {
     // so they can scale proportionally to the view size.
     
     fileprivate var wmf_proportionalHorizontalOffset: CGFloat{
-        return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
+        return CGFloat(0.35).wmf_denormalizeUsingReference(frame.width)
     }
     fileprivate var wmf_proportionalVerticalOffset: CGFloat{
-        return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.height)
+        return CGFloat(0.35).wmf_denormalizeUsingReference(frame.height)
     }
     
     
@@ -27,10 +27,10 @@ open class WMFWelcomeAnimationView : UIView {
     let wmf_scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
 
     var wmf_scaleZeroAndLeftTransform: CATransform3D{
-        return CATransform3DConcat(self.wmf_scaleZeroTransform, wmf_leftTransform)
+        return CATransform3DConcat(wmf_scaleZeroTransform, wmf_leftTransform)
     }
     var wmf_scaleZeroAndRightTransform: CATransform3D{
-        return CATransform3DConcat(self.wmf_scaleZeroTransform, wmf_rightTransform)
+        return CATransform3DConcat(wmf_scaleZeroTransform, wmf_rightTransform)
     }
     var wmf_scaleZeroAndLowerLeftTransform: CATransform3D{
         return CATransform3DConcat(wmf_scaleZeroAndLeftTransform, wmf_lowerTransform)
@@ -42,7 +42,7 @@ open class WMFWelcomeAnimationView : UIView {
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         // Fix for: http://stackoverflow.com/a/39614714
-        self.layoutIfNeeded()
+        layoutIfNeeded()
     }
     
     open func beginAnimations() {
@@ -54,10 +54,10 @@ open class WMFWelcomeAnimationView : UIView {
     }
     
     open func removeExistingSubviewsAndSublayers() {
-        for subview in self.subviews {
+        for subview in subviews {
             subview.removeFromSuperview()
         }
-        if let sublayers = self.layer.sublayers {
+        if let sublayers = layer.sublayers {
             for sublayer in sublayers {
                 sublayer.removeFromSuperlayer()
             }

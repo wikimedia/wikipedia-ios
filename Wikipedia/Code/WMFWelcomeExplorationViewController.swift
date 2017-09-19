@@ -23,7 +23,7 @@ class WMFWelcomeExplorationViewController: UIViewController {
         onThisDayTitleLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-title", value:"On this day", comment:"Title for On this day")
         onThisDayDescriptionLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-description", value:"Travel back in time to learn what happened today in history", comment:"Description for On this day")
         
-        self.view.wmf_configureSubviewsForDynamicType()
+        view.wmf_configureSubviewsForDynamicType()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

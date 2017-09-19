@@ -14,7 +14,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
         
         linkLabel.textColor = .wmf_blue
         
-        self.view.wmf_configureSubviewsForDynamicType()
+        view.wmf_configureSubviewsForDynamicType()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

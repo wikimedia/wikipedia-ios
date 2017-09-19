@@ -42,8 +42,8 @@ extension CGRect {
 
 extension CALayer {
     public func wmf_animateToOpacity(_ opacity: Double, transform: CATransform3D, delay: Double, duration: Double){
-        self.add(CABasicAnimation.wmf_animationToTransform(transform, delay: delay, duration: duration), forKey: nil)
-        self.add(CABasicAnimation.wmf_animationToOpacity(opacity, delay: delay, duration: duration), forKey: nil)
+        add(CABasicAnimation.wmf_animationToTransform(transform, delay: delay, duration: duration), forKey: nil)
+        add(CABasicAnimation.wmf_animationToOpacity(opacity, delay: delay, duration: duration), forKey: nil)
     }
 }
 
