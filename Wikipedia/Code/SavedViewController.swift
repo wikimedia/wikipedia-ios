@@ -11,11 +11,18 @@ class SavedViewController: ArticleFetchedResultsViewController {
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
-    override func canSaveOrUnsaveArticle(at indexPath: IndexPath) -> Bool {
+    override func canSave(at indexPath: IndexPath) -> Bool {
         return false
     }
     
-    override func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+    override func canUnsave(at indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func delete(at indexPath: IndexPath) {
+        guard let articleURL = self.articleURL(at: indexPath) else {
+            return
+        }
         dataStore.savedPageList.removeEntry(with: articleURL)
     }
     

@@ -26,11 +26,14 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         return article(at: indexPath)?.url
     }
     
-    override func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+    override func delete(at indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            return
+        }
         dataStore.historyList.removeEntry(with: articleURL)
     }
     
-    override func canDeleteArticle(at indexPath: IndexPath) -> Bool {
+    override func canDelete(at indexPath: IndexPath) -> Bool {
         return true
     }
     

@@ -46,16 +46,30 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         return nil
     }
     
-    open func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+    open func delete(at indexPath: IndexPath) {
         assert(false, "Subclassers should override this function")
     }
     
-    open func canDeleteArticle(at indexPath: IndexPath) -> Bool {
+    open func canDelete(at indexPath: IndexPath) -> Bool {
         return false
     }
     
-    open func canSaveOrUnsaveArticle(at indexPath: IndexPath) -> Bool {
-        return true
+    open func canSave(at indexPath: IndexPath) -> Bool {
+        guard let articleURL = articleURL(at: indexPath) else {
+            return false
+        }
+        return !dataStore.savedPageList.isSaved(articleURL)
+    }
+    
+    open func canUnsave(at indexPath: IndexPath) -> Bool {
+        guard let articleURL = articleURL(at: indexPath) else {
+            return false
+        }
+        return dataStore.savedPageList.isSaved(articleURL)
+    }
+    
+    open func canShare(at indexPath: IndexPath) -> Bool {
+        return articleURL(at: indexPath) != nil
     }
 }
 
@@ -145,48 +159,54 @@ extension ArticleCollectionViewController {
 
 extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
     func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
-            return
-        }
+        
         switch action.type {
         case .delete:
-            deleteArticle(with: articleURL, at: indexPath)
+            delete(at: indexPath)
         case .save:
-            dataStore.savedPageList.addSavedPage(with: articleURL)
-        case .unsave:
-            dataStore.savedPageList.removeEntry(with: articleURL)
-        case .share:
-            let shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                let cell = collectionView?.cellForItem(at: indexPath)
-                shareActivityController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                shareActivityController.popoverPresentationController?.sourceView = cell ?? view
-                shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.addSavedPage(with: articleURL)
             }
-            present(shareActivityController, animated: true, completion: nil)
-            break
+        case .unsave:
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.removeEntry(with: articleURL)
+            }
+        case .share:
+            let shareActivityController: ShareActivityController?
+            if let article = self.article(at: indexPath) {
+                shareActivityController = ShareActivityController(article: article, context: self)
+            } else if let articleURL =  self.articleURL(at: indexPath) {
+                shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
+            } else {
+                shareActivityController = nil
+            }
+            if let viewController = shareActivityController {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    let cell = collectionView?.cellForItem(at: indexPath)
+                    viewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                    viewController.popoverPresentationController?.sourceView = cell ?? view
+                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+                }
+                present(viewController, animated: true, completion: nil)
+            }
         }
         swipeToEditController.performedAction()
     }
     
     func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
-        guard let article = article(at: indexPath) else {
-            return []
-        }
-
         var actions: [CollectionViewCellAction] = []
         
-        if canSaveOrUnsaveArticle(at: indexPath) {
-            if article.savedDate != nil {
-                actions.append(CollectionViewCellActionType.unsave.action)
-            } else {
-                actions.append(CollectionViewCellActionType.save.action)
-            }
+        if canSave(at: indexPath) {
+            actions.append(CollectionViewCellActionType.save.action)
+        } else if canUnsave(at: indexPath) {
+            actions.append(CollectionViewCellActionType.unsave.action)
         }
         
-        actions.append(CollectionViewCellActionType.share.action)
+        if canShare(at: indexPath) {
+            actions.append(CollectionViewCellActionType.share.action)
+        }
         
-        if canDeleteArticle(at: indexPath) {
+        if canDelete(at: indexPath) {
             actions.append(CollectionViewCellActionType.delete.action)
         }
 

@@ -33,19 +33,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
-    if (self.navigationController != nil) {
-        [self.navigationController pushViewController:viewController animated:animated];
-    } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
-        UITabBarController *tab = (UITabBarController *)[self.childViewControllers firstObject];
-        UINavigationController *nav = [tab selectedViewController];
-        [nav pushViewController:viewController animated:animated];
+    if (self.parentViewController != nil) {
+        [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
         [presentingViewController dismissViewControllerAnimated:YES completion:^{
             [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
         }];
-    } else if (self.parentViewController != nil) {
-        [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
+    } else if (self.navigationController != nil) {
+        [self.navigationController pushViewController:viewController animated:animated];
+    } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tab = (UITabBarController *)[self.childViewControllers firstObject];
+        UINavigationController *nav = [tab selectedViewController];
+        [nav pushViewController:viewController animated:animated];
     } else {
         NSAssert(false, @"Unexpected view controller hierarchy");
     }

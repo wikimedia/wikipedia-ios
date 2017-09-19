@@ -6,6 +6,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     
     let titlesSearchFetcher = WMFArticlePreviewFetcher()
     let siteURL: URL
+    var results: [MWKSearchResult] = []
     
     @objc var resultLimit: Int = 10
     
@@ -37,10 +38,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     func fetch() {
         titlesSearchFetcher.fetchArticlePreviewResults(forArticleURLs: articleURLs, siteURL: siteURL, completion: { (results) in
             DispatchQueue.main.async {
-                for result in results {
-                    self.dataStore.viewContext.fetchOrCreateArticle(with: result.articleURL(forSiteURL: self.siteURL), updatedWith: result)
-                }
-                self.didFetch = true
+                self.results = results
                 self.collectionView?.reloadData()
             }
         }) { (error) in
@@ -51,8 +49,23 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return didFetch ? super.collectionView(collectionView, numberOfItemsInSection: section) : 0
+        return results.count
     }
+    
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        cell.configureForCompactList(at: indexPath.item)
+        let articleURL = self.articleURL(at: indexPath)
+        let searchResult = results[indexPath.item]
+        cell.titleLabel.text = articleURL.wmf_title
+        cell.descriptionLabel.text = (searchResult.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
+        if layoutOnly {
+            cell.isImageViewHidden = searchResult.thumbnailURL != nil
+        } else {
+            cell.imageURL = searchResult.thumbnailURL
+        }
+        cell.apply(theme: theme)
+    }
+    
     
     override var analyticsName: String {
         return "Disambiguation"

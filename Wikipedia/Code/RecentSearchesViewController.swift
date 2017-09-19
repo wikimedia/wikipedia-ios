@@ -43,11 +43,11 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         return nil
     }
     
-    override func canDeleteArticle(at indexPath: IndexPath) -> Bool {
+    override func canDelete(at indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func deleteArticle(with articleURL: URL, at indexPath: IndexPath) {
+    override func delete(at indexPath: IndexPath) {
         guard let entry = recentSearches?.entries[indexPath.item] else {
             return
         }
