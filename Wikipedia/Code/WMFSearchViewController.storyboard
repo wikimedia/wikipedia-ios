@@ -45,12 +45,39 @@
                                         </connections>
                                     </button>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw" userLabel="Recent Searches Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                        <rect key="frame" x="0.0" y="54" width="375" height="505"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="A57-ie-Vee" kind="embed" identifier="recentSearches" id="jR9-HN-JVn"/>
                                         </connections>
                                     </containerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Ll-LOD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENTLY SEARCHED" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFS-nz-XoB">
+                                                <rect key="frame" x="8" y="30" width="138" height="16"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3t-Zi-TUK">
+                                                <rect key="frame" x="353" y="27.5" width="14" height="22"/>
+                                                <state key="normal" image="clear-mini"/>
+                                                <connections>
+                                                    <action selector="clearRecentSearches:" destination="tkf-8P-b2O" eventType="touchUpInside" id="wjl-y3-ofi"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="lFS-nz-XoB" firstAttribute="leading" secondItem="kfG-Ll-LOD" secondAttribute="leading" constant="8" id="Edq-EN-BG5"/>
+                                            <constraint firstAttribute="bottom" secondItem="lFS-nz-XoB" secondAttribute="bottom" constant="8" id="EsD-dp-1HF"/>
+                                            <constraint firstItem="g3t-Zi-TUK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lFS-nz-XoB" secondAttribute="trailing" constant="8" id="IaL-xQ-2Ck"/>
+                                            <constraint firstItem="g3t-Zi-TUK" firstAttribute="centerY" secondItem="lFS-nz-XoB" secondAttribute="centerY" id="MAZ-Pn-6zH"/>
+                                            <constraint firstAttribute="trailing" secondItem="g3t-Zi-TUK" secondAttribute="trailing" constant="8" id="cbo-3h-MUv"/>
+                                            <constraint firstItem="lFS-nz-XoB" firstAttribute="top" secondItem="kfG-Ll-LOD" secondAttribute="top" constant="30" id="dgT-nP-fkw"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
                                         <rect key="frame" x="0.0" y="29" width="375" height="1"/>
                                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -64,6 +91,7 @@
                                     <constraint firstItem="ukX-0p-5ey" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="0xc-XM-pQH"/>
                                     <constraint firstItem="B20-xN-XHO" firstAttribute="leading" secondItem="ukX-0p-5ey" secondAttribute="leading" id="8Ma-nf-gPd"/>
                                     <constraint firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="9PS-Kr-mZk"/>
+                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="kfG-Ll-LOD" secondAttribute="bottom" id="9m4-HJ-uj4"/>
                                     <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="BJe-ow-hj0"/>
                                     <constraint firstAttribute="trailing" secondItem="Ia7-49-Gwu" secondAttribute="trailing" id="ILn-zh-Tms"/>
                                     <constraint firstAttribute="trailing" secondItem="tpe-pb-Bgw" secondAttribute="trailing" id="Muh-N7-a0m"/>
@@ -71,8 +99,10 @@
                                     <constraint firstItem="B20-xN-XHO" firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="OLJ-CH-SSz"/>
                                     <constraint firstItem="B20-xN-XHO" firstAttribute="bottom" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="SXH-OP-2OH"/>
                                     <constraint firstItem="tpe-pb-Bgw" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="YOe-0f-HUJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="kfG-Ll-LOD" secondAttribute="trailing" id="byM-Rs-7xt"/>
                                     <constraint firstAttribute="bottom" secondItem="tpe-pb-Bgw" secondAttribute="bottom" id="cDm-JD-Jq0"/>
-                                    <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="emR-Ny-EK2"/>
+                                    <constraint firstItem="kfG-Ll-LOD" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="hjg-gU-pfR"/>
+                                    <constraint firstItem="kfG-Ll-LOD" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="top" id="hpV-2x-zbA"/>
                                     <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="t07-qr-X5o"/>
                                     <constraint firstItem="Ia7-49-Gwu" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="wEt-yo-eNV"/>
                                 </constraints>
@@ -195,11 +225,14 @@
                     <navigationItem key="navigationItem" id="VPB-a3-QrM"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="clearRecentSearchesButton" destination="g3t-Zi-TUK" id="nwg-f9-gM4"/>
                         <outlet property="closeButton" destination="Kjf-LF-NvO" id="lCI-I4-AM0"/>
                         <outlet property="contentViewTop" destination="8MZ-d6-S5y" id="vRR-vo-iHX"/>
                         <outlet property="languagesBarContainer" destination="aQA-T5-obx" id="QyX-VI-8p5"/>
                         <outlet property="progressView" destination="WX2-ME-qx7" id="8sZ-ug-0O8"/>
                         <outlet property="recentSearchesContainerView" destination="tpe-pb-Bgw" id="aD2-ul-dw2"/>
+                        <outlet property="recentSearchesHeader" destination="kfG-Ll-LOD" id="nlX-mI-ZRv"/>
+                        <outlet property="recentSearchesHeaderLabel" destination="lFS-nz-XoB" id="KRZ-s1-QhV"/>
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchBottomSeparatorView" destination="B20-xN-XHO" id="cfH-7w-tPK"/>
                         <outlet property="searchContentContainer" destination="RWd-Ft-cEc" id="1ml-U9-Erw"/>
@@ -215,7 +248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="213" y="2319"/>
+            <point key="canvasLocation" x="212" y="2318.5907046476764"/>
         </scene>
         <!--Search Languages Bar View Controller-->
         <scene sceneID="hzd-EC-Bmf">
@@ -377,7 +410,7 @@
             <objects>
                 <collectionViewController restorationIdentifier="RecentSearchesViewController" storyboardIdentifier="RecentSearchesViewController" id="A57-ie-Vee" customClass="WMFRecentSearchesViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="Hbl-ER-DWv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xZu-Dk-XOC" customClass="WMFColumnarCollectionViewLayout">
@@ -401,6 +434,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="clear-mini" width="14" height="14"/>
         <image name="close" width="18" height="18"/>
         <image name="search" width="21" height="21"/>
     </resources>
