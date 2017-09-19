@@ -7,6 +7,8 @@ class WMFWelcomeAnimationViewController: UIViewController {
         switch self.welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
+        case .exploration:
+            return WMFWelcomeExplorationAnimationView()
         case .languages:
             return WMFWelcomeLanguagesAnimationView()
         case .analytics:
