@@ -5,7 +5,8 @@ fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    
+    var headerLayoutEstimate: WMFLayoutEstimate?
+
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
@@ -42,6 +43,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func deleteAll() {
         dataStore.historyList.removeAllEntries()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerLayoutEstimate = nil
+    }
 }
     
 // MARK: UICollectionViewDataSource
@@ -75,6 +81,9 @@ extension HistoryViewController {
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension HistoryViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        if let estimate = headerLayoutEstimate {
+            return estimate
+        }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
         guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
             return estimate
@@ -84,6 +93,7 @@ extension HistoryViewController {
         placeholder.text = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
+        headerLayoutEstimate = estimate
         return estimate
     }
 }
