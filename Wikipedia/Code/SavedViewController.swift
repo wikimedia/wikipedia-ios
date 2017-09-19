@@ -41,6 +41,10 @@ class SavedViewController: ArticleFetchedResultsViewController {
     override var analyticsName: String {
         return "Saved"
     }
+    
+    override var emptyViewType: WMFEmptyViewType {
+        return .noSavedPages
+    }
 }
 
 //

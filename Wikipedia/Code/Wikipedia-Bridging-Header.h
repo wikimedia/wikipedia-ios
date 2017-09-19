@@ -38,6 +38,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
+#import "UIViewController+WMFEmptyView.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"

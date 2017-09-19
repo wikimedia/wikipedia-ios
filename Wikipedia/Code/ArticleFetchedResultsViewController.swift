@@ -37,8 +37,34 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         return true
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+    var emptyViewType: WMFEmptyViewType {
+        return .none
+    }
+    
+    func updateEmptyState() {
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        let sectionCount = numberOfSections(in: collectionView)
+        var isEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isEmpty = false
+                break
+            }
+        }
         
+        if isEmpty {
+            wmf_showEmptyView(of: emptyViewType, theme: theme)
+        } else {
+            wmf_hideEmptyView()
+        }
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        dispatchAfterDelayInSeconds(0.7, DispatchQueue.main) {
+            self.updateEmptyState()
+        }
     }
     
     var isFirstAppearance = true
@@ -54,6 +80,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             DDLogError("Error fetching articles for \(self): \(error)")
         }
         collectionView?.reloadData()
+        updateEmptyState()
     }
 }
 

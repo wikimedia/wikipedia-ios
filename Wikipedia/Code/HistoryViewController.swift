@@ -32,6 +32,10 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
     }
+    
+    override var emptyViewType: WMFEmptyViewType {
+        return .noHistory
+    }
 }
     
 // MARK: UICollectionViewDataSource
