@@ -1,9 +1,7 @@
 import Foundation
 
-extension ArticleRightAlignedImageCollectionViewCell {
-    public func configureForCompactList(at indexPath: IndexPath) {
-        topSeparator.isHidden = indexPath.item > 0
-        bottomSeparator.isHidden = false
+extension ArticleCollectionViewCell {
+    @objc open func configureForCompactList(at index: Int) {
         margins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
@@ -25,5 +23,13 @@ extension ArticleRightAlignedImageCollectionViewCell {
         get {
             return imageView.wmf_imageURLToFetch
         }
+    }
+}
+
+extension ArticleRightAlignedImageCollectionViewCell {
+    open override func configureForCompactList(at index: Int) {
+        super.configureForCompactList(at: index)
+        topSeparator.isHidden = index > 0
+        bottomSeparator.isHidden = false
     }
 }

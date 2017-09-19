@@ -25,7 +25,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         swipeToEditController.delegate = self
     }
     
-    open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath) {
+    open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let collectionView = self.collectionView else {
             return
         }
@@ -33,7 +33,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, displayType: .page, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
@@ -87,7 +87,7 @@ extension ArticleCollectionViewController {
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
         }
-        configure(cell: articleCell, forItemAt: indexPath)
+        configure(cell: articleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
 }
@@ -131,7 +131,7 @@ extension ArticleCollectionViewController {
             return estimate
         }
         placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath)
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate

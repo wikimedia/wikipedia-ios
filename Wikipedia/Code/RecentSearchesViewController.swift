@@ -47,11 +47,11 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         return recentSearches?.entries.count ?? 0
     }
     
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath) {
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let entry = recentSearches?.entries[indexPath.item] else {
             return
         }
-        cell.configureForCompactList(at: indexPath)
+        cell.configureForCompactList(at: indexPath.item)
         cell.titleLabel.text = entry.searchTerm
         cell.isImageViewHidden = true
         cell.apply(theme: theme)

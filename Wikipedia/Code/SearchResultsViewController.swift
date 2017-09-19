@@ -58,19 +58,23 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return String.localizedStringWithFormat("%@\n%@", redirectMessage, description)
     }
     
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath) {
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let result = searchResults?.results?[indexPath.item],
             let articleURL = articleURL(at: indexPath),
             let language = searchSiteURL?.wmf_language else {
             return
         }
         let locale = NSLocale.wmf_locale(for: language)
-        cell.configureForCompactList(at: indexPath)
+        cell.configureForCompactList(at: indexPath.item)
         cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: searchResults?.searchTerm, locale: locale)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = language
-        cell.imageURL = result.thumbnailURL
+        if layoutOnly {
+            cell.isImageViewHidden = result.thumbnailURL != nil
+        } else {
+            cell.imageURL = result.thumbnailURL
+        } 
         cell.apply(theme: theme)
     }
 }
