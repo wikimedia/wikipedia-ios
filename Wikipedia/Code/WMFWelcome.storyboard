@@ -161,10 +161,10 @@
             </objects>
             <point key="canvasLocation" x="3008" y="742"/>
         </scene>
-        <!--Welcome Animation View Controller-->
+        <!--Welcome Animation Forground View Controller-->
         <scene sceneID="3Zz-F5-tnE">
             <objects>
-                <viewController storyboardIdentifier="WMFWelcomeAnimationViewController" id="phf-K5-0TN" customClass="WMFWelcomeAnimationViewController" customModule="Wikipedia" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFWelcomeAnimationForgroundViewController" id="phf-K5-0TN" customClass="WMFWelcomeAnimationForgroundViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vcr-It-EFs"/>
                         <viewControllerLayoutGuide type="bottom" id="NY4-Ko-CH1"/>

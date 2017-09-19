@@ -12,7 +12,7 @@ class WMFWelcomeContainerViewController: UIViewController {
     @IBOutlet fileprivate var containersVerticalSeparatorConstraint:NSLayoutConstraint!
     
     var welcomePageType:WMFWelcomePageType = .intro
-    fileprivate var animationVC:WMFWelcomeAnimationViewController? = nil
+    fileprivate var animationVC:WMFWelcomeAnimationForgroundViewController? = nil
     fileprivate var backgroundAnimationVC:WMFWelcomeAnimationBackgroundViewController? = nil
 
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
@@ -109,8 +109,8 @@ class WMFWelcomeContainerViewController: UIViewController {
     }()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.destination.isKind(of: WMFWelcomeAnimationViewController.self)){
-            animationVC = segue.destination as? WMFWelcomeAnimationViewController
+        if(segue.destination.isKind(of: WMFWelcomeAnimationForgroundViewController.self)){
+            animationVC = segue.destination as? WMFWelcomeAnimationForgroundViewController
             animationVC!.welcomePageType = welcomePageType
         }
         if(segue.destination.isKind(of: WMFWelcomeAnimationBackgroundViewController.self)){
