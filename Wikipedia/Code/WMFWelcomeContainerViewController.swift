@@ -22,6 +22,11 @@ class WMFWelcomeContainerViewController: UIViewController {
         useBottomAlignmentIfPhone()
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
         reduceVerticalSpaceBetweenContainersIfDeviceIsiPhone4sOr5()
+        
+        topContainerView.layer.borderWidth = 1
+        topContainerView.layer.borderColor = UIColor.black.cgColor
+        topContainerView.layer.borderColor = UIColor.black.cgColor
+        topContainerView.backgroundColor = UIColor(0xeeeeee)
     }
 
     override func viewWillAppear(_ animated: Bool) {
