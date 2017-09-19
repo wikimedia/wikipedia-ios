@@ -40,8 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
         UINavigationController *nav = [tab selectedViewController];
         [nav pushViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [self.presentingViewController wmf_pushArticleViewController:viewController animated:animated];
+        UIViewController *presentingViewController = self.presentingViewController;
+        [presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
         }];
     } else if (self.parentViewController != nil) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
@@ -59,8 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
         UINavigationController *nav = [tab selectedViewController];
         [nav pushViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [self.presentingViewController wmf_pushViewController:viewController animated:animated];
+        UIViewController *presentingViewController = self.presentingViewController;
+        [presentingViewController dismissViewControllerAnimated:YES completion:^{
+            [presentingViewController wmf_pushViewController:viewController animated:animated];
         }];
     } else if (self.parentViewController != nil) {
         [self.parentViewController wmf_pushViewController:viewController animated:animated];

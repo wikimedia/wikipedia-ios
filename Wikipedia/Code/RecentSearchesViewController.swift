@@ -3,7 +3,7 @@ import WMF
 
 @objc(WMFRecentSearchesViewControllerDelegate)
 protocol RecentSearchesViewControllerDelegate: NSObjectProtocol {
-
+    func recentSearchController(_: RecentSearchesViewController, didSelectSearchTerm: MWKRecentSearchEntry?)
 }
 
 @objc(WMFRecentSearchesViewController)
@@ -12,6 +12,16 @@ class RecentSearchesViewController: ArticleCollectionViewController {
     @objc var recentSearches: MWKRecentSearchList?
     
     @objc func reloadRecentSearches() {
+        collectionView?.reloadData()
+        updateHeaderVisibility()
+        updateTrashButtonEnabledState()
+    }
+    
+    func updateHeaderVisibility() {
+        
+    }
+    
+    func updateTrashButtonEnabledState() {
         
     }
 
@@ -46,28 +56,14 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         cell.isImageViewHidden = true
         cell.apply(theme: theme)
     }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        recentSearchesViewControllerDelegate?.recentSearchController(self, didSelectSearchTerm: recentSearches?.entry(at: UInt(indexPath.item)))
+    }
 }
 
 
-//    - (void)deselectAllAnimated:(BOOL)animated {
-//        NSArray *selected = self.table.indexPathsForSelectedRows;
-//        for (NSIndexPath *indexPath in selected) {
-//            [self.table deselectRowAtIndexPath:indexPath animated:animated];
-//        }
-//        }
-//        
-//        - (void)setupTable {
-//            [self.table registerClass:[UICollectionViewCell class] forCellReuseIdentifier:RecentSearchesViewControllerCellIdentifier];
-//            
-//            self.table.estimatedRowHeight = 52.f;
-//            self.table.rowHeight = UITableViewAutomaticDimension;
-//            }
-//            
-//            - (void)reloadRecentSearches {
-//                [self.table reloadData];
-//                [self updateTrashButtonEnabledState];
-//                [self updateHeaderVisibility];
-//                }
+
 //                
 //                - (void)setupHeadingLabel {
 //                    // Reminder: TWN has in the past rejected all-caps strings because there are complications
@@ -127,32 +123,11 @@ class RecentSearchesViewController: ArticleCollectionViewController {
 //                                                [self removeAllTerms];
 //                                                [self reloadRecentSearches];
 //                                                }
-//                                                
-//                                                - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//                                                    // Return the number of sections.
-//                                                    return 1;
-//                                                    }
-//                                                    
-//                                                    - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//                                                        // Return the number of rows in the section.
-//                                                        return [self.recentSearches countOfEntries];
-//                                                        }
+//
 //                                                        
-//                                                        - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//                                                            UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:RecentSearchesViewControllerCellIdentifier forIndexPath:indexPath];
-//                                                            cell.backgroundView.backgroundColor = self.theme.colors.paperBackground;
-//                                                            cell.selectedBackgroundView.backgroundColor = self.theme.colors.midBackground;
-//                                                            cell.textLabel.textColor = self.theme.colors.primaryText;
-//                                                            cell.textLabel.text = [[self.recentSearches entryAtIndex:indexPath.row] searchTerm];
+
 //                                                            
-//                                                            return cell;
-//                                                            }
-//                                                            
-//                                                            // Override to support conditional editing of the table view.
-//                                                            - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//                                                                // Return NO if you do not want the specified item to be editable.
-//                                                                return YES;
-//                                                                }
+
 //                                                                
 //                                                                - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 //                                                                    WMFArticleListTableViewRowActions *rowActions = [[WMFArticleListTableViewRowActions alloc] init];
