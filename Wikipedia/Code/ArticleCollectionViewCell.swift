@@ -9,7 +9,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     @objc public let imageView = UIImageView()
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
-    fileprivate var privateContentView: UIView = UIView()
 
     private var kvoButtonTitleContext = 0
     
@@ -27,8 +26,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
-        super.contentView.addSubview(privateContentView)
-
         actionsView = CollectionViewCellActionsView(frame: CGRect.zero, cell: self)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
@@ -41,9 +38,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    open override var contentView: UIView {
-        return privateContentView
-    }
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
@@ -81,7 +75,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            privateContentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
+            contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
             let actionsViewWidth = actionsView?.maximumWidth ?? 0
             actionsView?.frame = CGRect(x: size.width - actionsViewWidth, y: 0, width: actionsViewWidth, height: size.height)
             actionsView?.layoutSubviews()
@@ -242,7 +236,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         guard let actionsView = actionsView, actionsView.superview == nil else { return }
         
         actionsView.swipeType = swipeType
-        super.contentView.insertSubview(actionsView, belowSubview: privateContentView)
+        insertSubview(actionsView, belowSubview: contentView)
         layoutSubviews()
         actionsView.layoutIfNeeded()
     }
@@ -264,8 +258,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         let totalDistance = swipeTranslation - targetTranslation
         let duration: CGFloat = 0.40
         let springVelocity = abs(swipeVelocity) * duration / totalDistance
-    
-        privateContentView.backgroundColor = backgroundView?.backgroundColor
+        contentView.backgroundColor = backgroundView?.backgroundColor
         UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
             self.swipeTranslation = targetTranslation
             self.layoutIfNeeded()
@@ -291,7 +284,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             self.actionsView?.isUserInteractionEnabled = false
             self.swipeInitialFramePosition = 0
             self.clipsToBounds = false
-            self.privateContentView.backgroundColor = .clear
+            self.contentView.backgroundColor = .clear
+
         })
     }
     
