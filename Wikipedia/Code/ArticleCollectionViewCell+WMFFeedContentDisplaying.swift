@@ -90,6 +90,7 @@ public extension ArticleCollectionViewCell {
             extractLabel?.text = nil
         case .compactList:
             configureForCompactList(at: index)
+            fallthrough
         case .page:
             fallthrough
         default:
@@ -100,7 +101,6 @@ public extension ArticleCollectionViewCell {
             if (shouldAdjustMargins) {
                 adjustMargins(for: index, count: count)
             }
-
         }
         
         titleLabel.accessibilityLanguage = articleLanguage

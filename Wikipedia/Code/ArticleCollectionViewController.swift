@@ -97,7 +97,6 @@ extension ArticleCollectionViewController {
     // Override configure(cell: instead to ensure height calculations are accurate
     override final func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
         }
@@ -115,7 +114,6 @@ extension ArticleCollectionViewController {
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
-
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
