@@ -1019,6 +1019,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return YES;
     }
 #endif
+
+    // TODO: remove this once done testing Welcome screen changes!
+    return YES;
+
     NSNumber *didShow = [[NSUserDefaults wmf_userDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1437,7 +1441,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
