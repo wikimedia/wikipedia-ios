@@ -26,7 +26,9 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.isUserInteractionEnabled = false
         let nextIndex = index + 1
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
-        self.setViewControllers([pageControllers[nextIndex]], direction: direction, animated: true, completion: {(Bool) in
+        let nextVC = pageControllers[nextIndex]
+        hideButtons(for: nextVC)
+        setViewControllers([nextVC], direction: direction, animated: true, completion: {(Bool) in
             self.view.isUserInteractionEnabled = true
         })
     }
@@ -38,7 +40,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.isUserInteractionEnabled = false
         let prevIndex = index - 1
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
-        self.setViewControllers([pageControllers[prevIndex]], direction: direction, animated: true, completion: {(Bool) in
+        setViewControllers([pageControllers[prevIndex]], direction: direction, animated: true, completion: {(Bool) in
             self.view.isUserInteractionEnabled = true
         })
     }
@@ -52,14 +54,15 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     
     fileprivate lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
-        controllers.append(self.containerControllerForWelcomePageType(.intro))
-        controllers.append(self.containerControllerForWelcomePageType(.languages))
-        controllers.append(self.containerControllerForWelcomePageType(.analytics))
+        controllers.append(containerControllerForWelcomePageType(.intro))
+        controllers.append(containerControllerForWelcomePageType(.exploration))
+        controllers.append(containerControllerForWelcomePageType(.languages))
+        controllers.append(containerControllerForWelcomePageType(.analytics))
         return controllers
     }()
     
     fileprivate lazy var pageControl: UIPageControl? = {
-        return self.view.wmf_firstSubviewOfType(UIPageControl.self)
+        return view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
     let nextButton = UIButton()
@@ -70,11 +73,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         dataSource = self
         delegate = self
         
+        //TODO: add overall tap recognizer that advances to next panel?
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(0xffffff)
         
         configureAndAddNextButton()
         configureAndAddSkipButton()
@@ -92,12 +96,13 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         // TODO: localize
         nextButton.setTitle("Next", for: .normal)
         nextButton.setTitleColor(.wmf_blue, for: .normal)
-        nextButton.setTitleColor(.gray, for: .highlighted)
-        nextButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
+        // TODO: figure out what to do about 0xA2A9B1 - not sure what to name this gray based on the other gray names - we already have  'light(er|est)Gray'
+        nextButton.setTitleColor(UIColor(0xA2A9B1), for: .disabled)
+        nextButton.setTitleColor(.wmf_blue, for: .highlighted)
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 70))
+        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 88))
     }
 
     fileprivate func configureAndAddSkipButton(){
@@ -107,12 +112,17 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
         // TODO: localize
         skipButton.setTitle("Skip", for: .normal)
-        skipButton.setTitleColor(.gray, for: .normal)
-        skipButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: 15)
+        skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -70))
+        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -88))
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        skipButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        nextButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {
