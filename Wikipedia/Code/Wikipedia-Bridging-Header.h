@@ -46,7 +46,6 @@
 #import "WMFCVLAttributes.h"
 #import "WMFCVLMetrics.h"
 #import "WMFSearchButton.h"
-#import "WMFCustomDeleteButtonTableViewCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
