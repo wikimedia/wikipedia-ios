@@ -1435,7 +1435,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
@@ -1569,8 +1569,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
         return;
     }
+
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
 
@@ -1578,6 +1580,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
     vc.permaRandomMode = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif
