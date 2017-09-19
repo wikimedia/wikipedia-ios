@@ -205,19 +205,19 @@
                                 <rect key="frame" x="20" y="44" width="320" height="552"/>
                                 <subviews>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="8iq-Ul-mmM"/>
+                                            <constraint firstAttribute="height" constant="150" id="8iq-Ul-mmM"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="aoo-cp-EUY" kind="embed" id="v8M-9R-cat"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf">
-                                        <rect key="frame" x="100" y="10" width="120" height="120"/>
+                                        <rect key="frame" x="95" y="10" width="130" height="130"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="2oC-tB-tAw"/>
-                                            <constraint firstAttribute="width" constant="120" id="PRe-Gb-kqo"/>
+                                            <constraint firstAttribute="height" constant="130" id="2oC-tB-tAw"/>
+                                            <constraint firstAttribute="width" constant="130" id="PRe-Gb-kqo"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="phf-K5-0TN" kind="embed" id="aUs-nc-Kfc"/>
@@ -237,7 +237,7 @@
                                     <constraint firstItem="zQc-qA-ACw" firstAttribute="top" secondItem="M5K-6p-DM6" secondAttribute="top" id="EId-M1-skO"/>
                                     <constraint firstItem="7gU-a9-VNf" firstAttribute="centerY" secondItem="zQc-qA-ACw" secondAttribute="centerY" id="IPR-qY-nEd"/>
                                     <constraint firstAttribute="trailing" secondItem="FJI-Er-O9h" secondAttribute="trailing" id="Inr-F0-Xa9"/>
-                                    <constraint firstItem="FJI-Er-O9h" firstAttribute="top" secondItem="zQc-qA-ACw" secondAttribute="bottom" constant="20" id="T9i-AF-TB4"/>
+                                    <constraint firstItem="FJI-Er-O9h" firstAttribute="top" secondItem="zQc-qA-ACw" secondAttribute="bottom" constant="10" id="T9i-AF-TB4"/>
                                     <constraint firstItem="zQc-qA-ACw" firstAttribute="leading" secondItem="M5K-6p-DM6" secondAttribute="leading" id="YwC-rF-oq7"/>
                                     <constraint firstItem="7gU-a9-VNf" firstAttribute="centerX" secondItem="zQc-qA-ACw" secondAttribute="centerX" id="Zcm-3f-74B"/>
                                     <constraint firstAttribute="trailing" secondItem="zQc-qA-ACw" secondAttribute="trailing" id="eoQ-Gp-ati"/>
@@ -552,7 +552,7 @@
                         <viewControllerLayoutGuide type="bottom" id="qQ3-lN-ODI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h3n-cK-21Q">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
