@@ -115,9 +115,7 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
             line1,
             line2,
             line3
-            ].forEach{ (layer: CALayer) in
-                self.layer.addSublayer(layer)
-        }
+            ].forEach(layer.addSublayer)
     }
     
     override open func beginAnimations() {

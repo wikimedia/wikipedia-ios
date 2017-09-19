@@ -191,9 +191,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             bar3,
             bar4,
             bar5
-            ].forEach{ (layer: CALayer) in
-                fileImgView.layer.addSublayer(layer)
-        }
+            ].forEach(fileImgView.layer.addSublayer)
         
         [
             solidCircle,
@@ -206,9 +204,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             line4,
             line5,
             line6
-            ].forEach{ (layer: CALayer) in
-                self.layer.addSublayer(layer)
-        }
+            ].forEach(layer.addSublayer)
     }
     
     override open func beginAnimations() {
