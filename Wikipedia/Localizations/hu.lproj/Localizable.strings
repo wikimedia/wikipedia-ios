@@ -4,6 +4,7 @@
 // Author: Bencemac
 // Author: Csega
 // Author: Dj
+// Author: Macofe
 // Author: Misibacsi
 // Author: Máté
 // Author: Nemo bis
@@ -158,7 +159,7 @@
 "forgot-password-instructions" = "Töltsd ki a lenti mezők egyikét, hogy megkapd a jelszó-visszaállítási utasításokat e-mailben";
 "forgot-password-title" = "Jelszó visszaállítása";
 "forgot-password-username-or-email-title" = "Vagy";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Törlés";
 "history-clear-cancel" = "Mégsem";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";

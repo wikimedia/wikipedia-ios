@@ -1,6 +1,7 @@
 // Messages for Javanese (Basa Jawa)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
+// Author: Macofe
 // Author: Nemo bis
 // Author: NoiX180
 
@@ -154,7 +155,7 @@
 "forgot-password-instructions" = "Isinen ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung wadi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung wadi";
 "forgot-password-username-or-email-title" = "Utawa";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Busak";
 "history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
@@ -387,7 +388,8 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
 "zero-charged-verbiage" = "Wikipedia Zero mati";
 "zero-charged-verbiage-extended" = "Ngamot artikel liyané bokmanawa kena béya dhata. Artikel kasimpen sing ana ing njaban jaringan ora nganggo dhata lan gratis.";

@@ -289,10 +289,10 @@
 "settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。言語を変更すると、「探してみよう」フィードに表示される日替わりコンテンツ(例えば、秀逸な記事など)も変更されます。";
 "settings-support" = "ウィキペディアを支援する";
 "settings-title" = "設定";
-// Fuzzy
-"share-a-fact-share-menu-item" = "引用してシェア";
+"share-a-fact-share-menu-item" = "引用してシェア…";
 "share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
 "share-custom-menu-item" = "共有...";
+"share-menu-item" = "共有…";
 "share-on-twitter-sign-off" = "@Wikipedia から";
 "status-saved-for-later" = "保存しました";
 "status-saving-for-later" = "保存しています...";

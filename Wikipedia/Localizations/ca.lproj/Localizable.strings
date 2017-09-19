@@ -164,7 +164,7 @@
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Neteja";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
@@ -392,7 +392,8 @@
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
 "zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";

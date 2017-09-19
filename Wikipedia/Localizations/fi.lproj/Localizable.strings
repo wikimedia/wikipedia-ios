@@ -64,6 +64,7 @@
 "action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
 "announcements-dismiss" = "Sulje";
+"appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
 "article-languages-filter-placeholder" = "Löydä kieli";
@@ -85,6 +86,7 @@
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-saved-remove" = "Poista tallennetuista";
+"cancel" = "Peruuta";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
@@ -158,7 +160,7 @@
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "Tai";
-"gdfl" = "GFDL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Tyhjennä";
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
@@ -311,6 +313,7 @@
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
+"settings-appearance" = "Ulkoasu";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennä välimuisti?";
@@ -329,11 +332,12 @@
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Jaa fakta";
+"share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
+"share-a-fact-share-menu-item" = "Jaa fakta…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-custom-menu-item" = "Jaa...";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
+"share-menu-item" = "Jaa…";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Mapsissa";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
@@ -373,6 +377,7 @@
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
+"wikitext-preview-link-preview-description" = "Tämä linkki vie osoitteeseen '$1'";
 "wikitext-preview-link-preview-title" = "Linkin esikatselu";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
@@ -380,7 +385,8 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";

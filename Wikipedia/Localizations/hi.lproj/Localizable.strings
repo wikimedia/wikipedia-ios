@@ -168,7 +168,8 @@
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
-"gdfl" = "गडफल";
+// Fuzzy
+"gfdl" = "गडफल";
 "history-clear-all" = "साफ करें";
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
@@ -405,7 +406,8 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "zero-charged-verbiage" = "विकिपीडिया ज़ीरो बंद है";
 "zero-charged-verbiage-extended" = "दूसरे लेखों को लोड करने पर डेटा चार्ज लग सकता है। ऑफलाइन सहेजे गए पेज मुफ़्त हैं और डेटा का प्रयोग नहीं करते।";

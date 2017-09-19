@@ -175,7 +175,7 @@
 "forgot-password-instructions" = "برای دریافت گذرواژهٔ جدید به وسیلهٔ ایمیل یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
@@ -357,6 +357,7 @@
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-title" = "تنظیمات";
+"share-a-fact-made-with" = "ساخته شده توسط اپلیکیشن ویکی‌پدیا";
 "share-a-fact-share-menu-item" = "اشتراک-مطلب";
 "share-article-name-on-wikipedia" = "\"$1\" در @ویکی‌پدیا:";
 "share-building" = "ساخت کارت اشتراک-مطلب...";
@@ -418,7 +419,7 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-sign-in" = "ورود";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";

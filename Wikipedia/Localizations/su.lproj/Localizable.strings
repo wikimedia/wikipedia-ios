@@ -158,7 +158,7 @@
 "forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Bersihkeun";
 "history-clear-cancel" = "Bolay";
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
@@ -340,6 +340,7 @@
 "settings-primary-language-details" = "Basa munggaran dina ieu daptar dipaké minangka basa utama pikeun aplikasi. Ngarobah ieu basa bakal ngarobah kontén sapopoé (kawas Artikel Petingan) nu dipidangkeun dina Langlang.";
 "settings-support" = "Rojong Wikipédia";
 "settings-title" = "Pangaturan";
+"share-a-fact-made-with" = "Dijieun maké aplikasi Wikipédia";
 "share-a-fact-share-menu-item" = "Bagikeun-fakta...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "Ngawangun kartu Bagikeun-fakta...";
@@ -401,7 +402,7 @@
 "wikitext-upload-save" = "Midangkeun...";
 "wikitext-upload-save-anonymously-warning" = "Éditan bakal ditepungkeun kana alamat IP parangkat. Mun anjeun $1 anjeun bakal mibanda privasi leuwih.";
 "wikitext-upload-save-sign-in" = "Asup log";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun méré kontribusi anjeun dina lisénsi $2 jeung $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ku medalkeun parobahan, anjeun sapuk kana $1 sarta sapuk pikeun mikeun kontribusi anjeun dina lisénsi $2 jeung $3.";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";
 "zero-charged-verbiage" = "Wikipédia Zéro dipaéhan";
 "zero-charged-verbiage-extended" = "Pamuatan artikel lian meureun baé dikeunakeun biaya data. Artikel nu disimpen sacara oflén teu maké data sarta haratis.";

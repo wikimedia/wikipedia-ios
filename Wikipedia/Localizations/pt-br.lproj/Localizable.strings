@@ -105,6 +105,7 @@
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
 "button-saved-remove" = "Remover do salvo";
+"cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
@@ -180,7 +181,7 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
@@ -362,13 +363,20 @@
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como o idioma principal para o aplicativo. Alterar esse idioma alterará o conteúdo diário (como o artigo em destaque) exibido no Explorar.";
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Compartilhe um fato";
+"share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
+"share-a-fact-share-menu-item" = "Compartilhe um fato...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
+"share-building" = "Construindo um cartão de compartilhamento...";
 "share-custom-menu-item" = "Compartilhar...";
+"share-default-format" = "“$1” de “$2”: $3";
+"share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
+"share-menu-item" = "Compartilhar...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir no Maps";
+"share-social-format" = "“$1” via Wikipedia: $2";
+"share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "status-saved-for-later" = "Salvo para mais tarde";
 "status-saving-for-later" = "Salvar para mais tarde ...";
 "table-of-contents-button-label" = "Tabela de conteúdos";
@@ -417,7 +425,7 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";

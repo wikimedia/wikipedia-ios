@@ -1,6 +1,7 @@
 // Messages for Bosnian (bosanski)
 // Exported from translatewiki.net
 // Author: Edinwiki
+// Author: Macofe
 // Author: Nemo bis
 // Author: Semso98
 // Author: Srdjan m
@@ -150,7 +151,7 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";
 "forgot-password-title" = "Ponovno postavljanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Očisti";
 "history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve nedavne stavke?";
@@ -374,7 +375,8 @@
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";
 "zero-charged-verbiage" = "Wikipedia Zero je isključena";
 "zero-charged-verbiage-extended" = "Učitavanje drugih članaka moglo bi sa sobom povući troškove za podatkovni promet. Sačuvani članci na uređaju ne koriste podatkovni promet i besplatni su.";

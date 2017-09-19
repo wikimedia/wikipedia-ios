@@ -5,6 +5,7 @@
 // Author: Gorbi
 // Author: Jhertel
 // Author: Joedalton
+// Author: Macofe
 // Author: Mads Haupt
 // Author: Mortenelling
 // Author: Nemo bis
@@ -87,6 +88,7 @@
 "button-save-for-later" = "Gem til senere";
 "button-saved-for-later" = "Gemt til senere";
 "button-saved-remove" = "Fjern fra gemte";
+"cancel" = "Afbryd";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
@@ -162,7 +164,7 @@
 "forgot-password-instructions" = "Udfyld et af felterne nedenfor for at modtage instruktioner om nulstilling af adgangskoden via e-mail";
 "forgot-password-title" = "Nulstil adgangskode";
 "forgot-password-username-or-email-title" = "Eller";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Ryd";
 "history-clear-cancel" = "Annuller";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
@@ -344,13 +346,19 @@
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
 "settings-support" = "Støt Wikipedia";
 "settings-title" = "Indstillinger";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Del-et-fact";
+"share-a-fact-share-menu-item" = "Del-et-fact …";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
+"share-building" = "Bygger Del-et-fakt-kort …";
 "share-custom-menu-item" = "Del...";
+"share-default-format" = "»$1« fra »$2«: $3";
+"share-email-format" = "»$1«\n\nfra »$2«\n\n$3";
 "share-get-directions-in-maps" = "Få Rutevejledning";
+"share-menu-item" = "Del …";
+"share-message-format" = "»$1« $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Åben i Maps";
+"share-social-format" = "»$1« via Wikipedia: $2";
+"share-social-mention-format" = "»$1« via @Wikipedia: $2";
 "status-saved-for-later" = "Gemt til senere";
 "status-saving-for-later" = "Gemmer til senere...";
 "table-of-contents-button-label" = "Indholdsfortegnelse";
@@ -399,7 +407,8 @@
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 "zero-charged-verbiage" = "Wikipedia Zero er slået fra";
 "zero-charged-verbiage-extended" = "At hente andre artikler kan medføre datagebyrer. Gemte artikler, der er gemt offline, bruger ikke data, og de er gratis.";

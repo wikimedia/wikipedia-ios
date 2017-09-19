@@ -170,7 +170,7 @@
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";
 "forgot-password-title" = "Återställ lösenord";
 "forgot-password-username-or-email-title" = "Eller";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Rensa";
 "history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
@@ -413,7 +413,8 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";

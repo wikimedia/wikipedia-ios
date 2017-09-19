@@ -158,7 +158,7 @@
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Llimpiar";
 "history-clear-cancel" = "Encaboxar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
@@ -395,7 +395,8 @@
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";

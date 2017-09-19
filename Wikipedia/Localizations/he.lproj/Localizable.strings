@@ -165,7 +165,8 @@
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";
 "forgot-password-title" = "אתחול ססמה";
 "forgot-password-username-or-email-title" = "או";
-"gdfl" = "GDFL";
+// Fuzzy
+"gfdl" = "GDFL";
 "history-clear-all" = "ניקוי";
 "history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
@@ -402,7 +403,8 @@
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
 "zero-charged-verbiage-extended" = "טעינת ערכים אחרים עשויה לגרום לחיוב זמן אוויר על נתונים. ערכים שמורים שמאוחסנים באופן בלתי־מקוון אינם מתמשים בנתונים וזמינים חינם.";

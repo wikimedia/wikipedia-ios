@@ -166,6 +166,7 @@
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
+"gfdl" = "GFDL";
 "history-clear-all" = "Pulisci";
 "history-clear-cancel" = "Annulla";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
@@ -381,7 +382,8 @@
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";
