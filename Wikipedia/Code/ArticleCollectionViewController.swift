@@ -33,7 +33,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, displayType: .page, index: indexPath.section, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
+        cell.configure(article: article, displayType: .page, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: true)
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
