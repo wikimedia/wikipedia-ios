@@ -207,17 +207,33 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         animateIfRightToLeftAndiOS9({
             if let pageControl = self.pageControl {
-                pageControl.alpha = CGFloat(0.0)
+                pageControl.alpha = 0.0
             }
         })
     }
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        if completed {
+            hideButtons(for: pageControllers[presentationIndex(for: pageViewController)])
+        }
         animateIfRightToLeftAndiOS9({
             if let pageControl = self.pageControl {
                 pageControl.currentPage = self.presentationIndex(for: pageViewController)
-                pageControl.alpha = CGFloat(1.0)
+                pageControl.alpha = 1.0
             }
         })
+    }
+
+    func hideButtons(for vc: UIViewController){
+        let isLastPage = pageControllers.index(of: vc) == pageControllers.count - 1
+        let newAlpha:CGFloat = isLastPage ? 0.0 : 1.0
+        let alphaChanged = pageControl?.alpha != newAlpha
+        nextButton.isEnabled = !isLastPage // Gray out the next button when transitioning to last page (per design)
+        guard alphaChanged else { return }
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: {
+            self.nextButton.alpha = newAlpha
+            self.skipButton.alpha = newAlpha
+            self.pageControl?.alpha = newAlpha
+        }, completion: nil)
     }
 }
