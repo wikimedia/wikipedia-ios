@@ -19,8 +19,7 @@ class WMFWelcomePanelViewController: UIViewController {
         if let containerController = containerController {
             containerController.willMove(toParentViewController: self)
             containerController.view.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview((containerController.view)!)
-            containerView.wmf_addConstraintsToEdgesOfView(containerController.view)
+            containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
             addChildViewController(containerController)
             containerController.didMove(toParentViewController: self)
         }
