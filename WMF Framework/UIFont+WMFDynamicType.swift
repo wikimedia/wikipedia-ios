@@ -172,6 +172,9 @@ public extension UITraitCollection {
         }
     }
 }
+
+fileprivate var fontCache: [String: UIFont] = [:]
+
 public extension UIFont {
 
     @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
@@ -195,20 +198,28 @@ public extension UIFont {
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? 21
 
+        let cacheKey = "\(fontFamily.rawValue)-\(size)"
+        if let font = fontCache[cacheKey] {
+            return font
+        }
+        
+        let font: UIFont
         switch fontFamily {
         case .georgia:
-            return UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
+            font = UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
         case .systemBlack:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
         case .systemMedium:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
         case .systemBold:
-            return UIFont.boldSystemFont(ofSize: size)
+            font = UIFont.boldSystemFont(ofSize: size)
         case .systemHeavy:
-            return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
-            return nil
+            font = UIFont.systemFont(ofSize: 17)
         }
+        fontCache[cacheKey] = font
+        return font
     }
 }
