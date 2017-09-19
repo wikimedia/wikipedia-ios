@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,36 +37,16 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ScF-IW-gDl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="e79-4K-3DF" kind="relationship" relationship="rootViewController" id="7kY-8w-mEP"/>
+                        <segue destination="zui-OD-N3C" kind="relationship" relationship="rootViewController" id="Soe-r1-kHz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2e4-LR-hlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1689" y="2115"/>
-        </scene>
-        <!--Saved Article Table View Controller-->
-        <scene sceneID="Uaj-Q3-jYT">
-            <objects>
-                <tableViewController id="e79-4K-3DF" customClass="WMFSavedArticleTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n0h-Oz-3rH">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="e79-4K-3DF" id="mWe-gB-rZC"/>
-                            <outlet property="delegate" destination="e79-4K-3DF" id="0b9-oZ-HxB"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="3ld-lV-Wqi"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vIx-Kp-wce" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1689" y="2881"/>
         </scene>
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
@@ -76,36 +56,16 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rIL-t0-IJM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="PJq-J4-m3k" kind="relationship" relationship="rootViewController" id="jcG-vE-clV"/>
+                        <segue destination="Zuy-xh-R41" kind="relationship" relationship="rootViewController" id="Eda-ax-fh3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8g-Wb-9RE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2367" y="2115"/>
-        </scene>
-        <!--History Table View Controller-->
-        <scene sceneID="Wf7-qC-7Gn">
-            <objects>
-                <tableViewController id="PJq-J4-m3k" customClass="WMFHistoryTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="RiJ-nm-vrg">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="PJq-J4-m3k" id="tFf-0z-5J6"/>
-                            <outlet property="delegate" destination="PJq-J4-m3k" id="rRh-j3-7uj"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="IkI-A8-4WI"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qbe-RE-c3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2367" y="2881"/>
         </scene>
         <!--Explore-->
         <scene sceneID="my8-ht-Vqg">
@@ -115,7 +75,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -145,6 +105,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epk-QC-w6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2469" y="1402"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="xdG-L4-utZ">
+            <objects>
+                <collectionViewController id="Zuy-xh-R41" customClass="WMFHistoryViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fHp-J3-J34">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewLayout key="collectionViewLayout" id="LPn-rP-aPP" customClass="WMFColumnarCollectionViewLayout"/>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="Zuy-xh-R41" id="g3y-vo-iIN"/>
+                            <outlet property="delegate" destination="Zuy-xh-R41" id="iWH-a3-UJe"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="kl1-mN-Ovo"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vJa-kt-7qg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2367" y="2881"/>
+        </scene>
+        <!--Saved View Controller-->
+        <scene sceneID="zof-Hc-K5Q">
+            <objects>
+                <collectionViewController id="zui-OD-N3C" customClass="WMFSavedViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="BVp-Hr-RUA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2Ya-6k-vfw" customClass="WMFColumnarCollectionViewLayout">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="zui-OD-N3C" id="CPz-3I-iXP"/>
+                            <outlet property="delegate" destination="zui-OD-N3C" id="Eup-ol-Ozj"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="pkP-JF-iko"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ve-Al-skL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>
