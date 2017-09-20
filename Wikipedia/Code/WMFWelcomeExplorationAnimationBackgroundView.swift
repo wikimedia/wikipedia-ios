@@ -79,7 +79,7 @@ open class WMFWelcomeExplorationAnimationBackgroundView : WMFWelcomeAnimationVie
         CATransaction.begin()
         lazyImageTuples.forEach{ (tuple) in
             let dest = tuple.model.unitDestination.wmf_denormalizeUsingSize(frame.size)
-            let tx = CATransform3DMakeAffineTransform(CGAffineTransform(translationX: dest.x, y: dest.y))
+            let tx = CATransform3DMakeTranslation(dest.x, dest.y, 1.0)
             tuple.imageView.layer.wmf_animateToOpacity(1.0, transform: tx, delay: tuple.model.delay, duration: tuple.model.duration)
         }
         CATransaction.commit()
