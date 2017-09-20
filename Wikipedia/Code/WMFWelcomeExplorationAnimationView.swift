@@ -3,7 +3,8 @@ import Foundation
 open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
 
     lazy var tubeImgView: UIImageView = {
-        let tubeRotationPoint = CGPoint(x: 0.576, y: 0.38)
+        let tubeRotationPointUnitOffset = CGPoint(x: 0, y: 0.1354)
+        let tubeRotationPoint = CGPoint(x: 0.5 + tubeRotationPointUnitOffset.x, y: 0.5 + tubeRotationPointUnitOffset.y)
         let initialTubeRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(0.0)
         let rectCorrectingForRotation = CGRect(
             x: bounds.origin.x - (bounds.size.width * (0.5 - tubeRotationPoint.x)),
@@ -34,7 +35,21 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         removeExistingSubviewsAndSublayers()
         addSubview(baseImgView)
         addSubview(tubeImgView)
+        /*
+        isUserInteractionEnabled = true
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+        addGestureRecognizer(tapGestureRecognizer)
+        */
     }
+
+    /*
+    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+        // print unit coords for easy re-positioning
+        let point = gestureRecognizer.location(in: self)
+        let unitDestination = CGPoint(x: (point.x - (bounds.size.width * 0.5)) / bounds.size.width, y: (point.y - (bounds.size.height * 0.5)) / bounds.size.height)
+        print("tubeRotationPointUnitOffset \(unitDestination)")
+    }
+    */
     
     override open func beginAnimations() {
         super.beginAnimations()
