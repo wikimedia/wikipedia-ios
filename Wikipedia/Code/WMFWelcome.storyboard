@@ -202,19 +202,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-6p-DM6">
-                                <rect key="frame" x="20" y="39" width="320" height="562"/>
+                                <rect key="frame" x="20" y="42" width="320" height="556"/>
                                 <subviews>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="170" id="8iq-Ul-mmM"/>
+                                            <constraint firstAttribute="height" constant="164" id="8iq-Ul-mmM"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="aoo-cp-EUY" kind="embed" id="v8M-9R-cat"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf">
-                                        <rect key="frame" x="85" y="10" width="150" height="150"/>
+                                        <rect key="frame" x="85" y="7" width="150" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="2oC-tB-tAw"/>
                                             <constraint firstAttribute="width" constant="150" id="PRe-Gb-kqo"/>
@@ -224,7 +224,7 @@
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJI-Er-O9h">
-                                        <rect key="frame" x="0.0" y="170" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="164" width="320" height="392"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="999" constant="392" id="2mK-dI-Fex"/>
                                         </constraints>
@@ -551,7 +551,7 @@
                         <viewControllerLayoutGuide type="bottom" id="qQ3-lN-ODI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h3n-cK-21Q">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
