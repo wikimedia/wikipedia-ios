@@ -42,29 +42,52 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
+            let insertedSections = NSMutableIndexSet()
+            let deletedSections = NSMutableIndexSet()
+            let updatedSections = NSMutableIndexSet()
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
+                    deletedSections.add(sectionChange.sectionIndex)
                 case .insert:
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
+                    insertedSections.add(sectionChange.sectionIndex)
                 default:
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
+                    updatedSections.add(sectionChange.sectionIndex)
                 }
             }
             for objectChange in objectChanges {
                 switch objectChange.type {
                 case .delete:
-                    collectionView.deleteItems(at: [objectChange.fromIndexPath!])
+                    if let fromIndexPath = objectChange.fromIndexPath {
+                        collectionView.deleteItems(at: [fromIndexPath])
+                    }
                 case .insert:
-                    collectionView.insertItems(at: [objectChange.toIndexPath!])
+                    if let toIndexPath = objectChange.toIndexPath {
+                        collectionView.insertItems(at: [toIndexPath])
+                    }
                 case .move:
-                    collectionView.moveItem(at: objectChange.fromIndexPath!, to: objectChange.toIndexPath!)
+                    fallthrough
                 default:
-                    collectionView.reloadItems(at: [objectChange.fromIndexPath!])
+                    if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
+                        if deletedSections.contains(fromIndexPath.section) {
+                            collectionView.insertItems(at: [toIndexPath])
+                        } else {
+                            collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
+                        }
+                    } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
+                        if insertedSections.contains(updatedIndexPath.section) {
+                            collectionView.insertItems(at: [updatedIndexPath])
+                        } else {
+                            collectionView.reloadItems(at: [updatedIndexPath])
+                        }
+                    }
                 }
             }
         }) { (done) in
+            collectionView.reloadData()
             self.delegate?.collectionViewUpdater(self, didUpdate: collectionView)
         }
     }

@@ -5,22 +5,25 @@ extension UITableViewController {
 }
 
 extension UICollectionViewController {
-    fileprivate func scrollToFirstIndexPath() {
-        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0) , at: .top, animated: true)
+    fileprivate func scrollToTop() {
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
 }
 
 extension ArticleCollectionViewController {
     @objc func scrollToTop(_ isScrollable: Bool) {
         guard isScrollable else { return }
-        scrollToFirstIndexPath()
+        scrollToTop()
     }
 }
 
 extension ExploreViewController {
     @objc func scrollToTop() {
         guard collectionViewController.canScrollToTop else { return }
-        collectionViewController.scrollToFirstIndexPath()
+        collectionViewController.scrollToTop()
         showSearchBar(animated: true)
     }
 }

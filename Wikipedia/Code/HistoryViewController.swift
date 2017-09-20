@@ -5,7 +5,8 @@ fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    
+    var headerLayoutEstimate: WMFLayoutEstimate?
+
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
@@ -16,7 +17,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab\n{{Identical|History}}")
-        register(UINib(nibName: "CollectionViewHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: false)
+        register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
@@ -41,6 +42,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func deleteAll() {
         dataStore.historyList.removeAllEntries()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerLayoutEstimate = nil
     }
 }
     
@@ -75,6 +81,9 @@ extension HistoryViewController {
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension HistoryViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        if let estimate = headerLayoutEstimate {
+            return estimate
+        }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
         guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
             return estimate
@@ -84,6 +93,7 @@ extension HistoryViewController {
         placeholder.text = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
+        headerLayoutEstimate = estimate
         return estimate
     }
 }
