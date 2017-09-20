@@ -16,8 +16,9 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         imgView.image = UIImage(named: "ftux-telescope-tube")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
-        imgView.layer.transform = initialTubeRotationTransform
+        imgView.layer.transform = CATransform3DConcat(initialTubeRotationTransform, wmf_lowerTransform)
         imgView.layer.anchorPoint = tubeRotationPoint
+        imgView.layer.opacity = 0
         return imgView
     }()
 
@@ -26,7 +27,8 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         imgView.image = UIImage(named: "ftux-telescope-base")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
-        imgView.layer.transform = CATransform3DIdentity
+        imgView.layer.transform = wmf_lowerTransform
+        imgView.layer.opacity = 0
         return imgView
     }()
     
@@ -58,15 +60,38 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)
         let tubeFinalRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(-2.0)
 
-        tubeImgView.layer.wmf_animateToOpacity(1.0,
-            transform:tubeOvershootRotationTransform,
-            delay: 0.8,
+        baseImgView.layer.wmf_animateToOpacity(
+            1.0,
+            transform: CATransform3DIdentity,
+            delay: 0.1,
             duration: 0.9
         )
-
-        tubeImgView.layer.wmf_animateToOpacity(1.0,
-            transform:tubeFinalRotationTransform,
-            delay: 1.8,
+        
+        tubeImgView.layer.wmf_animateToOpacity(
+            1.0,
+            transform: CATransform3DIdentity,
+            delay: 0.1,
+            duration: 0.9
+        )
+        
+        baseImgView.layer.wmf_animateToOpacity(
+            1.0,
+            transform: CATransform3DIdentity,
+            delay: 1.1,
+            duration: 0.9
+        )
+        
+        tubeImgView.layer.wmf_animateToOpacity(
+            1.0,
+            transform: tubeOvershootRotationTransform,
+            delay: 1.1,
+            duration: 0.9
+        )
+        
+        tubeImgView.layer.wmf_animateToOpacity(
+            1.0,
+            transform: tubeFinalRotationTransform,
+            delay: 2.1,
             duration: 0.9
         )
         
