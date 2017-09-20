@@ -40,7 +40,6 @@ public protocol ActionsViewDelegate: NSObjectProtocol {
 
 public class CollectionViewCellActionsView: UIView {
     
-    var cell: ArticleCollectionViewCell
     var maximumWidth: CGFloat = 0
     public var theme = Theme.standard
     
@@ -50,22 +49,49 @@ public class CollectionViewCellActionsView: UIView {
         }
     }
     
-    var swipeType: CollectionViewCellSwipeType = .none {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
-    init(frame: CGRect, cell: ArticleCollectionViewCell) {
-        self.cell = cell
-        super.init(frame: frame)
-        
-        self.isUserInteractionEnabled = false
-    }
-    
     override public func layoutSubviews() {
         super.layoutSubviews()
-        swipeType == .primary ? layoutPrimaryActions() : layoutSecondaryActions()
+        let numberOfButtonWrappers = self.subviews.count
+        
+        let buttonWrapperWidth = maximumWidth / CGFloat(numberOfButtonWrappers)
+        var previousButtonWrapper: UIView?
+        
+        for buttonWrapper in self.subviews {
+            
+            if let button = buttonWrapper.subviews.first as? UIButton {
+                
+                var buttonWrapperFrame = CGRect(x: 0, y: self.frame.origin.y, width: buttonWrapperWidth, height: self.frame.height)
+                
+                button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                let last = button.viewWithTag(numberOfButtonWrappers - 1)
+                self.backgroundColor = last?.backgroundColor
+                
+                if numberOfButtonWrappers > 1 {
+                    switch button.tag {
+                    case 0:
+                        previousButtonWrapper = buttonWrapper
+                    case 1:
+                        // Fallthrough?
+                        if let previous = previousButtonWrapper {
+                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
+                            previousButtonWrapper = buttonWrapper
+                        }
+                    case 2:
+                        if let previous = previousButtonWrapper {
+                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
+                            previousButtonWrapper = buttonWrapper
+                        }
+                    default:
+                        break
+                    }
+                }
+                
+                buttonWrapper.frame = buttonWrapperFrame
+                buttonWrapper.autoresizesSubviews = true
+                buttonWrapper.backgroundColor = UIColor.clear
+            }
+        }
     }
     
     func createSubviews(for actions: [CollectionViewCellAction]) {
@@ -110,61 +136,8 @@ public class CollectionViewCellActionsView: UIView {
     public weak var delegate: ActionsViewDelegate?
     
     @objc func didPerformAction(_ sender: UIButton) {
-        let action = cell.actions[sender.tag]
+        let action = actions[sender.tag]
         delegate?.didPerformAction(action)
     }
     
-    func layoutPrimaryActions() {
-        
-        let numberOfButtonWrappers = self.subviews.count
-        
-        let buttonWrapperWidth = maximumWidth / CGFloat(numberOfButtonWrappers)
-        var previousButtonWrapper: UIView?
-        
-        for buttonWrapper in self.subviews {
-            
-            if let button = buttonWrapper.subviews.first as? UIButton {
-                
-                var buttonWrapperFrame = CGRect(x: 0, y: self.frame.origin.y, width: buttonWrapperWidth, height: self.frame.height)
-                
-                button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                
-                let last = button.viewWithTag(numberOfButtonWrappers - 1)
-                self.backgroundColor = last?.backgroundColor
-                
-                if numberOfButtonWrappers > 1 {
-                    switch button.tag {
-                    case 0:
-                        previousButtonWrapper = buttonWrapper
-                    case 1:
-                        // Fallthrough?
-                        if let previous = previousButtonWrapper {
-                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
-                            previousButtonWrapper = buttonWrapper
-                        }
-                    case 2:
-                        if let previous = previousButtonWrapper {
-                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
-                            previousButtonWrapper = buttonWrapper
-                        }
-                    default:
-                        break
-                    }
-                }
-                
-                buttonWrapper.frame = buttonWrapperFrame
-                buttonWrapper.autoresizesSubviews = true
-                buttonWrapper.backgroundColor = UIColor.clear
-            }
-        }
-        
-    }
-    
-    func layoutSecondaryActions() {
-        
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

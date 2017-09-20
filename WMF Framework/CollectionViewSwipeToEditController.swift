@@ -12,12 +12,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     let collectionView: UICollectionView
     
-    var currentState: CollectionViewCellState = .idle {
-        didSet {
-            currentState == .idle ? didEnterIdleState() : didEnterOpenState()
-        }
-    }
-    
     var activeCell: ArticleCollectionViewCell? {
         guard let indexPath = activeIndexPath else {
             return nil
@@ -26,6 +20,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     var activeIndexPath: IndexPath?
+    var initialSwipeTranslation: CGFloat = 0
     var activeDirectionIsPrimary: Bool?
     
     public var primaryActions: [CollectionViewCellAction] = []
@@ -86,8 +81,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         let position = gestureRecognizer.location(in: collectionView)
         
-        guard let indexPath = collectionView.indexPathForItem(at: position),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell else {
+        guard let indexPath = collectionView.indexPathForItem(at: position) else {
                 return false
         }
 
@@ -96,6 +90,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         // Begin only if there's enough x velocity.
         if fabs(velocity.y) >= fabs(velocity.x) {
             return false
+        }
+        
+        defer {
+            initialSwipeTranslation = activeCell?.swipeTranslation ?? 0
         }
         
         let isPrimary = velocity.x < 0
@@ -121,13 +119,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
-        cell.actions = actions
-        cell.actionsView?.delegate = self
-        
-        activeDirectionIsPrimary = isPrimary
         activeIndexPath = indexPath
-        
-        cell.swipeType = isPrimary ? .primary : .secondary
+        activeCell?.actionsView.actions = primaryActions
         
         return true
     }
@@ -166,19 +159,35 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         guard let cell = activeCell else {
             return
         }
-        
+        cell.actionsView.delegate = self
+        let deltaX = sender.translation(in: collectionView).x
+        let velocityX = sender.velocity(in: collectionView).x
+        var swipeTranslation = deltaX + initialSwipeTranslation
         switch (sender.state) {
         case .began:
-            let position = sender.location(in: cell)
-            let velocityX = sender.velocity(in: cell).x
-            cell.beginSwipe(with: position, velocity: velocityX)
-            currentState = .open
+            cell.isSwiping = true
+            fallthrough
         case .changed:
-            let position = sender.location(in: cell)
-            let velocityX = sender.velocity(in: cell).x
-            cell.updateSwipe(with: position, velocity: velocityX)
+            if swipeTranslation > 0 {
+                swipeTranslation = sqrt(swipeTranslation)
+            }
+            if abs(swipeTranslation) > abs(cell.actionsView.maximumWidth) {
+                swipeTranslation = 0 - cell.actionsView.maximumWidth - sqrt(abs(swipeTranslation) - abs(cell.actionsView.maximumWidth))
+            }
+            cell.swipeVelocity = velocityX
+            cell.swipeTranslation = swipeTranslation
         case .cancelled:
-            currentState = .idle
+            fallthrough
+        case .failed:
+            fallthrough
+        case .ended:
+            if -swipeTranslation > 0.5 * cell.actionsView.maximumWidth {
+                cell.openActionPane()
+            } else {
+                cell.closeActionPane()
+                activeIndexPath = nil
+            }
+            fallthrough
         default:
             break
         }
@@ -191,7 +200,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         switch (sender.state) {
         case .ended:
-            currentState = .idle
             sender.isEnabled = false
             sender.isEnabled = true
         default:
@@ -223,7 +231,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     func closeActionPane() {
-        currentState = .idle
+
     }
     
 }
