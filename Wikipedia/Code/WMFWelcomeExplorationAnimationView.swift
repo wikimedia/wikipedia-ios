@@ -28,94 +28,11 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         imgView.layer.transform = CATransform3DIdentity
         return imgView
     }()
-
-    lazy var dashedCircle: WelcomeCircleShapeLayer = {
-        return WelcomeCircleShapeLayer(
-            unitRadius: 0.304,
-            unitOrigin: CGPoint(x: 0.521, y: 0.531),
-            referenceSize: frame.size,
-            isDashed: true,
-            transform: wmf_scaleZeroTransform,
-            opacity:0.0
-        )
-    }()
-    
-    lazy var solidCircle: WelcomeCircleShapeLayer = {
-        return WelcomeCircleShapeLayer(
-            unitRadius: 0.32,
-            unitOrigin: CGPoint(x: 0.625, y: 0.55),
-            referenceSize: frame.size,
-            isDashed: false,
-            transform: wmf_scaleZeroTransform,
-            opacity:0.0
-        )
-    }()
-    
-    lazy var plus1: WelcomePlusShapeLayer = {
-        return WelcomePlusShapeLayer(
-            unitOrigin: CGPoint(x: 0.033, y: 0.219),
-            unitWidth: 0.05,
-            referenceSize: frame.size,
-            transform: wmf_scaleZeroTransform,
-            opacity: 0.0
-        )
-    }()
-    
-    lazy var plus2: WelcomePlusShapeLayer = {
-        return WelcomePlusShapeLayer(
-            unitOrigin: CGPoint(x: 0.11, y: 0.16),
-            unitWidth: 0.05,
-            referenceSize: frame.size,
-            transform: wmf_scaleZeroTransform,
-            opacity: 0.0
-        )
-    }()
-    
-    lazy var line1: WelcomeLineShapeLayer = {
-        return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.91, y: 0.778),
-            unitWidth: 0.144,
-            referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
-            opacity: 0.0
-        )
-    }()
-    
-    lazy var line2: WelcomeLineShapeLayer = {
-        return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.836, y: 0.81),
-            unitWidth: 0.06,
-            referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
-            opacity: 0.0
-        )
-    }()
-    
-    lazy var line3: WelcomeLineShapeLayer = {
-        return WelcomeLineShapeLayer(
-            unitOrigin: CGPoint(x: 0.907, y: 0.81),
-            unitWidth: 0.0125,
-            referenceSize: frame.size,
-            transform: wmf_scaleZeroAndRightTransform,
-            opacity: 0.0
-        )
-    }()
     
     override open func addAnimationElementsScaledToCurrentFrameSize(){
         removeExistingSubviewsAndSublayers()
-
         addSubview(baseImgView)
         addSubview(tubeImgView)
-        
-        [
-            solidCircle,
-            dashedCircle,
-            plus1,
-            plus2,
-            line1,
-            line2,
-            line3
-            ].forEach(layer.addSublayer)
     }
     
     override open func beginAnimations() {
@@ -135,29 +52,6 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
             delay: 1.8,
             duration: 0.9
         )
-
-        solidCircle.wmf_animateToOpacity(0.09,
-            transform: CATransform3DIdentity,
-            delay: 0.3,
-            duration: 1.0
-        )
-
-        let animate = { (layer: CALayer) in
-            layer.wmf_animateToOpacity(0.15,
-                transform: CATransform3DIdentity,
-                delay: 0.3,
-                duration: 1.0
-            )
-        }
-        
-        [
-            dashedCircle,
-            plus1,
-            plus2,
-            line1,
-            line2,
-            line3
-            ].forEach(animate)
         
         CATransaction.commit()
     }
