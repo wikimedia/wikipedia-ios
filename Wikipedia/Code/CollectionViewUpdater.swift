@@ -42,14 +42,20 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
+            let insertedSections = NSMutableIndexSet()
+            let deletedSections = NSMutableIndexSet()
+            let updatedSections = NSMutableIndexSet()
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
+                    deletedSections.add(sectionChange.sectionIndex)
                 case .insert:
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
+                    insertedSections.add(sectionChange.sectionIndex)
                 default:
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
+                    updatedSections.add(sectionChange.sectionIndex)
                 }
             }
             for objectChange in objectChanges {
@@ -61,7 +67,19 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 case .move:
                     collectionView.moveItem(at: objectChange.fromIndexPath!, to: objectChange.toIndexPath!)
                 default:
-                    collectionView.reloadItems(at: [objectChange.fromIndexPath!])
+                    if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
+                        if !deletedSections.contains(fromIndexPath.section) {
+                            collectionView.deleteItems(at: [fromIndexPath])
+                        }
+                        collectionView.insertItems(at: [toIndexPath])
+
+                    } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
+                        if insertedSections.contains(updatedIndexPath.section) {
+                            collectionView.insertItems(at: [updatedIndexPath])
+                        } else {
+                            collectionView.reloadItems(at: [updatedIndexPath])
+                        }
+                    }
                 }
             }
         }) { (done) in
