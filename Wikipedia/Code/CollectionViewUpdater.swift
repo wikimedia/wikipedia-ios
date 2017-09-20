@@ -87,7 +87,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 }
             }
         }) { (done) in
-            collectionView.reloadItems(at: collectionView.indexPathsForVisibleItems)
+            collectionView.reloadData()
             self.delegate?.collectionViewUpdater(self, didUpdate: collectionView)
         }
     }
