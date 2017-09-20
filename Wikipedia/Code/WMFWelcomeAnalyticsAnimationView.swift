@@ -2,7 +2,7 @@ import Foundation
 
 open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
 
-    lazy var bubbleLeftImgView: UIImageView = {
+    lazy var phoneImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-analytics-phone")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
@@ -12,7 +12,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         return imgView
     }()
     
-    lazy var bubbleRightImgView: UIImageView = {
+    lazy var chartImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-analytics-chart")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
@@ -25,21 +25,21 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     override open func addAnimationElementsScaledToCurrentFrameSize(){
         super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
-        addSubview(bubbleLeftImgView)
-        addSubview(bubbleRightImgView)
+        addSubview(phoneImgView)
+        addSubview(chartImgView)
     }
     
     override open func beginAnimations() {
         super.beginAnimations()
         CATransaction.begin()
         
-        bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,
+        phoneImgView.layer.wmf_animateToOpacity(1.0,
                                                      transform: CATransform3DIdentity,
                                                      delay: 0.1,
                                                      duration: 1.0
         )
         
-        bubbleRightImgView.layer.wmf_animateToOpacity(1.0,
+        chartImgView.layer.wmf_animateToOpacity(1.0,
                                                       transform: CATransform3DIdentity,
                                                       delay: 0.3,
                                                       duration: 1.0
