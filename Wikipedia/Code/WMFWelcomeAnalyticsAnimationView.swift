@@ -8,7 +8,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.opacity = 0
-        imgView.layer.transform = wmf_scaleZeroAndLowerLeftTransform
+        imgView.layer.transform = wmf_lowerTransform
         return imgView
     }()
     
