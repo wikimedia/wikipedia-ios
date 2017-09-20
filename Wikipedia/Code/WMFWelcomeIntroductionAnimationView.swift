@@ -6,7 +6,6 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-puzzle-globe")
         imgView.contentMode = .scaleAspectFit
-        imgView.layer.zPosition = 101
         imgView.layer.transform = CATransform3DIdentity
         return imgView
     }()
