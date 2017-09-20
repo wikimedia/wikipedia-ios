@@ -15,7 +15,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         let imgView = UIImageView(frame: rectCorrectingForRotation)
         imgView.image = UIImage(named: "ftux-telescope-tube")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
-        imgView.layer.zPosition = 101
+        imgView.layer.zPosition = 102
         imgView.layer.transform = initialTubeRotationTransform
         imgView.layer.anchorPoint = tubeRotationPoint
         return imgView
