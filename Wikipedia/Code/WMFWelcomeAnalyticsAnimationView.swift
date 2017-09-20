@@ -23,12 +23,14 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     }()
     
     override open func addAnimationElementsScaledToCurrentFrameSize(){
+        super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         addSubview(bubbleLeftImgView)
         addSubview(bubbleRightImgView)
     }
     
     override open func beginAnimations() {
+        super.beginAnimations()
         CATransaction.begin()
         
         bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,

@@ -12,11 +12,13 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
     }()
 
     override open func addAnimationElementsScaledToCurrentFrameSize(){
+        super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         addSubview(image)
     }
     
     override open func beginAnimations() {
+        super.beginAnimations()
         // CATransaction.begin()
         // CATransaction.commit()
     }

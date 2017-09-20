@@ -33,6 +33,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
     }()
     
     override open func addAnimationElementsScaledToCurrentFrameSize(){
+        super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         guard let imageViewsAndModels = imageViewsAndModels else {return}
         imageViewsAndModels.forEach{ (imageViewAndModel) in
@@ -69,6 +70,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
      }
     */
     override open func beginAnimations() {
+        super.beginAnimations()
         CATransaction.begin()
         guard let imageViewsAndModels = imageViewsAndModels else {return}
         imageViewsAndModels.forEach{ (imageViewAndModel) in

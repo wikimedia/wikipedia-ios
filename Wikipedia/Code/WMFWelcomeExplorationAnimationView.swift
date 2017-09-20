@@ -30,12 +30,14 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
     }()
     
     override open func addAnimationElementsScaledToCurrentFrameSize(){
+        super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         addSubview(baseImgView)
         addSubview(tubeImgView)
     }
     
     override open func beginAnimations() {
+        super.beginAnimations()
         CATransaction.begin()
         
         let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)
