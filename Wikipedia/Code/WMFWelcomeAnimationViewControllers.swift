@@ -16,6 +16,8 @@ class WMFWelcomeAnimationViewController: UIViewController {
         view.superview?.layoutIfNeeded() // Fix for: http://stackoverflow.com/a/39614714
         guard let animationView = animationView else {return}
         animationView.addAnimationElementsScaledToCurrentFrameSize()
+        // animationView.layer.borderWidth = 1
+        // animationView.layer.borderColor = UIColor(0xeeeeee).cgColor
     }
     
     override func viewDidAppear(_ animated: Bool) {
