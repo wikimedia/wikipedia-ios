@@ -25,6 +25,13 @@ extension CGSize {
             height: self.height.wmf_denormalizeUsingReference(size.height)
         )
     }
+    // For denormalization which preserved aspect ratio
+    func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGSize {
+        return CGSize(
+            width: self.width.wmf_denormalizeUsingReference(reference),
+            height: self.height.wmf_denormalizeUsingReference(reference)
+        )
+    }
 }
 
 extension CGRect {
