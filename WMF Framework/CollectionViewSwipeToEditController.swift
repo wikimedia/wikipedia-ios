@@ -18,7 +18,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
     }
     
-    var activeCell: ArticleCollectionViewCell?
+    var activeCell: ArticleCollectionViewCell? {
+        guard let indexPath = activeIndexPath else {
+            return nil
+        }
+        return collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell
+    }
+    
     var activeIndexPath: IndexPath?
     var activeDirectionIsPrimary: Bool?
     
@@ -119,7 +125,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         cell.actionsView?.delegate = self
         
         activeDirectionIsPrimary = isPrimary
-        activeCell = cell
         activeIndexPath = indexPath
         
         cell.swipeType = isPrimary ? .primary : .secondary
@@ -201,7 +206,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return
         }
         cell.closeActionPane()
-        activeCell = nil
         activeIndexPath = nil
         activeDirectionIsPrimary = nil
     }
