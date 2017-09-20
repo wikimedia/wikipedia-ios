@@ -69,16 +69,14 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         collectionView.insertItems(at: [toIndexPath])
                     }
                 case .move:
-                    if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath {
-                        collectionView.deleteItems(at: [fromIndexPath])
-                        collectionView.insertItems(at: [toIndexPath])
-                    }
+                    fallthrough
                 default:
                     if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
-                        if !deletedSections.contains(fromIndexPath.section) {
-                            collectionView.deleteItems(at: [fromIndexPath])
+                        if deletedSections.contains(fromIndexPath.section) {
+                            collectionView.insertItems(at: [toIndexPath])
+                        } else {
+                            collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
                         }
-                        collectionView.insertItems(at: [toIndexPath])
                     } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
                         if insertedSections.contains(updatedIndexPath.section) {
                             collectionView.insertItems(at: [updatedIndexPath])
