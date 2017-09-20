@@ -1216,7 +1216,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!article) {
         return;
     }
-   
+
     WMFShareViewController *shareViewController = [[WMFShareViewController alloc] initWithText:text article:article theme:self.theme];
     [self presentViewController:shareViewController animated:YES completion:nil];
 }
@@ -1471,6 +1471,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         case WMFArticleFooterMenuItemCoordinate:
             [self showLocation];
             break;
+        case WMFArticleFooterMenuItemTalkPage:
+            [self showTalkPage];
+            break;
     }
 }
 
@@ -1500,6 +1503,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     PageHistoryViewController *editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
     editHistoryVC.article = self.article;
     [self presentViewControllerEmbeddedInNavigationController:editHistoryVC];
+}
+
+- (void)showTalkPage {
+    [UIApplication.sharedApplication openURL:self.articleTalkPageURL];
+}
+
+- (NSURL *)articleTalkPageURL {
+    // Adjust for different languages.
+    return [NSURL URLWithString:[self.articleURL.absoluteString stringByReplacingOccurrencesOfString:@"/wiki/" withString:@"/wiki/Talk:"]];
 }
 
 - (void)showLanguages {
