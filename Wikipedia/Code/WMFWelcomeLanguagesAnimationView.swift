@@ -33,13 +33,15 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         super.beginAnimations()
         CATransaction.begin()
         
-        bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,
+        bubbleLeftImgView.layer.wmf_animateToOpacity(
+            1.0,
             transform: CATransform3DIdentity,
             delay: 0.1,
             duration: 1.0
         )
         
-        bubbleRightImgView.layer.wmf_animateToOpacity(1.0,
+        bubbleRightImgView.layer.wmf_animateToOpacity(
+            1.0,
             transform: CATransform3DIdentity,
             delay: 0.3,
             duration: 1.0
