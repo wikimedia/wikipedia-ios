@@ -68,7 +68,8 @@ class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewContro
             return nil
         case .exploration:
             let view = WMFWelcomeExplorationAnimationBackgroundView()
-            view.backgroundColor = .green
+            // view.layer.borderWidth = 1
+            // view.layer.borderColor = UIColor(0xeeeeee).cgColor
             return view
         case .languages:
             let view = WMFWelcomeLanguagesAnimationBackgroundView()
@@ -80,6 +81,5 @@ class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewContro
             return view
         }
     }()
-    
 }
 

@@ -25,6 +25,8 @@ class WMFWelcomeContainerViewController: UIViewController {
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
         
         topContainerView.backgroundColor = .clear
+        topContainerView.isUserInteractionEnabled = false
+        //topContainerView.alpha = 0.8
     }
 
     override func viewWillAppear(_ animated: Bool) {
