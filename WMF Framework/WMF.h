@@ -21,6 +21,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFGCDHelpers.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/WMFMath.h>
+#import <WMF/WMFChange.h>
 #import <WMF/WMFLocalization.h>
 #import <WMF/NSError+WMFExtensions.h>
 #import <WMF/WMFOutParamUtils.h>

@@ -156,8 +156,6 @@
 "history-clear-cancel" = "Cancel";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
-"history-section-today" = "Today";
-"history-section-yesterday" = "Yesterday";
 "history-title" = "History";
 "hockeyapp-alert-always-send" = "Always send";
 "hockeyapp-alert-do-not-send" = "Do not send";
