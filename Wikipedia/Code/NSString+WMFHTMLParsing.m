@@ -31,10 +31,9 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString *)wmf_shareSnippetFromText {
-    return [[[[[[[[self wmf_stringByDecodingHTMLAndpersands]
+    return [[[[[[[self wmf_stringByDecodingHTMLAndpersands]
         wmf_stringByDecodingHTMLLessThanAndGreaterThan]
         wmf_stringByCollapsingConsecutiveNewlines]
-        wmf_stringByRecursivelyRemovingParenthesizedContent]
         wmf_stringByRemovingBracketedContent]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
         wmf_stringByCollapsingConsecutiveSpaces]
