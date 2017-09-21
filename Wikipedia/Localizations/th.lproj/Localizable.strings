@@ -119,8 +119,6 @@
 "history-clear-cancel" = "ยกเลิก";
 "history-clear-confirmation-heading" = "คุณแน่ใจหรือว่าคุณต้องการลบรายการล่าสุดของคุณทั้งหมด?";
 "history-clear-delete-all" = "ใช่ ลบทั้งหมด";
-"history-section-today" = "วันนี้";
-"history-section-yesterday" = "เมื่อวานนี้";
 "history-title" = "ประวัติ";
 "hockeyapp-alert-always-send" = "ส่งเสมอ";
 "hockeyapp-alert-do-not-send" = "ไม่ต้องส่ง";

@@ -169,8 +169,6 @@
 "history-clear-cancel" = "Annuller";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-delete-all" = "Ja, slet alt";
-"history-section-today" = "I dag";
-"history-section-yesterday" = "I går";
 "history-title" = "Historik";
 "hockeyapp-alert-always-send" = "Send altid";
 "hockeyapp-alert-do-not-send" = "Send ikke";
@@ -346,6 +344,7 @@
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
 "settings-support" = "Støt Wikipedia";
 "settings-title" = "Indstillinger";
+"share-a-fact-made-with" = "Lavet med Wikipediaprogrammet";
 "share-a-fact-share-menu-item" = "Del-et-fact …";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger Del-et-fakt-kort …";
@@ -407,7 +406,6 @@
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved at offentliggøre dine ændringer, accepterer du $1 og at dit bidrag udgives under licenserne $2 og $3.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 "zero-charged-verbiage" = "Wikipedia Zero er slået fra";

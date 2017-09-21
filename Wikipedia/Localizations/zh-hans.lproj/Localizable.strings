@@ -173,8 +173,6 @@
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目么？";
 "history-clear-delete-all" = "是的，删除全部";
-"history-section-today" = "今天的首页";
-"history-section-yesterday" = "昨天";
 "history-title" = "历史";
 "hockeyapp-alert-always-send" = "总是发送";
 "hockeyapp-alert-do-not-send" = "不要发送";
