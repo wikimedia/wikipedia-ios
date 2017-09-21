@@ -1511,7 +1511,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSURL *)articleTalkPageURL {
-    return [NSURL URLWithString:[self.articleURL.absoluteString stringByReplacingOccurrencesOfString:@"/wiki/" withString:@"/wiki/Talk:"]];
+    return [self.articleURL wmf_URLWithTitle:[@"Talk:" stringByAppendingString:self.articleURL.wmf_title]];
 }
 
 - (void)showLanguages {
