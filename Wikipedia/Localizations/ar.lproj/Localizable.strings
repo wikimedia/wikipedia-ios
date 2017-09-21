@@ -168,8 +168,6 @@
 "history-clear-cancel" = "إلغاء";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
-"history-section-today" = "اليوم";
-"history-section-yesterday" = "الأمس";
 "history-title" = "التاريخ";
 "hockeyapp-alert-always-send" = "أرسل دائما";
 "hockeyapp-alert-do-not-send" = "لا ترسل";

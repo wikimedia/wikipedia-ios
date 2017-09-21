@@ -180,8 +180,6 @@
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
 "history-clear-delete-all" = "بله، حذف همه";
-"history-section-today" = "امروز";
-"history-section-yesterday" = "دیروز";
 "history-title" = "تاریخچه";
 "hockeyapp-alert-always-send" = "همیشه ارسال کن";
 "hockeyapp-alert-do-not-send" = "ارسال نکن";

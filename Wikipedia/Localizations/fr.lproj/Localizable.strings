@@ -179,8 +179,6 @@
 "history-clear-cancel" = "Annuler";
 "history-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments récents ?";
 "history-clear-delete-all" = "Oui, supprimer tout";
-"history-section-today" = "Aujourd'hui";
-"history-section-yesterday" = "Hier";
 "history-title" = "Historique";
 "hockeyapp-alert-always-send" = "Toujours envoyer";
 "hockeyapp-alert-do-not-send" = "Ne pas envoyer";

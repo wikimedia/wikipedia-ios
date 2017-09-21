@@ -174,8 +174,6 @@
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
-"history-section-today" = "आज";
-"history-section-yesterday" = "कल";
 "history-title" = "इतिहास";
 "hockeyapp-alert-always-send" = "हमेशा भेजें";
 "hockeyapp-alert-do-not-send" = "नहीं भेजें";
