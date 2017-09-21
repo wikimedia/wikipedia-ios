@@ -1506,11 +1506,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTalkPage {
-    [UIApplication.sharedApplication openURL:self.articleTalkPageURL];
+    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleTalkPageURL];
+    [self.navigationController presentViewController:safariController animated:YES completion:nil];
 }
 
 - (NSURL *)articleTalkPageURL {
-    // Adjust for different languages.
     return [NSURL URLWithString:[self.articleURL.absoluteString stringByReplacingOccurrencesOfString:@"/wiki/" withString:@"/wiki/Talk:"]];
 }
 
