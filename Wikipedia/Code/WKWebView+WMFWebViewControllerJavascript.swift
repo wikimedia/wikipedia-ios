@@ -4,7 +4,7 @@ import WMF
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
-    case languages, lastEdited, pageIssues, disambiguation, coordinate
+    case languages, lastEdited, pageIssues, disambiguation, coordinate, browser
     
     // Reminder: These are the strings used by the footerMenu JS transform:
     private var menuItemTypeString: String {
@@ -14,6 +14,7 @@ import WMF
         case .pageIssues: return "pageIssues"
         case .disambiguation: return "disambiguation"
         case .coordinate: return "coordinate"
+        case .browser: return "browser"
         }
     }
     
@@ -30,6 +31,7 @@ import WMF
         case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
+        case .browser: title = WMFLocalizedString("page-view-in-browser", language: language, value: "View in browser", comment: "Label for button used to show an article in browser")
         }
         return title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
     }
@@ -110,7 +112,8 @@ extension WKWebView {
             WMFArticleFooterMenuItem.coordinate,
             WMFArticleFooterMenuItem.lastEdited,
             WMFArticleFooterMenuItem.pageIssues,
-            WMFArticleFooterMenuItem.disambiguation
+            WMFArticleFooterMenuItem.disambiguation,
+            WMFArticleFooterMenuItem.browser
             ].filter{$0.shouldAddItem(with: article)}
              .map{$0.itemAdditionJavascriptString(with: article)}
              .joined(separator: "")
