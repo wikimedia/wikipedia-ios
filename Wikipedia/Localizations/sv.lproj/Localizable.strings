@@ -175,8 +175,6 @@
 "history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
 "history-clear-delete-all" = "Ja, radera alla";
-"history-section-today" = "Idag";
-"history-section-yesterday" = "Igår";
 "history-title" = "Historik";
 "hockeyapp-alert-always-send" = "Skicka alltid";
 "hockeyapp-alert-do-not-send" = "Skicka inte";

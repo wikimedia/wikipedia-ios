@@ -23,7 +23,7 @@
                                                       @"id": @0,
                                                       @"text": @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
                                                   }];
-    assertThat([self.section shareSnippet], is(@"Dog adequately long string historically 40 characters."));
+    assertThat([self.section shareSnippet], is(@"Dog (woof (w00t)) adequately long string historically 40 characters."));
 }
 
 - (void)testSimpleSnippetIncludingTable {
@@ -34,7 +34,7 @@
                                                       @"id": @0,
                                                       @"text": @"<table><p>Foo</p></table><p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
                                                   }];
-    assertThat([self.section shareSnippet], is(@"Dog adequately long string historically 40 characters."));
+    assertThat([self.section shareSnippet], is(@"Dog (woof (w00t)) adequately long string historically 40 characters."));
 }
 
 @end

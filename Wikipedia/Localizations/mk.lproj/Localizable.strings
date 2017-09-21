@@ -159,14 +159,11 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Нова лозинка";
 "forgot-password-username-or-email-title" = "Или";
-// Fuzzy
 "gfdl" = "ГЛСД";
 "history-clear-all" = "Исчисти";
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
 "history-clear-delete-all" = "Да, избриши ги сите";
-"history-section-today" = "Денес";
-"history-section-yesterday" = "Вчера";
 "history-title" = "Историја";
 "hockeyapp-alert-always-send" = "Секогаш испраќај";
 "hockeyapp-alert-do-not-send" = "Не праќај";
@@ -342,6 +339,7 @@
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
 "settings-support" = "Поддржете ја Википедија";
 "settings-title" = "Нагодувања";
+"share-a-fact-made-with" = "Направено до прилогот на Википедија";
 "share-a-fact-share-menu-item" = "Сподели факт...";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-building" = "Создавам карта за споделување факт...";
@@ -403,8 +401,7 @@
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-sign-in" = "Најава";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3 license.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Објавувајќи ги промените, се согласувате со $1 и со објавувањето вашите придонеси под лиценците $2 и $3.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";

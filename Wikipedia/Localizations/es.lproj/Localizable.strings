@@ -180,8 +180,6 @@
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
-"history-section-today" = "Hoy";
-"history-section-yesterday" = "Ayer";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Enviar siempre";
 "hockeyapp-alert-do-not-send" = "No enviar";

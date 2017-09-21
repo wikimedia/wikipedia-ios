@@ -83,6 +83,7 @@
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
+"cancel" = "Encaboxar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zarrar";
 "compass-direction" = "a les $1 en puntu";
@@ -163,8 +164,6 @@
 "history-clear-cancel" = "Encaboxar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
-"history-section-today" = "Güei";
-"history-section-yesterday" = "Ayeri";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Unviar siempre";
 "hockeyapp-alert-do-not-send" = "Nun unviar";
@@ -340,13 +339,20 @@
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
 "settings-support" = "Sofita Wikimedia";
 "settings-title" = "Configuración";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Comparte-un-fechu";
+"share-a-fact-made-with" = "Fecho cola app de Wikipedia";
+"share-a-fact-share-menu-item" = "Comparte-un fechu…";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
+"share-building" = "Construyendo una tarxeta Comparte-un fechu…";
 "share-custom-menu-item" = "Compartir...";
+"share-default-format" = "«$1» de «$2»: $3";
+"share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Recibir indicaciones";
+"share-menu-item" = "Compartir…";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir en Mapes";
+"share-social-format" = "«$1» vía Wikipedia: $2";
+"share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "status-saved-for-later" = "Guardao pa dempués";
 "status-saving-for-later" = "Guardando para dempués…";
 "table-of-contents-button-label" = "Tabla de conteníu";
@@ -395,7 +401,6 @@
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";

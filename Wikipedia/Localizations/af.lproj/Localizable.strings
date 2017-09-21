@@ -99,8 +99,6 @@
 // Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";
-"history-section-today" = "Vandag";
-"history-section-yesterday" = "Gister";
 "history-title" = "Geskiedenis";
 "hockeyapp-alert-always-send" = "Stuur altyd";
 "hockeyapp-alert-do-not-send" = "Moenie stuur";

@@ -159,8 +159,6 @@
 "history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Заиста желите да избришете све скорашње ставке?";
 "history-clear-delete-all" = "Да, избриши све";
-"history-section-today" = "Данас";
-"history-section-yesterday" = "Јуче";
 "history-title" = "Историја";
 "hockeyapp-alert-always-send" = "Увек шаљи";
 "hockeyapp-alert-do-not-send" = "Не шаљи";
