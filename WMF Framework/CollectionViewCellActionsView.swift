@@ -41,6 +41,9 @@ public protocol ActionsViewDelegate: NSObjectProtocol {
 public class CollectionViewCellActionsView: UIView {
     
     var maximumWidth: CGFloat = 0
+    var buttonWidth: CGFloat  = 0
+    var buttons: [UIButton] = []
+    
     public var theme = Theme.standard
     
     var actions: [CollectionViewCellAction] = [] {
@@ -51,54 +54,23 @@ public class CollectionViewCellActionsView: UIView {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        let numberOfButtonWrappers = self.subviews.count
-        
-        let buttonWrapperWidth = maximumWidth / CGFloat(numberOfButtonWrappers)
-        var previousButtonWrapper: UIView?
-        
-        for buttonWrapper in self.subviews {
-            
-            if let button = buttonWrapper.subviews.first as? UIButton {
-                
-                var buttonWrapperFrame = CGRect(x: 0, y: self.frame.origin.y, width: buttonWrapperWidth, height: self.frame.height)
-                
-                button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                
-                let last = button.viewWithTag(numberOfButtonWrappers - 1)
-                self.backgroundColor = last?.backgroundColor
-                
-                if numberOfButtonWrappers > 1 {
-                    switch button.tag {
-                    case 0:
-                        previousButtonWrapper = buttonWrapper
-                    case 1:
-                        // Fallthrough?
-                        if let previous = previousButtonWrapper {
-                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
-                            previousButtonWrapper = buttonWrapper
-                        }
-                    case 2:
-                        if let previous = previousButtonWrapper {
-                            buttonWrapperFrame.origin.x = previous.frame.origin.x + previous.frame.width
-                            previousButtonWrapper = buttonWrapper
-                        }
-                    default:
-                        break
-                    }
-                }
-                
-                buttonWrapper.frame = buttonWrapperFrame
-                buttonWrapper.autoresizesSubviews = true
-                buttonWrapper.backgroundColor = UIColor.clear
-            }
+        let numberOfButtons = CGFloat(subviews.count)
+        let buttonDelta = bounds.size.width / numberOfButtons
+        let buttonWidth = max(self.buttonWidth, buttonDelta)
+        let isRTL = semanticContentAttribute == .forceRightToLeft
+        let buttons = isRTL ? self.buttons.reversed() : self.buttons
+        var x: CGFloat = 0
+        for button in buttons {
+            button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: bounds.height)
+            x += buttonDelta
         }
     }
     
     func createSubviews(for actions: [CollectionViewCellAction]) {
-        
-        for view in self.subviews {
+        for view in subviews {
             view.removeFromSuperview()
         }
+        buttons = []
         
         var maxButtonWidth: CGFloat = 0
         
@@ -121,16 +93,13 @@ public class CollectionViewCellActionsView: UIView {
             }
             
             button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
-            
-            // Wrapper around each button.
-            let wrapper = UIView(frame: .zero)
-            wrapper.clipsToBounds = true
-            wrapper.addSubview(button)
-            self.addSubview(wrapper)
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
+            insertSubview(button, at: 0)
+            buttons.append(button)
         }
         
-        maximumWidth = maxButtonWidth * CGFloat(self.subviews.count)
+        buttonWidth = maxButtonWidth
+        maximumWidth = maxButtonWidth * CGFloat(subviews.count)
     }
 
     public weak var delegate: ActionsViewDelegate?

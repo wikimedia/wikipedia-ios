@@ -76,8 +76,10 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
-            let actionsViewWidth = actionsView.maximumWidth
-            actionsView.frame = CGRect(x: size.width - actionsViewWidth, y: 0, width: actionsViewWidth, height: size.height)
+            let actionsViewWidth = abs(swipeTranslation)
+            let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
+            let x = isRTL ? 0 : size.width - actionsViewWidth
+            actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutSubviews()
         }
         return size
@@ -163,11 +165,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     }
     
     // MARK: - Swipeable
-    
-    var collectionView: UICollectionView? {
-        return self.superview as? UICollectionView
-    }
-    
+
     var swipeVelocity: CGFloat = 0
     var isSwiping: Bool = false {
         didSet {
@@ -186,6 +184,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     public var swipeTranslation: CGFloat = 0 {
         didSet {
+            assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             setNeedsLayout()
         }
     }
@@ -206,8 +205,9 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     // MARK: Opening & closing action pane
     
     func openActionPane() {
-        let targetTranslation = 0 - actionsView.maximumWidth
-        let totalDistance = swipeTranslation - targetTranslation
+        let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
+        let targetTranslation =  isRTL ? actionsView.maximumWidth : 0 - actionsView.maximumWidth
+        let totalDistance = abs(swipeTranslation - targetTranslation)
         let duration: CGFloat = 0.40
         let springVelocity = abs(swipeVelocity) * duration / totalDistance
         contentView.backgroundColor = backgroundView?.backgroundColor

@@ -132,8 +132,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         
         activeIndexPath = indexPath
-        activeCell?.actionsView.actions = primaryActions
-        
+        if let cell = activeCell {
+            cell.actionsView.actions = primaryActions
+            cell.actionsView.semanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+        }
         return true
     }
     
@@ -175,16 +177,20 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let deltaX = sender.translation(in: collectionView).x
         let velocityX = sender.velocity(in: collectionView).x
         var swipeTranslation = deltaX + initialSwipeTranslation
+        let normalizedSwipeTranslation = isRTL ? swipeTranslation : -swipeTranslation
         switch (sender.state) {
         case .began:
             cell.isSwiping = true
             fallthrough
         case .changed:
-            if swipeTranslation > 0 {
-                swipeTranslation = sqrt(swipeTranslation)
+            if normalizedSwipeTranslation < 0 {
+                let normalizedSqrt = sqrt(abs(normalizedSwipeTranslation))
+                swipeTranslation = isRTL ? 0 - normalizedSqrt : normalizedSqrt
             }
-            if abs(swipeTranslation) > abs(cell.actionsView.maximumWidth) {
-                swipeTranslation = 0 - cell.actionsView.maximumWidth - sqrt(abs(swipeTranslation) - abs(cell.actionsView.maximumWidth))
+            if normalizedSwipeTranslation > cell.actionsView.maximumWidth {
+                let maxWidth = cell.actionsView.maximumWidth
+                let delta = normalizedSwipeTranslation - maxWidth
+                swipeTranslation = isRTL ? maxWidth + sqrt(delta) : 0 - maxWidth - sqrt(delta)
             }
             cell.swipeVelocity = velocityX
             cell.swipeTranslation = swipeTranslation
@@ -194,7 +200,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         case .failed:
             fallthrough
         case .ended:
-            if -swipeTranslation > 0.5 * cell.actionsView.maximumWidth {
+            let isOpen: Bool
+            if isRTL {
+                isOpen = swipeTranslation > 0.5 * cell.actionsView.maximumWidth
+            } else {
+                isOpen = -swipeTranslation > 0.5 * cell.actionsView.maximumWidth
+            }
+            if isOpen {
                 openActionPane()
             } else {
                 closeActionPane()
