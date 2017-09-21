@@ -169,8 +169,6 @@
 "history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
-"history-section-today" = "Avui";
-"history-section-yesterday" = "Ahir";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Envia sempre";
 "hockeyapp-alert-do-not-send" = "No enviïs";

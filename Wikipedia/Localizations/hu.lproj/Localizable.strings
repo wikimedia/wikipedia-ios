@@ -164,8 +164,6 @@
 "history-clear-cancel" = "Mégsem";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
-"history-section-today" = "Ma";
-"history-section-yesterday" = "Tegnap";
 "history-title" = "Előzmények";
 "hockeyapp-alert-always-send" = "Mindig küld";
 "hockeyapp-alert-do-not-send" = "Nem küld";

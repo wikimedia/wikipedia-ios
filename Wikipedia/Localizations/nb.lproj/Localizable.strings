@@ -166,12 +166,11 @@
 "forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";
 "forgot-password-title" = "Tilbakestill passord";
 "forgot-password-username-or-email-title" = "Eller";
+"gfdl" = "GFDL";
 "history-clear-all" = "Tøm";
 "history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Er du sikker på at du vil tømme loggen din?";
 "history-clear-delete-all" = "Ja, slett alt";
-"history-section-today" = "I dag";
-"history-section-yesterday" = "I går";
 "history-title" = "Historikk";
 "hockeyapp-alert-always-send" = "Alltid send";
 "hockeyapp-alert-do-not-send" = "Ikke send";
@@ -341,6 +340,7 @@
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen. Dette påvirker hvilket innhold som vises under Utforsk (f.eks. hvilken utmerket artikkel).";
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
+"share-a-fact-made-with" = "Laget med Wikipedia-appen";
 "share-a-fact-share-menu-item" = "Del fakta …";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger faktadelingskort …";

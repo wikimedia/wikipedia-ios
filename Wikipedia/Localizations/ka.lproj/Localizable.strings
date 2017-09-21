@@ -114,8 +114,6 @@
 "history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-delete-all" = "დიახ, ყველას წაშლა";
-"history-section-today" = "დღეს";
-"history-section-yesterday" = "გუშინ";
 "history-title" = "ისტორია";
 "hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";
 "hockeyapp-alert-do-not-send" = "არ გააგზავნო";

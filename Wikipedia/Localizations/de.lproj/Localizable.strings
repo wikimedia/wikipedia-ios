@@ -165,8 +165,6 @@
 "history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
-"history-section-today" = "Heute";
-"history-section-yesterday" = "Gestern";
 "history-title" = "Verlauf";
 "hockeyapp-alert-always-send" = "Immer senden";
 "hockeyapp-alert-do-not-send" = "Nicht senden";
