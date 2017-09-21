@@ -80,6 +80,18 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [self evaluateJavaScript:fontColorJS completionHandler:nil];
 }
 
+- (void)wmf_setLogoStyleWithTheme:(WMFTheme *)theme {
+    // White logo on Dark mode
+    // Black logo on Default and Sepia modes
+    if ([theme.name isEqualToString:WMFTheme.dark.name]) {
+        [self evaluateJavaScript:[NSString stringWithFormat:@"applyDarkThemeLogo()"]
+               completionHandler:nil];
+    } else {
+        [self evaluateJavaScript:[NSString stringWithFormat:@"applyLightThemeLogo()"]
+               completionHandler:nil];
+    }
+}
+
 - (void)wmf_preventTextFromExpandingOnRotation {
     [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
 }
@@ -230,6 +242,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [webView wmf_setTextDirection];
     [webView wmf_setTextFontSize];
     [webView wmf_setTextFontColor:self.theme];
+    [webView wmf_setLogoStyleWithTheme:self.theme];
 }
 
 #pragma mark - Introspection
