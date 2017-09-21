@@ -206,28 +206,29 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     func openActionPane() {
         let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
         let targetTranslation =  isRTL ? actionsView.maximumWidth : 0 - actionsView.maximumWidth
-        let totalDistance = abs(swipeTranslation - targetTranslation)
-        let duration: CGFloat = 0.40
-        let springVelocity = abs(swipeVelocity) * duration / totalDistance
-        contentView.backgroundColor = backgroundView?.backgroundColor
-        swipeTranslation = targetTranslation
         isSwiping = true
-        UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
-            self.layoutIfNeeded()
-        }, completion: { (finished: Bool) in
-        })
+        animateActionPane(to: targetTranslation) { (finished) in }
     }
     
     func closeActionPane() {
-        let totalDistance = abs(swipeTranslation)
-        let duration: CGFloat = 0.40
-        let springVelocity = abs(swipeVelocity) * duration / totalDistance
-        swipeTranslation = 0
-        UIView.animate(withDuration: TimeInterval(duration), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
-            self.layoutIfNeeded()
-        }, completion: { (finished: Bool) in
+        animateActionPane(to: 0) { (finished) in
             self.isSwiping = false
-        })
+        }
+    }
+    
+    func animateActionPane(to targetTranslation: CGFloat, completion: @escaping (Bool) -> Void) {
+        let initialSwipeTranslation = swipeTranslation
+        let animationTranslation = targetTranslation - initialSwipeTranslation
+        let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
+        let animationDistance = abs(animationTranslation)
+        let swipeSpeed = abs(swipeVelocity)
+        let animationDuration = 0.4
+        let swipeVelocityRelativeToAnimation = velocityIsInDirectionOfTranslation ? swipeSpeed : 0 - swipeSpeed
+        let springVelocity = swipeVelocityRelativeToAnimation / (animationDistance / CGFloat(animationDuration))
+        UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
+            self.swipeTranslation = targetTranslation
+            self.layoutIfNeeded()
+        }, completion: completion)
     }
     
     // MARK: Prepare for reuse
@@ -236,5 +237,4 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         swipeTranslation = 0
         swipeVelocity = 0
     }
-    
 }
