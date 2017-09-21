@@ -248,7 +248,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         closeActionPane()
     }
     
-    func closeActionPane() {
+    public func closeActionPane() {
         collectionView.isScrollEnabled = true
         guard let cell = activeCell else {
             return

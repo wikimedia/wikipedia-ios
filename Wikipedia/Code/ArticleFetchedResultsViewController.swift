@@ -125,6 +125,11 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         updateDeleteButton()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        swipeToEditController.closeActionPane()
+    }
+    
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         guard !layoutOnly, let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
