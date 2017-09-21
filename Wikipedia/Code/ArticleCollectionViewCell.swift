@@ -183,7 +183,8 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             }
         }
     }
-    var swipeTranslation: CGFloat = 0 {
+    
+    public var swipeTranslation: CGFloat = 0 {
         didSet {
             setNeedsLayout()
         }
@@ -191,13 +192,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     var minimumSwipeTrackingPosition: CGFloat {
         return -actionsView.maximumWidth
-    }
-    
-    var actionsViewRect: CGRect {
-        guard actionsView.superview != nil else { return .zero }
-        let bounds = actionsView.bounds
-        let rect = self.convert(bounds, from: actionsView)
-        return rect
     }
     
     func showActionsView(with swipeType: CollectionViewCellSwipeType) {
