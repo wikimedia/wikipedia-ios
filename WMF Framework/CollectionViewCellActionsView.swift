@@ -38,8 +38,7 @@ public protocol ActionsViewDelegate: NSObjectProtocol {
     func didPerformAction(_ action: CollectionViewCellAction)
 }
 
-public class CollectionViewCellActionsView: UIView {
-    
+public class CollectionViewCellActionsView: SizeThatFitsView {
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     var buttons: [UIButton] = []
@@ -64,18 +63,23 @@ public class CollectionViewCellActionsView: UIView {
         }
     }
     
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-        let numberOfButtons = CGFloat(subviews.count)
-        let buttonDelta = bounds.size.width / numberOfButtons
-        let buttonWidth = max(self.buttonWidth, buttonDelta)
-        let isRTL = semanticContentAttribute == .forceRightToLeft
-        let buttons = isRTL ? self.buttons.reversed() : self.buttons
-        var x: CGFloat = 0
-        for button in buttons {
-            button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: bounds.height)
-            x += buttonDelta
+    public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let superSize = super.sizeThatFits(size, apply: apply)
+        if (apply) {
+            let numberOfButtons = CGFloat(subviews.count)
+            let buttonDelta = bounds.size.width / numberOfButtons
+            let buttonWidth = max(self.buttonWidth, buttonDelta)
+            let isRTL = semanticContentAttribute == .forceRightToLeft
+            let buttons = isRTL ? self.buttons.reversed() : self.buttons
+            var x: CGFloat = 0
+            for button in buttons {
+                button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: bounds.height)
+                x += buttonDelta
+            }
         }
+        let width = superSize.width == UIViewNoIntrinsicMetric ? maximumWidth : superSize.width
+        let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
+        return CGSize(width: width, height: height)
     }
     
     func createSubviews(for actions: [CollectionViewCellAction]) {
