@@ -157,6 +157,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         item = WMFArticleFooterMenuItemDisambiguation;
     } else if ([messageString isEqualToString:@"coordinate"]) {
         item = WMFArticleFooterMenuItemCoordinate;
+    } else if ([messageString isEqualToString:@"browser"]) {
+        item = WMFArticleFooterMenuItemBrowser;
     } else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;

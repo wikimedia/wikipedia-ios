@@ -1470,8 +1470,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
         case WMFArticleFooterMenuItemCoordinate:
             [self showLocation];
+        case WMFArticleFooterMenuItemBrowser:
+            [self showInBrowser];
             break;
     }
+}
+
+- (void)showInBrowser {
+    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleURL];
+    [self.navigationController presentViewController:safariController animated:YES completion:nil];
 }
 
 - (void)showLocation {
