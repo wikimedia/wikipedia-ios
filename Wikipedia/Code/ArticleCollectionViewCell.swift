@@ -80,7 +80,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
             let x = isRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
-            actionsView.layoutSubviews()
+            actionsView.layoutIfNeeded()
         }
         return size
     }
@@ -171,7 +171,6 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         didSet {
             if isSwiping && actionsView.superview == nil {
                 insertSubview(actionsView, belowSubview: contentView)
-                actionsView.layoutSubviews()
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
             } else if !isSwiping && actionsView.superview != nil {

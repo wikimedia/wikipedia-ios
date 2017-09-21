@@ -52,6 +52,18 @@ public class CollectionViewCellActionsView: UIView {
         }
     }
     
+    public override var frame: CGRect {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public override var bounds: CGRect {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     override public func layoutSubviews() {
         super.layoutSubviews()
         let numberOfButtons = CGFloat(subviews.count)
@@ -100,6 +112,7 @@ public class CollectionViewCellActionsView: UIView {
         
         buttonWidth = maxButtonWidth
         maximumWidth = maxButtonWidth * CGFloat(subviews.count)
+        setNeedsLayout()
     }
 
     public weak var delegate: ActionsViewDelegate?
