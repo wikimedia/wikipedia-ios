@@ -101,9 +101,8 @@ public class CollectionViewCellActionsView: UIView {
             case .save:
                 button.backgroundColor = theme.colors.link
             case .unsave:
-                button.backgroundColor = self.theme.colors.link
+                button.backgroundColor = theme.colors.link
             }
-            
             button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
