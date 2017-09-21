@@ -6,8 +6,6 @@
 #import <WMF/MWKLanguageLink.h>
 @import Masonry;
 
-#import "RecentSearchesViewController.h"
-#import "WMFSearchResultsTableViewController.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 #import "Wikipedia-Swift.h"
@@ -23,14 +21,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @interface WMFSearchViewController () <UISearchBarDelegate,
                                        WMFRecentSearchesViewControllerDelegate,
                                        UITextFieldDelegate,
-                                       WMFArticleListTableViewControllerDelegate,
                                        WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFTheme *theme;
 
-@property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
-@property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (weak, nonatomic) IBOutlet UIView *recentSearchesHeader;
+@property (weak, nonatomic) IBOutlet UILabel *recentSearchesHeaderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *clearRecentSearchesButton;
+
+@property (nonatomic, strong) WMFRecentSearchesViewController *recentSearchesViewController;
+@property (nonatomic, strong) WMFSearchResultsViewController *resultsListController;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
@@ -137,6 +138,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         self.recentSearchesHeader.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
                          self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
                          self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
                      }
@@ -152,13 +154,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)configureArticleList {
     [self.resultsListController applyTheme:self.theme];
-    self.resultsListController.userDataStore = self.dataStore;
-    self.resultsListController.delegate = self;
+    self.resultsListController.dataStore = self.dataStore;
 }
 
 - (void)configureRecentSearchList {
     self.recentSearchesViewController.recentSearches = self.dataStore.recentSearchList;
-    self.recentSearchesViewController.delegate = self;
+    self.recentSearchesViewController.recentSearchesViewControllerDelegate = self;
 }
 
 - (void)configureSearchField {
@@ -172,6 +173,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super viewDidLoad];
 
     self.fakeProgressController = [[WMFFakeProgressController alloc] initWithProgressView:self.progressView];
+    self.recentSearchesHeaderLabel.text = [WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms") uppercaseStringWithLocale:[NSLocale currentLocale]];
     
     [self configureSearchField];
 
@@ -179,10 +181,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
     self.title = WMFLocalizedStringWithDefaultValue(@"search-title", nil, nil, @"Search", @"Title for search interface.\n{{Identical|Search}}");
-    self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
+    self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
 
     self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
+    self.clearRecentSearchesButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}");
 
     [self applyTheme:self.theme];
 
@@ -250,11 +253,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchResultsViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
-    if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFRecentSearchesViewController class]]) {
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
     }
@@ -466,7 +469,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
                                              self.resultsListController.searchResults = results;
                                              self.resultsListController.searchSiteURL = url;
-                                             [self.resultsListController.tableView reloadData];
+                                             [self.resultsListController.collectionView reloadData];
                              
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
@@ -530,13 +533,34 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                                      searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.recentSearchList addEntry:entry];
         [self.dataStore.recentSearchList save];
-        [self.recentSearchesViewController reloadRecentSearches];
+        [self updateRecentSearches];
     }
+}
+
+- (void)updateRecentSearches {
+    [self.recentSearchesViewController reloadRecentSearches];
+    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.entries.count == 0;
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
-- (void)recentSearchController:(RecentSearchesViewController *)controller
+- (IBAction)clearRecentSearches:(id)sender {
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
+
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
+        style:UIAlertActionStyleDestructive
+        handler:^(UIAlertAction *_Nonnull action) {
+            [self.dataStore.recentSearchList removeAllEntries];
+            [self.dataStore.recentSearchList save];
+            [self updateRecentSearches];
+        }]];
+
+    [self presentViewController:dialog animated:YES completion:NULL];
+}
+
+- (void)recentSearchController:(WMFRecentSearchesViewController *)controller
            didSelectSearchTerm:(MWKRecentSearchEntry *)searchTerm {
     [self setSearchFieldText:searchTerm.searchTerm];
     [self searchForSearchTerm:searchTerm.searchTerm];
@@ -552,31 +576,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                          [self updateSearchSuggestion:nil];
                      }];
     [self searchForSearchTerm:self.searchField.text];
-}
-
-#pragma mark - WMFArticleListTableViewControllerDelegate
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didSelectArticleURL:(nonnull NSURL *)url {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore theme:self.theme animated:YES];
-                             }];
-}
-
-- (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-    return vc;
-}
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:YES];
-                             }];
 }
 
 - (NSString *)analyticsContext {
@@ -614,6 +613,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
     self.view.tintColor = theme.colors.link;
+    
+    self.recentSearchesHeader.backgroundColor = theme.colors.midBackground;
+    self.recentSearchesHeaderLabel.textColor = theme.colors.secondaryText;
+    self.clearRecentSearchesButton.tintColor = theme.colors.secondaryText;
 }
 
 @end

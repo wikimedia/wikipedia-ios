@@ -1,99 +1,33 @@
 import UIKit
 
-// CollectionViewCell is the base class of collection view cells that use manual layout.
-// These cells use a manual layout rather than auto layout for a few reasons:
-// 1. A significant in-code implementation was required anyway for handling the complexity of
-//    hiding & showing different parts of the cells with auto layout
-// 2. The performance advantage over auto layout for views that contain several article cells.
-//    (To further alleviate this performance issue, WMFColumnarCollectionViewLayout could be updated
-//     to not require a full layout pass for calculating the total collection view content size. Instead,
-//     it could do a rough estimate pass, and then update the content size as the user scrolls.)
+// This is largely identical to CollectionViewCell. They both could be refactored to be
+// wrappers around a SizeThatFitsView that determines cell & header/footer size.
 
-@objc(WMFCollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell {
-    // MARK - Methods for subclassing
-    
+class SizeThatFitsReusableView: UICollectionReusableView {
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundView = UIView()
-        selectedBackgroundView = UIView()
         reset()
         layoutSubviews()
     }
     
     open func reset() {
-
+        
     }
     
-    var labelBackgroundColor: UIColor? {
-        didSet {
-            updateBackgroundColorOfLabels()
-        }
-    }
-
-    func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
-        backgroundView?.backgroundColor = deselected
-        selectedBackgroundView?.backgroundColor = selected
-        let newColor = isSelectedOrHighlighted ? selected : deselected
-        if newColor != labelBackgroundColor {
-            labelBackgroundColor = newColor
-        }
-    }
-
     // Subclassers should call super
     open func updateBackgroundColorOfLabels() {
         
     }
-
-    fileprivate var isSelectedOrHighlighted: Bool = false
-    
-    public final func updateSelectedOrHighlighted() {
-        let newIsSelectedOrHighlighted = isSelected || isHighlighted
-        guard newIsSelectedOrHighlighted != isSelectedOrHighlighted else {
-            return
-        }
-
-        isSelectedOrHighlighted = newIsSelectedOrHighlighted
-
-        // It appears that background color changes aren't properly animated when set within the animation block around isHighlighted/isSelected state changes
-        // https://phabricator.wikimedia.org/T174341
-
-        // To work around this, first set the background to clear without animation so that it stays clear throughought the animation
-        UIView.performWithoutAnimation {
-            self.labelBackgroundColor = .clear
-        }
-
-        //Then update the completion block to set the actual opaque color we want after the animation completes
-        let existingCompletionBlock = CATransaction.completionBlock()
-        CATransaction.setCompletionBlock {
-            if let block = existingCompletionBlock {
-                block()
-            }
-            self.labelBackgroundColor =  self.isSelected || self.isHighlighted ? self.selectedBackgroundView?.backgroundColor : self.backgroundView?.backgroundColor
-        }
-    }
-
-    open override var isHighlighted: Bool {
-        didSet {
-            updateSelectedOrHighlighted()
-        }
-    }
-    
-    open override var isSelected: Bool {
-        didSet {
-            updateSelectedOrHighlighted()
-        }
-    }
     
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
-    // In this method, subclassers should calculate the appropriate layout size and if apply is `true`, 
+    // In this method, subclassers should calculate the appropriate layout size and if apply is `true`,
     // apply the layout to the subviews.
     open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         return size
     }
     
-    // Subclassers should override updateAccessibilityElements to update any accessibility elements 
+    // Subclassers should override updateAccessibilityElements to update any accessibility elements
     // that should be updated after layout. Subclassers must call super.updateAccessibilityElements()
     open func updateAccessibilityElements() {
         
@@ -128,9 +62,6 @@ open class CollectionViewCell: UICollectionViewCell {
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {
-                guard view !== backgroundView, view !== selectedBackgroundView else {
-                    continue
-                }
                 assert(view.autoresizingMask == [])
                 assert(view.constraints == [])
             }
@@ -189,5 +120,4 @@ open class CollectionViewCell: UICollectionViewCell {
     open func updateFonts(with traitCollection: UITraitCollection) {
         
     }
-
 }

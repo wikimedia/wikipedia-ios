@@ -20,8 +20,6 @@
 // View Controllers
 #import "WMFSearchViewController.h"
 #import "WMFSettingsViewController.h"
-#import "WMFHistoryTableViewController.h"
-#import "WMFSavedArticleTableViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -73,8 +71,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong, readonly) SessionSingleton *session;
@@ -199,7 +197,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     [self configureExploreViewController];
     [self configurePlacesViewController];
     [self configureArticleListController:self.savedArticlesViewController];
-    [self configureArticleListController:self.recentArticlesViewController];
+    self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 }
@@ -224,8 +222,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     self.placesViewController.dataStore = self.dataStore;
 }
 
-- (void)configureArticleListController:(WMFArticleListTableViewController *)controller {
-    controller.userDataStore = self.dataStore;
+- (void)configureArticleListController:(WMFSavedViewController *)controller {
+    controller.dataStore = self.dataStore;
 }
 
 #pragma mark - Notifications
@@ -971,12 +969,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
-- (WMFArticleListTableViewController *)savedArticlesViewController {
-    return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
+- (WMFSavedViewController *)savedArticlesViewController {
+    return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
-- (WMFArticleListTableViewController *)recentArticlesViewController {
-    return (WMFArticleListTableViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+- (WMFHistoryViewController *)recentArticlesViewController {
+    return (WMFHistoryViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
 - (WMFPlacesViewController *)placesViewController {
@@ -1186,12 +1184,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSaved: {
-                WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
-                [savedArticlesViewController scrollToTop:savedArticlesViewController.userDataStore.savedPageList.numberOfItems > 0];
+                WMFSavedViewController *savedArticlesViewController = (WMFSavedViewController *)[self savedArticlesViewController];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.savedPageList.numberOfItems > 0];
             } break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
-                [historyArticlesViewController scrollToTop:[historyArticlesViewController.userDataStore.historyList numberOfItems] > 0];
+                WMFHistoryViewController *historyArticlesViewController = (WMFHistoryViewController *)[self recentArticlesViewController];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.historyList numberOfItems] > 0];
             } break;
         }
     }
@@ -1437,7 +1435,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    
+
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
@@ -1471,7 +1469,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // Tab bar items
 
     [tabBarItems addObject:[UITabBarItem appearance]];
-    UIFont *tabBarItemFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
@@ -1571,8 +1569,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
         return;
     }
+
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
 
@@ -1580,6 +1580,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
     vc.permaRandomMode = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif

@@ -13,6 +13,24 @@ public extension ArticleCollectionViewCell {
         margins = newMargins
     }
     
+    @objc(setTitleText:highlightingText:locale:)
+    func set(titleTextToAttribute: String?, highlightingText: String?, locale: Locale?) {
+        guard let titleTextToAttribute = titleTextToAttribute, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline) else {
+            titleLabel.text = nil
+            return
+        }
+        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
+        if let highlightingText = highlightingText {
+            let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
+            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
+                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
+            }
+        }
+        titleTextStyle = nil
+        titleFontFamily = nil
+        titleLabel.attributedText = attributedTitle
+    }
+    
     @objc(configureWithArticle:displayType:index:count:shouldAdjustMargins:theme:layoutOnly:)
     public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
@@ -70,6 +88,9 @@ public extension ArticleCollectionViewCell {
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             extractLabel?.text = nil
+        case .compactList:
+            configureForCompactList(at: index)
+            fallthrough
         case .page:
             fallthrough
         default:
@@ -80,7 +101,6 @@ public extension ArticleCollectionViewCell {
             if (shouldAdjustMargins) {
                 adjustMargins(for: index, count: count)
             }
-
         }
         
         titleLabel.accessibilityLanguage = articleLanguage
@@ -94,7 +114,7 @@ public extension ArticleCollectionViewCell {
 public extension ArticleRightAlignedImageCollectionViewCell {
     @objc public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         if shouldShowSeparators {
-            self.bottomSeparator.backgroundColor = theme.colors.border
+            self.topSeparator.isHidden = index != 0
             self.bottomSeparator.isHidden = false
         } else {
             self.bottomSeparator.isHidden = true
