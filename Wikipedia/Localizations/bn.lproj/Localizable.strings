@@ -157,8 +157,6 @@
 "history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
-"history-section-today" = "আজ";
-"history-section-yesterday" = "গতকাল";
 "history-title" = "ইতিহাস";
 "hockeyapp-alert-always-send" = "সর্বদা পাঠান";
 "hockeyapp-alert-do-not-send" = "পাঠাবেন না";

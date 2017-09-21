@@ -145,8 +145,6 @@
 "history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "最近の項目をすべて削除しても構いませんか?";
 "history-clear-delete-all" = "すべて削除";
-"history-section-today" = "今日";
-"history-section-yesterday" = "昨日";
 "history-title" = "履歴";
 "hockeyapp-alert-always-send" = "常に送信";
 "hockeyapp-alert-do-not-send" = "送信しない";

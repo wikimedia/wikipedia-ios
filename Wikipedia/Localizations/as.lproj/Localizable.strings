@@ -91,8 +91,6 @@
 "history-clear-confirmation-heading" = "সকলো শেহতীয়া আইটেম বিলোপ কৰিব?";
 // Fuzzy
 "history-clear-delete-all" = "সকলো বিলোপ কৰক";
-"history-section-today" = "আজি";
-"history-section-yesterday" = "কালি";
 "hockeyapp-alert-always-send" = "সদায় পঠিয়াওক";
 "hockeyapp-alert-do-not-send" = "নপঠিয়াব";
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";

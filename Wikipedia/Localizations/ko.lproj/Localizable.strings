@@ -177,8 +177,6 @@
 "history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
 "history-clear-delete-all" = "예, 모두 삭제합니다";
-"history-section-today" = "오늘";
-"history-section-yesterday" = "어제";
 "history-title" = "역사";
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";

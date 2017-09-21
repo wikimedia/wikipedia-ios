@@ -98,8 +98,6 @@
 "history-clear-cancel" = "မလုပ်တော့ပါ";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
-"history-section-today" = "ယနေ့";
-"history-section-yesterday" = "မနေ့";
 "history-title" = "ရာဇဝင်";
 "hockeyapp-alert-always-send" = "အမြဲတမ်းပို့ရန်";
 "hockeyapp-alert-do-not-send" = "မပို့ပါနှင့်";

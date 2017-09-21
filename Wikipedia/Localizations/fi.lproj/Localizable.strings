@@ -165,8 +165,6 @@
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
-"history-section-today" = "Tänään";
-"history-section-yesterday" = "Eilen";
 "history-title" = "Historia";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
