@@ -160,8 +160,6 @@
 "history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
-"history-section-today" = "Dina iki";
-"history-section-yesterday" = "Wingi";
 "history-title" = "Sajarah";
 "hockeyapp-alert-always-send" = "Tansah ngirim";
 "hockeyapp-alert-do-not-send" = "Aja ngirim";
@@ -388,7 +386,6 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
 "zero-charged-verbiage" = "Wikipedia Zero mati";

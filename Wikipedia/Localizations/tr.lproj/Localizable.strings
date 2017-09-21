@@ -179,8 +179,6 @@
 "history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
 "history-clear-delete-all" = "Evet, tümünü sil";
-"history-section-today" = "Bugün";
-"history-section-yesterday" = "Dün";
 "history-title" = "Geçmiş";
 "hockeyapp-alert-always-send" = "Her zaman gönder";
 "hockeyapp-alert-do-not-send" = "Gönderme";
