@@ -201,10 +201,11 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             fallthrough
         case .ended:
             let isOpen: Bool
+            let velocityAdjustment = 0.3 * velocityX
             if isRTL {
-                isOpen = swipeTranslation > 0.5 * cell.actionsView.maximumWidth
+                isOpen = swipeTranslation + velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
             } else {
-                isOpen = -swipeTranslation > 0.5 * cell.actionsView.maximumWidth
+                isOpen = -swipeTranslation - velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
             }
             if isOpen {
                 openActionPane()
