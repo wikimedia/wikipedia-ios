@@ -240,6 +240,7 @@ open class ArticleCollectionViewCell: CollectionViewCell {
             self.layoutSubviews()
         }) { (done) in
             guard shouldOvershoot else {
+                completion(done)
                 return
             }
             UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
