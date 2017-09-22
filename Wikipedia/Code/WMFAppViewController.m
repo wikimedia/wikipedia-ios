@@ -566,7 +566,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     NSDate *now = [NSDate date];
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
-    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self WMFTimeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesUserInitiated:NO
                                                         completion:^{
                                                         }];
@@ -594,7 +594,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 #endif
 }
 
-- (NSTimeInterval)WMFTimeBeforeRefreshingExploreFeed {
+- (NSTimeInterval)timeBeforeRefreshingExploreFeed {
     NSTimeInterval timeInterval = 2 * 60 * 60;
     NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
     NSFetchRequest *request = [WMFKeyValue fetchRequest];
