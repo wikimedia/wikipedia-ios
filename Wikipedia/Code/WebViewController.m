@@ -157,7 +157,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         item = WMFArticleFooterMenuItemDisambiguation;
     } else if ([messageString isEqualToString:@"coordinate"]) {
         item = WMFArticleFooterMenuItemCoordinate;
-    } else {
+    } else if ([messageString isEqualToString:@"talkPage"]) {
+        item = WMFArticleFooterMenuItemTalkPage;
+    }
+    else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
