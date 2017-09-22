@@ -13,11 +13,11 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     let collectionView: UICollectionView
     var swipeTranslationByIndexPath: [IndexPath: CGFloat] = [:]
     
-    var activeCell: ArticleCollectionViewCell? {
+    var activeCell: SwipeableCell? {
         guard let indexPath = activeIndexPath else {
             return nil
         }
-        return collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell
+        return collectionView.cellForItem(at: indexPath) as? SwipeableCell
     }
     
     var activeIndexPath: IndexPath?

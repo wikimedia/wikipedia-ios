@@ -1,7 +1,9 @@
 import UIKit
 
+
+
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell {
+open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
     
     @objc public let titleLabel = UILabel()
