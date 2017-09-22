@@ -28,7 +28,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     var activeIndexPath: IndexPath?
     var isRTL: Bool = false
     var initialSwipeTranslation: CGFloat = 0
-    
+    let maxExtension: CGFloat = 10
+
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
@@ -193,13 +194,13 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             fallthrough
         case .changed:
             if normalizedSwipeTranslation < 0 {
-                let normalizedSqrt = sqrt(abs(normalizedSwipeTranslation))
+                let normalizedSqrt = maxExtension * log(abs(normalizedSwipeTranslation))
                 swipeTranslation = isRTL ? 0 - normalizedSqrt : normalizedSqrt
             }
             if normalizedSwipeTranslation > cell.actionsView.maximumWidth {
                 let maxWidth = cell.actionsView.maximumWidth
                 let delta = normalizedSwipeTranslation - maxWidth
-                swipeTranslation = isRTL ? maxWidth + sqrt(delta) : 0 - maxWidth - sqrt(delta)
+                swipeTranslation = isRTL ? maxWidth + (maxExtension * log(delta)) : 0 - maxWidth - (maxExtension * log(delta))
             }
             cell.swipeTranslation = swipeTranslation
             swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX)
@@ -249,7 +250,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         let targetTranslation =  isRTL ? cell.actionsView.maximumWidth : 0 - cell.actionsView.maximumWidth
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
-        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: cell.swipeTranslation, velocity: velocity)
+        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
         cell.isSwiping = true
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
@@ -279,7 +280,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
-        let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
         let animationDistance = abs(animationTranslation)
         let swipeSpeed = abs(swipeVelocity)
         var animationSpeed = swipeSpeed
@@ -287,16 +287,16 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         var overshootDistance: CGFloat = 0
         var secondKeyframeDuration: TimeInterval = 0
         let minSwipeSpeed: CGFloat = 500
-        if !velocityIsInDirectionOfTranslation || swipeSpeed < minSwipeSpeed {
+        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
+        if swipeSpeed < minSwipeSpeed {
             animationSpeed = minSwipeSpeed
         } else {
-            secondKeyframeDuration = TimeInterval(animationSpeed) / (TimeInterval(minSwipeSpeed) * 100)
-            overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
-            overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
+            secondKeyframeDuration = 0.1
+            overshootDistance = 0.25 * maxExtension * log(swipeSpeed * CGFloat(secondKeyframeDuration))
+            overshootTranslation = swipeVelocity < 0 ? -overshootDistance :  overshootDistance
         }
-        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
         let shouldOvershoot = overshootDistance > 0
-        let thirdKeyframeDuration = 2 * secondKeyframeDuration
+        let thirdKeyframeDuration = 1.5 * secondKeyframeDuration
         let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
         // hacky but OK for now - built in spring animation left gaps between buttons on bounces
         UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
