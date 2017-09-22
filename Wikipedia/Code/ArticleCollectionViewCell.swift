@@ -167,8 +167,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     }
     
     // MARK: - Swipeable
-
-    var swipeVelocity: CGFloat = 0
     var isSwiping: Bool = false {
         didSet {
             if isSwiping && actionsView.superview == nil {
@@ -188,10 +186,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         }
     }
     
-    var minimumSwipeTrackingPosition: CGFloat {
-        return -actionsView.maximumWidth
-    }
-    
     func showActionsView(with swipeType: CollectionViewCellSwipeType) {
         // We don't need to do this if the view is already visible.
         guard actionsView.superview == nil else { return }
@@ -205,6 +199,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     
     func resetSwipeable() {
         swipeTranslation = 0
-        swipeVelocity = 0
+        isSwiping = false
     }
 }

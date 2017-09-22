@@ -83,7 +83,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         guard let indexPath = activeIndexPath else {
             return
         }
-        closeActionPane { (finished) in
+        let activatedAction = action.type == .delete ? action : nil
+        closeActionPane(with: activatedAction) { (finished) in
             self.delegate?.didPerformAction(action, at: indexPath)
         }
     }
@@ -246,7 +247,6 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             completion(false)
             return
         }
-        let isRTL = cell.actionsView.semanticContentAttribute == .forceRightToLeft
         let targetTranslation =  isRTL ? cell.actionsView.maximumWidth : 0 - cell.actionsView.maximumWidth
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: cell.swipeTranslation, velocity: velocity)
@@ -254,7 +254,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
     
-    public func closeActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
+    public func closeActionPane(with expandedAction: CollectionViewCellAction? = nil, _ completion: @escaping (Bool) -> Void = {_ in }) {
         collectionView.isScrollEnabled = true
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
@@ -263,13 +263,20 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         activeIndexPath = nil
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = nil
-        animateActionPane(of: cell, to: 0, with: velocity, completion: { finished in
-            cell.isSwiping = false
-            completion(finished)
-        })
+        if let expandedAction = expandedAction {
+            let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
+            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { finished in
+                completion(finished)
+            })
+        } else {
+            animateActionPane(of: cell, to: 0, with: velocity, completion: { finished in
+                cell.isSwiping = false
+                completion(finished)
+            })
+        }
     }
 
-    func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, completion: @escaping (Bool) -> Void = {_ in }) {
+    func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
         let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
@@ -293,6 +300,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
         // hacky but OK for now - built in spring animation left gaps between buttons on bounces
         UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
+            if let action = expandedAction {
+                cell.actionsView.expand(action)
+            }
             cell.swipeTranslation = targetTranslation + overshootTranslation
             cell.layoutIfNeeded()
         }) { (done) in

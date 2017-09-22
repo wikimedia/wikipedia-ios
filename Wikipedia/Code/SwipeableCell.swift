@@ -5,4 +5,5 @@ import UIKit
     var swipeTranslation: CGFloat { get set }
     var actionsView: CollectionViewCellActionsView { get }
     func layoutIfNeeded() // call to layout views after setting swipe translation
+    var bounds: CGRect { get }
 }

@@ -47,8 +47,19 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
     
     var actions: [CollectionViewCellAction] = [] {
         didSet {
-            createSubviews(for: self.actions)
+            activatedIndex = NSNotFound
+            createSubviews(for: actions)
         }
+    }
+    
+    fileprivate var activatedIndex = NSNotFound
+    func expand(_ action: CollectionViewCellAction) {
+        guard let index = actions.index(of: action) else {
+            return
+        }
+        bringSubview(toFront: buttons[index])
+        activatedIndex = index
+        setNeedsLayout()
     }
     
     public override var frame: CGRect {
@@ -66,15 +77,19 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            let numberOfButtons = CGFloat(subviews.count)
-            let buttonDelta = bounds.size.width / numberOfButtons
-            let buttonWidth = max(self.buttonWidth, buttonDelta)
-            let isRTL = semanticContentAttribute == .forceRightToLeft
-            let buttons = isRTL ? self.buttons.reversed() : self.buttons
-            var x: CGFloat = 0
-            for button in buttons {
-                button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: bounds.height)
-                x += buttonDelta
+            if activatedIndex == NSNotFound {
+                let numberOfButtons = CGFloat(subviews.count)
+                let buttonDelta = size.width / numberOfButtons
+                let buttonWidth = max(self.buttonWidth, buttonDelta)
+                let isRTL = semanticContentAttribute == .forceRightToLeft
+                let buttons = isRTL ? self.buttons.reversed() : self.buttons
+                var x: CGFloat = 0
+                for button in buttons {
+                    button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
+                    x += buttonDelta
+                }
+            } else {
+                buttons[activatedIndex].frame = CGRect(origin: .zero, size: size)
             }
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? maximumWidth : superSize.width
