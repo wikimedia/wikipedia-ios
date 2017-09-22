@@ -18,7 +18,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
-        imgView.layer.transform = wmf_scaleZeroAndLowerRightTransform
+        imgView.layer.transform = wmf_scaleZeroTransform
         return imgView
     }()
     
@@ -27,8 +27,16 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         removeExistingSubviewsAndSublayers()
         addSubview(phoneImgView)
         addSubview(chartImgView)
+        /*
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:))))
+         */
     }
-    
+    /*
+    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("chartImgView anchorPoint \(gestureRecognizer.location(in: self).wmf_normalizeUsingSize(frame.size))")
+    }
+    */
     override open func beginAnimations() {
         super.beginAnimations()
         CATransaction.begin()
@@ -37,14 +45,19 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             1.0,
             transform: CATransform3DIdentity,
             delay: 0.1,
-            duration: 1.0
+            duration: 0.9
         )
         
+        // Adjust chartImgView anchorPoint so zoom-in happens at that point (center of the chart circle)
+        let anchorPoint = CGPoint(x: 0.71666, y: 0.41333)
+        chartImgView.layer.anchorPoint = anchorPoint
+        chartImgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(frame.size)
+
         chartImgView.layer.wmf_animateToOpacity(
             1.0,
             transform: CATransform3DIdentity,
-            delay: 0.3,
-            duration: 1.0
+            delay: 0.9,
+            duration: 0.4
         )
                 
         CATransaction.commit()
