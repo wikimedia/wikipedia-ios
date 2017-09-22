@@ -103,23 +103,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
 
-            NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
-            NSFetchRequest *request = [WMFKeyValue fetchRequest];
-            request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-            request.fetchLimit = 1;
-            NSManagedObjectContext *moc = self.userDataStore.viewContext;
-            NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
-            WMFKeyValue *keyValue = results.firstObject;
-
-            if (keyValue == nil) {
-                NSEntityDescription *entity = [NSEntityDescription entityForName:@"WMFKeyValue" inManagedObjectContext:moc];
-                keyValue = [[WMFKeyValue alloc] initWithEntity:entity insertIntoManagedObjectContext:moc];
-                keyValue.key = key;
-                NSNumber *value = @(feedDay.maxAge);
-                keyValue.value = value;
-                [moc save:nil];
-            }
-
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
             NSDate *startDate = [self startDateForPageViewsForDate:date];
@@ -219,6 +202,23 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews onDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc completion:(dispatch_block_t)completion {
     [moc performBlock:^{
+        
+        NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
+        NSFetchRequest *request = [WMFKeyValue fetchRequest];
+        request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+        request.fetchLimit = 1;
+        NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
+        WMFKeyValue *keyValue = results.firstObject;
+        
+        if (keyValue == nil) {
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"WMFKeyValue" inManagedObjectContext:moc];
+            keyValue = [[WMFKeyValue alloc] initWithEntity:entity insertIntoManagedObjectContext:moc];
+            keyValue.key = key;
+            NSNumber *value = @(feedDay.maxAge);
+            keyValue.value = value;
+            [moc save:nil];
+        }
+        
         [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date inManagedObjectContext:moc];
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
