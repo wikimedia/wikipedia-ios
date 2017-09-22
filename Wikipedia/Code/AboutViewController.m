@@ -68,16 +68,29 @@ static NSString *const kWMFContributorsKey = @"contributors";
                                                         "  .find(ruleWithSelector)"
                                                         "  .style"
                                                         "}"
-                                                        "styleWithSelector('body', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('.heading', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('.title', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('A', 'aboutStyles').color = '#%@';",
+                                                        "styleWithSelector('body', 'styles').color = '#%@';"
+                                                        "styleWithSelector('.heading', 'styles').color = '#%@';"
+                                                        "styleWithSelector('.title', 'styles').color = '#%@';"
+                                                        "styleWithSelector('A', 'styles').color = '#%@';",
                                                        theme.colors.primaryText.wmf_hexString,
                                                        theme.colors.primaryText.wmf_hexString,
                                                        theme.colors.secondaryText.wmf_hexString,
                                                        theme.colors.link.wmf_hexString];
 
     [self evaluateJavaScript:fontColorJS completionHandler:nil];
+}
+
+- (void)wmf_setLogoStyleWithTheme:(WMFTheme *)theme {
+    // White logo on Dark mode
+    // Black logo on Default and Sepia modes
+    if ([theme.name isEqualToString:WMFTheme.dark.name] ||
+        [theme.name isEqualToString:WMFTheme.darkDimmed.name]) {
+        [self evaluateJavaScript:[NSString stringWithFormat:@"wmf.applyDarkThemeLogo()"]
+               completionHandler:nil];
+    } else {
+        [self evaluateJavaScript:[NSString stringWithFormat:@"wmf.applyLightThemeLogo()"]
+               completionHandler:nil];
+    }
 }
 
 - (void)wmf_preventTextFromExpandingOnRotation {
@@ -230,6 +243,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [webView wmf_setTextDirection];
     [webView wmf_setTextFontSize];
     [webView wmf_setTextFontColor:self.theme];
+    [webView wmf_setLogoStyleWithTheme:self.theme];
 }
 
 #pragma mark - Introspection
