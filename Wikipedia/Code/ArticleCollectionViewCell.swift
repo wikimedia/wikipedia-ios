@@ -171,9 +171,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         didSet {
             if isSwiping && actionsView.superview == nil {
                 insertSubview(actionsView, belowSubview: contentView)
+                contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
             } else if !isSwiping && actionsView.superview != nil {
                 actionsView.removeFromSuperview()
+                contentView.backgroundColor = .clear
                 clipsToBounds = false
             }
         }
