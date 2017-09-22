@@ -94,13 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
                 NSDictionary *headers = [response allHeaderFields];
                 NSString *cacheControllHeader = headers[@"Cache-Control"];
 
-                NSRange range1 = [cacheControllHeader rangeOfString:@"s-maxage="];
-                NSRange range2 = [cacheControllHeader rangeOfString:@","];
+                NSRange range1 = [cacheControllHeader rangeOfString:@"max-age="];
+                NSRange range2 = NSMakeRange(cacheControllHeader.length, 1);
                 NSRange range = NSMakeRange(range1.location + range1.length, range2.location - range1.location - range1.length);
                 NSInteger maxAge = [[cacheControllHeader substringWithRange:range] intValue];
-
+                
                 responseObject.maxAge = maxAge;
-
+                
                 success(responseObject);
             }
         }
