@@ -11,9 +11,6 @@
 
 #import <WMF/WMF-Swift.h>
 
-#import <WMF/WMFKeyValue+CoreDataProperties.h>
-#import <Foundation/Foundation.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 NSInteger const WMFFeedNotificationMinHour = 8;

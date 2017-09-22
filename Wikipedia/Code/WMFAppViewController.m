@@ -35,10 +35,6 @@
 #import "WMFSearchButton.h"
 #import "WMFContentGroup+DetailViewControllers.h"
 
-#import <WMF/WMFKeyValue+CoreDataProperties.h>
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-
 /**
  *  Enums for each tab in the main tab bar.
  *
