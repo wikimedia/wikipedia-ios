@@ -98,6 +98,12 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+                continue
+            }
+            cell.configureSeparators(for: indexPath.item)
+        }
         updateEmptyState()
         updateDeleteButton()
     }
@@ -117,6 +123,26 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         collectionView?.reloadData()
         updateEmptyState()
         updateDeleteButton()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        swipeToEditController.closeActionPane()
+    }
+    
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        guard !layoutOnly, let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+            return
+        }
+        cell.swipeTranslation = translation
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        guard let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+            return true
+        }
+        return translation == 0
     }
 }
 

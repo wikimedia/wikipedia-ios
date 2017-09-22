@@ -12,53 +12,67 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     let collectionView: UICollectionView
     
-    var currentState: CollectionViewCellState = .idle {
-        didSet {
-            currentState == .idle ? didEnterIdleState() : didEnterOpenState()
+    struct SwipeInfo {
+        let translation: CGFloat
+        let velocity: CGFloat
+    }
+    var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
+    
+    var activeCell: SwipeableCell? {
+        guard let indexPath = activeIndexPath else {
+            return nil
         }
+        return collectionView.cellForItem(at: indexPath) as? SwipeableCell
     }
     
-    var activeCell: ArticleCollectionViewCell?
     var activeIndexPath: IndexPath?
-    var activeDirectionIsPrimary: Bool?
-    
+    var isRTL: Bool = false
+    var initialSwipeTranslation: CGFloat = 0
+    let maxExtension: CGFloat = 10
+
     public var primaryActions: [CollectionViewCellAction] = []
     public var secondaryActions: [CollectionViewCellAction] = []
     
+    let panGestureRecognizer: UIPanGestureRecognizer
+    let longPressGestureRecognizer: UILongPressGestureRecognizer
     
     public init(collectionView: UICollectionView) {
         self.collectionView = collectionView
+        panGestureRecognizer = UIPanGestureRecognizer()
+        longPressGestureRecognizer = UILongPressGestureRecognizer()
         super.init()
-        
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-
-
+        panGestureRecognizer.addTarget(self, action: #selector(handlePanGesture))
+        longPressGestureRecognizer.addTarget(self, action: #selector(handleLongPressGesture))
         if let gestureRecognizers = self.collectionView.gestureRecognizers {
             var otherGestureRecognizer: UIGestureRecognizer
             for gestureRecognizer in gestureRecognizers {
-                otherGestureRecognizer = gestureRecognizer is UIPanGestureRecognizer ? pan : longPress
+                otherGestureRecognizer = gestureRecognizer is UIPanGestureRecognizer ? panGestureRecognizer : longPressGestureRecognizer
                 gestureRecognizer.require(toFail: otherGestureRecognizer)
             }
 
         }
         
-        pan.delegate = self
-        self.collectionView.addGestureRecognizer(pan)
+        panGestureRecognizer.delegate = self
+        self.collectionView.addGestureRecognizer(panGestureRecognizer)
         
-        longPress.delegate = self
-        longPress.minimumPressDuration = 0.05
-        self.collectionView.addGestureRecognizer(longPress)
+        longPressGestureRecognizer.delegate = self
+        longPressGestureRecognizer.minimumPressDuration = 0.05
+        longPressGestureRecognizer.require(toFail: panGestureRecognizer)
+        self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
     }
     
+    public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
+        return swipeInfoByIndexPath[indexPath]?.translation
+    }
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
-            return panGestureRecognizerShouldBegin(pan)
+        if gestureRecognizer === panGestureRecognizer {
+            return panGestureRecognizerShouldBegin(panGestureRecognizer)
         }
         
-        if let longPress = gestureRecognizer as? UILongPressGestureRecognizer {
-            return longPressGestureRecognizerShouldBegin(longPress)
+        if gestureRecognizer === longPressGestureRecognizer  {
+            return longPressGestureRecognizerShouldBegin(longPressGestureRecognizer)
         }
         
         return false
@@ -70,7 +84,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         guard let indexPath = activeIndexPath else {
             return
         }
-        delegate?.didPerformAction(action, at: indexPath)
+        let activatedAction = action.type == .delete ? action : nil
+        closeActionPane(with: activatedAction) { (finished) in
+            self.delegate?.didPerformAction(action, at: indexPath)
+        }
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -80,8 +97,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         let position = gestureRecognizer.location(in: collectionView)
         
-        guard let indexPath = collectionView.indexPathForItem(at: position),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell else {
+        guard let indexPath = collectionView.indexPathForItem(at: position) else {
                 return false
         }
 
@@ -92,14 +108,24 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
-        let isPrimary = velocity.x < 0
+        defer {
+            if let indexPath = activeIndexPath {
+                initialSwipeTranslation = swipeInfoByIndexPath[indexPath]?.translation ?? 0
+            }
+        }
         
-        if indexPath == activeIndexPath && isPrimary != activeDirectionIsPrimary {
+        isRTL = false
+        if #available(iOS 10.0, *) {
+            isRTL = collectionView.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        }
+        let isPrimary = isRTL ? velocity.x > 0 : velocity.x < 0
+        
+        if indexPath == activeIndexPath && !isPrimary{
             return true
         }
         
         if activeIndexPath != nil && activeIndexPath != indexPath {
-            return false
+            closeActionPane()
         }
         
         guard activeIndexPath == nil else {
@@ -115,15 +141,11 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return false
         }
         
-        cell.actions = actions
-        cell.actionsView?.delegate = self
-        
-        activeDirectionIsPrimary = isPrimary
-        activeCell = cell
         activeIndexPath = indexPath
-        
-        cell.swipeType = isPrimary ? .primary : .secondary
-        
+        if let cell = activeCell {
+            cell.actionsView.actions = primaryActions
+            cell.actionsView.semanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+        }
         return true
     }
     
@@ -136,8 +158,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let numberOfTouches = gestureRecognizer.numberOfTouches
         
         for touchIndex in 0..<numberOfTouches {
-            let touchLocation = gestureRecognizer.location(ofTouch: touchIndex, in: cell)
-            let touchedActionsView = cell.actionsViewRect.contains(touchLocation)
+            let touchLocation = gestureRecognizer.location(ofTouch: touchIndex, in: cell.actionsView)
+            let touchedActionsView = cell.actionsView.bounds.contains(touchLocation)
             return !touchedActionsView
         }
         
@@ -158,68 +180,143 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        guard let cell = activeCell else {
+        guard let indexPath = activeIndexPath, let cell = activeCell else {
             return
         }
-        
+        cell.actionsView.delegate = self
+        let deltaX = sender.translation(in: collectionView).x
+        let velocityX = sender.velocity(in: collectionView).x
+        var swipeTranslation = deltaX + initialSwipeTranslation
+        let normalizedSwipeTranslation = isRTL ? swipeTranslation : -swipeTranslation
         switch (sender.state) {
         case .began:
-            let position = sender.location(in: cell)
-            let velocityX = sender.velocity(in: cell).x
-            cell.beginSwipe(with: position, velocity: velocityX)
-            currentState = .open
+            cell.isSwiping = true
+            fallthrough
         case .changed:
-            let position = sender.location(in: cell)
-            let velocityX = sender.velocity(in: cell).x
-            cell.updateSwipe(with: position, velocity: velocityX)
+            if normalizedSwipeTranslation < 0 {
+                let normalizedSqrt = maxExtension * log(abs(normalizedSwipeTranslation))
+                swipeTranslation = isRTL ? 0 - normalizedSqrt : normalizedSqrt
+            }
+            if normalizedSwipeTranslation > cell.actionsView.maximumWidth {
+                let maxWidth = cell.actionsView.maximumWidth
+                let delta = normalizedSwipeTranslation - maxWidth
+                swipeTranslation = isRTL ? maxWidth + (maxExtension * log(delta)) : 0 - maxWidth - (maxExtension * log(delta))
+            }
+            cell.swipeTranslation = swipeTranslation
+            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX)
         case .cancelled:
-            currentState = .idle
+            fallthrough
+        case .failed:
+            fallthrough
+        case .ended:
+            let isOpen: Bool
+            let velocityAdjustment = 0.3 * velocityX
+            if isRTL {
+                isOpen = swipeTranslation + velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
+            } else {
+                isOpen = -swipeTranslation - velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
+            }
+            if isOpen {
+                openActionPane()
+            } else {
+                closeActionPane()
+            }
+            fallthrough
         default:
             break
         }
     }
     
     @objc func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-        guard activeCell != nil else {
+        guard activeIndexPath != nil else {
             return
         }
         
         switch (sender.state) {
         case .ended:
-            currentState = .idle
-            sender.isEnabled = false
-            sender.isEnabled = true
+            closeActionPane()
         default:
             break
         }
     }
     
     // MARK: - States
-    func didEnterIdleState() {
-        collectionView.isScrollEnabled = true
-        guard let cell = activeCell else {
-            return
-        }
-        cell.closeActionPane()
-        activeCell = nil
-        activeIndexPath = nil
-        activeDirectionIsPrimary = nil
-    }
     
-    func didEnterOpenState() {
+    func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
         collectionView.isScrollEnabled = false
-        guard let cell = activeCell else {
+        guard let cell = activeCell, let indexPath = activeIndexPath else {
+            completion(false)
             return
         }
-        cell.openActionPane()
+        let targetTranslation =  isRTL ? cell.actionsView.maximumWidth : 0 - cell.actionsView.maximumWidth
+        let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
+        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
+        cell.isSwiping = true
+        animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
     
-    public func performedAction() {
-        closeActionPane()
+    public func closeActionPane(with expandedAction: CollectionViewCellAction? = nil, _ completion: @escaping (Bool) -> Void = {_ in }) {
+        collectionView.isScrollEnabled = true
+        guard let cell = activeCell, let indexPath = activeIndexPath else {
+            completion(false)
+            return
+        }
+        activeIndexPath = nil
+        let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
+        swipeInfoByIndexPath[indexPath] = nil
+        if let expandedAction = expandedAction {
+            let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
+            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { finished in
+                completion(finished)
+            })
+        } else {
+            animateActionPane(of: cell, to: 0, with: velocity, completion: { finished in
+                cell.isSwiping = false
+                completion(finished)
+            })
+        }
     }
-    
-    func closeActionPane() {
-        currentState = .idle
+
+    func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
+        let initialSwipeTranslation = cell.swipeTranslation
+        let animationTranslation = targetTranslation - initialSwipeTranslation
+        let animationDistance = abs(animationTranslation)
+        let swipeSpeed = abs(swipeVelocity)
+        var animationSpeed = swipeSpeed
+        var overshootTranslation: CGFloat = 0
+        var overshootDistance: CGFloat = 0
+        var secondKeyframeDuration: TimeInterval = 0
+        let minSwipeSpeed: CGFloat = 500
+        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
+        if swipeSpeed < minSwipeSpeed {
+            animationSpeed = minSwipeSpeed
+        } else {
+            secondKeyframeDuration = 0.1
+            overshootDistance = 0.25 * maxExtension * log(swipeSpeed * CGFloat(secondKeyframeDuration))
+            overshootTranslation = swipeVelocity < 0 ? -overshootDistance :  overshootDistance
+        }
+        let shouldOvershoot = overshootDistance > 0
+        let thirdKeyframeDuration = 1.5 * secondKeyframeDuration
+        let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
+        // hacky but OK for now - built in spring animation left gaps between buttons on bounces
+        UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
+            if let action = expandedAction {
+                cell.actionsView.expand(action)
+            }
+            cell.swipeTranslation = targetTranslation + overshootTranslation
+            cell.layoutIfNeeded()
+        }) { (done) in
+            guard shouldOvershoot else {
+                completion(done)
+                return
+            }
+            UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+                cell.swipeTranslation = targetTranslation
+                cell.layoutIfNeeded()
+            }) { (done) in
+                completion(done)
+            }
+        }
     }
     
 }
