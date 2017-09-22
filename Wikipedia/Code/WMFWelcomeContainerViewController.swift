@@ -57,31 +57,38 @@ class WMFWelcomeContainerViewController: UIViewController {
     override func updateViewConstraints() {
         super.updateViewConstraints()
         if needsDeviceAdjustments {
-            reduceTopAnimationsSizesIfDeviceIsiPhone5()
+            if isiPhone5() {
+                reduceTopAnimationsSizes(reduction: 50)
+            }
             useBottomAlignmentIfPhone()
-            hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
+            if isiPhone4s() {
+                hideAndCollapseTopContainerView()
+            }
             needsDeviceAdjustments = false
         }
     }
     
-    fileprivate func reduceTopAnimationsSizesIfDeviceIsiPhone5() {
-        if view.frame.size.height == 568 {
-            let reduction: CGFloat = 50
-            topBackgroundContainerViewHeightConstraint.constant = topBackgroundContainerViewHeightConstraint.constant - reduction
-            topBackgroundContainerViewLeadingConstraint.constant = reduction
-            topBackgroundContainerViewTrailingConstraint.constant = reduction
-            topForegroundContainerViewHeightConstraint.constant = topForegroundContainerViewHeightConstraint.constant - reduction
-            topForegroundContainerViewWidthConstraint.constant = topForegroundContainerViewWidthConstraint.constant - reduction
-        }
+    fileprivate func isiPhone5() -> Bool {
+        return view.frame.size.height == 568
+    }
+
+    fileprivate func isiPhone4s() -> Bool {
+        return view.frame.size.height == 480
     }
     
-    fileprivate func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
-        if view.frame.size.height == 480 {
-            topForegroundContainerView.alpha = 0
-            topForegroundContainerViewHeightConstraint.constant = 0
-            topBackgroundContainerView.alpha = 0
-            topBackgroundContainerViewHeightConstraint.constant = 0
-        }
+    fileprivate func reduceTopAnimationsSizes(reduction: CGFloat) {
+        topBackgroundContainerViewHeightConstraint.constant = topBackgroundContainerViewHeightConstraint.constant - reduction
+        topBackgroundContainerViewLeadingConstraint.constant = reduction
+        topBackgroundContainerViewTrailingConstraint.constant = reduction
+        topForegroundContainerViewHeightConstraint.constant = topForegroundContainerViewHeightConstraint.constant - reduction
+        topForegroundContainerViewWidthConstraint.constant = topForegroundContainerViewWidthConstraint.constant - reduction
+    }
+    
+    fileprivate func hideAndCollapseTopContainerView() {
+        topForegroundContainerView.alpha = 0
+        topForegroundContainerViewHeightConstraint.constant = 0
+        topBackgroundContainerView.alpha = 0
+        topBackgroundContainerViewHeightConstraint.constant = 0
     }
     
     fileprivate func useBottomAlignmentIfPhone() {
