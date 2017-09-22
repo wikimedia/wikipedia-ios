@@ -102,7 +102,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
-            
+
             NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
             NSFetchRequest *request = [WMFKeyValue fetchRequest];
             request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
@@ -110,17 +110,16 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             NSManagedObjectContext *moc = self.userDataStore.viewContext;
             NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
             WMFKeyValue *keyValue = results.firstObject;
-            
+
             if (keyValue == nil) {
-            
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"WMFKeyValue" inManagedObjectContext:moc];
-            keyValue = [[WMFKeyValue alloc] initWithEntity:entity insertIntoManagedObjectContext:moc];
-            keyValue.key = key;
-            NSNumber *value = @(feedDay.maxAge);
-            keyValue.value = value;
-            [moc save:nil];
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"WMFKeyValue" inManagedObjectContext:moc];
+                keyValue = [[WMFKeyValue alloc] initWithEntity:entity insertIntoManagedObjectContext:moc];
+                keyValue.key = key;
+                NSNumber *value = @(feedDay.maxAge);
+                keyValue.value = value;
+                [moc save:nil];
             }
-            
+
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
             NSDate *startDate = [self startDateForPageViewsForDate:date];
