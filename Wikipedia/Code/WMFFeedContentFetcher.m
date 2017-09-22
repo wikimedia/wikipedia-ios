@@ -90,6 +90,17 @@ NS_ASSUME_NONNULL_BEGIN
                                           userInfo:nil]);
 
             } else {
+                NSHTTPURLResponse *response = ((NSHTTPURLResponse *)[operation response]);
+                NSDictionary *headers = [response allHeaderFields];
+                NSString *cacheControllHeader = headers[@"Cache-Control"];
+
+                NSRange range1 = [cacheControllHeader rangeOfString:@"s-maxage="];
+                NSRange range2 = [cacheControllHeader rangeOfString:@","];
+                NSRange range = NSMakeRange(range1.location + range1.length, range2.location - range1.location - range1.length);
+                NSInteger maxAge = [[cacheControllHeader substringWithRange:range] intValue];
+
+                responseObject.maxAge = maxAge;
+
                 success(responseObject);
             }
         }
