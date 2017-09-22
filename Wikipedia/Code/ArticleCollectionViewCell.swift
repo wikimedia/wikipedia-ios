@@ -201,62 +201,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         actionsView.layoutIfNeeded()
     }
     
-    // MARK: Opening & closing action pane
-    
-    func openActionPane(_ completion: @escaping (Bool) -> Void) {
-        let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
-        let targetTranslation =  isRTL ? actionsView.maximumWidth : 0 - actionsView.maximumWidth
-        isSwiping = true
-        animateActionPane(to: targetTranslation) { (finished) in completion(finished) }
-    }
-    
-    func closeActionPane(_ completion: @escaping (Bool) -> Void) {
-        animateActionPane(to: 0) { (finished) in
-            self.isSwiping = false
-            completion(finished)
-        }
-    }
-    
-    func animateActionPane(to targetTranslation: CGFloat, completion: @escaping (Bool) -> Void) {
-        let initialSwipeTranslation = swipeTranslation
-        let animationTranslation = targetTranslation - initialSwipeTranslation
-        let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
-        let animationDistance = abs(animationTranslation)
-        let swipeSpeed = abs(swipeVelocity)
-        var animationSpeed = swipeSpeed
-        var overshootTranslation: CGFloat = 0
-        var overshootDistance: CGFloat = 0
-        var secondKeyframeDuration: TimeInterval = 0
-        let minSwipeSpeed: CGFloat = 750
-        if !velocityIsInDirectionOfTranslation || swipeSpeed < minSwipeSpeed {
-            animationSpeed = minSwipeSpeed
-        } else {
-            secondKeyframeDuration = TimeInterval(animationSpeed) / (TimeInterval(minSwipeSpeed) * 100)
-            overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
-            overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
-        }
-        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
-        let shouldOvershoot = overshootDistance > 0
-        let thirdKeyframeDuration = 2 * secondKeyframeDuration
-        let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
-        // hacky but OK for now - built in spring animation left gaps between buttons on bounces
-        UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
-            self.swipeTranslation = targetTranslation + overshootTranslation
-            self.layoutSubviews()
-        }) { (done) in
-            guard shouldOvershoot else {
-                completion(done)
-                return
-            }
-            UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-                self.swipeTranslation = targetTranslation
-                self.layoutSubviews()
-            }) { (done) in
-                completion(done)
-            }
-        }
-    }
-    
     // MARK: Prepare for reuse
     
     func resetSwipeable() {

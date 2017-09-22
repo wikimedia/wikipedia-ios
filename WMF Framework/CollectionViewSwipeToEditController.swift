@@ -11,7 +11,12 @@ enum CollectionViewCellState {
 public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate, ActionsViewDelegate {
     
     let collectionView: UICollectionView
-    var swipeTranslationByIndexPath: [IndexPath: CGFloat] = [:]
+    
+    struct SwipeInfo {
+        let translation: CGFloat
+        let velocity: CGFloat
+    }
+    var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
     
     var activeCell: SwipeableCell? {
         guard let indexPath = activeIndexPath else {
@@ -57,7 +62,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
-        return swipeTranslationByIndexPath[indexPath]
+        return swipeInfoByIndexPath[indexPath]?.translation
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -103,7 +108,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         defer {
             if let indexPath = activeIndexPath {
-                initialSwipeTranslation = swipeTranslationByIndexPath[indexPath] ?? 0
+                initialSwipeTranslation = swipeInfoByIndexPath[indexPath]?.translation ?? 0
             }
         }
         
@@ -195,9 +200,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
                 let delta = normalizedSwipeTranslation - maxWidth
                 swipeTranslation = isRTL ? maxWidth + sqrt(delta) : 0 - maxWidth - sqrt(delta)
             }
-            cell.swipeVelocity = velocityX
             cell.swipeTranslation = swipeTranslation
-            swipeTranslationByIndexPath[indexPath] = swipeTranslation
+            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX)
         case .cancelled:
             fallthrough
         case .failed:
@@ -242,8 +246,12 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             completion(false)
             return
         }
-        swipeTranslationByIndexPath[indexPath] = cell.swipeTranslation
-        cell.openActionPane(completion)
+        let isRTL = cell.actionsView.semanticContentAttribute == .forceRightToLeft
+        let targetTranslation =  isRTL ? cell.actionsView.maximumWidth : 0 - cell.actionsView.maximumWidth
+        let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
+        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: cell.swipeTranslation, velocity: velocity)
+        cell.isSwiping = true
+        animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
     
     public func closeActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
@@ -253,8 +261,52 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             return
         }
         activeIndexPath = nil
-        swipeTranslationByIndexPath[indexPath] = nil
-        cell.closeActionPane(completion)
+        let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
+        swipeInfoByIndexPath[indexPath] = nil
+        animateActionPane(of: cell, to: 0, with: velocity, completion: { finished in
+            cell.isSwiping = false
+            completion(finished)
+        })
+    }
+
+    func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, completion: @escaping (Bool) -> Void = {_ in }) {
+        let initialSwipeTranslation = cell.swipeTranslation
+        let animationTranslation = targetTranslation - initialSwipeTranslation
+        let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
+        let animationDistance = abs(animationTranslation)
+        let swipeSpeed = abs(swipeVelocity)
+        var animationSpeed = swipeSpeed
+        var overshootTranslation: CGFloat = 0
+        var overshootDistance: CGFloat = 0
+        var secondKeyframeDuration: TimeInterval = 0
+        let minSwipeSpeed: CGFloat = 750
+        if !velocityIsInDirectionOfTranslation || swipeSpeed < minSwipeSpeed {
+            animationSpeed = minSwipeSpeed
+        } else {
+            secondKeyframeDuration = TimeInterval(animationSpeed) / (TimeInterval(minSwipeSpeed) * 100)
+            overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
+            overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
+        }
+        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
+        let shouldOvershoot = overshootDistance > 0
+        let thirdKeyframeDuration = 2 * secondKeyframeDuration
+        let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
+        // hacky but OK for now - built in spring animation left gaps between buttons on bounces
+        UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
+            cell.swipeTranslation = targetTranslation + overshootTranslation
+            cell.layoutIfNeeded()
+        }) { (done) in
+            guard shouldOvershoot else {
+                completion(done)
+                return
+            }
+            UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+                cell.swipeTranslation = targetTranslation
+                cell.layoutIfNeeded()
+            }) { (done) in
+                completion(done)
+            }
+        }
     }
     
 }
