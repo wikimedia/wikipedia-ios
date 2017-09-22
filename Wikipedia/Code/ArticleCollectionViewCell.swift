@@ -223,16 +223,19 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         let animationDistance = abs(animationTranslation)
         let swipeSpeed = abs(swipeVelocity)
         var animationSpeed = swipeSpeed
-        var shouldOvershoot = true
+        var overshootTranslation: CGFloat = 0
+        var overshootDistance: CGFloat = 0
+        var secondKeyframeDuration: TimeInterval = 0
         if !velocityIsInDirectionOfTranslation || swipeSpeed < 500 {
             animationSpeed = 500
-            shouldOvershoot = false
+        } else {
+            secondKeyframeDuration = TimeInterval(animationSpeed) / 50000
+            overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
+            overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
         }
         let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
-        let secondKeyframeDuration = TimeInterval(animationSpeed) / 50000
+        let shouldOvershoot = overshootDistance > 0
         let thirdKeyframeDuration = 2 * secondKeyframeDuration
-        let overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
-        let overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
         let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
         // hacky but OK for now - built in spring animation left gaps between buttons on bounces
         UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
