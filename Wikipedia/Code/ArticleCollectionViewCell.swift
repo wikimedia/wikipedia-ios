@@ -225,10 +225,11 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         var overshootTranslation: CGFloat = 0
         var overshootDistance: CGFloat = 0
         var secondKeyframeDuration: TimeInterval = 0
-        if !velocityIsInDirectionOfTranslation || swipeSpeed < 500 {
-            animationSpeed = 500
+        let minSwipeSpeed: CGFloat = 750
+        if !velocityIsInDirectionOfTranslation || swipeSpeed < minSwipeSpeed {
+            animationSpeed = minSwipeSpeed
         } else {
-            secondKeyframeDuration = TimeInterval(animationSpeed) / 50000
+            secondKeyframeDuration = TimeInterval(animationSpeed) / (TimeInterval(minSwipeSpeed) * 100)
             overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
             overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
         }
