@@ -92,15 +92,20 @@ NS_ASSUME_NONNULL_BEGIN
             } else {
                 NSHTTPURLResponse *response = ((NSHTTPURLResponse *)[operation response]);
                 NSDictionary *headers = [response allHeaderFields];
-                NSString *cacheControllHeader = headers[@"Cache-Control"];
+                NSString *cacheControlHeader = headers[@"Cache-Control"];
 
-                NSRange range1 = [cacheControllHeader rangeOfString:@"max-age="];
-                NSRange range2 = NSMakeRange(cacheControllHeader.length, 1);
-                NSRange range = NSMakeRange(range1.location + range1.length, range2.location - range1.location - range1.length);
-                NSInteger maxAge = [[cacheControllHeader substringWithRange:range] intValue];
-                
-                responseObject.maxAge = maxAge;
-                
+                NSError *error = NULL;
+                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(?<=max-age=)\\d{2}"
+                                                                                       options:NSRegularExpressionCaseInsensitive
+                                                                                         error:&error];
+
+                NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:cacheControlHeader options:0 range:NSMakeRange(0, [cacheControlHeader length])];
+                if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+                    NSString *substringForFirstMatch = [cacheControlHeader substringWithRange:rangeOfFirstMatch];
+                    NSInteger maxAge = [substringForFirstMatch intValue];
+                    responseObject.maxAge = maxAge;
+                }
+
                 success(responseObject);
             }
         }
