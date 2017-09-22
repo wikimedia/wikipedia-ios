@@ -89,7 +89,14 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
                     x += buttonDelta
                 }
             } else {
-                buttons[activatedIndex].frame = CGRect(origin: .zero, size: size)
+                for (index, button) in buttons.enumerated() {
+                    if index == activatedIndex {
+                        button.clipsToBounds = true
+                        button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
+                    } else {
+                        button.alpha = 0
+                    }
+                }
             }
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? maximumWidth : superSize.width

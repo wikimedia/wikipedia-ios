@@ -286,7 +286,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         var overshootTranslation: CGFloat = 0
         var overshootDistance: CGFloat = 0
         var secondKeyframeDuration: TimeInterval = 0
-        let minSwipeSpeed: CGFloat = 750
+        let minSwipeSpeed: CGFloat = 500
         if !velocityIsInDirectionOfTranslation || swipeSpeed < minSwipeSpeed {
             animationSpeed = minSwipeSpeed
         } else {
