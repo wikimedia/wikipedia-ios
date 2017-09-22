@@ -35,6 +35,10 @@
 #import "WMFSearchButton.h"
 #import "WMFContentGroup+DetailViewControllers.h"
 
+#import <WMF/WMFKeyValue+CoreDataProperties.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -62,8 +66,6 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
-
-static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
@@ -568,8 +570,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     NSDate *now = [NSDate date];
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
-
-    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self WMFTimeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesUserInitiated:NO
                                                         completion:^{
                                                         }];
@@ -595,6 +596,24 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 #endif
+}
+
+- (NSTimeInterval)WMFTimeBeforeRefreshingExploreFeed {
+    NSTimeInterval timeInterval = 0;
+    NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
+    NSFetchRequest *request = [WMFKeyValue fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.fetchLimit = 1;
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
+    WMFKeyValue *keyValue = results.firstObject;
+    if ([keyValue.value isKindOfClass:[NSNumber class]]) {
+        NSNumber *value = (NSNumber *)keyValue.value;
+        timeInterval = [value doubleValue];
+    } else {
+        timeInterval = 2 * 60 * 60;
+    }
+    return timeInterval;
 }
 
 - (void)pauseApp {
