@@ -137,6 +137,13 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
         cell.swipeTranslation = translation
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        guard let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+            return true
+        }
+        return translation == 0
+    }
 }
 
 // MARK: UICollectionViewDataSource
