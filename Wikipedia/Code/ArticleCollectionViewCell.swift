@@ -223,41 +223,31 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         let animationDistance = abs(animationTranslation)
         let swipeSpeed = abs(swipeVelocity)
         var animationSpeed = swipeSpeed
+        var shouldOvershoot = true
         if !velocityIsInDirectionOfTranslation || swipeSpeed < 500 {
             animationSpeed = 500
+            shouldOvershoot = false
         }
         let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
         let secondKeyframeDuration = TimeInterval(animationSpeed) / 50000
         let thirdKeyframeDuration = 2 * secondKeyframeDuration
         let overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
         let overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
-        print("\novershootTranslation: \(overshootTranslation)\nanimationTranslation: \(animationTranslation)\nfirstKeyframeDuration: \(firstKeyframeDuration)\nthirdKeyframeDuration: \(thirdKeyframeDuration)")
-        let duration = firstKeyframeDuration + secondKeyframeDuration + thirdKeyframeDuration
-        let curve = UIViewAnimationOptions.curveLinear
-        let keyframeCurveOption = UIViewKeyframeAnimationOptions(rawValue: curve.rawValue)
-        UIView.animateKeyframes(withDuration: duration, delay: 0, options: [.beginFromCurrentState, keyframeCurveOption], animations: {
-            let firstKeyframeRelativeDuration = firstKeyframeDuration / duration
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: firstKeyframeRelativeDuration, animations: {
-                self.swipeTranslation = targetTranslation
-                self.layoutIfNeeded()
-            })
-            guard secondKeyframeDuration > 0 else {
+        let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
+        // hacky but OK for now - built in spring animation left gaps between buttons on bounces
+        UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
+            self.swipeTranslation = targetTranslation + overshootTranslation
+            self.layoutSubviews()
+        }) { (done) in
+            guard shouldOvershoot else {
                 return
             }
-            let secondKeyframeRelativeDuration = secondKeyframeDuration / duration
-            UIView.addKeyframe(withRelativeStartTime: firstKeyframeRelativeDuration, relativeDuration: secondKeyframeRelativeDuration, animations: {
-                
-                self.swipeTranslation = targetTranslation + overshootTranslation
-                self.layoutSubviews()
-                self.actionsView.layoutSubviews()
-            })
-            let thirdKeyframeRelativeDuration = thirdKeyframeDuration / duration
-            UIView.addKeyframe(withRelativeStartTime: firstKeyframeRelativeDuration + secondKeyframeRelativeDuration, relativeDuration: thirdKeyframeRelativeDuration, animations: {
+            UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
                 self.swipeTranslation = targetTranslation
-                self.layoutIfNeeded()
-            })
-        }) { (finished) in
-            completion(finished)
+                self.layoutSubviews()
+            }) { (done) in
+                completion(done)
+            }
         }
     }
     
