@@ -73,7 +73,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         dataSource = self
         delegate = self
         
-        //TODO: add overall tap recognizer that advances to next panel?
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)

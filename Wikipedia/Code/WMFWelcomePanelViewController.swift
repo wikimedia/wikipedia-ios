@@ -45,7 +45,6 @@ class WMFWelcomePanelViewController: UIViewController {
         case .exploration:
             titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features")
         case .languages:
-            //TODO: 300 may not be how many app can show. Need shorter string too? Wraps to 3 lines on iphone 5...
             titleLabel.text = WMFLocalizedString("welcome-languages-search-title", value:"Search in nearly 300 languages", comment:"Title for welcome screen describing Wikipedia languages")
         case .analytics:
             titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
