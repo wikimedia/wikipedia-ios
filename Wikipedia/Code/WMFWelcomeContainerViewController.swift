@@ -92,13 +92,10 @@ class WMFWelcomeContainerViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.destination.isKind(of: WMFWelcomePanelViewController.self)){
-            let vc = segue.destination as? WMFWelcomePanelViewController
-            vc!.welcomePageType = welcomePageType
-        }
-        if(segue.destination.isKind(of: WMFWelcomeAnimationViewController.self)){
-            let vc = segue.destination as? WMFWelcomeAnimationViewController
-            vc!.welcomePageType = welcomePageType
+        if let vc = segue.destination as? WMFWelcomePanelViewController {
+            vc.welcomePageType = welcomePageType
+        } else if let vc = segue.destination as? WMFWelcomeAnimationViewController{
+            vc.welcomePageType = welcomePageType
         }
     }
     
