@@ -83,7 +83,8 @@ static NSString *const kWMFContributorsKey = @"contributors";
 - (void)wmf_setLogoStyleWithTheme:(WMFTheme *)theme {
     // White logo on Dark mode
     // Black logo on Default and Sepia modes
-    if ([theme.name isEqualToString:WMFTheme.dark.name]) {
+    if ([theme.name isEqualToString:WMFTheme.dark.name] ||
+        [theme.name isEqualToString:WMFTheme.darkDimmed.name]) {
         [self evaluateJavaScript:[NSString stringWithFormat:@"wmf.applyDarkThemeLogo()"]
                completionHandler:nil];
     } else {
