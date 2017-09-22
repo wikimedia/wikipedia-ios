@@ -21,6 +21,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     var text: String? {
         didSet {
             label.text = text?.uppercased()
+            setNeedsLayout()
         }
     }
 }
