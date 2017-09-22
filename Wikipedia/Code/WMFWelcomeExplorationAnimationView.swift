@@ -3,21 +3,17 @@ import Foundation
 open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
 
     lazy var tubeImgView: UIImageView = {
-        let tubeRotationPointUnitOffset = CGPoint(x: 0, y: 0.1354)
-        let tubeRotationPoint = CGPoint(x: 0.5 + tubeRotationPointUnitOffset.x, y: 0.5 + tubeRotationPointUnitOffset.y)
-        let initialTubeRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(0.0)
-        let rectCorrectingForRotation = CGRect(
-            x: bounds.origin.x - (bounds.size.width * (0.5 - tubeRotationPoint.x)),
-            y: bounds.origin.y - (bounds.size.height * (0.5 - tubeRotationPoint.y)),
-            width: bounds.size.width,
-            height: bounds.size.height
-        )
-        let imgView = UIImageView(frame: rectCorrectingForRotation)
+        let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-telescope-tube")
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
-        imgView.layer.transform = CATransform3DConcat(initialTubeRotationTransform, wmf_lowerTransform)
-        imgView.layer.anchorPoint = tubeRotationPoint
+
+        // Adjust tubeImgView anchorPoint so rotation happens at that point (at hinge)
+        let anchorPoint = CGPoint(x: 0.50333, y: 0.64)
+        imgView.layer.anchorPoint = anchorPoint
+        imgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(frame.size)
+        
+        imgView.layer.transform = wmf_lowerTransform
         imgView.layer.opacity = 0
         return imgView
     }()
@@ -45,10 +41,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
 
     /*
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        // print unit coords for easy re-positioning
-        let point = gestureRecognizer.location(in: self)
-        let unitDestination = CGPoint(x: (point.x - (bounds.size.width * 0.5)) / bounds.size.width, y: (point.y - (bounds.size.height * 0.5)) / bounds.size.height)
-        print("tubeRotationPointUnitOffset \(unitDestination)")
+        print("tubeImgView anchorPoint \(gestureRecognizer.location(in: self).wmf_normalizeUsingSize(frame.size))")
     }
     */
     
