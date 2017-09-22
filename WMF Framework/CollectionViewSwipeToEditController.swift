@@ -78,7 +78,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         guard let indexPath = activeIndexPath else {
             return
         }
-        delegate?.didPerformAction(action, at: indexPath)
+        closeActionPane { (finished) in
+            self.delegate?.didPerformAction(action, at: indexPath)
+        }
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -234,33 +236,25 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     // MARK: - States
     
-    func openActionPane() {
+    func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
         collectionView.isScrollEnabled = false
-        guard let cell = activeCell else {
-            return
-        }
-        cell.openActionPane()
-        guard let indexPath = activeIndexPath else {
+        guard let cell = activeCell, let indexPath = activeIndexPath else {
+            completion(false)
             return
         }
         swipeTranslationByIndexPath[indexPath] = cell.swipeTranslation
+        cell.openActionPane(completion)
     }
     
-    public func performedAction() {
-        closeActionPane()
-    }
-    
-    public func closeActionPane() {
+    public func closeActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
         collectionView.isScrollEnabled = true
-        guard let cell = activeCell else {
-            return
-        }
-        cell.closeActionPane()
-        guard let indexPath = activeIndexPath else {
+        guard let cell = activeCell, let indexPath = activeIndexPath else {
+            completion(false)
             return
         }
         activeIndexPath = nil
         swipeTranslationByIndexPath[indexPath] = nil
+        cell.closeActionPane(completion)
     }
     
 }

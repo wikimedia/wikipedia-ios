@@ -201,16 +201,17 @@ open class ArticleCollectionViewCell: CollectionViewCell {
     
     // MARK: Opening & closing action pane
     
-    func openActionPane() {
+    func openActionPane(_ completion: @escaping (Bool) -> Void) {
         let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
         let targetTranslation =  isRTL ? actionsView.maximumWidth : 0 - actionsView.maximumWidth
         isSwiping = true
-        animateActionPane(to: targetTranslation) { (finished) in }
+        animateActionPane(to: targetTranslation) { (finished) in completion(finished) }
     }
     
-    func closeActionPane() {
+    func closeActionPane(_ completion: @escaping (Bool) -> Void) {
         animateActionPane(to: 0) { (finished) in
             self.isSwiping = false
+            completion(finished)
         }
     }
     
