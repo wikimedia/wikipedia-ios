@@ -263,8 +263,8 @@
                         <outlet property="overallContainerViewCenterYConstraint" destination="H6y-qj-T8b" id="QMX-7N-w8d"/>
                         <outlet property="topBackgroundContainerView" destination="zQc-qA-ACw" id="HJo-7C-umR"/>
                         <outlet property="topBackgroundContainerViewHeightConstraint" destination="8iq-Ul-mmM" id="2eG-qt-LHe"/>
-                        <outlet property="topContainerView" destination="7gU-a9-VNf" id="m2d-p6-Due"/>
-                        <outlet property="topContainerViewHeightConstraint" destination="2oC-tB-tAw" id="OsK-Yi-1Gz"/>
+                        <outlet property="topForegroundContainerView" destination="7gU-a9-VNf" id="jWY-jG-HTH"/>
+                        <outlet property="topForegroundContainerViewHeightConstraint" destination="2oC-tB-tAw" id="50r-Vw-zzp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xR7-rm-ylC" userLabel="First Responder" sceneMemberID="firstResponder"/>

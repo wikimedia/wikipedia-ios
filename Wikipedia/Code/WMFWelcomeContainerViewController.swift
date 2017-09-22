@@ -1,17 +1,17 @@
 
 class WMFWelcomeContainerViewController: UIViewController {
     
-    @IBOutlet fileprivate var topContainerView:UIView!
+    @IBOutlet fileprivate var topForegroundContainerView:UIView!
     @IBOutlet fileprivate var topBackgroundContainerView:UIView!
     @IBOutlet fileprivate var bottomContainerView:UIView!
 
     @IBOutlet fileprivate var overallContainerView:UIView!
     @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topForegroundContainerViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topBackgroundContainerViewHeightConstraint:NSLayoutConstraint!
     
     var welcomePageType:WMFWelcomePageType = .intro
-    fileprivate var animationVC:WMFWelcomeAnimationForgroundViewController? = nil
+    fileprivate var foregroundAnimationVC:WMFWelcomeAnimationForgroundViewController? = nil
     fileprivate var backgroundAnimationVC:WMFWelcomeAnimationBackgroundViewController? = nil
 
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
@@ -24,8 +24,8 @@ class WMFWelcomeContainerViewController: UIViewController {
         useBottomAlignmentIfPhone()
         hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
         
-        topContainerView.backgroundColor = .clear
-        topContainerView.isUserInteractionEnabled = false
+        topForegroundContainerView.backgroundColor = .clear
+        topForegroundContainerView.isUserInteractionEnabled = false
         //topContainerView.alpha = 0.8
     }
 
@@ -59,8 +59,8 @@ class WMFWelcomeContainerViewController: UIViewController {
 
     fileprivate func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
         if view.frame.size.height == 480 {
-            topContainerView.alpha = 0
-            topContainerViewHeightConstraint.constant = 0
+            topForegroundContainerView.alpha = 0
+            topForegroundContainerViewHeightConstraint.constant = 0
             topBackgroundContainerView.alpha = 0
             topBackgroundContainerViewHeightConstraint.constant = 0
         }
@@ -104,8 +104,8 @@ class WMFWelcomeContainerViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.destination.isKind(of: WMFWelcomeAnimationForgroundViewController.self)){
-            animationVC = segue.destination as? WMFWelcomeAnimationForgroundViewController
-            animationVC!.welcomePageType = welcomePageType
+            foregroundAnimationVC = segue.destination as? WMFWelcomeAnimationForgroundViewController
+            foregroundAnimationVC!.welcomePageType = welcomePageType
         }
         if(segue.destination.isKind(of: WMFWelcomeAnimationBackgroundViewController.self)){
             backgroundAnimationVC = segue.destination as? WMFWelcomeAnimationBackgroundViewController
