@@ -25,6 +25,12 @@ module.exports = function (grunt) {
           'js/utilities.js'
         ],
         dest: `${distFolder}preview.js`
+      },
+      distAbout: {
+        src: [
+          'about-main.js'
+        ],
+        dest: `${distFolder}about.js`
       }
     },
 
@@ -64,7 +70,8 @@ module.exports = function (grunt) {
               'ios.json',
               'languages.json',
               'mainpages.json',
-              '*.png'
+              '*.png',
+              '*.pdf'
             ],
             dest: distFolder
           },

@@ -27,9 +27,13 @@ extension ArticleCollectionViewCell {
 }
 
 extension ArticleRightAlignedImageCollectionViewCell {
-    open override func configureForCompactList(at index: Int) {
-        super.configureForCompactList(at: index)
+    @objc open func configureSeparators(for index: Int) {
         topSeparator.isHidden = index > 0
         bottomSeparator.isHidden = false
+    }
+
+    open override func configureForCompactList(at index: Int) {
+        super.configureForCompactList(at: index)
+        configureSeparators(for: index)
     }
 }
