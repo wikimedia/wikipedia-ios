@@ -68,10 +68,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
                                                         "  .find(ruleWithSelector)"
                                                         "  .style"
                                                         "}"
-                                                        "styleWithSelector('body', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('.heading', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('.title', 'aboutStyles').color = '#%@';"
-                                                        "styleWithSelector('A', 'aboutStyles').color = '#%@';",
+                                                        "styleWithSelector('body', 'styles').color = '#%@';"
+                                                        "styleWithSelector('.heading', 'styles').color = '#%@';"
+                                                        "styleWithSelector('.title', 'styles').color = '#%@';"
+                                                        "styleWithSelector('A', 'styles').color = '#%@';",
                                                        theme.colors.primaryText.wmf_hexString,
                                                        theme.colors.primaryText.wmf_hexString,
                                                        theme.colors.secondaryText.wmf_hexString,
@@ -84,10 +84,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
     // White logo on Dark mode
     // Black logo on Default and Sepia modes
     if ([theme.name isEqualToString:WMFTheme.dark.name]) {
-        [self evaluateJavaScript:[NSString stringWithFormat:@"applyDarkThemeLogo()"]
+        [self evaluateJavaScript:[NSString stringWithFormat:@"wmf.applyDarkThemeLogo()"]
                completionHandler:nil];
     } else {
-        [self evaluateJavaScript:[NSString stringWithFormat:@"applyLightThemeLogo()"]
+        [self evaluateJavaScript:[NSString stringWithFormat:@"wmf.applyLightThemeLogo()"]
                completionHandler:nil];
     }
 }

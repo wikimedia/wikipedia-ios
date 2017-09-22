@@ -209,7 +209,6 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
-
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
