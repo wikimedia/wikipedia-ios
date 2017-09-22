@@ -39,8 +39,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         addSubview(tubeImgView)
         /*
         isUserInteractionEnabled = true
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-        addGestureRecognizer(tapGestureRecognizer)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:))))
         */
     }
 
