@@ -1733,6 +1733,8 @@ var MenuItem = function () {
           return 'pagelib_footer_menu_icon_languages';
         case MenuItemType.lastEdited:
           return 'pagelib_footer_menu_icon_last_edited';
+        case MenuItemType.talkPage:
+          return 'pagelib_footer_menu_icon_talk_page';
         case MenuItemType.pageIssues:
           return 'pagelib_footer_menu_icon_page_issues';
         case MenuItemType.disambiguation:

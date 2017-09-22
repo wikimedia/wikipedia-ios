@@ -142,8 +142,6 @@
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
-"history-section-today" = "Dzisiaj";
-"history-section-yesterday" = "Wczoraj";
 "history-title" = "Historia";
 "hockeyapp-alert-always-send" = "Zawsze wysyłaj";
 "hockeyapp-alert-do-not-send" = "Nie wysyłaj";
