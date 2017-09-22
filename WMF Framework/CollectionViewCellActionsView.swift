@@ -90,11 +90,14 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
                 }
             } else {
                 for (index, button) in buttons.enumerated() {
+                    button.clipsToBounds = true
                     if index == activatedIndex {
-                        button.clipsToBounds = true
+                        button.imageView?.alpha = 0
+                        button.titleLabel?.alpha = 0
                         button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
                     } else {
                         button.alpha = 0
+                        button.frame = CGRect(origin: button.frame.origin, size: CGSize(width: button.frame.width, height: 0))
                     }
                 }
             }
@@ -118,7 +121,6 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
             button.tag = index
-            
             switch (action.type) {
             case .delete:
                 button.backgroundColor = theme.colors.destructive
