@@ -4,6 +4,9 @@ extension CGFloat {
     func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGFloat {
         return self * reference
     }
+    func wmf_normalizeUsingReference (_ reference: CGFloat) -> CGFloat {
+        return self / (reference == 0 ? 0.0000001 : reference)
+    }
     func wmf_radiansFromDegrees() -> CGFloat{
         return ((self) / 180.0 * CGFloat(Double.pi))
     }
@@ -14,6 +17,12 @@ extension CGPoint {
         return CGPoint(
             x: self.x.wmf_denormalizeUsingReference(size.width),
             y: self.y.wmf_denormalizeUsingReference(size.height)
+        )
+    }
+    func wmf_normalizeUsingSize (_ size: CGSize) -> CGPoint {
+        return CGPoint(
+            x: self.x.wmf_normalizeUsingReference(size.width),
+            y: self.y.wmf_normalizeUsingReference(size.height)
         )
     }
 }
