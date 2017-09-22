@@ -222,13 +222,43 @@ open class ArticleCollectionViewCell: CollectionViewCell {
         let velocityIsInDirectionOfTranslation = swipeVelocity.sign == animationTranslation.sign
         let animationDistance = abs(animationTranslation)
         let swipeSpeed = abs(swipeVelocity)
-        let animationDuration = 0.4
-        let swipeVelocityRelativeToAnimation = velocityIsInDirectionOfTranslation ? swipeSpeed : 0 - swipeSpeed
-        let springVelocity = swipeVelocityRelativeToAnimation / (animationDistance / CGFloat(animationDuration))
-        UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: springVelocity, options: .beginFromCurrentState, animations: {
-            self.swipeTranslation = targetTranslation
-            self.layoutIfNeeded()
-        }, completion: completion)
+        var animationSpeed = swipeSpeed
+        if !velocityIsInDirectionOfTranslation || swipeSpeed < 500 {
+            animationSpeed = 500
+        }
+        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
+        let secondKeyframeDuration = TimeInterval(animationSpeed) / 50000
+        let thirdKeyframeDuration = 2 * secondKeyframeDuration
+        let overshootDistance = sqrt(animationSpeed * CGFloat(secondKeyframeDuration))
+        let overshootTranslation = animationTranslation < 0 ? -overshootDistance :  overshootDistance
+        print("\novershootTranslation: \(overshootTranslation)\nanimationTranslation: \(animationTranslation)\nfirstKeyframeDuration: \(firstKeyframeDuration)\nthirdKeyframeDuration: \(thirdKeyframeDuration)")
+        let duration = firstKeyframeDuration + secondKeyframeDuration + thirdKeyframeDuration
+        let curve = UIViewAnimationOptions.curveLinear
+        let keyframeCurveOption = UIViewKeyframeAnimationOptions(rawValue: curve.rawValue)
+        UIView.animateKeyframes(withDuration: duration, delay: 0, options: [.beginFromCurrentState, keyframeCurveOption], animations: {
+            let firstKeyframeRelativeDuration = firstKeyframeDuration / duration
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: firstKeyframeRelativeDuration, animations: {
+                self.swipeTranslation = targetTranslation
+                self.layoutIfNeeded()
+            })
+            guard secondKeyframeDuration > 0 else {
+                return
+            }
+            let secondKeyframeRelativeDuration = secondKeyframeDuration / duration
+            UIView.addKeyframe(withRelativeStartTime: firstKeyframeRelativeDuration, relativeDuration: secondKeyframeRelativeDuration, animations: {
+                
+                self.swipeTranslation = targetTranslation + overshootTranslation
+                self.layoutSubviews()
+                self.actionsView.layoutSubviews()
+            })
+            let thirdKeyframeRelativeDuration = thirdKeyframeDuration / duration
+            UIView.addKeyframe(withRelativeStartTime: firstKeyframeRelativeDuration + secondKeyframeRelativeDuration, relativeDuration: thirdKeyframeRelativeDuration, animations: {
+                self.swipeTranslation = targetTranslation
+                self.layoutIfNeeded()
+            })
+        }) { (finished) in
+            completion(finished)
+        }
     }
     
     // MARK: Prepare for reuse
