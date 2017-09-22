@@ -177,8 +177,6 @@
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
 "history-clear-delete-all" = "Ya, hapus semua";
-"history-section-today" = "Hari ini";
-"history-section-yesterday" = "Kemarin";
 "history-title" = "Riwayat";
 "hockeyapp-alert-always-send" = "Selalu kirim";
 "hockeyapp-alert-do-not-send" = "Jangan kirim";
@@ -354,6 +352,7 @@
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
 "settings-support" = "Dukung Wikipedia";
 "settings-title" = "Pengaturan";
+"share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
 "share-a-fact-share-menu-item" = "Bagikan-fakta...";
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
 "share-building" = "Membangun kartu Bagikan-fakta...";
@@ -415,7 +414,6 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero dimatikan";
