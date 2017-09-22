@@ -18,6 +18,12 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
         imgView.contentMode = UIViewContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
+        
+        // Adjust chartImgView anchorPoint so zoom-in happens at that point (center of the chart circle)
+        let anchorPoint = CGPoint(x: 0.71666, y: 0.41333)
+        imgView.layer.anchorPoint = anchorPoint
+        imgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(imgView.frame.size)
+        
         imgView.layer.transform = wmf_scaleZeroTransform
         return imgView
     }()
@@ -48,11 +54,6 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
             duration: 0.9
         )
         
-        // Adjust chartImgView anchorPoint so zoom-in happens at that point (center of the chart circle)
-        let anchorPoint = CGPoint(x: 0.71666, y: 0.41333)
-        chartImgView.layer.anchorPoint = anchorPoint
-        chartImgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(frame.size)
-
         chartImgView.layer.wmf_animateToOpacity(
             1.0,
             transform: CATransform3DIdentity,

@@ -11,7 +11,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
         // Adjust tubeImgView anchorPoint so rotation happens at that point (at hinge)
         let anchorPoint = CGPoint(x: 0.50333, y: 0.64)
         imgView.layer.anchorPoint = anchorPoint
-        imgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(frame.size)
+        imgView.layer.position = anchorPoint.wmf_denormalizeUsingSize(imgView.frame.size)
         
         imgView.layer.transform = wmf_lowerTransform
         imgView.layer.opacity = 0
