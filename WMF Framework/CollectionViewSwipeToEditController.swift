@@ -51,6 +51,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = 0.05
+        longPressGestureRecognizer.require(toFail: panGestureRecognizer)
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
     }
@@ -115,7 +116,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         
         if activeIndexPath != nil && activeIndexPath != indexPath {
-            return false
+            closeActionPane()
         }
         
         guard activeIndexPath == nil else {
