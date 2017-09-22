@@ -595,7 +595,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 }
 
 - (NSTimeInterval)WMFTimeBeforeRefreshingExploreFeed {
-    NSTimeInterval timeInterval = 0;
+    NSTimeInterval timeInterval = 2 * 60 * 60;
     NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
     NSFetchRequest *request = [WMFKeyValue fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
@@ -606,8 +606,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if ([keyValue.value isKindOfClass:[NSNumber class]]) {
         NSNumber *value = (NSNumber *)keyValue.value;
         timeInterval = [value doubleValue];
-    } else {
-        timeInterval = 2 * 60 * 60;
     }
     return timeInterval;
 }
