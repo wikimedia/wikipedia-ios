@@ -246,6 +246,7 @@
 "page-protected-sysop" = "This page has been fully protected.";
 "page-read-in-other-languages" = "Available in $1 other languages";
 "page-similar-titles" = "Similar pages";
+"page-talk-page" = "View talk page";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-close-search" = "Close search";
