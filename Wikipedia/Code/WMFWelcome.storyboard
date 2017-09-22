@@ -211,7 +211,7 @@
                                             <constraint firstAttribute="height" constant="164" id="8iq-Ul-mmM"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="aoo-cp-EUY" kind="embed" id="v8M-9R-cat"/>
+                                            <segue destination="aoo-cp-EUY" kind="embed" id="OPW-Uj-N8a"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf">
@@ -221,7 +221,7 @@
                                             <constraint firstAttribute="width" constant="150" id="PRe-Gb-kqo"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="phf-K5-0TN" kind="embed" id="aUs-nc-Kfc"/>
+                                            <segue destination="phf-K5-0TN" kind="embed" id="Bsr-va-MqZ"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJI-Er-O9h">
@@ -229,6 +229,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" priority="999" constant="392" id="2mK-dI-Fex"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="qLZ-5x-Kxd" kind="embed" id="t9p-A3-Sh4"/>
+                                        </connections>
                                     </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -263,8 +266,11 @@
                         <outlet property="overallContainerViewCenterYConstraint" destination="H6y-qj-T8b" id="QMX-7N-w8d"/>
                         <outlet property="topBackgroundContainerView" destination="zQc-qA-ACw" id="HJo-7C-umR"/>
                         <outlet property="topBackgroundContainerViewHeightConstraint" destination="8iq-Ul-mmM" id="2eG-qt-LHe"/>
+                        <outlet property="topBackgroundContainerViewLeadingConstraint" destination="YwC-rF-oq7" id="mvh-yz-bDg"/>
+                        <outlet property="topBackgroundContainerViewTrailingConstraint" destination="eoQ-Gp-ati" id="gXB-TO-gXA"/>
                         <outlet property="topForegroundContainerView" destination="7gU-a9-VNf" id="jWY-jG-HTH"/>
                         <outlet property="topForegroundContainerViewHeightConstraint" destination="2oC-tB-tAw" id="50r-Vw-zzp"/>
+                        <outlet property="topForegroundContainerViewWidthConstraint" destination="PRe-Gb-kqo" id="2hx-Dt-iBv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xR7-rm-ylC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -280,20 +286,20 @@
                         <viewControllerLayoutGuide type="bottom" id="SLT-o2-kyd"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="Ev9-ZH-utG">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="340"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1o-pu-KdT" userLabel="Outer container view">
-                                <rect key="frame" x="24" y="10" width="232" height="330"/>
+                                <rect key="frame" x="24" y="10" width="272" height="382"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="rei-4o-C2s">
-                                        <rect key="frame" x="0.0" y="0.0" width="232" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="272" height="20.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yn9-On-Dfp">
-                                        <rect key="frame" x="0.0" y="44.5" width="232" height="285.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="272" height="337.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </containerView>
                                 </subviews>
@@ -321,7 +327,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="340"/>
+                    <size key="freeformSize" width="320" height="392"/>
                     <connections>
                         <outlet property="containerView" destination="Yn9-On-Dfp" id="dt2-Ng-zR6"/>
                         <outlet property="titleLabel" destination="rei-4o-C2s" id="hwP-Qh-IGx"/>
@@ -556,6 +562,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <size key="freeformSize" width="320" height="164"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZh-Lp-Gv6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

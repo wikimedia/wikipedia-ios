@@ -8,25 +8,22 @@ class WMFWelcomeContainerViewController: UIViewController {
     @IBOutlet fileprivate var overallContainerView:UIView!
     @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topForegroundContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topForegroundContainerViewWidthConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topBackgroundContainerViewHeightConstraint:NSLayoutConstraint!
-    
-    var welcomePageType:WMFWelcomePageType = .intro
-    fileprivate var foregroundAnimationVC:WMFWelcomeAnimationForgroundViewController? = nil
-    fileprivate var backgroundAnimationVC:WMFWelcomeAnimationBackgroundViewController? = nil
+    @IBOutlet fileprivate var topBackgroundContainerViewLeadingConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topBackgroundContainerViewTrailingConstraint:NSLayoutConstraint!
 
+    var welcomePageType:WMFWelcomePageType = .intro
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
     fileprivate var hasAlreadyFadedInAndUp = false
     
+    fileprivate var needsDeviceAdjustments = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedBottomContainerControllerView()
-        useBottomAlignmentIfPhone()
-        hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
-        
         topForegroundContainerView.backgroundColor = .clear
         topForegroundContainerView.isUserInteractionEnabled = false
-        //topContainerView.alpha = 0.8
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +54,27 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
 
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        if needsDeviceAdjustments {
+            reduceTopAnimationsSizesIfDeviceIsiPhone5()
+            useBottomAlignmentIfPhone()
+            hideAndCollapseTopContainerViewIfDeviceIsiPhone4s()
+            needsDeviceAdjustments = false
+        }
+    }
+    
+    fileprivate func reduceTopAnimationsSizesIfDeviceIsiPhone5() {
+        if view.frame.size.height == 568 {
+            let reduction: CGFloat = 50
+            topBackgroundContainerViewHeightConstraint.constant = topBackgroundContainerViewHeightConstraint.constant - reduction
+            topBackgroundContainerViewLeadingConstraint.constant = reduction
+            topBackgroundContainerViewTrailingConstraint.constant = reduction
+            topForegroundContainerViewHeightConstraint.constant = topForegroundContainerViewHeightConstraint.constant - reduction
+            topForegroundContainerViewWidthConstraint.constant = topForegroundContainerViewWidthConstraint.constant - reduction
+        }
+    }
+    
     fileprivate func hideAndCollapseTopContainerViewIfDeviceIsiPhone4s() {
         if view.frame.size.height == 480 {
             topForegroundContainerView.alpha = 0
@@ -73,43 +91,14 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
     
-    fileprivate func embedBottomContainerControllerView() {
-        bottomContainerController.willMove(toParentViewController: self)
-        bottomContainerController.view.translatesAutoresizingMaskIntoConstraints = false
-        bottomContainerView.wmf_addSubviewWithConstraintsToEdges(bottomContainerController.view)        
-        addChildViewController(bottomContainerController)
-        bottomContainerController.didMove(toParentViewController: self)
-    }
-
-    fileprivate lazy var bottomContainerController: UIViewController = {
-        switch welcomePageType {
-        case .intro:
-            let introPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
-            introPanelVC.welcomePageType = .intro
-            return introPanelVC;
-        case .exploration:
-            let explorationPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
-            explorationPanelVC.welcomePageType = .exploration
-            return explorationPanelVC;
-        case .languages:
-            let langPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
-            langPanelVC.welcomePageType = .languages
-            return langPanelVC;
-        case .analytics:
-            let analyticsPanelVC = WMFWelcomePanelViewController.wmf_viewControllerFromWelcomeStoryboard()
-            analyticsPanelVC.welcomePageType = .analytics
-            return analyticsPanelVC;
-        }
-    }()
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.destination.isKind(of: WMFWelcomeAnimationForgroundViewController.self)){
-            foregroundAnimationVC = segue.destination as? WMFWelcomeAnimationForgroundViewController
-            foregroundAnimationVC!.welcomePageType = welcomePageType
+        if(segue.destination.isKind(of: WMFWelcomePanelViewController.self)){
+            let vc = segue.destination as? WMFWelcomePanelViewController
+            vc!.welcomePageType = welcomePageType
         }
-        if(segue.destination.isKind(of: WMFWelcomeAnimationBackgroundViewController.self)){
-            backgroundAnimationVC = segue.destination as? WMFWelcomeAnimationBackgroundViewController
-            backgroundAnimationVC!.welcomePageType = welcomePageType
+        if(segue.destination.isKind(of: WMFWelcomeAnimationViewController.self)){
+            let vc = segue.destination as? WMFWelcomeAnimationViewController
+            vc!.welcomePageType = welcomePageType
         }
     }
     
