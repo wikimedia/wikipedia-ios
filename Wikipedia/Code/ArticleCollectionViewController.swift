@@ -199,7 +199,6 @@ extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
                 present(viewController, animated: true, completion: nil)
             }
         }
-        swipeToEditController.performedAction()
     }
     
     func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
