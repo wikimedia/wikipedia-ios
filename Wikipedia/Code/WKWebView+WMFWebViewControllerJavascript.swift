@@ -120,15 +120,6 @@ extension WKWebView {
         
         evaluateJavaScript(itemsJS, completionHandler: nil)
     }
-    
-    @objc public func wmf_addFooterBrowserLinkForArticle(_ article: MWKArticle){
-        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: article.url.wmf_language, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let viewInBrowserLinkClickHandler =
-            "function(){" +
-                "window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked');" +
-        "}"
-        evaluateJavaScript("window.wmf.footerBrowserLink.add(document, '\(viewInBrowserString)', 'pagelib_footer_container_link', \(viewInBrowserLinkClickHandler));", completionHandler: nil)
-    }
 
     @objc public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
         let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: article.url.wmf_language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
