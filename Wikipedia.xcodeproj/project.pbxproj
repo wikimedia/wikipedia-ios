@@ -2643,6 +2643,17 @@
 		D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */; };
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
+		F2254F121F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */; };
+		F2254F131F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */; };
+		F2254F141F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */; };
+		F2254F151F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */; };
+		F2254F161F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */; };
+		F2254F191F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
+		F2254F1A1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
+		F2254F1B1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
+		F2254F1C1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
+		F2254F1D1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
+		F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -4374,6 +4385,11 @@
 		D8FB46A11E26BC6600F2620F /* QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuadKey.swift; path = ../Wikipedia/Code/QuadKey.swift; sourceTree = "<group>"; };
 		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
+		F2254F101F7640E400281F11 /* NSObject+WMFMethodSwizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+WMFMethodSwizzling.h"; sourceTree = "<group>"; };
+		F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WMFMethodSwizzling.m"; sourceTree = "<group>"; };
+		F2254F171F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WMFAdjustmentBehavior.h"; sourceTree = "<group>"; };
+		F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WMFAdjustmentBehavior.m"; sourceTree = "<group>"; };
+		F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewAdjustmentBehaviorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4822,6 +4838,7 @@
 			children = (
 				B04C44491E5695C900C6DFB0 /* Array */,
 				BC45D5851C32F813007C72F3 /* Strings */,
+				F2254F0F1F76409200281F11 /* NSObject */,
 				BC45D5831C32F79A007C72F3 /* UIScrollView */,
 				BC45D5821C32F745007C72F3 /* UIView */,
 				BC45D5811C32F6BC007C72F3 /* UIViewController */,
@@ -6278,6 +6295,8 @@
 		BC45D5831C32F79A007C72F3 /* UIScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				F2254F171F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.h */,
+				F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */,
 				B0E805081C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.h */,
 				B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */,
 				B0E8050A1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.h */,
@@ -6893,6 +6912,7 @@
 				D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */,
 				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
+				F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */,
 			);
@@ -7768,6 +7788,15 @@
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		F2254F0F1F76409200281F11 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				F2254F101F7640E400281F11 /* NSObject+WMFMethodSwizzling.h */,
+				F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */,
+			);
+			name = NSObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -9424,6 +9453,7 @@
 				B0E8090D1C0D18E70065EBC0 /* WMFImageURLParsingTests.m in Sources */,
 				B0E8094B1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m in Sources */,
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
+				F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift in Sources */,
 				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
@@ -9566,6 +9596,7 @@
 				B0F7CB581C8A89EA00996DE0 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
+				F2254F121F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */,
 				D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */,
 				83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
@@ -9744,6 +9775,7 @@
 				B0E8054F1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */,
+				F2254F191F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9938,6 +9970,7 @@
 				D80ED3441EE57F4800CE8C50 /* WMFArticleNavigationController.m in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
 				D84AFBD21F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
+				F2254F161F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */,
 				BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */,
 				83B87EC51F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
 				83927D7F1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -10009,6 +10042,7 @@
 				D80ED3891EE57F4800CE8C50 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D80ED38A1EE57F4800CE8C50 /* WMFTableOfContentsItem.swift in Sources */,
 				D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */,
+				F2254F1D1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */,
 				D80ED38D1EE57F4800CE8C50 /* WMFSearchViewController.m in Sources */,
 				D80ED38E1EE57F4800CE8C50 /* UIApplication+SystemSettings.swift in Sources */,
 				D80ED38F1EE57F4800CE8C50 /* TUSafariActivity.m in Sources */,
@@ -10452,6 +10486,7 @@
 				D8A42AD01E815A9C00D8E281 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8A42AD11E815A9C00D8E281 /* WMFPasswordResetter.swift in Sources */,
 				D8A42AD31E815A9C00D8E281 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
+				F2254F151F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */,
 				D8A42AD41E815A9C00D8E281 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				83E52BB71F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D8A42AD51E815A9C00D8E281 /* UIViewController+WMFEmptyView.m in Sources */,
@@ -10630,6 +10665,7 @@
 				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				83927D841F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */,
+				F2254F1C1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10824,6 +10860,7 @@
 				D8CE25A71E698E2400DAE2E0 /* PreviewWebViewContainer.m in Sources */,
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
+				F2254F131F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */,
 				D8CE25AA1E698E2400DAE2E0 /* WMFArticleNavigationController.m in Sources */,
 				83B87EC21F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -10895,6 +10932,7 @@
 				D84DAA1C1EEEF527008E4B18 /* TSBlurView.m in Sources */,
 				D8CE25F71E698E2400DAE2E0 /* WMFTableOfContentsItem.swift in Sources */,
 				D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */,
+				F2254F1A1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */,
 				D8CE25FA1E698E2400DAE2E0 /* WMFSearchViewController.m in Sources */,
 				D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */,
 				D8CE25FC1E698E2400DAE2E0 /* TUSafariActivity.m in Sources */,
@@ -11125,6 +11163,7 @@
 				D8EC3E9E1E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D84AFBD01F17FD12009A7BEC /* WMFCustomDeleteButtonTableViewCell.m in Sources */,
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
+				F2254F141F7640E400281F11 /* NSObject+WMFMethodSwizzling.m in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83B87EC31F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
 				83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -11196,6 +11235,7 @@
 				D8EC3EF51E9BDA35006712EB /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D8EC3EF61E9BDA35006712EB /* WMFTableOfContentsItem.swift in Sources */,
 				D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */,
+				F2254F1B1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */,
 				D8EC3EF91E9BDA35006712EB /* WMFSearchViewController.m in Sources */,
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
 				D8EC3EFB1E9BDA35006712EB /* TUSafariActivity.m in Sources */,
