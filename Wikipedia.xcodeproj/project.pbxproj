@@ -2653,7 +2653,7 @@
 		F2254F1B1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
 		F2254F1C1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
 		F2254F1D1F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */; };
-		F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTest.swift */; };
+		F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -4389,7 +4389,7 @@
 		F2254F111F7640E400281F11 /* NSObject+WMFMethodSwizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WMFMethodSwizzling.m"; sourceTree = "<group>"; };
 		F2254F171F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WMFAdjustmentBehavior.h"; sourceTree = "<group>"; };
 		F2254F181F7642E600281F11 /* UIScrollView+WMFAdjustmentBehavior.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WMFAdjustmentBehavior.m"; sourceTree = "<group>"; };
-		F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewAdjustmentBehaviorTest.swift; sourceTree = "<group>"; };
+		F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewAdjustmentBehaviorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6912,7 +6912,7 @@
 				D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */,
 				B02F96651DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift */,
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
-				F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTest.swift */,
+				F2AC99FB1F76A76300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */,
 			);
@@ -9453,7 +9453,7 @@
 				B0E8090D1C0D18E70065EBC0 /* WMFImageURLParsingTests.m in Sources */,
 				B0E8094B1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m in Sources */,
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
-				F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTest.swift in Sources */,
+				F2AC99FD1F76A77300757D85 /* UIScrollViewAdjustmentBehaviorTests.swift in Sources */,
 				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
