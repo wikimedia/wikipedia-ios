@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
+- (nullable instancetype)initForPeek:(MWKArticle *)article theme:(WMFTheme *)theme;
+
 - (MWKImage *)currentImage;
 
 - (MWKImageInfo *)currentImageInfo;

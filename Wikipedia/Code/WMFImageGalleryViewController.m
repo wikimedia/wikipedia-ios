@@ -211,6 +211,32 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (instancetype)initForPeek:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme {
+    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
+    if (self) {
+        /**
+         *  We are performing the following asserts to ensure that the
+         *  implmentation of of NYTPhotosViewController does not change.
+         *  We exposed these properties and methods via a category
+         *  in lieu of subclassing. (and then maintaining a separate fork)
+         */
+        NSParameterAssert(self.dataSource);
+        NSParameterAssert(self.photos);
+        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
+        
+        [self.leftBarButtonItem setEnabled:NO];
+        [self.leftBarButtonItem setTintColor:[UIColor clearColor]];
+        [self.rightBarButtonItem setEnabled:NO];
+        [self.rightBarButtonItem setTintColor:[UIColor clearColor]];
+        
+        self.theme = theme;
+    }
+    return self;
+}
+
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -439,6 +465,31 @@ NS_ASSUME_NONNULL_BEGIN
         self.infoController.delegate = self;
     }
 
+    return self;
+}
+
+- (nullable instancetype)initForPeek:(MWKArticle *)article theme:(WMFTheme *)theme {
+    NSParameterAssert(article);
+    NSParameterAssert(article.dataStore);
+    
+    NSArray *items = [article imagesForGallery];
+    
+    if ([items count] == 0) {
+        return nil;
+    }
+    
+    NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
+    
+    self = [super initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    if (self) {
+        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
+        [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
+        [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
+        }];
+        self.infoController.delegate = self;
+    }
+    
     return self;
 }
 

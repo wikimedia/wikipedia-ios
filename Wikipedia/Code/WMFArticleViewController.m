@@ -1613,7 +1613,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article theme:self.theme];
         return fullscreenGallery;
     }
     return nil;
