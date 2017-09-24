@@ -616,7 +616,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Peek & Pop
 
 - (NSArray*)previewActionItems {
-    UIPreviewAction *share = [UIPreviewAction actionWithTitle:@"Share" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+    UIPreviewAction *share = [UIPreviewAction actionWithTitle:[WMFCommonStrings shareActionTitle] style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
         
         id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
         MWKImageInfo *info = [photo bestImageInfo];
