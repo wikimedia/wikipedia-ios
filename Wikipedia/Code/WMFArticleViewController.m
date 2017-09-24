@@ -1608,7 +1608,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFImagePreviewingActionsDelegate
 
-- (void)shareImagePreviewActionSelectedWithArticleController:(nonnull WMFImageGalleryViewController *)imageController shareActivityController:(nonnull UIActivityViewController *)shareActivityController {
+- (void)shareImagePreviewActionSelectedWithImageController:(nonnull WMFImageGalleryViewController *)imageController shareActivityController:(nonnull UIActivityViewController *)shareActivityController {
     [self presentViewController:shareActivityController animated:YES completion:nil];
 }
 

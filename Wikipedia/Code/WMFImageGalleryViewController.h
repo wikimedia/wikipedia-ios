@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFImagePreviewingActionsDelegate <NSObject>
 
-- (void)shareImagePreviewActionSelectedWithArticleController:(WMFImageGalleryViewController *)imageController
+- (void)shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)imageController
                                        shareActivityController:(UIActivityViewController *)shareActivityController;
 
 @end

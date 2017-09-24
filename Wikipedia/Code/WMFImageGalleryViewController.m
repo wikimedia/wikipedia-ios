@@ -633,7 +633,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                            UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
                                                            vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                                            
-                                                           [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithArticleController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
+                                                           [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
                                                        }];
         
     }];
