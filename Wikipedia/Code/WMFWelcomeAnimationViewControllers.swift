@@ -9,6 +9,18 @@ class WMFWelcomeAnimationViewController: UIViewController {
         guard let animationView = animationView else {return}
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
+        
+
+let testX = UIInterpolatingMotionEffect.init(keyPath: "layer.anchorPoint.x", type: .tiltAlongVerticalAxis)
+testX.minimumRelativeValue = 0
+testX.maximumRelativeValue = 1
+
+let testY = UIInterpolatingMotionEffect.init(keyPath: "layer.anchorPoint.y", type: .tiltAlongVerticalAxis)
+testY.minimumRelativeValue = 0
+testY.maximumRelativeValue = 1
+
+self.view.motionEffects = [testX, testY]
+        
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
