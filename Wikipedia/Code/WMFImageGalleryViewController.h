@@ -22,6 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFImagePreviewingActionsDelegate <NSObject>
+
+- (void)shareImagePreviewActionSelectedWithArticleController:(WMFImageGalleryViewController *)imageController
+                                       shareActivityController:(UIActivityViewController *)shareActivityController;
+
+@end
+
 /**
  *  This is an abstract base class do not use it directly.
  *  Instead use either the concrete article or POTD version below.
@@ -41,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImageView *)currentImageView;
 
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
+
+@property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
 
 @end
 

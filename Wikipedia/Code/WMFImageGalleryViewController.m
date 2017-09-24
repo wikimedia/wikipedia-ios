@@ -613,6 +613,34 @@ NS_ASSUME_NONNULL_BEGIN
     return YES;
 }
 
+#pragma mark - Peek & Pop
+
+- (NSArray*)previewActionItems {
+    UIPreviewAction *share = [UIPreviewAction actionWithTitle:@"Share" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+        id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
+        MWKImageInfo *info = [photo bestImageInfo];
+        NSURL *url = [photo bestImageURL];
+        
+        @weakify(self);
+        [[WMFImageController sharedInstance] fetchImageWithURL:url
+                                                       failure:^(NSError *_Nonnull error) {
+                                                           [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                                                       }
+                                                       success:^(WMFImageDownload *_Nonnull download) {
+                                                           @strongify(self);
+                                                           
+                                                           UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
+                                                           vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
+                                                           
+                                                           [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithArticleController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
+                                                       }];
+        
+    }];
+    return @[share];
+}
+
+
 @end
 
 @interface WMFPOTDPhoto : NSObject <WMFPhoto>
