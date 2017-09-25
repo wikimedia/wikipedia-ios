@@ -162,8 +162,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         item = WMFArticleFooterMenuItemCoordinate;
     } else if ([messageString isEqualToString:@"talkPage"]) {
         item = WMFArticleFooterMenuItemTalkPage;
-    }
-    else {
+    } else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
     }
@@ -430,8 +429,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
+    self.webView.scrollView.scrollIndicatorInsets = self.view.safeAreaInsets;
+}
+
 - (CGFloat)marginWidthForSize:(CGSize)size {
-    return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
+    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) {
+        safeAreaInsets = self.view.safeAreaInsets;
+    }
+    return MAX(MAX(safeAreaInsets.left, safeAreaInsets.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
@@ -656,6 +665,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.allowsLinkPreview = NO;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 
     [self addHeaderView];
 
@@ -1120,6 +1132,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.opaque = NO;
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.scrollView.backgroundColor = [UIColor clearColor];
+    self.webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle;
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_applyTheme:theme];

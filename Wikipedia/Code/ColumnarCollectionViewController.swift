@@ -140,10 +140,10 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
-        self.view.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.indicatorStyle = theme.scrollIndicatorStyle
-        self.collectionView?.reloadData()
+        view.backgroundColor = theme.colors.baseBackground
+        collectionView?.backgroundColor = theme.colors.baseBackground
+        collectionView?.indicatorStyle = theme.scrollIndicatorStyle
+        collectionView?.reloadData()
     }
 }
 
@@ -174,7 +174,7 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
         return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
-    func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: false)
+    func metrics(withBoundsSize size: CGSize, adjustedContentInsets: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, adjustedContentInsets: adjustedContentInsets, collapseSectionSpacing: false)
     }
 }

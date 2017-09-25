@@ -323,7 +323,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
-
     [self setupRefreshControl];
 }
 
@@ -630,8 +629,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFColumnarCollectionViewLayoutDelgate
 
-- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize adjustedContentInsets:adjustedContentInsets layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
