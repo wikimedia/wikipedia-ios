@@ -81,7 +81,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
-    
+
     [self applyTheme:self.theme];
 }
 
@@ -511,6 +511,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
