@@ -511,6 +511,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
