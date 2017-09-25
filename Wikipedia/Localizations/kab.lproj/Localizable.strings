@@ -168,6 +168,7 @@
 "hockeyapp-alert-do-not-send" = "Ur ttazen ara";
 "hockeyapp-alert-privacy" = "Tabaḍnit n $1";
 "hockeyapp-alert-question" = "Tebɣiḍ ad tazneḍ aneqqis n uɣelly ar $1 akken tasbeddit Wikimedia ad tezmir ad walli aneqqis-ik?";
+"hockeyapp-alert-question-with-response-field" = "Tebɣiḍ ad tazneḍ aneqqis n uɣelluy ar $1 akken tasbeddit Wikipedia ad tt-walit? Ma ulac aɣilif, mudd-d aglam n wayen yeḍran ticki yeḍra-d uɣelluy.";
 "hockeyapp-alert-send-report" = "Azen aneqqis";
 "hockeyapp-alert-title" = "Suref-aɣ, asnas yeɣli tagara-agi";
 "home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";

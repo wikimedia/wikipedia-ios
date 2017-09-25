@@ -263,6 +263,7 @@
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
 "page-similar-titles" = "비슷한 문서";
+"page-talk-page" = "토론 문서 보기";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";

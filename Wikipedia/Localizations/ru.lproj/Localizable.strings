@@ -7,6 +7,7 @@
 // Author: Dicto23456
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
+// Author: Helpau
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
@@ -269,6 +270,7 @@
 "page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-similar-titles" = "Похожие страницы";
+"page-talk-page" = "Страница обсуждения";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-close-search" = "Закрыть поиск";
@@ -312,6 +314,7 @@
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Сепия";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
@@ -352,8 +355,7 @@
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Поделитесь-фактом";
+"share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-custom-menu-item" = "Поделиться...";
 "share-default-format" = "«$1» из «$2»: $3";

@@ -250,6 +250,7 @@
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-similar-titles" = "صفحات مشابهة";
+"page-talk-page" = "اعرض صفحة النقاش";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-close-search" = "أغلق البحث";

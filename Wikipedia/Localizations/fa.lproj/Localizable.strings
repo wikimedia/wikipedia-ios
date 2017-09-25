@@ -11,6 +11,7 @@
 // Author: Freshman404
 // Author: Hosseinblue
 // Author: Huji
+// Author: Ladsgroup
 // Author: Leyth
 // Author: Macofe
 // Author: Mahdiz
@@ -270,6 +271,7 @@
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-similar-titles" = "صفحات مشابه";
+"page-talk-page" = "نمایش صفحه بحث";
 "pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-close-search" = "بستن جستجو";
