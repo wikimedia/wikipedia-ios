@@ -1222,10 +1222,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)shareArticle {
     [self dismissReadingThemesPopoverIfActive];
-    UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
-    if (vc) {
-        [self presentViewController:vc animated:YES completion:NULL];
-    }
+
+    [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
+        if (text.length > 0) {
+            [self.shareFunnel logHighlight];
+            [self shareAFactWithTextSnippet:text];
+            return;
+        } else {
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+            if (vc) {
+                [self presentViewController:vc animated:YES completion:NULL];
+            }
+        }
+    }];
 }
 
 - (void)shareArticleWhenReady {
