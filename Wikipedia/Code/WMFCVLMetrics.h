@@ -13,14 +13,19 @@
 @property (nonatomic, readonly) CGSize boundsSize;
 
 /*!
+ The adjusted content insets for the metrics
+ */
+@property (nonatomic, readonly) UIEdgeInsets adjustedContentInsets;
+
+/*!
  The total number of columns
  */
 @property (nonatomic, readonly) NSInteger numberOfColumns;
 
 /*!
- The inset of the entire content
+ The inset of the entire content (beyond the content inset)
  */
-@property (nonatomic, readonly) UIEdgeInsets contentInsets;
+@property (nonatomic, readonly) UIEdgeInsets margins;
 
 /*!
  The inset of each section's items (headers & footers not included)
@@ -50,8 +55,8 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets collapseSectionSpacing:(BOOL)collapseSectionSpacing;
 
 @end
