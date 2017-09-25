@@ -120,6 +120,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageFooterLegalLicenseLinkClicked:
             [self handleFooterLegalLicenseLinkClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFooterBrowserLinkClicked:
+            [self handleFooterBrowserLinkClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -169,6 +172,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
     [self showLicenseButtonPressed];
+}
+
+- (void)handleFooterBrowserLinkClickedScriptMessage:(NSString *)messageString {
+    [self wmf_openExternalUrl:self.articleURL];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
@@ -603,7 +610,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"footerReadMoreSaveClicked",
         @"footerReadMoreTitlesShown",
         @"footerMenuItemClicked",
-        @"footerLegalLicenseLinkClicked"
+        @"footerLegalLicenseLinkClicked",
+        @"footerBrowserLinkClicked"
     ];
     for (NSString *handlerName in handlerNames) {
         [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];

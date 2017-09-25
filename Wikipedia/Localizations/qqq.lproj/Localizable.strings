@@ -364,6 +364,7 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
+"view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
 "welcome-explore-features-news-notifications" = "Welcome screen text describing the news notifications feature.";
 "welcome-explore-features-on-this-day" = "Welcome screen text describing the On this day feature. $1 is replaced with the title for On this day.";
