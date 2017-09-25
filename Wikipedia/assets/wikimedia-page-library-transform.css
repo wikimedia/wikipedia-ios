@@ -509,12 +509,16 @@ html[dir='rtl'] .pagelib_footer_legal_contents,
   color: #7c776e;
 }
 
-.pagelib_footer_legal_license_link {
+.pagelib_footer_legal_license_link, .pagelib_footer_browser_link {
   color: #2c5bc5;
 }
 
-.pagelib_theme_dark .pagelib_footer_legal_license_link {
+.pagelib_theme_dark .pagelib_footer_legal_license_link, .pagelib_theme_dark .pagelib_footer_browser_link {
   color: #69f;
+}
+
+.pagelib_footer_browser {
+  margin-top: 10px;
 }
 
 .pagelib_footer_legal_divider {
