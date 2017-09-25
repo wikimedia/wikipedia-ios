@@ -323,9 +323,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
-    if (@available(iOS 11.0, *)) {
-        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-    }
     [self setupRefreshControl];
 }
 
@@ -632,8 +629,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFColumnarCollectionViewLayoutDelgate
 
-- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize adjustedContentInsets:adjustedContentInsets layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
@@ -1803,12 +1800,6 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 }
 
 #pragma mark - Load More
-
-- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
-    WMFCVLInvalidationContext *context = [[WMFCVLInvalidationContext alloc] init];
-    context.boundsDidChange = YES;
-    [self.collectionViewLayout invalidateLayoutWithContext:context];
-}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {

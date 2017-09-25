@@ -3,6 +3,7 @@
 
 @interface WMFCVLMetrics ()
 @property (nonatomic) CGSize boundsSize;
+@property (nonatomic) UIEdgeInsets adjustedContentInsets;
 @property (nonatomic) NSInteger numberOfColumns;
 @property (nonatomic) UIEdgeInsets contentInsets;
 @property (nonatomic) UIEdgeInsets sectionInsets;
@@ -17,6 +18,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLMetrics *copy = [[WMFCVLMetrics allocWithZone:zone] init];
     copy.boundsSize = self.boundsSize;
+    copy.adjustedContentInsets = self.adjustedContentInsets;
     copy.numberOfColumns = self.numberOfColumns;
     copy.contentInsets = self.contentInsets;
     copy.sectionInsets = self.sectionInsets;
@@ -28,13 +30,14 @@
     return copy;
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
-    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
+    return [self metricsWithBoundsSize:boundsSize adjustedContentInsets:adjustedContentInsets firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
+    metrics.adjustedContentInsets = adjustedContentInsets;
     BOOL isRTL = layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
     BOOL isPad = boundsSize.width >= 600;
     BOOL useTwoColumns = isPad || boundsSize.width > boundsSize.height;
@@ -50,9 +53,10 @@
     return metrics;
 }
 
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing {
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets collapseSectionSpacing:(BOOL)collapseSectionSpacing {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
+    metrics.adjustedContentInsets = adjustedContentInsets;
     BOOL hasMargins = boundsSize.width > 600;
     CGFloat fixedWidth = MIN(600, boundsSize.width);
     metrics.numberOfColumns = 1;

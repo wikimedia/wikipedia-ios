@@ -145,12 +145,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         collectionView?.indicatorStyle = theme.scrollIndicatorStyle
         collectionView?.reloadData()
     }
-    
-    override func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        let context = WMFCVLInvalidationContext()
-        context.boundsDidChange = true
-        collectionViewLayout.invalidateLayout(with: context)
-    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -180,7 +174,7 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
         return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
-    func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: false)
+    func metrics(withBoundsSize size: CGSize, adjustedContentInsets: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, adjustedContentInsets: adjustedContentInsets, collapseSectionSpacing: false)
     }
 }
