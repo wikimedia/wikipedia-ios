@@ -1886,6 +1886,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     self.theme = theme;
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
+    self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
     [self.collectionView reloadData];
 }
 
