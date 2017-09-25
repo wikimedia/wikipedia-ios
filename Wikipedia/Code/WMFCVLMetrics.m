@@ -5,7 +5,7 @@
 @property (nonatomic) CGSize boundsSize;
 @property (nonatomic) UIEdgeInsets adjustedContentInsets;
 @property (nonatomic) NSInteger numberOfColumns;
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets margins;
 @property (nonatomic) UIEdgeInsets sectionInsets;
 @property (nonatomic) CGFloat interColumnSpacing;
 @property (nonatomic) CGFloat interSectionSpacing;
@@ -20,7 +20,7 @@
     copy.boundsSize = self.boundsSize;
     copy.adjustedContentInsets = self.adjustedContentInsets;
     copy.numberOfColumns = self.numberOfColumns;
-    copy.contentInsets = self.contentInsets;
+    copy.margins = self.margins;
     copy.sectionInsets = self.sectionInsets;
     copy.interColumnSpacing = self.interColumnSpacing;
     copy.interSectionSpacing = self.interSectionSpacing;
@@ -47,7 +47,7 @@
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 30;
-    metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
+    metrics.margins = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
@@ -66,7 +66,7 @@
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 30;
     CGFloat insetLeftAndRight = MAX(0, floor(0.5 * (boundsSize.width - fixedWidth)));
     CGFloat insetTopAndBottom = hasMargins ? 20 : 0;
-    metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
+    metrics.margins = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
     metrics.sectionInsets = UIEdgeInsetsZero;
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
