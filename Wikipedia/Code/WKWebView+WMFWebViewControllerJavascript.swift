@@ -128,7 +128,14 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        
+        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: article.url.wmf_language, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let viewInBrowserLinkClickHandler =
+            "function(){" +
+                "window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked');" +
+        "}"
+        
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler), '\(viewInBrowserString)', \(viewInBrowserLinkClickHandler));", completionHandler: nil)
     }
 
     @objc public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){

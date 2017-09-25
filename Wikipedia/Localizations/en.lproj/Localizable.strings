@@ -364,6 +364,7 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
+"view-in-browser-footer-link" = "View article in browser";
 "welcome-explore-continue-button" = "Get started";
 "welcome-explore-features-news-notifications" = "Get news notifications for topics trending in the news";
 "welcome-explore-features-on-this-day" = "Travel back in time with $1 to learn what happened today in history";
