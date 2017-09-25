@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Settings View Controller-->
         <scene sceneID="3OF-T7-jIf">
             <objects>
-                <viewController restorationIdentifier="SecondaryMenuViewController" storyboardIdentifier="SecondaryMenuViewController" id="LWA-GV-VZP" customClass="WMFSettingsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SecondaryMenuViewController" storyboardIdentifier="SecondaryMenuViewController" extendedLayoutIncludesOpaqueBars="YES" id="LWA-GV-VZP" customClass="WMFSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kn0-4d-Wca"/>
                         <viewControllerLayoutGuide type="bottom" id="gVo-Tk-NhT"/>
@@ -38,7 +38,6 @@
                             <constraint firstItem="D0v-Ur-OGk" firstAttribute="top" secondItem="kn0-4d-Wca" secondAttribute="bottom" id="uxs-do-Ngn"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="tableView" destination="D0v-Ur-OGk" id="s5H-v9-vqS"/>
                     </connections>
@@ -48,9 +47,4 @@
             <point key="canvasLocation" x="-543" y="-2105"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

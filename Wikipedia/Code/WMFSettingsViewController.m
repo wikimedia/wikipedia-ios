@@ -81,7 +81,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
-
+    
     [self applyTheme:self.theme];
 }
 
