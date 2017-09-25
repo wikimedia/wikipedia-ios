@@ -323,7 +323,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
-
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
+    }
     [self setupRefreshControl];
 }
 
@@ -1801,6 +1803,12 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 }
 
 #pragma mark - Load More
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
+    WMFCVLInvalidationContext *context = [[WMFCVLInvalidationContext alloc] init];
+    context.boundsDidChange = YES;
+    [self.collectionViewLayout invalidateLayoutWithContext:context];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {

@@ -140,10 +140,16 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
-        self.view.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.indicatorStyle = theme.scrollIndicatorStyle
-        self.collectionView?.reloadData()
+        view.backgroundColor = theme.colors.baseBackground
+        collectionView?.backgroundColor = theme.colors.baseBackground
+        collectionView?.indicatorStyle = theme.scrollIndicatorStyle
+        collectionView?.reloadData()
+    }
+    
+    override func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        let context = WMFCVLInvalidationContext()
+        context.boundsDidChange = true
+        collectionViewLayout.invalidateLayout(with: context)
     }
 }
 
