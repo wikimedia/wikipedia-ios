@@ -461,7 +461,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
 
-    self = [super initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    self = [self initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
