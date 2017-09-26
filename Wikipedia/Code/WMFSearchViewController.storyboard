@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -70,11 +71,11 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="lFS-nz-XoB" firstAttribute="leading" secondItem="kfG-Ll-LOD" secondAttribute="leading" constant="8" id="Edq-EN-BG5"/>
+                                            <constraint firstItem="lFS-nz-XoB" firstAttribute="leading" secondItem="kfG-Ll-LOD" secondAttribute="leadingMargin" id="Edq-EN-BG5"/>
                                             <constraint firstAttribute="bottom" secondItem="lFS-nz-XoB" secondAttribute="bottom" constant="8" id="EsD-dp-1HF"/>
                                             <constraint firstItem="g3t-Zi-TUK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lFS-nz-XoB" secondAttribute="trailing" constant="8" id="IaL-xQ-2Ck"/>
                                             <constraint firstItem="g3t-Zi-TUK" firstAttribute="centerY" secondItem="lFS-nz-XoB" secondAttribute="centerY" id="MAZ-Pn-6zH"/>
-                                            <constraint firstAttribute="trailing" secondItem="g3t-Zi-TUK" secondAttribute="trailing" constant="8" id="cbo-3h-MUv"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="g3t-Zi-TUK" secondAttribute="trailing" id="cbo-3h-MUv"/>
                                             <constraint firstItem="lFS-nz-XoB" firstAttribute="top" secondItem="kfG-Ll-LOD" secondAttribute="top" constant="30" id="dgT-nP-fkw"/>
                                         </constraints>
                                     </view>
@@ -140,7 +141,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjf-LF-NvO" userLabel="Close Button">
-                                        <rect key="frame" x="330" y="20" width="40" height="44"/>
+                                        <rect key="frame" x="330" y="20" width="29" height="44"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -165,13 +166,13 @@
                                     <constraint firstAttribute="bottom" secondItem="Nef-Ia-7Gd" secondAttribute="bottom" id="5tS-6M-np1"/>
                                     <constraint firstAttribute="bottom" secondItem="WX2-ME-qx7" secondAttribute="bottom" id="Dzi-g0-gul"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="leading" secondItem="a3z-uC-8hv" secondAttribute="trailing" id="Hd1-Zn-NoC"/>
-                                    <constraint firstAttribute="trailing" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="45" id="KI7-ee-FBM"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="29" id="KI7-ee-FBM"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="KTK-FL-Ful"/>
                                     <constraint firstItem="Khe-vM-8ul" firstAttribute="top" secondItem="d0q-nT-gUD" secondAttribute="top" constant="31" id="MSq-kI-XU6"/>
-                                    <constraint firstItem="Khe-vM-8ul" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="16" id="Ob1-PM-yvh"/>
+                                    <constraint firstItem="Khe-vM-8ul" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leadingMargin" id="Ob1-PM-yvh"/>
                                     <constraint firstItem="WX2-ME-qx7" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" id="ber-vK-qKP"/>
-                                    <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" constant="5" id="dhk-Qt-ipY"/>
-                                    <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="42" id="f6B-qa-3hz"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Kjf-LF-NvO" secondAttribute="trailing" id="dhk-Qt-ipY"/>
+                                    <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leadingMargin" constant="26" id="f6B-qa-3hz"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="gwj-4Q-d0l"/>
                                     <constraint firstItem="Khe-vM-8ul" firstAttribute="centerY" secondItem="d0q-nT-gUD" secondAttribute="centerY" id="oV5-TL-mte"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="height" secondItem="Nef-Ia-7Gd" secondAttribute="height" id="olR-5u-Pe9"/>
@@ -336,11 +337,11 @@
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
-                            <constraint firstItem="oqE-Xn-Paw" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" constant="16" id="1JW-Zr-SEU"/>
+                            <constraint firstItem="oqE-Xn-Paw" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leadingMargin" id="1JW-Zr-SEU"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u5D-PX-Vyp" secondAttribute="trailing" constant="8" id="5TZ-XD-xyn"/>
                             <constraint firstItem="u5D-PX-Vyp" firstAttribute="leading" secondItem="WJp-HZ-PFr" secondAttribute="trailing" constant="8" id="SMN-Vx-2Ej"/>
                             <constraint firstItem="WJp-HZ-PFr" firstAttribute="width" secondItem="u5D-PX-Vyp" secondAttribute="width" priority="997" id="T1A-Tv-uG9"/>
-                            <constraint firstAttribute="trailing" secondItem="Jiw-B9-ljV" secondAttribute="trailing" constant="16" id="Y71-SA-0OH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
                             <constraint firstAttribute="trailing" secondItem="iIa-dg-uH0" secondAttribute="trailing" id="ZzG-BV-MLc"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="d5E-ms-wOw"/>
                             <constraint firstItem="u5D-PX-Vyp" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="izy-4Q-FUt"/>
