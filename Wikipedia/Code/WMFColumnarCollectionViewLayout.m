@@ -76,16 +76,13 @@
 }
 
 - (void)prepareLayout {
-    UIEdgeInsets adjustedContentInsets = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *)) {
-        adjustedContentInsets = self.collectionView.safeAreaInsets;
-    }
-    if (self.metrics && !UIEdgeInsetsEqualToEdgeInsets(adjustedContentInsets, self.metrics.adjustedContentInsets)) {
+    CGFloat readableWidth = self.collectionView.readableContentGuide.layoutFrame.size.width;
+    if (self.metrics && self.metrics.readableWidth != readableWidth) {
         self.layoutValid = NO;
     }
     if (!self.isLayoutValid) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size adjustedContentInsets:adjustedContentInsets];
+        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size readableWidth:readableWidth];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }

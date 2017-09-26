@@ -40,8 +40,8 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         }
     }
     
-    override func metrics(withBoundsSize size: CGSize, adjustedContentInsets: UIEdgeInsets) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, adjustedContentInsets: adjustedContentInsets, collapseSectionSpacing:true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing:true)
     }
     
     required public init?(coder aDecoder: NSCoder) {

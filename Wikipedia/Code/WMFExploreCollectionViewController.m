@@ -629,8 +629,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFColumnarCollectionViewLayoutDelgate
 
-- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets {
-    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize adjustedContentInsets:adjustedContentInsets layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize readableWidth:readableWidth layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {

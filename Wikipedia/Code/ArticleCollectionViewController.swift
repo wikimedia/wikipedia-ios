@@ -76,6 +76,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
     }
+    
 }
 
 extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
@@ -160,8 +161,8 @@ extension ArticleCollectionViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, adjustedContentInsets: UIEdgeInsets) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, adjustedContentInsets: adjustedContentInsets,  collapseSectionSpacing:true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
     }
 }
 
