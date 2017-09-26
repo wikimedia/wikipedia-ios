@@ -1435,7 +1435,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // Tool bars
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
-        [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
         [toolbar setTranslucent:NO];
     }
 
@@ -1473,7 +1472,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [tabBar setUnselectedItemTintColor:theme.colors.unselected];
         }
         tabBar.translucent = NO;
-        tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
         if (tabBar.items.count > 0) {
             [tabBarItems addObjectsFromArray:tabBar.items];
         }
