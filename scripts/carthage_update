@@ -15,7 +15,7 @@ export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
 export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
 rm -rf "$CARTHAGE"
-carthage update --platform iOS --cache-builds 2> /dev/null
+carthage update --platform iOS --cache-builds
 mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 then
