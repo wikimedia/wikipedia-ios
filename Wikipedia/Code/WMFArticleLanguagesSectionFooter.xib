@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhC-mU-g1n">
-                    <rect key="frame" x="16" y="0.0" width="309" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="341" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="999" constant="40" id="cgx-uq-ywp"/>
                     </constraints>
@@ -36,13 +36,13 @@
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="DhC-mU-g1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="I6z-qW-DyW"/>
+                <constraint firstItem="DhC-mU-g1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="-16" id="I6z-qW-DyW"/>
                 <constraint firstItem="M1q-e8-8VS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="UfA-FP-uBf"/>
                 <constraint firstItem="DhC-mU-g1n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="W5C-Fw-TlJ"/>
                 <constraint firstItem="M1q-e8-8VS" firstAttribute="top" secondItem="DhC-mU-g1n" secondAttribute="bottom" constant="10" id="fKg-h7-KcO"/>
                 <constraint firstAttribute="trailingMargin" secondItem="M1q-e8-8VS" secondAttribute="trailing" id="gWU-tJ-6Sh"/>
                 <constraint firstAttribute="bottom" secondItem="M1q-e8-8VS" secondAttribute="bottom" constant="10" id="hDc-Rm-Qsa"/>
-                <constraint firstAttribute="trailingMargin" secondItem="DhC-mU-g1n" secondAttribute="trailing" id="lF1-rf-9Tq"/>
+                <constraint firstAttribute="trailingMargin" secondItem="DhC-mU-g1n" secondAttribute="trailing" constant="-16" id="lF1-rf-9Tq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
