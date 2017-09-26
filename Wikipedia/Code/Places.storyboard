@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -333,7 +333,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="BGl-w8-FTx" firstAttribute="leading" secondItem="qzd-3E-mH2" secondAttribute="leading" constant="7.5" id="6Ws-Pf-aSr"/>
+                                    <constraint firstItem="BGl-w8-FTx" firstAttribute="leading" secondItem="qzd-3E-mH2" secondAttribute="leadingMargin" id="6Ws-Pf-aSr"/>
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="bottom" secondItem="BGl-w8-FTx" secondAttribute="bottom" id="6ks-WN-iqe"/>
                                     <constraint firstItem="HrB-BE-o86" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" constant="7.5" id="7Pw-vp-Tko"/>
                                     <constraint firstItem="BGl-w8-FTx" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="top" id="7p9-Jh-Mkw"/>
@@ -345,7 +345,7 @@
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="height" secondItem="BGl-w8-FTx" secondAttribute="height" id="Yvu-dH-xmj"/>
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" id="dj2-Qs-aTQ"/>
                                     <constraint firstItem="l8n-jw-YsR" firstAttribute="top" secondItem="BGl-w8-FTx" secondAttribute="top" id="pNV-aG-5U0"/>
-                                    <constraint firstAttribute="trailing" secondItem="HrB-BE-o86" secondAttribute="trailing" constant="15" id="wTw-8k-zE2"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="HrB-BE-o86" secondAttribute="trailing" constant="7" id="wTw-8k-zE2"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
