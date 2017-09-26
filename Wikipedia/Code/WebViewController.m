@@ -429,18 +429,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)viewSafeAreaInsetsDidChange {
-    [super viewSafeAreaInsetsDidChange];
+- (void)viewLayoutMarginsDidChange {
+    [super viewLayoutMarginsDidChange];
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
-    self.webView.scrollView.scrollIndicatorInsets = self.view.safeAreaInsets;
+    self.webView.scrollView.scrollIndicatorInsets = self.view.layoutMargins;
 }
 
 - (CGFloat)marginWidthForSize:(CGSize)size {
-    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+    UIEdgeInsets layoutMargins = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
-        safeAreaInsets = self.view.safeAreaInsets;
+        layoutMargins = self.view.layoutMargins;
     }
-    return MAX(MAX(safeAreaInsets.left, safeAreaInsets.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
+    return MAX(MAX(layoutMargins.left, layoutMargins.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
