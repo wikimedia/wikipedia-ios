@@ -1568,6 +1568,9 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
+        if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
+            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
+        }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }

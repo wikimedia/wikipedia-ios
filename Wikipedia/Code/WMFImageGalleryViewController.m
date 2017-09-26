@@ -198,14 +198,8 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
-
-        UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
-        share.tintColor = [UIColor whiteColor];
-        self.overlayView.rightBarButtonItem = share;
-
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
-        close.tintColor = [UIColor whiteColor];
-        self.overlayView.leftBarButtonItem = close;
+        
+        [self setOverlayViewTopBarHidden:NO];
     }
     return self;
 }
@@ -226,18 +220,27 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
-        [self.leftBarButtonItem setEnabled:NO];
-        [self.leftBarButtonItem setTintColor:[UIColor clearColor]];
-        [self.rightBarButtonItem setEnabled:NO];
-        [self.rightBarButtonItem setTintColor:[UIColor clearColor]];
-
+        [self setOverlayViewTopBarHidden:YES];
+        
         self.theme = theme;
     }
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (void)setOverlayViewTopBarHidden:(BOOL)hidden {
+    if (hidden) {
+        self.overlayView.rightBarButtonItem = nil;
+        self.overlayView.leftBarButtonItem = nil;
+        self.overlayView.topCoverBackgroundColor = [UIColor clearColor];
+    } else {
+        UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
+        share.tintColor = [UIColor whiteColor];
+        self.overlayView.rightBarButtonItem = share;
+        
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        close.tintColor = [UIColor whiteColor];
+        self.overlayView.leftBarButtonItem = close;
+    }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -310,12 +313,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (@available(iOS 11.0, *)) {
         self.view.accessibilityIgnoresInvertColors = YES;
     }
-    [self addGradientToGalleryNavigationBar];
-}
-
-- (void)addGradientToGalleryNavigationBar {
-    UIImage *image = [UIImage imageNamed:@"gallery_overlay_top_gradient"];
-    [self.overlayView.navigationBar setBackgroundImage:image forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 #pragma mark - Actions
@@ -466,7 +463,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
 
-    self = [super initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    self = [self initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];

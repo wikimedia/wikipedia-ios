@@ -1719,6 +1719,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
     } else {
+        if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
+            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
+        }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }

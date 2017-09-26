@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
+- (void)setOverlayViewTopBarHidden:(BOOL)hidden;
+
 @property (weak, nonatomic, nullable) id<WMFImagePreviewingActionsDelegate> imagePreviewingActionsDelegate;
 
 @end

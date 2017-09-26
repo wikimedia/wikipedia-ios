@@ -7,18 +7,20 @@ fi
 
 if [ -z "$CACHEROOT" ]
 then
-	export CACHEROOT="$SRCROOT/Carthage Cache/"
+	export CACHEROOT="$SRCROOT/Carthage Cache"
 fi
 
 export CARTHAGE="$SRCROOT/Carthage"
+rm -rf "$CARTHAGE"
+carthage update --platform iOS --cache-builds
 export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
+echo "CARTHAGE_SHA is $CARTHAGE_SHA"
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
 export CARTHAGE_CACHE="$CACHEROOT/$CARTHAGE_SHA"
-rm -rf "$CARTHAGE"
-carthage update --platform iOS --cache-builds 2> /dev/null
+echo "CARTHAGE_CACHE is $CARTHAGE_CACHE"
 mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 then
-	mkdir -p "$CACHEROOT"
+	mkdir -p "$CACHEROOT/"
 	cp -R "$CARTHAGE" "$CARTHAGE_CACHE"
 fi
