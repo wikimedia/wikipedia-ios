@@ -31,7 +31,7 @@
 
     WMFGradientView *gradientView = [WMFGradientView new];
     [gradientView.gradientLayer setLocations:@[@0, @1]];
-    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:0.85].CGColor,
                                             (id)[UIColor clearColor].CGColor]];
     // default start/end points, to be adjusted w/ image size
     [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];

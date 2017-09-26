@@ -236,10 +236,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
@@ -314,8 +310,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)addGradientToGalleryNavigationBar {
-    UIImage *image = [UIImage imageNamed:@"gallery_overlay_top_gradient"];
-    [self.overlayView.navigationBar setBackgroundImage:image forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    self.overlayView.topCoverBackgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
 }
 
 #pragma mark - Actions
