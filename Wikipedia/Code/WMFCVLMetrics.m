@@ -5,8 +5,9 @@
 @property (nonatomic) CGSize boundsSize;
 @property (nonatomic) CGFloat readableWidth;
 @property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic) UIEdgeInsets readableMargins;
 @property (nonatomic) UIEdgeInsets margins;
-@property (nonatomic) UIEdgeInsets sectionInsets;
+@property (nonatomic) UIEdgeInsets sectionMargins;
 @property (nonatomic) CGFloat interColumnSpacing;
 @property (nonatomic) CGFloat interSectionSpacing;
 @property (nonatomic) CGFloat interItemSpacing;
@@ -21,7 +22,8 @@
     copy.readableWidth = self.readableWidth;
     copy.numberOfColumns = self.numberOfColumns;
     copy.margins = self.margins;
-    copy.sectionInsets = self.sectionInsets;
+    copy.readableMargins = self.readableMargins;
+    copy.sectionMargins = self.sectionMargins;
     copy.interColumnSpacing = self.interColumnSpacing;
     copy.interSectionSpacing = self.interSectionSpacing;
     copy.interItemSpacing = self.interItemSpacing;
@@ -56,7 +58,8 @@
        metrics.margins = UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     }
     
-    metrics.sectionInsets = UIEdgeInsetsZero;
+    metrics.sectionMargins = UIEdgeInsetsZero;
+    metrics.readableMargins = UIEdgeInsetsMake(15, 13, 15, 13);
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
 }
@@ -71,7 +74,9 @@
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = 0;
     metrics.margins = UIEdgeInsetsZero;
-    metrics.sectionInsets = UIEdgeInsetsZero;
+    metrics.sectionMargins = UIEdgeInsetsZero;
+    CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
+    metrics.readableMargins = UIEdgeInsetsMake(10, marginWidth, 10, marginWidth);
     metrics.shouldMatchColumnHeights = NO;
     return metrics;
 }

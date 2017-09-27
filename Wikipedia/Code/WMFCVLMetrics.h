@@ -18,6 +18,11 @@
 @property (nonatomic, readonly) CGFloat readableWidth;
 
 /*!
+ The readable margins for cells
+ */
+@property (nonatomic, readonly) UIEdgeInsets readableMargins;
+
+/*!
  The total number of columns
  */
 @property (nonatomic, readonly) NSInteger numberOfColumns;

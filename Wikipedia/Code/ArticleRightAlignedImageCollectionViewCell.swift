@@ -33,19 +33,19 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-        var widthMinusMargins = size.width - margins.left - margins.right
-        let minHeight = imageViewDimension + margins.top + margins.bottom
-        let minHeightMinusMargins = minHeight - margins.top - margins.bottom
+        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
+        let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - margins.right - imageViewDimension
+            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
         }
         
-        var x = margins.left
+        var x = layoutMargins.left
         if isRTL {
             x = size.width - x - widthMinusMargins
         }
-        var origin = CGPoint(x: x, y: margins.top)
+        var origin = CGPoint(x: x, y: layoutMargins.top)
         
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -63,12 +63,12 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = articleSemanticContentAttribute == .forceRightToLeft ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: margins.left, y: margins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             descriptionLabel.isHidden = true
         }
 
-        origin.y += margins.bottom
+        origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
         if (apply && !bottomSeparator.isHidden) {
@@ -81,7 +81,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         
         if (apply && !isImageViewHidden) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
-            var x = margins.right
+            var x = layoutMargins.right
             if !isRTL {
                 x = size.width - x - imageViewDimension
             }

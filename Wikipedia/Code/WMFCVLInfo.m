@@ -288,6 +288,7 @@
                                                      if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                          WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
                                                          attributes.precalculated = estimate.precalculated;
+                                                         attributes.readableMargins = metrics.readableMargins;
                                                          headerHeight = estimate.height;
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
                                                      } else {
@@ -320,6 +321,7 @@
                                                        if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                            WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
                                                            attributes.precalculated = estimate.precalculated;
+                                                           attributes.readableMargins = metrics.readableMargins;
                                                            itemHeight = estimate.height;
                                                            return CGRectMake(itemX, y, itemWidth, itemHeight);
                                                        } else {
@@ -350,6 +352,7 @@
                                                 if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                     WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
                                                     attributes.precalculated = estimate.precalculated;
+                                                    attributes.readableMargins = metrics.readableMargins;
                                                     footerHeight = estimate.height;
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
                                                 } else {

@@ -2,13 +2,15 @@ import UIKit
 
 @objc(WMFColumnarCollectionViewController)
 class ColumnarCollectionViewController: UICollectionViewController, Themeable {
-    let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
+    var layout: WMFColumnarCollectionViewLayout {
+        return collectionViewLayout as? WMFColumnarCollectionViewLayout ?? WMFColumnarCollectionViewLayout()
+    }
     var theme: Theme = Theme.standard
     
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
     init() {
-        super.init(collectionViewLayout: layout)
+        super.init(collectionViewLayout:  WMFColumnarCollectionViewLayout())
     }
     
     required init?(coder aDecoder: NSCoder) {

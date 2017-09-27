@@ -17,8 +17,12 @@ open class CollectionViewCell: UICollectionViewCell {
     open func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        preservesSuperviewLayoutMargins = true
-        contentView.preservesSuperviewLayoutMargins = true
+        preservesSuperviewLayoutMargins = false
+        contentView.preservesSuperviewLayoutMargins = false
+        if #available(iOSApplicationExtension 11.0, *) {
+            insetsLayoutMarginsFromSafeArea = false
+            contentView.insetsLayoutMarginsFromSafeArea = false
+        }
         autoresizesSubviews = false
         contentView.autoresizesSubviews = false
         backgroundView = UIView()
@@ -150,8 +154,11 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attributesToFit = layoutAttributes as? WMFCVLAttributes, attributesToFit.precalculated {
-            return attributesToFit
+        if let attributesToFit = layoutAttributes as? WMFCVLAttributes {
+            layoutMargins = attributesToFit.readableMargins
+            if attributesToFit.precalculated {
+                return attributesToFit
+            }
         }
         
         var sizeToFit = layoutAttributes.size

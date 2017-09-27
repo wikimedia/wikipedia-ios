@@ -44,6 +44,14 @@
     return self.info.contentSize;
 }
 
+- (UIEdgeInsets)readableMargins {
+    WMFCVLMetrics *metrics = self.metrics;
+    if (metrics == nil) {
+        return UIEdgeInsetsZero;
+    }
+    return metrics.readableMargins;
+}
+
 #pragma mark - Layout
 
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
