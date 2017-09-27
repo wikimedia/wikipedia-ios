@@ -437,7 +437,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewSafeAreaInsetsDidChange {
     if (@available(iOS 11.0, *)) {
         [super viewSafeAreaInsetsDidChange];
-        self.webView.scrollView.scrollIndicatorInsets = self.view.safeAreaInsets;
+        UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+        self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, safeInsets.left, 0, safeInsets.right);
     }
 }
 
