@@ -89,7 +89,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     
     override open func reset() {
         super.reset()
-        margins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
+        layoutMargins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
     }
     
@@ -101,12 +101,11 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     }
     
     public let imageViewHeight: CGFloat = 170
-    public var margins: UIEdgeInsets!
     public let spacing: CGFloat = 13
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        var origin = CGPoint(x: margins.left, y: margins.top)
-        let widthToFit = size.width - margins.left - margins.right
+        var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
+        let widthToFit = size.width - layoutMargins.left - layoutMargins.right
     
         if !isImageViewHidden {
             if (apply) {
@@ -141,9 +140,9 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
             if semanticContentAttributeOverride == .forceRightToLeft {
-                collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: margins.right - collectionViewSpacing)
+                collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: layoutMargins.right - collectionViewSpacing)
             } else {
-                collectionView.contentInset = UIEdgeInsets(top: 0, left: margins.left - collectionViewSpacing, bottom: 0, right: 0)
+                collectionView.contentInset = UIEdgeInsets(top: 0, left: layoutMargins.left - collectionViewSpacing, bottom: 0, right: 0)
             }
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
@@ -157,7 +156,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             origin.y += spacing
             origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         }else{
-            origin.y += margins.bottom
+            origin.y += layoutMargins.bottom
         }
         
         return CGSize(width: size.width, height: origin.y)

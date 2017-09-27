@@ -21,11 +21,11 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         let x: CGFloat
         
         if semanticContentAttributeOverride == .forceRightToLeft {
-            margins.right = timelineViewWidth
-            x = size.width - timelineViewWidth
+            layoutMargins.right = timelineViewWidth
+            x = size.width - timelineViewWidth - layoutMargins.right
         } else {
-            margins.left = timelineViewWidth
-            x = 0
+            x = layoutMargins.left
+            layoutMargins.left = layoutMargins.left + timelineViewWidth
         }
         
         if apply {
