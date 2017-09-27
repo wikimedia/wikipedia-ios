@@ -4,7 +4,11 @@ import UIKit
 class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
     
-    let articleURLs: [URL]
+    var articleURLs: [URL] {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
 
