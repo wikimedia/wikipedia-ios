@@ -53,6 +53,7 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
         pageViewController.willMove(toParentViewController: self)
         pageViewController.view.frame = containerView.bounds
         pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.addChildViewController(pageViewController)
         containerView.addSubview(pageViewController.view)
         pageViewController.didMove(toParentViewController: self)
         
