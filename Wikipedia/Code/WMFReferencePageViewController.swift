@@ -11,11 +11,15 @@ extension UIViewController {
     func referencePageViewControllerWillDisappear(_ referencePageViewController: WMFReferencePageViewController)
 }
 
-class WMFReferencePageViewController: UIPageViewController, UIPageViewControllerDataSource, Themeable {
+
+class WMFReferencePageViewController: UIViewController, UIPageViewControllerDataSource, Themeable {
     @objc var lastClickedReferencesIndex:Int = 0
     @objc var lastClickedReferencesGroup = [WMFReference]()
     
     @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
+    
+    @objc public var pageViewController = UIPageViewController()
+    @IBOutlet fileprivate var containerView: UIView!
     
     var theme = Theme.standard
     
@@ -46,13 +50,19 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource = self
+        pageViewController.willMove(toParentViewController: self)
+        pageViewController.view.frame = containerView.bounds
+        pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        containerView.addSubview(pageViewController.view)
+        pageViewController.didMove(toParentViewController: self)
+        
+        pageViewController.dataSource = self
         
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         let initiallyVisibleController = pageControllers[lastClickedReferencesIndex]
         
-        setViewControllers([initiallyVisibleController], direction: direction, animated: true, completion: nil)
+        pageViewController.setViewControllers([initiallyVisibleController], direction: direction, animated: true, completion: nil)
         
         addBackgroundView()
 
@@ -72,7 +82,7 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
     }
     
     @objc internal func firstPanelView() -> UIView? {
-        guard let viewControllers = viewControllers, let firstVC = viewControllers.first as? WMFReferencePanelViewController else {
+        guard let viewControllers = pageViewController.viewControllers, let firstVC = viewControllers.first as? WMFReferencePanelViewController else {
             return nil
         }
         return firstVC.containerView
@@ -89,11 +99,12 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        addBotttomConstraintToPageControl()
         return pageControllers.count
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let viewControllers = viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.index(of: currentVC) else {
+        guard let viewControllers = pageViewController.viewControllers, let currentVC = viewControllers.first, let presentationIndex = pageControllers.index(of: currentVC) else {
             return 0
         }
         return presentationIndex
@@ -104,6 +115,15 @@ class WMFReferencePageViewController: UIPageViewController, UIPageViewController
             return nil
         }
         return index >= pageControllers.count - 1 ? nil : pageControllers[index + 1]
+    }
+    
+    func addBotttomConstraintToPageControl() {
+        if let pageControl = view.wmf_firstSubviewOfType(UIPageControl.self) {
+            pageControl.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                pageControl.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 0)
+                ])
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

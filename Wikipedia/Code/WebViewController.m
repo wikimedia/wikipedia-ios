@@ -963,7 +963,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReferencePageViewController *vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-    vc.delegate = self;
+    vc.pageViewController.delegate = self;
     vc.appearanceDelegate = self;
     [vc applyTheme:self.theme];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -1043,12 +1043,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)referencePageViewControllerWillAppear:(WMFReferencePageViewController *)referencePageViewController {
-    WMFReferencePanelViewController *firstRefVC = referencePageViewController.viewControllers.firstObject;
+    WMFReferencePanelViewController *firstRefVC = referencePageViewController.pageViewController.viewControllers.firstObject;
     [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
 }
 
 - (void)referencePageViewControllerWillDisappear:(WMFReferencePageViewController *)referencePageViewController {
-    for (WMFReferencePanelViewController *panel in referencePageViewController.viewControllers) {
+    for (WMFReferencePanelViewController *panel in referencePageViewController.pageViewController.viewControllers) {
         [self.webView wmf_unHighlightLinkID:panel.reference.refId];
     }
 }
