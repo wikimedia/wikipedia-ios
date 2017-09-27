@@ -432,7 +432,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewLayoutMarginsDidChange {
     [super viewLayoutMarginsDidChange];
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
-    self.webView.scrollView.scrollIndicatorInsets = self.view.layoutMargins;
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+        self.webView.scrollView.scrollIndicatorInsets = self.view.safeAreaInsets;
+    }
 }
 
 - (CGFloat)marginWidthForSize:(CGSize)size {
