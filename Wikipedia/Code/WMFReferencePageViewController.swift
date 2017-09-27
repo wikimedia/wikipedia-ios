@@ -99,7 +99,6 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        addBotttomConstraintToPageControl()
         return pageControllers.count
     }
     
@@ -115,15 +114,6 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
             return nil
         }
         return index >= pageControllers.count - 1 ? nil : pageControllers[index + 1]
-    }
-    
-    func addBotttomConstraintToPageControl() {
-        if let pageControl = view.wmf_firstSubviewOfType(UIPageControl.self) {
-            pageControl.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                pageControl.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 0)
-                ])
-        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
