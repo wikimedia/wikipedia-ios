@@ -18,7 +18,7 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     
     @objc weak internal var appearanceDelegate: WMFReferencePageViewAppearanceDelegate?
     
-    @objc public var pageViewController = UIPageViewController()
+    @objc public var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     @IBOutlet fileprivate var containerView: UIView!
     
     var theme = Theme.standard
