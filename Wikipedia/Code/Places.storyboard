@@ -451,7 +451,7 @@
                         <outlet property="listAndSearchOverlaySliderHeightConstraint" destination="0Ku-oI-d8V" id="OWR-jH-qkm"/>
                         <outlet property="listAndSearchOverlaySliderSeparator" destination="IVq-Mn-HaA" id="eEL-Pa-Rlm"/>
                         <outlet property="listAndSearchOverlaySliderView" destination="i0j-C1-Whj" id="F7F-6f-Zum"/>
-                        <outlet property="listContainerView" destination="Hcr-LT-MnE" id="wwh-3L-Sjw"/>
+                        <outlet property="listContainerView" destination="0l8-no-aYc" id="7zp-B1-NDa"/>
                         <outlet property="mapContainerView" destination="EsT-De-Ary" id="BuO-NA-3h4"/>
                         <outlet property="mapListToggle" destination="HrB-BE-o86" id="YpW-51-YCV"/>
                         <outlet property="progressView" destination="Pet-ct-8QU" id="TOF-PN-K7x"/>
