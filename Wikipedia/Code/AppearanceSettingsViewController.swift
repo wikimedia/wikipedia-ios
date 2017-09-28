@@ -205,6 +205,12 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 break
             }
             
+        } else if let customViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem {
+            if customViewItem.viewController is ImageDimmingExampleViewController {
+                let bottomView = UIView(frame: CGRect(x: 0, y: cell.frame.height - 15, width: cell.frame.width, height: 15))
+                bottomView.backgroundColor = tableView.backgroundColor
+                cell.addSubview(bottomView)
+            }
         }
     }
     

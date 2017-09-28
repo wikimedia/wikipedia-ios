@@ -26,7 +26,7 @@ extension ImageDimmingExampleViewController: Themeable {
             return
         }
         
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         exampleImage.alpha = theme.imageOpacity
     }
 }
