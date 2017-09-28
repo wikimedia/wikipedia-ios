@@ -89,17 +89,20 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
             let vc = customViewItem.viewController
-            if let themeable = vc as? Themeable {
-                themeable.apply(theme: self.theme)
-            }
+
             if let view = vc.view {
-                cell.backgroundColor = view.backgroundColor
                 view.frame = cell.contentView.bounds
                 view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 vc.willMove(toParentViewController: self)
                 cell.contentView.addSubview(view)
                 addChildViewController(vc)
             }
+            
+            if let themeable = vc as? Themeable {
+                themeable.apply(theme: self.theme)
+                cell.backgroundColor = vc.view.backgroundColor
+            }
+            
             cell.selectionStyle = .none
             return cell
         }
