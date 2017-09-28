@@ -40,8 +40,8 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         }
     }
     
-    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing:true)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -77,7 +77,9 @@ extension OnThisDayViewController {
             return cell
         }
         let event = events[indexPath.section]
-        
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            onThisDayCell.layoutMargins = layout.readableMargins
+        }
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
 
@@ -150,6 +152,9 @@ extension OnThisDayViewController {
             return estimate
         }
         let event = events[indexPath.section]
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            placeholderCell.layoutMargins = layout.readableMargins
+        }
         placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true

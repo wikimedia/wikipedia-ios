@@ -63,8 +63,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
-static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
-
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
@@ -568,8 +566,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
     NSDate *now = [NSDate date];
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
-
-    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > WMFTimeBeforeRefreshingExploreFeed || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+    if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
         [self.exploreViewController updateFeedSourcesUserInitiated:NO
                                                         completion:^{
                                                         }];
@@ -595,6 +592,22 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 #endif
+}
+
+- (NSTimeInterval)timeBeforeRefreshingExploreFeed {
+    NSTimeInterval timeInterval = 2 * 60 * 60;
+    NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
+    NSFetchRequest *request = [WMFKeyValue fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.fetchLimit = 1;
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
+    WMFKeyValue *keyValue = results.firstObject;
+    if ([keyValue.value isKindOfClass:[NSNumber class]]) {
+        NSNumber *value = (NSNumber *)keyValue.value;
+        timeInterval = [value doubleValue];
+    }
+    return timeInterval;
 }
 
 - (void)pauseApp {
@@ -1426,7 +1439,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     // Tool bars
     for (UIToolbar *toolbar in toolbars) {
         toolbar.barTintColor = theme.colors.chromeBackground;
-        [toolbar setShadowImage:[UIImage imageNamed:@"tabbar-shadow"] forToolbarPosition:UIBarPositionAny];
         [toolbar setTranslucent:NO];
     }
 
@@ -1464,7 +1476,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [tabBar setUnselectedItemTintColor:theme.colors.unselected];
         }
         tabBar.translucent = NO;
-        tabBar.shadowImage = [UIImage imageNamed:@"tabbar-shadow"];
         if (tabBar.items.count > 0) {
             [tabBarItems addObjectsFromArray:tabBar.items];
         }

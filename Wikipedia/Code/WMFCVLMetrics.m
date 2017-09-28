@@ -3,9 +3,11 @@
 
 @interface WMFCVLMetrics ()
 @property (nonatomic) CGSize boundsSize;
+@property (nonatomic) CGFloat readableWidth;
 @property (nonatomic) NSInteger numberOfColumns;
-@property (nonatomic) UIEdgeInsets contentInsets;
-@property (nonatomic) UIEdgeInsets sectionInsets;
+@property (nonatomic) UIEdgeInsets readableMargins;
+@property (nonatomic) UIEdgeInsets margins;
+@property (nonatomic) UIEdgeInsets sectionMargins;
 @property (nonatomic) CGFloat interColumnSpacing;
 @property (nonatomic) CGFloat interSectionSpacing;
 @property (nonatomic) CGFloat interItemSpacing;
@@ -17,9 +19,11 @@
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLMetrics *copy = [[WMFCVLMetrics allocWithZone:zone] init];
     copy.boundsSize = self.boundsSize;
+    copy.readableWidth = self.readableWidth;
     copy.numberOfColumns = self.numberOfColumns;
-    copy.contentInsets = self.contentInsets;
-    copy.sectionInsets = self.sectionInsets;
+    copy.margins = self.margins;
+    copy.readableMargins = self.readableMargins;
+    copy.sectionMargins = self.sectionMargins;
     copy.interColumnSpacing = self.interColumnSpacing;
     copy.interSectionSpacing = self.interSectionSpacing;
     copy.interItemSpacing = self.interItemSpacing;
@@ -28,43 +32,52 @@
     return copy;
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
-    return [self metricsWithBoundsSize:boundsSize firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
+    return [self metricsWithBoundsSize:boundsSize readableWidth:readableWidth firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
 }
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
+    metrics.readableWidth = readableWidth;
+
     BOOL isRTL = layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
     BOOL isPad = boundsSize.width >= 600;
     BOOL useTwoColumns = isPad || boundsSize.width > boundsSize.height;
-    BOOL isWide = boundsSize.width >= 1000;
+
     metrics.numberOfColumns = useTwoColumns ? 2 : 1;
     metrics.columnWeights = useTwoColumns ? isRTL ? @[@(secondColumnRatio), @(firstColumnRatio)] : @[@(firstColumnRatio), @(secondColumnRatio)] : @[@1];
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 30;
-    metrics.contentInsets = useTwoColumns ? isWide ? UIEdgeInsetsMake(20, 90, 20, 90) : UIEdgeInsetsMake(20, 22, 20, 22) : UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
-    metrics.sectionInsets = UIEdgeInsetsZero;
+    
+    if (useTwoColumns) {
+        CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
+        metrics.margins = UIEdgeInsetsMake(20, marginWidth, 20, marginWidth);
+    } else {
+       metrics.margins = UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
+    }
+    
+    metrics.sectionMargins = UIEdgeInsetsZero;
+    metrics.readableMargins = UIEdgeInsetsMake(15, 13, 15, 13);
     metrics.shouldMatchColumnHeights = YES;
     return metrics;
 }
 
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing {
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth collapseSectionSpacing:(BOOL)collapseSectionSpacing {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
-    BOOL hasMargins = boundsSize.width > 600;
-    CGFloat fixedWidth = MIN(600, boundsSize.width);
+    metrics.readableWidth = readableWidth;
     metrics.numberOfColumns = 1;
     metrics.columnWeights = @[@1];
     metrics.interColumnSpacing = 0;
     metrics.interItemSpacing = 0;
-    metrics.interSectionSpacing = collapseSectionSpacing ? 0 : 30;
-    CGFloat insetLeftAndRight = MAX(0, floor(0.5 * (boundsSize.width - fixedWidth)));
-    CGFloat insetTopAndBottom = hasMargins ? 20 : 0;
-    metrics.contentInsets = UIEdgeInsetsMake(insetTopAndBottom, insetLeftAndRight, insetTopAndBottom, insetLeftAndRight);
-    metrics.sectionInsets = UIEdgeInsetsZero;
-    metrics.shouldMatchColumnHeights = YES;
+    metrics.interSectionSpacing = 0;
+    metrics.margins = UIEdgeInsetsZero;
+    metrics.sectionMargins = UIEdgeInsetsZero;
+    CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
+    metrics.readableMargins = UIEdgeInsetsMake(10, marginWidth, 10, marginWidth);
+    metrics.shouldMatchColumnHeights = NO;
     return metrics;
 }
 @end

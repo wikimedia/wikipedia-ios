@@ -44,6 +44,9 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            cell.layoutMargins = layout.readableMargins
+        }
         let story = stories[indexPath.section]
         newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell

@@ -34,6 +34,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.layoutMargins = layout.readableMargins
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
@@ -76,6 +77,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
     }
+    
 }
 
 extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
@@ -160,8 +162,8 @@ extension ArticleCollectionViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
     }
 }
 

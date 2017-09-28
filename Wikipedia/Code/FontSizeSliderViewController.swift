@@ -88,5 +88,10 @@ extension FontSizeSliderViewController: Themeable {
         slider.backgroundColor = theme.colors.midBackground
         tSmallImageView.tintColor = theme.colors.secondaryText
         tLargeImageView.tintColor = theme.colors.secondaryText
+        
+        if self.parent is AppearanceSettingsViewController {
+            view.backgroundColor = theme.colors.paperBackground
+            slider.backgroundColor = theme.colors.paperBackground
+        }
     }
 }

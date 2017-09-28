@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
 
     fileprivate var mapView: MapView!
     
@@ -43,7 +43,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
-    @IBOutlet weak var listView: UITableView!
+    @IBOutlet weak var listContainerView: UIView!
+    var listViewController: ArticleLocationCollectionViewController!
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
@@ -117,7 +118,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
+        listViewController.willMove(toParentViewController: self)
+        listViewController.view.frame = listContainerView.bounds
+        listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        listContainerView.addSubview(listViewController.view)
+        addChildViewController(listViewController)
+        listViewController.didMove(toParentViewController: self)
+
         let mapViewFrame = mapContainerView.bounds
         #if OSM
             let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
@@ -191,13 +199,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
-        
-        // Setup list view
-        listView.dataSource = self
-        listView.delegate = self
-        listView.register(ArticleWithLocationTableViewCell.self, forCellReuseIdentifier: "ArticleWithLocationTableViewCell")
-        listView.estimatedRowHeight = ArticleWithLocationTableViewCell.estimatedRowHeight
-        listView.rowHeight = UITableViewAutomaticDimension
         
         // Setup search suggestions
         searchSuggestionController = PlaceSearchSuggestionController()
@@ -302,6 +303,21 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
 
     }
 
+    public func logListViewImpression(forIndexPath indexPath: IndexPath) {
+        guard let sections = articleFetchedResultsController.sections,
+                indexPath.section < sections.count,
+                indexPath.item < sections[indexPath.item].numberOfObjects else {
+            return
+        }
+        let article = articleFetchedResultsController.object(at: indexPath)
+        tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
+    }
+
+    public func logListViewImpressionsForVisibleCells() {
+        for indexPath in listViewController.collectionView?.indexPathsForVisibleItems ?? [] {
+            logListViewImpression(forIndexPath: indexPath)
+        }
+    }
     
     func updateShouldShowAllImagesIfNecessary() {
         let visibleAnnotations = mapView.visibleAnnotations
@@ -778,7 +794,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func updatePlaces() {
-        listView.reloadData()
+        let articleURLs = articleFetchedResultsController.fetchedObjects?.flatMap({ (article) -> URL? in
+            return article.url
+        })
+        listViewController.articleURLs = articleURLs ?? []
         currentGroupingPrecision = 0
         regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region)
         if currentSearch?.region == nil { // this means the search was done in the curent map region and the map won't move
@@ -894,10 +913,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchBar = titleViewSearchBar
         
         filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: searchBarHeight)
-        filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
         titleView.addSubview(filterSelectorView)
+        titleView.wmf_addConstraintsToEdgesOfView(filterSelectorView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeftPadding, bottom: 0, right: searchBarRightPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
         
         if let panGR = overlaySliderPanGestureRecognizer {
@@ -1101,10 +1120,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             case .listOverlay:
                 isSearchBarInNavigationBar = false
                 deselectAllAnnotations()
-                updateDistanceFromUserOnVisibleCells()
+                listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 mapView.isHidden = false
-                listView.isHidden = false
+                listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 isOverlaySearchButtonHidden = true
@@ -1112,10 +1131,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             case .list:
                 isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
-                updateDistanceFromUserOnVisibleCells()
+                listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 mapView.isHidden = true
-                listView.isHidden = false
+                listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 filterSelectorView.button.isEnabled = true
@@ -1126,14 +1145,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 isOverlaySearchButtonHidden = false
                 isSearchBarInNavigationBar = false
                 mapView.isHidden = false
-                listView.isHidden = true
+                listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
                 filterSelectorView.button.isEnabled = false
             case .search:
                 isSearchBarInNavigationBar = true
                 mapView.isHidden = true
-                listView.isHidden = true
+                listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
                 filterSelectorView.button.isEnabled = false
@@ -1142,7 +1161,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             default:
                 isSearchBarInNavigationBar = true
                 mapView.isHidden = false
-                listView.isHidden = true
+                listContainerView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
                 filterSelectorView.button.isEnabled = true
@@ -1628,7 +1647,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
 
         if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
-            listView.scrollToRow(at: indexPath, at: .top, animated: true)
+            listViewController.collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
         let articleVC = ArticlePopoverViewController(article)
@@ -2264,7 +2283,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).characters.count > 0 else {
+        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
             return
         }
         
@@ -2278,98 +2297,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         updateViewModeFromSegmentedControl()
-    }
-    
-    // MARK: - UITableViewDataSource
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return articleFetchedResultsController.sections?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articleFetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard viewMode == .list else {
-            return
-        }
-        logListViewImpression(forIndexPath: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleWithLocationTableViewCell", for: indexPath) as? ArticleWithLocationTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        let article = articleFetchedResultsController.object(at: indexPath)
-        
-        cell.articleWithLocationCollectionViewCell.accessibilityTraits = UIAccessibilityTraitLink
-        cell.articleWithLocationCollectionViewCell.titleText = article.displayTitle
-        cell.articleWithLocationCollectionViewCell.descriptionText = article.capitalizedWikidataDescriptionOrSnippet
-        cell.articleWithLocationCollectionViewCell.setImageURL(article.thumbnailURL)
-        cell.articleWithLocationCollectionViewCell.articleLocation = article.location
-        cell.apply(theme: theme)
-        
-        var userLocation: CLLocation?
-        var userHeading: CLHeading?
-        
-        if locationManager.isUpdating {
-            userLocation = locationManager.location
-            userHeading = locationManager.heading
-        }
-        cell.update(userLocation: userLocation, heading: userHeading)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let article = articleFetchedResultsController.object(at: indexPath)
-        let title = article.savedDate == nil ? CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle
-        let saveForLaterAction = UITableViewRowAction(style: .default, title: title) { (action, indexPath) in
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({
-                let article = self.articleFetchedResultsController.object(at: indexPath)
-                self.perform(action: .save, onArticle: article)
-            })
-            tableView.setEditing(false, animated: true)
-            CATransaction.commit()
-        }
-        saveForLaterAction.accessibilityLabel =  article.savedDate == nil ?  CommonStrings.shortSaveTitle : CommonStrings.shortUnsaveTitle;
-        saveForLaterAction.backgroundColor = theme.colors.secondaryAction
-        
-        let shareAction = UITableViewRowAction(style: .default, title: CommonStrings.shortShareTitle) { (action, indexPath) in
-            tableView.setEditing(false, animated: true)
-            let article = self.articleFetchedResultsController.object(at: indexPath)
-            self.perform(action: .share, onArticle: article)
-        }
-        shareAction.backgroundColor = theme.colors.link
-        return [saveForLaterAction, shareAction]
-    }
-    
-    func logListViewImpression(forIndexPath indexPath: IndexPath) {
-        let article = articleFetchedResultsController.object(at: indexPath)
-        tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
-    }
-    
-    func logListViewImpressionsForVisibleCells() {
-        for indexPath in listView.indexPathsForVisibleRows ?? [] {
-            logListViewImpression(forIndexPath: indexPath)
-        }
-    }
-    
-    func updateDistanceFromUserOnVisibleCells() {
-        guard !listView.isHidden else {
-            return
-        }
-        let heading = locationManager.heading
-        let location = locationManager.location
-        for cell in listView.visibleCells {
-            guard let locationCell = cell as? ArticleWithLocationTableViewCell else {
-                continue
-            }
-            locationCell.articleWithLocationCollectionViewCell.update(userLocation: location, heading: heading)
-        }
     }
 
     // MARK: - UITableViewDelegate
@@ -2428,7 +2355,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     var panMapToNextLocationUpdate = true
     
     func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
-        updateDistanceFromUserOnVisibleCells()
         guard panMapToNextLocationUpdate else {
             return
         }
@@ -2441,7 +2367,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
         updateUserLocationAnnotationViewHeading(heading)
-        updateDistanceFromUserOnVisibleCells()
     }
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
@@ -2771,16 +2696,8 @@ extension PlacesViewController {
         guard viewMode == .list else {
             return nil
         }
-        let point = view.convert(location, to: listView)
-        guard
-            let indexPath = listView.indexPathForRow(at: point),
-            let url = self.articleFetchedResultsController.object(at: indexPath).url,
-            let cell = listView.cellForRow(at: indexPath)
-        else {
-            return nil
-        }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: view)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: theme)
+        let point = view.convert(location, to: listViewController.view)
+        return listViewController.previewingContext(previewingContext, viewControllerForLocation:point)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
@@ -2866,7 +2783,6 @@ extension PlacesViewController: Themeable {
         redoSearchButton.backgroundColor = theme.colors.link
         didYouMeanButton.backgroundColor = theme.colors.link
         updateSearchFilterTitle()
-        listView.backgroundColor = theme.colors.baseBackground
-        listView.reloadData()
+        listViewController.apply(theme: theme)
     }
 }

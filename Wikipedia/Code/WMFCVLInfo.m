@@ -167,7 +167,7 @@
 - (void)layoutWithMetrics:(nonnull WMFCVLMetrics *)metrics delegate:(id<WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
 
     NSInteger numberOfSections = [collectionView.dataSource numberOfSectionsInCollectionView:collectionView];
-    UIEdgeInsets contentInsets = metrics.contentInsets;
+    UIEdgeInsets metricsInsets = metrics.margins;
     UIEdgeInsets sectionInsets = metrics.sectionInsets;
     CGFloat interColumnSpacing = metrics.interColumnSpacing;
     CGFloat interItemSpacing = metrics.interItemSpacing;
@@ -183,11 +183,11 @@
     }
 
     if (self.columns == nil) {
-        CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
+        CGFloat availableWidth = size.width - metricsInsets.left - metricsInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
 
         CGFloat baselineColumnWidth = floor(availableWidth / numberOfColumns);
         self.columns = [NSMutableArray arrayWithCapacity:numberOfColumns];
-        CGFloat x = contentInsets.left;
+        CGFloat x = metricsInsets.left;
         for (NSInteger i = 0; i < numberOfColumns; i++) {
             WMFCVLColumn *column = [WMFCVLColumn new];
             CGFloat columnWeight = [columnWeights[i] doubleValue];
@@ -215,7 +215,7 @@
             }
             column.frame = newFrame;
 #if DEBUG
-            CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
+            CGFloat availableWidth = size.width - metricsInsets.left - metricsInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
 
             CGFloat baselineColumnWidth = round(availableWidth / numberOfColumns);
             CGFloat columnWidthToCheck = round([columnWeights[column.index] doubleValue] * baselineColumnWidth);
@@ -270,7 +270,7 @@
         CGFloat x = column.frame.origin.x;
 
         if (column.sectionCount == 1) {
-            [column updateHeightWithDelta:contentInsets.top];
+            [column updateHeightWithDelta:metricsInsets.top];
         } else {
             [column updateHeightWithDelta:interSectionSpacing];
         }
@@ -288,6 +288,7 @@
                                                      if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                          WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
                                                          attributes.precalculated = estimate.precalculated;
+                                                         attributes.readableMargins = metrics.readableMargins;
                                                          headerHeight = estimate.height;
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
                                                      } else {
@@ -320,6 +321,7 @@
                                                        if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                            WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
                                                            attributes.precalculated = estimate.precalculated;
+                                                           attributes.readableMargins = metrics.readableMargins;
                                                            itemHeight = estimate.height;
                                                            return CGRectMake(itemX, y, itemWidth, itemHeight);
                                                        } else {
@@ -350,6 +352,7 @@
                                                 if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                     WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
                                                     attributes.precalculated = estimate.precalculated;
+                                                    attributes.readableMargins = metrics.readableMargins;
                                                     footerHeight = estimate.height;
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
                                                 } else {
@@ -381,7 +384,7 @@
     assert(_sections.count == numberOfSections);
 
     [self enumerateColumnsWithBlock:^(WMFCVLColumn *_Nonnull column, NSUInteger idx, BOOL *_Nonnull stop) {
-        [column updateHeightWithDelta:contentInsets.bottom];
+        [column updateHeightWithDelta:metricsInsets.bottom];
     }];
 
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];

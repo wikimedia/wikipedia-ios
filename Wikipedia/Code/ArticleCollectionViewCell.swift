@@ -52,7 +52,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         extractTextStyle  = .subheadline
         saveButtonFontFamily = .systemMedium
         saveButtonTextStyle  = .subheadline
-        margins = ArticleCollectionViewCell.defaultMargins
+        layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
         saveButtonTopSpacing = 5
@@ -103,7 +103,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     public var saveButtonTextStyle: UIFontTextStyle?
     
     public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
-    public var margins: UIEdgeInsets!
     public var spacing: CGFloat!
     public var saveButtonTopSpacing: CGFloat!
     

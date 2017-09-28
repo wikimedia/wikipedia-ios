@@ -46,6 +46,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        extendedLayoutIncludesOpaqueBars = true
+        
         title = WMFLocalizedString("appearance-settings-title", value: "Reading themes", comment: "Title of the Appearance view in Settings.")
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
@@ -86,9 +89,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
             let vc = customViewItem.viewController
-            if let themeable = vc as? Themeable {
-                themeable.apply(theme: self.theme)
-            }
+
             if let view = vc.view {
                 view.frame = cell.contentView.bounds
                 view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -96,6 +97,12 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 cell.contentView.addSubview(view)
                 addChildViewController(vc)
             }
+            
+            if let themeable = vc as? Themeable {
+                themeable.apply(theme: self.theme)
+                cell.backgroundColor = vc.view.backgroundColor
+            }
+            
             cell.selectionStyle = .none
             return cell
         }

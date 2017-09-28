@@ -364,6 +364,7 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
+"view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Dive into Wikipedia with a constantly updating feed";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";

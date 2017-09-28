@@ -2,7 +2,7 @@ import Foundation
 
 extension ArticleCollectionViewCell {
     @objc open func configureForCompactList(at index: Int) {
-        margins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
