@@ -89,7 +89,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         get{
             guard
                 let captchaSolution = captchaTextField.text,
-                captchaSolution.characters.count > 0
+                captchaSolution.count > 0
                 else {
                     return nil
             }

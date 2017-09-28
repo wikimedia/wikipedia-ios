@@ -63,7 +63,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 failure(WMFAuthTokenError.cannotExtractToken)
                 return
             }
-            guard token.characters.count > 0 else {
+            guard token.count > 0 else {
                 failure(WMFAuthTokenError.zeroLengthToken)
                 return
             }

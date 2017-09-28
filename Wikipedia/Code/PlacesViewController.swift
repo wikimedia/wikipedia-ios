@@ -2283,7 +2283,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).characters.count > 0 else {
+        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
             return
         }
         
