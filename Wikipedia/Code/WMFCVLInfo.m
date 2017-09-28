@@ -103,8 +103,6 @@
 - (void)updateContentSizeWithMetrics:(WMFCVLMetrics *)metrics {
     __block CGSize newSize = metrics.boundsSize;
     newSize.height = 0;
-    UIEdgeInsets collectionViewInsets = metrics.adjustedContentInsets;
-    newSize.width = newSize.width - collectionViewInsets.left - collectionViewInsets.right;
     [self enumerateColumnsWithBlock:^(WMFCVLColumn *_Nonnull column, NSUInteger idx, BOOL *_Nonnull stop) {
         CGFloat columnHeight = column.frame.size.height;
         if (columnHeight > newSize.height) {
@@ -170,7 +168,6 @@
 
     NSInteger numberOfSections = [collectionView.dataSource numberOfSectionsInCollectionView:collectionView];
     UIEdgeInsets metricsInsets = metrics.margins;
-    UIEdgeInsets collectionViewInsets = metrics.adjustedContentInsets;
     UIEdgeInsets sectionInsets = metrics.sectionInsets;
     CGFloat interColumnSpacing = metrics.interColumnSpacing;
     CGFloat interItemSpacing = metrics.interItemSpacing;
@@ -186,11 +183,11 @@
     }
 
     if (self.columns == nil) {
-        CGFloat availableWidth = size.width - metricsInsets.left - metricsInsets.right - collectionViewInsets.left - collectionViewInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
+        CGFloat availableWidth = size.width - metricsInsets.left - metricsInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
 
         CGFloat baselineColumnWidth = floor(availableWidth / numberOfColumns);
         self.columns = [NSMutableArray arrayWithCapacity:numberOfColumns];
-        CGFloat x = metricsInsets.left + collectionViewInsets.left;
+        CGFloat x = metricsInsets.left;
         for (NSInteger i = 0; i < numberOfColumns; i++) {
             WMFCVLColumn *column = [WMFCVLColumn new];
             CGFloat columnWeight = [columnWeights[i] doubleValue];
@@ -291,6 +288,7 @@
                                                      if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                          WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
                                                          attributes.precalculated = estimate.precalculated;
+                                                         attributes.readableMargins = metrics.readableMargins;
                                                          headerHeight = estimate.height;
                                                          return CGRectMake(x, y, columnWidth, headerHeight);
                                                      } else {
@@ -323,6 +321,7 @@
                                                        if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                            WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
                                                            attributes.precalculated = estimate.precalculated;
+                                                           attributes.readableMargins = metrics.readableMargins;
                                                            itemHeight = estimate.height;
                                                            return CGRectMake(itemX, y, itemWidth, itemHeight);
                                                        } else {
@@ -353,6 +352,7 @@
                                                 if (wasCreated || section.needsToRecalculateEstimatedLayout) {
                                                     WMFLayoutEstimate estimate = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
                                                     attributes.precalculated = estimate.precalculated;
+                                                    attributes.readableMargins = metrics.readableMargins;
                                                     footerHeight = estimate.height;
                                                     return CGRectMake(x, y, columnWidth, footerHeight);
                                                 } else {

@@ -7,7 +7,7 @@ extension Optional where Wrapped: ExpressibleByStringLiteral {
             guard let value = self as? String else {
                 return 0
             }
-            return value.characters.count
+            return value.count
         }
     }
 }

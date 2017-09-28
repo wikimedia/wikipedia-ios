@@ -36,10 +36,10 @@ public class WMFPasswordResetter {
             "format": "json"
         ];
         
-        if let userName = userName, userName.characters.count > 0 {
+        if let userName = userName, userName.count > 0 {
             parameters["user"] = userName
         }else {
-            if let email = email, email.characters.count > 0 {
+            if let email = email, email.count > 0 {
                 parameters["email"] = email
             }
         }

@@ -178,8 +178,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Support numeric code pasting when showing individual digit UITextFields - i.e. when displayMode == .shortNumeric.
         // If displayMode == .shortNumeric 'string' has been verified to be comprised of decimal digits by this point.
         // Backup code (when displayMode == .longAlphaNumeric) pasting already works as-is because it uses a single UITextField.
-        if displayMode == .shortNumeric && string.characters.count == oathTokenFields.count{
-            for (field, char) in zip(oathTokenFields, string.characters) {
+        if displayMode == .shortNumeric && string.count == oathTokenFields.count{
+            for (field, char) in zip(oathTokenFields, string) {
                 field.text = String(char)
             }
             enableProgressiveButton(areRequiredFieldsPopulated())
@@ -187,7 +187,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         
         // Enforce max count.
-        let countIfAllowed = textField.text.wmf_safeCharacterCount + string.characters.count
+        let countIfAllowed = textField.text.wmf_safeCharacterCount + string.count
         return (countIfAllowed <= maxTextFieldCharacterCount())
     }
     

@@ -2,7 +2,12 @@ import UIKit
 
 class CollectionViewHeader: SizeThatFitsReusableView {
     var label = UILabel()
-    let insets = UIEdgeInsets(top: 30, left: 15, bottom: 15, right: 15)
+    let margins = UIEdgeInsets(top: 30, left: 15, bottom: 15, right: 15)
+    var adjustedMargins: UIEdgeInsets {
+        let adjusted = UIEdgeInsetsMake(margins.top, max(layoutMargins.left, margins.left), margins.bottom, max(layoutMargins.right, margins.right))
+        print("\(adjusted)")
+        return adjusted
+    }
     override func setup() {
         addSubview(label)
         super.setup()
@@ -14,8 +19,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let frame = label.wmf_preferredFrame(at:  CGPoint(x: insets.left, y: insets.top), fitting: CGSize(width: size.width - insets.left - insets.right, height: UIViewNoIntrinsicMetric), alignedBy: .unspecified, apply: apply)
-        return CGSize(width: size.width, height: frame.maxY + insets.bottom)
+        let margins = adjustedMargins
+        let frame = label.wmf_preferredFrame(at:  CGPoint(x: margins.left, y: margins.top), fitting: CGSize(width: size.width - margins.left - margins.right, height: UIViewNoIntrinsicMetric), alignedBy: .unspecified, apply: apply)
+        return CGSize(width: size.width, height: frame.maxY + margins.bottom)
     }
     
     var text: String? {
