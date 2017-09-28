@@ -432,7 +432,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewLayoutMarginsDidChange {
     [super viewLayoutMarginsDidChange];
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
-    self.webView.scrollView.scrollIndicatorInsets = self.view.layoutMargins;
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+        UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+        self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, safeInsets.left, 0, safeInsets.right);
+    }
 }
 
 - (CGFloat)marginWidthForSize:(CGSize)size {
@@ -963,7 +970,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReferencePageViewController *vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-    vc.delegate = self;
+    vc.pageViewController.delegate = self;
     vc.appearanceDelegate = self;
     [vc applyTheme:self.theme];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -1043,12 +1050,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)referencePageViewControllerWillAppear:(WMFReferencePageViewController *)referencePageViewController {
-    WMFReferencePanelViewController *firstRefVC = referencePageViewController.viewControllers.firstObject;
+    WMFReferencePanelViewController *firstRefVC = referencePageViewController.pageViewController.viewControllers.firstObject;
     [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
 }
 
 - (void)referencePageViewControllerWillDisappear:(WMFReferencePageViewController *)referencePageViewController {
-    for (WMFReferencePanelViewController *panel in referencePageViewController.viewControllers) {
+    for (WMFReferencePanelViewController *panel in referencePageViewController.pageViewController.viewControllers) {
         [self.webView wmf_unHighlightLinkID:panel.reference.refId];
     }
 }

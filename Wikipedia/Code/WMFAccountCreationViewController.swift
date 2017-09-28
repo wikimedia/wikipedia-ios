@@ -123,7 +123,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         guard let text = captchaViewController?.solution else {
             return false
         }
-        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
+        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

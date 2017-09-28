@@ -13,9 +13,14 @@
 @property (nonatomic, readonly) CGSize boundsSize;
 
 /*!
- The adjusted content insets for the metrics
+ The readable width
  */
-@property (nonatomic, readonly) UIEdgeInsets adjustedContentInsets;
+@property (nonatomic, readonly) CGFloat readableWidth;
+
+/*!
+ The readable margins for cells
+ */
+@property (nonatomic, readonly) UIEdgeInsets readableMargins;
 
 /*!
  The total number of columns
@@ -23,7 +28,7 @@
 @property (nonatomic, readonly) NSInteger numberOfColumns;
 
 /*!
- The inset of the entire content (beyond the content inset)
+ The margins from the edge of the view to the cells
  */
 @property (nonatomic, readonly) UIEdgeInsets margins;
 
@@ -55,8 +60,8 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize adjustedContentInsets:(UIEdgeInsets)adjustedContentInsets collapseSectionSpacing:(BOOL)collapseSectionSpacing;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth collapseSectionSpacing:(BOOL)collapseSectionSpacing;
 
 @end
