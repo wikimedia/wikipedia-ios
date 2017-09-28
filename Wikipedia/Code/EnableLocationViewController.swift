@@ -15,6 +15,7 @@ class EnableLocationViewController: UIViewController, Themeable {
     @IBOutlet weak var enableLocationAccessButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     @objc var shouldPrompt = false
     
@@ -41,5 +42,18 @@ class EnableLocationViewController: UIViewController, Themeable {
     
     func apply(theme: Theme) {
         view.tintColor = theme.colors.link
+    }
+    
+    @IBOutlet weak var imageToTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabelToBottomConstraint: NSLayoutConstraint!
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let isPhone: Bool = UIDevice.current.userInterfaceIdiom == .phone
+        let isLandscape: Bool = UIDevice.current.orientation.isLandscape
+        
+        if isPhone && isLandscape {
+            imageToTopConstraint.constant = 10
+            descriptionLabelToBottomConstraint.constant = 10
+        }
     }
 }
