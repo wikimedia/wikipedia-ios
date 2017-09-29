@@ -913,10 +913,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchBar = titleViewSearchBar
         
         filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: searchBarHeight)
-        filterSelectorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
         titleView.addSubview(filterSelectorView)
+        titleView.wmf_addConstraintsToEdgesOfView(filterSelectorView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeftPadding, bottom: 0, right: searchBarRightPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
         
         if let panGR = overlaySliderPanGestureRecognizer {

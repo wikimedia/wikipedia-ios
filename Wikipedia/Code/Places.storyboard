@@ -628,7 +628,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lk-Yo-wUm" userLabel="Top articles ∨">
-                            <rect key="frame" x="83" y="0.0" width="159" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="325" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="1hB-X2-29v"/>
                             </constraints>
@@ -641,8 +641,12 @@
                         </button>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="1lk-Yo-wUm" secondAttribute="trailing" id="0AW-rN-d3e"/>
                         <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerX" secondItem="VAs-ZO-0gF" secondAttribute="centerX" id="1nB-WB-9yN"/>
+                        <constraint firstItem="1lk-Yo-wUm" firstAttribute="leading" secondItem="VAs-ZO-0gF" secondAttribute="leading" id="MT3-kp-dME"/>
+                        <constraint firstItem="1lk-Yo-wUm" firstAttribute="top" secondItem="VAs-ZO-0gF" secondAttribute="top" id="b6s-cK-Upy"/>
                         <constraint firstItem="1lk-Yo-wUm" firstAttribute="centerY" secondItem="VAs-ZO-0gF" secondAttribute="centerY" id="fH7-Y1-W5K"/>
+                        <constraint firstAttribute="bottom" secondItem="1lk-Yo-wUm" secondAttribute="bottom" id="gVL-10-vrD"/>
                     </constraints>
                     <connections>
                         <outlet property="button" destination="1lk-Yo-wUm" id="30L-I3-lIm"/>
