@@ -4,7 +4,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     fileprivate var theme = Theme.standard
     
     @IBOutlet fileprivate var languageTableView:UITableView!
-    @IBOutlet fileprivate var moreLanguagesButton:UIButton!;
+    @IBOutlet fileprivate var moreLanguagesButton:UIButton!
     @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
 
     override func viewDidLoad() {
@@ -13,8 +13,8 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         languagesDescriptionLabel.text = WMFLocalizedString("welcome-languages-description", value:"We've detected the following languages on your device:", comment:"Title label describing detected languages")
         
         languageTableView.alwaysBounceVertical = false
-        moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add to, or edit your preferred languages", comment:"Title for button for managing languages"), for: UIControlState())
-        moreLanguagesButton.setTitleColor(theme.colors.link, for: UIControlState())
+        moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add to, or edit your preferred languages", comment:"Title for button for managing languages"), for: .normal)
+        moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
         languageTableView.rowHeight = UITableViewAutomaticDimension
         languageTableView.estimatedRowHeight = 30
         view.wmf_configureSubviewsForDynamicType()
