@@ -276,6 +276,7 @@
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-similar-titles" = "Páginas similares";
+"page-talk-page" = "Ver página de discussão";
 "pictured" = "Retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";
 "places-accessibility-close-search" = "Fechar pesquisa";
@@ -393,6 +394,7 @@
 "two-factor-login-title" = "Faça login na sua conta";
 "two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
+"view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-features-news-notifications" = "Receba notificações de notícias sobre temas de tendencia nas notícias";
 "welcome-explore-features-on-this-day" = "Volte no tempo com $1 para aprender o que aconteceu hoje na história";

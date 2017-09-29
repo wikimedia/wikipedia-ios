@@ -68,6 +68,8 @@
 "action-unsave" = "Opslaan ongedaan maken";
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
+"appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
+"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeelding in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-theme-options" = "Thema-opties";
 "appearance-settings-title" = "Leesthema's";
@@ -92,6 +94,7 @@
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-saved-remove" = "Uit opgeslagen verwijderen";
+"cancel" = "Annuleren";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
@@ -262,6 +265,7 @@
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
 "page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+"page-talk-page" = "Overlegpagina bekijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-close-search" = "Zoeken sluiten";
@@ -345,13 +349,20 @@
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Deel-een-feit";
+"share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
+"share-a-fact-share-menu-item" = "Deel-een-feit…";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
+"share-building" = "Deel-een-feit-kaart aan het maken…";
 "share-custom-menu-item" = "Delen...";
+"share-default-format" = "“$1” uit “$2”: $3";
+"share-email-format" = "“$1”\n\nuit “$2”\n\n$3";
 "share-get-directions-in-maps" = "Routebeschrijving";
+"share-menu-item" = "Delen…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Openen in Kaarten";
+"share-social-format" = "“$1” via Wikipedia: $2";
+"share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "status-saved-for-later" = "Opgeslagen voor later";
 "status-saving-for-later" = "Aan het opslaan voor later...";
 "table-of-contents-button-label" = "Inhoudsopgave";
@@ -370,6 +381,7 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
+"view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
