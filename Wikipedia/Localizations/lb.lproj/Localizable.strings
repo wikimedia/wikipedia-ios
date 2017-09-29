@@ -238,6 +238,7 @@
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
 "page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
+"page-talk-page" = "Diskussiounssäit weisen";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
@@ -344,6 +345,7 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
+"view-in-browser-footer-link" = "Artikel am Browser kucken";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
@@ -370,7 +372,6 @@
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";

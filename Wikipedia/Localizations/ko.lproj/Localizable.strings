@@ -263,6 +263,7 @@
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
 "page-similar-titles" = "비슷한 문서";
+"page-talk-page" = "토론 문서 보기";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";
@@ -373,6 +374,7 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
+"view-in-browser-footer-link" = "브라우저에서 문서 보기";
 "welcome-explore-continue-button" = "시작하기";
 "welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";

@@ -255,6 +255,7 @@
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
 "page-read-in-other-languages" = "In $1 weiteren Sprachen verfügbar";
 "page-similar-titles" = "Ähnliche Seiten";
+"page-talk-page" = "Diskussionsseite ansehen";
 "pictured" = "Bild";
 "places-accessibility-clear-saved-searches" = "Gespeicherte Suchanfragen löschen";
 "places-accessibility-close-search" = "Suche schließen";
@@ -372,6 +373,7 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
+"view-in-browser-footer-link" = "Artikel im Browser ansehen";
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-explore-features-news-notifications" = "Erhalte Benachrichtigungen für Themen, die in den Nachrichten sind.";
 "welcome-explore-features-on-this-day" = "Reise in der Zeit zurück mit $1, um zu erfahren, was heute in der Vergangenheit passiert ist.";
