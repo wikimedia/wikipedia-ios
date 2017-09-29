@@ -17,7 +17,6 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         
         descriptionLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.", comment:"Sub-title explaining how sending usage reports can help improve the app")
         
-        // TODO: hook up this to alert once we get strings for it.
         linkLabel.text = WMFLocalizedString("welcome-send-data-learn-more", value:"Learn more about data collected", comment:"Text for link for learning more about opting-in to anonymous data collection")
         
         linkLabel.textColor = .wmf_blue
@@ -38,6 +37,8 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
             BITHockeyManager.shared().crashManager.crashManagerStatus = .alwaysAsk
         }
         view.wmf_configureSubviewsForDynamicType()
+        
+        linkLabel.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(showPrivacyAlert(_:))))
     }
     
     fileprivate func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
@@ -62,5 +63,13 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         linkLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    @objc func showPrivacyAlert(_ tap: UITapGestureRecognizer) {
+        guard let url = URL.init(string: CommonStrings.privacyPolicyURLString) else {
+            assertionFailure("Expected URL")
+            return
+        }
+        wmf_openExternalUrl(url)
     }
 }

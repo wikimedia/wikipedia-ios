@@ -39,4 +39,6 @@ public class CommonStrings: NSObject {
 
     @objc public static let nextTitle = WMFLocalizedStringWithDefaultValue("button-next", nil, nil, "Next", "Button text for next button used in various places.\n{{Identical|Next}}")
     @objc public static let skipTitle = WMFLocalizedStringWithDefaultValue("button-skip", nil, nil, "Skip", "Button text for skip button used in various places.")
+    
+    @objc public static let privacyPolicyURLString = "https://m.wikimediafoundation.org/wiki/Privacy_policy"
 }
