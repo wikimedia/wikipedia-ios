@@ -104,7 +104,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             }
             
             if vc is ImageDimmingExampleViewController {
-                let bottomView = UIView(frame: CGRect(x: 0, y: cell.frame.height - ImageDimmingExampleViewController.bottomSpacing, width: cell.bounds.width, height: ImageDimmingExampleViewController.bottomSpacing))
+                let bottomView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - ImageDimmingExampleViewController.bottomSpacing, width: cell.bounds.width, height: ImageDimmingExampleViewController.bottomSpacing))
                 bottomView.autoresizingMask = [.flexibleWidth]
                 bottomView.backgroundColor = tableView.backgroundColor
                 cell.addSubview(bottomView)
