@@ -379,6 +379,7 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
+"view-in-browser-footer-link" = "Vis artikkelen i nettleseren";
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-explore-features-news-notifications" = "Få varsler om populære emner i nyhetene";
 "welcome-explore-features-on-this-day" = "Reis tilbake i tid med $1 for å finne ut hva som skjedde på dagens dato i historien";

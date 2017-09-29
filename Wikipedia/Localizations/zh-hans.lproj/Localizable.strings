@@ -381,6 +381,7 @@
 "two-factor-login-title" = "登录您的账户";
 "two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "two-factor-login-with-regular-code" = "使用验证码";
+"view-in-browser-footer-link" = "在浏览器查看条目";
 "welcome-explore-continue-button" = "入门";
 "welcome-explore-features-news-notifications" = "在新闻中获取话题趋势的新闻通知";
 "welcome-explore-features-on-this-day" = "通过$1穿越时间了解历史上的今天发生了什么";

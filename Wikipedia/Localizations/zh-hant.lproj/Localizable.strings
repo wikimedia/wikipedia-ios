@@ -384,6 +384,7 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
+"view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-explore-continue-button" = "入門";
 "welcome-explore-features-news-notifications" = "獲得在新聞熱門主題裡的新聞通知";
 "welcome-explore-features-on-this-day" = "返回時間至$1來了解在歷史上的今天發生了什麼事";

@@ -250,6 +250,7 @@
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
 "page-read-in-other-languages" = "Ana ing $1 basa liyané";
 "page-similar-titles" = "Kaca sairib";
+"page-talk-page" = "Deleng kaca parembugan";
 "pictured" = "digambar";
 "places-accessibility-clear-saved-searches" = "Busak golèkan simpenan";
 "places-accessibility-close-search" = "Tutup gegolèkan";
@@ -335,12 +336,19 @@
 "settings-primary-language-details" = "Basa pisanan ing pratélan iki dianggo minangka basa pokok mungguh ing aplikasiné. Ngganti basa iki bakal ngganti isi padinané (kayata Artikel Pinilih) sing katon ing Dlajah.";
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";
+"share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
 "share-a-fact-share-menu-item" = "Dum-kasunyatan...";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
 "share-custom-menu-item" = "Ngedum...";
+"share-default-format" = "“$1” saka “$2”: $3";
+"share-email-format" = "“$1”\n\nsaka “$2”\n\n$3";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
+"share-menu-item" = "Dum...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "lumantar @Wikipedia";
 "share-open-in-maps" = "Bukak ing Maps";
+"share-social-format" = "“$1” lumantar Wikipédia: $2";
+"share-social-mention-format" = "“$1” lumantar @Wikipedia: $2";
 "status-saved-for-later" = "Kasimpen kanggo mengko";
 "status-saving-for-later" = "Nyimpen kanggo mengko...";
 "table-of-contents-button-label" = "Pratélan isi";
@@ -359,6 +367,7 @@
 "two-factor-login-title" = "Mlebu log nyang akuné panjenengan";
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
+"view-in-browser-footer-link" = "Deleng artikel ing pangluron";
 "welcome-explore-continue-button" = "Miwiti";
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";

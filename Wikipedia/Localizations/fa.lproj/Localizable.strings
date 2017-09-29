@@ -18,6 +18,7 @@
 // Author: Maspadana
 // Author: Namo
 // Author: Nemo bis
+// Author: Obzord
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
@@ -389,6 +390,7 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
+"view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-explore-features-news-notifications" = "دریافت عنوان مقالاتی که در اخبار پربازدیدها فهرست شده‌اند";
 "welcome-explore-features-on-this-day" = "سفر به زمان با $1 برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";
