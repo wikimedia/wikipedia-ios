@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: NehalDaveND
 // Author: Nemo bis
+// Author: Rishi.Singh
 // Author: Sachinkatiyar
 // Author: Sahilrathod
 // Author: Sfic
@@ -93,6 +94,7 @@
 "button-save-for-later" = "बाद के लिए सहेजें";
 "button-saved-for-later" = "बाद के लिए सहेजा गया";
 "button-saved-remove" = "सहेजे हुओं में से निकालें";
+"cancel" = "रद्द करना";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बंद करें";
 "compass-direction" = "$1 बजे पर";
@@ -168,8 +170,7 @@
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
-// Fuzzy
-"gfdl" = "गडफल";
+"gfdl" = "जीएफडीएल";
 "history-clear-all" = "साफ करें";
 "history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
@@ -264,6 +265,7 @@
 "page-protected-sysop" = "यह पृष्ठ पूर्ण सुरक्षित है।";
 "page-read-in-other-languages" = "$1 अन्य भाषाओं में उपलब्ध";
 "page-similar-titles" = "समान पृष्ठ";
+"page-talk-page" = "वार्ता पृष्ठ देखें";
 "pictured" = "चित्रित";
 "places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
 "places-accessibility-close-search" = "खोज बंद करें";
@@ -349,13 +351,20 @@
 "settings-primary-language-details" = "इस सूची की पहली भाषा को इस एप की प्राथमिक भाषा के रूप में प्रयोग किया जाता है।\nइस भाषा को बदलने पर खोज पर दिखाई जाने वाली दैनिक सामग्री (जैसे निर्वाचित लेख) भी परिवर्तित हो जायेगा।";
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";
-// Fuzzy
-"share-a-fact-share-menu-item" = "तथ्य-साझा-करें";
+"share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
+"share-a-fact-share-menu-item" = "तथ्य को साझा करें";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
+"share-building" = "तथ्य को साझा कर कार्ड को बनायें";
 "share-custom-menu-item" = "साझा करें...";
+"share-default-format" = "\"$1\" से \"$2\": $3";
+"share-email-format" = "\"$1\"\n\n\"$2\" से\n\n$3";
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
+"share-menu-item" = "साझा करें";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@विकिपीडिया के माध्यम से";
 "share-open-in-maps" = "नक्शों में खोलें";
+"share-social-format" = "\"$1\" विकिपीडिया: $2 के माध्यम से";
+"share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
 "status-saved-for-later" = "बाद के लिए सहेजा गया";
 "status-saving-for-later" = "बाद के लिए सहेजा जा रहा है...";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
@@ -374,6 +383,7 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
+"view-in-browser-footer-link" = "ब्राउज़र में लेख देखें";
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-explore-features-news-notifications" = "समाचार में प्रचलन विषयों के लिए समाचार सूचनाएं प्राप्त करें";
 "welcome-explore-features-on-this-day" = "इतिहास में आज क्या हुआ जानने के लिए $1 के साथ समय पर वापस यात्रा करें";
@@ -404,7 +414,6 @@
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "परिवर्तन प्रकाशित करके, आप $1 से सहमत होते हैं और $2 और $3 लाइसेंस के तहत अपना योगदान जारी करने के लिए सहमत होते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "zero-charged-verbiage" = "विकिपीडिया ज़ीरो बंद है";

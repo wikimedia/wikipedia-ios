@@ -250,6 +250,7 @@
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-similar-titles" = "صفحات مشابهة";
+"page-talk-page" = "اعرض صفحة النقاش";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-close-search" = "أغلق البحث";
@@ -346,6 +347,7 @@
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-with-backup-code" = "استخدم رمزًا من الرموز الاحتياطية";
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
+"view-in-browser-footer-link" = "اعرض المقالة في المتصفح";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";

@@ -328,6 +328,7 @@
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-title" = "ترتيبون";
+"share-a-fact-made-with" = "وڪيپيڊيا ايپليڪيشن سان ٺاهيو ويو";
 "share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو...";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
 "share-custom-menu-item" = "ونڊيو...";
@@ -375,6 +376,7 @@
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-preview-changes" = "توهان جي تبديلين جو پيش نگاھ آڻيندي...";
 "wikitext-preview-changes-none" = "ڪي به تبديليون نه ڪيون ويون هيون جن لاءِ پيش نگاھ ڏيکارجي.";
+"wikitext-preview-link-preview-description" = "هي ڳنڍڻو ڏانهن وڃي ٿو '$1'";
 "wikitext-preview-link-preview-title" = "ڳنڍڻي جي پيشِ نگاھ";
 "wikitext-upload-captcha-error" = "CAPTCHA پڪ ۾ چُڪَ.";
 "wikitext-upload-captcha-needed" = "CAPTCHA پڪ جي ضرورت آھي.";

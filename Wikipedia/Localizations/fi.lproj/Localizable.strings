@@ -64,6 +64,7 @@
 "action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
 "announcements-dismiss" = "Sulje";
+"appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
 "appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
@@ -250,6 +251,7 @@
 "page-protected-sysop" = "Tämä sivu on täysin suojattu.";
 "page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-similar-titles" = "Samankaltaiset sivut";
+"page-talk-page" = "Tarkastele keskustelusivua";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
 "places-accessibility-close-search" = "Sulje haku";
 "places-accessibility-group" = "$1 artikkelia";
@@ -277,6 +279,7 @@
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-this-area" = "Hae tällä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
+"places-search-top-articles-that-match-scope" = "Lähistöllä";
 "places-search-your-current-location" = "Nykyinen sijaintisi";
 "places-show-filter-list-accessibility-label" = "Näytä hakusuodattimet";
 "places-title" = "Paikat";
@@ -287,9 +290,11 @@
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
+"reading-themes-controls-accessibility-brightness-slider" = "Kirkkauden liukusäädin";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tumma teema";
 "reading-themes-controls-accessibility-light-theme-button" = "Vaalea teema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Seepiateema";
+"reading-themes-controls-accessibility-text-size-slider" = "Tekstin koon liukusäädin";
 "reference-title" = "Lähde $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|Eilen|$1 päivää sitten}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
@@ -383,7 +388,6 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";

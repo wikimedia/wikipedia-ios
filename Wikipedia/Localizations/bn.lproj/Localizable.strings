@@ -239,6 +239,7 @@
 "page-protected-sysop" = "এই পাতটি সম্পূর্ণ সুরক্ষিত।";
 "page-read-in-other-languages" = "আরো $1টি ভাষায় উপলব্ধ";
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
+"page-talk-page" = "আলাপ পাতা দেখুন";
 "places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
@@ -327,6 +328,7 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
+"view-in-browser-footer-link" = "ব্রাউজারে নিবন্ধ দেখুন";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
