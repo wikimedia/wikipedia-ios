@@ -253,6 +253,7 @@
 "page-protected-sysop" = "Ieu kaca geus dilindungan sagemblengna";
 "page-read-in-other-languages" = "Nyangkaruk dina $1 basa séjén";
 "page-similar-titles" = "Kaca nu sarua";
+"page-talk-page" = "Tempo kaca obrolan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Bersihkeun pamaluruhan kasimpen";
 "places-accessibility-close-search" = "Tutup pamaluruhan";
@@ -370,6 +371,7 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
+"view-in-browser-footer-link" = "Tempo artikel di panyungsi";
 "welcome-explore-continue-button" = "Mitembeyan";
 "welcome-explore-features-news-notifications" = "Beunangkeun iber warta pikeun jejer kajadian kiwari nu keur ngetren";
 "welcome-explore-features-on-this-day" = "Liar deui jeung $1 pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";
