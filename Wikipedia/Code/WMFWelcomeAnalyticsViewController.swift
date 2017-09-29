@@ -17,6 +17,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         
         descriptionLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.", comment:"Sub-title explaining how sending usage reports can help improve the app")
         
+        // TODO: hook up this to alert once we get strings for it.
         linkLabel.text = WMFLocalizedString("welcome-send-data-learn-more", value:"Learn more about data collected", comment:"Text for link for learning more about opting-in to anonymous data collection")
         
         linkLabel.textColor = .wmf_blue

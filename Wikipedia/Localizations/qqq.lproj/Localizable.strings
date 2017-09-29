@@ -376,6 +376,8 @@
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-intro-free-encyclopedia-description" = "Description for introductory welcome screen";
 "welcome-intro-free-encyclopedia-more" = "Text for link for learning more about Wikipedia on introductory welcome screen";
+"welcome-intro-free-encyclopedia-more-about" = "Title for more information about Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "An explanation of how works";
 "welcome-intro-free-encyclopedia-title" = "Title for introductory welcome screen";
 "welcome-languages-add-button" = "Title for button for adding another language";
 "welcome-languages-add-or-edit-button" = "Title for button for managing languages";

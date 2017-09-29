@@ -365,7 +365,7 @@
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
 "view-in-browser-footer-link" = "View article in browser";
-"welcome-exploration-explore-feed-description" = "Dive into Wikipedia with a constantly updating feed";
+"welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
 "welcome-exploration-on-this-day-description" = "Travel back in time to learn what happened today in history";
 "welcome-exploration-on-this-day-title" = "On this day";
@@ -376,10 +376,12 @@
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in nearly 300 languages.";
 "welcome-intro-free-encyclopedia-more" = "Learn more about Wikipedia";
+"welcome-intro-free-encyclopedia-more-about" = "About Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia is a global project to build free encyclopedias in all languages of the world. Virtually anyone with Internet access is free to participate by contributing neutral, cited information.";
 "welcome-intro-free-encyclopedia-title" = "The free encyclopedia";
 "welcome-languages-add-button" = "Add another language";
-"welcome-languages-add-or-edit-button" = "Add to, or edit your preferred languages";
-"welcome-languages-description" = "We've detected the following languages on your device:";
+"welcome-languages-add-or-edit-button" = "Add or edit preferred languages";
+"welcome-languages-description" = "We've found the following languages on your device:";
 "welcome-languages-search-title" = "Search in nearly 300 languages";
 "welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
 "welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";

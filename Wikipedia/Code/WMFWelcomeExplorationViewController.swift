@@ -15,7 +15,7 @@ class WMFWelcomeExplorationViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         
         exploreTitleLabel.text = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
-        exploreDescriptionLabel.text = WMFLocalizedString("welcome-exploration-explore-feed-description", value:"Dive into Wikipedia with a constantly updating feed", comment:"Description for Explore feed")
+        exploreDescriptionLabel.text = WMFLocalizedString("welcome-exploration-explore-feed-description", value:"Recommended reading and daily articles from our community", comment:"Description for Explore feed")
 
         placesTitleLabel.text = WMFLocalizedString("welcome-exploration-places-title", value:"Places tab", comment:"Title for Places")
         placesDescriptionLabel.text = WMFLocalizedString("welcome-exploration-places-description", value:"Discover landmarks near you or search for places across the world", comment:"Description for Places")
