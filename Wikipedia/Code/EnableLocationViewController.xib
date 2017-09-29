@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="descriptionLabel" destination="NCF-lS-nEw" id="Cpg-ot-4y5"/>
                 <outlet property="enableLocationAccessButton" destination="hB2-ah-QwX" id="FEY-Fx-zcg"/>
-                <outlet property="imageView" destination="rFJ-kb-kte" id="azh-J5-lmK"/>
                 <outlet property="titleLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

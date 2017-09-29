@@ -15,7 +15,6 @@ class EnableLocationViewController: UIViewController, Themeable {
     @IBOutlet weak var enableLocationAccessButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
     
     @objc var shouldPrompt = false
     
