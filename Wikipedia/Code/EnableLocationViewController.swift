@@ -44,16 +44,4 @@ class EnableLocationViewController: UIViewController, Themeable {
         view.tintColor = theme.colors.link
     }
     
-    @IBOutlet weak var imageToTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var descriptionLabelToBottomConstraint: NSLayoutConstraint!
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        let isPhone: Bool = UIDevice.current.userInterfaceIdiom == .phone
-        let isLandscape: Bool = UIDevice.current.orientation.isLandscape
-        
-        if isPhone && isLandscape {
-            imageToTopConstraint.constant = 10
-            descriptionLabelToBottomConstraint.constant = 10
-        }
-    }
 }
