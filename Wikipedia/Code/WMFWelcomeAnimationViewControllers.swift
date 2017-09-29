@@ -76,5 +76,10 @@ class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewContro
             return WMFWelcomeAnalyticsAnimationBackgroundView()
         }
     }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.wmf_addHorizontalAndVerticalParallax(amount: 12)
+    }
 }
 
