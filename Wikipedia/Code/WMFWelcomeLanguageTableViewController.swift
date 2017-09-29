@@ -48,7 +48,6 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         // Intentionally not using apply(theme:) for now to limit any unintended consequences elsewhere in the app
         navC.navigationBar.isTranslucent = false
         navC.view.tintColor = theme.colors.link
-        //TODO: figure out why lang filter search box doesn't show if "Add another language" is tapped from this presented VC
         present(navC, animated: true, completion: nil)
     }
     
