@@ -90,6 +90,22 @@ NS_ASSUME_NONNULL_BEGIN
                                           userInfo:nil]);
 
             } else {
+                NSHTTPURLResponse *response = ((NSHTTPURLResponse *)[operation response]);
+                NSDictionary *headers = [response allHeaderFields];
+                NSString *cacheControlHeader = headers[@"Cache-Control"];
+
+                NSError *error = NULL;
+                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(?<=max-age=)\\d{2}"
+                                                                                       options:NSRegularExpressionCaseInsensitive
+                                                                                         error:&error];
+
+                NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:cacheControlHeader options:0 range:NSMakeRange(0, [cacheControlHeader length])];
+                if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+                    NSString *substringForFirstMatch = [cacheControlHeader substringWithRange:rangeOfFirstMatch];
+                    NSInteger maxAge = [substringForFirstMatch intValue];
+                    responseObject.maxAge = maxAge;
+                }
+
                 success(responseObject);
             }
         }

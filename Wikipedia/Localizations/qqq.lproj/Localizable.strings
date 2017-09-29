@@ -246,6 +246,7 @@
 "page-protected-sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
 "page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"page-talk-page" = "Label for button linking out to an article's talk page";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-close-search" = "Accessibility label for the button to close search";
@@ -363,6 +364,7 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
+"view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen\n{{Identical|Get started}}";
 "welcome-explore-features-news-notifications" = "Welcome screen text describing the news notifications feature.";
 "welcome-explore-features-on-this-day" = "Welcome screen text describing the On this day feature. $1 is replaced with the title for On this day.";

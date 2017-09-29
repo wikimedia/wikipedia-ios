@@ -182,9 +182,23 @@ public class Theme: NSObject {
 
     @objc public let colors: Colors
     
-    @objc public let preferredStatusBarStyle: UIStatusBarStyle
-    @objc public let blurEffectStyle: UIBlurEffectStyle
-    @objc public let keyboardAppearance: UIKeyboardAppearance
+    @objc public let isDark: Bool
+    
+    @objc public var preferredStatusBarStyle: UIStatusBarStyle {
+        return isDark ? .lightContent : .default
+    }
+    
+    @objc public var scrollIndicatorStyle: UIScrollViewIndicatorStyle {
+        return isDark ? .white : .black
+    }
+    
+    @objc public var blurEffectStyle: UIBlurEffectStyle {
+        return isDark ? .dark : .light
+    }
+    
+    @objc public var keyboardAppearance: UIKeyboardAppearance {
+        return isDark ? .dark : .light
+    }
 
     @objc public let imageOpacity: CGFloat
     
@@ -192,28 +206,32 @@ public class Theme: NSObject {
     
     @objc public let name: String
     @objc public let displayName: String
-    
-    @objc public static let light = Theme(colors: .light, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, searchBarBackgroundImage: #imageLiteral(resourceName: "corner_light").resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile), name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
-    
-    @objc public static let sepia = Theme(colors: .sepia, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, searchBarBackgroundImage: #imageLiteral(resourceName: "corner_sepia").resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile), name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
-    
-    @objc public static let dark = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, searchBarBackgroundImage: #imageLiteral(resourceName: "corner_dark").resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile), name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
-    
-    @objc public static let darkDimmed = Theme(colors: .dark, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 0.65, searchBarBackgroundImage: #imageLiteral(resourceName: "corner_dark").resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile), name: "dark-dimmed", displayName: WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
 
-    @objc public static let widget = Theme(colors: .widget, preferredStatusBarStyle: .default, blurEffectStyle: .light, keyboardAppearance: .light, imageOpacity: 1, searchBarBackgroundImage: nil, name: "", displayName: "")
+    fileprivate static let lightSearchBarBackground = UIImage(named: "corner_light", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
+
+    fileprivate static let sepiaSearchBarBackground = UIImage(named: "corner_sepia", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
+
+    fileprivate static let darkSearchBarBackground = UIImage(named: "corner_dark", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
+
+    @objc public static let light = Theme(colors: .light, imageOpacity: 1, searchBarBackgroundImage: Theme.lightSearchBarBackground, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
     
-    @objc public static let widgetiOS9 = Theme(colors: .widgetiOS9, preferredStatusBarStyle: .lightContent, blurEffectStyle: .dark, keyboardAppearance: .dark, imageOpacity: 1, searchBarBackgroundImage: nil, name: "", displayName: "")
+    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, searchBarBackgroundImage: Theme.sepiaSearchBarBackground, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
     
-    init(colors: Colors, preferredStatusBarStyle: UIStatusBarStyle, blurEffectStyle: UIBlurEffectStyle, keyboardAppearance: UIKeyboardAppearance, imageOpacity: CGFloat,  searchBarBackgroundImage: UIImage?, name: String, displayName: String) {
+    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "dark-dimmed", displayName: WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+
+    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, searchBarBackgroundImage: nil, isDark: false, name: "", displayName: "")
+    
+    @objc public static let widgetiOS9 = Theme(colors: .widgetiOS9, imageOpacity: 1, searchBarBackgroundImage: nil, isDark: true, name: "", displayName: "")
+    
+    init(colors: Colors, imageOpacity: CGFloat,  searchBarBackgroundImage: UIImage?, isDark: Bool, name: String, displayName: String) {
         self.colors = colors
-        self.preferredStatusBarStyle = preferredStatusBarStyle
-        self.blurEffectStyle = blurEffectStyle
-        self.keyboardAppearance = keyboardAppearance
         self.imageOpacity = imageOpacity
         self.name = name
         self.displayName = displayName
         self.searchBarBackgroundImage = searchBarBackgroundImage
+        self.isDark = isDark
     }
     
     fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed]

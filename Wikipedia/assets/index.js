@@ -209,7 +209,6 @@ exports.getElementFromPoint = function(x, y){
 exports.isElementTopOnscreen = function(element){
   return element.getBoundingClientRect().top < 0
 }
-
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
@@ -1612,23 +1611,34 @@ var FooterContainer = {
  */
 
 /**
+  * @typedef {function} FooterBrowserClickCallback
+  * @return {void}
+  */
+
+/**
  * Adds legal footer html to 'containerID' element.
  * @param {!Element} content
  * @param {?string} licenseString
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
  * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+ * @param {!string} viewInBrowserString
+ * @param {!FooterBrowserClickCallback} browserLinkClickHandler
  * @return {void}
  */
-var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
+var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler) {
   // todo: don't manipulate the selector. The client can make this an ID if they want it to be.
   var container = content.querySelector('#' + containerID);
   var licenseStringHalves = licenseString.split('$1');
 
-  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
+  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n      <br>\n      <div class="pagelib_footer_browser">\n        <a class=\'pagelib_footer_browser_link\'>\n          ' + viewInBrowserString + '\n        </a>\n      </div>\n    </span>\n  </div>';
 
   container.querySelector('.pagelib_footer_legal_license_link').addEventListener('click', function () {
     licenseLinkClickHandler();
+  });
+
+  container.querySelector('.pagelib_footer_browser_link').addEventListener('click', function () {
+    browserLinkClickHandler();
   });
 };
 
@@ -1734,6 +1744,8 @@ var MenuItem = function () {
           return 'pagelib_footer_menu_icon_languages';
         case MenuItemType.lastEdited:
           return 'pagelib_footer_menu_icon_last_edited';
+        case MenuItemType.talkPage:
+          return 'pagelib_footer_menu_icon_talk_page';
         case MenuItemType.pageIssues:
           return 'pagelib_footer_menu_icon_page_issues';
         case MenuItemType.disambiguation:
@@ -2382,6 +2394,8 @@ var _class = function () {
    * @param {!string} license
    * @param {!string} licenseSubstitutionString
    * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+   * @param {!string} viewInBrowserString
+   * @param {!FooterBrowserClickCallback} browserLinkClickHandler
    * @param {!TitlesShownHandler} titlesShownHandler
    * @param {!SaveButtonClickHandler} saveButtonClickHandler
    * @return {void}
@@ -2390,11 +2404,11 @@ var _class = function () {
 
   createClass(_class, [{
     key: 'add',
-    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
+    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
       this.remove(window);
       container.appendChild(FooterContainer.containerFragment(window.document));
 
-      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler);
+      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler);
 
       FooterReadMore.setHeading(readMoreHeader, ID_READ_MORE_HEADER, window.document);
       FooterReadMore.add(title, readMoreLimit, ID_READ_MORE_CONTAINER, baseURL, saveButtonClickHandler, function (titles) {

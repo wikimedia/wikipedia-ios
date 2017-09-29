@@ -9,6 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFFeedDayResponse : MTLModel <MTLJSONSerializing>
 
+@property (nonatomic) NSInteger maxAge;
++ (NSString *)WMFFeedDayResponseMaxAgeKey;
+
 @property (nonatomic, strong, nullable, readonly) WMFFeedArticlePreview *featuredArticle;
 @property (nonatomic, strong, nullable, readonly) WMFFeedTopReadResponse *topRead;
 

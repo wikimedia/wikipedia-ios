@@ -69,9 +69,9 @@ class WMFAuthenticationManager: NSObject {
         
         guard
             let userName = keychainCredentials.userName,
-            userName.characters.count > 0,
+            userName.count > 0,
             let password = keychainCredentials.password,
-            password.characters.count > 0
+            password.count > 0
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return

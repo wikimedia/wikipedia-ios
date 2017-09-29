@@ -74,6 +74,7 @@ extension HistoryViewController {
         }
         headerView.text = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
+        headerView.layoutMargins = layout.readableMargins
         return headerView
     }
 }

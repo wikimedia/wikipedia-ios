@@ -4,7 +4,7 @@ import WMF
 
 @objc enum WMFArticleFooterMenuItem: Int {
 
-    case languages, lastEdited, pageIssues, disambiguation, coordinate
+    case languages, lastEdited, pageIssues, disambiguation, coordinate, talkPage
     
     // Reminder: These are the strings used by the footerMenu JS transform:
     private var menuItemTypeString: String {
@@ -14,6 +14,7 @@ import WMF
         case .pageIssues: return "pageIssues"
         case .disambiguation: return "disambiguation"
         case .coordinate: return "coordinate"
+        case .talkPage: return "talkPage"
         }
     }
     
@@ -27,6 +28,7 @@ import WMF
         switch self {
         case .languages: title = WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
         case .lastEdited: title = WMFLocalizedString("page-last-edited",  language: language, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
+        case .talkPage: title = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
         case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
@@ -110,7 +112,8 @@ extension WKWebView {
             WMFArticleFooterMenuItem.coordinate,
             WMFArticleFooterMenuItem.lastEdited,
             WMFArticleFooterMenuItem.pageIssues,
-            WMFArticleFooterMenuItem.disambiguation
+            WMFArticleFooterMenuItem.disambiguation,
+            WMFArticleFooterMenuItem.talkPage
             ].filter{$0.shouldAddItem(with: article)}
              .map{$0.itemAdditionJavascriptString(with: article)}
              .joined(separator: "")
@@ -125,7 +128,14 @@ extension WKWebView {
         "function(){" +
             "window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked');" +
         "}"
-        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler));", completionHandler: nil)
+        
+        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: article.url.wmf_language, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let viewInBrowserLinkClickHandler =
+            "function(){" +
+                "window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked');" +
+        "}"
+        
+        evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler), '\(viewInBrowserString)', \(viewInBrowserLinkClickHandler));", completionHandler: nil)
     }
 
     @objc public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){

@@ -2,15 +2,15 @@ import Foundation
 
 public extension ArticleCollectionViewCell {
     fileprivate func adjustMargins(for index: Int, count: Int) {
-        var newMargins = margins ?? UIEdgeInsets.zero
+        var newMargins = layoutMargins
         let maxIndex = count - 1
         if index < maxIndex {
-            newMargins.bottom = round(0.5*margins.bottom)
+            newMargins.bottom = round(0.5*layoutMargins.bottom)
         }
         if index > 0 {
-            newMargins.top = round(0.5*margins.top)
+            newMargins.top = round(0.5*layoutMargins.top)
         }
-        margins = newMargins
+        layoutMargins = newMargins
     }
     
     @objc(setTitleText:highlightingText:locale:)
