@@ -103,11 +103,8 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 cell.backgroundColor = vc.view.backgroundColor
             }
             
-            if vc is ImageDimmingExampleViewController {
-                let bottomView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - ImageDimmingExampleViewController.bottomSpacing, width: cell.bounds.width, height: ImageDimmingExampleViewController.bottomSpacing))
-                bottomView.autoresizingMask = [.flexibleWidth]
-                bottomView.backgroundColor = tableView.backgroundColor
-                cell.addSubview(bottomView)
+            if let vc = vc as? ImageDimmingExampleViewController {
+                vc.bottomView.backgroundColor = tableView.backgroundColor
             }
             
             cell.selectionStyle = .none
