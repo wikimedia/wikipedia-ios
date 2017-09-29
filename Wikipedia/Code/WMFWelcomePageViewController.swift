@@ -92,8 +92,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
         nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        // TODO: localize
-        nextButton.setTitle("Next", for: .normal)
+        nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
         nextButton.setTitleColor(.wmf_blue, for: .normal)
         // TODO: figure out what to do about 0xA2A9B1 - not sure what to name this gray based on the other gray names - we already have  'light(er|est)Gray'
         nextButton.setTitleColor(UIColor(0xA2A9B1), for: .disabled)
@@ -109,8 +108,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         skipButton.isUserInteractionEnabled = true
         skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        // TODO: localize
-        skipButton.setTitle("Skip", for: .normal)
+        skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
         skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
