@@ -4,9 +4,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     var label = UILabel()
     let margins = UIEdgeInsets(top: 30, left: 15, bottom: 15, right: 15)
     var adjustedMargins: UIEdgeInsets {
-        let adjusted = UIEdgeInsetsMake(margins.top, max(layoutMargins.left, margins.left), margins.bottom, max(layoutMargins.right, margins.right))
-        print("\(adjusted)")
-        return adjusted
+        return UIEdgeInsetsMake(margins.top, max(layoutMargins.left, margins.left), margins.bottom, max(layoutMargins.right, margins.right))
     }
     override func setup() {
         addSubview(label)
