@@ -103,6 +103,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 cell.backgroundColor = vc.view.backgroundColor
             }
             
+            if vc is ImageDimmingExampleViewController {
+                let bottomView = UIView(frame: CGRect(x: 0, y: cell.frame.height - ImageDimmingExampleViewController.bottomSpacing, width: cell.bounds.width, height: ImageDimmingExampleViewController.bottomSpacing))
+                bottomView.autoresizingMask = [.flexibleWidth]
+                bottomView.backgroundColor = tableView.backgroundColor
+                cell.addSubview(bottomView)
+            }
+            
             cell.selectionStyle = .none
             return cell
         }
@@ -205,12 +212,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 break
             }
             
-        } else if let customViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem {
-            if customViewItem.viewController is ImageDimmingExampleViewController {
-                let bottomView = UIView(frame: CGRect(x: 0, y: cell.frame.height - ImageDimmingExampleViewController.bottomSpacing, width: cell.frame.width, height: ImageDimmingExampleViewController.bottomSpacing))
-                bottomView.backgroundColor = tableView.backgroundColor
-                cell.addSubview(bottomView)
-            }
         }
     }
     
