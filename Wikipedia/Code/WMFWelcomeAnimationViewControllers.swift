@@ -12,6 +12,11 @@ class WMFWelcomeAnimationViewController: UIViewController {
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
     }
 
+    override func didMove(toParentViewController parent: UIViewController?) {
+        super.didMove(toParentViewController: parent)
+        view.superview?.layoutIfNeeded() // Fix for: http://stackoverflow.com/a/39614714
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (!hasAlreadyAnimated) {
