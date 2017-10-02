@@ -103,6 +103,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 cell.backgroundColor = vc.view.backgroundColor
             }
             
+            if let vc = vc as? ImageDimmingExampleViewController {
+                vc.bottomView.backgroundColor = tableView.backgroundColor
+            }
+            
             cell.selectionStyle = .none
             return cell
         }

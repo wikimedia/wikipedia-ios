@@ -256,6 +256,7 @@
 "page-protected-sysop" = "Laman ini telah diberi perlindungan penuh.";
 "page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-similar-titles" = "Laman-laman serupa";
+"page-talk-page" = "Lihat laman perbincangan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Padamkan carian tersimpan";
 "places-accessibility-close-search" = "Tutup carian";
@@ -373,6 +374,7 @@
 "two-factor-login-title" = "Log masuk ke akaun anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kod sandaran anda";
 "two-factor-login-with-regular-code" = "Gunakan kod pengesahan";
+"view-in-browser-footer-link" = "Lihat rencana dalam penyemak imbas";
 "welcome-explore-continue-button" = "Memulakan";
 "welcome-explore-features-news-notifications" = "Dapatkan pemberitahuan berita untuk topik berita terkini yang sedang tren";
 "welcome-explore-features-on-this-day" = "Perjalanan kembali ke masa dengan $1 untuk mengetahui apa yang berlaku hari ini dalam sejarah";
