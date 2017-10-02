@@ -43,7 +43,7 @@
 
     BOOL isRTL = layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
     BOOL isPad = boundsSize.width >= 600;
-    BOOL useTwoColumns = isPad || boundsSize.width > boundsSize.height;
+    BOOL useTwoColumns = isPad || (boundsSize.width > boundsSize.height && readableWidth >= 500);
 
     metrics.numberOfColumns = useTwoColumns ? 2 : 1;
     metrics.columnWeights = useTwoColumns ? isRTL ? @[@(secondColumnRatio), @(firstColumnRatio)] : @[@(firstColumnRatio), @(secondColumnRatio)] : @[@1];
