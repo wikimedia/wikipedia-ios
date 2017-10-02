@@ -39,7 +39,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
         imageViewsAndModels.forEach{ (imageViewAndModel) in
             addSubview(imageViewAndModel.imageView)
             // Start all images in the center. imageModel unitDestination assumes center origin.
-            imageViewAndModel.imageView.center = CGPoint(x: bounds.midX, y: bounds.midY);
+            imageViewAndModel.imageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
             // Denormalize unitSize using a scalar (NOT a CGSize - so aspect ratio remains constant)
             imageViewAndModel.imageView.frame.size = imageViewAndModel.model.unitSize.wmf_denormalizeUsingReference(frame.size.width)
         }
