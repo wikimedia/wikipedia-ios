@@ -9,21 +9,9 @@ class WMFWelcomeAnimationViewController: UIViewController {
         guard let animationView = animationView else {
             return
         }
-        animationView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
     }
-    
-    override func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
-        view.superview?.layoutIfNeeded() // Fix for: http://stackoverflow.com/a/39614714
-        guard let animationView = animationView else {
-            return
-        }
-        animationView.addAnimationElementsScaledToCurrentFrameSize()
-        // animationView.layer.borderWidth = 1
-        // animationView.layer.borderColor = UIColor(0xeeeeee).cgColor
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (!hasAlreadyAnimated) {
@@ -49,9 +37,9 @@ class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewControl
             return WMFWelcomeAnalyticsAnimationView()
         }
     }()
-    
-    override func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         guard let animationView = animationView else {
             return
         }
@@ -61,11 +49,8 @@ class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewControl
         case .languages:
             fallthrough
         case .analytics:
-            animationView.backgroundColor = UIColor(0xdee6f6)
-            animationView.layer.cornerRadius = animationView.frame.size.width / 2.0
-            animationView.layer.masksToBounds = true
+            animationView.hasCircleBackground = true
         default:
-            // animationView.backgroundColor = UIColor(0xdddddd)
             break
         }
     }

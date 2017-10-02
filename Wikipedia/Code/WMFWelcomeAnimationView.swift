@@ -23,7 +23,6 @@ open class WMFWelcomeAnimationView : UIView {
         return CATransform3DMakeTranslation(0.0, wmf_proportionalVerticalOffset, 0)
     }
     
-    
     let wmf_scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
 
     var wmf_scaleZeroAndLeftTransform: CATransform3D{
@@ -39,18 +38,41 @@ open class WMFWelcomeAnimationView : UIView {
           return CATransform3DConcat(wmf_scaleZeroAndRightTransform, wmf_lowerTransform)
     }
     
-    override open func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        // Fix for: http://stackoverflow.com/a/39614714
-        layoutIfNeeded()
-    }
-    
     open func beginAnimations() {
         
     }
     
     open func addAnimationElementsScaledToCurrentFrameSize(){
     
+    }
+
+    public var hasCircleBackground: Bool = false {
+        didSet {
+            if hasCircleBackground {
+                backgroundColor = UIColor(0xdee6f6)
+                layer.masksToBounds = true
+            } else {
+                // backgroundColor = UIColor(0xdddddd)
+                backgroundColor = .clear
+                layer.masksToBounds = false
+            }
+            setNeedsLayout()
+        }
+    }
+
+    var sizeAtLastAnimationElementAddition = CGSize.zero
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard bounds.size != sizeAtLastAnimationElementAddition else {
+            return
+        }
+        sizeAtLastAnimationElementAddition = bounds.size
+        addAnimationElementsScaledToCurrentFrameSize()
+        if hasCircleBackground {
+            layer.cornerRadius = bounds.size.width / 2.0
+        } else {
+            layer.cornerRadius = 0
+        }
     }
     
     open func removeExistingSubviewsAndSublayers() {
