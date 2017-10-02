@@ -42,4 +42,5 @@ class EnableLocationViewController: UIViewController, Themeable {
     func apply(theme: Theme) {
         view.tintColor = theme.colors.link
     }
+    
 }
