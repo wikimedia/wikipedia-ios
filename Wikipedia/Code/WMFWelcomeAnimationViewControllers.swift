@@ -6,7 +6,9 @@ class WMFWelcomeAnimationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let animationView = animationView else {return}
+        guard let animationView = animationView else {
+            return
+        }
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
     }
@@ -14,7 +16,9 @@ class WMFWelcomeAnimationViewController: UIViewController {
     override func didMove(toParentViewController parent: UIViewController?) {
         super.didMove(toParentViewController: parent)
         view.superview?.layoutIfNeeded() // Fix for: http://stackoverflow.com/a/39614714
-        guard let animationView = animationView else {return}
+        guard let animationView = animationView else {
+            return
+        }
         animationView.addAnimationElementsScaledToCurrentFrameSize()
         // animationView.layer.borderWidth = 1
         // animationView.layer.borderColor = UIColor(0xeeeeee).cgColor
@@ -23,7 +27,9 @@ class WMFWelcomeAnimationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (!hasAlreadyAnimated) {
-            guard let animationView = animationView else {return}
+            guard let animationView = animationView else {
+                return
+            }
             animationView.beginAnimations()
         }
         hasAlreadyAnimated = true
@@ -46,7 +52,9 @@ class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewControl
     
     override func didMove(toParentViewController parent: UIViewController?) {
         super.didMove(toParentViewController: parent)
-        guard let animationView = animationView else {return}
+        guard let animationView = animationView else {
+            return
+        }
         switch welcomePageType {
         case .exploration:
             fallthrough

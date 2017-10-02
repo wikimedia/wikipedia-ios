@@ -35,7 +35,9 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
     override open func addAnimationElementsScaledToCurrentFrameSize(){
         super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
-        guard let imageViewsAndModels = imageViewsAndModels else {return}
+        guard let imageViewsAndModels = imageViewsAndModels else {
+            return
+        }
         imageViewsAndModels.forEach{ (imageViewAndModel) in
             addSubview(imageViewAndModel.imageView)
             // Start all images in the center. imageModel unitDestination assumes center origin.
@@ -63,7 +65,9 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
          imageViewAndModel.imageView.layer.transform = tx
          imageViewAndModel.imageView.layer.opacity = 1.0
      
-         guard let image = imageViewAndModel.imageView.image else {return}
+         guard let image = imageViewAndModel.imageView.image else {
+             return
+         }
          let imageUnitSize = CGSize(width: image.size.width / bounds.size.width, height: image.size.height / bounds.size.width) // "bounds.size.width" for both cases is deliberate here
          print("unitSize \(imageUnitSize)")
      }
@@ -71,7 +75,9 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
     override open func beginAnimations() {
         super.beginAnimations()
         CATransaction.begin()
-        guard let imageViewsAndModels = imageViewsAndModels else {return}
+        guard let imageViewsAndModels = imageViewsAndModels else {
+            return
+        }
         imageViewsAndModels.forEach{ (imageViewAndModel) in
             let dest = imageViewAndModel.model.unitDestination.wmf_denormalizeUsingSize(frame.size)
             let tx = CATransform3DMakeTranslation(dest.x, dest.y, 1.0)
