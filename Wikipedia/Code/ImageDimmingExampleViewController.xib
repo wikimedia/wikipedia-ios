@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImageDimmingExampleViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="bottomConstraint" destination="5Nb-I9-4hH" id="Wjb-oV-tNb"/>
+                <outlet property="bottomView" destination="xyH-W3-PhL" id="7yM-Z8-8sE"/>
                 <outlet property="exampleImage" destination="fnZ-9V-FpI" id="AW6-B6-g9M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,14 +25,22 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings-image-dimming-example" translatesAutoresizingMaskIntoConstraints="NO" id="fnZ-9V-FpI">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyH-W3-PhL">
+                    <rect key="frame" x="0.0" y="136" width="375" height="15"/>
+                </view>
             </subviews>
             <constraints>
                 <constraint firstItem="fnZ-9V-FpI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3eW-00-dYY"/>
                 <constraint firstAttribute="bottom" secondItem="fnZ-9V-FpI" secondAttribute="bottom" constant="15" id="5Nb-I9-4hH"/>
+                <constraint firstAttribute="trailing" secondItem="xyH-W3-PhL" secondAttribute="trailing" id="DOG-FK-YYT"/>
+                <constraint firstItem="xyH-W3-PhL" firstAttribute="top" secondItem="fnZ-9V-FpI" secondAttribute="bottom" id="Dp1-ZL-P3C"/>
                 <constraint firstItem="fnZ-9V-FpI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KW5-Bi-Yha"/>
+                <constraint firstItem="xyH-W3-PhL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PcF-Ho-A8G"/>
+                <constraint firstAttribute="bottom" secondItem="xyH-W3-PhL" secondAttribute="bottom" id="Ve2-hk-G2t"/>
                 <constraint firstAttribute="trailing" secondItem="fnZ-9V-FpI" secondAttribute="trailing" id="Wza-AW-1fo"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="91.5" y="53.5"/>
         </view>
     </objects>
     <resources>
