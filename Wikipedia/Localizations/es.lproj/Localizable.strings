@@ -178,7 +178,7 @@
 "gfdl" = "GFDL";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
-"history-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todos los elementos recientes?";
+"history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Enviar siempre";
@@ -225,7 +225,7 @@
 "main-menu-about" = "Acerca de la aplicación";
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Salir";
-"main-menu-account-logout-are-you-sure" = "¿Estás seguro de que quieres cerrar sesión?";
+"main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-debug-crash" = "Fallar";
@@ -324,7 +324,7 @@
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "saved-clear-all" = "Vaciar";
 "saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todas las páginas guardadas?";
+"saved-pages-clear-confirmation-heading" = "¿Confirmas que quieres borrar todas las páginas guardadas?";
 "saved-pages-clear-delete-all" = "Sí, borrar todas";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-title" = "Guardados";
@@ -388,6 +388,7 @@
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
+"view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-explore-continue-button" = "Empezar";
 "welcome-explore-features-news-notifications" = "Obtenga notificaciones sobre los temas que marcan tendencia en las noticias.";
 "welcome-explore-features-on-this-day" = "Realice un viaje en el tiempo con $1 para aprender qué ocurrió en la historia un día como hoy";

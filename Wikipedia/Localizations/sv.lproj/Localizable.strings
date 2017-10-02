@@ -265,6 +265,7 @@
 "page-protected-sysop" = "Denna sida är fullt skrivskyddad.";
 "page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-similar-titles" = "Liknande sidor";
+"page-talk-page" = "Visa diskussionssidan";
 "pictured" = "i bild";
 "places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";
 "places-accessibility-close-search" = "Stäng sökning";
@@ -350,6 +351,7 @@
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
 "settings-support" = "Stöd Wikipedia";
 "settings-title" = "Inställningar";
+"share-a-fact-made-with" = "Skapad med Wikipedia-appen";
 "share-a-fact-share-menu-item" = "Dela-ett-faktum…";
 "share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
 "share-building" = "Bygger Dela-ett-faktum-kort…";
@@ -381,6 +383,7 @@
 "two-factor-login-title" = "Logga in på ditt konto";
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
+"view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-explore-features-news-notifications" = "Få nyhetsnotiser för ämnen som är populära på nyheterna";
 "welcome-explore-features-on-this-day" = "Res tillbaka i tiden med $1 för att ta reda på vad som hände idag i historien";
@@ -411,8 +414,7 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-sign-in" = "Logga in";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar, samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Genom att publicera ändringar samtycker du till $1 och går med på att släppa ditt bidrag under licenserna $2 och $3.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";

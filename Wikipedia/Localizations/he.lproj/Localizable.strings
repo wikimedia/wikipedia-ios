@@ -379,6 +379,7 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
+"view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-features-news-notifications" = "קבלת עדכוני חדשות על נושאים חמים בחדשות";
 "welcome-explore-features-on-this-day" = "חזרו אחורה בזמן עם \"$1\" כדי לכלות מה קרה היום בהיסטוריה";

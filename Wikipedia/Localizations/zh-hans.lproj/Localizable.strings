@@ -120,7 +120,7 @@
 "explore-because-you-read" = "因为您阅读";
 "explore-continue-reading-heading" = "继续阅读";
 "explore-enable-location-title" = "浏览您当前位置附近的条目";
-"explore-featured-article-heading" = "特色条目";
+"explore-featured-article-heading" = "典范条目";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
 "explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
@@ -346,7 +346,7 @@
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
-"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如特色条目）。";
+"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
 "settings-support" = "支持维基百科";
 "settings-title" = "设置";
 "share-a-fact-made-with" = "通过维基百科应用制作";
