@@ -287,8 +287,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         var overshootTranslation: CGFloat = 0
         var overshootDistance: CGFloat = 0
         var secondKeyframeDuration: TimeInterval = 0
-        let minSwipeSpeed: CGFloat = 500
-        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
+        let minSwipeSpeed: CGFloat = 300
         if swipeSpeed < minSwipeSpeed {
             animationSpeed = minSwipeSpeed
         } else {
@@ -296,6 +295,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             overshootDistance = 0.25 * maxExtension * log(swipeSpeed * CGFloat(secondKeyframeDuration))
             overshootTranslation = swipeVelocity < 0 ? -overshootDistance :  overshootDistance
         }
+        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
         let shouldOvershoot = overshootDistance > 0
         let thirdKeyframeDuration = 1.5 * secondKeyframeDuration
         let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
