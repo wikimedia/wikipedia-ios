@@ -94,8 +94,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
             let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
-            let actionsViewWidth = isRTL ? abs(swipeTranslation - actionsViewInsets.left) : abs(swipeTranslation + actionsViewInsets.right)
-            let x = isRTL ? actionsViewInsets.left : size.width - actionsViewWidth - actionsViewInsets.right
+            let actionsViewWidth = abs(swipeTranslation)
+            let x = isRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }

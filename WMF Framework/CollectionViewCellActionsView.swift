@@ -79,7 +79,7 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         if (apply) {
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
-                let buttonDelta = size.width / numberOfButtons
+                let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
                 let buttonWidth = max(self.buttonWidth, buttonDelta)
                 let isRTL = semanticContentAttribute == .forceRightToLeft
                 let buttons = isRTL ? self.buttons.reversed() : self.buttons
@@ -136,7 +136,8 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
             insertSubview(button, at: 0)
             buttons.append(button)
         }
-        
+
+        backgroundColor = buttons.last?.backgroundColor
         buttonWidth = maxButtonWidth
         maximumWidth = maxButtonWidth * CGFloat(subviews.count)
         setNeedsLayout()
