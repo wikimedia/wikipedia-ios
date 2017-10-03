@@ -16,22 +16,49 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         descriptionLabel.font = subTitleFont
     }
     
-    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let timelineViewWidth:CGFloat = 66.0
-        let x: CGFloat
-        
+    let timelineViewWidth:CGFloat = 66.0
+
+    func updateSuperMargins() {
+        var margins = privateLayoutMargins
         if semanticContentAttributeOverride == .forceRightToLeft {
-            layoutMargins.right = timelineViewWidth
-            x = size.width - timelineViewWidth - layoutMargins.right
+            margins.right = margins.right + timelineViewWidth
         } else {
-            x = layoutMargins.left
-            layoutMargins.left = layoutMargins.left + timelineViewWidth
+            margins.left = margins.left + timelineViewWidth
         }
-        
+        super.layoutMargins = margins
+    }
+
+    fileprivate var privateLayoutMargins: UIEdgeInsets = ArticleCollectionViewCell.defaultMargins {
+        didSet {
+            updateSuperMargins()
+        }
+    }
+
+    override var semanticContentAttributeOverride: UISemanticContentAttribute {
+        didSet {
+            updateSuperMargins()
+        }
+    }
+
+    public override var layoutMargins: UIEdgeInsets {
+        set {
+            privateLayoutMargins = newValue
+        }
+        get {
+            return super.layoutMargins
+        }
+    }
+
+    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let x: CGFloat
+        if semanticContentAttributeOverride == .forceRightToLeft {
+            x = size.width - timelineViewWidth - privateLayoutMargins.right
+        } else {
+            x = privateLayoutMargins.left
+        }
         if apply {
             timelineView.frame = CGRect(x: x, y: 0, width: timelineViewWidth, height: size.height)
         }
-        
         return super.sizeThatFits(size, apply: apply)
     }
     
