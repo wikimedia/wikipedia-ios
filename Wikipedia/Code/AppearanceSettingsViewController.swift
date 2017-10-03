@@ -25,9 +25,15 @@ struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
     let viewController: UIViewController
 }
 
+struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
+    var title: String?
+    let spacing: CGFloat
+}
+
 @objc(WMFAppearanceSettingsViewController)
 open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
+    static let spacerViewCellReuseIdentifier = "org.wikimedia.custom"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,6 +59,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.spacerViewCellReuseIdentifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -66,16 +73,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let imageDimmingExampleSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil))])
-        
-        let spacerSection = AppearanceSettingsSection(headerTitle: nil, footerText: nil, items: [])
-        
-        let imageDimmingSwitchSection = AppearanceSettingsSection(headerTitle: nil, footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
         
-        
-        return [readingThemesSection, imageDimmingExampleSection, spacerSection, imageDimmingSwitchSection, textSizingSection]
+        return [readingThemesSection, themeOptionsSection, textSizingSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,6 +113,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             return cell
         }
         
+        if item is AppearanceSettingsSpacerViewItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.spacerViewCellReuseIdentifier, for: indexPath)
+            cell.backgroundColor = tableView.backgroundColor
+            return cell
+        }
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
@@ -169,10 +176,12 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem else {
-            return tableView.rowHeight
+        if let customViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem {
+            return customViewItem.viewController.view.frame.height
+        } else if let spacerViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsSpacerViewItem {
+            return spacerViewItem.spacing
         }
-        return item.viewController.view.frame.height
+        return tableView.rowHeight
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
