@@ -33,7 +33,6 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 @objc(WMFAppearanceSettingsViewController)
 open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
-    static let spacerViewCellReuseIdentifier = "org.wikimedia.custom"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -59,7 +58,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.spacerViewCellReuseIdentifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -114,7 +112,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
         
         if item is AppearanceSettingsSpacerViewItem {
-            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.spacerViewCellReuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
             cell.backgroundColor = tableView.backgroundColor
             return cell
         }
@@ -253,15 +251,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footerText
     }
-    
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sections[section].items.isEmpty ? CGFloat.leastNormalMagnitude : UITableViewAutomaticDimension
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sections[section].items.isEmpty ? CGFloat.leastNormalMagnitude : UITableViewAutomaticDimension
-    }
-    
     
 }
 
