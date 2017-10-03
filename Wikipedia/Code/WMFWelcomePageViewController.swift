@@ -3,6 +3,7 @@ import UIKit
 
 enum WMFWelcomePageType {
     case intro
+    case exploration
     case languages
     case analytics
 }
@@ -18,20 +19,32 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     @objc var completionBlock: (() -> Void)?
     
     func showNextWelcomePage(_ sender: AnyObject){
-        let index = pageControllers.index(of: sender as! UIViewController)
-        if index == pageControllers.count - 1 {
+        guard let sender = sender as? UIViewController, let index = pageControllers.index(of: sender), index != pageControllers.count - 1 else {
             dismiss(animated: true, completion:completionBlock)
-        }else{
-            view.isUserInteractionEnabled = false
-            let nextIndex = index! + 1
-
-            let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
-            self.setViewControllers([pageControllers[nextIndex]], direction: direction, animated: true, completion: {(Bool) in
-                self.view.isUserInteractionEnabled = true
-            })
+            return
         }
+        view.isUserInteractionEnabled = false
+        let nextIndex = index + 1
+        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
+        let nextVC = pageControllers[nextIndex]
+        hideButtons(for: nextVC)
+        setViewControllers([nextVC], direction: direction, animated: true, completion: {(Bool) in
+            self.view.isUserInteractionEnabled = true
+        })
     }
-
+    /*
+    func showPreviousWelcomePage(_ sender: AnyObject){
+        guard let sender = sender as? UIViewController, let index = pageControllers.index(of: sender), index > 0 else {
+            return
+        }
+        view.isUserInteractionEnabled = false
+        let prevIndex = index - 1
+        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
+        setViewControllers([pageControllers[prevIndex]], direction: direction, animated: true, completion: {(Bool) in
+            self.view.isUserInteractionEnabled = true
+        })
+    }
+    */
     fileprivate func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
         let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
@@ -41,16 +54,20 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     
     fileprivate lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
-        controllers.append(self.containerControllerForWelcomePageType(.intro))
-        controllers.append(self.containerControllerForWelcomePageType(.languages))
-        controllers.append(self.containerControllerForWelcomePageType(.analytics))
+        controllers.append(containerControllerForWelcomePageType(.intro))
+        controllers.append(containerControllerForWelcomePageType(.exploration))
+        controllers.append(containerControllerForWelcomePageType(.languages))
+        controllers.append(containerControllerForWelcomePageType(.analytics))
         return controllers
     }()
     
     fileprivate lazy var pageControl: UIPageControl? = {
-        return self.view.wmf_firstSubviewOfType(UIPageControl.self)
+        return view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
+    let nextButton = UIButton()
+    let skipButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
@@ -60,38 +77,74 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
 
-        addGradient()
+        view.backgroundColor = UIColor(0xffffff)
+        
+        configureAndAddNextButton()
+        configureAndAddSkipButton()
         
         if let scrollView = view.wmf_firstSubviewOfType(UIScrollView.self) {
             scrollView.clipsToBounds = false
         }
     }
-
-    fileprivate func addGradient() {
-        let gradientView = backgroundGradient()
-        view.insertSubview(gradientView, at: 0)
-        gradientView.mas_makeConstraints { make in
-            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
-        }
-    }
-
-    fileprivate func backgroundGradient() -> WMFGradientView {
-        let gradient = WMFGradientView()
-        gradient.gradientLayer.locations = [0, 1]
-        gradient.gradientLayer.colors =  [theme.colors.accent.cgColor, theme.colors.link.cgColor]
-        gradient.gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        gradient.gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
-        gradient.isUserInteractionEnabled = false
-        return gradient
-    }
     
+    fileprivate func configureAndAddNextButton(){
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        nextButton.isUserInteractionEnabled = true
+        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
+        nextButton.setTitleColor(.wmf_blue, for: .normal)
+        nextButton.setTitleColor(.wmf_lighterGray, for: .disabled)
+        nextButton.setTitleColor(.wmf_blue, for: .highlighted)
+        view.addSubview(nextButton)
+        nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 88))
+    }
+
+    fileprivate func configureAndAddSkipButton(){
+        skipButton.translatesAutoresizingMaskIntoConstraints = false
+        skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        skipButton.isUserInteractionEnabled = true
+        skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
+        skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
+        view.addSubview(skipButton)
+        skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -88))
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        skipButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        nextButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
+            pageControl.pageIndicatorTintColor = .wmf_lightBlue
+            pageControl.currentPageIndicatorTintColor = .wmf_blue
         }
     }
 
+    @objc func nextButtonTapped(_ sender: UIButton) {
+        if let currentVC = viewControllers?.first {
+            showNextWelcomePage(currentVC)
+        }
+    }
+    
+    @objc func skipButtonTapped(_ sender: UIButton) {
+        /*
+         if let currentVC = viewControllers?.first {
+             showPreviousWelcomePage(currentVC)
+         }
+         */
+        dismiss(animated: true, completion:completionBlock)
+    }
+    
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pageControllers.count
     }
@@ -150,17 +203,33 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         animateIfRightToLeftAndiOS9({
             if let pageControl = self.pageControl {
-                pageControl.alpha = CGFloat(0.0)
+                pageControl.alpha = 0.0
             }
         })
     }
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        if completed {
+            hideButtons(for: pageControllers[presentationIndex(for: pageViewController)])
+        }
         animateIfRightToLeftAndiOS9({
             if let pageControl = self.pageControl {
                 pageControl.currentPage = self.presentationIndex(for: pageViewController)
-                pageControl.alpha = CGFloat(1.0)
+                pageControl.alpha = 1.0
             }
         })
+    }
+
+    func hideButtons(for vc: UIViewController){
+        let isLastPage = pageControllers.index(of: vc) == pageControllers.count - 1
+        let newAlpha:CGFloat = isLastPage ? 0.0 : 1.0
+        let alphaChanged = pageControl?.alpha != newAlpha
+        nextButton.isEnabled = !isLastPage // Gray out the next button when transitioning to last page (per design)
+        guard alphaChanged else { return }
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: {
+            self.nextButton.alpha = newAlpha
+            self.skipButton.alpha = newAlpha
+            self.pageControl?.alpha = newAlpha
+        }, completion: nil)
     }
 }
