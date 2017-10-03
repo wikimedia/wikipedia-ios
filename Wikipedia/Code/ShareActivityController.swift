@@ -1,3 +1,35 @@
+@objc(WMFCustomShareActivity)
+class CustomShareActivity: UIActivity {
+    let type: UIActivityType?
+    let title: String
+    let imageName: String
+    let action: () -> Void
+    
+    init(type: UIActivityType?, title: String, imageName: String, action: @escaping () -> Void) {
+        self.type = type
+        self.title = title
+        self.imageName = imageName
+        self.action = action
+    }
+    
+    override var activityType: UIActivityType? {
+        return self.activityType
+    }
+    
+    override var activityTitle: String? {
+        return self.activityTitle
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(named: imageName)
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+}
+
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
