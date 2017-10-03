@@ -407,7 +407,7 @@
                                 <rect key="frame" x="0.0" y="52" width="300" height="248"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="NE9-uY-hF6">
-                                    <rect key="frame" x="0.0" y="75" width="300" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="56"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDc-Vr-4Av">
@@ -429,40 +429,6 @@
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nDc-Vr-4Av" secondAttribute="trailing" id="jvl-LK-zOr"/>
                                     </constraints>
                                 </view>
-                                <prototypes>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFWelcomeLanguageTableViewCell" id="AIg-9n-U11" customClass="WMFWelcomeLanguageTableViewCell" customModule="Wikipedia">
-                                        <rect key="frame" x="0.0" y="28" width="300" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AIg-9n-U11" id="cgJ-yD-1WU">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="47"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Yv-T0c">
-                                                    <rect key="frame" x="0.0" y="2" width="300" height="43"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="28" id="wh3-7f-HfI"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstItem="Mhl-Yv-T0c" firstAttribute="leading" secondItem="cgJ-yD-1WU" secondAttribute="leading" id="57R-FT-s7Y"/>
-                                                <constraint firstItem="Mhl-Yv-T0c" firstAttribute="top" secondItem="cgJ-yD-1WU" secondAttribute="top" constant="2" id="HZ7-8t-g9Z"/>
-                                                <constraint firstAttribute="trailing" secondItem="Mhl-Yv-T0c" secondAttribute="trailing" id="KAP-Tg-aLR"/>
-                                                <constraint firstAttribute="bottom" secondItem="Mhl-Yv-T0c" secondAttribute="bottom" constant="2" id="nUO-7W-jpv"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="languageNameLabel" destination="Mhl-Yv-T0c" id="mcR-2U-006"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="uX3-NZ-3WE" id="2zA-HU-WOR"/>
                                     <outlet property="delegate" destination="uX3-NZ-3WE" id="ejy-XZ-Xyi"/>

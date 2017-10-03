@@ -17,6 +17,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
         languageTableView.rowHeight = UITableViewAutomaticDimension
         languageTableView.estimatedRowHeight = 30
+        languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -30,9 +31,13 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WMFWelcomeLanguageTableViewCell.wmf_nibName(), for: indexPath) as! WMFWelcomeLanguageTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: WMFLanguageCell.wmf_nibName(), for: indexPath) as! WMFLanguageCell
         let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
+        
+//        cell.localizedLanguageName = langLink.localizedName
+        
+        cell.isPrimary = indexPath.row == 0
         return cell
     }
 

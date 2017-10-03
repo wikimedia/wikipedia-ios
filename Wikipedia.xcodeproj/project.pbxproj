@@ -368,7 +368,6 @@
 		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
-		B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
 		B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
@@ -912,7 +911,6 @@
 		D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
-		D80ED35C1EE57F4800CE8C50 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		D80ED35D1EE57F4800CE8C50 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		D80ED35F1EE57F4800CE8C50 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D80ED3601EE57F4800CE8C50 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -1665,7 +1663,6 @@
 		D8A42B391E815A9C00D8E281 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
-		D8A42B3E1E815A9C00D8E281 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		D8A42B3F1E815A9C00D8E281 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -2012,7 +2009,6 @@
 		D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8CE25BF1E698E2400DAE2E0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8CE25C01E698E2400DAE2E0 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
-		D8CE25C31E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		D8CE25C41E698E2400DAE2E0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		D8CE25C61E698E2400DAE2E0 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D8CE25C71E698E2400DAE2E0 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -2395,7 +2391,6 @@
 		D8EC3EBC1E9BDA35006712EB /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		D8EC3EBD1E9BDA35006712EB /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		D8EC3EBE1E9BDA35006712EB /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
-		D8EC3EC11E9BDA35006712EB /* WMFWelcomeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */; };
 		D8EC3EC21E9BDA35006712EB /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		D8EC3EC41E9BDA35006712EB /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
@@ -3223,7 +3218,6 @@
 		B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverMessageViewController.m; sourceTree = "<group>"; };
 		B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFWebViewControllerJavascript.h"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.h"; sourceTree = SOURCE_ROOT; };
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
-		B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewCell.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+WMFWelcomeFadeInAndUp.swift"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.swift"; sourceTree = SOURCE_ROOT; };
 		B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeIntroductionViewController.swift; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
@@ -5023,7 +5017,6 @@
 			isa = PBXGroup;
 			children = (
 				B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */,
-				B0E294CA1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift */,
 				B0F7CB591C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift */,
 				B0C7A07E1F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift */,
 			);
@@ -9684,7 +9677,6 @@
 				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				B0E294CB1DB2CB7B00861D04 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
@@ -9980,7 +9972,6 @@
 				D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */,
 				D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				D80ED35C1EE57F4800CE8C50 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				D80ED35D1EE57F4800CE8C50 /* PageHistoryResultCell.m in Sources */,
 				BAA0D9201F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				D80ED35F1EE57F4800CE8C50 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
@@ -10570,7 +10561,6 @@
 				D8A42B391E815A9C00D8E281 /* EditFunnel.m in Sources */,
 				D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				D8A42B3E1E815A9C00D8E281 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				D8A42B3F1E815A9C00D8E281 /* PageHistoryResultCell.m in Sources */,
 				D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */,
@@ -10873,7 +10863,6 @@
 				D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */,
 				D8CE25BF1E698E2400DAE2E0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				D8CE25C01E698E2400DAE2E0 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				D8CE25C31E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				D8CE25C41E698E2400DAE2E0 /* PageHistoryResultCell.m in Sources */,
 				BAA0D91D1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				D8CE25C61E698E2400DAE2E0 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
@@ -11113,7 +11102,6 @@
 				D8EC3E6F1E9BDA35006712EB /* WMFFindInPageKeyboardBar.m in Sources */,
 				D8EC3E701E9BDA35006712EB /* MWKLanguageLinkFetcher.m in Sources */,
 				D8EC3E711E9BDA35006712EB /* TableOfContentsAboutThisArticleItem.swift in Sources */,
-				D8EC3E731E9BDA35006712EB /* WMFWelcomeAnimationView.swift in Sources */,
 				D8EC3E741E9BDA35006712EB /* WMFImageTextActivitySource.swift in Sources */,
 				D8EC3E751E9BDA35006712EB /* WMFAuthenticationManager.swift in Sources */,
 				D8EC3E771E9BDA35006712EB /* WMFAuthLoginInfoFetcher.swift in Sources */,
@@ -11182,7 +11170,6 @@
 				D8EC3EBD1E9BDA35006712EB /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B0CD9DE91F70997400051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				D8EC3EBE1E9BDA35006712EB /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
-				D8EC3EC11E9BDA35006712EB /* WMFWelcomeLanguageTableViewCell.swift in Sources */,
 				D8EC3EC21E9BDA35006712EB /* PageHistoryResultCell.m in Sources */,
 				B08624321F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				D8EC3EC41E9BDA35006712EB /* WMFWelcomeAnalyticsViewController.swift in Sources */,

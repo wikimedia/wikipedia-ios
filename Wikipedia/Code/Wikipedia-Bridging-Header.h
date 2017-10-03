@@ -52,6 +52,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
+#import "WMFLanguageCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
